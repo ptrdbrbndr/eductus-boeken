@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Leeslijst met samenvatting, rubriek en tags per titel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+    --ink:#2b2620; --muted:#6b6156;
+    --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+    --line:#d9cfb8; --radius:10px;
+    --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--parchment); color:var(--ink);
+    font-family:var(--body); font-size:17px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal-deep)}
+  header.top{
+    background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+    border-bottom:1px solid var(--line); padding:56px 24px 34px;
+  }
+  .wrap{max-width:1080px;margin:0 auto}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+  }
+  h1{
+    font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+    line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+  }
+  .lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+  .stats{
+    display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+    font-family:var(--mono); font-size:12.5px; color:var(--muted);
+  }
+  .stats b{color:var(--teal-deep); font-weight:500}
+
+  .filters{
+    position:sticky; top:0; z-index:20; background:rgba(244,239,226,.94);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+    padding:14px 24px;
+  }
+  .filterrow{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+  .chip{
+    font-family:var(--mono); font-size:12.5px; padding:5px 12px;
+    border:1px solid var(--line); border-radius:999px; background:var(--card);
+    color:var(--muted); cursor:pointer; transition:.15s;
+  }
+  .chip:hover{border-color:var(--teal); color:var(--teal-deep)}
+  .chip[aria-pressed="true"]{
+    background:var(--teal); border-color:var(--teal); color:#fdfaf2;
+  }
+  input[type="search"]{
+    flex:1 1 200px; min-width:170px; font-family:var(--body); font-size:15px;
+    padding:7px 13px; border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--card); color:var(--ink);
+  }
+  input[type="search"]:focus{outline:2px solid var(--ochre); outline-offset:1px}
+  .count{font-family:var(--mono); font-size:12px; color:var(--muted); margin-left:auto}
+
+  main{padding:34px 24px 80px}
+  .rubriek-kop{
+    font-family:var(--display); font-size:13px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ochre); font-weight:600;
+    margin:38px 0 4px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .rubriek-uitleg{margin:0 0 18px; font-size:15px; color:var(--muted)}
+
+  .grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+  article.boek{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px 18px;
+    box-shadow:0 1px 0 rgba(90,80,60,.04);
+  }
+  article.boek.open{grid-column:1/-1}
+  .nr{font-family:var(--mono); font-size:11.5px; color:var(--ochre); letter-spacing:.1em}
+  .bron{
+    font-family:var(--mono); font-size:10px; color:var(--muted);
+    border:1px solid var(--line); border-radius:3px; padding:1px 5px; margin-left:7px;
+  }
+  h2{
+    font-family:var(--display); font-weight:600; font-size:21px; line-height:1.2;
+    margin:4px 0 5px;
+  }
+  .auteur{margin:0; font-size:15px; color:var(--muted); font-style:italic}
+  .uitgave{
+    margin:9px 0 0; font-size:13.5px; color:var(--muted);
+    padding-left:11px; border-left:2px solid var(--ochre-soft);
+  }
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 0; padding:0; list-style:none}
+  .tags button{
+    font-family:var(--mono); font-size:11px; padding:3px 8px; cursor:pointer;
+    background:var(--parchment-deep); border:1px solid transparent;
+    border-radius:4px; color:var(--muted);
+  }
+  .tags button:hover{border-color:var(--teal); color:var(--teal-deep)}
+  .tags button.actief{background:var(--ochre-soft); color:#6b4a06}
+  .samenvatting{margin:14px 0 0; display:none}
+  .samenvatting p{margin:0 0 12px}
+  .samenvatting p:last-child{margin-bottom:0}
+  article.boek.open .samenvatting{display:block}
+  .toggle{
+    margin-top:14px; font-family:var(--mono); font-size:12px; cursor:pointer;
+    background:none; border:none; padding:0; color:var(--teal-deep);
+    border-bottom:1px dotted var(--teal);
+  }
+  .leeg{
+    grid-column:1/-1; padding:40px 0; text-align:center; color:var(--muted);
+    font-style:italic;
+  }
+
+  section.routes{
+    max-width:1080px; margin:70px auto 0; padding:30px 26px;
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  }
+  section.routes h2{font-size:24px; margin:0 0 6px}
+  section.routes > p.intro{margin:0 0 22px; color:var(--muted); font-size:15px}
+  .route{margin:0 0 20px}
+  .route:last-child{margin-bottom:0}
+  .route h3{font-family:var(--display); font-size:17px; font-weight:600; margin:0 0 5px}
+  .route p{margin:0; font-size:16px}
+  .route .nrs{font-family:var(--mono); font-size:11.5px; color:var(--ochre)}
+
+  footer{
+    max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+    border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+  }
+  footer p{margin:0 0 9px}
+  footer code{font-family:var(--mono); font-size:12.5px}
+  @media (max-width:560px){
+    header.top{padding:38px 18px 26px}
+    main{padding:24px 18px 60px}
+    .filters{padding:12px 18px}
+    body{font-size:16px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">Eductus &middot; leeslijst</p>
+    <h1>Boekenlijst</h1>
+    <p class="lede">
+      Per titel een Nederlandse samenvatting, een rubriek en tags. Engelse boeken
+      staan met hun Nederlandse uitgave erbij waar die is nagekeken; waar dat niet
+      gebeurd is of geen Nederlandse uitgave bestaat, staat dat er ook.
+    </p>
+    <p class="stats">
+      <span><b id="stat-titels">0</b> titels</span>
+      <span><b id="stat-rubrieken">0</b> rubrieken</span>
+      <span><b id="stat-tags">0</b> tags</span>
+      <span>bijgewerkt <b>{{DATUM}}</b></span>
+    </p>
+  </div>
+</header>
+
+<div class="filters">
+  <div class="wrap filterrow" id="filterrow">
+    <button class="chip" data-rubriek="*" aria-pressed="true">alles</button>
+    <input type="search" id="zoek" placeholder="Zoek op titel, auteur, tag of tekst&hellip;" aria-label="Zoeken in de boekenlijst">
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<main>
+  <div class="wrap" id="lijst"></div>
+
+  <section class="routes">
+    <h2>Leesroutes</h2>
+    <p class="intro">Lijnen die door meer dan één titel heen lopen.</p>
+{{ROUTES}}
+  </section>
+
+  <footer>
+    <p>De lijst begon met titels die Pieter zelf aandroeg (1 tot 19). De titels
+    met het label <span class="bron">40-lijst</span> komen uit een openbare lijst
+    van veertig boeken die iemand zijn tieners liet lezen; twee daarvan stonden er
+    al in.</p>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+  </footer>
+</main>
+
+<script>
+{{DATA}}
+
+let filterRubriek = "*";
+let filterTag = null;
+let zoekterm = "";
+
+const lijst = document.getElementById("lijst");
+const filterrow = document.getElementById("filterrow");
+const zoekveld = document.getElementById("zoek");
+const countEl = document.getElementById("count");
+
+const alleTags = [...new Set(BOEKEN.flatMap(b => b.tags))].sort((a,b)=>a.localeCompare(b,"nl"));
+document.getElementById("stat-titels").textContent = BOEKEN.length;
+document.getElementById("stat-rubrieken").textContent = RUBRIEKEN.length;
+document.getElementById("stat-tags").textContent = alleTags.length;
+
+RUBRIEKEN.forEach(([naam]) => {
+  const b = document.createElement("button");
+  b.className = "chip";
+  b.dataset.rubriek = naam;
+  b.setAttribute("aria-pressed","false");
+  b.textContent = naam.toLowerCase();
+  filterrow.insertBefore(b, zoekveld);
+});
+
+filterrow.addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  filterRubriek = chip.dataset.rubriek;
+  filterrow.querySelectorAll(".chip").forEach(c =>
+    c.setAttribute("aria-pressed", String(c === chip)));
+  render();
+});
+
+zoekveld.addEventListener("input", () => {
+  zoekterm = zoekveld.value.trim().toLowerCase();
+  render();
+});
+
+function past(b){
+  if (filterRubriek !== "*" && b.rubriek !== filterRubriek) return false;
+  if (filterTag && !b.tags.includes(filterTag)) return false;
+  if (zoekterm){
+    const hooi = (b.titel+" "+b.auteur+" "+b.uitgave+" "+b.tags.join(" ")+" "+b.tekst.join(" ")).toLowerCase();
+    if (!hooi.includes(zoekterm)) return false;
+  }
+  return true;
+}
+
+function kaart(b){
+  const art = document.createElement("article");
+  art.className = "boek";
+  art.innerHTML =
+    '<span class="nr">'+String(b.nr).padStart(2,"0")+'</span>'+
+    (b.bron ? '<span class="bron">'+b.bron+'</span>' : '')+
+    '<h2>'+b.titel+'</h2>'+
+    '<p class="auteur">'+b.auteur+'</p>'+
+    '<p class="uitgave">'+b.uitgave+'</p>'+
+    '<ul class="tags">'+b.tags.map(t =>
+      '<li><button data-tag="'+t+'" class="'+(t===filterTag?"actief":"")+'">'+t+'</button></li>').join("")+
+    '</ul>'+
+    '<div class="samenvatting">'+b.tekst.map(p => '<p>'+p+'</p>').join("")+'</div>'+
+    '<button class="toggle">samenvatting lezen</button>';
+
+  const toggle = art.querySelector(".toggle");
+  toggle.addEventListener("click", () => {
+    const open = art.classList.toggle("open");
+    toggle.textContent = open ? "inklappen" : "samenvatting lezen";
+  });
+  art.querySelectorAll(".tags button").forEach(tb => {
+    tb.addEventListener("click", () => {
+      filterTag = (filterTag === tb.dataset.tag) ? null : tb.dataset.tag;
+      render();
+      window.scrollTo({top:0});
+    });
+  });
+  return art;
+}
+
+function render(){
+  lijst.innerHTML = "";
+  const zichtbaar = BOEKEN.filter(past);
+
+  countEl.textContent = zichtbaar.length + " van " + BOEKEN.length +
+    (filterTag ? "  ·  tag: "+filterTag : "");
+
+  if (!zichtbaar.length){
+    const g = document.createElement("div");
+    g.className = "grid";
+    g.innerHTML = '<p class="leeg">Geen titel gevonden. Pas de filters of de zoekterm aan.</p>';
+    lijst.appendChild(g);
+    return;
+  }
+
+  RUBRIEKEN.forEach(([naam, uitleg]) => {
+    const set = zichtbaar.filter(b => b.rubriek === naam);
+    if (!set.length) return;
+    const h = document.createElement("h2");
+    h.className = "rubriek-kop";
+    h.textContent = naam;
+    const u = document.createElement("p");
+    u.className = "rubriek-uitleg";
+    u.textContent = uitleg;
+    const g = document.createElement("div");
+    g.className = "grid";
+    set.forEach(b => g.appendChild(kaart(b)));
+    lijst.append(h, u, g);
+  });
+}
+
+render();
+</script>
+</body>
+</html>
