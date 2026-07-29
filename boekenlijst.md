@@ -445,8 +445,9 @@ open over, met zelfspot en zonder een lezer te willen bekeren.
 ## 20. Shoe Dog
 
 Phil Knight, 2016. Ondertitel *A Memoir by the Creator of Nike*; de lijst
-noemt de Young Readers Edition (2017), een ingekorte versie voor jongeren.
-Nederlandse uitgave niet nagekeken. Rubriek: geld en ondernemen.
+noemt de Young Readers Edition (2017). Nederlands als *Shoe dog: het verhaal
+van de oprichter van Nike*, vertaald door Rob de Ridder, bij Spectrum (2016).
+Rubriek: geld en ondernemen.
 Tags: `memoir`, `ondernemen`, `Nike`, `sport`, `schulden`, `import`,
 `doorzetten`
 Bron: 40-lijst.
@@ -469,8 +470,9 @@ de momenten waarop stoppen redelijk was.
 ## 21. The Psychology of Money
 
 Morgan Housel, 2020. Ondertitel *Timeless Lessons on Wealth, Greed, and
-Happiness* (Harriman House). Nederlandse uitgave niet nagekeken. Rubriek: geld
-en ondernemen.
+Happiness* (Harriman House). Nederlands als *De psychologie van geld: tijdloze
+lessen over rijkdom, hebzucht en geluk* (ISBN 9789021590745). Rubriek: geld en
+ondernemen.
 Tags: `geld`, `gedrag`, `beleggen`, `geduld`, `toeval`, `sparen`, `essay`
 Bron: 40-lijst.
 
@@ -492,7 +494,8 @@ gaat over de lezer, niet over de markt.
 ## 22. Atomic Habits
 
 James Clear, 2018. Ondertitel *An Easy & Proven Way to Build Good Habits &
-Break Bad Ones*. Nederlandse uitgave niet nagekeken. Rubriek: gewoontes en
+Break Bad Ones*. Nederlands als *Elementaire gewoontes*, vertaald door
+Elisabeth van Borselen, bij Lev./A.W. Bruna (2022). Rubriek: gewoontes en
 denken.
 Tags: `gewoontes`, `gedrag`, `systeem`, `identiteit`, `kleine-stappen`,
 `discipline`, `zelfhulp`
@@ -514,8 +517,9 @@ worden", met elke uitgevoerde gewoonte als klein bewijs daarvoor.
 
 ## 23. Mindset
 
-Carol Dweck, 2006. Ondertitel *The New Psychology of Success*. Nederlandse
-uitgave niet nagekeken. Rubriek: gewoontes en denken.
+Carol Dweck, 2006. Ondertitel *The New Psychology of Success*. Nederlands als
+*Mindset, de weg naar een succesvol leven* bij SWP, eerste druk 2011 (ISBN
+9789088508097). Rubriek: gewoontes en denken.
 Tags: `psychologie`, `onderwijs`, `talent`, `falen`, `prijzen`, `onderzoek`,
 `opvoeding`
 Bron: 40-lijst.
@@ -536,8 +540,10 @@ geprezen wordt terwijl er niets geleerd is.
 
 ## 24. How to Win Friends and Influence People
 
-Dale Carnegie, 1936. Nederlandse uitgave niet nagekeken. Rubriek: samenwerken
-en gesprek.
+Dale Carnegie, 1936. Nederlands als *Hoe je vrienden maakt en mensen
+beïnvloedt* bij Pearson (herziene versie 2013); een oudere Nederlandse uitgave
+heette *Zo maakt u vrienden en goede relaties* (Omega Boek, 1984). Rubriek:
+samenwerken en gesprek.
 Tags: `omgangsvormen`, `overtuigen`, `luisteren`, `klassieker`, `kritiek`,
 `waardering`, `netwerken`
 Bron: 40-lijst.
@@ -559,8 +565,10 @@ zijn.
 ## 25. The 7 Habits of Highly Effective Teens
 
 Sean Covey, 1998. Bewerking voor jongeren van *The 7 Habits of Highly
-Effective People* van zijn vader Stephen Covey (1989). Nederlandse uitgave
-niet nagekeken. Rubriek: moed en karakter.
+Effective People* van zijn vader Stephen Covey (1989). Nederlands als *Zeven
+eigenschappen die jou succesvol maken!* (ISBN 9789047003267); voor studenten
+verscheen *De zeven eigenschappen voor effectieve studenten*. Rubriek: moed en
+karakter.
 Tags: `jongeren`, `gewoontes`, `proactief`, `prioriteiten`, `zelfbeeld`,
 `samenwerken`, `zelfhulp`
 Bron: 40-lijst.
@@ -581,7 +589,9 @@ in zijn voorbeelden.
 ## 26. Born a Crime
 
 Trevor Noah, 2016. Ondertitel *Stories from a South African Childhood*.
-Nederlandse uitgave niet nagekeken. Rubriek: overleven en getuigen.
+Nederlands als *Kleurenblind: en andere verhalen uit Zuid-Afrika*, vertaald
+door Annoesjka Oostindiër en Ineke van Bronswijk, bij A.W. Bruna (2017).
+Rubriek: overleven en getuigen.
 Tags: `memoir`, `apartheid`, `Zuid-Afrika`, `moeder-en-zoon`, `taal`, `humor`,
 `armoede`
 Bron: 40-lijst.
@@ -603,7 +613,8 @@ tot het dat niet meer kan zijn.
 ## 27. The Four Agreements
 
 Don Miguel Ruiz, 1997. Ondertitel *A Practical Guide to Personal Freedom*.
-Nederlandse uitgave niet nagekeken. Rubriek: moed en karakter.
+Nederlands als *De vier inzichten: wijsheid van de Tolteken* bij Ankh-Hermes
+(1999). Rubriek: moed en karakter.
 Tags: `spiritualiteit`, `Tolteeks`, `zelfbeeld`, `taal`, `aannames`,
 `kort-boek`, `levenskunst`
 Bron: 40-lijst.
@@ -624,7 +635,9 @@ niet.
 ## 28. Think Again
 
 Adam Grant, 2021. Ondertitel *The Power of Knowing What You Don't Know*.
-Nederlandse uitgave niet nagekeken. Rubriek: gewoontes en denken.
+Nederlands als *Weten wat je niet weet* (ISBN 9789400514119), en als *Think
+again: de kracht van weten wat je niet weet* bij Rainbow (ISBN 9789041716606).
+Rubriek: gewoontes en denken.
 Tags: `psychologie`, `heroverwegen`, `debat`, `organisatie`, `overtuigingen`,
 `onderzoek`, `nieuwsgierigheid`
 Bron: 40-lijst.
@@ -648,7 +661,8 @@ erop.
 ## 29. Grit
 
 Angela Duckworth, 2016. Ondertitel *The Power of Passion and Perseverance*.
-Nederlandse uitgave niet nagekeken. Rubriek: gewoontes en denken.
+Nederlands als *De grit-factor: de kracht van passie en doorzettingsvermogen*,
+vertaald door Henk Popken, bij Bruna (2016). Rubriek: gewoontes en denken.
 Tags: `volharding`, `talent`, `psychologie`, `West-Point`, `oefenen`,
 `onderzoek`, `opvoeding`
 Bron: 40-lijst.
@@ -669,7 +683,9 @@ dienen bij haar model hoort.
 ## 30. The Obstacle Is the Way
 
 Ryan Holiday, 2014. Ondertitel *The Timeless Art of Turning Trials into
-Triumph*. Nederlandse uitgave niet nagekeken. Rubriek: moed en karakter.
+Triumph*. Nederlands als *Het obstakel is de weg* bij A.W. Bruna (ISBN
+9789400510159), in een herziene en uitgebreide editie. Rubriek: moed en
+karakter.
 Tags: `stoïcisme`, `tegenslag`, `geschiedenis`, `discipline`, `perceptie`,
 `handelen`, `kort-stuk`
 Bron: 40-lijst.
@@ -692,7 +708,8 @@ een aanloop wil, heeft hier de kortste.
 
 Laura Hillenbrand, 2010. Ondertitel *A World War II Story of Survival,
 Resilience, and Redemption*; de lijst noemt de bewerking voor jongeren.
-Nederlandse uitgave niet nagekeken. Rubriek: overleven en getuigen.
+Nederlands eerst als *De Zamperini legende* bij Kok (2012), later als
+*Unbroken* bij Kosmos (2014). Rubriek: overleven en getuigen.
 Tags: `oorlog`, `overleven`, `atletiek`, `krijgsgevangenschap`, `vergeving`,
 `biografie`, `Pacific`
 Bron: 40-lijst.
@@ -713,8 +730,8 @@ geeft en het deel dat het meest verdeelt.
 ## 32. The Gifts of Imperfection
 
 Brené Brown, 2010. Ondertitel *Let Go of Who You Think You're Supposed to Be
-and Embrace Who You Are*. Nederlandse uitgave niet nagekeken. Rubriek: moed en
-karakter.
+and Embrace Who You Are*. Nederlands als *De moed van imperfectie* bij Lev.,
+Utrecht (2013). Rubriek: moed en karakter.
 Tags: `schaamte`, `kwetsbaarheid`, `perfectionisme`, `zelfcompassie`,
 `onderzoek`, `spelen`, `rust`
 Bron: 40-lijst.
@@ -735,8 +752,9 @@ onderzoek eronder is dat niet.
 ## 33. Quiet
 
 Susan Cain, 2012. Ondertitel *The Power of Introverts in a World That Can't
-Stop Talking*. Nederlandse uitgave niet nagekeken. Rubriek: gewoontes en
-denken.
+Stop Talking*. Nederlands als *Stil: de kracht van introvert zijn in een
+wereld die niet ophoudt met kletsen* bij De Arbeiderspers (ISBN
+9789029589550). Rubriek: gewoontes en denken.
 Tags: `introversie`, `persoonlijkheid`, `werkplek`, `onderwijs`,
 `brainstormen`, `onderzoek`, `temperament`
 Bron: 40-lijst.
@@ -758,10 +776,10 @@ lopen.
 
 ## 34. The 5 Love Languages
 
-Gary Chapman, 1992. Ondertitel *The Secret to Love That Lasts*. Nederlandse
-uitgave niet nagekeken. In de bronlijst staat de aantekening dat deze titel
-vermoedelijk wordt vervangen door werk van John Gottman. Rubriek: samenwerken
-en gesprek.
+Gary Chapman, 1992. Ondertitel *The Secret to Love That Lasts*. Nederlands als
+*De vijf talen van de liefde* (ISBN 9789033826979). In de bronlijst staat de
+aantekening dat deze titel vermoedelijk wordt vervangen door werk van John
+Gottman. Rubriek: samenwerken en gesprek.
 Tags: `relaties`, `huwelijk`, `waardering`, `aandacht`, `pastoraat`,
 `zelfhulp`, `communicatie`
 Bron: 40-lijst.
@@ -781,8 +799,10 @@ observatieonderzoek rust.
 
 ## 35. Nonviolent Communication
 
-Marshall Rosenberg, 1999. Ondertitel *A Language of Life*. Nederlandse uitgave
-niet nagekeken. Rubriek: samenwerken en gesprek.
+Marshall Rosenberg, 1999. Ondertitel *A Language of Life*. Nederlands als
+*Geweldloze communicatie* bij Lemniscaat, eerste druk 2006, vertaald door
+Pieter van der Veen en Chiel van Soelen; herziene editie met een extra
+hoofdstuk in 2021. Rubriek: samenwerken en gesprek.
 Tags: `communicatie`, `conflict`, `behoeften`, `empathie`, `bemiddeling`,
 `oefeningen`, `luisteren`
 Bron: 40-lijst.
@@ -803,8 +823,10 @@ zonder die woorden werken.
 
 ## 36. Endurance
 
-Alfred Lansing, 1959. Ondertitel *Shackleton's Incredible Voyage*. Nederlandse
-uitgave niet nagekeken. Rubriek: overleven en getuigen.
+Alfred Lansing, 1959. Ondertitel *Shackleton's Incredible Voyage*. Nederlands
+als *Endurance*, met een ondertitel over de reis van Shackleton, vertaald door
+Théo Buckinx, bij Prometheus (1999, 292 bladzijden). Rubriek: overleven en
+getuigen.
 Tags: `Antarctica`, `expeditie`, `leiderschap`, `overleven`, `zeereis`,
 `geschiedenis`, `moreel`
 Bron: 40-lijst.
@@ -826,7 +848,9 @@ onhaalbaar was, waarna overleven het doel werd.
 
 ## 37. Rich Dad Poor Dad
 
-Robert Kiyosaki, 1997. Nederlandse uitgave niet nagekeken. Rubriek: geld en
+Robert Kiyosaki, 1997. Nederlands als *Rijke pa arme pa* (ISBN 9789492665140);
+een oudere Nederlandse uitgave heette *Lessen van een arme en een rijke
+vader*, vertaald door Gerard Grasman, bij Elmar (2002). Rubriek: geld en
 ondernemen.
 Tags: `geld`, `bezit`, `vastgoed`, `onderwijskritiek`, `cashflow`,
 `omstreden`, `bestseller`
@@ -849,8 +873,10 @@ lezer wel de bruikbaarste bladzijde uit het hele financiële zelfhulpvak.
 ## 38. The Richest Man in Babylon
 
 George S. Clason, 1926. Oorspronkelijk verschenen als losse pamfletten voor
-banken en verzekeraars. Nederlandse uitgave niet nagekeken. Rubriek: geld en
-ondernemen.
+banken en verzekeraars. Nederlands als *De rijkste man van Babylon*: eerst
+vertaald door E.A. van Leent-Sieburgh bij de Nederlandse Boekenclub (1969),
+later in een bewerking van Sjors Sommer en Michael Pilarczyk (ISBN
+9789079679621). Rubriek: geld en ondernemen.
 Tags: `sparen`, `parabel`, `rente`, `schulden`, `klassieker`, `kort-boek`,
 `geld`
 Bron: 40-lijst.
@@ -871,8 +897,8 @@ schuldeisers gaat en een deel naar de spaarpot.
 ## 39. The Millionaire Next Door
 
 Thomas Stanley en William Danko, 1996. Ondertitel *The Surprising Secrets of
-America's Wealthy*. Nederlandse uitgave niet nagekeken. Rubriek: geld en
-ondernemen.
+America's Wealthy*. Geen Nederlandse uitgave gevonden; Nederlandse boekhandels
+verkopen de Engelse editie. Rubriek: geld en ondernemen.
 Tags: `vermogen`, `onderzoek`, `zuinigheid`, `status`, `ondernemen`,
 `erfenis`, `cijfers`
 Bron: 40-lijst.
@@ -894,8 +920,9 @@ reden dat het boek is blijven staan.
 ## 40. The $100 Startup
 
 Chris Guillebeau, 2012. Ondertitel *Reinvent the Way You Make a Living, Do
-What You Love, and Create a New Future*. Nederlandse uitgave niet nagekeken.
-Rubriek: geld en ondernemen.
+What You Love, and Create a New Future*. Nederlands als *De 100 euro Startup*
+(ISBN 9789021579450), waarin de bedragen naar euro's zijn omgerekend. Rubriek:
+geld en ondernemen.
 Tags: `ondernemen`, `klein-beginnen`, `zelfstandig`, `marketing`, `cases`,
 `microbedrijf`, `vaardigheden`
 Bron: 40-lijst.
@@ -917,8 +944,9 @@ bruikbaarder dan de meeste dikkere ondernemersboeken.
 ## 41. Creativity, Inc.
 
 Ed Catmull met Amy Wallace, 2014. Ondertitel *Overcoming the Unseen Forces
-That Stand in the Way of True Inspiration*. Nederlandse uitgave niet
-nagekeken. Rubriek: maken en scheppen.
+That Stand in the Way of True Inspiration*. De Nederlandse uitgave houdt de
+titel *Creativity, Inc.* aan, vertaald door Aad Markenstein (ISBN
+9789400501201). Rubriek: maken en scheppen.
 Tags: `Pixar`, `leiderschap`, `film`, `feedback`, `organisatie`, `animatie`,
 `kritiek`
 Bron: 40-lijst.
@@ -940,8 +968,10 @@ een goed idee.
 
 ## 42. The Five Dysfunctions of a Team
 
-Patrick Lencioni, 2002. Ondertitel *A Leadership Fable*. Nederlandse uitgave
-niet nagekeken. Rubriek: samenwerken en gesprek.
+Patrick Lencioni, 2002. Ondertitel *A Leadership Fable*. Nederlands als *De
+vijf frustraties van teamwork*, ook uitgebracht als *De 5 frustraties van
+teamwork* (ISBN 9789047001966), met een apart werkboek. Rubriek: samenwerken
+en gesprek.
 Tags: `team`, `vertrouwen`, `conflict`, `verantwoordelijkheid`, `fabel`,
 `management`, `vergaderen`
 Bron: 40-lijst.
@@ -963,8 +993,10 @@ eerder een voordeel dan een bezwaar.
 ## 43. Crucial Conversations
 
 Kerry Patterson, Joseph Grenny, Ron McMillan en Al Switzler, 2002. Ondertitel
-*Tools for Talking When Stakes Are High*. Nederlandse uitgave niet nagekeken.
-Rubriek: samenwerken en gesprek.
+*Tools for Talking When Stakes Are High*. De Nederlandse uitgave houdt de
+titel *Crucial Conversations* aan: eerst bij IMK Opleidingen (2010), daarna de
+herziene editie bij Business Contact (2022), vertaald door Robert Vernooy
+(ISBN 9789047016281). Rubriek: samenwerken en gesprek.
 Tags: `gesprek`, `conflict`, `veiligheid`, `feiten`, `emoties`, `werkplek`,
 `techniek`
 Bron: 40-lijst.
@@ -986,8 +1018,10 @@ voorbeelddialogen, wat het praktisch maakt en niet fijnzinnig.
 ## 44. Daring Greatly
 
 Brené Brown, 2012. Ondertitel *How the Courage to Be Vulnerable Transforms the
-Way We Live, Love, Parent, and Lead*. Nederlandse uitgave niet nagekeken.
-Rubriek: moed en karakter.
+Way We Live, Love, Parent, and Lead*. Nederlands als *De kracht van
+kwetsbaarheid: heb de moed om niet perfect te willen zijn*, vertaald door
+Marijke van der Horst, bij Lev. (ISBN 9789400502482). Rubriek: moed en
+karakter.
 Tags: `kwetsbaarheid`, `schaamte`, `moed`, `leiderschap`, `opvoeding`,
 `onderzoek`, `perfectionisme`
 Bron: 40-lijst.
@@ -1008,8 +1042,8 @@ erachter wil zien, moet bij haar artikelen zijn; dit is de publieksversie.
 
 ## 45. Educated
 
-Tara Westover, 2018. Nederlandse uitgave niet nagekeken. Rubriek: overleven en
-getuigen.
+Tara Westover, 2018. Nederlands als *Leerschool* (ISBN 9789403166100).
+Rubriek: overleven en getuigen.
 Tags: `memoir`, `onderwijs`, `familie`, `Idaho`, `geloof`, `geweld`,
 `losmaken`
 Bron: 40-lijst.
@@ -1032,8 +1066,10 @@ haar eigen herinnering.
 ## 46. Becoming Steve Jobs
 
 Brent Schlender en Rick Tetzeli, 2015. Ondertitel *The Evolution of a Reckless
-Upstart into a Visionary Leader*. Nederlandse uitgave niet nagekeken. Rubriek:
-geld en ondernemen.
+Upstart into a Visionary Leader* (Crown Business, 2015). Geen Nederlandse
+uitgave gevonden; wel een Duitse. Let op: de Nederlandse *Steve Jobs: de
+biografie* is het boek van Walter Isaacson en niet dit boek. Rubriek: geld en
+ondernemen.
 Tags: `biografie`, `Apple`, `Pixar`, `leiderschap`, `ontwikkeling`,
 `journalistiek`, `NeXT`
 Bron: 40-lijst.
@@ -1056,7 +1092,8 @@ afzonderlijk.
 ## 47. The Hard Thing About Hard Things
 
 Ben Horowitz, 2014. Ondertitel *Building a Business When There Are No Easy
-Answers*. Nederlandse uitgave niet nagekeken. Rubriek: geld en ondernemen.
+Answers*. De Nederlandse uitgave houdt de Engelse titel aan (ISBN
+9789047014683). Rubriek: geld en ondernemen.
 Tags: `ondernemen`, `crisis`, `ontslagen`, `management`, `durfkapitaal`,
 `besluiten`, `eerlijk`
 Bron: 40-lijst.
@@ -1078,8 +1115,9 @@ eerlijkheid over eigen fouten is het zeldzame eraan.
 ## 48. Man's Search for Meaning
 
 Viktor Frankl, 1946. Oorspronkelijk *Ein Psychologe erlebt das
-Konzentrationslager*. Nederlandse uitgave niet nagekeken. Rubriek: overleven
-en getuigen.
+Konzentrationslager*. Nederlands als *De zin van het bestaan: een inleiding
+tot de logotherapie*, vertaald door Liesbeth Swildens uit het Duits en het
+Amerikaans, bij Kooyker, Rotterdam (1978). Rubriek: overleven en getuigen.
 Tags: `Holocaust`, `zingeving`, `psychiatrie`, `logotherapie`, `Auschwitz`,
 `lijden`, `klassieker`
 Bron: 40-lijst.
@@ -1101,7 +1139,8 @@ ruimte tussen prikkel en reactie komt hiervandaan.
 ## 49. When Breath Becomes Air
 
 Paul Kalanithi, 2016. Postuum verschenen, met een nawoord van zijn vrouw Lucy
-Kalanithi. Nederlandse uitgave niet nagekeken. Rubriek: overleven en getuigen.
+Kalanithi. Nederlands als *Als adem lucht wordt*, vertaald door Anneke Bok,
+bij Hollands Diep (2016). Rubriek: overleven en getuigen.
 Tags: `memoir`, `geneeskunde`, `sterven`, `neurochirurgie`, `literatuur`,
 `vaderschap`, `postuum`
 Bron: 40-lijst.
@@ -1124,7 +1163,8 @@ valt.
 ## 50. So Good They Can't Ignore You
 
 Cal Newport, 2012. Ondertitel *Why Skills Trump Passion in the Quest for Work
-You Love*. Nederlandse uitgave niet nagekeken. Rubriek: gewoontes en denken.
+You Love*. Geen Nederlandse uitgave gevonden; van Newport verscheen wel *Deep
+work* in het Nederlands. Rubriek: gewoontes en denken.
 Tags: `loopbaan`, `vaardigheden`, `passie`, `doelgericht-oefenen`,
 `autonomie`, `kritiek`, `kenniswerk`
 Bron: 40-lijst.
@@ -1147,8 +1187,8 @@ als het kapitaal er wel is zal de omgeving je proberen tegen te houden.
 ## 51. The Defining Decade
 
 Meg Jay, 2012. Ondertitel *Why Your Twenties Matter and How to Make the Most
-of Them Now*. Nederlandse uitgave niet nagekeken. Rubriek: gewoontes en
-denken.
+of Them Now*. Nederlands als *Het bepalende decennium: waarom je
+twintigerjaren ertoe doen*. Rubriek: gewoontes en denken.
 Tags: `twintigers`, `loopbaan`, `relaties`, `hersenen`, `identiteitskapitaal`,
 `therapie`, `keuzes`
 Bron: 40-lijst.
@@ -1169,8 +1209,9 @@ middenin zit ongemakkelijk en bruikbaar.
 
 ## 52. Why We Sleep
 
-Matthew Walker, 2017. Scribner, 2017. Nederlandse uitgave niet nagekeken.
-Rubriek: gewoontes en denken.
+Matthew Walker, 2017. Scribner, 2017. Nederlands als *Slaap*, vertaald door
+Jan Willem Reitsma en Maarten van der Werf, bij De Geus (2018). Rubriek:
+gewoontes en denken.
 Tags: `slaap`, `neurowetenschap`, `gezondheid`, `dromen`, `REM`, `cafeïne`,
 `onderzoekskritiek`
 Bron: 40-lijst.
@@ -1192,8 +1233,8 @@ lezen.
 ## 53. The Anxious Generation
 
 Jonathan Haidt, 2024. Ondertitel *How the Great Rewiring of Childhood Is
-Causing an Epidemic of Mental Illness*. Nederlandse uitgave niet nagekeken.
-Rubriek: geschiedenis en samenleving.
+Causing an Epidemic of Mental Illness*. Nederlands als *Generatie
+angststoornis* bij Ten Have. Rubriek: geschiedenis en samenleving.
 Tags: `jeugd`, `smartphone`, `sociale-media`, `opvoeding`, `angst`,
 `onderzoeksdebat`, `school`
 Bron: 40-lijst.
@@ -1216,7 +1257,10 @@ debat staat nog open.
 ## 54. Amusing Ourselves to Death
 
 Neil Postman, 1985. Ondertitel *Public Discourse in the Age of Show Business*.
-Nederlandse uitgave niet nagekeken. Rubriek: geschiedenis en samenleving.
+Nederlands als *Wij amuseren ons kapot: de geestdodende werking van de
+beeldbuis*, vertaald door Aaldert van den Bogaard en anderen, met een
+voorwoord van Gerrit Komrij, bij Het Wereldvenster, Houten (1987). Rubriek:
+geschiedenis en samenleving.
 Tags: `media`, `televisie`, `cultuurkritiek`, `Orwell`, `Huxley`, `politiek`,
 `aandacht`
 Bron: 40-lijst.
@@ -1238,8 +1282,8 @@ generatie eerder.
 
 ## 55. Thinking, Fast and Slow
 
-Daniel Kahneman, 2011. Nederlandse uitgave niet nagekeken. Rubriek: gewoontes
-en denken.
+Daniel Kahneman, 2011. Nederlands als *Ons feilbare denken* bij Business
+Contact (2011). Rubriek: gewoontes en denken.
 Tags: `psychologie`, `denkfouten`, `Nobelprijs`, `statistiek`, `beslissen`,
 `vooroordelen`, `onderzoek`
 Bron: 40-lijst.
@@ -1263,8 +1307,9 @@ boek staat nog.
 ## 56. Sapiens
 
 Yuval Noah Harari, 2011. Ondertitel *A Brief History of Humankind*;
-oorspronkelijk in het Hebreeuws, Engelse uitgave 2014. Nederlandse uitgave
-niet nagekeken. Rubriek: geschiedenis en samenleving.
+oorspronkelijk in het Hebreeuws (2011), Engelse uitgave 2014. Nederlands als
+*Sapiens: een kleine geschiedenis van de mensheid*, vertaald door Inge
+Pieters, bij Thomas Rap (2014). Rubriek: geschiedenis en samenleving.
 Tags: `geschiedenis`, `evolutie`, `landbouw`, `geld`, `religie`, `verhalen`,
 `groot-verhaal`
 Bron: 40-lijst.
@@ -1286,8 +1331,9 @@ oproept werkt het boek beter dan als naslagwerk.
 ## 57. The Lessons of History
 
 Will en Ariel Durant, 1968. Essay dat de elfdelige reeks *The Story of
-Civilization* afsluit. Nederlandse uitgave niet nagekeken. Rubriek:
-geschiedenis en samenleving.
+Civilization* afsluit. Geen Nederlandse uitgave gevonden; in het Duits
+verscheen het als *Die Lehren der Geschichte*. Rubriek: geschiedenis en
+samenleving.
 Tags: `geschiedenis`, `essay`, `kort-boek`, `rijkdom`, `oorlog`, `moraal`,
 `beschaving`
 Bron: 40-lijst.
