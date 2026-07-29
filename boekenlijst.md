@@ -1,8 +1,8 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 29 juli
-2026: 57 titels in 12 rubrieken.
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 30 juli
+2026: 68 titels in 13 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -15,15 +15,16 @@ bij de volgende build verloren.
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66 |
+| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -1351,79 +1352,360 @@ bijzonder, dragen de tijd waarin ze geschreven zijn. Het bruikbaarste eraan is
 de tijdschaal: wie na de dagelijkse berichtgeving een boek wil dat in eeuwen
 rekent, heeft hier het kortste.
 
+## 58. Outwitting the Devil
+
+Napoleon Hill, 1938. Ondertitel *The Secret to Freedom and Success*.
+Geschreven in 1938 maar pas in 2011 uitgegeven, geannoteerd door Sharon
+Lechter (Sterling). Nederlandse uitgave niet nagekeken. Rubriek: vrij denken
+en manipulatie.
+Tags: `eigen-oordeel`, `doelen`, `gewoonte`, `angst`, `zelfhulp`, `interview`,
+`1938`
+Bron: denkerslijst.
+
+Hill schrijft het boek als een ondervraging: hij stelt de vragen en de duivel
+antwoordt en verraadt zijn eigen werkwijze. Die werkwijze heet drift. Iemand
+die drijft, denkt niet zelf maar laat zijn richting bepalen door gewoonte,
+angst, opvoeding en de mening van anderen, en merkt dat pas als er dertig jaar
+voorbij zijn. De tegenhanger is een besluit dat vooraf wordt genomen en
+waarvan de gevolgen worden aanvaard, met een omgeving en een dagindeling die
+dat besluit dragen in plaats van ondermijnen.
+
+De vorm is gedateerd en de toon zelfverzekerd op een manier die de lezer van
+nu weerstand oproept; Hill onderbouwt niets en beroept zich op zijn
+gesprekspartner. Wat overblijft is de diagnose zelf, die eerder ongemakkelijk
+is dan opbeurend: het gaat niet over de vraag of iemand hard werkt, maar over
+de vraag wie de richting van dat werk heeft gekozen. Zijn nadruk op vaste
+gewoontes komt terug bij 22, zijn nadruk op het eigen aandeel in wat overkomt
+bij 30.
+
+## 59. The Art of Thinking Clearly
+
+Rolf Dobelli, 2011. Oorspronkelijk Duits als *Die Kunst des klaren Denkens*
+(Hanser, 2011); Engelse uitgave 2013. Nederlands als *De kunst van het heldere
+denken* bij Spectrum. Rubriek: gewoontes en denken.
+Tags: `denkfouten`, `cognitieve-bias`, `oordeel`, `besluiten`, `essay`,
+`kort`, `naslagwerk`
+Bron: denkerslijst.
+
+Negenennegentig stukken van twee bladzijden, elk over één denkfout, met een
+voorbeeld en een consequentie. Dobelli bedacht ze niet zelf maar dicht het gat
+tussen het onderzoek van Kahneman en Tversky en de dagelijkse praktijk:
+overlevingsvertekening, waarbij alleen de geslaagden zichtbaar zijn en de
+mislukkingen niet meer meepraten; verzonken kosten, waardoor een verkeerd
+project doorgaat omdat er al geld in zit; bevestigingsdrang, die alleen ziet
+wat het eigen standpunt steunt.
+
+De opzet maakt het bruikbaar en tegelijk oppervlakkig: wie de mechanismen wil
+begrijpen leest 55, wie een controlelijst wil voor eigen besluiten heeft hier
+meer aan. Dobelli's eigen advies is bescheiden en past bij de lijst waarin dit
+boek staat, namelijk dat een eigen oordeel niet begint bij meer informatie
+maar bij het zien hoe voorspelbaar het eigen hoofd de mist ingaat.
+
+## 60. Trust Me, I'm Lying
+
+Ryan Holiday, 2012. Ondertitel *Confessions of a Media Manipulator*
+(Portfolio/Penguin). Nederlandse uitgave niet nagekeken. Rubriek: vrij denken
+en manipulatie.
+Tags: `media`, `propaganda`, `nieuws`, `marketing`, `internet`, `bekentenis`,
+`prikkels`
+Bron: denkerslijst.
+
+Holiday werkte als marketeer voor American Apparel en beschrijft hoe hij
+nieuws liet ontstaan dat er niet was. De hefboom is het verdienmodel: sites
+worden betaald per bezoek, redacties zijn uitgekleed, en een verhaal dat op
+een klein blog begint wordt door grotere media overgenomen zonder dat iemand
+de bron nog controleert. Wie de onderste trede levert, bepaalt wat er bovenaan
+staat. Hij laat zien hoe hij zelf de verontwaardiging over zijn eigen
+reclamecampagnes organiseerde en die vervolgens als gratis aandacht
+incasseerde.
+
+Het boek is geen aanklacht tegen leugenaars maar tegen prikkels die zonder
+leugenaars ook werken. Dat maakt het onaangenaam voor de lezer: het verklaart
+niet alleen waarom er onzin in de krant staat, maar ook waarom hij erop klikt.
+Naast 54 gelezen wordt duidelijk dat Postman de richting van het verval
+beschreef en Holiday de rekening ervan laat zien.
+
+## 61. Brave New World
+
+Aldous Huxley, 1932. Eerste uitgave bij Chatto & Windus. Nederlands als
+*Heerlijke nieuwe wereld*; vertaler en uitgever niet nagekeken. Rubriek: roman
+en memoir.
+Tags: `roman`, `dystopie`, `vrijheid`, `conditionering`, `techniek`,
+`vermaak`, `klassieker`
+Bron: denkerslijst.
+
+Een samenleving zonder dwang. Mensen worden in kweekflessen gemaakt en in
+kasten ingedeeld, in hun slaap toegesproken tot ze hun plaats prettig vinden,
+en bij het eerste ongemak grijpen ze naar soma. Er is geen geheime politie
+nodig omdat niemand iets anders wil. Huxley zet er twee figuren tegenover die
+niet passen, Bernard Marx en de buiten opgegroeide John, en laat de opzichter
+van het systeem in het gesprek met John rustig uitleggen waarom stabiliteit
+meer waard is dan kunst, wetenschap of God.
+
+De kracht van het boek zit in dat gesprek: de verdediging van de onvrijheid is
+het sterkste betoog erin. Wat aangeboden wordt is comfort, gezondheid en geen
+verdriet, en wat ervoor wordt ingeleverd is de mogelijkheid om ongelukkig te
+zijn om iets dat de moeite waard is. Naast 1984 wordt dit vaak als de mildere
+waarschuwing gelezen, wat het niet is; de bevolking die het gemakkelijkst te
+besturen valt, is die welke haar eigen tucht leuk vindt.
+
+## 62. What Do You Care What Other People Think?
+
+Richard P. Feynman, 1988. Ondertitel *Further Adventures of a Curious
+Character*, opgetekend met Ralph Leighton (W.W. Norton). De lijst waaruit deze
+titel komt schreef het boek aan Aleksandr Solzjenitsyn toe; het is van
+Feynman. Nederlandse uitgave niet nagekeken. Rubriek: vrij denken en
+manipulatie.
+Tags: `natuurkunde`, `nieuwsgierigheid`, `gezag`, `onderzoek`, `memoir`,
+`challenger`, `eerlijkheid`
+Bron: denkerslijst.
+
+Twee ongelijke helften. In de eerste staan korte stukken, waarvan het verhaal
+over zijn eerste vrouw Arline het zwaarste is: de titel komt van haar, als
+antwoord op zijn zorg over wat men van hen dacht. De tweede helft is zijn
+verslag van de commissie die de ramp met de Challenger onderzocht. Terwijl de
+commissie in vergaderzalen zit, belt Feynman ingenieurs, koelt hij een
+rubberen ring in ijswater voor de camera en komt hij erachter dat de leiding
+van NASA een kans op falen noemde die duizend keer gunstiger was dan het
+cijfer van haar eigen technici.
+
+Het boek gaat daarmee over één ding: onderzoeken wat er werkelijk aan de hand
+is en niet wat gepast is om te zeggen. Zijn bijlage bij het commissierapport
+haalde hij er met dreiging van terugtrekking in. Eerlijkheid is bij Feynman
+geen deugd tegenover anderen maar een methode tegenover zichzelf, en dat
+verbindt dit boek met 63 en 66.
+
+## 63. The Demon-Haunted World
+
+Carl Sagan, 1995. Ondertitel *Science as a Candle in the Dark* (Random House).
+Nederlandse uitgave niet nagekeken. Rubriek: vrij denken en manipulatie.
+Tags: `wetenschap`, `scepsis`, `bewijs`, `bijgeloof`, `onderwijs`, `essay`,
+`argumenten`
+Bron: denkerslijst.
+
+Sagan behandelt ontvoeringen door ruimtewezens, gezichten op Mars,
+heksenprocessen en genezers, niet om ze te bespotten maar om te laten zien
+welke behoefte ze vervullen en waarom ze zo goed werken. Het bekendste
+hoofdstuk is de gereedschapskist tegen misleiding, met een lijst drogredenen
+en de eis dat een bewering onafhankelijk te controleren moet zijn. Even bekend
+is zijn beeld van de draak in de garage die niemand kan zien of meten: een
+bewering die op geen enkele manier onderuit te halen valt, zegt niets.
+
+Zijn zorg gaat verder dan pseudowetenschap. Een bevolking die niet gewend is
+bewijs te vragen, is bruikbaar voor wie iets te verkopen heeft, van een
+medicijn tot een politiek programma, en dat maakt scepsis in zijn ogen eerder
+een burgerplicht dan een karaktertrek. Daarbij hoort de tweede eis die hij er
+telkens naast zet, namelijk openstaan voor nieuwe ideeën, omdat scepsis zonder
+verwondering alleen maar cynisme is.
+
+## 64. Fooled by Randomness
+
+Nassim Nicholas Taleb, 2001. Ondertitel *The Hidden Role of Chance in Life and
+in the Markets*. Nederlands als *Misleid door het toeval* bij Nieuwezijds;
+vertaler niet nagekeken. Rubriek: gewoontes en denken.
+Tags: `toeval`, `risico`, `beleggen`, `kans`, `vaardigheid`, `essay`,
+`overlevingsvertekening`
+Bron: denkerslijst.
+
+Taleb werkte als optiehandelaar en schrijft over collega's die jarenlang
+verdienden en in één week alles kwijt waren. Zijn stelling is dat een
+resultaat geen bewijs van vaardigheid is, omdat er altijd een pad bestaat
+waarlangs een onbekwame handelaar rijk kon worden en een bekwame kapot kon
+gaan. Hij rekent voor hoe een tandarts met een goede praktijk bij het minuut
+na minuut bijhouden van zijn portefeuille bijna alleen ellende ziet, terwijl
+hij bij één blik per jaar bijna alleen winst ziet, en de cijfers zijn
+dezelfde.
+
+Wat hem bezighoudt is de vraag hoeveel van de gebeurtenissen die zich niet
+voordeden er hadden kunnen zijn, en dat is precies wat een geschiedenis
+achteraf verzwijgt. De toon is arrogant en de uitweidingen zijn talrijk, maar
+het onderscheid dat hij maakt blijft staan: naast 21, dat over gedrag met geld
+gaat, gaat dit over de vraag of iemand aan een uitkomst kan afleiden dat hij
+het goed deed.
+
+## 65. Economic Facts and Fallacies
+
+Thomas Sowell, 2008. Basic Books; tweede editie 2011. Geen Nederlandse uitgave
+gevonden. Rubriek: geschiedenis en samenleving.
+Tags: `economie`, `prikkels`, `beleid`, `statistiek`, `onderwijs`,
+`huisvesting`, `cijfers`
+Bron: denkerslijst.
+
+Sowell neemt per hoofdstuk een geloofwaardig verhaal en houdt de cijfers
+ernaast: over steden, huisvesting, mannen en vrouwen, onderwijs en
+inkomensverschillen. Terugkerend patroon is de statistische valkuil.
+Inkomensgroepen zijn geen groepen mensen maar posities waar mensen door de
+jaren heen in en uit bewegen, dus een groeiend gat tussen de bovenste en de
+onderste twintig procent zegt nog niets over de mensen zelf. Een tweede
+patroon is de weggelaten voorwaarde, bijvoorbeeld het loonverschil dat
+grotendeels verdwijnt zodra beroep, uren en jaren onderbreking meelopen.
+
+De strekking is nuchter en onprettig voor elk kamp: beleid maakt geen
+bedoelingen waar maar prikkels, en prikkels leveren wat ze leveren.
+Huurbeheersing verlaagt de huur voor wie al binnen is en verlaagt tegelijk het
+aantal woningen dat wordt gebouwd. Wie het boek naast 68 legt ziet dezelfde
+methode op een ander onderwerp toegepast, en wie er niets van gelooft heeft in
+elk geval een lijst controleerbare beweringen om mee te beginnen.
+
+## 66. The Folly of Fools
+
+Robert Trivers, 2011. Ondertitel *The Logic of Deceit and Self-Deception in
+Human Life* (Basic Books). Geen Nederlandse uitgave gevonden. Rubriek:
+gewoontes en denken.
+Tags: `zelfbedrog`, `evolutie`, `biologie`, `status`, `geheugen`, `oorlog`,
+`wetenschap`
+Bron: denkerslijst.
+
+Trivers is bioloog en draait de gebruikelijke verklaring om. Zelfbedrog is bij
+hem geen fout in het denken maar een voorziening: wie zijn eigen bedrog
+gelooft, verraadt zich niet met stem, blik of zenuwen, en bedriegt anderen dus
+beter. Hij loopt de vormen af waarin dat gebeurt, van een geheugen dat de
+eigen rol gunstig herschrijft tot het rekenen van eigen verdienste bij succes
+en pech bij verlies, en breidt het uit naar families, wetenschap en
+geschiedschrijving, met hoofdstukken over hoe landen hun oorlogen voor
+zichzelf vertellen.
+
+Zijn onderbouwing is ongelijk: sommige verbanden zijn hard, andere zijn een
+aannemelijk verhaal met dun bewijs, en hij is zelf de eerste die dat in het
+voorbijgaan toegeeft. De ongemakkelijke gevolgtrekking blijft overeind. Wie
+zich tegen manipulatie door anderen wil wapenen, komt uiteindelijk bij de
+leugens uit die zijn eigen positie, groep en zelfbeeld beschermen, en daar is
+geen buitenstaander die hem waarschuwt.
+
+## 67. Suicidal Empathy
+
+Gad Saad, 2026. Ondertitels *Free the Wolves* en *Dying to Be Kind*. Geen
+Nederlandse uitgave gevonden. Rubriek: geschiedenis en samenleving.
+Tags: `empathie`, `polemiek`, `moraal`, `gevolgen`,
+`evolutionaire-psychologie`, `westen`, `actueel`
+Bron: denkerslijst.
+
+Saad bouwt voort op zijn eerdere werk over wat hij besmettelijke ideeën noemt
+en richt zich hier op één ervan: medeleven dat geen grens en geen rekening
+kent. Zijn stelling is dat empathie een gevoel is en geen oordeel, dat het
+reageert op wat dichtbij en zichtbaar is, en dat een samenleving die haar
+beleid erop bouwt voorspelbaar uitkomt bij besluiten die de mensen schaden die
+ze wilde beschermen. Hij haalt zijn voorbeelden uit migratie, veiligheid en
+universitair beleid, en betoogt dat wie het gevoel als maatstaf neemt,
+bruikbaar wordt voor iedereen die het weet op te wekken.
+
+Het is een polemiek en leest ook zo: de toon is scherp, de tegenstander wordt
+zelden op zijn best weergegeven, en de gekozen voorbeelden dragen het betoog.
+Dat maakt het niet minder de moeite waard om te lezen naast wat het bestrijdt,
+omdat het één onderscheid haarscherp stelt: het verschil tussen goeddoen dat
+helpt en goeddoen dat vooral goed aanvoelt. Wie de tegenkant wil, leest 44
+over kwetsbaarheid en 35 over geweldloze communicatie.
+
+## 68. Black Rednecks and White Liberals
+
+Thomas Sowell, 2005. Encounter Books, een bundel van zes essays. Geen
+Nederlandse uitgave gevonden. Rubriek: geschiedenis en samenleving.
+Tags: `geschiedenis`, `cultuur`, `slavernij`, `onderwijs`, `essay`,
+`minderheden`, `verklaringen`
+Bron: denkerslijst.
+
+Zes essays met één werkwijze: neem een verschil tussen groepen dat gewoonlijk
+uit huidskleur wordt verklaard en zoek de herkomst in geschiedenis, gewoonte
+en prikkels. Het titelessay betoogt dat gedragingen die als typisch zwart
+Amerikaans gelden, hun oorsprong hebben in de cultuur van de arme blanke
+bevolking van het zuiden waar veel zwarte Amerikanen naast leefden, en dat die
+cultuur bij beide groepen op dezelfde manier verdween of bleef. Andere stukken
+behandelen slavernij als een wereldwijd verschijnsel dat niet aan één
+werelddeel toe te schrijven is, en middenstandsminderheden die overal
+wantrouwen oogsten.
+
+Sowell schrijft polemisch, kiest zijn voorbeelden en laat weinig ruimte voor
+de mogelijkheid dat hij ergens naast zit. Zijn essay over een zwarte
+middelbare school in Washington die decennialang uitzonderlijke resultaten
+haalde is het interessantste van de bundel, omdat het niet in een van de
+gangbare verklaringen past. De methode is wat blijft hangen: de vraag stellen
+welke uitkomst een verklaring voorspelt, en nakijken of die uitkomst er is.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
 
-`aandacht` 17, 34, 54 · `aannames` 27 · `aforismen` 2, 17 · `afwezige-vader` 4
-· `alcohol` 4 · `ambacht` 6, 12, 13, 17, 18 · `Andalusië` 8 · `angst` 53 ·
-`animatie` 41 · `Antarctica` 36 · `apartheid` 26 · `Apple` 46 · `arbeid` 6 ·
-`armoede` 26 · `atletiek` 31 · `Auschwitz` 48 · `autonomie` 6, 50 ·
-`behoeften` 35 · `beleggen` 21 · `bemiddeling` 35 · `beschaving` 57 ·
-`beslissen` 55 · `besluiten` 47 · `bestseller` 8, 37 · `bezit` 37 ·
-`biografie` 31, 46 · `blokkade` 14 · `brainstormen` 33 · `broers` 10 ·
-`cafeïne` 52 · `Californië` 10 · `cases` 40 · `cashflow` 37 · `cijfers` 39 ·
-`communicatie` 34, 35 · `conflict` 35, 42, 43 · `creativiteit` 11, 12, 13, 14,
-15, 16, 17 · `crisis` 47 · `cultuurkritiek` 54 · `dagboek` 2 · `debat` 28 ·
-`denkfouten` 55 · `discipline` 12, 13, 22, 30 · `doelgericht-oefenen` 50 ·
-`doorzetten` 20 · `dromen` 52 · `durfkapitaal` 47 · `eenzaamheid` 7 ·
-`eerlijk` 47 · `eerste-versie` 19 · `emoties` 3, 43 · `empathie` 35 · `epos` 5
-· `erfenis` 39 · `essay` 3, 9, 21, 57 · `evolutie` 56 · `expeditie` 36 ·
-`fabel` 8, 42 · `falen` 23 · `familie` 45 · `familieroman` 10 · `feedback` 41
-· `feiten` 43 · `feminisme` 3 · `film` 41 · `filosofie` 1, 6 · `gedrag` 21, 22
-· `geduld` 21 · `geld` 21, 37, 38, 56 · `geloof` 45 · `gemeenschap` 9 ·
-`geneeskunde` 49 · `geschiedenis` 30, 36, 56, 57 · `gesprek` 43 · `geweld` 45
-· `gewoontes` 7, 11, 13, 22, 25 · `gezondheid` 52 · `groot-verhaal` 56 ·
-`handelen` 30 · `heroverwegen` 28 · `hersenen` 51 · `Holocaust` 48 · `humor`
-16, 19, 26 · `huwelijk` 9, 34 · `Huxley` 54 · `Idaho` 45 · `identiteit` 22 ·
-`identiteitskapitaal` 51 · `imitatie` 11 · `import` 20 · `individualisme` 9 ·
+`1938` 58 · `aandacht` 17, 34, 54 · `aannames` 27 · `actueel` 67 · `aforismen`
+2, 17 · `afwezige-vader` 4 · `alcohol` 4 · `ambacht` 6, 12, 13, 17, 18 ·
+`Andalusië` 8 · `angst` 53, 58 · `animatie` 41 · `Antarctica` 36 · `apartheid`
+26 · `Apple` 46 · `arbeid` 6 · `argumenten` 63 · `armoede` 26 · `atletiek` 31
+· `Auschwitz` 48 · `autonomie` 6, 50 · `behoeften` 35 · `bekentenis` 60 ·
+`beleggen` 21, 64 · `beleid` 65 · `bemiddeling` 35 · `beschaving` 57 ·
+`beslissen` 55 · `besluiten` 47, 59 · `bestseller` 8, 37 · `bewijs` 63 ·
+`bezit` 37 · `bijgeloof` 63 · `biografie` 31, 46 · `biologie` 66 · `blokkade`
+14 · `brainstormen` 33 · `broers` 10 · `cafeïne` 52 · `Californië` 10 ·
+`cases` 40 · `cashflow` 37 · `challenger` 62 · `cijfers` 39, 65 ·
+`cognitieve-bias` 59 · `communicatie` 34, 35 · `conditionering` 61 ·
+`conflict` 35, 42, 43 · `creativiteit` 11, 12, 13, 14, 15, 16, 17 · `crisis`
+47 · `cultuur` 68 · `cultuurkritiek` 54 · `dagboek` 2 · `debat` 28 ·
+`denkfouten` 55, 59 · `discipline` 12, 13, 22, 30 · `doelen` 58 ·
+`doelgericht-oefenen` 50 · `doorzetten` 20 · `dromen` 52 · `durfkapitaal` 47 ·
+`dystopie` 61 · `economie` 65 · `eenzaamheid` 7 · `eerlijk` 47 · `eerlijkheid`
+62 · `eerste-versie` 19 · `eigen-oordeel` 58 · `emoties` 3, 43 · `empathie`
+35, 67 · `epos` 5 · `erfenis` 39 · `essay` 3, 9, 21, 57, 59, 63, 64, 68 ·
+`evolutie` 56, 66 · `evolutionaire-psychologie` 67 · `expeditie` 36 · `fabel`
+8, 42 · `falen` 23 · `familie` 45 · `familieroman` 10 · `feedback` 41 ·
+`feiten` 43 · `feminisme` 3 · `film` 41 · `filosofie` 1, 6 · `gedrag` 21, 22 ·
+`geduld` 21 · `geheugen` 66 · `geld` 21, 37, 38, 56 · `geloof` 45 ·
+`gemeenschap` 9 · `geneeskunde` 49 · `geschiedenis` 30, 36, 56, 57, 68 ·
+`gesprek` 43 · `gevolgen` 67 · `geweld` 45 · `gewoonte` 58 · `gewoontes` 7,
+11, 13, 22, 25 · `gezag` 62 · `gezondheid` 52 · `groot-verhaal` 56 ·
+`handelen` 30 · `heroverwegen` 28 · `hersenen` 51 · `Holocaust` 48 ·
+`huisvesting` 65 · `humor` 16, 19, 26 · `huwelijk` 9, 34 · `Huxley` 54 ·
+`Idaho` 45 · `identiteit` 22 · `identiteitskapitaal` 51 · `imitatie` 11 ·
+`import` 20 · `individualisme` 9 · `internet` 60 · `interview` 58 ·
 `introversie` 33 · `invloed` 11 · `jaloezie` 19 · `jeugd` 53 · `jongeren` 25 ·
-`journalistiek` 4, 7, 46 · `Kaïn-en-Abel` 10 · `kenniswerk` 6, 50 · `keuzes`
-51 · `klassieker` 10, 24, 38, 48 · `klein-beginnen` 40 · `kleine-stappen` 22 ·
-`kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 ·
-`krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 ·
-`kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw` 56 · `leiderschap` 36, 41,
-44, 46 · `levenskunst` 27 · `lezen` 18 · `liefde` 3 · `lijden` 48 ·
-`literatuur` 49 · `logotherapie` 48 · `Long-Island` 4 · `loopbaan` 50, 51 ·
-`losmaken` 45 · `luisteren` 24, 35 · `management` 42, 47 · `mannelijkheid` 3 ·
-`mannen` 7 · `marketing` 13, 40 · `media` 54 · `memoir` 4, 7, 18, 20, 26, 45,
-49 · `mentorschap` 4 · `microbedrijf` 40 · `middelbare-leeftijd` 7 · `moed` 44
-· `moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57 · `moreel` 36 ·
-`motoren` 6 · `muziek` 17 · `netwerken` 24 · `neurochirurgie` 49 ·
-`neurowetenschap` 52 · `NeXT` 46 · `nieuwsgierigheid` 15, 28 · `Nike` 20 ·
-`Nobelprijs` 55 · `observeren` 15 · `ochtendroutine` 14 · `oefenen` 29 ·
-`oefeningen` 15, 35 · `omgangsvormen` 24 · `omstreden` 37 · `onbewuste` 16 ·
-`ondernemen` 20, 39, 40, 47 · `onderwijs` 6, 23, 33, 45 · `onderwijskritiek`
-37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55 · `onderzoeksdebat` 53 ·
-`onderzoekskritiek` 52 · `ontslagen` 47 · `ontwikkeling` 46 · `oorlog` 31, 57
-· `opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53 · `organisatie` 28, 41 ·
-`Orwell` 54 · `ouder-worden` 5 · `oudheid` 2 · `overleven` 31, 36 ·
-`overtuigen` 24 · `overtuigingen` 28 · `overvloed` 17 · `Pacific` 31 ·
+`journalistiek` 4, 7, 46 · `Kaïn-en-Abel` 10 · `kans` 64 · `kenniswerk` 6, 50
+· `keuzes` 51 · `klassieker` 10, 24, 38, 48, 61 · `klein-beginnen` 40 ·
+`kleine-stappen` 22 · `kort` 59 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
+`kort-stuk` 19, 30 · `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 · `kroeg`
+4 · `kunst` 11 · `kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw` 56 ·
+`leiderschap` 36, 41, 44, 46 · `levenskunst` 27 · `lezen` 18 · `liefde` 3 ·
+`lijden` 48 · `literatuur` 49 · `logotherapie` 48 · `Long-Island` 4 ·
+`loopbaan` 50, 51 · `losmaken` 45 · `luisteren` 24, 35 · `management` 42, 47 ·
+`mannelijkheid` 3 · `mannen` 7 · `marketing` 13, 40, 60 · `media` 54, 60 ·
+`memoir` 4, 7, 18, 20, 26, 45, 49, 62 · `mentorschap` 4 · `microbedrijf` 40 ·
+`middelbare-leeftijd` 7 · `minderheden` 68 · `moed` 44 · `moeder-en-zoon` 26 ·
+`Monty-Python` 16 · `moraal` 9, 57, 67 · `moreel` 36 · `motoren` 6 · `muziek`
+17 · `naslagwerk` 59 · `natuurkunde` 62 · `netwerken` 24 · `neurochirurgie` 49
+· `neurowetenschap` 52 · `NeXT` 46 · `nieuws` 60 · `nieuwsgierigheid` 15, 28,
+62 · `Nike` 20 · `Nobelprijs` 55 · `observeren` 15 · `ochtendroutine` 14 ·
+`oefenen` 29 · `oefeningen` 15, 35 · `omgangsvormen` 24 · `omstreden` 37 ·
+`onbewuste` 16 · `ondernemen` 20, 39, 40, 47 · `onderwijs` 6, 23, 33, 45, 63,
+65, 68 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55,
+62 · `onderzoeksdebat` 53 · `onderzoekskritiek` 52 · `ontslagen` 47 ·
+`ontwikkeling` 46 · `oordeel` 59 · `oorlog` 31, 57, 66 · `opgroeien` 4 ·
+`opvoeding` 3, 23, 29, 44, 53 · `organisatie` 28, 41 · `Orwell` 54 ·
+`ouder-worden` 5 · `oudheid` 2 · `overleven` 31, 36 · `overlevingsvertekening`
+64 · `overtuigen` 24 · `overtuigingen` 28 · `overvloed` 17 · `Pacific` 31 ·
 `parabel` 38 · `passie` 50 · `pastoraat` 34 · `patriarchaat` 3 · `pelgrimage`
 8 · `perceptie` 30 · `perfectionisme` 19, 32, 44 · `persoonlijkheid` 33 ·
-`Pixar` 41, 46 · `plicht` 2 · `politiek` 54 · `postuum` 49 · `prijzen` 23 ·
-`prioriteiten` 25 · `proactief` 25 · `producer` 17 · `psychiatrie` 1, 48 ·
-`psychologie` 23, 28, 29, 55 · `publiceren` 13 · `Pulitzer` 5 · `reisverhaal`
-1 · `relaties` 34, 51 · `religie` 56 · `REM` 52 · `Renaissance` 15 · `rente`
-38 · `revisie` 18 · `rijkdom` 57 · `roeping` 8, 9, 12 · `rust` 32 · `Salinas`
-10 · `samenwerken` 25 · `schaamte` 32, 44 · `school` 53 · `schrijven` 11, 12,
-14, 18, 19 · `schulden` 20, 38 · `slaap` 52 · `smartphone` 53 ·
-`sociale-media` 53 · `sparen` 21, 38 · `spelen` 32 · `spiritualiteit` 8, 14,
-27 · `sport` 20 · `statistiek` 55 · `status` 39 · `sterfelijkheid` 2 ·
-`sterven` 49 · `stijl` 18 · `stoïcisme` 2, 30 · `systeem` 22 · `taal` 26, 27 ·
-`talent` 23, 29 · `team` 42 · `techniek` 1, 6, 43 · `tegenslag` 30 · `tekenen`
-15 · `televisie` 54 · `temperament` 33 · `Texas` 5 · `therapie` 51 · `toeval`
-21 · `Tolteeks` 27 · `twaalf-weken` 14 · `twintigers` 51 · `uitstelgedrag` 12
-· `uitstellen` 16 · `vaardigheden` 40, 50 · `vader-en-zoon` 1 · `vaderschap`
-49 · `vakmanschap` 1 · `vastgoed` 37 · `veedrift` 5 · `veiligheid` 43 ·
+`Pixar` 41, 46 · `plicht` 2 · `polemiek` 67 · `politiek` 54 · `postuum` 49 ·
+`prijzen` 23 · `prikkels` 60, 65 · `prioriteiten` 25 · `proactief` 25 ·
+`producer` 17 · `propaganda` 60 · `psychiatrie` 1, 48 · `psychologie` 23, 28,
+29, 55 · `publiceren` 13 · `Pulitzer` 5 · `reisverhaal` 1 · `relaties` 34, 51
+· `religie` 56 · `REM` 52 · `Renaissance` 15 · `rente` 38 · `revisie` 18 ·
+`rijkdom` 57 · `risico` 64 · `roeping` 8, 9, 12 · `roman` 61 · `rust` 32 ·
+`Salinas` 10 · `samenwerken` 25 · `scepsis` 63 · `schaamte` 32, 44 · `school`
+53 · `schrijven` 11, 12, 14, 18, 19 · `schulden` 20, 38 · `slaap` 52 ·
+`slavernij` 68 · `smartphone` 53 · `sociale-media` 53 · `sparen` 21, 38 ·
+`spelen` 32 · `spiritualiteit` 8, 14, 27 · `sport` 20 · `statistiek` 55, 65 ·
+`status` 39, 66 · `sterfelijkheid` 2 · `sterven` 49 · `stijl` 18 · `stoïcisme`
+2, 30 · `systeem` 22 · `taal` 26, 27 · `talent` 23, 29 · `team` 42 ·
+`techniek` 1, 6, 43, 61 · `tegenslag` 30 · `tekenen` 15 · `televisie` 54 ·
+`temperament` 33 · `Texas` 5 · `therapie` 51 · `toeval` 21, 64 · `Tolteeks` 27
+· `twaalf-weken` 14 · `twintigers` 51 · `uitstelgedrag` 12 · `uitstellen` 16 ·
+`vaardigheden` 40, 50 · `vaardigheid` 64 · `vader-en-zoon` 1 · `vaderschap` 49
+· `vakmanschap` 1 · `vastgoed` 37 · `veedrift` 5 · `veiligheid` 43 ·
 `verantwoordelijkheid` 42 · `vergaderen` 42 · `vergeving` 31 · `verhalen` 56 ·
-`vermogen` 39 · `verplichting` 9 · `verslaving` 18 · `vertrouwen` 42 ·
-`volharding` 29 · `vooroordelen` 55 · `vriendschap` 5, 7 · `vrije-wil` 10 ·
-`waardering` 24, 34 · `weerstand` 12 · `werkboek` 14 · `werkplek` 33, 43 ·
-`werkwijze` 16 · `West-Point` 29 · `western` 5 · `woestijn` 8 · `zeereis` 36 ·
-`zelfbeeld` 25, 27 · `zelfcompassie` 32 · `zelfdiscipline` 2 · `zelfhulp` 15,
-22, 25, 34 · `zelfspot` 19 · `zelfstandig` 40 · `zingeving` 9, 48 ·
-`Zuid-Afrika` 26 · `zuinigheid` 39
+`verklaringen` 68 · `vermaak` 61 · `vermogen` 39 · `verplichting` 9 ·
+`verslaving` 18 · `vertrouwen` 42 · `volharding` 29 · `vooroordelen` 55 ·
+`vriendschap` 5, 7 · `vrije-wil` 10 · `vrijheid` 61 · `waardering` 24, 34 ·
+`weerstand` 12 · `werkboek` 14 · `werkplek` 33, 43 · `werkwijze` 16 ·
+`West-Point` 29 · `westen` 67 · `western` 5 · `wetenschap` 63, 66 · `woestijn`
+8 · `zeereis` 36 · `zelfbedrog` 66 · `zelfbeeld` 25, 27 · `zelfcompassie` 32 ·
+`zelfdiscipline` 2 · `zelfhulp` 15, 22, 25, 34, 58 · `zelfspot` 19 ·
+`zelfstandig` 40 · `zingeving` 9, 48 · `Zuid-Afrika` 26 · `zuinigheid` 39
 
 ## Leesroutes
 
@@ -1494,6 +1776,29 @@ Brown onderzocht schaamte en kwam uit bij kwetsbaarheid als voorwaarde voor
 moed; 32 is de korte versie, 44 de uitgewerkte. hooks beschrijft in 3 waarom
 dat voor mannen extra moeilijk is gemaakt, met woede als de enige emotie die
 overbleef. De drie samen zijn één argument uit twee heel verschillende hoeken.
+
+**Wie richt je denken in** (58, 60, 61, 63). 
+Hill noemt het drift: wie niet zelf beslist, laat de omgeving beslissen.
+Huxley schetst de samenleving die daarop is gebouwd en waarin niemand dwang
+nodig heeft. Holiday laat zien hoe dat er in de praktijk uitziet bij wie
+nieuws maakt voor geld. Sagan zet er de enige verdediging tegenover die niet
+van goede bedoelingen afhangt, namelijk de eis om bewijs. Van 1932 naar nu,
+met hetzelfde mechanisme.
+
+**Zelfbedrog voor het bedrog van anderen** (59, 62, 66). 
+Dobelli inventariseert de denkfouten en houdt het bij anderen. Trivers legt
+uit waarom ze er zijn en waarom ze het beste werken als de drager ze zelf
+gelooft. Feynman geeft het enige tegengif in de praktijk: nabellen, zelf meten
+en opschrijven wat je vindt, ook als het de commissie niet uitkomt. Lees 62
+als laatste, dan is het geen theorie meer.
+
+**Vraag wat een verklaring voorspelt** (64, 65, 67, 68). 
+Taleb over resultaten die als vaardigheid worden gelezen, Sowell over beleid
+dat op bedoelingen wordt beoordeeld, in 65 met cijfers en in 68 met
+geschiedenis, en Saad over medeleven dat de gevolgen niet meer natrekt. Alle
+vier stellen dezelfde vraag: welke uitkomst zou hierbij horen, en is die
+uitkomst er ook. Saad is de meest polemische van de vier en het beste te lezen
+met tegenspraak ernaast.
 
 **Talent bestaat niet zoals je denkt** (22, 23, 29, 50). 
 Dweck begint bij de overtuiging over eigen vermogen, Duckworth meet wie
