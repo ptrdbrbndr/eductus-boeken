@@ -26,6 +26,10 @@
   .chip[aria-pressed="true"]{
     background:var(--teal); border-color:var(--teal); color:#fdfaf2;
   }
+  .chip.lang{border-style:dashed; border-color:var(--ochre); color:#7a5610}
+  .chip.lang[aria-pressed="true"]{
+    background:var(--ochre); border-color:var(--ochre); border-style:solid; color:#fffdf7;
+  }
   input[type="search"]{
     flex:1 1 200px; min-width:170px; font-family:var(--body); font-size:15px;
     padding:7px 13px; border:1px solid var(--line); border-radius:var(--radius);
@@ -139,6 +143,7 @@
       <span><b id="stat-titels">0</b> titels</span>
       <span><b id="stat-rubrieken">0</b> rubrieken</span>
       <span><b id="stat-tags">0</b> tags</span>
+      <span><b id="stat-lang">0</b> uitgebreid uitgewerkt</span>
       <span>bijgewerkt <b>{{DATUM}}</b></span>
     </p>
   </div>
@@ -147,6 +152,7 @@
 <div class="filters">
   <div class="wrap filterrow" id="filterrow">
     <button class="chip" data-rubriek="*" aria-pressed="true">alles</button>
+    <button class="chip lang" id="chip-lang" aria-pressed="false">met uitgebreide samenvatting</button>
     <input type="search" id="zoek" placeholder="Zoek op titel, auteur, tag of tekst&hellip;" aria-label="Zoeken in de boekenlijst">
     <span class="count" id="count"></span>
   </div>
@@ -188,6 +194,7 @@
 {{DATA}}
 
 let filterRubriek = "*";
+let filterLang = false;
 let filterTag = null;
 let zoekterm = "";
 
@@ -200,6 +207,7 @@ const alleTags = [...new Set(BOEKEN.flatMap(b => b.tags))].sort((a,b)=>a.localeC
 document.getElementById("stat-titels").textContent = BOEKEN.length;
 document.getElementById("stat-rubrieken").textContent = RUBRIEKEN.length;
 document.getElementById("stat-tags").textContent = alleTags.length;
+document.getElementById("stat-lang").textContent = BOEKEN.filter(b => b.lang).length;
 
 RUBRIEKEN.forEach(([naam]) => {
   const b = document.createElement("button");
@@ -213,8 +221,14 @@ RUBRIEKEN.forEach(([naam]) => {
 filterrow.addEventListener("click", e => {
   const chip = e.target.closest(".chip");
   if (!chip) return;
+  if (chip.id === "chip-lang"){
+    filterLang = !filterLang;
+    chip.setAttribute("aria-pressed", String(filterLang));
+    render();
+    return;
+  }
   filterRubriek = chip.dataset.rubriek;
-  filterrow.querySelectorAll(".chip").forEach(c =>
+  filterrow.querySelectorAll(".chip:not(#chip-lang)").forEach(c =>
     c.setAttribute("aria-pressed", String(c === chip)));
   render();
 });
@@ -225,6 +239,7 @@ zoekveld.addEventListener("input", () => {
 });
 
 function past(b){
+  if (filterLang && !b.lang) return false;
   if (filterRubriek !== "*" && b.rubriek !== filterRubriek) return false;
   if (filterTag && !b.tags.includes(filterTag)) return false;
   if (zoekterm){
