@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onze bouwstenen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Røyne betoogt dat onze beschaving letterlijk uit de aardkorst is opgebouwd en dat elk materiaal waar zij op draait, van ijzer en koper tot kalium en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-92">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">92 &middot; Natuur en wetenschap</p>
+    <h1>Onze bouwstenen</h1>
+    <p class="lede">Anja Røyne, 2018</p>
+    <p class="stats">
+      <span><b>1796</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>31 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="92"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Røyne betoogt dat onze beschaving letterlijk uit de aardkorst is opgebouwd en dat elk materiaal waar zij op draait, van ijzer en koper tot kalium en fosfor, een geologische ontstaansgeschiedenis heeft, een winningsprijs in energie en verwoest landschap, en een horizon. Haar scherpste punt is dat we de Aarde in fysieke zin niet kunnen opgebruiken: de atomen blijven op de planeet. Wat opraakt is de toegankelijke concentratie ervan, en de kringlopen die zulke concentraties opnieuw vormen duren miljoenen jaren. Grenzen aan groei zijn daarmee een kwestie van energie en tijd, niet van hoeveelheid.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De week waarin de elementen ontstonden</h3>
+      <p>Het boek opent met de geschiedenis van heelal en elementen samengeperst tot zeven dagen: een miljard jaar wordt een halve dag, een miljoen jaar driekwart minuut. Het universum is 13,8 miljard jaar oud, dus de klok slaat maandagnacht twaalf uur. Waterstof, helium en lithium ontstaan meteen; om zes uur gaan de eerste sterren branden.</p>
+      <p>In het binnenste van sterren ontstaan de zwaardere elementen. Røyne rekent dat door naar het lichaam: zesentachtig procent daarvan bestaat uit koolstof, stikstof en zuurstof die in die fase zijn gevormd, en bijna tien procent uit waterstof uit de geboorte van het heelal. Nikkel, koper en zink kwamen uit supernova's, goud, zilver, platina en uranium uit de botsing van twee neutronensterren. De Aarde vormt zich vrijdagmiddag, en het tijdperk van de beschaving beslaat een halve seconde voor middernacht op zondag.</p>
+      <h3>Goud en Roșia Montană</h3>
+      <p>Het eerste materiaalhoofdstuk volgt het goud van Transsylvanië. Twaalf miljoen jaar geleden voerde heet, zwavelrijk water goud uit het gesteente omhoog; toen de druk daalde lieten de zwavelatomen los en bleef het metaal in laagjes achter. Goud werd eerst uit riviergruis gewassen, mogelijk al vijfduizend jaar voor onze jaartelling, en het Gulden Vlies verwijst waarschijnlijk naar een schapenvacht waarmee gouddeeltjes uit steenstof werden gevangen.</p>
+      <p>Daarna komt de mijnbouw. De Romeinen versloegen Dacia in het jaar 106 en namen honderdvijfenzestig ton bewerkt goud mee; van hun gangenstelsel is nog zeven kilometer over. Uiteindelijk was de berg met honderdvijftig kilometer gangen doorboord en werd ondergrondse winning onrendabel, waarna in de jaren zeventig dagbouw volgde. Het patroon dat het hele boek draagt staat hier al: eerst wordt gewonnen waar het makkelijk gaat, daarna wordt het duurder en vuiler.</p>
+      <h3>IJzer, van meteoriet tot Kiruna</h3>
+      <p>IJzer noemt Røyne het belangrijkste metaal van onze beschaving, en tegelijk het metaal zonder welk ademen zinloos is: een volwassen lichaam bevat ongeveer vier gram ijzeratomen, genoeg voor een middelgrote spijker, en zonder dat ijzer kan de zuurstof uit de longen nergens heen. De aardkorst bestaat voor ongeveer vier procent uit ijzer, vrijwel allemaal aan zuurstof gebonden. De dolk van Toetanchamon was van meteorietijzer, omdat de methode om ijzer uit erts te maken 3500 jaar geleden nog niet bestond. Per ton geproduceerd ijzer komt tegenwoordig ongeveer een halve ton kooldioxide vrij.</p>
+      <p>Bijna al het gedolven ijzererts komt uit de roestlagen die zich op de zeebodem vormden toen de fotosynthese ontstond en de oceanen rond tweeënhalf miljard jaar geleden vol roest raakten. De uitzondering is Kiruna, met erts uit een oude magmakamer. De spoorlijn naar Luleå en Narvik werd in 1898 besloten en in 1902 opgeleverd; meer dan de helft van het ijzer voor de Duitse oorlogsproductie kwam er vandaan, tot de geallieerden het transport in 1944 stopten. De scheuren onder de stad zijn nu zo ver gevorderd dat het centrum wordt verplaatst.</p>
+      <h3>Koper, aluminium en titanium</h3>
+      <p>Hier staan de getallen die het boek zijn scherpte geven. Een gezinsauto bevatte vlak na de Tweede Wereldoorlog vijfenveertig meter koperdraad, nu meer dan 1,6 kilometer. Kopererts bevat tegenwoordig gebruikelijk 0,6 procent koper, dus per ton uitgegraven steen houdt men zes kilo koper en 994 kilo graniet over. Rond Røros, waar van de zeventiende eeuw tot 1977 koper werd gewonnen, was tot zeventien kubieke meter hout nodig per kubieke meter rots, en het zwavel uit de openluchtverwerking kwam als zure regen weer omlaag.</p>
+      <p>Aluminium maakt acht procent van de aardkorst uit; er wordt ongeveer vijftig miljoen ton per jaar van geproduceerd tegen 1640 miljoen ton ijzer. Winning uit bauxiet laat rood, bijtend slib achter: bij de dambreuk bij Ajka in Hongarije in 2009 kwamen tien mensen om. Dichter bij huis stootte de fabriek van Årdal vanaf 1949 fluorgas uit dat vee en dennenbomen aantastte; pas in de jaren tachtig kwam er een afdoend reinigingssysteem. Meer dan zestig procent van het afgedankte aluminium wordt hergebruikt, en de bauxiet is bij het huidige tempo nog ongeveer driehonderd jaar toereikend.</p>
+      <h3>Keramiek, glas en koolstof</h3>
+      <p>Keramiek is hard en broos en geleidt stroom noch warmte, omdat de atomen hun elektronen strak vasthouden. Het oudste door mensen gemaakte glas is ongeveer 4500 jaar oud; kwarts en veldspaat smelten pas rond tweeduizend graden, en natriumcarbonaat brengt dat terug naar ongeveer duizend.</p>
+      <p>Bij koolstof gaat het over rubber en kunststof. Vulkanisatie gebruikt drie tot vier procent zwavel voor banden; bij één deel zwavel op twee delen rubber ontstaat het harde eboniet. Røyne laat de prijs niet weg: de rubberkoorts kostte in Congo, particulier bezit van Leopold II, minstens tien miljoen doden. Een gemiddelde mobiele telefoon bevat 62 grondstoffen, driekwart van de 83 niet-radioactieve elementen op Aarde, na gebruik vrijwel niet te scheiden.</p>
+      <h3>Kalium, stikstof en fosfor</h3>
+      <p>Dit hoofdstuk zet de rest in perspectief. IJzer, koper en goud kunnen desnoods worden vervangen, schrijft Røyne, maar zonder stikstof, kalium en fosfor kunnen we niet leven. Landbouw voert voedingsstoffen sneller van de akker af dan verwering van het gesteente ze aanvult, en kunstmest is het middel waarmee de mens zich aan die beperking onttrok.</p>
+      <p>Ze illustreert het met de Dode Zee. Het meer hield zich vroeger op ongeveer vierhonderd meter onder zeeniveau; sinds Israël, Jordanië en Syrië in de jaren zestig en zeventig pompinstallaties aanlegden, ligt het oppervlak meer dan veertig meter lager en zakt het nog ongeveer een meter per jaar. Het zuidelijke deel is omgebouwd tot verdampingsbekkens waaruit eerst keukenzout neerslaat en daarna carnalliet, dat het kalium voor kunstmest levert.</p>
+      <h3>Energie en de grenzen aan groei</h3>
+      <p>Alle winning rust op energie, en daar staan de meest sprekende vergelijkingen. Røynes gezin van vijf beschikt over ongeveer evenveel energie als een Romeinse grootgrondbezitter met drieduizend slaven, of een negentiende-eeuwse Engelse landeigenaar met vijftienhonderd arbeiders en tweehonderd paarden. De beschaving verbruikt ongeveer een kwart van alle zonne-energie die de planten op Aarde opvangen, en vijfentachtig procent van de energie die er doorheen stroomt is fossiel.</p>
+      <p>Het slot weegt de uitwegen. In de zon is het vijftien miljoen graden bij een druk van 340 miljard keer de luchtdruk hier; op Aarde moet fusie het doen met deuterium, tritium en magneetvelden. ITER zou volgens plan in 2025 zijn eerste plasma maken, en de stellarator Wendelstein 7-X hield in 2016 waterstofplasma ongeveer een seconde boven tien miljoen graden; het benodigde lithium zou ongeveer duizend jaar meegaan. Daarna volgt het rapport van de Club van Rome uit 1972, met Jørgen Randers onder de auteurs, en het weerwoord dat de laatste hulpbron menselijke intelligentie is. Røyne wijst erop dat Malthus in 1798 en Adam Smith in 1766 dezelfde waarschuwing al gaven, en dat het tot nu toe goed gaan geen bewijs is dat het zo blijft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Erts</td><td>Gesteente dat genoeg van een metaal bevat om winning rendabel te maken; die grens verschuift met prijs en techniek.</td></tr>
+          <tr><td class="term">Dagbouw</td><td>Winning waarbij het gesteente boven de afzetting wordt weggeschoven in plaats van ondertunneld.</td></tr>
+          <tr><td class="term">Bauxiet</td><td>De tropische verweringssteen waaruit vrijwel al het aluminium komt, gewonnen in Australië, China, Brazilië en Guinee.</td></tr>
+          <tr><td class="term">Carnalliet</td><td>Het mineraal dat in verdampingsbekkens neerslaat en het kalium voor kunstmest levert.</td></tr>
+          <tr><td class="term">NPK</td><td>De gangbare kunstmest, genoemd naar stikstof, fosfor en kalium, de drie elementen waar geen vervanging voor bestaat.</td></tr>
+          <tr><td class="term">Legering</td><td>Een mengsel van metalen dat eigenschappen krijgt die geen bestanddeel alleen heeft, en dat recycling bemoeilijkt.</td></tr>
+          <tr><td class="term">Keramisch materiaal</td><td>Materiaal waarin de atomen hun elektronen strak verdelen, waardoor het hard en broos is en niet geleidt.</td></tr>
+          <tr><td class="term">Polymeer</td><td>Een molecuul dat uit herhalingen van kleinere eenheden bestaat, zoals cellulose uit glucose.</td></tr>
+          <tr><td class="term">Vulkanisatie</td><td>Het verhitten van rubber met zwavel, waardoor zwavelbruggen tussen de koolstofketens ontstaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Røyne is natuurkundige aan de Universiteit van Oslo en het boek heeft de gebruikelijke apparatuur: een literatuurlijst per hoofdstuk, een register en een dankwoord waarin staat dat Ole Swang de scheikundige termen heeft gecontroleerd. Onder de vaste bronnen zitten de Mineral Commodity Summaries 2018 van de U.S. Geological Survey, Future Global Mineral Resources van Arndt en anderen uit 2017 en het werk van Sverdrup en Ragnarsdóttir.</p>
+      <p>Ze is open over de zwakke plek daarin: in de literatuurlijst schrijft ze dat ze soms naar blogberichten of Wikipedia verwijst in plaats van naar de oorspronkelijke publicatie. Een deel van de verwijzingen is dus tweedehands.</p>
+      <p>Bij de voorraadschattingen laat ze het meningsverschil staan. Bij koper meldt ze dat sommige studies binnen enkele decennia een dalende productie verwachten, terwijl andere onderzoekers wijzen op onbekende afzettingen op twee tot drie kilometer diepte die het winbare aanbod mogelijk vertienvoudigen. Dat is de nuchterste manier om het te brengen, en tegelijk de plek waar het boek geen antwoord geeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het betoog leunt op reservecijfers die berucht rekbaar zijn. Wat winbaar is hangt af van prijs, energiekosten en techniek, en die drie verschuiven voortdurend; voorspellingen over uitputting van metalen zijn historisch bijna altijd te somber gebleken, om precies de reden die de critici van de Club van Rome noemen. Røyne geeft dat argument weer, maar kiest zelden positie.</p>
+      <p>De voorbeelden zijn bovendien sterk Noors: Røros, Årdal, Kiruna, de Engebø-berg, de Titania-mijnen. Dat levert concrete verhalen op, maar het beeld dat eruit volgt, van rechtszaken, schadevergoedingen en reinigingsinstallaties, komt uit een rijk land met sterke handhaving. Het meeste werk waar onze telefoons en auto's op draaien gebeurt elders, onder andere voorwaarden, en dat blijft onderbelicht.</p>
+      <p>Het economische slot is het dunste deel. Waar de materiaalhoofdstukken eigen stof brengen, vat het hoofdstuk over grenzen aan groei vooral The Limits to Growth en het bekende weerwoord daarop samen. Het boek is bovendien uit 2018: de fusiedata en de recyclingcijfers zijn inmiddels achterhaald, de geologie eromheen niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Reken bij een product terug naar steen: 0,6 procent koper betekent bijna een ton gruis per zes kilo metaal.</li>
+        <li>Scheid de vraag 'is het op' van 'is het bereikbaar tegen aanvaardbare energiekosten'; alleen de tweede is zinvol.</li>
+        <li>Let bij recyclingclaims op legeringen en verf: zuiver metaal komt terug, gemengd materiaal niet.</li>
+        <li>Behandel stikstof, fosfor en kalium apart. Voor die drie bestaat geen vervanging, voor de meeste metalen wel.</li>
+        <li>Kijk bij een voorraadschatting naar het jaar en de aannames voordat je haar citeert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Noors als <i>Menneskets grunnstoffer</i>; Nederlands bij Nieuw Amsterdam (2020). Røyne is natuurkundige aan de universiteit van Oslo.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Røyne loopt de elementen langs waar onze beschaving op draait: koper in kabels, zeldzame aarden in motoren en schermen, fosfor in kunstmest, zand in beton, lithium in accu's. Per stof laat zij zien waar het vandaan komt, hoeveel ervan is, en wat er gebeurt als het schaarser wordt of als winning botst met natuur en mensenrechten.</p><p>Haar toon is die van een natuurkundige en niet van een activist: zij rekent voor wat er nodig is voor de omslag naar andere energie en welke grondstoffen dan de knel vormen. Het boek is helder en soms opsommend, en het is bruikbaar als tegenwicht tegen gesprekken over duurzaamheid waarin de materiële kant ontbreekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>grondstoffen</li><li>scheikunde</li><li>energie</li><li>schaarste</li><li>techniek</li><li>duurzaamheid</li><li>aarde</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari vertelt hetzelfde verhaal vanaf de kant van de soort in plaats van vanaf de kant van de materie; Røyne noemt hem in haar literatuurlijst.</li>
+          <li value="99"><a href="99.html">Sterrenkunde voor in bed, op het toilet of in bad</a>. Sluit aan op het openingshoofdstuk over het ontstaan van de elementen in sterren.</li>
+          <li value="98"><a href="98.html">Waar gaat het heen? En wat kan ik doen?</a>. Pakt op waar Røynes slothoofdstuk eindigt: wat te doen als de grenzen aan groei eenmaal in beeld zijn.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
