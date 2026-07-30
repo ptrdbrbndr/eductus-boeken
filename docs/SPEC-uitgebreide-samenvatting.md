@@ -50,10 +50,9 @@ gebruikt en als in de kop van de boekpagina komt te staan.
 - verhalend werk, memoir, roman: 1100 tot 1600 woorden
 - dunne boeken (onder ~150 bladzijden) en essaybundels: 900 tot 1400 woorden
 
-De keuring weigert alles onder 850 en boven 2200 woorden. De bovengrens stond
-eerst op 2000 en is verruimd toen bleek dat goed onderbouwde samenvattingen van
-dikke boeken daar net overheen gaan; inkorten kostte dan inhoud met bronnen
-erin.
+De keuring weigert alles onder 850 woorden. Boven 2200 geeft zij een signaal en
+geen afkeuring: is de tekst dicht en onderbouwd, dan mag hij lang zijn. Wat
+altijd geldt is dat er geen alinea in staat die niets toevoegt.
 
 Liever iets korter dan opgevuld. Vulling herken je hieraan: een alinea die
 niets toevoegt dat de vorige niet al zei.

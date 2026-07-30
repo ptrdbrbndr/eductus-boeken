@@ -66,8 +66,12 @@ for (const pad of process.argv.slice(2)) {
       ...(L.verder || []).map(v => v.tekst),
     ].join(" "));
     const woorden = lopend.split(/\s+/).filter(Boolean).length;
+    // Te kort is een gebrek en blokkeert. Te lang is een signaal om te kijken
+    // of er vulling in zit; is de tekst dicht en onderbouwd, dan mag hij lang
+    // zijn. Kwaliteit gaat voor de bandbreedte.
     if (woorden < 850) meld(waar, `te kort: ${woorden} woorden`);
-    if (woorden > 2200) meld(waar, `te lang: ${woorden} woorden`);
+    if (woorden > 2200) console.log(`  let op: ${waar} is ${woorden} woorden, ` +
+      `controleer op vulling voordat je het overneemt`);
 
     const alles = kaal(JSON.stringify(L));
     if (alles.includes("—")) meld(waar, "bevat een em-dash");
