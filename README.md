@@ -59,6 +59,21 @@ Richtlijn voor de omvang: concept- en methodeboeken 1200 tot 1800 woorden,
 verhalend werk 900 tot 1400, essaybundels 1000 tot 1500. De boekpagina toont het
 werkelijke woordental in de kop, dus de maat is controleerbaar.
 
+### Aangeleverd werk keuren
+
+Worden de `lang`-blokken door iemand anders geschreven, dan gaan ze eerst langs
+`node scripts/keur-lang.mjs <bestand.json>`. Dat controleert de structuur die de
+build afdwingt, plus wat de build niet ziet: het woordental (dezelfde telling
+als de boekpagina toont, 850 tot 2000), em-dashes, de frasen waar de anti-AI-lint
+op afgaat, verwijzingen naar niet-bestaande nummers en andere html-tags dan
+`<i>` en `<b>`. Faalt met exit 1, dus bruikbaar in een keten:
+
+```
+node scripts/keur-lang.mjs uit/*.json && node scripts/build.mjs
+```
+
+De schrijfopdracht zelf staat in `docs/SPEC-uitgebreide-samenvatting.md`.
+
 Let op: `Dockerfile` kopieert zowel `index.html` als de map `boek/`. Zonder die
 tweede regel komen de boekpagina's door de 404-fallback stil op de lijst uit.
 

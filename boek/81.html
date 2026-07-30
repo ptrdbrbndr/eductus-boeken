@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building a Second Brain &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het probleem van de moderne kenniswerker is volgens Forte niet dat hij te weinig weet, maar dat hij wat hij weet op het verkeerde moment tegenkomt. Een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-81">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">81 &middot; Werk en aandacht</p>
+    <h1>Building a Second Brain</h1>
+    <p class="lede">Tiago Forte, 2022</p>
+    <p class="stats">
+      <span><b>1987</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het probleem van de moderne kenniswerker is volgens Forte niet dat hij te weinig weet, maar dat hij wat hij weet op het verkeerde moment tegenkomt. Een boek, een gesprek of een onderzoeksrapport levert inzicht op dat pas maanden later van pas komt, en tegen die tijd is het weg. Zijn antwoord is een digitaal archief dat als tweede geheugen dienstdoet, en vooral een werkwijze om dat archief te vullen en weer leeg te halen: vastleggen wat je raakt, ordenen naar wat je aan het doen bent, terugbrengen tot de kern, en er iets mee maken dat je met anderen deelt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Forte opent met zijn eigen geschiedenis. Als student kreeg hij keelpijn die jarenlang aanhield en die geen arts kon verklaren. Hij vroeg zijn volledige patiëntendossier op, honderden bladzijden, scande alles in en werd naar eigen zeggen de projectleider van zijn eigen aandoening. Uit die aantekeningen kwam de richting die hem hielp: een functionele stemstoornis, geen infectie, dus geen middel dat het weghaalt maar aanpassingen in ademhaling, voeding en gewoontes.</p>
+      <p>Die persoonlijke aanleiding kleurt het hele boek. Aantekeningen zijn bij Forte geen studiehulp maar een manier om greep te krijgen op een situatie die je niet overziet. De rest van zijn loopbaan, twee jaar lesgeven in Oekraïne voor de Peace Corps en daarna analist bij een adviesbureau in San Francisco, gebruikt hij om te laten zien dat dezelfde gewoonte in heel andere omstandigheden werkt. Uit lunchgesprekken met collega's groeide een cursus, en uit die cursus dit boek.</p>
+      <h3>CODE als raamwerk</h3>
+      <p>De kern van het boek is een viertrapsmodel dat Forte CODE noemt: Capture, Organize, Distill, Express. Vastleggen, ordenen, uitkoken, uitdrukken. Hij plaatst het in een lange lijn van commonplace books, de citatenboeken die schrijvers en denkers van Leonardo da Vinci tot Octavia Butler bijhielden, en noemt ook de zettelkasten van socioloog Niklas Luhmann en de memex van Vannevar Bush als voorlopers.</p>
+      <p>Wat de vier stappen bindt is een keuze over richting. Een tweede brein is bij Forte geen archief dat volledigheid nastreeft, maar een voorraadkast voor werk dat nog moet gebeuren. Alles wat hij voorstelt is te herleiden tot die keuze, en de meeste kritiek op het boek ook.</p>
+      <h3>Vastleggen: het criterium van resonantie</h3>
+      <p>De grootste valkuil bij digitaal aantekenen is volgens Forte te veel bewaren. Hij stelt vier vragen voor om te beslissen: raakt het me, is het bruikbaar, is het persoonlijk, is het verrassend. Bij dat laatste leunt hij op de informatiedefinitie van Claude Shannon: informatie is wat je nog niet wist. Een verzameling die alleen bevestigt wat je al vond, doet niets.</p>
+      <p>Maar die vier vragen zijn bij hem het vangnet, niet de hoofdregel. De hoofdregel is dat je bewaart wat resoneert, een lichamelijk gevoel van verrast of geraakt zijn dat je niet hoeft te kunnen uitleggen. Zijn argument daarvoor is praktisch: analytisch beslissen bij elk fragment kost zoveel aandacht dat er niets overblijft voor het denkwerk daarna. Hij haalt er ook onderzoek bij, waaronder een kaartspelproef waarbij deelnemers lichamelijke stressreacties vertoonden voordat ze bewust doorhadden welk stapeltje hen geld kostte.</p>
+      <p>Om te weten wat er kan resoneren, ontleent hij aan Richard Feynman de oefening van de twaalf lievelingsproblemen: houd een stuk of twaalf open vragen in je hoofd en toets alles wat je tegenkomt daaraan. Feynman beschreef dat zelf in een interview als de reden dat anderen hem voor een genie hielden.</p>
+      <h3>Ordenen: PARA</h3>
+      <p>Het ordeningssysteem heet PARA: Projects, Areas, Resources, Archives. Projecten zijn wat je nu afmaakt, gebieden zijn verantwoordelijkheden zonder einddatum, hulpbronnen zijn onderwerpen die je interesseren, en het archief is koude opslag voor wat is afgelopen.</p>
+      <p>De ingreep zit in het sorteercriterium. PARA ordent niet naar onderwerp maar naar bruikbaarheid, en de enige vraag bij een nieuwe notitie is in welk project dit van pas komt. Daarmee vervalt de eindeloze mappenboom van onderwerpen en subonderwerpen. Forte laat zijn eigen structuur zien: drie niveaus, de vier hoofdcategorieën, de projectmap en de notitie zelf. Hetzelfde schema gebruikt hij in zijn notitie-app, zijn documentenmap en zijn cloudopslag.</p>
+      <h3>Uitkoken: progressieve samenvatting</h3>
+      <p>De derde stap opent met Francis Ford Coppola, die The Godfather voorbereidde met een prompt book: hij las de roman van Mario Puzo en noteerde eerste indrukken, brak daarna elke scène af naar samenvatting, historische context, beeldtoon, kernbedoeling en valkuilen. In de kantlijn zette hij aanwijzingen als Hitchcock of bevroren tijd, en hoe meer inkt op een bladzijde, hoe belangrijker de scène. Coppola zei achteraf dat hij het scenario eigenlijk niet nodig had.</p>
+      <p>Fortes eigen techniek heet progressieve samenvatting en werkt in lagen. Laag één zijn de fragmenten die je overneemt, laag twee de vetgedrukte hoofdpunten daarbinnen, laag drie de gemarkeerde beste zinnen, laag vier een eigen samenvatting in eigen woorden bovenaan. Elke laag maak je pas als je de notitie tóch weer opent, dus alleen voor materiaal dat zich bewijst.</p>
+      <p>Waar hij nadrukkelijk voor waarschuwt is uitkoken als doel op zich. Lagen aanbrengen bij elke notitie die binnenkomt levert een prachtige verzameling op die niemand gebruikt. De regel is dat je een laag toevoegt op het moment dat een notitie zich aandient in echt werk, zodat de moeite meebeweegt met de opbrengst.</p>
+      <h3>Uitdrukken: tussenpakketten en de creatieve slinger</h3>
+      <p>De vierde stap is het punt waar het boek zijn belofte moet waarmaken. Forte introduceert tussenpakketten, de losse bouwstenen van je werk: uitgekookte notities, uitgeknipt materiaal dat een vorig project niet haalde, werk in uitvoering, opgeleverde stukken en documenten van anderen. Wie in zulke blokken werkt kan eerder feedback vragen, hoeft minder vanaf nul te beginnen en kan na verloop van tijd hele projecten samenstellen uit wat er al ligt.</p>
+      <p>Daaronder legt hij het patroon van divergentie en convergentie. Eerst verzamelen en verbreden, daarna kiezen en sluiten. Voor de omslag naar convergentie geeft hij drie technieken. Een archipel van ideeën is een document dat al gevuld is met de citaten en punten die je wilt gebruiken, zodat er geen leeg scherm meer is en alleen de bruggen tussen de eilanden nog gelegd hoeven worden. De Hemingway-brug is stoppen met werken op het moment dat je weet wat er hierna komt, en dat opschrijven. Scope afschalen komt uit de softwarebouw: lever iets kleiners en concreets op in plaats van de oplevering uit te stellen, dus een reeks artikelen in plaats van een boek, of een bericht in plaats van een artikel.</p>
+      <h3>Onderhoud en slot</h3>
+      <p>Het laatste deel gaat over volhouden. Forte leent van koks het begrip mise en place: opruimen gebeurt tijdens het werk, niet in een apart weekend dat toch nooit komt. Hij noemt drie soorten gewoontes. Checklists bij het starten en afronden van een project, zodat oud werk terugkomt in nieuw werk. Een wekelijkse en maandelijkse terugblik, ontleend aan de Weekly Review van David Allen. En opmerkgewoontes: de kleine ingrepen onderweg, een betere titel, een notitie die naar een ander project verhuist.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Second Brain</td><td>Een persoonlijk digitaal archief van notities, fragmenten en bestanden dat dienstdoet als extern geheugen en werkomgeving.</td></tr>
+          <tr><td class="term">CODE</td><td>Het viertrapsmodel van het boek: Capture, Organize, Distill, Express.</td></tr>
+          <tr><td class="term">PARA</td><td>Ordening in vier categorieën, Projects, Areas, Resources en Archives, gesorteerd naar bruikbaarheid in plaats van naar onderwerp.</td></tr>
+          <tr><td class="term">Resonantie</td><td>Het gevoel van geraakt of verrast zijn dat Forte als hoofdcriterium gebruikt om iets vast te leggen.</td></tr>
+          <tr><td class="term">Twaalf lievelingsproblemen</td><td>Een lijst van open vragen die je permanent in gedachten houdt en waaraan je nieuw materiaal toetst, ontleend aan Richard Feynman.</td></tr>
+          <tr><td class="term">Progressieve samenvatting</td><td>Een notitie in opeenvolgende lagen uitkoken, van fragment naar vet naar markering naar eigen samenvatting, telkens pas bij hergebruik.</td></tr>
+          <tr><td class="term">Tussenpakket</td><td>Een afgerond stukje werk in uitvoering dat op zichzelf herbruikbaar is in latere projecten.</td></tr>
+          <tr><td class="term">Archipel van ideeën</td><td>Een opzet die al gevuld is met gekozen citaten en punten, zodat schrijven neerkomt op het verbinden van bestaande eilanden.</td></tr>
+          <tr><td class="term">Hemingway-brug</td><td>Een werksessie beëindigen op het moment dat je weet wat er hierna komt en dat opschrijven voor je volgende sessie.</td></tr>
+          <tr><td class="term">Scope afschalen</td><td>Iets kleiners en concreets opleveren in plaats van de oplevering uitstellen tot het volledige plan af is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal. Ten eerste Fortes eigen geschiedenis, van zijn keelaandoening tot zijn werk als adviseur. Ten tweede historische voorbeelden van makers die met aantekeningen werkten: het prompt book van Coppola, de dozen van choreografe Twyla Tharp, de notitieboeken van Octavia Butler, de aantekeningen van Taylor Swift. Ten derde de ervaring van de duizenden cursisten die hij naar eigen zeggen heeft opgeleid.</p>
+      <p>Van die drie is alleen het tweede type verifieerbaar, en die voorbeelden bewijzen iets anders dan Forte suggereert. Coppola en Butler laten zien dat serieuze makers materiaal verzamelen en herzien. Ze laten niet zien dat CODE of PARA daarbij helpt, want geen van hen gebruikte iets wat daarop lijkt. De verzamelde onderzoeksverwijzingen, zoals de kaartspelproef over intuïtie of het werk van Nancy Andreasen over associatievermogen bij creatieve mensen, ondersteunen losse deelbeweringen en niet de werkzaamheid van het systeem.</p>
+      <p>Er is geen enkel onderzoek naar het systeem zelf. Er is geen vergelijking met mensen die anders aantekenen of helemaal niet, geen meting van opbrengst, geen cijfer over hoeveel cursisten het na een jaar nog gebruiken. Wie het boek leest als een beschrijving van wat bij Forte werkt en bij een deel van zijn cursisten, krijgt waar voor zijn geld. Wie het leest als bewezen methode, zoals de ondertitel belooft, leest meer dan er staat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek de kosten van zijn eigen systeem niet optelt. Vastleggen, verplaatsen tussen PARA-mappen, lagen aanbrengen, wekelijks terugblikken: dat is werk, en het is werk dat verdacht veel lijkt op wat het zou moeten vervangen. Forte erkent het risico van te veel verzamelen, maar zijn oplossing, bewaar wat resoneert, is een filter dat bij een nieuwsgierig mens vrijwel alles doorlaat. In de praktijk zien veel lezers hun tweede brein een verzameling worden die ze nooit meer raadplegen, en dat is precies de toestand waarvan het boek beloofde te bevrijden.</p>
+      <p>Daarnaast is het criterium van resonantie zwak onderbouwd voor de rol die het krijgt. Dat intuïtie soms sneller is dan bewuste redenering, zegt weinig over de vraag of een gevoel van geraakt zijn een goede voorspeller is van latere bruikbaarheid. Het gaat hier bovendien om verwijzingen naar experimenten die in de bredere psychologie zijn bekritiseerd en die Forte overneemt zonder voorbehoud.</p>
+      <p>Ten slotte is er een spanning in het boek die niet wordt opgelost. Forte belooft zowel minder overbelasting als meer creatieve opbrengst, en die twee vragen om tegengestelde bewegingen: minder binnenhalen tegenover meer vastleggen. Het laatste hoofdstuk, over de verschuiving van schaarste naar overvloed, kiest de kant van meer, in een toon die eerder van een cursusverkoper is dan van iemand die zijn eigen aanpak bevraagt. Wie vooral wil ophouden met verzamelen, vindt in <i>Four Thousand Weeks</i> een strenger antwoord.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin met alleen projectmappen. Maak per project waaraan je nu werkt één map en laat gebieden, hulpbronnen en archief voorlopig leeg.</li>
+        <li>Scheid vangen en ordenen. Laat alles in één postvak binnenkomen en beslis pas bij de wekelijkse terugblik waar het hoort.</li>
+        <li>Koken kost tijd, dus koken doe je alleen bij hergebruik. Breng pas een laag vet of markering aan op het moment dat je een notitie tóch weer opent.</li>
+        <li>Schrijf aan het eind van een werksessie drie regels op over wat er hierna komt, voordat je alles afsluit.</li>
+        <li>Formuleer een handvol open vragen die je bezighouden en gebruik die als filter bij het lezen, in plaats van te bewaren wat interessant lijkt.</li>
+        <li>Toets na twee maanden hoeveel notities je daadwerkelijk hebt teruggezocht. Ligt dat aantal bij nul, dan verzamel je en werk je niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Atria Books (2022); de ondertitel belooft een beproefde methode om het digitale leven te ordenen. Nederlands als <i>Je tweede brein</i> bij Maven Publishing (2022).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Forte bepleit een aantekeningenstelsel buiten het hoofd, waarin alles wat de moeite waard is wordt vastgelegd en zo geordend dat het terugkomt op het moment dat het nodig is. Zijn werkwijze heeft vier stappen: vastleggen, ordenen, samenvatten en delen, en zijn ordening kent vier bakken, te weten projecten, verantwoordelijkheden, bronnen en archief.</p><p>De nadruk ligt op bruikbaarheid boven volledigheid: aantekeningen zijn er om werk af te leveren en niet om een verzameling op te bouwen. Dat onderscheidt het van de systemen waarin het ordenen zelf het werk wordt. Het boek herhaalt zich en de belofte in de ondertitel is groter dan wat er wordt geleverd; wie een lichte werkwijze zoekt om aantekeningen te maken die hij later terugvindt, heeft aan de vier stappen genoeg.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>aantekeningen</li><li>kennis</li><li>methode</li><li>digitaal</li><li>projecten</li><li>schrijven</li><li>para</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="70"><a href="../index.html#boek-70">Deep Work</a>. Newport gaat over de aandacht zelf, waar Forte over de opslag gaat. De twee boeken vullen elkaar aan en spreken elkaar op één punt tegen: Newport wantrouwt het gemak waarmee informatie binnenkomt.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear levert de gewoonteleer die Forte nodig heeft maar zelf niet uitwerkt. De drie onderhoudsgewoontes uit hoofdstuk 9 staan of vallen daarmee.</li>
+          <li value="71"><a href="../index.html#boek-71">Four Thousand Weeks</a>. Burkeman keert de belofte om: het probleem is niet dat je te weinig van je aantekeningen gebruikt, maar dat je nooit toekomt aan het meeste wat je opslaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+</body>
+</html>

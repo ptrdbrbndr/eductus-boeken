@@ -618,6 +618,188 @@ onvermijdelijk maakt. Houd een baan die de rekeningen betaalt. Werk met je
 handen en niet alleen op een scherm. Het boek is in een uur uit en is bedoeld
 om terug te pakken.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Kleon zet één gedachte voorop: originaliteit in de strikte
+zin bestaat niet, en wie wacht tot hij iets volstrekt eigens heeft komt nooit
+aan het werk toe. Alles wat een maker voortbrengt is samengesteld uit wat hij
+eerder heeft opgenomen. Ontlenen gebeurt hoe dan ook, dus de keuze zit in wat
+je uitkiest om te ontlenen, hoe goed je het bestudeert en wat je ermee doet.
+Daaruit volgt een werkwijze in plaats van een houding: kies je invloeden
+bewust, verzamel ze, zet ze naast elkaar tot er iets van jezelf ontstaat, en
+laat het werk zien terwijl het nog groeit.
+
+#### De gang van het boek
+
+**Een lezing die een boekje werd**
+
+*Steal Like an Artist* begon als een praatje dat Kleon voor studenten hield en
+daarna op zijn blog zette, waar het veel gelezen werd. Het boek dat eruit
+voortkwam is dun, ruim gezet en volgestopt met tekeningen, lijstjes en met de
+hand geschreven pagina's. Het is in een uur uit te lezen. De ondertitel, *10
+Things Nobody Told You About Being Creative*, geeft de vorm weer: tien korte
+stukken die elk om één stelling heen zijn gebouwd, zonder verhandeling en
+zonder notenapparaat.
+
+Kleon schrijft vanuit zijn eigen praktijk. Hij maakt blackout-gedichten,
+waarbij hij woorden uit een krantenpagina wegstreept tot er een gedicht
+overblijft. Die werkwijze is een letterlijke uitvoering van zijn stelling: het
+materiaal is van iemand anders, de selectie is van hem.
+
+**Niets is origineel**
+
+Het eerste en langste hoofdstuk verdedigt de titel. Kleon leest het woord
+stelen niet als plagiaat maar als bestuderen: een idee uit elkaar halen,
+begrijpen waar het vandaan komt en het opnieuw samenstellen. Hij spreekt van
+een stamboom van ideeën. Kies drie of vier makers die je bewondert, zoek uit
+wie hun leraren waren, en klim zo verder terug. Wie dat volhoudt komt terecht
+bij bronnen die niemand anders in dezelfde combinatie leest, en die combinatie
+is het dichtste wat er bij originaliteit in de buurt komt.
+
+Hij haalt hierbij het essay *The Ecstasy of Influence* van Jonathan Lethem
+aan, dat zelf uit gestolen zinnen is opgebouwd, en de aan Picasso
+toegeschreven uitspraak dat goede kunstenaars kopiëren en grote kunstenaars
+stelen. Dat de herkomst van die uitspraak zelf onduidelijk is, past bij het
+onderwerp en Kleon speelt daarmee.
+
+**Beginnen voordat je weet wie je bent**
+
+De tweede stelling keert de gebruikelijke volgorde om. Je hoeft niet eerst te
+weten wie je bent of wat je te zeggen hebt. Doe alsof, ga aan de slag, en de
+eigen stem komt uit het werk zelf tevoorschijn. Stijl ontstaat volgens Kleon
+uit mislukte navolging: je probeert iemand na te doen, dat lukt niet helemaal,
+en het verschil tussen het voorbeeld en jouw versie is precies wat van jou is.
+
+Daarbij hoort het advies om het boek te schrijven dat je zelf wil lezen, of de
+plaat te maken die je mist. Dat is een praktische toets voor onderwerpkeuze en
+het bespaart de vraag wat het publiek wil. Kleon voegt eraan toe dat je jezelf
+moet scholen, ook naast of na een opleiding: lezen, kopiëren, bijhouden wat je
+opvalt.
+
+**Handen, zijprojecten en verveling**
+
+Twee hoofdstukken gaan over de fysieke kant van maken. Kleon adviseert twee
+werkplekken, een analoge en een digitale. Op de analoge plek staan papier,
+scharen en pennen, en gebeurt het rommelige begin; op de digitale plek wordt
+het werk afgemaakt en verspreid. De reden die hij geeft is dat de computer te
+vroeg netjes maakt wat nog niet af mag zijn.
+
+Zijprojecten en hobby's krijgen een eigen hoofdstuk. Het werk dat je erbij
+doet zonder dat er iets van afhangt, blijkt achteraf vaak de bron van het werk
+dat er wel toe doet. Hij pleit ook voor tijd waarin niets nuttigs gebeurt,
+omdat verveling en herhaald handwerk ruimte laten voor invallen.
+
+Bij deze werkwijze horen twee schriften. In het ene verzamelt Kleon wat hem
+opvalt bij anderen: citaten, uitgeknipte beelden, zinnen die hij wil
+onthouden. Het andere is een logboek waarin hij per dag noteert wat hij deed
+en wie hij sprak, zonder er iets van te vinden. Het eerste levert materiaal,
+het tweede geheugen. Beide worden pas jaren later bruikbaar, wat volgens hem
+de reden is dat de meeste mensen ermee ophouden.
+
+**Werk laten zien**
+
+Het zesde hoofdstuk bevat wat Kleon zelf het geheim noemt: maak goed werk en
+deel het met mensen. Het delen is bij hem onderdeel van het maken en geen
+marketingstap achteraf. Zet je invloeden erbij, noem waar iets vandaan komt,
+en verwijs door naar het werk dat je zelf goed vindt. Wie zichtbaar is met wat
+hij aan het uitzoeken is, trekt de mensen aan die daar ook mee bezig zijn.
+
+Dat loopt over in het hoofdstuk over plaats. Met een verbinding is de fysieke
+standplaats minder bepalend geworden voor wie je bereikt, al blijft Kleon
+aanraden om ergens heen te gaan waar je je ongemakkelijk voelt, omdat afstand
+tot het bekende het werk verandert. Dit thema werkte hij later uit in *Show
+Your Work!*.
+
+**Aardig zijn, saai leven, weglaten**
+
+De laatste drie stellingen gaan over gedrag. Wees aardig, want de wereld van
+makers is klein en je komt iedereen opnieuw tegen; ga om met mensen die beter
+zijn dan jij en stel je op als leerling. Wees saai, omdat er geld, slaap, een
+agenda en een rustig huishouden nodig zijn om jaren achtereen te kunnen
+werken. Kleon zet zich hier af tegen het beeld van de kunstenaar die zichzelf
+sloopt.
+
+Het slot luidt dat creativiteit weglaten is. Beperkingen zijn geen hindernis
+die je moet wegwerken maar het middel om iets af te krijgen: kies een klein
+formaat, een korte deadline, één kleur. De lege ruimte dwingt tot keuzes die
+anders uitblijven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| steal like an artist | Ontlenen als studie: een werk uit elkaar halen, de herkomst uitzoeken en de onderdelen opnieuw samenstellen, in tegenstelling tot overschrijven. |
+| stamboom van ideeën | Het terugvolgen van je eigen invloeden naar hun invloeden, tot je bij bronnen komt die niemand anders in dezelfde combinatie leest. |
+| de maker als verzamelaar | Het bewust bijhouden van wat je aanspreekt, omdat de verzameling later het materiaal van je eigen werk vormt. |
+| jezelf scholen | Doorleren buiten elke opleiding om, door te lezen, te kopiëren en de bronnen van bronnen op te zoeken. |
+| analoog en digitaal bureau | Twee gescheiden werkplekken, één met papier en schaar voor het rommelige begin en één met een scherm om af te maken en te verspreiden. |
+| logboek | Een dagelijkse aantekening van wat je deed, wie je sprak en wat je opviel, bedoeld als geheugensteun voor later werk. |
+| blackout-gedicht | Kleons eigen vorm waarbij hij woorden uit een gedrukte krantenpagina wegstreept tot er een gedicht overblijft. |
+| zijproject | Werk dat je erbij doet zonder dat er iets van afhangt, en dat volgens Kleon vaak de bron blijkt van het werk dat wel telt. |
+| creativiteit is weglaten | Het idee dat beperkingen en een kleiner speelveld het werk mogelijk maken in plaats van het te belemmeren. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan en heeft geen bronnenlijst. Wat er staat
+rust op citaten van schrijvers, muzikanten en beeldend kunstenaars, op
+anekdotes uit de kunstgeschiedenis en op Kleons eigen ervaring als maker van
+blackout-gedichten en als blogger. Het aangehaalde essay van Jonathan Lethem
+is een gedocumenteerde bron; de meeste andere uitspraken staan zonder
+vindplaats in de tekst.
+
+De sterkste steun voor de hoofdstelling is niet empirisch maar historisch: de
+kunstgeschiedenis staat vol met navolging, herwerking en citaat, en dat is
+buiten dit boek om goed gedocumenteerd. Wie het idee wil toetsen, kan dat aan
+de biografie van vrijwel elke maker doen. De praktische adviezen over
+werkplek, zijprojecten en delen zijn niet getoetst en worden ook niet als
+getoetst gepresenteerd.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar is dat de titel de moeilijkste vraag openlaat. Waar de
+grens ligt tussen bestuderen en overnemen behandelt Kleon in een paar zinnen.
+Over auteursrecht, over verschil in machtspositie tussen wie ontleent en wie
+wordt ontleend, en over het geval waarin een gevestigde maker put uit werk van
+iemand zonder podium, staat vrijwel niets. Juist daar wordt het woord stelen
+ongemakkelijk.
+
+De adviezen zijn afgeleid van geslaagde loopbanen en delen daarmee het
+probleem van elk voorbeeld dat achteraf wordt gekozen: het is niet zichtbaar
+hoeveel mensen hetzelfde deden zonder resultaat. Verzamelen, delen en aardig
+zijn zijn geen zeldzaam gedrag.
+
+De omvang is een reëel punt. Er staat weinig in dat een lezer die al maakt
+niet kent, en het boek werkt geen enkele stelling uit tot iets dat je een
+tweede keer moet lezen. Wie de tien koppen kent, heeft een groot deel van het
+boek. Daar komt bij dat het onderwerp delen in *Show Your Work!* vrijwel
+ongewijzigd terugkeert.
+
+#### Wat er concreet mee te doen is
+
+- Kies drie makers wier werk je goed vindt en zoek per maker uit bij wie zij
+in de leer zijn geweest; lees vervolgens die bronnen.
+- Houd één schrift bij waarin alleen citaten, beelden en zinnen van anderen
+komen, gescheiden van het schrift met eigen werk.
+- Maak een tweede werkplek zonder scherm, met papier, schaar en pen, en begin
+daar aan nieuw werk.
+- Beschrijf in één zin het boek, het programma of de plaat die je zelf zou
+willen tegenkomen en niet kunt vinden; gebruik die zin als opdracht.
+- Leg bij wat je publiceert vast waar het vandaan komt en verwijs naar het
+werk waar je uit hebt geput.
+- Zet één beperking op je volgende stuk werk vast, bijvoorbeeld een formaat,
+een termijn of één materiaal, en verander die onderweg niet.
+
+#### Wat je hierna leest
+
+- 13. The Practice. Seth Godin verdedigt in *The Practice* hetzelfde
+uitgangspunt met meer nadruk op ritme en op het uitgeven van werk.
+- 17. The Creative Act. Rick Rubin behandelt in *The Creative Act* de vraag
+naar bron en invloed uitvoeriger en in een heel andere toon.
+- 12. The War of Art. Steven Pressfield richt zich in *The War of Art* op wat
+het beginnen tegenhoudt, waar Kleon vooral zegt waarmee je begint.
+- 18. On Writing. Stephen King laat in *On Writing* zien hoe navolging en veel
+lezen bij één maker uitpakken over een hele loopbaan.
+
 ## 12. The War of Art
 
 Steven Pressfield, 2002. Ondertitel *Break Through the Blocks and Win Your
@@ -642,6 +824,198 @@ en dat is het deel dat lezers verdeelt. Pressfield schreef het boek na jaren
 van mislukkingen en het is daarmee ook een verslag van iemand die zijn eigen
 methode nodig had.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Wat mensen ervan weerhoudt het werk te doen dat ze willen
+doen, is volgens Pressfield geen gebrek aan tijd, talent of gelegenheid, maar
+één kracht die hij Resistance noemt: een innerlijke tegenwerking die sterker
+wordt naarmate het werk belangrijker voor je is. Zijn stelling is dat die
+kracht niet te overwinnen valt met inzicht of motivatie, alleen met een
+beroepshouding: elke dag verschijnen, op tijd, ongeacht hoe je je voelt, zoals
+een loodgieter dat doet.
+
+#### De gang van het boek
+
+**Boek één: Resistance benoemd**
+
+Het eerste en langste deel bestaat uit korte stukken van soms een halve
+bladzijde, waarin Pressfield één kracht van alle kanten beschrijft. Resistance
+is bij hem geen stemming en geen omstandigheid, maar iets met eigenschappen:
+onzichtbaar, alleen te voelen; onpersoonlijk, het richt zich niet tegen jou
+maar tegen elk werk; onvermoeibaar; en het liegt.
+
+De belangrijkste eigenschap is de richtingsaanwijzer. Resistance is het
+sterkst rond het werk dat het meest voor je betekent. Waar je de meeste
+weerzin voelt, ligt volgens Pressfield het werk dat je moet doen. Dat maakt
+van de tegenwerking een kompas.
+
+Hij somt op waar Resistance zich in verkleedt: uitstel, seks, drank en
+middelen, drama en conflicten in de relatiesfeer, gezondheidsklachten,
+slachtofferschap, en vooral rationalisatie. Rationalisatie noemt hij de
+woordvoerder van Resistance, omdat die niet zegt dat je bang bent maar redenen
+aandraagt waarom vandaag niet de dag is. Ook onvoltooid geluk elders in je
+leven en de neiging om anderen tegen te houden schaart hij eronder.
+
+**Boek twee: de professional tegenover de amateur**
+
+Het tweede deel is de kern van het boek en tegelijk het kortste te vatten.
+Pressfield zet de amateur tegenover de professional, waarbij professional
+niets met betaling te maken heeft en alles met houding. De amateur wacht op
+inspiratie, werkt als het uitkomt, vereenzelvigt zich met het werk en gaat
+kapot aan afwijzing. De professional komt opdagen, elke dag, ook als hij niet
+in de stemming is, blijft de hele dag, doet het voor geld in de zin dat hij
+het serieus neemt, en accepteert dat het werk niet hijzelf is.
+
+Zijn beeld hiervoor is het gewone beroep. Een tandarts of een monteur wacht
+niet op de muze. Kunstenaars hebben zich volgens Pressfield een
+uitzonderingspositie aangepraat die hen precies dat kost wat ze willen
+bereiken. Hij put daarbij uit zijn eigen jaren van mislukking, waarin hij een
+roman niet afkreeg en pas veel later, na het intypen van het woord einde, iets
+veranderde.
+
+Bij die houding hoort een reeks nuchtere gewoontes: gewend raken aan angst
+zonder te wachten tot die weg is, kritiek accepteren zonder haar persoonlijk
+te maken, hulp zoeken, en volharden na tegenslag. Zelftwijfel behandelt hij
+als een goed teken, omdat wie zich nergens onzeker over voelt zelden iets
+waagt.
+
+Daarnaast plaatst hij territorium tegenover hiërarchie. Wie in een hiërarchie
+leeft, meet zijn werk af aan de plaats die het hem geeft ten opzichte van
+anderen, en dat maakt het werk van de goedkeuring van anderen afhankelijk. Wie
+een territorium heeft, iets waar hij naartoe gaat om zichzelf te voeden zoals
+een hardloper naar de baan, houdt de opbrengst in eigen hand.
+
+**Wat de professional wel en niet doet**
+
+Pressfield werkt de beroepshouding uit in een reeks losse regels die hij niet
+onderbouwt maar als vanzelfsprekend neerzet. De professional bereidt zich
+voor. Hij wacht niet op de juiste omstandigheden, want die komen niet. Hij
+werkt de hele dag door en niet alleen op de goede uren. Hij vraagt niet om
+medelijden en pocht niet over hoe zwaar het is. Hij houdt de kaarten tegen de
+borst en praat niet over wat hij aan het maken is voordat het af is.
+
+Twee van die regels vallen op omdat ze tegen de gangbare raad ingaan. De
+eerste is dat de professional zich niet met zijn werk vereenzelvigt, wat
+betekent dat een afwijzing hem niet raakt in wie hij is. De tweede is dat hij
+zichzelf niet vertroetelt en geen bijzondere behandeling verwacht omdat hij
+kunstenaar is. Bij Pressfield is de kunstenaar juist iemand met een gewoon vak
+en gewone werktijden, en de romantische uitzonderingspositie is een van de
+vermommingen van Resistance.
+
+**Boek drie: muzen, engelen en het hogere**
+
+Het derde deel breekt met de toon van de eerste twee. Pressfield betoogt dat
+er hulp is die van buiten komt zodra je je aan het werk zet, en hij neemt de
+muze daarbij letterlijk. Hij citeert de aanroeping van de muze uit de opening
+van de Odyssee en beveelt aan die aanroeping serieus te doen voor het werk
+begint.
+
+Daarnaast leent hij van de Bhagavad Gita het idee dat ieder mens een eigen
+taak heeft en dat je recht hebt op je handelen maar niet op de vruchten ervan.
+Naast Resistance stelt hij engelen, krachten die de andere kant op werken en
+die zich pas laten zien als je bent begonnen.
+
+Dit deel is waar veel lezers afhaken. Pressfield presenteert het niet als
+metafoor, en levert er niets voor aan dan zijn eigen ervaring.
+
+**Vorm en werking**
+
+Het boek telt ongeveer honderdvijfenzestig bladzijden en bestaat uit
+tientallen zeer korte stukken met een kop erboven. Er staat geen onderzoek in,
+geen literatuurlijst en vrijwel geen argument in de gewone zin. De vorm is die
+van een handboek voor de soldaat, wat past bij Pressfields achtergrond als
+marinier en bij het woordgebruik van strijd, vijand en veldslag dat het hele
+boek doortrekt.
+
+Wat het boek doet, doet het door benoeming. Lezers melden vooral het effect
+dat een vage onwil een naam krijgt en daardoor hanteerbaar wordt. Dat effect
+is echt, maar het is de werking van een goed gekozen woord en niet van een
+uitgewerkte theorie. De Nederlandse uitgave verscheen in 2021 bij Kosmos als
+*Het strijdplan om (creatieve) doelen te bereiken*.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Resistance | De innerlijke kracht die je afhoudt van het werk dat er voor jou toe doet, bij Pressfield beschreven als iets met eigen eigenschappen en een eigen wil. |
+| Rationalisatie | De woordvoerder van Resistance, die geen angst toegeeft maar redenen aandraagt waarom vandaag niet het moment is. |
+| De amateur | Wie op inspiratie wacht, werkt als het uitkomt en zich met het werk vereenzelvigt. |
+| De professional | Wie elke dag verschijnt, blijft, kritiek verdraagt en het werk als vak behandelt, los van betaling. |
+| Turning pro | Het besluit om van houding te wisselen, dat volgens Pressfield in één moment valt en daarna elke dag opnieuw waargemaakt moet worden. |
+| Territorium | Een bezigheid die je energie geeft ongeacht wat anderen ervan vinden, tegenover de hiërarchie waarin je positie de maat is. |
+| Hiërarchie | De ordening waarin je je werk afmeet aan je plaats ten opzichte van anderen, en die volgens Pressfield het werk zelf ondermijnt. |
+| De muze | De hulp van buiten die Pressfield letterlijk neemt en aanroept, naar het voorbeeld van de opening van de Odyssee. |
+| Engelen | De krachten die tegenover Resistance staan en die zich volgens Pressfield pas laten zien nadat je aan het werk bent gegaan. |
+
+#### Waar het argument op rust
+
+Er is geen bewijs in dit boek, en het pretendeert dat ook niet. Pressfield
+voert geen onderzoek aan, noemt geen studies en verwijst nauwelijks naar
+andere auteurs. Wat er staat rust op zijn eigen jaren van mislukt
+schrijverschap en op wat hij bij anderen meende te zien.
+
+Dat is bij het eerste en tweede deel minder bezwaarlijk dan het klinkt, omdat
+de beweringen daar bescheiden zijn en met de eigen ervaring van de lezer te
+toetsen: uitstel voelt zoals hij het beschrijft, en dagelijks verschijnen
+levert bij vrijwel iedereen meer op dan wachten op de juiste stemming. Die
+laatste stelling wordt bovendien ondersteund door onderzoek buiten dit boek,
+waaronder werk over vaste werktijden bij academische schrijvers.
+
+Bij het derde deel valt er niets meer te toetsen. Dat muzen bestaan en dat
+engelen je helpen zodra je begint, zijn beweringen over de wereld waarvoor
+Pressfield alleen zijn eigen gevoel aandraagt. Wie de eerste twee delen aannam
+op grond van herkenning, wordt hier gevraagd iets van heel andere orde te
+geloven.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat Resistance onweerlegbaar is. Alles wat je van je
+werk afhoudt telt als bewijs voor het bestaan ervan: uitstel, ziekte,
+relatieproblemen, geldgebrek, twijfel of het werk wel deugt. Een verklaring
+die door geen enkele waarneming weersproken kan worden, verklaart niets. In de
+praktijk betekent het dat een terechte reden om te stoppen, bijvoorbeeld dat
+een project werkelijk niet goed is, binnen dit kader niet te onderscheiden
+valt van laf wegkijken.
+
+Daaruit volgt een tweede bezwaar. Het boek legt de oorzaak volledig binnen het
+individu en zegt niets over omstandigheden. Wie zorgtaken heeft, twee banen
+draait of chronisch ziek is, krijgt te horen dat hij zich verzet tegen zijn
+roeping. De militaire toon, waarin niet werken lafheid is, kan bij wie het al
+zwaar heeft schaamte toevoegen aan de last. Andere boeken over creatief werk,
+zoals dat van Seth Godin, brengen dezelfde nadruk op verschijnen zonder die
+morele lading.
+
+Ten derde valt het boek in tweeën uiteen. De eerste twee delen bevatten
+praktische stelregels die zich laten navolgen. Het derde deel vraagt
+instemming met een wereldbeeld waar de rest van het boek niet op voorbereidt,
+en dat is voor een aanzienlijk deel van de lezers het punt waarop het gezag
+van de eerdere hoofdstukken alsnog wegvalt.
+
+#### Wat er concreet mee te doen is
+
+- Kies één vast tijdvak per dag en houd dat aan ongeacht je stemming. De
+stemming volgt het werk, niet andersom.
+- Gebruik weerzin als aanwijzing. Waar de tegenzin het grootst is, ligt
+volgens Pressfield het werk dat ertoe doet.
+- Scheid het werk van jezelf. Kritiek gaat over wat er ligt, niet over wie het
+maakte.
+- Herken redenen om vandaag niet te beginnen als wat ze meestal zijn en
+schrijf ze op in plaats van ze te volgen.
+- Meet je dag aan verschijnen en aan tijd, niet aan opbrengst. Opbrengst is
+niet elke dag te sturen.
+
+#### Wat je hierna leest
+
+- 13. The Practice. Godin behandelt hetzelfde onderwerp, dagelijks maken
+zonder op inspiratie te wachten, in een toon zonder strijd en zonder schuld.
+- 14. The Artist's Way. Cameron zoekt de blokkade in hetzelfde soort
+innerlijke tegenwerking, maar behandelt die met oefeningen in plaats van met
+discipline.
+- 18. On Writing. King geeft dezelfde beroepshouding als beschrijving van zijn
+eigen werkdagen, met concrete aantallen en zonder verheven kader.
+- 11. Steal Like an Artist. Kleon werkt de andere helft uit: waar Pressfield
+over verschijnen gaat, gaat Kleon over waar het materiaal vandaan komt.
+
 ## 13. The Practice
 
 Seth Godin, 2020. Ondertitel *Shipping Creative Work* (Portfolio/Penguin,
@@ -665,6 +1039,180 @@ marketingachtergrond komt een tweede lijn: maak voor iemand in het bijzonder,
 niet voor allemaal, want werk dat niemand kan afwijzen raakt ook niemand. Wie
 Pressfield (12) heeft gelezen ziet hier hetzelfde probleem zonder de mystiek.
 
+### Uitgebreide samenvatting
+
+**De stelling.** De these van *The Practice* is dat creatief werk een gewoonte
+is die je kiest en volhoudt, en dat de uitkomst van dat werk geen bruikbaar
+oordeel geeft over de gewoonte zelf. Godin verplaatst het oordeel naar wat de
+maker in de hand heeft: verschijnen, werk maken voor een bepaald publiek, het
+afleveren op een afgesproken moment, en dat opnieuw doen. Wie zijn gemoedsrust
+laat afhangen van bijval, verkoopcijfers of het toeval van de verspreiding,
+raakt volgens hem op den duur het vermogen kwijt om nog iets te maken. Daar
+valt iets tegenover te zetten, want het boek vraagt de maker om juist het
+signaal te negeren waaruit blijkt of het werk ergens aankomt.
+
+#### De gang van het boek
+
+**Vorm en toon**
+
+Het boek bestaat uit 219 genummerde stukken, meestal een halve tot anderhalve
+bladzijde lang. Er is geen doorlopend betoog met opbouwende bewijsvoering.
+Godin komt op dezelfde handvol gedachten telkens terug vanuit een andere hoek,
+in de hoop dat er ergens een blijft hangen. Wie een boek zoekt dat een
+stelling stap voor stap onderbouwt, leest hier het verkeerde. Wie het leest
+als een reeks aansporingen om aan het werk te blijven, krijgt waar het voor
+bedoeld is.
+
+De ondertitel *Shipping Creative Work* geeft het onderwerp beter weer dan de
+titel. Het gaat over het afleveren: het moment waarop het werk de maker
+verlaat en zichtbaar wordt voor anderen. Alles wat daarvoor gebeurt noemt
+Godin voorbereiding, alles wat daarna gebeurt noemt hij buiten je macht.
+
+**Proces boven uitkomst**
+
+De kern van het boek is dat de maker zich moet vastbijten in het proces en de
+uitkomst moet loslaten als maatstaf. Godin gebruikt daarvoor het onderscheid
+tussen wat je doet en wat er gebeurt. De uitkomst hangt af van smaak, timing,
+verspreiding en toeval, dus als je die tot maatstaf maakt beoordeel je jezelf
+op iets waar je niet over gaat. Het proces is wel van jou: hoeveel je maakt,
+hoe vaak, voor wie, en of je het daadwerkelijk aflevert.
+
+Daaruit volgt zijn omkering van de gebruikelijke volgorde. De overtuiging komt
+niet eerst en het werk daarna, het werk komt eerst en het vertrouwen groeit
+uit het werk. Hetzelfde geldt voor de aandachtstoestand waarin het werk goed
+gaat: die volgt op de toewijding en gaat er niet aan vooraf. Wachten tot het
+gevoel er is, betekent bij Godin nooit beginnen.
+
+**Generositeit als richtsnoer**
+
+Godin zet generositeit tegenover zelfexpressie. Werk maken om jezelf te uiten
+leidt tot de vraag of anderen het mooi vinden, en die vraag heeft geen einde.
+Werk maken om iets voor iemand te veranderen leidt tot een controleerbare
+vraag: is er iemand voor wie dit beter is geworden. Creatief werk is bij hem
+een geschenk aan een bepaalde ontvanger, en die ontvanger moet je kiezen.
+
+Bij die keuze hoort zijn begrip van het kleinst haalbare publiek. Wie voor
+iedereen maakt, maakt iets dat niemand mist. Wie een kleine groep kiest die
+het werk echt nodig heeft, krijgt bruikbare terugkoppeling en een reden om
+door te gaan. Dit is de plek waar Godin het dichtst bij zijn eigen vakgebied
+komt, de marketing, en waar zijn advies het concreetst wordt.
+
+Daarbij hoort de zin waarmee hij groepen beschrijft: mensen zoals wij doen
+dingen zoals dit. Een publiek is bij Godin een verzameling mensen met een
+gedeeld beeld van zichzelf, en werk dat aankomt sluit aan bij dat beeld. De
+maker die vraagt wie hij bedient, vraagt dus tegelijk welk zelfbeeld hij
+bevestigt of oprekt.
+
+**Beroepshouding en blokkades**
+
+Een terugkerend punt is dat houding een vaardigheid is en dus te leren. Godin
+behandelt schrijversblok, twijfel aan de eigen bevoegdheid en de behoefte aan
+geruststelling als hetzelfde probleem in drie gedaanten: het uitstellen van
+het afleveren tot een zekerheid er is die nooit komt. Geruststelling werkt
+daarom niet, want het verlangen ernaar groeit bij elke keer dat je eraan
+toegeeft.
+
+Hij vergelijkt de maker met een vakman die op tijd komt en werk levert, ook op
+dagen dat het niet vlot. De loodgieter kent geen loodgietersblok. Die
+vergelijking is de motor van het hele boek en tegelijk het punt waarop de
+meeste weerstand ontstaat, omdat routinewerk en oorspronkelijk werk niet
+vanzelf hetzelfde zijn.
+
+In het verlengde daarvan ontmantelt Godin de muze. Inspiratie is bij hem geen
+bezoek dat je afwacht maar een bijverschijnsel van het werk dat al aan de gang
+is. Wie een vast ritme aanhoudt, krijgt vaker bruikbare invallen, en wie op de
+inval wacht, wacht. Talent behandelt hij op dezelfde manier: als een
+verklaring achteraf voor iemand die veel gemaakt heeft.
+
+**Genre en oorspronkelijkheid**
+
+Godin stelt dat elk werk in een genre valt en dat het genre de verwachtingen
+van het publiek vastlegt. Wie die verwachtingen niet kent, levert werk af dat
+de ontvanger niet kan plaatsen. Oorspronkelijkheid zit bij hem in de kleine
+afwijking binnen een herkenbare vorm, niet in het weigeren van de vorm.
+
+Het genre bepaalt volgens hem ook waar de vrijheid zit. Wie de vaste
+onderdelen levert die de ontvanger verwacht, koopt daarmee de ruimte om op één
+plek af te wijken. Wie op alle punten tegelijk afwijkt, levert werk af dat
+niet aankomt omdat er geen houvast is.
+
+Daarmee ontkracht hij ook het idee van talent als voorwaarde. Vaardigheid is
+te leren, genre is te bestuderen, en wat overblijft is de keuze om te blijven
+maken. Het boek gaat nergens in op de vraag of aanleg, tijd of geld verschil
+maken.
+
+**Wat het boek niet doet**
+
+Er staat geen methode in. Godin geeft geen oefeningen, geen weekschema en geen
+toetsbare stappen. Het boek werkt als een langgerekte aanmoediging die de
+lezer vraagt zijn eigen ritme te kiezen en zich daaraan te houden. Wat er wel
+in staat, staat er vaak: veel van de 219 stukken herhalen een gedachte die
+eerder al viel.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| the practice | De gewoonte van maken en afleveren, losgekoppeld van het oordeel over de uitkomst. |
+| shipping | Het moment waarop het werk de maker verlaat en zichtbaar wordt voor anderen. |
+| smallest viable audience | De kleinst mogelijke groep die het werk echt nodig heeft en waarvoor je het maakt. |
+| generositeit | Werk maken om iets voor een ander te veranderen in plaats van om jezelf te uiten. |
+| genre | Het geheel aan verwachtingen dat het publiek meebrengt en waarbinnen oorspronkelijkheid zich afspeelt. |
+| reassurance is futile | Geruststelling lost de twijfel niet op, omdat de behoefte eraan groeit bij elke keer dat je eraan toegeeft. |
+| attitude is a skill | Houding is aan te leren en te oefenen, net als vakmanschap. |
+| professionaliteit | Op tijd verschijnen en werk leveren, ook op dagen waarop het niet vanzelf gaat. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan. Er staan geen verwijzingen naar studies,
+geen cijfers en geen gecontroleerde vergelijkingen. Wat er wel staat, zijn
+korte voorbeelden uit Godins eigen loopbaan en uit het werk van makers die hij
+begeleid heeft, meestal zonder namen of jaartallen.
+
+De sterkste onderbouwing is de innerlijke samenhang: als de uitkomst inderdaad
+grotendeels buiten je macht ligt, volgt daaruit dat sturen op het proces de
+enige overgebleven greep is. Dat is een redenering, geen bevinding. Wie de
+premisse niet deelt, houdt van het betoog weinig over.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de raad onweerlegbaar is gemaakt. Werkt het werk,
+dan bevestigt dat de gewoonte. Werkt het niet, dan was de uitkomst nooit de
+maatstaf. In die vorm kan het advies nergens door tegengesproken worden, en
+daarmee verliest het zijn waarde als leidraad om iets aan te veranderen.
+
+Verder gaat het boek voorbij aan de omstandigheden die bepalen of iemand een
+gewoonte kan volhouden. Wie zijn inkomen uit het werk moet halen, kan de
+uitkomst niet loslaten. De vergelijking met de loodgieter wringt om dezelfde
+reden: routinewerk kent een afgesproken opdracht en een afgesproken prijs,
+oorspronkelijk werk niet.
+
+Ten slotte is de vorm slordig ten opzichte van de lezer. De 219 stukken
+bevatten veel herhaling, en de spreukachtige toon maakt het moeilijk om vast
+te stellen wanneer een uitspraak een bewering is en wanneer een aanmoediging.
+
+#### Wat er concreet mee te doen is
+
+- Leg een vaste afleverafspraak vast: een dag en een plek waarop het werk naar
+buiten gaat, ongeacht hoe het voelt.
+- Beschrijf in één zin voor wie het werk bedoeld is en wat er voor die persoon
+anders wordt.
+- Scheid in je terugkoppeling de vragen die over het werk gaan van de vragen
+die over de ontvangst gaan, en bespreek alleen de eerste.
+- Merk op wanneer je om geruststelling vraagt en behandel dat als een teken
+dat het werk klaar is om weg te gaan.
+
+#### Wat je hierna leest
+
+- 12. The War of Art. Pressfield behandelt hetzelfde uitstelgedrag, maar
+personifieert het als weerstand en schrijft er strijdvaardiger over.
+- 22. Atomic Habits. Clear geeft wel een methode voor het bouwen van de
+gewoonte die Godin alleen aanprijst.
+- 17. The Creative Act. Rubin legt de nadruk op opmerken en ontvangen, waar
+Godin de nadruk legt op afleveren.
+- 6. Shop Class as Soulcraft. Crawford onderzoekt het vakmanschap waarnaar
+Godin telkens verwijst, met meer aandacht voor het werkelijke ambacht.
+
 ## 14. The Artist's Way
 
 Julia Cameron, 1992. Ondertitel *A Spiritual Path to Higher Creativity*. De
@@ -686,6 +1234,221 @@ uitgangspunt is dat vrijwel iedereen creatief begon en dat er iets tussen is
 gekomen. Wie moeite heeft met het woord God en met affirmaties zal delen van
 het boek moeten uitzitten; de morning pages zijn los van dat kader te
 gebruiken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** *The Artist's Way* gaat uit van de gedachte dat vrijwel
+iedereen creatief geblokkeerd is door aangeleerde angst en oude oordelen, en
+dat die blokkade te herstellen valt met een programma van twaalf weken. De
+ondertitel *A Spiritual Path to Higher Creativity* geeft aan hoe Cameron het
+herstel opvat: creativiteit is bij haar een gave die door een scheppende
+kracht buiten de mens wordt aangereikt, en de opdracht van de deelnemer is om
+het kanaal daarvoor vrij te maken. Het programma steunt op twee gereedschappen
+die elke week terugkomen, de ochtendbladzijden en de kunstenaarsafspraak,
+aangevuld met oefeningen die het zelfbeeld aanpakken. Dat maakt het boek
+toetsbaar op één punt en onbespreekbaar op een ander: de gereedschappen kun je
+uitproberen, de geestelijke aannames waarop ze rusten niet.
+
+#### De gang van het boek
+
+**Herkomst en opzet**
+
+Het boek komt voort uit de cursussen die Cameron aan geblokkeerde makers gaf
+voordat ze het opschreef. Die herkomst bepaalt de vorm: twaalf hoofdstukken
+die als twaalf weken bedoeld zijn, elk met een korte uiteenzetting en daarna
+een reeks opdrachten en controlevragen. De lezer wordt geacht het in dat tempo
+te doen en niet vooruit te lezen.
+
+De doelgroep is breed opgevat. Cameron richt zich niet alleen op mensen die
+beroepsmatig werk maken, maar juist op wie het opgegeven of nooit geprobeerd
+heeft. Het boek is sinds 1992 in grote oplagen verspreid en heeft een reeks
+vervolgen gekregen.
+
+**De ochtendbladzijden**
+
+Het eerste gereedschap zijn de ochtendbladzijden: drie bladzijden met de hand
+geschreven, direct na het opstaan, elke dag. De inhoud doet er volgens Cameron
+niet toe. Er staat geen onderwerp vast, er wordt niet herlezen en er is geen
+lezer. Het gaat om het legen van wat er 's ochtends aan gepieker en geklaag
+klaarstaat.
+
+Haar redenering is dat de innerlijke censor niet uitgeschakeld kan worden,
+maar wel voorbijgeschreven. Door zonder doel te schrijven raakt de censor het
+onderwerp kwijt, en wat daarna komt is materiaal waar de maker iets aan heeft.
+De eis dat het met de hand gaat en 's ochtends onderbouwt ze niet.
+
+In de praktijk is dit het onderdeel dat het meest is overgenomen, ook door
+lezers die de rest van het programma laten liggen. Het schrijven zonder
+publiek over wat er speelt, komt buiten dit boek in onderzoek naar expressief
+schrijven voor, maar Cameron verwijst daar niet naar en formuleert het anders.
+
+**De kunstenaarsafspraak**
+
+Het tweede gereedschap is de artist date: wekelijks een afspraak van een paar
+uur met jezelf, alleen, om iets te doen dat de aandacht voedt. Een museum, een
+winkel met vreemd gereedschap, een wandeling naar een plek waar je nooit komt.
+Gezelschap is niet toegestaan, en nuttige boodschappen tellen niet mee.
+
+Cameron beschrijft dit als het vullen van de put waaruit het werk put. Waar de
+ochtendbladzijden materiaal afvoeren, brengen de kunstenaarsafspraken
+materiaal binnen. Ze meldt zelf dat deelnemers deze oefening veel vaker
+overslaan dan de andere, en behandelt dat als een teken van de blokkade zelf.
+
+**Het herstelverhaal**
+
+De twaalf weken zijn opgezet als een herstelprogramma, met een woordenschat
+die daaruit is overgenomen. De deelnemer wordt aangesproken als iemand die
+zich van een beschadiging herstelt, werkt met affirmaties, brengt oude
+kwetsingen in kaart en zoekt uit wie in zijn omgeving het werk ondermijnt.
+Cameron kwam zelf uit een verslavingsachtergrond, en het boek maakt daar geen
+geheim van.
+
+Elke week eindigt met een vaste terugblik: hoeveel ochtendbladzijden zijn er
+geschreven, is de kunstenaarsafspraak doorgegaan, en wat kwam er in beeld dat
+de deelnemer verraste. Die controlevragen houden het programma bij elkaar en
+maken het achteraf mogelijk te zien waar iemand afhaakte.
+
+Een van de opvallendste opdrachten is de week zonder lezen. Cameron laat de
+deelnemer een week lang alle tekst mijden, met als redenering dat de toevoer
+van andermans woorden de eigen stem overstemt en dat de ontstane leegte
+vanzelf tot maken leidt. De opdracht roept veel weerstand op en dat is volgens
+haar de bedoeling.
+
+Jaloezie behandelt ze niet als ondeugd maar als wijzer. Wie precies opschrijft
+op wie hij jaloers is en waarom, leest daarin af wat hij zelf zou willen maken
+en nog niet doet. Van die kaart maakt ze een opdracht met een concrete
+vervolgstap per regel.
+
+In dat kader introduceert ze een reeks figuren: de schaduwkunstenaar die zich
+in de buurt van kunst ophoudt zonder zelf te maken, de gekmaker die de
+aandacht van anderen opeist, en de deugdval waarin zorgen voor anderen het
+eigen werk verdringt. Dit zijn de scherpste stukken van het boek, omdat ze een
+gedrag beschrijven dat de lezer bij zichzelf kan nagaan.
+
+**Geld, tijd en het zelfbeeld**
+
+Een deel van het programma gaat over de bezwaren waarmee mensen het maken
+uitstellen: geen tijd, geen geld, te laat begonnen, te oud. Cameron behandelt
+die als vermommingen van angst en niet als omstandigheden. Ze laat de
+deelnemer bijhouden waar geld en uren werkelijk heen gaan, wat de bewering dat
+er geen ruimte is toetsbaar maakt.
+
+Daarnaast werkt ze met affirmaties en met de tegenwerpingen die daarbij
+opkomen. De deelnemer schrijft een bevestigende zin op, noteert wat het hoofd
+daar direct tegenin brengt, en zoekt de herkomst van die tegenwerping. De
+gedachte is dat de oude oordelen pas hun greep verliezen als ze op papier
+staan en aan een persoon of gebeurtenis gekoppeld zijn.
+
+Ook keert de vraag terug wie de deelnemer zou zijn geweest met andere levens.
+Cameron laat mensen opschrijven welke beroepen of bezigheden ze zich hadden
+kunnen voorstellen, en zoekt daarin het werk dat is blijven liggen. De
+opdracht is bedoeld om het gevoel van een gemiste kans om te zetten in iets
+wat deze week nog te doen valt.
+
+**De geestelijke aannames**
+
+Cameron is er open over dat haar programma op een geloofsuitspraak rust. Er is
+volgens haar een scheppende kracht, die ze wisselend aanduidt, en de mens is
+daar een doorgeefkanaal van. Wie zich openstelt, krijgt aangereikt wat nodig
+is. Toevalligheden die het werk vooruithelpen legt ze uit als bevestiging
+daarvan.
+
+Ze biedt de lezer wel een uitweg: wie niet gelooft, mag de begrippen als
+beeldspraak lezen en het programma toch doen. Dat werkt tot op zekere hoogte,
+maar niet overal. Sommige oefeningen, waaronder het schrijven aan de
+scheppende kracht en het rekenen op wat toevallig op je pad komt, verliezen
+hun grond zodra de aanname wegvalt.
+
+**Wat er niet in staat**
+
+Het boek gaat vrijwel niet over het maken zelf. Er staat niets over
+vakmanschap, over het beoordelen van eigen werk, over het herschrijven, over
+het publiceren of over de vraag wat je doet als het werk af is maar niet goed.
+Het onderwerp is de blokkade en wat die opheft, en daar houdt het op.
+
+Ook over volhouden na de twaalf weken is Cameron kort. De verwachting is dat
+de ochtendbladzijden een blijvende gewoonte worden. Hoe die zich verhoudt tot
+een werkdag waarin ook nog gemaakt moet worden, blijft onbesproken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| morning pages | Drie bladzijden vrij schrijven met de hand, elke ochtend direct na het opstaan, zonder onderwerp en zonder herlezen. |
+| artist date | Een wekelijkse afspraak van enkele uren die je alleen doorbrengt om indrukken op te doen. |
+| blocked creative | Iemand met aanleg en verlangen die door angst en oude oordelen niet aan het maken toekomt. |
+| shadow artist | Iemand die werk in de buurt van kunst kiest in plaats van zelf te maken. |
+| crazymaker | Een persoon in de omgeving die met crises en eisen de aandacht opeist die het werk nodig heeft. |
+| censor | De innerlijke stem die het werk afkeurt voordat het er is, en die volgens Cameron voorbijgeschreven kan worden. |
+| filling the well | Het bewust opdoen van indrukken zodat er materiaal is om uit te putten. |
+| virtue trap | De gewoonte om het eigen werk te verdringen met zorgen voor anderen en dat als deugd te zien. |
+| creative U-turn | Het terugtrekken uit een project op het moment dat het gaat lukken. |
+| believing mirror | Iemand die in het werk van een ander gelooft en dat geloof teruggeeft. |
+
+#### Waar het argument op rust
+
+Er staat geen onderzoek in het boek. Cameron voert geen studies aan, geen
+metingen en geen vergelijking met een groep die het programma niet deed. Wat
+ze aanvoert zijn ervaringen van cursisten en van haarzelf, vrijwel altijd
+zonder naam en zonder tijdsaanduiding, en die verhalen lopen steevast goed af.
+
+Die verzameling is bovendien scheefgetrokken. Wie afhaakte in week drie
+schrijft geen dankbare brief, en wie voor de cursus betaalde had al besloten
+dat het iets moest opleveren. Cameron behandelt uitblijvend resultaat
+consequent als een teken dat het programma niet goed is uitgevoerd, waardoor
+het boek geen enkele uitkomst kent die haar aanpak zou tegenspreken.
+
+Wat wel vaststaat, is de omvang van het gebruik. Het boek wordt sinds 1992
+verkocht en gelezen, en de ochtendbladzijden zijn buiten de context van het
+programma in gebruik geraakt bij mensen die er verder niets mee hebben. Dat
+zegt iets over de bruikbaarheid van de oefening, en niets over de verklaring
+die Cameron eraan geeft.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is de onweerlegbaarheid. Blijft het resultaat uit, dan
+zat de weerstand in de weg, is een oefening overgeslagen of was de lezer nog
+niet zover. Er is geen uitkomst denkbaar die de methode zou ontkrachten, en
+dat maakt het lastig om vast te stellen wat het programma werkelijk doet.
+
+Daarnaast is het herstelkader overgenomen zonder verantwoording. Het
+uitgangspunt dat vrijwel iedereen beschadigd en geblokkeerd is, wordt aan het
+begin gesteld en daarna niet meer ter discussie gebracht. Wie gewoon weinig
+tijd of weinig oefening heeft, krijgt hier een verklaring aangereikt die
+dieper graaft dan het probleem.
+
+De geestelijke aannames zijn niet toetsbaar en worden ook niet als aanname
+gepresenteerd, maar als beschrijving van hoe het werkt. Het uitleggen van
+toevalligheden als bevestiging is daarvan het duidelijkste geval: gunstige
+toevalligheden tellen mee, ongunstige komen niet ter sprake.
+
+Ten slotte is de aandacht eenzijdig verdeeld. Al het gewicht ligt op beginnen
+en niets op het beoordelen, verbeteren en afmaken van werk. Voor wie al maakt
+en vastloopt op de kwaliteit, biedt het boek weinig.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf twaalf weken lang elke ochtend drie bladzijden met de hand, zonder
+onderwerp en zonder terug te lezen.
+- Zet de wekelijkse kunstenaarsafspraak als afspraak in de agenda, alleen, en
+houd hem los van boodschappen en nut.
+- Noteer wie in je omgeving stelselmatig de tijd opeist die je voor het werk
+had gereserveerd.
+- Behandel de geestelijke passages als beeldspraak als je die niet deelt, en
+sla de oefeningen over die zonder de aanname leeglopen.
+- Kijk na twaalf weken terug op wat er daadwerkelijk gemaakt is, en niet
+alleen op hoe het voelde.
+
+#### Wat je hierna leest
+
+- 19. Bird by Bird. Lamott schrijft over dezelfde angst voor het lege blad,
+met meer aandacht voor het werk dat erna komt.
+- 12. The War of Art. Pressfield behandelt de blokkade zonder programma en
+zonder herstelwoordenschat.
+- 18. On Writing. King laat zien wat er na het begin komt: herschrijven,
+schrappen en het vak leren.
+- 71. Four Thousand Weeks. Burkeman zet er een nuchtere kijk op tijd en
+eindigheid tegenover, waar Cameron het gebrek aan tijd als blokkade duidt.
 
 ## 15. How to Think Like Leonardo da Vinci
 
@@ -709,6 +1472,217 @@ psychologische deel dik is. De bruikbaarste opdracht is de eenvoudigste: houd
 zoals Leonardo een notitieboek bij waarin je alles kwijt kan, ook het
 onafgemaakte en het schijnbaar nutteloze.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Gelb stelt dat het vermogen van Leonardo da Vinci geen
+onnavolgbare gave was maar het gevolg van gewoontes die iedereen kan oefenen,
+en dat die gewoontes zijn af te lezen aan zijn notitieboeken. Hij vat ze samen
+in zeven principes, van nieuwsgierigheid en het zelf toetsen van wat je
+gelooft tot het scherpen van de zintuigen, het verdragen van dubbelzinnigheid,
+het verbinden van kunst en wetenschap, de zorg voor het lichaam en het denken
+in samenhangen. De belofte in de ondertitel gaat verder dan de stelling zelf:
+wie deze zeven zaken dagelijks oefent, komt volgens Gelb dichter bij het soort
+denken waar Leonardo van leefde.
+
+#### De gang van het boek
+
+**Opzet van het boek**
+
+Het boek begint met een schets van Leonardo's leven en werk en met een korte
+geschiedenis van de renaissance, bedoeld om te laten zien uit welke
+omstandigheden zijn manier van werken voortkwam. Daarna volgt het hoofddeel:
+zeven hoofdstukken, elk gewijd aan één principe met een Italiaanse naam.
+
+Elk hoofdstuk heeft dezelfde bouw. Gelb legt het principe uit, laat zien waar
+hij het in de notitieboeken of in het werk terugziet, en biedt de lezer een
+zelfbeoordeling met stellingen om aan te kruisen. Daarna komt een reeks
+oefeningen, van schrijfopdrachten tot waarnemingsproeven. Het boek sluit af
+met een deel over tekenen, waarin de lezer stap voor stap wordt aangespoord
+zelf te gaan tekenen, omdat tekenen bij Leonardo een manier van kijken was.
+
+De toon is die van een cursusboek. Het is bedoeld om in te schrijven en niet
+om alleen door te lezen, en het werd ook als trainingsmateriaal gebruikt.
+
+**Curiosità en dimostrazione**
+
+Het eerste principe, curiosità, staat voor een onverzadigbare nieuwsgierigheid
+en het onophoudelijk stellen van vragen. De bekendste oefening eruit is de
+opdracht om honderd vragen op te schrijven die je bezighouden, zonder te
+filteren, en daarna de tien te kiezen die het zwaarst wegen. Gelb koppelt dat
+aan het bijhouden van een eigen notitieboek waarin waarnemingen, tekeningen en
+losse invallen door elkaar staan, naar het voorbeeld van Leonardo.
+
+Het tweede principe, dimostrazione, gaat over het toetsen van kennis aan de
+eigen ervaring en over het leren van fouten. Gelb leest Leonardo hier als
+iemand die zich weinig gelegen liet liggen aan gezag en aan overgeleverde
+boekenwijsheid, en die liever zelf keek. De oefeningen draaien om het opsporen
+van eigen aannames, om het bijhouden van je eigen fouten en om het onderzoeken
+waar je overtuigingen vandaan komen.
+
+**Sensazione**
+
+Het derde principe betreft het scherpen van de zintuigen. Gelb behandelt de
+vijf zintuigen ieder apart en geeft per zintuig oefeningen: nauwkeurig
+beschrijven wat je ziet zonder te oordelen, luisteren naar afzonderlijke
+geluidslagen in een muziekstuk, proeven en ruiken met woorden erbij,
+tastoefeningen met de ogen dicht.
+
+De redenering is dat waarneming te verfijnen valt zoals een vaardigheid, en
+dat Leonardo's tekeningen van water, wolken en spieren voortkwamen uit
+langdurig en geoefend kijken. Dit deel is het meest praktisch van het boek en
+het minst afhankelijk van de historische onderbouwing.
+
+**Sfumato**
+
+Sfumato betekent in de schilderkunst het laten vervagen van omtrekken, waarvan
+de mondhoeken van de Mona Lisa het bekendste voorbeeld zijn. Gelb maakt er een
+denkhouding van: het vermogen om dubbelzinnigheid, onzekerheid en
+tegenstrijdigheid te verdragen zonder ze weg te werken.
+
+Hij verbindt dat aan het uitstellen van een oordeel en aan het kunnen
+vasthouden van twee gedachten die elkaar tegenspreken. De oefeningen vragen de
+lezer om onopgeloste vragen op te schrijven en er niet meteen een antwoord op
+te forceren, en om te letten op momenten waarop onbehagen leidt tot een te
+snelle beslissing. Dit hoofdstuk is de meest oorspronkelijke uitbreiding die
+Gelb aan een schildertechnische term geeft, en tegelijk de vrijste.
+
+**Arte, scienza en corporalità**
+
+Het vijfde principe, arte/scienza, gaat over het samengaan van verbeelding en
+analyse. Gelb leunt hier op de destijds gangbare voorstelling van een linker-
+en een rechterhersenhelft met elk een eigen denkstijl, en beveelt de lezer aan
+om beide te oefenen. De werkvorm die hij daarvoor uitwerkt is het mind mappen:
+een tekening waarin een onderwerp vanuit het midden vertakt in woorden en
+beelden. Hij besteedt er veel bladzijden aan.
+
+Het zesde principe, corporalità, betreft de zorg voor het lichaam: houding,
+ademhaling, beweging, evenwicht en het oefenen van de niet-dominante hand.
+Gelb is zelf leraar in de Alexandertechniek en dat is aan dit hoofdstuk te
+merken; het bevat de meest uitgewerkte lichamelijke oefeningen van het boek.
+De verbinding met Leonardo loopt via diens anatomische studies en via de
+aandacht die hij aan het menselijk lichaam als bouwwerk gaf.
+
+**Connessione**
+
+Het zevende principe is het denken in samenhangen: het besef dat alles met
+alles verbonden is en het zoeken naar overeenkomsten tussen ver uiteenliggende
+gebieden. Gelb wijst op Leonardo's vergelijking tussen waterstromen en het
+stromen van haar, en op zijn gewoonte om waarnemingen uit het ene vakgebied te
+gebruiken in het andere.
+
+De oefeningen gaan over analogieën maken, over het uitwerken van verbanden in
+een tekening en over het bekijken van een vraagstuk vanuit meerdere
+gezichtspunten achter elkaar. Het principe fungeert ook als sluitstuk: de zes
+voorgaande worden geacht in dit zevende samen te komen.
+
+**Waar de zeven principes vandaan komen**
+
+Op dit punt is het boek zelf niet altijd duidelijk, en het verdient een
+nuchtere vaststelling. Leonardo heeft nooit zeven principes opgeschreven. Hij
+liet duizenden bladzijden aantekeningen na, in spiegelschrift, ongeordend en
+grotendeels niet bedoeld voor publicatie, waarin observaties, ontwerpen,
+boodschappenlijstjes en aanzetten tot verhandelingen door elkaar staan. Er is
+geen plek waar hij zijn eigen werkwijze in een lijst samenvat.
+
+De zeven principes zijn dus een ordening van Gelb. De Italiaanse namen zijn
+woorden die in Leonardo's tijd en taal bestonden, maar de betekenis die Gelb
+eraan geeft, met name bij sfumato en corporalità, is zijn eigen uitbreiding.
+Dat maakt de indeling niet waardeloos, want als lesmateriaal doet zij haar
+werk, maar het gezag van Leonardo dat de titel oproept steunt de indeling
+niet.
+
+Wat wel op Leonardo terug te voeren is: de notitieboeken bestaan en zijn te
+raadplegen, het aandringen op eigen waarneming boven overgeleverd gezag komt
+er meermaals in voor, en de vermenging van anatomie, waterbouw, optica en
+schilderkunst in één stel schriften is te zien. Op die punten is het boek te
+controleren aan de bron.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| curiosità | Een aanhoudende nieuwsgierigheid die zich uit in het blijven stellen van vragen en het bijhouden van een notitieboek. |
+| dimostrazione | Kennis toetsen aan de eigen ervaring en leren van fouten, in plaats van gezag op zijn woord geloven. |
+| sensazione | Het oefenen en verfijnen van de zintuigen, met het zien voorop, als grondslag van alle waarneming. |
+| sfumato | Het verdragen van dubbelzinnigheid en onzekerheid, ontleend aan de schildertechniek van vervagende omtrekken. |
+| arte/scienza | Het in evenwicht brengen van verbeelding en analyse, bij Gelb uitgewerkt in het mind mappen. |
+| corporalità | De zorg voor houding, beweging, evenwicht en beheersing van beide handen als onderdeel van denken. |
+| connessione | Het denken in verbanden en analogieën tussen gebieden die op het oog niets met elkaar te maken hebben. |
+| honderd vragen | De oefening waarin je in één keer honderd vragen opschrijft die je bezighouden en daarna de zwaarstwegende kiest. |
+| mind map | Een vertakte tekening rond een onderwerp in het midden, door Gelb gebruikt om woorden en beelden te combineren. |
+| zelfbeoordeling | De vragenlijst aan het begin van elk hoofdstuk waarmee de lezer inschat hoe hij er op dat principe voorstaat. |
+
+#### Waar het argument op rust
+
+De historische kant rust op de notitieboeken en op de gangbare biografische
+literatuur over Leonardo. Die bron is echt en toegankelijk, en Gelb citeert er
+regelmatig uit. Waar hij zegt dat Leonardo bleef vragen, zelf keek en
+vakgebieden door elkaar liet lopen, is dat aan het bronmateriaal te staven.
+
+De stap van die waarnemingen naar zeven oefenbare principes is een redenering
+van de auteur en geen bevinding. Er is geen onderzoek waarin de zeven
+principes zijn omschreven, gemeten of vergeleken met een controlegroep, en het
+boek presenteert dat ook niet. De oefeningen komen uit trainingspraktijk en
+uit bestaande methodes.
+
+Twee onderdelen zijn intussen achterhaald. De voorstelling van een creatieve
+rechter- en een analytische linkerhersenhelft die aan arte/scienza ten
+grondslag ligt, houdt in die vorm geen stand in de hedendaagse
+neurowetenschap. Ook voor mind mappen als leermiddel is het bewijs zwak: het
+werkt in vergelijkingen niet beter dan gewoon aantekeningen maken.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de titel en de ondertitel. Denken als Leonardo in
+zeven stappen veronderstelt dat het verschil tussen hem en een willekeurige
+lezer in gewoontes zit. Wat Leonardo onderscheidt is de combinatie van
+uitzonderlijke tekenvaardigheid, dertig jaar aaneengesloten werk aan dezelfde
+vragen, opdrachtgevers die dat betaalden en een tijd waarin één persoon nog
+het overzicht over meerdere vakken kon hebben. Van die voorwaarden komen de
+oefeningen er weinig tegemoet.
+
+De projectie werkt ook de andere kant op. Doordat de principes vooraf
+vaststaan, wordt het notitieboekmateriaal gelezen op wat de indeling
+bevestigt. Leonardo's mislukkingen, zijn onafgemaakte opdrachten, zijn ruzies
+met opdrachtgevers en de vele bladzijden die nergens toe leidden, krijgen
+weinig aandacht, terwijl juist die het beeld van een methode zouden
+bijstellen.
+
+Verder is het boek lang voor wat het te zeggen heeft. De zeven principes zijn
+in enkele bladzijden uit te leggen; de rest bestaat uit oefeningen, citaten en
+aansporingen. Wie iets over Leonardo zelf wil weten, is beter af bij een
+biografie, en wie oefeningen zoekt, vindt hier een verzameling die maar losjes
+met de historische figuur samenhangt.
+
+#### Wat er concreet mee te doen is
+
+- Begin een schrift zonder indeling waarin waarnemingen, schetsen en vragen
+door elkaar mogen staan, en draag het bij je.
+- Schrijf in één zitting honderd vragen op zonder te schiften, en kies daarna
+de tien die het zwaarst wegen.
+- Neem één overtuiging die je in je werk hanteert en zoek uit waar je die
+vandaan hebt en wat ertegen pleit.
+- Beschrijf één keer per week een alledaags voorwerp of tafereel in tien
+regels, alleen in waarnemingen zonder oordeel.
+- Houd een lijst bij van vragen die je nog niet kunt beantwoorden en laat ze
+een maand staan voordat je er een antwoord op zoekt.
+- Oefen dagelijks tien minuten een handeling met je niet-dominante hand,
+bijvoorbeeld schrijven of tekenen.
+- Zoek bij een vastgelopen vraagstuk een overeenkomst met een heel ander
+vakgebied en werk die vergelijking uit tot ze niet meer opgaat.
+
+#### Wat je hierna leest
+
+- 1. Zen en de kunst van het motoronderhoud. Pirsig behandelt in *Zen en de
+kunst van het motoronderhoud* de scheiding tussen kunst en wetenschap die Gelb
+met arte/scienza aanroert, filosofisch veel grondiger.
+- 17. The Creative Act. Rick Rubin schrijft in *The Creative Act* over
+waarneming en over het uitstellen van het oordeel, zonder de aanspraak op een
+historische figuur.
+- 55. Thinking, Fast and Slow. Kahneman geeft in *Thinking, Fast and Slow* de
+onderbouwde behandeling van aannames en denkfouten die dimostrazione hier
+alleen aanstipt.
+
 ## 16. Creativity: A Short and Cheerful Guide
 
 John Cleese, 2020. Geen Nederlandse uitgave: van Cleese zijn wel zijn
@@ -731,6 +1705,196 @@ dat kwijt was en dat na het opnieuw schrijven beter uitpakte, wat hem
 overtuigde dat het werk ondergronds doorgaat. Verder waarschuwt hij tegen te
 vroeg oordelen over eigen ideeën, en tegen de zekerheid van mensen om je heen.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Cleese verdedigt één stelling die tegen het gangbare
+spraakgebruik ingaat: creativiteit is geen eigenschap die iemand wel of niet
+heeft, maar een manier van werken die je kunt aanleren en die vooral bestaat
+uit het scheppen van de juiste omstandigheden. Wie zich afsluit van
+onderbrekingen, een begin- en eindtijd afspreekt en het nemen van de
+beslissing zo lang mogelijk uitstelt, krijgt betere invallen dan wie snel
+besluit. De sleutel ligt daarmee niet in aanleg of in inspiratie, maar in
+geduld en in het verdragen van de onzekerheid die bij een onopgelost probleem
+hoort.
+
+#### De gang van het boek
+
+**Vorm en herkomst**
+
+Het boekje is kort, ruim gezet en losjes geschreven, alsof Cleese aan tafel
+zit te vertellen. Het is de neerslag van materiaal dat hij tientallen jaren
+heeft gebruikt in lezingen en bedrijfstrainingen, met de bekendste versie uit
+een lezing die hij begin jaren negentig gaf. Wie die lezing kent, vindt hier
+de uitgewerkte tekst met wat aanvullingen uit zijn latere jaren.
+
+Cleese schrijft als iemand die er zelf van moest leven. Het gaat over comedy
+schrijven, over sketches en scenario's, en de voorbeelden komen vrijwel
+allemaal uit dat werk. Hij presenteert het als algemeen toepasbaar, maar het
+materiaal is dat van één beroep.
+
+**Creativiteit als werkwijze**
+
+De opening is de kern: creativiteit is geen talent maar een manier van doen.
+Cleese steunt daarvoor op onderzoek uit Berkeley waarin architecten en
+wetenschappers werden vergeleken op hun creatieve prestaties. De uitkomst die
+hij eruit haalt is dat de meest creatieve deelnemers niet intelligenter waren
+dan hun vakgenoten, maar dat zij het langer uithielden met een probleem
+voordat zij tot een oplossing besloten. Zij speelden ermee, zoals hij het
+noemt.
+
+Daarmee verschuift het onderwerp van aanleg naar gedrag. Cleese herhaalt op
+meerdere plaatsen dat hij zichzelf niet bijzonder begaafd vindt en dat hij
+zijn werk dankt aan volhouden, aan werken met betere schrijvers en aan het
+serieus nemen van de tijd die een idee nodig heeft.
+
+**De open en de gesloten stand**
+
+Zijn bekendste onderscheid is dat tussen de open en de gesloten stand. In de
+gesloten stand ben je doelgericht, ongeduldig en gespannen; je voert uit, je
+beslist en je wil verder. Die stand is nodig om iets af te krijgen en het
+grootste deel van het werkende leven speelt zich erin af.
+
+In de open stand is er geen haast, geen onmiddellijk doel en ruimte om te
+spelen. Ideeën komen volgens Cleese alleen daar vandaan. Het probleem in
+organisaties is dat de gesloten stand de norm is en dat mensen er nooit meer
+uit komen, waarna zij hun eigen gebrek aan invallen verwarren met gebrek aan
+aanleg. Hij benadrukt dat je beide standen nodig hebt en dat je moet leren
+schakelen.
+
+Cleese besteedt aandacht aan wat het schakelen in de weg staat. Zodra iemand
+zich zorgen maakt over de tijd, over de indruk die hij maakt of over wat er
+nog meer af moet, klapt de gesloten stand er weer overheen. Daarom gaat het
+volgende deel van het boek niet over ideeën zelf, maar over de omstandigheden
+waaronder ze mogen komen.
+
+**Vijf voorwaarden om in de open stand te komen**
+
+Cleese noemt vijf dingen die de open stand mogelijk maken. Ruimte: een plek
+waar niemand bij je kan en waar de telefoon niet werkt. Tijd: een afgebakende
+periode met een begintijd en een eindtijd, zodat het gepieker over al het
+andere buiten die grens blijft. Nogmaals tijd, in een tweede betekenis: de
+bereidheid om binnen dat blok bij het probleem te blijven zitten terwijl er
+nog niets komt.
+
+Daarnaast noemt hij zelfvertrouwen, waarmee hij bedoelt dat je tijdens het
+spelen niets fout kunt doen omdat er nog niets vaststaat, en humor, die
+volgens hem de snelste manier is om van de gesloten naar de open stand te
+komen. Hij verzet zich tegen het idee dat humor en ernst elkaar uitsluiten.
+
+De combinatie van ruimte en afgebakende tijd noemt hij een oase: een plek en
+een periode waarin het gewone werk je niet kan bereiken. Zonder die grenzen
+lekt de gesloten stand er meteen weer in.
+
+**Het uitstellen van de beslissing**
+
+Het praktische hart van het boek is het advies om een beslissing zo laat
+mogelijk te nemen. Wie een probleem laat liggen tot vlak voor de deadline,
+geeft het onbewuste de kans om eraan te werken. Cleese verwijst voor dat trage
+denken naar Guy Claxton en voor de psychologische achtergrond naar het werk
+van Anthony Storr, die over de rol van eenzaamheid en van de innerlijke wereld
+van de maker heeft geschreven.
+
+Hij illustreert het met een voorval uit zijn eigen praktijk. Een sketch
+waaraan hij een avond had gewerkt was de volgende ochtend verdwenen. Hij
+schreef hem opnieuw, en de tweede versie was beter dan de eerste, terwijl hij
+in de tussentijd niets bewust aan het stuk had gedaan. Zijn uitleg is dat het
+denken doorging zonder hem.
+
+Daaruit volgt ook het advies om te slapen op een onaf stuk werk en het de
+volgende dag te bekijken, en om bij het vastlopen niet naar een oplossing te
+grijpen omdat die er nu eenmaal is.
+
+**Samenwerken en de innerlijke criticus**
+
+Het laatste deel gaat over schrijven met anderen. Cleese beschrijft wat hij
+leerde van zijn jarenlange samenwerking met Graham Chapman en formuleert
+enkele regels: kies iemand met wie je kunt lachen, oordeel niet over elkaars
+invallen zolang je aan het verzamelen bent, en scheid het verzinnen van het
+schiften.
+
+Diezelfde scheiding geldt binnen één hoofd. De innerlijke criticus is nodig
+bij het herschrijven en schadelijk bij het bedenken. Cleese raadt aan om
+slecht te durven schrijven en pas later te snoeien, en om het oordeel van
+anderen te zoeken bij het herschrijven, waarbij hij aantekent dat de meeste
+kritiek die je krijgt onbruikbaar is en dat de kunst zit in het kiezen van wie
+je erover vraagt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| open stand | De ontspannen, doelloze en speelse manier van werken waarin volgens Cleese ideeën ontstaan. |
+| gesloten stand | De doelgerichte, ongeduldige manier van werken die nodig is om iets uit te voeren en af te maken. |
+| manier van werken | Cleese' aanduiding voor creativiteit als iets dat je doet onder bepaalde omstandigheden, niet als eigenschap die je bezit. |
+| oase | Een afgebakende plek en periode waarin het gewone werk je niet kan onderbreken. |
+| afgebakende tijd | Een blok met een vaste begin- en eindtijd, dat het piekeren over andere zaken buiten de deur houdt. |
+| het uitstellen van de beslissing | Het bewust openhouden van een probleem tot het laatste verantwoorde moment, zodat het onbewuste eraan kan werken. |
+| trage geest | Het langzame, associatieve denken waarnaar Cleese verwijst met het werk van Guy Claxton. |
+| humor als schakelaar | Lachen als de snelste overgang van de gesloten naar de open stand, zonder dat het de ernst van het onderwerp wegneemt. |
+| innerlijke criticus | De beoordelende stem die volgens Cleese thuishoort bij het herschrijven en het bedenken stuk maakt. |
+
+#### Waar het argument op rust
+
+De harde kern van de onderbouwing is één onderzoekslijn: het werk uit Berkeley
+waarin creatieve beroepsbeoefenaren met hun vakgenoten werden vergeleken en
+waaruit Cleese haalt dat de creatievere groep langer met een probleem bleef
+zitten. Dat onderzoek stamt uit de jaren zestig. Cleese geeft geen vindplaats,
+bespreekt de methode niet en gaat niet in op de vraag of het herhaald is.
+
+Voor het overige leunt het boek op de namen Anthony Storr en Guy Claxton, en
+op de eigen loopbaan van de auteur. Er is geen notenapparaat en geen
+literatuurlijst die de lezer in staat stelt iets na te trekken. Wat als kennis
+wordt gepresenteerd is grotendeels beroepservaring van één schrijver in één
+genre, aangevuld met wat hij van gelezen psychologen heeft onthouden.
+
+#### Wat er tegen in te brengen valt
+
+Het onderscheid tussen open en gesloten stand is een handzaam beeld en geen
+gevestigd begrip in de psychologie. Er bestaat verwant onderzoek naar
+incubatie en naar de rol van pauzes bij het oplossen van problemen, maar
+Cleese verbindt zijn tweedeling daar niet mee en geeft geen manier om te
+toetsen of iemand in de ene of de andere stand zit. Wie het serieus wil nemen,
+moet het op gezag aannemen.
+
+De veralgemening is het zwakste punt. Comedy schrijven is werk waarin het
+uitstellen van een beslissing weinig kost en waarin de kwaliteit van een inval
+meteen te horen is aan of iemand lacht. In beroepen waar tijdsdruk, veiligheid
+of coördinatie met anderen meespeelt, is het advies om de beslissing zo laat
+mogelijk te nemen niet zonder meer over te zetten.
+
+Het boek herhaalt in geschreven vorm een lezing van dertig jaar eerder, zonder
+de tussenliggende literatuur te verwerken. Wie de lezing kent, treft weinig
+nieuws aan. Ook blijft de vraag onbeantwoord hoe je aan die ruimte en die
+ongestoorde uren komt als je werk of huishouden dat niet toestaat; het advies
+veronderstelt een mate van zeggenschap over de eigen agenda die lang niet
+iedereen heeft.
+
+#### Wat er concreet mee te doen is
+
+- Zet een blok van anderhalf uur in de agenda met een vaste begin- en eindtijd
+en leg vast dat je binnen dat blok niets hoeft op te leveren.
+- Zoek een plek op waar niemand bij je kan komen en waar meldingen uitstaan;
+bewaar die plek voor werk dat nog vormloos is.
+- Bepaal per beslissing het laatste moment waarop je hem verantwoord kunt
+nemen en neem hem niet eerder.
+- Leg onaf werk 's avonds weg zonder het op te lossen en bekijk het de
+volgende ochtend voordat je iets anders doet.
+- Scheid bij samenwerking het verzamelen van invallen en het schiften ervan in
+twee aparte gesprekken.
+- Kies vooraf twee mensen wier oordeel over je werk je serieus neemt, en leg
+de rest van de reacties naast je neer.
+
+#### Wat je hierna leest
+
+- 70. Deep Work. Cal Newport werkt in *Deep Work* de voorwaarde van
+ongestoorde, afgebakende tijd uit tot een volledige werkindeling.
+- 78. Finding Flow. Csikszentmihalyi beschrijft in *Finding Flow* de toestand
+die Cleese de open stand noemt, met onderzoek erachter.
+- 14. The Artist's Way. Julia Cameron komt in *The Artist's Way* tot
+vergelijkbare adviezen over uitstel van oordeel, langs een heel andere weg.
+- 41. Creativity, Inc.. Ed Catmull laat in *Creativity, Inc.* zien hoe een
+organisatie de ruimte voor onaf werk probeert te beschermen.
+
 ## 17. The Creative Act
 
 Rick Rubin, 2023. Ondertitel *A Way of Being* (Canongate en Penguin Press,
@@ -752,6 +1916,198 @@ past voor later. Laat de smaak van het publiek buiten de deur tot het werk af
 is. De vorm van het boek is de zwakte en de kracht ervan tegelijk: er staat
 geen betoog in dat je kunt tegenspreken, en het is daardoor bedoeld om
 willekeurig open te slaan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** *The Creative Act* stelt dat scheppen begint bij opmerken en
+niet bij bedenken. Rubin beschrijft de kunstenaar als iemand die ontvangt: de
+wereld biedt onophoudelijk materiaal aan, en het werk bestaat eruit de
+aandacht zo af te stellen dat je het opmerkt en er iets mee doet. Daaruit
+volgt zijn onderscheid tussen de bron, waar alles vandaan komt en die van
+niemand is, het filter waarmee de maker eruit kiest en dat wel persoonlijk is,
+en het werk dat daarvan overblijft. De ondertitel *A Way of Being* is
+letterlijk bedoeld: creativiteit is bij Rubin geen bezigheid van kunstenaars
+maar een manier van in de wereld staan, en dat is precies waar het boek
+weerlegbaar wordt, omdat een begrip dat alles omvat weinig meer onderscheidt.
+
+#### De gang van het boek
+
+**Vorm van het boek**
+
+Het boek bestaat uit ruim achtenzeventig korte hoofdstukken, vaak twee tot
+vier bladzijden, met daartussen losse regels die als tussenwerpsels
+functioneren. Er is geen betoog dat zich opbouwt en geen verhaal dat vordert.
+De volgorde is los genoeg om het boek op elke bladzijde te openen.
+
+De Nederlandse uitgave verscheen in 2023 bij Nijgh & Van Ditmar onder de titel
+*Creatief zijn*. Rubin schreef het na een lange loopbaan als muziekproducent,
+en dat merk je aan de invalshoek: hij schrijft consequent vanuit de positie
+van iemand die naast de maker zit en de omstandigheden regelt waarin het werk
+kan ontstaan.
+
+**Bron, filter en werk**
+
+De belangrijkste onderscheiding in het boek is die tussen de bron en het
+filter. De bron is alles wat bestaat en zich aandient, en die is voor iedereen
+gelijk beschikbaar. Het filter is de eigen geschiedenis, smaak en aandacht van
+de maker, en dat is wat het werk zijn gezicht geeft. Oorspronkelijkheid zit
+bij Rubin dus in het filter en niet in het bedenken van iets wat er nog niet
+was.
+
+Uit die verdeling volgt zijn opvatting over invloed. Alles wat gemaakt wordt,
+komt voort uit wat eerder is opgemerkt, dus lenen is geen gebrek maar de
+normale gang van zaken. Wat het werk van een ander onderscheidt is de doorgang
+die het genomen heeft, en die is per maker anders.
+
+Daarbij hoort het beeld van de maker als vat dat gevuld wordt. Wat je leest,
+hoort, ziet en meemaakt komt erin terecht en komt er later in gewijzigde vorm
+weer uit. Rubin trekt daaruit de gevolgtrekking dat het beheren van wat je
+binnenlaat een onderdeel van het werk is, niet iets wat eraan voorafgaat.
+
+**Opmerken als vaardigheid**
+
+Een groot deel van het boek gaat over aandacht: het opmerken van wat er al is,
+het afleren van de gewoonte om alles meteen in bekende categorieën te
+plaatsen, en het openhouden van het oordeel. Rubin gebruikt daarvoor het idee
+van de beginnersgeest, de houding van iemand die nog niet weet hoe iets hoort.
+
+Hij behandelt afleiding, verveling en het wisselen van omgeving als middelen
+in plaats van als storingen. De redenering is dat het opmerkende deel van de
+aandacht ruimte nodig heeft die het niet krijgt zolang de maker geconcentreerd
+naar een oplossing zoekt.
+
+Rubin beveelt daarvoor gewoonten aan die de aandacht rustiger maken: tijd in
+de natuur, stilte, meditatie en het beperken van de toevoer van prikkels. Hij
+presenteert dit als voorwaarden voor het werk en niet als bijzaak. Het
+standpunt van de maker is bij hem het enige wat hij werkelijk bezit, en dat
+standpunt wordt gevormd door waar hij zijn aandacht heeft gelaten.
+
+**Beperking en gewoonte**
+
+Een terugkerend middel in het boek is de zelfopgelegde beperking. Een regel
+over materiaal, tijd of omvang neemt een deel van de keuzevrijheid weg en
+dwingt tot oplossingen die anders niet in beeld waren gekomen. Rubin behandelt
+zo'n regel als tijdelijk gereedschap dat je weer weglegt zodra het zijn werk
+gedaan heeft.
+
+Hetzelfde geldt voor het onderscheid tussen wat het werk vraagt en wat de
+maker wil. Rubin keert dat om: het werk heeft een richting, en de taak van de
+maker is die op te merken en te volgen in plaats van er een plan overheen te
+leggen. Wat een fout leek, kan zo de aanwijzing zijn waar het werk om vroeg.
+
+**De fasen van het werk**
+
+Rubin verdeelt het werk in fasen: het verzamelen van kiemen, het proberen, het
+maken en het afronden. De strekking is dat elke fase een andere houding vraagt
+en dat de meeste problemen ontstaan door het mengen ervan. Oordelen tijdens
+het verzamelen doodt het materiaal, terwijl blijven verzamelen tijdens het
+afronden het werk onafgemaakt houdt.
+
+In de verzamelfase geldt overvloed: veel kiemen, geen keuze. Bij het proberen
+mag het mislukken, want de proef is er om te leren wat het werk wil worden.
+Bij het afronden komt het punt waarop het werk losgelaten moet worden, en
+Rubin erkent dat dat moment nooit met zekerheid vast te stellen is.
+
+**Het publiek en het oordeel**
+
+Rubin is stellig dat het werk niet naar het publiek geschreven moet worden. De
+maker is de eerste ontvanger, en het enige bruikbare oordeel is of het werk
+voor hemzelf klopt. Commerciële afwegingen laat hij vrijwel geheel buiten
+beschouwing, ook al kwam zijn eigen reputatie tot stand in een bedrijfstak
+waarin die afwegingen alles bepaalden.
+
+Zelftwijfel behandelt hij als een gegeven dat het werk begeleidt en dat geen
+oplossing behoeft. Het punt is dat de twijfel niets zegt over de kwaliteit van
+het werk, en dat het gevaar zit in het gebruiken van die twijfel als reden om
+te stoppen.
+
+Over de gedachte dat er een tekort aan ideeën zou zijn is hij stellig: het
+aanbod van de bron raakt niet op, dus een idee weggeven of laten vallen kost
+niets. Dat verklaart ook waarom hij het overvloedig verzamelen aanraadt en het
+vasthouden aan één invalshoek afraadt.
+
+**De toon van het geheel**
+
+Het boek is geschreven in korte, stellige zinnen zonder voorbehoud. Rubin
+voert geen argumenten aan en verdedigt zijn uitspraken niet. Wie daar goed op
+reageert, leest een boek dat de aandacht verlegt. Wie vraagt waarom iets zo
+zou zijn, krijgt geen antwoord, en dat is een keuze van de schrijver en geen
+omissie.
+
+De losse regels tussen de hoofdstukken versterken dat. Ze staan er als
+vaststelling, zonder aanloop en zonder gevolgtrekking, en laten de lezer zelf
+uitzoeken waar ze op slaan. Het boek werkt daardoor eerder als een reeks
+aanwijzingen om bij de hand te houden dan als een tekst die je van voor naar
+achter uitleest.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Source | Alles wat bestaat en zich aandient als materiaal, gelijk beschikbaar voor iedereen. |
+| Filter | De persoonlijke geschiedenis en smaak waarmee de maker uit die bron kiest. |
+| Vessel | De maker als vat dat vult met wat het binnenlaat en dat later in gewijzigde vorm afgeeft. |
+| seed | Een kiem of aanzet die opgemerkt en verzameld wordt zonder dat al vaststaat wat het worden kan. |
+| beginnersgeest | De houding van iemand die nog niet weet hoe iets hoort en daardoor meer opmerkt. |
+| experimenteerfase | De fase waarin proberen en mislukken de bedoeling zijn, omdat het werk zich daar vormt. |
+| afronding | Het punt waarop het werk losgelaten wordt, zonder dat er zekerheid is dat het af is. |
+| de kunstenaar als ontvanger | Het uitgangspunt dat scheppen bestaat uit opmerken en doorgeven in plaats van uit verzinnen. |
+
+#### Waar het argument op rust
+
+Het boek berust op de ervaring van de schrijver en niet op onderzoek. Er staan
+geen studies in, geen cijfers en nauwelijks concrete gevallen. Rubin noemt
+zelden een artiest, een opname of een sessie bij naam, hoewel hij die
+voorbeelden bij uitstek zou hebben.
+
+Wat overblijft als onderbouwing is de staat van dienst van de schrijver en de
+herkenbaarheid van wat hij beschrijft voor wie zelf maakt. Dat is een zwakke
+soort bewijs: het overtuigt wie het al eens heeft meegemaakt en biedt niets
+aan wie wil weten of het ook voor anderen opgaat.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het begrip creativiteit in dit boek zo ruim wordt
+gemaakt dat het niets meer uitsluit. Als iedereen schept en scheppen samenvalt
+met leven, verdwijnt het verschil tussen aandachtig door de dag gaan en werk
+maken dat standhoudt. Het boek biedt geen enkel middel om dat verschil te
+bepalen.
+
+Daarnaast wordt het vakmanschap onderbelicht. Rubin was jarenlang betrokken
+bij werk dat technisch tot in de details werd bijgeschaafd, en juist die kant
+blijft in het boek vrijwel onbesproken. Wie wil weten hoe je een idee
+daadwerkelijk uitvoert, vindt hier geen aanwijzingen.
+
+De vorm nodigt uit tot instemmen. De zinnen zijn kort en stellig, er staat
+niets tegenover en er wordt niets afgewogen. Uitspraken over intuïtie en over
+de wereld die materiaal aanbiedt zijn niet toetsbaar, en het boek doet ook
+geen poging ze aannemelijk te maken.
+
+Ten slotte is de weglating van de commerciële kant opvallend bij een schrijver
+die zijn gezag daaraan ontleent. Het advies om het publiek te vergeten komt
+van iemand die daar in zijn beroepsleven niet naar handelde.
+
+#### Wat er concreet mee te doen is
+
+- Houd een plek bij waar kiemen terechtkomen, zonder er meteen over te
+oordelen of ze bruikbaar zijn.
+- Scheid verzamelen, proberen en afronden in de tijd, en werk per zitting in
+één van die standen.
+- Kijk periodiek na wat je binnenlaat aan lezen, luisteren en kijken, en
+behandel dat als onderdeel van het werk.
+- Stel bij het afronden vast wat het werk voor jezelf moest doen, en gebruik
+dat als afsluitingscriterium.
+
+#### Wat je hierna leest
+
+- 11. Steal Like an Artist. Kleon werkt dezelfde gedachte over ontvangen en
+doorgeven uit in een korter en concreter boek.
+- 16. Creativity: A Short and Cheerful Guide. Cleese behandelt de fasen van
+het werk met meer nuchterheid en met voorbeelden uit de eigen praktijk.
+- 13. The Practice. Godin legt het gewicht bij het afleveren, waar Rubin het
+bij het opmerken legt.
+- 78. Finding Flow. Csikszentmihalyi onderzoekt de aandachtstoestand die Rubin
+beschrijft, met gegevens erbij.
 
 ## 18. On Writing
 
@@ -2165,6 +3521,232 @@ antwoordde dat je zo goed moet worden dat ze je niet kunnen negeren. Newports
 voorbeelden lopen van programmeurs tot een boer, en zijn eigen waarschuwing
 hoort erbij: autonomie opeisen voordat het kapitaal er is loopt vast, en juist
 als het kapitaal er wel is zal de omgeving je proberen tegen te houden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Volg je passie is volgens Newport het slechtste
+loopbaanadvies dat er is. Hij noemt het de passiehypothese: het idee dat er
+een voorafbestaande passie klaarligt en dat werkgeluk komt van het vinden
+daarvan. Zijn tegenvoorstel is dat mensen gaan houden van werk waar ze goed in
+zijn geworden, en dat het opbouwen van zeldzame en waardevolle vaardigheden
+voorafgaat aan de vrijheid, de zeggenschap en de zin die mensen achteraf
+passie noemen. Wie de volgorde omdraait en eerst autonomie of betekenis opeist
+zonder dat kapitaal, komt bedrogen uit.
+
+#### De gang van het boek
+
+**Regel één: volg je passie niet**
+
+Newport begint met de vraag waar het advies vandaan komt en of het klopt. Hij
+wijst erop dat het pas sinds de jaren zeventig gemeengoed is en dat de meeste
+mensen geen duidelijke, voorafbestaande beroepspassie hebben die op ontdekking
+wacht. Onderzoek naar wat mensen wel motiveert, waaronder de
+zelfbeschikkingstheorie met autonomie, bekwaamheid en verbondenheid, levert
+eigenschappen op die je in werk verwerft, niet eigenschappen waarop je
+preselecteert.
+
+Hij haalt er het werk van Amy Wrzesniewski bij, die bij
+universiteitsmedewerkers vaststelde dat de sterkste voorspeller van wie het
+eigen werk als roeping ziet, het aantal jaren ervaring in de functie is.
+Roeping als opbrengst van tijd en bekwaamheid dus, en niet als reden om te
+beginnen.
+
+Het scherpst is Newport in zijn omgang met Steve Jobs, wiens toespraak in
+Stanford het advies wereldwijd verspreidde. Uit wat er bekend is over Jobs in
+1974 en 1975 komt geen jongeman naar voren die zijn passie voor techniek
+volgde, maar iemand die tussen oosterse spiritualiteit en losse klussen zwierf
+en de computerhandel binnenrolde omdat er geld te verdienen viel. De passie
+kwam daarna.
+
+**Wat er misgaat als je het advies wel volgt**
+
+Newport zet daar de gevallen tegenover van mensen die het advies letterlijk
+namen. Thomas gaf een technische loopbaan op voor een zenklooster en ontdekte
+dat de verlichting die hij verwachtte niet kwam, dat hij dezelfde onvrede
+meenam. Anderen ruilden een baan in voor een droombedrijf zonder iets te
+bieden te hebben, en kwamen in geldzorgen terecht.
+
+Zijn diagnose is dat het advies mensen leert hun onvrede te lezen als bewijs
+dat ze in de verkeerde baan zitten. Dat maakt van elke tegenslag een signaal
+om te vertrekken, en van vertrekken een gewoonte. Wie zo redeneert bouwt in
+geen enkele richting iets op.
+
+**Regel twee: word zo goed dat ze niet om je heen kunnen**
+
+De titel van het boek komt van Steve Martin, die op de vraag hoe je doorbreekt
+antwoordde dat je zo goed moet worden dat ze je niet kunnen negeren. Newport
+bouwt daarop zijn kernbegrip: loopbaankapitaal, de voorraad zeldzame en
+waardevolle vaardigheden waarmee je de dingen kunt kopen die werk goed maken.
+
+Daartegenover zet hij twee houdingen. De passiehouding vraagt wat de wereld
+jou te bieden heeft en houdt je bezig met de vraag of dit wel de goede baan
+is. De vakmanshouding vraagt wat jij te bieden hebt en richt zich op de
+kwaliteit van het geleverde werk. Newport verdedigt de tweede en geeft toe dat
+die minder aantrekkelijk klinkt.
+
+Voor het opbouwen van dat kapitaal leunt hij op het onderzoek van Anders
+Ericsson naar bewuste oefening: gerichte inspanning aan de rand van je kunnen,
+met snelle terugkoppeling, volgehouden ook als het ongemakkelijk is. Zijn
+observatie is dat de meeste kenniswerkers dat nooit doen. Ze bereiken een
+aanvaardbaar niveau en blijven daar jaren hangen. De jazzgitarist en de
+schaker oefenen wel zo, en dat maakt volgens hem het verschil.
+
+Hij illustreert het met een televisieschrijver die na zijn afstuderen een baan
+als assistent nam en daarnaast honderden scenario's las en schreef om te leren
+wat een aflevering laat werken, en met een programmeur die systematisch de
+taken opzocht waar niemand anders raad mee wist.
+
+**Wat oefening in kantoorwerk zou moeten zijn**
+
+Newport ziet zelf dat bewuste oefening ontwikkeld is voor vakgebieden met
+heldere regels en snelle uitslag, zoals schaken, muziek en sport, en dat
+kenniswerk die structuur mist. Zijn oplossing is die structuur zelf aan te
+brengen. Dat betekent voor hem: benoemen welk soort vaardigheid je aan het
+opbouwen bent, taken opzoeken die net boven je kunnen liggen, en zorgen dat
+iemand of iets je vertelt hoe goed het was.
+
+Hij onderscheidt daarbij twee soorten markten. In een winner-take-all-markt
+telt maar één vaardigheid, zoals bij een televisieschrijver die alleen op zijn
+scenario's wordt beoordeeld. In een auction-markt telt een verzameling
+vaardigheden die je op verschillende manieren kunt combineren, zoals bij
+iemand die duurzame energie en financiering bij elkaar brengt. Welke van de
+twee je voor je hebt, bepaalt waarin je moet investeren, en Newport vindt dat
+mensen die vraag zelden stellen.
+
+In het slotdeel legt hij zijn eigen loopbaan als jonge onderzoeker langs die
+maatstaf en houdt hij bij hoeveel tijd er werkelijk naar moeilijk denkwerk
+ging. Dat bijhouden is misschien de bruikbaarste aanbeveling van het boek,
+omdat het het verschil zichtbaar maakt tussen bezig zijn en beter worden.
+
+**Regel drie: zeggenschap, en de twee valkuilen**
+
+Het derde deel gaat over wat je met opgebouwd kapitaal koopt. Newport noemt
+zeggenschap over wat je doet en hoe je het doet de belangrijkste opbrengst, en
+hij onderbouwt dat met onderzoek waaruit blijkt dat autonomie sterk samenhangt
+met werkplezier en volharding.
+
+Daarna komt het scherpste stuk van het boek: twee valkuilen die elkaar
+insluiten. De eerste is zeggenschap opeisen zonder kapitaal. Dat lukt vrijwel
+altijd even, want niemand houdt je tegen, en het houdt vrijwel nooit stand,
+want er is niets waarvoor iemand wil betalen. De tweede treedt op zodra je wel
+kapitaal hebt: dan gaat je omgeving zich verzetten, want je bent nu waardevol
+en men wil je houden waar je bent. De aanbieding van een promotie is in dat
+licht een waarschuwing.
+
+Zijn gereedschap om tussen de twee door te varen is de wet van de financiële
+haalbaarheid: doe alleen wat mensen bereid zijn te betalen. Geld is hier geen
+doel maar een meting van kapitaal. Hij laat zien hoe een biologiestudent die
+boer wilde worden dat toetste, en hoe een adviseur zijn vierdaagse werkweek
+erdoor kreeg omdat het bedrijf hem kwijt zou raken.
+
+**Regel vier: een missie, opgebouwd uit kleine inzetten**
+
+De laatste opbrengst van kapitaal is een missie, een richtinggevend doel dat
+je werk samenhang geeft. Ook hier keert Newport de volgorde om. Een missie die
+je bedenkt voordat je iets kunt, is een wens. Een missie die werkt, ligt in
+wat hij met Steven Johnson het aangrenzend mogelijke noemt: het gebied dat pas
+zichtbaar wordt als je de grens van je vakgebied hebt bereikt.
+
+Hij beschrijft een computationeel geneticus die haar missie vond nadat ze zich
+in twee vakgebieden had ingewerkt, en hij noemt twee dingen die daarna nodig
+zijn. Kleine inzetten: bescheiden proefnemingen die binnen maanden een
+duidelijk antwoord opleveren, in plaats van één groot plan. En aandacht voor
+hoe je werk zich verspreidt, want een missie moet ergens landen om iets te
+betekenen.
+
+Het boek eindigt met Newports eigen verantwoording, waarin hij zijn zoektocht
+naar een academische aanstelling langs zijn vier regels legt. Dat slot is
+eerlijk in zijn beperking: hij schrijft het op terwijl de afloop nog niet
+vaststaat, en hij laat zien welke keuzes hij op grond van zijn eigen
+redenering maakte en welke twijfels daarbij bleven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Passiehypothese | Het idee dat er een voorafbestaande passie is die je moet vinden en volgen om gelukkig te worden in je werk. |
+| Loopbaankapitaal | De voorraad zeldzame en waardevolle vaardigheden waarmee je de eigenschappen koopt die werk goed maken. |
+| Vakmanshouding | De houding die zich richt op de kwaliteit van wat je levert in plaats van op de vraag of deze baan bij je past. |
+| Passiehouding | De houding die zich richt op wat het werk jou oplevert en die daardoor voortdurend onvrede opmerkt. |
+| Bewuste oefening | Gerichte inspanning aan de rand van je kunnen met snelle terugkoppeling, ontleend aan het onderzoek van Anders Ericsson. |
+| Zeggenschap | Controle over wat je doet en hoe je het doet, volgens Newport de belangrijkste opbrengst van loopbaankapitaal. |
+| De eerste valkuil van zeggenschap | Autonomie opeisen voordat je er kapitaal voor hebt, wat wel kan maar niet houdbaar is. |
+| De tweede valkuil van zeggenschap | Het verzet van je omgeving zodra je genoeg kapitaal hebt om autonomie te vragen, juist omdat je waardevol bent geworden. |
+| Wet van de financiële haalbaarheid | Doe alleen datgene waar mensen bereid zijn voor te betalen, als toets of je werkelijk kapitaal hebt. |
+| Aangrenzend mogelijke | Het gebied van nieuwe mogelijkheden dat pas zichtbaar wordt aan de grens van een vakgebied, waar volgens Newport bruikbare missies liggen. |
+
+#### Waar het argument op rust
+
+Newport bouwt zijn argument op een reeks gesprekken met mensen die hij zelf
+opzocht, aangevuld met onderzoeksliteratuur. Het onderzoek van Amy
+Wrzesniewski is de sterkste steun voor zijn hoofdclaim, omdat het roeping
+koppelt aan jaren ervaring en niet aan een vooraf gevoelde aantrekkingskracht.
+De zelfbeschikkingstheorie geeft hem een verklaring voor waarom autonomie en
+bekwaamheid ertoe doen.
+
+De rest is zwakker. De gesprekken zijn achteraf gereconstrueerd en
+geselecteerd op afloop. Wie de vier regels volgde en toch strandde, komt in
+het boek niet voor, terwijl juist die gevallen het onderscheid zouden maken.
+Ook de omgekeerde tegenwerping ontbreekt: mensen die wel hun passie volgden en
+er goed uitkwamen, worden afgedaan als geluk.
+
+Het beroep op bewuste oefening is sinds 2012 minder stevig geworden. Latere
+overzichtsstudies vonden dat de hoeveelheid geoefende tijd in de meeste
+vakgebieden een bescheiden deel van de prestatieverschillen verklaart, en
+aanzienlijk minder in slecht gestructureerde beroepen zoals de kenniswerk waar
+Newport het over heeft. Het idee dat bewuste oefening in kantoorwerk überhaupt
+te definiëren valt, blijft in het boek een aanname.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat Newport zijn tegenstander groter maakt dan hij is.
+Vrijwel niemand die zegt volg je passie bedoelt dat je zonder vaardigheden een
+loopbaan kunt bouwen. Het gangbare advies is eerder dat aanleg en
+belangstelling meewegen bij de keuze waarin je jaren gaat investeren, en die
+stelling weerlegt Newport nergens. Sterker, zijn eigen voorbeelden kozen
+allemaal een richting waar ze al iets in zagen.
+
+Ten tweede is het boek stil over ongelijkheid. Loopbaankapitaal opbouwen
+vraagt jaren waarin je onderbetaald doorleert, en die jaren zijn niet voor
+iedereen beschikbaar. Newports gesprekspartners hebben opvallend vaak een
+universitaire opleiding en een vangnet. Wie zorgtaken heeft of geen buffer,
+kan de vakmanshouding niet zomaar volhouden, en die beperking wordt niet
+benoemd.
+
+Ten derde blijft de theorie op belangrijke punten onbepaald. Hoe herken je het
+verschil tussen een baan die je nog niet beheerst en een baan die werkelijk
+verkeerd is? Newport geeft daar geen antwoord op, en zijn kader kan elke
+ontevredenheid wegverklaren als onvoldoende kapitaal. Dat is comfortabel voor
+werkgevers en ongemakkelijk voor wie in een slechte omgeving zit.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel je huidige werk niet op hoe het voelt, maar op wat het je aan
+zeldzame vaardigheid oplevert de komende twee jaar.
+- Zoek uit welke vaardigheid in jouw omgeving schaars is en waarvoor betaald
+wordt, en richt je oefening daarop.
+- Bouw terugkoppeling in. Zonder iemand die je werk streng beoordeelt is
+oefening herhaling.
+- Toets een wens om vrijer te werken aan de vraag of iemand er nu al voor wil
+betalen. Is het antwoord nee, dan is er nog geen kapitaal.
+- Verwacht weerstand op het moment dat je zeggenschap vraagt en lees die
+weerstand als teken dat je waarde hebt opgebouwd, niet als afwijzing.
+- Werk met kleine inzetten van hooguit een paar maanden die een duidelijk
+antwoord opleveren, in plaats van één groot plan.
+
+#### Wat je hierna leest
+
+- 70. Deep Work. Het vervolg van Newport zelf: waar dit boek zegt dat je
+zeldzaam goed moet worden, gaat *Deep Work* over de werkwijze waarmee dat
+gebeurt.
+- 29. Grit. Duckworth komt via een andere weg bij hetzelfde punt uit, maar
+plaatst passie wel vooraan. De twee boeken lezen als elkaars tegenspraak over
+dezelfde onderzoeksliteratuur.
+- 6. Shop Class as Soulcraft. Crawford verdedigt vakmanschap vanuit de handen
+in plaats van vanuit de loopbaan, en laat zien wat Newports begrip van
+bekwaamheid weglaat.
+- 78. Finding Flow. Csikszentmihalyi levert de verklaring waarom bekwaamheid
+plezier oplevert, wat bij Newport als aanname blijft staan.
 
 ## 51. The Defining Decade
 
@@ -5034,6 +6616,232 @@ het van de systemen waarin het ordenen zelf het werk wordt. Het boek herhaalt
 zich en de belofte in de ondertitel is groter dan wat er wordt geleverd; wie
 een lichte werkwijze zoekt om aantekeningen te maken die hij later terugvindt,
 heeft aan de vier stappen genoeg.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het probleem van de moderne kenniswerker is volgens Forte
+niet dat hij te weinig weet, maar dat hij wat hij weet op het verkeerde moment
+tegenkomt. Een boek, een gesprek of een onderzoeksrapport levert inzicht op
+dat pas maanden later van pas komt, en tegen die tijd is het weg. Zijn
+antwoord is een digitaal archief dat als tweede geheugen dienstdoet, en vooral
+een werkwijze om dat archief te vullen en weer leeg te halen: vastleggen wat
+je raakt, ordenen naar wat je aan het doen bent, terugbrengen tot de kern, en
+er iets mee maken dat je met anderen deelt.
+
+#### De gang van het boek
+
+**Waar het boek vandaan komt**
+
+Forte opent met zijn eigen geschiedenis. Als student kreeg hij keelpijn die
+jarenlang aanhield en die geen arts kon verklaren. Hij vroeg zijn volledige
+patiëntendossier op, honderden bladzijden, scande alles in en werd naar eigen
+zeggen de projectleider van zijn eigen aandoening. Uit die aantekeningen kwam
+de richting die hem hielp: een functionele stemstoornis, geen infectie, dus
+geen middel dat het weghaalt maar aanpassingen in ademhaling, voeding en
+gewoontes.
+
+Die persoonlijke aanleiding kleurt het hele boek. Aantekeningen zijn bij Forte
+geen studiehulp maar een manier om greep te krijgen op een situatie die je
+niet overziet. De rest van zijn loopbaan, twee jaar lesgeven in Oekraïne voor
+de Peace Corps en daarna analist bij een adviesbureau in San Francisco,
+gebruikt hij om te laten zien dat dezelfde gewoonte in heel andere
+omstandigheden werkt. Uit lunchgesprekken met collega's groeide een cursus, en
+uit die cursus dit boek.
+
+**CODE als raamwerk**
+
+De kern van het boek is een viertrapsmodel dat Forte CODE noemt: Capture,
+Organize, Distill, Express. Vastleggen, ordenen, uitkoken, uitdrukken. Hij
+plaatst het in een lange lijn van commonplace books, de citatenboeken die
+schrijvers en denkers van Leonardo da Vinci tot Octavia Butler bijhielden, en
+noemt ook de zettelkasten van socioloog Niklas Luhmann en de memex van
+Vannevar Bush als voorlopers.
+
+Wat de vier stappen bindt is een keuze over richting. Een tweede brein is bij
+Forte geen archief dat volledigheid nastreeft, maar een voorraadkast voor werk
+dat nog moet gebeuren. Alles wat hij voorstelt is te herleiden tot die keuze,
+en de meeste kritiek op het boek ook.
+
+**Vastleggen: het criterium van resonantie**
+
+De grootste valkuil bij digitaal aantekenen is volgens Forte te veel bewaren.
+Hij stelt vier vragen voor om te beslissen: raakt het me, is het bruikbaar, is
+het persoonlijk, is het verrassend. Bij dat laatste leunt hij op de
+informatiedefinitie van Claude Shannon: informatie is wat je nog niet wist.
+Een verzameling die alleen bevestigt wat je al vond, doet niets.
+
+Maar die vier vragen zijn bij hem het vangnet, niet de hoofdregel. De
+hoofdregel is dat je bewaart wat resoneert, een lichamelijk gevoel van verrast
+of geraakt zijn dat je niet hoeft te kunnen uitleggen. Zijn argument daarvoor
+is praktisch: analytisch beslissen bij elk fragment kost zoveel aandacht dat
+er niets overblijft voor het denkwerk daarna. Hij haalt er ook onderzoek bij,
+waaronder een kaartspelproef waarbij deelnemers lichamelijke stressreacties
+vertoonden voordat ze bewust doorhadden welk stapeltje hen geld kostte.
+
+Om te weten wat er kan resoneren, ontleent hij aan Richard Feynman de oefening
+van de twaalf lievelingsproblemen: houd een stuk of twaalf open vragen in je
+hoofd en toets alles wat je tegenkomt daaraan. Feynman beschreef dat zelf in
+een interview als de reden dat anderen hem voor een genie hielden.
+
+**Ordenen: PARA**
+
+Het ordeningssysteem heet PARA: Projects, Areas, Resources, Archives.
+Projecten zijn wat je nu afmaakt, gebieden zijn verantwoordelijkheden zonder
+einddatum, hulpbronnen zijn onderwerpen die je interesseren, en het archief is
+koude opslag voor wat is afgelopen.
+
+De ingreep zit in het sorteercriterium. PARA ordent niet naar onderwerp maar
+naar bruikbaarheid, en de enige vraag bij een nieuwe notitie is in welk
+project dit van pas komt. Daarmee vervalt de eindeloze mappenboom van
+onderwerpen en subonderwerpen. Forte laat zijn eigen structuur zien: drie
+niveaus, de vier hoofdcategorieën, de projectmap en de notitie zelf. Hetzelfde
+schema gebruikt hij in zijn notitie-app, zijn documentenmap en zijn
+cloudopslag.
+
+**Uitkoken: progressieve samenvatting**
+
+De derde stap opent met Francis Ford Coppola, die The Godfather voorbereidde
+met een prompt book: hij las de roman van Mario Puzo en noteerde eerste
+indrukken, brak daarna elke scène af naar samenvatting, historische context,
+beeldtoon, kernbedoeling en valkuilen. In de kantlijn zette hij aanwijzingen
+als Hitchcock of bevroren tijd, en hoe meer inkt op een bladzijde, hoe
+belangrijker de scène. Coppola zei achteraf dat hij het scenario eigenlijk
+niet nodig had.
+
+Fortes eigen techniek heet progressieve samenvatting en werkt in lagen. Laag
+één zijn de fragmenten die je overneemt, laag twee de vetgedrukte hoofdpunten
+daarbinnen, laag drie de gemarkeerde beste zinnen, laag vier een eigen
+samenvatting in eigen woorden bovenaan. Elke laag maak je pas als je de
+notitie tóch weer opent, dus alleen voor materiaal dat zich bewijst.
+
+Waar hij nadrukkelijk voor waarschuwt is uitkoken als doel op zich. Lagen
+aanbrengen bij elke notitie die binnenkomt levert een prachtige verzameling op
+die niemand gebruikt. De regel is dat je een laag toevoegt op het moment dat
+een notitie zich aandient in echt werk, zodat de moeite meebeweegt met de
+opbrengst.
+
+**Uitdrukken: tussenpakketten en de creatieve slinger**
+
+De vierde stap is het punt waar het boek zijn belofte moet waarmaken. Forte
+introduceert tussenpakketten, de losse bouwstenen van je werk: uitgekookte
+notities, uitgeknipt materiaal dat een vorig project niet haalde, werk in
+uitvoering, opgeleverde stukken en documenten van anderen. Wie in zulke
+blokken werkt kan eerder feedback vragen, hoeft minder vanaf nul te beginnen
+en kan na verloop van tijd hele projecten samenstellen uit wat er al ligt.
+
+Daaronder legt hij het patroon van divergentie en convergentie. Eerst
+verzamelen en verbreden, daarna kiezen en sluiten. Voor de omslag naar
+convergentie geeft hij drie technieken. Een archipel van ideeën is een
+document dat al gevuld is met de citaten en punten die je wilt gebruiken,
+zodat er geen leeg scherm meer is en alleen de bruggen tussen de eilanden nog
+gelegd hoeven worden. De Hemingway-brug is stoppen met werken op het moment
+dat je weet wat er hierna komt, en dat opschrijven. Scope afschalen komt uit
+de softwarebouw: lever iets kleiners en concreets op in plaats van de
+oplevering uit te stellen, dus een reeks artikelen in plaats van een boek, of
+een bericht in plaats van een artikel.
+
+**Onderhoud en slot**
+
+Het laatste deel gaat over volhouden. Forte leent van koks het begrip mise en
+place: opruimen gebeurt tijdens het werk, niet in een apart weekend dat toch
+nooit komt. Hij noemt drie soorten gewoontes. Checklists bij het starten en
+afronden van een project, zodat oud werk terugkomt in nieuw werk. Een
+wekelijkse en maandelijkse terugblik, ontleend aan de Weekly Review van David
+Allen. En opmerkgewoontes: de kleine ingrepen onderweg, een betere titel, een
+notitie die naar een ander project verhuist.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Second Brain | Een persoonlijk digitaal archief van notities, fragmenten en bestanden dat dienstdoet als extern geheugen en werkomgeving. |
+| CODE | Het viertrapsmodel van het boek: Capture, Organize, Distill, Express. |
+| PARA | Ordening in vier categorieën, Projects, Areas, Resources en Archives, gesorteerd naar bruikbaarheid in plaats van naar onderwerp. |
+| Resonantie | Het gevoel van geraakt of verrast zijn dat Forte als hoofdcriterium gebruikt om iets vast te leggen. |
+| Twaalf lievelingsproblemen | Een lijst van open vragen die je permanent in gedachten houdt en waaraan je nieuw materiaal toetst, ontleend aan Richard Feynman. |
+| Progressieve samenvatting | Een notitie in opeenvolgende lagen uitkoken, van fragment naar vet naar markering naar eigen samenvatting, telkens pas bij hergebruik. |
+| Tussenpakket | Een afgerond stukje werk in uitvoering dat op zichzelf herbruikbaar is in latere projecten. |
+| Archipel van ideeën | Een opzet die al gevuld is met gekozen citaten en punten, zodat schrijven neerkomt op het verbinden van bestaande eilanden. |
+| Hemingway-brug | Een werksessie beëindigen op het moment dat je weet wat er hierna komt en dat opschrijven voor je volgende sessie. |
+| Scope afschalen | Iets kleiners en concreets opleveren in plaats van de oplevering uitstellen tot het volledige plan af is. |
+
+#### Waar het argument op rust
+
+Het boek rust op drie soorten materiaal. Ten eerste Fortes eigen geschiedenis,
+van zijn keelaandoening tot zijn werk als adviseur. Ten tweede historische
+voorbeelden van makers die met aantekeningen werkten: het prompt book van
+Coppola, de dozen van choreografe Twyla Tharp, de notitieboeken van Octavia
+Butler, de aantekeningen van Taylor Swift. Ten derde de ervaring van de
+duizenden cursisten die hij naar eigen zeggen heeft opgeleid.
+
+Van die drie is alleen het tweede type verifieerbaar, en die voorbeelden
+bewijzen iets anders dan Forte suggereert. Coppola en Butler laten zien dat
+serieuze makers materiaal verzamelen en herzien. Ze laten niet zien dat CODE
+of PARA daarbij helpt, want geen van hen gebruikte iets wat daarop lijkt. De
+verzamelde onderzoeksverwijzingen, zoals de kaartspelproef over intuïtie of
+het werk van Nancy Andreasen over associatievermogen bij creatieve mensen,
+ondersteunen losse deelbeweringen en niet de werkzaamheid van het systeem.
+
+Er is geen enkel onderzoek naar het systeem zelf. Er is geen vergelijking met
+mensen die anders aantekenen of helemaal niet, geen meting van opbrengst, geen
+cijfer over hoeveel cursisten het na een jaar nog gebruiken. Wie het boek
+leest als een beschrijving van wat bij Forte werkt en bij een deel van zijn
+cursisten, krijgt waar voor zijn geld. Wie het leest als bewezen methode,
+zoals de ondertitel belooft, leest meer dan er staat.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek de kosten van zijn eigen systeem niet
+optelt. Vastleggen, verplaatsen tussen PARA-mappen, lagen aanbrengen,
+wekelijks terugblikken: dat is werk, en het is werk dat verdacht veel lijkt op
+wat het zou moeten vervangen. Forte erkent het risico van te veel verzamelen,
+maar zijn oplossing, bewaar wat resoneert, is een filter dat bij een
+nieuwsgierig mens vrijwel alles doorlaat. In de praktijk zien veel lezers hun
+tweede brein een verzameling worden die ze nooit meer raadplegen, en dat is
+precies de toestand waarvan het boek beloofde te bevrijden.
+
+Daarnaast is het criterium van resonantie zwak onderbouwd voor de rol die het
+krijgt. Dat intuïtie soms sneller is dan bewuste redenering, zegt weinig over
+de vraag of een gevoel van geraakt zijn een goede voorspeller is van latere
+bruikbaarheid. Het gaat hier bovendien om verwijzingen naar experimenten die
+in de bredere psychologie zijn bekritiseerd en die Forte overneemt zonder
+voorbehoud.
+
+Ten slotte is er een spanning in het boek die niet wordt opgelost. Forte
+belooft zowel minder overbelasting als meer creatieve opbrengst, en die twee
+vragen om tegengestelde bewegingen: minder binnenhalen tegenover meer
+vastleggen. Het laatste hoofdstuk, over de verschuiving van schaarste naar
+overvloed, kiest de kant van meer, in een toon die eerder van een
+cursusverkoper is dan van iemand die zijn eigen aanpak bevraagt. Wie vooral
+wil ophouden met verzamelen, vindt in *Four Thousand Weeks* een strenger
+antwoord.
+
+#### Wat er concreet mee te doen is
+
+- Begin met alleen projectmappen. Maak per project waaraan je nu werkt één map
+en laat gebieden, hulpbronnen en archief voorlopig leeg.
+- Scheid vangen en ordenen. Laat alles in één postvak binnenkomen en beslis
+pas bij de wekelijkse terugblik waar het hoort.
+- Koken kost tijd, dus koken doe je alleen bij hergebruik. Breng pas een laag
+vet of markering aan op het moment dat je een notitie tóch weer opent.
+- Schrijf aan het eind van een werksessie drie regels op over wat er hierna
+komt, voordat je alles afsluit.
+- Formuleer een handvol open vragen die je bezighouden en gebruik die als
+filter bij het lezen, in plaats van te bewaren wat interessant lijkt.
+- Toets na twee maanden hoeveel notities je daadwerkelijk hebt teruggezocht.
+Ligt dat aantal bij nul, dan verzamel je en werk je niet.
+
+#### Wat je hierna leest
+
+- 70. Deep Work. Newport gaat over de aandacht zelf, waar Forte over de opslag
+gaat. De twee boeken vullen elkaar aan en spreken elkaar op één punt tegen:
+Newport wantrouwt het gemak waarmee informatie binnenkomt.
+- 22. Atomic Habits. Clear levert de gewoonteleer die Forte nodig heeft maar
+zelf niet uitwerkt. De drie onderhoudsgewoontes uit hoofdstuk 9 staan of
+vallen daarmee.
+- 71. Four Thousand Weeks. Burkeman keert de belofte om: het probleem is niet
+dat je te weinig van je aantekeningen gebruikt, maar dat je nooit toekomt aan
+het meeste wat je opslaat.
 
 ## 82. The Art of Explanation
 
