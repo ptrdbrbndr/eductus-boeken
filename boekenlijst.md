@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 30 juli
-2026: 68 titels in 13 rubrieken.
+2026: 83 titels in 15 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,18 +13,20 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41 |
+| Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43 |
-| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82 |
+| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68 |
+| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -2892,91 +2894,447 @@ haalde is het interessantste van de bundel, omdat het niet in een van de
 gangbare verklaringen past. De methode is wat blijft hangen: de vraag stellen
 welke uitkomst een verklaring voorspelt, en nakijken of die uitkomst er is.
 
+## 69. Ruis
+
+Daniel Kahneman, Olivier Sibony en Cass Sunstein, 2021. Oorspronkelijk *Noise:
+A Flaw in Human Judgment*. Nederlands als *Ruis: waarom we zo vaak verkeerde
+beslissingen nemen en hoe we dat kunnen voorkomen* bij Nieuw Amsterdam (2021).
+Rubriek: gewoontes en denken.
+Tags: `oordeel`, `besluiten`, `statistiek`, `organisatie`, `rechtspraak`,
+`protocol`, `meten`
+Bron: boekenmap.
+
+Waar het eerdere werk van Kahneman over vertekening ging, gaat dit over
+spreiding. Twee rechters geven voor dezelfde zaak verschillende straffen, twee
+verzekeraars stellen voor hetzelfde dossier premies vast die tientallen
+procenten uiteenlopen, en dezelfde beoordelaar oordeelt na de lunch anders dan
+ervoor. De schrijvers noemen dat ruis, en hun punt is dat organisaties zich
+blindstaren op systematische afwijking terwijl toevallige spreiding evenveel
+schade aanricht en veel minder wordt gemeten.
+
+Hun oplossing is prozaïsch en daardoor bruikbaar: een oordeel opdelen in vaste
+onderdelen die los van elkaar worden gescoord, beoordelaars onafhankelijk
+laten werken voordat zij overleggen, en de spreiding zelf periodiek meten met
+wat zij een ruisonderzoek noemen. Het boek is lang en herhaalt zich; wie de
+kern wil, heeft aan de eerste honderd bladzijden en de aanbevelingen genoeg.
+
+## 70. Deep Work
+
+Cal Newport, 2016. Ondertitel *Rules for Focused Success in a Distracted
+World* (Grand Central Publishing). Nederlands als *Diep werk* bij Business
+Contact (2016). Rubriek: werk en aandacht.
+Tags: `aandacht`, `concentratie`, `werk`, `gewoonte`, `e-mail`,
+`sociale-media`, `planning`
+Bron: boekenmap.
+
+Newport stelt dat werk dat volledige aandacht vraagt zeldzaam is geworden en
+juist daardoor waardevol. Zijn stelling bestaat uit twee helften: het vermogen
+om lang en ongestoord aan één ding te werken is te trainen, en het is tegelijk
+aan het verdwijnen doordat organisaties op bereikbaarheid zijn ingericht. Wie
+ondertussen wel die aandacht opbrengt, doet werk dat anderen niet meer kunnen
+leveren.
+
+Het tweede deel bestaat uit vier regels: kies een vaste vorm waarin het diepe
+werk past, verveel je op gezette tijden zodat afleiding niet de standaard
+wordt, verlaat sociale netwerken die niet aantoonbaar iets opleveren, en snijd
+het ondiepe werk terug tot een begroot aantal uren. De onderbouwing is een
+mengsel van onderzoek, portretten van schrijvers en wetenschappers en zijn
+eigen agenda; het is meer een pleidooi met werkwijzen dan een empirisch boek.
+
+## 71. Four Thousand Weeks
+
+Oliver Burkeman, 2021. Ondertitel *Time Management for Mortals* (Farrar,
+Straus and Giroux; Bodley Head in het Verenigd Koninkrijk). Nederlands als
+*Vierduizend weken: tijdmanagement voor stervelingen* bij Spectrum (2021).
+Rubriek: levenskunst.
+Tags: `tijd`, `sterfelijkheid`, `aandacht`, `uitstel`, `keuzes`, `filosofie`,
+`tegen-productiviteit`
+Bron: boekenmap.
+
+Een mensenleven duurt ongeveer vierduizend weken, en Burkeman gebruikt dat
+getal om de belofte van tijdbeheer onderuit te halen. Efficiënter werken maakt
+de lijst niet korter maar langer, want ruimte die vrijkomt wordt gevuld; het
+gevoel van achterstand is dus geen gebrek aan techniek maar de uitkomst van
+een leven waarin meer mogelijk is dan er past.
+
+Zijn tegenvoorstel is het aanvaarden van de beperking. Kiezen betekent
+verliezen, en pas wie dat verlies aandurft, doet werkelijk iets af. Hij haalt
+zijn argumenten bij filosofen en bij zijn eigen jaren als schrijver over
+productiviteit, en levert geen stappenplan maar een reeks houdingen. Wie een
+methode zoekt, komt bedrogen uit; wie de onrust van eindeloos inhalen herkent,
+vindt hier de scherpste beschrijving ervan.
+
+## 72. The Subtle Art of Not Giving a F*ck
+
+Mark Manson, 2016. Ondertitel *A Counterintuitive Approach to Living a Good
+Life* (HarperOne). Nederlands als *De edele kunst van not giving a f*ck* bij
+Kosmos (2017). Rubriek: levenskunst.
+Tags: `waarden`, `verantwoordelijkheid`, `zelfhulp`, `grenzen`, `falen`,
+`toon`, `keuzes`
+Bron: boekenmap.
+
+Manson keert de gebruikelijke belofte van zelfhulp om: het probleem is niet
+dat mensen te weinig zelfvertrouwen hebben, maar dat zij zich om te veel
+dingen druk maken. Aandacht is beperkt, dus de vraag is niet hoe je overal om
+kunt geven maar waarover wel. Daaraan koppelt hij het onderscheid tussen
+schuld en verantwoordelijkheid: wat iemand overkomt is niet altijd zijn
+schuld, wat hij ermee doet altijd zijn verantwoordelijkheid.
+
+De inhoud is grotendeels stoïcijns en boeddhistisch materiaal in straattaal,
+met eigen ervaringen en historische voorbeelden erdoorheen. De toon is de
+reden dat het boek miljoenen lezers vond en ook de reden dat het snel
+gedateerd aanvoelt; het beste hoofdstuk gaat over het kiezen van je problemen,
+omdat het duidelijk maakt dat een leven zonder pijn geen doel maar een lege
+wens is.
+
+## 73. 12 Rules for Life
+
+Jordan B. Peterson, 2018. Ondertitel *An Antidote to Chaos* (Penguin Random
+House). Nederlands als *12 regels voor het leven: een tegengif voor chaos* bij
+Prometheus (2018). Rubriek: moed en karakter.
+Tags: `orde`, `verantwoordelijkheid`, `psychologie`, `mythologie`,
+`opvoeding`, `lijden`, `omstreden`
+Bron: boekenmap.
+
+Twaalf regels, elk uitgewerkt tot een essay dat via psychologie, mythologie en
+bijbeluitleg bij een praktische aanwijzing uitkomt: ruim je kamer op, sta
+rechtop, vergelijk jezelf met wie je gisteren was en niet met een ander, en
+spreek de waarheid of lieg in elk geval niet. De rode draad is dat het leven
+onvermijdelijk lijden bevat en dat de enige zinvolle reactie het op je nemen
+van verantwoordelijkheid is.
+
+De kracht zit in de klinische passages, waarin een therapeut met jaren
+praktijk over gezinnen en angst schrijft. De zwakte zit in de sprongen: een
+opmerking over kreeften en serotonine draagt bij hem een hele
+hiërarchietheorie, en het bewijs voor dat verband is dunner dan de stelligheid
+doet vermoeden. Wie Peterson vooral kent uit het publieke debat, treft hier
+een ander boek aan dan verwacht.
+
+## 74. Beyond Order
+
+Jordan B. Peterson, 2021. Ondertitel *12 More Rules for Life* (Penguin Random
+House). Nederlands als *Voorbij de orde: nog 12 regels voor het leven* bij
+Prometheus (2021). Rubriek: moed en karakter.
+Tags: `orde`, `chaos`, `creativiteit`, `verhaal`, `verantwoordelijkheid`,
+`ziekte`, `vervolg`
+Bron: boekenmap.
+
+Het vervolg keert de vraagstelling om. Waar het eerste boek betoogde dat
+mensen orde nodig hebben tegen de chaos, gaat dit over de gevaren van te veel
+orde: gewoontes die verstenen, instellingen die zichzelf gaan dienen, mensen
+die uit angst voor het onbekende hun leven dichttimmeren. De regels gaan
+daardoor vaker over durven, verbeelden en loslaten.
+
+Het is geschreven in een periode waarin Peterson ernstig ziek was en verslaafd
+raakte aan een voorgeschreven kalmeringsmiddel, en dat is aan de toon te
+merken: minder stellig, meer over kwetsbaarheid, met een voorwoord waarin hij
+die periode beschrijft. Wie het eerste boek waardeerde, vindt hier hetzelfde
+mengsel van klinische ervaring en verhaaluitleg; wie de sprongen daar te groot
+vond, zal ook dit terzijde leggen.
+
+## 75. Ego Is the Enemy
+
+Ryan Holiday, 2016. Penguin Portfolio. Nederlands als *Ego is de vijand* bij
+Lev. (2017); zie ook 30 van dezelfde schrijver. Rubriek: moed en karakter.
+Tags: `ego`, `stoicijns`, `ambitie`, `succes`, `falen`, `portretten`,
+`zelfbeheersing`
+Bron: boekenmap.
+
+Holiday deelt een loopbaan in drieën, ambitie, succes en mislukking, en laat
+zien hoe het ego in elk van die fasen zijn eigen schade aanricht: het praat
+werk goed dat nog niet af is, het maakt van succes een reden om te stoppen met
+leren, en het verandert tegenslag in gekrenktheid. Zijn tegengif is nuchter
+werk zonder publiek, en het aanvaarden dat de meeste inspanning onopgemerkt
+blijft.
+
+De vorm is die van zijn andere boeken: korte hoofdstukken met historische
+portretten, van generaals tot ondernemers, telkens met een les. Dat leest snel
+en is selectief, want de gekozen voorbeelden bevestigen het punt altijd. Als
+bezwaar tegen de aandacht die het vak van de schrijver zelf verhandelt, is het
+boek ook een zelfportret.
+
+## 76. Think and Grow Rich
+
+Napoleon Hill, 1937. De onbewerkte oorspronkelijke uitgave van 1937 is
+heruitgegeven door de Napoleon Hill Foundation (2012). Nederlands als *Denk en
+word rijk*; zie ook 58, dat Hill in 1938 schreef en dat pas in 2011 verscheen.
+Rubriek: positief denken en manifesteren.
+Tags: `succes`, `geld`, `verlangen`, `gewoonte`, `zelfhulp`, `1937`,
+`omstreden`
+Bron: boekenmap.
+
+Het boek dat het genre heeft gemaakt. Hill beweert de gewoontes van
+vijfhonderd geslaagde Amerikanen te hebben onderzocht en destilleert daaruit
+dertien stappen, met een brandend verlangen, een uitgeschreven doel met bedrag
+en datum, geloof, volharding en een groep vertrouwelingen als voornaamste. De
+kern is dat gedachten zich in de stoffelijke wereld vertalen wanneer zij lang
+genoeg en met genoeg overtuiging worden vastgehouden.
+
+Als geschiedenis van het zelfhulpgenre hoort het erbij, als onderzoek is het
+waardeloos: de vijfhonderd gesprekken zijn nooit aangetoond, de omgang met
+Andrew Carnegie die Hill claimt wordt door zijn biografen betwist, en de stap
+van gedachte naar uitkomst is een geloofsuitspraak. Wat er blijft staan is de
+praktische kern over vastgelegde doelen en volharding, die later beter is
+onderbouwd door anderen.
+
+## 77. Ikigai
+
+Héctor García en Francesc Miralles, 2016. Oorspronkelijk Spaans; Nederlands
+als *Ikigai: het Japanse geheim voor een lang en gelukkig leven* bij De
+Boekerij (2018). Rubriek: levenskunst.
+Tags: `japan`, `ouderdom`, `gewoonte`, `beweging`, `zingeving`, `okinawa`,
+`populair`
+Bron: boekenmap.
+
+Het boek koppelt het Japanse begrip ikigai, ruwweg dat wat het opstaan de
+moeite waard maakt, aan de hoge levensverwachting op Okinawa. De schrijvers
+spraken met oude inwoners van het dorp Ogimi en halen daar een leefwijze uit:
+matig eten, dagelijks bewegen zonder sportschool, een vaste plek in een groep,
+en werk of bezigheid die niet ophoudt bij het pensioen.
+
+De bekende vier overlappende cirkels waarin ikigai het snijpunt is van waar je
+goed in bent, van houdt, voor betaald krijgt en wat de wereld nodig heeft,
+komen uit een westers schema en niet uit het Japanse gebruik van het woord;
+dat verschil maakt het boek niet duidelijk. Het geheel is aangenaam en dun
+onderbouwd, met interviews in plaats van onderzoek, en het is het beste te
+lezen als kennismaking en niet als bewijs.
+
+## 78. Finding Flow
+
+Mihaly Csikszentmihalyi, 1997. Ondertitel *The Psychology of Engagement with
+Everyday Life*, in de reeks MasterMinds (Basic Books). De uitgebreide
+voorganger *Flow* (1990) verscheen in het Nederlands bij Boom. Rubriek: werk
+en aandacht.
+Tags: `flow`, `aandacht`, `psychologie`, `vrije-tijd`, `werk`, `onderzoek`,
+`dagboekmethode`
+Bron: boekenmap.
+
+De korte versie van zijn levenswerk. Flow is de toestand waarin iemand
+volledig opgaat in wat hij doet, en die ontstaat wanneer de opgave en het
+eigen kunnen elkaar in evenwicht houden, met een duidelijk doel en
+onmiddellijke terugkoppeling. Csikszentmihalyi onderbouwt dat met een methode
+waarbij proefpersonen op willekeurige momenten een pieper kregen en noteerden
+wat zij deden en hoe zij zich voelden.
+
+De onaangename uitkomst van dat onderzoek is dat mensen die toestand vaker op
+het werk bereiken dan in hun vrije tijd, terwijl zij liever vrij zijn.
+Televisie levert weinig flow en veel tijd; een gesprek, een spel of een
+ambacht leveren het omgekeerde. Het boek is beknopt en gedateerd in zijn
+voorbeelden, en de kern is nog steeds de bruikbaarste beschrijving van
+aandacht die er is.
+
+## 79. 59 Seconds
+
+Richard Wiseman, 2009. Ondertitel *Think a Little, Change a Lot*
+(Macmillan/Knopf). Nederlands als *59 seconden: denk een beetje, verander een
+hoop* bij Spectrum. Rubriek: gewoontes en denken.
+Tags: `psychologie`, `onderzoek`, `zelfhulp`, `geluk`, `gewoonte`,
+`experiment`, `replicatie`
+Bron: boekenmap.
+
+Wiseman is psycholoog en schreef dit boek uit ergernis over zelfhulp zonder
+bewijs. Per onderwerp, van geluk en overtuigen tot uitstelgedrag en relaties,
+zoekt hij uit welk onderzoek er ligt en welke ingreep in minder dan een minuut
+is uit te voeren: dankbaarheid opschrijven in plaats van erover praten, een
+plan met plaats en tijd noteren, een aankoop als ervaring kiezen in plaats van
+als voorwerp.
+
+Hij haalt en passant een reeks bekende adviezen onderuit, waaronder het uiten
+van woede als afvoerkanaal en het visualiseren van succes, die in onderzoek
+het omgekeerde effect blijken te hebben. Het bezwaar dat bij herlezing opkomt
+is dat een deel van de studies uit de jaren waarin hij schreef, later niet
+meer te herhalen bleek; het boek is daarmee zelf een goede oefening in de
+vraag hoe stevig een verwijzing naar onderzoek is.
+
+## 80. The Hour Between Dog and Wolf
+
+John Coates, 2012. Ondertitel *Risk-taking, Gut Feelings and the Biology of
+Boom and Bust* (Fourth Estate/Random House Canada). Nederlands als *Het uur
+tussen hond en wolf* bij Nieuw Amsterdam (2012). Rubriek: geld en ondernemen.
+Tags: `risico`, `hormonen`, `handel`, `lichaam`, `onderzoek`, `beurs`,
+`stress`
+Bron: boekenmap.
+
+Coates handelde in derivaten en werd daarna neurowetenschapper, en dit boek is
+de kruising van die twee. Zijn stelling is dat beslissen over risico geen zaak
+van het verstand alleen is: bij winstreeksen stijgt het testosteron, wat tot
+grotere posities en meer zelfvertrouwen leidt, en bij langdurige onzekerheid
+stijgt het cortisol, wat mensen risicomijdend maakt op het moment dat kopen
+juist verstandig zou zijn.
+
+Hij onderbouwt dat met speekselmetingen bij handelaren op een echte
+handelsvloer, en verbindt de uitkomsten met wat er in het lichaam gebeurt
+tijdens inspanning en stress. De conclusie is ongemakkelijk voor wie markten
+als rekensom ziet: hausse en krach hebben een lichamelijke component. Het
+onderzoek is klein van opzet en de generalisatie naar hele markten is een
+sprong die hij zelf ook benoemt.
+
+## 81. Building a Second Brain
+
+Tiago Forte, 2022. Atria Books (2022); de ondertitel belooft een beproefde
+methode om het digitale leven te ordenen. Nederlands als *Je tweede brein* bij
+Maven Publishing (2022). Rubriek: werk en aandacht.
+Tags: `aantekeningen`, `kennis`, `methode`, `digitaal`, `projecten`,
+`schrijven`, `para`
+Bron: boekenmap.
+
+Forte bepleit een aantekeningenstelsel buiten het hoofd, waarin alles wat de
+moeite waard is wordt vastgelegd en zo geordend dat het terugkomt op het
+moment dat het nodig is. Zijn werkwijze heeft vier stappen: vastleggen,
+ordenen, samenvatten en delen, en zijn ordening kent vier bakken, te weten
+projecten, verantwoordelijkheden, bronnen en archief.
+
+De nadruk ligt op bruikbaarheid boven volledigheid: aantekeningen zijn er om
+werk af te leveren en niet om een verzameling op te bouwen. Dat onderscheidt
+het van de systemen waarin het ordenen zelf het werk wordt. Het boek herhaalt
+zich en de belofte in de ondertitel is groter dan wat er wordt geleverd; wie
+een lichte werkwijze zoekt om aantekeningen te maken die hij later terugvindt,
+heeft aan de vier stappen genoeg.
+
+## 82. The Art of Explanation
+
+Ros Atkins, 2023. Ondertitel *How to Communicate with Clarity and Confidence*
+(Wildfire/Headline). Geen Nederlandse uitgave gevonden. Rubriek: samenwerken
+en gesprek.
+Tags: `uitleggen`, `journalistiek`, `presenteren`, `structuur`, `helderheid`,
+`bbc`, `voorbereiding`
+Bron: boekenmap.
+
+Atkins maakt bij de BBC video's waarin hij een ingewikkelde kwestie in enkele
+minuten uitlegt, en dit boek is de werkwijze daarachter. Zijn kern is dat
+helderheid het resultaat is van voorbereiding en niet van welsprekendheid:
+eerst alles verzamelen, dan meedogenloos schrappen tot alleen dat overblijft
+wat het publiek nodig heeft, dan de volgorde bepalen en pas daarna formuleren.
+
+Hij werkt dat uit in tien stappen en past het toe op vergaderingen,
+sollicitaties en presentaties, met voorbeelden uit zijn eigen uitzendingen.
+Het boek is praktisch en aan de dunne kant voor wie al veel presenteert; de
+bruikbaarste gedachte is dat de vraag wat het publiek al weet vóór het
+opstellen komt en niet erna.
+
+## 83. The Power of Positive Thinking
+
+Norman Vincent Peale, 1952. Prentice Hall, later Fireside/Simon and Schuster.
+Nederlands als *De kracht van positief denken*; het boek stond jarenlang op de
+Amerikaanse bestsellerlijsten. Rubriek: positief denken en manifesteren.
+Tags: `positief-denken`, `geloof`, `zelfhulp`, `1952`, `gebed`, `klassieker`,
+`omstreden`
+Bron: boekenmap.
+
+Peale was dominee in New York en schreef het boek dat het positief denken tot
+volksgeloof maakte. Zijn recept is een mengsel van gebed, bevestigende zinnen
+die hardop worden herhaald, het weigeren van negatieve gedachten en het beeld
+van een geslaagde afloop dat vastgehouden moet worden tot het werkelijkheid
+wordt. De voorbeelden komen uit zijn pastorale praktijk en volgen alle
+hetzelfde stramien.
+
+Het is van belang omdat vrijwel al het latere werk over manifesteren erop
+teruggaat, en het is tegelijk het duidelijkste voorbeeld van de zwakte van dat
+genre. Peale voert geen onderzoek aan, zijn gevallen zijn niet na te trekken,
+en psychiaters van zijn eigen tijd verweten hem dat hij mensen met echte
+klachten van hulp weghield. Wie het leest, leest een historisch document en
+geen handleiding.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
 
-`1938` 58 · `aandacht` 17, 34, 54 · `aannames` 27 · `actueel` 67 · `aforismen`
-2, 17 · `afwezige-vader` 4 · `alcohol` 4 · `ambacht` 6, 12, 13, 17, 18 ·
-`Andalusië` 8 · `angst` 53, 58 · `animatie` 41 · `Antarctica` 36 · `apartheid`
-26 · `Apple` 46 · `arbeid` 6 · `argumenten` 63 · `armoede` 26 · `atletiek` 31
-· `Auschwitz` 48 · `autonomie` 6, 50 · `behoeften` 35 · `bekentenis` 60 ·
-`beleggen` 21, 64 · `beleid` 65 · `bemiddeling` 35 · `beschaving` 57 ·
-`beslissen` 55 · `besluiten` 47, 59 · `bestseller` 8, 37 · `bewijs` 63 ·
-`bezit` 37 · `bijgeloof` 63 · `biografie` 31, 46 · `biologie` 66 · `blokkade`
-14 · `brainstormen` 33 · `broers` 10 · `cafeïne` 52 · `Californië` 10 ·
-`cases` 40 · `cashflow` 37 · `challenger` 62 · `cijfers` 39, 65 ·
-`cognitieve-bias` 59 · `communicatie` 34, 35 · `conditionering` 61 ·
-`conflict` 35, 42, 43 · `creativiteit` 11, 12, 13, 14, 15, 16, 17 · `crisis`
-47 · `cultuur` 68 · `cultuurkritiek` 54 · `dagboek` 2 · `debat` 28 ·
-`denkfouten` 55, 59 · `discipline` 12, 13, 22, 30 · `doelen` 58 ·
-`doelgericht-oefenen` 50 · `doorzetten` 20 · `dromen` 52 · `durfkapitaal` 47 ·
-`dystopie` 61 · `economie` 65 · `eenzaamheid` 7 · `eerlijk` 47 · `eerlijkheid`
-62 · `eerste-versie` 19 · `eigen-oordeel` 58 · `emoties` 3, 43 · `empathie`
-35, 67 · `epos` 5 · `erfenis` 39 · `essay` 3, 9, 21, 57, 59, 63, 64, 68 ·
-`evolutie` 56, 66 · `evolutionaire-psychologie` 67 · `expeditie` 36 · `fabel`
-8, 42 · `falen` 23 · `familie` 45 · `familieroman` 10 · `feedback` 41 ·
-`feiten` 43 · `feminisme` 3 · `film` 41 · `filosofie` 1, 6 · `gedrag` 21, 22 ·
-`geduld` 21 · `geheugen` 66 · `geld` 21, 37, 38, 56 · `geloof` 45 ·
-`gemeenschap` 9 · `geneeskunde` 49 · `geschiedenis` 30, 36, 56, 57, 68 ·
-`gesprek` 43 · `gevolgen` 67 · `geweld` 45 · `gewoonte` 58 · `gewoontes` 7,
-11, 13, 22, 25 · `gezag` 62 · `gezondheid` 52 · `groot-verhaal` 56 ·
-`handelen` 30 · `heroverwegen` 28 · `hersenen` 51 · `Holocaust` 48 ·
-`huisvesting` 65 · `humor` 16, 19, 26 · `huwelijk` 9, 34 · `Huxley` 54 ·
-`Idaho` 45 · `identiteit` 22 · `identiteitskapitaal` 51 · `imitatie` 11 ·
-`import` 20 · `individualisme` 9 · `internet` 60 · `interview` 58 ·
-`introversie` 33 · `invloed` 11 · `jaloezie` 19 · `jeugd` 53 · `jongeren` 25 ·
-`journalistiek` 4, 7, 46 · `Kaïn-en-Abel` 10 · `kans` 64 · `kenniswerk` 6, 50
-· `keuzes` 51 · `klassieker` 10, 24, 38, 48, 61 · `klein-beginnen` 40 ·
+`1937` 76 · `1938` 58 · `1952` 83 · `aandacht` 17, 34, 54, 70, 71, 78 ·
+`aannames` 27 · `aantekeningen` 81 · `actueel` 67 · `aforismen` 2, 17 ·
+`afwezige-vader` 4 · `alcohol` 4 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75
+· `Andalusië` 8 · `angst` 53, 58 · `animatie` 41 · `Antarctica` 36 ·
+`apartheid` 26 · `Apple` 46 · `arbeid` 6 · `argumenten` 63 · `armoede` 26 ·
+`atletiek` 31 · `Auschwitz` 48 · `autonomie` 6, 50 · `bbc` 82 · `behoeften` 35
+· `bekentenis` 60 · `beleggen` 21, 64 · `beleid` 65 · `bemiddeling` 35 ·
+`beschaving` 57 · `beslissen` 55 · `besluiten` 47, 59, 69 · `bestseller` 8, 37
+· `beurs` 80 · `beweging` 77 · `bewijs` 63 · `bezit` 37 · `bijgeloof` 63 ·
+`biografie` 31, 46 · `biologie` 66 · `blokkade` 14 · `brainstormen` 33 ·
+`broers` 10 · `cafeïne` 52 · `Californië` 10 · `cases` 40 · `cashflow` 37 ·
+`challenger` 62 · `chaos` 74 · `cijfers` 39, 65 · `cognitieve-bias` 59 ·
+`communicatie` 34, 35 · `concentratie` 70 · `conditionering` 61 · `conflict`
+35, 42, 43 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74 · `crisis` 47 ·
+`cultuur` 68 · `cultuurkritiek` 54 · `dagboek` 2 · `dagboekmethode` 78 ·
+`debat` 28 · `denkfouten` 55, 59 · `digitaal` 81 · `discipline` 12, 13, 22, 30
+· `doelen` 58 · `doelgericht-oefenen` 50 · `doorzetten` 20 · `dromen` 52 ·
+`durfkapitaal` 47 · `dystopie` 61 · `e-mail` 70 · `economie` 65 ·
+`eenzaamheid` 7 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego`
+75 · `eigen-oordeel` 58 · `emoties` 3, 43 · `empathie` 35, 67 · `epos` 5 ·
+`erfenis` 39 · `essay` 3, 9, 21, 57, 59, 63, 64, 68 · `evolutie` 56, 66 ·
+`evolutionaire-psychologie` 67 · `expeditie` 36 · `experiment` 79 · `fabel` 8,
+42 · `falen` 23, 72, 75 · `familie` 45 · `familieroman` 10 · `feedback` 41 ·
+`feiten` 43 · `feminisme` 3 · `film` 41 · `filosofie` 1, 6, 71 · `flow` 78 ·
+`gebed` 83 · `gedrag` 21, 22 · `geduld` 21 · `geheugen` 66 · `geld` 21, 37,
+38, 56, 76 · `geloof` 45, 83 · `geluk` 79 · `gemeenschap` 9 · `geneeskunde` 49
+· `geschiedenis` 30, 36, 56, 57, 68 · `gesprek` 43 · `gevolgen` 67 · `geweld`
+45 · `gewoonte` 58, 70, 76, 77, 79 · `gewoontes` 7, 11, 13, 22, 25 · `gezag`
+62 · `gezondheid` 52 · `grenzen` 72 · `groot-verhaal` 56 · `handel` 80 ·
+`handelen` 30 · `helderheid` 82 · `heroverwegen` 28 · `hersenen` 51 ·
+`Holocaust` 48 · `hormonen` 80 · `huisvesting` 65 · `humor` 16, 19, 26 ·
+`huwelijk` 9, 34 · `Huxley` 54 · `Idaho` 45 · `identiteit` 22 ·
+`identiteitskapitaal` 51 · `imitatie` 11 · `import` 20 · `individualisme` 9 ·
+`internet` 60 · `interview` 58 · `introversie` 33 · `invloed` 11 · `jaloezie`
+19 · `japan` 77 · `jeugd` 53 · `jongeren` 25 · `journalistiek` 4, 7, 46, 82 ·
+`Kaïn-en-Abel` 10 · `kans` 64 · `kennis` 81 · `kenniswerk` 6, 50 · `keuzes`
+51, 71, 72 · `klassieker` 10, 24, 38, 48, 61, 83 · `klein-beginnen` 40 ·
 `kleine-stappen` 22 · `kort` 59 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
 `kort-stuk` 19, 30 · `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 · `kroeg`
 4 · `kunst` 11 · `kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw` 56 ·
-`leiderschap` 36, 41, 44, 46 · `levenskunst` 27 · `lezen` 18 · `liefde` 3 ·
-`lijden` 48 · `literatuur` 49 · `logotherapie` 48 · `Long-Island` 4 ·
-`loopbaan` 50, 51 · `losmaken` 45 · `luisteren` 24, 35 · `management` 42, 47 ·
-`mannelijkheid` 3 · `mannen` 7 · `marketing` 13, 40, 60 · `media` 54, 60 ·
-`memoir` 4, 7, 18, 20, 26, 45, 49, 62 · `mentorschap` 4 · `microbedrijf` 40 ·
-`middelbare-leeftijd` 7 · `minderheden` 68 · `moed` 44 · `moeder-en-zoon` 26 ·
-`Monty-Python` 16 · `moraal` 9, 57, 67 · `moreel` 36 · `motoren` 6 · `muziek`
-17 · `naslagwerk` 59 · `natuurkunde` 62 · `netwerken` 24 · `neurochirurgie` 49
-· `neurowetenschap` 52 · `NeXT` 46 · `nieuws` 60 · `nieuwsgierigheid` 15, 28,
-62 · `Nike` 20 · `Nobelprijs` 55 · `observeren` 15 · `ochtendroutine` 14 ·
-`oefenen` 29 · `oefeningen` 15, 35 · `omgangsvormen` 24 · `omstreden` 37 ·
-`onbewuste` 16 · `ondernemen` 20, 39, 40, 47 · `onderwijs` 6, 23, 33, 45, 63,
-65, 68 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55,
-62 · `onderzoeksdebat` 53 · `onderzoekskritiek` 52 · `ontslagen` 47 ·
-`ontwikkeling` 46 · `oordeel` 59 · `oorlog` 31, 57, 66 · `opgroeien` 4 ·
-`opvoeding` 3, 23, 29, 44, 53 · `organisatie` 28, 41 · `Orwell` 54 ·
-`ouder-worden` 5 · `oudheid` 2 · `overleven` 31, 36 · `overlevingsvertekening`
-64 · `overtuigen` 24 · `overtuigingen` 28 · `overvloed` 17 · `Pacific` 31 ·
-`parabel` 38 · `passie` 50 · `pastoraat` 34 · `patriarchaat` 3 · `pelgrimage`
-8 · `perceptie` 30 · `perfectionisme` 19, 32, 44 · `persoonlijkheid` 33 ·
-`Pixar` 41, 46 · `plicht` 2 · `polemiek` 67 · `politiek` 54 · `postuum` 49 ·
-`prijzen` 23 · `prikkels` 60, 65 · `prioriteiten` 25 · `proactief` 25 ·
-`producer` 17 · `propaganda` 60 · `psychiatrie` 1, 48 · `psychologie` 23, 28,
-29, 55 · `publiceren` 13 · `Pulitzer` 5 · `reisverhaal` 1 · `relaties` 34, 51
-· `religie` 56 · `REM` 52 · `Renaissance` 15 · `rente` 38 · `revisie` 18 ·
-`rijkdom` 57 · `risico` 64 · `roeping` 8, 9, 12 · `roman` 61 · `rust` 32 ·
+`leiderschap` 36, 41, 44, 46 · `levenskunst` 27 · `lezen` 18 · `lichaam` 80 ·
+`liefde` 3 · `lijden` 48, 73 · `literatuur` 49 · `logotherapie` 48 ·
+`Long-Island` 4 · `loopbaan` 50, 51 · `losmaken` 45 · `luisteren` 24, 35 ·
+`management` 42, 47 · `mannelijkheid` 3 · `mannen` 7 · `marketing` 13, 40, 60
+· `media` 54, 60 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62 · `mentorschap` 4 ·
+`meten` 69 · `methode` 81 · `microbedrijf` 40 · `middelbare-leeftijd` 7 ·
+`minderheden` 68 · `moed` 44 · `moeder-en-zoon` 26 · `Monty-Python` 16 ·
+`moraal` 9, 57, 67 · `moreel` 36 · `motoren` 6 · `muziek` 17 · `mythologie` 73
+· `naslagwerk` 59 · `natuurkunde` 62 · `netwerken` 24 · `neurochirurgie` 49 ·
+`neurowetenschap` 52 · `NeXT` 46 · `nieuws` 60 · `nieuwsgierigheid` 15, 28, 62
+· `Nike` 20 · `Nobelprijs` 55 · `observeren` 15 · `ochtendroutine` 14 ·
+`oefenen` 29 · `oefeningen` 15, 35 · `okinawa` 77 · `omgangsvormen` 24 ·
+`omstreden` 37, 73, 76, 83 · `onbewuste` 16 · `ondernemen` 20, 39, 40, 47 ·
+`onderwijs` 6, 23, 33, 45, 63, 65, 68 · `onderwijskritiek` 37 · `onderzoek`
+23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80 · `onderzoeksdebat` 53 ·
+`onderzoekskritiek` 52 · `ontslagen` 47 · `ontwikkeling` 46 · `oordeel` 59, 69
+· `oorlog` 31, 57, 66 · `opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73 ·
+`orde` 73, 74 · `organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 ·
+`ouderdom` 77 · `oudheid` 2 · `overleven` 31, 36 · `overlevingsvertekening` 64
+· `overtuigen` 24 · `overtuigingen` 28 · `overvloed` 17 · `Pacific` 31 ·
+`para` 81 · `parabel` 38 · `passie` 50 · `pastoraat` 34 · `patriarchaat` 3 ·
+`pelgrimage` 8 · `perceptie` 30 · `perfectionisme` 19, 32, 44 ·
+`persoonlijkheid` 33 · `Pixar` 41, 46 · `planning` 70 · `plicht` 2 ·
+`polemiek` 67 · `politiek` 54 · `populair` 77 · `portretten` 75 ·
+`positief-denken` 83 · `postuum` 49 · `presenteren` 82 · `prijzen` 23 ·
+`prikkels` 60, 65 · `prioriteiten` 25 · `proactief` 25 · `producer` 17 ·
+`projecten` 81 · `propaganda` 60 · `protocol` 69 · `psychiatrie` 1, 48 ·
+`psychologie` 23, 28, 29, 55, 73, 78, 79 · `publiceren` 13 · `Pulitzer` 5 ·
+`rechtspraak` 69 · `reisverhaal` 1 · `relaties` 34, 51 · `religie` 56 · `REM`
+52 · `Renaissance` 15 · `rente` 38 · `replicatie` 79 · `revisie` 18 ·
+`rijkdom` 57 · `risico` 64, 80 · `roeping` 8, 9, 12 · `roman` 61 · `rust` 32 ·
 `Salinas` 10 · `samenwerken` 25 · `scepsis` 63 · `schaamte` 32, 44 · `school`
-53 · `schrijven` 11, 12, 14, 18, 19 · `schulden` 20, 38 · `slaap` 52 ·
-`slavernij` 68 · `smartphone` 53 · `sociale-media` 53 · `sparen` 21, 38 ·
-`spelen` 32 · `spiritualiteit` 8, 14, 27 · `sport` 20 · `statistiek` 55, 65 ·
-`status` 39, 66 · `sterfelijkheid` 2 · `sterven` 49 · `stijl` 18 · `stoïcisme`
-2, 30 · `systeem` 22 · `taal` 26, 27 · `talent` 23, 29 · `team` 42 ·
-`techniek` 1, 6, 43, 61 · `tegenslag` 30 · `tekenen` 15 · `televisie` 54 ·
-`temperament` 33 · `Texas` 5 · `therapie` 51 · `toeval` 21, 64 · `Tolteeks` 27
-· `twaalf-weken` 14 · `twintigers` 51 · `uitstelgedrag` 12 · `uitstellen` 16 ·
-`vaardigheden` 40, 50 · `vaardigheid` 64 · `vader-en-zoon` 1 · `vaderschap` 49
-· `vakmanschap` 1 · `vastgoed` 37 · `veedrift` 5 · `veiligheid` 43 ·
-`verantwoordelijkheid` 42 · `vergaderen` 42 · `vergeving` 31 · `verhalen` 56 ·
-`verklaringen` 68 · `vermaak` 61 · `vermogen` 39 · `verplichting` 9 ·
-`verslaving` 18 · `vertrouwen` 42 · `volharding` 29 · `vooroordelen` 55 ·
-`vriendschap` 5, 7 · `vrije-wil` 10 · `vrijheid` 61 · `waardering` 24, 34 ·
-`weerstand` 12 · `werkboek` 14 · `werkplek` 33, 43 · `werkwijze` 16 ·
-`West-Point` 29 · `westen` 67 · `western` 5 · `wetenschap` 63, 66 · `woestijn`
-8 · `zeereis` 36 · `zelfbedrog` 66 · `zelfbeeld` 25, 27 · `zelfcompassie` 32 ·
-`zelfdiscipline` 2 · `zelfhulp` 15, 22, 25, 34, 58 · `zelfspot` 19 ·
-`zelfstandig` 40 · `zingeving` 9, 48 · `Zuid-Afrika` 26 · `zuinigheid` 39
+53 · `schrijven` 11, 12, 14, 18, 19, 81 · `schulden` 20, 38 · `slaap` 52 ·
+`slavernij` 68 · `smartphone` 53 · `sociale-media` 53, 70 · `sparen` 21, 38 ·
+`spelen` 32 · `spiritualiteit` 8, 14, 27 · `sport` 20 · `statistiek` 55, 65,
+69 · `status` 39, 66 · `sterfelijkheid` 2, 71 · `sterven` 49 · `stijl` 18 ·
+`stoicijns` 75 · `stoïcisme` 2, 30 · `stress` 80 · `structuur` 82 · `succes`
+75, 76 · `systeem` 22 · `taal` 26, 27 · `talent` 23, 29 · `team` 42 ·
+`techniek` 1, 6, 43, 61 · `tegen-productiviteit` 71 · `tegenslag` 30 ·
+`tekenen` 15 · `televisie` 54 · `temperament` 33 · `Texas` 5 · `therapie` 51 ·
+`tijd` 71 · `toeval` 21, 64 · `Tolteeks` 27 · `toon` 72 · `twaalf-weken` 14 ·
+`twintigers` 51 · `uitleggen` 82 · `uitstel` 71 · `uitstelgedrag` 12 ·
+`uitstellen` 16 · `vaardigheden` 40, 50 · `vaardigheid` 64 · `vader-en-zoon` 1
+· `vaderschap` 49 · `vakmanschap` 1 · `vastgoed` 37 · `veedrift` 5 ·
+`veiligheid` 43 · `verantwoordelijkheid` 42, 72, 73, 74 · `vergaderen` 42 ·
+`vergeving` 31 · `verhaal` 74 · `verhalen` 56 · `verklaringen` 68 ·
+`verlangen` 76 · `vermaak` 61 · `vermogen` 39 · `verplichting` 9 ·
+`verslaving` 18 · `vertrouwen` 42 · `vervolg` 74 · `volharding` 29 ·
+`voorbereiding` 82 · `vooroordelen` 55 · `vriendschap` 5, 7 · `vrije-tijd` 78
+· `vrije-wil` 10 · `vrijheid` 61 · `waarden` 72 · `waardering` 24, 34 ·
+`weerstand` 12 · `werk` 70, 78 · `werkboek` 14 · `werkplek` 33, 43 ·
+`werkwijze` 16 · `West-Point` 29 · `westen` 67 · `western` 5 · `wetenschap`
+63, 66 · `woestijn` 8 · `zeereis` 36 · `zelfbedrog` 66 · `zelfbeeld` 25, 27 ·
+`zelfbeheersing` 75 · `zelfcompassie` 32 · `zelfdiscipline` 2 · `zelfhulp` 15,
+22, 25, 34, 58, 72, 76, 79, 83 · `zelfspot` 19 · `zelfstandig` 40 · `ziekte`
+74 · `zingeving` 9, 48, 77 · `Zuid-Afrika` 26 · `zuinigheid` 39
 
 ## Leesroutes
 
