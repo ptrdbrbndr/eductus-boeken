@@ -519,6 +519,154 @@ plek die hem vasthoudt, en Moehringer laat dat tweede pas laat en zonder
 moraliserende toon zwaar wegen. Wie *Open* van Agassi of *Spare* van prins
 Harry kent, leest hier de eigen geschiedenis van hun ghostwriter.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Een jongen die zonder vader opgroeit zoekt zijn opvoeding
+daar waar hij mannen vindt, en in dit boek is dat een kroeg in een voorstad
+van New York. Moehringer beweert dat de stamgasten van dat etablissement hem
+hebben grootgebracht: dat zij hem taal, houding en zelfvertrouwen hebben
+gegeven die zijn afwezige vader hem niet gaf. Tegelijk laat hij zien wat
+diezelfde kroeg met haar vaste bezoekers deed, en daarmee zet hij zijn eigen
+dankbaarheid onder spanning. Het boek is een liefdesverklaring aan een plek
+waarvan de schrijver weet dat zij mensen sloopt.
+
+#### De gang van het verhaal
+
+**Een stem uit de radio**
+
+De verteller groeit op in Manhasset op Long Island, in het volle huis van zijn
+grootvader, samen met zijn moeder, tantes en neven en nichten. Zijn vader is
+verdwenen. Wat er van hem over is, is een stem: hij werkt als schijvendraaier
+bij de radio, en de jongen draait aan de knop tot hij hem hoort. Die stem
+wordt de maat waaraan alles wordt afgemeten, en de zeldzame keren dat vader en
+zoon elkaar wel zien lopen slecht af.
+
+Het huis van de grootvader is krap en gierig geleid. De moeder werkt, spaart,
+verhuist een paar keer naar Arizona om weg te komen en keert telkens terug
+omdat het geld op is. Moehringer schrijft over dat heen en weer zonder de
+armoede aan te dikken en zonder haar te vergoelijken.
+
+**De kroeg aan de overkant**
+
+Aan de hoofdstraat staat de bar waar oom Charlie achter de tap staat: eerst
+Dickens geheten, later Publicans. Voor de jongen is dat gebouw eerst een
+verboden plek waar de mannen naartoe verdwijnen, dan een plek waar hij binnen
+mag, en ten slotte de plek waar hij zelf werkt.
+
+De stamgasten vormen het hart van het boek. Zij leren hem hoe je een verhaal
+vertelt, hoe je een klap opvangt, hoe je je houdt als je verliest. Moehringer
+portretteert hen met naam en met hun eigen manier van praten, en hij laat
+merken dat een deel van wat zij hem meegeven bestaat uit poses die hij later
+moet afleren.
+
+**Yale**
+
+De jongen komt op Yale terecht, deels door zijn cijfers en deels doordat de
+mannen in de bar hem hebben wijsgemaakt dat hij daar hoort. Het
+universiteitsdeel van het boek is het minst zonnige: hij voelt zich een
+indringer, hij mist de omgeving waarvan hij zich juist wilde losmaken, en hij
+komt in de vakanties telkens terug achter dezelfde tapkast.
+
+In dezelfde periode speelt een lange, ongelijke verhouding met een
+medestudente. Moehringer beschrijft die met een openheid over zijn eigen
+aandeel die zeldzaam is in dit soort boeken: hij komt er niet goed uit.
+
+**De krant**
+
+Na zijn studie wordt hij loopjongen op de redactie van The New York Times. Hij
+hoopt daar in één beweging journalist te worden en ontdekt dat de krant hem
+eerst jarenlang niets laat schrijven. Hij zakt voor de interne toets die van
+loopjongen verslaggever maakt, en die afwijzing is het scharnier van het boek.
+
+Wat volgt is een terugtocht: hij gaat weer in de bar werken, hij drinkt, en
+hij zoekt vergeefs de oude troost. De plek die hem had opgevoed heeft niets
+meer te bieden voor iemand van zijn leeftijd, en dat inzicht laat hij langzaam
+en zonder oordeel binnenkomen.
+
+**De vader teruggevonden**
+
+Ergens in dat dal zoekt hij zijn vader op. De ontmoeting is niet de verzoening
+waar het genre naar toewerkt. Wat hij aantreft is een man die veel op de
+stamgasten lijkt en die weinig te bieden heeft, en de schrijver laat dat staan
+zonder er een les uit te halen.
+
+Daarna vertrekt hij naar een krant aan de andere kust en begint het werk waar
+hij op hoopte. Het boek maakt van dat vertrek geen overwinning, eerder een
+noodzakelijke breuk.
+
+**Het slot**
+
+In de laatste hoofdstukken wordt de kroeg gesloten en verliezen de stamgasten
+die in het World Trade Center werkten hun leven op 11 september 2001. Het boek
+eindigt daarmee bij een verdwenen plek en bij mensen die er niet meer zijn. De
+herinnering die hij opschrijft is dan het enige wat er nog van over is, en dat
+geeft het geheel achteraf de vorm van een grafrede.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De stem | De radiostem van zijn vader, het enige wat de jongen jarenlang van hem heeft en de maat waarnaar hij mannelijkheid afmeet. |
+| Publicans | De naam die de kroeg krijgt nadat zij Dickens heette, en in het boek de aanduiding voor de gemeenschap die er samenkomt. |
+| Manhasset | De voorstad op Long Island waar het boek zich afspeelt, welvarend aan de ene kant van het spoor en krap aan de andere. |
+| Oom Charlie | De barman en broer van zijn moeder, de eerste van de vervangvaders en degene die de jongen de kroeg binnenlaat. |
+| Loopjongen | De laagste functie op een krantenredactie, waarin Moehringer jaren blijft steken en waaruit hij niet wordt bevorderd. |
+| Vervangvaders | De mannen in de bar die samen de opvoedende rol overnemen die zijn vader liet liggen, elk met een deelaspect. |
+| Het huis van grootvader | Het overvolle familiehuis dat als tegenpool van de kroeg fungeert: schaarste en wrijving tegenover ruimhartigheid en drank. |
+| Terugkeer | Het telkens weer belanden achter dezelfde tapkast na elke poging om weg te komen, de terugkerende beweging van het boek. |
+
+#### Waar het argument op rust
+
+Het boek rust op geheugen, en Moehringer zegt dat zelf. In een verantwoording
+geeft hij aan dat gesprekken zijn gereconstrueerd, dat tijdlijnen zijn
+samengetrokken en dat een aantal namen is veranderd. Hij heeft de bar en de
+mensen die er kwamen wel opnieuw opgezocht en gesproken, en dat merk je aan
+het aandeel van andermans verhalen in het boek.
+
+De schrijver is een verslaggever, en het boek verscheen kort nadat hij een
+Pulitzer voor artikelvorm had gekregen. Dat is te zien aan het opgetekende
+gesprek en aan de zuinigheid waarmee scènes worden opgebouwd. Het maakt de
+tekst betrouwbaarder in de details en niet in de duiding: wat de mannen in de
+bar hem hebben gedaan, is zijn eigen uitleg achteraf.
+
+Wat de tekst het meeste draagt, is dat de schrijver zichzelf niet ontziet. De
+afwijzing bij de krant, het drinken, het gedrag tegenover de vrouw met wie hij
+jaren bezig is: het staat er zonder verzachting. Een memoir wint aan gezag
+wanneer de verteller ook tegen zichzelf getuigt, en dat gebeurt hier.
+
+#### Wat er tegen in te brengen valt
+
+De vraag die boven het hele boek hangt is hoeveel een journalist over zijn
+eigen jeugd kan vaststellen. De dialogen uit zijn kindertijd zijn geen
+opnamen, de motieven die hij volwassen mannen toeschrijft zijn
+gereconstrueerd, en de verteller heeft belang bij de uitkomst dat de kroeg hem
+heeft grootgebracht. Dat is een uitleg, geen bevinding.
+
+Daarbij komt dat het boek de kroeg tegelijk aanklaagt en verheerlijkt.
+Moehringer laat zien wat drank met de stamgasten doet en met hemzelf, maar de
+toon waarmee hij hen beschrijft is warm genoeg om de schade te verzachten.
+Lezers hebben het boek dan ook vooral als een eerbetoon aan de kroeg gelezen,
+en dat is niet volledig tegen de tekst in.
+
+Ten slotte is de rolverdeling ongelijk. De mannen krijgen ieder een portret;
+de moeder, die het werkelijke opvoedwerk deed, blijft veel schetsmatiger. Het
+boek erkent haar aandeel wel met zoveel woorden, maar geeft haar niet de
+ruimte die het aan de bargasten geeft, en dat scheeftrekken blijft onopgelost.
+
+#### Wat je hierna leest
+
+- 26. Born a Crime. Trevor schrijft ook over opgroeien zonder de vader die er
+hoort te zijn, in een omgeving waar dat door de staat is afgedwongen in plaats
+van door een persoonlijke keuze.
+- 45. Educated. Westover vertelt eveneens over een opleiding als breuk met de
+omgeving van herkomst, en zij worstelt met dezelfde vraag over de
+betrouwbaarheid van haar eigen herinnering.
+- 18. On Writing. King combineert net als Moehringer een levensverhaal met een
+verslag van hoe hij schrijver werd, en gaat explicieter in op het vak zelf.
+- 51. The Defining Decade. Jay behandelt precies het decennium waarin
+Moehringer vastloopt, en verklaart de traagheid van dat decennium in andere,
+algemenere termen.
+
 ## 5. Lonesome Dove
 
 Larry McMurtry, 1985. Pulitzerprijs 1986. Nederlands bij Contact (2004, 862
@@ -540,6 +688,156 @@ niet toegeven dat de jonge Newt zijn zoon is. Daaronder ligt de vraag waarom
 mannen zich aan een onderneming vastklampen waarvan de zin hun zelf niet
 duidelijk is. Zo'n 900 bladzijden lang, met een halve roman aan bijfiguren,
 waaronder de hoer Lorena en de door haar man verlaten Clara.
+
+### Uitgebreide samenvatting
+
+**De stelling.** McMurtry schreef dit boek om de mythe van het Wilde Westen te
+ontmantelen en leverde het boek af dat die mythe voor twee generaties lezers
+heeft bevestigd. De tocht die twee oude Texas Rangers ondernemen, met gestolen
+vee van de Rio Grande naar Montana, kost onderweg zoveel doden, moeite en
+spijt dat het avontuur zichzelf ondergraaft. Toch is de kameraadschap tussen
+de twee mannen zo aanstekelijk beschreven dat de lezer de prijs vergeeft. Die
+spanning tussen bedoeling en uitwerking is het interessantste aan het boek.
+
+#### De gang van het verhaal
+
+**Twee mannen in een dode plaats**
+
+Lonesome Dove is een gehucht aan de grens met Mexico, waar Augustus McCrae en
+Woodrow Call na hun jaren als Texas Ranger een handeltje in paarden en vee
+drijven onder de naam Hat Creek Cattle Company. Gus praat, drinkt en zit op de
+veranda; Call werkt en zwijgt. Het eerste deel van het boek doet weinig anders
+dan die twee mannen en hun mensen laten zien: Pea Eye, de leerjongen Newt, en
+Deets, de zwarte spoorzoeker op wie de hele onderneming steunt.
+
+De rust wordt verbroken door de terugkeer van Jake Spoon, een oude ranger op
+de vlucht, die vertelt over het gras van Montana. Call besluit dat zij
+daarheen gaan met een kudde. Waarom hij dat wil, wordt nooit bevredigend
+uitgelegd, en het boek maakt daar geen tekortkoming van maar een gegeven.
+
+**De kudde noordwaarts**
+
+Het vee wordt over de rivier gestolen in Mexico, de ploeg wordt aangevuld met
+jonge veedrijvers en de tocht begint. Wat volgt is het langste deel van het
+boek en het meest onopgesmukte: rivieren die overgestoken moeten worden, een
+zwerm watermoccasins die een jongen doodt, bliksem, dorst, hagel, en het
+eindeloze wachten.
+
+McMurtry laat het werk zien als werk. De veedrijvers hebben honger, ze zijn
+nat, ze verliezen dieren en mensen. Het romantische beeld van de trektocht
+wordt ondermijnd door de nuchterheid waarmee de dagen zijn opgeschreven.
+
+**Lorena en Blue Duck**
+
+Lorena Wood, de hoer van Lonesome Dove, gaat mee met Jake Spoon. Hij verliest
+haar uit het oog en zij wordt geroofd door Blue Duck, de gewelddadigste figuur
+in het boek, en verhandeld in het kamp van rovers en indianen. Gus rijdt haar
+achterna en haalt haar eruit.
+
+Wat er met haar is gebeurd wordt door McMurtry niet uitgespeld en niet
+weggemoffeld. De rest van het boek draagt zij de gevolgen, en zij herstelt
+niet volledig. Dat is een van de plekken waar de schrijver het genre openlijk
+tegenspreekt: de gered geworden vrouw wordt hier niet weer heel.
+
+**July Johnson en Elmira**
+
+Naast de hoofdtocht loopt het verhaal van July Johnson, een sheriff uit
+Arkansas die eerst achter Jake Spoon aanreist en daarna achter zijn eigen
+weggelopen vrouw Elmira. Die lijn is de somberste van het boek: een man die
+het verkeerde najaagt terwijl thuis alles verloren gaat.
+
+De twee lijnen komen samen op de vlakte, en de opeenstapeling van gemiste
+ontmoetingen en te laat genomen besluiten is wat het boek zijn zwaarte geeft.
+
+**Clara**
+
+In Nebraska woont Clara Allen, de vrouw die Gus jaren geleden niet heeft
+gekregen. Haar boerderij is de enige plaats in het boek waar iets duurzaams is
+opgebouwd. Zij is ook de figuur die de tocht het scherpst beoordeelt: zij zegt
+Call recht in het gezicht dat hij mannen laat sterven voor een idee dat hij
+zelf niet kan uitleggen.
+
+Lorena blijft bij haar achter. Dat is een van de weinige uitkomsten in het
+boek die op iets goeds lijkt.
+
+**Montana en de terugtocht**
+
+De kudde bereikt Montana. Gus raakt onderweg gewond door pijlen, de wonden
+worden koud vuur, en hij weigert de tweede amputatie die hem zou redden. Hij
+sterft en laat Call beloven hem terug te brengen naar Texas.
+
+Call rijdt die tocht alleen, duizenden kilometers zuidwaarts met het lichaam,
+en dat is het oordeel van het boek over zijn eigen held: de man die zo goed is
+in doorzetten dat hij daarmee ook het zinloze doorzet. Wat Newt aan het slot
+wel en niet te horen krijgt over zijn afkomst, is de laatste rekening die
+McMurtry Call presenteert.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Hat Creek Cattle Company | Het bedrijfje van Call en Gus in Lonesome Dove, met een bord vol grillige tekst dat als lopende grap door het boek gaat. |
+| Texas Rangers | De grenspolitie waarin Call en Gus hun naam maakten, en die op het moment van het verhaal al voorbij haar hoogtepunt is. |
+| Woodrow Call | De zwijgende compagnon, gedreven door werk en plicht, die de tocht op gang brengt en nooit uitlegt waarom. |
+| Augustus McCrae | De pratende compagnon, luier en menselijker, wiens oordelen het morele commentaar van het boek vormen. |
+| Blue Duck | De rover die Lorena ontvoert, de enige figuur in het boek die als volstrekt kwaadaardig is neergezet. |
+| Deets | De zwarte spoorzoeker die de tocht mogelijk maakt en van wie de waarde pas hardop wordt uitgesproken als het te laat is. |
+| Newt | De jongen die met de kudde meegaat en wiens vaderschap door Call niet erkend wordt, de onafgemaakte rekening van het boek. |
+| De belofte | Gus laat Call zweren zijn lichaam naar Texas terug te brengen, waardoor de terugreis het spiegelbeeld van de heenreis wordt. |
+
+#### Waar het argument op rust
+
+De stof is historisch. De grote trektochten van vee uit Texas naar het noorden
+vonden plaats in de jaren zeventig en tachtig van de negentiende eeuw, en de
+figuren van Call en Gus zijn losjes geënt op de veehouders Charles Goodnight
+en Oliver Loving, van wie de een de ander na diens dood inderdaad naar Texas
+terugbracht. McMurtry heeft dat gegeven overgenomen en verder niets als
+geschiedschrijving gepresenteerd.
+
+Het boek begon als een filmscript dat nooit is verfilmd en werd pas jaren
+later tot roman uitgewerkt. Dat is te merken aan de bouw: veel korte
+hoofdstukken, veel wisselingen van gezichtspunt en een verhaallijn die op
+scène is gezet. Het levert vaart op en het gaat ten koste van beschouwing.
+
+De prijs waarmee het boek is bekroond, de Pulitzer van 1986, plaatste een
+westernroman in een gezelschap waar dat genre nooit kwam. Dat zegt iets over
+hoe de jury het las: als literatuur die het genre van binnenuit bekritiseert.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar komt van de schrijver zelf. McMurtry heeft herhaaldelijk
+gezegd dat hij de mythe van het Westen wilde afbreken en dat de lezers precies
+het omgekeerde uit zijn boek haalden. Dat is geen misverstand van het publiek
+alleen. De kameraadschap, de grappen en de bewondering voor het
+uithoudingsvermogen van deze mannen zijn met zoveel genegenheid geschreven dat
+het geweld en de zinloosheid ertegen wegvallen. Een boek dat een mythe wil
+ontkrachten en er de aantrekkelijkste versie van aflevert, heeft zijn eigen
+bedoeling ondergraven.
+
+De behandeling van indiaanse en Mexicaanse personages is het tweede bezwaar.
+De comanches en kiowa's in het boek zijn vrijwel zonder ingang beschreven: zij
+duiken op als bedreiging, hun kant van de zaak komt niet aan bod, en Blue Duck
+is een figuur zonder binnenkant. De Mexicaanse veehouders van wie de kudde
+wordt gestolen worden nauwelijks als benadeelde partij behandeld, terwijl de
+diefstal de hele onderneming op gang brengt. Van een schrijver die zegt dat
+hij het genre wilde ontmaskeren, is dat een opvallend onbewerkte plek.
+
+Verder zijn de vrouwen in het boek grotendeels ingedeeld in hoeren en
+boerinnen, met Clara als de duidelijke uitzondering die de indeling zichtbaar
+maakt. En de lengte is niet in elk deel verantwoord: de zwerftochten van July
+Johnson zouden korter kunnen zonder dat het boek iets verliest.
+
+#### Wat je hierna leest
+
+- 10. Ten oosten van Eden. Steinbeck schrijft over hetzelfde Amerikaanse
+westen als een plek waar mensen zich vestigen, waar McMurtry het als een plek
+beschrijft waar zij doorheen trekken.
+- 36. Endurance. Lansing beschrijft een werkelijk gemaakte tocht waarin
+uithoudingsvermogen de doorslag geeft, en levert daarmee de niet-verzonnen
+tegenhanger van deze roman.
+- 2. Overpeinzingen. Aurelius formuleert de plichtsopvatting die Call zonder
+woorden aanhangt, en laat zien wat er gebeurt als iemand die opvatting wel
+probeert uit te leggen.
 
 ## 6. Shop Class as Soulcraft
 
@@ -1173,6 +1471,165 @@ morele hart van het boek vormt. In het beroemdste hoofdstuk legt Lee uit hoe
 het Hebreeuwse woord *timshel* in Genesis 4:7 te vertalen is: niet als belofte
 en niet als bevel, maar als "gij kunt". Daarmee zet de roman zijn eigen thema
 neer, of iemand het patroon van zijn familie kan doorbreken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Steinbeck zet twee families naast elkaar in de Salinas Valley
+en laat het verhaal van Kaïn en Abel zich twee generaties lang herhalen, om
+bij de derde keer de herhaling te doorbreken. Zijn stelling is dat de mens
+niet gedoemd is tot het kwaad van zijn familie en niet beloofd is dat hij
+eraan ontkomt, maar dat hij mag kiezen. Die keuzevrijheid hangt in het boek
+aan één Hebreeuws woord uit Genesis, timshel, en Steinbeck laat zijn
+personages dat woord uitspellen alsof er verder niets te bewijzen valt.
+
+#### De gang van het verhaal
+
+**De vallei en de Hamiltons**
+
+Het boek opent met een beschrijving van de Salinas Valley in Californië en met
+de aankomst van Samuel Hamilton, een Ierse immigrant die zich op de dorste
+grond van de streek vestigt. Hamilton is Steinbecks eigen grootvader van
+moederskant, en de schrijver treedt in het boek een enkele keer als kleinzoon
+naar voren.
+
+De Hamiltons zijn arm, vindingrijk en talrijk. Zij vormen de menselijke maat
+waartegen het onheil van de andere familie wordt afgezet, en zij hebben zelf
+geen groot verhaal nodig.
+
+**Adam en Charles**
+
+In Connecticut groeien de broers Adam en Charles Trask op onder een vader die
+zijn oorlogsverleden heeft verzonnen en de legerkas beheert. Charles is sterk,
+jaloers en gewelddadig; Adam is zachter en de vaders lieveling. Als hun
+geschenken aan de vader ongelijk worden ontvangen, slaat Charles zijn broer
+bijna dood. Dat is de eerste doorgang van Kaïn en Abel, en Steinbeck maakt de
+verwijzing niet zoek.
+
+Adam dient in het leger, zwerft en keert terug. De broers erven het bedrog van
+hun vader zonder het te doorgronden.
+
+**Cathy**
+
+Cathy Ames wordt door de verteller ingevoerd als iemand die zonder geweten
+geboren is. Zij steekt in haar jeugd het ouderlijk huis in brand met haar
+ouders erin, ruïneert de man die haar in dienst neemt en belandt halfdood voor
+de deur van de Trasks. Adam trouwt met haar; Charles slaapt met haar in de
+bruiloftsnacht.
+
+Zij vertrekt met Adam naar Californië, bevalt van een tweeling, schiet hem in
+de schouder en verdwijnt naar Salinas, waar zij onder de naam Kate in een
+bordeel gaat werken en dat later overneemt door de eigenares te vergiftigen.
+
+**Lee en het woord**
+
+Adam blijft achter, verlamd, met twee naamloze zonen. Lee, de Chinese
+huisknecht die zijn koeterwaals aflegt zodra hij vertrouwd is, en Samuel
+Hamilton dwingen hem de jongens een naam te geven. Zij lezen samen het vierde
+hoofdstuk van Genesis en stuiten op de verschillen tussen de vertalingen: de
+een leest een belofte dat de mens het kwaad zal overwinnen, de ander een bevel
+dat hij het moet.
+
+Lee legt het woord voor aan een groepje oudere Chinezen dat er jaren aan
+besteedt en Hebreeuws leert om het na te gaan. Hun uitkomst is timshel, gij
+moogt. Daarmee heeft het boek zijn stelling in handen, en Lee draagt die vanaf
+dat moment als woordvoerder van de schrijver.
+
+**Cal en Aron**
+
+De tweeling groeit op in Salinas. Aron is licht, mooi en geliefd; Cal is
+donkerder, sluwer en overtuigd dat hij het kwaad van zijn moeder heeft geërfd.
+Hij zoekt haar op en vindt haar in het bordeel, en dat vondst maakt zijn angst
+alleen groter.
+
+Adam verliest een vermogen met een mislukte poging sla per koelwagon naar de
+oostkust te vervoeren. Cal verdient dat bedrag terug door tijdens de oorlog
+bonen te verhandelen en biedt het zijn vader aan. Adam wijst het geld af als
+oorlogswinst. Daarmee wordt het geschenk voor de derde keer ongelijk
+ontvangen.
+
+**Het slot**
+
+Cal wreekt zich door Aron mee te nemen naar hun moeder. Aron meldt zich daarop
+bij het leger en komt in Frankrijk om. Kate maakt een einde aan haar leven en
+laat haar bezit aan Aron na. Adam krijgt een beroerte.
+
+In de laatste scène dringt Lee er bij de stervende Adam op aan zijn
+overgebleven zoon niet met een vloek achter te laten. Adam brengt met moeite
+één woord uit, timshel, en het boek eindigt daar. Of Cal met die zegen iets
+goeds doet, blijft ongezegd.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Timshel | Het Hebreeuwse woord uit Genesis 4 dat Lee en de Chinese ouderen vertalen als gij moogt, en dat in het boek de keuzevrijheid van de mens draagt. |
+| Salinas Valley | De streek in Californië waar Steinbeck opgroeide en waarin het boek zich afspeelt, met de lichte bergen in het oosten en de donkere in het westen. |
+| Kaïn en Abel | Het bijbelverhaal van de twee broers en het ongelijk aanvaarde offer, dat in het boek in drie generaties terugkeert. |
+| De C en de A | Het patroon in de namen, Charles en Adam, Cal en Aron, waarmee Steinbeck de herhaling van het broederpaar zichtbaar maakt. |
+| Lee | De Chinese huisknecht die het meeste leest en denkt van alle personages en die de uitleg van het boek voor zijn rekening neemt. |
+| Kate | De naam waaronder Cathy Ames in Salinas het bordeel voert nadat zij haar gezin heeft verlaten. |
+| Het geschenk | Het terugkerende motief waarin een zoon zijn vader iets aanbiedt en afgewezen wordt, telkens de aanleiding tot geweld. |
+| Hamiltons | De familie van Steinbecks moeder, in het boek de arme en werkzame tegenhanger van de welgestelde en beschadigde Trasks. |
+
+#### Waar het argument op rust
+
+Het historische deel van het boek is voor een groot deel eigen
+familiegeschiedenis. Samuel Hamilton en zijn kinderen zijn de familie van
+Steinbecks moeder, de plaatsen zijn echte plaatsen, en de schrijver heeft het
+boek naar eigen zeggen bedoeld als een verslag van de vallei voor zijn zonen.
+De Trasks zijn verzonnen. Die twee lagen zijn in de tekst niet gescheiden, en
+de lezer heeft geen middel om ze uit elkaar te houden.
+
+Van het schrijven zelf bestaat een dagelijks verslag: Steinbeck schreef
+tijdens het werk aan het boek brieven aan zijn uitgever Pascal Covici, later
+uitgegeven als *Journal of a Novel*. Daarin staat hoe hij het bouwwerk
+bedoelde en hoeveel gewicht hij aan het bijbelhoofdstuk gaf. Dat is bijzonder
+open materiaal en het bevestigt dat de moraal niet achteraf door lezers is
+aangebracht.
+
+De vertaalkwestie rond timshel is geen verzinsel: de Hebreeuwse werkwoordsvorm
+in Genesis 4 vers 7 is in de loop van de eeuwen zowel als belofte als als
+gebod weergegeven. Of de weergave gij moogt de meest houdbare is, staat onder
+taalkundigen niet vast, en Steinbeck presenteert de uitkomst van zijn Chinese
+geleerden als afgedaan.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar richt zich op precies dat woord. Het boek leunt zo zwaar
+op timshel dat de moraal hardop wordt uitgesproken in plaats van uit het
+verhaal te volgen. Lee is daarbij minder een personage dan een spreekbuis: hij
+weet altijd wat de scène betekent en legt het uit. Een roman van deze omvang
+die haar eigen bedoeling zo omstandig toelicht, laat de lezer weinig te doen.
+Wie het boek als kunstwerk beoordeelt, ziet daar de scheur zitten.
+
+Cathy is het tweede bezwaar. Steinbeck voert haar in als een mens die zonder
+geweten geboren is, en die aanname staat haaks op het idee dat het hele boek
+verdedigt. Als de mens mag kiezen, waarom zij dan niet? De verteller draait
+later een beetje bij door haar angst en haar zelfgekozen dood te tonen, maar
+de figuur blijft daarmee eerder een noodzakelijke duivel dan een mens, en dat
+is zwak gereedschap in een boek over keuze.
+
+Verder wordt de vergelijking met Kaïn en Abel met veel nadruk aangebracht, tot
+in de beginletters van de namen. Steinbeck was zich daarvan bewust en
+verdedigde het, maar het maakt de tweede en derde generatie voorspelbaar. En
+het boek is ongelijkmatig: de hoofdstukken over de Hamiltons zijn losser en
+levendiger dan de zwaar geladen Trask-hoofdstukken, waardoor twee soorten
+proza in één band zijn beland.
+
+#### Wat je hierna leest
+
+- 5. Lonesome Dove. McMurtry beschrijft hetzelfde Amerikaanse westen in
+dezelfde eeuw, en laat waar Steinbeck een moraal uitspreekt de gebeurtenissen
+hun eigen oordeel vormen.
+- 48. Man's Search for Meaning. Frankl verdedigt met ander materiaal dezelfde
+stelling die timshel draagt: dat de keuze van de mens ook onder zware
+omstandigheden blijft bestaan.
+- 73. 12 Rules for Life. Peterson leest bijbelverhalen op een vergelijkbare
+manier als levensregels, en maakt zichtbaar hoeveel er van de uitlegger
+afhangt.
+- 4. The Tender Bar. Moehringer schrijft ook over een zoon die zijn vader mist
+en over wat een jongen erft, met de omgekeerde verhouding tussen feit en
+verzinsel.
 
 ## 11. Steal Like an Artist
 

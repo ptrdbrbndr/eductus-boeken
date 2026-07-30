@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Tender Bar &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Een jongen die zonder vader opgroeit zoekt zijn opvoeding daar waar hij mannen vindt, en in dit boek is dat een kroeg in een voorstad van New York.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-4">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">04 &middot; Roman en memoir</p>
+    <h1>The Tender Bar</h1>
+    <p class="lede">J.R. Moehringer, 2005</p>
+    <p class="stats">
+      <span><b>1299</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="04"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Een jongen die zonder vader opgroeit zoekt zijn opvoeding daar waar hij mannen vindt, en in dit boek is dat een kroeg in een voorstad van New York. Moehringer beweert dat de stamgasten van dat etablissement hem hebben grootgebracht: dat zij hem taal, houding en zelfvertrouwen hebben gegeven die zijn afwezige vader hem niet gaf. Tegelijk laat hij zien wat diezelfde kroeg met haar vaste bezoekers deed, en daarmee zet hij zijn eigen dankbaarheid onder spanning. Het boek is een liefdesverklaring aan een plek waarvan de schrijver weet dat zij mensen sloopt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een stem uit de radio</h3>
+      <p>De verteller groeit op in Manhasset op Long Island, in het volle huis van zijn grootvader, samen met zijn moeder, tantes en neven en nichten. Zijn vader is verdwenen. Wat er van hem over is, is een stem: hij werkt als schijvendraaier bij de radio, en de jongen draait aan de knop tot hij hem hoort. Die stem wordt de maat waaraan alles wordt afgemeten, en de zeldzame keren dat vader en zoon elkaar wel zien lopen slecht af.</p>
+      <p>Het huis van de grootvader is krap en gierig geleid. De moeder werkt, spaart, verhuist een paar keer naar Arizona om weg te komen en keert telkens terug omdat het geld op is. Moehringer schrijft over dat heen en weer zonder de armoede aan te dikken en zonder haar te vergoelijken.</p>
+      <h3>De kroeg aan de overkant</h3>
+      <p>Aan de hoofdstraat staat de bar waar oom Charlie achter de tap staat: eerst Dickens geheten, later Publicans. Voor de jongen is dat gebouw eerst een verboden plek waar de mannen naartoe verdwijnen, dan een plek waar hij binnen mag, en ten slotte de plek waar hij zelf werkt.</p>
+      <p>De stamgasten vormen het hart van het boek. Zij leren hem hoe je een verhaal vertelt, hoe je een klap opvangt, hoe je je houdt als je verliest. Moehringer portretteert hen met naam en met hun eigen manier van praten, en hij laat merken dat een deel van wat zij hem meegeven bestaat uit poses die hij later moet afleren.</p>
+      <h3>Yale</h3>
+      <p>De jongen komt op Yale terecht, deels door zijn cijfers en deels doordat de mannen in de bar hem hebben wijsgemaakt dat hij daar hoort. Het universiteitsdeel van het boek is het minst zonnige: hij voelt zich een indringer, hij mist de omgeving waarvan hij zich juist wilde losmaken, en hij komt in de vakanties telkens terug achter dezelfde tapkast.</p>
+      <p>In dezelfde periode speelt een lange, ongelijke verhouding met een medestudente. Moehringer beschrijft die met een openheid over zijn eigen aandeel die zeldzaam is in dit soort boeken: hij komt er niet goed uit.</p>
+      <h3>De krant</h3>
+      <p>Na zijn studie wordt hij loopjongen op de redactie van The New York Times. Hij hoopt daar in één beweging journalist te worden en ontdekt dat de krant hem eerst jarenlang niets laat schrijven. Hij zakt voor de interne toets die van loopjongen verslaggever maakt, en die afwijzing is het scharnier van het boek.</p>
+      <p>Wat volgt is een terugtocht: hij gaat weer in de bar werken, hij drinkt, en hij zoekt vergeefs de oude troost. De plek die hem had opgevoed heeft niets meer te bieden voor iemand van zijn leeftijd, en dat inzicht laat hij langzaam en zonder oordeel binnenkomen.</p>
+      <h3>De vader teruggevonden</h3>
+      <p>Ergens in dat dal zoekt hij zijn vader op. De ontmoeting is niet de verzoening waar het genre naar toewerkt. Wat hij aantreft is een man die veel op de stamgasten lijkt en die weinig te bieden heeft, en de schrijver laat dat staan zonder er een les uit te halen.</p>
+      <p>Daarna vertrekt hij naar een krant aan de andere kust en begint het werk waar hij op hoopte. Het boek maakt van dat vertrek geen overwinning, eerder een noodzakelijke breuk.</p>
+      <h3>Het slot</h3>
+      <p>In de laatste hoofdstukken wordt de kroeg gesloten en verliezen de stamgasten die in het World Trade Center werkten hun leven op 11 september 2001. Het boek eindigt daarmee bij een verdwenen plek en bij mensen die er niet meer zijn. De herinnering die hij opschrijft is dan het enige wat er nog van over is, en dat geeft het geheel achteraf de vorm van een grafrede.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De stem</td><td>De radiostem van zijn vader, het enige wat de jongen jarenlang van hem heeft en de maat waarnaar hij mannelijkheid afmeet.</td></tr>
+          <tr><td class="term">Publicans</td><td>De naam die de kroeg krijgt nadat zij Dickens heette, en in het boek de aanduiding voor de gemeenschap die er samenkomt.</td></tr>
+          <tr><td class="term">Manhasset</td><td>De voorstad op Long Island waar het boek zich afspeelt, welvarend aan de ene kant van het spoor en krap aan de andere.</td></tr>
+          <tr><td class="term">Oom Charlie</td><td>De barman en broer van zijn moeder, de eerste van de vervangvaders en degene die de jongen de kroeg binnenlaat.</td></tr>
+          <tr><td class="term">Loopjongen</td><td>De laagste functie op een krantenredactie, waarin Moehringer jaren blijft steken en waaruit hij niet wordt bevorderd.</td></tr>
+          <tr><td class="term">Vervangvaders</td><td>De mannen in de bar die samen de opvoedende rol overnemen die zijn vader liet liggen, elk met een deelaspect.</td></tr>
+          <tr><td class="term">Het huis van grootvader</td><td>Het overvolle familiehuis dat als tegenpool van de kroeg fungeert: schaarste en wrijving tegenover ruimhartigheid en drank.</td></tr>
+          <tr><td class="term">Terugkeer</td><td>Het telkens weer belanden achter dezelfde tapkast na elke poging om weg te komen, de terugkerende beweging van het boek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op geheugen, en Moehringer zegt dat zelf. In een verantwoording geeft hij aan dat gesprekken zijn gereconstrueerd, dat tijdlijnen zijn samengetrokken en dat een aantal namen is veranderd. Hij heeft de bar en de mensen die er kwamen wel opnieuw opgezocht en gesproken, en dat merk je aan het aandeel van andermans verhalen in het boek.</p>
+      <p>De schrijver is een verslaggever, en het boek verscheen kort nadat hij een Pulitzer voor artikelvorm had gekregen. Dat is te zien aan het opgetekende gesprek en aan de zuinigheid waarmee scènes worden opgebouwd. Het maakt de tekst betrouwbaarder in de details en niet in de duiding: wat de mannen in de bar hem hebben gedaan, is zijn eigen uitleg achteraf.</p>
+      <p>Wat de tekst het meeste draagt, is dat de schrijver zichzelf niet ontziet. De afwijzing bij de krant, het drinken, het gedrag tegenover de vrouw met wie hij jaren bezig is: het staat er zonder verzachting. Een memoir wint aan gezag wanneer de verteller ook tegen zichzelf getuigt, en dat gebeurt hier.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vraag die boven het hele boek hangt is hoeveel een journalist over zijn eigen jeugd kan vaststellen. De dialogen uit zijn kindertijd zijn geen opnamen, de motieven die hij volwassen mannen toeschrijft zijn gereconstrueerd, en de verteller heeft belang bij de uitkomst dat de kroeg hem heeft grootgebracht. Dat is een uitleg, geen bevinding.</p>
+      <p>Daarbij komt dat het boek de kroeg tegelijk aanklaagt en verheerlijkt. Moehringer laat zien wat drank met de stamgasten doet en met hemzelf, maar de toon waarmee hij hen beschrijft is warm genoeg om de schade te verzachten. Lezers hebben het boek dan ook vooral als een eerbetoon aan de kroeg gelezen, en dat is niet volledig tegen de tekst in.</p>
+      <p>Ten slotte is de rolverdeling ongelijk. De mannen krijgen ieder een portret; de moeder, die het werkelijke opvoedwerk deed, blijft veel schetsmatiger. Het boek erkent haar aandeel wel met zoveel woorden, maar geeft haar niet de ruimte die het aan de bargasten geeft, en dat scheeftrekken blijft onopgelost.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Hyperion, New York. De Nederlandse uitgave van De Geus houdt de titel <i>Tender Bar</i> aan.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Moehringer groeit op in Manhasset, Long Island, in het overvolle huis van zijn grootvader, zonder vader. Zijn vader is een radio-dj die hij alleen kent als stem op de zender, wat hij De Stem noemt. Bij gebrek aan één vader neemt hij er een stel: de mannen van de kroeg om de hoek, waar zijn oom Charlie achter de tap staat en waar hij als kind al binnen mag komen.</p><p>De memoir volgt hem naar Yale, naar een baantje als loopjongen bij The New York Times en door een langdurige liefde die niet werkt. De kroeg is daarbij twee dingen tegelijk. Het is de plek die hem vormt en opvangt, en het is de plek die hem vasthoudt, en Moehringer laat dat tweede pas laat en zonder moraliserende toon zwaar wegen. Wie <i>Open</i> van Agassi of <i>Spare</i> van prins Harry kent, leest hier de eigen geschiedenis van hun ghostwriter.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>opgroeien</li><li>afwezige-vader</li><li>kroeg</li><li>Long-Island</li><li>journalistiek</li><li>alcohol</li><li>mentorschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="26"><a href="../index.html#boek-26">Born a Crime</a>. Trevor schrijft ook over opgroeien zonder de vader die er hoort te zijn, in een omgeving waar dat door de staat is afgedwongen in plaats van door een persoonlijke keuze.</li>
+          <li value="45"><a href="../index.html#boek-45">Educated</a>. Westover vertelt eveneens over een opleiding als breuk met de omgeving van herkomst, en zij worstelt met dezelfde vraag over de betrouwbaarheid van haar eigen herinnering.</li>
+          <li value="18"><a href="../index.html#boek-18">On Writing</a>. King combineert net als Moehringer een levensverhaal met een verslag van hoe hij schrijver werd, en gaat explicieter in op het vak zelf.</li>
+          <li value="51"><a href="51.html">The Defining Decade</a>. Jay behandelt precies het decennium waarin Moehringer vastloopt, en verklaart de traagheid van dat decennium in andere, algemenere termen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
