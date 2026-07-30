@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manifest &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nafousi stelt dat manifesteren neerkomt op zeven stappen die iedereen kan zetten, en dat de doorslag ligt bij wat je onbewust denkt te verdienen en niet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-129">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">129 &middot; Positief denken en manifesteren</p>
+    <h1>Manifest</h1>
+    <p class="lede">Roxie Nafousi, 2022</p>
+    <p class="stats">
+      <span><b>1789</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>31 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="129"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nafousi stelt dat manifesteren neerkomt op zeven stappen die iedereen kan zetten, en dat de doorslag ligt bij wat je onbewust denkt te verdienen en niet bij wat je bewust wenst. Wie zichzelf weinig waard vindt, blokkeert zijn eigen wensen: het universum zou reageren op de trillingsfrequentie van je gevoel. Daaruit volgt haar eis dat je gedrag overeenkomt met de waarde die je jezelf toekent, want manifesteren is in dit boek nadrukkelijk niet passief. Daartegenover staat de vaststelling dat vrijwel alle praktische aanwijzingen overeind blijven zonder de aanname over een meebewegend universum, en dat die aanname op geen enkele manier te toetsen is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het eigen verhaal</h3>
+      <p>In mei 2018 was Nafousi zevenentwintig, zonder werk en zonder richting, ruim tien jaar in gevecht met depressie en bijna even lang met verslaving. Ze kwam net terug van een maand yogaopleiding in Thailand en zat binnen een etmaal weer in hetzelfde patroon van roken, drinken en drugs. Een vriendin, Sophia, stuurde haar een podcastaflevering over manifesteren, waarnaar ze luisterde tijdens een manicure.</p>
+      <p>Wat ze als eerste wilde oproepen was onvoorwaardelijke liefde. Een week later kreeg ze op de app Raya bericht van de Australische acteur Wade Briggs. Hij bleef in Londen, drie maanden later was ze zwanger, en op 7 juni 2019, precies een jaar na dat bericht, werd hun zoon Wolfe geboren. Ze schrijft dat ze inmiddels vrij is van verslaving. Dit deel is het overtuigendste: concreet, gedateerd en niet fraai gemaakt.</p>
+      <h3>De verklaring die zij eronder legt</h3>
+      <p>Onder de kop over wetenschap staan twee onverbonden verklaringen naast elkaar. De eerste is ontleend aan de kwantumfysica: alles zou uit energie bestaan, verschillen tussen dingen zouden neerkomen op trillingsfrequentie, en de aantrekkingswet zou maken dat een hoge frequentie hoge frequenties terugtrekt. Gedachten en gevoelens hebben in dit schema ook een frequentie, waardoor een verandering van gevoel de werkelijkheid zou veranderen.</p>
+      <p>De tweede verklaring is neurologisch en veel bescheidener: neuroplasticiteit, het vermogen van de hersenen nieuwe verbindingen te vormen, zou gebruikt kunnen worden om beperkende overtuigingen te vervangen en om aandacht te richten op kansen die bij het doel passen. Voor de onderbouwing verwijst zij naar Tara Swart en haar boek The Source. Zij noemt Swart een vriendin en een collega-deskundige in manifesteren.</p>
+      <p>Over het universum is zij open: wie er iets anders onder verstaat mag het woord vervangen. Die uitnodiging is eerlijk en laat tegelijk zien hoe weinig het begrip vastligt.</p>
+      <h3>Stap 1 en 2: helder zien, en angst en twijfel opruimen</h3>
+      <p>De eerste stap is een gedetailleerd beeld van wat je wilt, tot aan de kleur van de voordeur, met de vergelijking dat je in een routeplanner ook niet alleen luchthaven invoert. Beslissend is volgens haar het meegevoelde gevoel: alleen zien is niet genoeg, je moet het gevoel van hebben oproepen. Wie niet weet wat hij wil, kan zich richten op hoe hij zich wil voelen. Zwemmer Michael Phelps wordt genoemd als iemand die races vooraf doorleefde, ook de tegenslagen daarin.</p>
+      <p>Stap 2 gaat over het onbewuste. Ze citeert de verhouding vijf procent bewust tegen vijfennegentig procent onbewust en concludeert daaruit dat je alleen kunt oproepen wat je diep gelooft te verdienen. De illustratie is scherp: schrijf het inkomen op dat je wilt en vraag jezelf of je het bedrag opschreef dat je wilt of het bedrag dat je realistisch achtte. Haar vriendin Leah streepte bij het maken van een visiebord tien nieuwe klanten door en zette er vijf voor in de plaats.</p>
+      <h3>Zelfliefde als fundament</h3>
+      <p>Zelfliefde is bewust geen stap maar een apart deel, omdat zij volgens Nafousi de grond is waarop de andere stappen rusten. Haar omschrijving is nuchter: je eigen welzijn serieus nemen, voor jezelf opkomen, oordeel en zelfverwijt loslaten, jezelf dezelfde vriendelijkheid gunnen die je anderen wel geeft.</p>
+      <p>De uitwerking is huishoudelijk: grenzen stellen, nee zeggen, slapen, bewegen, eten, mediteren, letten op de toon waarin je tegen jezelf praat. Ze vat het samen als bewustzijn van de keuze die je op elk moment hebt. In haar redenering laat dat gedrag aan het universum zien wat je meent waard te zijn.</p>
+      <h3>Stap 3 en 4: gedrag en beproevingen</h3>
+      <p>De derde stap onderscheidt haar leer van de aantrekkingswet, die volgens haar suggereert dat denken volstaat. Manifesteren is dat niet: je zoekt zelf op woningsites, je belt makelaars, je leert voor het examen. Over haar loopbaan schrijft zij dat die er kwam door hard werken, doorzettingsvermogen en zelfdiscipline. Uitstel voert zij terug op faalangst, met het voorbeeld van een cliënt die haar plan voor een etentenreeks twee jaar liet liggen uit vrees dat er niemand zou komen.</p>
+      <p>De vierde stap noemt beproevingen van het universum: de ex die weer opduikt, de nieuwe partner die warm en koud blaast. Kies je het bekende of het slechte, dan blokkeer je volgens haar je wens. Praktisch komt dit neer op de raad geen halve deuren open te laten en waarschuwingssignalen niet weg te wuiven.</p>
+      <h3>Stap 5, 6 en 7: dankbaarheid, afgunst en vertrouwen</h3>
+      <p>Dankbaarheid is haar middel tegen sombere stemming, uitdrukkelijk zonder het voorbehoud dat er meteen achteraan komt. Zij vertelt hoe zij op haar tweeëntwintigste als stylist begon, bij elke benadering van een mogelijke klant haar eigen stem hoorde zeggen dat het niets zou worden, en in twee jaar één betalende klant kreeg. Ze wijst er zelf op dat haar gebrek aan zelfvertrouwen daarin de verklaring is.</p>
+      <p>Stap 6 zet afgunst om in navolging. Afgunst komt volgens haar voort uit een schaarstebeeld, navolging uit een overvloedbeeld. Sociale media krijgen hier een rake behandeling als bedrijfstak die op vergelijking draait. Haar tegenzet is de vraag wat je werkelijk wilt van wat je bij een ander ziet.</p>
+      <p>Stap 7 is vertrouwen. Manifesteren gaat volgens haar over overgave: je weet wat je wilt en handelt ernaar, maar laat los hoe het zal gebeuren. Afwijzing leest zij als omleiding. De winst die zij zelf benoemt is minder piekeren over het hoe.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Manifesteren</td><td>Bij Nafousi het vermogen om het leven dat je wilt zelf te maken, in zeven stappen die zij als volgorde behandelt.</td></tr>
+          <tr><td class="term">Aantrekkingswet</td><td>Het beginsel dat gelijk gelijk aantrekt, dat zij van manifesteren onderscheidt omdat het passief zou zijn.</td></tr>
+          <tr><td class="term">Trillingsfrequentie</td><td>De hoogte van je gevoelstoestand, in het boek afgekort tot high vibe en low vibe, waarop het universum zou reageren.</td></tr>
+          <tr><td class="term">Het universum</td><td>De macht achter het manifesteren, door haar zelf beschreven als een begrip dat de lezer door zijn eigen mag vervangen.</td></tr>
+          <tr><td class="term">Zelfliefde</td><td>Geen stap maar het fundament: je eigen welzijn serieus nemen en je daarnaar gedragen.</td></tr>
+          <tr><td class="term">Beperkende overtuigingen</td><td>Onbewuste aannames over wat je waard bent, die volgens haar al bij het formuleren van een wens ingrijpen.</td></tr>
+          <tr><td class="term">Gedrag afstemmen</td><td>Handelen zoals iemand die zijn wens werkelijk waard is, met inbegrip van het werk dat de wens vraagt.</td></tr>
+          <tr><td class="term">Beproeving van het universum</td><td>Een obstakel of verleiding die zou nagaan hoeveel je jezelf waard vindt, met de terugkerende ex als standaardvoorbeeld.</td></tr>
+          <tr><td class="term">Dankbaarheid zonder voorbehoud</td><td>Waardering uitspreken zonder er meteen een maar achteraan te zetten.</td></tr>
+          <tr><td class="term">Overgave</td><td>Vasthouden aan wat je wilt maar loslaten langs welke weg het komt, in haar boek de laatste stap.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op eigen ervaring en op verhalen van cliënten en vrienden. Die verhalen zijn goed verteld en vaak zonder opsmuk: de mislukte stylistenloopbaan met één klant, het doorgestreepte visiebord van haar vriendin, de vrouw die twee jaar op haar idee bleef zitten. Als beschrijving van hoe zelfbeeld gedrag stuurt is dat herkenbaar materiaal.</p>
+      <p>Voor de wetenschappelijke onderbouwing is één bron in het spel: Tara Swarts The Source, met een citaat over verbeelding die in de hersenen weinig verschilt van directe ervaring. Verder is er de verhouding vijf tegen vijfennegentig procent bewust en onbewust, aangeduid als onderzoek zonder verwijzing. De bronnenlijst achter in het boek telt zeven regels en bestaat volledig uit vindplaatsen van motto's, onder meer bij Robin Sharma, Brian Tracy, Don Miguel Ruiz, Mel Robbins, John Maxwell en Norman Vincent Peale. Voor de beweringen in de tekst zelf staat er geen enkele verwijzing.</p>
+      <p>Het beroep op de kwantumfysica houdt geen stand. Dat materie uit energie bestaat is juist; daaruit volgt niet dat stemmingen een frequentie hebben die gebeurtenissen aantrekt. De sprong van deeltjesfysica naar gevoelsleven wordt in het boek niet beargumenteerd maar in één alinea gemaakt.</p>
+      <p>De neurologische lezing is verdedigbaarder. Dat verbeelding lichamelijke reacties oproept en dat aandacht selectief wordt door wat je zoekt, zijn plausibele mechanismen. Het boek onderbouwt ze niet zelf, maar deze claims zijn van een andere orde dan de aantrekkingswet: ze gaan over de mens die het doet en niet over een reagerende buitenwereld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wat er praktisch in staat komt neer op doelen scherp stellen, gedrag daarop laten aansluiten, uitstel doorbreken, geen genoegen nemen met te weinig, dankbaarheid oefenen en afgunst omzetten in navolging. Dat werkt zonder de aanname erboven dat het universum meebeweegt. Die aanname is niet te toetsen: elk verloop bevestigt haar. Kwam het niet, dan zat er ergens nog twijfel, of was het een beproeving, of kwam er iets beters.</p>
+      <p>De ombuiging naar zelfverwijt is het scherpste bezwaar. Als je niet krijgt wat je wilt omdat je onbewust niet gelooft het te verdienen, wordt uitblijvend geluk een tekortkoming van de wens. Wie zijn baan verliest, ziek wordt of geen partner vindt, kan met dit boek in de hand bij zichzelf gaan zoeken. Nafousi bedoelt dat niet zo en spreekt zelf mild, maar het schema laat weinig ruimte voor pech, geldgebrek of omstandigheden waar niemand invloed op heeft.</p>
+      <p>Het boek is één geval, door het geval zelf beschreven. Dat zij binnen een week na de podcast een bericht kreeg dat tot haar gezin leidde, is een goed verhaal en geen aanwijzing dat de methode werkt. Wie dezelfde stappen zette zonder resultaat schrijft geen boek en komt in dit boek niet voor.</p>
+      <p>Herstel van verslaving en depressie is een langdurig proces waarin doorgaans meer meespeelt dan een methode: behandeling, omgeving, geld, toeval, tijd. Haar herstel geldt hier als bewijsstuk voor de zeven stappen zonder dat die andere factoren gewogen worden, en zonder dat ter sprake komt wat er gebeurt bij wie de stappen volgt en toch terugvalt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op wat je wilt zonder het vooraf realistisch te maken, en kijk daarna wat je wegliet.</li>
+        <li>Zet naast elk doel de eerstvolgende handeling die eraan bijdraagt en voer die deze week uit.</li>
+        <li>Ga na wat je al lang uitstelt en welke faalangst daaronder zit.</li>
+        <li>Merk op wanneer je een dankbetuiging meteen ontkracht met een maar, en laat die toevoeging weg.</li>
+        <li>Vertaal afgunst in een vraag: wat wil ik hiervan zelf, en wat is de eerste stap ernaartoe?</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>7 Steps to Living Your Best Life</i> (Michael Joseph/Penguin). Nederlands als <i>Manifesteren: 7 stappen naar het leven dat je wilt</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Zeven stappen, van helder krijgen wat je wilt en angst en twijfel opruimen tot het opheffen van jaloezie, dankbaarheid en vertrouwen in de afloop. Nafousi vertelt daarbij haar eigen verhaal over verslaving en herstel, en dat deel is het overtuigendst.</p><p>Wat er praktisch in staat komt neer op doelen stellen, gedrag veranderen en zelfvertrouwen opbouwen, en dat werkt zonder de aanname erboven dat het universum meebeweegt. Die aanname wordt niet onderbouwd en is ook niet te toetsen; zij is de reden dat het boek in deze rubriek staat en niet bij de gewoontes.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>manifesteren</li><li>zeven-stappen</li><li>zelfbeeld</li><li>dankbaarheid</li><li>instagram</li><li>populair</li><li>onbewezen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="128"><a href="128.html">Leer manifesteren zoals Oprah Winfrey en J.K. Rowling</a>. Manifesteren uit hetzelfde jaar, spiritueler van toon en gebouwd op drie beroemde levens.</li>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Voor waarom één geslaagd geval, hoe eerlijk verteld ook, niets zegt over de kans op slagen.</li>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Voor de neiging achteraf een sluitend verhaal te maken van wat toevallig goed uitpakte.</li>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Gedragsverandering en volhouden zonder verklarend wereldbeeld erboven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

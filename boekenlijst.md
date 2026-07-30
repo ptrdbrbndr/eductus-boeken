@@ -22235,8 +22235,7 @@ kleinere, praktische stappen.
 
 Willem de Ridder, 2018. Bij AnkhHermes. De Ridder was beeldend kunstenaar,
 uitgever en radiomaker en bouwde spiegelogie uit tot een reeks boeken en
-cursussen. Het bestand in de map liet zich niet openen, dus deze samenvatting
-rust niet op de tekst zelf. Rubriek: positief denken en manifesteren.
+cursussen. Rubriek: positief denken en manifesteren.
 Tags: `spiegelogie`, `spiritualiteit`, `projectie`, `zelfbeeld`, `nederlands`,
 `cursus`, `onderbouwing`
 Bron: boekenmap.
@@ -22252,6 +22251,190 @@ ervan ondersteunt, en de stap van een bruikbare oefening in zelfonderzoek naar
 de bewering dat de wereld zich naar het innerlijk voegt, wordt niet
 verantwoord. Als oefening in het omkeren van een oordeel is het scherp, als
 verklaring van de werkelijkheid is het een geloofsuitspraak.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De Ridder stelt dat de buitenwereld een spiegel is: wat
+iemand in een ander opmerkt, en vooral wat hem daaraan stoort, gaat over
+hemzelf en niet over die ander. Daarbovenop legt hij een tweede claim: het
+universum steunt onvoorwaardelijk wat iemand denkt en voelt, zodat wie zijn
+oordelen omkeert en zijn wensen precies genoeg formuleert, zijn omstandigheden
+ziet meebewegen. Opvoeding, school en maatschappij hebben dat volgens hem
+weggetraind, en het boek wil die training ongedaan maken.
+
+#### De gang van het boek
+
+**Vijfenveertig korte hoofdstukken**
+
+Het boek bestaat uit vijfenveertig genummerde hoofdstukken van enkele
+bladzijden, met titels als Gewoontes, Sprookjes, Leugens, Oordeel, Wetten,
+Bestellen en Fanclub. De vorm wisselt: verhalende stukken, korte dialoogjes
+tussen de schrijver en een tegensputterende lezer, brieven van mensen die met
+de methode werken, en opdrachten die de lezer met pen en papier moet
+uitvoeren.
+
+De Ridder noemt het nadrukkelijk een handboek. Hij vergelijkt het met het
+halen van een rijbewijs: lezen alleen levert niets op, er moet in een groepje
+geoefend worden.
+
+**Hoe het kind uit de eenheid stapt**
+
+De eerste hoofdstukken beschrijven de opvoeding als een programmering. Een
+baby kent volgens De Ridder geen verschil tussen zichzelf en de rest en leeft
+in een eeuwig nu. Aan de hand van een figuurtje dat hij Miesje noemt laat hij
+zien hoe een kind leert zichzelf ik te noemen, leert dat anderen buiten haar
+staan, en leert dat het van groot belang is wat die anderen van haar vinden.
+
+Daarbij hoort een tweede les: bepaalde gevoelens mogen niet. Wat het lichaam
+doet krijgt een etiket en wordt goedgekeurd of afgekeurd. De Ridder noemt het
+onderdrukken van gevoel de kern van wat er misgaat, omdat het kind zo leert
+dat het zelf niet deugt.
+
+**Sprookjes en verhalen**
+
+In de hoofdstukken Sprookjes en Leugens betoogt hij dat sprookjes oeroude
+natuurwetten bewaren en daarom eeuwenlang woordelijk zijn doorgegeven. Hij
+verwijst naar Sumerische kleitabletten van rond 3500 voor onze jaartelling en
+naar verhalen die in Oost-Europa mondeling bewaard zouden zijn gebleven.
+
+Daartegenover zet hij de verhalen die wij nu geloven. Een verteller verandert
+de wereld zodra genoeg mensen hem geloven, en als voorbeelden noemt hij
+Hitler, Reagan, Khomeiny en Marx. Het scharnierpunt van het hoofdstuk is de
+anekdote over een jongen die opgesloten raakt in een koelwagon en doodvriest
+terwijl de koeling niet aanstond. Wie iets voor honderd procent gelooft,
+schrijft De Ridder, maakt het tot zijn werkelijkheid.
+
+**De spiegel**
+
+Het hoofdstuk Zien bevat de oefening waar de titel op rust. De Ridder vertelt
+dat hij het idee overnam van Byron Katie, die hij interviewde voor een
+Amsterdamse stadszender. De lezer moet iemand kiezen op wie hij kwaad is en
+vijf vragen op papier beantwoorden: wie irriteert je, hoe wil je dat die
+persoon verandert, wat zou hij moeten doen, wat heb je van hem nodig, en wat
+vind je van hem.
+
+Vervolgens wordt elke zin omgedraaid naar de schrijver zelf. De uitkomst die
+De Ridder voorziet is dat de klacht op de klager blijkt te slaan. Roddel over
+een ander is in die lezing een uitspraak over de roddelaar, en wat anderen
+over jou denken kan je in het geheel niet raken, omdat zij jou niet eens
+kunnen zien.
+
+**Gevoel, oordeel en organen**
+
+In Oordeel koppelt hij gevoelens aan de werking van organen, met een beroep op
+de Chinese geneeskunde: verdriet bij de longen, angst bij de nieren, piekeren
+bij de maag, woede bij de lever. Onderdrukte leverspanning zou zich opstapelen
+tot ze eruit moet, waarna de hersenen iets aanwijzen om kwaad op te worden.
+
+Daarmee sluit de cirkel met de spiegel: het doelwit van de woede is
+willekeurig, de spanning zat er al.
+
+**De spelregels en het bestellen**
+
+De middenhoofdstukken zetten de universele beginselen op een rij: alles en
+iedereen is perfect, er is geen verschil tussen jou en mij, en het universum
+steunt alles onvoorwaardelijk. In Wetten laat hij de Amerikaanse advocaat
+Arnold Patent uitgebreid aan het woord over het verlaten van een carriere die
+geheel uit concurrentie bestond.
+
+Uit die beginselen volgt het bestellen: een wens in de tegenwoordige tijd
+uitspreken, met het bijbehorende gevoel erbij. Zijn voorbeeld is een vrouw uit
+het Gooi die om dieper contact met haar man vroeg, waarna diens bedrijf
+failliet ging en het echtpaar in een flat belandde. Zij kreeg volgens hem
+precies wat ze bestelde, ze was alleen de omstandigheden vergeten.
+
+**De fanclub**
+
+Het laatste derde deel is praktisch. De fanclub is een klein groepje dat
+regelmatig bijeenkomt, waarin ieder om steun vraagt en de anderen die steun
+onvoorwaardelijk geven, ongeacht wat de vrager doet of laat. De formule is dat
+de vrager zijn wens hardop in de tegenwoordige tijd uitspreekt en de groep die
+zin met hem meevoelt.
+
+De Ridder vult deze hoofdstukken grotendeels met brieven van deelnemers: een
+uitgever die schrijft dat er altijd een parkeerplek is, een therapeut die
+vertelt over verdwenen hartkloppingen en over leerlingen in het
+beroepsonderwijs, een vrouw die in een toneelgezelschap terechtkwam. De
+slothoofdstukken gaan over vergeven, opruimen, overgave en liefde.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Spiegel | De ander als weerkaatsing: elk oordeel over iemand anders is volgens De Ridder een uitspraak over de beoordelaar zelf. |
+| Universele spelregels | De natuurwetten of beginselen die volgens hem in sprookjes bewaard zijn gebleven en die nooit veranderen. |
+| Bestellen | Een wens in de tegenwoordige tijd uitspreken alsof hij al vervuld is, met het gevoel dat erbij hoort. |
+| Fanclub | Een vast groepje mensen dat elkaars bestellingen onvoorwaardelijk steunt en waarin het spiegelen geoefend wordt. |
+| Onvoorwaardelijke steun | Instemmen met wat de ander wenst zonder oordeel, advies of voorbehoud, ook als het onverstandig lijkt. |
+| Blinde vlek | Het gemak waarmee iemand ziet wat er aan een ander mankeert terwijl hij dat bij zichzelf niet opmerkt. |
+| Alarmsignaal | Elk ongemak in lichaam of leven, opgevat als melding dat iemand tegen de spelregels in leeft. |
+| Emotie | Bij De Ridder een gevoel dat is afgekeurd en onderdrukt, in tegenstelling tot het gevoel zelf, dat gewoon orgaanwerking zou zijn. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan. De onderbouwing bestaat uit eigen
+ervaringen, uit brieven van cursisten en fanclubleden die vertellen wat er in
+hun leven veranderde, en uit anekdotes over derden. Die brieven zijn allemaal
+van mensen die de methode al aanhangen en al betaald hebben voor een workshop,
+en negatieve ervaringen komen er niet in voor.
+
+Een deel van de feitelijke beweringen is los van de leer te toetsen en houdt
+dan slecht stand. Het verhaal van de jongen die doodvroor in een niet gekoelde
+wagon is een bekende sage waarvan geen bron wordt genoemd, en de uitspraken
+over de Chinese geneeskunde staan er zonder verwijzing. Het hoofdstuk Leugens
+bevat stellige beweringen over het concilie van Nicaea en over Jezus als
+Egyptische magier, die De Ridder aan naamloze onderzoekers toeschrijft.
+
+De spiegeloefening staat er sterker voor dan de rest, omdat zij als
+introspectie ook zonder de kosmologie te doen is. Wat het boek over het effect
+ervan claimt, blijft onbewezen.
+
+#### Wat er tegen in te brengen valt
+
+De centrale stelling laat zich niet weerleggen. Komt een bestelling uit, dan
+werkt het universum mee. Komt hij niet uit, dan was de bestelling niet precies
+genoeg of zat er een oordeel in de weg. Het voorbeeld van het faillissement in
+het Gooi laat zien hoe ver dat gaat: ook een ramp geldt als vervulling van de
+wens. Een uitkomst die de leer zou tegenspreken bestaat niet.
+
+De stap van 'jouw oordeel gaat over jou' naar 'jij creeert alles in je leven'
+is het zwakste punt van het boek. Bij persoonlijke ergernis is de omkering
+vaak leerzaam. Toegepast op ziekte, armoede, pesten of geweld verschuift zij
+de verantwoordelijkheid naar degene die het overkomt. De Ridder neemt die
+consequentie zonder aarzeling: alles wat je overkomt heb je zelf besteld.
+
+Een lezersbrief die hij instemmend afdrukt noemt dyslexie aangeleerde angst
+die met de spelregels op te heffen zou zijn. Dat is aantoonbaar onjuist en
+gaat over kinderen die aan deze behandelaar zijn toevertrouwd. Dat het boek
+zoiets kritiekloos opneemt zegt iets over hoe de rest van de claims tot stand
+komt.
+
+Ten slotte leidt de methode naar de workshops van de schrijver, en noemen de
+aangehaalde deelnemers die workshop de beste investering van hun leven. Dat
+verlaagt het gewicht van hun getuigenis.
+
+#### Wat er concreet mee te doen is
+
+- Doe de vijf schrijfvragen uit het hoofdstuk Zien eens op een collega of
+familielid, en draai daarna elke zin om naar jezelf. Los van de kosmologie
+levert dat een bruikbare inventarisatie van eigen ergernissen op.
+- Onderscheid de twee lagen van het boek. De introspectie is te gebruiken; de
+belofte dat de omstandigheden meebewegen is dat niet.
+- Merk op wanneer een oordeel meer zegt over de dag die je zelf had dan over
+de persoon voor je. De Ridder noemt dat opgeslagen spanning die een doelwit
+zoekt.
+- Leg in zo'n groepje vooraf vast dat onvoorwaardelijke steun geen advies
+vervangt bij geld, gezondheid of opvoeding.
+
+#### Wat je hierna leest
+
+- 130. Manifesteren kun je leren. Dezelfde gedachte dat een uitgesproken wens
+de werkelijkheid stuurt, dertig jaar later en in de taal van intenties en
+frequenties.
+- 102. Ingangen tot Een cursus in wonderen. De bron waar veel van dit
+gedachtegoed op teruggaat: de wereld als projectie en vergeving als sleutel.
+- 139. Unlimited Power. Ook een boek over het herprogrammeren van
+overtuigingen, maar met technieken in plaats van universele wetten.
 
 ## 109. Elke dag zelfzorg
 
@@ -25165,6 +25348,204 @@ Het boek is een schoolvoorbeeld van overlevingsvertekening, de denkfout uit
 niet die het niet redden. Dat maakt de verhalen niet onwaar en de
 gevolgtrekking niet houdbaar.
 
+### Uitgebreide samenvatting
+
+**De stelling.** De Pape betoogt dat de levens van Oprah Winfrey, J.K. Rowling
+en Anita Moorjani te verklaren zijn uit één beginsel: wie zich afstemt op zijn
+ziel en daarmee op de scheppende energie die hij de bron noemt, manifesteert
+een leven dat groter is dan hij zelf had kunnen bedenken. Manifesteren is in
+dit boek geen techniek om te krijgen wat je wilt, maar het achterhalen en
+uitvoeren van wat de ziel al wil. Wie dat nalaat manifesteert volgens hem
+alleen meer van zijn huidige toestand. Daartegenover staat de gedachte dat
+drie buitengewone loopbanen zich laten verklaren uit talent, timing,
+doorzettingsvermogen en toeval, en dat de spirituele lezing er achteraf op is
+gelegd.
+
+#### De gang van het boek
+
+**Drie soorten manifesteren, en welke het boek kiest**
+
+Het voorwoord onderscheidt drie aspecten. Het eerste is optimisme: optimisten
+maken volgens de tekst betere keuzes en zien mogelijkheden die pessimisten
+missen. Het tweede is lichamelijk: emoties brengen chemische veranderingen
+teweeg die het humeur en daarmee de keuzes beïnvloeden. Beide heten in proeven
+aangetoond, zonder dat er een onderzoek bij naam staat. Het derde aspect noemt
+het voorwoord metafysisch en moeilijk in een laboratorium aan te tonen, en
+daarover gaat het boek. Die afbakening staat meteen aan het begin en bepaalt
+wat er daarna nog te toetsen valt.
+
+**Waarom deze drie vrouwen**
+
+De aanleiding is een gesprek dat Oprah Winfrey op 30 augustus 2010 voerde met
+J.K. Rowling in het Balmoral Hotel in Edinburgh. Rowling sprak daar over
+depressie en de jaren als alleenstaande moeder in de bijstand. Winfrey groeide
+op in armoede in Mississippi en werd als meisje seksueel misbruikt. De derde
+is Anita Moorjani, auteur van een boek over haar bijna-doodervaring in
+Hongkong.
+
+De Pape schrijft dat hij er dertig of honderddertig had kunnen kiezen als hij
+iets met statistiek had willen aantonen, maar dat het daar niet om gaat. Drie
+verhalen blijven volgens hem beter hangen.
+
+**Erkennen dat je een ziel bent**
+
+Het eerste deel voert bijna-doodervaringen aan als aanwijzing dat de mens meer
+is dan een lichaam. Moorjani lag in coma met een lymfoom in stadium 4b, zag
+zichzelf naar eigen zeggen van bovenaf, keerde terug met de boodschap
+onbevreesd te leven, en haar tumoren werden binnen dagen kleiner. Daarnaast
+staat Eben Alexander, neurochirurg met een verleden aan de Harvard Medical
+School, die in de herfst van 2008 zeven dagen in coma lag na een
+hersenvliesontsteking en daarna over een lichtbol schreef die hij als God
+herkende. De Pape noemt beide gevallen goed gedocumenteerd en leidt eruit af
+dat we meer zijn dan ons lichaam, dat ieder mens een levensdoel heeft, en dat
+de ziel met iets groters verbonden is.
+
+**Afstemmen: hoger bewustzijn, authentiek zelf, bron**
+
+Wie wil manifesteren moet eerst het hogere bewustzijn bereiken. Dat is in dit
+boek geen kwestie van intelligentie: juist wie overal een verklaring voor
+vindt, zit zichzelf in de weg. Het lichaam wordt vergeleken met een laptop en
+het hogere bewustzijn met de stroom uit het stopcontact. De meesten zijn
+volgens de auteur het snoer kwijt, opgevoed als we zijn om alleen te
+vertrouwen op wat vijf zintuigen waarnemen.
+
+De verhouding tussen mens, ziel en bron wordt uitgelegd met een appelboom: wij
+zijn de appels, het hogere bewustzijn de takken, de ziel de boom, en de bron
+de aarde. Winfrey beschrijft hetzelfde in christelijke bewoordingen. Haar
+besluit uit 1992 om de show op een hoger pad te brengen geldt hier als het
+gevolg van luisteren naar een innerlijke stem, tegen het advies van de zenders
+in.
+
+**Afgestemd blijven: emoties, synchroniciteit en helpers**
+
+Emoties gelden als begeleidingssysteem. Prettige gevoelens duiden op
+afstemming, boosheid en somberheid op het tegendeel. De lezer wordt
+aangespoord lichamelijke spanning op te merken, in nek, schouders of
+ademhaling, en te onderzoeken wat die meldt. De auteur waarschuwt daarbij dat
+je goed voelen iets anders is dan een lekker gevoel hebben, en noemt de roes
+van drank en drugs als tegenvoorbeeld.
+
+Synchroniciteit is het tweede hulpmiddel: dingen die op het juiste moment op
+hun plek vallen. Het boek maakt er geen wonder van. Een rotsblok op een
+berghelling rolt pas als iemand duwt, en de sporter die in de flow is heeft
+daarvoor jaren getraind. Het universum levert de middelen, het werk moet zelf
+gedaan worden.
+
+Verder komen er helpers op je pad. Winfrey noemt onder anderen haar
+onderwijzeres mevrouw Duncan, Gayle King, Gary Zukav en vooral Maya Angelou.
+Zukavs term spiritueel partnerschap staat voor een band waarin iemand liever
+de relatie riskeert dan de waarheid inslikt: Angelou onderbrak Winfrey midden
+in een crisis met de opdracht te stoppen met jammeren en dank je wel te
+zeggen.
+
+**Geld, tegenslag en de schaduwkant**
+
+Over geld is het boek terughoudender dan de titel doet vermoeden. Rijkdom kan
+een bijproduct van afstemming zijn, maar geld als doel leidt volgens een
+aangehaalde passage van Eckhart Tolle tot frustratie. Overvloed omvat hier ook
+gezondheid, verbinding en vervulling.
+
+Het hoofdstuk over negatief manifesteren erkent dat slechte mensen rijk
+worden. Dictators, Bernie Madoff en Jordan Belfort manifesteren volgens de
+auteur vanuit het gekwetste ego en brengen daarmee ook ellende voort. Ook
+tegenslag krijgt een plaats: de moeizame start van Winfreys OWN Network, met
+dertig ontslagen en het stoppen van The Rosie O'Donnell Show in maart 2012,
+geldt als beproeving die tot de Emmy voor Super Soul Sundays in juni 2012
+leidde.
+
+**De samenvatting in zes punten**
+
+Aan het eind vat De Pape zijn methode samen: weet wie je bent, vraag je af hoe
+je je talenten voor anderen kunt inzetten, luister naar de innerlijke stem,
+zet bij een ingeving de intentie neer en voer haar uit, laat je leiden, en
+houd vol. Punt vier is de opvallendste: gedachten zonder daden leveren niets
+op.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ziel | Niet iets wat je hebt maar wat je bent, verbonden met de bron en groter dan de persoon die door het leven loopt. |
+| De bron | De scheppende energie van het universum, die volgens het boek sterren zowel als lichaamscellen voortbrengt en waarvan de ziel deel uitmaakt. |
+| Hoger bewustzijn | Het waarnemende deel van jezelf dat je gedachten kan observeren en dat de verbinding met de ziel tot stand brengt. |
+| Authentieke jij | Het geaarde, niet oordelende deel van de persoonlijkheid dat op de ziel is afgestemd en dat de auteur onderscheidt van wie je denkt te moeten zijn. |
+| Persoonlijkheid | Het kleinere aspect van de mens, gevormd door lichaam, psyche, familie en cultuur, met daarin de angstige delen die het manifesteren blokkeren. |
+| Synchroniciteit | Gebeurtenissen die op het juiste moment op hun plek vallen wanneer iemand op zijn ziel is afgestemd. |
+| Spiritueel partnerschap | Term van Gary Zukav voor een band waarin de ander de waarheid zegt ook als dat de relatie schaadt. |
+| Negatief manifesteren | Voortbrengen vanuit het gekwetste ego, waarbij rijkdom kan ontstaan maar altijd samen met ellende. |
+| Color Purple-moment | Winfreys aanduiding voor een moment waarop deuren opengaan en je precies bent waar je hoort te zijn. |
+| Overvloed | De hoogste opbrengst van manifesteren, waarin geld slechts een van de vormen is naast gezondheid, talent en verbinding. |
+
+#### Waar het argument op rust
+
+Bijna al het materiaal komt uit openbare bronnen: interviews, columns,
+Winfreys Master Class, boeken van Moorjani en Alexander, uitspraken van Tolle,
+Zukav, Coelho en Angelou. De auteur zegt dat zelf. Het boek ordent dus
+uitspraken die deze mensen al naar buiten hadden gebracht.
+
+Onderzoek ontbreekt. Waar het voorwoord stelt dat de eerste twee vormen van
+manifesteren in laboratoriumproeven zijn aangetoond, wordt geen enkele studie
+genoemd. De inhoudelijke claim van het boek betreft de derde vorm, die volgens
+datzelfde voorwoord niet in een laboratorium is aan te tonen. Er is dus geen
+toetsbare grondslag aangeboden en die pretentie wordt ook niet gevoerd.
+
+De twee bijna-doodervaringen dragen het meeste gewicht en zijn tegelijk het
+kwetsbaarst. Moorjani's ziektegeschiedenis heet gedocumenteerd, maar het boek
+reproduceert die documentatie niet en steunt op haar eigen relaas. Alexanders
+geval is buiten dit boek uitvoerig bestreden, onder meer over de vraag of zijn
+hersenen tijdens de coma werkelijk zonder activiteit waren. Dat debat komt
+niet ter sprake.
+
+Het sterkst zijn de gedeelten die geen metafysica nodig hebben: aandacht voor
+lichamelijke spanning, het onderscheid tussen je goed voelen en een prettig
+gevoel najagen, en het punt dat gedachten zonder daden niets opleveren.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is een schoolvoorbeeld van overlevingsvertekening. Het kijkt
+uitsluitend naar mensen bij wie het gelukt is en hoort de gelijkgezinden niet
+die dezelfde stappen zetten en het niet redden. De auteur verdedigt die keuze
+zelfs, met de vergelijking dat je voor sport de allerbesten interviewt en niet
+vijfduizend middelmatige sporters. Precies dat maakt de conclusie leeg: zolang
+de mislukkingen buiten beeld blijven, is niet vast te stellen of afstemming op
+de ziel iets verklaart of dat de winnaars achteraf een taal vonden voor hun
+geluk. Die denkfout staat uitgelegd in 59 en 64.
+
+De stelling kan niet mislopen. Loopt het goed, dan was je afgestemd. Loopt het
+slecht, dan was je dat niet, of was het een beproeving, of manifesteerde het
+gekwetste ego. Een bewering die door geen enkele uitkomst weersproken kan
+worden, zegt ook niets over de volgende uitkomst.
+
+De zinsnede dat de arme mens meer armoede manifesteert en de bange mens meer
+angst legt de oorzaak van tegenslag bij wie hem ondergaat. Armoede, ziekte en
+geweld hebben oorzaken buiten de persoon om, en Winfreys eigen jeugd is daar
+een voorbeeld van. Het boek beschrijft dat zij die omstandigheden overwon,
+zonder te vragen waarom dat de meesten in vergelijkbare omstandigheden niet
+lukt.
+
+Herhaling is een aangekondigd kenmerk: overlap tussen drie zulke levens noemt
+de auteur onvermijdelijk. In de praktijk keren dezelfde citaten meermalen
+terug in negenentwintig hoofdstukken.
+
+#### Wat er concreet mee te doen is
+
+- Neem de zes punten uit hoofdstuk 26 los van de metafysica: talenten kennen,
+ze inzetten voor iets buiten jezelf, bij een ingeving handelen, en volhouden.
+- Merk op waar in je lichaam spanning zit en noteer wat je op dat moment deed.
+- Zoek iemand op die je tegenspreekt in plaats van geruststelt.
+- Wees terughoudend met de gevolgtrekking dat tegenslag een les was.
+
+#### Wat je hierna leest
+
+- 59. The Art of Thinking Clearly. Voor de denkfout waar dit boek op rust:
+waarom conclusies uit alleen de winnaars niets voorspellen.
+- 64. Fooled by Randomness. Voor dezelfde vertekening plus de neiging achteraf
+een verhaal te maken van wat toevallig goed uitpakte.
+- 129. Manifest. Hetzelfde genre uit hetzelfde jaar, met zeven stappen in
+plaats van zes en meer nadruk op gedrag.
+- 102. Ingangen tot Een cursus in wonderen. Tegenwicht bij de gedachte dat een
+innerlijke stem betrouwbaar weet wat je te doen staat.
+
 ## 129. Manifest
 
 Roxie Nafousi, 2022. Ondertitel *7 Steps to Living Your Best Life* (Michael
@@ -25185,11 +25566,218 @@ universum meebeweegt. Die aanname wordt niet onderbouwd en is ook niet te
 toetsen; zij is de reden dat het boek in deze rubriek staat en niet bij de
 gewoontes.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Nafousi stelt dat manifesteren neerkomt op zeven stappen die
+iedereen kan zetten, en dat de doorslag ligt bij wat je onbewust denkt te
+verdienen en niet bij wat je bewust wenst. Wie zichzelf weinig waard vindt,
+blokkeert zijn eigen wensen: het universum zou reageren op de
+trillingsfrequentie van je gevoel. Daaruit volgt haar eis dat je gedrag
+overeenkomt met de waarde die je jezelf toekent, want manifesteren is in dit
+boek nadrukkelijk niet passief. Daartegenover staat de vaststelling dat
+vrijwel alle praktische aanwijzingen overeind blijven zonder de aanname over
+een meebewegend universum, en dat die aanname op geen enkele manier te toetsen
+is.
+
+#### De gang van het boek
+
+**Het eigen verhaal**
+
+In mei 2018 was Nafousi zevenentwintig, zonder werk en zonder richting, ruim
+tien jaar in gevecht met depressie en bijna even lang met verslaving. Ze kwam
+net terug van een maand yogaopleiding in Thailand en zat binnen een etmaal
+weer in hetzelfde patroon van roken, drinken en drugs. Een vriendin, Sophia,
+stuurde haar een podcastaflevering over manifesteren, waarnaar ze luisterde
+tijdens een manicure.
+
+Wat ze als eerste wilde oproepen was onvoorwaardelijke liefde. Een week later
+kreeg ze op de app Raya bericht van de Australische acteur Wade Briggs. Hij
+bleef in Londen, drie maanden later was ze zwanger, en op 7 juni 2019, precies
+een jaar na dat bericht, werd hun zoon Wolfe geboren. Ze schrijft dat ze
+inmiddels vrij is van verslaving. Dit deel is het overtuigendste: concreet,
+gedateerd en niet fraai gemaakt.
+
+**De verklaring die zij eronder legt**
+
+Onder de kop over wetenschap staan twee onverbonden verklaringen naast elkaar.
+De eerste is ontleend aan de kwantumfysica: alles zou uit energie bestaan,
+verschillen tussen dingen zouden neerkomen op trillingsfrequentie, en de
+aantrekkingswet zou maken dat een hoge frequentie hoge frequenties terugtrekt.
+Gedachten en gevoelens hebben in dit schema ook een frequentie, waardoor een
+verandering van gevoel de werkelijkheid zou veranderen.
+
+De tweede verklaring is neurologisch en veel bescheidener: neuroplasticiteit,
+het vermogen van de hersenen nieuwe verbindingen te vormen, zou gebruikt
+kunnen worden om beperkende overtuigingen te vervangen en om aandacht te
+richten op kansen die bij het doel passen. Voor de onderbouwing verwijst zij
+naar Tara Swart en haar boek The Source. Zij noemt Swart een vriendin en een
+collega-deskundige in manifesteren.
+
+Over het universum is zij open: wie er iets anders onder verstaat mag het
+woord vervangen. Die uitnodiging is eerlijk en laat tegelijk zien hoe weinig
+het begrip vastligt.
+
+**Stap 1 en 2: helder zien, en angst en twijfel opruimen**
+
+De eerste stap is een gedetailleerd beeld van wat je wilt, tot aan de kleur
+van de voordeur, met de vergelijking dat je in een routeplanner ook niet
+alleen luchthaven invoert. Beslissend is volgens haar het meegevoelde gevoel:
+alleen zien is niet genoeg, je moet het gevoel van hebben oproepen. Wie niet
+weet wat hij wil, kan zich richten op hoe hij zich wil voelen. Zwemmer Michael
+Phelps wordt genoemd als iemand die races vooraf doorleefde, ook de
+tegenslagen daarin.
+
+Stap 2 gaat over het onbewuste. Ze citeert de verhouding vijf procent bewust
+tegen vijfennegentig procent onbewust en concludeert daaruit dat je alleen
+kunt oproepen wat je diep gelooft te verdienen. De illustratie is scherp:
+schrijf het inkomen op dat je wilt en vraag jezelf of je het bedrag opschreef
+dat je wilt of het bedrag dat je realistisch achtte. Haar vriendin Leah
+streepte bij het maken van een visiebord tien nieuwe klanten door en zette er
+vijf voor in de plaats.
+
+**Zelfliefde als fundament**
+
+Zelfliefde is bewust geen stap maar een apart deel, omdat zij volgens Nafousi
+de grond is waarop de andere stappen rusten. Haar omschrijving is nuchter: je
+eigen welzijn serieus nemen, voor jezelf opkomen, oordeel en zelfverwijt
+loslaten, jezelf dezelfde vriendelijkheid gunnen die je anderen wel geeft.
+
+De uitwerking is huishoudelijk: grenzen stellen, nee zeggen, slapen, bewegen,
+eten, mediteren, letten op de toon waarin je tegen jezelf praat. Ze vat het
+samen als bewustzijn van de keuze die je op elk moment hebt. In haar
+redenering laat dat gedrag aan het universum zien wat je meent waard te zijn.
+
+**Stap 3 en 4: gedrag en beproevingen**
+
+De derde stap onderscheidt haar leer van de aantrekkingswet, die volgens haar
+suggereert dat denken volstaat. Manifesteren is dat niet: je zoekt zelf op
+woningsites, je belt makelaars, je leert voor het examen. Over haar loopbaan
+schrijft zij dat die er kwam door hard werken, doorzettingsvermogen en
+zelfdiscipline. Uitstel voert zij terug op faalangst, met het voorbeeld van
+een cliënt die haar plan voor een etentenreeks twee jaar liet liggen uit vrees
+dat er niemand zou komen.
+
+De vierde stap noemt beproevingen van het universum: de ex die weer opduikt,
+de nieuwe partner die warm en koud blaast. Kies je het bekende of het slechte,
+dan blokkeer je volgens haar je wens. Praktisch komt dit neer op de raad geen
+halve deuren open te laten en waarschuwingssignalen niet weg te wuiven.
+
+**Stap 5, 6 en 7: dankbaarheid, afgunst en vertrouwen**
+
+Dankbaarheid is haar middel tegen sombere stemming, uitdrukkelijk zonder het
+voorbehoud dat er meteen achteraan komt. Zij vertelt hoe zij op haar
+tweeëntwintigste als stylist begon, bij elke benadering van een mogelijke
+klant haar eigen stem hoorde zeggen dat het niets zou worden, en in twee jaar
+één betalende klant kreeg. Ze wijst er zelf op dat haar gebrek aan
+zelfvertrouwen daarin de verklaring is.
+
+Stap 6 zet afgunst om in navolging. Afgunst komt volgens haar voort uit een
+schaarstebeeld, navolging uit een overvloedbeeld. Sociale media krijgen hier
+een rake behandeling als bedrijfstak die op vergelijking draait. Haar tegenzet
+is de vraag wat je werkelijk wilt van wat je bij een ander ziet.
+
+Stap 7 is vertrouwen. Manifesteren gaat volgens haar over overgave: je weet
+wat je wilt en handelt ernaar, maar laat los hoe het zal gebeuren. Afwijzing
+leest zij als omleiding. De winst die zij zelf benoemt is minder piekeren over
+het hoe.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Manifesteren | Bij Nafousi het vermogen om het leven dat je wilt zelf te maken, in zeven stappen die zij als volgorde behandelt. |
+| Aantrekkingswet | Het beginsel dat gelijk gelijk aantrekt, dat zij van manifesteren onderscheidt omdat het passief zou zijn. |
+| Trillingsfrequentie | De hoogte van je gevoelstoestand, in het boek afgekort tot high vibe en low vibe, waarop het universum zou reageren. |
+| Het universum | De macht achter het manifesteren, door haar zelf beschreven als een begrip dat de lezer door zijn eigen mag vervangen. |
+| Zelfliefde | Geen stap maar het fundament: je eigen welzijn serieus nemen en je daarnaar gedragen. |
+| Beperkende overtuigingen | Onbewuste aannames over wat je waard bent, die volgens haar al bij het formuleren van een wens ingrijpen. |
+| Gedrag afstemmen | Handelen zoals iemand die zijn wens werkelijk waard is, met inbegrip van het werk dat de wens vraagt. |
+| Beproeving van het universum | Een obstakel of verleiding die zou nagaan hoeveel je jezelf waard vindt, met de terugkerende ex als standaardvoorbeeld. |
+| Dankbaarheid zonder voorbehoud | Waardering uitspreken zonder er meteen een maar achteraan te zetten. |
+| Overgave | Vasthouden aan wat je wilt maar loslaten langs welke weg het komt, in haar boek de laatste stap. |
+
+#### Waar het argument op rust
+
+Het boek rust op eigen ervaring en op verhalen van cliënten en vrienden. Die
+verhalen zijn goed verteld en vaak zonder opsmuk: de mislukte
+stylistenloopbaan met één klant, het doorgestreepte visiebord van haar
+vriendin, de vrouw die twee jaar op haar idee bleef zitten. Als beschrijving
+van hoe zelfbeeld gedrag stuurt is dat herkenbaar materiaal.
+
+Voor de wetenschappelijke onderbouwing is één bron in het spel: Tara Swarts
+The Source, met een citaat over verbeelding die in de hersenen weinig
+verschilt van directe ervaring. Verder is er de verhouding vijf tegen
+vijfennegentig procent bewust en onbewust, aangeduid als onderzoek zonder
+verwijzing. De bronnenlijst achter in het boek telt zeven regels en bestaat
+volledig uit vindplaatsen van motto's, onder meer bij Robin Sharma, Brian
+Tracy, Don Miguel Ruiz, Mel Robbins, John Maxwell en Norman Vincent Peale.
+Voor de beweringen in de tekst zelf staat er geen enkele verwijzing.
+
+Het beroep op de kwantumfysica houdt geen stand. Dat materie uit energie
+bestaat is juist; daaruit volgt niet dat stemmingen een frequentie hebben die
+gebeurtenissen aantrekt. De sprong van deeltjesfysica naar gevoelsleven wordt
+in het boek niet beargumenteerd maar in één alinea gemaakt.
+
+De neurologische lezing is verdedigbaarder. Dat verbeelding lichamelijke
+reacties oproept en dat aandacht selectief wordt door wat je zoekt, zijn
+plausibele mechanismen. Het boek onderbouwt ze niet zelf, maar deze claims
+zijn van een andere orde dan de aantrekkingswet: ze gaan over de mens die het
+doet en niet over een reagerende buitenwereld.
+
+#### Wat er tegen in te brengen valt
+
+Wat er praktisch in staat komt neer op doelen scherp stellen, gedrag daarop
+laten aansluiten, uitstel doorbreken, geen genoegen nemen met te weinig,
+dankbaarheid oefenen en afgunst omzetten in navolging. Dat werkt zonder de
+aanname erboven dat het universum meebeweegt. Die aanname is niet te toetsen:
+elk verloop bevestigt haar. Kwam het niet, dan zat er ergens nog twijfel, of
+was het een beproeving, of kwam er iets beters.
+
+De ombuiging naar zelfverwijt is het scherpste bezwaar. Als je niet krijgt wat
+je wilt omdat je onbewust niet gelooft het te verdienen, wordt uitblijvend
+geluk een tekortkoming van de wens. Wie zijn baan verliest, ziek wordt of geen
+partner vindt, kan met dit boek in de hand bij zichzelf gaan zoeken. Nafousi
+bedoelt dat niet zo en spreekt zelf mild, maar het schema laat weinig ruimte
+voor pech, geldgebrek of omstandigheden waar niemand invloed op heeft.
+
+Het boek is één geval, door het geval zelf beschreven. Dat zij binnen een week
+na de podcast een bericht kreeg dat tot haar gezin leidde, is een goed verhaal
+en geen aanwijzing dat de methode werkt. Wie dezelfde stappen zette zonder
+resultaat schrijft geen boek en komt in dit boek niet voor.
+
+Herstel van verslaving en depressie is een langdurig proces waarin doorgaans
+meer meespeelt dan een methode: behandeling, omgeving, geld, toeval, tijd.
+Haar herstel geldt hier als bewijsstuk voor de zeven stappen zonder dat die
+andere factoren gewogen worden, en zonder dat ter sprake komt wat er gebeurt
+bij wie de stappen volgt en toch terugvalt.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op wat je wilt zonder het vooraf realistisch te maken, en kijk
+daarna wat je wegliet.
+- Zet naast elk doel de eerstvolgende handeling die eraan bijdraagt en voer
+die deze week uit.
+- Ga na wat je al lang uitstelt en welke faalangst daaronder zit.
+- Merk op wanneer je een dankbetuiging meteen ontkracht met een maar, en laat
+die toevoeging weg.
+- Vertaal afgunst in een vraag: wat wil ik hiervan zelf, en wat is de eerste
+stap ernaartoe?
+
+#### Wat je hierna leest
+
+- 128. Leer manifesteren zoals Oprah Winfrey en J.K. Rowling. Manifesteren uit
+hetzelfde jaar, spiritueler van toon en gebouwd op drie beroemde levens.
+- 59. The Art of Thinking Clearly. Voor waarom één geslaagd geval, hoe eerlijk
+verteld ook, niets zegt over de kans op slagen.
+- 64. Fooled by Randomness. Voor de neiging achteraf een sluitend verhaal te
+maken van wat toevallig goed uitpakte.
+- 44. Daring Greatly. Gedragsverandering en volhouden zonder verklarend
+wereldbeeld erboven.
+
 ## 130. Manifesteren kun je leren
 
-Willemijn Welten, 2021. Uitgegeven met Elgraphic als producent (2021). Het
-bestand liet zich niet openen, dus deze samenvatting rust niet op de tekst
-zelf. Rubriek: positief denken en manifesteren.
+Willemijn Welten, 2021. Uitgegeven met Elgraphic als producent (2021).
+Rubriek: positief denken en manifesteren.
 Tags: `manifesteren`, `nederlands`, `oefeningen`, `verlangen`, `onbewezen`,
 `beschadigd-bestand`, `cursus`
 Bron: boekenmap.
@@ -25203,6 +25791,177 @@ De aannames zijn dezelfde als in de rest van deze rubriek en gaan terug op
 127. Wat er bruikbaar aan is, het scherp krijgen van wat iemand eigenlijk wil
 en het opmerken van eigen belemmeringen, staat los van de bewering dat het
 universum daarop reageert.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Welten stelt dat manifesteren aan te leren is als een
+vaardigheid met drie stappen: een intentie zetten die uit het hart komt, je
+eigen frequentie afstemmen op de situatie die je wenst, en actie ondernemen
+vanuit vertrouwen in plaats van vanuit angst. Wie dat doet, krijgt volgens
+haar hulp van wat zij het Universum noemt, in de vorm van signalen, samenlopen
+en kansen. De wet van aantrekking is daarbij maar een onderdeel: het doel is
+niet spullen aantrekken maar het leven leiden waarin je je eigen missie leeft.
+
+#### De gang van het boek
+
+**Waar het boek vandaan komt**
+
+Het eerste hoofdstuk is autobiografisch. Welten beschrijft de weg van een baan
+bij een vermogensbeheerder naar een Amsterdamse start-up, een jaar in Ecuador,
+en daarna haar werk als manifestatie-expert. Het keerpunt dat zij noemt is een
+gesprek met haar directeur over een bonus die haar niets deed, waarna zij
+ontslag nam.
+
+Ze richtte in 2015 House of Awareness op en stopte daar vier jaar tijd en geld
+in zonder dat het financieel liep. Haar verklaring achteraf is dat haar
+intentie op anderen gericht was en zij zichzelf erbuiten had gelaten. Toen zij
+de intentie veranderde, kwam het bedrijf binnen twee maanden op gang. Dit
+soort ommekeer is het bewijsmodel dat het hele boek gebruikt.
+
+**Stap een: de intentie**
+
+Een intentie is een wens die aan het Universum wordt doorgegeven. Welten
+vergelijkt dat met een navigatiesysteem: je voert een bestemming in, je
+vertrouwt erop dat je er komt, en je accepteert omleidingen onderweg. Het
+verschil tussen een idee en een intentie is dat je bij het tweede energie en
+stappen inzet.
+
+Het hoofdstuk bevat invulvelden voor zeven gebieden: lichaam en gezondheid,
+wonen, relaties, geld, reizen en hobby's, werk, en overige wensen. Uit alles
+wat er staat kiest de lezer er drie. Een goede intentie is volgens haar kort,
+in de tegenwoordige tijd geformuleerd, gericht op de uitkomst en niet op de
+route, en met het gevoel erbij dat de vervulling zou geven.
+
+**Stap twee: de frequentie**
+
+De tweede stap is voelen dat het gewenste er al is. Welten gebruikt het beeld
+van een radio die je op de juiste zender afstemt. Ze onderbouwt dat met een
+verwijzing naar de natuurkunde: materie bestaat uiteindelijk uit trillende
+energie, en een mens dus ook, waarna zij van die trilling naar een
+persoonlijke frequentie stapt die hoger of lager kan staan.
+
+De hoogste frequentie noemt zij die van het Universum, en de gevoelens die
+daar het dichtst bij komen zijn vrede, plezier, dankbaarheid en liefde.
+Praktisch komt het neer op meditaties, een dagelijks dankbaarheidsritueel en
+het bewaken van je stemming. Ze illustreert het met twee eigen projecten: een
+kaartendeck dat strandde toen de gedeelde stemming wegviel, en een tweede
+kaartendeck dat wel doorging.
+
+**Stap drie: geïnspireerde actie**
+
+Welten benadrukt dat het Universum het werk niet overneemt. Wie een bedrijf
+wil, schrijft zich zelf in bij de Kamer van Koophandel. Het onderscheid dat
+zij maakt is dat tussen gewone actie, die uit onzekerheid en controledrang
+komt en als forceren voelt, en geïnspireerde actie, die rustig aanvoelt en
+waarbij de volgende stap pas zichtbaar wordt als de vorige gezet is.
+
+Rust nemen, loslaten en ontvangen tellen bij haar ook als actie. Daarbij hoort
+het begrip goddelijke timing: het uitblijven van een resultaat is geen bewijs
+dat het niet komt.
+
+**Wat manifestaties tegenhoudt**
+
+Het hoofdstuk over angsten en overtuigingen behandelt de veelgestelde vraag
+waarom een wens niet uitkomt. Welten geeft een lijst van zeven dingen die
+ruimte maken, waaronder het ombuigen van beperkende overtuigingen in
+affirmaties, verantwoordelijkheid nemen voor je eigen leven, en de huidige
+situatie loslaten.
+
+Twijfel krijgt daarbij een eigen rol. Wie na een maand gaat twijfelen, straalt
+volgens haar uit dat het niet gaat lukken en vertraagt daarmee de
+manifestatie. Het antwoord daarop is niet boos worden op jezelf maar de
+situatie opnieuw vanuit vertrouwen bekijken.
+
+**Signalen en missie**
+
+In het hoofdstuk over signalen staat dat het Universum antwoordt via getallen
+zoals 11:11, via toevallige ontmoetingen en via gidsen en engelen. Het
+voorbeeld dat zij uitwerkt is een vrouw die het Universum om een teken vroeg
+tijdens een wandeling en haar keuze voor het ondernemerschap ophing aan de
+letters op een kenteken.
+
+Het slot verlegt de inzet van wensen naar missie. Welten stelt dat de
+persoonlijke missie van ieder mens is om gelukkig te zijn in het nu, dat werk,
+gezin en creativiteit daar allemaal onderdeel van zijn, en dat manifesteren
+geen trucje is maar een levensstijl. Het boek eindigt met een reisverhaal uit
+Glastonbury waarin alle eerdere keuzes achteraf naar dat ene moment bleken te
+leiden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Manifesteren | Bij Welten de kunst om je wensen te realiseren via gedachten, gevoel en eigen stappen, met hulp van het Universum. |
+| Intentie | Een wens die je bewust en in de tegenwoordige tijd formuleert en daarmee kenbaar maakt aan het Universum. |
+| Frequentie | Het trillingsniveau van je gevoel, dat volgens haar bepaalt wat je aantrekt en dat je zelf kunt verhogen. |
+| Geïnspireerde actie | Een stap die je rustig en uit vertrouwen zet, tegenover forceren vanuit angst voor een tekort. |
+| Manifesteren vanuit angst of vanuit liefde | Het verschil tussen wensen die uit tekort en vergelijking voortkomen en wensen die bij je ware zelf passen. |
+| Goddelijke timing | Het idee dat wat je wenst op het juiste moment komt, ook als dat later is dan je had gehoopt. |
+| Signalen van het Universum | Getallen, ontmoetingen en samenlopen die volgens haar bevestigen dat je op de goede weg zit. |
+| Dagelijks ritueel | De korte oefening waarmee elk hoofdstuk afsluit, bedoeld om de stap in het dagelijks leven vast te houden. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit eigen ervaringen en uit korte verhalen van klanten
+en volgers, meestal met voornaam: Kelly die interieurstylist werd, Hiske die
+haar keuze aan een kenteken ophing. Alle voorbeelden zijn achteraf verteld en
+alle voorbeelden lopen goed af. Mensen die dezelfde stappen zetten en niets
+bereikten komen niet aan het woord.
+
+Waar het boek naar wetenschap verwijst, is die verwijzing dun. Het stuk over
+energie en frequenties gaat van de juiste constatering dat materie uit
+deeltjes met golfeigenschappen bestaat naar de niet volgende conclusie dat een
+mens een persoonlijke trilling heeft die door stemming omhoog of omlaag gaat
+en die gebeurtenissen aantrekt. Tussen die twee zit geen argument. Het
+aangehaalde citaat over energie en trilling wordt aan Tesla toegeschreven, wat
+een citaat is dat vaker rondgaat dan het in zijn werk terug te vinden is.
+
+Welten is er wel open over dat zij vanuit eigen ervaring schrijft en niet
+vanuit onderzoek, en zij nodigt de lezer uit haar begrippen naar eigen inzicht
+in te vullen. Dat is eerlijker dan het genre gemiddeld doet, maar het maakt de
+claims ook onmeetbaar.
+
+#### Wat er tegen in te brengen valt
+
+Het sluitstuk van de leer is dat twijfel de manifestatie vertraagt. Daarmee is
+elke mislukking verklaard binnen het systeem: het lag aan de intentie, aan de
+frequentie of aan de twijfel. Er is geen uitkomst denkbaar die de methode zou
+weerleggen, en de last van het uitblijven komt bij de lezer te liggen.
+
+Dat wordt ongemakkelijk zodra het om zaken gaat die buiten iemands invloed
+liggen. Werkloosheid, ziekte of schulden hebben oorzaken die niets met
+uitstraling te maken hebben. Het boek erkent dat niet en houdt vol dat wat je
+uitstraalt bepaalt wat je aantrekt.
+
+Van de drie stappen is alleen de derde onafhankelijk verdedigbaar. Een wens
+scherp opschrijven en er stappen voor zetten werkt, en het boek maakt dat
+concreet met invulvelden. Dat effect vraagt geen Universum en geen
+frequenties, en het boek doet geen poging om te onderscheiden welk deel van de
+resultaten aan het gewone werk toe te schrijven valt.
+
+Het genre heeft ook een commerciele kant die hier zichtbaar is. Kaartendecks,
+meditaties en het merk van de schrijfster lopen door de tekst heen, en het
+succesverhaal van de schrijfster is tegelijk de reclame voor het aanbod.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de zeven invulgebieden als eenmalige inventarisatie van wat je
+eigenlijk wilt, ook als je niets met het Universum hebt.
+- Kies er inderdaad drie uit. De beperking is het nuttigste deel van de
+oefening.
+- Formuleer per wens de uitkomst en niet de route, en noteer welke eerste stap
+deze week te zetten is.
+- Houd bij welke wensen uitkwamen en wat je er zelf voor deed. Dat is precies
+de boekhouding die het boek niet bijhoudt.
+
+#### Wat je hierna leest
+
+- 131. Wonderen manifesteren. Het vervolg van dezelfde schrijfster, waarin het
+accent verschuift van wensen naar vergeving en innerlijke rust.
+- 102. Ingangen tot Een cursus in wonderen. De bron van de begrippen angst en
+liefde die zij in haar tweede boek uitwerkt.
+- 108. Handboek Spiegelogie. Een oudere Nederlandse variant op dezelfde
+gedachte, met het bestellen en de fanclub.
 
 ## 131. Wonderen manifesteren
 
@@ -25222,6 +25981,186 @@ Daarmee schuift het genre op van doelen stellen naar spiritualiteit, en
 verdwijnt ook de laatste toetsbaarheid. Voor wie in dat gedachtegoed staat is
 het een begrijpelijke volgende stap; wie wil weten of het klopt, vindt hier
 geen aanknopingspunt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Welten stelt in dit vervolg dat manifesteren op doelen te
+weinig oplevert: haar eigen wensen kwamen uit terwijl zij zich ongelukkig
+bleef voelen. Wat je moet manifesteren zijn wonderen, en een wonder is bij
+haar geen bovennatuurlijke gebeurtenis maar een verschuiving in waarneming,
+van angst naar liefde, die op elk moment mogelijk is. Vergeving is daarvoor
+het werktuig, omdat wrok iemand aan het verleden vastzet. De begrippen komen
+uit Een cursus in wonderen en worden hier vertaald naar dagelijkse gebedjes en
+rituelen.
+
+#### De gang van het boek
+
+**Peru**
+
+De inleiding begint met wat zij haar rock-bottom noemt. Vlak voor een reis van
+zeven weken naar Peru, bedoeld als proef voor samen wonen en werken in
+Zuid-Amerika, maakte haar vriend het uit. Ze ging alleen, kwam in herfstig
+weer terecht, kreeg hoogteziekte en liet in Cuzco op straat tarot voor zich
+leggen, met een uitkomst die haar nog banger maakte.
+
+Daar begon volgens haar de weg van angst naar liefde. Ze schrijft dat ze het
+boek zelf nodig had: haar bedrijf, haar huis en haar inkomen waren er, en toch
+had zij angstgedachten en het gevoel haar missie niet te leven. Dat is de
+reden waarom dit boek niet over wensen gaat.
+
+**Innerlijk geluk in het nu**
+
+Het eerste hoofdstuk zet de plaats vast waar alles gebeurt: het nu. Ze leent
+daarvoor het Griekse onderscheid tussen chronos, de tijd van agenda's en
+lijstjes, en kairos, de tijd die eindeloos aanvoelt bij een zonsondergang of
+tijdens het schrijven. In het nu is er geen schuld uit het verleden en geen
+controle over de toekomst.
+
+Daaraan koppelt zij een herformulering van elke wens. We willen geen geld,
+relatie of huis, maar het gevoel dat wij ons daarbij voorstellen:
+dankbaarheid, geborgenheid, verbondenheid. Dat gevoel noemt zij innerlijk
+geluk, en het is nu al beschikbaar, zonder voorwaarden.
+
+**Wat een wonder is**
+
+Het tweede hoofdstuk bevat de definitie waar het boek op draait. Er zijn twee
+manieren om naar een situatie te kijken, vanuit angst of vanuit liefde, en een
+wonder is de overstap van de eerste naar de tweede. Dat is niets
+bovennatuurlijks: het is de kans zien die voorbijkomt, iemand kunnen vergeven,
+opmerken wat je anders toeval zou noemen.
+
+Ze geeft er een herkaderingsoefening bij. Onzeker of je nieuwe liefde blijft
+betekent dat je iemand hebt gevonden om wie je geeft; niet weten waar geld
+vandaan komt betekent dat alle wegen nog openliggen. Praktisch werkt zij met
+gebedjes in drie stappen, waarin de vraag om hulp aan het Universum
+vooropstaat.
+
+Hier ligt ook het verschil met haar eerste boek. Doelen manifesteren richt
+zich op wat het hoofd wil; wonderen manifesteren richt zich op de vraag wat
+het Universum voor iemand in gedachten heeft. Ze wijst de wet van aantrekking
+niet af, maar zet haar op de tweede plaats.
+
+**Vergeving**
+
+Het langste hoofdstuk gaat over vergeven. Vergeving doe je volgens Welten voor
+jezelf en niet voor de ander. Wrok legt een lijntje naar de persoon op wie je
+boos bent, en het ego denkt dat de ander door dat lijntje boete doet, terwijl
+in werkelijkheid alleen de wrokkende vastzit.
+
+Ze onderscheidt hierbij twee dingen die vaak door elkaar lopen: begrijpen dat
+iedereen onschuldig is, en het ook zo kunnen voelen. Het eerste gaat snel, het
+tweede kan jaren duren, en zij is er open over dat zij zelf soms bij dezelfde
+kwestie terugkomt. De voorbeelden komen van lezeressen die haar hun verhaal
+stuurden, onder meer over een geescaleerde verhouding met een schoonmoeder en
+over vergeving na een gebroken relatie tijdens de zwangerschap.
+
+**Relaties en goddelijke hulp**
+
+In het hoofdstuk over relaties gebruikt zij het onderscheid tussen de speciale
+en de heilige relatie. Alles is bij haar een relatie: mensen, maar ook geld,
+werk en het huis. Oordelen over een ander wijzen aan waar de beoordelaar zelf
+bang voor is, en de manier waarop iemand een ander ziet bepaalt hoe hij die
+behandelt.
+
+Het hoofdstuk daarna gaat over goddelijke hulp en over het heilig ogenblik uit
+de cursus, waarvan zij een definitie van de Nederlandse cursusuitleg citeert.
+Het voorbeeld dat zij zelf geeft is een meditatie in een kerk in Den Haag
+waarna zij niet meer wist op wie zij eigenlijk boos was.
+
+**Missie en levensstijl**
+
+De laatste hoofdstukken gaan over de vraag waarom iemand hier is. Welten
+beschrijft hoe zij bij een vermogensbeheerder werkte, hoe een aangeboden bonus
+haar juist het gevoel gaf niet gezien te worden, en hoe zij daarna via
+kinderyoga en tarot ontdekte dat het delen van bewustzijn haar voldoening gaf.
+Het antwoord dat zij uit de cursus haalt is dat identiteit geen kwestie van
+levensstijl is: in de kern is iedereen liefde.
+
+Het slot behandelt wonderen manifesteren als dagelijkse praktijk en noemt
+daarbij expliciet spiritual bypassing, het gebruik van spirituele taal om pijn
+te ontwijken. Elk hoofdstuk sluit af met een gebedje en een dagelijks ritueel,
+van vijf minuten met het Universum in de ochtend tot het opschonen van energie
+voor het slapengaan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Wonder | Een verandering in waarneming van angst naar liefde, die volgens haar in elke situatie mogelijk is. |
+| Innerlijk geluk | Het gevoel waar alle wensen eigenlijk om draaien, en dat volgens haar zonder voorwaarden vooraf te ervaren is. |
+| Angst en liefde | De twee standen waarin iemand naar de wereld kan kijken, ontleend aan Een cursus in wonderen. |
+| Ego | De stem die iemand bij groei weghoudt, oordeelt en schuld en wraak in stand houdt. |
+| Vergeving | Het loslaten van wrok, in dit boek gedaan uit liefde voor jezelf en niet als gunst aan de ander. |
+| Heilig ogenblik | Het moment buiten tijd en ruimte waarop iemand voor vergeving kiest in plaats van voor schuld. |
+| Heilige relatie | Een verhouding die op groei en waarheid gericht is, tegenover de speciale relatie die op behoefte rust. |
+| Goddelijke hulp | De leiding die volgens haar altijd beschikbaar is, waarbij de vraag alleen is of iemand luistert. |
+| Spiritual bypassing | Spirituele taal en oefening inzetten om pijn te vermijden in plaats van te verwerken. |
+
+#### Waar het argument op rust
+
+Twee soorten materiaal dragen dit boek. Het eerste is de eigen geschiedenis
+van de schrijfster, die openhartig is over liefdesverdriet, onzekerheid en
+terugval. Het tweede zijn verhalen die lezeressen haar via Instagram stuurden,
+weergegeven met voornaam en zonder verificatie. Dat zijn getuigenissen, geen
+bewijs, en zij zijn geselecteerd op een goede afloop.
+
+De begrippen komen niet uit onderzoek maar uit Een cursus in wonderen, dat
+zelf een geloofstekst is. Welten geeft dat ook aan: zij citeert de cursus en
+Nederlandse uitleggers ervan en noemt een literatuurlijst. Wie de cursus niet
+als gezaghebbend aanvaardt, houdt van de argumentatie weinig over.
+
+Waar het boek een aantoonbaar mechanisme raakt, gaat het over hoe iemand een
+situatie betekenis geeft. Dat wrok vooral degene belast die haar vasthoudt, en
+dat een andere lezing van dezelfde gebeurtenis het gevoel verandert, is ook
+buiten dit gedachtegoed goed gedocumenteerd. Het boek verwijst daar niet naar
+en steunt op een claim over frequenties die dat niet is.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar zit in de herkadering zelf. De oefening werkt goed op
+onzekerheid en ergernis, maar het boek past haar ook toe op zwaar verlies. De
+miskraam die als een langsvliegend vogeltje wordt beschreven is voor de
+betrokkene misschien troostend, maar als methode aangeboden legt zij op
+rouwenden de opdracht om hun verlies vanuit liefde te bekijken. Verdriet dat
+blijft, wordt dan een tekortkoming.
+
+Het boek benoemt spiritual bypassing en ontkomt er zelf niet aan. Bijna elk
+conflict eindigt in vergeving en in de vaststelling dat alles precies is zoals
+het moet zijn. Boosheid die terecht is, een grens die getrokken moet worden of
+een situatie die veranderd hoort te worden in plaats van anders bekeken,
+krijgen nauwelijks ruimte.
+
+Er zit ook een spanning in de opzet die niet wordt opgelost. Dit boek stelt
+dat het manifesteren van doelen uit het eerste boek niet gelukkig maakte, maar
+houdt het manifesteren en het frequentiedenken wel overeind, nu op innerlijk
+geluk gericht. De diagnose is scherper dan de correctie.
+
+Vergeving als uitsluitend eigen belang is bovendien te snel gesteld. Dat wrok
+schaadt is aannemelijk; dat vergeving altijd en direct beschikbaar is,
+ongeacht wat er gebeurd is, is dat niet. Bij zwaar onrecht is de plicht om te
+vergeven zelf een last.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een ergernis of onzekerheid welke lezing je hanteert en welke
+andere lezing van dezelfde feiten mogelijk is. Dat is de kern van het boek,
+los van de kosmologie.
+- Schrijf op wie of wat je nog niet kunt vergeven, en scheid daarbij het
+begrijpen van het voelen. Welten wijst er terecht op dat het tweede langer
+duurt.
+- Merk het verschil op tussen loslaten en wegkijken. Het boek geeft daarvoor
+zelf de term spiritual bypassing.
+- Neem de dagelijkse rituelen als vaste momenten van vijf minuten, niet als
+voorwaarde voor een resultaat.
+
+#### Wat je hierna leest
+
+- 130. Manifesteren kun je leren. Het eerste boek van dezelfde schrijfster,
+met de drie stappen waar dit boek zich tegen afzet.
+- 102. Ingangen tot Een cursus in wonderen. De tekst waar de begrippen wonder,
+ego, vergeving en heilig ogenblik uit komen.
+- 108. Handboek Spiegelogie. Ook gebouwd op het idee dat een oordeel over de
+ander iets over de beoordelaar zegt.
 
 ## 132. You Are a Badass at Making Money
 
@@ -25769,8 +26708,8 @@ uit dat Sharma in zijn zeven bedreigingen aanstipt.
 ## 135. The Monk Who Sold His Ferrari
 
 Robin Sharma, 1997. Bij HarperCollins. Nederlands als *De monnik die zijn
-Ferrari verkocht*. Het bestand in de map is een slechte omzetting zonder
-uitgeversgegevens. Rubriek: levenskunst.
+Ferrari verkocht*. Het bestand in de map is een omzetting zonder
+uitgeversgegevens, met de hele tekst in één bestand. Rubriek: levenskunst.
 Tags: `fabel`, `zelfhulp`, `burn-out`, `gewoontes`, `verhaalvorm`,
 `klassieker`, `onderbouwing`
 Bron: boekenmap.
@@ -26545,6 +27484,231 @@ De methoden waarop het steunt zijn sinds de jaren tachtig herhaaldelijk
 onderzocht en houden geen stand; wat overblijft is de motiverende werking van
 iemand die met grote stelligheid spreekt. Het is te lezen als document van een
 tijd en als de bron van veel wat er nu op podia wordt verkocht.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Robbins stelt dat uitzonderlijke prestaties geen kwestie zijn
+van aanleg of geluk maar van een reeks stappen die iemand bewust of onbewust
+zet, en dat die stappen af te kijken zijn. Wie precies vaststelt wat een
+geslaagd mens gelooft, hoe hij zijn ervaring innerlijk ordent en hoe hij zijn
+lichaam gebruikt, kan dat namaken en dezelfde uitkomsten bereiken. De aannames
+en technieken komen grotendeels uit het neurolinguistisch programmeren:
+overtuigingen zijn te vervangen, gevoelens zijn aan een prikkel te koppelen,
+en betekenis is te verschuiven door het kader te veranderen.
+
+#### De gang van het boek
+
+**Macht als vaardigheid**
+
+Het openingshoofdstuk vertelt in de derde persoon over een jonge, rijke,
+gezonde man die staatshoofden en fobiepatienten adviseert, waarna blijkt dat
+het de schrijver zelf is. Drie jaar eerder woonde hij in een klein flatje,
+deed hij zijn afwas in bad en woog hij vijftien kilo te veel.
+
+Macht definieert hij niet als heersen over anderen maar als het vermogen om je
+gewenste uitkomsten te bereiken en daarbij iets van waarde voor anderen te
+maken. Historisch was macht achtereenvolgens fysiek, geerfd en financieel; in
+dit boek is macht een vaardigheid: het beheersen van je eigen innerlijke
+voorstellingen en je eigen gedrag.
+
+**Het verschil dat verschil maakt**
+
+Hoofdstuk twee zet twee levens naast elkaar. W. Mitchell raakte na een
+motorongeluk over driekwart van zijn lichaam verbrand en na een
+vliegtuigongeluk verlamd, werd miljonair, stelde zich kandidaat voor het
+Congres en voerde campagne voor het vice-gouverneurschap van Colorado. John
+Belushi had roem, geld, vrienden en huizen en stierf op drieendertigjarige
+leeftijd aan een vergiftiging door cocaine en heroine.
+
+Uit dat contrast trekt Robbins zijn uitgangspunt: het onderscheid ligt niet in
+de omstandigheden maar in hoe iemand die inwendig weergeeft. Hij noemt
+daarnaast Pete Strudwick, geboren zonder handen en voeten en later
+marathonloper, en Candy Lightner, die na de dood van haar dochter een
+organisatie tegen rijden onder invloed oprichtte.
+
+**Modelleren**
+
+Modelleren is het kernbegrip van deel een. Wie de resultaten van iemand wil
+evenaren, onderzoekt drie dingen: wat die persoon gelooft, hoe hij zijn
+ervaring innerlijk ordent, en wat hij met zijn lichaam doet. Robbins
+vergelijkt het met een recept: met dezelfde ingredienten in dezelfde volgorde
+komt er dezelfde cake uit.
+
+Daarbij hoort een aanname over de zintuigen. Mensen slaan ervaring op in
+beelden, geluiden en gevoelens, en die zijn te sturen door aan de
+eigenschappen ervan te draaien: een beeld groter of kleiner maken, een stem
+harder of zachter zetten. In het jargon van het boek heten die eigenschappen
+submodaliteiten.
+
+**Overtuigingen en de zeven leugens**
+
+Het hoofdstuk over overtuigingen opent met het verhaal van Pablo Casals,
+ontleend aan Norman Cousins. Casals kwam bijna negentig, kromgebogen en met
+stijve, gezwollen vingers de ochtend door, ging aan de piano zitten en speelde
+Bach en Brahms, waarna hij rechtop de kamer verliet en een strandwandeling
+maakte. Robbins gebruikt dat om te betogen dat een overtuiging als een
+opdracht aan de hersenen werkt.
+
+Daarop volgt zijn beroemdste hoofdstuk, over zeven overtuigingen die hij bij
+geslaagde mensen aantrof. Hij noemt ze bewust leugens, om eraan te herinneren
+dat niemand weet hoe de wereld werkelijk in elkaar zit en dat de vraag alleen
+is of een overtuiging bruikbaar is. De eerste luidt dat alles gebeurt met een
+reden en ons dient; andere gaan over falen dat alleen uitkomst is, over
+verantwoordelijkheid nemen en over toewijding.
+
+**Strategieen, syntaxis en fysiologie**
+
+In de hoofdstukken over strategie werkt Robbins uit dat de volgorde van de
+stappen even zwaar weegt als de stappen zelf. Hij illustreert dat met zinnen
+waarin dezelfde woorden in een andere volgorde iets anders betekenen, en trekt
+de vergelijking met een computer die correcte opdrachten in de verkeerde
+volgorde niet uitvoert. Een strategie is bij hem het geheel van innerlijke
+voorstellingen, hun eigenschappen en hun volgorde.
+
+Daarnaast staat de fysiologie, die hij de snelste weg naar een andere stemming
+noemt: houding, gezichtsuitdrukking en ademhaling. Het hoofdstuk over energie
+gaat over voeding en beweging en berust op zijn eigen ervaring dat hij van 122
+naar 108 kilo ging na een programma van twee maanden. De voedingsadviezen die
+hij daarin geeft ontleent hij niet aan onderzoek maar aan het observeren van
+mensen die er gezond uitzagen.
+
+**Rapport, metaprogramma's en herkaderen**
+
+Deel twee is gericht op communicatie. Rapport ontstaat volgens Robbins door
+overeenkomst: wie stemtempo, houding en woordkeus van de ander benadert, wordt
+eerder gehoord. Metaprogramma's zijn de filters waarmee iemand informatie
+selecteert, zoals de neiging om naar iets toe te bewegen of juist bij iets
+vandaan, en het aanspreken op het verkeerde filter maakt volgens hem elke
+boodschap onwerkzaam.
+
+Herkaderen is de techniek die daarbij hoort. De betekenis van een gebeurtenis
+hangt af van het kader eromheen; verander het kader en de betekenis verandert
+mee. Het voorbeeld dat hij geeft is het geluid van voetstappen, dat op een
+drukke straat niets betekent en 's nachts in een leeg huis alles.
+
+**Ankeren**
+
+Het slot van deel twee gaat over ankeren, in het boek de belangrijkste
+techniek. Een anker is een zintuiglijke prikkel die aan een stemming vastzit:
+een vlag, een melodie, een reclameleus, een aanraking. Robbins beschrijft hoe
+je zo'n koppeling opzettelijk aanlegt door op het hoogtepunt van een sterk
+gevoel een vaste prikkel toe te dienen, en die later inzet om het gevoel op te
+roepen.
+
+Het voorwoord van het boek is daar meteen een demonstratie van. De schrijver
+ervan beschrijft hoe Robbins hem in vijfenveertig minuten van een levenslange
+spreekangst afhielp door hem terug te laten gaan naar een geslaagde toespraak
+en op dat moment zijn knie en hand aan te raken.
+
+**Waarden en de vijf sleutels**
+
+Deel drie verlegt de aandacht van techniek naar richting. Waardehierarchieen
+zijn de persoonlijke rangorde van wat iemand belangrijk vindt, en Robbins
+waarschuwt dat vaardigheid zonder die rangorde tot innerlijk conflict leidt:
+wie zijn doel bereikt en daarbij zijn waarden schendt, voelt zich niet
+tevreden.
+
+De vijf sleutels tot rijkdom en geluk zijn de valkuilen die hij mensen telkens
+ziet maken, met daarnaast hoofdstukken over het beinvloeden van grote groepen
+en over leiderschap. Het slot behandelt de vraag wat iemand met dit alles gaat
+doen, en eindigt bij bijdragen aan anderen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Modelleren | Het nauwkeurig afkijken van overtuigingen, innerlijke ordening en lichaamsgebruik van iemand die het gewenste resultaat al bereikt. |
+| Innerlijke representatie | De beelden, geluiden en gevoelens waarmee iemand een gebeurtenis in zichzelf weergeeft. |
+| Submodaliteiten | De eigenschappen van die innerlijke beelden en geluiden, zoals grootte, helderheid of volume, die volgens Robbins bij te stellen zijn. |
+| Strategie | Het geheel van innerlijke stappen, in een vaste volgorde, waarmee iemand een bepaalde uitkomst voortbrengt. |
+| Syntaxis | De volgorde van die stappen, die volgens hem de uitkomst even sterk bepaalt als de stappen zelf. |
+| Fysiologie | Houding, ademhaling en gezichtsuitdrukking, bij Robbins de snelste ingang om een stemming te veranderen. |
+| Anker | Een prikkel die aan een stemming gekoppeld is en die stemming daarna vanzelf oproept. |
+| Herkaderen | De betekenis van een ervaring veranderen door het kader of de context eromheen te verschuiven. |
+| Rapport | De afstemming tussen mensen die volgens hem ontstaat door overeenkomst in taal, tempo en houding. |
+| Metaprogramma | Het innerlijke filter dat bepaalt waar iemand aandacht aan geeft en hoe hij een boodschap opvat. |
+| Waardehierarchie | De persoonlijke rangorde van wat iemand belangrijk vindt, die bepaalt of een behaald doel ook voldoening geeft. |
+
+#### Waar het argument op rust
+
+Het boek rust bijna geheel op voorbeelden. Sommige zijn controleerbaar en
+juist weergegeven: W. Mitchell heeft de beschreven ongelukken gehad en zich
+kandidaat gesteld, en het verhaal over Casals staat inderdaad bij Norman
+Cousins. Andere voorbeelden zijn naamloze cursisten of anekdotes uit Robbins'
+eigen praktijk, waarvan alleen zijn eigen weergave bestaat.
+
+Er is geen enkele controlegroep en geen enkele meting in het boek. Robbins
+verdedigt dat ook: hij zegt dat hij niet in kwalificaties geinteresseerd is
+maar in resultaten, en dat hij op zoek ging naar mensen die er gezond uitzagen
+om vervolgens te doen wat zij deden. Dat is de logica van het hele werk, en
+zij verklaart waarom uitzonderingen en mislukkingen nergens voorkomen.
+
+Wat de theorie betreft is Robbins zelf voorzichtiger dan zijn navolgers. Hij
+noemt de zeven overtuigingen uitdrukkelijk leugens en vraagt de lezer alleen
+na te gaan of ze bruikbaar zijn. Dat is een eerlijke zet, maar zij geldt niet
+voor de technieken zelf, die als werkend gepresenteerd worden.
+
+#### Wat er tegen in te brengen valt
+
+De kern van het bezwaar betreft de herkomst van de methode. De technieken
+komen uit het neurolinguistisch programmeren, en de aannames daarvan zijn
+sinds de jaren tachtig herhaaldelijk onderzocht en houden geen stand. Dat
+geldt met name voor de twee dragende claims: dat mensen een vast
+voorkeurszintuig hebben, en dat oogbewegingen verraden welk zintuig iemand op
+dat moment gebruikt. Onderzoek vond die verbanden niet, en overzichten van de
+literatuur uit die periode en daarna komen tot dezelfde slotsom. De aanname
+dat het afstemmen op het veronderstelde voorkeurszintuig het contact
+verbetert, bleek evenmin te bevestigen.
+
+Dat maakt niet alles in het boek waardeloos, maar het verlegt wel waar de
+werking vandaan komt. Wat blijft staan zijn algemene bevindingen die ook
+zonder dit jargon bekend zijn: houding en ademhaling beinvloeden de stemming,
+herwaardering van een gebeurtenis verandert het gevoel erover, en
+blootstelling aan wat iemand vreest vermindert die vrees. De verpakking
+eromheen suggereert een precisie in stappen en volgordes die het onderliggende
+bewijs niet draagt.
+
+Het genezingsverhaal in het voorwoord is illustratief voor het probleem. Een
+fobie die in vijfenveertig minuten verdwijnt is niet ondenkbaar, maar de enige
+bron ervoor is de betrokkene zelf, direct na de sessie, in een tekst die het
+boek aanprijst. De schrijver van dat voorwoord trekt de lijn vervolgens door
+naar kanker, en die stap blijft in het boek onweersproken staan.
+
+Verder is er de terugslag van de leer op de lezer. Als omstandigheden er niet
+toe doen en alles neerkomt op de eigen innerlijke ordening, dan is wie faalt
+zelf tekortgeschoten. Robbins erkent nergens dat middelen, gezondheid en
+toeval verschil maken, en zijn voorbeelden zijn allemaal mensen die het
+uiteindelijk redden.
+
+Ten slotte is het boek uit 1986 en draagt het de tijd waarin het geschreven
+is. Het hoofdstuk over voeding bevat stellige adviezen die de schrijver aan
+observatie ontleende, en dat gedeelte is het slechtst verouderd.
+
+#### Wat er concreet mee te doen is
+
+- Kies iemand die doet wat jij wilt kunnen en vraag hem niet naar zijn mening
+maar naar zijn stappen: wat doet hij eerst, waar let hij op, wat gelooft hij
+over de zaak.
+- Test een overtuiging op bruikbaarheid in plaats van op waarheid, zoals het
+hoofdstuk over de zeven leugens voorstelt, en let erop dat dit criterium ook
+zelfbedrog toelaat.
+- Verander bij spanning eerst iets fysieks: houding, ademhaling, tempo. Dat is
+het best onderbouwde advies uit het boek.
+- Beschrijf een tegenslag eens in een ander kader en kijk of de nieuwe
+beschrijving standhoudt tegen de feiten. Herkaderen dat de feiten negeert lost
+niets op.
+- Zet je waardevolgorde op papier voordat je aan doelen begint. Robbins stelt
+terecht dat een bereikt doel dat je waarden schendt weinig oplevert.
+
+#### Wat je hierna leest
+
+- 108. Handboek Spiegelogie. Ook gebouwd op het herprogrammeren van
+aangeleerde overtuigingen, maar zonder techniek en met een kosmologie
+eromheen.
+- 130. Manifesteren kun je leren. Dezelfde stap van beperkende overtuiging
+naar affirmatie, nu in een Nederlands manifestatieboek uit 2021.
+- 131. Wonderen manifesteren. Herkaderen komt daar terug als het omzetten van
+angst naar liefde, met een andere onderbouwing.
 
 ## 140. Win Your Inner Battles
 

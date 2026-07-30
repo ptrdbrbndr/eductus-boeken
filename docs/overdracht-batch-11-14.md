@@ -115,12 +115,12 @@ betoogd dan aangetoond.
 | --- | --- | --- | --- |
 | 76 | Think and Grow Rich | Napoleon Hill, 1937 | ja |
 | 83 | The Power of Positive Thinking | Norman Vincent Peale, 1952 | ja |
-| 108 | Handboek Spiegelogie | Willem de Ridder | bestand onbruikbaar |
+| 108 | Handboek Spiegelogie | Willem de Ridder | ja |
 | 117 | Attitude Is Everything for Success | Keith Harrell | ja |
 | 127 | The Law of Attraction | William Walker Atkinson, 1906 | ja |
 | 128 | Leer manifesteren zoals Oprah Winfrey en J.K. Rowling | Baptist de Pape | ja |
 | 129 | Manifest | Roxie Nafousi | ja |
-| 130 | Manifesteren kun je leren | Willemijn Welten | bestand onbruikbaar |
+| 130 | Manifesteren kun je leren | Willemijn Welten | ja |
 | 131 | Wonderen manifesteren | Willemijn Welten | ja |
 | 132 | You Are a Badass at Making Money | Jen Sincero | ja |
 | 136 | The Greatness Mindset | Lewis Howes | ja |

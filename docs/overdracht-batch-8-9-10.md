@@ -162,13 +162,13 @@ wat er niet is nagegaan.
 | 77 | Ikigai | García en Miralles | ja |
 | 91 | Eindelijk oud | Mark Nelissen | ja |
 | 95 | Het uur van het hart | Irvin en Benjamin Yalom | ja |
-| 102 | Ingangen tot Een cursus in wonderen | Willem Glaudemans | bestand onbruikbaar |
+| 102 | Ingangen tot Een cursus in wonderen | Willem Glaudemans | ja |
 | 105 | Zo ongelukkig mogelijk in 8 stappen | Niels den Daas | ja |
 | 107 | Alles draait om angst | Wiljo van Gassel | ja |
 | 109 | Elke dag zelfzorg | Nina Mouton | ja |
 | 111 | Dingen die je hoop geven | Haemin Sunim | ja |
 | 134 | The Everyday Hero Manifesto | Robin Sharma | ja |
-| 135 | The Monk Who Sold His Ferrari | Robin Sharma | slechte omzetting |
+| 135 | The Monk Who Sold His Ferrari | Robin Sharma | ja |
 | 141 | Voorbij de vorm | Stephan Bodian | ja, pdf |
 | 145 | Unfuck Your Intimacy | Faith G. Harper | nee |
 
