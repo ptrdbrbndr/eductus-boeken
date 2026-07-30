@@ -1,7 +1,7 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 30 juli
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 31 juli
 2026: 145 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
@@ -18092,6 +18092,221 @@ terwijl het verschil buiten hen om is ontstaan. Het boek is Nederlandstalig en
 toegankelijk zonder simpel te worden, en het legt naast 64 een filosofische in
 plaats van een financiële lezing van hetzelfde onderwerp.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Toeval bestaat, en de vraag of het bestaat valt niet samen
+met de natuurkundige vraag of de wereld deterministisch in elkaar zit. Hopster
+laat zien dat wie het toeval ontkent, telkens één grondbetekenis uitkiest, die
+wegredeneert, en vervolgens meent alle toeval te hebben afgeschaft. Er zijn er
+volgens hem zes, die naast elkaar bestaan en elk eigen filosofische vragen
+oproepen. Daaruit volgt zijn tweede claim: omdat toeval een morele en
+politieke kracht is, gaat het erom het te doseren. Te weinig toeval kost
+creativiteit, te veel kost eerlijkheid en samenhang.
+
+#### De gang van het boek
+
+**De ontkenners en hun rekening**
+
+Het boek opent met een rij citaten van denkers die het toeval het
+bestaansrecht ontzeggen: Leukippos, Augustinus, Calvijn, Hobbes, Spinoza,
+Voltaire, Hume, Hegel, Einstein. Spinoza noemt toeval het toevluchtsoord der
+onwetendheid; Hobbes zegt dat de regen van morgen noodzakelijk is en dat wij
+alleen de oorzaken nog niet zien. De ontkenning heeft een luidere geschiedenis
+dan de verdediging.
+
+Tegenover die traditie zet Hopster de erkenning, die even oud is. Boëthius
+geeft Fortuna een plaats in de christelijke metafysica en levert met zijn *De
+vertroosting van de filosofie* het rad van fortuin aan de middeleeuwse
+beeldcultuur. Machiavelli beschrijft Fortuna als een rivier die vlaktes in
+meren verandert en stelt daar de virtù van de staatsman tegenover. Bij
+Lucretius en Epicurus zit toeval al in de natuur zelf, in de *clinamen*, de
+plotselinge zwenking van een atoom. De ontkenner is dus een verklaring
+schuldig: welk toeval bestaat er precies niet? Dat is Hopsters Eerste
+Toevalswet, de eerste van vijf vuistregels die het boek doorlopen.
+
+**Zes grondbetekenissen**
+
+De ordening die de rest van het boek draagt bestaat uit zes grondbetekenissen.
+Existentieel toeval is wat zomaar gebeurt, zonder reden of ontwerp.
+Accidenteel toeval is wat per ongeluk gebeurt of bijkomstig is aan een
+situatie. Contingentie is een wankele oorzakelijke reeks die met gemak anders
+had kunnen uitpakken. Coïncidentie is het ongeplande samenvallen dat als
+betekenisvol wordt ervaren. Statistisch toeval zit in de staart van de
+kansverdeling. Probabilistisch toeval is wat alleen kanstheoretisch te
+verklaren valt.
+
+Die laatste categorie splitst hij in een subjectieve en een objectieve poot.
+Wie het weerbericht niet las, gebruikt kansen om een kennistekort te dekken.
+Of er daarnaast objectief probabilistisch toeval bestaat, is de vraag die
+natuurkundigen over de kwantummechanica stellen; Hopster verwijst daarvoor
+naar Klaas Landsman. Aan dat debat hangt volgens hem niet het hele bestaan van
+toeval: de overige vijf betekenissen staan er los van.
+
+**Natuurkundig, historisch en moreel toeval uit elkaar**
+
+De drie lagen die het boek het scherpst uit elkaar houdt, zijn het toeval van
+de natuur, dat van de geschiedenis en dat van de moraal. Natuurkundig toeval
+gaat over de vraag of de werkelijkheid zelf onbepaald is. Dat is een vraag
+over wetten en over de duivel van Laplace, die met volledige kennis van de
+begintoestand alles zou kunnen voorspellen. Zelfs als die duivel gelijk kreeg,
+merkt Hopster op, verandert dat weinig: dobbelen blijft een toevalsspel, ook
+wanneer de dobbelsteen deterministisch te beschrijven is.
+
+Historisch toeval is van een andere orde: paden die zijn ingeslagen en daarna
+zijn vastgelegd. Darwin wees het aanbod om mee te varen met de Beagle eerst af
+en accepteerde het twee dagen later alsnog, na een gesprek met zijn oom Josiah
+Wedgwood. Dit is contingentie: het resultaat staat vast en had met gemak
+anders kunnen lopen. In de evolutietheorie werkt dat volgens Hopster via
+ongerichte variatie met selectieve retentie, waarbij toeval productief wordt
+in samenspel met sturing. Dat is zijn Tweede Toevalswet.
+
+Moreel toeval is de derde laag, en de meest verontrustende: het gaat er niet
+over wat er gebeurt, maar over waarvoor iemand terecht geprezen of veroordeeld
+wordt. De drie lagen laten zich niet tot elkaar herleiden. Een deterministisch
+heelal maakt de historische contingentie niet ongedaan, en een onbepaald
+heelal lost het morele probleem niet op.
+
+**Modellen: ontmoeting, vondst, lot, misverstand**
+
+Deel II werkt vier modellen uit waarin toeval herkenbaar wordt. Het trefpunt
+is de ontmoeting; Aristoteles beschrijft in zijn *Fysica* de man die naar de
+markt gaat om olijven te kopen en daar zijn schuldenaar tegenkomt. In zulke
+coïncidenties zit een schijn van doelmatigheid: de ontmoeting had met opzet zo
+geregeld kunnen zijn. Hopster noemt dat slim toeval, tegenover het domme
+toeval waaronder hij de serialiteit van Paul Kammerer en de synchroniciteit
+van Jung schaart.
+
+Het model van de vondst is serendipiteit, naar het sprookje van de drie
+prinsen van Serendip dat Amir Khusrow in 1302 optekende. Het voorbeeld is de
+Ever Laurel, die in januari 1992 in de Stille Oceaan 28.800 badspeeltjes
+verloor. Oceanograaf Curtis Ebbesmeyer gebruikte de aanspoelende speeltjes om
+zeestromen in kaart te brengen en stuitte daarbij op het plasticveld dat hij
+The Great Pacific Garbage Patch doopte.
+
+**Heden, verleden, toekomst**
+
+Deel III ordent toeval naar tijdsgedaante. In het heden is toeval kans en
+kantelpunt: het uitgerekte moment tussen opening en besluit, waarin gehandeld
+moet worden zonder repetitie. In het verleden is het een geëvolueerd pad, in
+de toekomst risico. Daar bespreekt Hopster de Zwarte Zwaan van Nassim Taleb,
+voortbouwend op het falsificatievoorbeeld van Popper, en noteert hij dat Taleb
+de covidpandemie zelf geen Zwarte Zwaan vond: dat er ooit een volgende
+pandemie zou komen, was bekend.
+
+**Doseren: loting, verdeling, moreel geluk**
+
+Deel IV is het normatiefste. Het opent met de overlevingsloterij die
+bio-ethicus John Harris in 1975 bedacht: als één geloot mens twee stervenden
+kan redden met hart en longen, wat is daar dan tegen? Van daaruit gaat het
+naar loting als politiek instrument, van de roulerende mandaten in Athene tot
+de burgerberaden waarvoor David Van Reybrouck in *Tegen verkiezingen* pleit.
+
+Bij John Rawls wordt de dubbelheid van toeval expliciet. Toeval is oneerlijk
+omdat wat je toevalt onverdiend is; Hopster verbindt dat met Rawls' jeugd,
+waarin twee broers stierven aan ziektes die hij zelf had overgedragen.
+Tegelijk is toeval eerlijk omdat het zich niets aantrekt van privileges, wat
+het bruikbaar maakt als procedure. De sluier van onwetendheid en het
+verschilprincipe bespelen die blindheid.
+
+Het hoofdstuk over moreel geluk gaat terug op Thomas Nagels artikel 'Moral
+Luck' uit 1979. Nagel begint bij Kant, voor wie de goede wil schittert als een
+juweel ongeacht de uitkomst, en laat zien dat wij dat in de praktijk nergens
+volhouden. Wie je bent, in welke omstandigheden je terechtkomt en hoe je
+handelen uitpakt liggen alle drie grotendeels buiten je controle. Twee
+automobilisten rijden even hard door rood; de een raakt niemand, de ander
+verlamt een voetganger en krijgt straf en schuldgevoel. De verzetsstrijder had
+het geluk dat de omstandigheden hem tot held konden maken. Nagel biedt geen
+oplossing en Hopster ook niet; hij formuleert alleen zijn Derde Toevalswet,
+dat toeval een morele kracht van betekenis is.
+
+**Klimaat en besluit**
+
+Het laatste hoofdstuk gebruikt de twee roulettewielen die een team van MIT in
+2001 publiceerde als the Greenhouse Gamble: bij serieus klimaatbeleid draai je
+aan een wiel van 1 tot 4 graden opwarming tot 2100, bij ongewijzigd beleid aan
+een wiel van 3 tot boven de 7 graden. Waar het wiel stopt bepalen wij niet,
+aan welk wiel we draaien wel. In het besluit speculeert Hopster over
+kunstmatige intelligentie, die orde zichtbaar maakt waar eerder willekeur werd
+gezien. Zijn slotsom is de Vijfde Toevalswet: toeval verandert van vorm en
+keert terug.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Existentieel toeval | Wat je zomaar overkomt, zonder reden, bedoeling of ontwerp erachter. |
+| Accidenteel toeval | Wat per ongeluk gebeurt of bijkomstig is aan een situatie en niet tot de kern ervan behoort. |
+| Contingentie | Een wankele oorzakelijke reeks waarvan de uitkomst met gemak anders had kunnen zijn. |
+| Coïncidentie | Een ongepland samenvallen van gebeurtenissen dat als opmerkelijk of betekenisvol wordt ervaren. |
+| Probabilistisch toeval | Wat alleen kanstheoretisch te verklaren valt, in een subjectieve variant (kennistekort) en een objectieve (variabiliteit in de werkelijkheid zelf). |
+| Serendipiteit | Het doen van een aanvankelijk ongezochte vondst, mogelijk gemaakt door een voorbereide geest. |
+| Moreel geluk | Het verschijnsel dat prijzen en veroordelen mede afhangt van omstandigheden en uitkomsten die buiten iemands controle vallen. |
+| Toevalswetten | Vijf vuistregels die het boek structureren, over de meerduidigheid, de productiviteit, de morele lading, de dosering en de terugkeer van toeval. |
+| Verschilprincipe | Rawls' beginsel dat ongelijkheid alleen te rechtvaardigen is wanneer zij allereerst de minstbedeelden ten goede komt. |
+
+#### Waar het argument op rust
+
+De onderbouwing is filosofisch en historisch, niet empirisch. Hopster voert
+geen eigen onderzoek op en presenteert geen data. Wat hij wel doet is posities
+nauwkeurig weergeven en naar de bron terugbrengen: Aristoteles' *Fysica*,
+Laplace, Nagel 1979, Rawls' *A Theory of Justice* uit 1971, Harris 1975, Van
+Reybrouck. Voor de wetenschappelijke gevallen leunt hij op vakliteratuur,
+waaronder Roberta Millstein over toeval in de evolutietheorie.
+
+De anekdotes zijn controleerbaar en de auteur is er argwanend over. Bij
+Kammerer zegt hij ronduit dat hij niet op diens onschuld zou inzetten; over de
+ontmoeting op de tennisbaan waaruit dit boek voortkwam merkt hij op dat zulke
+anekdotes goed verkopen en daarom zwendelaars aantrekken. Die zelfcorrectie
+maakt de rest geloofwaardiger.
+
+De zwakste schakel is de indeling zelf. Dat er zes grondbetekenissen zijn en
+vijf toevalswetten is een keuze van de auteur, geen bevinding. Ze zijn
+bruikbaar omdat ze verwarring opruimen, niet omdat er iets voor pleit dat het
+er precies zes en vijf zijn.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar richt zich op de kern van de aanbeveling. Het boek
+eindigt bij dosering: niet te weinig toeval en niet te veel. Wie wil weten
+hoeveel dan wel, en wie dat bepaalt, blijft met lege handen. De echte
+conflicten beginnen pas na die vaststelling.
+
+Het probleem van moreel geluk wordt scherp neergezet en daarna niet opgelost.
+Dat is Hopster nauwelijks aan te rekenen, want Nagel loste het ook niet op,
+maar wie hoopt op een antwoord over hoe dan wel te oordelen, krijgt het niet.
+
+De breedte gaat ten koste van de diepte. Achttien hoofdstukken bestrijken
+kwantummechanica, evolutie, boeddhisme, prieelvogels, datingalgoritmes, Athene
+en klimaatmodellen; verschillende blijven bij een schets. De auteur beperkt
+zich bovendien uitdrukkelijk tot Europese taal, cultuur en geschiedenis.
+
+Wie *Fooled by Randomness* kent, vindt hier weinig nieuws over hoe mensen ruis
+voor signaal aanzien; de winst zit in de begripsanalyse en het morele deel.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke uitspraak dat iets toeval is welke betekenis bedoeld wordt:
+onverdiend, onbedoeld, onvoorspelbaar of onverklaarbaar.
+- Scheid in een evaluatie het besluit van de uitkomst: beoordeel wat iemand
+wist en koos, en registreer de uitkomst apart.
+- Zet loting in waar een verdeling niet op verdienste te baseren valt en de
+schijn van voortrekken de meeste schade doet.
+- Bouw ruimte in voor ongezochte vondsten: contact buiten de eigen kring, tijd
+zonder vastgelegd doel, aantekeningen van wat nergens in past.
+- Bespreek risico's als een keuze tussen verdelingen, zoals de twee
+klimaatwielen, niet als een keuze tussen losse voorspellingen.
+
+#### Wat je hierna leest
+
+- 64. Fooled by Randomness. Taleb behandelt hetzelfde onderwerp psychologisch
+en financieel; Hopster doet het filosofisch en moreel.
+- 55. Thinking, Fast and Slow. Kahneman levert het bewijsmateriaal over hoe
+slecht mensen kansen en toeval inschatten.
+- 69. Ruis. Over de variatie in oordelen die de mensen die oordelen zelf niet
+opmerken.
+- 137. The Poker Mindset. Praktische uitwerking van het scheiden van
+beslissing en uitkomst, aan de speeltafel.
+
 ## 94. Het tijdperk van onzekerheid
 
 Tobias Hürter, 2021. Oorspronkelijk Duits als *Das Zeitalter der Unschärfe*;
@@ -18111,6 +18326,214 @@ de diepgang beperkt is. Wat het boek toevoegt aan andere populaire
 geschiedenissen is de nadruk op de onzekerheid zelf: deze mensen wisten
 jarenlang niet of zij gelijk hadden, en de gedachte dat wetenschap uit twijfel
 bestaat is hier geen slogan maar de verhaallijn.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hürter vertelt de geboorte van de kwantummechanica als een
+reeks gedateerde scènes tussen 1900 en 1945, en zijn these zit in die vorm. De
+theorie was volgens hem zo vreemd dat niemand haar alleen kon vinden: ze kwam
+voort uit ruzies, vriendschappen, rivaliteit en briefwisselingen tussen een
+paar dozijn mensen. Daarbij loopt een tweede lijn mee. Terwijl deze fysici de
+werkelijkheid onbepaald verklaarden, dwong de Europese geschiedenis hen tot
+heel bepaalde keuzes: emigreren of blijven, meewerken of zwijgen. De lijn
+loopt van de gebarsten vingertoppen van Marie Curie naar de bom op Hiroshima.
+
+#### De gang van het boek
+
+**De vorm: vierenvijftig scènes met plaats en jaartal**
+
+Het boek heeft geen hoofdstukken in de gebruikelijke zin. Elk deel draagt een
+plaatsnaam en een jaartal met een ondertitel: PARIJS 1903, De eerste
+scheurtjes in het wereldbeeld. BERLIJN 1900, Een wanhoopsdaad. HELGOLAND 1925,
+De weidsheid van de zee en de nietigheid van het atoom. De volgorde is
+chronologisch maar springt tussen steden, waardoor parallelle levens zichtbaar
+blijven.
+
+Het gevolg is dat de fysica in scènes wordt uitgelegd en niet in vertoog. De
+lezer krijgt een gesprek op een perron, een middag in een laboratorium, een
+nachtelijke pianosessie. Wie een systematische inleiding in de
+kwantummechanica zoekt, is hier aan het verkeerde adres; wie wil begrijpen hoe
+deze mensen tot hun stappen kwamen, krijgt veel.
+
+**1900 tot 1905: de eerste barsten**
+
+Het begint bij Max Planck, hoogleraar theoretische fysica in Berlijn, die op
+zondag 7 oktober 1900 van zijn buurman Heinrich Rubens hoort dat de nieuwste
+metingen in de Physikalisch-Technische Reichsanstalt met geen enkele bestaande
+formule kloppen. Diezelfde avond schrijft Planck de stralingsformule op en
+stuurt haar per briefkaart naar Rubens. Hürter tekent Planck als een Pruisisch
+pedante man die zichzelf vredelievend noemde en die tegen zijn zoontje Erwin
+zei dat hij een ontdekking had gedaan die met die van Newton te vergelijken
+viel.
+
+Hürter zet daar het advies naast dat Planck als zestienjarige kreeg van de
+hoogleraar Philipp von Jolly: de fysica was een bijna volledig
+uitgekristalliseerde wetenschap, waar hooguit nog een stofje te rangschikken
+viel. Die zin, in 1875 uitgesproken, hangt over de rest van het boek.
+
+Parallel loopt het verhaal van Maria Sklodovska, geboren in Warschau in 1867,
+die als Marie Curie in 1903 als eerste vrouw in Frankrijk promoveert en in
+datzelfde jaar de Nobelprijs voor natuurkunde krijgt. En van de
+octrooi-ambtenaar in Bern, die in 1905 vier artikelen publiceert die het beeld
+van ruimte, tijd en licht veranderen.
+
+**1911 tot 1922: Bohr, het atoom en de eerste bevestiging**
+
+De jonge Deen Niels Bohr komt in 1911 naar Cambridge en bouwt in de jaren
+daarna zijn atoommodel met discrete banen en sprongen. Hürter vlecht daar de
+tijdgeschiedenis doorheen: de ondergang van de Titanic, het einde van de
+zeppelins, de dood van Pierre Curie onder de wielen van een wagen in 1906, de
+oorlog, de pandemie van 1918.
+
+In 1919 verduistert de maan de zon boven het Caribisch gebied en levert de
+meting van de lichtafbuiging de bevestiging van de algemene
+relativiteitstheorie op. Einstein wordt op slag wereldberoemd. Op dat punt in
+het boek is het wereldbeeld al zo ver opengebroken dat de generatie die daarna
+komt, Heisenberg en Pauli, opgroeit met de gedachte dat alles ter discussie
+staat.
+
+**1925 tot 1927: het jaar van de doorbraak en de ruzie**
+
+Het hart van het boek ligt in twee jaar. Op Helgoland vindt Heisenberg in 1925
+de rekenwijze die tot de matrixmechanica leidt. In Arosa werkt Schrödinger
+diezelfde winter aan zijn golfmechanica. Max Born geeft aan de golffunctie een
+waarschijnlijkheidsbetekenis, waarmee volgens Schrödinger de
+aanschouwelijkheid verloren gaat.
+
+Hürter maakt van de botsing tussen Bohr en Schrödinger een lange scène. Op 1
+oktober 1926 haalt Bohr zijn gast van het station en verhoort hem, met korte
+pauzes, acht dagen lang. Schrödinger zegt dat het idee van kwantumsprongen tot
+onzin moet leiden en dat wetenschap een spel met geslepen messen is. Bohr
+geeft geen duimbreed toe. Heisenberg, die erbij zit, herkent zijn anders zo
+aimabele baas nauwelijks terug.
+
+In september 1927 spreekt Bohr in Como, in de zaal van het Istituto Carducci,
+zo zacht dat de achterste rijen hem niet verstaan. Daar verbindt hij zijn
+complementariteitsprincipe met Heisenbergs onzekerheidsrelatie en met de rol
+van de meting; de Kopenhaagse interpretatie krijgt haar naam. Einstein en
+Schrödinger ontbreken in Como, Einstein omdat hij weigert voet te zetten in
+het fascistische Italië. Een maand later komt het in Brussel wel tot de
+confrontatie met Einstein, en in 1930 nog eens.
+
+**1933 tot 1945: verstrooiing en bom**
+
+Vanaf 1933 verandert het boek van toon. Sommigen vluchten, sommigen blijven,
+luidt een van de scènetitels. Er is een tragisch einde in Amsterdam, er is
+bezoedelde sneeuw in Garmisch, er is Moskou 1937. In Berlijn splijten in 1938
+kernen; Lise Meitner vlucht in 1938 en ontkomt later via Stockholm.
+
+De slotscènes zijn de bitterste. Heisenberg zit in 1945 in een uit de rotsen
+gehouwen kelder in Haigerloch bij een reactor die nooit werkte, met een brok
+cadmium binnen handbereik voor het geval de kettingreactie zou doorslaan. Op
+20 april 1945 fietst hij om drie uur 's nachts weg, tweehonderdzestig
+kilometer naar Urfeld, met een slof Pall Mall die hem bij een controlepost
+door de handen van een soldaat helpt. De Amerikaanse Alsos-missie vindt in
+Hechingen de resten van zijn reactor en vindt die eerder lachwekkend dan
+bedreigend.
+
+Op 1 mei 1945 drinken Werner en Elizabeth Heisenberg hun laatste fles wijn op
+Hitlers dood. In augustus valt de bom, en de Duitse fysici horen in Engeland
+wat er in Hiroshima is gebeurd.
+
+**Nawoord**
+
+Hürter formuleert zijn thema pas aan het slot expliciet: we kunnen de wereld
+niet waarnemen zonder haar te veranderen. Dat bracht Heisenberg tot de
+kwantummechanica en het was zijn dilemma. Ook Einstein, verklaard pacifist,
+gaf een aanzet tot de bouw van de bom en had daar later spijt van.
+
+Hij besluit met de vaststelling dat de ruzies over de interpretatie nooit zijn
+bijgelegd. De bezwaren die Einstein tegen de kwantummechanica inbracht worden
+nog steeds door sceptische fysici aangevoerd. Na 1945 werkten deze mensen
+door, maar niemand van hen kwam nog tot iets van dezelfde orde.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Stralingsformule | De formule waarmee Planck in oktober 1900 de gemeten stralingskromme sloot, ten koste van de aanname dat energie in pakketjes komt. |
+| Kwantumsprong | De plotselinge overgang van een elektron tussen twee toestanden, het punt waarop Schrödinger zijn verzet tegen Bohr concentreerde. |
+| Matrixmechanica | Heisenbergs rekenwijze uit 1925 die alleen met waarneembare grootheden werkt en van aanschouwelijke banen afziet. |
+| Golfmechanica | Schrödingers alternatieve formulering met een golfvergelijking, wiskundig gelijkwaardig maar met een ander beeld van de werkelijkheid. |
+| Waarschijnlijkheidsinterpretatie | Borns lezing van de golffunctie als een kansverdeling, die het aanschouwelijke beeld van Schrödinger onderuithaalde. |
+| Onzekerheidsrelatie | Heisenbergs stelling uit 1927 dat plaats en impuls van een deeltje niet tegelijk onbeperkt scherp bepaald kunnen zijn. |
+| Complementariteit | Bohrs beginsel dat golf- en deeltjesbeschrijving elkaar uitsluiten in één experiment en elkaar toch nodig hebben. |
+| Kopenhaagse interpretatie | De combinatie van complementariteit, onzekerheidsrelatie en meting die in september 1927 in Como haar naam kreeg. |
+| Alsos | De Amerikaanse missie die vanaf 1943 het Duitse uraniumproject bespioneerde en in 1945 de Duitse fysici opspoorde. |
+
+#### Waar het argument op rust
+
+Hürter noemt zijn bronnen in het nawoord: brieven, notities,
+onderzoeksverslagen, dagboeken en memoires van de betrokkenen. Het boek sluit
+af met een selectie uit de literatuur en een illustratieverantwoording. Er is
+geen notenapparaat waarmee een lezer een afzonderlijke uitspraak kan
+terugzoeken.
+
+Dat verschil telt, want een groot deel van het boek bestaat uit dialoog en uit
+innerlijke waarneming. De lange rede van Schrödinger tegen Bohr over
+kwantumsprongen komt uit Heisenbergs memoires, die decennia later zijn
+opgeschreven en die als bron hun eigen belangen dienen. Wie het boek als
+geschiedschrijving leest, moet aannemen dat Hürter zulke passages getrouw
+overneemt; controleren kan hij het ter plekke niet.
+
+Waar het boek stevig staat, is in de harde feiten: data, plaatsen,
+benoemingen, congressen, publicaties. Die zijn onafhankelijk te verifiëren en
+kloppen. Waar het zwakker staat, is bij stemmingen, gezichtsuitdrukkingen en
+gedachten. Het weer op een avond in Parijs in juni 1903 en de gemoedstoestand
+van Marie Curie zijn geen bronmateriaal maar reconstructie.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is het genre zelf. Dit is fysica-geschiedenis in de vorm
+van scènes, met vrije indirecte rede en gereconstrueerde binnenwereld. Het
+maakt het boek leesbaar en het maakt de grens tussen vaststaand en aangekleed
+onzichtbaar. Een lezer die niet al enige kennis heeft, kan niet zien welke zin
+uit een brief komt en welke uit de verbeelding van de auteur.
+
+De fysica blijft ondiep. Wat de onzekerheidsrelatie precies zegt, waarom
+matrix- en golfmechanica wiskundig equivalent zijn, wat complementariteit
+inhoudt: het passeert, meestal in de mond van een personage, zonder dat de
+lezer er zelf iets mee kan. Voor de inhoud is dit geen geschikt eerste boek.
+
+De montage van Hitler in München 1913 en 1919 naast de fysici is retorisch
+effectief en inhoudelijk dun. De twee lijnen raken elkaar pas in de jaren
+dertig echt; daarvoor staan ze naast elkaar omdat de kalender dat toelaat.
+
+Marie Curie en Lise Meitner krijgen minder ruimte dan hun aandeel
+rechtvaardigt. Curie opent het boek en verdwijnt daarna grotendeels; Meitner
+komt vooral in beeld op het moment van haar vlucht. Het zwaartepunt ligt bij
+Bohr, Einstein, Heisenberg en Schrödinger.
+
+Over de vraag die het slot draagt, hoeveel Heisenberg wilde en hoeveel hij
+niet kon, blijft Hürter behoedzaam. Hij schrijft dat Heisenberg tegenover het
+nationaalsocialisme nooit een duidelijke houding heeft kunnen bepalen. Wie een
+oordeel verwacht over Heisenbergs rol in het Duitse uraniumproject, krijgt een
+portret in plaats van een conclusie.
+
+#### Wat er concreet mee te doen is
+
+- Lees het naast een inhoudelijke inleiding in de kwantummechanica; dit boek
+levert de context, de andere de begrippen.
+- Gebruik de scèneopbouw als voorbeeld wanneer een taaie ontwikkeling aan een
+leek uitgelegd moet worden: één plaats, één datum, één gesprek.
+- Let bij het lezen op welke uitspraken uit brieven en memoires komen en welke
+ingekleurd zijn; de literatuurlijst achterin geeft aanknopingspunten om dat na
+te lopen.
+- Neem uit de scène in Como mee hoe lang een gezaghebbende interpretatie
+erover kan doen om vorm te krijgen, en hoe onduidelijk zij bij haar eerste
+presentatie kan zijn.
+
+#### Wat je hierna leest
+
+- 92. Onze bouwstenen. Røyne over de stoffen waaruit de wereld bestaat, met
+dezelfde wetenschapsgeschiedenis maar dan vanuit de materialen.
+- 99. Sterrenkunde voor in bed, op het toilet of in bad. Brands legt kort en
+systematisch uit wat Hürter alleen in scènes aanstipt, met sterrenkunde als
+ingang.
+- 93. Toeval. Hopster behandelt de vraag naar zuiver toeval in de
+kwantummechanica die in dit boek de inzet van het debat Bohr-Einstein is.
+- 63. The Demon-Haunted World. Sagan over wat wetenschap tot wetenschap maakt,
+tegen de achtergrond van dezelfde eeuw.
 
 ## 95. Het uur van het hart
 
@@ -19007,6 +19430,160 @@ Brands legt uit zonder formules en zonder de moeilijke punten weg te laten;
 onderwerpen als de paradox van Olbers, de kosmische achtergrondstraling en het
 lot van het heelal krijgen elk hun eigen stukje. Het is naslag en geen betoog,
 en de vorm maakt het geschikt om in willekeurige volgorde te lezen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dit is geen betoog en het wil er ook geen zijn. Brands geeft
+zesenvijftig losse hoofdstukjes over sterrenkundige onderwerpen, in
+willekeurige volgorde, elk in een paar bladzijden en zonder dat wis- of
+natuurkundige voorkennis nodig is. De opvatting die eronder ligt staat in het
+voorwoord: sterrenkunde is toegankelijk te maken door stap voor stap uit te
+leggen en waar nodig te versimpelen, en wie er meer van weet krijgt meer
+vragen in plaats van minder. Het doel is dat een lezer voortaan een
+sterrenkundig bericht in de krant niet meer overslaat.
+
+#### De opzet van het boek
+
+**Vorm: losse stukjes, geen leerlijn**
+
+De hoofdstukjes bouwen niet op elkaar voort en staan in willekeurige volgorde.
+Ze zijn los van elkaar te lezen, wat de titel al aankondigt: dit is bedoeld om
+ergens open te slaan en een kwartier later weer weg te leggen. Waar een
+onderwerp een ander veronderstelt, staat er een verwijzing naar het
+bijbehorende stukje; achterin staat een beknopte begrippenlijst.
+
+De ordening is alfabetisch op de kop van het stukje, van 'Afstanden meten in
+het heelal' tot 'Zwarte gaten: geen ontsnapping mogelijk'. Verwante
+onderwerpen liggen daardoor ver uit elkaar: 'Bestaat donkere materie?' staat
+vooraan, 'Waaruit bestaat donkere materie?' bijna achteraan. Wie systematisch
+wil lezen, bouwt zelf een route via de verwijzingen.
+
+**Het bereik: van getijden tot kosmologie**
+
+De onderwerpen dekken vier terreinen. Het eerste is het zonnestelsel: de
+planeten van Mercurius tot Neptunus, Pluto en de Kuipergordel, manen, kometen
+en het onderscheid tussen planeet, komeet, vallende ster en meteoriet. Daar
+horen de aardse verschijnselen bij die er direct uit volgen: eb en vloed,
+seizoenen, de maanfasen, verduisteringen, zonnewind en poollicht.
+
+Het tweede terrein is de levensloop van sterren: gaswolken met kernfusie,
+stervormingsgebieden, de dood van sterren, witte dwergen, neutronensterren,
+pulsars, supernova's en zwarte gaten. Het derde is het grote geheel:
+sterrenstelsels, botsende sterrenstelsels, quasars, superclusters, het
+kosmologisch principe, de wet van Hubble, kosmische achtergrondstraling,
+donkere materie, donkere energie en het lot van het heelal.
+
+Het vierde terrein is het vak zelf: telescopen, sterrenkunde digitaal,
+afstandsbepaling, zwaartekrachtlenzen, het zoeken naar exoplaneten en naar
+leven, en de gouden plaat van de Pioneers. Enkele stukjes zijn puzzels:
+Olbers' paradox, de vraag of iets sneller kan gaan dan het licht, wat er
+gebeurt als je in een zwart gat valt.
+
+**Hoe de uitleg werkt**
+
+De methode is telkens dezelfde: een vraag, een alledaags beeld, en dan het
+echte mechanisme. Bij parallax laat Brands de lezer een vinger voor het
+gezicht houden en van oog wisselen; daarna volgt hoe de aarde in een halfjaar
+naar de andere kant van de zon reist, zo'n 300 miljoen kilometer verderop, en
+hoe de Gaia-telescoop, eind 2013 gelanceerd, daarmee afstanden tot een miljard
+sterren bepaalt.
+
+Het stukje over afstandsbepaling laat zien hoe ver de uitleg gaat. Radar werkt
+alleen voor de maan en Venus, parallax reikt tot binnen de Melkweg. Daarbuiten
+dienen Cepheïden, waarvan de pulsatieduur de lichtkracht verraadt, en verder
+weg exploderende witte dwergen, die altijd bij ongeveer anderhalve zonsmassa
+ontploffen. Voor de verste stelsels blijft de wet van Hubble over. Het slot
+van dat stukje is eerlijk: de onzekerheden in gemeten afstanden zijn groot, en
+nauwkeuriger meten is nog altijd onderzoek.
+
+Bij de hemel als tijdmachine gebeurt hetzelfde met lichtsnelheid: licht doet
+er ongeveer acht minuten over vanaf de zon en bijna negen jaar vanaf Sirius,
+en het verste waargenomen stelsel zien we zoals het er 13,3 miljard jaar
+geleden uitzag, bij een heelal van 13,8 miljard jaar oud.
+
+**Voor wie het bedoeld is**
+
+De doelgroep is de volwassen lezer zonder achtergrond in de exacte vakken die
+wil kunnen volgen wat er in het nieuws over de ruimte langskomt. Er staan geen
+formules in, geen afleidingen en geen opgaven. De toon is die van iemand die
+het vak zelf heeft gestudeerd en zich herinnert wat er onbegrijpelijk aan was.
+
+Voor wie al iets van sterrenkunde weet, voegt het weinig toe. Voor wie een
+samenhangend beeld van het heelal wil opbouwen is de vorm hinderlijk, omdat de
+alfabetische volgorde geen opbouw kent. Waar het boek wel voor werkt is het
+wegwerken van losse blinde vlekken: waarom de maan niet op de aarde valt,
+waarom het 's nachts donker is, wat een quasar is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Parallax | De schijnbare verplaatsing van een nabije ster tegen de verre achtergrond wanneer de aarde een halfjaar later aan de andere kant van de zon staat. |
+| Cepheïde | Een pulserende ster waarvan de duur van één pulsatie verraadt hoeveel licht hij in totaal uitstraalt, waardoor de afstand te berekenen is. |
+| Lichtjaar | De afstand die licht in één jaar aflegt, tevens een maat voor hoe ver je terugkijkt in de tijd. |
+| Quasar | Een zeer ver verwijderde en zeer heldere lichtbron waarmee de toestand van het jonge heelal bestudeerd wordt. |
+| Witte dwerg | Een uitgedoofde sterrestkern met hoge dichtheid, die bij ongeveer anderhalve zonsmassa als supernova ontploft. |
+| Donkere materie | Massa die zich alleen door zwaartekracht verraadt en waarvan de samenstelling onbekend is; het boek behandelt bestaan en samenstelling in twee aparte stukjes. |
+| Donkere energie | De veronderstelde oorzaak van de versnelde uitdijing, bepalend voor het uiteindelijke lot van het heelal. |
+| Wet van Hubble | De regel dat verder gelegen sterrenstelsels sneller van ons af bewegen, gebruikt om de grootste afstanden te schatten. |
+| Kosmologisch principe | De aanname dat het heelal op grote schaal overal hetzelfde is en geen bevoorrechte plaats kent. |
+| Olbers' paradox | De vraag waarom de nachthemel donker is als er in elke richting een ster zou moeten staan. |
+
+#### Waar het argument op rust
+
+Het boek is een weergave van gangbare vakkennis, geschreven door iemand met
+een opleiding in natuur- en sterrenkunde. Er staan geen bronvermeldingen, geen
+literatuurlijst en geen verwijzingen naar afzonderlijke onderzoeken. Wat er
+staat is voor het overgrote deel onomstreden en goed gecontroleerd elders; de
+lezer moet dat op gezag aannemen.
+
+Waar de kennis onzeker is, wordt dat meestal gezegd. Bij afstandsbepaling
+staat er dat de onzekerheden groot zijn. Bij donkere materie staat de vraag
+naar het bestaan los van de vraag naar de samenstelling. Dat is de sterkste
+eigenschap van het boek: het onderscheidt wat vaststaat van wat nog open is.
+
+Wel is het boek uit 2014 en dat is op enkele plaatsen te merken. Gaia was toen
+net gelanceerd en de resultaten moesten nog komen; het aantal bekende
+exoplaneten en de stand van het zwartegatenonderzoek zijn sindsdien flink
+veranderd. De uitleg van de mechanismen veroudert niet, de getallen en de
+stand van zaken wel.
+
+#### Wat er tegen in te brengen valt
+
+De alfabetische ordening is het grootste bezwaar. Zij zorgt ervoor dat
+verwante stukjes uit elkaar liggen en dat er herhaling ontstaat, omdat elk
+stukje op zichzelf moet staan. Wie achter elkaar doorleest, komt dezelfde
+uitleg over lichtsnelheid en over de levensloop van sterren meermaals tegen.
+
+Door de versimpeling verdwijnt het onderscheid tussen meting, model en aanname
+soms uit beeld. Dat de lichtkracht bij dit type supernova altijd gelijk is,
+staat er als vaststaand feit; het is een kalibratie waar in het vak over
+gediscussieerd wordt.
+
+Er is nauwelijks aandacht voor hoe het vak werkt: wie de metingen doet, hoe
+onenigheid wordt beslecht, wat een claim overeind houdt. Het boek levert
+uitkomsten zonder de mensen en de instrumenten die ze tot stand brachten, en
+diept door zijn opzet geen enkele vraag echt uit.
+
+#### Wat er concreet mee te doen is
+
+- Lees per keer één stukje en volg de verwijzingen erin; dat geeft meer
+samenhang dan de alfabetische volgorde.
+- Gebruik het als naslag bij nieuwsberichten over sterrenkunde: zoek het
+begrip op voordat je het bericht leest.
+- Controleer bij getallen en missies of er nieuwere gegevens zijn; het boek is
+van 2014.
+- Zet het in als voorleesmateriaal voor kinderen vanaf een jaar of tien; de
+stap-voor-stapuitleg met alledaagse beelden werkt daarvoor.
+
+#### Wat je hierna leest
+
+- 94. Het tijdperk van onzekerheid. Hürter geeft de geschiedenis van de fysica
+achter veel van de begrippen die hier alleen als uitkomst verschijnen.
+- 92. Onze bouwstenen. Røyne doet voor de bouwstoffen van de aarde wat Brands
+voor het heelal doet: korte stukken, geen voorkennis.
+- 63. The Demon-Haunted World. Sagan over het onderscheid tussen wat gemeten
+is en wat beweerd wordt, dat in dit boek grotendeels impliciet blijft.
 
 ## 100. Echte porno
 
@@ -20914,6 +21491,157 @@ personages niet zeggen. Het is in een uur uit en werkt na, en het staat in
 deze lijst als tegenhanger van de titels die het onderwerp mannelijkheid van
 de theoretische kant benaderen.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Drie verhalen over mannen en vrouwen, waarin de liefde
+stukloopt op iets kleins en zeer gewoons: krenterigheid met geld, met
+aandacht, met erkenning. Keegan behandelt die krenterigheid niet als een
+karakterfoutje aan de rand van een relatie, maar als de kern ervan, en zij
+laat zien dat de rekening bijna altijd bij de vrouw terechtkomt. Het boek
+stelt daarmee dat vrouwenhaat zich zelden aandient als geweld, maar als een
+optelsom van bedragen, opmerkingen en zwijgende weigeringen die elk
+afzonderlijk te klein lijken om iets van te zeggen.
+
+#### De gang van het verhaal
+
+**Een bundel van drie, met een motto vooraf**
+
+De Nederlandse uitgave opent met vier regels uit ‘Aubade’ van Philip Larkin,
+over de dood die kaal als een kleerkast in de kamer staat. Daarna volgen drie
+verhalen: het titelverhaal, ‘De langzame, pijnlijke dood’ en ‘Antarctica’. Ze
+zijn niet met elkaar verbonden door personages of plaats, wel door één vraag:
+wat gebeurt er tussen een man en een vrouw op het moment dat er iets gegeven
+moet worden.
+
+Het is een dun boek. De drie verhalen samen beslaan minder bladzijden dan een
+gemiddelde novelle, en Keegan schrijft in korte, vlakke zinnen waarin bijna
+alles wat telt buiten het beeld wordt gehouden.
+
+**Het titelverhaal: een vrijdag in Dublin**
+
+Cathal, ambtenaar bij een kunstfonds aan Merrion Square, komt de vrijdag door
+die zijn trouwdag had moeten zijn. Zijn chef stuurt hem naar huis, hij blijft
+zitten en print afwijzingsbrieven voor beurzenaanvragers. Hij neemt de bus
+naar Arklow, vindt de kat opgesloten in de badkamer, eet een diepvriesmaaltijd
+en kijkt televisie.
+
+In flarden terugblikken komt Sabine erbij, de Française die hij op een congres
+in Toulouse ontmoette en die bij hem introk. Wat het verhaal opbouwt is geen
+ruzie maar een lijst: vier euro voor een kool, zes euro voor een pond kersen,
+de ovenschaal die blijft weken, het rekensommetje dat hij maakt over wie
+waarvoor betaalt. Keegan noemt zijn karigheid nooit bij naam. Ze telt hem uit.
+
+**De langzame, pijnlijke dood: een schrijfster op Achill**
+
+Een schrijfster rijdt midden in de nacht naar het huis van Heinrich Böll op
+Achill Island, waar zij twee weken mag werken. Op de ochtend van haar
+negenendertigste verjaardag belt een Duitse hoogleraar die het huis wil
+bezichtigen. Zij stelt hem uit tot acht uur die avond en verliest daarmee haar
+dag: ze bakt een taart, plukt fuchsia's, wacht.
+
+Het bezoek loopt uit op een botsing. De hoogleraar eet gulzig van haar taart,
+doceert over Böll en de Nobelprijs, en geeft haar geen enkel woord terug over
+haarzelf. Zij zet hem buiten de poort. Wat daarna komt is de kern van het
+verhaal: ze gaat aan het bureau zitten, geeft de man in haar aantekeningen een
+naam en kanker, en werkt de nacht door aan zijn langzame, pijnlijke dood. De
+wraak is niet fysiek. Ze is literair.
+
+**Antarctica: het weekend van de gelukkig getrouwde vrouw**
+
+Een getrouwde vrouw met twee kinderen gaat een weekend naar een Engelse stad
+om uit te vinden hoe het is om met een andere man te slapen. Ze koopt
+kerstcadeaus voor haar gezin, drinkt tequila, leert poolen van een man in een
+hawaïshirt en gaat met hem mee.
+
+Het verhaal draait halverwege van huiselijke ironie naar horror, en Keegan
+bereidt die draai voor met details die bij eerste lezing niets betekenen: de
+doofheid van de benedenbuurvrouw, het openstaande raam, de kat. Het slot is
+gesloten en genadeloos, en het legt zonder één toelichtend woord de prijs
+bloot van de nieuwsgierigheid waarmee het verhaal begon.
+
+**Wat de drie samen doen**
+
+De verhalen staan in oplopende hardheid. In het eerste verliest een man een
+vrouw en beseft hij het pas als het te laat is. In het tweede verliest een
+vrouw een dag en wint zij een boek. In het derde verliest een vrouw alles.
+
+Ze zijn ook ongelijk van herkomst. ‘Antarctica’ is het titelverhaal van
+Keegans debuutbundel uit 1999, ‘De langzame, pijnlijke dood’ stond in *Walk
+the Blue Fields*, en het titelverhaal verscheen in 2022 in *The New Yorker*.
+De uitgave is dus een samenstelling achteraf, geen bundel die als geheel is
+geschreven.
+
+**De manier van vertellen**
+
+Keegan werkt met weglating. Er wordt niet uitgelegd waarom Cathal is zoals hij
+is; er is één herinnering aan een vader en een broer die lachen terwijl de
+moeder op de grond ligt, en de lezer mag zelf de som maken. Ook de bruiloft
+die niet doorging wordt nooit rechtstreeks verteld.
+
+De zinnen zijn kaal en de woordkeus is huiselijk: een bekertje americano, een
+magnetronmaaltijd, een reclameblok. Juist die vlakheid maakt de enkele
+beeldende zin die er wel staat zwaar.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Op het allerlaatste moment | De titel verwijst naar het punt waarop iets nog terug te draaien was en waarop dat toch niet gebeurde. |
+| De optelsom | Keegans methode om een karakter te tonen door bedragen en huishoudelijke details op te tellen in plaats van eigenschappen te benoemen. |
+| De clafoutis | De kersentaart die Sabine bakt, en het moment waarop Cathal zijn huwelijksaanzoek doet als een vraag waar hij zelf tegen lijkt te pleiten. |
+| Het Böll-huis | Het schrijvershuis op Achill Island waar de tweede vertelling speelt, een werkverblijf dat de nabestaanden van Heinrich Böll beschikbaar stelden. |
+| De incisie | Het woord waarmee de schrijfster haar eigen werkwijze beschrijft: een snede in tijd en plaats maken en die vullen met sfeer en verlangen. |
+| Het compliment | Wat de vrouw op Achill die avond nodig had en niet kreeg, en waarvan zij zelf vaststelt dat een flagrante leugen had volstaan. |
+| De vlucht zwaluwen | Terugkerend beeld van een leven dat gewoon doorgaat naast de menselijke ellende in de kamer eronder. |
+| Antarctica | Het beeld van sneeuw, ijs en dode ontdekkingsreizigers waarmee het derde verhaal afsluit en dat de kou van het slot benoemt. |
+
+#### Waar het argument op rust
+
+Waar de bundel op rust is vakmanschap in weglating, en dat is aantoonbaar in
+de tekst zelf. Het titelverhaal noemt nergens het woord gierigheid, maar geeft
+de lezer een kool van vier euro, een pond kersen van ruim zes euro, een
+ovenschaal die blijft staan en een broer die spreekt over ‘die Franse hoer’.
+De conclusie wordt door de lezer getrokken, niet door de verteller.
+
+De geloofwaardigheid van de tweede vertelling zit in het beroepsmatige. De
+beschrijving van hoe iemand aan het schrijven slaat, met het notitieboek, de
+vulpen en de trillende hand, is preciezer dan de gebruikelijke literaire
+opvoering van het schrijverschap, en het slot maakt zichtbaar hoe een
+geschreven personage uit een geleefde ergernis ontstaat.
+
+De ondertitel van de oorspronkelijke uitgave, *Stories of Women and Men*, is
+de expliciete claim van het boek. Wie die claim wil toetsen moet weten dat de
+drie verhalen uit drie verschillende periodes komen. De thematische eenheid is
+deels het werk van de samensteller.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het titelverhaal zijn hoofdpersoon weinig kans
+geeft. Cathal wordt van buitenaf geobserveerd en langzaam ontmaskerd, en de
+lezer krijgt geen enkel moment waarop zijn kant van de zaak werkelijk gewicht
+heeft. Wat als moreel onderzoek wordt gepresenteerd, komt daardoor soms neer
+op een bewijsvoering waarvan de uitkomst vooraf vaststaat.
+
+Daarnaast is de samenstelling zakelijk kwetsbaar. Twee van de drie verhalen
+waren in het Engels al eerder gebundeld, en de Nederlandse lezer koopt hier
+een klein boek voor een volle prijs. Wie *Antarctica* al kende, houdt in de
+praktijk één nieuw verhaal over.
+
+Ten slotte werkt het slot van ‘Antarctica’ met een schokeffect dat het verhaal
+niet nodig had. Het is technisch goed voorbereid, maar het verschuift het boek
+in de laatste bladzijden van sociale observatie naar genre, en dat verzwakt de
+samenhang met de twee verhalen ervoor.
+
+#### Wat je hierna leest
+
+- 113. Aangeraakt. Ook een verhaal over ontrouw en over het moment waarop een
+huwelijk niet meer te lijmen is, maar dan van binnenuit verteld door de vrouw
+die het bedrog pleegt.
+- 114. De quiltclub. Het tegenovergestelde register: een roman waarin een
+verwijdering tussen mensen over tientallen jaren juist wel wordt hersteld.
+- 115. At the Hour Between Dog and Wolf. Eveneens kort en hard, en eveneens
+gebouwd op wat er niet wordt uitgelegd.
+
 ## 111. Dingen die je hoop geven
 
 Haemin Sunim, 2023. Nederlands bij Meulenhoff Boekerij (2023), vertaald uit
@@ -20970,6 +21698,156 @@ de map zat. Wie de rest van deze lijst leest voor argumenten en onderbouwing,
 treft hier iets van een andere orde aan: een verhaal dat het van sfeer moet
 hebben.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Ezra is bijna veertig, getrouwd met Vic, moeder van Sam, en
+zij rijdt bij een rotonde een auto aan. De bestuurder wordt haar minnaar.
+Fasol gebruikt die banale aanleiding voor een stelling die verder gaat dan de
+overspelroman gewoonlijk komt: het probleem is niet de seks en ook niet de
+verliefdheid, want die overkomen mensen, het probleem is het bedrog zelf, en
+wie bedriegt heeft daarmee bewezen dat de liefde al weg was. Het boek trekt
+die conclusie tot het einde door en weigert de verzoening die het genre bijna
+altijd aanbiedt.
+
+#### De gang van het verhaal
+
+**De aanrijding**
+
+Het boek opent met een klap. Ezra voegt verkeerd in op de Ringweg en raakt de
+bonte Ford Escort van Tijs Nieuwkoop. Ze staan samen in de middenberm, hij
+rookt, ze wisselen telefoonnummers uit, hij noemt haar bij naam als hij
+afscheid neemt. Meer gebeurt er niet, en toch is de toon gezet.
+
+Fasol vertelt in de ik-vorm en in korte notities: het gedeukte colablikje bij
+de lantaarnpaal, de gifgroene dinosaurus achter de ruit van de auto. Die
+precisie is haar methode. Ezra ziet alles, en juist daardoor is zij van meet
+af aan medeplichtig aan wat er gaat gebeuren.
+
+**Het huwelijk zoals het is**
+
+Vic is geen slechte man. Hij is bezorgd om de schade, hij waarschuwt haar over
+haar spiegels, hij spreekt zijn veto uit over de open haard die zij al jaren
+wil omdat een open haard rook, as en roet betekent. Fasol laat het huwelijk
+stuklopen op zulke dingen, en houdt vol dat ze niet klein zijn.
+
+Rond Ezra staan een vriendin, Amy, met wie de omgang loopt over voortdurende
+lichte irritatie, een zoon van zeven en een hond. Haar leven is op orde en zij
+verveelt zich niet. De onrust komt niet uit ontevredenheid over de
+omstandigheden, maar uit de naderende veertig en uit de vraag welke deuren
+daarmee dichtgaan.
+
+**De opbouw met Tijs**
+
+Het contact groeit in kleine stappen: koffie, een lunch, een hand die wordt
+vastgehouden, een pluk haar die achter een oor wordt gestreken. Fasol rekt die
+opbouw ver uit, en dat is een keuze: het grootste deel van het boek gaat over
+de fase waarin er nog niets is gebeurd waarvoor je jezelf hoeft te
+veroordelen.
+
+Tijs is eenendertig, woont met twee honden, en heeft zijn eerdere partner
+Véronique verlaten nadat bij haar chronische vermoeidheid werd vastgesteld.
+Hij zegt daarover dat hij zijn gezond verstand moest gebruiken. Dat gegeven
+staat er niet toevallig: het legt naast Ezra's verhaal de vraag wat iemand mag
+doen als de gedeelde toekomst dichtklapt.
+
+**De vader**
+
+Ezra's vader verliet haar moeder voor zijn jonge secretaresse Hélène en bleef
+twintig jaar bij haar tot zijn dood. Ezra was als kind boos, later hard, en
+heeft hem nooit toegelaten. Nu zij zelf in dezelfde positie zit, gaat zij bij
+Hélène op bezoek.
+
+Dat gesprek is de scharnier van het boek. Hélène vertelt dat het geen
+avontuurtje was, dat haar vader zich schuldig heeft gevoeld tot zijn dood, en
+dat hij bleef hopen dat zijn dochter het ooit zou begrijpen. Ezra blijft nog
+geen twintig minuten. Wat zij meeneemt is geen vergeving, maar een maat om
+zichzelf langs te leggen.
+
+**Het lichaam en het verval**
+
+Halverwege raakt Ezra geveld door een zenuwontsteking in een kies, en Fasol
+laat de morele crisis samenvallen met lichamelijke aftakeling: pijnstillers,
+een nat matras, haar moeder die zonder een woord het bed verschoont. Op
+datzelfde moment verliest Amy een zwangerschap, terwijl Ezra dat de dag ervoor
+nog had weggewuifd omdat haar hoofd al vol zat.
+
+Dat is de hardste passage van het boek, en de eerlijkste. De overspelige vrouw
+wordt hier niet gestraft door het lot, ze wordt gewoon zichtbaar als iemand
+die door haar eigen verhaal geen aandacht meer over heeft voor iemand anders.
+
+**De afrekening**
+
+Het slot is de reden dat dit boek meer is dan een genrestuk. Vic komt het te
+weten, biedt vergeving aan, wijst op Sam, zegt dat ze eruit komen. Ezra
+weigert dat aanbod, en zij weigert het op grond van een redenering die zij tot
+het einde toe volhoudt: als zij van hem had gehouden, had zij dit niet gedaan,
+en dus zou doorgaan een grotere leugen zijn dan het bedrog zelf.
+
+Fasol geeft de laatste bladzijden vorm als een innerlijke aanspraak aan Vic,
+met korte fragmenten en witregels. Wie het verhaal wilde zien eindigen in een
+keuze tussen twee mannen, wordt teleurgesteld: de derde uitkomst is dat er
+niet gekozen wordt, en dat Ezra alleen verdergaat.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Aangeraakt | De titel slaat op het eerste lichamelijke gebaar van Tijs en op alles wat daarna niet meer terug te draaien was. |
+| Functionele pijn | Ezra's woord voor de speldenprikken van haar vriendin Amy, die haar aan het denken zetten zonder echt te verwonden. |
+| De degen | Terugkerend beeld voor het steken en schampen tussen mensen die van elkaar houden, in het slot toegepast op het bedrog zelf. |
+| Sfeer | Ezra's naam voor het geheel van kaarsen, bloemen en details waaruit zij haar leven opbouwt en dat Vic niet ziet. |
+| De deur van verleiding | Wat Ezra vreest te verliezen bij het naderen van haar veertigste verjaardag, en het motief waarmee zij haar eigen gedrag verklaart. |
+| De grens | De vraag die de eerste helft van het boek draagt: waar loopt de scheiding tussen aandacht en ontrouw. |
+| Gezond verstand | Tijs' verklaring voor het verlaten van zijn zieke partner, en de zin die Ezra later tegen zichzelf moet gebruiken. |
+| De kern | Het woord waarmee Ezra in het slot alles wegstript tot de enige zin die overblijft, dat zij niet genoeg van Vic gehouden heeft. |
+
+#### Waar het argument op rust
+
+De roman rust op waarneming, niet op inzicht van buitenaf. Er wordt geen
+psycholoog opgevoerd en geen enkele passage legt uit wat overspel met een mens
+doet. Wat het boek in plaats daarvan geeft is een aaneenschakeling van gewone
+handelingen, en dat werkt: de lezer ziet Ezra pas liegen op het moment dat zij
+het zelf nog een openbare aangelegenheid noemt.
+
+De constructie is zorgvuldig. Het verhaal van de vader die wegging wordt in
+stukjes uitgedeeld en pas laat afgemaakt, zodat het gesprek met Hélène als
+beoordelingskader kan functioneren voor wat Ezra zelf doet. Dezelfde functie
+heeft het verhaal van Tijs en Véronique. De roman bouwt zo drie versies van
+hetzelfde besluit op en legt ze naast elkaar.
+
+De uitgave bij Uitgeverij Archipel vermeldt een eerste druk in 2009, en de
+opgegeven jaartallen lopen daarmee bij verschillende bronnen een jaar uiteen.
+Verder is er geen documentaire onderlaag: dit is fictie, en het overtuigt op
+alledaagse waarschijnlijkheid, niet op stof van buiten.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar is de weelde waarin het boek speelt. Er is een
+tekstbureau, een huis in Bergen, een uitstapje naar Antwerpen, en geen enkel
+financieel gevolg van de breuk komt aan de orde. De morele strengheid van het
+slot is daardoor betaalbaar op een manier die voor de meeste lezers niet
+geldt.
+
+Ook is Sam, de zoon van zeven, in de afweging opvallend afwezig. Vic noemt hem
+als argument en Ezra schuift dat opzij met de gedachte dat zij haar leven wil
+leven. Voor een boek dat zichzelf op eerlijkheid beroept, is dat de plek waar
+de eerlijkheid het dunst is.
+
+En de stijl draagt niet overal. Fasol schrijft in korte, geladen notities met
+veel witregels en veel losse woorden op een eigen regel, en waar dat in de
+crisisscènes werkt, klinkt het in de lange aanloop soms als een middel om
+gewone gedachten gewicht te geven dat ze niet hebben.
+
+#### Wat je hierna leest
+
+- 110. Op het allerlaatste moment. Dezelfde vraag, drie keer in verhaalvorm,
+maar dan van de andere kant bekeken en zonder de innerlijke verdediging van de
+bedrieger.
+- 114. De quiltclub. Ook een vrouw die vastloopt en haar leven herbouwt,
+alleen kiest dat boek voor de weg van herstel waar Fasol de breuk kiest.
+- 115. At the Hour Between Dog and Wolf. Ook een roman over hoe iemand
+zichzelf een verhaal vertelt waarin het eigen handelen te rechtvaardigen valt.
+
 ## 114. De quiltclub
 
 Jennifer Chiaverini, 1999. Oorspronkelijk *The Quilter's Apprentice*, het
@@ -20990,6 +21868,159 @@ voorspelbaar en gericht op vriendschap tussen vrouwen van verschillende
 leeftijden. Aardig detail voor deze lijst is dat het ambacht in de roman
 dezelfde rol speelt als bij 1 en 6, namelijk als plek waar iets wordt geleerd
 dat verder gaat dan de techniek.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sarah McClure is vijfentwintig, opgeleid als accountant,
+werkloos meeverhuisd naar Waterford in Pennsylvania en zij neemt uit verveling
+een baantje aan bij een oude vrouw: schoonmaken in ruil voor quiltles.
+Chiaverini gebruikt dat gegeven voor een expliciete stelling, dat ambachtelijk
+werk en de vrouwengemeenschap eromheen mensen kunnen herstellen die door
+beroepskeuze, familieruzie en verlies zijn vastgelopen. De roman betoogt dat
+een quilt niet decoratief is maar een vorm van geheugen, en dat wie leert
+lappen aaneen te zetten ook leert een gebroken familie en een gestrand leven
+weer aan elkaar te zetten.
+
+#### De gang van het verhaal
+
+**Een vrouw zonder werk**
+
+Het boek begint bij een sollicitatiegesprek dat mislukt. Sarah is naar
+Waterford verhuisd voor de baan van haar man Matt, die bij een hovenierbedrijf
+werkt, en zij komt zelf nergens binnen. Twee maanden werkloosheid, vier
+gesprekken, meer onbeantwoorde brieven dan ze kan bijhouden.
+
+Chiaverini besteedt het hele eerste deel aan dat gevoel: de ochtend waarop
+iedereen ergens nodig is behalve zij, de decaan die ooit zei dat accountants
+nooit zonder werk zitten, de studievriendinnen die wel doorstoomden. Dat is de
+motor onder de rest van het boek.
+
+**Elm Creek Manor en mevrouw Compson**
+
+Matt werkt op het landgoed Elm Creek Manor, waar Sylvia Bergstrom Compson na
+tientallen jaren is teruggekomen om het huis van haar overleden zus op te
+ruimen en te verkopen. Zij is oud, kortaf en alleen. Sarah biedt aan te helpen
+met het huis; mevrouw Compson stelt als voorwaarde dat er wordt gewerkt en
+betaalt in quiltlessen.
+
+Het huis zelf doet mee als personage: een balzaal, een bibliotheek vol oude
+kranten, een kinderkamer die veel te groot is voor één gezin, een verwilderde
+tuin. Het opknappen van die kamers loopt gelijk op met het opknappen van de
+twee vrouwen.
+
+**Het leren, blok voor blok**
+
+Sarah maakt een sampler, een quilt van steeds verschillende blokken, en elk
+blok komt met een les in techniek en met een stuk verhaal. Chiaverini legt het
+handwerk gedetailleerd uit: het snijden, het aaneenzetten, het doorstikken.
+Wie nooit een naald heeft vastgehouden, kan meelezen.
+
+Die opbouw is ook de romanstructuur. Het boek wisselt hoofdstukken in het
+heden af met lange vertellingen van mevrouw Compson over haar eigen verleden,
+en de blokken van de sampler markeren de etappes van dat verhaal.
+
+**Het verleden van de Bergstroms**
+
+Mevrouw Compson vertelt over de stoeterij van de familie, over de oorlogsjaren
+en over hoe het stadje de rijke familie met de Duits klinkende naam behandelde
+tijdens de Tweede Wereldoorlog, tot aan vijandige opmerkingen in de
+plaatselijke quiltvereniging aan toe.
+
+Daarna volgt het verlies. Haar broer Richard en haar man James trekken ten
+strijde; beiden komen in 1945 om. Wat volgt is een breuk met haar zus Claudia
+en met haar schoonzus Agnes, en een afwezigheid van decennia. Chiaverini houdt
+de precieze toedracht lang achter en geeft die pas laat prijs, wat de
+vertelling in het heden voortstuwt.
+
+**De Tangled Web Quilters en de makelaar**
+
+Naast de twee vrouwen staat een groepje plaatselijke quilters: Bonnie, Diane,
+Gwen, Summer, Judy en mevrouw Emberly. Zij vormen de gemeenschap waarin Sarah
+wordt opgenomen, en het duurt even voor zij ontdekt dat mevrouw Emberly de
+Agnes uit de verhalen van mevrouw Compson is.
+
+De spanning komt van buiten in de vorm van Gregory Krolich van University
+Realty, die het landgoed wil kopen en die mevrouw Compson probeert te
+overtuigen dat renoveren niet nodig is. Sarah doorziet dat meteen. De dreiging
+dat het huis verkocht wordt, houdt de tweede helft van het boek onder druk.
+
+**De verzoening en het plan**
+
+Sarah brengt mevrouw Compson en mevrouw Emberly weer bij elkaar, en zij zet
+daarnaast een eigen probleem recht met haar moeder. Het herstel van de
+familiebreuk is het emotionele hoogtepunt van het boek, en het gebeurt met de
+nodige hulp van de quiltgroep.
+
+Het slot is zakelijk. Sarah legt mevrouw Compson een plan voor om Elm Creek
+Manor om te bouwen tot een verblijf waar quilters komen werken en leren, met
+de oude vrouw als lerares en met haarzelf voor de financiën en de werving.
+Daarmee lost het boek beide problemen tegelijk op: het huis blijft, en Sarah
+heeft eindelijk werk dat zij zelf heeft bedacht.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Sampler | Een quilt waarin elk blok een ander patroon heeft, in dit boek gebruikt als leerweg voor de beginner en als structuur voor de roman. |
+| Blok | De vierkante bouwsteen van een quilt, waarvan de patronen elk een naam en een herkomst hebben. |
+| Elm Creek Manor | Het landgoed van de familie Bergstrom, dat in het verhaal tegelijk erfenis, blok aan het been en oplossing is. |
+| Tangled Web Quilters | De plaatselijke quiltgroep in Waterford, die de gemeenschap levert waarin Sarah wordt opgenomen. |
+| Victory Quilt | De quilts die tijdens de oorlog werden gemaakt en verloot om geld in te zamelen, in het boek de plaats waar de vijandigheid tegen de familie zichtbaar wordt. |
+| Quilten in een raam | Het doorstikken van de drie lagen in een opgespannen raam, het werk waar meerdere vrouwen tegelijk aan zitten. |
+| Leerlingschap | De ruil die het boek draagt, arbeid tegen onderricht, en in de oorspronkelijke titel *The Quilter's Apprentice* de kern van het boek. |
+| De stoeterij | Het paardenbedrijf waarmee de familie Bergstrom generaties lang haar geld verdiende en dat na de oorlog verdween. |
+
+#### Waar het argument op rust
+
+Het handwerk is de sterkste onderbouwing van het boek. De beschrijvingen van
+snijden, aaneenzetten en doorstikken zijn zo gedetailleerd dat quilters ze
+kunnen volgen, en het dankwoord vermeldt de leden van QuiltNet, een
+internetgemeenschap van quilters, als bron van hulp. Dat sluit aan bij de
+nauwkeurigheid in de tekst.
+
+De historische stof is losser onderbouwd. De achterdocht tegen een familie met
+een Duits klinkende naam in een klein stadje in Pennsylvania in 1944, de
+rantsoenering en de verduisteringsgordijnen zijn plausibel weergegeven, maar
+het boek voert geen bronnen aan en het verklaart de vijandigheid uiteindelijk
+vooral uit afgunst over rijkdom. Dat is een romanverklaring, geen historische.
+
+Voorin staat een stamboom van de familie Bergstrom met jaartallen, en die is
+niet alleen sier: het boek is opgezet als het eerste deel van een reeks, en
+verschillende personages en jaartallen op dat blad spelen pas in latere delen
+een rol. Wie alleen dit deel leest, ziet dus meer voorbereiding dan hier wordt
+ingelost.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de gladheid van het slot. Alles komt goed: de
+familieruzie wordt bijgelegd, de makelaar krijgt zijn zin niet, het huis wordt
+gered en Sarah bedenkt een bedrijfsplan dat haar precies past. De roman heeft
+in het middendeel een scherper oog voor verbittering en verlies dan zij aan
+het eind bereid is vast te houden.
+
+Ook de tekening van de tegenstander is dun. Krolich is vanaf zijn eerste
+opkomst herkenbaar als de man die een oude vrouw wil afzetten, en er is geen
+enkel moment waarop zijn voorstel serieus tegen de belangen van mevrouw
+Compson kan worden afgewogen.
+
+Verder blijft Matt vlak. Hij is aardig, steunend en verder vooral aanwezig als
+degene die Sarah bij het landgoed brengt. De roman gaat over vrouwen en over
+wat vrouwen aan elkaar doorgeven, en betaalt daarvoor met een echtgenoot die
+nauwelijks een eigen belang heeft.
+
+De Nederlandse uitgave is bovendien slordig gezet: er staan verschrijvingen in
+de dialoog en ontspoorde aanhalingstekens, en dat hindert bij de lange
+vertellingen van mevrouw Compson, waar spreker en tijdlaag toch al bijgehouden
+moeten worden.
+
+#### Wat je hierna leest
+
+- 110. Op het allerlaatste moment. Hetzelfde onderwerp van vrouwen die geen
+erkenning krijgen, maar dan hard en zonder de troost van een gemeenschap.
+- 113. Aangeraakt. Ook een vrouw van in de dertig die vastloopt in wat haar
+leven had moeten zijn, met een tegengestelde uitkomst.
+- 115. At the Hour Between Dog and Wolf. Ook een roman waarin een oorlog
+bepaalt hoe een dorp naar zijn eigen inwoners kijkt.
 
 ## 115. At the Hour Between Dog and Wolf
 
@@ -21012,6 +22043,136 @@ het verschil tussen het vertrouwde en het gevaarlijke wegvalt; dat beeld
 gebruikt ook 80, over risico op de handelsvloer. Het bestand in de map is
 beschadigd, dus anders dan bij de overige titels uit deze map kon ik de tekst
 zelf niet raadplegen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Een joods meisje wordt door haar ouders in bezet Frankrijk
+ondergebracht bij een katholiek boerengezin op het platteland, met een nieuwe
+naam en een verzonnen verleden. Ison stelt dat zo'n vermomming niet aan de
+buitenkant blijft: om te overleven moet het kind de vroomheid, de gewoonten en
+uiteindelijk ook de vijandbeelden van haar omgeving overnemen, en op enig
+moment is er geen binnenkant meer die daar los van staat. De roman voert
+daarmee de gedachte door dat identiteit vooral gedrag is dat lang genoeg wordt
+herhaald, en dat een kind dat zichzelf redt daarmee ook zichzelf kan
+kwijtraken.
+
+#### De gang van het verhaal
+
+**De titel als sleutel**
+
+De titel verwijst naar de Franse uitdrukking voor de schemering, het uur
+waarop een herder een hond niet meer van een wolf kan onderscheiden. Dat beeld
+dekt de opzet van het boek: een kind dat er precies zo uitziet als de kinderen
+om haar heen, en over wie ook zijzelf op zeker moment niet meer kan zeggen wat
+zij is.
+
+Het is een oorlogsroman zonder slagveld. Wat er op het spel staat is een
+verhuizing, een naam en een dagelijks bestaan op een boerderij, en de spanning
+komt voort uit de vraag hoelang een leugen vol te houden is en wat er onder de
+leugen overblijft.
+
+**De opzet: onderduik als vertelling in de eerste persoon**
+
+De vertelling houdt zich dicht bij het bewustzijn van het meisje. De lezer
+volgt haar aanpassing van dag tot dag: het aanleren van de gebeden, de
+kerkgang, de dorpsgewoonten, de taal en de manieren van het gezin dat haar
+opneemt.
+
+Ison rekt die aanpassing uit over de volle lengte van het boek. Daardoor is er
+geen moment aan te wijzen waarop het meisje omslaat. De verschuiving gebeurt
+in stappen die elk verdedigbaar zijn en die samen ergens uitkomen waar zij
+nooit had willen komen.
+
+**De omgeving als leerschool**
+
+Het dorp waarin zij terechtkomt is katholiek, arm en niet in verzet. De
+omgangsvormen, de kerk en de heersende opvattingen over joden zijn de lucht
+die het kind inademt, en het boek toont hoe een kind zulke opvattingen leert
+zoals het elke andere gewoonte leert: door na te doen wat de mensen doen van
+wie het afhankelijk is.
+
+Dat maakt de roman ongemakkelijk, want de lezer volgt een slachtoffer dat de
+taal van de daders overneemt en die taal na verloop van tijd meent.
+
+**Wat het boek probeert te doen**
+
+De inzet is niet historische reconstructie maar een gedachte-experiment over
+de vraag hoe diep een aangeleerde identiteit gaat. De oorlog levert de
+omstandigheden waarin die vraag zich in zijn scherpste vorm laat stellen:
+aanpassing is hier geen keuze maar een voorwaarde om te blijven leven.
+
+Daarmee schuift het boek op naar een terrein dat in de literatuur over de
+Jodenvervolging weinig wordt betreden, dat van het gered kind dat door de
+redding beschadigd raakt op een manier waarvoor geen woord bestaat.
+
+**Wat er over de tekst zelf te zeggen valt**
+
+Het bestand dat voor deze samenvatting beschikbaar was, kon niet worden
+gelezen. Wat hier staat over opzet, thema en strekking rust daarom op de
+informatie van de uitgever en op besprekingen, en niet op de tekst.
+
+Om die reden staan in deze samenvatting geen scènes, hoofdstuktitels of
+naamsvermeldingen die alleen uit het boek zelf te halen zijn. Wie de opbouw
+per hoofdstuk wil weten, is aangewezen op het boek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| L'heure entre chien et loup | De Franse uitdrukking voor de schemering waarin hond en wolf niet meer te onderscheiden zijn, en de titel van het boek. |
+| Onderduik | Het onderbrengen van joodse kinderen bij niet-joodse gezinnen, in Frankrijk vaak op het platteland en vaak met medeweten van weinigen. |
+| De valse naam | De nieuwe identiteit die het kind krijgt en waarmee zij zich in het dorp moet bewegen alsof die van haar is. |
+| Assimilatie | Het opgaan in de gewoonten van de omgeving, in dit boek geen keuze maar een voorwaarde om in leven te blijven. |
+| Vichy | Het Franse regime dat met de bezetter samenwerkte en zelf antisemitische wetgeving invoerde, de politieke achtergrond van het verhaal. |
+| Collaboratie | De medewerking van Franse burgers en overheden aan de bezetting, in de roman aanwezig als gewoon dorpsleven. |
+| Aangeleerde vijandschap | De opvattingen over joden die het kind overneemt van de mensen die haar verbergen, en het onderwerp waar het boek op afkoerst. |
+
+#### Waar het argument op rust
+
+De tekst zelf kon niet worden ingezien. Het beschikbare bestand was beschadigd
+en liet zich niet uitpakken; van de inhoud waren alleen de technische
+onderdelen van het epub-bestand leesbaar en geen enkele bladzijde tekst. Deze
+samenvatting rust daarom op uitgeversinformatie en op besprekingen, en niet op
+eigen lezing.
+
+Dat betekent dat er hier geen uitspraken staan over personages, scènes,
+hoofdstukindeling of stijl op zinsniveau. Wat wel vaststaat is het gegeven, de
+historische situering in bezet Frankrijk, en de strekking die de uitgever aan
+het boek geeft.
+
+De historische onderlaag is op zichzelf goed gedocumenteerd terrein. Dat
+joodse kinderen in Frankrijk bij katholieke boerengezinnen werden
+ondergebracht en daar onder een valse naam als katholiek kind opgroeiden, is
+vastgelegd in ruime documentatie over de bezettingsjaren. De roman voegt daar
+geen bronnenapparaat aan toe: het is fictie.
+
+#### Wat er tegen in te brengen valt
+
+Het voorspelbare bezwaar tegen dit boek is dat het een slachtoffer laat
+veranderen in iemand die de haat van de daders overneemt, en dat zo'n opzet
+ongemakkelijk dicht komt bij het toeschrijven van schuld aan wie geen schuld
+heeft. Wie dat bezwaar maakt, wijst erop dat het kind geen keuze had en dat
+een roman die haar innerlijke omslag centraal stelt de verantwoordelijkheid
+verplaatst.
+
+Daartegenover staat de verdediging dat juist die verschuiving laat zien hoe
+grondig een samenleving haar leden vormt, en dat het boek de omgeving
+aanklaagt en niet het kind. Welk van beide leeswijzen recht doet aan de
+uitwerking, valt zonder de tekst niet vast te stellen.
+
+Een tweede punt is de reikwijdte. Een roman die op één bewustzijn is gebouwd
+en die zich uitstrekt over jaren van geleidelijke aanpassing, loopt het risico
+dat de lezer de omslag pas achteraf ziet en dat het boek daardoor eerder als
+these werkt dan als verhaal. Ook dat is hier niet te toetsen.
+
+#### Wat je hierna leest
+
+- 110. Op het allerlaatste moment. Eveneens verhalend werk dat op weglating
+drijft en dat zijn hoofdpersonen niet uitlegt.
+- 113. Aangeraakt. Ook een boek over iemand die haar eigen handelen van
+binnenuit rechtvaardigt tot dat niet langer gaat.
+- 114. De quiltclub. Ook een roman over hoe een gemeenschap in oorlogstijd
+bepaalt wie erbij hoort en wie verdacht is.
 
 ## 116. Mindset Mathematics, Grade 7
 

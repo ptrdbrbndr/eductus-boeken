@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toeval &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Toeval bestaat, en de vraag of het bestaat valt niet samen met de natuurkundige vraag of de wereld deterministisch in elkaar zit. Hopster laat zien dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-93">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">93 &middot; Gewoontes en denken</p>
+    <h1>Toeval</h1>
+    <p class="lede">Jeroen Hopster, 2024</p>
+    <p class="stats">
+      <span><b>1802</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>31 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="93"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Toeval bestaat, en de vraag of het bestaat valt niet samen met de natuurkundige vraag of de wereld deterministisch in elkaar zit. Hopster laat zien dat wie het toeval ontkent, telkens één grondbetekenis uitkiest, die wegredeneert, en vervolgens meent alle toeval te hebben afgeschaft. Er zijn er volgens hem zes, die naast elkaar bestaan en elk eigen filosofische vragen oproepen. Daaruit volgt zijn tweede claim: omdat toeval een morele en politieke kracht is, gaat het erom het te doseren. Te weinig toeval kost creativiteit, te veel kost eerlijkheid en samenhang.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De ontkenners en hun rekening</h3>
+      <p>Het boek opent met een rij citaten van denkers die het toeval het bestaansrecht ontzeggen: Leukippos, Augustinus, Calvijn, Hobbes, Spinoza, Voltaire, Hume, Hegel, Einstein. Spinoza noemt toeval het toevluchtsoord der onwetendheid; Hobbes zegt dat de regen van morgen noodzakelijk is en dat wij alleen de oorzaken nog niet zien. De ontkenning heeft een luidere geschiedenis dan de verdediging.</p>
+      <p>Tegenover die traditie zet Hopster de erkenning, die even oud is. Boëthius geeft Fortuna een plaats in de christelijke metafysica en levert met zijn <i>De vertroosting van de filosofie</i> het rad van fortuin aan de middeleeuwse beeldcultuur. Machiavelli beschrijft Fortuna als een rivier die vlaktes in meren verandert en stelt daar de virtù van de staatsman tegenover. Bij Lucretius en Epicurus zit toeval al in de natuur zelf, in de <i>clinamen</i>, de plotselinge zwenking van een atoom. De ontkenner is dus een verklaring schuldig: welk toeval bestaat er precies niet? Dat is Hopsters Eerste Toevalswet, de eerste van vijf vuistregels die het boek doorlopen.</p>
+      <h3>Zes grondbetekenissen</h3>
+      <p>De ordening die de rest van het boek draagt bestaat uit zes grondbetekenissen. Existentieel toeval is wat zomaar gebeurt, zonder reden of ontwerp. Accidenteel toeval is wat per ongeluk gebeurt of bijkomstig is aan een situatie. Contingentie is een wankele oorzakelijke reeks die met gemak anders had kunnen uitpakken. Coïncidentie is het ongeplande samenvallen dat als betekenisvol wordt ervaren. Statistisch toeval zit in de staart van de kansverdeling. Probabilistisch toeval is wat alleen kanstheoretisch te verklaren valt.</p>
+      <p>Die laatste categorie splitst hij in een subjectieve en een objectieve poot. Wie het weerbericht niet las, gebruikt kansen om een kennistekort te dekken. Of er daarnaast objectief probabilistisch toeval bestaat, is de vraag die natuurkundigen over de kwantummechanica stellen; Hopster verwijst daarvoor naar Klaas Landsman. Aan dat debat hangt volgens hem niet het hele bestaan van toeval: de overige vijf betekenissen staan er los van.</p>
+      <h3>Natuurkundig, historisch en moreel toeval uit elkaar</h3>
+      <p>De drie lagen die het boek het scherpst uit elkaar houdt, zijn het toeval van de natuur, dat van de geschiedenis en dat van de moraal. Natuurkundig toeval gaat over de vraag of de werkelijkheid zelf onbepaald is. Dat is een vraag over wetten en over de duivel van Laplace, die met volledige kennis van de begintoestand alles zou kunnen voorspellen. Zelfs als die duivel gelijk kreeg, merkt Hopster op, verandert dat weinig: dobbelen blijft een toevalsspel, ook wanneer de dobbelsteen deterministisch te beschrijven is.</p>
+      <p>Historisch toeval is van een andere orde: paden die zijn ingeslagen en daarna zijn vastgelegd. Darwin wees het aanbod om mee te varen met de Beagle eerst af en accepteerde het twee dagen later alsnog, na een gesprek met zijn oom Josiah Wedgwood. Dit is contingentie: het resultaat staat vast en had met gemak anders kunnen lopen. In de evolutietheorie werkt dat volgens Hopster via ongerichte variatie met selectieve retentie, waarbij toeval productief wordt in samenspel met sturing. Dat is zijn Tweede Toevalswet.</p>
+      <p>Moreel toeval is de derde laag, en de meest verontrustende: het gaat er niet over wat er gebeurt, maar over waarvoor iemand terecht geprezen of veroordeeld wordt. De drie lagen laten zich niet tot elkaar herleiden. Een deterministisch heelal maakt de historische contingentie niet ongedaan, en een onbepaald heelal lost het morele probleem niet op.</p>
+      <h3>Modellen: ontmoeting, vondst, lot, misverstand</h3>
+      <p>Deel II werkt vier modellen uit waarin toeval herkenbaar wordt. Het trefpunt is de ontmoeting; Aristoteles beschrijft in zijn <i>Fysica</i> de man die naar de markt gaat om olijven te kopen en daar zijn schuldenaar tegenkomt. In zulke coïncidenties zit een schijn van doelmatigheid: de ontmoeting had met opzet zo geregeld kunnen zijn. Hopster noemt dat slim toeval, tegenover het domme toeval waaronder hij de serialiteit van Paul Kammerer en de synchroniciteit van Jung schaart.</p>
+      <p>Het model van de vondst is serendipiteit, naar het sprookje van de drie prinsen van Serendip dat Amir Khusrow in 1302 optekende. Het voorbeeld is de Ever Laurel, die in januari 1992 in de Stille Oceaan 28.800 badspeeltjes verloor. Oceanograaf Curtis Ebbesmeyer gebruikte de aanspoelende speeltjes om zeestromen in kaart te brengen en stuitte daarbij op het plasticveld dat hij The Great Pacific Garbage Patch doopte.</p>
+      <h3>Heden, verleden, toekomst</h3>
+      <p>Deel III ordent toeval naar tijdsgedaante. In het heden is toeval kans en kantelpunt: het uitgerekte moment tussen opening en besluit, waarin gehandeld moet worden zonder repetitie. In het verleden is het een geëvolueerd pad, in de toekomst risico. Daar bespreekt Hopster de Zwarte Zwaan van Nassim Taleb, voortbouwend op het falsificatievoorbeeld van Popper, en noteert hij dat Taleb de covidpandemie zelf geen Zwarte Zwaan vond: dat er ooit een volgende pandemie zou komen, was bekend.</p>
+      <h3>Doseren: loting, verdeling, moreel geluk</h3>
+      <p>Deel IV is het normatiefste. Het opent met de overlevingsloterij die bio-ethicus John Harris in 1975 bedacht: als één geloot mens twee stervenden kan redden met hart en longen, wat is daar dan tegen? Van daaruit gaat het naar loting als politiek instrument, van de roulerende mandaten in Athene tot de burgerberaden waarvoor David Van Reybrouck in <i>Tegen verkiezingen</i> pleit.</p>
+      <p>Bij John Rawls wordt de dubbelheid van toeval expliciet. Toeval is oneerlijk omdat wat je toevalt onverdiend is; Hopster verbindt dat met Rawls' jeugd, waarin twee broers stierven aan ziektes die hij zelf had overgedragen. Tegelijk is toeval eerlijk omdat het zich niets aantrekt van privileges, wat het bruikbaar maakt als procedure. De sluier van onwetendheid en het verschilprincipe bespelen die blindheid.</p>
+      <p>Het hoofdstuk over moreel geluk gaat terug op Thomas Nagels artikel 'Moral Luck' uit 1979. Nagel begint bij Kant, voor wie de goede wil schittert als een juweel ongeacht de uitkomst, en laat zien dat wij dat in de praktijk nergens volhouden. Wie je bent, in welke omstandigheden je terechtkomt en hoe je handelen uitpakt liggen alle drie grotendeels buiten je controle. Twee automobilisten rijden even hard door rood; de een raakt niemand, de ander verlamt een voetganger en krijgt straf en schuldgevoel. De verzetsstrijder had het geluk dat de omstandigheden hem tot held konden maken. Nagel biedt geen oplossing en Hopster ook niet; hij formuleert alleen zijn Derde Toevalswet, dat toeval een morele kracht van betekenis is.</p>
+      <h3>Klimaat en besluit</h3>
+      <p>Het laatste hoofdstuk gebruikt de twee roulettewielen die een team van MIT in 2001 publiceerde als the Greenhouse Gamble: bij serieus klimaatbeleid draai je aan een wiel van 1 tot 4 graden opwarming tot 2100, bij ongewijzigd beleid aan een wiel van 3 tot boven de 7 graden. Waar het wiel stopt bepalen wij niet, aan welk wiel we draaien wel. In het besluit speculeert Hopster over kunstmatige intelligentie, die orde zichtbaar maakt waar eerder willekeur werd gezien. Zijn slotsom is de Vijfde Toevalswet: toeval verandert van vorm en keert terug.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Existentieel toeval</td><td>Wat je zomaar overkomt, zonder reden, bedoeling of ontwerp erachter.</td></tr>
+          <tr><td class="term">Accidenteel toeval</td><td>Wat per ongeluk gebeurt of bijkomstig is aan een situatie en niet tot de kern ervan behoort.</td></tr>
+          <tr><td class="term">Contingentie</td><td>Een wankele oorzakelijke reeks waarvan de uitkomst met gemak anders had kunnen zijn.</td></tr>
+          <tr><td class="term">Coïncidentie</td><td>Een ongepland samenvallen van gebeurtenissen dat als opmerkelijk of betekenisvol wordt ervaren.</td></tr>
+          <tr><td class="term">Probabilistisch toeval</td><td>Wat alleen kanstheoretisch te verklaren valt, in een subjectieve variant (kennistekort) en een objectieve (variabiliteit in de werkelijkheid zelf).</td></tr>
+          <tr><td class="term">Serendipiteit</td><td>Het doen van een aanvankelijk ongezochte vondst, mogelijk gemaakt door een voorbereide geest.</td></tr>
+          <tr><td class="term">Moreel geluk</td><td>Het verschijnsel dat prijzen en veroordelen mede afhangt van omstandigheden en uitkomsten die buiten iemands controle vallen.</td></tr>
+          <tr><td class="term">Toevalswetten</td><td>Vijf vuistregels die het boek structureren, over de meerduidigheid, de productiviteit, de morele lading, de dosering en de terugkeer van toeval.</td></tr>
+          <tr><td class="term">Verschilprincipe</td><td>Rawls' beginsel dat ongelijkheid alleen te rechtvaardigen is wanneer zij allereerst de minstbedeelden ten goede komt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is filosofisch en historisch, niet empirisch. Hopster voert geen eigen onderzoek op en presenteert geen data. Wat hij wel doet is posities nauwkeurig weergeven en naar de bron terugbrengen: Aristoteles' <i>Fysica</i>, Laplace, Nagel 1979, Rawls' <i>A Theory of Justice</i> uit 1971, Harris 1975, Van Reybrouck. Voor de wetenschappelijke gevallen leunt hij op vakliteratuur, waaronder Roberta Millstein over toeval in de evolutietheorie.</p>
+      <p>De anekdotes zijn controleerbaar en de auteur is er argwanend over. Bij Kammerer zegt hij ronduit dat hij niet op diens onschuld zou inzetten; over de ontmoeting op de tennisbaan waaruit dit boek voortkwam merkt hij op dat zulke anekdotes goed verkopen en daarom zwendelaars aantrekken. Die zelfcorrectie maakt de rest geloofwaardiger.</p>
+      <p>De zwakste schakel is de indeling zelf. Dat er zes grondbetekenissen zijn en vijf toevalswetten is een keuze van de auteur, geen bevinding. Ze zijn bruikbaar omdat ze verwarring opruimen, niet omdat er iets voor pleit dat het er precies zes en vijf zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op de kern van de aanbeveling. Het boek eindigt bij dosering: niet te weinig toeval en niet te veel. Wie wil weten hoeveel dan wel, en wie dat bepaalt, blijft met lege handen. De echte conflicten beginnen pas na die vaststelling.</p>
+      <p>Het probleem van moreel geluk wordt scherp neergezet en daarna niet opgelost. Dat is Hopster nauwelijks aan te rekenen, want Nagel loste het ook niet op, maar wie hoopt op een antwoord over hoe dan wel te oordelen, krijgt het niet.</p>
+      <p>De breedte gaat ten koste van de diepte. Achttien hoofdstukken bestrijken kwantummechanica, evolutie, boeddhisme, prieelvogels, datingalgoritmes, Athene en klimaatmodellen; verschillende blijven bij een schets. De auteur beperkt zich bovendien uitdrukkelijk tot Europese taal, cultuur en geschiedenis.</p>
+      <p>Wie <i>Fooled by Randomness</i> kent, vindt hier weinig nieuws over hoe mensen ruis voor signaal aanzien; de winst zit in de begripsanalyse en het morele deel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke uitspraak dat iets toeval is welke betekenis bedoeld wordt: onverdiend, onbedoeld, onvoorspelbaar of onverklaarbaar.</li>
+        <li>Scheid in een evaluatie het besluit van de uitkomst: beoordeel wat iemand wist en koos, en registreer de uitkomst apart.</li>
+        <li>Zet loting in waar een verdeling niet op verdienste te baseren valt en de schijn van voortrekken de meeste schade doet.</li>
+        <li>Bouw ruimte in voor ongezochte vondsten: contact buiten de eigen kring, tijd zonder vastgelegd doel, aantekeningen van wat nergens in past.</li>
+        <li>Bespreek risico's als een keuze tussen verdelingen, zoals de twee klimaatwielen, niet als een keuze tussen losse voorspellingen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Een onvoorziene filosofie</i>, bij Boom (2024). Hopster is filosoof aan de Universiteit Utrecht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hopster behandelt toeval als filosofisch probleem: wat noemen we toeval, waarom vinden mensen het zo moeilijk te aanvaarden, en wat betekent het voor schuld en verdienste als een groot deel van een leven van omstandigheden afhangt. Hij loopt daarvoor de natuurkunde, de evolutie, de geschiedschrijving en het morele denken langs.</p><p>De interessantste hoofdstukken gaan over moreel toeval: twee mensen die hetzelfde doen en van wie er een pech heeft, worden verschillend beoordeeld, terwijl het verschil buiten hen om is ontstaan. Het boek is Nederlandstalig en toegankelijk zonder simpel te worden, en het legt naast 64 een filosofische in plaats van een financiële lezing van hetzelfde onderwerp.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>toeval</li><li>filosofie</li><li>geschiedenis</li><li>wetenschap</li><li>geluk</li><li>verantwoordelijkheid</li><li>nederlands</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Taleb behandelt hetzelfde onderwerp psychologisch en financieel; Hopster doet het filosofisch en moreel.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman levert het bewijsmateriaal over hoe slecht mensen kansen en toeval inschatten.</li>
+          <li value="69"><a href="69.html">Ruis</a>. Over de variatie in oordelen die de mensen die oordelen zelf niet opmerken.</li>
+          <li value="137"><a href="137.html">The Poker Mindset</a>. Praktische uitwerking van het scheiden van beslissing en uitkomst, aan de speeltafel.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
