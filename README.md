@@ -36,6 +36,31 @@ Velden per titel:
 | `tags` | ja | minimaal drie, kleine letters, koppelteken in plaats van spatie |
 | `tekst` | ja | array van alinea's; `<i>` en `<b>` mogen erin |
 | `bron` | nee | herkomst van de titel, bijvoorbeeld `40-lijst` |
+| `lang` | nee | de uitgebreide samenvatting; levert een eigen pagina `boek/<nr>.html` op |
+
+## Een uitgebreide samenvatting toevoegen
+
+Het veld `lang` is de uitgebreide samenvatting van drie tot vijf bladzijden. Is
+het aanwezig, dan genereert de build `boek/<nr>.html` en krijgt de kaart in de
+lijst een knop ernaartoe. Titels zonder `lang` blijven werken zoals ze waren.
+
+| Sleutel | Verplicht | Inhoud |
+| --- | --- | --- |
+| `stelling` | ja | de these van het boek in één alinea, minimaal 200 tekens |
+| `opbouwkop` | nee | kop boven het middendeel, standaard "De gang van het boek" |
+| `opbouw` | ja | minimaal drie delen, elk met `kop` en `tekst` (array van alinea's) |
+| `begrippen` | ja | minimaal vijf paren van `term` en `uitleg` |
+| `bewijs` | nee | array van alinea's over waar het argument op rust |
+| `kritiek` | nee | array van alinea's over wat er tegen in te brengen valt |
+| `toepassing` | nee | array van punten; laat weg bij verhalend werk |
+| `verder` | nee | array van `{nr, tekst}`; het nummer moet bestaan |
+
+Richtlijn voor de omvang: concept- en methodeboeken 1200 tot 1800 woorden,
+verhalend werk 900 tot 1400, essaybundels 1000 tot 1500. De boekpagina toont het
+werkelijke woordental in de kop, dus de maat is controleerbaar.
+
+Let op: `Dockerfile` kopieert zowel `index.html` als de map `boek/`. Zonder die
+tweede regel komen de boekpagina's door de 404-fallback stil op de lijst uit.
 
 Een nieuwe rubriek zet je in `data/rubrieken.json` als paar van naam en
 uitleg; de volgorde in dat bestand is de volgorde op de pagina. Leesroutes

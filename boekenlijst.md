@@ -56,6 +56,180 @@ en die kapotliep op precies de vraag naar kwaliteit. Dat maakt het boek ook
 een verslag van een man die zijn eigen geschiedenis en zijn zoon terug
 probeert te krijgen.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Het boek betoogt dat de westerse manier van denken de wereld
+in twee helften heeft gesneden, een technische en een gevoelsmatige, en dat
+mensen daardoor vastlopen: de een verafschuwt techniek en snapt niet waarom,
+de ander beheerst techniek en vindt zijn werk zielloos. Pirsig zoekt het
+begrip dat onder die scheiding ligt en noemt het Kwaliteit. Kwaliteit valt
+niet te definiëren zonder haar kwijt te raken, maar iedereen herkent haar en
+niemand kan haar aanwijzen. Wie er wel bij kan, heeft geen keuze meer tussen
+verstand en gevoel, want die scheiding is dan opgeheven.
+
+#### De gang van het boek
+
+**Een reis en een verhandeling naast elkaar**
+
+De verteller rijdt in de zomer op een motor van Minnesota naar Californië, met
+zijn elfjarige zoon Chris achterop en de eerste dagen samen met de bevriende
+John en Sylvia Sutherland. Elke dag levert een stuk landschap, een gesprek en
+een probleem met de motor. Daar tussen staan wat hij zelf de Chautauqua's
+noemt, naar de reizende lezingen uit de negentiende eeuw: hoofdstukken waarin
+hij niets vertelt maar denkt, in stukken die precies zo lang zijn als een
+dagrit.
+
+Die vorm is geen truc. De motor is het enige onderwerp waarover het boek zowel
+praktisch als filosofisch kan spreken zonder van register te wisselen, en de
+weg levert de aanleidingen: een regenbui, een zoon die niet mee wil, een
+cilinderkop die te heet wordt.
+
+**Het contrast waarmee het begint**
+
+John weigert aan zijn eigen motor te sleutelen. Als zijn stuurstang los zit
+wil hij naar de dealer, en als de verteller voorstelt om een shim te maken uit
+een blikje bier is John beledigd. Daar zit het boek al in: voor de een is een
+bierblikje afval en voor de ander aluminium van precies de juiste dikte. John
+houdt van zijn motor en wil niets van het binnenwerk weten, en juist die
+houding maakt hem hulpeloos en boos zodra er iets stuk is.
+
+**De twee manieren van kijken**
+
+Pirsig zet daar zijn onderscheid tegenover tussen het klassieke en het
+romantische. Het klassieke denken werkt in vormen, onderdelen en hiërarchieën,
+het romantische in het onmiddellijke, het uiterlijk en het gevoel van het
+moment. Een motorhandleiding is klassiek en volstrekt saai; een motor die
+brult is romantisch en volstrekt onbegrepen. Beide manieren zijn waar en beide
+zijn onvolledig.
+
+De scheiding verklaart volgens hem ook waarom techniekhaat en
+techniekverslaving samen kunnen bestaan in één samenleving: het zijn twee
+reacties op dezelfde breuk. Het boek is de zoektocht naar het punt waar die
+twee uit elkaar zijn gegaan.
+
+**De schaduw van Phaedrus**
+
+Langzaam blijkt de verteller een verleden te hebben. Onder de naam Phaedrus
+voert hij een eerder leven op: een student die op zijn vijftiende aan de
+universiteit begon, een tijd in India, en daarna een docent Engels in Bozeman,
+Montana, die zijn studenten geen cijfers meer wilde geven omdat een cijfer het
+schrijven vervangt door het jagen op een cijfer. Die Phaedrus raakte bezeten
+van de vraag wat Kwaliteit is, werd erdoor tot het uiterste gedreven en
+verdween na een psychose en een behandeling met elektroshocks.
+
+De verteller is wat er daarna van hem over is, en hij spreekt over Phaedrus in
+de derde persoon. Het boek vertelt dat niet in één keer maar laat het opkomen,
+en dat maakt de tweede helft spannend op een manier die een filosofisch boek
+zelden is.
+
+**Het argument van Phaedrus**
+
+De kern is een dilemma dat hij zijn collega's voorlegt. Bestaat Kwaliteit in
+het object, dan moet zij te meten zijn, en dat is zij niet. Bestaat zij alleen
+in de kijker, dan is zij smaak en valt er niets over te zeggen, terwijl
+studenten in een klas wél opvallend eensgezind aanwijzen welk opstel het beste
+is.
+
+Zijn uitweg is dat Kwaliteit niet aan de kant van het object of van het
+subject zit maar aan het begin: het is de gebeurtenis waarin beide ontstaan,
+het moment van opmerken zelf. Daarmee is Kwaliteit geen eigenschap van dingen
+meer maar de bron waaruit ons beeld van de dingen komt. Dat is ook de reden
+dat zij niet te definiëren valt: een definitie komt altijd later dan het
+moment dat zij wil beschrijven.
+
+**De rekening met Plato**
+
+Om te verklaren hoe die bron uit het zicht verdween, gaat Phaedrus terug naar
+de Grieken. De sofisten, gewoonlijk weggezet als woordgoochelaars die alles
+konden bepleiten, onderwezen volgens hem *aretè*, deugd of voortreffelijkheid,
+en dat is Kwaliteit. Plato en Aristoteles hebben haar onder de Waarheid
+geschoven en tot een onderdeel van de dialectiek gemaakt, waarmee het denken
+over goed werk voorgoed ondergeschikt werd aan het denken over juiste kennis.
+
+Dat is de historische breuk die het boek zoekt, en het is ook het punt waarop
+het meest verweer mogelijk is. Voor de opbouw van het boek is de aflevering
+functioneel: de zoektocht van Phaedrus loopt hier vast in een omvang die geen
+mens meer kan overzien, en de psychose komt in zicht.
+
+**Gumption en het vastzitten**
+
+In de praktische hoofdstukken wordt het concreet. Pirsig noemt *gumption* de
+brandstof van goed werk, de opgewekte vasthoudendheid waarmee iemand aan een
+klus begint, en beschrijft de valkuilen die haar wegzuigen: gereedschap dat
+niet past, een schroef die rond is gedraaid, ongeduld, ego dat niet wil
+toegeven dat het iets niet weet, angst dat de klus mislukt.
+
+Zijn belangrijkste raad staat tegenover de reflex om door te rammen. Als je
+vastzit is dat geen ramp maar de beste positie die er is, want je bent niets
+meer aan het herhalen dat toch niet werkt. Wachten tot het probleem zichzelf
+laat zien is dan het werk, en dat vraagt om een houding die hij bij monteurs
+vaker mist dan bij goede monteurs aanwezig weet.
+
+**Chris**
+
+Onder de filosofie loopt de hele reis een tweede lijn: een vader die zijn zoon
+niet kan bereiken. Chris is lastig, krijgt buikpijn, wordt geplaagd door iets
+dat niemand benoemt. De verteller weet dat de jongen de man mist die hij vóór
+de behandeling was, en durft die man niet terug te halen.
+
+Bij de kust in Californië loopt dat op een breuk uit en op de erkenning dat
+Phaedrus nooit weg is geweest. Het boek eindigt met de twee op de motor,
+zonder helm, en met de mededeling dat het beter zal gaan. Wie het als
+filosofisch traktaat begon te lezen, houdt aan het slot een verhaal over een
+vader en een zoon over.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kwaliteit | Niet definieerbaar, wel herkenbaar; niet in het object en niet in het subject, maar de gebeurtenis waaruit beide voortkomen. |
+| Klassiek denken | Kijken in onderdelen, vormen en systemen; het denken van de handleiding en de monteur. |
+| Romantisch denken | Kijken naar het onmiddellijke en het uiterlijk; het denken dat techniek als lelijk ervaart. |
+| Chautauqua | De ingelaste verhandeling, genoemd naar rondtrekkende lezingenreeksen, bedoeld om te verruimen en niet te vermaken. |
+| Phaedrus | De naam voor zijn eigen vroegere zelf, tegelijk een verwijzing naar Plato's dialoog van die naam. |
+| Gumption | De opgewekte vasthoudendheid die goed werk mogelijk maakt en die wegloopt door slecht gereedschap, ego en haast. |
+| Gumption trap | Elke situatie die die vasthoudendheid wegzuigt, van een vastgedraaide bout tot de angst het niet te kunnen. |
+| Stuckness | Het vastzitten, door hem herwaardeerd van mislukking naar de vruchtbaarste toestand van het denken. |
+| Church of Reason | Zijn naam voor de universiteit als instelling die de rede dient, tegenover de universiteit als gebouw en bestuur. |
+| Aretè | Het Griekse woord voor deugd of voortreffelijkheid dat hij gelijkstelt aan Kwaliteit, en dat volgens hem door Plato is weggeschreven. |
+
+#### Waar het argument op rust
+
+Op drie ongelijke fundamenten. Het praktische deel rust op eigen werk aan de
+motor en is nazoekbaar sterk: wie sleutelt, herkent de valkuilen. Het
+onderwijsdeel rust op zijn eigen jaren in Bozeman en op het experiment zonder
+cijfers, dat hij niet als onderzoek maar als ervaring opvoert. Het historische
+deel over de sofisten en Plato rust op een eigenzinnige lezing van de bronnen
+en wordt door classici niet gedeeld.
+
+Pirsig levert dus geen onderzoek en beroept zich niet op gezag; hij denkt
+hardop en laat de lezer meekijken, ook waar hij zelf nog niet weet waar het
+heen gaat. Dat is tegelijk de kracht en de zwakte van het boek.
+
+#### Wat er tegen in te brengen valt
+
+Het is een filosofisch betoog van iemand die geen filosoof is, en dat levert
+twee soorten weerstand op. De eerste is de historische claim, die neerkomt op
+één verklarende breuk voor tweeduizend jaar denken; dat is onwaarschijnlijk
+kort door de bocht. De tweede is dat het begrip Kwaliteit, juist doordat het
+niet gedefinieerd mag worden, alles kan verklaren en daardoor niets uitsluit.
+
+Verder is de vertelling minder gelijkmatig dan het reisverslag suggereert: de
+eerste honderd bladzijden zijn traag en de metafysische hoofdstukken vragen
+aandacht die niet iedereen erin wil stoppen. Pirsig werkte zijn
+Kwaliteitsbegrip later uit in *Lila* (1991), dat door de meeste lezers als een
+minder boek wordt gezien en het vermoeden voedt dat de kracht hier in de vorm
+zat en niet in de metafysica.
+
+#### Wat je hierna leest
+
+- 6. Shop Class as Soulcraft. Verwijst rechtstreeks naar dit boek en maakt het
+argument nuchterder en arbeidsmarktbewuster.
+- 17. The Creative Act. Legt Rubins opvatting van opmerken naast Pirsigs
+Kwaliteit; twee auteurs die iets buiten de maker leggen.
+- 10. Ten oosten van Eden. Voor de tweede lijn van dit boek: de vader die zijn
+zoon niet kan bereiken.
+
 ## 2. Overpeinzingen
 
 Marcus Aurelius, ca. 170–180 n.Chr.. In het Grieks *Ta eis heauton* ("aan
