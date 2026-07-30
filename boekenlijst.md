@@ -1910,6 +1910,161 @@ meer aan. Dobelli's eigen advies is bescheiden en past bij de lijst waarin dit
 boek staat, namelijk dat een eigen oordeel niet begint bij meer informatie
 maar bij het zien hoe voorspelbaar het eigen hoofd de mist ingaat.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Dobelli stelt dat helder denken minder bestaat uit slim zijn
+dan uit het vermijden van fouten die zich telkens herhalen. Die fouten zijn
+geen persoonlijke gebreken maar ingesleten patronen die iedereen deelt, en zij
+zijn te herkennen en daarmee gedeeltelijk te ontlopen. Zijn boek is de
+inventaris ervan: negenennegentig korte stukken, elk over één denkfout, met
+een voorbeeld en een gevolgtrekking. De onderliggende raad is bescheiden: wie
+zijn eigen oordeel wil verbeteren, komt verder met een lijst van valkuilen dan
+met de ambitie om geniale inzichten te hebben.
+
+#### De gang van het boek
+
+**Vorm en herkomst**
+
+Het boek begon als een krantenrubriek en dat is aan de opzet te zien: elk stuk
+beslaat twee bladzijden, opent met een voorbeeld, benoemt de fout en sluit af
+met een aanbeveling. Er is geen opbouw van hoofdstuk naar hoofdstuk, dus het
+is achter elkaar te lezen en net zo goed op te slaan.
+
+Dobelli bedacht de inhoud niet zelf. Hij dicht het gat tussen het onderzoek
+van Kahneman en Tversky, het overtuigingswerk van Cialdini en de essays van
+Taleb enerzijds en de dagelijkse praktijk anderzijds. Dat hij daarbij dicht op
+zijn bronnen zit, is hem verweten; Taleb heeft zich publiekelijk van hem
+gedistantieerd.
+
+**Fouten bij het beoordelen van uitkomsten**
+
+De eerste groep gaat over wat er zichtbaar is en wat niet. Bij
+overlevingsvertekening zien we alleen de geslaagden, omdat de mislukkingen
+niet meer meepraten: elke geslaagde ondernemer wordt geïnterviewd en de negen
+die met dezelfde aanpak omvielen niet, waardoor de aanpak beter lijkt dan hij
+is.
+
+Daarnaast staat de illusie van het zwemmerslichaam. Zwemmers hebben geen mooi
+lichaam doordat zij zwemmen, maar zij zwemmen op topniveau doordat zij dat
+lichaam hadden; selectie wordt voor uitwerking versleten. Verwant is de
+neiging patronen te zien in toevallige spreiding, waar het brein een figuur
+maakt van willekeurige punten.
+
+**Fouten bij het nemen van besluiten**
+
+De tweede groep raakt de besluiten zelf. Verzonken kosten houden projecten in
+leven omdat er al geld en tijd in zitten, terwijl alleen de toekomst zou
+moeten meetellen. Verliesafkeer maakt dat hetzelfde bedrag zwaarder weegt als
+verlies dan als winst, waardoor mensen te lang blijven zitten in wat zij
+hebben.
+
+Dobelli behandelt daarnaast de neiging tot handelen: bij onzekerheid iets doen
+voelt beter dan afwachten, ook wanneer afwachten meer oplevert. Het
+spiegelbeeld is de voorkeur voor de bestaande toestand, waarbij niets doen als
+veilig wordt ervaren omdat de gevolgen ervan minder in het oog springen.
+
+**Fouten in het gezelschap van anderen**
+
+Een derde groep gaat over sociale invloed. Sociale bewijskracht laat mensen
+doen wat de groep doet, ook wanneer de groep het aantoonbaar mis heeft.
+Wederkerigheid maakt van een kleine gunst een verplichting, en dat is de reden
+dat een gratis proefje werkt.
+
+Hij besteedt aandacht aan het beroep op gezag en aan de neiging om mensen die
+wij aardig vinden ook geloofwaardig te vinden. Wie de lijst van Cialdini kent,
+herkent dit deel; de winst zit in de beknoptheid, niet in de nieuwe inzichten.
+
+**Fouten in wat wij menen te weten**
+
+De laatste en scherpste groep gaat over kennis. Bevestigingsdrang zorgt dat
+wij vooral opmerken wat ons standpunt steunt; terugkijkvertekening maakt van
+een afloop achteraf iets voorspelbaars; overmoed zorgt dat schattingen
+stelselmatig te nauw uitvallen, ook bij deskundigen.
+
+Twee begrippen uit dit deel zijn los van het boek bruikbaar. Chauffeurskennis
+staat voor iemand die de woorden kent zonder de zaak te kennen, naar het
+verhaal over de chauffeur van Max Planck die de lezing kon opzeggen. De cirkel
+van bekwaamheid staat voor het gebied waarbinnen iemands oordeel iets waard
+is, met als enige regel dat de grens ervan bekend moet zijn.
+
+Hij behandelt in dit deel ook de illusie van de voorspelling. Deskundigen die
+over politiek, markten of techniek voorspellingen doen, blijken bij naderhand
+narekenen nauwelijks beter te scoren dan het toeval, terwijl hun zekerheid en
+hun aanzien wel toenemen. Dobelli trekt daar een praktische regel uit: aan een
+voorspelling is pas iets te hebben wanneer degene die haar doet er zelf iets
+bij te verliezen heeft.
+
+**Wat hij ermee wil**
+
+Zijn slotsom noemt hij negatieve wijsheid. Het is eenvoudiger en
+betrouwbaarder om domme dingen te laten dan om slimme dingen te bedenken, en
+daarom is een controlelijst met valkuilen nuttiger dan een handleiding voor
+succes.
+
+Daarbij hoort de raad om bij belangrijke besluiten trager te werk te gaan en
+om de eigen cirkel te bewaken. Wie een handleiding voor beleggen of
+leidinggeven zoekt, heeft aan dit boek weinig; het gaat over de lezer en niet
+over de markt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Overlevingsvertekening | Alleen de geslaagden zijn zichtbaar; de mislukkingen ontbreken in het beeld en daarmee in de conclusie. |
+| Illusie van het zwemmerslichaam | Selectie wordt aangezien voor uitwerking: de eigenschap ging aan de prestatie vooraf en volgde er niet uit. |
+| Verzonken kosten | Doorgaan omdat er al is geïnvesteerd, terwijl alleen de verwachte opbrengst van nu af aan telt. |
+| Bevestigingsdrang | De neiging vooral op te merken wat het eigen standpunt steunt en het overige weg te redeneren. |
+| Terugkijkvertekening | Achteraf lijkt de afloop voorspelbaar, waardoor de eigen voorspellingskracht stelselmatig wordt overschat. |
+| Verhaalvertekening | De voorkeur voor gebeurtenissen die een sluitend verhaal opleveren boven de rommelige feiten. |
+| Chauffeurskennis | De woorden kennen zonder de zaak te kennen; naar de chauffeur die de lezing van Planck kon opzeggen. |
+| Cirkel van bekwaamheid | Het gebied waarbinnen iemands oordeel waarde heeft; de enige eis is dat de grens ervan bekend is. |
+| Handelingsdrang | Bij onzekerheid iets doen omdat wachten onprettig voelt, ook wanneer wachten de betere zet is. |
+| Negatieve wijsheid | Zijn slotsom: fouten weglaten levert meer op dan inzichten toevoegen. |
+
+#### Waar het argument op rust
+
+Op het werk van anderen. Dobelli verwijst naar de psychologie van
+oordeelsvorming, naar Kahneman en Tversky, en naar onderzoek dat in de jaren
+zeventig tot negentig is gedaan. De eerste uitgave gaf per stuk geen bronnen,
+wat het nakijken lastig maakt.
+
+Een deel van dat onderzoek is sinds de replicatiecrisis in de psychologie
+omstreden; effecten rond onbewuste beïnvloeding en uitputting van de
+wilskracht hielden bij herhaling niet stand. De kern die op verlies, kans en
+gezag betrekking heeft, staat er beter voor.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is oppervlakkig waar het opsomt en dat is ook de bedoeling, maar de
+prijs is dat de fouten los van elkaar blijven staan. Waarom zij bestaan, hoe
+zij samenhangen en wanneer dezelfde neiging juist nuttig is, komt niet aan
+bod; wie dat wil, leest 55.
+
+Het tweede bezwaar is de ontlening. Dobelli brengt materiaal van anderen
+zonder dat in de tekst steeds duidelijk te maken, en Taleb heeft hem dat
+openlijk verweten. Het derde is het bekende ongemak van dit vak: kennis van
+denkfouten maakt niemand er immuun voor, want de blinde vlek voor de eigen
+vertekening is er zelf een.
+
+#### Wat er concreet mee te doen is
+
+- Loop bij een groot besluit de lijst langs als controlelijst, in plaats van
+te vertrouwen op een goed gevoel.
+- Vraag bij elk succesverhaal waar de mislukte gevallen zijn gebleven.
+- Beoordeel een besluit op wat er bekend was op het moment van beslissen, niet
+op de afloop.
+- Schrijf op waar de eigen cirkel van bekwaamheid ophoudt, en vraag daarbuiten
+iemand anders.
+
+#### Wat je hierna leest
+
+- 55. Thinking, Fast and Slow. Kahneman levert het onderzoek en de samenhang
+waar Dobelli de opsomming geeft.
+- 64. Fooled by Randomness. Taleb behandelt dezelfde vertekeningen waar geld
+en toeval samenkomen, en met meer gal.
+- 66. The Folly of Fools. Trivers verklaart waarom deze fouten niet zijn weg
+te leren: zij dienen een doel.
+
 ## 60. Trust Me, I'm Lying
 
 Ryan Holiday, 2012. Ondertitel *Confessions of a Media Manipulator*,
@@ -2107,6 +2262,157 @@ verdriet, en wat ervoor wordt ingeleverd is de mogelijkheid om ongelukkig te
 zijn om iets dat de moeite waard is. Naast 1984 wordt dit vaak als de mildere
 waarschuwing gelezen, wat het niet is; de bevolking die het gemakkelijkst te
 besturen valt, is die welke haar eigen tucht leuk vindt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Huxley laat een samenleving zien die haar burgers niet
+onderdrukt maar tevredenstelt, en waar de vrijheid daardoor verdwenen is
+zonder dat iemand haar mist. Mensen worden in kweekflessen gemaakt, in kasten
+ingedeeld en in hun slaap toegesproken tot zij hun plaats prettig vinden; bij
+het eerste ongemak is er soma. Er is geen geheime dienst nodig omdat niemand
+iets anders wil. De vraag die het boek stelt is niet of dat wreed is, maar wat
+er precies verloren gaat wanneer een samenleving stabiliteit, gezondheid en
+genot boven alles stelt, en of iemand die de rekening niet voelt daar nog iets
+tegenin kan brengen.
+
+#### De gang van het verhaal
+
+**De rondleiding waarmee het begint**
+
+Het boek opent in het Centraal Broed- en Conditioneringsstation van Londen,
+waar een directeur studenten rondleidt. In die rondleiding staat het hele
+stelsel uitgelegd: eicellen worden gedeeld zodat uit één cel tientallen
+gelijke mensen ontstaan, embryo's krijgen naar kaste meer of minder zuurstof,
+en na de geboorte volgt de conditionering. Baby's van de laagste kaste worden
+met een elektrische schok van boeken en bloemen weggehouden, en iedereen
+krijgt jarenlang in zijn slaap zinnen te horen die hij later voor zijn eigen
+mening houdt.
+
+Huxley kiest die vorm omdat zij hem de gelegenheid geeft een wereld uit te
+leggen zonder een verteller die oordeelt. Het is het jaar 632 na Ford; de
+lopende band heeft de plaats van de godsdienst ingenomen, tot in het
+kruisteken dat een T is geworden.
+
+**De mensen die niet passen**
+
+Bernard Marx behoort tot de hoogste kaste en is te klein uitgevallen, wat hem
+onzeker maakt en tot afwijkende gedachten brengt. Hij wil met Lenina Crowne
+alleen zijn en praten in plaats van naar de voelfilms gaan, wat in deze wereld
+een zonderlinge wens is, want iedereen is van iedereen.
+
+Zijn vriend Helmholtz Watson heeft het omgekeerde probleem: hij is te goed.
+Hij schrijft de slogans en de scenario's en merkt dat er iets te zeggen valt
+dat de taal die hij beheerst niet aankan. Die twee vormen samen de opening van
+het boek naar buiten, want beiden voelen een gemis dat het stelsel niet
+erkent.
+
+**Het reservaat**
+
+Bernard en Lenina reizen naar een reservaat in New Mexico waar mensen nog op
+de oude manier leven: met ouders, ouderdom, ziekte, godsdienst en verdriet.
+Daar vinden zij Linda, een vrouw uit Londen die jaren eerder achterbleef en er
+een zoon kreeg, en die zoon is John.
+
+John is opgegroeid tussen twee werelden en in geen van beide opgenomen. Van
+zijn moeder hoorde hij over de beschaving die zij mist, van het dorp werd hij
+buitengesloten, en zijn taal komt uit het enige boek dat hij had, de
+verzamelde toneelstukken van Shakespeare. Dat is de kern van de constructie:
+Huxley geeft zijn tegenstander geen ideologie mee maar een woordenschat die de
+nieuwe wereld niet meer kent.
+
+**Londen als schouwspel**
+
+Bernard neemt moeder en zoon mee terug. Linda blijkt de vrouw te zijn die de
+directeur ooit achterliet, en diens val is de eerste wraak van het verhaal.
+John wordt een bezienswaardigheid, Bernard leeft even op als de man die hem
+vertoont, en Linda verdwijnt in een aaneengesloten roes van soma.
+
+De ontnuchtering komt in het ziekenhuis waar zij sterft, tussen kinderen die
+daar op bezoek zijn om aan de dood te wennen. John begrijpt niet dat niemand
+rouwt, gooit de somarantsoenen van een groep arbeiders het raam uit en
+veroorzaakt een oproer dat met verneveld kalmeringsmiddel wordt beëindigd.
+
+**Het gesprek met Mustafa Mond**
+
+Het hart van het boek is het verhoor daarna. Wereldbeheerder Mustafa Mond
+spreekt met John en Helmholtz en verdedigt het stelsel met kennis van zaken,
+want hij heeft de verboden boeken gelezen en was zelf ooit natuurkundige.
+Kunst, wetenschap en godsdienst zijn opgeofferd aan stabiliteit, zegt hij, en
+dat was een prijs die de moeite waard was: er is geen oorlog, geen armoede,
+geen ouderdom en geen angst.
+
+John antwoordt met de enige eis die hij kan formuleren, namelijk het recht om
+ongelukkig te zijn, en somt op wat daaraan vastzit: ziekte, angst, honger en
+de kans op alles wat mislukt. Mond ontkent niets van dat alles en biedt hem
+geen weerwoord maar een eiland aan, want wie afwijkt wordt niet gestraft maar
+verplaatst. Dat is het scherpste van het boek: de verdediging van de
+onvrijheid is het best beargumenteerde stuk erin.
+
+**Het slot**
+
+John trekt zich terug in een verlaten vuurtoren, wil zich reinigen door te
+vasten en zichzelf te geselen, en wordt daarbij gefilmd. De opname wordt een
+voelfilm, het publiek stroomt toe en wat als boetedoening begon eindigt als
+vermaak, waarna de menigte in een roes verandert waar John de volgende ochtend
+niet mee kan leven.
+
+Huxley laat hem geen overwinning en de lezer geen troost. De enige uitweg voor
+wie niet meedoet is een eiland of de dood, en de wereld draait onaangedaan
+door.
+
+**Waar het boek vandaan komt**
+
+Huxley schreef het in 1931 als antwoord op de toekomstromans van H.G. Wells,
+waarin techniek en wetenschap de mens gelukkig maken. Hij nam er de lopende
+band van Ford bij, de voorwaardelijke reflex van Pavlov en de opvoedkundige
+beloften van het gedragsonderzoek van zijn tijd, en verplaatste die naar hun
+eindpunt.
+
+In een voorwoord uit 1946 schreef hij dat hij zijn hoofdpersoon maar twee
+mogelijkheden had gegeven, waanzin of krankzinnigheid, en dat er een derde had
+moeten zijn: een gemeenschap waarin techniek de mens dient in plaats van
+andersom. In *Brave New World Revisited* (1958) hield hij zijn eigen boek
+tegen het licht en concludeerde dat de werkelijkheid sneller in zijn richting
+bewoog dan hij had verwacht.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Bokanovsky-proces | Het delen van één eicel tot tientallen gelijke embryo's; de lopende band toegepast op mensen. |
+| Slaaponderwijs | Duizenden herhalingen van korte zinnen tijdens de slaap, waardoor iemand het geleerde later voor zijn eigen oordeel houdt. |
+| Kasten van Alfa tot Epsilon | Vooraf toegewezen rangen, met een aangepaste behandeling in het embryostadium, zodat iedereen tevreden is met het werk dat hij krijgt. |
+| Soma | Het middel dat ongemak wegneemt zonder kater; het maakt onderdrukking overbodig omdat niemand meer iets te verdragen heeft. |
+| Iedereen is van iedereen | De opgelegde vrije omgang die binding onmogelijk maakt, want binding is de bron van verdriet en dus van instabiliteit. |
+| Voelfilm | Vermaak dat de zintuigen rechtstreeks bedient; in het slot het middel waarmee zelfs verzet in amusement verandert. |
+| Het reservaat | Het gebied waar het oude leven met ouderdom, ziekte en godsdienst is blijven bestaan, en waar John vandaan komt. |
+| Het recht om ongelukkig te zijn | Johns eis tegenover de Wereldbeheerder, met alles wat daaraan vastzit: angst, ziekte, mislukking en verlies. |
+| Het eiland | De bestemming voor wie afwijkt; geen straf maar verplaatsing, waarmee het stelsel zijn tegenstanders opruimt zonder geweld. |
+
+#### Wat er tegen in te brengen valt
+
+Als roman is het ongelijk. De personages zijn eerder standpunten dan mensen,
+Lenina blijft een schets, en het lange gesprek met Mond is een verhandeling in
+dialoogvorm. Wie een verhaal zoekt met mensen die veranderen, komt bedrogen
+uit; de kracht zit in het bouwwerk en in de consequentie waarmee het is
+doorgedacht.
+
+Inhoudelijk is de meest gehoorde tegenwerping dat John als tegenstem te zwak
+is: hij put zijn woorden uit Shakespeare en zijn verzet loopt uit op
+zelfkastijding, waardoor de vrijheid die hij bepleit vooral onaantrekkelijk
+oogt. Huxley erkende dat later zelf. Daarbij komt dat zijn eigen opvattingen
+over erfelijkheid en bevolking uit die jaren dicht bij de denkbeelden liggen
+die het boek lijkt te bestrijden, wat de satire dubbelzinniger maakt dan zij
+zich voordoet.
+
+#### Wat je hierna leest
+
+- 54. Amusing Ourselves to Death. Postman schreef dat niet Orwell maar Huxley
+gelijk kreeg, en werkte dat uit voor de televisie.
+- 53. The Anxious Generation. Haidt beschrijft hetzelfde mechanisme van
+vrijwillige verdoving in de telefoon van een kind.
+- 60. Trust Me, I'm Lying. Holiday laat zien wie er in de praktijk verdient
+aan het verlangen naar verstrooiing.
 
 ## 62. What Do You Care What Other People Think?
 
