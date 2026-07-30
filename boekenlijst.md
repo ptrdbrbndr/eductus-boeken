@@ -2791,6 +2791,172 @@ het onderscheid dat hij maakt blijft staan: naast 21, dat over gedrag met geld
 gaat, gaat dit over de vraag of iemand aan een uitkomst kan afleiden dat hij
 het goed deed.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Taleb betoogt dat mensen uitkomsten voor bewijs van kunde
+aanzien, terwijl er bij elke uitkomst een groot aantal andere
+afloopmogelijkheden bestond die niet zijn gebeurd. Wie alleen kijkt naar wat
+er wél gebeurde, ziet een handelaar die jaren verdiende als een kundig man,
+ook wanneer hij dezelfde inzet twintig keer had kunnen verliezen. Zijn punt is
+niet dat alles toeval is, maar dat de bewijskracht van een goede afloop veel
+kleiner is dan iedereen aanneemt, en dat de mensen die het langst overleven
+degenen zijn die dat verschil in de gaten houden.
+
+#### De gang van het boek
+
+**De handelsvloer als laboratorium**
+
+Taleb werkte als optiehandelaar en gebruikt dat vak als proefopstelling, omdat
+daar dagelijks geld wordt gezet op onzekere uitkomsten en de rekening snel
+komt. Hij zet twee typen naast elkaar. De een verdient jarenlang gestaag met
+posities die in normale omstandigheden altijd goed gaan, en verliest in één
+week alles wanneer de markt iets doet dat in zijn model niet voorkwam. De
+ander verliest kleine bedragen, jaar in jaar uit, en wacht op de zeldzame
+gebeurtenis waarin dat wordt terugverdiend.
+
+Beide zijn in de ogen van hun omgeving het omgekeerde van wat zij zijn. De
+eerste geldt als kundig tot het misgaat, de tweede als hopeloos tot het
+gebeurt. Dat verschil in waardering is het onderwerp van het hele boek.
+
+**Alternatieve geschiedenissen**
+
+Het begrip waarop alles rust noemt hij alternatieve geschiedenissen: de
+gebeurtenissen die net zo goed hadden kunnen plaatsvinden en die geen sporen
+achterlaten. Een tandarts die zijn praktijk opbouwt, komt in vrijwel elke
+denkbare loop van de wereld op een goed inkomen uit. Iemand die in één klap
+rijk werd, komt dat in een klein deel van die lopen; in de andere is hij
+failliet, en die versies verschijnen niet op televisie.
+
+Taleb rekent dat door met simulaties, waarbij hij duizenden mogelijke verlopen
+van dezelfde inzet naast elkaar legt. Zijn maat voor kwaliteit is niet de
+uitkomst maar de spreiding van uitkomsten die bij een beslissing hoorde, en
+dat is een maat die achteraf niemand meer kan zien.
+
+**Wat de winnaars verzwijgen**
+
+Uit dat inzicht volgt zijn behandeling van overlevingsvertekening. Zet
+tienduizend beleggers aan het werk die willekeurig kiezen, laat ze vijf jaar
+draaien, en er blijven er honderden over met vijf goede jaren op rij. Die
+worden geïnterviewd, schrijven boeken en verklaren hun succes met werklust en
+inzicht, terwijl de mislukkingen uit beeld zijn verdwenen.
+
+Hij trekt die redenering door naar biografieën van ondernemers, naar de
+rangschikking van beleggingsfondsen en naar de vraag waarom een reeks van vijf
+goede jaren zo weinig zegt. Wie het aantal deelnemers niet kent, kan de
+betekenis van een reeks niet beoordelen, en dat aantal wordt vrijwel nooit
+vermeld.
+
+**Het meten van ruis**
+
+Een van de nuttigste hoofdstukken gaat over de frequentie van kijken. Taleb
+rekent voor dat een portefeuille met een goed verwacht rendement, minuut na
+minuut bekeken, bijna evenveel dalingen als stijgingen laat zien, terwijl
+dezelfde portefeuille bij één blik per jaar vrijwel altijd winst toont. De
+cijfers zijn identiek; alleen de waarnemingsafstand verschilt.
+
+Omdat verlies zwaarder weegt dan winst van gelijke omvang, betaalt de vaak
+kijkende belegger emotioneel een prijs voor informatie die hem niets oplevert.
+Zijn advies is daarmee onverwacht praktisch: kijk minder vaak, want de meeste
+bewegingen zijn ruis en niet nieuws.
+
+**Zeldzame gebeurtenissen en scheve uitkomsten**
+
+De kern van zijn eigen handelswijze is de scheefheid van uitkomsten. Het gaat
+er niet om hoe vaak iemand gelijk heeft maar hoeveel er bij het gelijk hebben
+te verdienen valt tegenover wat het ongelijk kost. Een strategie die in
+negenennegentig van de honderd gevallen een klein bedrag oplevert en in het
+honderdste alles kost, is slecht, ook al ziet zij er negenennegentig keer goed
+uit.
+
+Daarbij hoort zijn kritiek op de gangbare risicomodellen, die zeldzame en
+grote uitslagen te licht wegen omdat zij op klokvormige verdelingen rusten.
+Dit boek bevat de kiem van wat hij later in *De zwarte zwaan* uitwerkte; hier
+staat het nog dichter bij de praktijk en met minder pretentie.
+
+**Waarom het hoofd hier niet tegen bestand is**
+
+Taleb behandelt de psychologische kant met het werk van Kahneman en Tversky:
+mensen zien patronen in ruis, hechten aan verhalen en vervangen de vraag hoe
+waarschijnlijk iets is door de vraag hoe goed het klinkt. Zijn eigen
+toevoeging is dat verstandelijk inzicht daar niets aan verandert. Hij weet hoe
+het werkt en trapt er zelf ook in, en beschermt zich daarom met regels en
+gewoontes in plaats van met wilskracht.
+
+Een terugkerend beeld is Wittgensteins liniaal: wie met een onbetrouwbare
+meetlat een tafel meet, meet net zo goed met de tafel de meetlat. Toegepast op
+mensen betekent het dat een oordeel over iemand vaak meer zegt over de
+beoordelaar dan over de beoordeelde.
+
+**De houding die overblijft**
+
+Het slot is niet technisch maar moreel. Als het meeste toeval is, blijft over
+hoe iemand zich gedraagt tegenover dat toeval: waardig verliezen, niet klagen,
+geen krediet nemen voor geluk. Taleb haalt daarvoor de klassieken aan, met het
+antwoord van Solon aan Croesus dat niemand gelukkig heet voordat zijn leven
+voorbij is.
+
+Dat maakt het boek uiteindelijk een stoïcijns werk in de vermomming van een
+boek over markten, en het verklaart waarom het buiten de financiële wereld
+zoveel lezers vond.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Alternatieve geschiedenissen | De verlopen die net zo goed hadden kunnen gebeuren en die geen sporen nalaten; de maat waarmee een besluit eigenlijk beoordeeld hoort te worden. |
+| Overlevingsvertekening | Alleen de overblijvers zijn zichtbaar, waardoor toevallige reeksen op kunde lijken. |
+| Ruis tegenover nieuws | Hoe vaker iemand kijkt, hoe groter het aandeel toevallige beweging in wat hij ziet; de informatie neemt niet toe, de onrust wel. |
+| Scheve uitkomsten | Niet hoe vaak iemand gelijk heeft telt, maar hoeveel het gelijk oplevert tegenover wat het ongelijk kost. |
+| Zeldzame gebeurtenis | De uitslag die in het model niet voorkomt en die de uitkomst van jaren bepaalt; door standaardmodellen stelselmatig te licht gewogen. |
+| Wittgensteins liniaal | Met een onbetrouwbare maatstaf meet je evengoed de maatstaf als het gemetene; een oordeel zegt vaak iets over de beoordelaar. |
+| Toeval tegenover vaardigheid | Het onderscheid dat achteraf onzichtbaar is, omdat beide dezelfde uitkomst kunnen opleveren. |
+| Waardigheid onder toeval | Zijn stoïcijnse slotsom: als de uitkomst niet in je macht ligt, is je gedrag eronder dat wel. |
+
+#### Waar het argument op rust
+
+Op eigen praktijk, op simulaties en op de psychologie van oordeelsvorming. De
+simulaties zijn overtuigend voor het punt dat zij illustreren en zijn geen
+bewijs over echte markten; de praktijkgevallen zijn door hemzelf gekozen en
+niet systematisch verzameld.
+
+Zijn sterkste argument is wiskundig en eenvoudig: als er genoeg deelnemers
+zijn, ontstaan lange reeksen successen door toeval alleen. Dat valt na te
+rekenen en het is voldoende om de meeste succesverhalen van hun bewijskracht
+te ontdoen.
+
+#### Wat er tegen in te brengen valt
+
+De toon is hooghartig en de uitweidingen zijn talrijk; wie de kern zoekt,
+leest een boek dat zichzelf meermaals onderbreekt om af te rekenen met
+genoemde en ongenoemde tegenstanders. Later werk van hem herhaalt deze inhoud
+met meer pretentie en minder scherpte.
+
+Inhoudelijk is de belangrijkste tegenwerping dat zijn redenering moeilijk te
+weerleggen valt: elk succes kan aan geluk worden toegeschreven en elke
+mislukking aan pech, en Taleb geeft weinig houvast om te bepalen wanneer een
+reeks wél iets betekent. Praktisch advies ontbreekt bijna geheel, afgezien van
+minder vaak kijken en letten op de vorm van de uitkomsten.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel een besluit op wat er bekend was en op de spreiding die erbij
+hoorde, niet op de afloop.
+- Vraag bij elk succesverhaal hoeveel mensen met dezelfde aanpak begonnen en
+waar die zijn gebleven.
+- Kijk minder vaak naar uitkomsten die van nature schommelen; de tussenstanden
+zijn grotendeels ruis.
+- Let op de vorm van de uitkomst: hoe groot is de zeldzame afloop die alles
+ongedaan maakt.
+
+#### Wat je hierna leest
+
+- 21. The Psychology of Money. Housel neemt dezelfde nuchterheid over toeval
+en geld mee naar het gedrag van gewone spaarders.
+- 55. Thinking, Fast and Slow. Kahneman levert het onderzoek onder de
+psychologische hoofdstukken van dit boek.
+- 93. Toeval. Hopster behandelt toeval als filosofisch vraagstuk, met dezelfde
+kern en andere inzet.
+
 ## 65. Economic Facts and Fallacies
 
 Thomas Sowell, 2008. Basic Books (2008, ISBN 9780465003495); tweede editie
@@ -2816,6 +2982,155 @@ Huurbeheersing verlaagt de huur voor wie al binnen is en verlaagt tegelijk het
 aantal woningen dat wordt gebouwd. Wie het boek naast 68 legt ziet dezelfde
 methode op een ander onderwerp toegepast, en wie er niets van gelooft heeft in
 elk geval een lijst controleerbare beweringen om mee te beginnen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sowell betoogt dat het meeste wat er over economie en
+samenleving wordt beweerd niet fout is doordat de cijfers ontbreken, maar
+doordat er een aannemelijk verhaal omheen is gebouwd dat de cijfers niet
+toetst. Beleid wordt beoordeeld op bedoelingen en niet op uitkomsten,
+categorieën in statistiek worden voor groepen mensen aangezien, en de gevolgen
+die verder liggen dan de eerste stap worden zelden nagelopen. Zijn werkwijze
+is telkens dezelfde: neem een breed gedeelde overtuiging, houd er de
+beschikbare gegevens naast, en kijk wat er overblijft.
+
+#### De gang van het boek
+
+**Vier soorten drogredenen**
+
+Het openingshoofdstuk zet het gereedschap klaar. De nulsomdrogreden gaat ervan
+uit dat de winst van de een het verlies van de ander is, terwijl vrijwillige
+ruil beide partijen vooruit kan helpen. De samenstellingsdrogreden trekt uit
+wat voor één persoon geldt een conclusie voor iedereen: wie gaat staan in een
+stadion ziet meer, maar niet als iedereen opstaat.
+
+De schaakstukkendrogreden behandelt mensen als stukken die blijven staan waar
+het beleid ze zet, terwijl zij reageren, verhuizen en uitwijken. De
+open-eindedrogreden gebruikt woorden als betaalbaar, voldoende en eerlijk
+zonder grens, waardoor er geen punt bestaat waarop het doel is bereikt en de
+uitgaven kunnen blijven groeien.
+
+**Steden en huisvesting**
+
+Het eerste inhoudelijke hoofdstuk gaat over de stad. Huurbeheersing verlaagt
+de huur voor wie al binnen zit en verlaagt tegelijk het aanbod, doordat
+verhuren minder oplevert dan verkopen of leeg laten; het gevolg is schaarste,
+langere wachttijden en achterstallig onderhoud, en de winst valt toe aan de
+zittende huurder en niet aan de nieuwkomer.
+
+Bij regels die bouwen beperken laat hij zien dat de bedoeling, het beschermen
+van open ruimte, samengaat met een uitkomst waarbij de prijzen stijgen en
+juist mensen met een kleinere beurs de stad uit worden geprijsd. Zijn algemene
+punt is dat een maatregel altijd twee groepen kent, waarvan er één zichtbaar
+is en de andere bestaat uit mensen die er niet meer zijn.
+
+**Mannen en vrouwen**
+
+Het hoofdstuk over inkomensverschillen tussen mannen en vrouwen is het meest
+aangehaald en het meest omstreden. Sowell voert aan dat een groot deel van het
+ruwe verschil verdwijnt zodra beroep, gewerkte uren, ononderbroken
+loopbaanjaren en opleidingsrichting worden meegerekend, en wijst op de
+vergelijking tussen mensen die nooit trouwden of kinderen kregen, waar het
+verschil klein is.
+
+Hij besteedt aandacht aan de historische ontwikkeling en aan het effect van
+kinderen op loopbanen. Wat hij niet behandelt is het onderzoek waarin gelijke
+sollicitatiebrieven met verschillende namen ongelijk worden beoordeeld; die
+tak van bewijs blijft buiten beeld, en dat is een gat dat critici terecht
+aanwijzen.
+
+**Inkomens en de val van de statistiek**
+
+Het scherpste hoofdstuk gaat over inkomensverschillen. Sowell laat zien dat de
+gebruikelijke cijfers over de onderste en bovenste twintig procent niet over
+mensen gaan maar over posities: dezelfde persoon zit op zijn drieëntwintigste
+onderin en op zijn vijftigste bovenin. Onderzoek dat individuen door de tijd
+volgt laat een veel grotere beweging zien dan de momentopnamen suggereren.
+
+Daar komt bij dat huishoudens verschillen in omvang en in het aantal
+werkenden, waardoor vergelijkingen tussen huishoudens iets anders meten dan
+zij lijken te meten. Zijn conclusie is niet dat verschillen niet bestaan, maar
+dat de gangbare cijfers een andere vraag beantwoorden dan de vraag die gesteld
+wordt.
+
+**Onderwijs en de rest**
+
+Over universiteiten schrijft hij dat kosten stijgen doordat er nauwelijks
+prikkels zijn om ze te beheersen, en dat instellingen zich richten op
+onderzoek en aanzien terwijl zij zich op onderwijs laten voorstaan. Bij
+verschillen tussen bevolkingsgroepen betoogt hij dat historische
+omstandigheden, gezinsvorming en scholing verklaringen leveren waar herkomst
+dat niet doet.
+
+Terugkerend is zijn behandeling van het minimumloon, waarvan hij stelt dat het
+de kans op werk verkleint voor wie het minst productief is, doorgaans jongeren
+zonder ervaring. Dat is precies het punt waarop de economische literatuur
+sinds de jaren negentig verdeeld is; hij presenteert het als vaststaand.
+
+Het slot van het boek keert terug naar de methode. Sowell stelt dat de meeste
+beleidsdiscussies gaan over de vraag wie goede bedoelingen heeft, terwijl de
+enige bruikbare vraag is welke uitkomst een maatregel oplevert en bij wie. Wie
+die vraag stelt merkt dat er per onderwerp een handvol controleerbare cijfers
+bestaat en dat die in het publieke gesprek zelden voorkomen, wat volgens hem
+geen toeval is: cijfers maken het onmogelijk om een positie vol te houden op
+gevoel alleen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Nulsomdrogreden | De aanname dat de winst van de een het verlies van de ander is, terwijl ruil beide partijen vooruit kan helpen. |
+| Samenstellingsdrogreden | Wat voor één persoon opgaat hoeft voor allen samen niet op te gaan; opstaan in een stadion helpt alleen als je de enige bent. |
+| Schaakstukkendrogreden | Beleid dat mensen behandelt alsof zij blijven staan waar zij worden gezet, terwijl zij uitwijken en aanpassen. |
+| Open-eindedrogreden | Doelen als betaalbaar of voldoende zonder grens, zodat er nooit een moment is waarop het doel is bereikt. |
+| Inkomensklasse tegenover persoon | Statistische groepen zijn posities waar mensen doorheen bewegen, en niet vaste groepen mensen. |
+| Weggelaten voorwaarde | Een verschil dat grotendeels verdwijnt zodra beroep, uren en loopbaanonderbreking worden meegerekend. |
+| Gevolg van de tweede orde | Wat er gebeurt nadat mensen zich op de maatregel hebben aangepast; volgens hem de stap die meestal wordt overgeslagen. |
+| Zichtbare en onzichtbare groep | Elke maatregel kent begunstigden die te zien zijn en benadeelden die er niet meer zijn en dus niet meetellen. |
+
+#### Waar het argument op rust
+
+Op openbare statistiek, met volkstellingen, belastinggegevens en historische
+reeksen, en op economische literatuur. De rekenvoorbeelden zijn na te lopen en
+dat is de kracht van het boek: het levert controleerbare beweringen in plaats
+van meningen.
+
+De keuze van bronnen is wel eenzijdig. Waar de literatuur verdeeld is, zoals
+bij het minimumloon en bij discriminatie op de arbeidsmarkt, presenteert hij
+één kant als de stand van zaken. Het is een pleitnota met cijfers en geen
+overzicht van het vakgebied.
+
+#### Wat er tegen in te brengen valt
+
+Sowell schrijft polemisch en laat weinig ruimte voor de mogelijkheid dat hij
+ernaast zit. Tegenbewijs komt vooral in de vorm van een tegenstander die hij
+zelf opvoert, en dat maakt het boek overtuigender dan het zou zijn met de
+sterkste tegenargumenten erbij.
+
+Inhoudelijk is de grootste omissie het veldonderzoek naar discriminatie,
+waarin identieke sollicitaties met verschillende namen ongelijk worden
+behandeld. Dat raakt de kern van zijn hoofdstukken over sekse en herkomst en
+wordt niet besproken. Wie het boek leest doet er goed aan de bronnen bij de
+omstreden punten zelf op te zoeken, wat mogelijk is doordat hij ze noemt.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een cijfer of het over mensen gaat of over posities waar mensen
+doorheen bewegen.
+- Zoek bij een loon- of prijsvergelijking naar de voorwaarden die zijn
+weggelaten.
+- Loop bij een maatregel de tweede stap na: hoe passen mensen zich aan, en wie
+verdwijnt daardoor uit beeld.
+- Let op doelen zonder grens; zij maken beoordeling achteraf onmogelijk.
+
+#### Wat je hierna leest
+
+- 68. Black Rednecks and White Liberals. Dezelfde werkwijze toegepast op
+geschiedenis en cultuur in plaats van op cijfers.
+- 59. The Art of Thinking Clearly. Dobelli levert de denkfouten die Sowell
+hier in beleid en statistiek terugvindt.
+- 64. Fooled by Randomness. Taleb stelt dezelfde vraag over uitkomsten:
+bewijst de afloop wat men denkt dat zij bewijst.
 
 ## 66. The Folly of Fools
 
@@ -2844,6 +3159,161 @@ zich tegen manipulatie door anderen wil wapenen, komt uiteindelijk bij de
 leugens uit die zijn eigen positie, groep en zelfbeeld beschermen, en daar is
 geen buitenstaander die hem waarschuwt.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Trivers keert de gebruikelijke verklaring van zelfbedrog om.
+Zelfbedrog is bij hem geen fout in het denken maar een voorziening die door
+natuurlijke selectie is behouden, omdat wie zijn eigen onwaarheid gelooft zich
+niet verraadt met stem, blik of aarzeling en anderen dus overtuigender
+misleidt. Daarmee is de leugen die het meest oplevert de leugen die de
+leugenaar zelf niet meer als leugen ziet. De gevolgen daarvan reiken van het
+geheugen van een enkel mens tot de geschiedschrijving van hele landen, en de
+prijs ervan wordt betaald in slechte beslissingen.
+
+#### De gang van het boek
+
+**Bedrog als biologisch gegeven**
+
+Trivers begint bij het bedrog in de natuur, waar het overal voorkomt: vlinders
+met ogen op hun vleugels, vogels die een gebroken vleugel voorwenden, planten
+die insecten met een schijnbeloning lokken. Waar bedrog bestaat, ontstaat druk
+op het doorzien ervan, en daaruit volgt een wedloop tussen misleiden en
+betrappen.
+
+Zijn eigen wetenschappelijke werk ligt aan de basis van dit veld; hij
+formuleerde in de jaren zeventig de theorie van wederkerig altruïsme, waarin
+hulp tussen niet-verwante dieren loont zolang er over en weer wordt
+teruggegeven en bedriegers worden herkend. Dit boek is de late uitwerking van
+de vraag die daaruit volgt: wat doet die wedloop met de bedrieger zelf.
+
+**De omkering**
+
+Mensen zijn slechte leugenaars omdat liegen inspanning kost: het vraagt het
+onderdrukken van de waarheid, het bewaken van het verhaal en het beheersen van
+zenuwen, en dat lekt in stem, gezicht en houding. De oplossing die de evolutie
+volgens Trivers vond is radicaal: verberg de waarheid ook voor jezelf, dan
+hoeft er niets meer onderdrukt te worden.
+
+Daarmee wordt zelfbedrog een middel in dienst van het bedriegen van anderen,
+en dat is de stelling waar het hele boek op rust. Het verklaart waarom mensen
+niet zomaar wat verkeerd inschatten, maar juist stelselmatig in hun eigen
+voordeel.
+
+Trivers voegt er een economische redenering aan toe. Betrapt worden op bedrog
+kost in een groep die elkaar kent veel: verlies van hulp, van bondgenoten en
+van partners. Hoe hoger die prijs, hoe groter de druk om overtuigend te zijn,
+en hoe groter dus de opbrengst van een leugen die van binnenuit als waarheid
+voelt. Dat verklaart waarom zelfbedrog juist in soorten met veel samenwerking
+te verwachten valt, en niet bij dieren die elkaar zelden terugzien.
+
+**De vormen waarin het optreedt**
+
+Trivers loopt de mechanismen langs. Het geheugen herschrijft de eigen rol
+gunstig, zodat iemand zich zijn aandeel in een ruzie anders herinnert dan de
+ander. Succes wordt aan eigen verdienste toegeschreven en verlies aan
+omstandigheden. Informatie die niet uitkomt wordt niet opgemerkt, of wel
+opgemerkt en niet opgeslagen.
+
+Hij haalt daarvoor onderzoek aan waarin vrijwel iedereen zichzelf boven het
+gemiddelde plaatst, ook op eigenschappen waarop dat rekenkundig onmogelijk is
+voor de meerderheid. Het aardige van zijn behandeling is dat hij die
+uitkomsten niet als grappige eigenaardigheid opvoert maar als voorspelbaar
+gevolg van zijn theorie.
+
+**De prijs in ongelukken**
+
+Waar het boek het scherpst wordt is in de hoofdstukken over vliegrampen en de
+ruimtevaart. Trivers analyseert ongelukken waarin een bemanning of een
+organisatie informatie negeerde die niet uitkwam, en behandelt daarbij de ramp
+met de Challenger, waar de leiding een faalkans hanteerde die duizend keer
+gunstiger was dan het cijfer van haar eigen technici.
+
+Zijn punt is dat zulke fouten geen domheid zijn maar een groepsvorm van
+zelfbedrog: iedereen weet iets en niemand zegt het, omdat het verhaal waarin
+men samen leeft geen ruimte laat. Voor deze lijst is dat de rechtstreekse
+verbinding met 62, waar dezelfde ramp door een deelnemer van binnenuit wordt
+beschreven.
+
+**Van gezin tot geschiedenis**
+
+Hij breidt het uit naar families, waar ouders en kinderen deels tegenstrijdige
+belangen hebben en waar zelfbedrog het onderhandelen vergemakkelijkt, en naar
+de wetenschap, waar onderzoekers hun eigen uitkomsten selecteren zonder dat
+zij dat als bedrog ervaren.
+
+Het meest omstreden deel gaat over landen die hun eigen oorlogen navertellen.
+Trivers behandelt de Amerikaanse geschiedschrijving en de omgang van Israël
+met de Palestijnen als voorbeelden van verhalen die niet worden gecorrigeerd
+omdat zij een groep bijeenhouden. Hij spreekt daar met stelligheid en met
+minder afstand dan in de rest van het boek.
+
+Een apart hoofdstuk gaat over de wetenschap zelf, en dat is het onaangenaamste
+van het boek voor de lezer die denkt aan de goede kant te staan. Onderzoekers
+kiezen hun analyses zo dat de uitkomst uitvalt zoals verwacht, herinneren zich
+hun voorspellingen achteraf anders, en publiceren wat werkt en niet wat niets
+opleverde. Trivers behandelt dat niet als fraude maar als hetzelfde mechanisme
+in beroepskleding, en de replicatiecrisis die na het verschijnen van dit boek
+losbarstte heeft hem op dat punt gelijk gegeven.
+
+**Wat er tegenover staat**
+
+Een tegengif in de zin van een methode geeft hij niet. Wat hij aanraadt is het
+opschrijven van de eigen versie van gebeurtenissen op het moment zelf, zodat
+de latere herinnering te controleren valt, en het zoeken van mensen die er
+belang bij hebben iemand tegen te spreken.
+
+Zijn eerlijkste passages gaan over zichzelf: hij beschrijft eigen ruzies,
+eigen wetenschappelijke conflicten en de manier waarop hij zijn eigen aandeel
+steeds gunstiger vertelde. Dat maakt het boek geloofwaardiger dan een betoog
+dat alleen over anderen gaat.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zelfbedrog als voorziening | Niet een fout maar een aanpassing: wie zijn eigen leugen gelooft, verraadt zich niet en overtuigt beter. |
+| Wederkerig altruïsme | Trivers' eigen theorie uit 1971: hulp tussen niet-verwanten loont zolang er wordt teruggegeven en bedriegers worden herkend. |
+| Wedloop van misleiden en betrappen | Waar bedrog bestaat, ontstaat druk om het te doorzien, en daaruit volgt steeds verfijnder bedrog. |
+| Zelfvergroting | De stelselmatige neiging het eigen aandeel in succes te overschatten en in mislukking te onderschatten. |
+| Selectief geheugen | De eigen rol wordt bij het opslaan al gunstig bijgesteld, zodat er later niets meer te corrigeren valt. |
+| Groepszelfbedrog | Een organisatie die informatie negeert die niet in haar verhaal past; volgens hem de oorzaak achter een reeks vermijdbare rampen. |
+| Geschiedenis als groepsverhaal | Landen vertellen hun verleden zo dat de eigen groep intact blijft, en corrigeren dat niet omdat de correctie iets kost. |
+| Immunologische prijs | Zijn omstreden claim dat aanhoudend zelfbedrog en het verzwijgen van pijnlijke ervaringen ook lichamelijk hun tol eisen. |
+
+#### Waar het argument op rust
+
+Ongelijk verdeeld. De evolutionaire kern rust op zijn eigen werk en op
+algemeen aanvaarde theorie; die is stevig. De psychologische hoofdstukken
+leunen op experimenteel onderzoek uit de jaren tachtig en negentig, waarvan
+een deel bij herhaling minder goed standhield.
+
+De hoofdstukken over gezondheid, over de gevolgen van het onderdrukken van
+pijnlijke ervaringen voor het afweersysteem, zijn het zwakst onderbouwd, en de
+politieke hoofdstukken zijn betoog en geen onderzoek. Trivers geeft dat op
+meerdere plaatsen zelf toe, wat hem siert en het bezwaar niet wegneemt.
+
+#### Wat er tegen in te brengen valt
+
+De theorie loopt het gevaar alles te kunnen verklaren. Wie zich vergist
+bedriegt zichzelf, wie het goed ziet ook, en er wordt weinig aangegeven welke
+waarneming de stelling zou weerleggen. Dat is precies de eis die 63 aan een
+bewering stelt.
+
+Verder is het boek ongelijk van kwaliteit en van toon; de politieke
+hoofdstukken lezen als de opvattingen van de schrijver met evolutionaire
+opsmuk, en zijn stelligheid daar past slecht bij de voorzichtigheid elders.
+Wie de kern wil, leest de eerste helft.
+
+#### Wat je hierna leest
+
+- 62. What Do You Care What Other People Think?. Feynman beschrijft dezelfde
+ramp van binnenuit; samen laten de twee boeken zien hoe een organisatie
+zichzelf voorliegt.
+- 28. Think Again. Grant behandelt hetzelfde probleem vanaf de praktische
+kant: hoe je jezelf leert herzien.
+- 59. The Art of Thinking Clearly. Dobelli inventariseert de denkfouten die
+Trivers hier van een verklaring voorziet.
+
 ## 67. Suicidal Empathy
 
 Gad Saad, 2026. Ondertitel *Dying to Be Kind*, bij Broadside Books op 12 mei
@@ -2871,6 +3341,145 @@ omdat het één onderscheid haarscherp stelt: het verschil tussen goeddoen dat
 helpt en goeddoen dat vooral goed aanvoelt. Wie de tegenkant wil, leest 44
 over kwetsbaarheid en 35 over geweldloze communicatie.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Saad betoogt dat medeleven een gevoel is en geen oordeel, dat
+het reageert op wat dichtbij en zichtbaar is, en dat een samenleving die haar
+beleid op dat gevoel bouwt voorspelbaar uitkomt bij besluiten die de mensen
+schaden die zij wilde beschermen. Empathie die geen grens en geen rekening
+kent, noemt hij zelfmoordend: zij verlamt het vermogen om onderscheid te maken
+tussen wie hulp nodig heeft en wie er misbruik van maakt. Zijn eis is niet
+minder medeleven maar medeleven onder toezicht van oordeel, feiten en
+gevolgen.
+
+#### De gang van het boek
+
+**Waar het vandaan komt**
+
+Saad is hoogleraar marketing met een achtergrond in de evolutionaire
+psychologie, en dit boek bouwt voort op zijn eerdere werk over wat hij
+besmettelijke ideeën noemt: denkbeelden die zich als een ziekteverwekker
+verspreiden, niet omdat zij waar zijn maar omdat zij aantrekkelijk zijn om te
+dragen.
+
+Zijn eigen achtergrond speelt in het boek een grote rol. Hij groeide op als
+Jood in Libanon, ontvluchtte de burgeroorlog met zijn ouders en kwam in Canada
+terecht, en hij voert die geschiedenis geregeld aan als reden waarom hij het
+uiteenvallen van een samenleving niet als theoretische mogelijkheid ziet.
+
+**Waarom empathie een slechte kompasnaald is**
+
+De psychologische kern van zijn betoog is dat medeleven zich richt op het
+gezicht dat in beeld is. Eén kind in nood beweegt meer dan cijfers over
+duizenden, en wie zichtbaar lijdt weegt zwaarder dan wie onzichtbaar de
+rekening betaalt. Dat maakt empathie een slechte gids voor besluiten die grote
+aantallen mensen raken.
+
+Daar komt bij dat empathie zich laat opwekken. Wie weet welk beeld welke
+reactie oproept, kan daarmee sturen, en dat maakt van een deugd een
+aangrijpingspunt. Op dit punt raakt het boek aan 60, dat beschrijft hoe
+verontwaardiging beroepsmatig wordt georganiseerd.
+
+**De voorbeelden**
+
+Saad haalt zijn gevallen uit migratie en asiel, uit veiligheidsbeleid, uit de
+omgang met criminaliteit en uit het universitaire bedrijf, waar hij zelf
+werkt. Telkens is de opbouw dezelfde: een maatregel die uit mededogen is
+genomen, een gevolg dat niet was voorzien, en een gesprek waarin dat gevolg
+niet mag worden benoemd omdat het benoemen zelf als harteloos geldt.
+
+Dat laatste is de scherpste observatie van het boek: hij beschrijft hoe de
+bereidheid om over gevolgen te praten wordt afgestraft, waardoor de weg naar
+bijstelling wordt afgesloten. Ongeacht wat iemand van zijn voorbeelden vindt,
+is dat mechanisme herkenbaar en het is los van zijn politieke conclusies te
+beoordelen.
+
+Een terugkerend patroon in zijn gevallen is de verplaatsing van de rekening.
+De kosten van een besluit uit mededogen komen zelden terecht bij wie het
+besluit neemt, en vaak bij mensen die er geen stem in hadden: bewoners van een
+wijk, personeel in de uitvoering, of een volgende lichting studenten. Saad
+gebruikt dat om te betogen dat welwillendheid goedkoop is voor wie haar
+uitspreekt en duur voor wie haar ondergaat, en dat is de scherpste variant van
+zijn stelling.
+
+**Wat hij ertegenover zet**
+
+Zijn alternatief noemt hij verstandig mededogen: hulp die begint bij de vraag
+wat werkelijk helpt, die grenzen aanvaardt en die de gevolgen op langere
+termijn meeweegt. Hij bepleit daarnaast het herstel van het vrije gesprek, met
+de mogelijkheid ongelijk te krijgen, als voorwaarde voor beleid dat bijgesteld
+kan worden.
+
+Die twee punten zijn breder gedeeld dan de rest van het boek doet vermoeden;
+ze staan dicht bij het onderscheid tussen medeleven en oordeel dat ook in de
+klassieke deugdenleer is te vinden.
+
+Hij staat daarmee niet alleen. Psycholoog Paul Bloom betoogde in *Against
+Empathy* (2016) langs andere weg hetzelfde onderscheid: empathie is het
+meevoelen met een individu en verdraagt geen aantallen, terwijl mededogen de
+wens is dat het iemand goed gaat en wel met oordeel te verbinden valt. Wie de
+stelling van dit boek wil beoordelen zonder de politieke lading, leest dat
+boek ernaast; het levert dezelfde kern met een rustiger toon en met onderzoek
+erbij.
+
+**De toon**
+
+Het is een strijdschrift en het leest ook zo. De tegenstander wordt zelden op
+zijn best weergegeven, de voorbeelden zijn gekozen om het betoog te dragen, en
+de schrijver treedt geregeld in de rol van iemand die de waarheid zegt die
+anderen niet durven.
+
+Dat maakt het boek minder bruikbaar als onderzoek en niet minder de moeite
+waard om te lezen naast wat het bestrijdt. Wie het leest met de vraag welke
+uitkomst zijn stelling zou weerleggen, houdt er meer aan over dan wie het
+leest ter bevestiging.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zelfmoordende empathie | Medeleven zonder grens en zonder rekening, dat de eigen samenleving schaadt en de bedoelde begunstigden zelden helpt. |
+| Verstandig mededogen | Zijn tegenvoorstel: hulp die begint bij de vraag wat werkelijk helpt en die gevolgen op termijn meeweegt. |
+| Besmettelijke ideeën | Denkbeelden die zich verspreiden op aantrekkelijkheid en niet op waarheid; het begrip uit zijn eerdere werk. |
+| Het zichtbare slachtoffer | Empathie richt zich op wie in beeld is, waardoor wie onzichtbaar de prijs betaalt niet meetelt. |
+| Opwekbaarheid van medeleven | Wie weet welk beeld welke reactie oproept, kan het gevoel sturen; daarmee wordt een deugd een aangrijpingspunt. |
+| Het onbespreekbare gevolg | De situatie waarin het benoemen van een ongewenst gevolg als harteloos geldt, zodat bijstellen onmogelijk wordt. |
+| Grens als voorwaarde | Zijn stelling dat hulp zonder afbakening ophoudt hulp te zijn, omdat zij niet meer te richten valt. |
+
+#### Waar het argument op rust
+
+Op gekozen gevallen, op nieuwsberichten en op eigen ervaring, met verwijzingen
+naar evolutionaire psychologie voor de algemene stelling over empathie. Het is
+een betoog en geen onderzoek; er wordt geen poging gedaan om de omvang van de
+beschreven verschijnselen te meten.
+
+De psychologische kern, dat medeleven zich op het zichtbare en nabije richt,
+staat op zichzelf stevig en is ook door anderen beschreven, onder wie Paul
+Bloom in *Against Empathy*. De sprong van dat gegeven naar zijn politieke
+gevolgtrekkingen is de plek waar het boek betwistbaar wordt.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar is de eenzijdige bewijsvoering: gevallen worden gekozen
+omdat zij passen, en tegenwerpingen worden meestal in hun zwakste vorm
+weergegeven. Wie de stelling wil toetsen heeft aan dit boek de vraag maar niet
+het materiaal.
+
+Verder loopt het risico op de omgekeerde fout van wat hij bestrijdt. Zoals
+medeleven zonder oordeel tot slechte besluiten leidt, leidt oordeel dat het
+lijden van anderen niet meer voelt tot een ander soort slechte besluiten; die
+kant blijft onderbelicht. Het boek is drie maanden oud, dus een gewogen
+ontvangst is er nog niet.
+
+#### Wat je hierna leest
+
+- 44. Daring Greatly. Brown zet er de tegenkant naast: kwetsbaarheid en
+meevoelen als voorwaarde voor verbinding.
+- 65. Economic Facts and Fallacies. Sowell hanteert dezelfde eis, namelijk
+beleid beoordelen op uitkomsten en niet op bedoelingen.
+- 60. Trust Me, I'm Lying. Holiday beschrijft hoe het opwekken van gevoel
+beroepsmatig wordt georganiseerd.
+
 ## 68. Black Rednecks and White Liberals
 
 Thomas Sowell, 2005. Encounter Books (New York, 2005, 372 blz.), een bundel
@@ -2896,6 +3505,152 @@ middelbare school in Washington die decennialang uitzonderlijke resultaten
 haalde is het interessantste van de bundel, omdat het niet in een van de
 gangbare verklaringen past. De methode is wat blijft hangen: de vraag stellen
 welke uitkomst een verklaring voorspelt, en nakijken of die uitkomst er is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sowell betoogt dat verschillen tussen groepen zich beter
+laten verklaren uit geschiedenis, gewoonte en prikkels dan uit huidskleur of
+uit hedendaagse discriminatie. Zijn werkwijze is telkens dezelfde: neem een
+verschijnsel dat als typisch voor één groep geldt, zoek het terug in de tijd,
+en kijk of het bij andere groepen in vergelijkbare omstandigheden ook
+voorkwam. Het titelessay past dat toe op een cultuur die volgens hem van arme
+blanke zuiderlingen op zwarte Amerikanen is overgegaan en bij beide groepen
+langs dezelfde weg verdween.
+
+#### De zes essays
+
+**Het titelessay**
+
+Sowell betoogt dat gedragingen die als typisch zwart Amerikaans gelden, hun
+oorsprong hebben in de cultuur van de arme blanke bevolking van het
+Amerikaanse zuiden, die op haar beurt terugging op de grensgebieden van
+Groot-Brittannië: eergevoeligheid, wantrouwen tegen scholing, spilzucht, een
+uitbundige geloofsbeleving en een hoge bereidheid tot geweld. Hij leunt
+daarvoor op historisch werk over die streken, onder meer van Grady McWhiney en
+David Hackett Fischer.
+
+Zijn tweede stap is de overdracht: zwarte Amerikanen leefden in het zuiden
+temidden van die bevolking en namen de leefwijze over. Zijn derde stap is de
+vergelijking in de tijd: bij de blanke zuiderlingen verdween die cultuur
+naarmate zij zich verplaatsten en scholing kregen, en bij een deel van de
+zwarte bevolking gebeurde hetzelfde, terwijl zij elders bleef bestaan. Daaruit
+volgt volgens hem dat huidskleur de verkeerde verklaring is.
+
+**Middenstandsminderheden**
+
+Een tweede essay behandelt groepen die overal ter wereld dezelfde economische
+rol vervullen: handel, kredietverlening en tussenhandel, in gemeenschappen
+waar zij een minderheid zijn. Joden in Europa, Chinezen in Zuidoost-Azië,
+Libanezen in West-Afrika, Armeniërs in het Ottomaanse rijk en Indiërs in
+Oost-Afrika.
+
+Het patroon dat hij aanwijst is dat zulke groepen welvarender worden dan hun
+omgeving, daarvoor gehaat worden, en in tijden van onrust als eerste worden
+aangevallen of verdreven. Zijn punt is dat die vijandigheid niet uit de
+eigenschappen van één groep is te verklaren maar uit de rol die zij vervult.
+
+**De echte geschiedenis van de slavernij**
+
+Het langste essay stelt dat slavernij geen westers verschijnsel is maar een
+wereldwijd en eeuwenoud gegeven, met slavenhandel binnen Afrika, in de
+Arabische wereld en in Azië, en met Europese slaven die door Noord-Afrikaanse
+kapers werden meegevoerd.
+
+Zijn eigenlijke vraag is niet waarom slavernij bestond maar waarom zij is
+afgeschaft, en zijn antwoord is dat de afschaffing als beweging in het Westen
+ontstond en van daaruit met dwang elders is opgelegd. Dat is historisch
+verdedigbaar en het wordt door hem gebruikt op een manier die verder gaat dan
+de vaststelling, namelijk als tegenwicht tegen hedendaagse verwijten.
+
+**Duitsers en de val van het groepsoordeel**
+
+Een kort essay over Duitsers en hun geschiedenis dient om te laten zien hoe
+een heel volk een karakter krijgt toegeschreven dat bij nader inzien niet
+standhoudt: Duitse gemeenschappen elders, waaronder in de Verenigde Staten,
+gedroegen zich anders dan het beeld van de eigen tijd voorschreef.
+
+Het essay staat er als methodische waarschuwing tussen: wat als volksaard
+geldt, blijkt bij vergelijking over plaats en tijd vaak omstandigheid te zijn.
+
+**Zwart onderwijs**
+
+Het interessantste essay gaat over Dunbar High School in Washington, een
+school voor zwarte leerlingen die tussen ongeveer 1870 en 1955 uitkomsten
+haalde die boven het landelijke gemiddelde lagen, in een tijd van wettelijke
+rassenscheiding en met beperkte middelen.
+
+Sowell gebruikt dat geval als tegenvoorbeeld tegen verklaringen die
+uitsluitend op geld of op discriminatie steunen, en wijst op strenge selectie,
+ervaren docenten en hoge verwachtingen. Het is één school en dat maakt het een
+aanwijzing en geen bewijs; hij weegt dat lichter dan verstandig is.
+
+Hij zet er nog een reeks gevallen naast van scholen en gemeenschappen die het
+onder ongunstige omstandigheden goed deden, en trekt daaruit dezelfde les:
+waar uitkomsten sterk verschillen binnen een groep die dezelfde behandeling
+kreeg, kan die behandeling niet de volledige verklaring zijn. Dat argument is
+logisch geldig en zegt minder dan hij eruit haalt, want het sluit niet uit dat
+discriminatie de uitkomsten van de hele groep verlaagt terwijl er binnen die
+groep verschillen blijven bestaan.
+
+**Geschiedenis tegenover visie**
+
+Het slotessay vat de werkwijze samen. Sowell stelt een visie, een samenhangend
+beeld van hoe de wereld in elkaar zit, tegenover geschiedenis, het narekenen
+van wat er werkelijk gebeurde, en betoogt dat de eerste in het publieke debat
+vrijwel altijd wint omdat zij bevredigender is.
+
+Daarmee sluit de bundel aan bij zijn andere werk: niet een politiek programma
+maar een eis aan verklaringen, namelijk dat zij voorspellen wat er te zien zou
+moeten zijn en dat dat wordt nagekeken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Crackercultuur | De leefwijze van arme blanke zuiderlingen, teruggevoerd op de Britse grensgebieden, met eergevoeligheid, wantrouwen tegen scholing en geweldsbereidheid. |
+| Culturele overdracht | Zijn stelling dat gedragingen van de ene groep op de andere overgingen door samenleven, en niet uit afkomst voortkwamen. |
+| Middenstandsminderheid | Een minderheid die handel en krediet verzorgt, daardoor welvarender wordt dan haar omgeving en daarom bij onrust als eerste doelwit is. |
+| Afschaffing als uitzondering | Zijn omkering van de vraag: niet waarom slavernij bestond, maar waarom zij als eerste in het Westen werd afgeschaft. |
+| Dunbar High School | De zwarte school in Washington die decennialang bovengemiddelde uitkomsten haalde onder rassenscheiding; zijn belangrijkste tegenvoorbeeld. |
+| Visie tegenover geschiedenis | Een samenhangend wereldbeeld tegenover het narekenen van wat er gebeurde; het eerste wint volgens hem het debat, het tweede de toets. |
+| Vergelijking over plaats en tijd | Zijn voornaamste methode: kijken of hetzelfde verschijnsel bij andere groepen in vergelijkbare omstandigheden voorkwam. |
+
+#### Waar het argument op rust
+
+Op historisch werk van anderen, op reisverslagen, op volkstellingen en op
+schooldossiers. De vergelijkende opzet is de kracht: door hetzelfde
+verschijnsel bij verschillende groepen te zoeken, toetst hij verklaringen die
+anders onaangeroerd blijven.
+
+De zwakte zit in de selectie. De overdrachtsthese in het titelessay rust op
+enkele historici van wie het werk in het vakgebied omstreden is, en
+tegenbewijs uit de sociale geschiedenis van de zwarte bevolking komt niet aan
+bod. De Dunbar-casus is één school in één stad.
+
+#### Wat er tegen in te brengen valt
+
+Historici hebben de kern van het titelessay betwist: de overeenkomsten die hij
+aanwijst zijn deels selectief gekozen, en de aanname dat de ene groep de
+cultuur van de andere overnam is moeilijker aan te tonen dan hij doet
+voorkomen. Het alternatief dat hij niet serieus behandelt, is dat
+vergelijkbare omstandigheden bij verschillende groepen vergelijkbaar gedrag
+opleveren zonder dat er iets is overgedragen.
+
+Daarnaast draagt het boek een politieke lading die hij zelf niet benoemt. Wie
+cultuur als verklaring aanwijst, verschuift de verantwoordelijkheid naar de
+groep zelf, en de vraag waar die cultuur vandaan komt, met slavernij en
+wettelijke uitsluiting als voorgeschiedenis, blijft grotendeels onbeantwoord.
+Als oefening in het toetsen van verklaringen is het waardevol; als sluitend
+verhaal over de Amerikaanse geschiedenis is het dat niet.
+
+#### Wat je hierna leest
+
+- 65. Economic Facts and Fallacies. Dezelfde werkwijze met cijfers in plaats
+van geschiedenis; samen geven de twee een compleet beeld van zijn methode.
+- 67. Suicidal Empathy. Saad stelt eenzelfde eis aan goedbedoeld beleid, met
+dezelfde bezwaren over eenzijdige bewijsvoering.
+- 63. The Demon-Haunted World. Sagan levert de maatstaf waarmee dit soort
+betogen te beoordelen is: welke uitkomst zou de verklaring weerleggen.
 
 ## 69. Ruis
 
