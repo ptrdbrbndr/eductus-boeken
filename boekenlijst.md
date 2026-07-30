@@ -1355,9 +1355,10 @@ rekent, heeft hier het kortste.
 ## 58. Outwitting the Devil
 
 Napoleon Hill, 1938. Ondertitel *The Secret to Freedom and Success*.
-Geschreven in 1938 maar pas in 2011 uitgegeven, geannoteerd door Sharon
-Lechter (Sterling). Nederlandse uitgave niet nagekeken. Rubriek: vrij denken
-en manipulatie.
+Geschreven in 1938, pas in 2011 uitgegeven door de Napoleon Hill Foundation en
+geannoteerd door Sharon Lechter (Sound Wisdom, ISBN 9781640951839). Nederlands
+als *De duivel te slim af zijn*, vertaald door Robert Neugarten, bij Business
+Contact (2022, ISBN 9789047015734). Rubriek: vrij denken en manipulatie.
 Tags: `eigen-oordeel`, `doelen`, `gewoonte`, `angst`, `zelfhulp`, `interview`,
 `1938`
 Bron: denkerslijst.
@@ -1381,8 +1382,10 @@ bij 30.
 ## 59. The Art of Thinking Clearly
 
 Rolf Dobelli, 2011. Oorspronkelijk Duits als *Die Kunst des klaren Denkens*
-(Hanser, 2011); Engelse uitgave 2013. Nederlands als *De kunst van het heldere
-denken* bij Spectrum. Rubriek: gewoontes en denken.
+(Hanser, 2011); Engels bij Sceptre (2013). Nederlands als *De kunst van het
+heldere denken*, eerst bij De Bezige Bij (2013) en later bij Spectrum (2018).
+Het vervolg heet *De kunst van het verstandige handelen*. Rubriek: gewoontes
+en denken.
 Tags: `denkfouten`, `cognitieve-bias`, `oordeel`, `besluiten`, `essay`,
 `kort`, `naslagwerk`
 Bron: denkerslijst.
@@ -1403,9 +1406,11 @@ maar bij het zien hoe voorspelbaar het eigen hoofd de mist ingaat.
 
 ## 60. Trust Me, I'm Lying
 
-Ryan Holiday, 2012. Ondertitel *Confessions of a Media Manipulator*
-(Portfolio/Penguin). Nederlandse uitgave niet nagekeken. Rubriek: vrij denken
-en manipulatie.
+Ryan Holiday, 2012. Ondertitel *Confessions of a Media Manipulator*,
+uitgegeven op 19 juli 2012 bij Portfolio/Penguin, met een uitgebreide editie
+in 2013 (ISBN 9781591846284). Geen Nederlandse uitgave: van Holiday is wel het
+stoïcijnse werk vertaald bij Lev., dit boek niet. De samenvatting hier is op
+de Engelse editie gebaseerd. Rubriek: vrij denken en manipulatie.
 Tags: `media`, `propaganda`, `nieuws`, `marketing`, `internet`, `bekentenis`,
 `prikkels`
 Bron: denkerslijst.
@@ -1427,9 +1432,9 @@ beschreef en Holiday de rekening ervan laat zien.
 
 ## 61. Brave New World
 
-Aldous Huxley, 1932. Eerste uitgave bij Chatto & Windus. Nederlands als
-*Heerlijke nieuwe wereld*; vertaler en uitgever niet nagekeken. Rubriek: roman
-en memoir.
+Aldous Huxley, 1932. Eerste uitgave bij Chatto & Windus (Londen, 1932).
+Nederlands als *Heerlijke nieuwe wereld*, vertaald door Maurits Mok, bij
+Bakker (1990) en sinds 2023 opnieuw bij Meulenhoff. Rubriek: roman en memoir.
 Tags: `roman`, `dystopie`, `vrijheid`, `conditionering`, `techniek`,
 `vermaak`, `klassieker`
 Bron: denkerslijst.
@@ -1452,10 +1457,12 @@ besturen valt, is die welke haar eigen tucht leuk vindt.
 ## 62. What Do You Care What Other People Think?
 
 Richard P. Feynman, 1988. Ondertitel *Further Adventures of a Curious
-Character*, opgetekend met Ralph Leighton (W.W. Norton). De lijst waaruit deze
-titel komt schreef het boek aan Aleksandr Solzjenitsyn toe; het is van
-Feynman. Nederlandse uitgave niet nagekeken. Rubriek: vrij denken en
-manipulatie.
+Character*, opgetekend met Ralph Leighton, bij W.W. Norton (1988). Nederlands
+als *Laat ze maar praten* bij Aramith (Bloemendaal, 1990, 195 blz.); de
+catalogus noemt daar geen vertaler bij. Bij dezelfde uitgever verscheen het
+eerste deel als *Heel geestig, meneer Feynman!*. De lijst waaruit deze titel
+komt schreef het boek aan Aleksandr Solzjenitsyn toe; het is van Feynman.
+Rubriek: vrij denken en manipulatie.
 Tags: `natuurkunde`, `nieuwsgierigheid`, `gezag`, `onderzoek`, `memoir`,
 `challenger`, `eerlijkheid`
 Bron: denkerslijst.
@@ -1477,8 +1484,11 @@ verbindt dit boek met 63 en 66.
 
 ## 63. The Demon-Haunted World
 
-Carl Sagan, 1995. Ondertitel *Science as a Candle in the Dark* (Random House).
-Nederlandse uitgave niet nagekeken. Rubriek: vrij denken en manipulatie.
+Carl Sagan, 1995. Ondertitel *Science as a Candle in the Dark*, bij Random
+House (1995, ISBN 9780345409461); de Britse editie uit 1996 telt 436
+bladzijden. Geen Nederlandse uitgave: van Sagan zijn wel *Cosmos*, *Broca's
+brein* en *Draken uit het paradijs* vertaald, dit boek niet. De samenvatting
+hier is op de Engelse editie gebaseerd. Rubriek: vrij denken en manipulatie.
 Tags: `wetenschap`, `scepsis`, `bewijs`, `bijgeloof`, `onderwijs`, `essay`,
 `argumenten`
 Bron: denkerslijst.
@@ -1501,8 +1511,11 @@ verwondering alleen maar cynisme is.
 ## 64. Fooled by Randomness
 
 Nassim Nicholas Taleb, 2001. Ondertitel *The Hidden Role of Chance in Life and
-in the Markets*. Nederlands als *Misleid door het toeval* bij Nieuwezijds;
-vertaler niet nagekeken. Rubriek: gewoontes en denken.
+in the Markets*; tweede, uitgebreide editie 2004 bij Random House. Nederlands
+als *Misleid door toeval* bij Nieuwezijds (2018); de catalogus noemt geen
+vertaler. Het is het eerste deel van de reeks die verder loopt met *De zwarte
+zwaan*, *Het bed van Procrustes*, *Antifragiel* en *Skin in the game*, alle
+bij dezelfde uitgever. Rubriek: gewoontes en denken.
 Tags: `toeval`, `risico`, `beleggen`, `kans`, `vaardigheid`, `essay`,
 `overlevingsvertekening`
 Bron: denkerslijst.
@@ -1525,8 +1538,10 @@ het goed deed.
 
 ## 65. Economic Facts and Fallacies
 
-Thomas Sowell, 2008. Basic Books; tweede editie 2011. Geen Nederlandse uitgave
-gevonden. Rubriek: geschiedenis en samenleving.
+Thomas Sowell, 2008. Basic Books (2008, ISBN 9780465003495); tweede editie
+2011 (ISBN 9780465022038), met een hoofdstuk over de kredietcrisis erbij. Van
+Sowell is geen enkel boek in het Nederlands vertaald; de samenvatting hier is
+op de tweede Engelse editie gebaseerd. Rubriek: geschiedenis en samenleving.
 Tags: `economie`, `prikkels`, `beleid`, `statistiek`, `onderwijs`,
 `huisvesting`, `cijfers`
 Bron: denkerslijst.
@@ -1550,8 +1565,10 @@ elk geval een lijst controleerbare beweringen om mee te beginnen.
 ## 66. The Folly of Fools
 
 Robert Trivers, 2011. Ondertitel *The Logic of Deceit and Self-Deception in
-Human Life* (Basic Books). Geen Nederlandse uitgave gevonden. Rubriek:
-gewoontes en denken.
+Human Life*, bij Basic Books op 25 oktober 2011 (ISBN 9780465027552); de
+Britse editie heet *Deceit and Self-Deception*. Geen Nederlandse uitgave; de
+samenvatting hier is op de Engelse editie gebaseerd. Rubriek: gewoontes en
+denken.
 Tags: `zelfbedrog`, `evolutie`, `biologie`, `status`, `geheugen`, `oorlog`,
 `wetenschap`
 Bron: denkerslijst.
@@ -1574,8 +1591,11 @@ geen buitenstaander die hem waarschuwt.
 
 ## 67. Suicidal Empathy
 
-Gad Saad, 2026. Ondertitels *Free the Wolves* en *Dying to Be Kind*. Geen
-Nederlandse uitgave gevonden. Rubriek: geschiedenis en samenleving.
+Gad Saad, 2026. Ondertitel *Dying to Be Kind*, bij Broadside Books op 12 mei
+2026 (ISBN 9780063446533); *Free the Wolves* op het omslag is een leus en geen
+ondertitel. Geen Nederlandse uitgave, wat bij een boek van drie maanden oud te
+verwachten is; de samenvatting hier is op de Engelse editie gebaseerd.
+Rubriek: geschiedenis en samenleving.
 Tags: `empathie`, `polemiek`, `moraal`, `gevolgen`,
 `evolutionaire-psychologie`, `westen`, `actueel`
 Bron: denkerslijst.
@@ -1598,8 +1618,9 @@ over kwetsbaarheid en 35 over geweldloze communicatie.
 
 ## 68. Black Rednecks and White Liberals
 
-Thomas Sowell, 2005. Encounter Books, een bundel van zes essays. Geen
-Nederlandse uitgave gevonden. Rubriek: geschiedenis en samenleving.
+Thomas Sowell, 2005. Encounter Books (New York, 2005, 372 blz.), een bundel
+van zes essays. Geen Nederlandse uitgave; de samenvatting hier is op de
+Engelse editie gebaseerd. Rubriek: geschiedenis en samenleving.
 Tags: `geschiedenis`, `cultuur`, `slavernij`, `onderwijs`, `essay`,
 `minderheden`, `verklaringen`
 Bron: denkerslijst.
