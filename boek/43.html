@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crucial Conversations &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De schrijvers stellen dat de loop van een verhouding, een team of een loopbaan wordt bepaald door een klein aantal gesprekken waarin de inzet hoog is, de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-43">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">43 &middot; Samenwerken en gesprek</p>
+    <h1>Crucial Conversations</h1>
+    <p class="lede">Kerry Patterson, Joseph Grenny, Ron McMillan en Al Switzler, 2002</p>
+    <p class="stats">
+      <span><b>1789</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="43"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De schrijvers stellen dat de loop van een verhouding, een team of een loopbaan wordt bepaald door een klein aantal gesprekken waarin de inzet hoog is, de meningen uiteenlopen en de emoties oplopen. Bij zulke gesprekken vallen mensen terug op wat zij noemen zwijgen of geweld: zich terugtrekken, verpakken, sarcastisch worden, of juist etiketteren, overdrijven en aanvallen. Beide reacties halen informatie weg uit wat zij de gedeelde betekenispool noemen, en het besluit dat volgt is daardoor slechter dan het had kunnen zijn. Hun aanspraak is dat de vaardigheid om die informatie in de pool te houden aan te leren valt, en dat de belangrijkste vaardigheid niet in de inhoud zit maar in het bewaken van de veiligheid waaronder de inhoud besproken kan worden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat een gesprek onder hoge inzet is</h3>
+      <p>Het boek opent met de definitie: hoge inzet, verschil van mening, sterke emoties. Voorbeelden zijn het bespreken van een terugkerende fout van een collega, een gesprek over geld met een partner, of het aankaarten van gedrag bij iemand die hoger staat in de organisatie.</p>
+      <p>Daarbij hoort de vaststelling dat mensen in zulke gesprekken slecht presteren juist omdat de inzet hoog is: het lichaam schakelt naar vechten of vluchten, het bloed gaat naar de grote spiergroepen, en het deel van het denken dat nuance verdraagt krijgt minder ruimte.</p>
+      <h3>De betekenispool</h3>
+      <p>Het centrale beeld is de gedeelde betekenispool: alle feiten, ervaringen, gevoelens en gedachten die de deelnemers openlijk op tafel hebben gelegd. Hoe voller die pool, hoe beter het besluit dat eruit volgt en hoe groter de bereidheid het uit te voeren, ook bij wie het er niet mee eens was.</p>
+      <p>Daartegenover staat het valse dilemma, in het boek het sukkelspel genoemd: de aanname dat iemand moet kiezen tussen eerlijk zijn en de verhouding bewaren. De schrijvers stellen dat wie die keuze accepteert, het gesprek al heeft verloren, en dat het werk erin bestaat beide tegelijk te doen.</p>
+      <h3>Begin bij jezelf</h3>
+      <p>De eerste vaardigheid is het scherpstellen van het eigen doel voordat het gesprek begint. Wat wil ik voor mijzelf, wat voor de ander, wat voor de verhouding. In de hitte van het gesprek verschuift dat doel ongemerkt naar winnen, naar gelijk hebben of naar straffen, en de schrijvers raden aan die verschuiving hardop bij zichzelf vast te stellen.</p>
+      <p>Zij noemen het vragen naar het eigen doel het enige onderdeel dat niet over de ander gaat, en tegelijk het onderdeel waarzonder de rest tot techniek verschraalt.</p>
+      <h3>Leer kijken</h3>
+      <p>De tweede vaardigheid is opmerken dat een gesprek is omgeslagen. Signalen daarvoor zijn de eigen lichamelijke reactie, en het gedrag van de ander in de twee vormen die zij onderscheiden. Zwijgen bestaat uit verpakken, ontwijken en zich terugtrekken. Geweld bestaat uit beheersen, etiketteren en aanvallen.</p>
+      <p>De strekking is dat wie merkt dat een van beide optreedt, moet ophouden met het onderwerp en overstappen op het herstellen van de veiligheid. Doorgaan met argumenteren terwijl de veiligheid weg is, maakt het gesprek slechter, hoe goed het argument ook is.</p>
+      <h3>Maak het veilig</h3>
+      <p>Veiligheid rust in dit boek op twee voorwaarden: een gezamenlijk doel, en wederzijds respect. Valt het gesprek stil of loopt het uit de hand, dan is doorgaans een van die twee weg.</p>
+      <p>De middelen daarvoor zijn een verontschuldiging waar die op zijn plaats is, en contrasteren: eerst zeggen wat je niet bedoelt, dan wat je wel bedoelt. Voor het geval het gezamenlijke doel ontbreekt, geven zij een reeks stappen met de letters CRIB: verbind je aan een gezamenlijk doel, herken het doel achter de strategie van de ander, verzin een doel dat boven beide uitgaat, en bedenk daarna pas nieuwe manieren om het te bereiken. Dat onderscheid tussen wat iemand vraagt en waarom hij het vraagt is het scharnier van het hoofdstuk.</p>
+      <h3>Feiten, en het verhaal dat erbij wordt verteld</h3>
+      <p>Het inhoudelijk sterkste deel gaat over wat zij het pad naar handelen noemen: iemand ziet of hoort iets, vertelt zichzelf daar een verhaal over, voelt op grond van dat verhaal iets, en handelt daarnaar. Omdat de stap van waarneming naar verhaal razendsnel gaat, ervaart de spreker het verhaal als feit.</p>
+      <p>Zij onderscheiden drie verhalen die mensen zichzelf vertellen om hun eigen aandeel weg te schrijven. In het slachtofferverhaal komt het eigen aandeel niet voor. In het schurkverhaal krijgt de ander een slecht karakter toegeschreven in plaats van andere omstandigheden. In het machteloosheidsverhaal is er niets te doen, wat de spreker ontslaat van pogingen.</p>
+      <p>De weg terug loopt in omgekeerde richting: benoem het gedrag, zoek het verhaal, en stel er vragen bij. Wat zou een redelijk en fatsoenlijk mens ertoe brengen dit te doen. En: wat wil ik dat mijn eigen aandeel is.</p>
+      <h3>Uitspreken en luisteren</h3>
+      <p>Voor het eigen aandeel geven zij een volgorde met de letters STATE: deel de feiten, vertel je verhaal, vraag naar dat van de ander, spreek voorzichtig, en moedig tegenspraak aan. Beginnen met de feiten omdat die het minst omstreden zijn; voorzichtig spreken omdat een conclusie in stellige vorm de ander dwingt te weerleggen.</p>
+      <p>Voor de andere kant staat AMPP: vragen, spiegelen wat je aan de ander ziet, navertellen wat je begrepen hebt, en desnoods zelf een gok wagen over wat er speelt. Daarbij hoort het onderscheid tussen instemmen en begrijpen: instemmen met het deel waar men het over eens is, aanvullen wat ontbreekt, en pas daarna vergelijken waar de lezingen uiteenlopen.</p>
+      <h3>Naar handelen</h3>
+      <p>Het slot gaat over wat er na het gesprek gebeurt. De schrijvers stellen dat veel goede gesprekken zonder gevolg blijven omdat niet is afgesproken hoe wordt besloten. Zij onderscheiden vier vormen: bevel, raadplegen, stemmen en overeenstemming, met de opmerking dat vooraf duidelijk moet zijn welke geldt.</p>
+      <p>Daarna leggen zij vast wie wat doet, wanneer het af is, en hoe het wordt nagelopen. Het boek eindigt met een reeks korte casussen, waaronder gesprekken met een baas, een buurman en een familielid.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gesprek onder hoge inzet</td><td>Een gesprek met grote gevolgen, uiteenlopende meningen en sterke emoties.</td></tr>
+          <tr><td class="term">Gedeelde betekenispool</td><td>Het geheel aan feiten, ervaringen en opvattingen dat de deelnemers openlijk hebben ingebracht.</td></tr>
+          <tr><td class="term">Sukkelspel</td><td>Het valse dilemma tussen eerlijk zijn en de verhouding bewaren.</td></tr>
+          <tr><td class="term">Zwijgen en geweld</td><td>De twee manieren waarop mensen informatie uit de pool houden: terugtrekken en verpakken, of etiketteren en aanvallen.</td></tr>
+          <tr><td class="term">Contrasteren</td><td>Een misverstand herstellen door eerst te zeggen wat je niet bedoelt en daarna wat je wel bedoelt.</td></tr>
+          <tr><td class="term">CRIB</td><td>De stappen om een gezamenlijk doel te vinden wanneer dat ontbreekt, waaronder het onderscheiden van de vraag van de ander en de reden erachter.</td></tr>
+          <tr><td class="term">Pad naar handelen</td><td>De keten van zien, een verhaal vertellen, voelen en handelen, waarin het verhaal onopgemerkt tussen waarneming en gevoel schuift.</td></tr>
+          <tr><td class="term">Slimme verhalen</td><td>Het slachtoffer-, schurk- en machteloosheidsverhaal, die het eigen aandeel wegredeneren.</td></tr>
+          <tr><td class="term">STATE</td><td>De volgorde voor het uitspreken van een lastige boodschap: feiten, eigen verhaal, vraag naar de ander, voorzichtige toon, uitnodiging tot tegenspraak.</td></tr>
+          <tr><td class="term">AMPP</td><td>De vier manieren om de ander aan het praten te krijgen: vragen, spiegelen, navertellen en een gok wagen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De schrijvers beroepen zich op jarenlange observatie van mensen die door collega's als invloedrijk werden aangewezen, en op werk dat zij binnen organisaties deden vanuit hun eigen opleidingsbedrijf. De opzet die zij beschrijven is telkens dezelfde: vraag welke mensen in een organisatie als betrouwbaar en invloedrijk gelden, kijk wat die anders doen, en zet dat om in te leren stappen.</p>
+      <p>Het bewijsmateriaal in het boek bestaat uit die observaties, uit voorbeelden uit trainingen en uit staafgrafieken waarvan de herkomst summier is aangeduid. Het meeste onderzoek waarnaar wordt verwezen is uitgevoerd door het bedrijf van de schrijvers zelf en is niet in vakbladen met beoordeling door vakgenoten verschenen. Waar wel naar bekend werk wordt verwezen, zoals dat over gesprekken tussen artsen en patiënten of over veiligheid in de luchtvaart, dient dat als illustratie en niet als toets van de methode.</p>
+      <p>De vaststelling dat een volle pool tot betere besluiten leidt, is aannemelijk en sluit aan bij bestaand werk over groepsdenken en over psychologische veiligheid. Dat de bepaalde stappen uit dit boek de beste manier zijn om die pool te vullen, is niet aangetoond. Verbeteringen die het bedrijf rapporteert, komen uit organisaties die zelf voor de training betaalden en zijn grotendeels gemeten met vragenlijsten die de deelnemers na afloop invulden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de onderbouwing en de verkoop uit dezelfde hand komen. Het boek is de kern van een trainingsaanbod, en het onderzoek dat de werking moet aantonen is door de aanbieder verricht en gepubliceerd. Dat maakt de cijfers niet vals, maar het ontbreekt aan onafhankelijke herhaling, en zonder die herhaling is er geen grond om te weten wat blijft hangen na een jaar.</p>
+      <p>De methode veronderstelt dat beide partijen willen dat het gesprek slaagt. Bij een gesprekspartner die belang heeft bij mist, bij pesten of bij het uitzitten van tijd, wordt de vaardigheid een last: wie contrasteert en naar het doel van de ander vraagt, geeft informatie weg aan iemand die haar zal gebruiken. Machtsverschil komt in het boek voor als moeilijkheidsgraad, niet als iets dat de aanpak zelf kan ondermijnen. Wie ontslagen kan worden, heeft aan gespreksvaardigheid alleen niet genoeg.</p>
+      <p>De hoeveelheid letterwoorden werkt tegen het boek. STATE, CRIB, AMPP en de bijbehorende lijstjes zijn in de leeromgeving van een training te overzien en in een oplopend gesprek nauwelijks op te roepen. Het deel over het pad naar handelen en de drie verhalen staat op zichzelf en is het onderdeel dat lezers doorgaans overhouden; de rest heeft oefening in gespeelde situaties nodig, en dat is precies wat er wordt verkocht.</p>
+      <p>Ten slotte is de norm cultuurgebonden. Rechtstreeks aankaarten, hardop tegenspreken en de eigen conclusie voorzichtig maar wel uitspreken zijn Amerikaanse gesprekkeuzes. In omgevingen waar gezichtsverlies zwaarder telt of waar leeftijd en rang de volgorde bepalen, kan een correct uitgevoerde STATE hetzelfde effect hebben als de onhandigheid die zij wil vervangen. Het boek besteedt daar weinig aandacht aan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf voor een lastig gesprek de drie doelen op: wat wil ik voor mijzelf, voor de ander en voor de verhouding.</li>
+        <li>Scheid in je aantekeningen de feiten van je uitleg: wat zou een camera hebben vastgelegd, en wat heb ik erbij bedacht.</li>
+        <li>Merk je zwijgen of aanvallen bij een van beiden, stop dan met het onderwerp en herstel eerst het gezamenlijke doel of het respect.</li>
+        <li>Gebruik contrasteren zodra de ander een bedoeling in je woorden hoort die je niet had: eerst wat je niet bedoelt, dan wat wel.</li>
+        <li>Spreek je conclusie voorzichtig uit en vraag er tegenspraak bij, in plaats van haar als vaststaand te brengen.</li>
+        <li>Leg aan het eind vast wie wat doet, wanneer het af is en wanneer je erop terugkomt, en spreek af welke van de vier beslisvormen geldt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Tools for Talking When Stakes Are High</i>. De Nederlandse uitgave houdt de titel <i>Crucial Conversations</i> aan: eerst bij IMK Opleidingen (2010), daarna de herziene editie bij Business Contact (2022), vertaald door Robert Vernooy (ISBN 9789047016281).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het boek gaat over gesprekken waarin de belangen groot zijn, de meningen verschillen en de emoties hoog zitten, en over de twee uitwijkroutes die mensen daarin nemen: zwijgen of geweld, van dichtklappen en toespelingen tot etiketteren en overschreeuwen. De auteurs zetten daar een reeks handelingen tegenover, waarvan de bruikbaarste zijn: begin bij wat je zelf werkelijk wilt, let op het moment waarop de veiligheid uit het gesprek verdwijnt, en herstel die veiligheid eerst voordat je verder praat over de inhoud.</p><p>Hun bekendste hulpmiddel is het onderscheid tussen wat er gebeurde en het verhaal dat iemand daarover maakt, met de instructie om eerst de feiten te noemen en het eigen verhaal daarna als verhaal te presenteren. Het boek is geschreven voor werksituaties en leest als een cursus met veel voorbeelddialogen, wat het praktisch maakt en niet fijnzinnig.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gesprek</li><li>conflict</li><li>veiligheid</li><li>feiten</li><li>emoties</li><li>werkplek</li><li>techniek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Werkt hetzelfde onderscheid tussen waarneming en oordeel uit, met meer nadruk op de behoefte achter de vraag.</li>
+          <li value="42"><a href="42.html">The Five Dysfunctions of a Team</a>. Laat zien waarom een team dat deze gesprekken niet voert vastloopt, en welke voorwaarde in de groep eraan voorafgaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

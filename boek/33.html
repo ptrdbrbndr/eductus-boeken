@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiet &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Susan Cain betoogt dat westerse samenlevingen, en de Verenigde Staten voorop, in de loop van de twintigste eeuw een bepaald persoonlijkheidstype tot norm…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-33">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">33 &middot; Gewoontes en denken</p>
+    <h1>Quiet</h1>
+    <p class="lede">Susan Cain, 2012</p>
+    <p class="stats">
+      <span><b>1677</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="33"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Susan Cain betoogt dat westerse samenlevingen, en de Verenigde Staten voorop, in de loop van de twintigste eeuw een bepaald persoonlijkheidstype tot norm hebben verheven: spraakzaam, gezellig, snel besluitend, prettig in de groep. Dat ideaal noemt zij het extraverte ideaal, en zij behandelt het als een cultuurproduct met een dateerbare herkomst en niet als een natuurwet. Ongeveer een derde tot de helft van de mensen valt volgens haar aan de andere kant van die schaal, en die mensen leren van jongs af aan dat hun voorkeur voor kleine groepen, voorbereiding en alleen werken een tekort is. Cain keert dat om: introversie is een normale aanleg met eigen opbrengsten, waaronder doorzettingsvermogen bij eenzaam werk, gevoeligheid voor detail en terughoudendheid bij risico. Wie hier bezwaar tegen wil maken, kan wijzen op de sprong die zij maakt van een gemeten temperamentsverschil naar een breed cultuurverhaal.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het extraverte ideaal ontstond</h3>
+      <p>Cain begint met een historische verschuiving die zij ontleent aan de cultuurhistoricus Warren Susman: van een cultuur van karakter naar een cultuur van persoonlijkheid. In de negentiende eeuw werd een mens beoordeeld op plichtsbesef, eer en gedrag in stilte. In de vroege twintigste eeuw, met verstedelijking, grote ondernemingen en het werken tussen vreemden, verschoof de beoordeling naar de indruk die iemand maakt.</p>
+      <p>Zij volgt die verschuiving in het materiaal van de tijd: adviesboeken die opeens over aantrekkingskracht en zelfvertrouwen gaan, advertenties die verlegenheid tot probleem verklaren, en de opkomst van Dale Carnegie, van boerenzoon met plankenkoorts tot leraar in spreken voor publiek. Ook de handboeken voor ouders veranderen van toon: het stille kind wordt een zorg.</p>
+      <h3>Het ideaal in bedrijf en kerk</h3>
+      <p>Om te laten zien dat het ideaal nog leeft, gaat Cain kijken. Zij zit een seminar bij van Tony Robbins, waar zelfverbetering en luidruchtigheid samenvallen. Zij loopt colleges mee aan Harvard Business School, waar deelname aan de discussie meetelt in het cijfer en zwijgen als tekort geldt, en waar studenten elkaar leren dat een mening snel uitgesproken meer waard is dan een mening goed doordacht.</p>
+      <p>Zij bezoekt de megakerk van Rick Warren, waar geloof en gezelligheid in elkaar overgaan en waar iemand haar vertelt dat een stille gelovige al snel voor een lauwe gelovige wordt aangezien. Deze drie plaatsen dienen als bewijs dat het ideaal niet alleen in kantoren geldt maar ook in het aanbod van zelfhulp en zingeving.</p>
+      <h3>Samenwerken als leerstelling</h3>
+      <p>Het scherpste deel van het boek gaat over wat Cain de nieuwe groepsdwang noemt: het geloof dat denkwerk in groepen beter gaat. Zij bespreekt de kantoortuin, de verplichte samenwerkingsvorm in het onderwijs en het brainstormen zoals dat vanaf de jaren vijftig door reclameman Alex Osborn werd aangeprezen.</p>
+      <p>Daartegenover zet zij onderzoek dat groepen bij het bedenken van ideeën slechter laat presteren dan hetzelfde aantal mensen dat apart nadenkt en de opbrengst daarna samenvoegt, met als uitzondering groepen die langs een computernetwerk werken. Zij haalt het conformiteitsonderzoek van Solomon Asch aan, waarin proefpersonen een duidelijk verkeerd antwoord overnamen van een meerderheid, en het latere hersenonderzoek dat suggereert dat groepsdruk de waarneming zelf beïnvloedt en niet alleen het uitgesproken antwoord.</p>
+      <p>Ook het idee van doelgerichte oefening komt hier langs, ontleend aan Anders Ericsson: wie ergens goed in wil worden, oefent gericht en meestal alleen. Dat maakt de voorkeur voor werken zonder publiek tot een voordeel in plaats van een gebrek.</p>
+      <h3>Wat er in het lichaam gebeurt</h3>
+      <p>Het middendeel gaat over aanleg. Cain leunt op het langlopende onderzoek van Jerome Kagan, die baby's van vier maanden blootstelde aan onbekende prikkels en de sterke reageerders volgde tot in hun tienerjaren. Juist de baby's die het hardst schrokken en zwaaiden, groeiden vaker uit tot voorzichtige, in zichzelf gekeerde kinderen. Prikkelgevoeligheid ligt dus onder een deel van wat wij introversie noemen.</p>
+      <p>Daarnaast behandelt zij het werk over hooggevoeligheid van Elaine Aron en het idee van een omgekeerde U: iedereen presteert het best bij een bepaalde hoeveelheid prikkels, maar dat punt ligt bij de ene mens veel lager dan bij de andere. Wat voor de een een prettige achtergrond is, is voor de ander te veel.</p>
+      <p>Erfelijkheid zet zij niet absoluut. Zij gebruikt het beeld van het elastiek: aanleg is te rekken, maar niet oneindig en niet blijvend.</p>
+      <h3>Cultuurverschil en de vrije eigenschappen</h3>
+      <p>Cain gaat na of het extraverte ideaal overal geldt en komt uit bij Aziatische en Aziatisch-Amerikaanse gemeenschappen, waaronder een schooldistrict in Cupertino, waar ingetogenheid en luisteren hoger staan aangeschreven. Daarmee laat zij zien dat de norm plaatsgebonden is, al levert het ook het risico op dat het cultuurverschil zelf te grofmazig wordt neergezet.</p>
+      <p>Voor de praktijk gebruikt zij de theorie van de vrije eigenschappen van Brian Little: mensen kunnen zich buiten hun aanleg gedragen voor een zaak die hun na aan het hart ligt, bijvoorbeeld een introverte hoogleraar die met verve college geeft. Dat kost wel energie, en daarom hoort er een herstelplek bij, een plaats en een tijd waarin iemand terugkeert naar zijn eigen tempo.</p>
+      <h3>Liefhebben, werken, opvoeden</h3>
+      <p>Het slotdeel is praktisch. In relaties botsen verschillende behoeften aan gezelschap en aan conflict: de een wil uitpraten, de ander wil de temperatuur laag houden en trekt zich terug, waarna beiden de reactie van de ander verkeerd uitleggen.</p>
+      <p>Voor het werk pleit zij voor keuzevrijheid in de manier van samenwerken, voor stilte wanneer die nodig is en voor leiders die ruimte laten aan actieve medewerkers. Zij verwijst hierbij naar onderzoek dat suggereert dat ingetogen leiders het beter doen met een initiatiefrijk team en extraverte leiders met een volgzaam team.</p>
+      <p>In de opvoeding is haar lijn dat een stil kind geen probleem is dat verholpen moet worden, maar wel geleidelijk gewend mag raken aan wat het spannend vindt, in stappen die het kind aankan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het extraverte ideaal</td><td>De culturele norm die spraakzaamheid, gezelligheid en snel handelen tot maatstaf van een geslaagd mens maakt.</td></tr>
+          <tr><td class="term">Cultuur van karakter en cultuur van persoonlijkheid</td><td>Susmans onderscheid tussen beoordeling op innerlijke deugd en beoordeling op de indruk die iemand maakt.</td></tr>
+          <tr><td class="term">Hoge reactiviteit</td><td>Kagans term voor zuigelingen die sterk reageren op nieuwe prikkels en die vaker voorzichtige kinderen worden.</td></tr>
+          <tr><td class="term">Prikkeldrempel</td><td>Het niveau van prikkeling waarbij iemand het best functioneert, dat per persoon sterk verschilt.</td></tr>
+          <tr><td class="term">De nieuwe groepsdwang</td><td>Cains naam voor het geloof dat denken en scheppen het best in groepsverband gebeuren.</td></tr>
+          <tr><td class="term">Vrije eigenschappen</td><td>Littles idee dat mensen tijdelijk buiten hun aanleg handelen voor een doel dat hun na aan het hart ligt.</td></tr>
+          <tr><td class="term">Herstelplek</td><td>De afgesproken plaats of tijd waarin iemand bijkomt van dat gedrag buiten zijn aanleg.</td></tr>
+          <tr><td class="term">Persoonlijke projecten</td><td>De ondernemingen waaraan iemand zich verbindt en die bepalen wanneer afwijkend gedrag de moeite waard is.</td></tr>
+          <tr><td class="term">Zachte macht</td><td>Invloed die niet uit stemvolume komt maar uit voorbereiding, schrijven en volhouden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek staat op drie soorten materiaal. Ten eerste ontwikkelingsonderzoek naar temperament, waarvan Kagans langlopende onderzoek met kinderen het stevigst is: het is herhaald, het meet gedrag op meerdere momenten en het legt een verband tussen vroege reacties en later gedrag. Cain geeft hier ook de beperking bij, namelijk dat aanleg de uitkomst niet vastlegt.</p>
+      <p>Ten tweede sociaalpsychologisch onderzoek naar groepen. De bevinding dat groepen bij het bedenken van ideeën minder opleveren dan losse deelnemers waarvan de ideeën achteraf worden samengevoegd, is meermalen bevestigd en behoort tot het beter onderbouwde deel. De verklaringen daarvoor, zoals dat mensen elkaar afremmen, staan minder vast dan het verschijnsel zelf.</p>
+      <p>Ten derde reportage en gesprek: de bezoeken aan Harvard Business School, aan het seminar van Robbins en aan de megakerk, en portretten van mensen zoals Rosa Parks. Dat materiaal draagt het cultuurverhaal, maar het bewijst niets. Cain vermengt de drie soorten in dezelfde hoofdstukken, waardoor het gewicht van een uitspraak niet altijd af te lezen is aan de plek waar zij staat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het hardnekkigste bezwaar is begripsmatig. Cain hanteert introversie beurtelings als voorkeur voor weinig prikkels, als voorkeur voor alleen werken, als bedachtzaamheid en als gevoeligheid, en zij laat het regelmatig samenvallen met verlegenheid. Die twee zijn niet hetzelfde: verlegenheid is angst voor het oordeel van anderen, introversie is een voorkeur voor rustiger omgevingen. Iemand kan het een zonder het ander hebben. Cain benoemt het verschil, maar in de voorbeelden lopen de twee weer door elkaar, en juist daar hangt haar herwaardering aan.</p>
+      <p>Ten tweede is het onderzoek dat zij aanhaalt ongelijk van kwaliteit. Bij groepsbrainstormen staat zij op vaste grond. Bij de vertaling daarvan naar de kantoortuin en naar het onderwijs is de sprong groter dan het boek doet voorkomen, omdat het onderzoek naar korte taken in laboratoria gaat en niet naar jarenlange samenwerking. Het hersenonderzoek dat zij bij de conformiteitsproef aanhaalt, is bovendien van het soort waarvan later is gebleken dat het met kleine aantallen deelnemers voorzichtiger gelezen moet worden.</p>
+      <p>Ten derde is er een structureel bezwaar tegen de opzet. Het boek wil zowel aantonen dat het onderscheid tussen introvert en extravert echt is, als dat het onrechtvaardig wordt gebruikt. Naarmate zij het eerste sterker maakt, wordt het tweede lastiger: als de aanleg zo diep zit, is de vraag hoeveel van het ongemak werkelijk cultureel is.</p>
+      <p>Ten slotte is de toon op sommige plaatsen die van een pleidooi. Voorbeelden van ingetogen mensen die iets groots deden, worden aangevoerd als bewijs voor de waarde van de aanleg, terwijl daar geen vergelijking bij hoort. Dat is dezelfde selectie die zij het extraverte ideaal verwijt, met omgekeerd voorteken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Splits bij het bedenken van ideeën het werk: eerst apart schrijven, daarna gezamenlijk bespreken en kiezen.</li>
+        <li>Beoordeel in vergaderingen niet wie het eerst spreekt. Vraag om bijdragen op papier voordat het gesprek begint.</li>
+        <li>Plan na een dag met veel gesprekken een periode zonder afspraken in, en behandel die als onderdeel van het werk.</li>
+        <li>Onderscheid bij jezelf en anderen tussen niet willen en niet durven. De aanpak verschilt: het eerste vraagt om ruimte, het tweede om oefening in stappen.</li>
+        <li>Bepaal voor welke zaak je bereid bent buiten je gewoonte te handelen, en spreek af hoe lang.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>The Power of Introverts in a World That Can't Stop Talking</i>. Nederlands als <i>Stil: de kracht van introvert zijn in een wereld die niet ophoudt met kletsen</i> bij De Arbeiderspers (ISBN 9789029589550).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Cain betoogt dat westerse instellingen zijn ingericht op wat zij het extraverte ideaal noemt, van open kantoortuinen en groepswerk op school tot sollicitatiegesprekken die spreekvaardigheid meten. Ze zet daar onderzoek tegenover: brainstormen in een groep levert minder en slechtere ideeën op dan dezelfde mensen apart, en de prikkelgevoeligheid die introverte mensen kenmerkt is bij baby's al meetbaar, wat de eigenschap tot temperament maakt en niet tot houding.</p><p>Praktisch gaat het boek over gerichte alleentijd, over leidinggevenden die minder spreken en meer laten uitspreken, en over wat Cain het vrije-eigenschappenprincipe noemt: buiten je natuur handelen kan, mits voor iets wat je echt belangrijk vindt en met herstel erna. De grens van het boek is dat introversie, prikkelgevoeligheid en schuchterheid soms door elkaar lopen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>introversie</li><li>persoonlijkheid</li><li>werkplek</li><li>onderwijs</li><li>brainstormen</li><li>onderzoek</li><li>temperament</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="34"><a href="34.html">The 5 Love Languages</a>. Ook een boek dat mensen in typen indeelt, met een zwakkere onderbouwing dan hier.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Verwant terrein: wat er in gesprekken misgaat wanneer verschillende voorkeuren botsen.</li>
+          <li value="42"><a href="42.html">The Five Dysfunctions of a Team</a>. Voor de vraag hoe hard psychologisch onderzoek is dat op groepen in laboratoria berust.</li>
+          <li value="3"><a href="../index.html#boek-3">The Will to Change</a>. Over gericht oefenen in afzondering, het punt dat Cain van Ericsson leent.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sapiens &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Harari verklaart de heerschappij van de mens over de aarde uit één vermogen: grote aantallen vreemden kunnen samenwerken omdat zij in dezelfde verzinsels…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-56">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">56 &middot; Geschiedenis en samenleving</p>
+    <h1>Sapiens</h1>
+    <p class="lede">Yuval Noah Harari, 2011</p>
+    <p class="stats">
+      <span><b>1590</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="56"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Harari verklaart de heerschappij van de mens over de aarde uit één vermogen: grote aantallen vreemden kunnen samenwerken omdat zij in dezelfde verzinsels geloven. Goden, naties, geld, wetten en vennootschappen bestaan alleen in de gedeelde verbeelding, en juist daarom laten zij zich veranderen en uitbreiden op een manier die geen dierlijke samenlevingsvorm kent. Uit die stelling volgt zijn tweede en ongemakkelijker punt: de geschiedenis heeft de soort steeds machtiger gemaakt zonder dat het individuele leven daar beter of gelukkiger van werd. Macht en welbevinden lopen bij hem uit elkaar.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een dier zonder bijzondere plaats</h3>
+      <p>Het boek begint met de mens als één diersoort onder vele. Er waren meerdere menssoorten tegelijk, waaronder de neanderthaler, en Homo sapiens was er lang een van. Harari bespreekt het geschil tussen de opvatting dat sapiens de andere soorten geheel verving en de opvatting dat er vermenging plaatsvond, en verwijst naar erfelijk materiaal dat op enige vermenging wijst.</p>
+      <p>Hij zet daar het beeld tegenover van een soort die lang in het midden van de voedselketen zat en pas laat aan de top kwam. Die snelle klim verklaart volgens hem veel van de onhandigheid waarmee mensen met hun macht omgaan: de plaats bovenaan is te snel bereikt om er gewend aan te raken.</p>
+      <h3>De cognitieve omwenteling</h3>
+      <p>Ergens rond zeventigduizend jaar geleden verandert het gedrag van sapiens: er ontstaan werktuigen van nieuwe soort, kunstvoorwerpen, handel over afstand en verspreiding over de aardbol. Harari schrijft dat toe aan een verandering in de taal, waarbij niet alleen over waarneembare zaken gesproken kon worden maar ook over zaken die niet bestaan.</p>
+      <p>Daarmee komt zijn kernbegrip binnen. Verzinsels laten grote groepen samenwerken. Een groep chimpansees loopt vast bij enkele tientallen leden en een groep mensen die elkaar persoonlijk kent bij ongeveer honderdvijftig. Daarboven werkt alleen een gedeeld verhaal. Als voorbeeld gebruikt hij een autofabrikant: het bedrijf bestaat los van de fabrieken, de arbeiders en de bestuurders, en het blijft bestaan als die allemaal verdwijnen, omdat het een rechtsfiguur is waarin genoeg mensen geloven.</p>
+      <h3>De landbouw als zwendel</h3>
+      <p>Het bekendste hoofdstuk noemt de landbouwomwenteling de grootste zwendel in de geschiedenis. Harari keert de gebruikelijke voorstelling om: de tarwe heeft de mens gedomesticeerd. Ze bracht meer voedsel per oppervlak en dus meer monden, maar het dagelijkse leven van de boer werd zwaarder, eentoniger en gevoeliger voor misoogst en ziekte dan dat van de jager en verzamelaar. Skeletten uit die tijd tonen slijtage, tandbederf en tekorten.</p>
+      <p>Hij verklaart de val met wat hij de weeldeval noemt: elke verbetering wordt algauw een vereiste, en de bijbehorende last is niet meer af te leggen. De soort vermenigvuldigde zich en werd daarmee naar de maatstaf van de evolutie geslaagd, terwijl het aantal mensen dat een hard bestaan leidde toenam. Dezelfde omkering past hij toe op vee: geen dier heeft evolutionair zoveel succes gehad en zo weinig plezier van dat succes als het landbouwhuisdier.</p>
+      <h3>Verbeelde ordeningen en schrift</h3>
+      <p>Na de landbouw volgen steden, rijken en wetten. Harari legt de wetten van Hammurabi naast de Amerikaanse onafhankelijkheidsverklaring en laat zien dat beide teksten een ordening als natuurlijk voorstellen terwijl beide op geloof rusten. De ene tekst kent standen en de andere gelijkheid, en geen van beide kan bewijzen wat zij beweert.</p>
+      <p>Zulke ordeningen houden stand doordat zij in het stoffelijke zijn ingebouwd, doordat zij het verlangen van mensen vormen en doordat vrijwel iedereen erin gelooft. Het schrift komt in dit deel binnen als de techniek die administratie mogelijk maakt en daarmee ook rijken die groter zijn dan het geheugen van hun bestuurders.</p>
+      <h3>Drie eenmakers</h3>
+      <p>Harari benoemt drie krachten die de mensheid tot één wereld hebben samengebracht. Geld is de eerste: het meest algemene stelsel van wederzijds vertrouwen ooit bedacht, dat mensen die elkaar wantrouwen toch tot ruil brengt. Het rijk is de tweede, waarbij hij weigert de rijken alleen als roofstaten te lezen en aanwijst hoeveel van wat nu tot een cultuur wordt gerekend uit een verovering voortkomt.</p>
+      <p>De godsdienst is de derde, met de nadruk op stelsels die zich tot alle mensen richten in plaats van tot één volk. Hij rekent er ook liberalisme, nationalisme en communisme toe, omdat die volgens hem dezelfde plaats innemen: een geloof in waarden die zich niet uit waarneming laten afleiden.</p>
+      <h3>De wetenschappelijke omwenteling</h3>
+      <p>Rond 1500 begint volgens Harari het besef van eigen onwetendheid. Dat besef verbindt zich met kapitaal en met verovering: onderzoek wordt betaald door wie er macht of winst van verwacht, en de zeereizen en het onderzoek voeden elkaar. Krediet speelt hierin een sleutelrol, omdat vertrouwen in een grotere toekomst geld in het heden vrijmaakt.</p>
+      <p>Het slot behandelt geluk. Harari wijst erop dat de geschiedschrijving nooit heeft bijgehouden of mensen zich beter zijn gaan voelen, en bespreekt de mogelijkheid dat welbevinden vooral door lichaamseigen stoffen wordt bepaald en rond een vast punt schommelt. Daarnaast zet hij de boeddhistische opvatting dat het najagen van aangename gewaarwordingen zelf de oorzaak van onvrede is. Het laatste hoofdstuk kijkt vooruit naar het punt waarop de mens zijn eigen soort gaat herontwerpen, en eindigt met de vraag wat een wezen wil dat niet weet wat het wil.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Cognitieve omwenteling</td><td>De verandering in denken en taal rond zeventigduizend jaar geleden waardoor mensen over niet bestaande zaken konden spreken.</td></tr>
+          <tr><td class="term">Gedeelde verbeelding</td><td>Verzinsels waarin genoeg mensen geloven om er hun gedrag naar te richten, waardoor samenwerking tussen vreemden mogelijk wordt.</td></tr>
+          <tr><td class="term">Verbeelde ordening</td><td>Een maatschappelijke indeling die als natuurlijk wordt voorgesteld maar alleen bestaat zolang men erin gelooft.</td></tr>
+          <tr><td class="term">De grootste zwendel in de geschiedenis</td><td>Harari's aanduiding voor de landbouwomwenteling, die de soort talrijker maakte en het leven van de enkeling zwaarder.</td></tr>
+          <tr><td class="term">Weeldeval</td><td>Het patroon waarin een gemak tot vereiste verwordt en de bijbehorende last daarna niet meer valt af te leggen.</td></tr>
+          <tr><td class="term">Evolutionair succes tegenover geluk</td><td>Het onderscheid tussen het aantal nakomelingen van een soort en de gesteldheid waarin de leden van die soort verkeren.</td></tr>
+          <tr><td class="term">Geld als wederzijds vertrouwen</td><td>Geld als het meest algemene vertrouwensstelsel dat mensen kennen, dat ruil mogelijk maakt tussen wie elkaar niet vertrouwen.</td></tr>
+          <tr><td class="term">Ontdekking van de onwetendheid</td><td>De houding vanaf ongeveer 1500 waarin men erkent belangrijke zaken niet te weten, wat volgens Harari het onderzoek op gang bracht.</td></tr>
+          <tr><td class="term">Kringloop van kapitaal en verovering</td><td>De wisselwerking waarin onderzoek en zeereizen elkaar voeden doordat geldschieters winst en macht verwachten.</td></tr>
+          <tr><td class="term">Het Gilgamesjproject</td><td>Harari's naam voor het streven om de dood te overwinnen, dat hij als het volgende doel van de wetenschap aanwijst.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Sapiens is een boek van een tweedehands soort: Harari doet geen eigen onderzoek en verwerkt werk van archeologen, biologen, economen en godsdiensthistorici tot één verhaal. Zijn kracht ligt in het naast elkaar leggen van gebieden die zelden bij elkaar komen, bijvoorbeeld de wetten van Hammurabi en een grondwet, of het aantal dieren in de veehouderij en de maatstaf van evolutionair succes.</p>
+      <p>De onderbouwing verschilt sterk per hoofdstuk. Over de gezondheid van vroege boeren, over de omvang van groepen en over de rol van krediet in de vroegmoderne tijd kan hij op gevestigd werk leunen. Over de cognitieve omwenteling als een gebeurtenis met een oorzaak in het erfelijk materiaal leunt hij op veel minder, omdat daar geen bewijs voor bestaat dat het onderscheid met een geleidelijke ontwikkeling kan maken.</p>
+      <p>Het boek bevat noten, maar de verhouding tussen tekst en noot is los. Veel stellige uitspraken staan zonder verwijzing, en waar wel verwezen wordt gaat het vaak naar overzichtswerk in plaats van naar het onderzoek zelf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Vakgenoten hebben vooral bezwaar tegen de stelligheid. De antropoloog Christopher Hallpike besprak het boek uitvoerig en oordeelde dat waar Harari gelijk heeft het niet nieuw is, en waar hij nieuw is het niet gedragen wordt door bewijs. Dat is hard geformuleerd en het raakt een echt punt: de toon van het boek geeft geen onderscheid te zien tussen wat vaststaat, wat betwist wordt en wat Harari zelf bedenkt.</p>
+      <p>Inhoudelijk is de landbouwomwenteling het meest bestreden onderdeel. Archeologen wijzen erop dat de overgang zich over duizenden jaren en in verschillende streken op verschillende wijze voltrok, dat jagers en verzamelaars niet overal een licht bestaan hadden, en dat de gezondheidsgegevens per vindplaats sterk verschillen. Het beeld van één misstap die de mensheid in de val lokte, is daarmee te glad.</p>
+      <p>Ook de cognitieve omwenteling staat onder druk. Steeds meer vondsten wijzen op oudere en meer verspreide tekenen van samengesteld gedrag, wat pleit voor een langzame opbouw. Verder rekenen critici hem aan dat hij het onderscheid tussen verzinsel en werkelijkheid te breed uitsmeert. Als geld, staten, mensenrechten en goden allemaal onder hetzelfde begrip vallen, verdwijnt het verschil tussen een afspraak die door instellingen wordt gedragen en een bewering over de wereld die onwaar is.</p>
+      <p>Een laatste bezwaar geldt de opzet zelf. Het boek beweegt van de biologie naar de economie naar de godsdienstgeschiedenis in een enkel hoofdstuk, en die snelheid maakt tegenspraak lastig: er is te weinig uitgewerkt om aan te vallen. Dat het boek uitstekend leest en veel lezers voor het eerst met deze vragen in aanraking heeft gebracht, staat daar los van en is op zichzelf een verdienste.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een bestaande regeling of instelling wat er van overblijft als niemand er meer in gelooft; dat scheidt afspraak van natuurwet.</li>
+        <li>Let bij verhalen over vooruitgang op het verschil tussen wat de groep bereikt en wat het de enkeling oplevert.</li>
+        <li>Neem bij een stellige bewering uit dit boek de moeite na te gaan of het vakgebied het met hem eens is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>A Brief History of Humankind</i>; oorspronkelijk in het Hebreeuws (2011), Engelse uitgave 2014. Nederlands als <i>Sapiens: een kleine geschiedenis van de mensheid</i>, vertaald door Inge Pieters, bij Thomas Rap (2014).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Harari vat de geschiedenis van onze soort samen in vier omwentelingen: de cognitieve rond zeventigduizend jaar terug, de agrarische rond tienduizend jaar terug, de samensmelting van culturen tot één wereld, en de wetenschappelijke vanaf ongeveer 1500. Zijn verbindende idee is dat mensen kunnen samenwerken in grote aantallen doordat zij geloven in dingen die alleen in hun verbeelding bestaan, zoals geld, naties, wetten en goden, en dat die verzonnen orde de eigenlijke motor van de geschiedenis is.</p><p>De omstredenste passage is dat hij de landbouwrevolutie het grootste bedrog van de geschiedenis noemt, omdat de soort er talrijker van werd en de enkeling er slechter aan toe was. Vakhistorici verwijten hem stellige uitspraken op dun bewijs en het gladstrijken van tegenspraak. Als groot verhaal dat vragen oproept werkt het boek beter dan als naslagwerk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geschiedenis</li><li>evolutie</li><li>landbouw</li><li>geld</li><li>religie</li><li>verhalen</li><li>groot-verhaal</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt stelt op de schaal van één generatie dezelfde vraag die Harari over tienduizend jaar stelt, of technische winst met verlies aan welbevinden betaald wordt.</li>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman werkt uit wat Harari over schrift aanstipt: dat de techniek waarmee mensen berichten vastleggen bepaalt wat zij kunnen denken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

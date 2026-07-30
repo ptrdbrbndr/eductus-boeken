@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amusing Ourselves to Death &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Postman stelt dat elk medium een eigen vorm van kennis oplegt en daarmee bepaalt waarover in het openbaar zinnig gesproken kan worden. De drukpers dwong…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-54">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">54 &middot; Geschiedenis en samenleving</p>
+    <h1>Amusing Ourselves to Death</h1>
+    <p class="lede">Neil Postman, 1985</p>
+    <p class="stats">
+      <span><b>1504</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="54"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Postman stelt dat elk medium een eigen vorm van kennis oplegt en daarmee bepaalt waarover in het openbaar zinnig gesproken kan worden. De drukpers dwong tot ordening, uiteenzetting en volgorde, en bracht een publiek voort dat lange betogen aankon. De televisie werkt met beelden, snelheid en emotie, en kent één ordenend beginsel: vermaak. Wat op televisie komt moet daarom vermakelijk zijn, ook godsdienst, onderwijs, nieuws en politiek. Het gevaar is niet dat iemand het gesprek verbiedt, maar dat de vorm van het gesprek elk onderwerp in vertier verandert zonder dat iemand het merkt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Orwell en Huxley</h3>
+      <p>Het boek opent met een vergelijking die het hele betoog stuurt. Orwell vreesde een macht die boeken verbiedt, waarheid onderdrukt en informatie achterhoudt. Huxley vreesde dat niemand nog een boek zou willen lezen, dat waarheid zou verdrinken in overvloed en dat mensen zouden gaan houden van wat hen klein houdt. Postman schrijft in 1985 dat de tweede voorspelling is uitgekomen en de eerste niet.</p>
+      <p>Die vergelijking bepaalt ook de toon van het boek. Er is geen samenzwering en er is geen dader. De uitwerking komt van de vorm zelf, en dat maakt haar moeilijk te bestrijden: er valt geen censor aan te wijzen.</p>
+      <h3>Het medium als beeldspraak</h3>
+      <p>Postman komt uit de school van McLuhan en verschuift diens uitspraak. Het medium is bij hem geen boodschap maar een beeldspraak: het legt aan de werkelijkheid een verhouding op die als vanzelfsprekend gaat gelden. Een cultuur met klokken deelt de tijd anders in dan een cultuur zonder. Een cultuur met schrift kan afspraken vastleggen en toetsen, en gaat daardoor anders om met waarheid dan een cultuur die op spreken en onthouden leunt.</p>
+      <p>Daaruit volgt zijn tweede stap, die hij media als kenleer noemt. Wat als geldig bewijs telt, hangt af van het medium. In een cultuur zonder schrift geldt een spreekwoord als rechtsgrond. In een schriftcultuur geldt een document. Op televisie geldt geloofwaardigheid, en geloofwaardigheid is een indruk die iemand op het scherm wekt.</p>
+      <h3>De typografische geest</h3>
+      <p>Het tweede deel van het historische betoog gaat over Amerika in de achttiende en negentiende eeuw. Postman beschrijft een samenleving waarin lezen wijdverbreid was, waarin pamfletten grote oplagen haalden en waarin openbare voordrachten een vorm van vermaak waren. Hij noemt als voorbeeld de debatten tussen Lincoln en Douglas in 1858, waarbij toehoorders urenlang bleven staan voor betogen met samengestelde zinnen en verwijzingen naar eerder gezegde.</p>
+      <p>Die houding noemt hij de typografische geest: aandacht die lang meegaat, verdraagzaamheid tegenover uitgestelde beloning, gevoel voor tegenspraak en voor de volgorde van een redenering. Gedrukte tekst dwingt daartoe, want zij staat stil, kan herlezen worden en laat zich op tegenspraak betrappen. Postman betoogt dat het politieke leven van die tijd de vorm van het gedrukte woord aannam.</p>
+      <h3>Telegraaf en foto</h3>
+      <p>De breuk begint volgens hem in 1844 met de telegraaf. Die maakt bericht los van plaats en van belang. Daarvoor was nieuws wat een gemeenschap kon gebruiken; daarna is nieuws wat ergens is gebeurd. Postman haalt Thoreau aan, die opmerkte dat Maine en Texas nu met elkaar konden spreken zonder iets te melden te hebben.</p>
+      <p>Hij voert het begrip verhouding tussen bericht en handeling in: van bijna alles wat men in de krant leest kan men niets. De foto komt daarbij als tweede bestanddeel. Zij toont een ogenblik, zonder verband en zonder tegenspraak, en zij past bij losse berichten omdat zij die van een schijn van samenhang voorziet. Samen leveren telegraaf en foto wat hij de kiekeboewereld noemt: iets duikt op, verdwijnt en heeft geen gevolg.</p>
+      <h3>Nieuws als vertier</h3>
+      <p>Het hoofdstuk over het journaal is het bekendste van het boek. Postman leest de overgangsformule waarmee een presentator van een oorlogsbericht naar het weerbericht gaat als de verklaring van het hele bestel: wat zojuist is gezegd heeft geen verband met wat nu volgt en vraagt niets van de kijker. Het journaal levert daarmee geen kennis maar een aangename gemoedstoestand.</p>
+      <p>Hij wijst op de bestanddelen die dat mogelijk maken: de duur van een item, de muziek, het uiterlijk en de stem van de presentator, en de afwezigheid van correcties. Een krant die zich vergist kan dat de volgende dag rechtzetten. Een uitzending die zich vergist is voorbij.</p>
+      <h3>Godsdienst, politiek en onderwijs</h3>
+      <p>Postman past zijn redenering vervolgens toe op drie gebieden. Godsdienst op televisie verliest volgens hem het gewijde, omdat het scherm geen ruimte kent die van de gewone wereld is afgezonderd en omdat de kijker altijd weg kan zappen. De predikant wordt daarmee een artiest die kijkcijfers nodig heeft.</p>
+      <p>In de politiek wordt de reclameboodschap het model. Een verkiezingsboodschap van dertig tellen kan geen argument bevatten en werkt met beeld en gevoel; de kiezer koopt geen standpunt maar een gezicht. Bij het onderwijs richt hij zich op kinderprogramma's die leren met vermaak verbinden. Zijn bezwaar is dat kinderen daar leren dat leren pas geldt als het aangenaam is, terwijl school juist berust op inspanning, herhaling en gezag. Het slothoofdstuk wijst een uitweg af: verbieden werkt niet, en het enige dat hij overhoudt is onderwijs over media zelf, waarvan hij zelf zegt dat hij er weinig van verwacht.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het medium als beeldspraak</td><td>Het denkbeeld dat een medium niet alleen inhoud vervoert maar de werkelijkheid een verhouding oplegt die als vanzelfsprekend gaat gelden.</td></tr>
+          <tr><td class="term">Media als kenleer</td><td>De stelling dat elk medium eigen maatstaven meebrengt voor wat als waar en als bewijs telt.</td></tr>
+          <tr><td class="term">Typografische geest</td><td>De denkhouding die de drukpers kweekt: lange aandacht, gevoel voor volgorde, oog voor tegenspraak en verdraagzaamheid tegenover abstractie.</td></tr>
+          <tr><td class="term">Kiekeboewereld</td><td>Een wereld van losse berichten die opduiken, boeien en verdwijnen zonder samenhang of gevolg.</td></tr>
+          <tr><td class="term">Verhouding tussen bericht en handeling</td><td>De mate waarin ontvangen informatie de ontvanger tot iets in staat stelt; volgens Postman door telegraaf en televisie sterk gedaald.</td></tr>
+          <tr><td class="term">Nu dit</td><td>De overgangsformule in het journaal die aangeeft dat het voorgaande bericht geen verband houdt met het volgende en niets van de kijker vraagt.</td></tr>
+          <tr><td class="term">Uiteenzetting</td><td>De ordelijke, betogende vorm van taal die bij gedrukte tekst hoort en die op televisie geen plaats vindt.</td></tr>
+          <tr><td class="term">Het nieuws van de dag</td><td>Een categorie die volgens Postman geen natuurlijk bestaan heeft maar door de techniek van het telegraferen is voortgebracht.</td></tr>
+          <tr><td class="term">Vermaak als ordenend beginsel</td><td>De stelling dat televisie maar één maatstaf kent en daarom elk onderwerp in vertier omzet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een betoog en geen onderzoeksverslag. Postman gebruikt historische voorbeelden, teksten uit de negentiende eeuw, oplagecijfers van pamfletten en zijn eigen waarnemingen van televisieprogramma's. Metingen, steekproeven of toetsbare voorspellingen komen er niet in voor, en hij verdedigt dat door te stellen dat zijn onderwerp de vorm van het openbare gesprek is en niet het gedrag van proefpersonen.</p>
+      <p>Sterk is de historische vergelijking. Dat pamfletten in de koloniën hoge oplagen haalden en dat toehoorders uren naar politieke debatten luisterden, staat vast en is moeilijk weg te redeneren. Zwak is de stap van die vaststelling naar de bewering dat het denken zelf van vorm veranderde, want daarvoor is geen ander bewijs dan de vaststelling zelf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat Postman de leescultuur die hij als maatstaf neemt gunstiger voorstelt dan zij was. Wie in de negentiende eeuw las en debatteerde was voor een groot deel wit, mannelijk en bemiddeld. Slaven mochten in delen van de Verenigde Staten bij wet niet leren lezen. Het openbare gesprek dat hij mist was dus ook een gesprek waaraan de meeste mensen niet deelnamen, en de televisie bracht groepen binnen die de drukpers had buitengesloten. Dat gegeven behandelt hij niet.</p>
+      <p>Een tweede bezwaar geldt zijn techniekbepaaldheid. Postman laat de vorm van het medium bijna alles verklaren en heeft weinig oog voor eigendom, geld en wetgeving. Dat commerciële televisie zich anders gedraagt dan publieke omroep in landen met een andere ordening, past slecht in een verklaring waarin het toestel zelf de uitkomst bepaalt.</p>
+      <p>Ten derde heeft de tijd hem gedeeltelijk ingehaald. Het internet bracht geschreven taal terug in het middelpunt van de openbaarheid, wat op grond van zijn schema niet te verwachten viel. Tegelijk zijn de korte, beeldgerichte en beloningsgerichte kanalen van nu op zijn analyse goed toepasbaar, en veel latere schrijvers over aandacht putten uit dit boek. Wie het nu leest moet zelf uitmaken welke van beide bewegingen het zwaarst weegt.</p>
+      <p>Ten slotte is het slot mager. Na tweehonderd bladzijden waarin de vorm van het medium alles bepaalt, komt Postman uit bij lessen over media op school. Hij geeft zelf toe dat hij daar weinig van verwacht, en die eerlijkheid maakt het gat in het betoog zichtbaar in plaats van kleiner.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kijk bij een nieuwsbericht wat het je in staat stelt te doen; als het antwoord niets is, weet je wat voor soort bericht het is.</li>
+        <li>Let bij het beoordelen van een openbaar optreden op de vorm die het medium oplegt voordat je de inhoud beoordeelt.</li>
+        <li>Lees over een onderwerp dat je aangaat één lang stuk in plaats van tien korte berichten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Public Discourse in the Age of Show Business</i>. Nederlands als <i>Wij amuseren ons kapot: de geestdodende werking van de beeldbuis</i>, vertaald door Aaldert van den Bogaard en anderen, met een voorwoord van Gerrit Komrij, bij Het Wereldvenster, Houten (1987).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Postman opent met de tegenstelling tussen Orwell, die vreesde dat wij zouden worden onderdrukt, en Huxley, die vreesde dat wij vermaakt zouden worden tot wij niets meer wilden weten, en betoogt dat Huxley het bij het juiste eind had. Zijn argument is dat elk medium bepaalt wat er in gedacht kan worden. In het tijdperk van de drukpers verliep het openbare gesprek in beweringen die je kon volgen en tegenspreken, met de urenlange Lincoln-Douglasdebatten als voorbeeld; op televisie verloopt het in beelden, en het beeld kent geen weerlegging.</p><p>Daaruit volgt zijn scherpste punt: het gevaar van televisie zit niet in slechte programma's maar in goede, in het nieuws en de politiek die zich naar het vermaak voegen. Het boek is van voor het internet en leest daardoor als een voorspelling; wie het naast nummer 53 legt, ziet hetzelfde argument een generatie eerder.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>media</li><li>televisie</li><li>cultuurkritiek</li><li>Orwell</li><li>Huxley</li><li>politiek</li><li>aandacht</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt past een verwante redenering toe op de smartphone en onderbouwt die wel met cijferreeksen, wat de vergelijking met Postmans werkwijze leerzaam maakt.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari behandelt schrift en geld als technieken die het denken van hele samenlevingen hebben gevormd, het thema waar Postman zijn boek op bouwt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

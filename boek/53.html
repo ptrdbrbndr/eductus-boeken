@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Anxious Generation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tussen 2010 en 2015 is de jeugd in de rijke westerse landen van gedaante veranderd. Haidt stelt dat een kindertijd die draaide om vrij spel, lichamelijk…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-53">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">53 &middot; Geschiedenis en samenleving</p>
+    <h1>The Anxious Generation</h1>
+    <p class="lede">Jonathan Haidt, 2024</p>
+    <p class="stats">
+      <span><b>1708</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="53"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tussen 2010 en 2015 is de jeugd in de rijke westerse landen van gedaante veranderd. Haidt stelt dat een kindertijd die draaide om vrij spel, lichamelijk risico en onbewaakte omgang met leeftijdsgenoten in enkele jaren is vervangen door een kindertijd die zich afspeelt op een scherm dat altijd binnen handbereik ligt. Die verschuiving is volgens hem de voornaamste verklaring voor de scherpe stijging van angst, somberheid, zelfbeschadiging en zelfdoding onder tieners die vanaf 2012 in de cijfers zichtbaar wordt, en zij treft meisjes en jongens op verschillende manieren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De cijfers die de aanleiding vormen</h3>
+      <p>Het boek opent met reeksen uit Amerikaanse bevolkingsonderzoeken naar de geestelijke gezondheid van jongeren. Die reeksen liggen jarenlang vlak en beginnen rond 2012 te stijgen, bij meisjes steiler dan bij jongens. Haidt laat vergelijkbare knikken zien in Britse, Canadese, Australische en Scandinavische gegevens, en hij hecht daar veel waarde aan: een verklaring die alleen voor de Verenigde Staten opgaat, zoals schietpartijen op scholen of de kredietcrisis, verklaart de rest van de Engelstalige wereld niet mee.</p>
+      <p>Hij besteedt aandacht aan het bezwaar dat de stijging een meetartefact zou zijn, veroorzaakt door meer bekendheid met diagnoses en minder schroom om erover te praten. Daartegen zet hij de reeksen die niet op zelfrapportage rusten: ziekenhuisopnames na zelfbeschadiging en sterftecijfers. Ook daar ziet hij de knik, wat volgens hem de verklaring uit veranderde taal en bewustwording onvoldoende maakt.</p>
+      <h3>De grote herbedrading</h3>
+      <p>De kern van het betoog is wat Haidt de grote herbedrading van de jeugd noemt. Hij dateert die tussen 2010 en 2015 en wijst op een samenloop: de smartphone met camera aan de voorkant, sneller mobiel internet, sociale netwerken die van tekst naar beeld verschoven, de knop waarmee berichten in één handeling verder verspreid worden, en berichtgeving die zichzelf blijft aankondigen. Het gevolg is dat een tiener niet meer af en toe online gaat, maar permanent bereikbaar en permanent zichtbaar is.</p>
+      <p>Daarbovenop legt hij een tweede ontwikkeling die al eerder begon: ouders en scholen zijn de fysieke wereld gaan behandelen als te gevaarlijk voor kinderen. Alleen naar school lopen, buiten spelen zonder toezicht en ruzie zelf uitvechten zijn geleidelijk verdwenen. Zo ontstaat volgens hem een omkering: kinderen worden overbeschermd in de wereld waarin zij weinig risico lopen en onderbeschermd in de wereld waarin zij aan volwassen inhoud en aan onbekende volwassenen worden blootgesteld.</p>
+      <h3>Spelgerichte en telefoongerichte jeugd</h3>
+      <p>Het contrast tussen een spelgerichte en een telefoongerichte jeugd draagt het boek. Vrij spel is bij Haidt geen tijdverdrijf maar de manier waarop het zenuwstelsel leert omgaan met tegenslag. Kinderen die zonder scheidsrechter spelen moeten regels afspreken, conflicten oplossen en het spel gaande houden, en zij doen dat met een lichaam dat matig gevaar loopt. Hij leunt hier op het denkbeeld dat mensen antifragiel zijn: systemen die schade oplopen zonder belasting.</p>
+      <p>De telefoongerichte jeugd biedt die oefening niet. Contact is er wel, maar zonder lichaam, zonder beurtwisseling en zonder de kosten die echte omgang met zich meebrengt. Haidt spreekt over verdringing: elk uur op een scherm is een uur dat niet naar slapen, bewegen, lezen of samenzijn gaat. Die redenering is voor hem belangrijker dan de vraag of de inhoud van de berichten zelf schadelijk is.</p>
+      <h3>Vier fundamentele schaden</h3>
+      <p>Haidt vat de gevolgen samen in vier schaden. De eerste is sociale onthechting: minder omgang van aangezicht tot aangezicht, waarbij het aantal uren dat Amerikaanse tieners met vrienden doorbrengen sinds het begin van deze eeuw sterk daalt. De tweede is slaaptekort, veroorzaakt door het toestel in de slaapkamer en door berichten die tot diep in de nacht doorgaan. Slaaptekort staat in verband met somberheid, prikkelbaarheid en slechter leren, en het is een van de best onderbouwde onderdelen van zijn betoog.</p>
+      <p>De derde is versnipperde aandacht: het vermogen om lange tijd bij één zaak te blijven wordt uitgehold door voortdurende onderbrekingen. De vierde is verslaving, waarbij Haidt de ontwerpkeuzes van de platforms bespreekt die op onregelmatige beloning zijn gebouwd. Hij houdt vol dat deze vier samen werken en dat geen van vieren op zichzelf het geheel draagt.</p>
+      <h3>Meisjes en jongens</h3>
+      <p>Het boek behandelt de seksen apart. Bij meisjes ziet Haidt de zwaarste uitwerking op beeldgerichte netwerken: voortdurende vergelijking van uiterlijk en populariteit, uitsluiting die zich digitaal laat organiseren, en een openbaarheid waarin elke misstap bewaard blijft. Hij verbindt dat aan onderzoek dat meisjes gevoeliger maakt voor betrekkingsgerichte agressie dan voor lichamelijke.</p>
+      <p>Bij jongens ziet hij eerder terugtrekking dan ontregeling: minder werk, minder opleiding, minder omgang, meer uren in spelwerelden en bij pornografie. Hij plaatst dat in een langere lijn van teruglopende deelname van jongens aan school en arbeid, en erkent dat het verband met de smartphone hier losser is dan bij meisjes.</p>
+      <h3>Vier normen als uitweg</h3>
+      <p>Het slot is voorschrijvend. Haidt stelt vier collectieve afspraken voor: geen smartphone voor de middelbare school, geen sociale netwerken voor het zestiende jaar, scholen die de hele dag telefoonvrij zijn, en veel meer vrij spel en zelfstandigheid buitenshuis. Hij noemt dit uitdrukkelijk normen en geen persoonlijke keuzes, omdat een ouder die alleen handelt zijn kind sociaal isoleert. Het probleem is er een van gezamenlijk handelen, en de oplossing dus ook.</p>
+      <p>Daarnaast pleit hij voor een hogere wettelijke leeftijd voor het aangaan van overeenkomsten met platforms en voor bewijs van leeftijd. In het laatste deel verbreedt hij naar wat hij geestelijke verschraling noemt: aandacht, stilte, ontzag en gedeelde rituelen verdwijnen uit het leven van jongeren. Dat hoofdstuk staat losser van de gegevens dan de rest.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De grote herbedrading</td><td>De verschuiving tussen 2010 en 2015 waarin de jeugd van een op spel gerichte naar een op de telefoon gerichte kindertijd overging.</td></tr>
+          <tr><td class="term">Spelgerichte jeugd</td><td>Een kindertijd waarin kinderen veel tijd doorbrengen in onbewaakt spel met leeftijdsgenoten, met echte risico's en zelf afgesproken regels.</td></tr>
+          <tr><td class="term">Telefoongerichte jeugd</td><td>Een kindertijd waarin het grootste deel van de sociale omgang via een scherm verloopt, zonder lichaam en zonder duidelijke grens tussen thuis en de buitenwereld.</td></tr>
+          <tr><td class="term">Vier fundamentele schaden</td><td>Sociale onthechting, slaaptekort, versnipperde aandacht en verslaving, die volgens Haidt samen de uitwerking van de herbedrading verklaren.</td></tr>
+          <tr><td class="term">Verdringing</td><td>Het denkbeeld dat schermtijd vooral schaadt doordat zij andere bezigheden verdringt, los van de vraag wat er op het scherm te zien is.</td></tr>
+          <tr><td class="term">Antifragiliteit</td><td>De eigenschap van kinderen om sterker te worden van beheersbare tegenslag, zodat wegnemen van alle tegenslag zelf schade oplevert.</td></tr>
+          <tr><td class="term">Veiligheidsdenken</td><td>De houding waarin veiligheid boven alle andere overwegingen gaat en risico voor kinderen tot nul wordt teruggebracht.</td></tr>
+          <tr><td class="term">Ervaringsblokkade</td><td>Bescherming die een kind de ervaringen onthoudt waarmee het zijn angst zou leren hanteren.</td></tr>
+          <tr><td class="term">Probleem van gezamenlijk handelen</td><td>De situatie waarin een enkele ouder of school niets bereikt en alleen een gedeelde norm het gedrag verandert.</td></tr>
+          <tr><td class="term">Geestelijke verschraling</td><td>Het wegvallen van aandacht, stilte, ontzag en gedeelde rituelen uit het leven van jongeren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal. Ten eerste tijdreeksen uit bevolkingsonderzoeken en registers over angst, somberheid, zelfbeschadiging en zelfdoding, uit meerdere landen. Ten tweede onderzoek naar slaap, aandacht en vrij spel, dat losstaat van sociale netwerken en dat op zichzelf redelijk stevig is. Ten derde een klein aantal onderzoeken waarin deelnemers hun gebruik moesten staken of verminderen, plus natuurlijke experimenten rond de invoering van breedband.</p>
+      <p>De zwakke schakel is het middenstuk. Het verband tussen tijdreeksen op bevolkingsniveau en uitwerking op het individu wordt in het boek verondersteld en niet aangetoond. Haidt is daar zelf open over en heeft zijn literatuurverzameling openbaar gemaakt in bewerkbare bestanden waar critici hun tegenwerpingen in kwijt kunnen. Dat is een ongebruikelijke en verdedigbare handelwijze, en zij verandert niets aan de vraag zelf.</p>
+      <p>De sterkste stukken van het boek gaan over slaap en over de terugloop van vrij spel. Daar is de literatuur ouder, breder en minder afhankelijk van zelfrapportage over schermgebruik. Het zwakste stuk is de uitwerking bij jongens, waar Haidt zelf toegeeft dat de daling al voor 2010 begon.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt van onderzoekers die hetzelfde materiaal anders lezen. Candice Odgers besprak het boek in Nature en noemde de stelling niet gedragen door het beschikbare onderzoek. Haar bezwaar is tweeledig: de gevonden verbanden in vragenlijstonderzoek zijn klein, en de richting van het verband staat niet vast. Jongeren die het slecht doen gaan mogelijk meer op hun telefoon zitten, in plaats van andersom. Ook wijst zij erop dat het boek een verklaring aandraagt die ouders en beleidsmakers graag horen, terwijl armoede, verwaarlozing en gebrek aan zorg minder aandacht krijgen.</p>
+      <p>Andrew Przybylski heeft met Amy Orben laten zien hoe sterk zulke uitkomsten van keuzes in de analyse afhangen. Door alle redelijke varianten van een analyse naast elkaar te leggen kwamen zij op verbanden die zo klein zijn dat vergelijkbare uitkomsten ook opgaan voor alledaagse zaken zonder enige betekenis voor het welzijn. Przybylski wijst er verder op dat het meeste onderzoek leunt op schattingen van eigen schermtijd, en dat mensen die schattingen slecht maken.</p>
+      <p>Daarnaast zijn er verklaringen die Haidt te snel afdoet. De kredietcrisis van 2008 en de nasleep daarvan, veranderende schoolprestatiedruk, ruimere diagnostiek en gewijzigde meetinstrumenten in de onderzoeken zelf kunnen elk een deel van de knik verklaren. Dat de knik in meerdere landen zichtbaar is, sluit gedeelde economische en culturele oorzaken niet uit, want die landen delen meer dan alleen de smartphone.</p>
+      <p>Een laatste bezwaar geldt de voorstellen. Leeftijdsgrenzen vragen om leeftijdscontrole, en leeftijdscontrole vraagt om identificatie van alle gebruikers. Wat dat voor de vrijheid van meerderjarigen betekent, behandelt het boek nauwelijks. Ook blijft onbesproken wat er gebeurt met jongeren voor wie het netwerk juist de enige plek is waar zij gelijkgestemden vinden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg de telefoon van kinderen 's nachts buiten de slaapkamer; van de vier schaden is slaaptekort de best onderbouwde en de makkelijkst te verhelpen.</li>
+        <li>Zoek het gesprek met andere ouders uit dezelfde klas voordat je een grens stelt, omdat een grens alleen werkt als meer gezinnen hem aanhouden.</li>
+        <li>Vraag bij een schoolbestuur naar een regeling voor de hele schooldag en niet alleen voor de les.</li>
+        <li>Meet bij jezelf en bij het gezin eerst hoeveel uur er werkelijk naar het scherm gaat, want schattingen uit het hoofd zitten er in onderzoek stelselmatig naast.</li>
+        <li>Herstel losse tijd zonder toezicht in kleine stappen, bijvoorbeeld een boodschap of een route naar school alleen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>How the Great Rewiring of Childhood Is Causing an Epidemic of Mental Illness</i>. Nederlands als <i>Generatie angststoornis</i> bij Ten Have.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Haidt legt de sterke stijging van angst en depressie onder jongeren vanaf ongeveer 2012 bij twee bewegingen die elkaar versterken: een spelende jeugd buitenshuis die verdween door overbeschermende opvoeding, en een op smartphones gebaseerde jeugd die daarvoor in de plaats kwam met de opkomst van de frontcamera en het oneindig doorschuivende tijdlijnontwerp. Hij noemt vier schadeposten: slaaptekort, aandachtsversnippering, sociale onthouding en verslavingsgedrag, en betoogt dat meisjes vooral door de vergelijking op sociale media worden geraakt en jongens door terugtrekking in spel en porno.</p><p>Zijn voorstellen zijn concreet en daarom bruikbaar in een gezin of school: geen smartphone voor de middelbare school, geen sociale media voor het zestiende jaar, telefoonvrije scholen, en meer onbegeleide tijd buiten. Vakgenoten bestrijden of de samenhang die hij aanwijst ook oorzaak is, en dat debat staat nog open.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>jeugd</li><li>smartphone</li><li>sociale-media</li><li>opvoeding</li><li>angst</li><li>onderzoeksdebat</li><li>school</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman voerde veertig jaar eerder een verwant betoog over de televisie: dat de vorm van een medium bepaalt wat er nog te denken valt.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari behandelt op veel langere schaal dezelfde vraag die Haidt stelt, of technische vooruitgang mensen daadwerkelijk beter af heeft gemaakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
