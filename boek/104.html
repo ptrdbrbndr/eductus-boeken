@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oud zeer &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bakker stelt dat het gebrek aan liefde, aandacht en veiligheid in iemands jonge jaren minstens zo bepalend is voor latere psychische en lichamelijke…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-104">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">104 &middot; Brein en lichaam</p>
+    <h1>Oud zeer</h1>
+    <p class="lede">Bram Bakker, 2022</p>
+    <p class="stats">
+      <span><b>1654</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="104"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bakker stelt dat het gebrek aan liefde, aandacht en veiligheid in iemands jonge jaren minstens zo bepalend is voor latere psychische en lichamelijke klachten als de gebeurtenissen die officieel als trauma tellen, en dat de geestelijke gezondheidszorg juist dat gebrek stelselmatig over het hoofd ziet omdat het niet in het diagnosehandboek staat. Waar geen classificatie is, is geen onderzoeksgeld, geen behandelrichtlijn en geen vergoeding, en dus wordt affectieve verwaarlozing weggeschreven onder labels als depressie, angststoornis of persoonlijkheidsstoornis die over de oorzaak zwijgen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Positieve en negatieve ingredienten</h3>
+      <p>Bakker ontleent aan de oude beschrijving van schizofrenie een indeling die hij op de jeugd toepast. Positieve ingredienten zijn de dingen die er wel waren maar er niet hadden moeten zijn: slaan, pesten, misbruik. Negatieve ingredienten zijn de dingen die er niet waren maar er wel hadden moeten zijn: warmte, aandacht, geborgenheid, knuffels.</p>
+      <p>Zijn punt is dat de positieve kant zichtbaar is en behandelbaar, en de negatieve kant onzichtbaar blijft. Een koel gezin valt niemand op. Mensen die het zwaarst belast zijn hebben meestal beide gehad: er werd geslagen en er was geen warmte.</p>
+      <h3>Wat trauma in de handboeken is</h3>
+      <p>Om te laten zien hoe smal de officiele omschrijving is, drukt Bakker de volledige DSM-5-criteria voor posttraumatische stressstoornis af, van criterium A tot en met H. Hij doet dat naar eigen zeggen om de afstand voelbaar te maken tussen wat iemand doormaakt en de droge opsomming die daarvan wordt gemaakt.</p>
+      <p>Daarbij plaatst hij feiten die het beeld nuanceren. Ongeveer de helft van alle mensen maakt ooit iets mee dat aan het A-criterium voldoet, en het overgrote deel houdt er geen PTSS aan over. Bij elk volgend psychotrauma stijgt de kans wel. Slachtoffers van misbruik blijken vaker een depressie te hebben dan PTSS. Bij zijn stelling dat de leeftijd van het eerste trauma veel voorspelt, schrijft hij er zelf bij dat hij zich daarbij niet op wetenschappelijke literatuur baseert.</p>
+      <h3>Hoe oud zeer bij de hulpverlening binnenkomt</h3>
+      <p>Bakker loopt de vijf diagnoses langs waaronder oud zeer volgens hem het vaakst wordt weggeschreven: depressieve stoornis, angststoornis, eetstoornis, stoornis in het gebruik van middelen en persoonlijkheidsstoornis. Zijn scherpste opmerking gaat over de laatste. Hoe langer iemand in de zorg blijft zonder vooruitgang, hoe groter de kans dat er een persoonlijkheidsstoornis bij komt, en dat label verklaart dan handig waarom de behandeling niet aanslaat.</p>
+      <p>Een apart deel gaat over de somatische kant. Onbegrepen klachten, chronische vermoeidheid, fibromyalgie, prikkelbare darmen en burn-out komen in zijn ervaring vaker voor bij mensen met een belaste jeugd. Hij verwijst daarvoor naar de ACE-studie uit 1998, met tien categorieen van tegenslag in de jeugd en een dosis-responsverband: meer categorieen betekent meer schade, ook in de vorm van diabetes, hart- en vaatziekten en kanker.</p>
+      <h3>Verhalen van mensen</h3>
+      <p>Tussen de beschouwende stukken staan portretten van mensen met wie Bakker heeft gewerkt, met hun toestemming en in overleg over herkenbaarheid opgeschreven. Het uitvoerigst is Aafke, een Friese vrouw van in de zeventig met een zware dwangstoornis die volgens haarzelf begon na de bevalling van een gehandicapte tweeling waarvan een kind doodgeboren werd.</p>
+      <p>Aafke kon door smetvrees niet in haar eigen huis zijn, had geen telefoon of computer, en had jarenlang cognitieve therapie en medicatie gehad zonder resultaat. Ze kreeg elektroconvulsietherapie, later kanker met uitzaaiingen, en uiteindelijk in een hospice de EMDR waar ze om had gevraagd. Bakker schrijft eerlijk op dat het maar half hielp: er kwam wat berusting, de smetvrees werd nauwelijks minder, en dat de berusting ook door haar naderende dood kan zijn gekomen. Aafke Lettinga werd 76 jaar.</p>
+      <h3>Wat behandeling wel en niet kan</h3>
+      <p>Bakker beschrijft het aanbod nuchter: exposuretherapie en de narratieve variant daarvan, cognitieve therapie van Aaron Beck, en EMDR van Francine Shapiro. Bij EMDR meldt hij dat het werkingsmechanisme onduidelijk bleef en dat de oogbewegingen niet nodig blijken, omdat een afwisselende pieptoon door een koptelefoon hetzelfde doet, en dat er ondanks die controverse veel bewijs voor de werkzaamheid is.</p>
+      <p>Zijn bezwaar tegen de behandelstandaarden is dat de relatie tussen therapeut en client daarin niet voorkomt. Hij haalt Jan Foudraine aan met de zin dat hij geen patienten behandelt maar mensen ontmoet. Schematherapie noemt hij van het reguliere aanbod het meest geschikt bij oud zeer.</p>
+      <p>In het stuk over de serotonine-leugen bespreekt hij het artikel dat concludeerde dat er geen aantoonbaar verband is tussen depressie en een serotoninetekort. Hij is daar dubbel over: blij dat het verklaringsmodel weg is, verdrietig dat miljoenen mensen decennia verkeerd zijn voorgelicht. Hij is niet tegen antidepressiva, gelooft er minder in, en wil geld voor begeleide afbouw omdat plotseling stoppen risico's heeft.</p>
+      <h3>Andere wegen en het eigen verhaal</h3>
+      <p>Het langste deel van het boek gaat over wat er buiten het protocol te vinden is: lichaamswerk, familieopstellingen, hypnose, psychedelische middelen, hardlopen, aanraking, niet-oordelen. Bakker geeft daarbij toe dat hij vaak niet weet waarom iets werkt, en trekt de vergelijking met antidepressiva, waarvan ook niemand het precies weet.</p>
+      <p>Daar doorheen loopt zijn eigen geschiedenis: de verhuizingen achter de banen van zijn vader aan, de jaren in IJsselmuiden, het huwelijk van zijn ouders, de moederband, zijn scheiding, zijn slechte verdraagzaamheid voor kritiek. Hij laat zijn registratie als psychiater verlopen en beschrijft dat als een keuze, niet als een verlies. Het slot gaat over post traumatic growth potential en over vergeving zonder dat de ander er om vraagt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Oud zeer</td><td>Bakkers Nederlandse term voor de blijvende sporen van een belaste jeugd, uitdrukkelijk geen diagnose en geen ziekte.</td></tr>
+          <tr><td class="term">Affectieve verwaarlozing</td><td>Het uitblijven van het emotionele klimaat dat een kind nodig heeft om zich tot een stabiele volwassene te ontwikkelen.</td></tr>
+          <tr><td class="term">Positieve ingredienten</td><td>Gebeurtenissen die er waren en er niet hadden moeten zijn, zoals mishandeling of misbruik.</td></tr>
+          <tr><td class="term">Negatieve ingredienten</td><td>Dat wat ontbrak: warmte, aandacht, geborgenheid, complimenten.</td></tr>
+          <tr><td class="term">ACE</td><td>Adverse Childhood Experiences, de studie uit 1998 met tien categorieen tegenslag en een dosis-responsverband met latere ziekte.</td></tr>
+          <tr><td class="term">Toxic stress</td><td>Langdurige belasting die volgens de literatuur het lichaam zelf aantast, in de jeugd maar ook op volwassen leeftijd.</td></tr>
+          <tr><td class="term">Het achtste vinkje</td><td>Bakkers aanvulling op Luyendijks zeven vinkjes: het ontbreken van hinderlijk oud zeer als voorwaarde om de andere voordelen te kunnen benutten.</td></tr>
+          <tr><td class="term">Dissimulatie</td><td>Het verbergen of kleiner maken van klachten tegenover hulpverleners, iets wat Bakker bij oud zeer vaak ziet.</td></tr>
+          <tr><td class="term">Post traumatic growth potential</td><td>De ruimte om aan een moeilijke geschiedenis vermogens over te houden, een term die hij bij het echtpaar Knoops oppikte.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bakker is over zijn eigen bewijsvoering opvallend open. Waar hij op onderzoek leunt is dat vooral de ACE-studie, en die noemt hij zelf het beste wat er is met de toevoeging dat betrouwbaar onderzoek naar zorggebruik bij deze groep schaars is. De DSM-criteria en de cijfers over PTSS-kansen zijn controleerbaar. Bij de serotoninebespreking verwijst hij naar een breed geciteerde overzichtsstudie.</p>
+      <p>Waar hij op ervaring leunt, schrijft hij dat erbij. Bij zijn stelling over de leeftijd van het eerste psychotrauma staat letterlijk dat hij zich niet op literatuur baseert. Bij familieopstellingen en lichaamswerk claimt hij geen bewijs, maar zegt dat hij niet weet waarom het werkt. Die eerlijkheid maakt het boek beter navolgbaar dan veel werk in dit genre.</p>
+      <p>De portretten dragen het boek qua overtuigingskracht en niet qua bewijs. Ze laten zien wat een leven met onbehandeld oud zeer kan doen, en in het geval van Aafke ook wat behandeling niet doet. Dat Bakker die tegenvaller opschrijft in plaats van hem weg te laten, zegt iets over de opzet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar zit in de kern van het betoog. Bakker schrijft dat het een goed verdedigbare stelling is dat oud zeer in principe altijd een aandeel heeft in iemands psychische stoornis, ongeacht welke. Een verklaring die overal past, is niet te weerleggen en verliest daarmee aan waarde. Zodra behandeling niet aanslaat, kan dat aan onbewerkt oud zeer liggen, en zodra ze wel aanslaat is er ook geen probleem. De lezer krijgt geen enkel voorbeeld van een geval waarin de verklaring niet opgaat.</p>
+      <p>Ten tweede is de sprong van de ACE-bevindingen naar zijn eigen conclusies groot. De studie laat statistische samenhang zien tussen categorieen tegenslag en latere ziekte in een grote groep. Ze zegt niets over de vraag welke individuele klacht bij welke individuele persoon uit welke jeugdervaring voortkomt, en dat is precies wat het boek in de praktijk doet. Bij een dosis-responsverband uit een retrospectieve vragenlijst speelt bovendien mee dat mensen die nu ziek zijn hun jeugd anders herinneren.</p>
+      <p>Ten derde bepleit Bakker methoden waarvan hij zelf zegt dat hij niet weet hoe ze werken, terwijl hij de farmaceutische industrie verwijt dat die met een onbewezen verklaringsmodel is weggekomen. Dat is dezelfde maat niet. Familieopstellingen, hypnose en plantmedicijnen zijn niet de veilige restcategorie die het boek suggereert, en juist voor een lezersgroep die al veel heeft geprobeerd verdient die kanttekening een plek.</p>
+      <p>Ten slotte de vorm. Het boek bestaat uit korte columnachtige stukken die eerder los verschenen konden zijn, en de opbouw over negen hoofdstukken is losser dan de inhoudsopgave belooft. Het persoonlijke deel neemt in de tweede helft veel ruimte, en wie voor de analyse van affectieve verwaarlozing komt, leest daar veel over Bakkers verliefdheden en hardloopvrienden doorheen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf bij een langlopende klacht op wat er in het jaar ervoor speelde, en daarna wat er in de jaren voor je vijftiende speelde. Zet die twee lijstjes naast elkaar.</li>
+        <li>Vraag bij een behandeling die niet aanslaat expliciet naar de klik met de behandelaar, want de standaarden benoemen die factor niet.</li>
+        <li>Neem bij lichamelijke klachten zonder verklaring de jeugd op in het gesprek met de arts, ook als daar niet naar gevraagd wordt.</li>
+        <li>Stop nooit op eigen houtje met antidepressiva; Bakker pleit voor afbouw onder begeleiding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Bij Uitgeverij Lucht (2022). Bakker is psychiater en schrijft over de grens tussen lichamelijke en geestelijke klachten.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bakker behandelt wat moeilijke jonge jaren later in een lichaam en een leven aanrichten. Hij loopt langs de vraag wat trauma is, hoe het zich uit, hoe het wordt behandeld en hoe het ook zou kunnen, met hoofdstukken over de band met de moeder, over seks, over familie en vriendschap en over liefdesrelaties.</p><p>Zijn scherpste punt gaat over het stelsel zelf. Klachten waarvoor geen lichamelijke verklaring wordt gevonden, van aanhoudende vermoeidheid tot prikkelbare darm en burn-out, komen uiteindelijk in de geestelijke gezondheidszorg terecht, waar eerst een psychiatrische diagnose nodig is om de behandeling vergoed te krijgen. Hij leunt op het Amerikaanse onderzoek naar nadelige jeugdervaringen en zegt er eerlijk bij dat degelijk onderzoek op dit terrein schaars is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>trauma</li><li>psychiatrie</li><li>jeugd</li><li>onbegrepen-klachten</li><li>ggz</li><li>diagnose</li><li>nederlands</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="119"><a href="119.html">Unfuck Your Brain</a>. Harper legt in kort bestek uit wat er neurologisch gebeurt bij aanhoudende stress, de laag die Bakker vooral als ervaring beschrijft.</li>
+          <li value="107"><a href="../index.html#boek-107">Alles draait om angst</a>. Van Gassel behandelt angst als grondlaag onder uiteenlopende klachten, een redenering die parallel loopt aan die van Bakker.</li>
+          <li value="103"><a href="103.html">De psychologie van eetgedrag</a>. Zondervan beschrijft verstoord eetgedrag zonder de jeugdlaag; naast Bakker gelezen valt op wat daar ontbreekt.</li>
+          <li value="87"><a href="87.html">Activeer je nervus vagus</a>. Swinnen gaat over de lichamelijke kant van spanningsregulatie, het terrein waarvan Bakker zegt dat de psychiatrie het decennialang oversloeg.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

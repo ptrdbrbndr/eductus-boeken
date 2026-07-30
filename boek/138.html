@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Shift &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Foster stelt dat de vraag wat je eet bij afvallen minder bepaalt dan hoe je over jezelf en over het traject denkt, en dat dit de reden is dat dieten op de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-138">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">138 &middot; Brein en lichaam</p>
+    <h1>The Shift</h1>
+    <p class="lede">Gary Foster, 2021</p>
+    <p class="stats">
+      <span><b>1667</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="138"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Foster stelt dat de vraag wat je eet bij afvallen minder bepaalt dan hoe je over jezelf en over het traject denkt, en dat dit de reden is dat dieten op de lange termijn niet werken: ze regelen het eerste en laten het tweede ongemoeid. Zijn ingreep is opvallend: hij zet zelfcompassie op de plaats waar de meeste lezers strengheid verwachten, en beweert dat wie zichzelf na een misstap hard aanpakt daarmee de kans op volhouden verkleint in plaats van vergroot.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom het boek niet over eten gaat</h3>
+      <p>De inleiding opent met een test waarin de lezer per paar het gezondere product moet aanwijzen: gemalen rundvlees of kipfilet, banaan of bananensplit, gebakken of gegrilde vis. Het punt is dat vrijwel iedereen die test haalt. Kennis over voeding is bij deze lezers niet het knelpunt.</p>
+      <p>Foster vertelt hoe hij bij toeval in het vakgebied belandde, aan de University of Pennsylvania, en dat hij aanvankelijk zelf in wilskracht en discipline dacht. Wat hem van dat idee afbracht was de observatie dat de mensen die op lange termijn slaagden niet degenen waren die alles bijhielden of het plan perfect volgden, maar degenen met een bruikbare manier van denken over tegenslag.</p>
+      <h3>Zelfcompassie als fundament</h3>
+      <p>De eerste omslag loopt van hard voor jezelf zijn naar mild voor jezelf zijn. Foster leunt hier op Kristin Neff en haar drie componenten: vriendelijkheid naar jezelf in plaats van zelfkritiek, aandacht voor wat er nu gebeurt zonder oordeel, en het besef dat falen bij mensen hoort.</p>
+      <p>Het voorbeeld is Katie, advocaat en moeder, die na een week met drie punten pizza en een reep een pond aankwam en zichzelf een slecht voorbeeld voor haar kinderen noemde. Fosters vraag aan haar was of ze een vriendin die hetzelfde overkwam zo zou toespreken. Hij benadrukt dat aanmoedigen niet hetzelfde is als de feiten verdraaien: een goede vriend is realistisch en eerlijk en toch aardig.</p>
+      <h3>Denkstijlen herkennen en tegenspreken</h3>
+      <p>De tweede omslag gaat van tegenslag als bewijs van mislukking naar tegenslag als moment om te herstarten. Het beeld dat Foster gebruikt is de weerman: de een staat in de studio en ziet de storm van een afstand, de ander staat er middenin en ziet niets. Je wilt de eerste zijn.</p>
+      <p>Zijn voorbeeld is Ellie, die haar week rampzalig noemde vanwege een bruiloft, terwijl negentien of twintig van de eenentwintig maaltijden volgens plan waren gegaan en alle drie de wandelingen waren gelopen. Foster wijst er bovendien op dat Ellie zes uur niets had gegeten om zich op het diner voor te bereiden, waarmee ze het overeten praktisch had ingebouwd. Hij onderscheidt vier onbehulpzame denkstijlen en zet daar cognitieve technieken tegenover: pauzeren, de gedachte bekijken, en er een realistisch antwoord op formuleren. De begrippen fixed en growth mindset van Carol Dweck komen hier langs.</p>
+      <h3>Kleine stappen en gewoontevorming</h3>
+      <p>De derde omslag gaat tegen het idee in dat grote doelen motiveren. Foster grijpt terug op Skinner, niet alleen op belonen maar vooral op successieve benadering: beloning hoort niet pas bij de eindstreep te horen, maar bij elke stap in de goede richting.</p>
+      <p>Zijn regel is dat de kans op slagen groter is naarmate de afstand tussen je huidige situatie en je doel kleiner is. De vertaling daarvan is een banaan in plaats van een koek op drie uur, of tien minuten bewegen op drie dagen. Wie besluit al het ijs weg te gooien en nooit meer te eten, bouwt volgens hem een tekort op dat zich later uitbetaalt. Hij noemt de kloof tussen bedoeling en gedrag de action-intention gap, en gebruikt de term skillpower tegenover willpower.</p>
+      <h3>Sterke kanten in plaats van gebreken</h3>
+      <p>De vierde omslag verplaatst de aandacht van repareren naar benutten. Het voorbeeld is Sarah, een ondernemer die bijna faillissementen en een recessie doorstond met volharding en overzicht, en die dezelfde eigenschappen niet op haar gewicht betrok. Foster plaatst dit deel uitdrukkelijk in de traditie van de positieve psychologie uit de jaren negentig.</p>
+      <h3>Lichaamsbeeld, steun en geluk</h3>
+      <p>De vijfde omslag gaat over lichaamsbeeld. Foster stelt dat mensen die bij aanvang milder over hun lichaam denken meer gewicht verliezen dan mensen die hun lichaam afkeuren, wat tegen de intuitie ingaat dat afkeer motiveert. Zijn voorbeeld is Ava, die niet naar het zwembad ging, geen kleur droeg en een cruise uitstelde tot na het afvallen. Hij verzamelt een lijst met uitgestelde levens die hij in zijn praktijk hoorde.</p>
+      <p>De zesde omslag gaat over sociale steun: dat anderen je vooruithelpen of tegenwerken hangt er vooral van af of je hebt gezegd wat je van hen nodig hebt. Foster citeert Amy Gorin, die vertelt dat het vakgebied lang alleen naar het individu keek. De zevende omslag draait de volgorde van geluk en gewicht om. Hij citeert Laurie Santos over onderzoek waarin welbevinden voorafgaat aan uitkomsten in werk en gezondheid in plaats van er het gevolg van te zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Mindset</td><td>Bij Foster twee dingen tegelijk: hoe je over jezelf denkt en hoe je over het traject denkt.</td></tr>
+          <tr><td class="term">Zelfcompassie</td><td>Vriendelijkheid naar jezelf, oordeelloze aandacht en het besef dat falen algemeen menselijk is.</td></tr>
+          <tr><td class="term">Dieetmentaliteit</td><td>Alles-of-nietsdenken met dramatische doelen en harde zelfbestraffing na een misstap.</td></tr>
+          <tr><td class="term">Onbehulpzame denkstijl</td><td>Terugkerend denkpatroon dat verder gaat dan de feiten en tot afhaken leidt.</td></tr>
+          <tr><td class="term">Successieve benadering</td><td>Skinners principe dat elke stap richting het doel beloning verdient, niet alleen het eindresultaat.</td></tr>
+          <tr><td class="term">Action-intention gap</td><td>Het verschil tussen wat iemand van plan is en wat hij werkelijk doet.</td></tr>
+          <tr><td class="term">Skillpower</td><td>Aangeleerde vaardigheden als vervanging voor wat gewoonlijk wilskracht wordt genoemd.</td></tr>
+          <tr><td class="term">Gewichtsstigma</td><td>De brede maatschappelijke afkeuring van mensen met overgewicht, die volgens Foster het denken over jezelf vergiftigt.</td></tr>
+          <tr><td class="term">Lichaamsbeeld</td><td>Hoe centraal gewicht en vorm staan in het oordeel dat iemand over zichzelf velt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is van de drie het best gedocumenteerde boek. Achterin staat per uitspraak een bron, met tijdschrift, jaartal en doi. Voor zelfcompassie leunt Foster op Neff, op Adams en Leary over schuldbewuste eters, op een gerandomiseerde pilotstudie van Mantzios en Wilson, en op werk van Thogersen-Ntoumani en collega's over uitglijders bij mensen met overgewicht. Voor denkstijlen gaat hij terug op Beck en Burns, voor doelen op Skinner, voor mindset op Dweck. Bij het aantal gedachten per dag noemt hij zelf dat de vaak geciteerde 70.000 nauwelijks onderbouwd is en verwijst hij naar recenter onderzoek dat op ruim 6.000 uitkomt. Dat soort correcties komt in dit genre zelden voor.</p>
+      <p>Foster is Chief Scientific Officer bij WW, het bedrijf dat vroeger Weight Watchers heette, en het boek verzwijgt dat niet: hij noemt zijn werk voor WW in de inleiding, gebruikt WW-bijeenkomsten als toneel voor zijn voorbeelden, en het boek bevat een QR-code van WW. Een deel van het aangehaalde onderzoek komt uit zijn eigen hand of uit onderzoek waaraan WW verbonden is, onder meer studies over gewichtsstigma waarin hij medeauteur is. Dat maakt de bevindingen niet onjuist, maar het betekent wel dat de auteur belang heeft bij de conclusie dat een begeleid programma met een gemeenschap eromheen werkt, en dat de selectie van wat hij aanhaalt daardoor gekleurd kan zijn. Wie de sterkte van een uitkomst wil wegen, kijkt bij dit soort passages beter naar onafhankelijke overzichtsstudies.</p>
+      <p>Over de omvang van de effecten is Foster vaag waar hij precies zou kunnen zijn. Hij belooft betekenisvolle vooruitgang en geen perfectie, wat netjes is, maar getallen over hoeveel gewichtsverlies met deze aanpak samenhangt en hoe lang dat aanhoudt staan er niet. Dat is een gemis in een boek dat afvallen in de ondertitel voert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de richting van de verbanden. Foster stelt dat mensen met een beter lichaamsbeeld bij aanvang meer gewicht verliezen, en dat gelukkiger mensen gezondere keuzes maken. Beide zijn samenhangen die net zo goed andersom kunnen lopen of door een derde factor kunnen worden gedreven, bijvoorbeeld door hoeveel iemand aan zijn hoofd heeft. Het boek presenteert ze als aangrijpingspunten, wat een causale claim is die het aangehaalde onderzoek niet altijd draagt.</p>
+      <p>Ten tweede blijft ongemakkelijk wat het boek stilzwijgend aanneemt: dat langdurig gewichtsverlies voor de meeste mensen haalbaar is als de denkwijze maar klopt. Uit de langlopende literatuur komt naar voren dat het merendeel van de mensen na een aantal jaren dicht bij het uitgangsgewicht zit, ongeacht de methode. Foster kent die literatuur, hij noemt de biologische regulatie in de inleiding zijdelings, maar in de zeven hoofdstukken komt ze niet terug. Daardoor blijft de uitkomst impliciet toch bij de lezer liggen.</p>
+      <p>Ten derde is er spanning tussen twee kernstukken. Hoofdstuk vijf zegt dat gewicht maar een van vele maten is en dat de lezer zijn waarde er niet aan moet ophangen. De rest van het boek houdt gewichtsverlies als doel overeind, tot in de ondertitel. Zelfcompassie wordt daarmee ingezet als middel tot afvallen, terwijl de literatuur waaruit Foster put zelfcompassie juist beschrijft als iets dat losstaat van prestatie. Wie die spanning voelt, krijgt van het boek geen antwoord.</p>
+      <p>Ten slotte is er veel herhaling. De omslagen overlappen, dezelfde vaardigheden komen in wisselende jasjes terug, en Foster zegt dat ook zelf: je hoeft niet alle technieken te leren, een paar volstaan. Voor wie eerdere boeken over cognitieve gedragstherapie of gewoontevorming heeft gelezen, is het nieuwe hier vooral de toepassing op gewicht.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf een tegenslag op zoals je hem aan een vriend zou beschrijven, en formuleer daarna het antwoord dat je die vriend zou geven.</li>
+        <li>Zet naast de mislukte dag de zes dagen die wel gingen zoals gepland, met wat je daarvoor deed.</li>
+        <li>Kies een doel dat je deze week zeker haalt en beloon het meteen, in plaats van te wachten op de eindstreep.</li>
+        <li>Schrijf drie eigenschappen op waarmee je elders in je leven iets moeilijks hebt volbracht, en bedenk hoe je die hier inzet.</li>
+        <li>Zeg tegen een huisgenoot of collega precies wat je van hem nodig hebt, en ook wat niet helpt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>7 Powerful Mindset Changes for Lasting Weight Loss</i> (St. Martin's Press). Foster is psycholoog en wetenschappelijk directeur bij WW, het voormalige Weight Watchers.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Foster verlegt het gesprek over afvallen van dieet naar denkhouding: kleine successen tellen, terugval is onderdeel van het beloop, zelfverwijt werkt averechts, en beweging telt ook als het weinig is. Hij put uit onderzoek naar gedragsverandering en uit zijn eigen klinische werk.</p><p>De inhoud is degelijker dan de kaft doet vermoeden, met één belangrijk voorbehoud: de schrijver is wetenschappelijk directeur bij het bedrijf achter Weight Watchers, en het boek is daarmee ook een uithangbord voor de aanpak die dat bedrijf verkoopt. Dat staat er zelf niet nadrukkelijk bij.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gewicht</li><li>gedrag</li><li>zelfbeeld</li><li>gewoonte</li><li>psychologie</li><li>belangenverstrengeling</li><li>leefstijl</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="23"><a href="23.html">Mindset</a>. Dweck levert het onderscheid tussen vaste en groeigerichte mindset waar Foster in hoofdstuk twee direct op leunt.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear werkt Fosters kleine stappen veel gedetailleerder uit tot een systeem voor gewoontevorming.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown behandelt zelfcompassie en schaamte zonder dat er een gewichtsdoel aan hangt, wat de spanning in Fosters opzet zichtbaar maakt.</li>
+          <li value="103"><a href="103.html">De psychologie van eetgedrag</a>. Zondervan pakt hetzelfde onderwerp aan vanuit eetgedrag en bewustwording, met beduidend lossere bronvermelding.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

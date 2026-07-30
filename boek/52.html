@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why We Sleep &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Slaap is geen restpost van het wakkere leven maar de toestand waarin het lichaam en het brein hun belangrijkste onderhoud doen, en de moderne samenleving…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-52">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">52 &middot; Gewoontes en denken</p>
+    <h1>Why We Sleep</h1>
+    <p class="lede">Matthew Walker, 2017</p>
+    <p class="stats">
+      <span><b>1619</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="52"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Slaap is geen restpost van het wakkere leven maar de toestand waarin het lichaam en het brein hun belangrijkste onderhoud doen, en de moderne samenleving heeft die toestand stelselmatig ingekort zonder de rekening te willen zien. Walker bouwt zijn boek op rond één stelling: er bestaat geen orgaan en geen mentale functie die niet slechter gaat werken bij structureel te weinig slaap, en de acht uur die daarvoor nodig is valt niet te onderhandelen. Wie daar iets tegenover wil zetten, moet aantonen dat de schade die hij beschrijft kleiner is dan hij zegt, of dat de dosering minder hard vastligt dan hij suggereert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat slaap is</h3>
+      <p>Het eerste deel beschrijft het slaapsysteem als het samenspel van twee processen. Het circadiane ritme is een inwendige klok van ongeveer vierentwintig uur, gezeten in de nucleus suprachiasmaticus, die zich bijstelt op daglicht en die melatonine laat vrijkomen als het donker wordt. Daarnaast loopt de slaapdruk op: hoe langer iemand wakker is, hoe meer adenosine zich ophoopt. Cafeïne werkt doordat het de adenosinereceptoren bezet, waardoor de slaapdruk wel bestaat maar niet gevoeld wordt.</p>
+      <p>Walker legt daarna het verschil uit tussen NREM-slaap, met de trage golven en de slaapspoelen die vooral in de eerste helft van de nacht voorkomen, en REM-slaap, waarin het brein bijna wakker-actief is terwijl de spieren verlamd zijn. De verhouding tussen beide verschuift door de nacht heen, wat volgens hem betekent dat wie twee uur korter slaapt niet een kwart maar een veel groter deel van zijn REM-slaap kwijtraakt. Hij plaatst dit patroon in een evolutionair en ontwikkelingsverhaal: hoe slaap eruitziet bij dieren, bij foetussen, bij pubers met een verschoven chronotype en bij ouderen die hun trage golven kwijtraken.</p>
+      <h3>Wat slaap doet</h3>
+      <p>Het tweede deel is het hart van het betoog. Slaap voor het leren zou het geheugen ontvankelijk maken, slaap na het leren zou het vastzetten. Walker beschrijft proeven waarin deelnemers woordparen leren en de groep die daarna slaapt er meer van terughaalt, en hij koppelt dat aan de slaapspoelen die in de tweede helft van de nacht dichter opeen liggen. Motorisch leren zou zich zelfs in de slaap nog verbeteren zonder verdere oefening.</p>
+      <p>Daarna volgt de lichamelijke kant. Kort slapen wordt in verband gebracht met een hogere bloeddruk, met verstoorde glucosehuishouding, met een lagere activiteit van natural killer-cellen, met gewichtstoename via leptine en ghreline, en met de opruiming van amyloïde in het brein tijdens de trage golven. Het bekendste voorbeeld in dit deel is de zomertijd: bij het uur slaap dat in het voorjaar verdwijnt zou het aantal hartinfarcten stijgen, en bij het uur dat er in het najaar bij komt dalen.</p>
+      <h3>Dromen</h3>
+      <p>Het derde deel gaat over REM-slaap en dromen. Walker verdedigt twee functies. De eerste noemt hij nachtelijke therapie: tijdens REM-slaap is noradrenaline vrijwel afwezig, waardoor een emotionele herinnering opnieuw doorlopen kan worden zonder de bijbehorende lichamelijke alarmreactie. De herinnering blijft, de scherpte gaat eraf. Dat verklaart volgens hem waarom slecht slapen samenhangt met posttraumatische klachten.</p>
+      <p>De tweede functie is het leggen van verbanden tussen dingen die overdag los van elkaar stonden. Hij haalt er proeven bij waarin mensen na REM-slaap beter presteren op anagrammen en op taken die een verborgen regel bevatten, en de bekende anekdotes over Mendelejev en over Otto Loewi. Dat laatste is het zwakste stuk van het boek qua bewijskracht, en Walker zegt zelf dat de anekdotes illustratie zijn en geen bewijs.</p>
+      <h3>Slaap en samenleving</h3>
+      <p>Het vierde deel richt zich op slaapmiddelen, slaapstoornissen en instituties. Over de gangbare slaapmiddelen is Walker uitgesproken: zij brengen sedatie en niet de elektrische opbouw van natuurlijke slaap, en de winst in werkelijk geslapen tijd die in de registratiestudies gevonden wordt is klein. Als alternatief wijst hij op cognitieve gedragstherapie bij slapeloosheid, waarvan het effect langer standhoudt.</p>
+      <p>Daarna komen de instituties. Scholen die om half acht beginnen halen slaap weg bij pubers van wie de klok juist later loopt; districten die de starttijd verschoven, zagen volgens de aangehaalde cijfers betere resultaten en minder verkeersongevallen onder scholieren. Ook de vermoeide arts, de vermoeide vrachtwagenchauffeur en het bedrijfsleven dat overwerken beloont, krijgen hun hoofdstuk. Het boek eindigt met een lijst met twaalf adviezen voor betere slaap en met een pleidooi voor slaap als publieke zaak.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Circadiaan ritme</td><td>De inwendige klok van ongeveer vierentwintig uur die het slaap-waakritme aanstuurt en zich op daglicht bijstelt.</td></tr>
+          <tr><td class="term">Slaapdruk</td><td>De oplopende neiging tot slapen die het gevolg is van de ophoping van adenosine tijdens het wakker zijn.</td></tr>
+          <tr><td class="term">Adenosine</td><td>De stof die zich tijdens het waken opbouwt en waarvan de werking door cafeïne tijdelijk wordt geblokkeerd.</td></tr>
+          <tr><td class="term">NREM-slaap</td><td>De slaap met trage hersengolven, door Walker verbonden aan het overzetten van herinneringen naar langdurige opslag.</td></tr>
+          <tr><td class="term">REM-slaap</td><td>De slaapfase met snelle oogbewegingen, hoge hersenactiviteit en spierverlamming, waarin de meeste levendige dromen voorkomen.</td></tr>
+          <tr><td class="term">Slaapspoelen</td><td>Korte uitbarstingen van hersenactiviteit in de lichtere NREM-slaap die samenhangen met hoeveel iemand van het geleerde terugvindt.</td></tr>
+          <tr><td class="term">Nachtelijke therapie</td><td>Walkers term voor het idee dat REM-slaap de emotionele lading van een herinnering afzwakt zonder de herinnering zelf te wissen.</td></tr>
+          <tr><td class="term">Chronotype</td><td>De aangeboren neiging om vroeg of laat te slapen, die bij pubers naar achteren schuift en bij ouderen weer naar voren.</td></tr>
+          <tr><td class="term">Slaapschuld</td><td>Het tekort dat ontstaat door kort slapen en dat volgens Walker niet in het weekend is in te halen.</td></tr>
+          <tr><td class="term">Slaapmiddel als sedatie</td><td>Zijn stelling dat de gangbare slaapmedicatie het bewustzijn uitschakelt zonder de opbouw van natuurlijke slaap te herstellen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal. Ten eerste laboratoriumproeven met slaaponthouding, meestal met kleine groepen jonge gezonde deelnemers, waarin een taak voor en na een nacht wordt afgenomen. Die opzet is sterk voor de vraag of één nacht slecht slapen iets doet met leren of stemming, en zwak voor de vraag wat jarenlang zes uur slapen met iemand doet.</p>
+      <p>Ten tweede epidemiologisch werk waarin gerapporteerde slaapduur naast ziekte en sterfte wordt gelegd. Dat materiaal is per definitie observationeel. Slecht slapen loopt mee met ploegendienst, armoede, pijn, depressie en ziekte die nog niet gediagnosticeerd is, en dat maakt het lastig om oorzaak en gevolg te scheiden. Walker gaat op die omkering weinig in en presenteert de verbanden overwegend in één richting.</p>
+      <p>Ten derde bevolkingsbrede natuurlijke experimenten, waarvan de zomertijd het bekendste is. Dat is de sterkste bewijsvorm in het boek, omdat de verandering van buitenaf komt en niet door de deelnemers wordt gekozen. De gevonden verschuivingen in het aantal hartinfarcten zijn echter klein in absolute zin en de schattingen lopen tussen studies uiteen.</p>
+      <p>Wat in het boek zelf ontbreekt is een systematische weergave van tegenstrijdige bevindingen. Het verband tussen slaapduur en sterfte is in veel cohorten U-vormig: ook lang slapen hangt samen met een hoger sterfterisico. Walker bespreekt dat nauwelijks, terwijl het voor de lezer bepaalt hoe hij een advies over acht uur moet lezen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar komt van Alexey Guzey, die in 2019 een lang stuk publiceerde over de fouten in hoofdstuk 1. Hij wees onder meer op de claim dat routinematig kort slapen de levensduur halveert, die zo niet uit het aangehaalde onderzoek volgt, en op een verwijzing naar de Wereldgezondheidsorganisatie die volgens hem een uitspraak toeschrijft die de organisatie niet in die vorm heeft gedaan. Ook stelde hij dat een figuur de onderliggende gegevens verkeerd weergeeft en dat een passage over wiegendood te stellig is.</p>
+      <p>Walker heeft daarop gereageerd op zijn website. Hij erkende een fout in een van de figuren en liet die corrigeren, en hij verdedigde de rest van de aangevochten passages met verwijzing naar aanvullende literatuur. Andere lezers, onder wie statistici die het geschil volgden, vonden die reactie op een deel van de punten afdoende en op een deel niet, vooral waar het ging om de vraag of het boek de sterkte van de verbanden groter voorstelt dan de bronnen dragen.</p>
+      <p>Los van de precieze telling van fouten blijft één bezwaar overeind, en dat is het belangrijkste bezwaar tegen dit boek. De stelligheid van de formuleringen gaat verder dan het onderliggende onderzoek toestaat. Zinnen die zeggen dat er geen enkele functie is die niet lijdt onder kort slapen, of dat er nul studies zijn die iets goeds over korte slaap laten zien, zijn absolute uitspraken op basis van een literatuur die voor een groot deel uit observationeel werk en kleine proeven bestaat.</p>
+      <p>Daar komt een praktisch nadeel bij. Een boek dat slapeloosheid presenteert als een acute bedreiging voor hart, brein en levensduur kan bij mensen die toch al slecht slapen de spanning rond het slapen vergroten. Dat effect is in de klinische praktijk bekend en het boek doet er weinig aan om het te dempen.</p>
+      <p>Wat het boek wel blijft leveren is een leesbaar en breed overzicht van wat slaaponderzoek de afgelopen decennia heeft opgeleverd, met een deel over slaapmiddelen en schooltijden dat op zichzelf goed onderbouwd is. Wie het leest als een pleidooi met een agenda en niet als een neutrale stand van de wetenschap, houdt er een bruikbaar beeld aan over.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd een vaste opsta-tijd aan, ook in het weekend, en laat het inslaaptijdstip zich daarnaar voegen.</li>
+        <li>Zet de laatste koffie ruim voor de middag, gezien de tijd die het lichaam nodig heeft om cafeïne af te breken.</li>
+        <li>Bekijk slapeloosheid die langer dan een paar weken duurt eerst met cognitieve gedragstherapie voordat medicatie in beeld komt.</li>
+        <li>Lees de getallen in dit boek als richting en niet als maat: relatieve risico's zeggen weinig zonder het onderliggende absolute risico.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Scribner, 2017. Nederlands als <i>Slaap</i>, vertaald door Jan Willem Reitsma en Maarten van der Werf, bij De Geus (2018).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Walker, slaaponderzoeker aan Berkeley, legt uit wat er in de nacht gebeurt en waarom slaaptekort daar niet los van staat: de diepe slaap in de eerste helft van de nacht bewaart wat geleerd is, de REM-slaap in de tweede helft verwerkt emoties en verbindt losse kennis, en wie de nacht inkort snijdt niet gelijkmatig maar juist die REM-slaap eruit. Praktisch komt hij uit op vaste tijden, koelte, donker, en terughoudendheid met alcohol en cafeïne, waarbij hij alcohol als slaapmiddel afwijst omdat het de REM-slaap onderdrukt.</p><p>Het boek is stellig, en die stelligheid heeft het in opspraak gebracht: een uitgebreide kritiek van onderzoeker Alexey Guzey wees op onjuiste weergaven en te sterke claims, waarna Walker enkele passages heeft aangepast. Het geldt daarom als een goede inleiding in het onderwerp die je niet als eindwoord moet lezen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>slaap</li><li>neurowetenschap</li><li>gezondheid</li><li>dromen</li><li>REM</li><li>cafeïne</li><li>onderzoekskritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="86"><a href="86.html">Hart voor je brein</a>. Scherder en Hofstra leggen dezelfde soort verbanden tussen leefstijl, hart en brein, en zijn expliciter over hoe zwak observationeel bewijs is.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman helpt om te zien hoe een goed verteld verhaal met veel voorbeelden overtuigender aanvoelt dan de gegevens rechtvaardigen.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear beschrijft hoe je een slaapritme in gedrag verankert, wat het deel is waar Walker weinig over te zeggen heeft.</li>
+          <li value="104"><a href="104.html">Oud zeer</a>. Bakker koppelt slecht slapen aan onverwerkte spanning en kiest daarmee een andere ingang dan de fysiologische van Walker.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

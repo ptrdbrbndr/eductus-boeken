@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De psychologie van eetgedrag &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Zondervan stelt dat afvallen en gezond eten mislukken zolang je bij het eten zelf begint. Wat iemand eet is volgens haar een uitkomst van drie lagen die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-103">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">103 &middot; Brein en lichaam</p>
+    <h1>De psychologie van eetgedrag</h1>
+    <p class="lede">Agaath Zondervan, 2024</p>
+    <p class="stats">
+      <span><b>1536</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="103"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Zondervan stelt dat afvallen en gezond eten mislukken zolang je bij het eten zelf begint. Wat iemand eet is volgens haar een uitkomst van drie lagen die eronder liggen: aangeleerde gewoonten, emoties en lichamelijke signalen. Wie die lagen leert opmerken kan zonder dieetregels bij een rustiger eetpatroon uitkomen, omdat honger en verzadiging vanzelf weer bruikbare informatie worden. Regels en restricties werken in deze redenering averechts, want ze voeden de cyclus van verbod, overtreding en schuldgevoel die het probleem in stand houdt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom eten geen kwestie van kennis is</h3>
+      <p>Het boek opent met de vaststelling dat vrijwel iedereen weet wat gezond eten inhoudt en dat die kennis het gedrag nauwelijks stuurt. Zondervan zet daar een verklaring tegenover in vier bronnen: emoties, overtuigingen, het beloningssysteem in de hersenen en de sociale omgeving. Ze citeert Cohen en Farley met de gedachte dat eten grotendeels een automatische handeling is, gestuurd door beschikbaarheid, portiegrootte en gezelschap.</p>
+      <p>Bij overtuigingen gaat het vooral om zwart-witdenken over voeding. Wie brood en pasta tot verboden gebied verklaart, maakt van elke afwijking een mislukking, en die mislukking leidt tot meer eten. Het perfectionisme rond eetregels is in dit boek geen oplossing maar een oorzaak.</p>
+      <h3>Beloning, conditionering en gewoontevorming</h3>
+      <p>Zondervan legt uit hoe suiker en vet het beloningssysteem aanspreken via dopamine, en hoe herhaling de gevoeligheid voor die beloning verlaagt, zodat er meer nodig is voor hetzelfde effect. Ze onderscheidt hedonisch eten, dat draait om genot, van homeostatisch eten, dat een lichamelijk tekort aanvult.</p>
+      <p>Daarnaast behandelt ze klassieke en operante conditionering. Het ijsje na een zware werkdag koppelt zich aan ontspanning, popcorn koppelt zich aan de film, en de koppeling blijft ook als er geen honger is. Het doorbreken van zulke gewoonten begint volgens haar bij het herkennen van de aanleiding: de plek, het tijdstip, de emotie. Verander de situatie en de koppeling verzwakt.</p>
+      <h3>Omgeving en sociale invloed</h3>
+      <p>Een apart deel gaat over de eetomgeving. Wat binnen handbereik ligt wordt gegeten, grote porties verschuiven het gevoel van wat normaal is, en eten met afleiding erbij leidt tot meer eten zonder dat het wordt opgemerkt. Zondervan noemt dat extern eten en gedachteloos eten.</p>
+      <p>De sociale laag loopt van het gezin waarin je opgroeide, met regels als je bord leeg eten, via vriendenkringen die het tempo en de hoeveelheid bepalen, tot beelden op sociale media. Ze wijst erop dat vergelijking met beelden van anderen zowel tot restrictie als tot overeten kan leiden.</p>
+      <h3>Vijf typen eters</h3>
+      <p>Het middendeel deelt eetgedrag in vijf vormen in: emotioneel, sociaal, onbewust, compulsief en obsessief. Bij dat laatste type noemt ze anorexia, boulimia en eetbuien. Bij het boek hoort een test waarmee de lezer zichzelf kan plaatsen.</p>
+      <p>Zondervan geeft er verdeelcijfers bij: ongeveer zeventig procent van de mensen zou emotioneel of compulsief eten, twintig procent onbewust of sociaal, en tien procent obsessief. Waar die percentages vandaan komen wordt niet vermeld. Per type volgen strategieën, meestal in de vorm van een eetdagboek, vervangende manieren om met spanning om te gaan, en mindful eten.</p>
+      <h3>Bewustzijn als scharnier</h3>
+      <p>Het hoofdstuk over bewustzijn onderscheidt zelfbewustzijn, lichamelijke bewustwording en situationele bewustwording. De redenering is dat je pas een keuze hebt op het moment dat je opmerkt wat er gebeurt, en dat opmerken zonder oordeel gebeurt. Daarna loopt Zondervan de vijf eetstijlen nog eens langs, nu vanuit de vraag waar bij elk type de aandacht precies naartoe moet.</p>
+      <h3>Mindful eten, intuïtief eten en de training</h3>
+      <p>Het onderscheid dat het boek maakt: mindful eten gaat over hoe je eet, met aandacht voor geur, smaak en textuur, terwijl intuïtief eten gaat over wanneer en waarom, met vertrouwen op honger- en verzadigingssignalen in plaats van op regels. Ze verwijst daarbij naar Jan Chozen Bays voor het eerste en naar Tribole en Resch voor het tweede.</p>
+      <p>Het praktische slot is een training in zes stappen, naar eigen zeggen gebaseerd op Mindfulness-Based Eating Awareness Training van Kristeller en Wolever. Die stappen lopen van niet-oordelend waarnemen via een hongerschaal van 1 tot 10 voor, tijdens en na de maaltijd naar zintuiglijke oefeningen aan tafel, met het advies elke hap twintig tot dertig keer te kauwen.</p>
+      <p>Het boek sluit af met acht verhalen van mensen die hun patroon doorbraken, onder wie Lisa met eetbuien na een burn-out en Sarah met compulsief eten na het overlijden van haar moeder.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hedonisch eten</td><td>Eten om het genot, aangestuurd door het beloningssysteem, ook zonder lichamelijke behoefte.</td></tr>
+          <tr><td class="term">Homeostatisch eten</td><td>Eten omdat het lichaam energie of voedingsstoffen nodig heeft.</td></tr>
+          <tr><td class="term">Extern eten</td><td>Eten omdat voedsel er nu eenmaal ligt, gestuurd door de omgeving in plaats van door honger.</td></tr>
+          <tr><td class="term">Gedachteloos eten</td><td>Eten terwijl de aandacht elders is, bijvoorbeeld bij een scherm, waardoor verzadigingssignalen niet doordringen.</td></tr>
+          <tr><td class="term">Klassieke conditionering</td><td>Het aanleren van een vaste koppeling tussen een situatie en eten, zoals popcorn bij een film.</td></tr>
+          <tr><td class="term">Operante conditionering</td><td>Gedrag dat wordt versterkt of afgezwakt door wat er daarna gebeurt, bijvoorbeeld opluchting na chocola bij stress.</td></tr>
+          <tr><td class="term">Mindful eten</td><td>Eten met volle aandacht voor smaak, geur en textuur, gericht op hoe er wordt gegeten.</td></tr>
+          <tr><td class="term">Intuïtief eten</td><td>Eten op geleide van interne honger- en verzadigingssignalen in plaats van op geleide van dieetregels.</td></tr>
+          <tr><td class="term">Emotioneel eetgedrag</td><td>Voedsel inzetten om een gevoel te dempen, te vieren of te vervangen.</td></tr>
+          <tr><td class="term">Hongerschaal</td><td>Zelfscore van 1 tot 10 voor, tijdens en na de maaltijd, bedoeld om echte honger van gewoonte te onderscheiden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek heeft een bronnenlijst met wetenschappelijke artikelen, en die lijst is beter dan bij veel boeken in dit genre. Er staan namen in die er werkelijk toe doen: Cohen en Farley over eten als automatisch gedrag, Blundell en Finlayson over het onderscheid tussen homeostatische en hedonische regulatie, Gearhardt, Corbin en Brownell over de vraag of voedsel aan verslavingscriteria voldoet, Epel en collega's over cortisol en eetgedrag, en Hawks en collega's over intuïtief eten bij studentes.</p>
+      <p>Tegelijk is de manier waarop die bronnen worden gebruikt los. In de lopende tekst staan uitspraken tussen aanhalingstekens met alleen een achternaam eronder, zonder jaartal, zonder onderzoeksopzet, zonder aantallen. De lezer krijgt zo een citaat te zien maar niet wat het onderzoek deed of hoe sterk de uitkomst was. Bij het cijfer over de verdeling van eterstypen ontbreekt een bron helemaal.</p>
+      <p>Naast wetenschappelijke titels staan in de bronnenlijst ook Louise Hay, Joe Dispenza en Deepak Chopra. Dat zijn auteurs die geen empirische status hebben en die op onderdelen in strijd zijn met wat de rest van de lijst laat zien. Ze staan er zonder onderscheid tussen. Wie de bronnenlijst als kwaliteitskeurmerk leest, wordt daarmee op het verkeerde been gezet.</p>
+      <p>De succesverhalen en de interviews met deskundigen die in het boek zijn opgenomen zijn illustratie, geen onderbouwing. De verhalen volgen alle hetzelfde patroon: probleem, dagboek, inzicht, herstel. Zulke verhalen bewijzen niets over hoe vaak die uitkomst voorkomt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek twee dingen tegelijk belooft die niet vanzelf samengaan. Het presenteert zich als een boek over een ontspannen relatie met eten zonder gewichtsdoel, maar leunt in toon en voorbeelden voortdurend op afvallen en op controle over porties. De belofte dat intuïtief eten leidt tot minder eten is een dieetbelofte in andere bewoordingen, en juist die verwachting kan het vertrouwen in lichaamssignalen ondermijnen zodra de weegschaal niet meebeweegt.</p>
+      <p>Ten tweede is de onderbouwing van de kern zwakker dan het boek suggereert. Onderzoek naar intuïtief eten is grotendeels doorsnedeonderzoek: mensen die hoger scoren op intuïtief eten hebben gemiddeld een gunstiger lichaamsgewicht en beeld van zichzelf. Dat zegt niets over de richting van het verband. Van MB-EAT bestaan gecontroleerde studies, maar met kleine groepen en bescheiden effecten op gewicht. Zondervan meldt die beperking niet.</p>
+      <p>Ten derde is de indeling in vijf typen eters met bijbehorende test niet gevalideerd. Ze wordt gepresenteerd als vertrekpunt van het hele traject, terwijl er geen onderbouwing is dat mensen zich in deze vijf hokjes laten plaatsen of dat de indeling voorspelt wat werkt. Dat obsessief eetgedrag in dezelfde reeks staat als sociaal eten is bovendien ongemakkelijk: anorexia en boulimia zijn aandoeningen met een sterfterisico, geen eetstijl waar een dagboek en bewust kauwen tegen opgewassen zijn.</p>
+      <p>Ten slotte de vorm. Het boek spreekt de lezer aan met retorische vragen en aanmoedigingen, herhaalt zijn kernpunten vaak, en verwerkt hele passages van hetzelfde advies onder wisselende koppen. Wie de zes stappen kent, heeft aan de eerste helft van het boek weinig nieuws.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer een week lang alleen het moment en het gevoel voor het eten, niet wat je eet. Het patroon dat je zoekt zit in de aanleiding.</li>
+        <li>Geef je honger een cijfer van 1 tot 10 vlak voor de maaltijd en nog eens halverwege.</li>
+        <li>Verander de plek in plaats van de hoeveelheid: eet aan tafel zonder scherm en kijk wat er overblijft van de gewoonte.</li>
+        <li>Verplaats wat je te vaak pakt naar een minder bereikbare plek, en zet wat je te weinig eet op ooghoogte.</li>
+        <li>Zoek per aanleiding een alternatief dat dezelfde functie vervult, bijvoorbeeld wandelen of bellen bij spanning aan het eind van de dag.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Uitgave in eigen beheer (2024). De samenvatting hier is op de tekst van het e-boek zelf gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het uitgangspunt is dat eetgedrag pas verandert wanneer het eerst wordt begrepen, en dat regels en verboden daar niets aan bijdragen. Zondervan behandelt achtereenvolgens de lichamelijke kant van honger en verzadiging, de vraag wat voor eter iemand is, en de oefening in bewust en aandachtig eten, met een trainingsdeel en een reeks praktijkverhalen achterin.</p><p>De toon is die van een begeleider en niet van een onderzoeker: er staan geen studies tegenover elkaar en de aanpak wordt niet met cijfers onderbouwd. Wie zoekt naar de stand van de wetenschap over eetgedrag heeft er weinig aan; wie een gestructureerde oefening zoekt in het opmerken van eigen eetgewoontes, vindt hier een bruikbaar stappenplan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>eten</li><li>gewoonte</li><li>mindful</li><li>leefstijl</li><li>bewustwording</li><li>nederlands</li><li>oefeningen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear beschrijft de mechaniek van gewoontevorming veel preciezer dan dit boek doet, met dezelfde nadruk op de aanleiding en de omgeving.</li>
+          <li value="138"><a href="138.html">The Shift</a>. Foster behandelt hetzelfde onderwerp vanuit denkstijlen en zelfcompassie, met bronnen die per uitspraak te controleren zijn.</li>
+          <li value="104"><a href="104.html">Oud zeer</a>. Bakker laat zien hoe verstoord eetgedrag kan samenhangen met affectieve verwaarlozing, een laag die dit boek nauwelijks aanraakt.</li>
+          <li value="118"><a href="118.html">Coping Skills</a>. Harper geeft dezelfde soort omgangsstrategieën voor spanning, korter en zonder de belofte dat ze tot gewichtsverlies leiden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

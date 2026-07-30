@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gewoontedieren &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Brendborg betoogt dat de moderne mens zich in dezelfde val laat lokken als een scholekster die een gipsen ei uitbroedt. Onze instincten zijn afgesteld op…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-88">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">88 &middot; Gewoontes en denken</p>
+    <h1>Gewoontedieren</h1>
+    <p class="lede">Nicklas Brendborg, 2023</p>
+    <p class="stats">
+      <span><b>1806</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="88"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Brendborg betoogt dat de moderne mens zich in dezelfde val laat lokken als een scholekster die een gipsen ei uitbroedt. Onze instincten zijn afgesteld op een wereld waarin het sterkste signaal doorgaans ook het beste was, en die vuistregel had geen bovengrens nodig. Industrieën hebben daar een verdienmodel van gemaakt: zij bouwen overdreven versies van waar wij van nature op aanslaan, superstimuli, en verkopen die aan ons. Van ultrabewerkt voedsel via porno en drugs tot sociale media en lichaamsidealen loopt volgens hem één mechanisme, en de escalatie stopt niet vanzelf, omdat gewenning telkens om een sterker signaal vraagt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het gipsen ei</h3>
+      <p>Het boek opent bij de scholekster die een veel te groot gipsen ei probeert uit te broeden, uit het werk van Nikolaas Tinbergen, die in 1973 de Nobelprijs voor de Fysiologie of Geneeskunde ontving. In de natuur zegt de omvang van een ei iets over de kans op een gezond kuiken, dus loont de regel 'hoe groter hoe beter'. Een bovengrens is nooit nodig geweest.</p>
+      <p>Datzelfde geldt voor de bonte vliegenvanger, die een knalblauw geverfd gipsei boven haar eigen eitjes verkiest, en voor ganzen die volleyballen uitbroeden. Brendborg laat de lezer eerst lachen om die vogels en draait dan de camera om. Superstimuli, kunstmatige prikkels die het natuurlijke overtreffen, werken bij mensen precies zo.</p>
+      <h3>Waarom afvallen door bewegen tegenvalt</h3>
+      <p>Het eerste deel gaat over gewicht en begint met een correctie. Als verklaring voor de toename van overgewicht valt genetica af, want onze genen zijn dezelfde als die van onze slanke overgrootouders. De voor de hand liggende opvolger, te weinig bewegen, houdt volgens hem evenmin stand.</p>
+      <p>Hij baseert dat op het werk van evolutiebioloog Herman Pontzer, die met dubbelgemarkeerd water het energieverbruik mat van onder meer het Hadzavolk in Tanzania. Een Hadzaman zet gemiddeld 19.000 stappen per dag, een vrouw ongeveer 13.000, maar gecorrigeerd voor lichaamslengte verbrandt een Hadza per dag niet meer dan een Deen. Hetzelfde patroon vond Pontzer bij stads- en Amazonekinderen in Ecuador en bij dieren in dierentuinen. Het lichaam compenseert: wie meer beweegt, verlaagt elders het verbruik, bij duuratleten tot in de geslachtshormonen toe. Brendborg tekent er nadrukkelijk bij aan dat bewegen daarmee niet zinloos wordt; het blijft volgens hem een van de gezondste dingen die iemand kan doen.</p>
+      <h3>Suiker, vet en zout</h3>
+      <p>Als bewegen het niet is, blijft eten over. Hier komt het scholeksterprincipe terug. Onderzoekers die knaagdieren dik wilden krijgen kwamen er niet met dwangvoeren of vetrijke voederpillen; het lukte pas toen zij supermarktsnacks voorzetten, in het vakjargon kantinevoer. Binnen enkele weken waren de dieren zwaar.</p>
+      <p>Daarna behandelt hij de drie bestanddelen. Vet is de meest geconcentreerde energiebron, met dubbel zoveel calorieën per gram als eiwit en koolhydraten, en onze voorkeur ervoor is zichtbaar in het vee: varkens hebben drieënhalf keer meer lichaamsvet dan wilde zwijnen, koeien vier tot zes keer meer dan bizons. Konijnenvlees bevat daarentegen ongeveer een gram vet per honderd gram, te weinig om alleen van te leven, wat het Amerikaanse leger in een overlevingsgids als konijnenhonger beschreef. Zout noemt hij het bestanddeel dat in geen enkel fabrieksvoedsel ontbreekt: de fysiologische behoefte ligt rond een halve gram per dag, de werkelijke inname vele malen hoger.</p>
+      <h3>De Tsimane en het aardappeljaar</h3>
+      <p>Het tweede deel verlegt de vraag van gewicht naar gezondheid. Bij het Tsimanevolk in het Boliviaanse Amazonegebied vonden onderzoekers hoge ontstekingswaarden door parasieten, en verwachtten daarom aderverkalking. Zij troffen het omgekeerde aan: de gezondste harten en vaten die ooit zijn gedocumenteerd, ook bij de oudste stamleden. Ter vergelijking noemt hij dat een derde van alle sterfgevallen wereldwijd door hart- en vaatziekten komt.</p>
+      <p>Daartegenover zet hij Andrew Taylor uit Melbourne, die 151 kilo woog en een jaar lang vrijwel alleen aardappels at, met zout en een vitaminesupplement erbij, en 53 kilo kwijtraakte zonder honger te lijden. Brendborg probeerde het zelf een week en kwam tot dezelfde slotsom: de aardappel verzadigt zo sterk dat er niet genoeg van te eten valt. Het punt is niet het dieet maar de omkering. Wie de variatie en de prikkels uit zijn eten haalt, eet vanzelf minder. Het hoofdstuk over dinitrofenol, het springstofchemicalie dat in de jaren dertig als afslankmiddel werd verkocht en mensen doodde aan oververhitting, dient als waarschuwing tegen de omgekeerde weg.</p>
+      <h3>Van beloningssysteem naar scherm</h3>
+      <p>In het derde deel gaat het van omweg naar directe route. Cannabis werkt op cannabinoïdereceptoren die er zitten voor lichaamseigen stoffen, opium op opioïdereceptoren die er zitten voor endorfine en enkefaline. Beide zijn chemische sluipwegen naar het beloningssysteem, en beide escaleren: het gemiddelde THC-gehalte in op straat aangetroffen cannabis liep in Denemarken van 0,6 procent in 1970 naar 25 procent in 2017. Het experiment van Olds en Milner uit de jaren vijftig, waarin ratten zichzelf via een elektrode in het beloningssysteem stimuleerden tot zij eten negeerden, is de grens van die lijn: hoe korter de vertraging, hoe verslavender.</p>
+      <p>Het vierde deel past hetzelfde toe op sociale behoeften. Televisieseries over gewone vriendengroepen zijn overdreven versies van gezelschap. Sociale media noemt hij de best geoliede superstimulimachine, met de Skinner-box als model: onvoorspelbare beloning houdt gedrag het hardnekkigst in stand. Hij noemt dat ongeveer 80 procent van de wereldbevolking een smartphone heeft, meer dan het aantal mensen met toegang tot een toilet, en dat schermtijd oploopt van ongeveer vijf uur bij vijfenvijftigplussers tot ongeveer acht uur bij zestien- tot vierentwintigjarigen.</p>
+      <h3>Vergelijken en obsessie</h3>
+      <p>De laatste hoofdstukken gaan over wat superstimuli met het zelfbeeld doen. Bij boerenzwaluwen volstaat een stift om een mannetje donkerder te kleuren en zo aantrekkelijker te maken. Bij mensen werken cosmetica, bewerkte beelden en lichaamsidealen op vergelijkbare wijze, ook al zijn schoonheidsidealen cultureel bepaald. Dat cultuur en superstimulus elkaar niet uitsluiten onderbouwt hij met het peak shift-effect: een dier dat een aangeleerd patroon herkent, gaat de overdreven variant ervan verkiezen.</p>
+      <p>Michael Phelps dient als voorbeeld van de vergelijkingsval: een lichaam dat zo ongewoon is dat vergelijking ermee zinloos is, maar dat door media wel als maatstaf wordt aangeboden. Het slothoofdstuk keert de zaak om met Srinivasa Ramanujan, die zich niet tot iets anders dan wiskunde kon zetten en daardoor tweemaal van de universiteit werd gestuurd, en met de zussen Polgár. Dezelfde obsessieve aanleg die ons voor superstimuli vatbaar maakt, ligt onder buitengewone prestaties.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Superstimulus</td><td>Een overdreven versie van een natuurlijke prikkel, die sterker aanslaat dan het echte voorwerp.</td></tr>
+          <tr><td class="term">Kantinevoer</td><td>De term voor supermarktsnacks in proefdieronderzoek, het middel waarmee ratten binnen weken zwaar worden.</td></tr>
+          <tr><td class="term">Dubbelgemarkeerd water</td><td>De nauwkeurigste methode om iemands dagelijkse energieverbruik te meten.</td></tr>
+          <tr><td class="term">Compensatie</td><td>Het verschijnsel dat het lichaam bij meer beweging elders energie bespaart, waardoor het totale verbruik nauwelijks stijgt.</td></tr>
+          <tr><td class="term">Ultrabewerkt voedsel</td><td>Fabrieksvoedsel waarin suiker, vet, zout, kleur, textuur en geluid op eetlust zijn afgestemd.</td></tr>
+          <tr><td class="term">Konijnenhonger</td><td>De aandoening die ontstaat door uitsluitend zeer mager vlees te eten, genoemd in een Amerikaanse legergids.</td></tr>
+          <tr><td class="term">Skinner-box</td><td>De kooi met beloningsknop waarmee B.F. Skinner liet zien dat onvoorspelbare beloning gedrag het sterkst vasthoudt.</td></tr>
+          <tr><td class="term">Peak shift-effect</td><td>De neiging om, na het aanleren van een patroon, de overdreven variant ervan te verkiezen.</td></tr>
+          <tr><td class="term">Escalatie</td><td>Het proces waarbij gewenning telkens om een sterkere prikkel vraagt om hetzelfde effect te krijgen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Brendborg is moleculair bioloog en werkt als populariserend schrijver. Het boek heeft een bronnenlijst en steunt op herkenbaar onderzoek: Tinbergen op de superstimuli, Pontzer op het energieverbruik, Olds en Milner op zelfstimulatie, Skinner op beloningsschema's, en de Tsimane-studies op hart- en vaatgezondheid. Dat zijn geen randfiguren en de bevindingen zijn in hoofdlijn niet omstreden.</p>
+      <p>Het compensatieverhaal van Pontzer is de sterkste passage, omdat het een breed geloofd verband ontkracht met metingen in plaats van redeneringen, en omdat Brendborg de nuances erbij zet: op individueel niveau bestaan verschillen, extreme inspanning is niet volledig te compenseren, en beweging voorspelt wel wie zijn gewicht behoudt. Dat hij het genre ontkomt waarin één inzicht alles moet dragen, pleit voor hem.</p>
+      <p>De verbindende these is zwakker dan de losse onderdelen. Superstimulus is een begrip uit de gedragsbiologie dat oorspronkelijk sloeg op aangeboren, vastomlijnde reactieketens bij dieren. Het overzetten daarvan op ultrabewerkt voedsel, porno, sociale media en cosmetica gebeurt hier op grond van gelijkenis, niet op grond van gemeten mechanisme. Dat het patroon telkens past, is deels een eigenschap van het patroon.</p>
+      <p>Bij de digitale hoofdstukken is de onderbouwing het dunst. De gegevens over schermtijd zijn schattingen, de aangehaalde Britse belevingsstudie meet momentgeluk en geen langetermijneffect, en de vraag of sociale media schade toebrengen of vooral samengaan met andere problemen is in het vakgebied onbeslist. Brendborg noemt dat niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat één begrip te veel moet dragen. Voedsel, drugs, porno, schermen en schoonheidsidealen worden alle als superstimulus behandeld, maar zij verschillen wezenlijk. Bij opium en THC is de werking op receptoren aangetoond; bij een televisieserie over vrienden is de vergelijking hooguit een beeld. Door beide onder dezelfde noemer te brengen wint het boek aan overtuigingskracht wat het aan precisie verliest.</p>
+      <p>Het schuift daarmee ook de verantwoordelijkheid in één richting. Het beeld van de industrie met duizenden werknemers die tegen jouw wilskracht spelen, is aantrekkelijk en niet onwaar, maar het maakt de lezer tot slachtoffer van een ontwerp. Wat daaruit volgt blijft grotendeels open: het boek eindigt eerder in verwondering over obsessie dan in een uitweg, en waar de omgeving wél veranderd zou kunnen worden, in beleid, prijs of aanbod, gaat het nauwelijks over.</p>
+      <p>De aardappelkuur illustreert een tweede probleem. Het verhaal van Andrew Taylor en Brendborgs eigen week zijn onderhoudend en ondersteunen zijn punt over variatie en verzadiging, maar het zijn twee gevallen. Ze doen in het boek het werk van bewijs terwijl de auteur zelf schrijft dat zo'n dieet niet gezond is. Datzelfde geldt voor de scholekster: een aardig openingsbeeld dat gaandeweg als argument gaat gelden.</p>
+      <p>Ten slotte draait het boek in de laatste hoofdstukken van verklaring naar bewondering. Dat Ramanujan en de zussen Polgár dezelfde obsessieve aanleg tonen die elders tot verslaving leidt, is een aardige gedachte, maar zij ondergraaft de eerdere lijn: als hetzelfde mechanisme zowel de vetzuchtepidemie als de wiskunde vooruithelpt, verliest het zijn verklarende scherpte.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel een product op hoe sterk het signaal is dat het afgeeft, niet op de vraag of je wilskracht genoeg hebt.</li>
+        <li>Beperk variatie in wat je in huis haalt; variatie zelf verhoogt de inname.</li>
+        <li>Reken niet op sporten als middel om af te vallen, en blijf wel bewegen om andere redenen.</li>
+        <li>Vergroot de vertraging tussen prikkel en beloning, want juist het ontbreken van vertraging maakt iets verslavend.</li>
+        <li>Kies vergelijkingsmateriaal bewust; wat je dagelijks ziet, wordt vanzelf je maatstaf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Deens; Nederlands bij De Bezige Bij (2024). Brendborg is moleculair bioloog en schreef eerder over veroudering.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Brendborg behandelt de gewoontes waaruit een dag bestaat, van eten en slapen tot bewegen en schermgebruik, en zoekt per onderwerp uit wat het onderzoek werkelijk laat zien. De ondertoon is dat veel adviezen die als vaststaand worden gepresenteerd op smalle studies rusten, en dat een paar simpele dingen wel degelijk verschil maken.</p><p>Zijn kracht is dat hij als bioloog uitlegt waaróm iets werkt en dat hij eerlijk is over de grenzen van de kennis. Wie eerder <i>Kwallen verouderen niet</i> van hem las, herkent de opzet: veel korte hoofdstukken, luchtig geschreven, met de nuance in de laatste alinea in plaats van in de kop.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gewoonte</li><li>biologie</li><li>gezondheid</li><li>slaap</li><li>voeding</li><li>onderzoek</li><li>populair-wetenschappelijk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="89"><a href="../index.html#boek-89">Darwin in de supermarkt</a>. Nelissen redeneert in <i>Darwin in de supermarkt</i> vanuit dezelfde evolutionaire hoek over alledaags gedrag, met meer losse voorbeelden en minder doorlopende these.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear werkt in <i>Atomic Habits</i> de kant uit die Brendborg openlaat: wat je met een omgeving vol prikkels praktisch aanvangt.</li>
+          <li value="138"><a href="138.html">The Shift</a>. Foster behandelt in <i>The Shift</i> gewicht en gedrag vanuit de behandelpraktijk, wat het contrast met Brendborgs omgevingsverklaring scherp maakt.</li>
+          <li value="103"><a href="103.html">De psychologie van eetgedrag</a>. Zondervans <i>De psychologie van eetgedrag</i> legt de oorzaak van overeten juist bij emotie en gewoonte van de eter, precies de verklaring die Brendborg terzijde schuift.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

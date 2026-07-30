@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unfuck Your Brain &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Harper betoogt dat vrijwel alles wat wij bij onszelf gek noemen een overlevingsreactie is die op het verkeerde moment aanslaat, en dat de denkende…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-119">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">119 &middot; Brein en lichaam</p>
+    <h1>Unfuck Your Brain</h1>
+    <p class="lede">Faith G. Harper, 2017</p>
+    <p class="stats">
+      <span><b>1493</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="119"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Harper betoogt dat vrijwel alles wat wij bij onszelf gek noemen een overlevingsreactie is die op het verkeerde moment aanslaat, en dat de denkende voorkant van het brein bij hoge stress niet de baas is. Daaruit volgt haar centrale stelling: je kunt je reacties niet met wilskracht overrulen, je kunt ze alleen omleren door het brein herhaald andere informatie te geven onder veilige omstandigheden. Wie dat begrijpt, houdt op zichzelf te veroordelen en begint met oefenen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Brein 101</h3>
+      <p>Het eerste hoofdstuk zet drie delen neer. De prefrontale schors doet het uitvoerende werk: problemen oplossen, doelen nastreven, sociaal gedrag afstemmen. Zij is pas rond het midden van de twintig volgroeid. De anterieure cingulate schors regelt het gesprek tussen dat denkende deel en het gevoelsdeel, met spilneuronen die sneller signalen doorgeven dan gewone zenuwcellen.</p>
+      <p>Het limbische systeem doet het voelen. De amygdala koppelt herinneringen aan emoties, en dan een bepaald soort herinnering: episodisch-autobiografisch geheugen, dus gebeurtenissen, plaatsen en mensen. Harper vergelijkt dat met een ezelsbruggetje: wie bloemen ooit bij een sterfgeval kreeg, kan later bij de geur van bloemen terug in die begrafenis staan.</p>
+      <p>De hersenstam is het oudste deel en regelt alertheid en tempo. Bij dreiging overspoelt hij de prefrontale schors met stoffen die haar werking veranderen, en dan volgt vechten, vluchten of bevriezen. Het systeem onderscheidt echt gevaar slecht van vermeend gevaar en kiest bij twijfel voor alarm.</p>
+      <h3>Het brein dat verhalen vertelt</h3>
+      <p>Harper voegt daar een minder gangbaar stuk aan toe: in ruststand vertelt het brein verhalen. Dat is de standaardstand, en daarom dromen mensen. Verhalen werken volgens haar als repetitie voor wat komt en als opslagvorm, omdat het werkgeheugen slechts een stuk of zeven eenheden aankan.</p>
+      <p>Datzelfde vermogen wordt een probleem wanneer het verhaal over onszelf en de wereld vastloopt. Het brein wil zekerheid, ziet patronen die er niet zijn en verzint achteraf redenen bij beslissingen die het gevoelsdeel al had genomen.</p>
+      <h3>Wat trauma doet</h3>
+      <p>Trauma is bij Harper een gebeurtenis die buiten je begrip van hoe de wereld hoort te werken valt, en een traumareactie is wanneer je vermogen om ermee om te gaan het begeeft. Zij weigert een lijst van kwalificerende gebeurtenissen te geven, omdat zo'n lijst mensen leert dat hun ervaring niet erg genoeg was.</p>
+      <p>Van de mensen die iets ernstigs meemaken herstelt volgens haar ongeveer tweederde naar een nieuw evenwicht, meestal binnen een maand of drie. Bij de rest wordt de verwerking in de eerste dertig dagen verstoord, en juist daarom kan de diagnose posttraumatische stressstoornis pas na een maand gesteld worden. Ontbrekende tijd, ruimte en mensen zijn in haar beschrijving de belangrijkste reden dat die verwerking stokt.</p>
+      <p>Zij noemt vier hoofdverschijnselen: verhoogde prikkelbaarheid, vermijding, opdringende beelden en herinneringen, en aanhoudend negatieve gedachten en gevoelens. Wie niet aan de volledige diagnose voldoet is daarmee niet in orde: bij hulpverleners van 11 september bleek een vijfde van de mensen met deelverschijnselen twee jaar later wel aan de criteria te voldoen.</p>
+      <h3>Negentig seconden, en waarom het langer duurt</h3>
+      <p>Een emotie is bedoeld als informatie en zou volgens Harper ongeveer negentig seconden duren. Dat het langer duurt komt doordat wij haar blijven voeden met dezelfde gedachten en hetzelfde gedrag. Op dat punt wordt een emotie een stemming.</p>
+      <p>Piekeren en vermijden werken in haar model precies hetzelfde: beide zijn pogingen om controle terug te pakken, en beide houden de lus in stand. Haar voorbeeld is de straat waar een ongeluk gebeurde en die daarna wordt gemeden, waarna het mijdingsgebied groeit.</p>
+      <h3>Het raamwerk voor herstel</h3>
+      <p>Voor de weg terug leunt Harper op Judith Herman en haar boek Trauma and Recovery, met drie fasen: veiligheid en stabilisatie, herinneren en rouwen, en herverbinding. Zij noemt het liever een raamwerk dan fasen, omdat niemand netjes van stap naar stap gaat.</p>
+      <p>Het grootste deel van haar boek gaat, net als bij Herman, over de eerste fase. Alle oefeningen daar zijn bedoeld om de prefrontale schors iets te geven om te doen, waarmee de overname door de hersenstam wordt onderbroken. Met de amygdala zelf valt niet te redeneren; zij gebruikt daarvoor het beeld van Bruce Lipton over schreeuwen tegen een cassetterecorder omdat het liedje je niet bevalt.</p>
+      <p>De tweede fase is het traumaverhaal, dat ook zonder therapeut kan in een dagboek of met iemand die te vertrouwen is. De derde fase gaat over de plek die de gebeurtenis in een heel leven krijgt.</p>
+      <h3>Behandelvormen en aparte hoofdstukken</h3>
+      <p>Hoofdstuk vijf loopt de behandelmogelijkheden langs: gesprekstherapie, waarbij zij aandringt op een bevoegde en in trauma geschoolde behandelaar, en reguliere medicatie. Over dat laatste is zij dubbel: medicijnen redden levens, maar worden te vaak de enige lijn in plaats van steun terwijl er aan de oorzaak wordt gewerkt. Zij noemt haar voorkeur voor aanvullende methoden evidence based woo-woo, waarmee zij bedoelt dat er onderzoek onder moet liggen.</p>
+      <p>Daarna volgen kortere hoofdstukken over angst, boosheid, verslaving, somberheid en het eren van rouw. Die hoofdstukken passen steeds hetzelfde stelsel toe op een ander verschijnsel, wat het boek tot het volledigste deel van de reeks maakt en tegelijk tot het meest herhalende.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Prefrontale schors</td><td>De voorkant van het brein die uitvoerende taken doet en volgens Harper bij hoge stress het commando kwijtraakt.</td></tr>
+          <tr><td class="term">Amygdala hijack</td><td>Het moment waarop het gevoelsdeel het stuur overneemt en redeneren tijdelijk onmogelijk wordt.</td></tr>
+          <tr><td class="term">Episodisch-autobiografisch geheugen</td><td>Het geheugen voor gebeurtenissen met emotie eraan vast, waar de amygdala mee werkt.</td></tr>
+          <tr><td class="term">Prikkeldiscriminatie</td><td>Het vermogen te bepalen of iets werkelijk gevaarlijk is, een taak van het denkende deel die bij alarm uitvalt.</td></tr>
+          <tr><td class="term">Standaardstand</td><td>De ruststand van het brein, waarin het volgens Harper vooral verhalen vertelt.</td></tr>
+          <tr><td class="term">Nieuw normaal</td><td>Het evenwicht na een ingrijpende gebeurtenis, dat anders is dan daarvoor maar wel leefbaar.</td></tr>
+          <tr><td class="term">De negentigsecondenregel</td><td>Het idee dat een emotie vanzelf uitdooft tenzij gedachten en gedrag haar blijven voeden.</td></tr>
+          <tr><td class="term">Traumaverhaal</td><td>Het bewust vertellen van wat er gebeurde, met de gevoelens erbij, in de tweede fase van Hermans raamwerk.</td></tr>
+          <tr><td class="term">Evidence based woo-woo</td><td>Harpers aanduiding voor aanvullende methoden waarvoor zij naar eigen zeggen onderzoek kan tonen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is het deel van de reeks waarin het meeste onderzoek wordt aangehaald. Het raamwerk komt aantoonbaar uit Judith Hermans Trauma and Recovery, de risicofactoren voor een traumareactie komen uit verzameld materiaal van het Amerikaanse veteranenbureau, en het cijfer over hulpverleners van 11 september komt uit een vervolgmeting.</p>
+      <p>Tegelijk noemt Harper zelden een vindplaats bij de bewering zelf. De negentigsecondenregel schrijft zij toe aan onderzoek na beroertes zonder onderzoeker of jaartal; die claim gaat terug op één auteur en is nooit als algemene wet vastgesteld. De opmerking dat trauma via genetische veranderingen aan volgende generaties wordt doorgegeven presenteert zij als vaststaand, terwijl het onderzoek daarnaar bij mensen omstreden is en de effectgroottes klein.</p>
+      <p>De bewering dat in landen zonder antipsychotica de herstelcijfers hoger lagen verwijst naar oud onderzoek van de Wereldgezondheidsorganisatie waarvan de opzet en de interpretatie zwaar zijn bekritiseerd. Harper geeft die nuance niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De neurologie is een werkmodel, geen beschrijving. Prefrontale schors, amygdala en hersenstam worden neergezet als drie personages met eigen karakters, en die verdeling houdt geen stand tegen wat er over verdeelde netwerken bekend is. Voor iemand die zichzelf wil begrijpen kan het model rust geven; als kennis is het bedrieglijk stellig.</p>
+      <p>Het sterkste bezwaar is dat het boek zelfhulp en behandeling niet scherp scheidt. Herstel na trauma is bij Harper vooral iets wat je begrijpt en dan oefent, terwijl de fase waar zij zich op richt, veiligheid en stabilisatie, juist de fase is waarin professionele begeleiding het zwaarst weegt. Zij zegt dat wel, maar het boek zelf nodigt uit tot alleen doorgaan.</p>
+      <p>De toon verkoopt de inhoud, en dat werkt twee kanten op. Het scheldwoordenregister maakt het onderwerp benaderbaar voor mensen die therapietaal wantrouwen, en ontneemt de lezer tegelijk elk gevoel voor onzekerheidsmarge, omdat er geen verschil in stelligheid is tussen een goed onderbouwd punt en een terzijde.</p>
+      <p>De latere hoofdstukken over angst, boosheid, verslaving en somberheid zijn dun. Elk van die onderwerpen kreeg later een eigen boekje, en wie de reeks leest merkt dat hier de aanzet ligt en daar de uitwerking.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer bij een uitbarsting welke emotie het was, hoe sterk op een schaal van nul tot honderd, welke lichamelijke verschijnselen erbij hoorden en wat er verder gaande was.</li>
+        <li>Zoek daarin na enige tijd naar patronen; dat is volgens Harper de enige manier om je aanleidingen te vinden.</li>
+        <li>Test bij een sterke reactie of je hem voedt met piekeren of met vermijden, want beide houden hem in stand.</li>
+        <li>Geef bij hoogspanning het denkende deel een taak in plaats van te proberen het gevoel weg te praten.</li>
+        <li>Vraag bij het zoeken naar een behandelaar naar bevoegdheid en naar traumascholing, en vraag door als dat niet op de website staat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Using Science to Get Over Anxiety, Depression, Anger, Freak-Outs, and Triggers</i>, bij Microcosm Publishing.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Harper legt uit wat er in de hersenen gebeurt bij angst, somberheid, woede en de nasleep van ingrijpende gebeurtenissen, met de amygdala en de stressreactie als terugkerende hoofdrolspelers, en koppelt daar per klacht een reeks praktische stappen aan.</p><p>De uitleg is versimpeld maar niet onjuist, en de kracht zit in de combinatie van biologie en handelingsadvies zonder omhaal. Wie meer wil weten dan de hoofdlijn, merkt dat de bronvermelding karig is en dat de stelligheid over hersengebieden verder gaat dan het onderzoek toelaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>angst</li><li>somberheid</li><li>woede</li><li>trauma</li><li>neurobiologie</li><li>therapie</li><li>toon</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="118"><a href="118.html">Coping Skills</a>. Hetzelfde stelsel, maar dan uitgewerkt tot een geordende gereedschapskist voor het moment zelf.</li>
+          <li value="104"><a href="104.html">Oud zeer</a>. Bakker behandelt oud zeer in de Nederlandse context, met meer aandacht voor het lichaam en minder voor hersenkunde.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl is de bron achter Harpers hoofdstuk over betekenis geven, en laat zien hoe die gedachte oorspronkelijk werd onderbouwd.</li>
+          <li value="107"><a href="../index.html#boek-107">Alles draait om angst</a>. Van Gassel behandelt angst als eigen onderwerp en gaat daarmee dieper dan het korte hoofdstuk hier.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hart voor je brein &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Scherder en Hofstra betogen dat hart en hersenen één systeem vormen en dat de kwaliteit van de bloedvaten bepaalt hoe goed dat systeem een leven lang…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-86">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">86 &middot; Brein en lichaam</p>
+    <h1>Hart voor je brein</h1>
+    <p class="lede">Erik Scherder en Leonard Hofstra, 2021</p>
+    <p class="stats">
+      <span><b>1769</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="86"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Scherder en Hofstra betogen dat hart en hersenen één systeem vormen en dat de kwaliteit van de bloedvaten bepaalt hoe goed dat systeem een leven lang blijft werken. Hun sluitsteen is een gasvormig molecuul, nitric oxide (NO), dat door de binnenbekleding van het bloedvat wordt afgegeven zodra stromend bloed daar langs schuurt. Bewegen en bepaalde voedingsstoffen verhogen de afgifte van NO, NO verwijdt de vaten, en verwijde vaten voeden het hart en vooral de witte stof van de hersenen. Daaruit volgt hun eis: kom van die stoel af, want lichamelijke inactiviteit is een gezondheidsprobleem van dezelfde orde als roken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het hart als pomp en als elektrisch systeem</h3>
+      <p>Het eerste deel is een cardiologische inleiding van Hofstra. Het hart pompt ongeveer honderdduizend keer per dag, in rust zo'n zeventig milliliter per slag, wat neerkomt op vier liter per minuut. Bij inspanning kan dat oplopen tot vijftien à twintig liter, waarbij een rode bloedcel niet een minuut maar ongeveer twintig seconden over een rondje door het lichaam doet. De aansturing loopt via de sinusknoop, de AV-knoop en de bundeltakken, met de sinusknoop als dirigent die in rust ongeveer eenmaal per seconde een puls afgeeft.</p>
+      <p>Daarna volgen de ziektebeelden: aderverkalking, angina pectoris, het hartinfarct, ritmestoornissen en hartfalen. De auteurs melden dat in Nederland jaarlijks ongeveer twintigduizend mensen aan hart- en vaatziekten overlijden en dat leefstijlfactoren voor zo'n 90 procent verantwoordelijk zijn voor de kans op een hartinfarct. Dezelfde 90 procent noemen zij voor beroertes. Bij atriumfibrilleren rekenen zij voor dat van de vijfenveertigduizend Nederlandse beroertes per jaar er ongeveer negenduizend uit boezemfibrilleren voortkomen.</p>
+      <h3>De hersenen en hun bloedvoorziening</h3>
+      <p>Scherder neemt het tweede deel voor zijn rekening. Hij deelt de hersenen op in ruggenmerg, hersenstam, kleine hersenen en de voor- en achterzijde van de grote hersenen, en beschrijft per onderdeel de functie. Zintuiglijke informatie komt binnen aan de achterzijde, de frontale lob filtert, plant en voert uit.</p>
+      <p>Het scharnierpunt van het boek zit in de vergelijking tussen grijze en witte stof. De hersenen gebruiken ongeveer 55 milliliter bloed per 100 gram weefsel per minuut, bij elkaar zo'n 20 procent van wat het hart uitpompt. Onder verwijzing naar een studie van Kubikova en medewerkers uit 2018 stellen de auteurs dat de witte stof, de met myeline beklede verbindingen tussen hersengebieden, minder dicht van bloedvaten is voorzien dan de grijze stof. Juist die verbindingen zijn dus het kwetsbaarst wanneer de doorbloeding terugloopt. Van daaruit lopen de lijnen naar herseninfarct, TIA en dementie.</p>
+      <h3>NO als verbindend mechanisme</h3>
+      <p>Het derde deel draagt de titel 'NO heart NO brain' en legt uit hoe bewegen op de vaten inwerkt. Toenemende bloedstroom veroorzaakt schuring langs het endotheel, in de vakliteratuur shear stress genoemd. Die prikkel zet endotheelcellen aan tot productie van NO, en NO verwijdt het vat. De auteurs melden dat de aanmaak vanaf het zestigste levensjaar met ongeveer 85 procent daalt.</p>
+      <p>Hier wordt het boek ook een dosisverhaal. Aerobe inspanning van matige intensiteit, dertig minuten of langer, verbetert volgens een overzicht van Larsen en Matchkov uit 2016 de endotheelfunctie bij mensen met hoge bloeddruk. Inspanning met zeer hoge intensiteit gaf in andere studies juist een hogere bloeddruk en minder vaatverwijding. De auteurs verklaren die tegenspraak uit verschil in duur, frequentie, type en intensiteit, en concluderen dat matige inspanning zoals fietsen, joggen of stevig doorwandelen het gunstigst is voor de vaten.</p>
+      <h3>Zitten, en wat ertegen te doen</h3>
+      <p>Het hoofdstuk over zitten is het meest praktische. Twee uur aaneengesloten zitten geeft al klachten, met name lage rugpijn. De auteurs zetten daarna best practices op een rij, met de uitdrukkelijke waarschuwing dat voor lang niet elk advies een meta-analyse bestaat en dat zij bij gebrek daaraan de meest recente losse studies weergeven.</p>
+      <p>Vijf minuten lopen na een half uur zitten heeft volgens die studies effect op bloeddruk en insulinehuishouding, terwijl alleen gaan staan dat effect niet geeft. Het zitten onderbreken met dertig minuten wandelen zou de insulinegevoeligheid met 18 procent verhogen. De Nederlandse beweegnorm van 150 minuten per week noemen zij te laag; de norm van de Wereldgezondheidsorganisatie uit 2018 staat op 300 minuten, en de auteurs verwijzen naar adviezen die richting 400 minuten per week gaan, gecombineerd met twee tot drie keer weerstandstraining. Dansen krijgt een apart hoofdstuk, waarin een dansstudie bij kinderen met overgewicht een betere doorstroming liet zien zonder meetbare toename van NO, wat zij toeschrijven aan te hoge trainingsintensiteit en een hoger LDL-gehalte bij de non-responders.</p>
+      <h3>Voeding, maar zonder dieet</h3>
+      <p>Deel vier gaat over voeding, telkens bezien vanuit de vraag wat een stof met NO doet. Aan bod komen borstvoeding, waarbij het zuigen zelf de prikkel voor NO-productie lijkt te zijn, voeding bij te vroeg geboren kinderen, polyfenolen en flavonoïden uit fruit, thee, koffie, noten en rode wijn, en de verwerking van vet en suiker in het beloningssysteem.</p>
+      <p>De auteurs houden hier meer slagen om de arm dan elders. Zij noteren dat het mechanisme waarlangs flavonoïden via NO tot vaatverwijding zouden leiden nog niet met zekerheid is vastgesteld, dat epidemiologische studies naar thee, uien en appels geen oorzaak aantonen en dat de bevindingen elkaar soms tegenspreken. Eén meta-analyse noemen zij: drie koppen thee per dag ging samen met 11 procent minder nieuwe hartinfarcten. Een dieetboek wilden zij naar eigen zeggen niet schrijven, en dat is het ook niet geworden.</p>
+      <h3>Doe moeite</h3>
+      <p>Het slotdeel keert de vraag om: waarom lukt het niet? De Wereldgezondheidsorganisatie riep lichamelijke inactiviteit in 2012 uit tot pandemie, met jaarlijks ongeveer 5,3 miljoen sterfgevallen aan daaraan gerelateerde ziekten. Updates in 2016 en 2019 lieten volgens de auteurs geen verandering zien; de titel van de laatste bevatte de vraag wat ons tegenhoudt.</p>
+      <p>Daarnaast betrekken zij cognitieve inspanning en eenzaamheid in het betoog. Eenzaamheid definiëren zij als het verschil tussen gewenste en werkelijke sociale relaties, en zij koppelen die aan activering van de stress-as en verhoogde cortisolproductie, die op haar beurt de NO-productie remt. Een sociaal leven zou de kans op vroegtijdig overlijden met ongeveer 50 procent verkleinen. Verveling en een lage 'need for cognition' plaatsen zij tegenover het motto 'use it or lose it'.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nitric oxide (NO)</td><td>Gasvormig molecuul dat het endotheel afgeeft en dat bloedvaten verwijdt.</td></tr>
+          <tr><td class="term">Shear stress</td><td>Het schuren van stromend bloed langs de binnenwand van het vat, de prikkel die NO-productie op gang brengt.</td></tr>
+          <tr><td class="term">Endotheel</td><td>De cellaag aan de binnenkant van de bloedvatwand waar NO wordt gevormd.</td></tr>
+          <tr><td class="term">Witte stof</td><td>De met myeline beklede verbindingen tussen hersengebieden, die minder dicht van bloedvaten zijn voorzien dan de grijze stof.</td></tr>
+          <tr><td class="term">Neurovascular coupling</td><td>De koppeling tussen activiteit in zenuwbanen en de doorbloeding van het omringende hersenweefsel.</td></tr>
+          <tr><td class="term">Atriumfibrilleren</td><td>Chaotische elektrische activatie van de boezems, waardoor stolsels kunnen ontstaan die tot een herseninfarct leiden.</td></tr>
+          <tr><td class="term">Physical Inactivity</td><td>De term waarmee de Wereldgezondheidsorganisatie lichamelijke inactiviteit sinds 2012 als pandemie aanduidt.</td></tr>
+          <tr><td class="term">Best practice</td><td>Een advies dat op de meest recente studie berust omdat een meta-analyse ontbreekt.</td></tr>
+          <tr><td class="term">Use it or lose it</td><td>Het uitgangspunt dat hersenfuncties die niet gebruikt worden achteruitgaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek leunt op een lange literatuurlijst met genummerde noten en noemt bij vrijwel elke bewering een studie. Dat is meer dan gebruikelijk in dit genre en het maakt narekenen mogelijk. De auteurs zijn bovendien opvallend openhartig over de sterkte van hun bronnen: zij zeggen erbij dat meta-analyses het zwaarste bewijs vormen, dat die voor veel van hun adviezen ontbreken, en dat zij dan de recentste losse studies weergeven.</p>
+      <p>De harde kern van het betoog, dat de bloedvaten van hart en hersenen één keten vormen en dat lichamelijke activiteit die keten ten goede komt, staat stevig. Dat aderverkalking het risico op infarcten en op schade aan de witte stof verhoogt, en dat leefstijl daar zwaar op weegt, is geen omstreden standpunt. Hetzelfde geldt voor de vaststelling dat langdurig zitten losstaat van de vraag of iemand daarnaast sport.</p>
+      <p>De schakel die het boek zijn eigen karakter geeft, NO als verklarend mechanisme, is zwakker onderbouwd dan de rest. Veel aangehaalde studies zijn klein, sommige zijn dierproeven, en de mensenstudie over trainingsvormen telde eenentwintig jonge mannen. De auteurs verzwijgen dat niet, maar de rol die NO in de opbouw van het boek krijgt is groter dan die studies dragen. Bij de voedingshoofdstukken zeggen zij zelf dat het mechanisme nog niet vaststaat en dat epidemiologische bevindingen elkaar tegenspreken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de titel meer belooft dan het boek inlost. De hart-hersenverbinding wordt vooral als vaatverhaal ingevuld: de hersenen krijgen bloed, dus zorg voor de vaten. De omgekeerde richting, hoe de hersenen het hart aansturen, blijft grotendeels onbehandeld, terwijl de auteurs die in het voorwoord wel aankondigen.</p>
+      <p>De cijfers over beweegduur zijn minder hard dan het stellige toon doet vermoeden. Het boek loopt op van 150 via 300 naar 400 minuten per week en noemt daarnaast vijftig tot zestig minuten per dag, telkens op gezag van andere auteurs. Wie die getallen naast elkaar legt, ziet geen uitkomst van onderzoek maar een oplopende reeks adviezen. Een lezer die wil weten wat hij minimaal moet doen, komt er niet uit.</p>
+      <p>De vorm werkt tegen de inhoud. Het boek is een aaneenschakeling van losse studiebeschrijvingen met uitroeptekens ertussen, doorsneden met persoonlijke kaderstukken die van heel andere aard zijn dan de omringende tekst. Het uitgebreide portret van Isabelle, een meisje met het syndroom van Leigh dat in 2019 overleed, is indrukwekkend maar staat inhoudelijk los van de vaatthese. Zulke passages verschuiven het boek van uitleg naar aansporing, en de aansporing is precies waar het slotdeel zelf vaststelt dat zij niet werkt: drie WHO-updates lang veranderde er niets.</p>
+      <p>Ten slotte blijft de sociale kant onderbelicht. De auteurs erkennen dat veel mensen met obesitas of hart- en vaatziekten niet vrij zijn in hun keuzes, maar trekken daar geen consequentie uit. Het advies blijft individueel gericht, terwijl hun eigen constatering dat de wereld collectief is gaan zitten juist op omgeving en inrichting wijst.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderbreek elk half uur zitten met een paar minuten lopen; alleen gaan staan geeft dat effect niet.</li>
+        <li>Kies bij duurinspanning voor matige intensiteit, dertig minuten of meer, en bouw langzaam op.</li>
+        <li>Combineer duurtraining met twee tot drie keer per week weerstandstraining.</li>
+        <li>Laat bij hartkloppingen of overslagen die niet wijken de polsslag of een hartfilmpje beoordelen, omdat boezemfibrilleren vroeg opsporen het beroerterisico verlaagt.</li>
+        <li>Behandel sociaal contact als onderdeel van de leefstijl, niet als bijzaak.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Hoe je hart en brein elkaar beïnvloeden</i>, bij Athenaeum, Polak &amp; Van Gennep (2021); geschreven met cardioloog Leonard Hofstra.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een neuropsycholoog en een cardioloog behandelen samen wat hun twee organen met elkaar te maken hebben. De kern is dat de toestand van hart en bloedvaten de toestand van de hersenen bepaalt: hoge bloeddruk, suikerziekte en te weinig beweging beschadigen kleine vaten in de hersenen lang voordat iemand daar iets van merkt, en een deel van wat als veroudering wordt gezien is in feite vaatschade.</p><p>De praktische kant is bekend en wordt hier goed onderbouwd: bewegen, slapen, niet roken, matig eten en de bloeddruk laten meten. Het boek wisselt af tussen de twee schrijvers en is daardoor ongelijk van toon; de waarde zit in de koppeling van twee vakgebieden die in de spreekkamer los van elkaar werken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hart</li><li>hersenen</li><li>bloedvaten</li><li>leefstijl</li><li>preventie</li><li>voeding</li><li>onderzoek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="84"><a href="84.html">Laat je hersenen niet zitten</a>. Scherders eerdere <i>Laat je hersenen niet zitten</i> bevat dezelfde beweegboodschap zonder de cardiologische helft, en laat zien hoeveel het NO-mechanisme aan dit boek toevoegt.</li>
+          <li value="85"><a href="85.html">Singing in the brain</a>. In <i>Singing in the brain</i> werkt Scherder een andere route naar hetzelfde doel uit, muziek in plaats van bloedvaten.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker behandelt in <i>Why We Sleep</i> de derde grote leefstijlfactor die hier vrijwel ontbreekt, en zit qua stelligheid in hetzelfde register.</li>
+          <li value="138"><a href="138.html">The Shift</a>. Foster laat in <i>The Shift</i> zien waarom gedragsverandering rond gewicht en beweging in de praktijk stukloopt, precies waar dit boek blijft aansporen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

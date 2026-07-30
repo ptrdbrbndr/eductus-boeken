@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Singing in the brain &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Muziek is voor Scherder geen versiering van het bestaan maar een prikkel die vrijwel het hele brein tegelijk aan het werk zet, en juist daarom werkt zij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-85">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">85 &middot; Brein en lichaam</p>
+    <h1>Singing in the brain</h1>
+    <p class="lede">Erik Scherder, 2017</p>
+    <p class="stats">
+      <span><b>1903</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="85"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Muziek is voor Scherder geen versiering van het bestaan maar een prikkel die vrijwel het hele brein tegelijk aan het werk zet, en juist daarom werkt zij door waar taal en gewone therapie stukloopt. Zijn stelling is dat het maken en horen van muziek motorische, zintuiglijke, emotionele en geheugengebieden gelijktijdig belast, dat die belasting het brein vormt bij wie jong begint, en dat zij bij ziekte en beschadiging een ingang biedt die intact blijft als andere ingangen wegvallen. Wie daar iets tegenover wil zetten, moet aannemelijk maken dat de gevonden effecten net zo goed door aandacht, gezelschap of afleiding verklaard kunnen worden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Ritme en beweging</h3>
+      <p>Het boek begint bij de plek waar muziek en lichaam elkaar raken. Scherder haalt werk van Schneider en anderen uit 2010 aan waaruit blijkt dat de gewone loopfrequentie rond twee stappen per seconde ligt, en dat een analyse van zeventigduizend muziekstukken een overheersende maat van honderdtwintig slagen per minuut opleverde. Bij hardlopen kozen deelnemers zelf muziek die daar iets boven lag, en tijdens het lopen werd een bijpassende hersengolffrequentie gemeten.</p>
+      <p>Daarna komen de proeven uit de sportschool. Op een loopband houden mensen het langer vol met muziek, zonder dat de hartfrequentie verandert. Bij vrouwen werkt voorkeursmuziek sterker dan bij mannen. Onderzoek van Eliakim en anderen uit 2013 scheidde muziek van ritme en vond dat alleen het ritme al zorgde voor meer stappen in de herstelfase en voor een snellere daling van het melkzuur. Scherder meldt er ook bij dat het effect van muziek op korte maximale inspanning niet consistent is: in een proef met sprints van vijfendertig meter maakte snel of langzaam ritme geen verschil.</p>
+      <h3>Muziek in de klas</h3>
+      <p>Het derde hoofdstuk is een pleidooi voor muziekonderwijs voor alle kinderen. Scherder beschrijft het Leerorkest, ooit begonnen in de Bijlmer en uitgegroeid tot tientallen orkesten in Amsterdam, waar ieder kind een instrument mag uitproberen en houden, en het aanbod van de Rotterdamse stichting voor kunstzinnige vorming waarbij leden van het Rotterdams Philharmonisch een groepje kinderen onder hun hoede nemen.</p>
+      <p>Het begrippenpaar waar dit hoofdstuk om draait is near transfer en far transfer. Near transfer wil zeggen dat muziekles muzikale vaardigheid verbetert, wat weinig verrast. Far transfer is de claim dat het ook doorwerkt op iets anders, zoals taal. Scherder acht die tweede vorm bij muziek en taal aannemelijk omdat beide leunen op het verwerken van toonhoogte, tijdsverloop en structuur, en omdat gebieden als de inferior frontal gyrus bij beide betrokken zijn.</p>
+      <h3>Wat er in het brein van een musicus anders is</h3>
+      <p>De hoofdstukken over klank en timbre bouwen naar de vraag of musici andere hersenen hebben. Scherder leunt op een overzicht van Stewart uit 2008. Bij mensen die toetsen spelen is de precentrale gyrus groter, bij violisten zijn de motorische gebieden voor de linkerhand sterker ontwikkeld dan die voor de rechter, en bij pianisten is die verdeling gelijkmatiger. Het planum temporale en de gyrus van Heschl, gebieden voor geluidsverwerking, hebben meer volume bij musici. Ook de kleine hersenen en de linker basale ganglia laten meer grijze stof zien.</p>
+      <p>Bij de witte stof gaat het over de baansystemen. Met beeldvorming die de richting van zenuwvezels zichtbaar maakt, is te zien dat onder meer het corticospinale systeem bij musici een steviger structuur heeft. Scherder houdt vast aan de lezing van Stewart dat dit gevolg is van het spelen en niet de oorzaak ervan, en hij noemt als argument dat de verschillen precies passen bij welk instrument iemand bespeelt. Zelf zegt hij erbij dat dit onderwerp een heel boek verdient en dat hij geen volledigheid biedt.</p>
+      <h3>Zingen en emoties</h3>
+      <p>Het hoofdstuk over zingen begint met de stelling dat iedereen kan zingen en beschrijft onder meer zingen in een tbs-kliniek. Daarna volgt het deel over muziek en emotie, dat Scherder zelf lastiger noemt dan het lijkt. De opvallendste vraag is waarom mensen die niet verdrietig zijn graag naar droevige muziek luisteren.</p>
+      <p>Hij bespreekt de verklaringen van Taruffi en Koelsch uit 2014: inleving in de componist, het besef dat je tot intense emoties in staat bent, en het feit dat droevige muziek meer oproept dan droefheid alleen, zoals nostalgie, tederheid en verwondering. Daarnaast noemt hij het beloningscircuit met de nucleus accumbens en de rol van prolactine, dat vrijkomt bij tranen en verdriet en volgens de aangehaalde auteurs de pijn ervan dempt. Een droevig gezicht roept diezelfde reactie niet op, wat de auteurs als aanwijzing zien dat het om iets muziekeigens gaat.</p>
+      <h3>Muziek bij ziekte</h3>
+      <p>Het middendeel van het boek loopt ziektebeelden langs: slaap, pijn, angst en somberheid, de ziekte van Parkinson, dementie, autisme, coma en beroerte. Bij kinderen met een agressieve vorm van leukemie die een stamceltransplantatie ondergingen, beschrijft Scherder een kleine gecontroleerde proef van Uggla en anderen uit 2016 met veertig kinderen, waarvan dertien muziektherapie kregen. Hun hartfrequentie in de avond daalde, een effect dat vier tot acht uur aanhield.</p>
+      <p>Bij dementie is hij het duidelijkst over de bewijslast. Blackburn en collega's vonden in 2014 slechts zes gerandomiseerde studies naar muziektherapie bij dementie. Die lieten kleine positieve uitkomsten zien op angst, somberheid, denken en kwaliteit van leven, maar waren methodologisch zwak, en de auteurs stelden zelf de vraag of muziek zich onderscheidt van hardop voorlezen, dat immers ook aandacht trekt en gezelschap biedt. Uit geen van de zes kwam naar voren welk onderdeel van de therapie het effect veroorzaakte.</p>
+      <p>Het onderdeel dat het meest indruk maakt gaat over muziekgeheugen. Jacobsen en anderen publiceerden in 2015 in Brain dat bij gevorderde ziekte van Alzheimer twee gebieden een rol spelen bij het herkennen van muziek van vroeger: de anterior cingulate cortex en de pre-supplementary motor area. Juist daar wordt de minste verschrompeling, de minste daling van de stofwisseling en de minste eiwitneerslag gevonden. Het gaat om impliciet geheugen, dat bij deze ziekte langer gespaard blijft. Scherder voegt eraan toe dat ander onderzoek dit niet bij elke patiënt terugvindt.</p>
+      <h3>Portretten en praktische tips</h3>
+      <p>Door het boek heen staan gesprekken met mensen bij wie muziek en hersenletsel elkaar raken. Jule Zuiderbaan kwam met zuurstofgebrek ter wereld en bleef spastisch aan de linkerzijde, wat blokfluit en later bugel onmogelijk maakte en haar via de althoorn bij een ander instrument bracht. Gitarist Willem Philipsen, die bij de Postmen speelde, kreeg op drieëntwintigjarige leeftijd een hersenbloeding in de rechterhelft. Christien leerde zeventien jaar na een herseninfarct opnieuw pianospelen, met haar muziekpedagoog erbij.</p>
+      <p>Het slothoofdstuk verzamelt praktische opmerkingen, met de oorwurm als hoofdmoot. Ongeveer negentig procent van de mensen heeft er wekelijks een, en muziek met tekst blijft eerder hangen dan instrumentale muziek. Oorwurmen ontstaan na herhaald contact met muziek, via een herinnering of emotie, en bij te weinig alertheid tijdens saai werk. Farrugia en anderen brachten in 2015 het default-modenetwerk ermee in verband, het netwerk dat actief is als iemand niet geconcentreerd nadenkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Near transfer</td><td>De doorwerking van muziekles op muzikale vaardigheden zelf, zoals gehoor en ritmegevoel.</td></tr>
+          <tr><td class="term">Far transfer</td><td>De doorwerking van muziekles op iets buiten de muziek, zoals de ontwikkeling van taal.</td></tr>
+          <tr><td class="term">Timbre</td><td>De klankkleur waaraan iemand hoort welk instrument of welke stem een toon voortbrengt.</td></tr>
+          <tr><td class="term">Plasticiteit</td><td>Het vermogen van het brein om onder invloed van oefening van structuur en verbindingen te veranderen.</td></tr>
+          <tr><td class="term">Impliciet muziekgeheugen</td><td>Het onbewust herkennen van muziek van vroeger, dat bij gevorderde ziekte van Alzheimer gespaard kan blijven.</td></tr>
+          <tr><td class="term">Muzikaal sjabloon</td><td>Het in de gehoorschors opgeslagen verwachtingspatroon, gevormd door de muziek waarmee iemand is opgegroeid.</td></tr>
+          <tr><td class="term">Weak central coherence</td><td>De verklaring voor het opvallende oog voor detail bij autisme, waarbij losse onderdelen sterker binnenkomen dan het geheel.</td></tr>
+          <tr><td class="term">Oorwurm</td><td>Een melodie die zich zonder aanleiding opdringt en blijft doorspelen, ook beschreven als onwillekeurige muzikale voorstelling.</td></tr>
+          <tr><td class="term">Beloningscircuit</td><td>Het netwerk rond de nucleus accumbens dat het plezier in muziek en het verlangen naar meer ervan draagt.</td></tr>
+          <tr><td class="term">Default-modenetwerk</td><td>Het netwerk dat actief is als iemand niet geconcentreerd bezig is, en dat met dagdromen en oorwurmen wordt verbonden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Waar dit boek verschilt van zijn boek over bewegen, is dat de sterkte van het bewijs per hoofdstuk sterk uiteenloopt en dat Scherder dat vaker benoemt. Het steviste materiaal staat in de hoofdstukken over ritme en over musici. De koppeling van looptempo aan muziektempo rust op meetbare grootheden en op een analyse van een grote muziekverzameling. De verschillen in grijze en witte stof tussen musici en niet-musici zijn met beeldvormend onderzoek herhaald vastgesteld.</p>
+      <p>Die verschillen in hersenstructuur lossen echter de richtingsvraag niet op. Vrijwel al dat werk vergelijkt groepen zoals zij nu zijn. Dat de motorische gebieden bij violisten aan de kant van de linkerhand sterker zijn ontwikkeld, past bij oefening als oorzaak, maar sluit niet uit dat aanleg mede bepaalt wie het volhoudt om beroepsmusicus te worden. Scherder kiest hier voor de uitleg van Stewart zonder het alternatief systematisch te ontkrachten.</p>
+      <p>De hoofdstukken over ziekte leunen op kleine studies en op overzichten die weinig te overzien hebben. Zes gerandomiseerde studies bij dementie, dertien behandelde kinderen in de leukemieproef, en bij verscheidene onderwerpen niet meer dan een enkele publicatie. Blindering is bij muziektherapie bovendien niet uitvoerbaar: deelnemers en behandelaars weten altijd wie muziek krijgt, wat de kans op verwachtingseffecten open laat.</p>
+      <p>De portretten van Jule, Willem en Christien zijn geen bewijs en worden ook niet als zodanig gepresenteerd. Zij laten zien hoe herstel in de praktijk verloopt en wat het van iemand vraagt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de meeste positieve uitkomsten net zo goed te verklaren zijn door wat de muziek omringt. De onderzoekers die Scherder zelf aanhaalt stellen die vraag hardop: onderscheidt muziektherapie zich van hardop voorlezen? Ook daarbij is er aandacht van een ander, een vast moment in de week en iets prettigs om naar te luisteren. Zolang de werkzame ingrediënten niet gescheiden zijn, is de conclusie dat het de muziek is een keuze en geen bevinding.</p>
+      <p>Daar komt de sprong van correlatie naar advies bij. Uit hersenverschillen bij musici volgt niet vanzelf dat muziekles bij alle kinderen tot betere taalontwikkeling leidt, en uit een gedaalde avondhartslag bij dertien kinderen volgt niet dat muziektherapie in de oncologie thuishoort. Scherder trekt zulke conclusies niet met zoveel woorden, maar de opbouw van de hoofdstukken, waarin een pleidooi vooraf gaat aan het onderzoek, duwt de lezer die kant op.</p>
+      <p>De breedte van het boek is tegelijk zijn zwakte. Vijftien hoofdstukken over evolutie, onderwijs, klank, emotie, slaap, pijn, Parkinson, dementie, autisme en coma betekent dat geen onderwerp diep genoeg wordt uitgewerkt om te zien welke behandeling bij welke aandoening iets doet. Wie voor één ziektebeeld komt, krijgt enkele bladzijden.</p>
+      <p>Ten slotte is de toon uitgesproken warm. Scherder is een pleitbezorger van muziek en dat is in elke alinea merkbaar, met citaten van bekende mensen als hoofdstukopeningen en met veel uitroeptekens. Dat leest aangenaam, maar de negatieve bevindingen, zoals de sprints waarbij muziek niets deed, krijgen minder ruimte dan de bevestigende.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies muziek rond honderdtwintig slagen per minuut om bij het wandelen een gelijkmatig looptempo vast te houden.</li>
+        <li>Gebruik bij iemand met dementie de muziek uit diens jeugd en niet de muziek die de verzorger mooi vindt.</li>
+        <li>Laat een kind meerdere instrumenten uitproberen voordat de keuze valt, zeker bij motorische beperkingen.</li>
+        <li>Reken bij een aanbod van muziektherapie op een klein effect en vraag waarmee het vergeleken is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel over de samenwerking tussen muziek en de hersenen, bij Athenaeum, Polak &amp; Van Gennep (2017).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Muziek raakt vrijwel het hele brein tegelijk, en dat is de reden dat zij dingen kan doen die taal niet lukt. Scherder behandelt hoe ritme en melodie het geheugen aanspreken bij mensen die hun woorden kwijt zijn, hoe muziek pijnbeleving verandert, en wat het met kinderen doet om een instrument te leren spelen.</p><p>Het aardigste deel gaat over de dingen die iemand vergeet en over wat er blijft: liedjes van vroeger blijven vaak beschikbaar wanneer namen en gezichten al zijn verdwenen. Zoals in zijn ander werk is het boek een pleidooi met onderzoek eronder, en zijn de sterkste passages die waarin hij beschrijft wat hij in de kliniek heeft gezien.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>muziek</li><li>hersenen</li><li>geheugen</li><li>dementie</li><li>pijn</li><li>ontwikkeling</li><li>onderzoek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="86"><a href="86.html">Hart voor je brein</a>. Scherders boek met Hofstra behandelt dezelfde denklijn over prikkeling van het brein, maar dan via hart en bloedvaten.</li>
+          <li value="33"><a href="33.html">Quiet</a>. Cain schrijft over prikkelgevoeligheid en verschillen daarin, wat verklaart waarom dezelfde muziek de een helpt en de ander stoort.</li>
+          <li value="87"><a href="87.html">Activeer je nervus vagus</a>. Swinnen beschrijft eveneens een lichamelijke ingang naar kalmte, met dezelfde bewijsproblemen als muziektherapie kent.</li>
+          <li value="118"><a href="118.html">Coping Skills</a>. Harper zet muziek en ritme naast andere zelfregulatietechnieken en is explicieter over wat er wel en niet bewezen is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

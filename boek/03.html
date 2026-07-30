@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Will to Change &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="hooks stelt dat het patriarchaat niet alleen vrouwen schaadt maar ook mannen, en dat het de eerste daad van geweld is die van een jongen wordt gevraagd:…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-3">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">03 &middot; Mannen, vriendschap, verbinding</p>
+    <h1>The Will to Change</h1>
+    <p class="lede">bell hooks, 2004</p>
+    <p class="stats">
+      <span><b>1438</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="03"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>hooks stelt dat het patriarchaat niet alleen vrouwen schaadt maar ook mannen, en dat het de eerste daad van geweld is die van een jongen wordt gevraagd: geweld tegen zijn eigen gevoelsleven. Mannen leren volgens haar al vroeg dat ze hun angst, verdriet en behoefte aan tederheid moeten wegsnijden om als man te gelden, en dat ze daarmee precies het vermogen kwijtraken dat liefde mogelijk maakt. De genezing die zij voorstelt is geen terugkeer naar een oudere mannelijkheid en ook geen afschaffing van mannelijkheid, maar een mannelijkheid die haar waarde ontleent aan zelfkennis, integriteit en verbondenheid in plaats van aan overheersing.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het verwijt aan de vrouwenbeweging</h3>
+      <p>hooks opent met een ongemakkelijke vaststelling over haar eigen beweging. De feministische beweging heeft volgens haar decennialang over mannen gesproken als daders en zelden als mensen die zelf iets te verliezen hadden. Daardoor is er wel een uitgebreide taal ontstaan voor vrouwelijke pijn, maar bijna geen taal voor wat mannen missen.</p>
+      <p>Zij wijst er ook op dat vrouwen die zeggen te verlangen naar gevoelige mannen, in de praktijk vaak schrikken als een man werkelijk huilt of bang blijkt. Die tegenstrijdigheid, dat vrouwen mede het zwijgen van mannen in stand houden, komt in het hele boek terug en is een van de weinige plekken waar zij haar eigen publiek aanvalt.</p>
+      <h3>Wat zij onder patriarchaat verstaat</h3>
+      <p>In het hoofdstuk over het begrip patriarchaat geeft hooks haar werkdefinitie: een stelsel dat ervan uitgaat dat mannen van nature overheersend zijn en het recht hebben te heersen over zwakkeren, desnoods met geweld. Het is voor haar geen groep mannen maar een denkwijze die zowel mannen als vrouwen doorgeven, in gezinnen, kerken en scholen.</p>
+      <p>Zij illustreert dat met een herinnering uit haar jeugd. Als meisje speelde zij knikkers, iets wat haar vader als jongensspel beschouwde; toen zij weigerde te stoppen volgde straf en een pak slaag, met haar moeder erbij. De les die zij eruit trok is dat de rolverdeling met dwang werd bewaakt en dat haar broer, die niet ruw genoeg was, aan dezelfde regel evenveel schade opliep als zij.</p>
+      <h3>De jongen die leert zwijgen</h3>
+      <p>Het middendeel gaat over opvoeding. Jongens leren volgens hooks eerder dan meisjes dat gevoelens gevaarlijk zijn, en zij leren dat vaak van vrouwen: van moeders die bang zijn een zoon groot te brengen die het buiten niet redt. Zij noemt dit het wegsnijden van een deel van het eigen innerlijk, een verminking die de jongen zelf voltrekt omdat de omgeving het van hem verwacht.</p>
+      <p>Wat overblijft is volgens haar een man die nog twee gevoelens mag tonen, woede en begeerte, en die alle andere aandoeningen daarin vertaalt. Verdriet wordt drift, eenzaamheid wordt honger, angst wordt beheersing. Zij ziet dit terug in verslaving, in het weglopen uit gesprekken en in het onvermogen om te zeggen wat er in iemand omgaat.</p>
+      <h3>Geweld, werk en seksualiteit</h3>
+      <p>hooks behandelt daarna drie terreinen waarop die opvoeding zich uitbetaalt. Geweld tegen vrouwen en kinderen ziet zij als het voorspelbare gevolg van een mannelijkheid die alleen macht kent als taal, niet als een afwijking van de norm.</p>
+      <p>Bij werk beschrijft zij hoe mannen leren hun waarde te ontlenen aan wat zij verdienen, waardoor verlies van werk en verlies van zelfrespect samenvallen. Bij seksualiteit stelt zij dat mannen leren lichamelijk contact te zoeken op de enige plek waar aanraking hun is toegestaan, wat het onderscheid tussen behoefte aan nabijheid en behoefte aan seks vertroebelt.</p>
+      <p>In alle drie de gevallen is haar redenering dezelfde: het gedrag dat mannen wordt verweten komt voort uit een tekort dat hun is aangeleerd, en het bestrijden van het gedrag zonder het tekort te noemen levert weinig op.</p>
+      <h3>De kritiek op de mannenbeweging</h3>
+      <p>hooks neemt de mythopoëtische mannenbeweging van de jaren tachtig en negentig serieus, met het werk van Robert Bly als bekendste voorbeeld, maar wijst haar oplossing af. Trommelen in het bos en het opzoeken van een oudere, wildere mannelijkheid raakt volgens haar wel aan het echte verdriet, maar zoekt de uitweg in een verleden dat dezelfde ordening kent.</p>
+      <p>Haar bezwaar is dat die beweging mannen wilde helen zonder de macht ter discussie te stellen. Genezing die de rangorde intact laat, brengt volgens haar de man terug bij het punt waar hij ziek werd.</p>
+      <h3>Feministische mannelijkheid</h3>
+      <p>Het slotdeel schetst wat zij feministische mannelijkheid noemt. Dat is geen lijst voorschriften maar een verschuiving van de vraag: niet hoeveel een man kan dragen of afdwingen, maar of hij zichzelf kent, de waarheid kan zeggen en aanwezig kan blijven als het spannend wordt.</p>
+      <p>hooks put daarvoor uit haar eerdere werk over liefde, waarin liefde een handeling is en geen gevoel. Een man die liefheeft doet iets: hij zorgt, hij kent, hij aanvaardt verantwoordelijkheid, hij houdt vertrouwen. Zij besluit met de stelling dat mannen dit niet alleen kunnen doen en dat vrouwen en mannen samen ruimte moeten maken waarin een man mag falen zonder zijn plaats te verliezen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">patriarchaat</td><td>Het stelsel dat mannen als vanzelfsprekend heersend beschouwt en dat overheersing zo nodig met geweld handhaaft, doorgegeven door mannen én vrouwen.</td></tr>
+          <tr><td class="term">overheersingscultuur</td><td>hooks' bredere term voor een samenleving die verhoudingen ordent langs macht en gehoorzaamheid, waarvan het patriarchaat één verschijningsvorm is.</td></tr>
+          <tr><td class="term">psychische zelfverminking</td><td>Het afsnijden van het eigen gevoelsleven dat een jongen volgens hooks moet voltrekken om als man te worden erkend.</td></tr>
+          <tr><td class="term">patriarchale mannelijkheid</td><td>De aangeleerde mannelijkheid die waarde ontleent aan macht, prestatie en onaantastbaarheid.</td></tr>
+          <tr><td class="term">feministische mannelijkheid</td><td>Het alternatief dat hooks voorstelt, waarin een man zijn waarde ontleent aan zelfkennis, eerlijkheid en zorg.</td></tr>
+          <tr><td class="term">liefde als handeling</td><td>Haar opvatting dat liefde bestaat uit wat iemand doet, zorgen, kennen, verantwoordelijkheid nemen, en niet uit wat iemand voelt.</td></tr>
+          <tr><td class="term">emotioneel analfabetisme</td><td>Het onvermogen om innerlijke toestanden te benoemen, dat volgens hooks bij jongens systematisch wordt gekweekt.</td></tr>
+          <tr><td class="term">gedeeld zwijgen</td><td>De stilzwijgende afspraak in gezinnen en relaties dat over de pijn van mannen niet wordt gesproken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een essay, geen studie. hooks werkt met eigen herinneringen, met gesprekken die zij door de jaren heen voerde met mannen en met haar lezing van romans, films en populaire cultuur. Er staan geen tabellen, geen steekproeven en geen verwijzingen naar onderzoeksgegevens waarmee haar stellingen te toetsen zijn.</p>
+      <p>Waar zij zich op anderen beroept, zijn dat vrijwel altijd schrijvers uit dezelfde traditie: therapeutische en cultuurkritische auteurs over mannen en gevoel, en de mythopoëtische mannenbeweging die zij bespreekt om haar af te wijzen. Dat versterkt de innerlijke samenhang van het betoog en niet de toetsbaarheid ervan.</p>
+      <p>De overtuigingskracht zit in de herkenning. De knikkerherinnering, de beschrijving van mannen die na een scheiding geen mens hebben om te bellen, de opmerking dat vrouwen om gevoelige mannen vragen en ervan schrikken: dat werkt omdat lezers het naast hun eigen leven kunnen leggen, wat iets anders is dan bewijs.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat één verklaring vrijwel alles moet dragen. Van geweld tot verslaving, van zwijgen tot werkverslaving, alles voert terug op het patriarchaat. Een verklaring die overal past, is moeilijk te weerleggen, en hooks stelt nergens de vraag welke waarneming haar ongelijk zou geven.</p>
+      <p>Tegenposities krijgen weinig ruimte. Verklaringen die ook meespelen, zoals verschillen in aanleg, economische omstandigheden, de inrichting van het werk of eenvoudigweg het wegvallen van plekken waar mannen elkaar troffen, worden niet uitgewerkt en soms alleen genoemd om te worden afgewezen. De mannenbeweging krijgt een korte behandeling en geen eerlijke weergave van haar sterkste argument.</p>
+      <p>De vorm werkt tegen de inhoud. Het boek herhaalt zijn kernpunten vaak, springt tussen herinnering, cultuurkritiek en aansporing, en gaat over in preektoon zodra het over genezing gaat. Wie zich niet al thuis voelt in haar woordenschat, haakt waarschijnlijk af voor het argument zijn werk heeft gedaan.</p>
+      <p>Ten slotte blijft de weg naar verandering vaag. Wat een man maandag zou moeten doen, staat er niet. hooks beschrijft de bestemming uitvoerig en de route nauwelijks, wat opvalt in een boek dat zich uitdrukkelijk tot mannen richt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na welke gevoelens je bij jezelf toelaat en welke je automatisch omzet in irritatie of drukte.</li>
+        <li>Schrijf op wie je zou bellen bij slecht nieuws, en of dat een naam is of alleen een gedachte.</li>
+        <li>Let er in gesprekken op wat er gebeurt als een man iets kwetsbaars zegt: wie stapt eroverheen, jij of de ander.</li>
+        <li>Bespreek met je eigen zoon of neef expliciet dat bang zijn en huilen geen falen is, in plaats van het stilzwijgend te hopen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Men, Masculinity, and Love</i>, bij Atria/Washington Square Press (2004). Geen Nederlandse uitgave: van hooks zijn wel <i>De binnenkant van mij</i> (ROSE Stories, 2021), <i>Feminisme is voor iedereen</i> (Mazirel Pers, 2024) en <i>Alles over liefde</i> (De Geus, 2025) vertaald, dit boek niet. De samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>hooks stelt dat jongens vroeg leren hun gevoelsleven af te knijpen, en dat wat overblijft een man is die wel kan presteren maar moeilijk kan liefhebben. Zij noemt het patriarchaat daarbij niet iets wat mannen doen en vrouwen ondergaan, maar een systeem dat ook mannen beschadigt en dat door moeders en vaders wordt doorgegeven. De woede die veel mannen kennen leest zij als de enige emotie die hun nog is toegestaan, een verzamelbak voor verdriet en angst waar geen taal voor is.</p><p>Het boek is geschreven vanuit een feministische positie, met de expliciete klacht dat de feministische beweging over mannen vooral heeft gesproken in termen van schuld en nauwelijks in termen van bevrijding. Persoonlijke passages over haar vader en haar relaties wisselen af met cultuurkritiek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>feminisme</li><li>mannelijkheid</li><li>patriarchaat</li><li>liefde</li><li>emoties</li><li>opvoeding</li><li>essay</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Brené Brown behandelt hetzelfde schaamteslot bij mannen, maar dan op basis van jarenlang interviewonderzoek in plaats van essayistiek.</li>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Moehringers memoir laat zien wat er gebeurt als een jongen zijn mannelijkheid moet samenrapen uit de mannen aan een bar.</li>
+          <li value="96"><a href="96.html">Het verlaten individu</a>. Van Fenema plaatst hetzelfde verlies aan verbinding in een bredere ontwikkeling van individualisering.</li>
+          <li value="73"><a href="73.html">12 Rules for Life</a>. Peterson richt zich eveneens op mannen en verantwoordelijkheid, maar komt vanuit een tegengestelde diagnose tot zijn voorschriften.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

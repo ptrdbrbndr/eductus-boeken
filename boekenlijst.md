@@ -499,6 +499,185 @@ klacht dat de feministische beweging over mannen vooral heeft gesproken in
 termen van schuld en nauwelijks in termen van bevrijding. Persoonlijke
 passages over haar vader en haar relaties wisselen af met cultuurkritiek.
 
+### Uitgebreide samenvatting
+
+**De stelling.** hooks stelt dat het patriarchaat niet alleen vrouwen schaadt
+maar ook mannen, en dat het de eerste daad van geweld is die van een jongen
+wordt gevraagd: geweld tegen zijn eigen gevoelsleven. Mannen leren volgens
+haar al vroeg dat ze hun angst, verdriet en behoefte aan tederheid moeten
+wegsnijden om als man te gelden, en dat ze daarmee precies het vermogen
+kwijtraken dat liefde mogelijk maakt. De genezing die zij voorstelt is geen
+terugkeer naar een oudere mannelijkheid en ook geen afschaffing van
+mannelijkheid, maar een mannelijkheid die haar waarde ontleent aan zelfkennis,
+integriteit en verbondenheid in plaats van aan overheersing.
+
+#### De gang van het boek
+
+**Het verwijt aan de vrouwenbeweging**
+
+hooks opent met een ongemakkelijke vaststelling over haar eigen beweging. De
+feministische beweging heeft volgens haar decennialang over mannen gesproken
+als daders en zelden als mensen die zelf iets te verliezen hadden. Daardoor is
+er wel een uitgebreide taal ontstaan voor vrouwelijke pijn, maar bijna geen
+taal voor wat mannen missen.
+
+Zij wijst er ook op dat vrouwen die zeggen te verlangen naar gevoelige mannen,
+in de praktijk vaak schrikken als een man werkelijk huilt of bang blijkt. Die
+tegenstrijdigheid, dat vrouwen mede het zwijgen van mannen in stand houden,
+komt in het hele boek terug en is een van de weinige plekken waar zij haar
+eigen publiek aanvalt.
+
+**Wat zij onder patriarchaat verstaat**
+
+In het hoofdstuk over het begrip patriarchaat geeft hooks haar werkdefinitie:
+een stelsel dat ervan uitgaat dat mannen van nature overheersend zijn en het
+recht hebben te heersen over zwakkeren, desnoods met geweld. Het is voor haar
+geen groep mannen maar een denkwijze die zowel mannen als vrouwen doorgeven,
+in gezinnen, kerken en scholen.
+
+Zij illustreert dat met een herinnering uit haar jeugd. Als meisje speelde zij
+knikkers, iets wat haar vader als jongensspel beschouwde; toen zij weigerde te
+stoppen volgde straf en een pak slaag, met haar moeder erbij. De les die zij
+eruit trok is dat de rolverdeling met dwang werd bewaakt en dat haar broer,
+die niet ruw genoeg was, aan dezelfde regel evenveel schade opliep als zij.
+
+**De jongen die leert zwijgen**
+
+Het middendeel gaat over opvoeding. Jongens leren volgens hooks eerder dan
+meisjes dat gevoelens gevaarlijk zijn, en zij leren dat vaak van vrouwen: van
+moeders die bang zijn een zoon groot te brengen die het buiten niet redt. Zij
+noemt dit het wegsnijden van een deel van het eigen innerlijk, een verminking
+die de jongen zelf voltrekt omdat de omgeving het van hem verwacht.
+
+Wat overblijft is volgens haar een man die nog twee gevoelens mag tonen, woede
+en begeerte, en die alle andere aandoeningen daarin vertaalt. Verdriet wordt
+drift, eenzaamheid wordt honger, angst wordt beheersing. Zij ziet dit terug in
+verslaving, in het weglopen uit gesprekken en in het onvermogen om te zeggen
+wat er in iemand omgaat.
+
+**Geweld, werk en seksualiteit**
+
+hooks behandelt daarna drie terreinen waarop die opvoeding zich uitbetaalt.
+Geweld tegen vrouwen en kinderen ziet zij als het voorspelbare gevolg van een
+mannelijkheid die alleen macht kent als taal, niet als een afwijking van de
+norm.
+
+Bij werk beschrijft zij hoe mannen leren hun waarde te ontlenen aan wat zij
+verdienen, waardoor verlies van werk en verlies van zelfrespect samenvallen.
+Bij seksualiteit stelt zij dat mannen leren lichamelijk contact te zoeken op
+de enige plek waar aanraking hun is toegestaan, wat het onderscheid tussen
+behoefte aan nabijheid en behoefte aan seks vertroebelt.
+
+In alle drie de gevallen is haar redenering dezelfde: het gedrag dat mannen
+wordt verweten komt voort uit een tekort dat hun is aangeleerd, en het
+bestrijden van het gedrag zonder het tekort te noemen levert weinig op.
+
+**De kritiek op de mannenbeweging**
+
+hooks neemt de mythopoëtische mannenbeweging van de jaren tachtig en negentig
+serieus, met het werk van Robert Bly als bekendste voorbeeld, maar wijst haar
+oplossing af. Trommelen in het bos en het opzoeken van een oudere, wildere
+mannelijkheid raakt volgens haar wel aan het echte verdriet, maar zoekt de
+uitweg in een verleden dat dezelfde ordening kent.
+
+Haar bezwaar is dat die beweging mannen wilde helen zonder de macht ter
+discussie te stellen. Genezing die de rangorde intact laat, brengt volgens
+haar de man terug bij het punt waar hij ziek werd.
+
+**Feministische mannelijkheid**
+
+Het slotdeel schetst wat zij feministische mannelijkheid noemt. Dat is geen
+lijst voorschriften maar een verschuiving van de vraag: niet hoeveel een man
+kan dragen of afdwingen, maar of hij zichzelf kent, de waarheid kan zeggen en
+aanwezig kan blijven als het spannend wordt.
+
+hooks put daarvoor uit haar eerdere werk over liefde, waarin liefde een
+handeling is en geen gevoel. Een man die liefheeft doet iets: hij zorgt, hij
+kent, hij aanvaardt verantwoordelijkheid, hij houdt vertrouwen. Zij besluit
+met de stelling dat mannen dit niet alleen kunnen doen en dat vrouwen en
+mannen samen ruimte moeten maken waarin een man mag falen zonder zijn plaats
+te verliezen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| patriarchaat | Het stelsel dat mannen als vanzelfsprekend heersend beschouwt en dat overheersing zo nodig met geweld handhaaft, doorgegeven door mannen én vrouwen. |
+| overheersingscultuur | hooks' bredere term voor een samenleving die verhoudingen ordent langs macht en gehoorzaamheid, waarvan het patriarchaat één verschijningsvorm is. |
+| psychische zelfverminking | Het afsnijden van het eigen gevoelsleven dat een jongen volgens hooks moet voltrekken om als man te worden erkend. |
+| patriarchale mannelijkheid | De aangeleerde mannelijkheid die waarde ontleent aan macht, prestatie en onaantastbaarheid. |
+| feministische mannelijkheid | Het alternatief dat hooks voorstelt, waarin een man zijn waarde ontleent aan zelfkennis, eerlijkheid en zorg. |
+| liefde als handeling | Haar opvatting dat liefde bestaat uit wat iemand doet, zorgen, kennen, verantwoordelijkheid nemen, en niet uit wat iemand voelt. |
+| emotioneel analfabetisme | Het onvermogen om innerlijke toestanden te benoemen, dat volgens hooks bij jongens systematisch wordt gekweekt. |
+| gedeeld zwijgen | De stilzwijgende afspraak in gezinnen en relaties dat over de pijn van mannen niet wordt gesproken. |
+
+#### Waar het argument op rust
+
+Het boek is een essay, geen studie. hooks werkt met eigen herinneringen, met
+gesprekken die zij door de jaren heen voerde met mannen en met haar lezing van
+romans, films en populaire cultuur. Er staan geen tabellen, geen steekproeven
+en geen verwijzingen naar onderzoeksgegevens waarmee haar stellingen te
+toetsen zijn.
+
+Waar zij zich op anderen beroept, zijn dat vrijwel altijd schrijvers uit
+dezelfde traditie: therapeutische en cultuurkritische auteurs over mannen en
+gevoel, en de mythopoëtische mannenbeweging die zij bespreekt om haar af te
+wijzen. Dat versterkt de innerlijke samenhang van het betoog en niet de
+toetsbaarheid ervan.
+
+De overtuigingskracht zit in de herkenning. De knikkerherinnering, de
+beschrijving van mannen die na een scheiding geen mens hebben om te bellen, de
+opmerking dat vrouwen om gevoelige mannen vragen en ervan schrikken: dat werkt
+omdat lezers het naast hun eigen leven kunnen leggen, wat iets anders is dan
+bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat één verklaring vrijwel alles moet dragen. Van
+geweld tot verslaving, van zwijgen tot werkverslaving, alles voert terug op
+het patriarchaat. Een verklaring die overal past, is moeilijk te weerleggen,
+en hooks stelt nergens de vraag welke waarneming haar ongelijk zou geven.
+
+Tegenposities krijgen weinig ruimte. Verklaringen die ook meespelen, zoals
+verschillen in aanleg, economische omstandigheden, de inrichting van het werk
+of eenvoudigweg het wegvallen van plekken waar mannen elkaar troffen, worden
+niet uitgewerkt en soms alleen genoemd om te worden afgewezen. De
+mannenbeweging krijgt een korte behandeling en geen eerlijke weergave van haar
+sterkste argument.
+
+De vorm werkt tegen de inhoud. Het boek herhaalt zijn kernpunten vaak, springt
+tussen herinnering, cultuurkritiek en aansporing, en gaat over in preektoon
+zodra het over genezing gaat. Wie zich niet al thuis voelt in haar
+woordenschat, haakt waarschijnlijk af voor het argument zijn werk heeft
+gedaan.
+
+Ten slotte blijft de weg naar verandering vaag. Wat een man maandag zou moeten
+doen, staat er niet. hooks beschrijft de bestemming uitvoerig en de route
+nauwelijks, wat opvalt in een boek dat zich uitdrukkelijk tot mannen richt.
+
+#### Wat er concreet mee te doen is
+
+- Ga na welke gevoelens je bij jezelf toelaat en welke je automatisch omzet in
+irritatie of drukte.
+- Schrijf op wie je zou bellen bij slecht nieuws, en of dat een naam is of
+alleen een gedachte.
+- Let er in gesprekken op wat er gebeurt als een man iets kwetsbaars zegt: wie
+stapt eroverheen, jij of de ander.
+- Bespreek met je eigen zoon of neef expliciet dat bang zijn en huilen geen
+falen is, in plaats van het stilzwijgend te hopen.
+
+#### Wat je hierna leest
+
+- 44. Daring Greatly. Brené Brown behandelt hetzelfde schaamteslot bij mannen,
+maar dan op basis van jarenlang interviewonderzoek in plaats van essayistiek.
+- 4. The Tender Bar. Moehringers memoir laat zien wat er gebeurt als een
+jongen zijn mannelijkheid moet samenrapen uit de mannen aan een bar.
+- 96. Het verlaten individu. Van Fenema plaatst hetzelfde verlies aan
+verbinding in een bredere ontwikkeling van individualisering.
+- 73. 12 Rules for Life. Peterson richt zich eveneens op mannen en
+verantwoordelijkheid, maar komt vanuit een tegengestelde diagnose tot zijn
+voorschriften.
+
 ## 4. The Tender Bar
 
 J.R. Moehringer, 2005. Hyperion, New York. De Nederlandse uitgave van De Geus
@@ -1042,6 +1221,150 @@ onderzoekers naar sociale isolatie en bij een Ierse mannengroep die samen in
 een schuur zit te sleutelen. Zijn conclusie is weinig verheven en daarom
 bruikbaar: vriendschap op deze leeftijd overleeft niet op goede bedoelingen,
 maar op een vast tijdstip in de agenda.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Baker vertrekt van een waarneming die hij eerst als
+verslaggever deed en daarna op zichzelf toepaste: mannen van middelbare
+leeftijd verliezen hun vrienden geruisloos, omdat vriendschap in die
+levensfase nooit dringend is en dus altijd wijkt voor werk en gezin. Zijn
+stelling is dat dit geen karakterfout is maar een gevolg van hoe het leven is
+ingericht, en dat het alleen valt te keren door vriendschap te behandelen als
+een afspraak met een tijd en een plaats. Hij probeert dat een jaar lang uit op
+zijn eigen leven en doet daarvan verslag, met de mislukkingen erbij.
+
+#### De gang van het boek
+
+**Het krantenstuk dat uit de hand liep**
+
+Het boek begint bij een opdracht voor The Boston Globe. Baker schreef een stuk
+over eenzaamheid bij mannen van middelbare leeftijd en kreeg daarop meer
+reacties dan op wat hij ooit eerder had gepubliceerd, van mannen die zich
+herkenden en niet wisten wat ze eraan moesten doen.
+
+Dat hij zichzelf als voorbeeld had gebruikt, maakte de reacties ongemakkelijk.
+Hij was zelf de man met een goede baan, een gezin en nauwelijks nog vrienden
+die hij uit zichzelf sprak. Het boek is de poging om aan dat stuk gevolg te
+geven.
+
+**Wat het onderzoek zegt**
+
+Baker vertelt het onderzoek na dat hij als verslaggever tegenkwam. Sociale
+banden hangen samen met gezondheid en levensduur, en het ontbreken ervan
+blijkt in bevolkingsonderzoek een risico dat vergelijkbaar is met bekende
+leefstijlfactoren. Hij verwijst daarbij naar de Harvard-studie die mannen
+vanaf hun studietijd tot op hoge leeftijd volgde en waaruit de
+onderzoeksleiding vooral de kwaliteit van relaties naar voren haalt.
+
+Ook haalt hij de gedachte aan dat vriendschap drie dingen nodig heeft:
+nabijheid, herhaald contact dat niet is gepland, en een omgeving waarin mensen
+iets van zichzelf laten zien. Studie en jeugd leveren die drie vanzelf, het
+volwassen leven levert ze geen van drieën.
+
+**De terugkeer naar oude vrienden**
+
+Het praktische deel begint bij de mannen die hij al kende. Baker zoekt
+schoolvrienden op, belt mensen die hij jaren niet had gesproken en merkt hoe
+kort de weg terug is zodra iemand de eerste stap zet.
+
+Tegelijk laat hij zien waarom die stap zo zelden wordt gezet. Er is geen
+aanleiding, er is geen gelegenheid, en er is de vrees dat de ander het gek zal
+vinden. Het boek dankt zijn titel aan de zin die mannen wel uitspreken en
+nooit uitvoeren.
+
+**Een vaste avond en een vaste plek**
+
+Baker komt tot de slotsom dat losse voornemens niet werken en dat er een
+afspraak moet zijn die vanzelf terugkeert. Hij zet een terugkerende avond op,
+zorgt voor een plek waar mannen kunnen samenkomen zonder dat het gesprek een
+doel heeft, en houdt die vol ook als de opkomst tegenvalt.
+
+Wat hij daarbij beschrijft is hoe onwennig volwassen mannen zijn zodra
+samenzijn geen aanleiding heeft. Er moet altijd iets bij: een klus, een
+wedstrijd, een bootje, iets om de handen mee bezig te houden terwijl er wordt
+gepraat.
+
+**Gezin, werk en de rest van het leven**
+
+Een terugkerende spanning is dat elk uur met vrienden een uur is dat hij niet
+thuis is. Baker is eerlijk over de onderhandelingen met zijn vrouw en over het
+schuldgevoel, en hij weigert te doen alsof vriendschap gratis is.
+
+Hij trekt zijn zoons erbij en probeert hun te leren wat hij zelf verleerde:
+dat je met mensen omgaat zonder plan. Het boek eindigt zonder overwinning. Hij
+heeft meer contact dan aan het begin, en hij weet dat het weer wegzakt zodra
+hij ophoudt het te organiseren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| eenzaamheid op middelbare leeftijd | De stille afname van vriendschappen bij mannen tussen ongeveer dertig en vijftig, die zelden als probleem wordt benoemd. |
+| vriendschap als afspraak | Bakers oplossing om omgang vast te leggen in een terugkerend tijdstip in plaats van haar over te laten aan gelegenheid. |
+| nabijheid | De voorwaarde dat mensen elkaar geregeld fysiek tegenkomen, die na de studietijd voor de meeste mannen wegvalt. |
+| ongepland contact | Ontmoetingen die niet zijn afgesproken en waaruit vriendschap volgens het aangehaalde onderzoek vooral groeit. |
+| zijdelings gesprek | Het praten van mannen terwijl ze samen iets doen, waarbij de bezigheid het gesprek mogelijk maakt. |
+| de jongensregels | De aangeleerde terughoudendheid die het moeilijk maakt een andere man te vragen of hij zin heeft om af te spreken. |
+| sociale infrastructuur | De plekken en gewoonten, van kroeg tot club, die ontmoeting mogelijk maken zonder dat iemand haar hoeft te regelen. |
+
+#### Waar het argument op rust
+
+Het boek is voor de helft memoir en voor de helft verslaggeving. Het bewijs
+voor de algemene stelling komt uit onderzoek dat Baker navertelt en niet zelf
+uitvoert: bevolkingsonderzoek naar de samenhang tussen sociale banden en
+gezondheid, en de langlopende Harvard-studie naar volwassen ontwikkeling. Hij
+geeft dat werk in journalistieke vorm weer, zonder de beperkingen ervan te
+bespreken.
+
+Het persoonlijke deel is één geval, het zijne. Wat daar gebeurt, is
+waarneembaar en eerlijk verteld, maar het levert geen uitspraak op over wat
+bij anderen werkt. Baker doet die pretentie ook niet, wat het boek beter maakt
+dan de meeste titels in dit genre.
+
+De sterkste onderbouwing is indirect: de stroom reacties op zijn krantenstuk.
+Dat honderden mannen zich meldden bij een verhaal over vriendschapsverlies, is
+zelf een aanwijzing dat het verschijnsel breder is dan zijn eigen leven.
+
+#### Wat er tegen in te brengen valt
+
+Het onderzoek dat hij aanhaalt is correlationeel. Dat mensen met meer vrienden
+langer leven, kan er ook op wijzen dat gezonde en welvarende mensen
+makkelijker vrienden houden. Baker presenteert de samenhang zonder dat
+voorbehoud, en het getal dat eenzaamheid met roken vergelijkt is in de
+vakliteratuur zelf omstreden.
+
+De omstandigheden zijn niet doorsnee. Een verslaggever die van zijn krant tijd
+krijgt om vriendschap te onderzoeken, en die woont in de streek waar hij
+opgroeide, heeft een uitgangspositie die de meeste lezers missen. Wie is
+verhuisd of geen oude kring in de buurt heeft, vindt hier weinig.
+
+Als handleiding is het boek dun. De aanbeveling komt neer op afspreken en
+volhouden, en dat inzicht past op een halve bladzijde. De rest is verhaal,
+aangenaam om te lezen maar niet altijd nodig voor het punt.
+
+De blik is smal: witte, gehuwde, werkende mannen in New England. Vriendschap
+tussen mannen van andere leeftijden, klassen of achtergronden komt nauwelijks
+aan bod, terwijl Baker wel over mannen in het algemeen spreekt.
+
+#### Wat er concreet mee te doen is
+
+- Kies één avond in de maand, zet die vast in de agenda en nodig steeds
+dezelfde mensen uit.
+- Bel iemand die je meer dan een jaar niet sprak, zonder aanleiding en zonder
+excuus vooraf.
+- Koppel afspreken aan een bezigheid: klussen, wandelen, een wedstrijd, zodat
+het gesprek ergens naast kan lopen.
+- Maak het thuis bespreekbaar als vaste afspraak in plaats van als losse
+uitzondering, zodat het niet elke keer opnieuw onderhandeld hoeft te worden.
+
+#### Wat je hierna leest
+
+- 96. Het verlaten individu. Van Fenema beschrijft dezelfde vereenzaming, maar
+als maatschappelijke ontwikkeling in plaats van als persoonlijk probleem.
+- 9. The Second Mountain. Brooks stelt de vraag naar verbondenheid in dezelfde
+levensfase, en zoekt het antwoord in verplichting aan anderen.
+- 71. Four Thousand Weeks. Burkeman legt uit waarom tijd voor vriendschap
+altijd verliest van wat dringend lijkt.
 
 ## 8. De alchemist
 
@@ -3167,6 +3490,175 @@ opgraaft in plaats van bedenkt. Het boek eindigt met het ongeluk in 1999
 waarbij hij door een busje werd geraakt, en met het schrijven als het middel
 om terug te komen.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Schrijven is volgens King een ambacht dat je leert door twee
+dingen zonder uitzondering te doen: veel lezen en veel schrijven. Hij zet zich
+af tegen het idee dat een verhaal bedacht en uitgestippeld moet worden, en
+houdt vol dat een verhaal eerder wordt opgegraven dan verzonnen: de schrijver
+zet een personage in een situatie en kijkt wat er gebeurt. Daaromheen legt hij
+een klein aantal harde voorschriften over taal, over herschrijven en over
+werkritme, en hij presenteert die niet als smaak maar als vakregels. Het boek
+is tegelijk een terugblik op zijn eigen leven, waarmee hij zijn gezag
+onderbouwt: dit werkte bij mij, dus let erop.
+
+#### De gang van het boek
+
+**Het leven vooraf**
+
+Het eerste en langste deel is geen les maar een reeks herinneringen, door King
+zelf gepresenteerd als losse momentopnamen in plaats van een doorlopende
+levensbeschrijving. Hij beschrijft een jeugd zonder vader, een moeder die het
+gezin alleen draaiende hield, ziektes, en de eerste verhalen die hij als kind
+natypte en verkocht.
+
+Die opzet doet iets met de rest van het boek. King bouwt zijn autoriteit niet
+op uit theorie maar uit dienstjaren: het afwijzingsbriefje aan een spijker
+boven zijn bureau, de jaren lesgeven en wassen in een wasserij, het schrijven
+aan een tafeltje in een wasruimte. Wie het advies later stellig vindt, heeft
+dan al gelezen waar die stelligheid vandaan komt.
+
+**Wat schrijven is**
+
+In een kort tussendeel noemt King schrijven een vorm van gedachteoverdracht.
+Hij demonstreert dat met een klein voorbeeld: hij beschrijft een tafel met een
+rood kleed erop en daarop een kooi met een konijn met het cijfer acht op zijn
+rug. De lezer ziet dat beeld, terwijl de schrijver het jaren eerder opschreef.
+Meer dan die overdracht gebeurt er in zijn opvatting niet.
+
+Daaruit volgt zijn belangrijkste houdingseis: eerlijkheid. Wie schrijft over
+wat hij niet kent of over gevoelens die hij niet heeft, verstuurt ruis. Het is
+ook de reden dat hij zo weinig opheeft met schrijven dat vooral bedoeld is om
+indruk te maken.
+
+**De gereedschapskist**
+
+King stelt zich het handwerk voor als een kist met laden. Bovenin liggen de
+eenvoudigste dingen: woordkeuze en zinsbouw. Het advies over woordkeuze is
+bondig: gebruik het eerste woord dat opkomt als het klopt, en vervang het niet
+door een langer woord om deftiger te klinken.
+
+Hier staat ook zijn bekendste voorschrift, dat bijwoorden de vijand zijn en
+dat de weg naar de hel ermee geplaveid ligt. Het scherpst is dat bij dialoog:
+in plaats van een bijwoord achter de aanduiding van de spreker wil hij bijna
+altijd het kale woord dat aangeeft wie iets zei. Voor grammatica en stijl
+verwijst hij naar het dunne handboek van Strunk en White, dat hij als
+basisdiscipline behandelt.
+
+**Over het schrijven zelf**
+
+Het middendeel is de eigenlijke les. Lees veel en schrijf veel, elke dag, met
+een dagelijkse hoeveelheid woorden als maat; King noemt tweeduizend woorden
+als zijn eigen norm en raadt beginners een kleiner getal aan, mits het elke
+dag wordt gehaald. Werk achter een dichte deur zolang het eerste ontwerp
+loopt, en open die deur pas voor de herziening.
+
+Zijn verhouding tot plot is vijandig. Hij noemt situatie het beginpunt en
+beschouwt het vooraf uitwerken van de gebeurtenissen als iets waar hij liever
+buiten blijft, omdat het leven ook niet vooruit is ingedeeld. Een verhaal ligt
+volgens hem al in de grond, zoals een fossiel, en de schrijver graaft het uit
+met zo min mogelijk beschadiging.
+
+Voor het herschrijven geeft hij een rekenregel die hij als jonge man op een
+afwijzing kreeg: het tweede ontwerp is het eerste min tien procent. Hij werkt
+daarbij met één lezer in gedachten, in zijn geval zijn vrouw, wier oordeel hij
+als maatstaf gebruikt bij twijfel.
+
+**Het ongeluk**
+
+Het slot beschrijft hoe King tijdens het schrijven van dit boek in 1999
+tijdens een wandeling langs de weg in Maine door een busje werd aangereden en
+zwaargewond raakte. Hij beschrijft het herstel, de pijn, en hoe moeizaam hij
+weer aan het werk kwam.
+
+Dat deel is geen aanhangsel. Het maakt van het boek een verdediging van
+schrijven als iets wat een leven draagt in plaats van een beroepskeuze, en het
+geeft de eerdere leefregels een gewicht dat een gewone handleiding niet heeft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Telepathie | Kings naam voor wat schrijven doet: een beeld uit het hoofd van de schrijver komt over tijd en afstand in dat van de lezer terecht. |
+| Gereedschapskist | Het beeld waarmee hij het vak ordent, met woordenschat en zinsbouw in de bovenste laag en de rest daaronder. |
+| Bijwoord | Het woordtype dat hij als het meest verraderlijke aanwijst, vooral achter de aanduiding van een spreker in dialoog. |
+| Situatie boven plot | Zijn werkwijze om te beginnen met een personage in een lastige positie en de gebeurtenissen niet vooraf vast te leggen. |
+| Fossiel | Het beeld van het verhaal als iets wat al bestaat en wordt uitgegraven, in plaats van iets wat wordt geconstrueerd. |
+| Gesloten deur, open deur | Het eerste ontwerp schrijf je voor jezelf en alleen, de herziening met een lezer erbij. |
+| Tweede ontwerp is het eerste min tien procent | De vaste snoeimaat die hij als jongeman op een afwijzingsbriefje aangereikt kreeg. |
+| Ideale lezer | De ene concrete persoon die de schrijver in gedachten houdt en wier reactie de knoop doorhakt bij twijfel. |
+| Dagelijks aantal woorden | Het meetbare werkritme dat hij boven inspiratie stelt, met een vast getal dat elke dag gehaald wordt. |
+
+#### Waar het argument op rust
+
+Het boek rust volledig op de ervaring van één schrijver. King voert geen
+onderzoek aan, geen vergelijking tussen schrijvers en geen enkele meting; wat
+hij aandraagt zijn zijn eigen manuscripten, afwijzingen, redacteuren en
+verkoopcijfers. Hij is daar ook open over: hij schrijft dat hij zegt wat bij
+hem werkte.
+
+Waar hij het concreetst wordt, is zijn bewijs het sterkst. De passage waarin
+hij een eigen jeugdtekst laat zien en er vervolgens doorheen streept, laat de
+lezer de snoeiregel zien in plaats van hem te horen. Hetzelfde geldt voor de
+dialoogvoorbeelden waarin het bijwoord weggehaald wordt.
+
+Zijn productie is een argument op zichzelf. Iemand die decennialang elke dag
+schrijft en daarmee een lezerspubliek van die omvang bereikt, heeft
+aantoonbaar iets gevonden dat werkt. Dat het bij hem werkte, zegt alleen niets
+over de vraag of het bij een ander werkt.
+
+#### Wat er tegen in te brengen valt
+
+De voorschriften zijn adviezen van één auteur, gegrond in zijn eigen loopbaan
+en in geen enkel onderzoek. Ze worden gebracht in de toon van vakregels,
+terwijl er geen grond onder ligt om te bepalen of ze algemeen gelden of alleen
+passen bij het soort verhalen dat King zelf schrijft: verhalen die het van
+vaart en van een aantrekkelijke vertelstem moeten hebben.
+
+Het verbod op bijwoorden is met tegenvoorbeelden te weerleggen. Er zijn
+schrijvers wier proza het juist van precieze bepalingen moet hebben, en de
+regel dekt een echt probleem af, namelijk dat een bijwoord vaak een zwak
+werkwoord verhult, met een verbod dat verder gaat dan het probleem.
+
+Zijn afwijzing van plotten is nog aanvechtbaarder. Een aanzienlijk deel van de
+literatuur is met een uitgewerkte opzet gemaakt, en in genres waar het bouwsel
+zelf de spanning draagt, denk aan de misdaadroman met een sluitende
+ontknoping, is graven zonder plan een dure werkwijze. King presenteert zijn
+temperament als vakinzicht.
+
+Ook de norm van een vast aantal woorden per dag is niet neutraal. Ze
+veronderstelt een schrijver die voltijds kan werken en geen zorgtaken of
+tweede baan heeft. Wie in de marge van een leven schrijft, krijgt hier vooral
+een reden om zich tekort te schieten aangerekend.
+
+Wat het boek niet doet, is helpen bij het herzien van een geheel. Het advies
+over zinnen is scherp, het advies over de bouw van een boek van vierhonderd
+bladzijden blijft bij aanmoediging om door te graven.
+
+#### Wat er concreet mee te doen is
+
+- Stel een dagelijks aantal woorden vast dat je op een slechte dag nog haalt,
+en houd dat vol tot het gewoon is.
+- Schrijf het eerste ontwerp zonder één lezer erbij, en laat het pas zien als
+het af is.
+- Streep in de herziening tien procent weg voordat je aan iets anders begint.
+- Ga bij elk bijwoord na of er een werkwoord bestaat dat hetzelfde doet.
+- Kies één concrete lezer en beslis bij twijfel wat die persoon ervan zou
+vinden.
+- Lees dagelijks, ook in genres waar je niets van moet hebben, en let op wat
+er misgaat.
+
+#### Wat je hierna leest
+
+- 12. The War of Art. Pressfield behandelt dezelfde dagelijkse discipline,
+maar dan als gevecht tegen innerlijk uitstelgedrag in plaats van als vakregel.
+- 11. Steal Like an Artist. Kleon werkt Kings raad om veel te lezen uit tot
+een houding tegenover navolging en herkomst van ideeën.
+- 13. The Practice. Godin verdedigt eveneens het werkritme boven de inval, met
+de nadruk op leveren aan een publiek.
+- 1. Zen en de kunst van het motoronderhoud. Pirsig onderzoekt wat vakmanschap
+en aandacht bij handwerk zijn, waar King dat alleen voordoet.
+
 ## 19. Bird by Bird
 
 Anne Lamott, 1994. Ondertitel *Some Instructions on Writing and Life*
@@ -3189,6 +3681,176 @@ zonder die versie niets is om te herschrijven. Andere stukken behandelen de
 stem in je hoofd die meeleest, jaloezie op collega's die eerder gepubliceerd
 worden, en het bijhouden van indexkaartjes. Lamott is gelovig en schrijft daar
 open over, met zelfspot en zonder een lezer te willen bekeren.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lamott stelt dat het schrijven zelf niet te leren valt zolang
+de schrijver de verkeerde verwachting heeft van wat schrijven is. Wie meent
+dat een goede tekst in één keer goed op papier komt, of dat publicatie een
+leven repareert, blokkeert zichzelf. Haar antwoord is een reeks kleine
+ingrepen: werk in stukken die klein genoeg zijn om aan te durven, geef jezelf
+toestemming om een slechte eerste versie te maken, en behandel schrijven als
+een manier om aandachtig te leven in plaats van als een route naar erkenning.
+De titel vat de methode samen in een zin die haar vader tegen haar broer zei
+toen die vastliep in een schoolopdracht over vogels: doe het vogel voor vogel.
+
+#### De gang van het boek
+
+**Beginnen**
+
+Het openingsdeel gaat over de eerste tegenwerpingen die een schrijver bij
+zichzelf tegenkomt. Lamott introduceert daar haar twee bekendste ingrepen. De
+eerste is de korte opdracht: kijk niet naar het geheel maar naar wat er past
+in een fotolijstje van een paar centimeter, en beschrijf dat.
+
+De tweede is de slechte eerste versie. Ze stelt dat vrijwel iedere schrijver
+een onhandig, breedsprakig en gênant eerste ontwerp maakt en dat alleen de
+gepubliceerde eindversies zichtbaar zijn, waardoor beginners denken dat
+anderen dat stadium overslaan. De eerste versie hoeft alleen te bestaan; de
+tweede maakt hem beter, de derde haalt het tandenpoetsmateriaal eruit.
+
+Beide ingrepen doen hetzelfde: ze verkleinen de inzet. Zolang een schrijver
+het hele boek voor ogen houdt en tegelijk eist dat de zin meteen klopt, is
+elke ochtend een beoordeling. Wordt de opdracht klein en de eis laag, dan
+blijft er werk over dat gewoon gedaan kan worden.
+
+**Het schrijven als handwerk**
+
+In het tweede deel gaat het over personage, verhaallijn en dialoog. Haar
+volgorde is bepaald: het personage komt eerst, de gebeurtenissen volgen uit
+wie iemand is. Dialoog moet klinken zoals die persoon praat en niet zoals de
+schrijver praat, en dat controleer je door het hardop te lezen.
+
+Ze beschrijft ook waar ze materiaal vandaan haalt. Een van haar oefeningen is
+de schoollunch: schrijf op wat er in je broodtrommel zat en wie er tegenover
+je zat, en de rest van een wereld komt daaruit tevoorschijn. Ze werkt met
+kaartjes in haar broekzak omdat waarneming anders wegzakt.
+
+**Wat de schrijver in de weg zit**
+
+Het middendeel is de eigenlijke kern en gaat over de innerlijke tegenstander.
+Perfectionisme noemt ze de stem van de onderdrukker, en ze behandelt het als
+iets wat verlamt in plaats van verbetert. Voor het stemmengeraas in het hoofd
+gebruikt ze het beeld van een radiozender die op de ene zender zelfhaat
+uitzendt en op de andere zelfverheerlijking, en ze raadt aan die zender
+simpelweg uit te zetten.
+
+Ze wijdt een apart hoofdstuk aan jaloezie op collega's die het beter doen, en
+ze verontschuldigt zich niet voor de lelijkheid ervan. Ze beschrijft hoe ze
+zelf een vriendin die aan het doorbreken was nauwelijks kon verdragen, en
+behandelt jaloezie als een gegeven waar je mee moet leren omgaan.
+
+Het beeld van broccoli komt uit een oude komische sketch en staat bij haar
+voor het volgen van de eigen ingeving: als iets in de tekst niet klopt, weet
+de schrijver dat meestal al voordat hij het kan uitleggen.
+
+**Hulp van buiten**
+
+Lamott is voorstander van andere ogen. Ze beveelt een schrijfgroep of één
+vaste meelezer aan, en beschrijft nauwkeurig hoe je met kritiek omgaat: eerst
+de eerste woede laten wegtrekken, dan kijken wat er waar is.
+
+Ze behandelt ook het uitgeversbedrijf zonder romantiek. Haar boodschap over
+publicatie is nuchter: het gebeurt zelden, het levert minder op dan gedacht,
+en de dag na verschijning is het leven hetzelfde als de dag ervoor.
+
+Bij de keuze van die lezer is ze voorzichtig. Iemand die alles goed vindt, is
+nutteloos, en iemand die uit is op het eigen gelijk richt schade aan. Wat ze
+zoekt is een lezer die het werk wil zien slagen en toch durft te zeggen waar
+het niet werkt, en ze erkent dat zulke lezers zeldzaam zijn.
+
+**Schrijven en leven**
+
+Het slotdeel verbindt het vak met haar geloof en met haar herstel van
+verslaving. Ze beschrijft schrijven als een vorm van opletten, en als iets wat
+je weggeeft. Een van haar aangrijpendste voorbeelden is een tekst geschreven
+voor een stervende vriendin.
+
+Daarmee verschuift de belofte van het boek. Het levert geen loopbaan op maar
+een manier om de dagen te doen: iets kleins per keer, en zonder de verwachting
+dat het resultaat de schrijver zal verlossen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Vogel voor vogel | De titelregel van haar vader: neem een te grote opdracht in het kleinste onderdeel dat je aankunt. |
+| Korte opdracht | Schrijf alleen wat er past in een denkbeeldig lijstje van een paar centimeter, in plaats van het hele boek te overzien. |
+| Slechte eerste versie | De uitdrukkelijke toestemming om een eerste ontwerp te maken dat nergens op lijkt, omdat er anders niets te herzien valt. |
+| Perfectionisme | Door haar behandeld als de stem van de onderdrukker: het houdt de tekst netjes en dood. |
+| Radio in het hoofd | Haar naam voor het gelijktijdige geraas van zelfhaat en zelfverheerlijking dat het schrijven overstemt. |
+| Broccoli | Het volgen van de eigen ingeving, ontleend aan een komische sketch, als hoogste raadgever bij twijfel over de tekst. |
+| Schoollunches | Haar vaste oefening om het geheugen aan het werk te zetten via kleine, zintuiglijke details uit de kindertijd. |
+| Kaartjes | De gewoonte om waarnemingen direct op een indexkaart te noteren, omdat ze anders binnen een uur weg zijn. |
+| Publicatie repareert niets | Haar herhaalde waarschuwing dat het verschijnen van een boek de schrijver niet verandert. |
+
+#### Waar het argument op rust
+
+Het boek staat vol met wat zij zelf meemaakte: haar romans, haar redacteuren,
+haar cursisten en haar eigen mislukkingen. Zij haalt geen onderzoek aan naar
+hoe schrijvers werken, en doet ook niet alsof. Wat zij aanbiedt is
+uitgeprobeerd op één persoon en op de deelnemers aan haar lessen.
+
+De sterkste onderbouwing zit in de eerlijkheid over de onaangename kanten. Het
+hoofdstuk over jaloezie en de passages over afgunst en geldzorgen zijn niet
+het soort materiaal dat een schrijver opneemt om zichzelf goed voor te doen,
+en juist daarom is het geloofwaardiger dan de opgewekte toon van veel
+schrijfhandleidingen.
+
+Het zwakste punt in haar bewijsvoering is dat haar aanwijzingen bijna niet te
+weerleggen zijn. Wie een goede tekst maakt zonder slechte eerste versie, valt
+buiten haar beschrijving zonder dat die daardoor verandert.
+
+#### Wat er tegen in te brengen valt
+
+Ook dit is het advies van één schrijver, gestoeld op haar loopbaan en haar
+lessen, niet op onderzoek. Wat bij haar hielp, wordt gepresenteerd als hoe het
+bij schrijvers gaat, en de lezer heeft geen middel om te toetsen of dat klopt.
+
+De methode is eenzijdig gericht op het overwinnen van remmingen. Voor wie
+vastzit is dat precies wat nodig is; wie al vlot schrijft en juist gebrek aan
+structuur heeft, vindt hier weinig. Over de bouw van een langer boek, over
+herzien op het niveau van hoofdstukken en over onderzoek doen staat vrijwel
+niets.
+
+Haar advies staat op punten haaks op even stellige adviezen van anderen. Waar
+zij het personage vooropstelt en de gebeurtenissen laat volgen, bouwen andere
+schrijvers eerst het bouwsel en gieten daar personages in. Geen van beide
+partijen kan verwijzen naar iets anders dan het eigen werk.
+
+Verder is haar publiek smaller dan het lijkt. De voorbeelden komen bijna
+allemaal uit haar cursussen en uit haar eigen kring in Californië, en het
+geloof dat in het slotdeel opkomt hoort daarbij. Wie dat niet deelt, moet een
+deel van de redenering vertalen.
+
+De losse, sterk persoonlijke stijl is tegelijk de aantrekkingskracht en de
+beperking. Het boek is prettiger om te lezen dan om te gebruiken: wie een
+reeks stappen wil om het manuscript van zestigduizend woorden af te maken,
+houdt vooral aanmoediging over.
+
+#### Wat er concreet mee te doen is
+
+- Knip de opdracht op tot een stuk dat je binnen één zitting af kunt hebben,
+en kijk niet verder.
+- Schrijf de eerste versie uitdrukkelijk als wegwerpversie en herlees hem pas
+de volgende dag.
+- Lees dialoog hardop en schrap wat je nooit iemand zo zou horen zeggen.
+- Draag een kaartje bij je en noteer waarnemingen op het moment zelf.
+- Zoek één meelezer die de tekst mag afkraken en spreek af hoe je de reactie
+krijgt.
+- Merk je dat je vastzit uit angst voor het oordeel, benoem dat dan als
+perfectionisme en schrijf de zin toch op.
+
+#### Wat je hierna leest
+
+- 14. The Artist's Way. Cameron werkt hetzelfde vertrekpunt uit, dat de
+blokkade eerder in de maker zit dan in het werk, tot een programma met vaste
+oefeningen.
+- 12. The War of Art. Pressfield beschrijft dezelfde innerlijke tegenwerking,
+maar dan in de vorm van een gevecht dat elke ochtend opnieuw gewonnen moet
+worden.
+- 17. The Creative Act. Rubin behandelt het scheppen als een houding tegenover
+aandacht en ingeving, waar Lamott bij het schrijfbureau blijft.
 
 ## 20. Shoe Dog
 
@@ -4073,6 +4735,154 @@ beschrijft. Het tweede is zijn moeder Patricia, koppig, gelovig en streng,
 wier verhaal uitloopt op het geweld van zijn stiefvader. De toon is komisch
 tot het dat niet meer kan zijn.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Noah vertelt zijn jeugd vanuit één gegeven: hij is als kind
+van een zwarte Xhosa-moeder en een blanke Zwitserse vader geboren op een
+moment dat zulke betrekkingen in Zuid-Afrika bij wet verboden waren, waardoor
+zijn bestaan zelf het bewijs van een misdrijf was. Vanuit die positie laat hij
+zien dat apartheid geen achtergrond was maar een indeling die tot in de
+kleinste huishoudelijke handelingen doorwerkte, en dat overleven daarbinnen
+neerkwam op het beheersen van grenzen: taal, kerk, buurt en familie. Het
+tweede spoor is zijn moeder, van wie hij het boek eerder een portret maakt dan
+van zichzelf: een vrouw die haar eigen regels stelde binnen een stelsel dat
+haar er geen gunde.
+
+#### De gang van het verhaal
+
+**Geboren als overtreding**
+
+Het boek opent met de wetgeving die betrekkingen tussen zwarte en blanke
+Zuid-Afrikanen strafbaar stelde. Noah legt uit wat dat praktisch betekende:
+hij kon niet met beide ouders tegelijk over straat, zijn moeder liep naast hem
+alsof ze zijn oppas was, en zijn vader liep aan de overkant.
+
+Die openingszet bepaalt de rest. Zijn huidskleur maakte hem in elke groep half
+buitenstaander, en dat gegeven keert bij elke episode terug: op school, in de
+buurt, bij de familie van zijn moeder.
+
+**Het huis van de grootmoeder**
+
+Een groot deel van de jeugd speelt in Soweto, in het huis van zijn
+grootmoeder. Noah beschrijft er de dagelijkse inrichting van armoede zonder
+die te verheffen: de indeling van het huis, wat er gegeten werd, de verhouding
+tot de buren.
+
+Hij beschrijft ook hoe hij daar anders werd behandeld dan de andere kinderen,
+doordat men hem als blank kind zag en hem niet durfde te straffen. De
+uitzonderingspositie was tegelijk bescherming en uitsluiting.
+
+**Taal als toegangsbewijs**
+
+Het gedeelte over taal draagt het argument van het boek. Noah groeide op met
+meerdere talen en ontdekte dat mensen hem opnamen zodra hij hun taal sprak,
+ongeacht hoe hij eruitzag. Wie in de taal van de ander antwoordt, wordt van
+vreemde tot huisgenoot.
+
+Hij laat dat zien in scènes waarin taal hem uit gevaar haalt, doordat hij
+mannen die iets van plan waren aansprak in hun eigen taal en zo van doelwit in
+bekende veranderde. Het is het scherpste inzicht in het boek en het rust op
+zijn eigen waarneming, niet op een theorie.
+
+**De kerk en het gezag van de moeder**
+
+Zijn moeder is streng gelovig en sleept hem elke zondag langs meerdere kerken.
+Noah beschrijft dat met spot en met ontzag tegelijk: het is belachelijk veel
+kerk, en het is ook de plek waar zijn moeder haar eigen wil vandaan haalde.
+
+Haar opvoeding is hard. Ze slaat, ze eist, en ze weigert hem het lot te laten
+aannemen dat voor hem was voorzien. De bekendste scène is die waarin ze hem
+als klein kind uit een rijdend busje gooit om aan bedreigende mannen te
+ontkomen.
+
+**Handel in de marge**
+
+Als tiener bouwt Noah in een township een handeltje op met gekopieerde muziek
+en later met een klein gezelschap dat feesten voorziet van muziek en dans. Hij
+beschrijft hoe misdaad in die omgeving geen keuze van slechte mensen was maar
+de enige beschikbare economie.
+
+Hij verzwijgt niet dat het misging: hij belandt in aanraking met de politie en
+beschrijft hoe hij, doordat hij geld en een moeder had die kwam opdagen, eruit
+kwam waar anderen bleven zitten.
+
+**Geweld thuis**
+
+Het slot gaat over zijn stiefvader, die zijn moeder jarenlang mishandelde en
+haar uiteindelijk door het hoofd schoot. Zij overleefde. Noah vertelt het
+bijna zakelijk, en zijn moeder maakt er in het ziekenhuis nog een grap over.
+
+Dat einde herschikt het hele boek. De eerdere hoofdstukken lezen als
+jeugdherinneringen; hier blijkt dat de vrouw die het verhaal draagt vooral
+zelf een geweldsslachtoffer was, en dat het gezin het meeste gevaar niet van
+de staat liep maar van binnenuit.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Geboren als misdrijf | De titelgedachte: de wet die betrekkingen tussen zwart en blank strafbaar stelde, maakte zijn bestaan tot bewijsmateriaal. |
+| Kleurindeling | De wettelijke ordening in bevolkingsgroepen waarbinnen hij als kind van gemengde afkomst nergens vanzelf hoorde. |
+| Taal als toegang | Zijn vaste tactiek om erbij te horen door de taal van de ander te spreken in plaats van te vertrouwen op uiterlijk. |
+| Township | De aan de rand van de stad aangewezen woongebieden waar het grootste deel van zijn jeugd zich afspeelt. |
+| Het huis van de grootmoeder | Het huishouden in Soweto dat als vast toneel dient voor de beschrijving van armoede en familiegezag. |
+| Kerkzondag | De reeks kerkdiensten waar zijn moeder hem langs voerde, in het boek zowel bron van spot als van haar eigenzinnigheid. |
+| Uitzonderingspositie | De omgang met hem als bijzonder geval, waardoor hij tegelijk werd ontzien en buitengesloten. |
+| Marge-economie | Zijn beschrijving van kleine criminaliteit als het enige beschikbare bedrijfsleven in een buurt zonder werk. |
+
+#### Waar het argument op rust
+
+Wat hier telt is ooggetuigenschap, niet onderzoek. Noah beschrijft wat hij
+zelf meemaakte, en de wetgeving die hij aanhaalt is publiek na te gaan. Voor
+de rest leunt het boek op zijn geheugen aan gebeurtenissen van tientallen
+jaren eerder, en het maakt geen aanspraak op meer.
+
+De opmerkingen over apartheid als bestuurlijk stelsel zijn beknopt maar
+houdbaar: hij beschrijft de indeling van mensen, het toewijzen van woongebied
+en de rol van taalpolitiek in het schoolwezen, en dat komt overeen met wat er
+algemeen over die periode bekend is.
+
+Het portret van zijn moeder is de kern van de onderbouwing en tegelijk het
+kwetsbaarste deel, omdat de lezer haar alleen door de ogen van haar zoon ziet.
+Zij is de heldin van het verhaal, en er is geen tweede stem die haar bijstelt.
+
+#### Wat er tegen in te brengen valt
+
+Dit zijn herinneringen aan een jeugd, opgeschreven door een volwassene die
+intussen beroepsmatig grappen maakt. Elke scène is opgebouwd naar een clou.
+Dat maakt het boek leesbaar, maar de vorm bepaalt wat er zichtbaar wordt: wat
+zich niet tot een pointe laat brengen, valt weg.
+
+Bij armoede en geweld is dat een reëel bezwaar. Honger, mishandeling en een
+moeder die door het hoofd wordt geschoten worden verteld met een timing die
+een lach uitlokt, en de lezer sluit het boek af met het gevoel dat het
+meeviel. De vraag is of de komische vorm de gebeurtenissen weergeeft of ze
+dempt.
+
+Het boek zegt weinig over hoe Zuid-Afrika na 1994 verder ging. De jeugd is
+scherp beschreven, de vraag wat er van het land geworden is blijft bijna
+onaangeroerd, terwijl de schrijver goed geplaatst zou zijn om daar iets over
+te zeggen.
+
+Ook zijn eigen positie blijft onbelicht. Hoe iemand van deze jeugd op een
+internationaal podium terechtkwam, is de meest voor de hand liggende vraag, en
+die valt buiten het boek. Wat resteert is een reeks losse verhalen die door de
+moeder bij elkaar wordt gehouden en niet door een doorlopende ontwikkeling.
+
+Voor lezers zonder voorkennis is de historische toelichting dun. De korte
+stukjes tussen de hoofdstukken door leggen het stelsel summier uit, en wie de
+geschiedenis van het land niet kent, moet die er zelf bij zoeken.
+
+#### Wat je hierna leest
+
+- 45. Educated. Westover beschrijft eveneens een jeugd waarin de moederfiguur
+en het gezin bepalen wat er te weten valt, en waarin de verteller zichzelf er
+later uit schrijft.
+- 4. The Tender Bar. Moehringer vertelt zijn jeugd ook rond één ontbrekende
+vader en een omgeving die de opvoeding overneemt.
+- 31. Unbroken. Hillenbrand behandelt overleven onder geweld met documentatie
+en bronnen, waar Noah alleen zijn eigen geheugen heeft.
+
 ## 27. The Four Agreements
 
 Don Miguel Ruiz, 1997. Ondertitel *A Practical Guide to Personal Freedom*.
@@ -4836,6 +5646,153 @@ deel gaat over wat oorlog nalaat: drank, woede, nachtmerries en een huwelijk
 dat bijna afliep, tot een religieuze omkeer waarna Zamperini zijn bewakers
 opzoekt om hun te vergeven. Dat slot is het deel dat het boek zijn ondertitel
 geeft en het deel dat het meest verdeelt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hillenbrand vertelt het leven van Louis Zamperini als een
+aaneenschakeling van gebeurtenissen die een mens hadden moeten breken, en
+houdt vol dat wat hem overeind hield geen lichamelijke taaiheid was maar het
+vasthouden aan een gevoel van eigenwaarde. Haar these is dat de kern van de
+wreedheid in de Japanse krijgsgevangenkampen de stelselmatige vernedering was,
+en dat wie zijn waardigheid wist te bewaren de mishandeling overleefde terwijl
+mannen die haar verloren wegzakten. Daaruit volgt haar tweede en omstredener
+stelling: dat de oorlog pas eindigde toen Zamperini ophield zijn bewaker te
+willen doden, en dat vergeving daarbij geen gebaar naar de dader is maar het
+enige middel dat de overlevende zelf nog heeft.
+
+#### De gang van het verhaal
+
+**De jongen die niet te vangen was**
+
+Het boek opent met een kind in Torrance, Californië, dat steelt, vecht en
+wegrent, en dat door zijn oudere broer aan het hardlopen wordt gezet omdat er
+niets anders met hem te beginnen is. Hillenbrand besteedt daar veel bladzijden
+aan, en dat is geen aanloop maar de opzet van haar hele betoog: het
+weerbarstige karakter dat hem in zijn jeugd bijna de verkeerde kant op stuurt,
+is later precies wat hem in leven houdt.
+
+Zamperini loopt in 1936 de vijfduizend meter op de Olympische Spelen in
+Berlijn. Hij wint niet, maar zijn laatste ronde trekt de aandacht. De belofte
+van een mijl onder de vier minuten wordt onderbroken door de oorlog.
+Hillenbrand laat de sportcarrière onafgemaakt liggen, en gebruikt die
+onvoltooidheid later als maat voor wat de oorlog van hem afnam.
+
+**De bommenwerper en de zee**
+
+Het middendeel over de luchtoorlog boven de Stille Oceaan is het nuchterste
+stuk van het boek. Hillenbrand rekent voor hoeveel bemanningen omkwamen zonder
+ooit een vijand te zien: motorstoringen, navigatiefouten, oefenvluchten,
+toestellen die te zwaar beladen opstegen. Het beeld van de heldhaftige
+luchtstrijd wordt hier zonder ophef ontmanteld.
+
+Het toestel waarin Zamperini zoekt naar een vermiste bemanning stort in zee.
+Drie mannen halen twee vlotten. Wat volgt is zevenenveertig dagen drijven:
+albatrossen die met de hand worden gegrepen, haaien die tegen de bodem van het
+vlot stoten, een Japans vliegtuig dat het rubber doorzeeft, regenwater dat in
+de mond wordt opgevangen. Een van de drie sterft onderweg. Hillenbrand houdt
+de toon hier laag en laat de tellingen het werk doen: gewicht, dagen, mijlen
+drift.
+
+**De kampen**
+
+De twee overlevenden bereiken land en worden gevangengenomen. Vanaf dat punt
+verschuift het boek van uithouding naar vernedering. Zamperini gaat langs
+meerdere kampen. Hij wordt herkend als olympisch loper, wat hem eerst waarde
+geeft als propagandamiddel en daarna tot doelwit maakt zodra hij weigert voor
+de Japanse radio te spreken.
+
+Centraal staat de bewaker die de gevangenen de Bird noemden, Mutsuhiro
+Watanabe. Hillenbrand beschrijft hem niet als een vechtmachine maar als iemand
+die het slaan afwisselt met vriendelijkheid en de gevangenen zo elk houvast
+ontneemt. Haar redenering is dat juist die onvoorspelbaarheid het meest
+sloopte, en dat Zamperini bij Watanabe hoger op de lijst kwam naarmate hij
+minder onderdanig werd.
+
+**Thuiskomst als tweede val**
+
+Het laatste deel is het deel dat het boek boven een overlevingsverhaal
+uittilt. Zamperini komt terug als held, trouwt, en zakt weg in drank, woede en
+nachtelijke herbelevingen waarin hij Watanabe wurgt. Hij smeedt plannen om
+naar Japan terug te reizen en de man te doden. Zijn huwelijk loopt vast.
+
+De ommekeer komt bij een tentbijeenkomst van Billy Graham in Los Angeles in
+1949. Zamperini stopt met drinken, de nachtmerries houden op, en hij reist
+later naar Japan om zijn vroegere bewakers te ontmoeten. Watanabe, die jaren
+voortvluchtig was en nooit is berecht, weigert hem te zien. Hillenbrand
+vertelt dit slot beknopt en zonder preek, maar de wending zelf is zo groot dat
+de beknoptheid opvalt.
+
+**Wat het boek over overleven beweert**
+
+Door het hele verhaal loopt een vergelijking tussen mannen die het haalden en
+mannen die het niet haalden. Hillenbrand komt telkens uit bij hetzelfde
+onderscheid: wie zich bleef gedragen als iemand met een eigen wil, hield
+stand. Dat betekende kleine dingen, zoals oefeningen doen, verhalen vertellen,
+voedsel stelen, en de bewaker recht aankijken.
+
+Het boek maakt van dat inzicht geen leer. Het blijft bij het geval van één
+man, met zijn broer, zijn ouders en zijn medegevangenen eromheen. Wie er een
+algemene stelling uit wil halen, moet die zelf formuleren en dan ook zelf
+verantwoorden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| waardigheid | Het gevoel een mens met een eigen wil te zijn; volgens Hillenbrand het eerste dat de kampen aanvielen en het laatste dat overleven mogelijk maakte. |
+| de Bird | De bijnaam die gevangenen gaven aan bewaker Mutsuhiro Watanabe, die zijn geweld afwisselde met plotselinge vriendelijkheid. |
+| propagandagevangene | Een krijgsgevangene met bekendheid die werd ingezet voor radio-uitzendingen naar het thuisfront, en die bij weigering extra werd gestraft. |
+| het vlot | De rubberboot waarop Zamperini zevenenveertig dagen op de Stille Oceaan dreef, en waarop honger, dorst en haaien de dagelijkse werkelijkheid waren. |
+| operationeel verlies | Het omkomen van bemanningen buiten gevechten om, door ongelukken en storingen; in dit deel van de oorlog een groter aandeel dan de vijandelijke verliezen. |
+| herbeleving | Het opnieuw doormaken van de mishandeling in dromen en waakmomenten, waarmee Hillenbrand de naoorlogse ineenstorting beschrijft voordat daar een courante naam voor bestond. |
+| verzet in het klein | Het stelen van voedsel, het saboteren van werk en het weigeren van onderdanigheid, waarmee gevangenen hun eigen wil bevestigden. |
+| vergeving | Bij Zamperini geen verzoening met de dader maar het opgeven van de eigen wraakplannen, wat volgens het boek pas het einde van de oorlog voor hem betekende. |
+
+#### Waar het argument op rust
+
+Hillenbrand heeft jarenlang met Louis Zamperini gesproken, in vele gesprekken,
+en heeft zijn verhaal aangevuld met archiefmateriaal: legerdocumenten,
+dagboeken en brieven van medegevangenen, naoorlogse verklaringen en verslagen
+van de processen tegen kampbewakers. Waar herinneringen van verschillende
+overlevenden uiteenlopen, laat zij dat in de tekst of in de noten staan.
+
+De sterkste onderbouwing zit in de cijfers over de luchtoorlog en de kampen.
+Die komen niet van Zamperini maar uit externe stukken, en zij dragen het deel
+van het betoog dat het minst afhangt van het geheugen van één man.
+
+Zwakker onderbouwd is alles wat zich in het hoofd van Zamperini afspeelt: wat
+hij dacht op het vlot, wat hij voelde bij een afranseling. Dat rust op wat hij
+zich zestig jaar later herinnerde en navertelde, en Hillenbrand schrijft het
+op zonder telkens die afstand te markeren.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de vorm. Hillenbrand giet het leven in de gedaante van
+een heldenverhaal met een dal en een verlossing, en die vorm oefent druk uit
+op het materiaal. Zamperini wordt de man die niet te breken viel, terwijl het
+boek zelf laat zien dat hij wel degelijk brak en pas jaren later weer overeind
+kwam. De titel bevestigt de gedaante die de inhoud tegenspreekt.
+
+Het slot is bovendien snel. De bekering bij Billy Graham lost in een handvol
+bladzijden op wat honderden bladzijden aan schade heeft opgebouwd. Of het
+geloof de oorzaak was van het herstel, of de vorm waarin een herstel dat al
+gaande was zich uitte, blijft onbesproken. Wie wil weten hoe een verwoest mens
+weer functioneert, krijgt hier een gebeurtenis in plaats van een verklaring.
+
+Ten derde blijft de Japanse kant vrijwel leeg. Watanabe wordt van binnenuit
+geschetst voor zover dat het portret van een kwelgeest dient, maar de vraag
+hoe een heel kampstelsel zo kon werken, en wat er na de oorlog met de
+verantwoordelijkheid voor gebeurde, valt buiten het boek.
+
+#### Wat je hierna leest
+
+- 36. Endurance. Lansing beschrijft een groep die alles overleeft door samen
+te blijven; bij Hillenbrand draait het juist om wat één mens alleen overeind
+houdt.
+- 45. Educated. Ook Westover schrijft over lichamelijk geweld dat lange tijd
+niet als geweld benoemd mocht worden, en over de prijs van het wel benoemen.
+- 26. Born a Crime. Als tegenwicht tegen de neiging om overleven aan karakter
+toe te schrijven, terwijl toeval en omstandigheden minstens zoveel deden.
 
 ## 32. The Gifts of Imperfection
 
@@ -5732,6 +6689,147 @@ zodanig. Shackletons besluiten zijn in de reconstructie te volgen: hij hield
 het dagritme in stand toen er niets te doen was, verdeelde de kankeraars over
 de tenten, gaf zijn eigen wanten weg en liet het doel varen zodra het
 onhaalbaar was, waarna overleven het doel werd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lansing vertelt hoe achtentwintig mannen onder Ernest
+Shackleton in 1915 hun schip verloren in het pakijs van de Weddellzee en bijna
+twee jaar later allemaal levend thuiskwamen, en zijn stelling zit in dat woord
+allemaal. Hij voert het niet terug op geluk of op lichamelijke taaiheid, maar
+op een leiderschap dat elk doel opgaf zodra het onhaalbaar werd en dat de
+groep bijeenhield door tot het laatst een dagorde, een rangorde en een
+gedeelde bezigheid overeind te houden. Daarmee zet hij zich af tegen de
+gedachte dat overleven een kwestie van uithouding is: bij Lansing gaat het om
+het onophoudelijk bijstellen van wat men nog wil, en om het voorkomen dat de
+groep uiteenvalt in mannen die ieder hun eigen kans zoeken.
+
+#### De gang van het verhaal
+
+**Het schip in het ijs**
+
+De Endurance vaart in 1914 uit voor een tocht dwars over Antarctica en komt
+nooit aan land. In de Weddellzee sluit het pakijs zich om het schip. De
+bemanning brengt maanden op de ingevroren romp door: honden verzorgen, voetbal
+op het ijs, wetenschappelijk werk, wachtlopen op een schip dat nergens heen
+gaat.
+
+Lansing beschrijft het langzame kraken van de romp met veel geduld. Het schip
+wordt maanden achtereen samengedrukt voordat het bezwijkt en zinkt. Die
+traagheid is voor hem het eerste beproevingsstuk: de mannen moeten leren
+wachten zonder te weten waarop.
+
+**Kamperen op drijvend ijs**
+
+Na het verlies van het schip volgen maanden op ijsschotsen die met de stroming
+meedrijven. De mannen slapen in tenten op ijs dat onder hen kan splijten, eten
+zeehond en pinguïn, en verbranden traan. Pogingen om de sloepen over het ijs
+voort te slepen mislukken: het terrein is te ruw en de winst in mijlen te
+klein.
+
+Hier valt de eerste grote beslissing die Lansing als kern van zijn betoog
+neemt. Shackleton laat de oorspronkelijke tocht dwars over het werelddeel
+varen zonder er nog op terug te komen. Het doel is vanaf dat moment
+uitsluitend nog: iedereen levend thuis. Alle latere keuzes worden aan die ene
+maat afgemeten.
+
+**Elephant Island**
+
+Als het ijs openbreekt gaan de drie sloepen te water. De overtocht naar
+Elephant Island is kort in mijlen en zwaar in alles wat telt: doorweekte
+kleding, bevriezing, dorst omdat er geen brandstof is om ijs te smelten, en
+mannen die zittend in slaap vallen en dan overboord dreigen te gaan.
+
+Elephant Island is land, wat het eerste vaste land in ruim een jaar is, maar
+het ligt buiten alle vaarroutes. Wachten op redding betekent daar niet gered
+worden. Dat maakt de volgende beslissing onvermijdelijk.
+
+**De vaart met de James Caird**
+
+Zes mannen vertrekken in een opgetuigde open sloep naar South Georgia, ruim
+achthonderd zeemijl over de zwaarste zee die er is. Navigator Frank Worsley
+kan de zon slechts een paar keer meten door de bewolking; de landing hangt af
+van dat handjevol waarnemingen. Het bootje ijst aan en moet worden vrijgehakt
+om niet te kapseizen.
+
+Ze bereiken South Georgia aan de verkeerde kant. Drie van hen lopen daarop
+dwars over het onbekende, bevroren binnenland naar het walvisstation
+Stromness, zonder kaart en zonder uitrusting voor bergwerk. Lansing behandelt
+die tocht in een paar bladzijden, wat het effect vergroot: na alles wat
+voorafging is het bijna een voetnoot.
+
+**De mannen die achterbleven**
+
+Op Elephant Island houdt Frank Wild tweeëntwintig achtergebleven mannen bezig
+onder twee omgekeerde sloepen. Lansing besteedt hier aandacht aan het
+dagelijkse: de rantsoenen, het roken van zelfgemaakte surrogaten, het
+voorlezen, en het elke ochtend oprollen van de slaapzakken alsof men diezelfde
+dag vertrekt.
+
+Shackleton heeft vier pogingen nodig voordat een schip door het ijs komt.
+Iedereen wordt gehaald. Lansing eindigt zonder slotbeschouwing over wat het
+betekende, en laat het aan de lezer om te bepalen wat de tocht heeft
+opgeleverd, want wetenschappelijk of geografisch heeft hij niets opgeleverd.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| pakijs | Aaneengesloten drijvend zeeijs dat een schip kan insluiten en door de druk van de stroming kan verpletteren. |
+| drukruggen | Opgestuwde wallen van ijs die ontstaan waar schotsen tegen elkaar worden geperst, en die het slepen van sloepen over het ijs ondoenlijk maakten. |
+| ijsschots als kamp | Een drijvend stuk ijs waarop de bemanning maandenlang tenten opsloeg terwijl het met de stroming meedreef. |
+| rantsoen | De vastgestelde dagportie voedsel, die Shackleton als bestuurlijk middel gebruikte: gelijk voor iedereen, ook voor hemzelf. |
+| James Caird | De grootste van de drie sloepen, opgetuigd met een dek van zeildoek voor de tocht naar South Georgia. |
+| gissingsnavigatie | Koersbepaling op basis van gevaren snelheid en richting wanneer een zonnewaarneming ontbreekt; Worsley voer zo het grootste deel van de overtocht. |
+| de dagorde | Het vasthouden aan vaste tijden voor werk, eten en slaap, ook toen er geen bestemming meer was, om te voorkomen dat de groep uiteenviel. |
+| opgeven van het doel | Het loslaten van de oorspronkelijke doorsteek over Antarctica ten gunste van het enige overgebleven doel, namelijk iedereen levend thuisbrengen. |
+
+#### Waar het argument op rust
+
+Lansing schreef veertig jaar na de gebeurtenissen en kon nog met overlevenden
+spreken. Daarnaast kreeg hij toegang tot de dagboeken die bemanningsleden
+gedurende de hele tocht bijhielden, en die vormen de ruggengraat van het boek.
+Doordat verschillende mannen dezelfde dag beschreven, kon hij data,
+weersomstandigheden en stemmingen tegen elkaar leggen.
+
+Waar het boek het stevigst staat is in het feitelijke: de posities, de
+afstanden, de rantsoenen, de opeenvolging van beslissingen. Die zijn uit
+meerdere onafhankelijke dagboeken af te leiden en komen overeen met het
+scheepsjournaal.
+
+Wat het boek beweert over de reden dat iedereen het haalde, is van andere
+orde. Dat is Lansings uitleg, gebaseerd op wat de dagboeken over Shackletons
+optreden noteren. Het is aannemelijk gemaakt, maar het blijft één geval zonder
+vergelijkingsmateriaal: expedities die minder goed afliepen komen niet ter
+sprake.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is het ontbreken van een bronnenapparaat. Lansing geeft
+geen noten waarin staat welk dagboek welke bewering draagt. Wie wil nagaan
+waar een uitspraak of een gemoedstoestand vandaan komt, kan dat niet. Voor een
+boek dat zijn gezag ontleent aan ooggetuigen is dat een reëel gebrek.
+
+Daarbij komt de gereconstrueerde dialoog. Lansing laat de mannen praten in
+scènes waarvoor geen woordelijk verslag kan bestaan. Dat leest goed en het
+maakt de gebeurtenissen dichtbij, maar het vermengt vastgesteld feit met
+invulling zonder dat de lezer het onderscheid kan maken.
+
+Inhoudelijk is het portret van Shackleton eenzijdig gunstig. Dat hij een
+expeditie leidde die door zijn eigen keuzes in deze positie terechtkwam, en
+dat hij bij eerdere en latere ondernemingen ook faalde, blijft buiten beeld.
+Het boek verklaart de goede afloop uit leiderschap, en verklaart de aanleiding
+tot het drama niet uit datzelfde leiderschap.
+
+#### Wat je hierna leest
+
+- 31. Unbroken. Hetzelfde onderwerp vanuit het individu: bij Hillenbrand
+overleeft een enkeling, bij Lansing houdt een groep zichzelf overeind.
+- 26. Born a Crime. Voor de vraag hoeveel van deze goede afloop aan
+besluitvorming toegeschreven mag worden en hoeveel aan toeval.
+- 19. Bird by Bird. Over beslissen onder onzekerheid, wat precies is wat
+Shackleton maandenlang moest doen zonder enige terugkoppeling.
+- 106. Nu of nooit. Voor de vraag hoe groepen onder druk samenhang houden of
+juist uiteenvallen.
 
 ## 37. Rich Dad Poor Dad
 
@@ -7452,6 +8550,151 @@ zij, waardoor zij moet kiezen tussen haar familie en haar eigen waarneming.
 Westover schrijft daarover zonder afrekening en met zichtbare twijfel over
 haar eigen herinnering.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Westover beschrijft hoe zij opgroeide in een gezin in de
+bergen van Idaho dat scholen, artsen en de overheid wantrouwde, en hoe zij
+zichzelf zover kreeg dat zij op haar zeventiende voor het eerst een klaslokaal
+binnenging en uiteindelijk in Cambridge promoveerde. Haar stelling gaat niet
+over onderwijs als opklimming maar over de prijs ervan: leren denken buiten
+het wereldbeeld waarin je bent grootgebracht, betekent dat je het oordeel van
+je eigen familie over de werkelijkheid niet langer kunt overnemen, en dat kost
+in haar geval de familie zelf. Zij weigert daarbij de gemakkelijke uitkomst
+waarin het verstand wint en de afkomst verdwijnt, en houdt vol dat zij haar
+vader tegelijk mist en niet kan geloven.
+
+#### De gang van het verhaal
+
+**De berg**
+
+Het eerste deel schetst het leven op Buck's Peak. De vader gelooft dat het
+einde der tijden nabij is en dat de overheid gezinnen komt halen; er wordt
+voedsel ingekuild, brandstof begraven en gewacht. Er is geen school. Er is
+geen arts. De moeder werkt als vroedvrouw en maakt kruidenmiddelen en
+tincturen, waarmee ook zware verwondingen thuis worden behandeld.
+
+Westover werkt vanaf jonge leeftijd op het schrootterrein van haar vader,
+tussen snijbranders, autowrakken en machines zonder beveiliging. Zij
+beschrijft de ongelukken zonder aanklacht: verbrandingen, een hoofdwond, een
+been dat opengaat. Het gezin ziet die ongelukken niet als gevolg van
+onvoorzichtigheid, maar als beproevingen waar de familie sterker uit komt.
+
+**Wat thuis niet gezegd mag worden**
+
+Naast het lichamelijke gevaar van het werk staat het geweld van een oudere
+broer, dat het boek nauwkeurig en zonder omhaal beschrijft: het hoofd in de
+wc-pot, de pols die verdraaid wordt, de scheldwoorden. De ouders benoemen het
+niet als geweld. Daarmee ontstaat de kern van het boek: niet de klappen zelf,
+maar het feit dat de werkelijkheid van de klappen door de familie wordt
+ontkend.
+
+Westover laat zien hoe zij zelf lange tijd meedeed aan die ontkenning. Zij
+noteerde gebeurtenissen in dagboeken en schreef er soms twee versies van, een
+waarin het gebeurd was en een waarin het meeviel. Die dubbele aantekeningen
+komen later in het boek terug als bewijsstuk tegen haar eigen twijfel.
+
+**De weg naar buiten**
+
+Een oudere broer die eerder wegging en ging studeren, laat zien dat het kan.
+Zij bereidt zich in het geheim voor op het toelatingsexamen, leert wiskunde
+die zij nooit heeft gehad, en wordt toegelaten tot Brigham Young University.
+
+De eerste maanden daar zijn de sterkste bladzijden van het boek. Zij weet niet
+wat een leerboek is, weet niet dat je studiestof buiten de les leest, en
+vraagt in een college over kunstgeschiedenis wat het woord Holocaust betekent.
+De lacunes zijn niet grappig bedoeld en worden ook niet zo gebracht: zij tonen
+hoe volledig een wereldbeeld kan sluiten.
+
+**Twee werelden tegelijk**
+
+Studiebeurzen brengen haar naar Cambridge en later naar Harvard. Ondertussen
+keert zij telkens terug naar de berg. Het boek pendelt tussen collegezalen en
+het schrootterrein, en de terugkeer wordt elke keer moeilijker naarmate zij
+meer taal heeft om te benoemen wat daar gebeurt.
+
+Een ernstige verbranding van haar vader en een ongeluk van haar moeder worden
+thuis behandeld met de eigen middelen. Westover beschrijft dat zonder hoon.
+Zij laat merken dat de overtuiging binnen het gezin echt is en dat het herstel
+achteraf als bevestiging geldt.
+
+**De breuk**
+
+Wanneer zij het geweld van haar broer aan haar ouders voorlegt, samen met een
+zus die hetzelfde heeft meegemaakt, keert de familie zich tegen haar. De zus
+trekt haar verhaal in. De ouders stellen dat zij bezeten is of dat haar
+opleiding haar heeft bedorven. Zij moet kiezen tussen haar eigen herinnering
+en haar plaats in het gezin.
+
+Het slot is niet verzoenend. Er is geen hereniging, en Westover zegt niet dat
+zij is genezen. Wat zij beschrijft is een verandering van wie zij is, en zij
+noemt die verandering opvoeding, met de kanttekening dat de nieuwe persoon de
+oude niet mag verloochenen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| opvoeding | Bij Westover niet het volgen van onderwijs, maar het verwerven van de mogelijkheid om de wereld anders te zien dan je familie hem beschrijft. |
+| de dagen der gruwelen | De door de vader verwachte eindtijd waarop het gezin zich met voorraden, brandstof en wapens voorbereidde. |
+| het schrootterrein | Het bedrijf van de vader waar oude auto's en metaal werden gesloopt, en waar de kinderen zonder beveiliging werkten. |
+| kruidengeneeswijze | De behandeling met zelfgemaakte tincturen en oliën waarmee de moeder ook brandwonden en hoofdletsel thuis behandelde in plaats van een arts te raadplegen. |
+| gaslicht | Het stelselmatig ontkennen van gebeurtenissen door naasten, waardoor de betrokkene aan haar eigen waarneming gaat twijfelen. |
+| loyaliteit | De eis van het gezin dat men de familieversie van de werkelijkheid aanhangt, waarbij afwijken gelijkstaat aan verraad. |
+| het dagboek | De aantekeningen die Westover jarenlang bijhield en die haar later hielpen vast te stellen wat er werkelijk gebeurd was toen haar familie het tegensprak. |
+| de tweede persoon | De aanduiding voor wie zij werd na haar studie, tegenover het meisje van de berg dat zij niet wil ontkennen. |
+
+#### Waar het argument op rust
+
+Het boek rust op de eigen herinnering van de schrijfster, aangevuld met haar
+dagboeken uit de periode zelf en met gesprekken en briefwisseling met
+familieleden die het huis eerder verlieten. Waar die bronnen elkaar
+tegenspreken, meldt Westover dat in noten: zij schrijft er dan bij wie een
+gebeurtenis anders herinnert, en wat de afwijking is.
+
+Die noten zijn het eerlijkste deel van het boek. Bij enkele gebeurtenissen
+erkent zij dat zij zelf niet meer weet welke van twee lezingen klopt, en zij
+lost dat niet op ten gunste van haar eigen verhaal.
+
+Onderbouwing van buitenaf is er nauwelijks, en dat kan ook niet. Een gezin
+zonder schoolinschrijving, zonder artsenbezoek en zonder aangiften laat geen
+papieren spoor na. Wat er is aan aanwijzingen zijn de aantekeningen en de
+verklaringen van enkele familieleden, en die stammen uit dezelfde kring.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat familieleden de gebeurtenissen betwisten. De
+ouders en een deel van de broers en zussen ontkennen belangrijke onderdelen
+van het verhaal in het openbaar en stellen dat de schildering van het gezin
+onjuist is. De lezer heeft geen middel om die tegenspraak te wegen, en het
+boek biedt dat middel ook niet.
+
+Dat probleem wordt versterkt doordat het onderwerp een jeugd zonder documenten
+is. Juist de afwezigheid van school, arts en overheid, die de schrijfster als
+kern van haar verhaal aanwijst, maakt dat verhaal onnavolgbaar voor wie het
+wil toetsen. De aard van het bewijsprobleem valt samen met het onderwerp.
+
+Ten derde stelt het boek zijn eigen verklaring nauwelijks ter discussie.
+Westover suggereert dat haar vader een stemmingsstoornis had. Zij is geen
+arts, zij heeft geen diagnose, en zij houdt die veronderstelling toch als
+raamwerk aan. Het is de enige plaats waar zij een uitleg aanreikt die zij niet
+kan verantwoorden op de manier waarop zij dat verder wel doet.
+
+Ten slotte hoort het boek in een genre dat verkoopt op ellende en opklimming.
+Dat de tekst zelf een verzoenend slot weigert, wil niet zeggen dat het
+lezerspubliek dat ook doet. Het gemak waarmee het boek als bewijs voor de
+kracht van onderwijs wordt aangehaald, staat haaks op wat er staat.
+
+#### Wat je hierna leest
+
+- 31. Unbroken. Ook daar gaat het over geweld dat pas veel later benoembaar
+wordt, en over een herstel dat het boek zelf moeilijk kan verklaren.
+- 4. The Tender Bar. Voor de vraag hoe overtuigingen zich vasthouden wanneer
+alle waarnemingen ze tegenspreken.
+- 30. The Obstacle Is the Way. Over de manier waarop een groep de
+werkelijkheid vaststelt voor wie erbij wil horen.
+- 75. Ego Is the Enemy. Over leren als het herzien van wat je al meende te
+weten, wat hier de duurste vorm aanneemt.
+
 ## 46. Becoming Steve Jobs
 
 Brent Schlender en Rick Tetzeli, 2015. Ondertitel *The Evolution of a Reckless
@@ -8135,6 +9378,176 @@ zonder slot; het nawoord van zijn vrouw beschrijft de laatste dagen. De
 naderende dood maakt het niet plechtig, en dat is de reden dat het te lezen
 valt.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Kalanithi stelt dat de vraag wat een leven de moeite waard
+maakt zich niet laat beantwoorden met een aantal jaren, en dat de geneeskunde
+die vraag pas werkelijk toelaat wanneer de arts zelf patiënt wordt. Hij
+schreef het boek terwijl hij op zijn zesendertigste aan uitgezaaide longkanker
+lag te sterven, in het laatste jaar van zijn opleiding tot neurochirurg.
+Daarmee zet hij zijn eigen vak onder druk: hij was getraind om anderen door
+hun sterfelijkheid heen te praten, en moet dat nu voor zichzelf doen zonder de
+witte jas die hem daarbij dekking gaf.
+
+#### De gang van het verhaal
+
+**Literatuur als eerste antwoord**
+
+Het eerste deel is een terugblik op een opleidingsweg die door één vraag wordt
+gedreven: waar zit betekenis in een biologisch lichaam. Kalanithi studeerde
+Engelse literatuur en biologie, deed daarna geschiedenis en filosofie van de
+geneeskunde, en koos pas laat voor medicijnen. Hij beschrijft die overstap
+niet als een breuk maar als het opzoeken van de plek waar de vraag het
+scherpst gesteld wordt: aan een bed, met een lichaam erin.
+
+Die opbouw doet ook iets met de toon. De verwijzingen naar literatuur zijn
+geen versiering, ze zijn de reden dat hij arts werd. Wie het boek leest als
+artsenmemoir mist dat de auteur zichzelf eerst als lezer presenteert en pas
+daarna als snijdend vakman.
+
+**Neurochirurgie en de prijs van bekwaamheid**
+
+Het middendeel gaat over de opleiding: nachtdiensten, fouten, doden. Hij kiest
+voor de hersenen omdat daar de operatie het dichtst bij de persoon komt. Een
+millimeter verschil betekent taal of geen taal, herkenning of geen herkenning.
+Chirurgie is bij hem daarom altijd ook een gesprek over wat iemand bereid is
+te verliezen om te blijven leven.
+
+Hij is eerlijk over wat de training met hem deed. De routine van het slechte
+nieuws maakte hem sneller en kouder, en hij beschrijft momenten waarop hij
+zichzelf betrapte op ongeduld bij een familie die nog niet klaar was met
+begrijpen. Dat zelfverwijt keert later terug wanneer hij aan de andere kant
+van het gesprek zit.
+
+**De diagnose**
+
+Het tweede deel opent met gewichtsverlies, rugpijn en scans die hij zelf kan
+lezen. Hij ziet zijn eigen longen en weet direct wat het is. De omkering is
+meteen totaal: dezelfde kennis die hem tot arts maakte, geeft hem nu geen
+enkel voordeel behalve dat hij eerder begrijpt hoe weinig te zeggen valt.
+
+Zijn oncoloog weigert hem een overlevingsgetal te geven. Kalanithi vraagt
+erom, blijft erom vragen, en komt er gaandeweg achter waarom die weigering
+klopt. Een curve zegt iets over een groep en niets over een dinsdag. Wat hij
+nodig heeft is geen prognose maar een richting: welk leven is er nog te leiden
+en met welk deel van zichzelf.
+
+**Terug naar de operatiekamer**
+
+Zodra de behandeling aanslaat, gaat hij weer opereren en maakt hij zijn
+opleiding af. Dat is de scène waarop het boek scharniert. Hij wil niet
+symbolisch iets afronden, hij wil het werk doen dat hem tot zichzelf maakt, en
+hij ontdekt dat zijn lichaam dat maar korte tijd toestaat. De terugval komt en
+de terugkeer blijkt eenmalig.
+
+Tegelijk beslissen hij en zijn vrouw Lucy om een kind te krijgen, in de
+wetenschap dat hij het waarschijnlijk niet lang zal meemaken. Hun dochter Cady
+wordt geboren in de zomer voor zijn dood. Het boek verdedigt die keuze niet
+met een argument maar door haar te beschrijven.
+
+**Het schrijven zelf**
+
+Naast opereren begint hij te schrijven, eerst als korte stukken in de krant en
+in een universiteitsblad, daarna aan dit boek. Schrijven is bij hem een vorm
+van doorwerken: het is het enige wat hij nog kan doen wanneer staan bij de
+operatietafel niet meer gaat. De regel van Beckett die hij aanhaalt, dat hij
+niet verder kan en toch verder gaat, is in die fase geen literaire keuze maar
+een dagindeling.
+
+De laatste bladzijden zijn gericht aan zijn dochter. Hij schrijft haar dat zij
+een stervende man een vorm van voldoening heeft gegeven die hij verder nergens
+vond, en dat ze dat later niet hoeft te verzwijgen. Daarna houdt de tekst op.
+
+**Wat er niet meer geschreven is**
+
+Het boek is niet afgemaakt. Kalanithi stierf in maart 2015 en het verscheen
+postuum in 2016, met een voorwoord van zijn collega Abraham Verghese en een
+lange epiloog van Lucy Kalanithi. Zij vertelt wat hij niet meer kon vertellen:
+de laatste weken, het thuis sterven, de beslissing om de beademing niet te
+beginnen, het afscheid.
+
+Die epiloog is geen bijlage. Ze draagt het slot van het boek, en ze doet dat
+in een andere toon dan de rest, feitelijker en dichter op de kamer. De lezer
+krijgt daardoor twee stemmen over hetzelfde einde, de ene van binnenuit en tot
+de grens, de andere van buitenaf en over de grens heen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Sterfelijkheid als beroepsprobleem | De dood is voor Kalanithi geen levensbeschouwelijk onderwerp maar iets waar zijn vak dagelijks technisch mee omgaat en waar het zelden woorden bij heeft. |
+| De arts als tolk | Hij ziet de taak van de chirurg niet in de eerste plaats als ingrijpen maar als iemand door de betekenis van zijn ziekte heen leiden. |
+| Identiteit in het brein | Omdat hersenweefsel taal, herkenning en karakter draagt, is elke neurochirurgische beslissing volgens hem een uitspraak over wie de patiënt daarna nog is. |
+| Prognose zonder getal | Zijn oncoloog weigert hem overlevingscijfers te noemen, met het argument dat een getal uit een groepsonderzoek hem niet vertelt hoe hij zijn resterende tijd moet inrichten. |
+| De Beckett-regel | De zin dat hij niet verder kan en toch verder gaat, gebruikt hij als praktische leidraad in de periode waarin behandeling en werk elkaar afwisselen. |
+| Roeping | Hij hanteert het woord in de oude zin: een verplichting die zwaarder weegt dan de eigen voorkeur, en die hij pas kan loslaten als zijn lichaam het werk onmogelijk maakt. |
+| De titel | When Breath Becomes Air komt uit een gedicht van Fulke Greville en zet de adem, dus het lichaam, tegenover wat er van iemand overblijft. |
+| De epiloog | Het door Lucy Kalanithi geschreven slotdeel dat het onvoltooide manuscript afsluit en de laatste weken beschrijft. |
+
+#### Waar het argument op rust
+
+Het boek rust volledig op autobiografische stof en op het gezag van iemand die
+het onderwerp van twee kanten kent. Kalanithi beschrijft operaties, gesprekken
+en scans uit eigen praktijk en zet die naast zijn eigen ziektebeloop. Er wordt
+geen onderzoek aangevoerd en geen literatuur besproken; de overtuigingskracht
+komt uit de precisie waarmee hij medische details en eigen twijfel naast
+elkaar zet.
+
+De geloofwaardigheid wordt versterkt doordat hij zichzelf niet spaart. Hij
+noemt de momenten waarop hij als arts te snel was, waarop zijn huwelijk
+vastliep voor de diagnose, en waarop hij zich vergiste in wat hij aankon. Waar
+veel ziekteboeken de verteller sympathiek houden, laat dit boek zien wat het
+beroep met iemand doet.
+
+De epiloog van Lucy Kalanithi levert het deel bewijs dat de auteur zelf niet
+meer kon leveren: de afloop. Zij is arts, was betrokken bij de behandeling en
+schrijft met datums en beslissingen. Dat maakt het slot controleerbaarder dan
+de rest, en tegelijk afkomstig van iemand met het grootst denkbare belang bij
+een goed portret.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek onvoltooid is en dat die onvoltooidheid
+wordt opgevangen door een ander. Kalanithi had het slot niet geschreven,
+waarschijnlijk ook niet in gedachten af. Wat er nu staat is een tekst die
+halverwege ophoudt plus een epiloog die de lezer alsnog een afronding geeft.
+Dat is eerlijk verantwoord in de uitgave, maar het betekent dat de rust die
+het boek uitstraalt gedeeltelijk redactioneel is. De vraag of hij zelf tot
+deze verzoening zou zijn gekomen, blijft open, en het boek kan die vraag per
+definitie niet beantwoorden.
+
+Daar komt bij dat de epiloog is geschreven door zijn weduwe. Zij doet dat met
+terughoudendheid en noemt ook de moeilijke periode in hun huwelijk, maar zij
+bepaalt wel welk beeld van de laatste weken blijft staan. Een postuum boek
+over een sterfbed dat wordt afgemaakt door de nabestaande is geen neutrale
+bron over dat sterfbed.
+
+Inhoudelijk is het boek smaller dan de ontvangst suggereert. De vraag naar zin
+wordt gesteld vanuit een positie met veel middelen: goede zorg, een medisch
+geschoolde partner, collega's die meedenken, en een opleiding die hem het
+vocabulaire gaf om zijn eigen situatie te ordenen. Over sterven zonder die
+middelen gaat het niet, en de conclusies laten zich niet zonder meer
+overzetten naar patiënten die hun eigen scan niet kunnen lezen.
+
+Ten slotte blijft de literaire laag soms bij aankondiging. Hij noemt
+schrijvers en gedichten als de plek waar het antwoord zou liggen, maar werkt
+zelden uit wat een bepaalde tekst hem precies leerde. Wie hoopt op een
+uitgewerkte denkweg over betekenis krijgt vooral de vaststelling dat die weg
+bestond en dat er geen tijd meer was om hem af te lopen.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl schrijft eveneens over zin onder
+omstandigheden die de schrijver zelf niet overzag, maar bouwt daar een
+therapeutische leer op; Kalanithi houdt het bij de vraag en weigert het
+systeem.
+- 95. Het uur van het hart. Ook bij Yalom is een sterfbed van dichtbij
+beschreven door twee stemmen, waarbij de nabestaande het laatste deel voor
+haar rekening neemt.
+- 71. Four Thousand Weeks. Burkeman behandelt dezelfde eindigheid statistisch
+en nuchter, als een rekensom over beschikbare tijd, waar Kalanithi juist laat
+zien wat een getal niet oplost.
+
 ## 50. So Good They Can't Ignore You
 
 Cal Newport, 2012. Ondertitel *Why Skills Trump Passion in the Quest for Work
@@ -8620,6 +10033,194 @@ uitgebreide kritiek van onderzoeker Alexey Guzey wees op onjuiste weergaven en
 te sterke claims, waarna Walker enkele passages heeft aangepast. Het geldt
 daarom als een goede inleiding in het onderwerp die je niet als eindwoord moet
 lezen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Slaap is geen restpost van het wakkere leven maar de toestand
+waarin het lichaam en het brein hun belangrijkste onderhoud doen, en de
+moderne samenleving heeft die toestand stelselmatig ingekort zonder de
+rekening te willen zien. Walker bouwt zijn boek op rond één stelling: er
+bestaat geen orgaan en geen mentale functie die niet slechter gaat werken bij
+structureel te weinig slaap, en de acht uur die daarvoor nodig is valt niet te
+onderhandelen. Wie daar iets tegenover wil zetten, moet aantonen dat de schade
+die hij beschrijft kleiner is dan hij zegt, of dat de dosering minder hard
+vastligt dan hij suggereert.
+
+#### De gang van het boek
+
+**Wat slaap is**
+
+Het eerste deel beschrijft het slaapsysteem als het samenspel van twee
+processen. Het circadiane ritme is een inwendige klok van ongeveer
+vierentwintig uur, gezeten in de nucleus suprachiasmaticus, die zich bijstelt
+op daglicht en die melatonine laat vrijkomen als het donker wordt. Daarnaast
+loopt de slaapdruk op: hoe langer iemand wakker is, hoe meer adenosine zich
+ophoopt. Cafeïne werkt doordat het de adenosinereceptoren bezet, waardoor de
+slaapdruk wel bestaat maar niet gevoeld wordt.
+
+Walker legt daarna het verschil uit tussen NREM-slaap, met de trage golven en
+de slaapspoelen die vooral in de eerste helft van de nacht voorkomen, en
+REM-slaap, waarin het brein bijna wakker-actief is terwijl de spieren verlamd
+zijn. De verhouding tussen beide verschuift door de nacht heen, wat volgens
+hem betekent dat wie twee uur korter slaapt niet een kwart maar een veel
+groter deel van zijn REM-slaap kwijtraakt. Hij plaatst dit patroon in een
+evolutionair en ontwikkelingsverhaal: hoe slaap eruitziet bij dieren, bij
+foetussen, bij pubers met een verschoven chronotype en bij ouderen die hun
+trage golven kwijtraken.
+
+**Wat slaap doet**
+
+Het tweede deel is het hart van het betoog. Slaap voor het leren zou het
+geheugen ontvankelijk maken, slaap na het leren zou het vastzetten. Walker
+beschrijft proeven waarin deelnemers woordparen leren en de groep die daarna
+slaapt er meer van terughaalt, en hij koppelt dat aan de slaapspoelen die in
+de tweede helft van de nacht dichter opeen liggen. Motorisch leren zou zich
+zelfs in de slaap nog verbeteren zonder verdere oefening.
+
+Daarna volgt de lichamelijke kant. Kort slapen wordt in verband gebracht met
+een hogere bloeddruk, met verstoorde glucosehuishouding, met een lagere
+activiteit van natural killer-cellen, met gewichtstoename via leptine en
+ghreline, en met de opruiming van amyloïde in het brein tijdens de trage
+golven. Het bekendste voorbeeld in dit deel is de zomertijd: bij het uur slaap
+dat in het voorjaar verdwijnt zou het aantal hartinfarcten stijgen, en bij het
+uur dat er in het najaar bij komt dalen.
+
+**Dromen**
+
+Het derde deel gaat over REM-slaap en dromen. Walker verdedigt twee functies.
+De eerste noemt hij nachtelijke therapie: tijdens REM-slaap is noradrenaline
+vrijwel afwezig, waardoor een emotionele herinnering opnieuw doorlopen kan
+worden zonder de bijbehorende lichamelijke alarmreactie. De herinnering
+blijft, de scherpte gaat eraf. Dat verklaart volgens hem waarom slecht slapen
+samenhangt met posttraumatische klachten.
+
+De tweede functie is het leggen van verbanden tussen dingen die overdag los
+van elkaar stonden. Hij haalt er proeven bij waarin mensen na REM-slaap beter
+presteren op anagrammen en op taken die een verborgen regel bevatten, en de
+bekende anekdotes over Mendelejev en over Otto Loewi. Dat laatste is het
+zwakste stuk van het boek qua bewijskracht, en Walker zegt zelf dat de
+anekdotes illustratie zijn en geen bewijs.
+
+**Slaap en samenleving**
+
+Het vierde deel richt zich op slaapmiddelen, slaapstoornissen en instituties.
+Over de gangbare slaapmiddelen is Walker uitgesproken: zij brengen sedatie en
+niet de elektrische opbouw van natuurlijke slaap, en de winst in werkelijk
+geslapen tijd die in de registratiestudies gevonden wordt is klein. Als
+alternatief wijst hij op cognitieve gedragstherapie bij slapeloosheid, waarvan
+het effect langer standhoudt.
+
+Daarna komen de instituties. Scholen die om half acht beginnen halen slaap weg
+bij pubers van wie de klok juist later loopt; districten die de starttijd
+verschoven, zagen volgens de aangehaalde cijfers betere resultaten en minder
+verkeersongevallen onder scholieren. Ook de vermoeide arts, de vermoeide
+vrachtwagenchauffeur en het bedrijfsleven dat overwerken beloont, krijgen hun
+hoofdstuk. Het boek eindigt met een lijst met twaalf adviezen voor betere
+slaap en met een pleidooi voor slaap als publieke zaak.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Circadiaan ritme | De inwendige klok van ongeveer vierentwintig uur die het slaap-waakritme aanstuurt en zich op daglicht bijstelt. |
+| Slaapdruk | De oplopende neiging tot slapen die het gevolg is van de ophoping van adenosine tijdens het wakker zijn. |
+| Adenosine | De stof die zich tijdens het waken opbouwt en waarvan de werking door cafeïne tijdelijk wordt geblokkeerd. |
+| NREM-slaap | De slaap met trage hersengolven, door Walker verbonden aan het overzetten van herinneringen naar langdurige opslag. |
+| REM-slaap | De slaapfase met snelle oogbewegingen, hoge hersenactiviteit en spierverlamming, waarin de meeste levendige dromen voorkomen. |
+| Slaapspoelen | Korte uitbarstingen van hersenactiviteit in de lichtere NREM-slaap die samenhangen met hoeveel iemand van het geleerde terugvindt. |
+| Nachtelijke therapie | Walkers term voor het idee dat REM-slaap de emotionele lading van een herinnering afzwakt zonder de herinnering zelf te wissen. |
+| Chronotype | De aangeboren neiging om vroeg of laat te slapen, die bij pubers naar achteren schuift en bij ouderen weer naar voren. |
+| Slaapschuld | Het tekort dat ontstaat door kort slapen en dat volgens Walker niet in het weekend is in te halen. |
+| Slaapmiddel als sedatie | Zijn stelling dat de gangbare slaapmedicatie het bewustzijn uitschakelt zonder de opbouw van natuurlijke slaap te herstellen. |
+
+#### Waar het argument op rust
+
+Het boek rust op drie soorten materiaal. Ten eerste laboratoriumproeven met
+slaaponthouding, meestal met kleine groepen jonge gezonde deelnemers, waarin
+een taak voor en na een nacht wordt afgenomen. Die opzet is sterk voor de
+vraag of één nacht slecht slapen iets doet met leren of stemming, en zwak voor
+de vraag wat jarenlang zes uur slapen met iemand doet.
+
+Ten tweede epidemiologisch werk waarin gerapporteerde slaapduur naast ziekte
+en sterfte wordt gelegd. Dat materiaal is per definitie observationeel. Slecht
+slapen loopt mee met ploegendienst, armoede, pijn, depressie en ziekte die nog
+niet gediagnosticeerd is, en dat maakt het lastig om oorzaak en gevolg te
+scheiden. Walker gaat op die omkering weinig in en presenteert de verbanden
+overwegend in één richting.
+
+Ten derde bevolkingsbrede natuurlijke experimenten, waarvan de zomertijd het
+bekendste is. Dat is de sterkste bewijsvorm in het boek, omdat de verandering
+van buitenaf komt en niet door de deelnemers wordt gekozen. De gevonden
+verschuivingen in het aantal hartinfarcten zijn echter klein in absolute zin
+en de schattingen lopen tussen studies uiteen.
+
+Wat in het boek zelf ontbreekt is een systematische weergave van
+tegenstrijdige bevindingen. Het verband tussen slaapduur en sterfte is in veel
+cohorten U-vormig: ook lang slapen hangt samen met een hoger sterfterisico.
+Walker bespreekt dat nauwelijks, terwijl het voor de lezer bepaalt hoe hij een
+advies over acht uur moet lezen.
+
+#### Wat er tegen in te brengen valt
+
+Het bekendste bezwaar komt van Alexey Guzey, die in 2019 een lang stuk
+publiceerde over de fouten in hoofdstuk 1. Hij wees onder meer op de claim dat
+routinematig kort slapen de levensduur halveert, die zo niet uit het
+aangehaalde onderzoek volgt, en op een verwijzing naar de
+Wereldgezondheidsorganisatie die volgens hem een uitspraak toeschrijft die de
+organisatie niet in die vorm heeft gedaan. Ook stelde hij dat een figuur de
+onderliggende gegevens verkeerd weergeeft en dat een passage over wiegendood
+te stellig is.
+
+Walker heeft daarop gereageerd op zijn website. Hij erkende een fout in een
+van de figuren en liet die corrigeren, en hij verdedigde de rest van de
+aangevochten passages met verwijzing naar aanvullende literatuur. Andere
+lezers, onder wie statistici die het geschil volgden, vonden die reactie op
+een deel van de punten afdoende en op een deel niet, vooral waar het ging om
+de vraag of het boek de sterkte van de verbanden groter voorstelt dan de
+bronnen dragen.
+
+Los van de precieze telling van fouten blijft één bezwaar overeind, en dat is
+het belangrijkste bezwaar tegen dit boek. De stelligheid van de formuleringen
+gaat verder dan het onderliggende onderzoek toestaat. Zinnen die zeggen dat er
+geen enkele functie is die niet lijdt onder kort slapen, of dat er nul studies
+zijn die iets goeds over korte slaap laten zien, zijn absolute uitspraken op
+basis van een literatuur die voor een groot deel uit observationeel werk en
+kleine proeven bestaat.
+
+Daar komt een praktisch nadeel bij. Een boek dat slapeloosheid presenteert als
+een acute bedreiging voor hart, brein en levensduur kan bij mensen die toch al
+slecht slapen de spanning rond het slapen vergroten. Dat effect is in de
+klinische praktijk bekend en het boek doet er weinig aan om het te dempen.
+
+Wat het boek wel blijft leveren is een leesbaar en breed overzicht van wat
+slaaponderzoek de afgelopen decennia heeft opgeleverd, met een deel over
+slaapmiddelen en schooltijden dat op zichzelf goed onderbouwd is. Wie het
+leest als een pleidooi met een agenda en niet als een neutrale stand van de
+wetenschap, houdt er een bruikbaar beeld aan over.
+
+#### Wat er concreet mee te doen is
+
+- Houd een vaste opsta-tijd aan, ook in het weekend, en laat het
+inslaaptijdstip zich daarnaar voegen.
+- Zet de laatste koffie ruim voor de middag, gezien de tijd die het lichaam
+nodig heeft om cafeïne af te breken.
+- Bekijk slapeloosheid die langer dan een paar weken duurt eerst met
+cognitieve gedragstherapie voordat medicatie in beeld komt.
+- Lees de getallen in dit boek als richting en niet als maat: relatieve
+risico's zeggen weinig zonder het onderliggende absolute risico.
+
+#### Wat je hierna leest
+
+- 86. Hart voor je brein. Scherder en Hofstra leggen dezelfde soort verbanden
+tussen leefstijl, hart en brein, en zijn expliciter over hoe zwak
+observationeel bewijs is.
+- 55. Thinking, Fast and Slow. Kahneman helpt om te zien hoe een goed verteld
+verhaal met veel voorbeelden overtuigender aanvoelt dan de gegevens
+rechtvaardigen.
+- 22. Atomic Habits. Clear beschrijft hoe je een slaapritme in gedrag
+verankert, wat het deel is waar Walker weinig over te zeggen heeft.
+- 104. Oud zeer. Bakker koppelt slecht slapen aan onverwerkte spanning en
+kiest daarmee een andere ingang dan de fysiologische van Walker.
 
 ## 53. The Anxious Generation
 
@@ -13262,6 +14863,185 @@ dat verschil maakt het boek niet duidelijk. Het geheel is aangenaam en dun
 onderbouwd, met interviews in plaats van onderzoek, en het is het beste te
 lezen als kennismaking en niet als bewijs.
 
+### Uitgebreide samenvatting
+
+**De stelling.** García en Miralles stellen dat de hoge leeftijd en de
+opgewektheid van de ouderen op Okinawa niet in de eerste plaats te danken zijn
+aan voeding of klimaat, maar aan het feit dat zij tot hun dood een reden
+hebben om op te staan. Dat woord, ikigai, koppelen zij aan de logotherapie van
+Viktor Frankl en aan het flow-onderzoek van Mihaly Csikszentmihalyi, en zij
+bouwen daaruit een handleiding: wie een bezigheid vindt die hij graag doet,
+blijft actief, eet met mate, beweegt de hele dag door en houdt zijn
+vriendengroep in stand, en zal daardoor langer en tevredener leven. Het boek
+presenteert die keten als de verklaring van de Okinawaanse ouderdom.
+
+#### De gang van het boek
+
+**Aanleiding en opzet**
+
+De auteurs, een in Japan wonende Spanjaard en een Catalaanse schrijver,
+ontmoetten elkaar in Tokio en raakten in gesprek over logotherapie en over de
+vraag waarom sommige mensen weten wat ze willen en anderen niet. Daar viel het
+woord ikigai, dat zij vertalen als het geluk altijd bezig te zijn.
+
+Na een jaar literatuurstudie reisden zij naar Ogimi in het noorden van
+Okinawa, een dorp van ongeveer drieduizend inwoners dat bekendstaat als het
+dorp van de eeuwelingen, om de oudste bewoners te spreken. Die gesprekken
+vormen het hart van het boek, de rest is verzameld materiaal uit psychologie,
+voedingsleer en Japanse traditie.
+
+**Okinawa en de blauwe zones**
+
+Het eerste deel schetst Okinawa als een van de vijf blauwe zones die Dan
+Buettner beschreef, naast Sardinië, Loma Linda in Californië, het schiereiland
+Nicoya in Costa Rica en Ikaria in Griekenland. De auteurs noemen het aantal
+eeuwelingen op Okinawa, wijzen op lagere cijfers voor hart- en vaatziekten en
+dementie, en zoeken de gemeenschappelijke noemer van die vijf gebieden.
+
+Die noemer luidt bij hen: voeding, dagelijkse beweging, een levensdoel en een
+sterk sociaal netwerk. Twee lokale gebruiken krijgen daarbij nadruk. Hara
+hachi bu, stoppen met eten bij tachtig procent verzadiging, en de moai, een
+groep vrienden die geld en zorg deelt en waarvan het lidmaatschap levenslang
+is.
+
+**Van logotherapie naar ikigai**
+
+Een apart deel is gewijd aan Viktor Frankl. De auteurs vatten zijn
+logotherapie samen als het zoeken naar redenen om te leven, geven de vijf
+stappen van het therapeutische proces weer en betrekken zijn ervaring in de
+kampen op de stelling dat de mens zijn houding altijd zelf kiest.
+
+Hun redenering is dat ikigai en logotherapie hetzelfde raken vanuit twee
+richtingen: de een als therapie voor wie vastloopt, de ander als alledaagse
+gewoonte van mensen die nooit zijn vastgelopen. Dat verband wordt gesteld,
+niet aangetoond.
+
+**Flow als dagelijkse vorm**
+
+Het deel over flow leunt op Csikszentmihalyi. De auteurs beschrijven de
+toestand waarin tijdsbesef verdwijnt, noemen de voorwaarden ervoor, een
+duidelijk doel, terugkoppeling en een taak die net iets moeilijker is dan wat
+iemand al kan, en geven aanwijzingen om afleiding weg te nemen en één ding
+tegelijk te doen.
+
+Zij illustreren dat met Japanse ambachtslieden: de kalligraaf, de
+sushimeester, de vakman die zijn hele leven aan één handeling wijdt. Het
+hoofdstuk verbindt flow aan takumi, het vakmanschap dat in Japan een eigen
+status heeft.
+
+**De gesprekken in Ogimi**
+
+Het reisverslag is het meest eigen deel van het boek. De auteurs regelden via
+de gemeente toegang tot de ouderen en spraken met bewoners die ver in de
+negentig waren. Wat zij optekenen zijn geen inzichten maar gewoonten: elke
+ochtend naar de moestuin, meedoen aan de vereniging van het dorp, zingen,
+vrijwilligerswerk, dagelijks contact met leeftijdgenoten.
+
+Het deel besluit met tien voorschriften die zij uit die gesprekken
+destilleren, waaronder altijd actief blijven en nooit met pensioen gaan,
+rustig aan doen, niet te veel eten, en de vriendenkring onderhouden.
+
+**Voeding, beweging en veerkracht**
+
+De laatste delen zijn praktisch. Het voedingshoofdstuk beschrijft het
+Okinawaanse eetpatroon, met tofu, zoete aardappel, groente, vis en shikuwasa,
+en noemt de lagere dagelijkse hoeveelheid calorieën ter plaatse. Het
+bewegingshoofdstuk stelt dat wie veel beweegt langer leeft dan wie hard sport,
+en behandelt radio taiso, yoga, tai chi en qi gong.
+
+Het slot gaat over veerkracht, met stoïcijnse en boeddhistische gedachten, met
+wabi-sabi als aanvaarding van het onvolmaakte en vergankelijke, en met de
+antifragiliteit van Nassim Taleb als stap voorbij het herstellen van
+tegenslag.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| ikigai | Het Japanse woord dat de auteurs vertalen als de reden om 's ochtends op te staan. |
+| blauwe zone | Een gebied waar volgens demografisch onderzoek opvallend veel mensen zeer oud worden. |
+| moai | Een Okinawaanse vriendengroep die geld inlegt, elkaar bijstaat en vaak een leven lang bijeenblijft. |
+| hara hachi bu | De gewoonte om te stoppen met eten wanneer de maag voor ongeveer tachtig procent gevuld is. |
+| ichariba chode | Het lokale gebruik om iedereen te behandelen als een broer, ook wie je voor het eerst ontmoet. |
+| yuimaaru | Het samenwerken binnen de gemeenschap waarbij de een de ander helpt. |
+| logotherapie | Frankls behandelwijze die de patiënt de zin van zijn bestaan laat ontdekken om zijn neurose te overwinnen. |
+| flow | Csikszentmihalyi's term voor het volledig opgaan in een taak, waarbij tijdsbesef en zelfbewustzijn wegvallen. |
+| wabi-sabi | De Japanse waardering voor het onvolmaakte, het onaffe en het vergankelijke. |
+| antifragiliteit | Taleb's begrip voor wat door schokken sterker wordt in plaats van alleen te herstellen. |
+
+#### Waar het argument op rust
+
+Het eigen materiaal bestaat uit gesprekken met ouderen in één dorp, gevoerd
+tijdens een verblijf van beperkte duur, met hulp van de gemeente die de
+deelnemers uitkoos. De auteurs geven geen aantal deelnemers, geen vragenlijst
+en geen methode; de gesprekken zijn navertelde herinneringen en spreuken.
+
+Het overige bewijs is secundair. De cijfers over Okinawa komen uit het werk
+van Makoto Suzuki en uit de blauwe-zonesliteratuur van Dan Buettner; de
+psychologie komt uit Frankl en Csikszentmihalyi. Er wordt geen onderzoek
+aangehaald dat ikigai zelf meet en aan levensduur koppelt, terwijl dat
+onderzoek in Japan wel bestaat.
+
+De verbindingen tussen de delen zijn associatief. Dat Okinawanen oud worden
+staat vast in de gebruikte bronnen; dat ikigai daarvan een oorzaak is, wordt
+aannemelijk gemaakt met citaten en niet met een vergelijking tussen mensen die
+het wel en niet hebben.
+
+#### Wat er tegen in te brengen valt
+
+Het bekendste beeld dat aan dit boek kleeft, hoort er niet bij. Het schema van
+vier overlappende cirkels, waar je van houdt, waar je goed in bent, waarvoor
+je betaald krijgt en wat de wereld nodig heeft, komt uit een tekening die de
+Spaanse astroloog Andrés Zuzunaga maakte over levensdoel, en werd pas later
+van het label ikigai voorzien. In Japan zelf betekent het woord iets veel
+gewoners: waar iemand zin aan ontleent, van tuinieren tot de kleinkinderen,
+zonder eis van betaling of maatschappelijk nut. Het boek zelf hanteert die
+alledaagse betekenis grotendeels wel, maar de vier cirkels zijn er in de
+ontvangst overheen gelegd en worden er tot op vandaag aan toegeschreven.
+
+De Okinawa-hoofdstukken rusten op gesprekken met een klein aantal
+hoogbejaarden en op secundaire literatuur over blauwe zones. De
+leeftijdsgegevens waarop die literatuur steunt zijn later betwist: onderzoek
+naar de betrouwbaarheid van geboorteregistraties wijst uit dat gebieden met
+veel gemelde eeuwelingen ook gebieden zijn met slechte registratie en met
+redenen om een overlijden niet te melden. Ook is de Okinawaanse voorsprong in
+Japanse cijfers na de naoorlogse generaties teruggelopen, wat het beeld van
+een blijvend geheim ondermijnt.
+
+De keten van oorzaken loopt maar één kant op. Dat ouderen in Ogimi tuinieren,
+zingen en dagelijks bezoek krijgen, kan evengoed betekenen dat wie gezond
+blijft actief blijft. Het boek behandelt de bezigheid steeds als oorzaak van
+de gezondheid en overweegt de omgekeerde volgorde nergens.
+
+Verder is het boek een verzameling. Frankl, Csikszentmihalyi, Taleb, yoga,
+morita-therapie en tien dorpsvoorschriften staan naast elkaar zonder dat wordt
+uitgezocht of ze elkaar tegenspreken. Wat overblijft is prettig leesbaar en
+kort, maar wie de onderbouwing wil, moet bij de aangehaalde auteurs zelf zijn.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op wat je zonder aansporing zou doen op een vrije ochtend, en kijk
+of daar iets bij zit dat je vaker kunt doen.
+- Kies een bezigheid die net iets moeilijker is dan wat je al kunt, en haal er
+de afleiding omheen weg.
+- Bouw beweging in de dag in, lopend, tuinierend, staand, in plaats van haar
+in één sportuur te concentreren.
+- Onderhoud een vaste groep mensen die je met regelmaat ziet, en leg de
+frequentie vast in plaats van haar aan gelegenheid over te laten.
+- Stop met eten voordat je vol zit en let daarbij op de portiegrootte, niet op
+wat er op je bord ligt.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl zelf, de bron waaraan dit boek zijn
+kern ontleent en die er beter aan toekomt dan de samenvatting hier.
+- 78. Finding Flow. Csikszentmihalyi legt flow uit met het onderzoek erbij dat
+in dit boek ontbreekt.
+- 91. Eindelijk oud. Nelissen kijkt naar ouder worden vanuit de biologie in
+plaats van vanuit levenskunst.
+- 71. Four Thousand Weeks. Burkeman komt tot een tegengestelde raad: aanvaard
+dat de tijd kort is in plaats van hem te willen rekken.
+
 ## 78. Finding Flow
 
 Mihaly Csikszentmihalyi, 1997. Ondertitel *The Psychology of Engagement with
@@ -14425,6 +16205,232 @@ toegankelijk geschreven met veel verwijzingen naar onderzoek, en de
 bewijskracht verschilt sterk per hoofdstuk: dat beweging goed is staat vast,
 hoeveel effect welke vorm precies heeft veel minder.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Stilzitten is volgens Scherder geen ongemak maar een aanslag
+op de hersenen, en het gaat mis omdat de omgeving die wij voor onszelf en
+zeker voor kwetsbare mensen inrichten het bewegen stelselmatig overbodig
+maakt. Het boek verbindt twee stellingen die vaak los van elkaar worden
+gebracht: lichamelijke inactiviteit is een gezondheidsprobleem van de omvang
+van roken, en zij tast juist de hogere denkfuncties aan die iemand nodig heeft
+om zelfstandig te blijven. Wie er iets tegenover wil zetten moet laten zien
+dat het verband tussen bewegen en cognitie zwakker of anders gericht is dan
+Scherder aanneemt.
+
+#### De gang van het boek
+
+**De wereld zit**
+
+Scherder opent met cijfers uit het themanummer over lichamelijke inactiviteit
+dat The Lancet in 2012 uitbracht. Gebrek aan beweging staat daarin als vierde
+doodsoorzaak wereldwijd, na hart- en vaatziekten, kanker en infectieziekten.
+Ongeveer eenendertig procent van de wereldbevolking haalt de aanbevolen
+hoeveelheid beweging niet. Zes tot tien procent van alle sterfte wordt aan
+inactiviteit toegeschreven, en het aantal doden per jaar dat aan inactiviteit
+wordt gekoppeld ligt in dezelfde orde als dat van roken, ruwweg vijf miljoen.
+
+De vergelijking met roken is zijn retorische zet: tegen roken bestaat een
+lobby, tegen stilzitten nauwelijks. Daarna volgen de gewone oorzaken:
+pinautomaat om de hoek, boodschappen thuisbezorgd, elektrische fiets, liften
+die je meteen ziet en trappen die je moet zoeken. Hij noemt ook onderzoek
+waaruit naar voren komt dat veel uren zitten samenhangt met vroeger
+overlijden, ook bij mensen die daarnaast sporten.
+
+**Zorg die het bewegen overneemt**
+
+Het hoofdstuk over het verpleeghuis bevat de kern van zijn argument.
+Zelfstandig blijven vraagt om planning, om het kunnen wisselen van aandacht en
+om andere uitvoerende functies waarvoor de prefrontale cortex nodig is.
+Boodschappen bedenken, de trap op, afrekenen, eten klaarmaken: die dagelijkse
+besognes belasten precies dat gebied. Zorgpersoneel dat ze uit vriendelijkheid
+overneemt, haalt de belasting weg en versnelt daarmee het verlies van
+zelfstandigheid.
+
+Vervolgens legt hij een keten: minder knijpkracht in de handen maakt het
+openen van verpakkingen en medicijndoosjes moeilijker, wat leidt tot minder
+eten en minder medicijngebruik, wat de conditie verder aantast, wat het aantal
+sociale contacten verkleint. Eenzaamheid brengt chronische stress mee, en
+chronische stress geeft via de HPA-as en een verhoogde cortisolspiegel schade
+aan de hippocampus, het gebied dat bij leren, geheugen en het vinden van de
+weg betrokken is.
+
+**Het bed als begin van het einde**
+
+Het ziekenhuis krijgt een hoofdstuk apart. Scherder leunt op een essay van
+Anne Sprague uit 2004 over de geschiedenis van bedrust en op het artikel 'The
+dangers of going to bed' van de Britse arts Richard Asher. Asher liep de
+organen langs waarop lang liggen ingrijpt: longen, bloedvaten, huid, spieren,
+botten, nieren, darmen, hart en stemming. Botten die door tien dagen niet
+bewegen ontkalkt zijn, hebben vier maanden nodig om weer op peil te komen.
+Spierkracht neemt af met twee tot vijf procent per dag. Dat geheel heet
+deconditioneren.
+
+Daarnaast staan metingen. In een onderzoek onder vijfenveertig opgenomen
+ouderen die niet geopereerd hoefden te worden, en die met bewegingsmonitoren
+aan dijbeen of enkel werden gevolgd, bracht de groep meer dan tachtig procent
+van de eerste vier ligdagen in bed door en vijf tot acht procent staand of
+lopend. Vijftien van hen lagen meer dan negentig procent van de tijd. Scherder
+haalt er ook het fasenmodel van Angelika Zegelin uit 2008 bij, dat
+bedlegerigheid beschrijft als een proces van instabiliteit via een val of
+opname naar volledige gebondenheid aan bed, waarin de houding van familie en
+verzorgenden bepalend is.
+
+**Het luie brein**
+
+Om uit te leggen waarom bewegen tot in het denken doorwerkt, gebruikt Scherder
+de indeling van het zenuwstelsel in drie lagen die Paul MacLean de Triune
+Brain noemde. In de onderste laag zitten de gebieden die de hersenschors
+wakker maken. Arousal is de mate waarin iemand alert is, en die alertheid
+bepaalt hoeveel de bovenste laag kan doen. Lopen stimuleert die onderste laag
+en verhoogt daarmee de alertheid.
+
+Het begrip underarousal illustreert hij met een bewoonster die na een
+herseninfarct diep in de hersenen niet op de ochtendgroet reageerde. Het
+personeel hield haar voor chagrijnig of dement en liep door. Zij antwoordde
+wel degelijk, alleen later, omdat de groet er langer over deed om de
+hersenschors te bereiken. Toen de verzorging wist wat er speelde, paste zij
+zich aan en kwamen de contacten terug.
+
+**Wat bewegen met het brein doet**
+
+Daarna komt de positieve kant. Scherder bespreekt vier mechanismen: de aanmaak
+van nieuwe zenuwcellen in de hippocampus, de vorming van nieuwe verbindingen
+tussen zenuwcellen, verbeterde doorbloeding en de aanmaak van neurotrofines.
+Hij zet die naast het begrip verrijkte omgeving, een omgeving met veel
+wisselende zintuiglijke prikkels.
+
+De vraag of bewegen zelf al een verrijkte omgeving is, werkt hij uit aan de
+hand van werk van Gerd Kempermann en anderen uit 2010. Zij stellen dat een
+verrijkte omgeving iets toevoegt wat bewegen alleen niet heeft, namelijk
+nieuwheid en onzekerheid die een beroep doen op denkflexibiliteit, en dat
+bewegen de voorlopers van nieuwe zenuwcellen aanmaakt terwijl de omgeving
+bepaalt of die blijven bestaan. Later onderzoek met muizen, die konden kiezen
+tussen een loopwiel en een verrijkt deel van de kooi en voor het loopwiel
+kozen, nuanceert dat weer in de andere richting. Scherder houdt het erop dat
+de twee elkaar aanvullen.
+
+**Bijzondere groepen en kauwen**
+
+Het laatste deel gaat over mensen bij wie bewegen niet vanzelf gaat. Bij
+mensen met een verstandelijke beperking is de inactiviteit hoog: in het
+aangehaalde onderzoek had ruim vijfenveertig procent van de deelnemers
+overgewicht of obesitas, en bij ouderen met een verstandelijke beperking
+haalde slechts zes procent de norm van honderdvijftig minuten matig intensieve
+inspanning per week. Bij kinderen met ADHD beschrijft hij programma's in het
+zwembad en met balsporten waarna remming, verwerkingssnelheid en volgehouden
+aandacht verbeterden, met de kanttekening dat een overzichtsartikel maar drie
+studies met betrouwbare uitkomsten overhield.
+
+Het slothoofdstuk gaat over kauwen, een van zijn eigen onderzoeksthema's. Bij
+jonge mensen zonder hersenziekte die in de scanner op kauwgom kauwden, werd
+verhoogde activiteit gezien in de dorsolaterale prefrontale cortex en de
+pariëtale lob. Wisselende hardheid van het voedsel activeert meer gebieden dan
+eenvormig voedsel, wat hem tot de opmerking brengt dat gemalen eten in het
+verpleeghuis meer wegneemt dan alleen smaak. Ook bij een goed passend
+kunstgebit blijft die verhoogde activiteit zichtbaar.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Deconditioneren | Het geheel van lichamelijke veranderingen dat volgt op inactiviteit, bedrust of een zittende leefstijl. |
+| Arousal | De mate waarin het brein is aangezet en de hersenschors actief genoeg is om aandacht vast te houden. |
+| Underarousal | Een te lage alertheid, waardoor iemand trager of ogenschijnlijk niet reageert terwijl het begrip intact is. |
+| Verrijkte omgeving | Een omgeving met veel wisselende zintuiglijke prikkels en steeds nieuwe problemen die om een oplossing vragen. |
+| Executieve functies | De uitvoerende denkfuncties zoals plannen en het wisselen van aandacht, die vooral op de prefrontale cortex leunen. |
+| Cognitieve reserve | De opgebouwde speling waarmee iemand hersenschade kan opvangen voordat die zichtbaar wordt in het functioneren. |
+| Neurogenese | Het ontstaan van nieuwe zenuwcellen, in dit boek vooral in de hippocampus en in verband gebracht met bewegen. |
+| Bedlegerigheid | In het model van Zegelin een proces in vijf fasen van instabiliteit naar het permanent in bed liggen. |
+| Use it or lose it | Het uitgangspunt dat functies en hersengebieden die niet gebruikt worden hun capaciteit verliezen. |
+| Atrofie | Het verschrompelen van weefsel door onderbelasting, dat Scherder voor spieren, hart en hersenen naast elkaar zet. |
+
+#### Waar het argument op rust
+
+De onderbouwing is ongelijk verdeeld over de twee helften van het betoog. Dat
+bewegingsarmoede lichamelijk schaadt, rust op groot en herhaald materiaal:
+bevolkingsonderzoek met tienduizenden deelnemers, het Lancet-nummer als
+samenvatting van de stand van zaken, en fysiologie die eenvoudig te meten is.
+Spierkracht en botontkalking bij bedrust laten zich direct vaststellen en zijn
+niet omstreden.
+
+De schakel van bewegen naar denken is dunner onderbouwd. Scherder werkt daar
+met veel losse studies van beperkte omvang. De ziekenhuisstudie telt
+vijfenveertig patiënten, de trainingsprogramma's bij kinderen enkele
+tientallen, en bij één van die programma's noemt hij zelf dat de controlegroep
+geen placebo kreeg. Bij ADHD houdt hij van een heel overzichtsartikel drie
+bruikbare studies over en schrijft hij erbij dat voorzichtigheid geboden is.
+
+Een tweede deel van het bewijs is proefdieronderzoek. Neurogenese, de aanmaak
+van nieuwe verbindingen en de rol van neurotrofines zijn bij muizen en ratten
+aangetoond onder omstandigheden die met een mensenleven weinig te maken
+hebben. Kempermann wijst er zelf op dat een dier in een laboratorium anders
+beweegt dan in de vrije natuur. Dat Scherder deze nuance opneemt pleit voor
+hem, maar de vertaling naar mensen blijft daarmee een aanname.
+
+Het derde deel bestaat uit observationele verbanden bij ouderen: knijpkracht
+en overlijden, eenzaamheid en cognitieve achteruitgang, immobiliteit als
+voorspeller van overlijden in het ziekenhuis. In het Braziliaanse onderzoek
+dat hij noemt gaat het om achthonderdzesenvijftig opgenomen ouderen met een
+gemiddelde leeftijd van achtenzeventig jaar. Scherder markeert zulke verbanden
+meestal netjes als relatie en niet als oorzaak, en hij doet dat expliciet bij
+het Amerikaanse onderzoek onder zeshonderdvijfennegentig ouderen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de sprong van correlatie naar advies. Scherder
+markeert in de tekst wel dat een verband nog geen oorzaak is, maar in de
+conclusies die hij eraan verbindt verdwijnt dat voorbehoud. Dat mensen die
+weinig bewegen eerder in het ziekenhuis belanden, kan er even goed op wijzen
+dat beginnende ziekte het bewegen afremt. Wie pijn heeft, duizelig is of bang
+is om te vallen, beweegt minder, en diezelfde toestand voorspelt opname en
+overlijden.
+
+Daarnaast is de opzet van het boek los. Het bestaat uit hoofdstukken die om
+beurten een verhaal uit de praktijk, een reeks onderzoeken en een oordeel
+geven, zonder dat de onderzoeken op kwaliteit worden gewogen. Een studie met
+vijfenveertig deelnemers krijgt evenveel gewicht als een cohort van
+achttienduizend Canadezen, waardoor de lezer niet kan zien welke bevinding
+stevig staat.
+
+De praktijkverhalen doen werk dat de gegevens niet doen. De rollatorrace in
+het Olympisch Stadion, de architect met zijn golfkarretjes, de loopbanden op
+Schiphol: zij overtuigen op andere gronden dan het onderzoek en dekken de
+zwakke plekken in de onderbouwing af. Hetzelfde geldt voor de vergelijking van
+zitten met roken, die als beeld sterker is dan als bewijs.
+
+Ten slotte gaat het boek voorbij aan de vraag hoeveel er precies te winnen
+valt. Scherder laat zien dat bewegen samenhangt met beter denken, maar hij
+geeft zelden aan hoe groot dat verschil is en hoe lang het aanhoudt. Bij de
+bedrustonderzoeken die hij aanhaalt over cognitie meldt hij eerlijk dat de
+resultaten niet eenduidig zijn, en dat het meeste van dat werk uit de
+ruimtevaart komt. Voor een boek dat een zorgpraktijk wil veranderen is dat een
+dun fundament onder een stevige aanbeveling.
+
+#### Wat er concreet mee te doen is
+
+- Neem de dagelijkse boodschappen en klusjes niet over van een oudere die ze
+met moeite nog zelf kan doen.
+- Vraag bij een ziekenhuisopname wat een patiënt buiten bed mag doen en spreek
+af wanneer hij uit bed komt.
+- Kies bij ontbrekende reactie eerst voor het wachten van enkele seconden
+voordat je een lage alertheid als somberheid of dementie duidt.
+- Zorg voor wisselende hardheid in het eten in plaats van standaard gemalen
+kost.
+- Zet de rollator pas in als het zonder echt niet meer gaat.
+
+#### Wat je hierna leest
+
+- 86. Hart voor je brein. Hetzelfde argument, maar dan met de cardioloog
+Hofstra erbij en met het hartvaatstelsel als schakel tussen leefstijl en
+brein.
+- 91. Eindelijk oud. Nelissen behandelt ouder worden vanuit de
+evolutiebiologie en komt daardoor tot andere verklaringen voor dezelfde
+achteruitgang.
+- 88. Gewoontedieren. Brendborg gaat systematischer om met de vraag hoeveel
+een leefstijlverband waard is als bewijs.
+- 22. Atomic Habits. Waar Scherder stopt bij het advies om te bewegen, gaat
+Clear over de vraag hoe zo'n gewoonte blijft hangen.
+
 ## 85. Singing in the brain
 
 Erik Scherder, 2017. Ondertitel over de samenwerking tussen muziek en de
@@ -14444,6 +16450,231 @@ blijft: liedjes van vroeger blijven vaak beschikbaar wanneer namen en
 gezichten al zijn verdwenen. Zoals in zijn ander werk is het boek een pleidooi
 met onderzoek eronder, en zijn de sterkste passages die waarin hij beschrijft
 wat hij in de kliniek heeft gezien.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Muziek is voor Scherder geen versiering van het bestaan maar
+een prikkel die vrijwel het hele brein tegelijk aan het werk zet, en juist
+daarom werkt zij door waar taal en gewone therapie stukloopt. Zijn stelling is
+dat het maken en horen van muziek motorische, zintuiglijke, emotionele en
+geheugengebieden gelijktijdig belast, dat die belasting het brein vormt bij
+wie jong begint, en dat zij bij ziekte en beschadiging een ingang biedt die
+intact blijft als andere ingangen wegvallen. Wie daar iets tegenover wil
+zetten, moet aannemelijk maken dat de gevonden effecten net zo goed door
+aandacht, gezelschap of afleiding verklaard kunnen worden.
+
+#### De gang van het boek
+
+**Ritme en beweging**
+
+Het boek begint bij de plek waar muziek en lichaam elkaar raken. Scherder
+haalt werk van Schneider en anderen uit 2010 aan waaruit blijkt dat de gewone
+loopfrequentie rond twee stappen per seconde ligt, en dat een analyse van
+zeventigduizend muziekstukken een overheersende maat van honderdtwintig slagen
+per minuut opleverde. Bij hardlopen kozen deelnemers zelf muziek die daar iets
+boven lag, en tijdens het lopen werd een bijpassende hersengolffrequentie
+gemeten.
+
+Daarna komen de proeven uit de sportschool. Op een loopband houden mensen het
+langer vol met muziek, zonder dat de hartfrequentie verandert. Bij vrouwen
+werkt voorkeursmuziek sterker dan bij mannen. Onderzoek van Eliakim en anderen
+uit 2013 scheidde muziek van ritme en vond dat alleen het ritme al zorgde voor
+meer stappen in de herstelfase en voor een snellere daling van het melkzuur.
+Scherder meldt er ook bij dat het effect van muziek op korte maximale
+inspanning niet consistent is: in een proef met sprints van vijfendertig meter
+maakte snel of langzaam ritme geen verschil.
+
+**Muziek in de klas**
+
+Het derde hoofdstuk is een pleidooi voor muziekonderwijs voor alle kinderen.
+Scherder beschrijft het Leerorkest, ooit begonnen in de Bijlmer en uitgegroeid
+tot tientallen orkesten in Amsterdam, waar ieder kind een instrument mag
+uitproberen en houden, en het aanbod van de Rotterdamse stichting voor
+kunstzinnige vorming waarbij leden van het Rotterdams Philharmonisch een
+groepje kinderen onder hun hoede nemen.
+
+Het begrippenpaar waar dit hoofdstuk om draait is near transfer en far
+transfer. Near transfer wil zeggen dat muziekles muzikale vaardigheid
+verbetert, wat weinig verrast. Far transfer is de claim dat het ook doorwerkt
+op iets anders, zoals taal. Scherder acht die tweede vorm bij muziek en taal
+aannemelijk omdat beide leunen op het verwerken van toonhoogte, tijdsverloop
+en structuur, en omdat gebieden als de inferior frontal gyrus bij beide
+betrokken zijn.
+
+**Wat er in het brein van een musicus anders is**
+
+De hoofdstukken over klank en timbre bouwen naar de vraag of musici andere
+hersenen hebben. Scherder leunt op een overzicht van Stewart uit 2008. Bij
+mensen die toetsen spelen is de precentrale gyrus groter, bij violisten zijn
+de motorische gebieden voor de linkerhand sterker ontwikkeld dan die voor de
+rechter, en bij pianisten is die verdeling gelijkmatiger. Het planum temporale
+en de gyrus van Heschl, gebieden voor geluidsverwerking, hebben meer volume
+bij musici. Ook de kleine hersenen en de linker basale ganglia laten meer
+grijze stof zien.
+
+Bij de witte stof gaat het over de baansystemen. Met beeldvorming die de
+richting van zenuwvezels zichtbaar maakt, is te zien dat onder meer het
+corticospinale systeem bij musici een steviger structuur heeft. Scherder houdt
+vast aan de lezing van Stewart dat dit gevolg is van het spelen en niet de
+oorzaak ervan, en hij noemt als argument dat de verschillen precies passen bij
+welk instrument iemand bespeelt. Zelf zegt hij erbij dat dit onderwerp een
+heel boek verdient en dat hij geen volledigheid biedt.
+
+**Zingen en emoties**
+
+Het hoofdstuk over zingen begint met de stelling dat iedereen kan zingen en
+beschrijft onder meer zingen in een tbs-kliniek. Daarna volgt het deel over
+muziek en emotie, dat Scherder zelf lastiger noemt dan het lijkt. De
+opvallendste vraag is waarom mensen die niet verdrietig zijn graag naar
+droevige muziek luisteren.
+
+Hij bespreekt de verklaringen van Taruffi en Koelsch uit 2014: inleving in de
+componist, het besef dat je tot intense emoties in staat bent, en het feit dat
+droevige muziek meer oproept dan droefheid alleen, zoals nostalgie, tederheid
+en verwondering. Daarnaast noemt hij het beloningscircuit met de nucleus
+accumbens en de rol van prolactine, dat vrijkomt bij tranen en verdriet en
+volgens de aangehaalde auteurs de pijn ervan dempt. Een droevig gezicht roept
+diezelfde reactie niet op, wat de auteurs als aanwijzing zien dat het om iets
+muziekeigens gaat.
+
+**Muziek bij ziekte**
+
+Het middendeel van het boek loopt ziektebeelden langs: slaap, pijn, angst en
+somberheid, de ziekte van Parkinson, dementie, autisme, coma en beroerte. Bij
+kinderen met een agressieve vorm van leukemie die een stamceltransplantatie
+ondergingen, beschrijft Scherder een kleine gecontroleerde proef van Uggla en
+anderen uit 2016 met veertig kinderen, waarvan dertien muziektherapie kregen.
+Hun hartfrequentie in de avond daalde, een effect dat vier tot acht uur
+aanhield.
+
+Bij dementie is hij het duidelijkst over de bewijslast. Blackburn en collega's
+vonden in 2014 slechts zes gerandomiseerde studies naar muziektherapie bij
+dementie. Die lieten kleine positieve uitkomsten zien op angst, somberheid,
+denken en kwaliteit van leven, maar waren methodologisch zwak, en de auteurs
+stelden zelf de vraag of muziek zich onderscheidt van hardop voorlezen, dat
+immers ook aandacht trekt en gezelschap biedt. Uit geen van de zes kwam naar
+voren welk onderdeel van de therapie het effect veroorzaakte.
+
+Het onderdeel dat het meest indruk maakt gaat over muziekgeheugen. Jacobsen en
+anderen publiceerden in 2015 in Brain dat bij gevorderde ziekte van Alzheimer
+twee gebieden een rol spelen bij het herkennen van muziek van vroeger: de
+anterior cingulate cortex en de pre-supplementary motor area. Juist daar wordt
+de minste verschrompeling, de minste daling van de stofwisseling en de minste
+eiwitneerslag gevonden. Het gaat om impliciet geheugen, dat bij deze ziekte
+langer gespaard blijft. Scherder voegt eraan toe dat ander onderzoek dit niet
+bij elke patiënt terugvindt.
+
+**Portretten en praktische tips**
+
+Door het boek heen staan gesprekken met mensen bij wie muziek en hersenletsel
+elkaar raken. Jule Zuiderbaan kwam met zuurstofgebrek ter wereld en bleef
+spastisch aan de linkerzijde, wat blokfluit en later bugel onmogelijk maakte
+en haar via de althoorn bij een ander instrument bracht. Gitarist Willem
+Philipsen, die bij de Postmen speelde, kreeg op drieëntwintigjarige leeftijd
+een hersenbloeding in de rechterhelft. Christien leerde zeventien jaar na een
+herseninfarct opnieuw pianospelen, met haar muziekpedagoog erbij.
+
+Het slothoofdstuk verzamelt praktische opmerkingen, met de oorwurm als
+hoofdmoot. Ongeveer negentig procent van de mensen heeft er wekelijks een, en
+muziek met tekst blijft eerder hangen dan instrumentale muziek. Oorwurmen
+ontstaan na herhaald contact met muziek, via een herinnering of emotie, en bij
+te weinig alertheid tijdens saai werk. Farrugia en anderen brachten in 2015
+het default-modenetwerk ermee in verband, het netwerk dat actief is als iemand
+niet geconcentreerd nadenkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Near transfer | De doorwerking van muziekles op muzikale vaardigheden zelf, zoals gehoor en ritmegevoel. |
+| Far transfer | De doorwerking van muziekles op iets buiten de muziek, zoals de ontwikkeling van taal. |
+| Timbre | De klankkleur waaraan iemand hoort welk instrument of welke stem een toon voortbrengt. |
+| Plasticiteit | Het vermogen van het brein om onder invloed van oefening van structuur en verbindingen te veranderen. |
+| Impliciet muziekgeheugen | Het onbewust herkennen van muziek van vroeger, dat bij gevorderde ziekte van Alzheimer gespaard kan blijven. |
+| Muzikaal sjabloon | Het in de gehoorschors opgeslagen verwachtingspatroon, gevormd door de muziek waarmee iemand is opgegroeid. |
+| Weak central coherence | De verklaring voor het opvallende oog voor detail bij autisme, waarbij losse onderdelen sterker binnenkomen dan het geheel. |
+| Oorwurm | Een melodie die zich zonder aanleiding opdringt en blijft doorspelen, ook beschreven als onwillekeurige muzikale voorstelling. |
+| Beloningscircuit | Het netwerk rond de nucleus accumbens dat het plezier in muziek en het verlangen naar meer ervan draagt. |
+| Default-modenetwerk | Het netwerk dat actief is als iemand niet geconcentreerd bezig is, en dat met dagdromen en oorwurmen wordt verbonden. |
+
+#### Waar het argument op rust
+
+Waar dit boek verschilt van zijn boek over bewegen, is dat de sterkte van het
+bewijs per hoofdstuk sterk uiteenloopt en dat Scherder dat vaker benoemt. Het
+steviste materiaal staat in de hoofdstukken over ritme en over musici. De
+koppeling van looptempo aan muziektempo rust op meetbare grootheden en op een
+analyse van een grote muziekverzameling. De verschillen in grijze en witte
+stof tussen musici en niet-musici zijn met beeldvormend onderzoek herhaald
+vastgesteld.
+
+Die verschillen in hersenstructuur lossen echter de richtingsvraag niet op.
+Vrijwel al dat werk vergelijkt groepen zoals zij nu zijn. Dat de motorische
+gebieden bij violisten aan de kant van de linkerhand sterker zijn ontwikkeld,
+past bij oefening als oorzaak, maar sluit niet uit dat aanleg mede bepaalt wie
+het volhoudt om beroepsmusicus te worden. Scherder kiest hier voor de uitleg
+van Stewart zonder het alternatief systematisch te ontkrachten.
+
+De hoofdstukken over ziekte leunen op kleine studies en op overzichten die
+weinig te overzien hebben. Zes gerandomiseerde studies bij dementie, dertien
+behandelde kinderen in de leukemieproef, en bij verscheidene onderwerpen niet
+meer dan een enkele publicatie. Blindering is bij muziektherapie bovendien
+niet uitvoerbaar: deelnemers en behandelaars weten altijd wie muziek krijgt,
+wat de kans op verwachtingseffecten open laat.
+
+De portretten van Jule, Willem en Christien zijn geen bewijs en worden ook
+niet als zodanig gepresenteerd. Zij laten zien hoe herstel in de praktijk
+verloopt en wat het van iemand vraagt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de meeste positieve uitkomsten net zo goed te
+verklaren zijn door wat de muziek omringt. De onderzoekers die Scherder zelf
+aanhaalt stellen die vraag hardop: onderscheidt muziektherapie zich van hardop
+voorlezen? Ook daarbij is er aandacht van een ander, een vast moment in de
+week en iets prettigs om naar te luisteren. Zolang de werkzame ingrediënten
+niet gescheiden zijn, is de conclusie dat het de muziek is een keuze en geen
+bevinding.
+
+Daar komt de sprong van correlatie naar advies bij. Uit hersenverschillen bij
+musici volgt niet vanzelf dat muziekles bij alle kinderen tot betere
+taalontwikkeling leidt, en uit een gedaalde avondhartslag bij dertien kinderen
+volgt niet dat muziektherapie in de oncologie thuishoort. Scherder trekt zulke
+conclusies niet met zoveel woorden, maar de opbouw van de hoofdstukken, waarin
+een pleidooi vooraf gaat aan het onderzoek, duwt de lezer die kant op.
+
+De breedte van het boek is tegelijk zijn zwakte. Vijftien hoofdstukken over
+evolutie, onderwijs, klank, emotie, slaap, pijn, Parkinson, dementie, autisme
+en coma betekent dat geen onderwerp diep genoeg wordt uitgewerkt om te zien
+welke behandeling bij welke aandoening iets doet. Wie voor één ziektebeeld
+komt, krijgt enkele bladzijden.
+
+Ten slotte is de toon uitgesproken warm. Scherder is een pleitbezorger van
+muziek en dat is in elke alinea merkbaar, met citaten van bekende mensen als
+hoofdstukopeningen en met veel uitroeptekens. Dat leest aangenaam, maar de
+negatieve bevindingen, zoals de sprints waarbij muziek niets deed, krijgen
+minder ruimte dan de bevestigende.
+
+#### Wat er concreet mee te doen is
+
+- Kies muziek rond honderdtwintig slagen per minuut om bij het wandelen een
+gelijkmatig looptempo vast te houden.
+- Gebruik bij iemand met dementie de muziek uit diens jeugd en niet de muziek
+die de verzorger mooi vindt.
+- Laat een kind meerdere instrumenten uitproberen voordat de keuze valt, zeker
+bij motorische beperkingen.
+- Reken bij een aanbod van muziektherapie op een klein effect en vraag waarmee
+het vergeleken is.
+
+#### Wat je hierna leest
+
+- 86. Hart voor je brein. Scherders boek met Hofstra behandelt dezelfde
+denklijn over prikkeling van het brein, maar dan via hart en bloedvaten.
+- 33. Quiet. Cain schrijft over prikkelgevoeligheid en verschillen daarin, wat
+verklaart waarom dezelfde muziek de een helpt en de ander stoort.
+- 87. Activeer je nervus vagus. Swinnen beschrijft eveneens een lichamelijke
+ingang naar kalmte, met dezelfde bewijsproblemen als muziektherapie kent.
+- 118. Coping Skills. Harper zet muziek en ritme naast andere
+zelfregulatietechnieken en is explicieter over wat er wel en niet bewezen is.
 
 ## 86. Hart voor je brein
 
@@ -14466,6 +16697,219 @@ niet roken, matig eten en de bloeddruk laten meten. Het boek wisselt af tussen
 de twee schrijvers en is daardoor ongelijk van toon; de waarde zit in de
 koppeling van twee vakgebieden die in de spreekkamer los van elkaar werken.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Scherder en Hofstra betogen dat hart en hersenen één systeem
+vormen en dat de kwaliteit van de bloedvaten bepaalt hoe goed dat systeem een
+leven lang blijft werken. Hun sluitsteen is een gasvormig molecuul, nitric
+oxide (NO), dat door de binnenbekleding van het bloedvat wordt afgegeven zodra
+stromend bloed daar langs schuurt. Bewegen en bepaalde voedingsstoffen
+verhogen de afgifte van NO, NO verwijdt de vaten, en verwijde vaten voeden het
+hart en vooral de witte stof van de hersenen. Daaruit volgt hun eis: kom van
+die stoel af, want lichamelijke inactiviteit is een gezondheidsprobleem van
+dezelfde orde als roken.
+
+#### De gang van het boek
+
+**Het hart als pomp en als elektrisch systeem**
+
+Het eerste deel is een cardiologische inleiding van Hofstra. Het hart pompt
+ongeveer honderdduizend keer per dag, in rust zo'n zeventig milliliter per
+slag, wat neerkomt op vier liter per minuut. Bij inspanning kan dat oplopen
+tot vijftien à twintig liter, waarbij een rode bloedcel niet een minuut maar
+ongeveer twintig seconden over een rondje door het lichaam doet. De aansturing
+loopt via de sinusknoop, de AV-knoop en de bundeltakken, met de sinusknoop als
+dirigent die in rust ongeveer eenmaal per seconde een puls afgeeft.
+
+Daarna volgen de ziektebeelden: aderverkalking, angina pectoris, het
+hartinfarct, ritmestoornissen en hartfalen. De auteurs melden dat in Nederland
+jaarlijks ongeveer twintigduizend mensen aan hart- en vaatziekten overlijden
+en dat leefstijlfactoren voor zo'n 90 procent verantwoordelijk zijn voor de
+kans op een hartinfarct. Dezelfde 90 procent noemen zij voor beroertes. Bij
+atriumfibrilleren rekenen zij voor dat van de vijfenveertigduizend Nederlandse
+beroertes per jaar er ongeveer negenduizend uit boezemfibrilleren voortkomen.
+
+**De hersenen en hun bloedvoorziening**
+
+Scherder neemt het tweede deel voor zijn rekening. Hij deelt de hersenen op in
+ruggenmerg, hersenstam, kleine hersenen en de voor- en achterzijde van de
+grote hersenen, en beschrijft per onderdeel de functie. Zintuiglijke
+informatie komt binnen aan de achterzijde, de frontale lob filtert, plant en
+voert uit.
+
+Het scharnierpunt van het boek zit in de vergelijking tussen grijze en witte
+stof. De hersenen gebruiken ongeveer 55 milliliter bloed per 100 gram weefsel
+per minuut, bij elkaar zo'n 20 procent van wat het hart uitpompt. Onder
+verwijzing naar een studie van Kubikova en medewerkers uit 2018 stellen de
+auteurs dat de witte stof, de met myeline beklede verbindingen tussen
+hersengebieden, minder dicht van bloedvaten is voorzien dan de grijze stof.
+Juist die verbindingen zijn dus het kwetsbaarst wanneer de doorbloeding
+terugloopt. Van daaruit lopen de lijnen naar herseninfarct, TIA en dementie.
+
+**NO als verbindend mechanisme**
+
+Het derde deel draagt de titel 'NO heart NO brain' en legt uit hoe bewegen op
+de vaten inwerkt. Toenemende bloedstroom veroorzaakt schuring langs het
+endotheel, in de vakliteratuur shear stress genoemd. Die prikkel zet
+endotheelcellen aan tot productie van NO, en NO verwijdt het vat. De auteurs
+melden dat de aanmaak vanaf het zestigste levensjaar met ongeveer 85 procent
+daalt.
+
+Hier wordt het boek ook een dosisverhaal. Aerobe inspanning van matige
+intensiteit, dertig minuten of langer, verbetert volgens een overzicht van
+Larsen en Matchkov uit 2016 de endotheelfunctie bij mensen met hoge bloeddruk.
+Inspanning met zeer hoge intensiteit gaf in andere studies juist een hogere
+bloeddruk en minder vaatverwijding. De auteurs verklaren die tegenspraak uit
+verschil in duur, frequentie, type en intensiteit, en concluderen dat matige
+inspanning zoals fietsen, joggen of stevig doorwandelen het gunstigst is voor
+de vaten.
+
+**Zitten, en wat ertegen te doen**
+
+Het hoofdstuk over zitten is het meest praktische. Twee uur aaneengesloten
+zitten geeft al klachten, met name lage rugpijn. De auteurs zetten daarna best
+practices op een rij, met de uitdrukkelijke waarschuwing dat voor lang niet
+elk advies een meta-analyse bestaat en dat zij bij gebrek daaraan de meest
+recente losse studies weergeven.
+
+Vijf minuten lopen na een half uur zitten heeft volgens die studies effect op
+bloeddruk en insulinehuishouding, terwijl alleen gaan staan dat effect niet
+geeft. Het zitten onderbreken met dertig minuten wandelen zou de
+insulinegevoeligheid met 18 procent verhogen. De Nederlandse beweegnorm van
+150 minuten per week noemen zij te laag; de norm van de
+Wereldgezondheidsorganisatie uit 2018 staat op 300 minuten, en de auteurs
+verwijzen naar adviezen die richting 400 minuten per week gaan, gecombineerd
+met twee tot drie keer weerstandstraining. Dansen krijgt een apart hoofdstuk,
+waarin een dansstudie bij kinderen met overgewicht een betere doorstroming
+liet zien zonder meetbare toename van NO, wat zij toeschrijven aan te hoge
+trainingsintensiteit en een hoger LDL-gehalte bij de non-responders.
+
+**Voeding, maar zonder dieet**
+
+Deel vier gaat over voeding, telkens bezien vanuit de vraag wat een stof met
+NO doet. Aan bod komen borstvoeding, waarbij het zuigen zelf de prikkel voor
+NO-productie lijkt te zijn, voeding bij te vroeg geboren kinderen, polyfenolen
+en flavonoïden uit fruit, thee, koffie, noten en rode wijn, en de verwerking
+van vet en suiker in het beloningssysteem.
+
+De auteurs houden hier meer slagen om de arm dan elders. Zij noteren dat het
+mechanisme waarlangs flavonoïden via NO tot vaatverwijding zouden leiden nog
+niet met zekerheid is vastgesteld, dat epidemiologische studies naar thee,
+uien en appels geen oorzaak aantonen en dat de bevindingen elkaar soms
+tegenspreken. Eén meta-analyse noemen zij: drie koppen thee per dag ging samen
+met 11 procent minder nieuwe hartinfarcten. Een dieetboek wilden zij naar
+eigen zeggen niet schrijven, en dat is het ook niet geworden.
+
+**Doe moeite**
+
+Het slotdeel keert de vraag om: waarom lukt het niet? De
+Wereldgezondheidsorganisatie riep lichamelijke inactiviteit in 2012 uit tot
+pandemie, met jaarlijks ongeveer 5,3 miljoen sterfgevallen aan daaraan
+gerelateerde ziekten. Updates in 2016 en 2019 lieten volgens de auteurs geen
+verandering zien; de titel van de laatste bevatte de vraag wat ons tegenhoudt.
+
+Daarnaast betrekken zij cognitieve inspanning en eenzaamheid in het betoog.
+Eenzaamheid definiëren zij als het verschil tussen gewenste en werkelijke
+sociale relaties, en zij koppelen die aan activering van de stress-as en
+verhoogde cortisolproductie, die op haar beurt de NO-productie remt. Een
+sociaal leven zou de kans op vroegtijdig overlijden met ongeveer 50 procent
+verkleinen. Verveling en een lage 'need for cognition' plaatsen zij tegenover
+het motto 'use it or lose it'.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Nitric oxide (NO) | Gasvormig molecuul dat het endotheel afgeeft en dat bloedvaten verwijdt. |
+| Shear stress | Het schuren van stromend bloed langs de binnenwand van het vat, de prikkel die NO-productie op gang brengt. |
+| Endotheel | De cellaag aan de binnenkant van de bloedvatwand waar NO wordt gevormd. |
+| Witte stof | De met myeline beklede verbindingen tussen hersengebieden, die minder dicht van bloedvaten zijn voorzien dan de grijze stof. |
+| Neurovascular coupling | De koppeling tussen activiteit in zenuwbanen en de doorbloeding van het omringende hersenweefsel. |
+| Atriumfibrilleren | Chaotische elektrische activatie van de boezems, waardoor stolsels kunnen ontstaan die tot een herseninfarct leiden. |
+| Physical Inactivity | De term waarmee de Wereldgezondheidsorganisatie lichamelijke inactiviteit sinds 2012 als pandemie aanduidt. |
+| Best practice | Een advies dat op de meest recente studie berust omdat een meta-analyse ontbreekt. |
+| Use it or lose it | Het uitgangspunt dat hersenfuncties die niet gebruikt worden achteruitgaan. |
+
+#### Waar het argument op rust
+
+Het boek leunt op een lange literatuurlijst met genummerde noten en noemt bij
+vrijwel elke bewering een studie. Dat is meer dan gebruikelijk in dit genre en
+het maakt narekenen mogelijk. De auteurs zijn bovendien opvallend openhartig
+over de sterkte van hun bronnen: zij zeggen erbij dat meta-analyses het
+zwaarste bewijs vormen, dat die voor veel van hun adviezen ontbreken, en dat
+zij dan de recentste losse studies weergeven.
+
+De harde kern van het betoog, dat de bloedvaten van hart en hersenen één keten
+vormen en dat lichamelijke activiteit die keten ten goede komt, staat stevig.
+Dat aderverkalking het risico op infarcten en op schade aan de witte stof
+verhoogt, en dat leefstijl daar zwaar op weegt, is geen omstreden standpunt.
+Hetzelfde geldt voor de vaststelling dat langdurig zitten losstaat van de
+vraag of iemand daarnaast sport.
+
+De schakel die het boek zijn eigen karakter geeft, NO als verklarend
+mechanisme, is zwakker onderbouwd dan de rest. Veel aangehaalde studies zijn
+klein, sommige zijn dierproeven, en de mensenstudie over trainingsvormen telde
+eenentwintig jonge mannen. De auteurs verzwijgen dat niet, maar de rol die NO
+in de opbouw van het boek krijgt is groter dan die studies dragen. Bij de
+voedingshoofdstukken zeggen zij zelf dat het mechanisme nog niet vaststaat en
+dat epidemiologische bevindingen elkaar tegenspreken.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de titel meer belooft dan het boek inlost. De
+hart-hersenverbinding wordt vooral als vaatverhaal ingevuld: de hersenen
+krijgen bloed, dus zorg voor de vaten. De omgekeerde richting, hoe de hersenen
+het hart aansturen, blijft grotendeels onbehandeld, terwijl de auteurs die in
+het voorwoord wel aankondigen.
+
+De cijfers over beweegduur zijn minder hard dan het stellige toon doet
+vermoeden. Het boek loopt op van 150 via 300 naar 400 minuten per week en
+noemt daarnaast vijftig tot zestig minuten per dag, telkens op gezag van
+andere auteurs. Wie die getallen naast elkaar legt, ziet geen uitkomst van
+onderzoek maar een oplopende reeks adviezen. Een lezer die wil weten wat hij
+minimaal moet doen, komt er niet uit.
+
+De vorm werkt tegen de inhoud. Het boek is een aaneenschakeling van losse
+studiebeschrijvingen met uitroeptekens ertussen, doorsneden met persoonlijke
+kaderstukken die van heel andere aard zijn dan de omringende tekst. Het
+uitgebreide portret van Isabelle, een meisje met het syndroom van Leigh dat in
+2019 overleed, is indrukwekkend maar staat inhoudelijk los van de vaatthese.
+Zulke passages verschuiven het boek van uitleg naar aansporing, en de
+aansporing is precies waar het slotdeel zelf vaststelt dat zij niet werkt:
+drie WHO-updates lang veranderde er niets.
+
+Ten slotte blijft de sociale kant onderbelicht. De auteurs erkennen dat veel
+mensen met obesitas of hart- en vaatziekten niet vrij zijn in hun keuzes, maar
+trekken daar geen consequentie uit. Het advies blijft individueel gericht,
+terwijl hun eigen constatering dat de wereld collectief is gaan zitten juist
+op omgeving en inrichting wijst.
+
+#### Wat er concreet mee te doen is
+
+- Onderbreek elk half uur zitten met een paar minuten lopen; alleen gaan staan
+geeft dat effect niet.
+- Kies bij duurinspanning voor matige intensiteit, dertig minuten of meer, en
+bouw langzaam op.
+- Combineer duurtraining met twee tot drie keer per week weerstandstraining.
+- Laat bij hartkloppingen of overslagen die niet wijken de polsslag of een
+hartfilmpje beoordelen, omdat boezemfibrilleren vroeg opsporen het
+beroerterisico verlaagt.
+- Behandel sociaal contact als onderdeel van de leefstijl, niet als bijzaak.
+
+#### Wat je hierna leest
+
+- 84. Laat je hersenen niet zitten. Scherders eerdere *Laat je hersenen niet
+zitten* bevat dezelfde beweegboodschap zonder de cardiologische helft, en laat
+zien hoeveel het NO-mechanisme aan dit boek toevoegt.
+- 85. Singing in the brain. In *Singing in the brain* werkt Scherder een
+andere route naar hetzelfde doel uit, muziek in plaats van bloedvaten.
+- 52. Why We Sleep. Walker behandelt in *Why We Sleep* de derde grote
+leefstijlfactor die hier vrijwel ontbreekt, en zit qua stelligheid in
+hetzelfde register.
+- 138. The Shift. Foster laat in *The Shift* zien waarom gedragsverandering
+rond gewicht en beweging in de praktijk stukloopt, precies waar dit boek
+blijft aansporen.
+
 ## 87. Activeer je nervus vagus
 
 Luc Swinnen, 2023. Bij Lannoo (2023). Swinnen is arts en schrijft over stress
@@ -14487,6 +16931,221 @@ meting van vagale activiteit via hartslagvariabiliteit is minder eenduidig dan
 populaire boeken doen voorkomen. Het is te lezen als praktische gids en niet
 als medisch bewijsstuk.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Swinnen stelt dat de zwervende hersenzenuw, de nervus vagus,
+de plek is waar lichaam en geest samenkomen, en dat wie leert die zenuw te
+sturen daarmee greep krijgt op stress, angst, trauma, veerkracht en zelfs
+immuniteit. Hij bouwt dat op de polyvagaaltheorie van Stephen Porges: het
+autonome zenuwstelsel kent drie toestanden met een vaste rangorde, en de
+bovenste daarvan, de ventrale vagus, maakt sociale verbinding mogelijk.
+Daaruit volgt zijn belofte: met ademhaling, hartcoherentie en een reeks
+oefeningen kan iemand zijn eigen zenuwstelsel naar die bovenste stand brengen.
+
+#### De gang van het boek
+
+**Descartes had ongelijk**
+
+Swinnen, arts en statisticus, opent met zijn eigen loopbaan. Als
+verzekeringsarts zag hij dat een louter lichamelijke verklaring van klachten
+tekortschoot en dat mensen zonder aantoonbare afwijking als profiteur werden
+weggezet. Hij plaatst daartegenover het biopsychosociale model van gezondheid
+en de definitie van de Wereldgezondheidsorganisatie, waarin gezondheid meer is
+dan afwezigheid van ziekte.
+
+Zijn keerpunt legt hij bij een onderzoek naar stress waarbij 24.000 dossiers
+werden doorgenomen, en bij het werk van Antonio Damasio over de verstrengeling
+van emotie en rede. Het verhaal van Phineas Gage, de spoorwegarbeider die in
+1848 een ijzeren staaf door zijn prefrontale schors kreeg en daarna ontremd
+gedrag vertoonde, dient als bewijsstuk dat de geest aan het lichaam vastzit.
+
+**Stress en zenuwstelsel**
+
+De eerste twee hoofdstukken zijn leerboekachtig. De stressreactie loopt via
+hypothalamus, hypofyse en bijnieren; adrenaline en noradrenaline maken alert,
+cortisol komt later en herstelt de energiebalans. Korte stress vangt het
+lichaam op, langdurige stress geeft lichamelijke, emotionele, cognitieve en
+gedragsmatige klachten. Swinnen stelt dat langdurig verhoogde cortisolspiegels
+verbindingen tussen hersencellen afbreken en bij aanhouden tot blijvende
+schade kunnen leiden.
+
+Daarna volgt de indeling van het zenuwstelsel: centraal en perifeer,
+willekeurig en autonoom, en binnen het autonome de sympathicus en de
+parasympathicus. De nervus vagus is de tiende hersenzenuw, die vanuit de
+hersenstam door borst en buik zwerft en het overgrote deel van zijn vezels als
+aanvoer naar het brein gebruikt in plaats van als afvoer. Ook de wet van
+Yerkes en Dodson komt langs: prestatie stijgt met spanning tot een punt en
+daalt daarna.
+
+**De polyvagaaltheorie in drie principes**
+
+Het derde hoofdstuk vat Porges samen in drie principes. Het eerste is
+hiërarchie: er zijn drie autonome staten met een evolutionaire volgorde. De
+dorsale vagus is de oudste en immobiliseert bij overweldigend gevaar, de
+sympathicus zet aan tot vechten of vluchten, en de ventrale vagus, in deze
+theorie de jongste en alleen bij zoogdieren aanwezig, maakt sociale
+betrokkenheid mogelijk. Bij dreiging zou het systeem die ladder afdalen.
+
+Het tweede principe is neuroceptie, het onbewust aftasten van de omgeving op
+signalen van veiligheid of gevaar, dat Swinnen vergelijkt met de uitkijk op
+een schip. Het derde is coregulatie: mensen kalmeren hun eigen zenuwstelsel
+via dat van een ander. Daar hangt zijn evolutionaire verhaallijn aan, dat de
+homo sapiens niet won omdat hij sterker of slimmer was dan de neanderthaler,
+maar omdat hij vriendelijker was. Het boek eindigt op datzelfde motief,
+survival of the friendliest.
+
+**Staten leren herkennen**
+
+Hoofdstuk vier en vijf maken de theorie tot zelfonderzoek. Triggers zijn
+prikkels die iemand uit de ventrale staat duwen, glimmers zijn kleine signalen
+die hem er juist in brengen. Ankeren en hulpbronnen dienen om die glimmers
+vast te houden.
+
+Mapping is de kernoefening: iemand tekent zijn persoonlijke profiel van
+autonome staten, met gradaties binnen elke staat en met gemengde toestanden.
+Freeze, play en stillness krijgen elk een eigen bespreking, waarbij play en
+stillness gelden als mengvormen waarin de ventrale vagus samenwerkt met
+respectievelijk sympathicus en dorsale vagus.
+
+**De vagale rem en de ademhaling**
+
+Het zesde hoofdstuk levert het mechanisme waar de praktische helft op rust.
+Naast de sinusknoop bestaat er volgens Porges een ventrale vagale rem die het
+hartritme rond zijn rustwaarde houdt. Bij inademen gaat die rem iets open en
+versnelt het hart, bij uitademen sluit hij en vertraagt het. Wie leert die rem
+te bedienen, kan energie toevoegen zonder in een stressreactie te schieten.
+
+De bijbehorende oefening is de 4-7-8-ademhaling van Andrew Weil: vier tellen
+in door de neus, zeven tellen vasthouden, acht tellen uit door de mond, te
+beginnen met vier herhalingen tweemaal per dag. Daarnaast werkt Swinnen met
+beelden, een fiets die een helling afgaat, een dimmer, een ophaalbrug,
+gekoppeld aan een handgebaar en aan de woorden 'meer energie' of 'minder
+energie'. Wie in de dorsale staat zit moet volgens hem eerst licht bewegen
+voor hij de rem gebruikt.
+
+**Hartcoherentie, trauma en veerkracht**
+
+Hoofdstuk zeven behandelt hartcoherentie, een begrip dat hij toeschrijft aan
+David Servan-Schreiber: het samenvallen van hartslag en ademhaling, met het
+sterkste effect rond zes ademhalingen per minuut. Hij geeft een zelftest,
+ademhalingen tellen gedurende drie minuten en delen door drie, met
+richtwaarden voor gezond, opletten en langsgaan bij de arts.
+Hartritmevariabiliteit, de variatie in tijd tussen twee hartslagen,
+presenteert hij als biologische maat voor veerkracht.
+
+Daarna komen trauma en dissociatie, met een pleidooi voor traag werken, en een
+hoofdstuk over veerkracht met copingstijlen en vier C's. Hoofdstuk tien bevat
+dertien oefeningen, van visualisatie en metaforen tot deep listening,
+elevatorpitch, meditatie, SWOT-analyse en de cirkel van invloed. Het
+slothoofdstuk verbindt de theorie met autisme en met psychologische veiligheid
+op het werk.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Nervus vagus | De tiende hersenzenuw, die vanuit de hersenstam door borst en buik loopt en organen met het brein verbindt. |
+| Ventrale vagus | In de polyvagaaltheorie de tak die hoort bij rust, veiligheid en sociale betrokkenheid. |
+| Dorsale vagus | De tak die volgens de theorie bij overweldigend gevaar tot bevriezen en afsluiten leidt. |
+| Neuroceptie | Het onbewuste aftasten van de omgeving op signalen van gevaar of veiligheid. |
+| Coregulatie | Het kalmeren van het eigen zenuwstelsel via contact met dat van een ander. |
+| Vagale rem | Het door de ventrale vagus bestuurde systeem dat het hartritme afremt en loslaat. |
+| Glimmer | Een kleine prikkel die iemand terugbrengt in de ventrale staat, tegenhanger van een trigger. |
+| Mapping | Het in kaart brengen van je eigen autonome staten en de overgangen ertussen. |
+| Hartcoherentie | Een patroon waarbij hartslag en ademhaling ritmisch samenvallen, sterkst rond zes ademhalingen per minuut. |
+| Hartritmevariabiliteit | De variatie in tijd tussen opeenvolgende hartslagen, door Swinnen gebruikt als maat voor veerkracht. |
+
+#### Waar het argument op rust
+
+Het boek verwijst naar wetenschappelijk werk en heeft een literatuurlijst,
+maar het is geen overzicht van onderzoek. Swinnen zegt zelf dat hij vakjargon
+vermijdt, dat wie verdieping zoekt bij Porges en Deb Dana moet zijn, en dat de
+polyvagaaltheorie jong is en later genuanceerd kan worden. Die voorbehouden
+staan in de inleiding en worden daarna niet meer herhaald.
+
+De delen die het stevigst staan zijn de algemene: dat langdurige stress
+schadelijk is, dat lichaam en geest niet los van elkaar te behandelen zijn,
+dat sociaal contact tegen stress beschermt, en dat langzaam en langer
+uitademen het hartritme vertraagt. Die laatste koppeling tussen ademhaling en
+hartslag is een gemeten fysiologisch verschijnsel, respiratoire sinusaritmie,
+dat al lang voor Porges bekend was.
+
+Het theoretische bouwwerk waar de titel op rust, ligt anders. De
+polyvagaaltheorie is in de vakliteratuur omstreden. De anatomische en
+evolutionaire aannames erachter worden betwist: critici, onder wie Paul
+Grossman, wijzen erop dat een gemyeliniseerde vagale aansturing van het hart
+ook bij niet-zoogdieren voorkomt, zodat de gestelde tegenstelling tussen een
+oude en een specifiek zoogdierlijke tak niet houdbaar is, en dat
+hartritmevariabiliteit geen specifieke afspiegeling van een 'ventrale'
+toestand is. De theorie is in de traumazorg breed overgenomen zonder dat die
+kritiek daar is verwerkt.
+
+De oefeningen zelf rusten op materiaal van heel wisselende zwaarte. Langzame
+ademhaling rond zes ademhalingen per minuut is in kleine studies onderzocht en
+laat kortdurende effecten op hartslag en subjectieve spanning zien; de
+4-7-8-ademhaling is naar een populaire bron genoemd, niet naar onderzoek. Voor
+de claim dat deze meditatie leidt tot betere spijsvertering, meer creativiteit
+en meer altruïsme geeft het boek geen bron. Bij oefeningen als de
+elevatorpitch, de SWOT-analyse en de zes denkende hoeden ontbreekt elk verband
+met de vagus; dat zijn trainingsmiddelen die hier onder een neurobiologische
+vlag zijn gebracht.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek een omstreden theorie presenteert als
+vaststaande kennis en daar vervolgens een levensinrichting op bouwt. De
+inleiding bevat één zin waarin staat dat de theorie jong is; daarna heet zij
+wetenschappelijk onderbouwd en door feiten gestaafd. Wie alleen dit boek
+leest, kan niet weten dat het onderliggende model in de fysiologie serieus
+wordt aangevochten.
+
+Het verklaringsbereik is te groot. Angst, trauma, burn-out, immuniteit,
+creativiteit, leiderschap, autisme en psychologische veiligheid worden alle op
+dezelfde drie autonome staten teruggevoerd. Een model dat alles verklaart,
+verklaart weinig, en het maakt bovendien onnavolgbaar welke bewering nog uit
+de theorie volgt en welke er alleen naast is gezet.
+
+Er zit een verschuiving in van beschrijving naar verantwoordelijkheid. Als
+iemands klachten voortkomen uit de stand van zijn zenuwstelsel, en die stand
+met oefening te sturen is, dan wordt aanhoudende klacht al snel een kwestie
+van te weinig oefenen. Swinnen pleit uitdrukkelijk voor mildheid en waarschuwt
+dat het boek geen behandeling vervangt, maar de opbouw van de tweede helft,
+dertien oefeningen op rij, werkt de andere kant op.
+
+Het evolutionaire kaderverhaal is bovendien losser dan het klinkt. Dat de homo
+sapiens de neanderthaler overleefde omdat hij vriendelijker was, is een
+hypothese onder meerdere, en waarom de neanderthaler verdween is niet
+opgelost. Het boek presenteert het als gegeven en gebruikt het als sluitstuk.
+Ook het anekdotische bewijs, Phineas Gage en de soldaat uit Japan, doet ouder
+werk over dat pad: het zijn illustraties, geen argumenten.
+
+#### Wat er concreet mee te doen is
+
+- Tel drie minuten lang je ademhalingen en deel door drie om te weten hoe snel
+je gewoonlijk ademt.
+- Adem langer uit dan in wanneer je wilt vertragen; dat is het onderdeel met
+de meeste fysiologische grond.
+- Schrijf op welke situaties je uit balans brengen en welke kleine dingen je
+terugbrengen, los van de theorie eromheen.
+- Zoek bij spanning contact met iemand anders in plaats van alleen een
+oefening te doen.
+- Raadpleeg een arts bij aanhoudende klachten en behandel de oefeningen niet
+als behandeling.
+
+#### Wat je hierna leest
+
+- 104. Oud zeer. Bakker behandelt in *Oud zeer* hetzelfde terrein van lichaam,
+trauma en ademhaling, en laat zien hoe verschillend de onderbouwing binnen dit
+genre kan uitpakken.
+- 118. Coping Skills. Harper geeft in *Coping Skills* vergelijkbare oefeningen
+met minder theoretische pretentie, wat de vergelijking eerlijk maakt.
+- 84. Laat je hersenen niet zitten. Scherder beschrijft in *Laat je hersenen
+niet zitten* de verbinding tussen lichaam en brein met genummerde bronnen bij
+vrijwel elke bewering, wat het verschil in bewijsvoering zichtbaar maakt.
+- 55. Thinking, Fast and Slow. Kahneman laat in *Thinking, Fast and Slow* zien
+hoe aantrekkelijk een sluitend verhaal is, ook wanneer het bewijs eronder dun
+is.
+
 ## 88. Gewoontedieren
 
 Nicklas Brendborg, 2023. Oorspronkelijk Deens; Nederlands bij De Bezige Bij
@@ -14506,6 +17165,228 @@ Zijn kracht is dat hij als bioloog uitlegt waaróm iets werkt en dat hij
 eerlijk is over de grenzen van de kennis. Wie eerder *Kwallen verouderen niet*
 van hem las, herkent de opzet: veel korte hoofdstukken, luchtig geschreven,
 met de nuance in de laatste alinea in plaats van in de kop.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Brendborg betoogt dat de moderne mens zich in dezelfde val
+laat lokken als een scholekster die een gipsen ei uitbroedt. Onze instincten
+zijn afgesteld op een wereld waarin het sterkste signaal doorgaans ook het
+beste was, en die vuistregel had geen bovengrens nodig. Industrieën hebben
+daar een verdienmodel van gemaakt: zij bouwen overdreven versies van waar wij
+van nature op aanslaan, superstimuli, en verkopen die aan ons. Van
+ultrabewerkt voedsel via porno en drugs tot sociale media en lichaamsidealen
+loopt volgens hem één mechanisme, en de escalatie stopt niet vanzelf, omdat
+gewenning telkens om een sterker signaal vraagt.
+
+#### De gang van het boek
+
+**Het gipsen ei**
+
+Het boek opent bij de scholekster die een veel te groot gipsen ei probeert uit
+te broeden, uit het werk van Nikolaas Tinbergen, die in 1973 de Nobelprijs
+voor de Fysiologie of Geneeskunde ontving. In de natuur zegt de omvang van een
+ei iets over de kans op een gezond kuiken, dus loont de regel 'hoe groter hoe
+beter'. Een bovengrens is nooit nodig geweest.
+
+Datzelfde geldt voor de bonte vliegenvanger, die een knalblauw geverfd gipsei
+boven haar eigen eitjes verkiest, en voor ganzen die volleyballen uitbroeden.
+Brendborg laat de lezer eerst lachen om die vogels en draait dan de camera om.
+Superstimuli, kunstmatige prikkels die het natuurlijke overtreffen, werken bij
+mensen precies zo.
+
+**Waarom afvallen door bewegen tegenvalt**
+
+Het eerste deel gaat over gewicht en begint met een correctie. Als verklaring
+voor de toename van overgewicht valt genetica af, want onze genen zijn
+dezelfde als die van onze slanke overgrootouders. De voor de hand liggende
+opvolger, te weinig bewegen, houdt volgens hem evenmin stand.
+
+Hij baseert dat op het werk van evolutiebioloog Herman Pontzer, die met
+dubbelgemarkeerd water het energieverbruik mat van onder meer het Hadzavolk in
+Tanzania. Een Hadzaman zet gemiddeld 19.000 stappen per dag, een vrouw
+ongeveer 13.000, maar gecorrigeerd voor lichaamslengte verbrandt een Hadza per
+dag niet meer dan een Deen. Hetzelfde patroon vond Pontzer bij stads- en
+Amazonekinderen in Ecuador en bij dieren in dierentuinen. Het lichaam
+compenseert: wie meer beweegt, verlaagt elders het verbruik, bij duuratleten
+tot in de geslachtshormonen toe. Brendborg tekent er nadrukkelijk bij aan dat
+bewegen daarmee niet zinloos wordt; het blijft volgens hem een van de
+gezondste dingen die iemand kan doen.
+
+**Suiker, vet en zout**
+
+Als bewegen het niet is, blijft eten over. Hier komt het scholeksterprincipe
+terug. Onderzoekers die knaagdieren dik wilden krijgen kwamen er niet met
+dwangvoeren of vetrijke voederpillen; het lukte pas toen zij supermarktsnacks
+voorzetten, in het vakjargon kantinevoer. Binnen enkele weken waren de dieren
+zwaar.
+
+Daarna behandelt hij de drie bestanddelen. Vet is de meest geconcentreerde
+energiebron, met dubbel zoveel calorieën per gram als eiwit en koolhydraten,
+en onze voorkeur ervoor is zichtbaar in het vee: varkens hebben drieënhalf
+keer meer lichaamsvet dan wilde zwijnen, koeien vier tot zes keer meer dan
+bizons. Konijnenvlees bevat daarentegen ongeveer een gram vet per honderd
+gram, te weinig om alleen van te leven, wat het Amerikaanse leger in een
+overlevingsgids als konijnenhonger beschreef. Zout noemt hij het bestanddeel
+dat in geen enkel fabrieksvoedsel ontbreekt: de fysiologische behoefte ligt
+rond een halve gram per dag, de werkelijke inname vele malen hoger.
+
+**De Tsimane en het aardappeljaar**
+
+Het tweede deel verlegt de vraag van gewicht naar gezondheid. Bij het
+Tsimanevolk in het Boliviaanse Amazonegebied vonden onderzoekers hoge
+ontstekingswaarden door parasieten, en verwachtten daarom aderverkalking. Zij
+troffen het omgekeerde aan: de gezondste harten en vaten die ooit zijn
+gedocumenteerd, ook bij de oudste stamleden. Ter vergelijking noemt hij dat
+een derde van alle sterfgevallen wereldwijd door hart- en vaatziekten komt.
+
+Daartegenover zet hij Andrew Taylor uit Melbourne, die 151 kilo woog en een
+jaar lang vrijwel alleen aardappels at, met zout en een vitaminesupplement
+erbij, en 53 kilo kwijtraakte zonder honger te lijden. Brendborg probeerde het
+zelf een week en kwam tot dezelfde slotsom: de aardappel verzadigt zo sterk
+dat er niet genoeg van te eten valt. Het punt is niet het dieet maar de
+omkering. Wie de variatie en de prikkels uit zijn eten haalt, eet vanzelf
+minder. Het hoofdstuk over dinitrofenol, het springstofchemicalie dat in de
+jaren dertig als afslankmiddel werd verkocht en mensen doodde aan
+oververhitting, dient als waarschuwing tegen de omgekeerde weg.
+
+**Van beloningssysteem naar scherm**
+
+In het derde deel gaat het van omweg naar directe route. Cannabis werkt op
+cannabinoïdereceptoren die er zitten voor lichaamseigen stoffen, opium op
+opioïdereceptoren die er zitten voor endorfine en enkefaline. Beide zijn
+chemische sluipwegen naar het beloningssysteem, en beide escaleren: het
+gemiddelde THC-gehalte in op straat aangetroffen cannabis liep in Denemarken
+van 0,6 procent in 1970 naar 25 procent in 2017. Het experiment van Olds en
+Milner uit de jaren vijftig, waarin ratten zichzelf via een elektrode in het
+beloningssysteem stimuleerden tot zij eten negeerden, is de grens van die
+lijn: hoe korter de vertraging, hoe verslavender.
+
+Het vierde deel past hetzelfde toe op sociale behoeften. Televisieseries over
+gewone vriendengroepen zijn overdreven versies van gezelschap. Sociale media
+noemt hij de best geoliede superstimulimachine, met de Skinner-box als model:
+onvoorspelbare beloning houdt gedrag het hardnekkigst in stand. Hij noemt dat
+ongeveer 80 procent van de wereldbevolking een smartphone heeft, meer dan het
+aantal mensen met toegang tot een toilet, en dat schermtijd oploopt van
+ongeveer vijf uur bij vijfenvijftigplussers tot ongeveer acht uur bij zestien-
+tot vierentwintigjarigen.
+
+**Vergelijken en obsessie**
+
+De laatste hoofdstukken gaan over wat superstimuli met het zelfbeeld doen. Bij
+boerenzwaluwen volstaat een stift om een mannetje donkerder te kleuren en zo
+aantrekkelijker te maken. Bij mensen werken cosmetica, bewerkte beelden en
+lichaamsidealen op vergelijkbare wijze, ook al zijn schoonheidsidealen
+cultureel bepaald. Dat cultuur en superstimulus elkaar niet uitsluiten
+onderbouwt hij met het peak shift-effect: een dier dat een aangeleerd patroon
+herkent, gaat de overdreven variant ervan verkiezen.
+
+Michael Phelps dient als voorbeeld van de vergelijkingsval: een lichaam dat zo
+ongewoon is dat vergelijking ermee zinloos is, maar dat door media wel als
+maatstaf wordt aangeboden. Het slothoofdstuk keert de zaak om met Srinivasa
+Ramanujan, die zich niet tot iets anders dan wiskunde kon zetten en daardoor
+tweemaal van de universiteit werd gestuurd, en met de zussen Polgár. Dezelfde
+obsessieve aanleg die ons voor superstimuli vatbaar maakt, ligt onder
+buitengewone prestaties.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Superstimulus | Een overdreven versie van een natuurlijke prikkel, die sterker aanslaat dan het echte voorwerp. |
+| Kantinevoer | De term voor supermarktsnacks in proefdieronderzoek, het middel waarmee ratten binnen weken zwaar worden. |
+| Dubbelgemarkeerd water | De nauwkeurigste methode om iemands dagelijkse energieverbruik te meten. |
+| Compensatie | Het verschijnsel dat het lichaam bij meer beweging elders energie bespaart, waardoor het totale verbruik nauwelijks stijgt. |
+| Ultrabewerkt voedsel | Fabrieksvoedsel waarin suiker, vet, zout, kleur, textuur en geluid op eetlust zijn afgestemd. |
+| Konijnenhonger | De aandoening die ontstaat door uitsluitend zeer mager vlees te eten, genoemd in een Amerikaanse legergids. |
+| Skinner-box | De kooi met beloningsknop waarmee B.F. Skinner liet zien dat onvoorspelbare beloning gedrag het sterkst vasthoudt. |
+| Peak shift-effect | De neiging om, na het aanleren van een patroon, de overdreven variant ervan te verkiezen. |
+| Escalatie | Het proces waarbij gewenning telkens om een sterkere prikkel vraagt om hetzelfde effect te krijgen. |
+
+#### Waar het argument op rust
+
+Brendborg is moleculair bioloog en werkt als populariserend schrijver. Het
+boek heeft een bronnenlijst en steunt op herkenbaar onderzoek: Tinbergen op de
+superstimuli, Pontzer op het energieverbruik, Olds en Milner op
+zelfstimulatie, Skinner op beloningsschema's, en de Tsimane-studies op hart-
+en vaatgezondheid. Dat zijn geen randfiguren en de bevindingen zijn in
+hoofdlijn niet omstreden.
+
+Het compensatieverhaal van Pontzer is de sterkste passage, omdat het een breed
+geloofd verband ontkracht met metingen in plaats van redeneringen, en omdat
+Brendborg de nuances erbij zet: op individueel niveau bestaan verschillen,
+extreme inspanning is niet volledig te compenseren, en beweging voorspelt wel
+wie zijn gewicht behoudt. Dat hij het genre ontkomt waarin één inzicht alles
+moet dragen, pleit voor hem.
+
+De verbindende these is zwakker dan de losse onderdelen. Superstimulus is een
+begrip uit de gedragsbiologie dat oorspronkelijk sloeg op aangeboren,
+vastomlijnde reactieketens bij dieren. Het overzetten daarvan op ultrabewerkt
+voedsel, porno, sociale media en cosmetica gebeurt hier op grond van
+gelijkenis, niet op grond van gemeten mechanisme. Dat het patroon telkens
+past, is deels een eigenschap van het patroon.
+
+Bij de digitale hoofdstukken is de onderbouwing het dunst. De gegevens over
+schermtijd zijn schattingen, de aangehaalde Britse belevingsstudie meet
+momentgeluk en geen langetermijneffect, en de vraag of sociale media schade
+toebrengen of vooral samengaan met andere problemen is in het vakgebied
+onbeslist. Brendborg noemt dat niet.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat één begrip te veel moet dragen. Voedsel, drugs,
+porno, schermen en schoonheidsidealen worden alle als superstimulus behandeld,
+maar zij verschillen wezenlijk. Bij opium en THC is de werking op receptoren
+aangetoond; bij een televisieserie over vrienden is de vergelijking hooguit
+een beeld. Door beide onder dezelfde noemer te brengen wint het boek aan
+overtuigingskracht wat het aan precisie verliest.
+
+Het schuift daarmee ook de verantwoordelijkheid in één richting. Het beeld van
+de industrie met duizenden werknemers die tegen jouw wilskracht spelen, is
+aantrekkelijk en niet onwaar, maar het maakt de lezer tot slachtoffer van een
+ontwerp. Wat daaruit volgt blijft grotendeels open: het boek eindigt eerder in
+verwondering over obsessie dan in een uitweg, en waar de omgeving wél
+veranderd zou kunnen worden, in beleid, prijs of aanbod, gaat het nauwelijks
+over.
+
+De aardappelkuur illustreert een tweede probleem. Het verhaal van Andrew
+Taylor en Brendborgs eigen week zijn onderhoudend en ondersteunen zijn punt
+over variatie en verzadiging, maar het zijn twee gevallen. Ze doen in het boek
+het werk van bewijs terwijl de auteur zelf schrijft dat zo'n dieet niet gezond
+is. Datzelfde geldt voor de scholekster: een aardig openingsbeeld dat
+gaandeweg als argument gaat gelden.
+
+Ten slotte draait het boek in de laatste hoofdstukken van verklaring naar
+bewondering. Dat Ramanujan en de zussen Polgár dezelfde obsessieve aanleg
+tonen die elders tot verslaving leidt, is een aardige gedachte, maar zij
+ondergraaft de eerdere lijn: als hetzelfde mechanisme zowel de
+vetzuchtepidemie als de wiskunde vooruithelpt, verliest het zijn verklarende
+scherpte.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel een product op hoe sterk het signaal is dat het afgeeft, niet op
+de vraag of je wilskracht genoeg hebt.
+- Beperk variatie in wat je in huis haalt; variatie zelf verhoogt de inname.
+- Reken niet op sporten als middel om af te vallen, en blijf wel bewegen om
+andere redenen.
+- Vergroot de vertraging tussen prikkel en beloning, want juist het ontbreken
+van vertraging maakt iets verslavend.
+- Kies vergelijkingsmateriaal bewust; wat je dagelijks ziet, wordt vanzelf je
+maatstaf.
+
+#### Wat je hierna leest
+
+- 89. Darwin in de supermarkt. Nelissen redeneert in *Darwin in de supermarkt*
+vanuit dezelfde evolutionaire hoek over alledaags gedrag, met meer losse
+voorbeelden en minder doorlopende these.
+- 22. Atomic Habits. Clear werkt in *Atomic Habits* de kant uit die Brendborg
+openlaat: wat je met een omgeving vol prikkels praktisch aanvangt.
+- 138. The Shift. Foster behandelt in *The Shift* gewicht en gedrag vanuit de
+behandelpraktijk, wat het contrast met Brendborgs omgevingsverklaring scherp
+maakt.
+- 103. De psychologie van eetgedrag. Zondervans *De psychologie van eetgedrag*
+legt de oorzaak van overeten juist bij emotie en gewoonte van de eter, precies
+de verklaring die Brendborg terzijde schuift.
 
 ## 89. Darwin in de supermarkt
 
@@ -15366,6 +18247,176 @@ Het is kort genoeg voor één avond, en het staat in deze lijst als fictie over
 een onderwerp dat de andere titels over media en aandacht alleen van buitenaf
 behandelen.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Wijenberg zet de pornoset neer als een werkplek waar mensen
+hun intiemste vermogen verhuren, en laat zien wat er gebeurt als een van hen
+dat vermogen opeens alleen nog aan één persoon wil geven. Sharok, onder de
+naam Shah Rockx een gevierde acteur, wordt verliefd en kan niet meer werken.
+Het boek behandelt dat niet als grap maar als arbeidsconflict,
+liefdesgeschiedenis en vraag over toestemming tegelijk, en stelt daarbij dat
+de scheiding tussen persoon en personage die de industrie iedereen aanpraat,
+in de praktijk door niemand vol te houden is.
+
+#### De gang van het verhaal
+
+**Vier vertellagen naast elkaar**
+
+Het boek bestaat uit drie genoemde delen, SHAROK, LILIAN en GIANNI, met
+daartussendoor twee andere soorten tekst. De eerste is de monoloog van
+regisseur Anya Pilecka, opgetekend tijdens een avond met publiek waarop zij
+wordt geïnterviewd. De tweede zijn vier passages die als screening zijn
+aangekondigd, waarin telkens één van haar films wordt beschreven.
+
+Die screenings staan in een andere taal dan de rest: beeldend, bijna mythisch,
+met tussen vierkante haken de tijdcode en de aanduiding van de handeling.
+Daardoor loopt er voortdurend een tweede register mee, dat laat horen hoe de
+makers hun eigen werk zien terwijl het verhaal eromheen toont hoe het gemaakt
+wordt.
+
+**Een acteur die niet meer kan**
+
+De handeling begint op een opnamedag in een lege villa in Amsterdam-Osdorp.
+Sharok kent zijn tekst niet meer, loopt tegen deuren aan en krijgt
+uiteindelijk geen erectie. Hij is verliefd op Gianni, een barista van
+zevenentwintig, en het lukt hem niet langer om Shah te zijn zodra hij op de
+set stapt.
+
+Wijenberg speelt de scène niet uit op ongemak maar op vakmanschap. De crew
+reageert professioneel, er wordt overlegd, er is een beterschapskaartje en een
+productiemaatschappij die op de bovenverdieping naar cijfers kijkt. Zijn
+onvermogen is voor iedereen vooral een planningsprobleem.
+
+**De regisseur en haar bedrijf**
+
+Anya Pilecka vertelt in haar monoloog hoe zij van mislukte filmstudent en
+dwarse werknemer regisseur werd, hoe zij Sharok in San Francisco ontmoette en
+hoe hun doorbraakfilm over een levend geworden pop haar een tijdlang volledige
+vrijheid gaf. Zij heeft kanker gehad, en de pruik waarmee zij zich destijds
+weer aantrekkelijk voelde, is de kiem van haar hele werk.
+
+Tegelijk laat het boek zien dat haar positie is uitgehold. De abonnees lopen
+terug, de directie wil grafischer en voorspelbaarder werk, en zij moet zelf
+haar acteurs uitleggen dat het even zo moet. Haar idealen en haar omzetdruk
+lopen in elke scène door elkaar.
+
+**De wending**
+
+Om Sharok weer aan het werk te krijgen bedenkt Anya een omweg. Zij stuurt
+Lilian, in het werk bekend als Lili Belladonna, eerst naar zijn huis en later
+met een goedkoop cameraatje op pad om hem en Gianni samen te filmen, met
+toestemming van beide mannen. Dat materiaal komt vervolgens ergens terecht
+waar het niet hoort.
+
+Vanaf dat punt kantelt het boek. Er komt een advocaat aan de keukentafel, er
+wordt een rechtszaak voorbereid, en de drie hoofdpersonen blijken ieder een
+ander belang te hebben gehad bij wat er met die geheugenkaart is gebeurd. Wie
+precies wat wilde en wie wie heeft gebruikt, wordt pas laat en gedeeltelijk
+duidelijk, en niet voor alle betrokkenen tegelijk.
+
+**Drie levens die uit elkaar lopen**
+
+In het derde deel volgt het boek Gianni, die door de opnames zelf zichtbaar
+wordt, berichten uit de hele wereld krijgt en een aanbod uit Los Angeles
+aanneemt. Hij ontdekt dat de aandacht hem bevalt en dat hij daarmee de man
+kwijtraakt om wie het begon.
+
+Lilian en Sharok gaan een andere kant op, en Anya werkt aan een laatste film
+over het zieke lichaam waarin zij zelf speelt. Het slot brengt hen niet bij
+elkaar. Het laat zien dat iedereen doorgaat en dat de schade ongelijk verdeeld
+is.
+
+**Het probleem van het einde**
+
+Anya vertelt ergens dat zij op de filmacademie afviel omdat zij geen eindes
+kon schrijven, en dat pornografie haar daarvan verloste: in dat genre schrijft
+het einde zichzelf. Wanneer haar ziekte terugkomt, zegt zij dat zij dus ook
+haar eigen einde niet kan schrijven.
+
+Dat is de opmerking waar het boek op steunt. Een verhaal over mensen die
+beroepshalve toewerken naar één vast slot, moet zelf een slot vinden voor
+levens die daar niet in passen. Wijenberg lost dat op door de drie
+verhaallijnen bewust ongelijk af te sluiten, met voor één van hen een deur die
+dichtgaat en voor de anderen een gewone dag.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Porna | Anya's eigen woord voor het zachtere, verhalende deel van haar films, dat zij moet inleveren wanneer de directie meer harde handeling eist. |
+| Ethische porno | De praktijk waar Anya en Sharok zich toe rekenen: met toestemming, met aandacht voor grenzen en met ruimte voor de wensen van de spelers. |
+| Screening | De vier tussengevoegde hoofdstukken waarin een film scène voor scène wordt beschreven, compleet met tijdcodes en handelingsaanduidingen. |
+| Government name | De echte naam achter het pseudoniem, en daarmee het muurtje tussen werk en privé dat Sharok ooit accepteerde en dat in het boek bezwijkt. |
+| Male gaze | Het cliché-arsenaal waar Anya zich tegen afzet en dat zij in haar films omdraait of vermijdt. |
+| Bed chem | De vonk tussen twee spelers die een scène volgens de regisseur draagt en die niet te regisseren valt. |
+| Stunt cock | De vervanger die inspringt wanneer een acteur niet presteert, een hulpmiddel dat Sharok weigert omdat het zijn zelfbeeld als vakman aantast. |
+| Chapbook | De uitgavevorm waarin het boek verscheen: een dunne uitgave in een reeks die aan begeleiding van beginnende schrijvers is gekoppeld. |
+
+#### Waar het argument op rust
+
+Het boek rust op verteltechniek meer dan op documentatie. De vier registers,
+drie personages, een monoloog en de filmbeschrijvingen, houden elkaar in
+evenwicht: wat de regisseur in haar interview beweert over het nut van haar
+werk, wordt in de verhalende delen steeds even later tegengesproken door hoe
+het er op de set aan toegaat. Die constructie is de eigenlijke onderbouwing
+van de stelling.
+
+De aannemelijkheid van de wereld komt uit kleine, controleerbaar ogende
+details: het beterschapskaartje met alle handtekeningen, de vrouw die zowel de
+moederrol speelt als de koffie schenkt en na afloop de bank afneemt, de
+workshop over intimiteit en grenzen, het kantoor van de productiemaatschappij
+boven de sets. Dat zijn geen sensationele beelden maar arbeidsdetails, en ze
+doen het meeste werk.
+
+In het dankwoord noemt Wijenberg één inhoudelijke bron met naam, een performer
+die zijn vragen beantwoordde en hem over het werk vertelde. Verder is er geen
+verantwoording. Het boek claimt dus nergens journalistieke dekking en
+presenteert zichzelf als verbeelding met één gesprekspartner uit de praktijk,
+wat eerlijk maar ook beperkt is.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de wending. De hele morele kern van het boek, wat
+er met de opnames van Sharok en Gianni is gebeurd en wie daar welk aandeel in
+had, wordt pas laat, indirect en in losse zinnen prijsgegeven. Dat levert
+spanning op, maar het gaat ten koste van de vraag waar het boek zelf om
+draait. Toestemming wordt bij herhaling genoemd als het onderscheid tussen
+goede en slechte porno, en juist op het moment dat die toestemming wordt
+geschonden kiest de verteller voor suggestie. De lezer moet reconstrueren wat
+de personages elkaar hebben aangedaan, terwijl een boek met deze inzet daar
+het scherpst had kunnen zijn.
+
+De vier screenings zijn het stilistische pronkstuk en tegelijk het meest
+aanvechtbare onderdeel. Zij verheffen expliciete handelingen tot mythologisch
+beeld, met bloemen, Arcadië en amazones. Wie welwillend leest ziet daarin de
+blik van de makers op hun eigen werk. Wie strenger leest ziet een manier om
+pornografisch materiaal literair aanvaardbaar te maken, precies het soort
+verhulling waar Anya in haar monoloog tegen ageert.
+
+De omvang wreekt zich bij Lilian. Zij krijgt een moeder met een academische
+reputatie, een moeizame geschiedenis met de regisseur en een eigen twijfel
+over de film die haar beroemd maakte, maar er is geen ruimte om daar meer dan
+aanduidingen van te geven. Van de drie titelpersonages blijft zij de vlakste,
+terwijl het boek haar wel de handeling laat verrichten die alles in beweging
+zet.
+
+Ten slotte blijft de kritiek op de industrie tamelijk zacht. De directie
+blijft een stem boven het plafond, de economische druk wordt genoemd maar
+nooit doorgerekend, en de vraag of ethische porno onder die druk meer dan een
+verkoopargument kan zijn, wordt gesteld en niet beantwoord.
+
+#### Wat je hierna leest
+
+- 110. Op het allerlaatste moment. Keegan laat in kort bestek zien hoeveel een
+verhaal kan dragen door weg te laten; Wijenberg kiest bij zijn wending voor
+dezelfde soberheid, met minder gelukkig gevolg.
+- 113. Aangeraakt. Ook daar staat lichamelijkheid en aanraking centraal in een
+Nederlandstalig verhalend werk, met een andere afweging over hoe expliciet dat
+beschreven moet worden.
+- 18. On Writing. King behandelt het slot als het moeilijkste onderdeel van
+het vak; Anya Pilecka zegt in dit boek letterlijk dat zij daarop is afgewezen
+en dat porno haar van dat probleem verloste.
+
 ## 101. Loslaten
 
 Loes den Hollander, 2008. Bij Karakter Uitgevers (2008). Den Hollander
@@ -15385,6 +18436,172 @@ Den Hollander was op dat moment vooral bekend van haar thrillers, en de bundel
 laat zien dat het genre ook op tien bladzijden werkt: geen politie en geen
 speurwerk, maar huiselijke verhoudingen die scheef groeien. Het is licht en
 spannend leesvoer en geen zwaargewicht in deze lijst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Den Hollander bundelt dertien verhalen waarin mensen iets
+moeten afstaan: een dode partner, een kind, een huwelijk, een geheim of een
+beeld van zichzelf dat niet meer klopt. De titel is geen troostwoord. Loslaten
+betekent in deze verhalen bijna nooit verwerken; het betekent dat iemand het
+niet meer kan vasthouden en dat er dan iets losbreekt, van berusting tot
+geweld. De bundel stelt daarmee dat achter alledaagse Nederlandse huiskamers
+een voorraad onverwerkte schade ligt die vroeg of laat een uitweg vindt.
+
+#### De gang van het verhaal
+
+**Wat voor boek dit is**
+
+Loslaten is geen roman maar een bundel van dertien afzonderlijke verhalen, met
+titels als Heksenman, Witte tulpen, Droomkind, De kat op zolder, Kramp en
+Zonder afscheid. Ze delen geen personages en geen plaats. Wat ze delen is een
+situatie: iemand staat op het punt iets kwijt te raken of is dat net
+kwijtgeraakt.
+
+Den Hollander was op dat moment bekend als thrillerauteur. De uitgave
+presenteert de bundel dan ook als bewijs dat zij naast langere spanningsromans
+ook korte verhalen aankan. Dat is te merken aan de bouw: bijna elk verhaal
+werkt naar een laatste alinea die de betekenis van alles ervoor omkeert.
+
+**De opening en de toon**
+
+Het eerste verhaal, Heksenman, begint met een knipperend antwoordapparaat. Een
+stem die de verteller dertien jaar niet heeft gehoord zegt dat hij ziek is,
+dat hij doodgaat en dat hij afscheid wil nemen. Het gaat om haar vroegere
+tekenleraar, met wie zij als zeventienjarige wegliep en die daarmee de krant
+haalde.
+
+In die opening zit het recept van de bundel. Een huiselijke handeling,
+boodschappen wegzetten, een glas wijn inschenken, wordt onderbroken door iets
+uit het verleden dat nooit is opgelost. Het verhaal loopt daarna niet uit op
+een confrontatie maar op een mededeling van een vriendin, waarna alles wat de
+lezer dacht te weten over die man opnieuw gewogen moet worden.
+
+**Moeders, dochters en het kind dat niet klopt**
+
+Een tweede reeks verhalen draait om het ouderschap. In Witte tulpen loopt een
+vrouw over een kerkhof en herinnert zich haar dochter, een zondagskind dat al
+vroeg twee gedaanten had: een zingend meisje dat sprookjes verzon en een kind
+dat over haar eigen dood begon aan tafel. Den Hollander laat de artsen en de
+vader dat wegwuiven als kinderfantasie, en laat de moeder alleen met haar
+ongerustheid.
+
+Droomkind volgt een vrouw die telkens droomt van hetzelfde driejarige meisje
+met blonde krullen dat mama zegt. Dat verhaal eindigt op straat, bij een
+ongeluk, met een beeld dat de lezer zelf mag uitleggen. In deze verhalen is de
+bovennatuurlijke suggestie nooit sluitend; ze wordt aangeboden naast een
+gewone verklaring.
+
+**Jaloezie en wat mensen daarmee doen**
+
+Een derde groep gaat over verlaten worden. In De kat op zolder wordt een vrouw
+ingeruild voor een ander en volgt de lezer haar woede over een reeks
+genummerde hoofdstukken tot zij als vermist wordt opgegeven. Het verhaal sluit
+af met een terloopse opmerking van de nieuwe vrouw van haar ex over een lucht
+op zolder.
+
+Complot-theorie is het spiegelbeeld: daar vertelt een man die zichzelf een
+romanticus noemt hoe hij aan zijn vriendin kwam, en pas op het eind blijkt
+hoeveel de lezer aan die verteller had moeten twijfelen. Hij zit inmiddels
+ergens vast, houdt vol dat iedereen tegen hem samenspant, en de laatste regel
+maakt duidelijk dat er niets is losgelaten.
+
+**Zwijgen en het lichaam**
+
+In Kramp krijgt een vrouw voor de zevende keer een brief in hetzelfde strakke
+handschrift, die zij ongeopend in de vuilnisbak gooit terwijl zij een etentje
+voorbereidt met een man op wie zij verliefd is. Wat de afzender heeft gedaan
+wordt niet uitgeschreven maar wordt duidelijk uit een gesprek en uit een
+therapeutenuitspraak over wat er nodig is voordat zij het achter zich kan
+laten.
+
+Het lichaam houdt in dat verhaal de rekening bij. Waar de tekst zwijgt,
+reageert de spier. Die keuze om trauma via de fysieke reactie te tonen in
+plaats van via uitleg is het sterkste wat de bundel doet.
+
+**Verdwijnen zonder uitkomst**
+
+Het slotverhaal, Zonder afscheid, begint met een vrouw die zegt even patat te
+gaan halen en niet terugkomt. De man blijft achter met de politieregel dat
+iemand pas na achtenveertig uur als vermist geldt, en met de drie
+mogelijkheden die hij zichzelf blijft voorhouden: ontvoerd, zelf weggegaan, of
+vermoord.
+
+Den Hollander weigert hem antwoord te geven. Zij geeft het wel aan de lezer,
+in een korte slotscène waarin een buitenstaander iets vindt op een
+vuilstortplaats en er het verkeerde mee doet. Daarmee sluit de bundel af op
+precies het punt waar de titel over gaat: loslaten is hier iets wat wordt
+opgelegd, niet iets wat iemand bereikt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Loslaten | Het woord dat de bundel en het gelijknamige verhaal draagt, waarin een weduwe tegen haar overleden man blijft praten en haar dochter dat probeert af te leren. |
+| Heksenman | De aanduiding die een vriendin gebruikt voor de veel oudere man die de vertelster op haar zeventiende meenam, en die haar oordeel over hem jarenlang heeft bepaald. |
+| Zondagskind | Het woord van de verpleegkundige bij de geboorte, dat in Witte tulpen tegenover het onheilspellende tweede karakter van hetzelfde meisje komt te staan. |
+| Kramp | De lichamelijke reactie die in het gelijknamige verhaal elk seksueel contact onmogelijk maakt en die als enige het verzwegen verleden zichtbaar houdt. |
+| De kat op zolder | De onschuldige verklaring die de personages geven voor een lucht in huis, en die de lezer aan het slot anders leest dan zij. |
+| Zonder afscheid | De situatie van de nabestaande zonder lichaam en zonder uitsluitsel, waarin rouwen niet kan beginnen omdat er formeel niets verloren is. |
+| De vermissingstermijn | De achtenveertig uur die de politie aanhoudt voordat iemand als vermist geldt, in de bundel gebruikt als hindernis en als bron van machteloosheid. |
+| Complot | De verklaring waar de verteller van Complot-theorie zich aan vastklampt om zijn eigen daad buiten zichzelf te leggen. |
+
+#### Waar het argument op rust
+
+De bundel rust op alledaagse Nederlandse waarneming. Een ziekenhuiszaal met
+een rookruimte, een kerkhof met een bloemenstal ernaast, een keuken met mie op
+de kastdeurtjes, een dorp waar kinderen naar binnen moeten als de lantaarns
+aangaan. Die details maken de personages herkenbaar voordat er iets ergs
+gebeurt, en dat is precies wat de omslag later effect geeft.
+
+De motor van de verhalen is dialoog. Den Hollander legt zelden uit wat iemand
+voelt; zij laat twee vrouwen aan een tafel praten en laat de lezer de rest
+afleiden. Waar zij toch verklaart, bijvoorbeeld via een schoolarts of een
+therapeut, is die uitleg meestal onvolledig of ongeloofwaardig, en dat is
+duidelijk zo bedoeld.
+
+De opzet is verder eerlijk in wat zij niet claimt. Er zijn geen
+onderzoeksverwijzingen, geen psychologische theorie en geen verantwoording;
+het is verbeelding die zich alleen op haar eigen aannemelijkheid laat
+afrekenen. Waar de bundel het meest overtuigt, in de verhalen over verzwegen
+misbruik en over vermissing, komt dat doordat het gedrag van de personages ook
+zonder verklaring klopt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de bundel dertien keer dezelfde beweging maakt.
+Vrijwel elk verhaal werkt naar een laatste alinea die de betekenis omkeert, en
+na het vierde of vijfde verhaal gaat de lezer daarop zitten wachten. Daarmee
+verschuift de aandacht van de personages naar de constructie: het wordt een
+oefening in raden waar de val zit. Verhalen die het effect niet nodig hadden,
+zoals de kerstverhalen over eenzame vrouwen, worden er ook aan onderworpen.
+
+Daarbij komt dat personages nogal eens samenvallen met hun geheim. Zij krijgen
+een beroep, een keuken en een vriendin, en verder bestaan zij om aan het slot
+iets prijs te geven. Dat werkt in de korte vorm nog wel, maar het verklaart
+ook waarom weinig verhalen blijven hangen om de mensen die erin voorkomen.
+
+De thematiek is bovendien smal ingericht. Ziekte, dood van een kind, overspel,
+verzwegen misbruik en vermissing keren telkens terug als aanleiding. Dat is
+een gewichtig register om dertien keer achter elkaar in te schrijven, en er
+ontstaat gewenning in plaats van indruk. Een enkel verhaal waarin iemand iets
+loslaat wat niet gruwelijk is, had het geheel scherper gemaakt.
+
+Ten slotte leunt de bundel op suggestie waar hij ook had kunnen doorbijten.
+Enkele slotscènes eindigen op een beeld dat de lezer zelf mag invullen, en dat
+is bij één verhaal een keuze en bij vijf een gewoonte. Wie meer wil dan een
+goed getimede huivering, houdt op sommige plekken weinig over.
+
+#### Wat je hierna leest
+
+- 110. Op het allerlaatste moment. Keegan doet in nog korter bestek wat Den
+Hollander hier probeert, maar bouwt haar slot niet als omkering; het verschil
+laat zien wat een wending een verhaal ook kost.
+- 114. De quiltclub. Ook daar staan losse levens van vrouwen naast elkaar in
+een verhalende opzet, met troost als uitkomst waar deze bundel juist naar
+schade toewerkt.
+- 104. Oud zeer. Bakker behandelt onverwerkte pijn als klinisch onderwerp; Den
+Hollander laat dezelfde stof zien vanuit de keuken, zonder diagnose en zonder
+behandeling.
 
 ## 102. Ingangen tot Een cursus in wonderen
 
@@ -15430,6 +18647,195 @@ zoekt naar de stand van de wetenschap over eetgedrag heeft er weinig aan; wie
 een gestructureerde oefening zoekt in het opmerken van eigen eetgewoontes,
 vindt hier een bruikbaar stappenplan.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Zondervan stelt dat afvallen en gezond eten mislukken zolang
+je bij het eten zelf begint. Wat iemand eet is volgens haar een uitkomst van
+drie lagen die eronder liggen: aangeleerde gewoonten, emoties en lichamelijke
+signalen. Wie die lagen leert opmerken kan zonder dieetregels bij een rustiger
+eetpatroon uitkomen, omdat honger en verzadiging vanzelf weer bruikbare
+informatie worden. Regels en restricties werken in deze redenering averechts,
+want ze voeden de cyclus van verbod, overtreding en schuldgevoel die het
+probleem in stand houdt.
+
+#### De gang van het boek
+
+**Waarom eten geen kwestie van kennis is**
+
+Het boek opent met de vaststelling dat vrijwel iedereen weet wat gezond eten
+inhoudt en dat die kennis het gedrag nauwelijks stuurt. Zondervan zet daar een
+verklaring tegenover in vier bronnen: emoties, overtuigingen, het
+beloningssysteem in de hersenen en de sociale omgeving. Ze citeert Cohen en
+Farley met de gedachte dat eten grotendeels een automatische handeling is,
+gestuurd door beschikbaarheid, portiegrootte en gezelschap.
+
+Bij overtuigingen gaat het vooral om zwart-witdenken over voeding. Wie brood
+en pasta tot verboden gebied verklaart, maakt van elke afwijking een
+mislukking, en die mislukking leidt tot meer eten. Het perfectionisme rond
+eetregels is in dit boek geen oplossing maar een oorzaak.
+
+**Beloning, conditionering en gewoontevorming**
+
+Zondervan legt uit hoe suiker en vet het beloningssysteem aanspreken via
+dopamine, en hoe herhaling de gevoeligheid voor die beloning verlaagt, zodat
+er meer nodig is voor hetzelfde effect. Ze onderscheidt hedonisch eten, dat
+draait om genot, van homeostatisch eten, dat een lichamelijk tekort aanvult.
+
+Daarnaast behandelt ze klassieke en operante conditionering. Het ijsje na een
+zware werkdag koppelt zich aan ontspanning, popcorn koppelt zich aan de film,
+en de koppeling blijft ook als er geen honger is. Het doorbreken van zulke
+gewoonten begint volgens haar bij het herkennen van de aanleiding: de plek,
+het tijdstip, de emotie. Verander de situatie en de koppeling verzwakt.
+
+**Omgeving en sociale invloed**
+
+Een apart deel gaat over de eetomgeving. Wat binnen handbereik ligt wordt
+gegeten, grote porties verschuiven het gevoel van wat normaal is, en eten met
+afleiding erbij leidt tot meer eten zonder dat het wordt opgemerkt. Zondervan
+noemt dat extern eten en gedachteloos eten.
+
+De sociale laag loopt van het gezin waarin je opgroeide, met regels als je
+bord leeg eten, via vriendenkringen die het tempo en de hoeveelheid bepalen,
+tot beelden op sociale media. Ze wijst erop dat vergelijking met beelden van
+anderen zowel tot restrictie als tot overeten kan leiden.
+
+**Vijf typen eters**
+
+Het middendeel deelt eetgedrag in vijf vormen in: emotioneel, sociaal,
+onbewust, compulsief en obsessief. Bij dat laatste type noemt ze anorexia,
+boulimia en eetbuien. Bij het boek hoort een test waarmee de lezer zichzelf
+kan plaatsen.
+
+Zondervan geeft er verdeelcijfers bij: ongeveer zeventig procent van de mensen
+zou emotioneel of compulsief eten, twintig procent onbewust of sociaal, en
+tien procent obsessief. Waar die percentages vandaan komen wordt niet vermeld.
+Per type volgen strategieën, meestal in de vorm van een eetdagboek,
+vervangende manieren om met spanning om te gaan, en mindful eten.
+
+**Bewustzijn als scharnier**
+
+Het hoofdstuk over bewustzijn onderscheidt zelfbewustzijn, lichamelijke
+bewustwording en situationele bewustwording. De redenering is dat je pas een
+keuze hebt op het moment dat je opmerkt wat er gebeurt, en dat opmerken zonder
+oordeel gebeurt. Daarna loopt Zondervan de vijf eetstijlen nog eens langs, nu
+vanuit de vraag waar bij elk type de aandacht precies naartoe moet.
+
+**Mindful eten, intuïtief eten en de training**
+
+Het onderscheid dat het boek maakt: mindful eten gaat over hoe je eet, met
+aandacht voor geur, smaak en textuur, terwijl intuïtief eten gaat over wanneer
+en waarom, met vertrouwen op honger- en verzadigingssignalen in plaats van op
+regels. Ze verwijst daarbij naar Jan Chozen Bays voor het eerste en naar
+Tribole en Resch voor het tweede.
+
+Het praktische slot is een training in zes stappen, naar eigen zeggen
+gebaseerd op Mindfulness-Based Eating Awareness Training van Kristeller en
+Wolever. Die stappen lopen van niet-oordelend waarnemen via een hongerschaal
+van 1 tot 10 voor, tijdens en na de maaltijd naar zintuiglijke oefeningen aan
+tafel, met het advies elke hap twintig tot dertig keer te kauwen.
+
+Het boek sluit af met acht verhalen van mensen die hun patroon doorbraken,
+onder wie Lisa met eetbuien na een burn-out en Sarah met compulsief eten na
+het overlijden van haar moeder.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Hedonisch eten | Eten om het genot, aangestuurd door het beloningssysteem, ook zonder lichamelijke behoefte. |
+| Homeostatisch eten | Eten omdat het lichaam energie of voedingsstoffen nodig heeft. |
+| Extern eten | Eten omdat voedsel er nu eenmaal ligt, gestuurd door de omgeving in plaats van door honger. |
+| Gedachteloos eten | Eten terwijl de aandacht elders is, bijvoorbeeld bij een scherm, waardoor verzadigingssignalen niet doordringen. |
+| Klassieke conditionering | Het aanleren van een vaste koppeling tussen een situatie en eten, zoals popcorn bij een film. |
+| Operante conditionering | Gedrag dat wordt versterkt of afgezwakt door wat er daarna gebeurt, bijvoorbeeld opluchting na chocola bij stress. |
+| Mindful eten | Eten met volle aandacht voor smaak, geur en textuur, gericht op hoe er wordt gegeten. |
+| Intuïtief eten | Eten op geleide van interne honger- en verzadigingssignalen in plaats van op geleide van dieetregels. |
+| Emotioneel eetgedrag | Voedsel inzetten om een gevoel te dempen, te vieren of te vervangen. |
+| Hongerschaal | Zelfscore van 1 tot 10 voor, tijdens en na de maaltijd, bedoeld om echte honger van gewoonte te onderscheiden. |
+
+#### Waar het argument op rust
+
+Het boek heeft een bronnenlijst met wetenschappelijke artikelen, en die lijst
+is beter dan bij veel boeken in dit genre. Er staan namen in die er werkelijk
+toe doen: Cohen en Farley over eten als automatisch gedrag, Blundell en
+Finlayson over het onderscheid tussen homeostatische en hedonische regulatie,
+Gearhardt, Corbin en Brownell over de vraag of voedsel aan verslavingscriteria
+voldoet, Epel en collega's over cortisol en eetgedrag, en Hawks en collega's
+over intuïtief eten bij studentes.
+
+Tegelijk is de manier waarop die bronnen worden gebruikt los. In de lopende
+tekst staan uitspraken tussen aanhalingstekens met alleen een achternaam
+eronder, zonder jaartal, zonder onderzoeksopzet, zonder aantallen. De lezer
+krijgt zo een citaat te zien maar niet wat het onderzoek deed of hoe sterk de
+uitkomst was. Bij het cijfer over de verdeling van eterstypen ontbreekt een
+bron helemaal.
+
+Naast wetenschappelijke titels staan in de bronnenlijst ook Louise Hay, Joe
+Dispenza en Deepak Chopra. Dat zijn auteurs die geen empirische status hebben
+en die op onderdelen in strijd zijn met wat de rest van de lijst laat zien. Ze
+staan er zonder onderscheid tussen. Wie de bronnenlijst als kwaliteitskeurmerk
+leest, wordt daarmee op het verkeerde been gezet.
+
+De succesverhalen en de interviews met deskundigen die in het boek zijn
+opgenomen zijn illustratie, geen onderbouwing. De verhalen volgen alle
+hetzelfde patroon: probleem, dagboek, inzicht, herstel. Zulke verhalen
+bewijzen niets over hoe vaak die uitkomst voorkomt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek twee dingen tegelijk belooft die niet
+vanzelf samengaan. Het presenteert zich als een boek over een ontspannen
+relatie met eten zonder gewichtsdoel, maar leunt in toon en voorbeelden
+voortdurend op afvallen en op controle over porties. De belofte dat intuïtief
+eten leidt tot minder eten is een dieetbelofte in andere bewoordingen, en
+juist die verwachting kan het vertrouwen in lichaamssignalen ondermijnen zodra
+de weegschaal niet meebeweegt.
+
+Ten tweede is de onderbouwing van de kern zwakker dan het boek suggereert.
+Onderzoek naar intuïtief eten is grotendeels doorsnedeonderzoek: mensen die
+hoger scoren op intuïtief eten hebben gemiddeld een gunstiger lichaamsgewicht
+en beeld van zichzelf. Dat zegt niets over de richting van het verband. Van
+MB-EAT bestaan gecontroleerde studies, maar met kleine groepen en bescheiden
+effecten op gewicht. Zondervan meldt die beperking niet.
+
+Ten derde is de indeling in vijf typen eters met bijbehorende test niet
+gevalideerd. Ze wordt gepresenteerd als vertrekpunt van het hele traject,
+terwijl er geen onderbouwing is dat mensen zich in deze vijf hokjes laten
+plaatsen of dat de indeling voorspelt wat werkt. Dat obsessief eetgedrag in
+dezelfde reeks staat als sociaal eten is bovendien ongemakkelijk: anorexia en
+boulimia zijn aandoeningen met een sterfterisico, geen eetstijl waar een
+dagboek en bewust kauwen tegen opgewassen zijn.
+
+Ten slotte de vorm. Het boek spreekt de lezer aan met retorische vragen en
+aanmoedigingen, herhaalt zijn kernpunten vaak, en verwerkt hele passages van
+hetzelfde advies onder wisselende koppen. Wie de zes stappen kent, heeft aan
+de eerste helft van het boek weinig nieuws.
+
+#### Wat er concreet mee te doen is
+
+- Noteer een week lang alleen het moment en het gevoel voor het eten, niet wat
+je eet. Het patroon dat je zoekt zit in de aanleiding.
+- Geef je honger een cijfer van 1 tot 10 vlak voor de maaltijd en nog eens
+halverwege.
+- Verander de plek in plaats van de hoeveelheid: eet aan tafel zonder scherm
+en kijk wat er overblijft van de gewoonte.
+- Verplaats wat je te vaak pakt naar een minder bereikbare plek, en zet wat je
+te weinig eet op ooghoogte.
+- Zoek per aanleiding een alternatief dat dezelfde functie vervult,
+bijvoorbeeld wandelen of bellen bij spanning aan het eind van de dag.
+
+#### Wat je hierna leest
+
+- 22. Atomic Habits. Clear beschrijft de mechaniek van gewoontevorming veel
+preciezer dan dit boek doet, met dezelfde nadruk op de aanleiding en de
+omgeving.
+- 138. The Shift. Foster behandelt hetzelfde onderwerp vanuit denkstijlen en
+zelfcompassie, met bronnen die per uitspraak te controleren zijn.
+- 104. Oud zeer. Bakker laat zien hoe verstoord eetgedrag kan samenhangen met
+affectieve verwaarlozing, een laag die dit boek nauwelijks aanraakt.
+- 118. Coping Skills. Harper geeft dezelfde soort omgangsstrategieën voor
+spanning, korter en zonder de belofte dat ze tot gewichtsverlies leiden.
+
 ## 104. Oud zeer
 
 Bram Bakker, 2022. Bij Uitgeverij Lucht (2022). Bakker is psychiater en
@@ -15451,6 +18857,207 @@ gezondheidszorg terecht, waar eerst een psychiatrische diagnose nodig is om de
 behandeling vergoed te krijgen. Hij leunt op het Amerikaanse onderzoek naar
 nadelige jeugdervaringen en zegt er eerlijk bij dat degelijk onderzoek op dit
 terrein schaars is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bakker stelt dat het gebrek aan liefde, aandacht en
+veiligheid in iemands jonge jaren minstens zo bepalend is voor latere
+psychische en lichamelijke klachten als de gebeurtenissen die officieel als
+trauma tellen, en dat de geestelijke gezondheidszorg juist dat gebrek
+stelselmatig over het hoofd ziet omdat het niet in het diagnosehandboek staat.
+Waar geen classificatie is, is geen onderzoeksgeld, geen behandelrichtlijn en
+geen vergoeding, en dus wordt affectieve verwaarlozing weggeschreven onder
+labels als depressie, angststoornis of persoonlijkheidsstoornis die over de
+oorzaak zwijgen.
+
+#### De gang van het boek
+
+**Positieve en negatieve ingredienten**
+
+Bakker ontleent aan de oude beschrijving van schizofrenie een indeling die hij
+op de jeugd toepast. Positieve ingredienten zijn de dingen die er wel waren
+maar er niet hadden moeten zijn: slaan, pesten, misbruik. Negatieve
+ingredienten zijn de dingen die er niet waren maar er wel hadden moeten zijn:
+warmte, aandacht, geborgenheid, knuffels.
+
+Zijn punt is dat de positieve kant zichtbaar is en behandelbaar, en de
+negatieve kant onzichtbaar blijft. Een koel gezin valt niemand op. Mensen die
+het zwaarst belast zijn hebben meestal beide gehad: er werd geslagen en er was
+geen warmte.
+
+**Wat trauma in de handboeken is**
+
+Om te laten zien hoe smal de officiele omschrijving is, drukt Bakker de
+volledige DSM-5-criteria voor posttraumatische stressstoornis af, van
+criterium A tot en met H. Hij doet dat naar eigen zeggen om de afstand
+voelbaar te maken tussen wat iemand doormaakt en de droge opsomming die
+daarvan wordt gemaakt.
+
+Daarbij plaatst hij feiten die het beeld nuanceren. Ongeveer de helft van alle
+mensen maakt ooit iets mee dat aan het A-criterium voldoet, en het overgrote
+deel houdt er geen PTSS aan over. Bij elk volgend psychotrauma stijgt de kans
+wel. Slachtoffers van misbruik blijken vaker een depressie te hebben dan PTSS.
+Bij zijn stelling dat de leeftijd van het eerste trauma veel voorspelt,
+schrijft hij er zelf bij dat hij zich daarbij niet op wetenschappelijke
+literatuur baseert.
+
+**Hoe oud zeer bij de hulpverlening binnenkomt**
+
+Bakker loopt de vijf diagnoses langs waaronder oud zeer volgens hem het vaakst
+wordt weggeschreven: depressieve stoornis, angststoornis, eetstoornis,
+stoornis in het gebruik van middelen en persoonlijkheidsstoornis. Zijn
+scherpste opmerking gaat over de laatste. Hoe langer iemand in de zorg blijft
+zonder vooruitgang, hoe groter de kans dat er een persoonlijkheidsstoornis bij
+komt, en dat label verklaart dan handig waarom de behandeling niet aanslaat.
+
+Een apart deel gaat over de somatische kant. Onbegrepen klachten, chronische
+vermoeidheid, fibromyalgie, prikkelbare darmen en burn-out komen in zijn
+ervaring vaker voor bij mensen met een belaste jeugd. Hij verwijst daarvoor
+naar de ACE-studie uit 1998, met tien categorieen van tegenslag in de jeugd en
+een dosis-responsverband: meer categorieen betekent meer schade, ook in de
+vorm van diabetes, hart- en vaatziekten en kanker.
+
+**Verhalen van mensen**
+
+Tussen de beschouwende stukken staan portretten van mensen met wie Bakker
+heeft gewerkt, met hun toestemming en in overleg over herkenbaarheid
+opgeschreven. Het uitvoerigst is Aafke, een Friese vrouw van in de zeventig
+met een zware dwangstoornis die volgens haarzelf begon na de bevalling van een
+gehandicapte tweeling waarvan een kind doodgeboren werd.
+
+Aafke kon door smetvrees niet in haar eigen huis zijn, had geen telefoon of
+computer, en had jarenlang cognitieve therapie en medicatie gehad zonder
+resultaat. Ze kreeg elektroconvulsietherapie, later kanker met uitzaaiingen,
+en uiteindelijk in een hospice de EMDR waar ze om had gevraagd. Bakker
+schrijft eerlijk op dat het maar half hielp: er kwam wat berusting, de
+smetvrees werd nauwelijks minder, en dat de berusting ook door haar naderende
+dood kan zijn gekomen. Aafke Lettinga werd 76 jaar.
+
+**Wat behandeling wel en niet kan**
+
+Bakker beschrijft het aanbod nuchter: exposuretherapie en de narratieve
+variant daarvan, cognitieve therapie van Aaron Beck, en EMDR van Francine
+Shapiro. Bij EMDR meldt hij dat het werkingsmechanisme onduidelijk bleef en
+dat de oogbewegingen niet nodig blijken, omdat een afwisselende pieptoon door
+een koptelefoon hetzelfde doet, en dat er ondanks die controverse veel bewijs
+voor de werkzaamheid is.
+
+Zijn bezwaar tegen de behandelstandaarden is dat de relatie tussen therapeut
+en client daarin niet voorkomt. Hij haalt Jan Foudraine aan met de zin dat hij
+geen patienten behandelt maar mensen ontmoet. Schematherapie noemt hij van het
+reguliere aanbod het meest geschikt bij oud zeer.
+
+In het stuk over de serotonine-leugen bespreekt hij het artikel dat
+concludeerde dat er geen aantoonbaar verband is tussen depressie en een
+serotoninetekort. Hij is daar dubbel over: blij dat het verklaringsmodel weg
+is, verdrietig dat miljoenen mensen decennia verkeerd zijn voorgelicht. Hij is
+niet tegen antidepressiva, gelooft er minder in, en wil geld voor begeleide
+afbouw omdat plotseling stoppen risico's heeft.
+
+**Andere wegen en het eigen verhaal**
+
+Het langste deel van het boek gaat over wat er buiten het protocol te vinden
+is: lichaamswerk, familieopstellingen, hypnose, psychedelische middelen,
+hardlopen, aanraking, niet-oordelen. Bakker geeft daarbij toe dat hij vaak
+niet weet waarom iets werkt, en trekt de vergelijking met antidepressiva,
+waarvan ook niemand het precies weet.
+
+Daar doorheen loopt zijn eigen geschiedenis: de verhuizingen achter de banen
+van zijn vader aan, de jaren in IJsselmuiden, het huwelijk van zijn ouders, de
+moederband, zijn scheiding, zijn slechte verdraagzaamheid voor kritiek. Hij
+laat zijn registratie als psychiater verlopen en beschrijft dat als een keuze,
+niet als een verlies. Het slot gaat over post traumatic growth potential en
+over vergeving zonder dat de ander er om vraagt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Oud zeer | Bakkers Nederlandse term voor de blijvende sporen van een belaste jeugd, uitdrukkelijk geen diagnose en geen ziekte. |
+| Affectieve verwaarlozing | Het uitblijven van het emotionele klimaat dat een kind nodig heeft om zich tot een stabiele volwassene te ontwikkelen. |
+| Positieve ingredienten | Gebeurtenissen die er waren en er niet hadden moeten zijn, zoals mishandeling of misbruik. |
+| Negatieve ingredienten | Dat wat ontbrak: warmte, aandacht, geborgenheid, complimenten. |
+| ACE | Adverse Childhood Experiences, de studie uit 1998 met tien categorieen tegenslag en een dosis-responsverband met latere ziekte. |
+| Toxic stress | Langdurige belasting die volgens de literatuur het lichaam zelf aantast, in de jeugd maar ook op volwassen leeftijd. |
+| Het achtste vinkje | Bakkers aanvulling op Luyendijks zeven vinkjes: het ontbreken van hinderlijk oud zeer als voorwaarde om de andere voordelen te kunnen benutten. |
+| Dissimulatie | Het verbergen of kleiner maken van klachten tegenover hulpverleners, iets wat Bakker bij oud zeer vaak ziet. |
+| Post traumatic growth potential | De ruimte om aan een moeilijke geschiedenis vermogens over te houden, een term die hij bij het echtpaar Knoops oppikte. |
+
+#### Waar het argument op rust
+
+Bakker is over zijn eigen bewijsvoering opvallend open. Waar hij op onderzoek
+leunt is dat vooral de ACE-studie, en die noemt hij zelf het beste wat er is
+met de toevoeging dat betrouwbaar onderzoek naar zorggebruik bij deze groep
+schaars is. De DSM-criteria en de cijfers over PTSS-kansen zijn
+controleerbaar. Bij de serotoninebespreking verwijst hij naar een breed
+geciteerde overzichtsstudie.
+
+Waar hij op ervaring leunt, schrijft hij dat erbij. Bij zijn stelling over de
+leeftijd van het eerste psychotrauma staat letterlijk dat hij zich niet op
+literatuur baseert. Bij familieopstellingen en lichaamswerk claimt hij geen
+bewijs, maar zegt dat hij niet weet waarom het werkt. Die eerlijkheid maakt
+het boek beter navolgbaar dan veel werk in dit genre.
+
+De portretten dragen het boek qua overtuigingskracht en niet qua bewijs. Ze
+laten zien wat een leven met onbehandeld oud zeer kan doen, en in het geval
+van Aafke ook wat behandeling niet doet. Dat Bakker die tegenvaller opschrijft
+in plaats van hem weg te laten, zegt iets over de opzet.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar zit in de kern van het betoog. Bakker schrijft dat het
+een goed verdedigbare stelling is dat oud zeer in principe altijd een aandeel
+heeft in iemands psychische stoornis, ongeacht welke. Een verklaring die
+overal past, is niet te weerleggen en verliest daarmee aan waarde. Zodra
+behandeling niet aanslaat, kan dat aan onbewerkt oud zeer liggen, en zodra ze
+wel aanslaat is er ook geen probleem. De lezer krijgt geen enkel voorbeeld van
+een geval waarin de verklaring niet opgaat.
+
+Ten tweede is de sprong van de ACE-bevindingen naar zijn eigen conclusies
+groot. De studie laat statistische samenhang zien tussen categorieen tegenslag
+en latere ziekte in een grote groep. Ze zegt niets over de vraag welke
+individuele klacht bij welke individuele persoon uit welke jeugdervaring
+voortkomt, en dat is precies wat het boek in de praktijk doet. Bij een
+dosis-responsverband uit een retrospectieve vragenlijst speelt bovendien mee
+dat mensen die nu ziek zijn hun jeugd anders herinneren.
+
+Ten derde bepleit Bakker methoden waarvan hij zelf zegt dat hij niet weet hoe
+ze werken, terwijl hij de farmaceutische industrie verwijt dat die met een
+onbewezen verklaringsmodel is weggekomen. Dat is dezelfde maat niet.
+Familieopstellingen, hypnose en plantmedicijnen zijn niet de veilige
+restcategorie die het boek suggereert, en juist voor een lezersgroep die al
+veel heeft geprobeerd verdient die kanttekening een plek.
+
+Ten slotte de vorm. Het boek bestaat uit korte columnachtige stukken die
+eerder los verschenen konden zijn, en de opbouw over negen hoofdstukken is
+losser dan de inhoudsopgave belooft. Het persoonlijke deel neemt in de tweede
+helft veel ruimte, en wie voor de analyse van affectieve verwaarlozing komt,
+leest daar veel over Bakkers verliefdheden en hardloopvrienden doorheen.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf bij een langlopende klacht op wat er in het jaar ervoor speelde, en
+daarna wat er in de jaren voor je vijftiende speelde. Zet die twee lijstjes
+naast elkaar.
+- Vraag bij een behandeling die niet aanslaat expliciet naar de klik met de
+behandelaar, want de standaarden benoemen die factor niet.
+- Neem bij lichamelijke klachten zonder verklaring de jeugd op in het gesprek
+met de arts, ook als daar niet naar gevraagd wordt.
+- Stop nooit op eigen houtje met antidepressiva; Bakker pleit voor afbouw
+onder begeleiding.
+
+#### Wat je hierna leest
+
+- 119. Unfuck Your Brain. Harper legt in kort bestek uit wat er neurologisch
+gebeurt bij aanhoudende stress, de laag die Bakker vooral als ervaring
+beschrijft.
+- 107. Alles draait om angst. Van Gassel behandelt angst als grondlaag onder
+uiteenlopende klachten, een redenering die parallel loopt aan die van Bakker.
+- 103. De psychologie van eetgedrag. Zondervan beschrijft verstoord eetgedrag
+zonder de jeugdlaag; naast Bakker gelezen valt op wat daar ontbreekt.
+- 87. Activeer je nervus vagus. Swinnen gaat over de lichamelijke kant van
+spanningsregulatie, het terrein waarvan Bakker zegt dat de psychiatrie het
+decennialang oversloeg.
 
 ## 105. Zo ongelukkig mogelijk in 8 stappen
 
@@ -15937,6 +19544,175 @@ is dat de onderbouwing tot losse verwijzingen beperkt blijft en dat de reeks
 waaruit het komt sterk op herhaling drijft; wie er meer dan één leest, leest
 veel hetzelfde.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Faith Harper stelt dat de behoefte aan coping-vaardigheden
+geen teken van zwakte of ziekte is, maar een fysiologische toestand van een
+lichaam dat zich heeft aangepast aan wat het heeft meegemaakt. Omdat het
+stressantwoord onwillekeurig is, valt het niet met wilskracht uit te zetten;
+wel valt er met dat systeem te onderhandelen, en dat onderhandelen is precies
+wat een coping-vaardigheid doet. Zij ordent die vaardigheden bovendien niet
+naar goed en fout, maar naar de mate van speelruimte die iemand op dat moment
+heeft.
+
+#### De gang van het boek
+
+**Coping als normale reactie op een abnormale omgeving**
+
+Het boek opent met de vaststelling dat mensen die coping-vaardigheden nodig
+hebben niet gek zijn maar uitgeput. Harper wijst op de opkomst van kleurboeken
+voor volwassenen, fidget spinners en Pokemon Go als aanwijzing dat een hele
+cultuur naar zelfsussende bezigheden grijpt.
+
+Zij zet daar vijf uitgangspunten tegenover: er bestaan geen verkeerde
+reacties, alleen aangepaste; wat iemand heeft overleefd bedraadt het lichaam
+tot behoedzaamheid; dichtklappen is geen keuze; het gaat om een lichamelijke
+toestand en niet om een geestesziekte. Tegelijk houdt zij vast aan
+aansprakelijkheid: je hebt het kaartje misschien niet gekocht, maar het circus
+is nu van jou.
+
+**Een woordenlijst voordat de oefeningen komen**
+
+Harper definieert stress klinisch als elke gebeurtenis die inzet van
+hulpbronnen vraagt, positief of negatief. Distress is het punt waarop die
+hulpbronnen op zijn en er steun nodig is. Zij benadrukt dat distress een
+vakterm is en geen oordeel over iemands leven.
+
+Getriggerd worden betekent bij haar het opnieuw beleven van een gebeurtenis
+die het vermogen om te verwerken overspoelde, en niet het simpelweg onprettig
+vinden van iets. Coping-vaardigheden zijn dan een bewuste inzet van
+hulpbronnen tegen inwendige of uitwendige stressoren. Doet iemand dat niet
+bewust, dan verzint het brein zelf strategieën, en die zijn zelden gezond;
+daar ligt volgens haar de kiem van verslaving.
+
+**Waarom een oefening lichamelijk werkt**
+
+Het hoofdstuk over de werking leunt op de nervus vagus, de langste
+hersenzenuw, die informatie naar organen en weefsels brengt. Harper beschrijft
+de drie autonome zenuwstelsels, sympathisch, parasympathisch en enterisch, en
+gebruikt de polyvagaaltheorie van Stephen Porges om te betogen dat die
+stelsels in rangorde reageren.
+
+Vechten, vluchten en bevriezen zijn in haar beschrijving alle drie verdedigend
+van aard. Bevriezen wordt in de literatuur over trauma vaak overgeslagen en is
+de reactie waarover mensen zich het meest schamen. Een coping-vaardigheid
+brengt volgens haar het parasympathische deel weer op gang, waarmee zij het
+effect nadrukkelijk lichamelijk noemt in plaats van zweverig.
+
+**De vier pijlers van de Navy SEALs**
+
+Als algemeen bruikbaar startpunt kiest Harper het onderzoek dat de Amerikaanse
+marine liet doen naar de opleiding tot Navy SEAL. Van de kandidaten valt
+ongeveer 75 procent af, terwijl allen lichamelijk geschikt waren bevonden. Het
+verschil bleek mentaal en werd teruggebracht tot vier pijlers.
+
+Die pijlers zijn zeer kortlopende en heel concrete doelen, positieve
+verbeelding van de afloop, positieve zelfspraak, en het reguleren van de eigen
+opwinding. Bij dat laatste noemt zij ademen op vier tellen in en vier tellen
+uit, dat later in het boek terugkomt als vierkantsademhaling uit de
+dialectische gedragstherapie, met vier tellen inademen, vasthouden, uitademen
+en opnieuw vasthouden.
+
+**Vier eigen categorieën in plaats van goed en fout**
+
+Harper verwerpt de gangbare indelingen die cognitieve en emotionele
+vaardigheden scheiden, omdat denken en voelen elkaar voortdurend voeden. Zij
+gebruikt daarvoor het woord feeling-thoughts. Ook een indeling in nuttig en
+schadelijk wijst zij af, omdat zij zichzelf niet tot scheidsrechter wil maken.
+
+Haar eigen vier categorieën zijn: live through this skills voor het moment
+zelf, waaronder aarden en ademhalen; internal judo voor het herwegen van wat
+er in het hoofd gebeurt, waaronder gebed, meditatie en bewust escapisme;
+mitigate the bullshit voor gedrag en het opnieuw formuleren van het probleem
+dat opgelost moet worden; en find the pony skills, waarin betekenis geven en
+scheppend werk aan bod komen. Zij verwijst daarbij naar Viktor Frankl en de
+logotherapie.
+
+Het slotdeel is een lange ongesorteerde lijst met kleine ingrepen: kauwen,
+knipperen, een geur aan kalmte koppelen, het woordje nog toevoegen aan elke ik
+kan niet, huilen, blootsvoets contact met de grond. Daarna volgt een hoofdstuk
+over hoe je iemand anders steunt zonder te suggereren dat die persoon stuk is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Distress | Het punt waarop de hulpbronnen om met stress om te gaan uitgeput zijn en er steun van buiten nodig is. |
+| Feeling-thoughts | Harpers term voor voelen en denken als één samenhangend proces dat niet los van elkaar te behandelen valt. |
+| Live through this skills | Vaardigheden om een acuut moment door te komen zonder de gevoelens te willen uitpluizen of veranderen. |
+| Internal judo | Vaardigheden waarmee je je verhouding tot je eigen gedachten en gevoelens verschuift in plaats van de situatie. |
+| Mitigate the bullshit | Gedragsmatige vaardigheden die de omstandigheden zelf aanpakken, te beginnen bij de vraag welk probleem er eigenlijk opgelost moet worden. |
+| Find the pony skills | Vaardigheden waarbij iemand betekenis of richting haalt uit een nare situatie, in de lijn van Frankl. |
+| Aardingstechnieken | Mentale en lichamelijke oefeningen om in het hier en nu te blijven, van categorieënspelletjes tot schoenen uitdoen. |
+| Vierkantsademhaling | Vier tellen in, vier vasthouden, vier uit, vier vasthouden, viermaal herhaald, afkomstig uit de dialectische gedragstherapie. |
+| Polyvagaaltheorie | Het model van Stephen Porges waarin de drie autonome zenuwstelsels in rangorde op dreiging reageren. |
+
+#### Waar het argument op rust
+
+Het boek is de uitwerking van een eerder zelfgemaakt zine en steunt vooral op
+wat Harper als therapeut ziet, aangevuld met wat lezers en oud-stagiairs haar
+meldden. Twee van die reacties staan letterlijk in het slothoofdstuk, met
+naam. Dat is bruikbaar materiaal, maar het is anekdote en geen meting.
+
+Er staat een literatuurlijst achterin met echte bronnen, onder meer Porges via
+omweg, Anna en Sigmund Freud over afweermechanismen, en Korba uit 1990 voor
+het cijfer van vierduizend woorden inwendige spraak per minuut. Daarnaast
+staan er ook een Quora-pagina en een sciencedirect-overzichtspagina in
+dezelfde lijst, wat aangeeft hoe ongelijk de onderbouwing is.
+
+Het uitvalcijfer van 75 procent bij de SEAL-opleiding en de vier pijlers komen
+uit een populariserende trainingsgids en niet uit het oorspronkelijke
+onderzoek. De polyvagaaltheorie wordt gepresenteerd als vaststaande
+neurologie, terwijl zij binnen het vakgebied omstreden is.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de vier categorieën door Harper zelf zijn bedacht,
+zoals zij ook toegeeft, en dat er geen enkele toetsing achter zit. Zij
+verwerpt bestaande indelingen omdat die haar niet bevallen, en zet daar een
+indeling tegenover die vooral haar eigen manier van kijken ordent. Als
+ordening werkt dat prettig, als kennisclaim niet.
+
+De neurologie is sterk vereenvoudigd en soms verhalend gemaakt tot het punt
+waarop zij niet meer klopt. De verbindingen tussen prefrontale schors,
+amygdala en hersenstam worden als een klein toneelstuk beschreven, en de lezer
+krijgt geen middel om te zien waar de vereenvoudiging ophoudt.
+
+De grootste vaardigheden staan bovendien het dichtst bij het einde en het
+kortst uitgewerkt. Het deel over betekenis, scheppen en de tombstone test is
+nog geen tien bladzijden, terwijl daar de zwaarste belofte ligt. Wie het boek
+koopt voor de lijstjes krijgt waar voor zijn geld; wie hoopt op verdieping van
+dat laatste deel, minder.
+
+Het scheldwoordenregister is een keuze die veel lezers waarderen en andere
+lezers afstoot. Het effect is dat elke bewering hetzelfde toonhoogtebereik
+krijgt, waardoor het onderscheid tussen een goed onderbouwd punt en een
+terzijde vervaagt.
+
+#### Wat er concreet mee te doen is
+
+- Kies vooraf twee aardingsoefeningen die je op een bus of in een vergadering
+kunt doen zonder op te vallen.
+- Schrijf achteraf op wat er gaande was toen je uit je doen raakte, ook de
+saaie omstandigheden, en zoek na een maand naar herhaling.
+- Vraag bij een probleem dat niet opgelost raakt eerst of je wel het juiste
+probleem aan het oplossen bent.
+- Koppel een geur aan een moment waarop je rustig bent, en neem die geur mee
+voor momenten waarop je dat niet bent.
+- Wil je iemand anders steunen, benoem dan dat niemand van nul naar honderd
+gaat en vraag welk klein stuk je samen kunt doen.
+
+#### Wat je hierna leest
+
+- 119. Unfuck Your Brain. Hetzelfde stelsel, maar dan volledig uitgelegd: daar
+staat de hersenkunde waar dit boek naar terugverwijst.
+- 87. Activeer je nervus vagus. Swinnen behandelt de nervus vagus als apart
+onderwerp, met meer aandacht voor de meetbare kant.
+- 109. Elke dag zelfzorg. Mouton werkt zelfzorg uit als dagelijkse praktijk in
+plaats van als gereedschapskist voor noodgevallen.
+- 120. Unfuck Your Anger. Daar past Harper dezelfde vaardigheden toe op één
+emotie, en wordt zichtbaar wat de indeling in de praktijk oplevert.
+
 ## 119. Unfuck Your Brain
 
 Faith G. Harper, 2017. Ondertitel *Using Science to Get Over Anxiety,
@@ -15955,6 +19731,199 @@ De uitleg is versimpeld maar niet onjuist, en de kracht zit in de combinatie
 van biologie en handelingsadvies zonder omhaal. Wie meer wil weten dan de
 hoofdlijn, merkt dat de bronvermelding karig is en dat de stelligheid over
 hersengebieden verder gaat dan het onderzoek toelaat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Harper betoogt dat vrijwel alles wat wij bij onszelf gek
+noemen een overlevingsreactie is die op het verkeerde moment aanslaat, en dat
+de denkende voorkant van het brein bij hoge stress niet de baas is. Daaruit
+volgt haar centrale stelling: je kunt je reacties niet met wilskracht
+overrulen, je kunt ze alleen omleren door het brein herhaald andere informatie
+te geven onder veilige omstandigheden. Wie dat begrijpt, houdt op zichzelf te
+veroordelen en begint met oefenen.
+
+#### De gang van het boek
+
+**Brein 101**
+
+Het eerste hoofdstuk zet drie delen neer. De prefrontale schors doet het
+uitvoerende werk: problemen oplossen, doelen nastreven, sociaal gedrag
+afstemmen. Zij is pas rond het midden van de twintig volgroeid. De anterieure
+cingulate schors regelt het gesprek tussen dat denkende deel en het
+gevoelsdeel, met spilneuronen die sneller signalen doorgeven dan gewone
+zenuwcellen.
+
+Het limbische systeem doet het voelen. De amygdala koppelt herinneringen aan
+emoties, en dan een bepaald soort herinnering: episodisch-autobiografisch
+geheugen, dus gebeurtenissen, plaatsen en mensen. Harper vergelijkt dat met
+een ezelsbruggetje: wie bloemen ooit bij een sterfgeval kreeg, kan later bij
+de geur van bloemen terug in die begrafenis staan.
+
+De hersenstam is het oudste deel en regelt alertheid en tempo. Bij dreiging
+overspoelt hij de prefrontale schors met stoffen die haar werking veranderen,
+en dan volgt vechten, vluchten of bevriezen. Het systeem onderscheidt echt
+gevaar slecht van vermeend gevaar en kiest bij twijfel voor alarm.
+
+**Het brein dat verhalen vertelt**
+
+Harper voegt daar een minder gangbaar stuk aan toe: in ruststand vertelt het
+brein verhalen. Dat is de standaardstand, en daarom dromen mensen. Verhalen
+werken volgens haar als repetitie voor wat komt en als opslagvorm, omdat het
+werkgeheugen slechts een stuk of zeven eenheden aankan.
+
+Datzelfde vermogen wordt een probleem wanneer het verhaal over onszelf en de
+wereld vastloopt. Het brein wil zekerheid, ziet patronen die er niet zijn en
+verzint achteraf redenen bij beslissingen die het gevoelsdeel al had genomen.
+
+**Wat trauma doet**
+
+Trauma is bij Harper een gebeurtenis die buiten je begrip van hoe de wereld
+hoort te werken valt, en een traumareactie is wanneer je vermogen om ermee om
+te gaan het begeeft. Zij weigert een lijst van kwalificerende gebeurtenissen
+te geven, omdat zo'n lijst mensen leert dat hun ervaring niet erg genoeg was.
+
+Van de mensen die iets ernstigs meemaken herstelt volgens haar ongeveer
+tweederde naar een nieuw evenwicht, meestal binnen een maand of drie. Bij de
+rest wordt de verwerking in de eerste dertig dagen verstoord, en juist daarom
+kan de diagnose posttraumatische stressstoornis pas na een maand gesteld
+worden. Ontbrekende tijd, ruimte en mensen zijn in haar beschrijving de
+belangrijkste reden dat die verwerking stokt.
+
+Zij noemt vier hoofdverschijnselen: verhoogde prikkelbaarheid, vermijding,
+opdringende beelden en herinneringen, en aanhoudend negatieve gedachten en
+gevoelens. Wie niet aan de volledige diagnose voldoet is daarmee niet in orde:
+bij hulpverleners van 11 september bleek een vijfde van de mensen met
+deelverschijnselen twee jaar later wel aan de criteria te voldoen.
+
+**Negentig seconden, en waarom het langer duurt**
+
+Een emotie is bedoeld als informatie en zou volgens Harper ongeveer negentig
+seconden duren. Dat het langer duurt komt doordat wij haar blijven voeden met
+dezelfde gedachten en hetzelfde gedrag. Op dat punt wordt een emotie een
+stemming.
+
+Piekeren en vermijden werken in haar model precies hetzelfde: beide zijn
+pogingen om controle terug te pakken, en beide houden de lus in stand. Haar
+voorbeeld is de straat waar een ongeluk gebeurde en die daarna wordt gemeden,
+waarna het mijdingsgebied groeit.
+
+**Het raamwerk voor herstel**
+
+Voor de weg terug leunt Harper op Judith Herman en haar boek Trauma and
+Recovery, met drie fasen: veiligheid en stabilisatie, herinneren en rouwen, en
+herverbinding. Zij noemt het liever een raamwerk dan fasen, omdat niemand
+netjes van stap naar stap gaat.
+
+Het grootste deel van haar boek gaat, net als bij Herman, over de eerste fase.
+Alle oefeningen daar zijn bedoeld om de prefrontale schors iets te geven om te
+doen, waarmee de overname door de hersenstam wordt onderbroken. Met de
+amygdala zelf valt niet te redeneren; zij gebruikt daarvoor het beeld van
+Bruce Lipton over schreeuwen tegen een cassetterecorder omdat het liedje je
+niet bevalt.
+
+De tweede fase is het traumaverhaal, dat ook zonder therapeut kan in een
+dagboek of met iemand die te vertrouwen is. De derde fase gaat over de plek
+die de gebeurtenis in een heel leven krijgt.
+
+**Behandelvormen en aparte hoofdstukken**
+
+Hoofdstuk vijf loopt de behandelmogelijkheden langs: gesprekstherapie, waarbij
+zij aandringt op een bevoegde en in trauma geschoolde behandelaar, en
+reguliere medicatie. Over dat laatste is zij dubbel: medicijnen redden levens,
+maar worden te vaak de enige lijn in plaats van steun terwijl er aan de
+oorzaak wordt gewerkt. Zij noemt haar voorkeur voor aanvullende methoden
+evidence based woo-woo, waarmee zij bedoelt dat er onderzoek onder moet
+liggen.
+
+Daarna volgen kortere hoofdstukken over angst, boosheid, verslaving,
+somberheid en het eren van rouw. Die hoofdstukken passen steeds hetzelfde
+stelsel toe op een ander verschijnsel, wat het boek tot het volledigste deel
+van de reeks maakt en tegelijk tot het meest herhalende.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Prefrontale schors | De voorkant van het brein die uitvoerende taken doet en volgens Harper bij hoge stress het commando kwijtraakt. |
+| Amygdala hijack | Het moment waarop het gevoelsdeel het stuur overneemt en redeneren tijdelijk onmogelijk wordt. |
+| Episodisch-autobiografisch geheugen | Het geheugen voor gebeurtenissen met emotie eraan vast, waar de amygdala mee werkt. |
+| Prikkeldiscriminatie | Het vermogen te bepalen of iets werkelijk gevaarlijk is, een taak van het denkende deel die bij alarm uitvalt. |
+| Standaardstand | De ruststand van het brein, waarin het volgens Harper vooral verhalen vertelt. |
+| Nieuw normaal | Het evenwicht na een ingrijpende gebeurtenis, dat anders is dan daarvoor maar wel leefbaar. |
+| De negentigsecondenregel | Het idee dat een emotie vanzelf uitdooft tenzij gedachten en gedrag haar blijven voeden. |
+| Traumaverhaal | Het bewust vertellen van wat er gebeurde, met de gevoelens erbij, in de tweede fase van Hermans raamwerk. |
+| Evidence based woo-woo | Harpers aanduiding voor aanvullende methoden waarvoor zij naar eigen zeggen onderzoek kan tonen. |
+
+#### Waar het argument op rust
+
+Dit is het deel van de reeks waarin het meeste onderzoek wordt aangehaald. Het
+raamwerk komt aantoonbaar uit Judith Hermans Trauma and Recovery, de
+risicofactoren voor een traumareactie komen uit verzameld materiaal van het
+Amerikaanse veteranenbureau, en het cijfer over hulpverleners van 11 september
+komt uit een vervolgmeting.
+
+Tegelijk noemt Harper zelden een vindplaats bij de bewering zelf. De
+negentigsecondenregel schrijft zij toe aan onderzoek na beroertes zonder
+onderzoeker of jaartal; die claim gaat terug op één auteur en is nooit als
+algemene wet vastgesteld. De opmerking dat trauma via genetische veranderingen
+aan volgende generaties wordt doorgegeven presenteert zij als vaststaand,
+terwijl het onderzoek daarnaar bij mensen omstreden is en de effectgroottes
+klein.
+
+De bewering dat in landen zonder antipsychotica de herstelcijfers hoger lagen
+verwijst naar oud onderzoek van de Wereldgezondheidsorganisatie waarvan de
+opzet en de interpretatie zwaar zijn bekritiseerd. Harper geeft die nuance
+niet.
+
+#### Wat er tegen in te brengen valt
+
+De neurologie is een werkmodel, geen beschrijving. Prefrontale schors,
+amygdala en hersenstam worden neergezet als drie personages met eigen
+karakters, en die verdeling houdt geen stand tegen wat er over verdeelde
+netwerken bekend is. Voor iemand die zichzelf wil begrijpen kan het model rust
+geven; als kennis is het bedrieglijk stellig.
+
+Het sterkste bezwaar is dat het boek zelfhulp en behandeling niet scherp
+scheidt. Herstel na trauma is bij Harper vooral iets wat je begrijpt en dan
+oefent, terwijl de fase waar zij zich op richt, veiligheid en stabilisatie,
+juist de fase is waarin professionele begeleiding het zwaarst weegt. Zij zegt
+dat wel, maar het boek zelf nodigt uit tot alleen doorgaan.
+
+De toon verkoopt de inhoud, en dat werkt twee kanten op. Het
+scheldwoordenregister maakt het onderwerp benaderbaar voor mensen die
+therapietaal wantrouwen, en ontneemt de lezer tegelijk elk gevoel voor
+onzekerheidsmarge, omdat er geen verschil in stelligheid is tussen een goed
+onderbouwd punt en een terzijde.
+
+De latere hoofdstukken over angst, boosheid, verslaving en somberheid zijn
+dun. Elk van die onderwerpen kreeg later een eigen boekje, en wie de reeks
+leest merkt dat hier de aanzet ligt en daar de uitwerking.
+
+#### Wat er concreet mee te doen is
+
+- Noteer bij een uitbarsting welke emotie het was, hoe sterk op een schaal van
+nul tot honderd, welke lichamelijke verschijnselen erbij hoorden en wat er
+verder gaande was.
+- Zoek daarin na enige tijd naar patronen; dat is volgens Harper de enige
+manier om je aanleidingen te vinden.
+- Test bij een sterke reactie of je hem voedt met piekeren of met vermijden,
+want beide houden hem in stand.
+- Geef bij hoogspanning het denkende deel een taak in plaats van te proberen
+het gevoel weg te praten.
+- Vraag bij het zoeken naar een behandelaar naar bevoegdheid en naar
+traumascholing, en vraag door als dat niet op de website staat.
+
+#### Wat je hierna leest
+
+- 118. Coping Skills. Hetzelfde stelsel, maar dan uitgewerkt tot een geordende
+gereedschapskist voor het moment zelf.
+- 104. Oud zeer. Bakker behandelt oud zeer in de Nederlandse context, met meer
+aandacht voor het lichaam en minder voor hersenkunde.
+- 48. Man's Search for Meaning. Frankl is de bron achter Harpers hoofdstuk
+over betekenis geven, en laat zien hoe die gedachte oorspronkelijk werd
+onderbouwd.
+- 107. Alles draait om angst. Van Gassel behandelt angst als eigen onderwerp
+en gaat daarmee dieper dan het korte hoofdstuk hier.
 
 ## 120. Unfuck Your Anger
 
@@ -15975,6 +19944,184 @@ praktisch en zonder degelijke verwijzingen. Het aardigste deel gaat over het
 onderscheid tussen woede uiten en woede voeden, met de kanttekening dat het
 idee van afreageren als uitlaatklep in onderzoek juist averechts uitpakt.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Harper stelt dat boosheid altijd een geldige emotie is en
+nooit het probleem, omdat het probleem ligt in de manier waarop boosheid tegen
+anderen of tegen jezelf wordt ingezet. Zij voegt daaraan toe dat boosheid een
+tweede emotie is: zij komt altijd bovenop iets anders, namelijk pijn, een niet
+ingeloste verwachting of een onvervulde behoefte. Wie die onderlaag benoemt,
+hoeft de boosheid niet weg te drukken en hoeft er ook niet naar te handelen.
+
+#### De gang van het boek
+
+**Boosheid als schaal en als lichamelijke gebeurtenis**
+
+Boosheid is bij Harper geen schakelaar maar een glijdende schaal, van
+geïrriteerd via kwaad naar razend. Lichamelijk begint zij met adrenaline uit
+het binnenste deel van de bijnier, waarna de luchtwegen ontspannen, de
+bloedvaten samentrekken, het hart sneller slaat en de spieren spannen. Het
+brein leest die toestand af en plakt er het etiket boosheid op.
+
+Dat sluit aan op het stelsel uit haar eerdere werk, dat zij hier bewust
+herhaalt omdat zij lezers niet op een speurtocht door haar andere boeken wil
+sturen. De uitwerking is korter dan in *Unfuck Your Brain*; wat dit deel
+toevoegt zit in de twee modellen die volgen.
+
+**De negen woedeschakelingen: LIFEMORTS**
+
+De eerste toevoeging is het werk van onderzoeker R. Douglas Fields, die negen
+aanleidingen voor woede in het brein onderscheidt en die samenvatte in het
+ezelsbruggetje LIFEMORTS. Het gaat om lijfsbehoud, belediging of gebrek aan
+respect, familie, territorium, partner, maatschappelijke orde, hulpbronnen, de
+eigen groep, en beknelling of het gevoel gevangen te zitten.
+
+Harper benadrukt dat de meeste situaties er meer dan één tegelijk aanraken.
+Zij gebruikt het onderscheid tussen belediging en maatschappelijke orde om te
+laten zien dat dezelfde schakeling zowel bendegeweld als een
+rechtvaardigheidsbeweging kan voeden, afhankelijk van wat ermee gedaan wordt.
+
+**Het AHEN-model**
+
+De tweede toevoeging is het model dat zij in haar praktijk het meest gebruikt.
+AHEN staat voor anger, hurt, expectations, needs: boosheid komt voort uit
+pijn, uit verwachtingen die niet zijn ingelost, of uit behoeften waaraan niet
+is voldaan, en meestal uit een mengsel daarvan.
+
+Bij elk van de drie hoort een vraag. Ben ik gekwetst, en waarom juist nu en
+juist door deze persoon? Had ik een verwachting, en was die redelijk, en is de
+wereld vergaan toen zij niet uitkwam? Was er een behoefte, en welke? Zij
+combineert AHEN met LIFEMORTS in een aangepaste oefening van Roselli en
+Worden, met vier vragen: wat voel ik, wat bracht dat op gang, welke
+mogelijkheden heb ik, en wat ga ik doen. Het woord waarom laat zij weg omdat
+zij dat de minst bruikbare vraag in de hulpverlening vindt.
+
+**Vijf manieren waarop mensen met boosheid omgaan**
+
+Harper onderscheidt wegstoppen, openlijke vijandigheid, bedekte vijandigheid,
+grenzen houden en loslaten. De eerste drie noemt zij reactief en het zijn
+volgens haar de aangeleerde norm; de laatste twee zijn de manieren waarop dit
+boek werkt.
+
+Grenzen houden vraagt kwetsbaarheid, omdat je uitspreekt wat wel en niet in
+orde is terwijl het antwoord nee kan zijn. Loslaten is uitdrukkelijk iets
+anders dan wegstoppen: bij wegstoppen doe je alsof de boosheid er niet is, bij
+loslaten erken je haar en stel je vast dat zij zich richt op gedrag dat je
+niet kunt veranderen of op een grens die je niet kunt afdwingen.
+
+**Wanneer boosheid iets anders is**
+
+Boosheid heeft geen eigen diagnose in het handboek dat behandelaars gebruiken,
+maar staat wel bij ruim dertig andere diagnoses als hoofdverschijnsel.
+Ongeveer een derde van de mensen met een depressie kent aanvallen van
+boosheid, en juist die groep heeft langer durende en lastiger te behandelen
+klachten. Aanhoudende woede kan ook horen bij een manische stemming.
+
+Zij besteedt een apart hoofdstuk aan zelfbeschadiging als uiting van naar
+binnen gekeerde boosheid, met de vakterm niet-suicidale zelfbeschadiging, en
+wijst op de vormen die minder opvallen zoals vellen pulken en onnodige klappen
+opzoeken in de sport. Ook trauma komt terug: bij een onverwerkte traumareactie
+leest het systeem vrijwel alles als bedreiging, waardoor bijna elke situatie
+een van de negen schakelingen raakt.
+
+**Vergeving als eigenbelang**
+
+Het laatste blok gaat over vergeving en is het persoonlijkste deel van het
+boek. Harper leunt op vergevingsonderzoeker Matt James, die onderscheid maakt
+tussen vergeven van één voorval en vergeven als karaktertrek, waarbij het
+eerste met oefening tot het tweede leidt.
+
+Frederic Luskin van het Stanford Forgiveness Project levert het beeld dat zij
+aanhoudt: je bent een agent met een kapotte motor die bekeuringen blijft
+uitschrijven die hij niet kan innen, tot het dashboardkastje vol zit.
+Vergeving is bij haar geen morele prestatie en zeker geen berusting in slecht
+gedrag, maar het terugnemen van je eigen energie. Zij zegt er nadrukkelijk bij
+dat vergeving geen grenzen opheft en geen verzoening vereist.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| LIFEMORTS | Het ezelsbruggetje van R. Douglas Fields voor negen aanleidingen die in het brein een woedereactie op gang brengen. |
+| AHEN | Harpers werkmodel waarin boosheid voortkomt uit pijn, niet ingeloste verwachtingen of onvervulde behoeften. |
+| Tweede emotie | Boosheid als reactie op een eerder gevoel, en niet als het eerste wat er in een situatie gebeurt. |
+| Grenzen houden | Uitspreken wat wel en niet in orde is zonder de verbinding met de ander te verbreken. |
+| Loslaten | Boosheid erkennen en er daarna van afzien omdat zij zich richt op iets dat buiten je bereik ligt. |
+| Bedekte vijandigheid | Situaties sturen zonder het eigen gevoel open uit te spreken, via omwegen en spelletjes. |
+| Op de golf meegaan | Oefening uit de dialectische gedragstherapie: het gevoel opmerken, benoemen, laten komen en gaan zonder ernaar te handelen. |
+| Episodische en trait-vergeving | Het onderscheid van Matt James tussen één keer iemand vergeven en vergeving als vaste manier van doen. |
+| Ontregeling van het autonome zenuwstelsel | De toestand waarin het stressantwoord blijvend aanstaat, door Harper gekoppeld aan zowel lichamelijke als geestelijke klachten. |
+
+#### Waar het argument op rust
+
+De twee dragende modellen zijn wel te herleiden. LIFEMORTS komt aantoonbaar
+van R. Douglas Fields, die het uitwerkte in eigen werk over plotselinge
+agressie; het AHEN-model gebruikt Harper als klinisch hulpmiddel zonder
+onderzoek erachter te claimen. Het vergevingsdeel steunt op Matt James en op
+Frederic Luskin van het Stanford Forgiveness Project, beiden bij naam genoemd.
+
+Zwakker onderbouwd zijn de lichamelijke claims. De uitspraak dat vergeving
+volgens Candace Pert op celniveau een verschuiving teweegbrengt die energie
+vrijmaakt, noemt Harper zelf zweverig maar zij laat haar staan. De lijst van
+gezondheidsproblemen die zij aan niet kunnen vergeven koppelt, met verhoogd
+cortisol en auto-immuunklachten, is correlationeel en wordt gepresenteerd als
+gevolg.
+
+Het cijfer dat ongeveer een derde van de mensen met een depressie
+boosheidsaanvallen kent, en de opmerking dat mensen met een bipolaire stoornis
+gemiddeld tien jaar wachten op passende hulp, komen uit onderzoek dat zij
+eerder aanhaalde maar hier niet met vindplaats geeft. De lezer kan het dus
+niet nagaan.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar geldt de negen schakelingen. Zij worden gepresenteerd als
+in het brein aangewezen circuits die zich afzonderlijk laten meten, terwijl
+het in werkelijkheid gaat om een evolutionaire ordening van situaties die
+woede oproepen. Dat is een nuttige indeling en geen neurologische landkaart,
+en het verschil wordt niet gemaakt.
+
+Een deel van het boek is hergebruik. Het hoofdstuk over traumaverschijnselen
+staat vrijwel letterlijk ook in *Unfuck Your Brain*, en Harper verantwoordt
+dat openlijk. Wie beide boeken leest betaalt tweemaal voor dezelfde
+bladzijden; wie er één leest mist niets.
+
+De stelling dat boosheid altijd geldig is en nooit het probleem is retorisch
+aantrekkelijk en analytisch glad. Zij verschuift het hele vraagstuk naar wat
+iemand met de boosheid doet, waardoor de vraag of een boosheidsreactie zelf
+ongegrond kan zijn buiten beeld valt. Harper komt daar deels op terug bij de
+vraag of een verwachting redelijk was, maar het blijft een spanning in het
+boek.
+
+Het vergevingsdeel is het meest overtuigende stuk schrijven en tegelijk het
+minst getoetste. Het steunt op één onderzoeker, een beeldspraak en Harpers
+eigen ervaring, en over de vraag wanneer vergeving schadelijk is, bijvoorbeeld
+bij aanhoudend misbruik, zegt zij weinig meer dan dat grenzen blijven gelden.
+
+#### Wat er concreet mee te doen is
+
+- Loop bij een uitbarsting achteraf de drie AHEN-vragen na: was er pijn, een
+verwachting, of een behoefte.
+- Kijk daarna welke van de negen aanleidingen speelde, en of het er meer dan
+één was.
+- Onderscheid bij jezelf wegstoppen van loslaten door te vragen of je de
+boosheid hebt erkend voordat je haar liet gaan.
+- Gebruik de vier vragen wat voel ik, wat bracht het op gang, welke opties heb
+ik en wat ga ik doen, pas nadat de eerste golf voorbij is.
+- Beoordeel bij aanhoudende woede of er een stemmings- of angstklacht onder
+zit, en breng dat zo ter sprake bij een arts.
+
+#### Wat je hierna leest
+
+- 119. Unfuck Your Brain. Daar staat het brein- en traumadeel volledig
+uitgewerkt dat hier in verkorte vorm terugkeert.
+- 35. Nonviolent Communication. Rosenberg werkt het uitspreken van behoeften
+en grenzen uit tot een volledige gespreksmethode.
+- 118. Coping Skills. De vaardigheden om een woedegolf door te komen staan
+daar geordend en breder dan de oefeningen hier.
+- 145. Unfuck Your Intimacy. Hetzelfde stramien toegepast op nabijheid en
+seksualiteit, waar boosheid en grenzen opnieuw samenkomen.
+
 ## 121. Unfuck Your Worth
 
 Faith G. Harper, 2020. Ondertitel over geldemoties en het waarderen van eigen
@@ -15992,6 +20139,201 @@ Het is Amerikaans in zijn voorbeelden, met studieschulden en zorgverzekeringen
 als vanzelfsprekende achtergrond, wat de rekenvoorbeelden hier minder
 bruikbaar maakt. Wat wel overkomt is de scheiding tussen de rekensom en de
 schaamte, en de mededeling dat aan die tweede eerst iets moet gebeuren.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Harper betoogt dat de meeste financiële zelfhulp faalt omdat
+zij mensen aanspreekt als rekenmachines, terwijl geld emotioneel is en de
+verhouding ertoe wordt gevormd door individueel trauma, door armoede en door
+een economisch stelsel dat aan die verwarring verdient. Haar tegenvoorstel is
+geld te zien als energie in de vorm van tijd, arbeid en communicatie, waarmee
+eigenwaarde wordt losgekoppeld van vermogen. Pas daarna is een begroting maken
+haalbaar.
+
+#### De gang van het boek
+
+**Waarom geldboeken blijven liggen**
+
+De inleiding stelt vast dat pragmatische financiële boeken stof vergaren omdat
+niemand pragmatisch over geld voelt. Harper zet zich af tegen drie soorten:
+het uitgavenschaamboek, het boek dat een eigen beleggingscursus verkoopt, en
+het boek dat rijkdom aantrekken tot een denkoefening maakt. *Rich Dad Poor
+Dad* noemt zij bij naam als weerlegd en toch populair.
+
+Haar stelling is dat het stelsel juist verdient aan mensen die zich rot voelen
+over geld: schulden, rente, uitgaven op aanraden van adverteerders, en
+daarbovenop de boodschap dat het je eigen schuld is. Het boek is dus in twee
+delen verdeeld: hoe onze eigenwaarde stukgaat, en wat eraan te doen valt.
+
+**Ongelijkheid als omgeving**
+
+Voordat de hersenkunde komt beschrijft zij de omgeving. Vermogen is bezit min
+schulden, en dat is iets anders dan inkomen. Zij haalt Chris Rock aan om het
+verschil tussen veel verdienen en vermogend zijn te maken, en noemt het cijfer
+dat in 2018 het bezit van Jeff Bezos, Bill Gates en Warren Buffett samen
+groter was dan dat van de armste helft van de Amerikaanse bevolking.
+
+Haar punt is beperkt en bewust zo: je hoeft het kapitalisme niet af te breken
+om een spaarrekening te openen, maar je moet wel weten wat binnen en buiten je
+invloed valt voordat je je eigenwaarde loskoppelt van je bezit.
+
+**Financieel trauma**
+
+Hier ligt de toevoeging van dit deel aan de reeks. Harper vat de traumaleer
+kort samen en past haar toe op geld. Tot 93 procent van de mensen die
+opgroeien in stedelijke armoede meldt blootstelling aan trauma, en het
+aanhoudend tekortkomen is volgens haar op zichzelf al belastend.
+
+Zij haalt onderzoekspsycholoog Galen Buckwalter aan, die bij het bestuderen
+van financiële persoonlijkheden met het HEXACO-model op traumaverschijnselen
+stuitte die niet in zijn opzet pasten. Daaruit ontstond het idee van
+financieel trauma als eigen categorie, met verschijnselen die lijken op die
+van andere traumareacties.
+
+Een apart hoofdstuk gaat over financiële dwangcontrole: het beheersen van
+iemand via geld, van rekeningen op één naam tot het verstoren van iemands werk
+of het bedreigen van een verblijfsstatus. Harper wijst erop dat verlies van
+zelfbeschikking volgens het onderzoek vaker tot een posttraumatische
+stressstoornis leidt dan lichamelijk letsel, en dat dit gedrag meestal niet
+strafbaar is.
+
+**Onbetaalde arbeid en de vraag naar geluk**
+
+Het hoofdstuk over de vermenging van geld en arbeid stelt dat wat geen loon
+oplevert ook geen waardering krijgt. Onbetaalde arbeid omvat huishouden, zorg
+voor kinderen, ouderen en mensen met een beperking, maar ook zelf voedsel
+verbouwen of kleding herstellen. Een studie uit 2010 becijferde dat het
+Amerikaanse bruto binnenlands product 26 procent hoger zou uitvallen als
+onbetaald werk werd meegeteld.
+
+Over geluk corrigeert zij het bekende loterijonderzoek uit de jaren zeventig,
+dat tot het idee van een vast gelukspeil leidde. Nieuwer werk laat volgens
+haar zien dat financiële vooruitgang de geestelijke gezondheid wel degelijk
+verbetert, omdat geld toegang tot middelen geeft. Onderzoekers in Buffalo
+vonden bovendien dat wie zijn eigenwaarde aan geld koppelt slechter af is,
+ongeacht hoeveel hij heeft. Rijkere kinderen kennen meer angst, somberheid en
+middelengebruik dan armere; armere kennen meer blootstelling aan trauma.
+
+**Twee denkvallen uit de gedragseconomie**
+
+Harper behandelt twee vallen. De eerste is mentaal boekhouden, een begrip dat
+zij toeschrijft aan een econoom die zij Richard Thayer noemt: het opdelen van
+geld in denkbeeldige potjes, waardoor iemand geen eten meer koopt terwijl het
+kledingpotje nog vol is, en een meevaller anders behandelt dan loon.
+
+De tweede is sociale beïnvloeding: uitgavenpatronen die worden bepaald door de
+mensen om ons heen. Daarnaast staat een hoofdstuk over geld en verslaving,
+waarin zij stelt dat winkelverslaving niet bestaat als diagnose. De juiste
+term is dwangmatig kopen, dat vrijwel altijd naast een stemmings-, angst-,
+eet- of impulsstoornis voorkomt en volgens vragenlijstonderzoek op 6 tot 16
+procent van de bevolking in welvarende landen slaat. Gokverslaving is wel een
+erkende diagnose.
+
+**Begroten als zelfzorg**
+
+Het tweede deel is praktisch. Uitgeven begint bij twee gereedschappen:
+alternatieve kosten, waarbij elke uitgave wordt afgezet tegen wat je met
+datzelfde geld niet doet, en psychisch inkomen. Zij past het ook toe op mensen
+die te weinig uitgeven, wat zij als even schadelijk beschrijft.
+
+Zelfzorg definieert zij als het moeilijke werk van je eigen behoeften centraal
+stellen, en niet als schuimbad. Begroten valt daaronder. Zij begint met eigen
+waarden en een lijst dromen, dan een uitgavenlogboek, dan een verdeling in
+moeten, willen en sparen, met de vuistregel vijftig om twintig om dertig. De
+eerste stap is een reserve van rond de duizend, vóór aflossen en vóór
+beleggen.
+
+Het slot gaat over inkomen: weten wat je werk waard is, om opslag vragen, een
+slechte baan verlaten, en de vraag of een bijverdienste helpt of juist een val
+is. Zij benoemt zonder omhaal dat zij zelf voedselbonnen heeft gebruikt en dat
+schaamte over steun nergens op slaat.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Geld als energie | Harpers herformulering van geld als tijd, arbeid en communicatie in plaats van als maat voor iemands waarde. |
+| Financieel trauma | Een traumareactie die is ontstaan rond geldgebrek, geldverlies of financiële onveiligheid. |
+| Financiële dwangcontrole | Niet-lichamelijke mishandeling waarbij iemand via geld en afhankelijkheid onder druk wordt gehouden. |
+| Onbetaalde arbeid | Werk zonder directe beloning, van zorg tot herstel en voedselvoorziening, dat buiten de economische cijfers valt. |
+| Mentaal boekhouden | Geld in denkbeeldige potjes verdelen en het daardoor verschillend behandelen ondanks gelijke waarde. |
+| Alternatieve kosten | Wat je met hetzelfde geld niet meer kunt doen, als toets bij een aankoop. |
+| Affluenza | De term die in een Texaanse rechtszaak werd gebruikt voor de schadelijke gevolgen van welvaart, later door de bedenker betreurd. |
+| Dwangmatig kopen | De juiste aanduiding voor wat winkelverslaving heet, vrijwel altijd samen met een andere diagnose. |
+| Ervaringsvermijding | Het wegblijven bij gedachten en gevoelens die bedreigend voelen, volgens Harper de reden dat mensen hun rekeningen niet openen. |
+| Zelfzorg | Haar eigen definitie: het moeilijke werk van je eigen behoeften centraal stellen om gezond te blijven. |
+
+#### Waar het argument op rust
+
+Dit is het deel van de reeks met de meeste controleerbare cijfers. De
+vermogensvergelijking uit 2018, de raming dat onbetaald werk het bruto
+binnenlands product met 26 procent zou verhogen, de 93 procent blootstelling
+in stedelijke armoede en de bandbreedte van 6 tot 16 procent dwangmatige
+kopers zijn alle terug te vinden. De literatuurlijst achterin is voor een
+boekje van dit formaat behoorlijk.
+
+De naamgeving is minder zorgvuldig. De econoom achter mentaal boekhouden heet
+Richard Thaler, niet Thayer, en het begrip stamt uit 1985 en niet uit 1999;
+het is dus verkeerd toegeschreven en verkeerd gedateerd. Dat is een klein
+feit, maar het laat zien hoe de bronnen zijn behandeld.
+
+Het werk van Galen Buckwalter over financieel trauma is opiniërend en klein
+van opzet, en de term is geen erkende diagnose. Harper presenteert hem als
+vaststaande categorie. De cijfers over dwangmatig kopen komen uit
+vragenlijstonderzoek, waarbij zij zelf opmerkt dat de scheve verdeling tussen
+vrouwen en mannen waarschijnlijk aan de opzet ligt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de twee helften van het boek niet op elkaar
+aansluiten. De eerste helft betoogt dat het stelsel het probleem is en dat
+persoonlijke schuld misplaatst is; de tweede helft levert een
+begrotingsmethode van het gebruikelijke soort, inclusief vijftig om twintig om
+dertig en een reserve van duizend. Die adviezen zijn bruikbaar, maar zij
+volgen niet uit de analyse en zouden er zonder ook staan.
+
+De praktische adviezen zijn bovendien sterk Amerikaans gebonden:
+voedselbonnen, studieschuld, ziektekosten zonder dekking. Een Nederlandse
+lezer kan de gedachtegang meenemen maar niet de bedragen en niet de
+voorbeelden.
+
+Het traumadeel is de meeste toevoeging en tegelijk de zwakste bodem.
+Financieel trauma wordt neergezet als iets wat een naam heeft en herkend
+wordt, terwijl het vooral een nuttige beschrijving is waarvoor het onderzoek
+nog dun is. Wie het begrip aanneemt, verklaart daarmee al zijn geldgedrag uit
+het verleden, en dat maakt het onweerlegbaar.
+
+De boekhouding van schuld blijft schuiven. Harper wil tegelijk zeggen dat het
+niet je schuld is en dat je zelf aan de slag moet, en die twee lijnen worden
+nergens verzoend. In de praktijk betekent het dat de lezer de opgewekte toon
+krijgt van een boek dat zich tegen opgewekte geldboeken keert.
+
+#### Wat er concreet mee te doen is
+
+- Beantwoord eerst welke uitgaven werkelijk bij jouw waarden horen, voordat je
+een begroting opstelt.
+- Houd een aantal weken elke uitgave bij, ook de kleine, zonder er iets aan te
+veranderen.
+- Zet bij een grotere aankoop op papier wat je met hetzelfde bedrag niet meer
+kunt doen.
+- Bouw eerst een kleine reserve op voordat je versneld gaat aflossen of gaat
+beleggen.
+- Schrijf op wat je aan je werk toevoegt in opleiding, ervaring en taken, en
+gebruik die lijst bij een gesprek over beloning.
+- Herken financiële dwangcontrole aan het patroon en niet aan geweld: wie geen
+zeggenschap over geld heeft, is niet vrij.
+
+#### Wat je hierna leest
+
+- 21. The Psychology of Money. Housel behandelt hetzelfde vertrekpunt, dat
+geldgedrag emotioneel is, met meer historisch materiaal en zonder de
+maatschappijkritiek.
+- 37. Rich Dad Poor Dad. Kiyosaki is het boek dat Harper bij naam weerlegt;
+lezen naast elkaar maakt het meningsverschil zichtbaar.
+- 119. Unfuck Your Brain. Daar staat de traumaleer volledig, waar dit deel de
+toepassing op geld van geeft.
+- 38. The Richest Man in Babylon. Clason levert de klassieke tegenpool: eerst
+jezelf betalen, zonder enige aandacht voor stelsel of emotie.
 
 ## 122. Unfuck Your Intimacy Workbook
 
@@ -16567,6 +20909,202 @@ De inhoud is degelijker dan de kaft doet vermoeden, met één belangrijk
 voorbehoud: de schrijver is wetenschappelijk directeur bij het bedrijf achter
 Weight Watchers, en het boek is daarmee ook een uithangbord voor de aanpak die
 dat bedrijf verkoopt. Dat staat er zelf niet nadrukkelijk bij.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Foster stelt dat de vraag wat je eet bij afvallen minder
+bepaalt dan hoe je over jezelf en over het traject denkt, en dat dit de reden
+is dat dieten op de lange termijn niet werken: ze regelen het eerste en laten
+het tweede ongemoeid. Zijn ingreep is opvallend: hij zet zelfcompassie op de
+plaats waar de meeste lezers strengheid verwachten, en beweert dat wie
+zichzelf na een misstap hard aanpakt daarmee de kans op volhouden verkleint in
+plaats van vergroot.
+
+#### De gang van het boek
+
+**Waarom het boek niet over eten gaat**
+
+De inleiding opent met een test waarin de lezer per paar het gezondere product
+moet aanwijzen: gemalen rundvlees of kipfilet, banaan of bananensplit,
+gebakken of gegrilde vis. Het punt is dat vrijwel iedereen die test haalt.
+Kennis over voeding is bij deze lezers niet het knelpunt.
+
+Foster vertelt hoe hij bij toeval in het vakgebied belandde, aan de University
+of Pennsylvania, en dat hij aanvankelijk zelf in wilskracht en discipline
+dacht. Wat hem van dat idee afbracht was de observatie dat de mensen die op
+lange termijn slaagden niet degenen waren die alles bijhielden of het plan
+perfect volgden, maar degenen met een bruikbare manier van denken over
+tegenslag.
+
+**Zelfcompassie als fundament**
+
+De eerste omslag loopt van hard voor jezelf zijn naar mild voor jezelf zijn.
+Foster leunt hier op Kristin Neff en haar drie componenten: vriendelijkheid
+naar jezelf in plaats van zelfkritiek, aandacht voor wat er nu gebeurt zonder
+oordeel, en het besef dat falen bij mensen hoort.
+
+Het voorbeeld is Katie, advocaat en moeder, die na een week met drie punten
+pizza en een reep een pond aankwam en zichzelf een slecht voorbeeld voor haar
+kinderen noemde. Fosters vraag aan haar was of ze een vriendin die hetzelfde
+overkwam zo zou toespreken. Hij benadrukt dat aanmoedigen niet hetzelfde is
+als de feiten verdraaien: een goede vriend is realistisch en eerlijk en toch
+aardig.
+
+**Denkstijlen herkennen en tegenspreken**
+
+De tweede omslag gaat van tegenslag als bewijs van mislukking naar tegenslag
+als moment om te herstarten. Het beeld dat Foster gebruikt is de weerman: de
+een staat in de studio en ziet de storm van een afstand, de ander staat er
+middenin en ziet niets. Je wilt de eerste zijn.
+
+Zijn voorbeeld is Ellie, die haar week rampzalig noemde vanwege een bruiloft,
+terwijl negentien of twintig van de eenentwintig maaltijden volgens plan waren
+gegaan en alle drie de wandelingen waren gelopen. Foster wijst er bovendien op
+dat Ellie zes uur niets had gegeten om zich op het diner voor te bereiden,
+waarmee ze het overeten praktisch had ingebouwd. Hij onderscheidt vier
+onbehulpzame denkstijlen en zet daar cognitieve technieken tegenover:
+pauzeren, de gedachte bekijken, en er een realistisch antwoord op formuleren.
+De begrippen fixed en growth mindset van Carol Dweck komen hier langs.
+
+**Kleine stappen en gewoontevorming**
+
+De derde omslag gaat tegen het idee in dat grote doelen motiveren. Foster
+grijpt terug op Skinner, niet alleen op belonen maar vooral op successieve
+benadering: beloning hoort niet pas bij de eindstreep te horen, maar bij elke
+stap in de goede richting.
+
+Zijn regel is dat de kans op slagen groter is naarmate de afstand tussen je
+huidige situatie en je doel kleiner is. De vertaling daarvan is een banaan in
+plaats van een koek op drie uur, of tien minuten bewegen op drie dagen. Wie
+besluit al het ijs weg te gooien en nooit meer te eten, bouwt volgens hem een
+tekort op dat zich later uitbetaalt. Hij noemt de kloof tussen bedoeling en
+gedrag de action-intention gap, en gebruikt de term skillpower tegenover
+willpower.
+
+**Sterke kanten in plaats van gebreken**
+
+De vierde omslag verplaatst de aandacht van repareren naar benutten. Het
+voorbeeld is Sarah, een ondernemer die bijna faillissementen en een recessie
+doorstond met volharding en overzicht, en die dezelfde eigenschappen niet op
+haar gewicht betrok. Foster plaatst dit deel uitdrukkelijk in de traditie van
+de positieve psychologie uit de jaren negentig.
+
+**Lichaamsbeeld, steun en geluk**
+
+De vijfde omslag gaat over lichaamsbeeld. Foster stelt dat mensen die bij
+aanvang milder over hun lichaam denken meer gewicht verliezen dan mensen die
+hun lichaam afkeuren, wat tegen de intuitie ingaat dat afkeer motiveert. Zijn
+voorbeeld is Ava, die niet naar het zwembad ging, geen kleur droeg en een
+cruise uitstelde tot na het afvallen. Hij verzamelt een lijst met uitgestelde
+levens die hij in zijn praktijk hoorde.
+
+De zesde omslag gaat over sociale steun: dat anderen je vooruithelpen of
+tegenwerken hangt er vooral van af of je hebt gezegd wat je van hen nodig
+hebt. Foster citeert Amy Gorin, die vertelt dat het vakgebied lang alleen naar
+het individu keek. De zevende omslag draait de volgorde van geluk en gewicht
+om. Hij citeert Laurie Santos over onderzoek waarin welbevinden voorafgaat aan
+uitkomsten in werk en gezondheid in plaats van er het gevolg van te zijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Mindset | Bij Foster twee dingen tegelijk: hoe je over jezelf denkt en hoe je over het traject denkt. |
+| Zelfcompassie | Vriendelijkheid naar jezelf, oordeelloze aandacht en het besef dat falen algemeen menselijk is. |
+| Dieetmentaliteit | Alles-of-nietsdenken met dramatische doelen en harde zelfbestraffing na een misstap. |
+| Onbehulpzame denkstijl | Terugkerend denkpatroon dat verder gaat dan de feiten en tot afhaken leidt. |
+| Successieve benadering | Skinners principe dat elke stap richting het doel beloning verdient, niet alleen het eindresultaat. |
+| Action-intention gap | Het verschil tussen wat iemand van plan is en wat hij werkelijk doet. |
+| Skillpower | Aangeleerde vaardigheden als vervanging voor wat gewoonlijk wilskracht wordt genoemd. |
+| Gewichtsstigma | De brede maatschappelijke afkeuring van mensen met overgewicht, die volgens Foster het denken over jezelf vergiftigt. |
+| Lichaamsbeeld | Hoe centraal gewicht en vorm staan in het oordeel dat iemand over zichzelf velt. |
+
+#### Waar het argument op rust
+
+Dit is van de drie het best gedocumenteerde boek. Achterin staat per uitspraak
+een bron, met tijdschrift, jaartal en doi. Voor zelfcompassie leunt Foster op
+Neff, op Adams en Leary over schuldbewuste eters, op een gerandomiseerde
+pilotstudie van Mantzios en Wilson, en op werk van Thogersen-Ntoumani en
+collega's over uitglijders bij mensen met overgewicht. Voor denkstijlen gaat
+hij terug op Beck en Burns, voor doelen op Skinner, voor mindset op Dweck. Bij
+het aantal gedachten per dag noemt hij zelf dat de vaak geciteerde 70.000
+nauwelijks onderbouwd is en verwijst hij naar recenter onderzoek dat op ruim
+6.000 uitkomt. Dat soort correcties komt in dit genre zelden voor.
+
+Foster is Chief Scientific Officer bij WW, het bedrijf dat vroeger Weight
+Watchers heette, en het boek verzwijgt dat niet: hij noemt zijn werk voor WW
+in de inleiding, gebruikt WW-bijeenkomsten als toneel voor zijn voorbeelden,
+en het boek bevat een QR-code van WW. Een deel van het aangehaalde onderzoek
+komt uit zijn eigen hand of uit onderzoek waaraan WW verbonden is, onder meer
+studies over gewichtsstigma waarin hij medeauteur is. Dat maakt de bevindingen
+niet onjuist, maar het betekent wel dat de auteur belang heeft bij de
+conclusie dat een begeleid programma met een gemeenschap eromheen werkt, en
+dat de selectie van wat hij aanhaalt daardoor gekleurd kan zijn. Wie de
+sterkte van een uitkomst wil wegen, kijkt bij dit soort passages beter naar
+onafhankelijke overzichtsstudies.
+
+Over de omvang van de effecten is Foster vaag waar hij precies zou kunnen
+zijn. Hij belooft betekenisvolle vooruitgang en geen perfectie, wat netjes is,
+maar getallen over hoeveel gewichtsverlies met deze aanpak samenhangt en hoe
+lang dat aanhoudt staan er niet. Dat is een gemis in een boek dat afvallen in
+de ondertitel voert.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de richting van de verbanden. Foster stelt dat
+mensen met een beter lichaamsbeeld bij aanvang meer gewicht verliezen, en dat
+gelukkiger mensen gezondere keuzes maken. Beide zijn samenhangen die net zo
+goed andersom kunnen lopen of door een derde factor kunnen worden gedreven,
+bijvoorbeeld door hoeveel iemand aan zijn hoofd heeft. Het boek presenteert ze
+als aangrijpingspunten, wat een causale claim is die het aangehaalde onderzoek
+niet altijd draagt.
+
+Ten tweede blijft ongemakkelijk wat het boek stilzwijgend aanneemt: dat
+langdurig gewichtsverlies voor de meeste mensen haalbaar is als de denkwijze
+maar klopt. Uit de langlopende literatuur komt naar voren dat het merendeel
+van de mensen na een aantal jaren dicht bij het uitgangsgewicht zit, ongeacht
+de methode. Foster kent die literatuur, hij noemt de biologische regulatie in
+de inleiding zijdelings, maar in de zeven hoofdstukken komt ze niet terug.
+Daardoor blijft de uitkomst impliciet toch bij de lezer liggen.
+
+Ten derde is er spanning tussen twee kernstukken. Hoofdstuk vijf zegt dat
+gewicht maar een van vele maten is en dat de lezer zijn waarde er niet aan
+moet ophangen. De rest van het boek houdt gewichtsverlies als doel overeind,
+tot in de ondertitel. Zelfcompassie wordt daarmee ingezet als middel tot
+afvallen, terwijl de literatuur waaruit Foster put zelfcompassie juist
+beschrijft als iets dat losstaat van prestatie. Wie die spanning voelt, krijgt
+van het boek geen antwoord.
+
+Ten slotte is er veel herhaling. De omslagen overlappen, dezelfde vaardigheden
+komen in wisselende jasjes terug, en Foster zegt dat ook zelf: je hoeft niet
+alle technieken te leren, een paar volstaan. Voor wie eerdere boeken over
+cognitieve gedragstherapie of gewoontevorming heeft gelezen, is het nieuwe
+hier vooral de toepassing op gewicht.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf een tegenslag op zoals je hem aan een vriend zou beschrijven, en
+formuleer daarna het antwoord dat je die vriend zou geven.
+- Zet naast de mislukte dag de zes dagen die wel gingen zoals gepland, met wat
+je daarvoor deed.
+- Kies een doel dat je deze week zeker haalt en beloon het meteen, in plaats
+van te wachten op de eindstreep.
+- Schrijf drie eigenschappen op waarmee je elders in je leven iets moeilijks
+hebt volbracht, en bedenk hoe je die hier inzet.
+- Zeg tegen een huisgenoot of collega precies wat je van hem nodig hebt, en
+ook wat niet helpt.
+
+#### Wat je hierna leest
+
+- 23. Mindset. Dweck levert het onderscheid tussen vaste en groeigerichte
+mindset waar Foster in hoofdstuk twee direct op leunt.
+- 22. Atomic Habits. Clear werkt Fosters kleine stappen veel gedetailleerder
+uit tot een systeem voor gewoontevorming.
+- 32. The Gifts of Imperfection. Brown behandelt zelfcompassie en schaamte
+zonder dat er een gewichtsdoel aan hangt, wat de spanning in Fosters opzet
+zichtbaar maakt.
+- 103. De psychologie van eetgedrag. Zondervan pakt hetzelfde onderwerp aan
+vanuit eetgedrag en bewustwording, met beduidend lossere bronvermelding.
 
 ## 139. Unlimited Power
 

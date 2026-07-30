@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activeer je nervus vagus &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Swinnen stelt dat de zwervende hersenzenuw, de nervus vagus, de plek is waar lichaam en geest samenkomen, en dat wie leert die zenuw te sturen daarmee…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-87">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">87 &middot; Brein en lichaam</p>
+    <h1>Activeer je nervus vagus</h1>
+    <p class="lede">Luc Swinnen, 2023</p>
+    <p class="stats">
+      <span><b>1712</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="87"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Swinnen stelt dat de zwervende hersenzenuw, de nervus vagus, de plek is waar lichaam en geest samenkomen, en dat wie leert die zenuw te sturen daarmee greep krijgt op stress, angst, trauma, veerkracht en zelfs immuniteit. Hij bouwt dat op de polyvagaaltheorie van Stephen Porges: het autonome zenuwstelsel kent drie toestanden met een vaste rangorde, en de bovenste daarvan, de ventrale vagus, maakt sociale verbinding mogelijk. Daaruit volgt zijn belofte: met ademhaling, hartcoherentie en een reeks oefeningen kan iemand zijn eigen zenuwstelsel naar die bovenste stand brengen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Descartes had ongelijk</h3>
+      <p>Swinnen, arts en statisticus, opent met zijn eigen loopbaan. Als verzekeringsarts zag hij dat een louter lichamelijke verklaring van klachten tekortschoot en dat mensen zonder aantoonbare afwijking als profiteur werden weggezet. Hij plaatst daartegenover het biopsychosociale model van gezondheid en de definitie van de Wereldgezondheidsorganisatie, waarin gezondheid meer is dan afwezigheid van ziekte.</p>
+      <p>Zijn keerpunt legt hij bij een onderzoek naar stress waarbij 24.000 dossiers werden doorgenomen, en bij het werk van Antonio Damasio over de verstrengeling van emotie en rede. Het verhaal van Phineas Gage, de spoorwegarbeider die in 1848 een ijzeren staaf door zijn prefrontale schors kreeg en daarna ontremd gedrag vertoonde, dient als bewijsstuk dat de geest aan het lichaam vastzit.</p>
+      <h3>Stress en zenuwstelsel</h3>
+      <p>De eerste twee hoofdstukken zijn leerboekachtig. De stressreactie loopt via hypothalamus, hypofyse en bijnieren; adrenaline en noradrenaline maken alert, cortisol komt later en herstelt de energiebalans. Korte stress vangt het lichaam op, langdurige stress geeft lichamelijke, emotionele, cognitieve en gedragsmatige klachten. Swinnen stelt dat langdurig verhoogde cortisolspiegels verbindingen tussen hersencellen afbreken en bij aanhouden tot blijvende schade kunnen leiden.</p>
+      <p>Daarna volgt de indeling van het zenuwstelsel: centraal en perifeer, willekeurig en autonoom, en binnen het autonome de sympathicus en de parasympathicus. De nervus vagus is de tiende hersenzenuw, die vanuit de hersenstam door borst en buik zwerft en het overgrote deel van zijn vezels als aanvoer naar het brein gebruikt in plaats van als afvoer. Ook de wet van Yerkes en Dodson komt langs: prestatie stijgt met spanning tot een punt en daalt daarna.</p>
+      <h3>De polyvagaaltheorie in drie principes</h3>
+      <p>Het derde hoofdstuk vat Porges samen in drie principes. Het eerste is hiërarchie: er zijn drie autonome staten met een evolutionaire volgorde. De dorsale vagus is de oudste en immobiliseert bij overweldigend gevaar, de sympathicus zet aan tot vechten of vluchten, en de ventrale vagus, in deze theorie de jongste en alleen bij zoogdieren aanwezig, maakt sociale betrokkenheid mogelijk. Bij dreiging zou het systeem die ladder afdalen.</p>
+      <p>Het tweede principe is neuroceptie, het onbewust aftasten van de omgeving op signalen van veiligheid of gevaar, dat Swinnen vergelijkt met de uitkijk op een schip. Het derde is coregulatie: mensen kalmeren hun eigen zenuwstelsel via dat van een ander. Daar hangt zijn evolutionaire verhaallijn aan, dat de homo sapiens niet won omdat hij sterker of slimmer was dan de neanderthaler, maar omdat hij vriendelijker was. Het boek eindigt op datzelfde motief, survival of the friendliest.</p>
+      <h3>Staten leren herkennen</h3>
+      <p>Hoofdstuk vier en vijf maken de theorie tot zelfonderzoek. Triggers zijn prikkels die iemand uit de ventrale staat duwen, glimmers zijn kleine signalen die hem er juist in brengen. Ankeren en hulpbronnen dienen om die glimmers vast te houden.</p>
+      <p>Mapping is de kernoefening: iemand tekent zijn persoonlijke profiel van autonome staten, met gradaties binnen elke staat en met gemengde toestanden. Freeze, play en stillness krijgen elk een eigen bespreking, waarbij play en stillness gelden als mengvormen waarin de ventrale vagus samenwerkt met respectievelijk sympathicus en dorsale vagus.</p>
+      <h3>De vagale rem en de ademhaling</h3>
+      <p>Het zesde hoofdstuk levert het mechanisme waar de praktische helft op rust. Naast de sinusknoop bestaat er volgens Porges een ventrale vagale rem die het hartritme rond zijn rustwaarde houdt. Bij inademen gaat die rem iets open en versnelt het hart, bij uitademen sluit hij en vertraagt het. Wie leert die rem te bedienen, kan energie toevoegen zonder in een stressreactie te schieten.</p>
+      <p>De bijbehorende oefening is de 4-7-8-ademhaling van Andrew Weil: vier tellen in door de neus, zeven tellen vasthouden, acht tellen uit door de mond, te beginnen met vier herhalingen tweemaal per dag. Daarnaast werkt Swinnen met beelden, een fiets die een helling afgaat, een dimmer, een ophaalbrug, gekoppeld aan een handgebaar en aan de woorden 'meer energie' of 'minder energie'. Wie in de dorsale staat zit moet volgens hem eerst licht bewegen voor hij de rem gebruikt.</p>
+      <h3>Hartcoherentie, trauma en veerkracht</h3>
+      <p>Hoofdstuk zeven behandelt hartcoherentie, een begrip dat hij toeschrijft aan David Servan-Schreiber: het samenvallen van hartslag en ademhaling, met het sterkste effect rond zes ademhalingen per minuut. Hij geeft een zelftest, ademhalingen tellen gedurende drie minuten en delen door drie, met richtwaarden voor gezond, opletten en langsgaan bij de arts. Hartritmevariabiliteit, de variatie in tijd tussen twee hartslagen, presenteert hij als biologische maat voor veerkracht.</p>
+      <p>Daarna komen trauma en dissociatie, met een pleidooi voor traag werken, en een hoofdstuk over veerkracht met copingstijlen en vier C's. Hoofdstuk tien bevat dertien oefeningen, van visualisatie en metaforen tot deep listening, elevatorpitch, meditatie, SWOT-analyse en de cirkel van invloed. Het slothoofdstuk verbindt de theorie met autisme en met psychologische veiligheid op het werk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nervus vagus</td><td>De tiende hersenzenuw, die vanuit de hersenstam door borst en buik loopt en organen met het brein verbindt.</td></tr>
+          <tr><td class="term">Ventrale vagus</td><td>In de polyvagaaltheorie de tak die hoort bij rust, veiligheid en sociale betrokkenheid.</td></tr>
+          <tr><td class="term">Dorsale vagus</td><td>De tak die volgens de theorie bij overweldigend gevaar tot bevriezen en afsluiten leidt.</td></tr>
+          <tr><td class="term">Neuroceptie</td><td>Het onbewuste aftasten van de omgeving op signalen van gevaar of veiligheid.</td></tr>
+          <tr><td class="term">Coregulatie</td><td>Het kalmeren van het eigen zenuwstelsel via contact met dat van een ander.</td></tr>
+          <tr><td class="term">Vagale rem</td><td>Het door de ventrale vagus bestuurde systeem dat het hartritme afremt en loslaat.</td></tr>
+          <tr><td class="term">Glimmer</td><td>Een kleine prikkel die iemand terugbrengt in de ventrale staat, tegenhanger van een trigger.</td></tr>
+          <tr><td class="term">Mapping</td><td>Het in kaart brengen van je eigen autonome staten en de overgangen ertussen.</td></tr>
+          <tr><td class="term">Hartcoherentie</td><td>Een patroon waarbij hartslag en ademhaling ritmisch samenvallen, sterkst rond zes ademhalingen per minuut.</td></tr>
+          <tr><td class="term">Hartritmevariabiliteit</td><td>De variatie in tijd tussen opeenvolgende hartslagen, door Swinnen gebruikt als maat voor veerkracht.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek verwijst naar wetenschappelijk werk en heeft een literatuurlijst, maar het is geen overzicht van onderzoek. Swinnen zegt zelf dat hij vakjargon vermijdt, dat wie verdieping zoekt bij Porges en Deb Dana moet zijn, en dat de polyvagaaltheorie jong is en later genuanceerd kan worden. Die voorbehouden staan in de inleiding en worden daarna niet meer herhaald.</p>
+      <p>De delen die het stevigst staan zijn de algemene: dat langdurige stress schadelijk is, dat lichaam en geest niet los van elkaar te behandelen zijn, dat sociaal contact tegen stress beschermt, en dat langzaam en langer uitademen het hartritme vertraagt. Die laatste koppeling tussen ademhaling en hartslag is een gemeten fysiologisch verschijnsel, respiratoire sinusaritmie, dat al lang voor Porges bekend was.</p>
+      <p>Het theoretische bouwwerk waar de titel op rust, ligt anders. De polyvagaaltheorie is in de vakliteratuur omstreden. De anatomische en evolutionaire aannames erachter worden betwist: critici, onder wie Paul Grossman, wijzen erop dat een gemyeliniseerde vagale aansturing van het hart ook bij niet-zoogdieren voorkomt, zodat de gestelde tegenstelling tussen een oude en een specifiek zoogdierlijke tak niet houdbaar is, en dat hartritmevariabiliteit geen specifieke afspiegeling van een 'ventrale' toestand is. De theorie is in de traumazorg breed overgenomen zonder dat die kritiek daar is verwerkt.</p>
+      <p>De oefeningen zelf rusten op materiaal van heel wisselende zwaarte. Langzame ademhaling rond zes ademhalingen per minuut is in kleine studies onderzocht en laat kortdurende effecten op hartslag en subjectieve spanning zien; de 4-7-8-ademhaling is naar een populaire bron genoemd, niet naar onderzoek. Voor de claim dat deze meditatie leidt tot betere spijsvertering, meer creativiteit en meer altruïsme geeft het boek geen bron. Bij oefeningen als de elevatorpitch, de SWOT-analyse en de zes denkende hoeden ontbreekt elk verband met de vagus; dat zijn trainingsmiddelen die hier onder een neurobiologische vlag zijn gebracht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek een omstreden theorie presenteert als vaststaande kennis en daar vervolgens een levensinrichting op bouwt. De inleiding bevat één zin waarin staat dat de theorie jong is; daarna heet zij wetenschappelijk onderbouwd en door feiten gestaafd. Wie alleen dit boek leest, kan niet weten dat het onderliggende model in de fysiologie serieus wordt aangevochten.</p>
+      <p>Het verklaringsbereik is te groot. Angst, trauma, burn-out, immuniteit, creativiteit, leiderschap, autisme en psychologische veiligheid worden alle op dezelfde drie autonome staten teruggevoerd. Een model dat alles verklaart, verklaart weinig, en het maakt bovendien onnavolgbaar welke bewering nog uit de theorie volgt en welke er alleen naast is gezet.</p>
+      <p>Er zit een verschuiving in van beschrijving naar verantwoordelijkheid. Als iemands klachten voortkomen uit de stand van zijn zenuwstelsel, en die stand met oefening te sturen is, dan wordt aanhoudende klacht al snel een kwestie van te weinig oefenen. Swinnen pleit uitdrukkelijk voor mildheid en waarschuwt dat het boek geen behandeling vervangt, maar de opbouw van de tweede helft, dertien oefeningen op rij, werkt de andere kant op.</p>
+      <p>Het evolutionaire kaderverhaal is bovendien losser dan het klinkt. Dat de homo sapiens de neanderthaler overleefde omdat hij vriendelijker was, is een hypothese onder meerdere, en waarom de neanderthaler verdween is niet opgelost. Het boek presenteert het als gegeven en gebruikt het als sluitstuk. Ook het anekdotische bewijs, Phineas Gage en de soldaat uit Japan, doet ouder werk over dat pad: het zijn illustraties, geen argumenten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Tel drie minuten lang je ademhalingen en deel door drie om te weten hoe snel je gewoonlijk ademt.</li>
+        <li>Adem langer uit dan in wanneer je wilt vertragen; dat is het onderdeel met de meeste fysiologische grond.</li>
+        <li>Schrijf op welke situaties je uit balans brengen en welke kleine dingen je terugbrengen, los van de theorie eromheen.</li>
+        <li>Zoek bij spanning contact met iemand anders in plaats van alleen een oefening te doen.</li>
+        <li>Raadpleeg een arts bij aanhoudende klachten en behandel de oefeningen niet als behandeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Bij Lannoo (2023). Swinnen is arts en schrijft over stress en herstel.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De nervus vagus is de lange zenuw die hersenen en organen verbindt en die het lichaam na inspanning tot rust brengt. Swinnen legt uit hoe dat stelsel werkt, waarom aanhoudende stress het uit balans brengt en welke oefeningen de rustkant ervan aanspreken: trage uitademing, koude, zingen, neuriën en regelmaat in slapen en eten.</p><p>De uitleg over de fysiologie is degelijk en de oefeningen zijn onschadelijk en vaak nuttig. Waar het boek zich op glad ijs begeeft is bij de claims over uiteenlopende aandoeningen die met deze zenuw te maken zouden hebben; de meting van vagale activiteit via hartslagvariabiliteit is minder eenduidig dan populaire boeken doen voorkomen. Het is te lezen als praktische gids en niet als medisch bewijsstuk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stress</li><li>zenuwstelsel</li><li>ademhaling</li><li>herstel</li><li>slaap</li><li>oefeningen</li><li>onderbouwing</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="104"><a href="104.html">Oud zeer</a>. Bakker behandelt in <i>Oud zeer</i> hetzelfde terrein van lichaam, trauma en ademhaling, en laat zien hoe verschillend de onderbouwing binnen dit genre kan uitpakken.</li>
+          <li value="118"><a href="118.html">Coping Skills</a>. Harper geeft in <i>Coping Skills</i> vergelijkbare oefeningen met minder theoretische pretentie, wat de vergelijking eerlijk maakt.</li>
+          <li value="84"><a href="84.html">Laat je hersenen niet zitten</a>. Scherder beschrijft in <i>Laat je hersenen niet zitten</i> de verbinding tussen lichaam en brein met genummerde bronnen bij vrijwel elke bewering, wat het verschil in bewijsvoering zichtbaar maakt.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman laat in <i>Thinking, Fast and Slow</i> zien hoe aantrekkelijk een sluitend verhaal is, ook wanneer het bewijs eronder dun is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

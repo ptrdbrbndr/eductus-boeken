@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unfuck Your Worth &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Harper betoogt dat de meeste financiële zelfhulp faalt omdat zij mensen aanspreekt als rekenmachines, terwijl geld emotioneel is en de verhouding ertoe…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-121">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">121 &middot; Geld en ondernemen</p>
+    <h1>Unfuck Your Worth</h1>
+    <p class="lede">Faith G. Harper, 2020</p>
+    <p class="stats">
+      <span><b>1561</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="121"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Harper betoogt dat de meeste financiële zelfhulp faalt omdat zij mensen aanspreekt als rekenmachines, terwijl geld emotioneel is en de verhouding ertoe wordt gevormd door individueel trauma, door armoede en door een economisch stelsel dat aan die verwarring verdient. Haar tegenvoorstel is geld te zien als energie in de vorm van tijd, arbeid en communicatie, waarmee eigenwaarde wordt losgekoppeld van vermogen. Pas daarna is een begroting maken haalbaar.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom geldboeken blijven liggen</h3>
+      <p>De inleiding stelt vast dat pragmatische financiële boeken stof vergaren omdat niemand pragmatisch over geld voelt. Harper zet zich af tegen drie soorten: het uitgavenschaamboek, het boek dat een eigen beleggingscursus verkoopt, en het boek dat rijkdom aantrekken tot een denkoefening maakt. <i>Rich Dad Poor Dad</i> noemt zij bij naam als weerlegd en toch populair.</p>
+      <p>Haar stelling is dat het stelsel juist verdient aan mensen die zich rot voelen over geld: schulden, rente, uitgaven op aanraden van adverteerders, en daarbovenop de boodschap dat het je eigen schuld is. Het boek is dus in twee delen verdeeld: hoe onze eigenwaarde stukgaat, en wat eraan te doen valt.</p>
+      <h3>Ongelijkheid als omgeving</h3>
+      <p>Voordat de hersenkunde komt beschrijft zij de omgeving. Vermogen is bezit min schulden, en dat is iets anders dan inkomen. Zij haalt Chris Rock aan om het verschil tussen veel verdienen en vermogend zijn te maken, en noemt het cijfer dat in 2018 het bezit van Jeff Bezos, Bill Gates en Warren Buffett samen groter was dan dat van de armste helft van de Amerikaanse bevolking.</p>
+      <p>Haar punt is beperkt en bewust zo: je hoeft het kapitalisme niet af te breken om een spaarrekening te openen, maar je moet wel weten wat binnen en buiten je invloed valt voordat je je eigenwaarde loskoppelt van je bezit.</p>
+      <h3>Financieel trauma</h3>
+      <p>Hier ligt de toevoeging van dit deel aan de reeks. Harper vat de traumaleer kort samen en past haar toe op geld. Tot 93 procent van de mensen die opgroeien in stedelijke armoede meldt blootstelling aan trauma, en het aanhoudend tekortkomen is volgens haar op zichzelf al belastend.</p>
+      <p>Zij haalt onderzoekspsycholoog Galen Buckwalter aan, die bij het bestuderen van financiële persoonlijkheden met het HEXACO-model op traumaverschijnselen stuitte die niet in zijn opzet pasten. Daaruit ontstond het idee van financieel trauma als eigen categorie, met verschijnselen die lijken op die van andere traumareacties.</p>
+      <p>Een apart hoofdstuk gaat over financiële dwangcontrole: het beheersen van iemand via geld, van rekeningen op één naam tot het verstoren van iemands werk of het bedreigen van een verblijfsstatus. Harper wijst erop dat verlies van zelfbeschikking volgens het onderzoek vaker tot een posttraumatische stressstoornis leidt dan lichamelijk letsel, en dat dit gedrag meestal niet strafbaar is.</p>
+      <h3>Onbetaalde arbeid en de vraag naar geluk</h3>
+      <p>Het hoofdstuk over de vermenging van geld en arbeid stelt dat wat geen loon oplevert ook geen waardering krijgt. Onbetaalde arbeid omvat huishouden, zorg voor kinderen, ouderen en mensen met een beperking, maar ook zelf voedsel verbouwen of kleding herstellen. Een studie uit 2010 becijferde dat het Amerikaanse bruto binnenlands product 26 procent hoger zou uitvallen als onbetaald werk werd meegeteld.</p>
+      <p>Over geluk corrigeert zij het bekende loterijonderzoek uit de jaren zeventig, dat tot het idee van een vast gelukspeil leidde. Nieuwer werk laat volgens haar zien dat financiële vooruitgang de geestelijke gezondheid wel degelijk verbetert, omdat geld toegang tot middelen geeft. Onderzoekers in Buffalo vonden bovendien dat wie zijn eigenwaarde aan geld koppelt slechter af is, ongeacht hoeveel hij heeft. Rijkere kinderen kennen meer angst, somberheid en middelengebruik dan armere; armere kennen meer blootstelling aan trauma.</p>
+      <h3>Twee denkvallen uit de gedragseconomie</h3>
+      <p>Harper behandelt twee vallen. De eerste is mentaal boekhouden, een begrip dat zij toeschrijft aan een econoom die zij Richard Thayer noemt: het opdelen van geld in denkbeeldige potjes, waardoor iemand geen eten meer koopt terwijl het kledingpotje nog vol is, en een meevaller anders behandelt dan loon.</p>
+      <p>De tweede is sociale beïnvloeding: uitgavenpatronen die worden bepaald door de mensen om ons heen. Daarnaast staat een hoofdstuk over geld en verslaving, waarin zij stelt dat winkelverslaving niet bestaat als diagnose. De juiste term is dwangmatig kopen, dat vrijwel altijd naast een stemmings-, angst-, eet- of impulsstoornis voorkomt en volgens vragenlijstonderzoek op 6 tot 16 procent van de bevolking in welvarende landen slaat. Gokverslaving is wel een erkende diagnose.</p>
+      <h3>Begroten als zelfzorg</h3>
+      <p>Het tweede deel is praktisch. Uitgeven begint bij twee gereedschappen: alternatieve kosten, waarbij elke uitgave wordt afgezet tegen wat je met datzelfde geld niet doet, en psychisch inkomen. Zij past het ook toe op mensen die te weinig uitgeven, wat zij als even schadelijk beschrijft.</p>
+      <p>Zelfzorg definieert zij als het moeilijke werk van je eigen behoeften centraal stellen, en niet als schuimbad. Begroten valt daaronder. Zij begint met eigen waarden en een lijst dromen, dan een uitgavenlogboek, dan een verdeling in moeten, willen en sparen, met de vuistregel vijftig om twintig om dertig. De eerste stap is een reserve van rond de duizend, vóór aflossen en vóór beleggen.</p>
+      <p>Het slot gaat over inkomen: weten wat je werk waard is, om opslag vragen, een slechte baan verlaten, en de vraag of een bijverdienste helpt of juist een val is. Zij benoemt zonder omhaal dat zij zelf voedselbonnen heeft gebruikt en dat schaamte over steun nergens op slaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Geld als energie</td><td>Harpers herformulering van geld als tijd, arbeid en communicatie in plaats van als maat voor iemands waarde.</td></tr>
+          <tr><td class="term">Financieel trauma</td><td>Een traumareactie die is ontstaan rond geldgebrek, geldverlies of financiële onveiligheid.</td></tr>
+          <tr><td class="term">Financiële dwangcontrole</td><td>Niet-lichamelijke mishandeling waarbij iemand via geld en afhankelijkheid onder druk wordt gehouden.</td></tr>
+          <tr><td class="term">Onbetaalde arbeid</td><td>Werk zonder directe beloning, van zorg tot herstel en voedselvoorziening, dat buiten de economische cijfers valt.</td></tr>
+          <tr><td class="term">Mentaal boekhouden</td><td>Geld in denkbeeldige potjes verdelen en het daardoor verschillend behandelen ondanks gelijke waarde.</td></tr>
+          <tr><td class="term">Alternatieve kosten</td><td>Wat je met hetzelfde geld niet meer kunt doen, als toets bij een aankoop.</td></tr>
+          <tr><td class="term">Affluenza</td><td>De term die in een Texaanse rechtszaak werd gebruikt voor de schadelijke gevolgen van welvaart, later door de bedenker betreurd.</td></tr>
+          <tr><td class="term">Dwangmatig kopen</td><td>De juiste aanduiding voor wat winkelverslaving heet, vrijwel altijd samen met een andere diagnose.</td></tr>
+          <tr><td class="term">Ervaringsvermijding</td><td>Het wegblijven bij gedachten en gevoelens die bedreigend voelen, volgens Harper de reden dat mensen hun rekeningen niet openen.</td></tr>
+          <tr><td class="term">Zelfzorg</td><td>Haar eigen definitie: het moeilijke werk van je eigen behoeften centraal stellen om gezond te blijven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is het deel van de reeks met de meeste controleerbare cijfers. De vermogensvergelijking uit 2018, de raming dat onbetaald werk het bruto binnenlands product met 26 procent zou verhogen, de 93 procent blootstelling in stedelijke armoede en de bandbreedte van 6 tot 16 procent dwangmatige kopers zijn alle terug te vinden. De literatuurlijst achterin is voor een boekje van dit formaat behoorlijk.</p>
+      <p>De naamgeving is minder zorgvuldig. De econoom achter mentaal boekhouden heet Richard Thaler, niet Thayer, en het begrip stamt uit 1985 en niet uit 1999; het is dus verkeerd toegeschreven en verkeerd gedateerd. Dat is een klein feit, maar het laat zien hoe de bronnen zijn behandeld.</p>
+      <p>Het werk van Galen Buckwalter over financieel trauma is opiniërend en klein van opzet, en de term is geen erkende diagnose. Harper presenteert hem als vaststaande categorie. De cijfers over dwangmatig kopen komen uit vragenlijstonderzoek, waarbij zij zelf opmerkt dat de scheve verdeling tussen vrouwen en mannen waarschijnlijk aan de opzet ligt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de twee helften van het boek niet op elkaar aansluiten. De eerste helft betoogt dat het stelsel het probleem is en dat persoonlijke schuld misplaatst is; de tweede helft levert een begrotingsmethode van het gebruikelijke soort, inclusief vijftig om twintig om dertig en een reserve van duizend. Die adviezen zijn bruikbaar, maar zij volgen niet uit de analyse en zouden er zonder ook staan.</p>
+      <p>De praktische adviezen zijn bovendien sterk Amerikaans gebonden: voedselbonnen, studieschuld, ziektekosten zonder dekking. Een Nederlandse lezer kan de gedachtegang meenemen maar niet de bedragen en niet de voorbeelden.</p>
+      <p>Het traumadeel is de meeste toevoeging en tegelijk de zwakste bodem. Financieel trauma wordt neergezet als iets wat een naam heeft en herkend wordt, terwijl het vooral een nuttige beschrijving is waarvoor het onderzoek nog dun is. Wie het begrip aanneemt, verklaart daarmee al zijn geldgedrag uit het verleden, en dat maakt het onweerlegbaar.</p>
+      <p>De boekhouding van schuld blijft schuiven. Harper wil tegelijk zeggen dat het niet je schuld is en dat je zelf aan de slag moet, en die twee lijnen worden nergens verzoend. In de praktijk betekent het dat de lezer de opgewekte toon krijgt van een boek dat zich tegen opgewekte geldboeken keert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beantwoord eerst welke uitgaven werkelijk bij jouw waarden horen, voordat je een begroting opstelt.</li>
+        <li>Houd een aantal weken elke uitgave bij, ook de kleine, zonder er iets aan te veranderen.</li>
+        <li>Zet bij een grotere aankoop op papier wat je met hetzelfde bedrag niet meer kunt doen.</li>
+        <li>Bouw eerst een kleine reserve op voordat je versneld gaat aflossen of gaat beleggen.</li>
+        <li>Schrijf op wat je aan je werk toevoegt in opleiding, ervaring en taken, en gebruik die lijst bij een gesprek over beloning.</li>
+        <li>Herken financiële dwangcontrole aan het patroon en niet aan geweld: wie geen zeggenschap over geld heeft, is niet vrij.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel over geldemoties en het waarderen van eigen werk, bij Microcosm Publishing.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dit deel gaat over geld als gevoelskwestie: schaamte over schulden, de neiging het eigen werk te laag te prijzen, en de overtuigingen over geld die iemand van huis uit meekrijgt. Harper koppelt daar praktische stappen aan over begroten, onderhandelen en het benoemen van een tarief.</p><p>Het is Amerikaans in zijn voorbeelden, met studieschulden en zorgverzekeringen als vanzelfsprekende achtergrond, wat de rekenvoorbeelden hier minder bruikbaar maakt. Wat wel overkomt is de scheiding tussen de rekensom en de schaamte, en de mededeling dat aan die tweede eerst iets moet gebeuren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geld</li><li>zelfwaardering</li><li>schulden</li><li>tarieven</li><li>therapie</li><li>praktisch</li><li>toon</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel behandelt hetzelfde vertrekpunt, dat geldgedrag emotioneel is, met meer historisch materiaal en zonder de maatschappijkritiek.</li>
+          <li value="37"><a href="37.html">Rich Dad Poor Dad</a>. Kiyosaki is het boek dat Harper bij naam weerlegt; lezen naast elkaar maakt het meningsverschil zichtbaar.</li>
+          <li value="119"><a href="119.html">Unfuck Your Brain</a>. Daar staat de traumaleer volledig, waar dit deel de toepassing op geld van geeft.</li>
+          <li value="38"><a href="38.html">The Richest Man in Babylon</a>. Clason levert de klassieke tegenpool: eerst jezelf betalen, zonder enige aandacht voor stelsel of emotie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
