@@ -25062,6 +25062,173 @@ mensen werkelijk worden overtuigd, komt verder met 24 en met het onderzoek
 waarop dat teruggaat; wie wil zien hoe deze markt in elkaar zit, heeft aan dit
 exemplaar genoeg.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Zeven losse boekjes staan achter elkaar onder één omslag en
+worden gepresenteerd als een leergang in donkere psychologie: wie de duistere
+triade, lichaamstaal, hypnose, neurolinguïstisch programmeren en gaslighting
+kent, doorziet manipulatie en kan haar desgewenst zelf toepassen. Daaronder
+ligt de aanname dat beïnvloeding een verzameling aanleerbare trucs is waarvan
+de werking niet ter discussie staat. In bijna tweehonderdduizend woorden wordt
+geen enkele techniek aan onderzoek getoetst, en de tekst loopt bij nameting
+deels gelijk met twee andere titels uit dit genre.
+
+#### De gang van het boek
+
+**Zeven boeken achter elkaar**
+
+De inhoudsopgave telt zeven aparte inhoudsopgaven, elk met een eigen inleiding
+en een eigen slotwoord. Boek een heet *Dark Psychology* en heeft dertien
+hoofdstukken. Boek twee heet ook zo en heeft er acht. Boek drie gaat over
+invloed en het analyseren van mensen, boek vier over emotionele intelligentie,
+boek vijf over gaslighting en narcisme, boek zes heet *Master Your Emotions*,
+boek zeven gaat over het omgaan met lastige mensen.
+
+Tussen de delen staan verkoopteksten uit de losse uitgaven waaruit de bundel
+is samengesteld. Een redactie die de zeven delen op elkaar afstemt heeft niet
+plaatsgevonden.
+
+**Wat de eerste twee delen beweren**
+
+Boek een opent met het onderscheid tussen normale en donkere psychologie.
+Normale psychologie bestudeert gedrag, donkere psychologie het roofdierdeel
+daarvan. Daarna volgen hoofdstukken over manipuleren, lichaamstaal, emotionele
+intelligentie, mind control, neurolinguïstisch programmeren, kenmerken van
+manipulators, hypnose, hersenspoeling en het voorkomen van manipulatie.
+
+Boek twee doet hetzelfde in acht hoofdstukken en voegt de duistere triade toe:
+narcisme, machiavellisme en psychopathie. Hier staat de enige met naam
+genoemde bron van de hele bundel, de Amerikaanse psycholoog Michael
+Nuccitelli, twee keer geciteerd met een uitspraak over "de kloof in ons
+allen". Bandler en Grinder worden genoemd als bedenkers van neurolinguïstisch
+programmeren. Verder komt er geen naam, geen jaartal en geen onderzoek in
+voor, en er is geen literatuurlijst.
+
+**Delen drie tot en met zeven gaan ergens anders over**
+
+Vanaf boek vier verdwijnt het onderwerp. Deel vier behandelt emotionele
+intelligentie op school en op het werk, de vier attributen ervan en de omgang
+met emotionele uitputting. Deel zes doet grotendeels hetzelfde nog een keer,
+met hoofdstukken over communicatie op de werkvloer. Deel zeven behandelt de
+vijf persoonlijkheidsfactoren en het omgaan met lastige collega's.
+
+Deel vijf is inhoudelijk het scherpste stuk. Het gaat over gaslighting en
+bevat een lijst zinnen die een gaslighter volgens de schrijver gebruikt: je
+doet zo omdat je onzeker bent, je bent te gevoelig, doe niet zo paranoïde, het
+stelt niets voor. Die lijst is herkenbaar, maar wordt nergens aan onderzoek
+verbonden.
+
+**Lichaamstaal en neurolinguïstisch programmeren**
+
+Het hoofdstuk over lichaamstaal geeft een woordenboek: gebalde vuist is
+boosheid, duim omhoog of omlaag is goed- of afkeuring, samengeknepen lippen
+zijn wantrouwen, gekruiste armen zijn geslotenheid. De tekst raadt aan eerst
+een neutrale uitgangslijn van iemands normale gedrag vast te stellen, omdat
+een verlegen persoon van nature wegkijkt en armen kruist. Dat voorbehoud wordt
+in de rest van het hoofdstuk niet volgehouden.
+
+Neurolinguïstisch programmeren wordt gebracht als de manier om andermans
+gedachten te sturen via taal, ankeren en herkaderen. Waar de tekst over de
+manipulator spreekt, staat een aantal keer "your goal" waar "your target"
+bedoeld is, wat wijst op een geautomatiseerde synoniemwissel.
+
+**Overlap met de andere drie titels**
+
+Een vergelijking van woordreeksen van acht woorden levert 3241 treffers op
+tussen deze bundel en nummer 125, ongeveer zeven procent van alle reeksen in
+dat kortere boek. De langste letterlijk gelijke passage is 1091 woorden:
+hoofdstuk 1 van boek een is hier de inleiding van nummer 125. Hoofdstuk 7 van
+boek twee komt met 547 en 458 aaneengesloten woorden terug als hoofdstuk 14
+van 125, en het slotwoord van boek twee is met 543 woorden het slot van 125.
+
+Met nummer 126 zijn 1686 reeksen gemeen. Het lichaamstaalhoofdstuk uit boek
+een keert daar terug als hoofdstuk 25 over non-verbale signalen, met passages
+van 214, 119, 101, 97 en 88 woorden achtereen. Het hoofdstuk over mind control
+levert twee stukken van 132 en 71 woorden die in 126 in het persuasiedeel
+staan. Met nummer 124 heeft de bundel geen enkele woordreeks gemeen behalve de
+opmaakcode van het omslag.
+
+**Sporen van bewerking**
+
+Cyrillische letters in Engelse woorden, zoals die in nummer 124 op grote
+schaal voorkomen, staan hier niet in. Wel bevat de tekst 86 breedteloze
+spaties, tekens die in gewone tekst geen functie hebben en de woordgrenzen
+voor controlesoftware verschuiven. De auteursnamen zijn nergens na te trekken
+en een colofon ontbreekt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Dark psychology | De studie van het menselijk vermogen om andere mensen als prooi te behandelen, in de bundel omschreven als het roofdierdeel van de gewone psychologie. |
+| Dark singularity | Het punt waarop iemands duistere neiging omslaat in werkelijk schadelijk gedrag. |
+| Dark triad | Narcisme, machiavellisme en psychopathie als drietal persoonlijkheidstrekken waaruit al het andere in het boek zou voortkomen. |
+| Baseline | Iemands normale gedragspatroon, dat je volgens het boek eerst moet vaststellen voordat je afwijkingen ervan mag uitleggen. |
+| Gaslighting | Het stelselmatig ontkennen van andermans waarneming tot die aan het eigen oordeel gaat twijfelen. |
+| Covert hypnosis | Hypnose in een gewoon gesprek, zonder dat de ander weet dat er iets gebeurt. |
+| Mind control | Verzamelnaam voor alle technieken waarmee het denken van een ander gestuurd zou kunnen worden. |
+
+#### Waar het argument op rust
+
+Er is geen literatuurlijst, geen noot en geen verwijzing naar een
+tijdschriftartikel. In bijna tweehonderdduizend woorden wordt één onderzoeker
+bij naam genoemd, en dan als leverancier van een aforisme, niet van gegevens.
+Waar in de tekst "studies show" staat, volgt geen bron.
+
+De uitspraken over lichaamstaal en over het herkennen van leugens zijn
+hierdoor niet controleerbaar. Waar zij wel te toetsen zijn, houden ze slecht
+stand: in overzichtsonderzoek naar leugendetectie komen mensen nauwelijks
+boven kansniveau uit. Voor neurolinguïstisch programmeren geldt hetzelfde. De
+kern ervan, dat woordkeus en oogbewegingen een innerlijk zintuiglijk stelsel
+verraden dat je kunt spiegelen, is in de jaren tachtig getoetst en niet
+bevestigd.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de herkomst van de tekst. Zeven procent van de
+woordreeksen van nummer 125 staat hier letterlijk, waaronder een
+aaneengesloten stuk van meer dan duizend woorden, en met nummer 126 zijn er
+nog eens 1686 reeksen gemeen. Beide andere titels verschenen in hetzelfde jaar
+onder andere namen. Welke tekst de oorspronkelijke is valt uit de boeken zelf
+niet vast te stellen, omdat geen van de drie een bron of een uitgever noemt.
+
+Daar komt bij dat vier van de zeven delen niet over het onderwerp gaan.
+Emotionele intelligentie, het beheersen van je gevoelens en het omgaan met
+lastige collega's leveren hier de omvang waarmee "7 in 1" verkocht kan worden.
+Deel vier en deel zes overlappen bovendien met elkaar.
+
+De belofte van de titel wordt niet ingelost. Wie leert manipuleren zou moeten
+weten wanneer een techniek werkt en wanneer niet. Die vraag komt niet aan de
+orde; de adviezen staan als losse regels naast elkaar, zonder één geval met
+een gemeten resultaat.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik deel vijf, over gaslighting, als lijst van zinnen die je kunt
+herkennen wanneer iemand je waarneming stelselmatig ontkent. Leg die lijst
+naast een boek over dat onderwerp met bronvermelding.
+- Neem het advies over de uitgangslijn ter harte en laat de rest van het
+lichaamstaalhoofdstuk staan: één gebaar zegt niets, en ook een verandering ten
+opzichte van iemands normale gedrag zegt niet welke oorzaak zij heeft.
+- Ga ervan uit dat je met de aangeboden technieken geen leugen kunt herkennen.
+Onderzoek laat zien dat mensen daarin nauwelijks beter scoren dan bij gokken,
+ook getraind.
+- Wil je weten hoe wederkerigheid, sociale bewijskracht en gezag werkelijk
+werken, lees dan Cialdini. Zijn naam komt in deze bundel niet voor, terwijl
+zijn principes er in bewerkte vorm in terugkeren.
+
+#### Wat je hierna leest
+
+- 125. Dark Psychology and Manipulation. Deelt zeven procent van zijn
+woordreeksen met deze bundel, waaronder een passage van 1091 woorden aan één
+stuk.
+- 126. How to Analyze People with Dark Psychology. Deelt het
+lichaamstaalhoofdstuk en een deel van het mind-controlhoofdstuk woordelijk met
+deze bundel.
+- 124. Dark Psychology: Mind Control and Manipulation Secrets. Hetzelfde
+genre, maar zonder één gemeenschappelijke woordreeks en met een andere manier
+om overgenomen tekst te verhullen.
+
 ## 124. Dark Psychology: Mind Control and Manipulation Secrets
 
 toegeschreven aan Norton Ravin, 2017. Zonder uitgever in het bestand. De tekst
@@ -25085,6 +25252,171 @@ loodsen. Er zijn geen bronnen en er is geen na te trekken auteur. Als
 onderwerp is manipulatie de moeite waard; dit boek is er geen bron over maar
 een voorbeeld ervan.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Onder de titel over mind control en manipulatiegeheimen staat
+een boekje van ruim tienduizend woorden dat grotendeels over iets anders gaat:
+over de kleur zwart, over angst voor het donker, over de schaduw bij Jung en
+over zelfhypnose. De stelling die het voert is dat wie zijn eigen duistere
+kant kent en zijn onderbewuste leert aansturen, daarmee ook macht over anderen
+verwerft. Die stap van zelfkennis naar invloed op anderen wordt nergens
+onderbouwd. Bovendien is de hele tekst bewerkt met Cyrillische letters in
+Engelse woorden.
+
+#### De gang van het boek
+
+**Zes hoofdstukken, veertig bladzijden**
+
+Het boekje telt zes hoofdstukken met daaronder een reeks korte stukken. De
+inleiding vraagt waarom psychische pijn lichamelijk voelbaar is en beantwoordt
+dat met een schets van zenuwprikkels en zelfregulering. Hoofdstuk een gaat
+over de betekenis van de kleur zwart, met de mededeling dat zwart geen kleur
+is maar de afwezigheid van licht, en dat het staat voor schaamte en zwaarte
+maar ook voor stabiliteit en aanzien.
+
+Aansluitend staat een stuk over het overwinnen van donkerangst met zelfhypnose
+in drie stappen: de angst begrijpen, in hypnose de herinnering opzoeken die
+haar veroorzaakte, en jezelf blootstellen aan het donker.
+
+**De schaduw**
+
+Hoofdstuk twee heet *Know Your Dark Side* en leunt op de schaduw uit het werk
+van Jung. Er staan tien tekenen dat je je duistere kant kent, van het
+herkennen van projectie tot het toegeven van jaloezie, hebzucht en minachting.
+Daarna volgen zes voordelen van het onder ogen zien van die schaduw, waaronder
+het herstellen van betrekkingen en het kwijtraken van schuldgevoel. De
+schrijver noemt hier de biecht als voorbeeld met psychologisch nut.
+
+**Misleiding en zelfmisleiding**
+
+Hoofdstuk drie omschrijft misleiding als het opzettelijk laten geloven van
+iets dat niet waar is, en noemt misleiding van de menselijke geest de
+ernstigste vorm. Het stuk over zelfmisleiding is inhoudelijk het beste van het
+boekje, met de gedachte dat wij liegen tot net het punt waarop we onszelf nog
+een fatsoenlijk mens kunnen vinden.
+
+Die redenering, inclusief de benaming fudge factor, het gegeven dat ongeveer
+één procent altijd eerlijk is en één procent altijd oneerlijk, en de opmerking
+dat sloten niet de dieven maar de eerlijke mensen buiten houden, komt uit het
+werk van Dan Ariely over oneerlijkheid. Zijn naam staat er niet bij, en er
+wordt geen bron genoemd.
+
+**Mind control als het langste deel**
+
+Hoofdstuk vier is het uitgebreidste. Het onderscheidt technieken om andermans
+denken te sturen, waarvoor je hypnose en neurolinguïstisch programmeren nodig
+zou hebben, van technieken om je eigen denken te sturen: zelfhypnose, de
+Silva-methode, meditatie en het gelijkstemmen van hersengolven met binaurale
+tonen.
+
+De geschiedenis van mind control is het enige stuk met controleerbare
+gegevens. Het woord brainwashing wordt teruggevoerd op een artikel van Edward
+Hunter uit 1950 over Chinese denkhervorming bij Amerikaanse krijgsgevangenen,
+met de aantekening dat het Amerikaanse leger na onderzoek verklaarde dat
+hiervoor geen bewijs was. Verder komen de zes voorwaarden voor denkhervorming
+uit *Cults in Our Midst* van Margaret Singer en Janja Lalich aan bod, en de
+campagnes van Edward Bernays voor zeep en sigaretten.
+
+Daarna zakt het niveau. Onder “beste mind-controltechnieken” staan zeven
+punten: observatie, leiderschap, concentratie, denken als een winnaar, een
+positieve houding, lichaamsbeweging en yoga.
+
+**Het hoofdstuk dat de duistere triade heet**
+
+Hoofdstuk vijf draagt de titel *The Dark Triad* maar behandelt niet narcisme,
+machiavellisme en psychopathie. Het gaat over drie woorden: spijt, berouw en
+sorry. Wie die drie kent zou zich sociaal kunnen aanpassen, wie ze afwijst
+belandt volgens de schrijver in crimineel of afwijkend gedrag. Een lezer die
+het boek voor de duistere triade koopt, vindt hier iets anders dan de term
+aankondigt.
+
+**Het slot en de vraag om een recensie**
+
+Hoofdstuk zes somt zes technieken voor het onderbewuste op: affirmaties,
+droomduiding, hypnotische suggestie, dagboek bijhouden, meditatie en
+visualisatie. Het boek eindigt met een verzoek om een recensie op Amazon, met
+de toevoeging dat de schrijver nuttige recensies als behulpzaam zal markeren
+zodat de lezer bekender wordt als recensent en meer schrijvers hem gratis
+boeken zullen sturen. Daarna volgt een lijst andere titels en een vrijwaring.
+Als uitgever staat de schrijver zelf vermeld.
+
+**De letters onder de tekst**
+
+In de tekst staan 14549 Cyrillische en Griekse letters op ongeveer 62000
+tekens, verdeeld over 1662 verschillende woorden die Latijnse en Cyrillische
+letters mengen. Het gaat om letters die er in druk hetzelfde uitzien: de a, e,
+o, c, p, y, i en s. Vrijwel elke zin is aangetast. De drie andere titels in
+dit rijtje bevatten geen enkele zo'n letter.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Shadow | De schaduw uit het werk van Jung, het verborgen deel van het zelf met de kwetsende neigingen. |
+| Conscious fear | Angst die is terug te voeren op een eerdere ervaring of op wat iemand heeft horen zeggen. |
+| Self-deception | Jezelf overtuigen van iets onwaars over jezelf, wat het volgens de schrijver makkelijker maakt anderen te overtuigen. |
+| Fudge factor | De ruimte waarbinnen iemand kan vals spelen zonder zichzelf als oneerlijk te zien. |
+| Covert hypnosis | Hypnose die tijdens een gewoon gesprek wordt toegepast, ook conversational hypnosis genoemd. |
+| Brainwave entrainment | Het via geluid of licht op een gewenste frequentie brengen van hersengolven, waarvoor volgens het boek een koptelefoon volstaat. |
+| Thought reform | Denkhervorming, de term die het boek naast brainwashing gebruikt voor het stelselmatig ombuigen van iemands overtuigingen. |
+
+#### Waar het argument op rust
+
+Alleen het historische deel bevat gegevens die iemand kan nakijken: Hunter en
+het jaar 1950, de zes voorwaarden van Singer en Lalich, de campagnes van
+Bernays. Die kloppen in grote lijnen, en het boek vermeldt eerlijk dat het
+Amerikaanse leger geen bewijs voor hersenspoeling bij krijgsgevangenen vond.
+Verder staat er geen enkele bron in.
+
+Van de aanprijzingen wordt niets getoetst. Dat binaurale tonen luciede dromen
+opwekken, dat suggesties onder de bewuste drempel gedrag sturen en dat rokers
+na enkele hypnosesessies de aandrang verliezen, staat er als vaststaand feit.
+Voor geen daarvan wordt een onderzoek genoemd, en de bewering over subliminale
+beïnvloeding is in later onderzoek juist niet bevestigd.
+
+#### Wat er tegen in te brengen valt
+
+De Cyrillische letters zijn het zwaarste punt. Ruim veertienduizend
+vervangingen door het hele boek heen zijn geen zetfout. Het is een bekende
+manier om tekst langs software te krijgen die op woordelijke overeenkomst
+controleert. Wie die moeite neemt, geeft daarmee aan dat er iets is dat
+gevonden zou kunnen worden. De tekst is er ook slechter leesbaar door: zoeken
+op een woord binnen het boek werkt niet.
+
+De titel dekt de inhoud niet. Van de zes hoofdstukken gaan er twee over angst
+voor het donker en de eigen schaduw, één over misleiding in het algemeen, en
+het hoofdstuk dat naar de duistere triade is genoemd behandelt spijt en
+berouw. Van manipulatiegeheimen is geen sprake.
+
+Auteursnaam Norton Ravin is niet na te trekken, een uitgever ontbreekt en de
+vrijwaring wijst iedere aansprakelijkheid af, ook voor de juistheid van de
+inhoud.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het historische deel als aanleiding om over hersenspoeling in
+gevangenschap en in gesloten groepen verder te lezen, en houd de namen Hunter,
+Singer en Lalich vast als startpunt.
+- Herken het patroon van de zelfmisleiding: mensen bedriegen tot net het punt
+waarop het zelfbeeld nog heel blijft. Dat inzicht is bruikbaar en staat met
+onderzoek beschreven in het werk van Dan Ariely.
+- Wees erop bedacht dat het boek geen enkel middel biedt om beïnvloeding bij
+een ander te herkennen. De technieken die het noemt zijn op de lezer zelf
+gericht.
+- Controleer bij twijfel over de herkomst van een e-boek of er Cyrillische
+letters in Engelse woorden staan. Zoek in de tekst op een gewoon woord: levert
+dat geen treffers op waar het woord zichtbaar staat, dan is de tekst bewerkt.
+
+#### Wat je hierna leest
+
+- 123. Dark Psychology: 7 in 1. Zelfde genre en zelfde jaargang, maar zonder
+Cyrillische letters en met woordelijke overlap naar twee andere titels.
+- 125. Dark Psychology and Manipulation. Behandelt wel wat deze titel belooft,
+met eenentwintig hoofdstukken over manipulatie en mind control.
+- 126. How to Analyze People with Dark Psychology. Toont een andere manier om
+overgenomen tekst te verhullen: synoniemwisseling in plaats van
+letterwisseling.
+
 ## 125. Dark Psychology and Manipulation
 
 toegeschreven aan Brandon Bradberry, 2020. Zonder uitgever in het bestand; de
@@ -25105,6 +25437,174 @@ onderzoek herhaaldelijk getoetst en houdt geen stand. Wat er van waarde in
 staat, over wederkerigheid, sociale bewijskracht en gezag, komt uit het werk
 van Cialdini en is daar beter en met bronnen te lezen.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Dit is van de vier de titel die het meest doet wat de omslag
+aankondigt: eenentwintig hoofdstukken die de duistere triade, emotionele
+manipulatie, misleiding, neurolinguïstisch programmeren, hypnose,
+hersenspoeling en verleiding achter elkaar behandelen, met een deel over
+zelfbescherming erbij. De stelling is dat manipulatie een herkenbare techniek
+is die je bij anderen kunt zien aankomen zodra je haar benoemd hebt. Wat het
+boek niet vermeldt, is dat een aanzienlijk deel van de tekst woordelijk in een
+andere titel uit hetzelfde jaar staat.
+
+#### De gang van het boek
+
+**Inleiding: gewone en donkere psychologie**
+
+Het boek begint met een definitie van gewone psychologie, inclusief een
+opsomming van deelgebieden en van onderzoeksmethoden. Die passage leest als
+een vertaling: psychologie wordt afgeleid uit het Grieks voor ziel en kennis,
+en de inleiding besluit met de zin dat psychologie het vermogen is om te
+leven.
+
+Daarna volgt de omschrijving van donkere psychologie als de studie van de
+menselijke staat in verband met de neiging om op elkaar te jagen. Die
+formulering komt van Michael Nuccitelli, die verderop ook bij naam wordt
+genoemd. Het boek stelt dat 99,99 procent van de mensen die anderen als prooi
+behandelen daarvoor een reden heeft en 0,01 procent niet, zonder te zeggen
+waar die getallen vandaan komen.
+
+**De personen: triade, manipulatie, kwetsbaarheid**
+
+Hoofdstuk 1 behandelt psychopathie, narcisme en machiavellisme als de drie
+trekken waaruit al het andere zou voortkomen. Hoofdstuk 2 gaat over emotionele
+manipulatie en maakt een onderscheid tussen een aanvaardbare en een
+onaanvaardbare vorm daarvan. Hoofdstuk 3 keert het perspectief om en
+beschrijft welke eigenschappen iemand tot doelwit maken: te zorgzaam zijn, te
+graag willen behagen, moeite hebben met nee zeggen.
+
+Hoofdstuk 4 introduceert wat het boek covert emotional manipulation noemt,
+afgekort tot CEM: sturing zonder dat het doelwit iets merkt. Hoofdstuk 20 komt
+daarop terug met zes eigenschappen van geliefde slachtoffers.
+
+**De technieken**
+
+Hoofdstuk 5 tot en met 11 vormen het technische midden. Dark persuasion
+beschrijft overreding als het vinden van drukpunten. Hoofdstuk 6 behandelt
+spiegelen en het Barnum-effect, met het voorbeeld van het oude echtpaar dat
+tegelijk naar de koffie grijpt. Hoofdstuk 7 gaat over misleiding en stelt vast
+dat mensen elkaar dagelijks voorliegen, ook de eerlijke.
+
+Hoofdstuk 8 behandelt neurolinguïstisch programmeren onder de naam dark NLP en
+noemt Bandler en Grinder als bedenkers en Tony Robbins en Derren Brown als
+bekende toepassers. Hoofdstuk 9 gaat over hypnose en opent met de vaststelling
+dat het beeld uit films onjuist is. Hoofdstuk 10 behandelt hersenspoeling met
+de schrikgolf uit de jaren vijftig als aanleiding, en hoofdstuk 11 wat het
+boek dark games noemt.
+
+**Verweer en herkenning**
+
+Hoofdstuk 12 en 13 vormen het bruikbaarste deel. Ze gaan over het omgaan met
+manipulators en beginnen met een lijst van wat het boek grondrechten noemt,
+waaronder het recht om je eigen grenzen te stellen en om nee te zeggen zonder
+schuldgevoel. Hoofdstuk 13 beschrijft de schadelijke betrekking als een waarin
+het geven en nemen langdurig eenzijdig is.
+
+Hoofdstuk 14 en 15 gaan over het snel lezen van mensen en over
+micro-expressies. Het boek noemt zeven emoties die aan het gezicht af te lezen
+zouden zijn, en waarschuwt in hetzelfde hoofdstuk dat oefening in echte
+situaties nodig is.
+
+**De laatste zes hoofdstukken**
+
+Hoofdstuk 16 gaat over verleiding en de vraag of iets liefde of manipulatie
+is. Hoofdstuk 17 herhaalt het onderwerp van hoofdstuk 4 onder de naam
+undetected mind control. Hoofdstuk 18 behandelt internet en noemt trollen als
+roofdieren. Hoofdstuk 19 heet *The Real Vampires* en beschrijft de emotionele
+roofdieren om je heen.
+
+Hoofdstuk 21 valt uit de toon. Het gaat over het vervangen van negatieve
+gedachten door positieve, per beroep uitgewerkt. Dat is zelfhulp en geen
+donkere psychologie meer.
+
+**Overlap met de andere drie**
+
+Ongeveer zeven procent van alle woordreeksen van acht woorden in dit boek
+staat ook in nummer 123. De inleiding hierboven beschreven is daar een
+aaneengesloten passage van 1091 woorden, hoofdstuk 1 van het eerste deelboek.
+Hoofdstuk 14 over het lezen van mensen komt daar terug in twee stukken van 547
+en 458 woorden, en het slot van dit boek is met 543 woorden het slotwoord van
+het tweede deelboek daar.
+
+Met nummer 126, uit hetzelfde jaar, deelt dit boek 222 woordreeksen, en die
+betreffen vrijwel alleen de bladzijde met auteursrecht en vrijwaring, die
+woordelijk identiek is. Met nummer 124 is er geen enkele overeenkomst.
+Cyrillische letters, breedteloze spaties of andere ingrepen om tekst te
+verhullen staan er niet in.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Dark psychology | De studie van de menselijke aanleg om anderen als prooi te behandelen, in de omschrijving die het boek van Nuccitelli overneemt. |
+| Covert emotional manipulation | Sturing van iemands gedrag via zijn gevoelens, zonder dat hij doorheeft dat het gebeurt. |
+| Mirroring | Het onbewust overnemen van houding en gebaren van iemand met wie je verbonden bent, in het boek ook aanbevolen als bewuste techniek. |
+| Barnum-effect | De neiging om een algemene persoonlijkheidsbeschrijving als treffend persoonlijk te ervaren. |
+| Dark games | Manipulatie waarbij het spel met de wil van het slachtoffer zelf het doel is. |
+| Emotional predator | Iemand wiens betrekkingen berusten op het vermogen anderen emotioneel te sturen. |
+| Micro-expressie | Een kortstondige gezichtsbeweging die volgens het boek zeven grondemoties verraadt. |
+
+#### Waar het argument op rust
+
+Het boek noemt drie namen: Nuccitelli voor de definitie, George K. Simon voor
+drie voorwaarden waaronder manipulatie slaagt, en Bandler en Grinder voor
+neurolinguïstisch programmeren. Er is geen literatuurlijst, geen jaartal bij
+een onderzoek en geen enkele verwijzing naar een tijdschrift. De getallen die
+er staan, zoals de verdeling 99,99 tegen 0,01, zijn niet te herleiden.
+
+De hoofdstukken over neurolinguïstisch programmeren en over micro-expressies
+rusten op niets. De aanname dat karakter en waarheid uit gelaat en houding af
+te lezen zijn, houdt in onderzoek geen stand, en leugendetectie door mensen
+komt nauwelijks boven kansniveau uit. Het Barnum-effect is wel een gemeten
+verschijnsel, maar het boek noemt geen onderzoek en gebruikt het als truc in
+plaats van als waarschuwing.
+
+#### Wat er tegen in te brengen valt
+
+Het ernstigste bezwaar is dat een boek dat over misleiding gaat, zelf niet
+vertelt waar het vandaan komt. Ruim drieduizend woordreeksen, waaronder een
+blok van meer dan duizend woorden aan één stuk, staan ook in een bundel die
+onder twee andere auteursnamen verscheen. Zonder uitgever, zonder colofon en
+zonder bronvermelding is niet vast te stellen wie van wie overnam, en dat is
+precies wat aan deze markt te zien is.
+
+Inhoudelijk staat er te veel dubbel. Hoofdstuk 4 en hoofdstuk 17 gaan over
+hetzelfde onderwerp onder twee namen, hoofdstuk 3 en hoofdstuk 20 behandelen
+allebei de kwetsbaarheid van slachtoffers. Hoofdstuk 21 hoort in een ander
+boek thuis.
+
+De belofte om mensen te lezen wordt niet waargemaakt. Het boek geeft lijstjes
+betekenissen bij gebaren en gezichtsuitdrukkingen zonder ooit te melden hoe
+vaak zo'n uitleg fout is. Een lezer die dit toepast, krijgt vertrouwen in zijn
+oordeel zonder dat dat oordeel beter wordt, en dat is een risico dat het boek
+nergens noemt.
+
+#### Wat er concreet mee te doen is
+
+- Lees hoofdstuk 12 en 13 en laat de rest liggen. Daar staan de bruikbare
+vragen: is het geven en nemen eenzijdig, mag ik nee zeggen zonder
+schuldgevoel, worden mijn grenzen genoemd of weggepraat.
+- Herken de drie voorwaarden van Simon in een gesprek: verhulde bedoeling,
+gerichte druk op een zwakke plek, en het uitblijven van gêne bij de ander
+wanneer je schade oploopt.
+- Reken niet op de hoofdstukken over lichaamstaal en micro-expressies om
+leugens te herkennen. Vraag door en zoek toetsbare feiten in plaats van
+signalen te lezen.
+- Voor de werkende beginselen van beïnvloeding, wederkerigheid, sociale
+bewijskracht en gezag, is Cialdini de bron. Hij wordt in dit boek niet genoemd
+terwijl zijn ideeën er wel in staan.
+
+#### Wat je hierna leest
+
+- 123. Dark Psychology: 7 in 1. Bevat dit boek voor een aanzienlijk deel
+woordelijk, verspreid over twee van zijn zeven deelboeken.
+- 126. How to Analyze People with Dark Psychology. Deelt met dit boek alleen
+de bladzijde met auteursrecht en vrijwaring, woord voor woord.
+- 124. Dark Psychology: Mind Control and Manipulation Secrets. Belooft
+hetzelfde onderwerp en levert een tiende van de omvang, met Cyrillische
+letters door de hele tekst.
+
 ## 126. How to Analyze People with Dark Psychology
 
 toegeschreven aan Jacob Anderson, 2020. Zonder uitgever in het bestand;
@@ -25123,6 +25623,173 @@ Het lezen van gedachten uit lichaamstaal is een van de hardnekkigste
 denkbeelden in dit genre; onderzoek naar het herkennen van leugens laat zien
 dat mensen daar nauwelijks beter in zijn dan het toeval, ook getrainde
 beroepsgroepen. Het boek zelf is opnieuw zonder auteur, uitgever en bronnen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Eenendertig hoofdstukken lopen van overreding via
+hersenspoeling en misleiding naar neurolinguïstisch programmeren, hypnose,
+lichaamstaal en mind control, met als stelling dat overreding en manipulatie
+hetzelfde gereedschap gebruiken en alleen in bedoeling verschillen. Het beste
+deel van het boek, de opsomming van de beginselen van overreding, is het werk
+van Cialdini zonder dat zijn naam ergens valt. Twee van die beginselen staan
+er zelfs twee keer in, de tweede keer in door software omgezette bewoordingen
+die de herkomst moesten verhullen.
+
+#### De gang van het boek
+
+**Van overreding naar donkere overreding**
+
+Na twee hoofdstukken over donkere psychologie en de duistere triade begint de
+eigenlijke gang met hoofdstuk 4 tot en met 10. Eerst wat overreding is, dan
+het verschil met manipulatie, dan methoden, dan technieken, dan een hoofdstuk
+over overreden zonder te manipuleren, en tot slot de donkere variant met het
+scheppen van een behoefte, het aanspreken van sociale behoeften en het gebruik
+van geladen woorden en beelden.
+
+Het onderscheid dat het boek maakt is helder: bij overreding blijft de ander
+vrij om nee te zeggen, bij manipulatie wordt die vrijheid weggenomen door
+leugen, druk of overdrijving. Vanaf hoofdstuk 9 wordt hetzelfde gereedschap
+echter zonder voorbehoud aan de lezer aangeboden.
+
+**Het hoofdstuk dat van Cialdini is**
+
+Hoofdstuk 7 somt de technieken van overreding op: schaarste, sympathie,
+verbintenis en samenhang, sociale bewijskracht, gezag, ankering, druk en
+wederkerigheid. Op de eerste zes na is dat de opsomming uit *Influence* van
+Robert Cialdini. Zijn naam staat nergens in het boek, en er is geen bron bij.
+
+Opvallender is wat daarna komt. Dezelfde inhoudsopgave vermeldt onder
+hoofdstuk 7 nog twee kopjes: *Dedication and Also, Uniformity* en *Social
+Evidence*. Dat zijn verbintenis en samenhang, en sociale bewijskracht, nog een
+keer. De tekst eronder is dezelfde tekst met woorden vervangen door
+synoniemen, met zinnen als resultaat die niet meer kloppen: waar eerst staat
+dat het voor de manipulator niet goed is de feiten steeds te veranderen, staat
+daar dat het voor de vertegenwoordiger goed stemt de werkelijkheden
+voortdurend om te zetten.
+
+**Hersenspoeling in omgezette woorden**
+
+Hoofdstuk 11 en 12 vertonen hetzelfde verschijnsel over de volle lengte.
+Hersenspoeling heet er mental conditioning, psychologie heet er brain science,
+en zinnen als "paying little heed to whether they understand it or not"
+verraden dat een oorspronkelijke tekst woord voor woord door een
+synoniemenlijst is gehaald. Het gevolg is dat de hoofdstukken over het
+onderwerp waarvan de titel het meest belooft, juist het slechtst leesbaar
+zijn.
+
+Deze vorm van bewerking is de tegenhanger van de Cyrillische letters in nummer
+124. Zij bereikt hetzelfde doel, het onvindbaar maken van de oorspronkelijke
+tekst, en kost daarbij de betekenis.
+
+**Misleiding, neurolinguïstisch programmeren en koud lezen**
+
+Hoofdstuk 13 en 14 gaan over misleiding, de soorten ervan, het herkennen ervan
+en het verweer ertegen. Hoofdstuk 15 tot en met 17 behandelen
+neurolinguïstisch programmeren, met tien genoemde technieken: dissociatie,
+vooruitlopen op de toekomst, herkaderen van de inhoud, jezelf ankeren, jezelf
+aardig maken, verborgen opdrachten, keuzebeperking, de vorm ik zou kunnen maar
+liever niet, het vervangen van maar door en, en het achterhalen van wat de
+ander wil.
+
+Het voorbeeld bij keuzebeperking is bruikbaar en concreet: vraag niet welke
+wijn iemand wil, maar rood of wit. Hoofdstuk 18 tot en met 20 behandelen het
+Barnum-effect, spiegelen en koud lezen, drie onderwerpen die beschrijven hoe
+iemand de indruk wekt meer te weten dan hij weet.
+
+**Hypnose, lichaamstaal en mind control**
+
+Hoofdstuk 21 en 22 gaan over hypnose, hypnotherapie, vatbaarheid, zelfhypnose
+en militaire toepassingen. Hier staat het proefwerk van Stanley Milgram uit
+1963 genoemd, met jaartal en vraagstelling, en de opmerking dat wie op een
+podium gehypnotiseerd wordt daar zelf toestemming voor heeft gegeven.
+
+Hoofdstuk 23 tot en met 27 gaan over lichaamstaal en non-verbale signalen.
+Paul Ekman wordt genoemd met zeven algemeen erkende micro-expressies.
+Hoofdstuk 26 is het openhartigst van het boek: het legt uit hoe je
+lichaamstaal, belangstelling en zelfvertrouwen kunt veinzen. Hoofdstuk 28 tot
+en met 31 sluiten af met mind control.
+
+**Overlap met de andere drie**
+
+Met nummer 123 deelt dit boek 1686 woordreeksen van acht woorden. De langste
+passages zitten in het non-verbale deel: hoofdstuk 25 hier is grotendeels
+hetzelfde als het lichaamstaalhoofdstuk in het eerste deelboek van 123, met
+blokken van 214, 119, 101, 97 en 88 woorden achter elkaar gelijk. In beide
+teksten staat op dezelfde plaatsen "your goal" waar "your target" bedoeld is.
+Ook hoofdstuk 28 over mind control deelt twee blokken van 132 en 71 woorden
+met 123.
+
+Met nummer 125 zijn alleen de bladzijde met auteursrecht en de vrijwaring
+gelijk, woord voor woord, wat op dezelfde uitgeefketen wijst. Met nummer 124
+is er geen enkele overeenkomst. Cyrillische letters staan er niet in.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Dark psychology | De verzamelnaam die het boek gebruikt voor beïnvloeding waarbij het belang van de ander geen rol speelt. |
+| Dark triad | Machiavellisme, narcisme en psychopathie, in het boek de hoeksteen waaruit alle behandelde technieken zouden voortkomen. |
+| Ethical persuasion | Overreding waarbij de ander vrij blijft om nee te zeggen, in hoofdstuk 8 als apart hoofdstuk behandeld. |
+| Anchoring | De denkfout waarbij het eerste genoemde getal of aanbod het oordeel over alle volgende vastzet, in het boek vooral aan prijzen gekoppeld. |
+| Barnum-effect | De neiging een algemene beschrijving als persoonlijk raak te ervaren, de grondslag onder koud lezen. |
+| Cold reading | De techniek om uit algemene uitspraken en reacties van de ander de indruk te wekken dat je iets over hem weet. |
+
+#### Waar het argument op rust
+
+Dit boek noemt de meeste namen van de vier: Ekman bij micro-expressies,
+Milgram met het jaar 1963 en met de opzet van zijn proef, en Bandler en
+Grinder bij neurolinguïstisch programmeren. Verder is er geen literatuurlijst
+en geen enkele verwijzing.
+
+De hoofdstukken over neurolinguïstisch programmeren rusten op niets. De tien
+technieken worden gebracht als werkende ingrepen, terwijl de kernaannames van
+dat model bij toetsing niet zijn bevestigd. Ook de belofte dat je met
+micro-expressies leugens kunt herkennen houdt geen stand: mensen komen daarbij
+nauwelijks boven kansniveau uit, en het boek noemt geen enkel getal over hoe
+vaak zo'n aflezing fout gaat.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is aantoonbaar en staat in het boek zelf. Twee beginselen
+van overreding komen twee keer voor, de tweede keer in synoniemen omgezet tot
+de zinnen niet meer lopen. Wie zoiets in een boek laat staan, heeft de tekst
+niet gelezen die hij ondertekent. Hetzelfde geldt voor de
+hersenspoelinghoofdstukken, waar hersenspoeling mental conditioning heet.
+
+De inhoudsopgave is te vaak dezelfde stof onder een nieuwe kop. Hoofdstuk 4
+tot en met 10 gaan zeven keer over overreding, hoofdstuk 23 tot en met 27 vijf
+keer over lichaamstaal, hoofdstuk 28 tot en met 31 vier keer over mind
+control. Eenendertig hoofdstukken suggereren een breedte die er niet is.
+
+De naam Jacob Anderson is niet te herleiden, er is geen uitgever en de
+vrijwaring vermeldt dat de inhoud uit uiteenlopende bronnen komt zonder er één
+te noemen.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het onderscheid uit hoofdstuk 5 als toets in een gesprek: blijf ik
+vrij om nee te zeggen zonder dat het mij iets kost. Blijft dat zo, dan is het
+overreding.
+- Herken de drie donkere technieken uit hoofdstuk 10 als ze op je worden
+toegepast: het scheppen van een behoefte die er niet was, het aanspreken van
+je wens erbij te horen, en woorden die het oordeel al bevatten.
+- Ga ervan uit dat je met de lichaamstaalhoofdstukken geen leugen herkent,
+temeer omdat hoofdstuk 26 uitlegt hoe die signalen te veinzen zijn.
+- Lees voor het enige degelijke deel de bron zelf. De beginselen uit hoofdstuk
+7 staan in *Influence* van Robert Cialdini, met de onderzoeken erbij en met de
+grenzen aan hun werking.
+
+#### Wat je hierna leest
+
+- 123. Dark Psychology: 7 in 1. Deelt het lichaamstaalhoofdstuk en een deel
+van het mind-controlhoofdstuk woordelijk met deze titel, inclusief dezelfde
+verschrijving van target naar goal.
+- 125. Dark Psychology and Manipulation. Uit hetzelfde jaar en met dezelfde
+bladzijde auteursrecht en vrijwaring, maar verder zonder gemeenschappelijke
+tekst.
+- 124. Dark Psychology: Mind Control and Manipulation Secrets. Toont de andere
+manier om herkomst te verhullen: Cyrillische letters in plaats van
+synoniemwisseling.
 
 ## 127. The Law of Attraction
 
