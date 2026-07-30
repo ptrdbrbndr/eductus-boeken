@@ -61,6 +61,15 @@ agent-JSON inlezen en `b.lang` zetten in `data/boeken-*.json`.
   onder de oorspronkelijke Engelse naam *Unlimited Power*, met een aantekening
   in het `uitgave`-veld. Kom je hetzelfde tegen, meld het aan Pieter
   in plaats van het stil op te lossen.
+- **Twee gewone woorden struikelen over de controles, en juist in jouw batches
+  heb je ze nodig.** `bekrachtiging` en `bekrachtigen` bevatten *krachtig* en
+  worden door `scripts/keur-lang.mjs` geweigerd; `samengevat` leest de anti-AI-
+  lint als superlatief en blokkeert de build. Bij manifesteren en dark
+  psychology (batch 12 en 13) is bekrachtiging vaak precies het woord dat je
+  nodig hebt om te beschrijven wat een boek beweert. Omschrijven werkt: belonen,
+  versterken, of de zin anders bouwen. Beide gevallen zijn in batch 8 en 10
+  tegengekomen (nrs 118, 134 en 138) en aan Pieter gemeld; een woordgrens in de
+  patronen zou het oplossen.
 - **Alles wat via `{{STIJL}}` of `{{VOORTGANG}}` wordt ingevoegd komt in elke
   pagina terecht**, inclusief commentaarregels.
 - **De keuring blokkeert onder 850 woorden en waarschuwt boven 2200.** Boven is
