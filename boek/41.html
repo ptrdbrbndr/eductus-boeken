@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creativity, Inc. &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Catmull stelt dat de kwaliteit van een film niet uit een goed idee komt maar uit een groep die elkaar durft te vertellen dat het werk nog niet deugt. Elke…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-41">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">41 &middot; Maken en scheppen</p>
+    <h1>Creativity, Inc.</h1>
+    <p class="lede">Ed Catmull met Amy Wallace, 2014</p>
+    <p class="stats">
+      <span><b>1807</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="41"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Catmull stelt dat de kwaliteit van een film niet uit een goed idee komt maar uit een groep die elkaar durft te vertellen dat het werk nog niet deugt. Elke Pixar-film begon volgens hem slecht, en het enige dat telt is hoe snel en hoe eerlijk een organisatie dat vaststelt en herstelt. De taak van de leiding is daarom niet het bewaken van ideeën, maar het wegnemen van alles wat mensen ervan weerhoudt hardop te zeggen wat ze zien: angst voor de baas, angst voor de collega, en de blinde vlekken die je juist niet opmerkt omdat het goed gaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Catmull begint bij zijn eigen doel, gevormd tijdens zijn studie in Utah: een volledig door de computer gemaakte speelfilm maken. Die weg loopt via het New York Institute of Technology, de computerafdeling van Lucasfilm, en de zelfstandige onderneming Pixar die in 1986 door Steve Jobs werd gekocht. In 1995 komt <i>Toy Story</i> uit en is het doel bereikt.</p>
+      <p>Daarna beschrijft hij een leegte die zelden in bedrijfsboeken staat. Het doel dat twintig jaar richting gaf was weg, en de vraag die overbleef was een andere: hoe houd je een bedrijf gezond dat succesvol is. Hij wijst op de goedgeleide ondernemingen die hij in Silicon Valley zag verdwijnen, en concludeert dat hun leiding niet dom was maar niet zag wat er misging. De rest van het boek gaat over die onzichtbaarheid.</p>
+      <h3>De Braintrust</h3>
+      <p>Het bekendste hoofdstuk beschrijft de Braintrust, een groep regisseurs en verhaalmensen die met vaste tussenpozen naar een film in wording kijkt en zegt wat er niet werkt. Twee regels maken het volgens Catmull werkbaar. De groep heeft geen bevoegdheid: de regisseur beslist zelf wat hij met de opmerkingen doet. En de opmerkingen gaan over de film, niet over de maker.</p>
+      <p>Catmull hecht aan het woord openhartigheid boven eerlijkheid, omdat eerlijkheid een morele lading heeft die mensen doet zwijgen. Openhartigheid is in zijn beschrijving een vaardigheid die je organiseert: door de groep te vullen met mensen die zelf hetzelfde meemaken, door de bijeenkomst los te koppelen van beoordeling en beloning, en door het gesprek te laten gaan over wat het probleem is en niet over wie het moet oplossen.</p>
+      <h3>De eerste versie is slecht</h3>
+      <p>De uitspraak die het vaakst uit dit boek geciteerd wordt is dat elke Pixar-film in het begin slecht is. Catmull bedoelt dat niet als bescheidenheid. Het is een werkregel: als je aanneemt dat het eerste ontwerp mislukt, dan wordt het opsporen van fouten normaal werk in plaats van een aanklacht.</p>
+      <p>Het voorbeeld daarbij is de zwarte vrijdag in november 1993, toen Disney de productie van <i>Toy Story</i> stillegde omdat Woody in de toenmalige versie een onaangenaam personage was geworden. Pixar kreeg de tijd het verhaal opnieuw op te bouwen. Een tweede voorbeeld is <i>Toy Story 2</i>, dat als goedkope vervolgfilm was opgezet, door de Braintrust werd afgekeurd en in ongeveer negen maanden opnieuw werd gemaakt, met lichamelijke schade voor de ploeg die Catmull achteraf een fout van de leiding noemt.</p>
+      <p>Bij dezelfde film hoort de bijna-ramp op de server, waar een verkeerd verwijdercommando de bestanden begon te wissen en de kopie van een thuiswerkende medewerker de productie redde. Catmull gebruikt het om te laten zien hoe toevallig dat afliep.</p>
+      <h3>Angst en falen</h3>
+      <p>Falen is in dit boek geen leerzame beproeving maar de gewone uitkomst van iets doen wat nog niet eerder is gedaan. Wat schadelijk is, is niet de mislukking zelf maar de angst ervoor, omdat die mensen ertoe brengt te wachten, te verbergen en op zeker te spelen.</p>
+      <p>Catmull legt de verantwoordelijkheid bij de leiding. Wie zegt dat fouten mogen maar mensen erop afrekent, krijgt een organisatie die naar boven meldt wat de baas wil horen. Hij beschrijft ook zijn eigen ongemak: jarenlang dacht hij dat Pixar open was, tot medewerkers hem vertelden dat zij dat lang niet altijd zo ervoeren.</p>
+      <h3>Het beest en de lelijke baby</h3>
+      <p>Twee beelden dragen het middendeel. Het beest is de productiemachine: honderden mensen die betaald en bezig gehouden moeten worden, en die daardoor werk opeisen voordat het klaar is om beoordeeld te worden. De lelijke baby is het nieuwe idee, dat er in het begin onbeholpen uitziet en dat gemakkelijk sneuvelt in een vergelijking met een afgemaakte film.</p>
+      <p>De taak van de leiding is volgens Catmull het evenwicht bewaken tussen die twee: het beest voeden zonder dat het de baby opeet. Dat betekent dat een idee tijd en beschutting krijgt, terwijl het uiteindelijk toch aan het oordeel van de groep wordt blootgesteld.</p>
+      <h3>Wat je niet ziet</h3>
+      <p>Een van de eigenzinnigste delen gaat over het verborgene: alles wat in een organisatie gebeurt buiten het zicht van wie haar leidt. Catmull vergelijkt zichzelf met iemand die een berg beklimt en denkt de hele bergketen te overzien. Zijn tegenmaatregelen zijn nuchter: mensen op alle niveaus rechtstreeks laten praten zonder de bevelslijn te volgen, en aannemen dat de meest bruikbare informatie bij de leiding het laatst aankomt.</p>
+      <p>Daarbij hoort ook zijn behandeling van toeval. Pixar heeft geluk gehad, schrijft hij, en het gevaar van succes is dat een organisatie achteraf een verhaal maakt waarin alles het gevolg van goed beleid was. De postmortems na elke film dienen mede om dat verhaal te verstoren. Catmull merkt op dat mensen postmortems liever ontwijken, en beschrijft hoe hij ze door wisselende vragen en aantallen bruikbaar probeerde te houden.</p>
+      <h3>Disney Animation en Notes Day</h3>
+      <p>Na de overname door Disney in 2006 gingen Catmull en John Lasseter ook Walt Disney Animation Studios leiden. Catmull beschrijft dat hij daar bewust niet de Pixar-werkwijze oplegde: de opvolger van de Braintrust kreeg een eigen naam en een eigen samenstelling, omdat een overgenomen gewoonte zonder eigen geschiedenis volgens hem niet blijft staan. De films die daarop volgden, waaronder <i>Tangled</i> en <i>Frozen</i>, gelden voor hem als het bewijs dat het om de werkwijze ging en niet om de mensen van Pixar.</p>
+      <p>Het boek eindigt met Notes Day, 11 maart 2013, toen Pixar het werk een dag stillegde en de hele onderneming in groepen liet praten over hoe de kosten en de manier van werken beter konden. Catmull presenteert het als een proef op de som van zijn eigen stelling: kan een bedrijf de kritiek die het op zijn films toepast ook op zichzelf toepassen. In een nawoord staat een portret van Steve Jobs, waarin Catmull vooral beschrijft hoe Jobs in de loop van de jaren leerde luisteren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Braintrust</td><td>Vaste groep makers die een film in wording bekijkt en zonder bevoegdheid over de uitkomst zegt wat er niet werkt.</td></tr>
+          <tr><td class="term">Openhartigheid</td><td>Het zonder terughoudendheid zeggen wat je van het werk vindt, door Catmull losgemaakt van het morele woord eerlijkheid omdat dat mensen doet zwijgen.</td></tr>
+          <tr><td class="term">De lelijke baby</td><td>Het nieuwe idee in zijn onbeholpen begintoestand, dat beschutting nodig heeft omdat het elke vergelijking met afgewerkt werk verliest.</td></tr>
+          <tr><td class="term">Het beest</td><td>De productiemachine met haar vaste bezetting en kosten, die werk opeist voordat het rijp is.</td></tr>
+          <tr><td class="term">Postmortem</td><td>De bespreking na afloop van een film, bedoeld om het opgepoetste verhaal over het eigen succes te doorbreken.</td></tr>
+          <tr><td class="term">Notes Day</td><td>De dag in maart 2013 waarop Pixar het werk stillegde om de hele onderneming opmerkingen over zichzelf te laten geven.</td></tr>
+          <tr><td class="term">Het verborgene</td><td>Alles wat in de organisatie gebeurt buiten het gezichtsveld van de leiding, en dat volgens Catmull structureel groter is dan zij aanneemt.</td></tr>
+          <tr><td class="term">Ploeg boven idee</td><td>De stelregel dat een goede ploeg een middelmatig idee redt, terwijl een middelmatige ploeg een goed idee verspeelt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust vrijwel volledig op wat Catmull zelf heeft meegemaakt in ongeveer veertig jaar bij NYIT, Lucasfilm, Pixar en Disney Animation. Er staat geen onderzoek in, geen vergelijkende gegevens en geen enkele poging om de werkwijze te toetsen aan bedrijven die haar overnamen. Dat maakt het geen zwak boek, want de gevallen zijn nauwkeurig en soms ongunstig voor de schrijver zelf, maar het maakt het wel een getuigenis in plaats van een bewijsvoering.</p>
+      <p>Sterk is dat Catmull de duurgekochte gevallen niet weglaat: het stilleggen van <i>Toy Story</i> in 1993, het opnieuw maken van <i>Toy Story 2</i> met de overbelasting die daarbij hoorde, het wisselen van regisseur bij films die vastliepen, en zijn eigen te late ontdekking dat medewerkers zich niet zo vrij voelden als hij dacht. Wie alleen zijn geslaagde beslissingen had willen laten zien, had die verhalen anders verteld.</p>
+      <p>Zwakker is de eindconclusie. Pixar had in deze periode een reeks winstgevende films, en het boek leest die reeks als uitkomst van de beschreven werkwijze. Catmull noemt de rol van geluk, maar dat verandert niets aan de opbouw, die van resultaat naar oorzaak redeneert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste vraag komt van buiten het boek. In de rechtszaak over onderlinge afspraken tussen technologie- en animatiebedrijven om elkaars werknemers niet te benaderen, kwam naar voren dat Pixar zulke afspraken hanteerde en dat Catmull ze verdedigde als bescherming van de bedrijfstak. Dat gaat over dezelfde jaren en dezelfde leiding als het boek, en het staat er niet in. Een verhaal over vertrouwen en over het belang van de mensen boven het idee wordt daar aantoonbaar dunner van.</p>
+      <p>Een tweede bezwaar betreft de houdbaarheid. Het boek verscheen in 2014 en beschrijft een cultuur waarin alles gezegd kan worden. In 2017 vertrok John Lasseter, in het boek de voornaamste creatieve figuur naast Catmull, na klachten over zijn gedrag tegenover medewerkers. Dat gedrag was blijkbaar niet bespreekbaar in dezelfde ruimte waar een film wel genadeloos besproken kon worden. Openhartigheid over werk en openhartigheid over macht blijken twee verschillende dingen.</p>
+      <p>Verder is de overdraagbaarheid beperkt en het boek erkent dat maar half. De Braintrust werkt doordat de deelnemers hetzelfde vak beoefenen, geen macht over elkaars loopbaan hebben en aan één zichtbaar product werken dat af moet. Waar die voorwaarden ontbreken, blijft een lijst gewoonten over zonder de grond waarop ze stonden.</p>
+      <p>Ten slotte de omstandigheden. Pixar had een geldschieter die verlies kon dragen, een verdeler met wereldwijd bereik en een technische voorsprong. Daardoor kon een film opnieuw beginnen als hij niet deugde. Het boek behandelt dat vermogen als een keuze, terwijl het voor de meeste organisaties een luxe is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid de bespreking van het werk van de beoordeling van de mens: laat de groep die opmerkingen geeft geen zeggenschap hebben over loopbaan of beloning.</li>
+        <li>Leg vast wie beslist: opmerkingen zijn vrij, de beslissing hoort bij één eigenaar.</li>
+        <li>Zeg vooraf dat de eerste versie niet deugt en plan er tijd voor. Wie de herziening niet inroostert, krijgt een organisatie die de eerste versie verdedigt.</li>
+        <li>Doe na elk afgerond project een bespreking achteraf, en wissel de vragen zodat er geen bezwering van wordt.</li>
+        <li>Ga ervan uit dat je als leidinggevende de helft niet ziet. Organiseer paden waarlangs mensen buiten de bevelslijn om iets kunnen melden.</li>
+        <li>Bescherm een nieuw plan tegen vergelijking met afgewerkt werk, maar zet er een toetsdatum op.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Overcoming the Unseen Forces That Stand in the Way of True Inspiration</i>. De Nederlandse uitgave houdt de titel <i>Creativity, Inc.</i> aan, vertaald door Aad Markenstein (ISBN 9789400501201).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Catmull, medeoprichter en jarenlang president van Pixar, beschrijft hoe een studio werkt waar elke film in het begin slecht is. Zijn kernpunt: bijna alles wat Pixar maakte was aanvankelijk onbruikbaar, en de organisatie is gebouwd om dat vroeg te zien in plaats van het te verbergen. Daarvoor dienen de braintrust, een groep regisseurs die elkaars werk in wording zonder gezag en zonder verplichting bespreekt, en de regel dat de kritiek de film betreft en niet de maker.</p><p>Het boek loopt langs de geschiedenis van de computeranimatie, de jaren bij Lucasfilm, de samenwerking met Steve Jobs en de overname van Disney Animation, waar hij dezelfde werkwijze invoerde. De bruikbaarste hoofdstukken gaan over de dingen die je niet ziet: de angst die mensen laat zwijgen, het onderscheid tussen een fout en een mislukking, en waarom een goed team belangrijker is dan een goed idee.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Pixar</li><li>leiderschap</li><li>film</li><li>feedback</li><li>organisatie</li><li>animatie</li><li>kritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="46"><a href="46.html">Becoming Steve Jobs</a>. Dezelfde jaren en dezelfde onderneming vanuit Steve Jobs bekeken, inclusief wat hij volgens de schrijvers bij Pixar van Catmull en Lasseter leerde.</li>
+          <li value="43"><a href="../index.html#boek-43">Crucial Conversations</a>. Uit dezelfde lijst, als vervolg.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

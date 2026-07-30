@@ -2758,6 +2758,197 @@ over hoe weinig hij van tevoren wist. De les die eruit te halen valt is
 onspectaculair, namelijk dat het bedrijf overleefde omdat hij niet stopte op
 de momenten waarop stoppen redelijk was.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Phil Knight vertelt in *Shoe Dog* hoe Nike tussen 1962 en de
+beursgang van 1980 groeide, en zijn verhaal draait steeds om hetzelfde
+gegeven: het bedrijf verkocht ieder jaar meer schoenen en had ieder jaar
+minder geld. Groei werd betaald met geleend geld, elke bestelling bij de
+Japanse fabriek werd voorgefinancierd, en de bankrekening stond bijna altijd
+op nul. Zijn stelling is dat een bedrijf niet wordt gemaakt door een plan of
+een berekening maar door mensen die doorlopen terwijl de rekening leeg is, en
+dat de beslissende momenten van veertien jaar bedrijfsgeschiedenis geen
+strategische keuzes waren maar reddingen op het laatste moment. Wie daar iets
+tegenover wil zetten, kan opmerken dat precies dat gedrag ook de bedrijven
+kenmerkt die het niet hebben gehaald en waarover geen memoir is geschreven.
+
+#### De gang van het verhaal
+
+**Het gekke idee en de reis naar Kobe**
+
+Knight begint in 1962. Hij is midden twintig, heeft in Oregon gelopen onder
+coach Bill Bowerman, heeft bedrijfskunde gestudeerd aan Stanford en heeft daar
+een werkstuk geschreven over de vraag of Japanse hardloopschoenen met Duitse
+merken kunnen concurreren zoals Japanse camera's dat met Duitse camera's
+deden. Hij noemt dat zijn gekke idee. Hij leent geld van zijn vader voor een
+reis om de wereld, komt in Kobe terecht bij de schoenenfabrikant Onitsuka en
+vraagt daar of hij hun Tiger-schoenen in het westen van de Verenigde Staten
+mag verkopen.
+
+Op de vraag welk bedrijf hij vertegenwoordigt verzint hij ter plekke een naam:
+Blue Ribbon. Er is geen bedrijf, geen kapitaal en geen winkel. Hij bestelt
+monsters, wacht maanden, stuurt een paar paar naar Bowerman en verwacht een
+klant. Bowerman vraagt in plaats daarvan of hij mee mag doen. Ze verdelen het
+in eenenvijftig tegen negenenveertig procent, in Knights voordeel, omdat
+Knight erop staat dat één persoon de doorslag moet kunnen geven.
+
+**Verkopen uit de kofferbak**
+
+De eerste jaren verkoopt Knight schoenen op atletiekwedstrijden uit zijn auto,
+terwijl hij overdag als accountant werkt. Hij neemt mensen aan die op hem
+lijken: hardlopers, buitenbeentjes, mensen zonder aanbod elders. Jeff Johnson
+wordt de eerste voltijdse werknemer en schrijft brieven die Knight vrijwel
+nooit beantwoordt, houdt kaartenbakken bij van klanten en opent de eerste
+winkel. Bob Woodell komt erbij nadat een ongeluk hem in een rolstoel heeft
+gebracht en gaat over de dagelijkse gang van zaken.
+
+Bowerman intussen behandelt zijn hardlopers als proefpersonen. Hij snijdt
+schoenen open, haalt er gewicht uit, plakt er ander materiaal onder en geeft
+het resultaat aan zijn atleten om te testen. Uit een experiment met het ijzer
+waarmee thuis wafels worden gebakken komt de zool met vierkante noppen die
+later onder de eerste eigen modellen zit. De verhouding tussen leraar en
+leerling loopt door het hele boek heen: Bowerman is de reden dat Knight
+schoenen belangrijk vindt, en de reden dat het bedrijf iets te verkopen heeft
+dat de concurrent niet kan kopiëren.
+
+**De bank die de kredietlijn introk**
+
+De omzet verdubbelt jarenlang bijna elk jaar, en juist dat brengt het bedrijf
+in gevaar. Elke verdubbeling vraagt een grotere order in Japan, en die order
+moet betaald worden voordat de schoenen verkocht zijn. Knight houdt geen
+reserve aan en zet alle binnenkomende dollars om in de volgende bestelling.
+Zijn bank vindt dat onverantwoord en dringt aan op een saldo dat blijft staan.
+Als hij dat niet levert, wordt zijn kredietlijn opgezegd en komt hij ook bij
+een tweede bank op straat te staan.
+
+Erger nog wordt het als de bank een betaling weigert en het bedrijf bij de
+federale overheid meldt wegens verdenking van fraude met cheques. Blue Ribbon
+is op dat moment feitelijk failliet zonder ooit verlies te hebben gedraaid. De
+redding komt van de Japanse handelsonderneming Nissho Iwai, die de importen
+wil financieren omdat handelsvolume voor haar belangrijker is dan winst per
+zending. Wat Knight hieruit trekt is nuchter en ook enigszins
+zelfrechtvaardigend: banken denken in zekerheden en hij dacht in volume, en
+het volume kreeg gelijk.
+
+**De breuk met Onitsuka**
+
+De hele onderneming rust op één leverancier, en die leverancier weet dat. Er
+komt een man met de naam Kitami tussen, die de export gaat leiden en die Blue
+Ribbon eerst behandelt als een filiaal en daarna als een lastige
+tussenhandelaar. Knight ontdekt dat Onitsuka al met andere Amerikaanse
+distributeurs praat en dat er wordt gesproken over een overname van zijn
+bedrijf.
+
+Hij bereidt in het geheim een uitweg voor: een eigen merk, gemaakt in Mexico
+en later in Japan, zodat hij niet met lege handen staat als de leverancier hem
+eruit gooit. Dat gebeurt ook. Beide partijen stappen naar de rechter. De zaak
+in de Verenigde Staten wordt door Blue Ribbon gewonnen, met een
+schadevergoeding waarmee de betrokkenen worden uitgekocht. Knight verzwijgt
+niet dat hij zelf ook heeft gemanoeuvreerd en heeft achtergehouden, maar hij
+presenteert het als noodweer.
+
+**Een naam en een teken**
+
+De naam Nike komt van Jeff Johnson, die de Griekse godin van de overwinning in
+een droom zou hebben gezien. Knight vindt hem niet mooi en kiest hem omdat de
+tijd op is en de dozen bedrukt moeten worden. Het beeldmerk wordt getekend
+door Carolyn Davidson, een studente grafische vormgeving, voor een bedrag van
+vijfendertig dollar. Ook daarvan zegt Knight dat hij het niet mooi vond en dat
+het eraan zou moeten wennen.
+
+Die twee anekdotes dragen het meest herkenbare deel van het boek: de
+beslissingen die achteraf als merkstrategie worden gelezen, werden genomen
+onder tijdsdruk en met tegenzin. De vergaderingen waarin de leiding elkaar
+zonder omhaal afkraakt, in het boek de Buttface-bijeenkomsten, horen bij
+hetzelfde beeld van een bedrijf dat vorm kreeg terwijl het al reed.
+
+**De douanezaak**
+
+Aan het eind van de jaren zeventig komt de douane van de Verenigde Staten met
+een naheffing over eerdere invoer, gebaseerd op een oude regel die de
+invoerrechten niet berekent over de werkelijke inkoopprijs maar over de prijs
+van een vergelijkbare Amerikaanse schoen. Het gevorderde bedrag loopt in de
+tientallen miljoenen dollars en zou het bedrijf hebben omgelegd. Knight is
+ervan overtuigd dat concurrenten de zaak hebben aangezwengeld.
+
+Nike vecht terug op meer fronten tegelijk: juridisch, politiek in Washington,
+en door zelf een goedkope schoen in de Verenigde Staten te laten maken zodat
+de vergelijkingsprijs daalt. De zaak wordt uiteindelijk geschikt voor een
+fractie van de eis. Het is het duidelijkste voorbeeld in het boek van iets dat
+geen ondernemersvaardigheid is en toch over leven en dood van een bedrijf
+beslist.
+
+**De beursgang en wat die kostte**
+
+In december 1980 gaat Nike naar de beurs. Knight beschrijft die dag zonder
+vreugde. Hij wilde het niet, hij deed het omdat het bedrijf anders niet aan
+geld kon komen, en hij zorgde voor twee soorten aandelen zodat hij de
+zeggenschap hield. Op papier is hij die dag zeer rijk geworden.
+
+Het slot van het boek gaat over de prijs. Over de jaren waarin hij thuis
+nauwelijks aanwezig was, over het verlies van zijn zoon Matthew, over
+medewerkers van het eerste uur die het niet hebben gehaald. Hij komt niet tot
+een leerzame afronding en trekt geen lijst met lessen. Hij zegt vooral dat hij
+het opnieuw zou doen en dat hij niet weet of dat een aanbeveling is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Crazy Idea | Knights eigen naam voor het plan uit zijn studietijd om goedkopere Japanse hardloopschoenen in de Verenigde Staten te verkopen. |
+| Blue Ribbon | De naam die hij ter plekke in Kobe verzon en waaronder het bedrijf ruim tien jaar Tiger-schoenen importeerde. |
+| Tiger | Het schoenenmerk van de Japanse fabrikant Onitsuka, waarvan Blue Ribbon distributeur was tot de breuk. |
+| Shoe dog | Iemand die zijn leven aan schoenen wijdt en over niets anders kan praten, in het boek een geuzennaam. |
+| Waffle-zool | Bowermans zool met vierkante noppen, ontstaan uit experimenten met een wafelijzer. |
+| Swoosh | Het beeldmerk dat Carolyn Davidson tekende voor vijfendertig dollar en dat Knight aanvankelijk niet aanstond. |
+| Buttface | De besloten bijeenkomsten van de leiding waarin iedereen elkaars plannen ongeremd mocht afbranden. |
+| Nissho Iwai | De Japanse handelsonderneming die de import ging voorfinancieren nadat de Amerikaanse banken afhaakten. |
+| American Selling Price | De douaneregel die invoerrechten koppelde aan de prijs van een vergelijkbare Amerikaanse schoen en de basis vormde voor de naheffing. |
+
+#### Waar het argument op rust
+
+Dit is een memoir en geen bedrijfsgeschiedenis. Er is één verteller, hij
+schrijft ruim dertig jaar na de gebeurtenissen, en hij geeft gesprekken weer
+in directe rede alsof hij ze heeft opgenomen. Er staan geen voetnoten in, geen
+bronvermelding en geen cijferreeksen die te controleren zijn. Wat hij van zijn
+eigen twijfels vertelt is per definitie niet na te gaan.
+
+Het skelet van het verhaal is wel te toetsen. De rechtszaak tegen Onitsuka, de
+douanezaak, de beursgang van december 1980 en de rol van de Japanse
+handelspartner zijn openbare gebeurtenissen. Waar Knight sterk staat, is in de
+logistiek van het bedrijf: het patroon van omzetverdubbeling zonder
+werkkapitaal is consistent beschreven en verklaart de meeste gebeurtenissen in
+het boek zonder dat er een verhaal bij hoeft.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar gaat over wat er niet in staat. Nike werd in de jaren
+negentig het gezicht van de discussie over arbeidsomstandigheden bij
+toeleveranciers in Azië. Het boek stopt in 1980 en houdt die kwestie daarmee
+buiten de deur, terwijl juist de beslissing om productie te verplaatsen naar
+steeds goedkopere landen in het boek al wordt genomen en daar zonder aarzeling
+wordt beschreven.
+
+Verder is het een verhaal geschreven vanuit de winnaar. Het gedrag dat wordt
+aanbevolen, alles inzetten, geen reserve aanhouden, doorgaan als de bank
+stopt, is hetzelfde gedrag dat bedrijven kopje onder helpt. Omdat er geen
+boeken worden geschreven door de ondergegane concurrenten van Blue Ribbon,
+oogt dat gedrag verstandiger dan het is.
+
+Ten slotte is Knight mild voor zichzelf op de plekken waar hij hard zou kunnen
+zijn. De geheime voorbereiding van een eigen merk terwijl hij nog distributeur
+was, komt langs als noodzaak. De mensen die het bedrijf uit vielen krijgen
+weinig ruimte. Het portret van zijn vrouw en zijn gezin blijft dun, ook waar
+hij zelf zegt dat hij daar tekortschoot.
+
+#### Wat je hierna leest
+
+- 47. The Hard Thing About Hard Things. Voor de andere kant van het
+ondernemersverhaal: leidinggeven als het misgaat, beschreven zonder de
+romantiek van achteraf.
+- 40. The $100 Startup. Voor het tegenovergestelde model: bedrijven die klein
+beginnen met weinig geld en juist geen schuld op zich nemen.
+
 ## 21. The Psychology of Money
 
 Morgan Housel, 2020. Ondertitel *Timeless Lessons on Wealth, Greed, and
@@ -4309,6 +4500,177 @@ getrokken, en het advies loopt uit op vastgoed en cursussen van zijn eigen
 organisatie. Het onderscheid tussen bezit en schuld is voor een beginnende
 lezer wel de bruikbaarste bladzijde uit het hele financiële zelfhulpvak.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Kiyosaki stelt dat de school kinderen opleidt tot werknemer
+en niets leert over geld, en dat wie daar niet zelf iets tegenover zet zijn
+leven lang voor loon werkt terwijl de belasting, de bank en de hypotheek het
+meeste weer ophalen. Zijn uitweg is een eigen boekhoudkundig onderscheid: een
+bezitting zet geld in je zak, een schuld haalt geld eruit, en rijk worden is
+niets anders dan bezittingen kopen tot de inkomsten eruit de uitgaven dekken.
+Salarisverhoging lost daarbij niets op, omdat de uitgaven meegroeien.
+
+#### De gang van het boek
+
+**Twee vaders als tegenstelling**
+
+Het boek is opgezet rond twee figuren. De arme vader is Kiyosaki's eigen
+vader, hoogopgeleid, ambtenaar in het onderwijs op Hawaï, met een vast salaris
+en een vaste overtuiging: leer goed, haal een diploma, zoek een zekere baan.
+De rijke vader is de vader van zijn jeugdvriend Mike, ondernemer, zonder
+afgemaakte schoolopleiding, die vanaf Kiyosaki's negende zijn leermeester in
+geldzaken wordt.
+
+De twee spreken elkaar in korte uitspraken tegen. De arme vader zegt dat hij
+zich iets niet kan veroorloven, de rijke vader vraagt hoe hij zich het zou
+kunnen veroorloven. De arme vader noemt geldzucht de wortel van alle kwaad, de
+rijke vader noemt gebrek aan geld de wortel van alle kwaad. Die twee stemmen
+dragen het hele boek.
+
+**De rijken werken niet voor geld**
+
+De eerste les komt uit een anekdote. De twee jongens, negen jaar oud, willen
+leren geld maken en gaan bij de rijke vader werken voor tien cent per uur. Als
+ze klagen, verlaagt hij hun loon, en daarna laat hij ze gratis werken. Het
+punt dat hij wil maken is dat wie boos wordt over zijn loon nog altijd in het
+systeem denkt dat hem het loon oplegt.
+
+De jongens verzinnen daarna zelf een handeltje: ze halen oude stripboeken bij
+een winkelier op en beginnen daarmee een uitleenbibliotheek in de garage. Dat
+is het model van het boek in het klein. Er wordt geld verdiend zonder dat de
+eigenaar er zelf uren voor hoeft te maken.
+
+**Bezit en schuld**
+
+Het bekendste deel is de tekening van de balans en de winst- en
+verliesrekening. Kiyosaki definieert een bezitting als iets dat geld in je zak
+stopt en een schuld als iets dat geld uit je zak haalt. Daaruit volgt zijn
+omstreden stelling dat het eigen huis geen bezitting is, omdat het maandelijks
+geld kost aan hypotheekrente, belasting, verzekering en onderhoud, en pas bij
+verkoop misschien iets oplevert.
+
+Op die definitie bouwt hij het onderscheid tussen drie geldstromen. Bij de
+arme mens gaat het loon rechtstreeks naar de uitgaven. Bij de middenklasse
+gaat het loon naar schulden die als bezit worden aangezien: het grotere huis,
+de tweede auto, de creditcard. Bij de rijke mens groeit de kolom met
+bezittingen, en die bezittingen betalen de uitgaven.
+
+**De rattenrace en de eigen zaak**
+
+De rattenrace is Kiyosaki's naam voor de kringloop van hoger loon, hogere
+uitgaven en hogere belasting waar de meeste werknemers volgens hem in
+vastzitten. Elke opslag wordt opgegeten door een uitbreiding van de
+levensstijl, en de vaste lasten die daarbij horen maken het opgeven van de
+baan steeds moeilijker.
+
+Zijn advies is het beroep te scheiden van de zaak. Iemand kan bankbediende of
+monteur blijven, maar zijn eigen bezittingenkolom moet hij zelf opbouwen:
+vastgoed dat huur oplevert, aandelen, obligaties, een bedrijfsdeel, iets
+waarvan de opbrengst niet aan zijn aanwezigheid hangt.
+
+**Belasting, rechtsvorm en financiële geletterdheid**
+
+Een apart hoofdstuk gaat over de vennootschap. Een werknemer verdient, betaalt
+belasting en geeft uit wat overblijft; een vennootschap verdient, geeft uit en
+betaalt belasting over wat overblijft. Kiyosaki noemt dat het verschil dat de
+rijken beschermt, en hij vult het aan met een pleidooi voor kennis van
+boekhouden, beleggen, markten en recht, wat hij financiële geletterdheid
+noemt.
+
+Het slotdeel gaat over gedrag: de vijf redenen waarom mensen met kennis toch
+niets doen, met angst voor verlies en luiheid vooraan, en tien stappen om de
+eigen financiële aanleg te wekken. Die stappen blijven algemeen: neem lessen,
+zoek leermeesters, betaal jezelf eerst, wees vrijgevig.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Bezitting | In Kiyosaki's eigen definitie alles wat geld in je zak stopt, ongeacht wat de boekhoudregels ervan vinden. |
+| Schuld | Alles wat geld uit je zak haalt, waaronder volgens hem het huis waarin je zelf woont. |
+| Rattenrace | De kringloop waarin elke loonsverhoging wordt opgegeten door hogere uitgaven en hogere belasting. |
+| Financiële geletterdheid | Het kunnen lezen van cijfers en het begrijpen van beleggen, markten en recht, volgens hem het vak dat op school ontbreekt. |
+| Betaal jezelf eerst | Eerst opzij zetten voor de bezittingenkolom en daarna pas rekeningen betalen, met de druk als aansporing om meer te verdienen. |
+| Bemoei je met je eigen zaak | Het beroep waarmee je loon verdient scheiden van de bezittingen die je voor jezelf opbouwt. |
+| Cashflow | De richting waarin geld door de balans en de winst- en verliesrekening loopt, in het boek getekend met pijlen. |
+| De arme vader en de rijke vader | Twee tegengestelde stemmen over geld die Kiyosaki als vertelvorm gebruikt om zijn twee wereldbeelden uit elkaar te houden. |
+
+#### Waar het argument op rust
+
+De onderbouwing van dit boek bestaat uit anekdotes. Er staat geen onderzoek
+in, geen cijferreeks, geen verwijzing naar economisch werk. Wat er wel staat
+zijn jeugdherinneringen, gesprekken met de rijke vader en een handvol
+vastgoedtransacties waarvan bedragen en plaatsen summier zijn.
+
+Het sterkste deel is didactisch van aard. De tekeningen van de geldstroom bij
+arm, middenklasse en rijk zijn eenvoudig genoeg om te onthouden, en het idee
+dat vaste lasten iemand aan zijn baan vastketenen valt met eigen cijfers na te
+rekenen. Dat is geen bewijs voor de aanpak, maar het maakt de redenering wel
+controleerbaar op het eigen huishoudboekje.
+
+Voor de kern van de belofte, dat de lezer via passieve inkomsten uit de
+rattenrace komt, ontbreekt elke onderbouwing. Er staat niet hoeveel mensen dat
+lukt, niet hoe vaak vastgoed met geleend geld misgaat, en niet wat het
+rendement is geweest van de auteur zelf.
+
+#### Wat er tegen in te brengen valt
+
+De rijke vader is nooit geïdentificeerd. Journalisten hebben in de jaren na
+verschijning op Hawaï naar hem gezocht en geen persoon gevonden die aan de
+beschrijving voldoet; ook de familie van de vermeende zoon leverde geen
+bevestiging. Kiyosaki heeft in reactie daarop gezegd dat de figuur ook als
+samenstelling of als vertelmiddel gelezen kan worden. Voor een boek dat zijn
+gezag ontleent aan de leermeester is dat een zwaar bezwaar: er is geen
+falsifieerbare bron, alleen een verteller.
+
+De boekhoudkundige definities wijken af van de gangbare. In elk gewoon systeem
+is een woonhuis een activum en de hypotheek erop een passivum. Kiyosaki
+gebruikt dezelfde woorden voor iets anders, namelijk voor de richting van de
+kasstroom. Dat maakt zijn tekeningen intern begrijpelijk, maar het levert
+lezers op die met een eigen taal de jaarrekening van een bedrijf of een
+leningsvoorstel van de bank binnenlopen. Zijn slotsom over het eigen huis
+houdt bovendien geen rekening met de bespaarde huur en met de aflossing die
+vermogen opbouwt.
+
+Waar het concreet zou moeten worden, blijft het vaag. Het boek zegt dat je
+bezittingen moet kopen, en niet welke, tegen welke prijs, met hoeveel vreemd
+vermogen, of hoe je een slechte aankoop herkent. De vastgoedvoorbeelden noemen
+rendementen zonder de verliezen ernaast te zetten en zonder de periode waarin
+ze zijn behaald. Advies om te kopen op een executieveiling of om met geleend
+geld te beginnen is voor een lezer zonder buffer bepaald niet zonder risico.
+
+Aan het boek hangt een verdienmodel. Op *Rich Dad Poor Dad* volgden een reeks
+vervolgen, het bordspel CASHFLOW en een netwerk van seminars en cursussen die
+door andere partijen onder licentie werden verkocht en waarvan de prijzen tot
+ver in de duizenden konden lopen. Het boek werkt daarmee ook als voorportaal.
+In 2012 vroeg een van Kiyosaki's vennootschappen faillissement aan nadat zij
+was veroordeeld in een geschil met een seminarorganisator, wat het beeld van
+onfeilbaar ondernemerschap niet ondersteunt.
+
+#### Wat er concreet mee te doen is
+
+- Zet je eigen bezittingen en schulden een keer op papier volgens Kiyosaki's
+maatstaf: welke posten leverden het afgelopen jaar geld op en welke kostten
+geld.
+- Reken uit hoeveel maanden je vaste lasten je kunt dragen zonder inkomen. Dat
+getal zegt meer over je speelruimte dan je salaris.
+- Kijk bij de eerstvolgende inkomensstijging wat er met je uitgaven gebeurt,
+en leg het verschil apart voordat het wordt uitgegeven.
+- Neem het advies over vastgoed en vennootschappen niet over zonder de
+Nederlandse fiscale regels erbij te halen; het boek beschrijft de Amerikaanse
+situatie van de jaren negentig.
+- Behandel de seminars die op het boek volgen als een aparte
+aankoopbeslissing, met dezelfde nuchterheid als elke andere.
+
+#### Wat je hierna leest
+
+- 38. The Richest Man in Babylon. Clason komt tot vergelijkbare aansporingen
+om te sparen en te beleggen, maar dan met een vast percentage en zonder de
+belofte dat je nooit meer hoeft te werken.
+- 39. The Millionaire Next Door. Stanley en Danko onderzochten wel wie er
+feitelijk vermogend zijn geworden, en komen uit bij zuinigheid in plaats van
+bij geleend geld.
+
 ## 38. The Richest Man in Babylon
 
 George S. Clason, 1926. Oorspronkelijk verschenen als losse pamfletten voor
@@ -4332,6 +4694,168 @@ later in nieuwere boeken met meer voetnoten. De verhaalvorm maakt het geschikt
 om aan een tiener te geven, en de hoofdstukken over het aflossen van schulden
 zijn concreet, met een aflosplan waarin een deel van het inkomen naar de
 schuldeisers gaat en een deel naar de spaarpot.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Clason zet zijn financiële regels om in parabels uit het oude
+Babylon en houdt vol dat vermogen niet uit geluk of talent voortkomt maar uit
+een handvol gewoontes die iedereen met een inkomen kan volhouden. De eerste en
+zwaarste is dat een tiende van alles wat binnenkomt van jezelf blijft en niet
+mag worden uitgegeven. Daarna volgen het beheersen van de uitgaven, het aan
+het werk zetten van het gespaarde, het aflossen van schuld volgens een vast
+schema, en de regel dat je alleen geld toevertrouwt aan iemand die verstand
+heeft van de zaak waarin het gaat.
+
+#### De gang van het boek
+
+**Herkomst van de tekst**
+
+De hoofdstukken zijn oorspronkelijk losse pamfletten die Clason vanaf 1926 in
+de Verenigde Staten liet verspreiden door banken en verzekeraars. Die herkomst
+is aan de vorm te merken: elk stuk staat op zichzelf, eindigt met een regel
+die te onthouden is, en herhaalt de kern van de vorige. Later zijn ze
+gebundeld tot het boek zoals het nu circuleert.
+
+**De man die niets overhield**
+
+Het openingsverhaal gaat over Bansir de wagenmaker en Kobbi de muzikant, twee
+vaklieden in Babylon die goed zijn in hun werk en toch met lege handen zitten.
+Zij besluiten hun jeugdvriend Arkad op te zoeken, die de rijkste man van de
+stad is geworden.
+
+Die opzet bepaalt de toon van het hele boek. De vraag is niet hoe je meer
+verdient, maar waarom van hetzelfde inkomen bij de een iets overblijft en bij
+de ander niets.
+
+**Arkad en zijn eerste les**
+
+Arkad vertelt hoe hij als kleitabletschrijver werkte en van de geldschieter
+Algamish de opdracht kreeg een tablet af te maken tegen de ochtend, in ruil
+voor het geheim van de rijkdom. Dat geheim luidde dat een deel van alles wat
+hij verdiende van hemzelf was, en dat hij daarvan minstens een tiende opzij
+moest zetten voordat hij iets anders betaalde.
+
+Daarop volgt de tweede les, die harder is. Arkad geeft zijn spaargeld aan een
+steenhouwer die juwelen zou kopen en verliest alles, omdat hij advies vroeg
+aan iemand die van stenen wist en niet van edelstenen. De regel die eruit komt
+is dat je raad haalt bij wie de zaak zelf beheerst.
+
+**Zeven middelen tegen een lege beurs**
+
+In het hoofdstuk waarin Arkad in opdracht van de koning honderd mannen
+onderwijst, staat de kern van het boek in zeven punten: begin de beurs te
+vullen met een tiende deel, houd de uitgaven in toom door onderscheid te maken
+tussen behoefte en wens, laat het goud zich vermenigvuldigen door het uit te
+lenen of te beleggen, bescherm het tegen verlies door alleen in te zetten waar
+de hoofdsom veilig is, maak van de eigen woning een verstandige uitgave, zorg
+voor inkomen in de oude dag, en vergroot je verdienvermogen door beter te
+worden in je vak.
+
+Het zesde en zevende punt trekken het boek uit de sfeer van sparen alleen.
+Clason koppelt de spaarregel aan het vak van de lezer: wie meer waard wordt
+voor anderen, verdient meer, en pas dan gaat het tiende deel ergens over.
+
+**De vijf wetten van het goud**
+
+In het verhaal rond de zoon van Arkad, die met een zak goud en een kleitablet
+met wetten op reis gaat, worden de regels nog eens anders geformuleerd. Goud
+komt gestaag naar wie er een tiende van zijn verdiensten voor apart zet, werkt
+voor wie het een verstandige taak geeft, blijft bij wie het toevertrouwt aan
+de raad van kenners, en loopt weg bij wie het in zaken steekt die hij niet
+begrijpt of die onmogelijke opbrengsten beloven.
+
+De laatste wet is de scherpste van het boek: het geld verdwijnt bij wie een
+opbrengst najaagt die te mooi is om waar te zijn. Clason schreef dat in 1926,
+drie jaar voor de beurskrach die zijn Amerikaanse lezers zou treffen.
+
+**Schuld, arbeid en het lot**
+
+Het langste verhaal gaat over Dabasir, die schulden maakt, uit Babylon vlucht,
+in de woestijn tot slaaf wordt gemaakt en terugkeert om al zijn schuldeisers
+te betalen. Zijn plan verdeelt elk verdiend deel in drieën: zeven tienden voor
+het levensonderhoud, twee tienden voor de schuldeisers naar rato van hun
+vordering, en een tiende voor zichzelf.
+
+Het slotverhaal over Sharru Nada, de koopman die als slaaf begon, voegt daar
+de gedachte aan toe dat arbeid geen straf is maar het middel waarmee iemand
+zich uit zijn positie werkt. Rond die verhalen zit een raamvertelling waarin
+de kleitabletten van Dabasir in de twintigste eeuw door een Engelse geleerde
+worden ontcijferd en vertaald.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Een deel van alles wat je verdient is van jezelf | De grondregel van het boek: minstens een tiende van het inkomen apart zetten voordat er iets anders wordt betaald. |
+| De lege beurs | Clasons beeld voor het huishouden waarin alle inkomsten weer weglopen, ongeacht de hoogte ervan. |
+| Zeven middelen | De lijst waarmee Arkad de honderd leerlingen onderwijst, van sparen tot het vergroten van het eigen verdienvermogen. |
+| De vijf wetten van het goud | Regels over waar geld naartoe stroomt en waar het verdwijnt, opgeschreven als erfenis voor een zoon. |
+| Behoefte en wens | Het onderscheid waarmee uitgaven worden beperkt: noodzakelijke uitgaven groeien anders vanzelf mee met het inkomen. |
+| Het plan van Dabasir | De verdeling van zeven tienden voor leven, twee tienden voor schuldaflossing en een tiende voor jezelf. |
+| Raad van de kenner | Advies inwinnen bij wie de betrokken zaak zelf beheerst, en niet bij wie er alleen over praat. |
+| Verdienvermogen | Het vakmanschap waarmee iemand meer waard wordt voor anderen, in het boek de voorwaarde voor alle andere regels. |
+
+#### Waar het argument op rust
+
+Dit is geen onderzoeksboek en doet ook niet alsof. De babylonische inkleding
+is verzonnen; er zijn geen kleitabletten met Arkads lessen, en de Engelse
+geleerde in de raamvertelling is een vertelmiddel. Wat overblijft als
+onderbouwing zijn de regels zelf, en die moeten het hebben van hun
+aannemelijkheid.
+
+Op dat punt houden ze zich goed. Een vast spaarpercentage vooraf inhouden
+werkt in latere gedragswetenschap onder de naam automatisch sparen, en het
+onderscheid tussen behoefte en wens komt terug in vrijwel elk budgetadvies dat
+sindsdien is geschreven. De regel dat schuld met een vast aflosdeel per
+periode wordt weggewerkt, is precies wat schuldhulpverlening doet.
+
+Wat wel zonder bewijs blijft, zijn de rendementsverwachtingen. Uitlenen tegen
+rente wordt in de verhalen als vanzelfsprekend winstgevend voorgesteld, met de
+geldschieter Mathon als voorbeeld van behoedzaam uitzetten. Over inflatie,
+belasting en het verschil tussen negentig jaar geleden en nu staat er niets.
+
+#### Wat er tegen in te brengen valt
+
+De regels gaan uit van een inkomen waar iets van af kan. Wie op of onder het
+bestaansminimum leeft, kan geen tiende missen, en het boek erkent dat nergens.
+Alle armoede in de verhalen komt voort uit slechte gewoontes, nooit uit lage
+lonen, ziekte of pech. Die eenzijdigheid maakt het boek onbedoeld hard voor
+lezers in de knel.
+
+De vorm is de tweede zwakte. De archaïsche taal, met bezittelijke
+voornaamwoorden uit de bijbelvertaling, geeft de regels een gezag dat ze aan
+hun ouderdom ontlenen en niet aan hun houdbaarheid. Dezelfde inhoud in gewone
+taal zou onmiddellijk om onderbouwing vragen.
+
+Inhoudelijk is het boek erg dun waar het over beleggen gaat. Het advies om
+alleen te doen wat je begrijpt en om je hoofdsom te beschermen is verstandig,
+maar er staat niet bij hoe je dat beoordeelt. Spreiding, kosten, samengestelde
+rente en het verschil tussen lenen en eigendom komen niet aan de orde.
+
+Ten slotte is de herhaling groot. Doordat de hoofdstukken als losse pamfletten
+zijn geschreven, staan dezelfde vier of vijf regels in vier of vijf
+verpakkingen. Wie de eerste drie verhalen heeft gelezen, heeft de leer.
+
+#### Wat er concreet mee te doen is
+
+- Regel de tien procent als automatische overboeking op de dag dat het salaris
+binnenkomt, zodat het niet van je maandelijkse besluit afhangt.
+- Splits je uitgaven een keer per jaar in noodzaak en wens, en kijk welke
+wensen inmiddels als noodzaak in je vaste lasten zijn beland.
+- Leg bij schuld een vast aflosdeel per maand vast en verdeel dat naar rato
+over je schuldeisers, in plaats van te reageren op wie het hardst aandringt.
+- Toets elk voorstel met een hoog beloofd rendement aan de vijfde wet voordat
+je naar de details kijkt.
+- Besteed een deel van je tijd aan het verbeteren van je vak; in Clasons
+volgorde komt dat vóór het beleggen.
+
+#### Wat je hierna leest
+
+- 37. Rich Dad Poor Dad. Kiyosaki wil hetzelfde doel bereiken met geleend geld
+en bezittingen, waar Clason het bij eigen inleg en behoedzaamheid houdt.
+- 39. The Millionaire Next Door. Stanley en Danko vonden in hun onderzoek
+precies het gedrag terug dat Clason voorschrijft: zuinig leven en vroeg
+beginnen.
 
 ## 39. The Millionaire Next Door
 
@@ -4358,6 +4882,185 @@ blijven geven en wat dat met die kinderen doet. Het onderzoek is van de jaren
 negentig en het rekent in dollars van toen; de gedragswaarneming eronder is de
 reden dat het boek is blijven staan.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Stanley en Danko stellen dat de meeste Amerikaanse miljonairs
+niet lijken op wat men zich bij rijkdom voorstelt: zij wonen in gewone wijken,
+rijden in gebruikte auto's, hebben hun vermogen zelf opgebouwd in weinig
+opzienbarende bedrijfstakken, en zijn vermogend geworden doordat zij
+stelselmatig ver onder hun inkomen leefden. Daaruit volgt hun kernonderscheid
+tussen inkomen en vermogen: een hoog salaris dat volledig wordt uitgegeven
+maakt niemand rijk, terwijl een middelmatig inkomen met een hoge spaarquote
+dat over dertig jaar wel doet. Wie er welvarend uitziet, is dat volgens hen
+meestal niet.
+
+#### De gang van het boek
+
+**Het beeld tegenover de cijfers**
+
+Het boek opent met de ontdekking die het onderzoek van de auteurs stuurde.
+Stanley bestudeerde vermogende Amerikanen voor financiële instellingen en
+merkte dat de mensen met het meeste vermogen zelden in de dure wijken woonden
+waar hij ze zocht. In de villawijken trof hij hoge inkomens en weinig eigen
+vermogen aan.
+
+Daaruit komt de titel: de miljonair woont in het gewone huis in de straat
+ernaast, en wie in het grote huis woont is vaak iemand met een grote hypotheek
+en een leaseauto.
+
+**Zeven eigenschappen**
+
+De auteurs vatten hun bevindingen samen in zeven kenmerken die de zelfgemaakte
+vermogenden delen: leven ver beneden hun mogelijkheden, tijd en geld doelmatig
+inzetten om vermogen op te bouwen, financiële onafhankelijkheid belangrijker
+vinden dan status tonen, geen geld van hun ouders krijgen, kinderen hebben die
+zichzelf onderhouden, goed zijn in het herkennen van kansen in de markt, en
+een beroep gekozen hebben dat bij hen past.
+
+Die lijst dient als raamwerk voor de rest van het boek. Elk hoofdstuk werkt er
+een of twee van uit met tabellen en met verhalen uit hun gesprekken.
+
+**Aanval en verdediging**
+
+Voor het onderscheid tussen verdienen en behouden gebruiken de auteurs het
+beeld van een sportploeg. De aanval is het inkomen, de verdediging is het
+budget en de spaarquote. Volgens hun gegevens winnen vermogende huishoudens
+vooral op de verdediging: zij begroten, weten wat zij per jaar aan kleding,
+eten en vervoer uitgeven, en houden dat bij.
+
+Daarbij hoort het beeld dat de meeste aandacht kreeg: de gemiddelde miljonair
+in hun steekproef gaf nooit meer uit dan een paar honderd dollar voor een pak,
+iets meer dan tweehonderd dollar voor een horloge, en kocht zijn auto vaker
+tweedehands dan nieuw, met Ford als meest voorkomende merk.
+
+**UAW en PAW**
+
+Om huishoudens te kunnen vergelijken bedenken de auteurs een maatstaf. Het
+verwachte vermogen is de leeftijd maal het bruto jaarinkomen, gedeeld door
+tien. Wie twee keer zoveel heeft, heet een prodigious accumulator of wealth,
+in het Nederlands een uitgesproken vermogensopbouwer. Wie de helft of minder
+heeft, is een under accumulator of wealth, iemand die achterblijft bij wat
+zijn inkomen mogelijk maakt.
+
+Met dat onderscheid zetten zij paren tegenover elkaar die evenveel verdienen
+en tientallen malen in vermogen verschillen. De uitkomst die zij daaraan
+verbinden is dat het verschil vrijwel altijd in het uitgavenpatroon zit en
+niet in beleggingsgeluk.
+
+**Geld van de ouders**
+
+Een van de scherpste hoofdstukken gaat over wat de auteurs economic outpatient
+care noemen: geld dat welgestelde ouders aan volwassen kinderen geven, voor de
+aanbetaling van een huis, het schoolgeld van de kleinkinderen of het aanvullen
+van het inkomen. Hun cijfers wijzen uit dat ontvangers gemiddeld minder
+vermogen opbouwen dan vergelijkbare mensen zonder die steun, en meer
+consumeren.
+
+Zij trekken die lijn door naar de erfenis en naar de ongelijke behandeling van
+kinderen binnen een gezin, waarbij het kind met het laagste inkomen doorgaans
+het meeste geld krijgt en daarmee het langst afhankelijk blijft.
+
+**Ondernemers en de beroepskeuze**
+
+Twee op de drie miljonairs in de steekproef zijn zelfstandig, meestal eigenaar
+van een bedrijf in een bedrijfstak die de auteurs zelf saai noemen:
+aannemerij, groothandel, schroothandel, wegenbouw, ongediertebestrijding,
+verhuur van materieel. Hoogopgeleide beroepen als arts en advocaat leveren
+hoge inkomens op, maar ook hoge verwachtingen over levensstijl en een late
+start door de studieduur.
+
+Het laatste deel richt zich op wie aan die vermogenden verdient: adviseurs,
+accountants en makelaars die volgens de auteurs beter kunnen zoeken naar de
+zuinige ondernemer dan naar de zichtbare hoogverdiener.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| PAW | Prodigious accumulator of wealth: iemand met minstens tweemaal het vermogen dat de formule bij zijn leeftijd en inkomen verwacht. |
+| UAW | Under accumulator of wealth: iemand met de helft of minder van dat verwachte vermogen. |
+| Verwacht vermogen | Leeftijd maal bruto jaarinkomen gedeeld door tien, de vergelijkingsmaat die de auteurs zelf hebben opgesteld. |
+| Economic outpatient care | Geldelijke steun van welgestelde ouders aan volwassen kinderen, die volgens de auteurs de vermogensopbouw van de ontvanger remt. |
+| Aanval en verdediging | Het beeld voor inkomen tegenover uitgavenbeheersing, waarbij de verdediging het vermogen bepaalt. |
+| Onder je mogelijkheden leven | Een levensstijl kiezen die ruim onder het eigen inkomen ligt, in het boek de eerste van de zeven kenmerken. |
+| Statusuitgaven | Bestedingen aan zichtbare tekenen van welstand, die het boek als het grootste lek in de vermogensopbouw aanwijst. |
+| De saaie bedrijfstak | De weinig opvallende branches waarin volgens de steekproef de meeste zelfgemaakte miljonairs hun geld verdienden. |
+
+#### Waar het argument op rust
+
+Het boek rust op meer materiaal dan de meeste titels in dit genre. De auteurs
+verzamelden vragenlijsten onder huishoudens met een hoog vermogen, hielden
+groepsgesprekken en persoonlijke interviews, en werkten met bestanden die zij
+eerder voor financiële instellingen hadden opgebouwd. Bedragen voor pakken,
+horloges en auto's komen uit die enquêtes en worden als mediaan gegeven.
+
+De sterkste bevinding is ook de best onderbouwde: dat inkomen en vermogen zwak
+samenhangen zodra je op leeftijd corrigeert. Dat is nadien in andere
+gegevensverzamelingen terug te vinden en het is de vaststelling waarop het
+hele boek staat.
+
+Zwakker onderbouwd zijn de causale beweringen. Dat ouderlijke steun de
+vermogensopbouw remt, is uit doorsnedegegevens afgeleid; het kan evengoed zijn
+dat ouders juist het kind steunen dat het minst goed voor zichzelf zorgt. Die
+richting van oorzaak en gevolg maken de auteurs niet hard.
+
+#### Wat er tegen in te brengen valt
+
+De steekproef is niet aselect. De respondenten werden geworven onder
+huishoudens die op grond van postcode, woningwaarde en eerdere klantbestanden
+als vermogend werden aangemerkt, en de deelnemers vulden vrijwillig in. Wie
+meedeed aan een enquête over zuinig omgaan met geld, was waarschijnlijk zelf
+zuinig. Dat maakt uitspraken over dé miljonair niet houdbaar; de tabellen
+beschrijven wie er antwoordde.
+
+De formule voor het verwachte vermogen is willekeurig. Waarom leeftijd maal
+inkomen gedeeld door tien, en niet door acht of twaalf, wordt nergens
+beargumenteerd. De maat werkt bovendien slecht aan de randen: een arts van
+dertig die net begint na een lange opleiding is per definitie een UAW, en
+iemand die pas laat is gaan verdienen wordt als PAW aangemerkt op grond van
+jaren waarin hij weinig verdiende. Wie zijn inkomen kort voor de meting sterk
+zag stijgen, komt er slecht uit; wie het zag dalen, komt er goed uit.
+
+De vergelijking gaat voorbij aan erfenis en aan achtergrond. De auteurs
+stellen dat de meeste miljonairs geen vermogen hebben geërfd, maar hun eigen
+gegevens over ouderlijke steun laten zien hoe vaak er wel geld en netwerk in
+het spel waren. Startkapitaal, een ouderlijk bedrijf, een gratis opleiding of
+een borgstelling tellen in hun rekensom niet mee.
+
+Het tijdvak wordt niet verdisconteerd. Het onderzoek beslaat de jaren tachtig
+en het begin van de jaren negentig, met een lange stijging van aandelen en
+huizenprijzen, goedkope studie en veel goedkopere woningen ten opzichte van
+het inkomen dan nu. De grens van een miljoen dollar aan vermogen betekende in
+1996 bovendien iets anders dan later. Wie de gedragslessen overneemt, moet er
+rekening mee houden dat de omstandigheden waarin ze werkten niet vanzelf
+terugkeren.
+
+Ten slotte blijft het boek Amerikaans in de details. Belastingregels, het
+ontbreken van een collectief pensioenstelsel en de kosten van studie en zorg
+bepalen daar een groot deel van het spaargedrag. In een land met verplichte
+pensioenopbouw ziet de balans van een huishouden er wezenlijk anders uit.
+
+#### Wat er concreet mee te doen is
+
+- Reken je eigen verwachte vermogen uit met hun formule, maar gebruik de
+uitkomst als gespreksstof en niet als oordeel.
+- Zoek uit wat je de afgelopen twaalf maanden aan vervoer, wonen en kleding
+hebt uitgegeven; de auteurs vonden dat vermogende huishoudens dat gewoon
+weten.
+- Kijk welke van je uitgaven zichtbaar zijn voor anderen en welke niet, en
+waar het geld naartoe gaat.
+- Als je kinderen of ouders steunt, spreek dan af waarvoor en tot wanneer, in
+plaats van het als terugkerende aanvulling te laten lopen.
+- Vertaal de bevindingen naar de Nederlandse situatie voordat je ze op je
+eigen plan legt, met het pensioen en de hypotheekregels erbij.
+
+#### Wat je hierna leest
+
+- 38. The Richest Man in Babylon. Clason schrijft als voorschrift op wat
+Stanley en Danko zeventig jaar later in gedrag terugvonden.
+- 37. Rich Dad Poor Dad. Kiyosaki komt tot een tegengestelde route: geleend
+geld en bezittingen in plaats van zuinigheid en een lange adem.
+
 ## 40. The $100 Startup
 
 Chris Guillebeau, 2012. Ondertitel *Reinvent the Way You Make a Living, Do
@@ -4381,6 +5084,189 @@ klaar is, vraag om geld op dag één, en houd een eenpagina-plan in plaats van
 een boekwerk. De cases zijn onvermijdelijk overlevers, wat de indruk geeft dat
 de kans hoger is dan hij is; als aanzet om iets kleins te beginnen is het
 bruikbaarder dan de meeste dikkere ondernemersboeken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Chris Guillebeau stelt in *The $100 Startup* dat een bedrijf
+beginnen voor de meeste mensen geen kapitaal, geen opleiding en geen personeel
+vraagt, maar één werkende koppeling: iets wat je al kunt, verbonden met iets
+waarvoor een ander wil betalen. Zijn boek gaat over kleine bedrijven van één
+of twee mensen die met een paar honderd dollar zijn begonnen en toch een
+volledig inkomen opleveren. De redenering is dat de klassieke stappen,
+marktonderzoek, financiering, een businessplan, in dit soort ondernemingen
+bijna altijd geldverspilling zijn, omdat je pas iets weet als iemand
+daadwerkelijk betaalt. Wie er iets tegenover wil zetten, kan wijzen op alles
+wat in de selectie van zijn voorbeelden ontbreekt.
+
+#### De gang van het boek
+
+**Vrijheid en waarde**
+
+Guillebeau zet twee begrippen naast elkaar waar het hele boek op rust.
+Vrijheid is wat de ondernemer wil: zelf bepalen waar en wanneer hij werkt.
+Waarde is wat hij daarvoor moet leveren: een concreet probleem van een
+concrete ander oplossen. Zijn hele betoog is dat het eerste alleen komt via
+het tweede, en dat de meeste mislukte kleine bedrijven blijven hangen in het
+eerste.
+
+Hij schrijft vanuit zijn eigen praktijk. Hij verkocht digitale handleidingen
+via zijn website en financierde daarmee een reis naar alle landen ter wereld.
+Dat is tegelijk zijn belangrijkste voorbeeld en zijn belangrijkste beperking:
+zijn eigen bedrijf leunde op een publiek dat hij eerst jarenlang met gratis
+schrijven had opgebouwd.
+
+**De kruising van vaardigheid en behoefte**
+
+Het kernbegrip is convergentie: het punt waar iets wat je leuk vindt of goed
+kunt, samenvalt met iets waar anderen genoeg om geven om ervoor te betalen.
+Guillebeau plaatst zich daarmee tegenover het advies om je hartstocht te
+volgen. Hartstocht alleen levert een hobby op. Pas als er een groep is die er
+iets aan heeft, ontstaat er een bedrijf.
+
+Daarbij hoort wat hij vaardigheidsvertaling noemt. De vaardigheid die je
+verkoopt is zelden de vaardigheid die op je diploma staat. Iemand die goed is
+in het plannen van reizen kan boekingen met luchtvaartmijlen verkopen. Iemand
+die zichzelf talen leert kan zijn methode verkopen. Het gaat om de
+onderliggende vaardigheid, niet om het beroep.
+
+**Wat mensen kopen**
+
+Guillebeau dringt aan op het onderscheid tussen eigenschappen en uitkomsten.
+Klanten kopen geen boekhoudprogramma maar minder gedoe met de belasting, geen
+taalcursus maar het gesprek dat ze straks kunnen voeren. Hij noemt dat de
+vertaling van kenmerken naar voordelen, en hij laat zien dat het aanbod van de
+meeste kleine ondernemers blijft steken bij een opsomming van wat hun product
+doet.
+
+Daaruit volgt zijn advies over prijs. Vraag naar de waarde die de klant
+overhoudt, niet naar het aantal uren dat je erin stopte. Hij pleit ervoor het
+aanbod ondubbelzinnig te maken en het bestellen zo eenvoudig mogelijk, en hij
+besteedt aandacht aan het feit dat veel beginners geen betaalmogelijkheid
+hebben ingericht en zo hun eerste klanten kwijtraken.
+
+**Beginnen voor bijna niets**
+
+De grens van honderd dollar uit de titel is een symbool, geen regel. Uit zijn
+verzameling gevallen komt naar voren dat de meeste bedrijven met een paar
+honderd dollar begonnen: een domeinnaam, een eenvoudige site, wat voorraad.
+Zolang die uitgaven laag blijven, is een mislukking geen ramp en kun je
+opnieuw beginnen met iets anders.
+
+Hij zet zich daarmee af tegen investeerders en leningen. Wie extern geld
+ophaalt, moet groeien om te kunnen terugbetalen, en groei is precies wat de
+vrijheid opeet die de ondernemer zocht. Het alternatief is het bedrijf laten
+betalen door de eerste klanten en de omvang klein houden.
+
+**Het plan van één bladzijde**
+
+In plaats van een ondernemingsplan van dertig bladzijden geeft Guillebeau een
+plan van één blad, met vragen als: wat verkoop je, aan wie, hoe krijgen ze
+het, hoe betalen ze, en waarom zou iemand er iets om geven. Er hoort een
+promotieplan van dezelfde omvang bij en een korte berekening van wat je
+maandelijks nodig hebt om ervan te leven.
+
+De lancering krijgt een eigen behandeling. Hij beschrijft ze als een
+gebeurtenis met een aankondiging vooraf, een korte verkoopperiode en een reden
+om nu te kopen in plaats van later. Wat hij bewust weglaat is de lange
+aanloop: het opbouwen van de groep mensen aan wie je die aankondiging kunt
+sturen.
+
+**Klein blijven of doorgroeien**
+
+Het laatste deel gaat over wat er gebeurt als het werkt. Guillebeau behandelt
+de keuze om bewust klein te blijven, met het argument dat personeel, kantoor
+en vaste lasten de vrijheid opeten. Waar hij wel groei aanraadt, is in het
+aanbod: een tweede product aan bestaande klanten kost minder moeite dan een
+nieuwe klant.
+
+Hij besteedt ook aandacht aan uitbesteden van werk dat je niet wilt doen en
+aan het moment waarop je een bedrijf beter kunt stoppen. Dat laatste is
+opvallend nuchter voor het genre: hij stelt vast dat sommige projecten geen
+groter publiek krijgen en dat doorzetten dan een vorm van kosten najagen is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Microbusiness | Een bedrijf van één of enkele mensen, zonder personeel en zonder extern kapitaal, dat een volledig inkomen levert. |
+| Convergentie | Het punt waar wat je kunt of graag doet samenvalt met iets waar anderen voor willen betalen. |
+| Vaardigheidsvertaling | Het herkennen van de onderliggende vaardigheid achter je werk of hobby, die vaak beter verkoopbaar is dan het beroep zelf. |
+| Waarde | Bij Guillebeau uitsluitend: iets wat een concreet probleem van een ander oplost, gemeten aan de bereidheid ervoor te betalen. |
+| Vrijheid | Zelf bepalen waar, wanneer en waaraan je werkt, in dit boek het doel waarvoor het bedrijf het middel is. |
+| Ondernemingsplan van één bladzijde | Een korte reeks vragen over aanbod, klant, levering en betaling die het uitgebreide plan vervangt. |
+| Kenmerken tegenover voordelen | Het onderscheid tussen wat een product is en wat de koper eraan overhoudt, waarbij alleen het tweede verkoopt. |
+| Lancering | Een afgebakende verkoopperiode met aankondiging vooraf, bedoeld om kopers een reden te geven nu te beslissen. |
+| Zijproject | Het bedrijf dat naast een baan wordt opgebouwd, zodat het inkomen niet meteen van het bedrijf afhangt. |
+
+#### Waar het argument op rust
+
+De basis is een eigen verzameling gevallen. Guillebeau benaderde ondernemers
+via zijn lezerskring en vulde die aan met verwijzingen, kwam op ongeveer
+vijftienhonderd gemelde bedrijven en hield daar een selectie van ruim honderd
+aan over die hij uitwerkt. De selectiecriteria zijn duidelijk: een inkomen van
+minstens vijftigduizend dollar per jaar, een lage startinvestering, geen
+bijzondere opleiding of vergunning, en openheid over de cijfers.
+
+Wat hij eruit haalt zijn beschrijvingen, geen metingen. De verhalen van Brett
+Kelly met zijn handleiding bij Evernote, van Benny Lewis met zijn methode om
+snel talen te leren en van Gary Leff met zijn hulp bij het boeken van vluchten
+met luchtvaartmijlen, laten zien wat de betrokkenen deden. Ze laten niet zien
+of andere mensen die hetzelfde deden ook slaagden. Er is geen
+vergelijkingsgroep en er zijn geen statistische bewerkingen; de cijfers in het
+boek zijn opgaven van de ondernemers zelf.
+
+Waar het boek stevig staat, is in het praktische deel. De adviezen over
+prijsstelling, over het inrichten van een betaalmogelijkheid en over het
+beschrijven van een aanbod zijn concreet genoeg om na te doen en te toetsen
+aan de eigen omzet.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar zit in de selectie van de gevallen. Guillebeau begon met
+bedrijven die het al hadden gehaald en zocht daarna naar wat ze gemeen hadden.
+De duizenden mensen die met dezelfde honderd dollar, dezelfde website en
+dezelfde vastberadenheid begonnen en na een jaar stopten, komen in de
+verzameling niet voor. Daardoor is niet vast te stellen of de aanbevolen
+handelingen het verschil maakten of dat ze in beide groepen even vaak
+voorkwamen. De vijftienhonderd inzendingen zijn bovendien geen willekeurige
+greep: ze kwamen grotendeels uit zijn eigen lezerskring, en die bestaat uit
+mensen die zijn manier van werken al aantrekkelijk vonden.
+
+Een tweede bezwaar is het weggelaten voorwerk. Verschillende voorbeelden,
+inclusief dat van de auteur, hadden een publiek dat in jaren gratis schrijven
+was opgebouwd. Dat is de kostbaarste investering in het hele model en zij
+verschijnt niet in het bedrag van honderd dollar. Wie zonder publiek begint,
+staat voor een heel ander vraagstuk dan het boek behandelt.
+
+Verder is het boek gedateerd op het punt waar het het meest concreet is. Het
+verscheen in 2012, en de kanalen die toen goedkoop bereik gaven, ongefilterde
+tijdlijnen op sociale netwerken en e-maillijsten zonder verzadiging, werken nu
+anders. De redenering over waarde en convergentie houdt stand; de instructies
+over hoe je aan klanten komt, minder.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf drie dingen op die anderen weleens aan je vragen omdat je er goed in
+bent, en zoek bij elk de groep die er last van heeft als niemand het voor hen
+doet.
+- Formuleer het aanbod in de uitkomst voor de klant, niet in wat het product
+bevat.
+- Zet de betaalmogelijkheid in orde voordat je begint met promoten.
+- Houd de startkosten zo laag dat stoppen geen verlies is dat je moet
+goedpraten.
+- Spreek met tien mensen uit de beoogde groep en vraag wat ze nu doen om het
+probleem op te lossen en wat dat kost.
+- Zet een datum voor de eerste verkoop en werk daarnaartoe, ook als het aanbod
+dan nog onaf is.
+- Bied bestaande klanten een tweede product aan voordat je energie steekt in
+het zoeken van nieuwe.
+
+#### Wat je hierna leest
+
+- 20. Shoe Dog. Voor een uitgewerkt tegenvoorbeeld: een bedrijf dat juist wel
+op geleend geld en voortdurende groei werd gebouwd.
+- 47. The Hard Thing About Hard Things. Voor wat er gebeurt als het kleine
+bedrijf toch groeit en er mensen bijkomen die aangestuurd moeten worden.
 
 ## 41. Creativity, Inc.
 
@@ -4406,6 +5292,217 @@ waar hij dezelfde werkwijze invoerde. De bruikbaarste hoofdstukken gaan over
 de dingen die je niet ziet: de angst die mensen laat zwijgen, het onderscheid
 tussen een fout en een mislukking, en waarom een goed team belangrijker is dan
 een goed idee.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Catmull stelt dat de kwaliteit van een film niet uit een goed
+idee komt maar uit een groep die elkaar durft te vertellen dat het werk nog
+niet deugt. Elke Pixar-film begon volgens hem slecht, en het enige dat telt is
+hoe snel en hoe eerlijk een organisatie dat vaststelt en herstelt. De taak van
+de leiding is daarom niet het bewaken van ideeën, maar het wegnemen van alles
+wat mensen ervan weerhoudt hardop te zeggen wat ze zien: angst voor de baas,
+angst voor de collega, en de blinde vlekken die je juist niet opmerkt omdat
+het goed gaat.
+
+#### De gang van het boek
+
+**Waar het boek vandaan komt**
+
+Catmull begint bij zijn eigen doel, gevormd tijdens zijn studie in Utah: een
+volledig door de computer gemaakte speelfilm maken. Die weg loopt via het New
+York Institute of Technology, de computerafdeling van Lucasfilm, en de
+zelfstandige onderneming Pixar die in 1986 door Steve Jobs werd gekocht. In
+1995 komt *Toy Story* uit en is het doel bereikt.
+
+Daarna beschrijft hij een leegte die zelden in bedrijfsboeken staat. Het doel
+dat twintig jaar richting gaf was weg, en de vraag die overbleef was een
+andere: hoe houd je een bedrijf gezond dat succesvol is. Hij wijst op de
+goedgeleide ondernemingen die hij in Silicon Valley zag verdwijnen, en
+concludeert dat hun leiding niet dom was maar niet zag wat er misging. De rest
+van het boek gaat over die onzichtbaarheid.
+
+**De Braintrust**
+
+Het bekendste hoofdstuk beschrijft de Braintrust, een groep regisseurs en
+verhaalmensen die met vaste tussenpozen naar een film in wording kijkt en zegt
+wat er niet werkt. Twee regels maken het volgens Catmull werkbaar. De groep
+heeft geen bevoegdheid: de regisseur beslist zelf wat hij met de opmerkingen
+doet. En de opmerkingen gaan over de film, niet over de maker.
+
+Catmull hecht aan het woord openhartigheid boven eerlijkheid, omdat
+eerlijkheid een morele lading heeft die mensen doet zwijgen. Openhartigheid is
+in zijn beschrijving een vaardigheid die je organiseert: door de groep te
+vullen met mensen die zelf hetzelfde meemaken, door de bijeenkomst los te
+koppelen van beoordeling en beloning, en door het gesprek te laten gaan over
+wat het probleem is en niet over wie het moet oplossen.
+
+**De eerste versie is slecht**
+
+De uitspraak die het vaakst uit dit boek geciteerd wordt is dat elke
+Pixar-film in het begin slecht is. Catmull bedoelt dat niet als
+bescheidenheid. Het is een werkregel: als je aanneemt dat het eerste ontwerp
+mislukt, dan wordt het opsporen van fouten normaal werk in plaats van een
+aanklacht.
+
+Het voorbeeld daarbij is de zwarte vrijdag in november 1993, toen Disney de
+productie van *Toy Story* stillegde omdat Woody in de toenmalige versie een
+onaangenaam personage was geworden. Pixar kreeg de tijd het verhaal opnieuw op
+te bouwen. Een tweede voorbeeld is *Toy Story 2*, dat als goedkope vervolgfilm
+was opgezet, door de Braintrust werd afgekeurd en in ongeveer negen maanden
+opnieuw werd gemaakt, met lichamelijke schade voor de ploeg die Catmull
+achteraf een fout van de leiding noemt.
+
+Bij dezelfde film hoort de bijna-ramp op de server, waar een verkeerd
+verwijdercommando de bestanden begon te wissen en de kopie van een
+thuiswerkende medewerker de productie redde. Catmull gebruikt het om te laten
+zien hoe toevallig dat afliep.
+
+**Angst en falen**
+
+Falen is in dit boek geen leerzame beproeving maar de gewone uitkomst van iets
+doen wat nog niet eerder is gedaan. Wat schadelijk is, is niet de mislukking
+zelf maar de angst ervoor, omdat die mensen ertoe brengt te wachten, te
+verbergen en op zeker te spelen.
+
+Catmull legt de verantwoordelijkheid bij de leiding. Wie zegt dat fouten mogen
+maar mensen erop afrekent, krijgt een organisatie die naar boven meldt wat de
+baas wil horen. Hij beschrijft ook zijn eigen ongemak: jarenlang dacht hij dat
+Pixar open was, tot medewerkers hem vertelden dat zij dat lang niet altijd zo
+ervoeren.
+
+**Het beest en de lelijke baby**
+
+Twee beelden dragen het middendeel. Het beest is de productiemachine:
+honderden mensen die betaald en bezig gehouden moeten worden, en die daardoor
+werk opeisen voordat het klaar is om beoordeeld te worden. De lelijke baby is
+het nieuwe idee, dat er in het begin onbeholpen uitziet en dat gemakkelijk
+sneuvelt in een vergelijking met een afgemaakte film.
+
+De taak van de leiding is volgens Catmull het evenwicht bewaken tussen die
+twee: het beest voeden zonder dat het de baby opeet. Dat betekent dat een idee
+tijd en beschutting krijgt, terwijl het uiteindelijk toch aan het oordeel van
+de groep wordt blootgesteld.
+
+**Wat je niet ziet**
+
+Een van de eigenzinnigste delen gaat over het verborgene: alles wat in een
+organisatie gebeurt buiten het zicht van wie haar leidt. Catmull vergelijkt
+zichzelf met iemand die een berg beklimt en denkt de hele bergketen te
+overzien. Zijn tegenmaatregelen zijn nuchter: mensen op alle niveaus
+rechtstreeks laten praten zonder de bevelslijn te volgen, en aannemen dat de
+meest bruikbare informatie bij de leiding het laatst aankomt.
+
+Daarbij hoort ook zijn behandeling van toeval. Pixar heeft geluk gehad,
+schrijft hij, en het gevaar van succes is dat een organisatie achteraf een
+verhaal maakt waarin alles het gevolg van goed beleid was. De postmortems na
+elke film dienen mede om dat verhaal te verstoren. Catmull merkt op dat mensen
+postmortems liever ontwijken, en beschrijft hoe hij ze door wisselende vragen
+en aantallen bruikbaar probeerde te houden.
+
+**Disney Animation en Notes Day**
+
+Na de overname door Disney in 2006 gingen Catmull en John Lasseter ook Walt
+Disney Animation Studios leiden. Catmull beschrijft dat hij daar bewust niet
+de Pixar-werkwijze oplegde: de opvolger van de Braintrust kreeg een eigen naam
+en een eigen samenstelling, omdat een overgenomen gewoonte zonder eigen
+geschiedenis volgens hem niet blijft staan. De films die daarop volgden,
+waaronder *Tangled* en *Frozen*, gelden voor hem als het bewijs dat het om de
+werkwijze ging en niet om de mensen van Pixar.
+
+Het boek eindigt met Notes Day, 11 maart 2013, toen Pixar het werk een dag
+stillegde en de hele onderneming in groepen liet praten over hoe de kosten en
+de manier van werken beter konden. Catmull presenteert het als een proef op de
+som van zijn eigen stelling: kan een bedrijf de kritiek die het op zijn films
+toepast ook op zichzelf toepassen. In een nawoord staat een portret van Steve
+Jobs, waarin Catmull vooral beschrijft hoe Jobs in de loop van de jaren leerde
+luisteren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Braintrust | Vaste groep makers die een film in wording bekijkt en zonder bevoegdheid over de uitkomst zegt wat er niet werkt. |
+| Openhartigheid | Het zonder terughoudendheid zeggen wat je van het werk vindt, door Catmull losgemaakt van het morele woord eerlijkheid omdat dat mensen doet zwijgen. |
+| De lelijke baby | Het nieuwe idee in zijn onbeholpen begintoestand, dat beschutting nodig heeft omdat het elke vergelijking met afgewerkt werk verliest. |
+| Het beest | De productiemachine met haar vaste bezetting en kosten, die werk opeist voordat het rijp is. |
+| Postmortem | De bespreking na afloop van een film, bedoeld om het opgepoetste verhaal over het eigen succes te doorbreken. |
+| Notes Day | De dag in maart 2013 waarop Pixar het werk stillegde om de hele onderneming opmerkingen over zichzelf te laten geven. |
+| Het verborgene | Alles wat in de organisatie gebeurt buiten het gezichtsveld van de leiding, en dat volgens Catmull structureel groter is dan zij aanneemt. |
+| Ploeg boven idee | De stelregel dat een goede ploeg een middelmatig idee redt, terwijl een middelmatige ploeg een goed idee verspeelt. |
+
+#### Waar het argument op rust
+
+Het boek rust vrijwel volledig op wat Catmull zelf heeft meegemaakt in
+ongeveer veertig jaar bij NYIT, Lucasfilm, Pixar en Disney Animation. Er staat
+geen onderzoek in, geen vergelijkende gegevens en geen enkele poging om de
+werkwijze te toetsen aan bedrijven die haar overnamen. Dat maakt het geen zwak
+boek, want de gevallen zijn nauwkeurig en soms ongunstig voor de schrijver
+zelf, maar het maakt het wel een getuigenis in plaats van een bewijsvoering.
+
+Sterk is dat Catmull de duurgekochte gevallen niet weglaat: het stilleggen van
+*Toy Story* in 1993, het opnieuw maken van *Toy Story 2* met de overbelasting
+die daarbij hoorde, het wisselen van regisseur bij films die vastliepen, en
+zijn eigen te late ontdekking dat medewerkers zich niet zo vrij voelden als
+hij dacht. Wie alleen zijn geslaagde beslissingen had willen laten zien, had
+die verhalen anders verteld.
+
+Zwakker is de eindconclusie. Pixar had in deze periode een reeks winstgevende
+films, en het boek leest die reeks als uitkomst van de beschreven werkwijze.
+Catmull noemt de rol van geluk, maar dat verandert niets aan de opbouw, die
+van resultaat naar oorzaak redeneert.
+
+#### Wat er tegen in te brengen valt
+
+De zwaarste vraag komt van buiten het boek. In de rechtszaak over onderlinge
+afspraken tussen technologie- en animatiebedrijven om elkaars werknemers niet
+te benaderen, kwam naar voren dat Pixar zulke afspraken hanteerde en dat
+Catmull ze verdedigde als bescherming van de bedrijfstak. Dat gaat over
+dezelfde jaren en dezelfde leiding als het boek, en het staat er niet in. Een
+verhaal over vertrouwen en over het belang van de mensen boven het idee wordt
+daar aantoonbaar dunner van.
+
+Een tweede bezwaar betreft de houdbaarheid. Het boek verscheen in 2014 en
+beschrijft een cultuur waarin alles gezegd kan worden. In 2017 vertrok John
+Lasseter, in het boek de voornaamste creatieve figuur naast Catmull, na
+klachten over zijn gedrag tegenover medewerkers. Dat gedrag was blijkbaar niet
+bespreekbaar in dezelfde ruimte waar een film wel genadeloos besproken kon
+worden. Openhartigheid over werk en openhartigheid over macht blijken twee
+verschillende dingen.
+
+Verder is de overdraagbaarheid beperkt en het boek erkent dat maar half. De
+Braintrust werkt doordat de deelnemers hetzelfde vak beoefenen, geen macht
+over elkaars loopbaan hebben en aan één zichtbaar product werken dat af moet.
+Waar die voorwaarden ontbreken, blijft een lijst gewoonten over zonder de
+grond waarop ze stonden.
+
+Ten slotte de omstandigheden. Pixar had een geldschieter die verlies kon
+dragen, een verdeler met wereldwijd bereik en een technische voorsprong.
+Daardoor kon een film opnieuw beginnen als hij niet deugde. Het boek behandelt
+dat vermogen als een keuze, terwijl het voor de meeste organisaties een luxe
+is.
+
+#### Wat er concreet mee te doen is
+
+- Scheid de bespreking van het werk van de beoordeling van de mens: laat de
+groep die opmerkingen geeft geen zeggenschap hebben over loopbaan of beloning.
+- Leg vast wie beslist: opmerkingen zijn vrij, de beslissing hoort bij één
+eigenaar.
+- Zeg vooraf dat de eerste versie niet deugt en plan er tijd voor. Wie de
+herziening niet inroostert, krijgt een organisatie die de eerste versie
+verdedigt.
+- Doe na elk afgerond project een bespreking achteraf, en wissel de vragen
+zodat er geen bezwering van wordt.
+- Ga ervan uit dat je als leidinggevende de helft niet ziet. Organiseer paden
+waarlangs mensen buiten de bevelslijn om iets kunnen melden.
+- Bescherm een nieuw plan tegen vergelijking met afgewerkt werk, maar zet er
+een toetsdatum op.
+
+#### Wat je hierna leest
+
+- 46. Becoming Steve Jobs. Dezelfde jaren en dezelfde onderneming vanuit Steve
+Jobs bekeken, inclusief wat hij volgens de schrijvers bij Pixar van Catmull en
+Lasseter leerde.
+- 43. Crucial Conversations. Uit dezelfde lijst, als vervolg.
 
 ## 42. The Five Dysfunctions of a Team
 
@@ -4724,6 +5821,192 @@ zwakte ervan: waar Isaacsons biografie hard is over Jobs' gedrag, is dit boek
 geneigd het te verklaren. De twee zijn naast elkaar interessanter dan
 afzonderlijk.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Schlender en Tetzeli betogen dat Steve Jobs geen
+onveranderlijk genie met een slecht karakter was, maar iemand die tussen 1985
+en 1997 werkelijk iets leerde. De jaren bij NeXT, waar hij vrijwel alles
+verkeerd deed wat een ondernemer verkeerd kan doen, bij Pixar, waar hij geen
+verstand van het vak had en dus moest leren anderen te laten werken, en zijn
+gezin met Laurene Powell vormen in dit boek de leerschool die de tweede
+Apple-periode mogelijk maakte. Het boek is uitdrukkelijk geschreven tegen het
+beeld dat na zijn dood bleef hangen, waarin de wreedheid de verklaring voor de
+prestatie werd.
+
+#### De gang van het boek
+
+**Wie het schrijft en waarom**
+
+Brent Schlender sprak Jobs voor het eerst in 1986 als verslaggever, en volgde
+hem daarna ongeveer vijfentwintig jaar voor *The Wall Street Journal* en
+*Fortune*. Hij kwam bij hem thuis, hij kreeg telefoontjes op zondagavond, en
+hij werd ook uitgescholden. Rick Tetzeli, redacteur, schreef mee.
+
+De aanleiding staat er onverbloemd bij. Schlender vond dat het gangbare
+portret, en in het bijzonder de biografie van Walter Isaacson uit 2011, de man
+vastlegde zoals hij in de jaren tachtig was: opvliegend, kleinerend, overtuigd
+van zijn eigen gelijk. Volgens Schlender klopt dat portret voor de jonge Jobs
+en niet voor de latere. De vraag van het boek is daarmee gegeven: wat gebeurde
+er in de tussenliggende jaren.
+
+**De jonge Jobs**
+
+Het eerste deel behandelt de oprichting van Apple met Steve Wozniak, het
+succes van de Apple II, de Macintosh en het vertrek in 1985 na het conflict
+met John Sculley en het bestuur. De schrijvers bestrijden niet dat Jobs zich
+in die jaren onmogelijk gedroeg. Zij tekenen hem als iemand met een goed oog
+en weinig zelfbeheersing, die het onderscheid tussen zijn overtuiging en de
+werkelijkheid niet maakte.
+
+Het punt dat zij daaraan verbinden is dat hij toen ook een slechte bestuurder
+was: hij kon een ploeg opjagen, maar niet een onderneming laten draaien, en de
+Macintosh-afdeling die hij leidde was zowel de bron van het product als van de
+verdeeldheid die hem zijn baan kostte.
+
+**NeXT als dure les**
+
+NeXT krijgt in dit boek meer plaats dan in de meeste portretten, en dat is de
+kern van het betoog. Jobs bouwde een fabriek waarin nauwelijks iets te maken
+viel, ontwierp een zwarte kubus met een prijs die geen hogeschool kon betalen,
+en verkocht van het apparaat een aantal dat in het niet valt bij zijn eigen
+verwachtingen. Bijna alles wat hij bij Apple had aangevallen, overdaad en
+verliefdheid op de eigen smaak, deed hij nu zelf.
+
+Wat er volgens de schrijvers uit kwam, was het besef dat hij niet zonder
+anderen kon en dat het bedrijf zich moest richten op wat het werkelijk kon
+verkopen. Uiteindelijk bleef van NeXT de programmatuur over, en juist die werd
+in 1996 de reden voor Apple om het bedrijf te kopen en Jobs terug te halen.
+
+**Pixar als tweede leerschool**
+
+Bij Pixar was Jobs de geldschieter en niet de vakman. Hij bracht er jaren zijn
+eigen vermogen in zonder dat er iets verkocht werd, en hij begreep van
+animatie en verhaalopbouw minder dan Ed Catmull en John Lasseter. Het boek
+beschrijft hoe hij zich daar leerde beperken tot wat hij wel kon:
+onderhandelen met Disney, het bedrijf naar de beurs brengen in 1995 vlak na de
+uitkomst van *Toy Story*, en geduld hebben met een productiecyclus van jaren.
+
+Voor de schrijvers is dit het belangrijkste bewijsstuk voor hun stelling.
+Geduld en het aanvaarden van vakmensen die meer weten dan hij, twee dingen die
+de jonge Jobs niet had, leerde hij in een onderneming waar hij geen
+alternatief had.
+
+**De terugkeer bij Apple**
+
+Vanaf 1997 volgt het bekende verhaal, maar met een ander accent. Jobs schrapte
+het grootste deel van het aanbod en bracht het terug tot een klein aantal
+producten, sloot een overeenkomst met Microsoft, en begon aan de reeks iMac,
+iPod, winkels, iPhone en iPad. De schrijvers benadrukken daarbij niet zijn
+ingevingen maar zijn samenwerking: Jony Ive voor het ontwerp, Tim Cook voor de
+toelevering en productie, Ron Johnson voor de winkels, en raadgevers als Bill
+Campbell en Andy Grove aan wie hij wel iets aannam.
+
+In deze lezing is de tweede Apple-periode niet het werk van een eenling die
+zijn zin doordrijft, maar van iemand die eindelijk een ploeg bij elkaar hield
+en haar liet doen waar zij goed in was.
+
+**Ziekte en einde**
+
+Het laatste deel behandelt de diagnose van een tumor in de alvleesklier in
+2003 en de maanden waarin Jobs de operatie uitstelde ten gunste van andere
+behandelingen, een beslissing die het boek nuchter als een fout beschrijft.
+Daarna volgen de jaren van afnemende gezondheid, de levertransplantatie in
+2009, en de opvolging door Tim Cook.
+
+De schrijvers gebruiken deze periode ook om hun stelling af te ronden: iemand
+die zich uitsluitend om zijn eigen gelijk bekommerde, had de opvolging niet zo
+geregeld als hij deed, en had niet zoveel tijd besteed aan het overdragen van
+de manier van werken aan de leiding die achterbleef.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De woestijnjaren | De periode tussen zijn vertrek bij Apple in 1985 en zijn terugkeer in 1997, door de schrijvers als leerschool en niet als onderbreking behandeld. |
+| Het onwrikbare gelijk | Jobs' vermogen anderen en zichzelf te overtuigen dat iets waar of haalbaar was, in dit boek zowel als drijfveer als als bron van zijn missers beschreven. |
+| Het rooster van vier | De indeling waarmee Jobs na 1997 het aanbod van Apple terugbracht tot een handvol producten voor twee soorten kopers. |
+| Editeren | Jobs' eigen woord voor wat hij deed: weglaten tot alleen overbleef wat het product moest zijn. |
+| Volledige beheersing van de keten | Het beginsel dat Apple de programmatuur, de apparatuur en de verkoop zelf in handen houdt, dat Jobs na zijn terugkeer verder doorvoerde dan ervoor. |
+| NeXTSTEP | De programmatuur van NeXT die na het mislukken van de apparatuur overbleef en de grondslag werd voor het besturingssysteem van Apple. |
+| Toegang als methode | De werkwijze van Schlender zelf: jarenlange nabijheid als verslaggever, waarop het boek zijn afwijkende beeld baseert. |
+| De onbewerkte Jobs | Het beeld van de jonge, onbeheerste Jobs dat volgens de schrijvers ten onrechte op zijn hele leven is geplakt. |
+
+#### Waar het argument op rust
+
+De grondslag is tweeledig: de eigen gesprekken van Schlender over
+vijfentwintig jaar, waaronder opnamen die hij bewaarde, en gesprekken met
+betrokkenen die eerder weinig hadden gezegd. Tim Cook, Jony Ive, Eddy Cue,
+Phil Schiller, Ed Catmull, John Lasseter, Bill Gates en Laurene Powell Jobs
+komen aan het woord. Voor de Pixar- en NeXT-jaren is dat materiaal het beste
+dat er is, en het boek voegt daar feitelijk iets toe aan wat eerder verscheen.
+
+De stelling zelf laat zich lastiger bewijzen. Dat Jobs veranderde, blijkt in
+dit boek vooral uit wat mensen over hem zeggen en uit de vaststelling dat hij
+de tweede keer wel een organisatie kon leiden. Dat laatste is een uitkomst,
+geen bewijs van een innerlijke ommekeer: het is even goed te verklaren uit
+betere omstandigheden, een sterkere ploeg en een markt die naar zijn hand
+stond. Het boek erkent die tegenwerping niet.
+
+Feitelijk staat het stevig waar het over bedrijfsgeschiedenis gaat: de gang
+van zaken bij NeXT, de beursgang van Pixar in 1995, de overname van NeXT door
+Apple, de opbouw van de toeleveringsketen onder Cook. Waar het over binnenkant
+en beweegredenen gaat, leunt het op herinnering van betrokkenen, met alle
+vertekening die twintig jaar later hoort.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is de nabijheid van de schrijver tot zijn onderwerp.
+Schlender was geen buitenstaander maar een verslaggever die bevriend raakte,
+die bij Jobs thuis kwam en die zijn beste verhalen aan die verhouding dankte.
+Hij vertelt dat ook, en dat pleit voor hem. Maar wie vijfentwintig jaar
+toegang heeft gehad, heeft ook vijfentwintig jaar een belang gehad bij het
+behouden van die toegang, en de kritiek in dit boek blijft opvallend zacht op
+de punten waar Jobs zich het slechtst gedroeg.
+
+Daar komt de medewerking van de Apple-leiding bij. Tim Cook, Jony Ive, Eddy
+Cue en Phil Schiller werkten mee aan dit boek en niet, of veel minder
+bereidwillig, aan het portret dat zij afwezen. Cook noemde de eerdere
+biografie in het openbaar een boek dat Jobs geen recht deed. Het gevolg is dat
+de stelling die dit boek verdedigt, dat Jobs veranderde en dat hij zijn beste
+werk aan samenwerking dankte, precies samenvalt met het beeld dat het bedrijf
+van zijn oprichter wil laten bestaan. Dat maakt de stelling niet onwaar, maar
+de getuigen zijn niet onafhankelijk en het boek behandelt hen wel zo.
+
+Inhoudelijk blijft er ongemak over wat er niet wordt uitgewerkt. Jobs'
+jarenlange ontkenning van het vaderschap van zijn dochter Lisa, het onderzoek
+naar met terugwerkende kracht gedateerde aandelenopties bij Apple, de
+behandeling van leveranciers en werknemers, en de afspraken met andere
+bedrijven om elkaars personeel niet te benaderen, komen aan bod als
+hindernissen in een ontwikkeling in plaats van als vraagstukken op zichzelf.
+Elke misstap wordt onderdeel van het leerproces, en daarmee wordt de stelling
+van het boek onweerlegbaar: gedrag dat erop wijst dat hij niet veranderde,
+telt als het stadium van voor de verandering.
+
+Ten slotte is de tegenstelling met Isaacson scherper aangezet dan nodig. Ook
+in dat boek staan de latere jaren en de samenwerking met Ive en Cook
+beschreven. Het verschil is meer een kwestie van nadruk en toon dan van
+feiten, terwijl *Becoming Steve Jobs* zich als weerlegging aandient.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel een leidinggevende op wat hij nu kan, niet op wat hij tien jaar
+geleden verkeerd deed. En andersom: leg vast wat er sinds toen aantoonbaar
+veranderd is, in plaats van het aan te nemen.
+- Zoek bij een mislukt eigen project uit welk oordeel je verkeerd hebt
+gemaakt, en schrijf op wat je de volgende keer anders doet. Het boek laat zien
+dat NeXT waarde had doordat Jobs die vraag stelde.
+- Bouw je omgeving op mensen die op hun terrein meer weten dan jij, en laat
+hen beslissen op dat terrein.
+- Bij het lezen van een portret dat op toegang berust: kijk wie er meewerkte,
+wie zweeg, en welk beeld die medewerkers baat had.
+
+#### Wat je hierna leest
+
+- 41. Creativity, Inc.. De Pixar-jaren van binnenuit, geschreven door de man
+die Jobs daar volgens dit boek liet leren wat hij nog niet kon.
+- 47. The Hard Thing About Hard Things. Uit dezelfde lijst, als volgende stap
+na dit boek.
+
 ## 47. The Hard Thing About Hard Things
 
 Ben Horowitz, 2014. Ondertitel *Building a Business When There Are No Easy
@@ -4746,6 +6029,215 @@ aankondigt, waarom je slecht nieuws zelf en direct brengt, hoe je functioneren
 beoordeelt en waarom een organisatie management nodig heeft zodra ze groeit.
 De hiphopcitaten aan het begin van elk hoofdstuk zijn smaakgevoelig; de
 eerlijkheid over eigen fouten is het zeldzame eraan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ben Horowitz schrijft in *The Hard Thing About Hard Things*
+dat de gangbare managementliteratuur alleen gaat over de tijd waarin het goed
+gaat, en dat de beslissingen die een bedrijf maken of breken juist vallen als
+het misgaat: ontslagronden, een leidinggevende degraderen die ook een vriend
+is, doorwerken terwijl het aandeel bijna niets waard is. Voor die situaties
+bestaat volgens hem geen recept, omdat elk goed antwoord in strijd is met een
+ander goed antwoord. Wat hij in plaats van een recept aanbiedt, is een
+verzameling beschreven gevallen uit zijn eigen tijd bij Loudcloud en Opsware,
+plus de regel dat de bestuurder de waarheid moet vertellen ook als die slecht
+is. Wie er iets tegenover wil zetten, kan opmerken dat een boek van iemand die
+uiteindelijk voor anderhalf miljard dollar verkocht, moeilijk kan aantonen dat
+zijn keuzes de goede waren.
+
+#### De gang van het boek
+
+**Loudcloud, de beursgang en de bijna-ondergang**
+
+Het eerste deel is autobiografisch. Horowitz richt in 1999 samen met Marc
+Andreessen Loudcloud op, een bedrijf dat rekenkracht en beheer als dienst
+levert, een idee dat een decennium later gewoon zou worden. Het bedrijf groeit
+hard op klanten die zelf met durfkapitaal zijn gefinancierd. Als die markt
+instort, valt een groot deel van de omzet weg.
+
+Er is geen geld meer op te halen bij investeerders, dus gaat het bedrijf in
+maart 2001 naar de beurs op een moment dat niemand naar de beurs wil. De koers
+zakt weg. Daarna verkoopt Horowitz de dienstverlening aan een grote
+uitbesteder en houdt hij alleen de zelf ontwikkelde beheersoftware over, onder
+de naam Opsware. Op het dieptepunt is het aandeel enkele tientallen centen
+waard en overweegt het bestuur beëindiging.
+
+Uit die jaren komt zijn beeld van de bestuurder die alleen staat. Hij
+beschrijft dat hij zijn mensen ieder kwartaal moest uitleggen waarom de
+situatie slechter was dan de vorige keer, en dat hij dat deed door de slechte
+cijfers eerst en zonder verzachting te brengen. Uiteindelijk wordt Opsware in
+2007 aan Hewlett-Packard verkocht voor ongeveer anderhalf miljard dollar.
+
+**De worsteling**
+
+Horowitz gebruikt het woord worsteling voor de toestand waarin een bestuurder
+verkeert als hij niet weet of het bedrijf blijft bestaan en er ook niemand is
+die het hem kan vertellen. Hij besteedt een heel hoofdstuk aan de beschrijving
+ervan zonder oplossing aan te bieden: niet slapen, niet kunnen eten, het
+gevoel dat je alles fout hebt gedaan.
+
+Zijn advies is beperkt en praktisch. Praat erover met iemand, want de last
+delen maakt de kans op een goede beslissing groter. Speel het spel lang
+genoeg, want de meeste bedrijven die het redden zijn een keer dicht bij de
+ondergang geweest. En besef dat het niet je schuld hoeft te zijn dat je in die
+toestand zit, terwijl het wel jouw taak is eruit te komen.
+
+**Slecht nieuws brengen**
+
+Een terugkerende regel is dat de bestuurder de dingen moet zeggen zoals ze
+zijn. Horowitz zet zich af tegen het idee dat moraal beschermd moet worden
+door informatie achter te houden. Zijn redenering: de mensen die het probleem
+kunnen oplossen zijn de mensen die het moeten kennen, en in een klein bedrijf
+weet iedereen het toch al, zodat verzwijgen alleen het vertrouwen kost.
+
+Bij ontslagronden werkt hij dat uit tot een reeks handelingen. Beslis snel als
+de beslissing genomen is, want lekken doet meer schade. Wees eerlijk over de
+reden en leg de schuld niet bij de vertrekkende mensen. Laat elke
+leidinggevende zijn eigen mensen zelf spreken en delegeer het niet aan
+personeelszaken. Wees de dag erna zichtbaar op kantoor, omdat het bedrijf dan
+bestuurd wordt voor de mensen die blijven.
+
+Het hoofdstuk over het ontslaan van een leidinggevende gaat over iets anders:
+dat is meestal een fout van degene die hem aannam. Hij noemt daarbij de
+neiging om iemand aan te nemen op grond van ervaring in een bedrijf van heel
+andere omvang, waar de taak van dezelfde naam iets heel anders inhield.
+
+**Oorlogstijd en vredestijd**
+
+Het bekendste onderscheid uit het boek is dat tussen de bestuurder in
+vredestijd en die in oorlogstijd. In vredestijd heeft het bedrijf een
+duidelijke voorsprong en gaat het erom de markt te vergroten, ruimte te geven
+en creativiteit te laten opborrelen. In oorlogstijd is er één bedreiging die
+alles kan wegvagen, en dan wordt afwijking van het plan niet meer geduld en
+gaat de leiding over details die zij normaal zou overlaten.
+
+Horowitz stelt dat de meeste managementboeken over vredestijd gaan en dat
+bestuurders zelden van de ene stijl naar de andere overschakelen. Zijn eigen
+periode beschrijft hij bijna volledig als oorlogstijd; als voorbeeld van
+iemand die beide kon noemt hij Andy Grove van Intel.
+
+**Mensen, opleiden en aannemen**
+
+Een aanzienlijk deel van het boek gaat over personeel. Horowitz noemt het
+opleiden van medewerkers de taak met de hoogste opbrengst per bestede uur en
+verwijt bedrijven dat ze het overslaan omdat het niet dringend is. Hij vindt
+dat elke leidinggevende zijn eigen mensen opleidt en dat je niet begint met
+aannemen voordat je weet wat de nieuwe mensen moeten leren.
+
+Bij aannemen pleit hij ervoor te kiezen op sterkte in plaats van op
+afwezigheid van zwakte. Een sollicitatieprocedure met veel beoordelaars levert
+de kandidaat op waar niemand tegen is, en dat is zelden de beste. Hij
+waarschuwt tegelijk voor de verkeerde soort eerzucht: mensen die vooral aan
+hun eigen loopbaan denken vergiftigen de organisatie sneller dan mensen die te
+weinig kunnen. Daarnaast behandelt hij vraagstukken die zelden ergens staan,
+zoals het degraderen van een goed functionerende medewerker die het bedrijf is
+ontgroeid.
+
+**De organisatie en de vervuiling ervan**
+
+Horowitz gebruikt de term beheerschuld voor managementkeuzes die op korte
+termijn tijd besparen en later duur uitpakken: twee mensen hetzelfde salaris
+geven om een gesprek te vermijden, geen beoordelingen houden, geen
+organisatiestructuur vastleggen. Net als bij technische schuld loopt de rente
+op.
+
+Hij besteedt veel aandacht aan het beperken van intern gekonkel. Zijn stelling
+is dat gekonkel meestal niet uit slechte mensen voortkomt maar uit een
+bestuurder die het beloont, bijvoorbeeld door iemand opslag te geven omdat hij
+erom vroeg. De remedie is een vast proces voor beloning, promotie en
+beoordeling, zodat de weg naar vooruitgang niet via het kantoor van de baas
+loopt.
+
+Bij het oplossen van grote problemen wijst hij het zoeken naar één ingreep af.
+Hij gebruikt het beeld van gewone kogels tegenover een zilveren kogel: als een
+concurrent een beter product heeft, is er geen slimme zet die dat oplost en
+moet het product beter worden.
+
+**Wat de bestuurder eigenlijk doet**
+
+Het slot gaat over de rol zelf. Horowitz onderscheidt bestuurders die vooral
+bedenken wat er moet gebeuren van bestuurders die vooral zorgen dat het
+gebeurt, en stelt dat de meeste mensen het eerste of het tweede zijn en dat
+beide een tegenwicht nodig hebben. Hij verdedigt de opvatting dat de kunst van
+het besturen te leren is en niet aangeboren, met als voorwaarde dat iemand de
+moed heeft de impopulaire beslissing te nemen die hij zelf juist acht.
+
+Het laatste deel behandelt de vraag wanneer je een bedrijf verkoopt: is de
+markt groot genoeg en kun je daarin winnen. Horowitz eindigt bij de
+investeringsmaatschappij die hij met Andreessen begon, opgezet rond de
+gedachte dat oprichters hun bedrijf zelf moeten kunnen blijven leiden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De worsteling | De toestand waarin een bestuurder verkeert als hij niet weet of het bedrijf overleeft en niemand hem de weg kan wijzen. |
+| Bestuurder in oorlogstijd | Iemand die leidt terwijl één bedreiging het bedrijf kan wegvagen, met strakke sturing en weinig ruimte voor afwijking. |
+| Bestuurder in vredestijd | Iemand die leidt vanuit een gevestigde voorsprong en vooral ruimte, groei en initiatief van anderen organiseert. |
+| Beheerschuld | Managementkeuzes die nu tijd besparen en later een oplopende prijs hebben, naar analogie van technische schuld. |
+| Loden kogels | Het idee dat een sterkere concurrent alleen met beter werk te verslaan is en niet met een slimme omweg. |
+| De juiste soort eerzucht | Ambitie gericht op het slagen van het bedrijf in plaats van op de eigen positie daarbinnen. |
+| Aannemen op sterkte | Kiezen voor de kandidaat die ergens uitzonderlijk goed in is, in plaats van voor degene met de minste bezwaren. |
+| Het waarheidsgebod | De regel dat slecht nieuws volledig en snel naar de organisatie gaat, omdat verzwijgen het vertrouwen kost en de oplossing vertraagt. |
+| Ones en Twos | Zijn indeling in bestuurders die vooral richting bepalen en bestuurders die vooral uitvoering afdwingen. |
+
+#### Waar het argument op rust
+
+De onderbouwing is één geschiedenis, van binnenuit verteld. Horowitz put uit
+acht jaar leidinggeven aan Loudcloud en Opsware, en die gebeurtenissen zijn
+deels openbaar controleerbaar: de beursgang in maart 2001, de verkoop van het
+dienstenbedrijf, de verkoop aan Hewlett-Packard in 2007. Wat hij van zijn
+afwegingen op het moment zelf vertelt, is dat niet.
+
+Er staat geen onderzoek in en dat pretendeert het boek ook niet; zijn adviezen
+zijn vuistregels van een ervaren beoefenaar. De hoofdstukken over
+ontslagronden en het aannemen van leidinggevenden zijn daarbij het sterkst,
+omdat ze bestaan uit gedragsvoorschriften die te volgen en achteraf te
+beoordelen zijn. Die over het karakter van de bestuurder zijn het zwakst,
+omdat ze op één levensloop rusten.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek zijn eigen uitkomst als bewijs gebruikt.
+Horowitz nam beslissingen in een bedrijf dat het uiteindelijk redde, en
+beschrijft die beslissingen daarom als de goede. Er is geen manier om te weten
+of bedrijven die dezelfde keuzes maakten en toch omvielen, iets anders deden.
+Dat probleem geldt voor bijna alle bestuurdersmemoires en hij gaat er niet op
+in.
+
+Het onderscheid tussen oorlogstijd en vredestijd is bruikbaar als beeld en
+slordig als begrip. Het levert geen toets waarmee je vaststelt in welke
+toestand je zit, wat het geschikt maakt als rechtvaardiging achteraf: wie hard
+optreedt kan altijd zeggen dat het oorlogstijd is. In de jaren na verschijning
+is de term dan ook vooral zo gebruikt.
+
+Verder is de reikwijdte smaller dan de titel suggereert. Dit gaat over
+technologiebedrijven met durfkapitaal, waar snelle groei en de mogelijkheid
+van verkoop de context vormen. Voor een familiebedrijf of een
+overheidsorganisatie gelden veel aanbevelingen niet, terwijl ze wel algemeen
+zijn opgeschreven. En het perspectief blijft dat van de top: wie de
+ontslagronden onderging, komt niet aan het woord.
+
+#### Wat er concreet mee te doen is
+
+- Breng slecht nieuws in één keer en volledig, en begin met wat er niet goed
+gaat in plaats van met de context.
+- Laat elke leidinggevende zijn eigen mensen zelf toespreken bij een
+ontslagronde.
+- Leg vast waarom je iemand aanneemt in termen van waar hij uitzonderlijk goed
+in is, en toets de kandidaat daarop.
+- Zet een vast proces voor beloning en promotie op, zodat vooruitgang niet van
+vragen afhangt.
+- Plan het opleiden van nieuwe mensen voordat je ze aanneemt, en doe het zelf.
+- Noteer welke managementbeslissingen je uitstelt om een lastig gesprek te
+vermijden, en behandel die lijst als een schuld met rente.
+
+#### Wat je hierna leest
+
+- 20. Shoe Dog. Voor dezelfde jaren van bijna-omvallen, maar dan verteld als
+verhaal en zonder managementlessen.
+- 40. The $100 Startup. Voor het andere uiterste: ondernemen zonder
+investeerders, zonder personeel en zonder de druk om te groeien.
 
 ## 48. Man's Search for Meaning
 

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The $100 Startup &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Chris Guillebeau stelt in The $100 Startup dat een bedrijf beginnen voor de meeste mensen geen kapitaal, geen opleiding en geen personeel vraagt, maar één…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-40">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">40 &middot; Geld en ondernemen</p>
+    <h1>The $100 Startup</h1>
+    <p class="lede">Chris Guillebeau, 2012</p>
+    <p class="stats">
+      <span><b>1537</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="40"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Chris Guillebeau stelt in <i>The $100 Startup</i> dat een bedrijf beginnen voor de meeste mensen geen kapitaal, geen opleiding en geen personeel vraagt, maar één werkende koppeling: iets wat je al kunt, verbonden met iets waarvoor een ander wil betalen. Zijn boek gaat over kleine bedrijven van één of twee mensen die met een paar honderd dollar zijn begonnen en toch een volledig inkomen opleveren. De redenering is dat de klassieke stappen, marktonderzoek, financiering, een businessplan, in dit soort ondernemingen bijna altijd geldverspilling zijn, omdat je pas iets weet als iemand daadwerkelijk betaalt. Wie er iets tegenover wil zetten, kan wijzen op alles wat in de selectie van zijn voorbeelden ontbreekt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vrijheid en waarde</h3>
+      <p>Guillebeau zet twee begrippen naast elkaar waar het hele boek op rust. Vrijheid is wat de ondernemer wil: zelf bepalen waar en wanneer hij werkt. Waarde is wat hij daarvoor moet leveren: een concreet probleem van een concrete ander oplossen. Zijn hele betoog is dat het eerste alleen komt via het tweede, en dat de meeste mislukte kleine bedrijven blijven hangen in het eerste.</p>
+      <p>Hij schrijft vanuit zijn eigen praktijk. Hij verkocht digitale handleidingen via zijn website en financierde daarmee een reis naar alle landen ter wereld. Dat is tegelijk zijn belangrijkste voorbeeld en zijn belangrijkste beperking: zijn eigen bedrijf leunde op een publiek dat hij eerst jarenlang met gratis schrijven had opgebouwd.</p>
+      <h3>De kruising van vaardigheid en behoefte</h3>
+      <p>Het kernbegrip is convergentie: het punt waar iets wat je leuk vindt of goed kunt, samenvalt met iets waar anderen genoeg om geven om ervoor te betalen. Guillebeau plaatst zich daarmee tegenover het advies om je hartstocht te volgen. Hartstocht alleen levert een hobby op. Pas als er een groep is die er iets aan heeft, ontstaat er een bedrijf.</p>
+      <p>Daarbij hoort wat hij vaardigheidsvertaling noemt. De vaardigheid die je verkoopt is zelden de vaardigheid die op je diploma staat. Iemand die goed is in het plannen van reizen kan boekingen met luchtvaartmijlen verkopen. Iemand die zichzelf talen leert kan zijn methode verkopen. Het gaat om de onderliggende vaardigheid, niet om het beroep.</p>
+      <h3>Wat mensen kopen</h3>
+      <p>Guillebeau dringt aan op het onderscheid tussen eigenschappen en uitkomsten. Klanten kopen geen boekhoudprogramma maar minder gedoe met de belasting, geen taalcursus maar het gesprek dat ze straks kunnen voeren. Hij noemt dat de vertaling van kenmerken naar voordelen, en hij laat zien dat het aanbod van de meeste kleine ondernemers blijft steken bij een opsomming van wat hun product doet.</p>
+      <p>Daaruit volgt zijn advies over prijs. Vraag naar de waarde die de klant overhoudt, niet naar het aantal uren dat je erin stopte. Hij pleit ervoor het aanbod ondubbelzinnig te maken en het bestellen zo eenvoudig mogelijk, en hij besteedt aandacht aan het feit dat veel beginners geen betaalmogelijkheid hebben ingericht en zo hun eerste klanten kwijtraken.</p>
+      <h3>Beginnen voor bijna niets</h3>
+      <p>De grens van honderd dollar uit de titel is een symbool, geen regel. Uit zijn verzameling gevallen komt naar voren dat de meeste bedrijven met een paar honderd dollar begonnen: een domeinnaam, een eenvoudige site, wat voorraad. Zolang die uitgaven laag blijven, is een mislukking geen ramp en kun je opnieuw beginnen met iets anders.</p>
+      <p>Hij zet zich daarmee af tegen investeerders en leningen. Wie extern geld ophaalt, moet groeien om te kunnen terugbetalen, en groei is precies wat de vrijheid opeet die de ondernemer zocht. Het alternatief is het bedrijf laten betalen door de eerste klanten en de omvang klein houden.</p>
+      <h3>Het plan van één bladzijde</h3>
+      <p>In plaats van een ondernemingsplan van dertig bladzijden geeft Guillebeau een plan van één blad, met vragen als: wat verkoop je, aan wie, hoe krijgen ze het, hoe betalen ze, en waarom zou iemand er iets om geven. Er hoort een promotieplan van dezelfde omvang bij en een korte berekening van wat je maandelijks nodig hebt om ervan te leven.</p>
+      <p>De lancering krijgt een eigen behandeling. Hij beschrijft ze als een gebeurtenis met een aankondiging vooraf, een korte verkoopperiode en een reden om nu te kopen in plaats van later. Wat hij bewust weglaat is de lange aanloop: het opbouwen van de groep mensen aan wie je die aankondiging kunt sturen.</p>
+      <h3>Klein blijven of doorgroeien</h3>
+      <p>Het laatste deel gaat over wat er gebeurt als het werkt. Guillebeau behandelt de keuze om bewust klein te blijven, met het argument dat personeel, kantoor en vaste lasten de vrijheid opeten. Waar hij wel groei aanraadt, is in het aanbod: een tweede product aan bestaande klanten kost minder moeite dan een nieuwe klant.</p>
+      <p>Hij besteedt ook aandacht aan uitbesteden van werk dat je niet wilt doen en aan het moment waarop je een bedrijf beter kunt stoppen. Dat laatste is opvallend nuchter voor het genre: hij stelt vast dat sommige projecten geen groter publiek krijgen en dat doorzetten dan een vorm van kosten najagen is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Microbusiness</td><td>Een bedrijf van één of enkele mensen, zonder personeel en zonder extern kapitaal, dat een volledig inkomen levert.</td></tr>
+          <tr><td class="term">Convergentie</td><td>Het punt waar wat je kunt of graag doet samenvalt met iets waar anderen voor willen betalen.</td></tr>
+          <tr><td class="term">Vaardigheidsvertaling</td><td>Het herkennen van de onderliggende vaardigheid achter je werk of hobby, die vaak beter verkoopbaar is dan het beroep zelf.</td></tr>
+          <tr><td class="term">Waarde</td><td>Bij Guillebeau uitsluitend: iets wat een concreet probleem van een ander oplost, gemeten aan de bereidheid ervoor te betalen.</td></tr>
+          <tr><td class="term">Vrijheid</td><td>Zelf bepalen waar, wanneer en waaraan je werkt, in dit boek het doel waarvoor het bedrijf het middel is.</td></tr>
+          <tr><td class="term">Ondernemingsplan van één bladzijde</td><td>Een korte reeks vragen over aanbod, klant, levering en betaling die het uitgebreide plan vervangt.</td></tr>
+          <tr><td class="term">Kenmerken tegenover voordelen</td><td>Het onderscheid tussen wat een product is en wat de koper eraan overhoudt, waarbij alleen het tweede verkoopt.</td></tr>
+          <tr><td class="term">Lancering</td><td>Een afgebakende verkoopperiode met aankondiging vooraf, bedoeld om kopers een reden te geven nu te beslissen.</td></tr>
+          <tr><td class="term">Zijproject</td><td>Het bedrijf dat naast een baan wordt opgebouwd, zodat het inkomen niet meteen van het bedrijf afhangt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De basis is een eigen verzameling gevallen. Guillebeau benaderde ondernemers via zijn lezerskring en vulde die aan met verwijzingen, kwam op ongeveer vijftienhonderd gemelde bedrijven en hield daar een selectie van ruim honderd aan over die hij uitwerkt. De selectiecriteria zijn duidelijk: een inkomen van minstens vijftigduizend dollar per jaar, een lage startinvestering, geen bijzondere opleiding of vergunning, en openheid over de cijfers.</p>
+      <p>Wat hij eruit haalt zijn beschrijvingen, geen metingen. De verhalen van Brett Kelly met zijn handleiding bij Evernote, van Benny Lewis met zijn methode om snel talen te leren en van Gary Leff met zijn hulp bij het boeken van vluchten met luchtvaartmijlen, laten zien wat de betrokkenen deden. Ze laten niet zien of andere mensen die hetzelfde deden ook slaagden. Er is geen vergelijkingsgroep en er zijn geen statistische bewerkingen; de cijfers in het boek zijn opgaven van de ondernemers zelf.</p>
+      <p>Waar het boek stevig staat, is in het praktische deel. De adviezen over prijsstelling, over het inrichten van een betaalmogelijkheid en over het beschrijven van een aanbod zijn concreet genoeg om na te doen en te toetsen aan de eigen omzet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar zit in de selectie van de gevallen. Guillebeau begon met bedrijven die het al hadden gehaald en zocht daarna naar wat ze gemeen hadden. De duizenden mensen die met dezelfde honderd dollar, dezelfde website en dezelfde vastberadenheid begonnen en na een jaar stopten, komen in de verzameling niet voor. Daardoor is niet vast te stellen of de aanbevolen handelingen het verschil maakten of dat ze in beide groepen even vaak voorkwamen. De vijftienhonderd inzendingen zijn bovendien geen willekeurige greep: ze kwamen grotendeels uit zijn eigen lezerskring, en die bestaat uit mensen die zijn manier van werken al aantrekkelijk vonden.</p>
+      <p>Een tweede bezwaar is het weggelaten voorwerk. Verschillende voorbeelden, inclusief dat van de auteur, hadden een publiek dat in jaren gratis schrijven was opgebouwd. Dat is de kostbaarste investering in het hele model en zij verschijnt niet in het bedrag van honderd dollar. Wie zonder publiek begint, staat voor een heel ander vraagstuk dan het boek behandelt.</p>
+      <p>Verder is het boek gedateerd op het punt waar het het meest concreet is. Het verscheen in 2012, en de kanalen die toen goedkoop bereik gaven, ongefilterde tijdlijnen op sociale netwerken en e-maillijsten zonder verzadiging, werken nu anders. De redenering over waarde en convergentie houdt stand; de instructies over hoe je aan klanten komt, minder.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf drie dingen op die anderen weleens aan je vragen omdat je er goed in bent, en zoek bij elk de groep die er last van heeft als niemand het voor hen doet.</li>
+        <li>Formuleer het aanbod in de uitkomst voor de klant, niet in wat het product bevat.</li>
+        <li>Zet de betaalmogelijkheid in orde voordat je begint met promoten.</li>
+        <li>Houd de startkosten zo laag dat stoppen geen verlies is dat je moet goedpraten.</li>
+        <li>Spreek met tien mensen uit de beoogde groep en vraag wat ze nu doen om het probleem op te lossen en wat dat kost.</li>
+        <li>Zet een datum voor de eerste verkoop en werk daarnaartoe, ook als het aanbod dan nog onaf is.</li>
+        <li>Bied bestaande klanten een tweede product aan voordat je energie steekt in het zoeken van nieuwe.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Reinvent the Way You Make a Living, Do What You Love, and Create a New Future</i>. Nederlands als <i>De 100 euro Startup</i> (ISBN 9789021579450), waarin de bedragen naar euro's zijn omgerekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Guillebeau verzamelde ruim 1500 mensen die een bedrijf begonnen met minder dan duizend dollar en er meer dan vijftigduizend per jaar mee verdienen, en werkte er vijftig tot cases uit. Zijn stelling: de meeste van die bedrijven ontstonden uit een bestaande vaardigheid die aan een andere groep werd aangeboden, en niet uit een investering, een uitvinding of een businessplan. Wat een klant koopt is bij hem nooit de vaardigheid zelf maar het resultaat ervan.</p><p>Praktisch levert het een korte reeks stappen op: bied iets aan voordat het klaar is, vraag om geld op dag één, en houd een eenpagina-plan in plaats van een boekwerk. De cases zijn onvermijdelijk overlevers, wat de indruk geeft dat de kans hoger is dan hij is; als aanzet om iets kleins te beginnen is het bruikbaarder dan de meeste dikkere ondernemersboeken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemen</li><li>klein-beginnen</li><li>zelfstandig</li><li>marketing</li><li>cases</li><li>microbedrijf</li><li>vaardigheden</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Voor een uitgewerkt tegenvoorbeeld: een bedrijf dat juist wel op geleend geld en voortdurende groei werd gebouwd.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Voor wat er gebeurt als het kleine bedrijf toch groeit en er mensen bijkomen die aangestuurd moeten worden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

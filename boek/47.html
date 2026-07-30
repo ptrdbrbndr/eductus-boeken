@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hard Thing About Hard Things &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ben Horowitz schrijft in The Hard Thing About Hard Things dat de gangbare managementliteratuur alleen gaat over de tijd waarin het goed gaat, en dat de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-47">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">47 &middot; Geld en ondernemen</p>
+    <h1>The Hard Thing About Hard Things</h1>
+    <p class="lede">Ben Horowitz, 2014</p>
+    <p class="stats">
+      <span><b>1803</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="47"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ben Horowitz schrijft in <i>The Hard Thing About Hard Things</i> dat de gangbare managementliteratuur alleen gaat over de tijd waarin het goed gaat, en dat de beslissingen die een bedrijf maken of breken juist vallen als het misgaat: ontslagronden, een leidinggevende degraderen die ook een vriend is, doorwerken terwijl het aandeel bijna niets waard is. Voor die situaties bestaat volgens hem geen recept, omdat elk goed antwoord in strijd is met een ander goed antwoord. Wat hij in plaats van een recept aanbiedt, is een verzameling beschreven gevallen uit zijn eigen tijd bij Loudcloud en Opsware, plus de regel dat de bestuurder de waarheid moet vertellen ook als die slecht is. Wie er iets tegenover wil zetten, kan opmerken dat een boek van iemand die uiteindelijk voor anderhalf miljard dollar verkocht, moeilijk kan aantonen dat zijn keuzes de goede waren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Loudcloud, de beursgang en de bijna-ondergang</h3>
+      <p>Het eerste deel is autobiografisch. Horowitz richt in 1999 samen met Marc Andreessen Loudcloud op, een bedrijf dat rekenkracht en beheer als dienst levert, een idee dat een decennium later gewoon zou worden. Het bedrijf groeit hard op klanten die zelf met durfkapitaal zijn gefinancierd. Als die markt instort, valt een groot deel van de omzet weg.</p>
+      <p>Er is geen geld meer op te halen bij investeerders, dus gaat het bedrijf in maart 2001 naar de beurs op een moment dat niemand naar de beurs wil. De koers zakt weg. Daarna verkoopt Horowitz de dienstverlening aan een grote uitbesteder en houdt hij alleen de zelf ontwikkelde beheersoftware over, onder de naam Opsware. Op het dieptepunt is het aandeel enkele tientallen centen waard en overweegt het bestuur beëindiging.</p>
+      <p>Uit die jaren komt zijn beeld van de bestuurder die alleen staat. Hij beschrijft dat hij zijn mensen ieder kwartaal moest uitleggen waarom de situatie slechter was dan de vorige keer, en dat hij dat deed door de slechte cijfers eerst en zonder verzachting te brengen. Uiteindelijk wordt Opsware in 2007 aan Hewlett-Packard verkocht voor ongeveer anderhalf miljard dollar.</p>
+      <h3>De worsteling</h3>
+      <p>Horowitz gebruikt het woord worsteling voor de toestand waarin een bestuurder verkeert als hij niet weet of het bedrijf blijft bestaan en er ook niemand is die het hem kan vertellen. Hij besteedt een heel hoofdstuk aan de beschrijving ervan zonder oplossing aan te bieden: niet slapen, niet kunnen eten, het gevoel dat je alles fout hebt gedaan.</p>
+      <p>Zijn advies is beperkt en praktisch. Praat erover met iemand, want de last delen maakt de kans op een goede beslissing groter. Speel het spel lang genoeg, want de meeste bedrijven die het redden zijn een keer dicht bij de ondergang geweest. En besef dat het niet je schuld hoeft te zijn dat je in die toestand zit, terwijl het wel jouw taak is eruit te komen.</p>
+      <h3>Slecht nieuws brengen</h3>
+      <p>Een terugkerende regel is dat de bestuurder de dingen moet zeggen zoals ze zijn. Horowitz zet zich af tegen het idee dat moraal beschermd moet worden door informatie achter te houden. Zijn redenering: de mensen die het probleem kunnen oplossen zijn de mensen die het moeten kennen, en in een klein bedrijf weet iedereen het toch al, zodat verzwijgen alleen het vertrouwen kost.</p>
+      <p>Bij ontslagronden werkt hij dat uit tot een reeks handelingen. Beslis snel als de beslissing genomen is, want lekken doet meer schade. Wees eerlijk over de reden en leg de schuld niet bij de vertrekkende mensen. Laat elke leidinggevende zijn eigen mensen zelf spreken en delegeer het niet aan personeelszaken. Wees de dag erna zichtbaar op kantoor, omdat het bedrijf dan bestuurd wordt voor de mensen die blijven.</p>
+      <p>Het hoofdstuk over het ontslaan van een leidinggevende gaat over iets anders: dat is meestal een fout van degene die hem aannam. Hij noemt daarbij de neiging om iemand aan te nemen op grond van ervaring in een bedrijf van heel andere omvang, waar de taak van dezelfde naam iets heel anders inhield.</p>
+      <h3>Oorlogstijd en vredestijd</h3>
+      <p>Het bekendste onderscheid uit het boek is dat tussen de bestuurder in vredestijd en die in oorlogstijd. In vredestijd heeft het bedrijf een duidelijke voorsprong en gaat het erom de markt te vergroten, ruimte te geven en creativiteit te laten opborrelen. In oorlogstijd is er één bedreiging die alles kan wegvagen, en dan wordt afwijking van het plan niet meer geduld en gaat de leiding over details die zij normaal zou overlaten.</p>
+      <p>Horowitz stelt dat de meeste managementboeken over vredestijd gaan en dat bestuurders zelden van de ene stijl naar de andere overschakelen. Zijn eigen periode beschrijft hij bijna volledig als oorlogstijd; als voorbeeld van iemand die beide kon noemt hij Andy Grove van Intel.</p>
+      <h3>Mensen, opleiden en aannemen</h3>
+      <p>Een aanzienlijk deel van het boek gaat over personeel. Horowitz noemt het opleiden van medewerkers de taak met de hoogste opbrengst per bestede uur en verwijt bedrijven dat ze het overslaan omdat het niet dringend is. Hij vindt dat elke leidinggevende zijn eigen mensen opleidt en dat je niet begint met aannemen voordat je weet wat de nieuwe mensen moeten leren.</p>
+      <p>Bij aannemen pleit hij ervoor te kiezen op sterkte in plaats van op afwezigheid van zwakte. Een sollicitatieprocedure met veel beoordelaars levert de kandidaat op waar niemand tegen is, en dat is zelden de beste. Hij waarschuwt tegelijk voor de verkeerde soort eerzucht: mensen die vooral aan hun eigen loopbaan denken vergiftigen de organisatie sneller dan mensen die te weinig kunnen. Daarnaast behandelt hij vraagstukken die zelden ergens staan, zoals het degraderen van een goed functionerende medewerker die het bedrijf is ontgroeid.</p>
+      <h3>De organisatie en de vervuiling ervan</h3>
+      <p>Horowitz gebruikt de term beheerschuld voor managementkeuzes die op korte termijn tijd besparen en later duur uitpakken: twee mensen hetzelfde salaris geven om een gesprek te vermijden, geen beoordelingen houden, geen organisatiestructuur vastleggen. Net als bij technische schuld loopt de rente op.</p>
+      <p>Hij besteedt veel aandacht aan het beperken van intern gekonkel. Zijn stelling is dat gekonkel meestal niet uit slechte mensen voortkomt maar uit een bestuurder die het beloont, bijvoorbeeld door iemand opslag te geven omdat hij erom vroeg. De remedie is een vast proces voor beloning, promotie en beoordeling, zodat de weg naar vooruitgang niet via het kantoor van de baas loopt.</p>
+      <p>Bij het oplossen van grote problemen wijst hij het zoeken naar één ingreep af. Hij gebruikt het beeld van gewone kogels tegenover een zilveren kogel: als een concurrent een beter product heeft, is er geen slimme zet die dat oplost en moet het product beter worden.</p>
+      <h3>Wat de bestuurder eigenlijk doet</h3>
+      <p>Het slot gaat over de rol zelf. Horowitz onderscheidt bestuurders die vooral bedenken wat er moet gebeuren van bestuurders die vooral zorgen dat het gebeurt, en stelt dat de meeste mensen het eerste of het tweede zijn en dat beide een tegenwicht nodig hebben. Hij verdedigt de opvatting dat de kunst van het besturen te leren is en niet aangeboren, met als voorwaarde dat iemand de moed heeft de impopulaire beslissing te nemen die hij zelf juist acht.</p>
+      <p>Het laatste deel behandelt de vraag wanneer je een bedrijf verkoopt: is de markt groot genoeg en kun je daarin winnen. Horowitz eindigt bij de investeringsmaatschappij die hij met Andreessen begon, opgezet rond de gedachte dat oprichters hun bedrijf zelf moeten kunnen blijven leiden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De worsteling</td><td>De toestand waarin een bestuurder verkeert als hij niet weet of het bedrijf overleeft en niemand hem de weg kan wijzen.</td></tr>
+          <tr><td class="term">Bestuurder in oorlogstijd</td><td>Iemand die leidt terwijl één bedreiging het bedrijf kan wegvagen, met strakke sturing en weinig ruimte voor afwijking.</td></tr>
+          <tr><td class="term">Bestuurder in vredestijd</td><td>Iemand die leidt vanuit een gevestigde voorsprong en vooral ruimte, groei en initiatief van anderen organiseert.</td></tr>
+          <tr><td class="term">Beheerschuld</td><td>Managementkeuzes die nu tijd besparen en later een oplopende prijs hebben, naar analogie van technische schuld.</td></tr>
+          <tr><td class="term">Loden kogels</td><td>Het idee dat een sterkere concurrent alleen met beter werk te verslaan is en niet met een slimme omweg.</td></tr>
+          <tr><td class="term">De juiste soort eerzucht</td><td>Ambitie gericht op het slagen van het bedrijf in plaats van op de eigen positie daarbinnen.</td></tr>
+          <tr><td class="term">Aannemen op sterkte</td><td>Kiezen voor de kandidaat die ergens uitzonderlijk goed in is, in plaats van voor degene met de minste bezwaren.</td></tr>
+          <tr><td class="term">Het waarheidsgebod</td><td>De regel dat slecht nieuws volledig en snel naar de organisatie gaat, omdat verzwijgen het vertrouwen kost en de oplossing vertraagt.</td></tr>
+          <tr><td class="term">Ones en Twos</td><td>Zijn indeling in bestuurders die vooral richting bepalen en bestuurders die vooral uitvoering afdwingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is één geschiedenis, van binnenuit verteld. Horowitz put uit acht jaar leidinggeven aan Loudcloud en Opsware, en die gebeurtenissen zijn deels openbaar controleerbaar: de beursgang in maart 2001, de verkoop van het dienstenbedrijf, de verkoop aan Hewlett-Packard in 2007. Wat hij van zijn afwegingen op het moment zelf vertelt, is dat niet.</p>
+      <p>Er staat geen onderzoek in en dat pretendeert het boek ook niet; zijn adviezen zijn vuistregels van een ervaren beoefenaar. De hoofdstukken over ontslagronden en het aannemen van leidinggevenden zijn daarbij het sterkst, omdat ze bestaan uit gedragsvoorschriften die te volgen en achteraf te beoordelen zijn. Die over het karakter van de bestuurder zijn het zwakst, omdat ze op één levensloop rusten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek zijn eigen uitkomst als bewijs gebruikt. Horowitz nam beslissingen in een bedrijf dat het uiteindelijk redde, en beschrijft die beslissingen daarom als de goede. Er is geen manier om te weten of bedrijven die dezelfde keuzes maakten en toch omvielen, iets anders deden. Dat probleem geldt voor bijna alle bestuurdersmemoires en hij gaat er niet op in.</p>
+      <p>Het onderscheid tussen oorlogstijd en vredestijd is bruikbaar als beeld en slordig als begrip. Het levert geen toets waarmee je vaststelt in welke toestand je zit, wat het geschikt maakt als rechtvaardiging achteraf: wie hard optreedt kan altijd zeggen dat het oorlogstijd is. In de jaren na verschijning is de term dan ook vooral zo gebruikt.</p>
+      <p>Verder is de reikwijdte smaller dan de titel suggereert. Dit gaat over technologiebedrijven met durfkapitaal, waar snelle groei en de mogelijkheid van verkoop de context vormen. Voor een familiebedrijf of een overheidsorganisatie gelden veel aanbevelingen niet, terwijl ze wel algemeen zijn opgeschreven. En het perspectief blijft dat van de top: wie de ontslagronden onderging, komt niet aan het woord.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng slecht nieuws in één keer en volledig, en begin met wat er niet goed gaat in plaats van met de context.</li>
+        <li>Laat elke leidinggevende zijn eigen mensen zelf toespreken bij een ontslagronde.</li>
+        <li>Leg vast waarom je iemand aanneemt in termen van waar hij uitzonderlijk goed in is, en toets de kandidaat daarop.</li>
+        <li>Zet een vast proces voor beloning en promotie op, zodat vooruitgang niet van vragen afhangt.</li>
+        <li>Plan het opleiden van nieuwe mensen voordat je ze aanneemt, en doe het zelf.</li>
+        <li>Noteer welke managementbeslissingen je uitstelt om een lastig gesprek te vermijden, en behandel die lijst als een schuld met rente.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Building a Business When There Are No Easy Answers</i>. De Nederlandse uitgave houdt de Engelse titel aan (ISBN 9789047014683).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Horowitz leidde Loudcloud en Opsware door de klap van de dotcomjaren en schreef daarna dit boek over het deel van ondernemen waar de handboeken zwijgen: mensen ontslaan, een vriend degraderen, een bedrijf naar de beurs brengen terwijl het bijna leeg is, en doorgaan als er geen goede optie meer over is. Zijn onderscheid tussen oorlogstijd en vredestijd in een bedrijf is de bekendste passage, met de stelling dat de leider die het ene kan meestal niet het andere kan.</p><p>Het praktische deel is verrassend concreet: hoe je een ontslagronde aankondigt, waarom je slecht nieuws zelf en direct brengt, hoe je functioneren beoordeelt en waarom een organisatie management nodig heeft zodra ze groeit. De hiphopcitaten aan het begin van elk hoofdstuk zijn smaakgevoelig; de eerlijkheid over eigen fouten is het zeldzame eraan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemen</li><li>crisis</li><li>ontslagen</li><li>management</li><li>durfkapitaal</li><li>besluiten</li><li>eerlijk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Voor dezelfde jaren van bijna-omvallen, maar dan verteld als verhaal en zonder managementlessen.</li>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Voor het andere uiterste: ondernemen zonder investeerders, zonder personeel en zonder de druk om te groeien.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
