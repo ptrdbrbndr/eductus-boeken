@@ -32,8 +32,11 @@ zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
 ## 1. Zen en de kunst van het motoronderhoud
 
 Robert M. Pirsig, 1974. Oorspronkelijk *Zen and the Art of Motorcycle
-Maintenance*. Nederlandse uitgavegegevens niet nagekeken. Rubriek: vakmanschap
-en aandacht.
+Maintenance: An Inquiry into Values* (William Morrow, 1974). Nederlands als
+*Zen en de kunst van het motoronderhoud: een onderzoek naar waarden*, sinds
+2022 bij Prometheus (48e druk, 512 blz., ISBN 9789044651645); noch de uitgever
+noch de catalogus noemt daar een vertaler bij. Rubriek: vakmanschap en
+aandacht.
 Tags: `filosofie`, `vakmanschap`, `kwaliteit`, `vader-en-zoon`, `reisverhaal`,
 `techniek`, `psychiatrie`
 
@@ -78,8 +81,12 @@ van hen overnam.
 
 ## 3. The Will to Change
 
-bell hooks, 2004. Ondertitel *Men, Masculinity, and Love*. Geen Nederlandse
-uitgave gevonden. Rubriek: mannen, vriendschap, verbinding.
+bell hooks, 2004. Ondertitel *Men, Masculinity, and Love*, bij
+Atria/Washington Square Press (2004). Geen Nederlandse uitgave: van hooks zijn
+wel *De binnenkant van mij* (ROSE Stories, 2021), *Feminisme is voor iedereen*
+(Mazirel Pers, 2024) en *Alles over liefde* (De Geus, 2025) vertaald, dit boek
+niet. De samenvatting hier is op de Engelse editie gebaseerd. Rubriek: mannen,
+vriendschap, verbinding.
 Tags: `feminisme`, `mannelijkheid`, `patriarchaat`, `liefde`, `emoties`,
 `opvoeding`, `essay`
 
@@ -140,9 +147,12 @@ waaronder de hoer Lorena en de door haar man verlaten Clara.
 
 ## 6. Shop Class as Soulcraft
 
-Matthew B. Crawford, 2009. Geen Nederlandse uitgave gevonden; in het Verenigd
+Matthew B. Crawford, 2009. Geen Nederlandse uitgave; in het Verenigd
 Koninkrijk als *The Case for Working with Your Hands*, in Duitsland als *Ich
-schraube, also bin ich*. Rubriek: vakmanschap en aandacht.
+schraube, also bin ich*. Van Crawford is wel zijn volgende boek vertaald, als
+*De wereld buiten je hoofd: een filosofie van de aandacht* bij De Bezige Bij
+(2015). De samenvatting hier is op de Engelse editie gebaseerd. Rubriek:
+vakmanschap en aandacht.
 Tags: `arbeid`, `ambacht`, `filosofie`, `techniek`, `kenniswerk`, `motoren`,
 `autonomie`, `onderwijs`
 
@@ -165,8 +175,10 @@ wat aantoonbaar wel of niet werkt.
 
 ## 7. We Need to Hang Out
 
-Billy Baker, 2021. Ondertitel *A Memoir of Making Friends*. Geen Nederlandse
-uitgave gevonden. Rubriek: mannen, vriendschap, verbinding.
+Billy Baker, 2021. Ondertitel *A Memoir of Making Friends* (Avid Reader Press,
+2021). Geen Nederlandse uitgave en ook niet in de catalogus van de openbare
+bibliotheek aanwezig; de samenvatting hier is op de Engelse editie gebaseerd.
+Rubriek: mannen, vriendschap, verbinding.
 Tags: `vriendschap`, `eenzaamheid`, `memoir`, `mannen`, `journalistiek`,
 `middelbare-leeftijd`, `gewoontes`
 
@@ -185,8 +197,10 @@ maar op een vast tijdstip in de agenda.
 
 ## 8. De alchemist
 
-Paulo Coelho, 1988. Oorspronkelijk *O Alquimista*. Nederlandse uitgavegegevens
-niet nagekeken. Rubriek: levenskunst.
+Paulo Coelho, 1988. Oorspronkelijk *O Alquimista* (1988). Nederlands als *De
+alchemist*, vertaald uit het Portugees door Harrie Lemmens, bij De
+Arbeiderspers sinds 1994 en in tientallen drukken herhaald (uitgave 2020: 183
+blz., ISBN 9789029516204). Rubriek: levenskunst.
 Tags: `fabel`, `roeping`, `pelgrimage`, `spiritualiteit`, `Andalusië`,
 `woestijn`, `bestseller`
 
@@ -274,8 +288,9 @@ om terug te pakken.
 ## 12. The War of Art
 
 Steven Pressfield, 2002. Ondertitel *Break Through the Blocks and Win Your
-Inner Creative Battles*. Geen Nederlandse uitgave gevonden. Rubriek: maken en
-scheppen.
+Inner Creative Battles* (Black Irish Entertainment, 2002, 165 blz.).
+Nederlands als *Het strijdplan om (creatieve) doelen te bereiken* bij Kosmos
+(2021, 169 blz.), ook als luisterboek. Rubriek: maken en scheppen.
 Tags: `creativiteit`, `uitstelgedrag`, `discipline`, `ambacht`, `schrijven`,
 `roeping`, `weerstand`
 
@@ -296,8 +311,11 @@ methode nodig had.
 
 ## 13. The Practice
 
-Seth Godin, 2020. Ondertitel *Shipping Creative Work* (Portfolio/Penguin).
-Geen Nederlandse uitgave gevonden. Rubriek: maken en scheppen.
+Seth Godin, 2020. Ondertitel *Shipping Creative Work* (Portfolio/Penguin,
+2020). Geen Nederlandse uitgave: van Godin is veel vertaald bij Lev., Bruna en
+Business Contact, van *De dip* tot *Dit is nu marketing*, dit boek niet. De
+samenvatting hier is op de Engelse editie gebaseerd. Rubriek: maken en
+scheppen.
 Tags: `creativiteit`, `discipline`, `gewoontes`, `publiceren`, `ambacht`,
 `marketing`, `kort-boek`
 
@@ -360,8 +378,10 @@ onafgemaakte en het schijnbaar nutteloze.
 
 ## 16. Creativity: A Short and Cheerful Guide
 
-John Cleese, 2020. Geen Nederlandse uitgave gevonden. Rubriek: maken en
-scheppen.
+John Cleese, 2020. Geen Nederlandse uitgave: van Cleese zijn wel zijn
+autobiografie uit 2014 (Prometheus) en de boeken met Robin Skynner vertaald,
+dit boek niet. De samenvatting hier is op de Engelse editie gebaseerd.
+Rubriek: maken en scheppen.
 Tags: `creativiteit`, `humor`, `Monty-Python`, `kort-boek`, `onbewuste`,
 `werkwijze`, `uitstellen`
 
@@ -380,8 +400,9 @@ vroeg oordelen over eigen ideeën, en tegen de zekerheid van mensen om je heen.
 
 ## 17. The Creative Act
 
-Rick Rubin, 2023. Ondertitel *A Way of Being* (Canongate). Geen Nederlandse
-uitgave gevonden. Rubriek: maken en scheppen.
+Rick Rubin, 2023. Ondertitel *A Way of Being* (Canongate en Penguin Press,
+2023). Nederlands als *Creatief zijn: een manier van leven* bij Nijgh & Van
+Ditmar (2023), ook als e-book en luisterboek. Rubriek: maken en scheppen.
 Tags: `creativiteit`, `muziek`, `aandacht`, `aforismen`, `producer`,
 `ambacht`, `overvloed`
 
@@ -425,8 +446,11 @@ om terug te komen.
 
 ## 19. Bird by Bird
 
-Anne Lamott, 1994. Ondertitel *Some Instructions on Writing and Life*. Geen
-Nederlandse uitgave gevonden. Rubriek: schrijfambacht.
+Anne Lamott, 1994. Ondertitel *Some Instructions on Writing and Life*
+(Pantheon, 1994; heruitgave Canongate, 2020). Geen Nederlandse uitgave: van
+Lamott is wel *Help dank wow* vertaald bij KokBoekencentrum (2019), dit boek
+niet. De samenvatting hier is op de Engelse editie gebaseerd. Rubriek:
+schrijfambacht.
 Tags: `schrijven`, `perfectionisme`, `eerste-versie`, `humor`, `jaloezie`,
 `kort-stuk`, `zelfspot`
 
@@ -898,8 +922,10 @@ schuldeisers gaat en een deel naar de spaarpot.
 ## 39. The Millionaire Next Door
 
 Thomas Stanley en William Danko, 1996. Ondertitel *The Surprising Secrets of
-America's Wealthy*. Geen Nederlandse uitgave gevonden; Nederlandse boekhandels
-verkopen de Engelse editie. Rubriek: geld en ondernemen.
+America's Wealthy* (Longstreet Press, 1996; pocketeditie Pocket Books, 1998,
+258 blz.). Geen Nederlandse uitgave; Nederlandse boekhandels verkopen de
+Engelse editie. De samenvatting hier is op de Engelse editie gebaseerd.
+Rubriek: geld en ondernemen.
 Tags: `vermogen`, `onderzoek`, `zuinigheid`, `status`, `ondernemen`,
 `erfenis`, `cijfers`
 Bron: 40-lijst.
@@ -1067,10 +1093,10 @@ haar eigen herinnering.
 ## 46. Becoming Steve Jobs
 
 Brent Schlender en Rick Tetzeli, 2015. Ondertitel *The Evolution of a Reckless
-Upstart into a Visionary Leader* (Crown Business, 2015). Geen Nederlandse
-uitgave gevonden; wel een Duitse. Let op: de Nederlandse *Steve Jobs: de
-biografie* is het boek van Walter Isaacson en niet dit boek. Rubriek: geld en
-ondernemen.
+Upstart into a Visionary Leader* (Crown Business, 2015, 447 blz.). Geen
+Nederlandse uitgave, wel een Duitse; de samenvatting hier is op de Engelse
+editie gebaseerd. Let op: de Nederlandse *Steve Jobs: de biografie* is het
+boek van Walter Isaacson en niet dit boek. Rubriek: geld en ondernemen.
 Tags: `biografie`, `Apple`, `Pixar`, `leiderschap`, `ontwikkeling`,
 `journalistiek`, `NeXT`
 Bron: 40-lijst.
@@ -1164,8 +1190,11 @@ valt.
 ## 50. So Good They Can't Ignore You
 
 Cal Newport, 2012. Ondertitel *Why Skills Trump Passion in the Quest for Work
-You Love*. Geen Nederlandse uitgave gevonden; van Newport verscheen wel *Deep
-work* in het Nederlands. Rubriek: gewoontes en denken.
+You Love* (Business Plus, 2012; Britse editie Piatkus). Geen Nederlandse
+uitgave: van Newport zijn *Diep werk* (2016), *Digitaal minimalisme* (2019),
+*Bevrijd!* (2021) en *Slow productivity* (2024) bij Business Contact vertaald,
+dit boek niet. De samenvatting hier is op de Engelse editie gebaseerd.
+Rubriek: gewoontes en denken.
 Tags: `loopbaan`, `vaardigheden`, `passie`, `doelgericht-oefenen`,
 `autonomie`, `kritiek`, `kenniswerk`
 Bron: 40-lijst.
@@ -1332,9 +1361,12 @@ oproept werkt het boek beter dan als naslagwerk.
 ## 57. The Lessons of History
 
 Will en Ariel Durant, 1968. Essay dat de elfdelige reeks *The Story of
-Civilization* afsluit. Geen Nederlandse uitgave gevonden; in het Duits
-verscheen het als *Die Lehren der Geschichte*. Rubriek: geschiedenis en
-samenleving.
+Civilization* afsluit (Simon and Schuster, 1968). Geen Nederlandse uitgave, in
+het Duits wel als *Die Lehren der Geschichte*. Van de Durants zijn in het
+Nederlands alleen oudere delen verschenen, zoals *De Griekse wereld* (Boucher,
+1948) en *Caesar & Christus* (Boucher, 1951), plus de filosofiedelen bij
+Querido. De samenvatting hier is op de Engelse editie gebaseerd. Rubriek:
+geschiedenis en samenleving.
 Tags: `geschiedenis`, `essay`, `kort-boek`, `rijkdom`, `oorlog`, `moraal`,
 `beschaving`
 Bron: 40-lijst.
