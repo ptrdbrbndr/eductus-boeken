@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 30 juli
-2026: 144 titels in 18 rubrieken.
+2026: 145 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,7 +13,7 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41 |
@@ -873,6 +873,164 @@ is het systeem eromheen. En omdat gedrag volgt op wie iemand denkt te zijn,
 verlegt hij de vraag van "wat wil ik bereiken" naar "wat voor iemand wil ik
 worden", met elke uitgevoerde gewoonte als klein bewijs daarvoor.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Clear betoogt dat verandering niet uit doelen komt maar uit
+systemen, en dat een gewoonte een keten is van vier schakels: aanwijzing,
+verlangen, reactie en beloning. Wie een gewoonte wil vestigen, maakt die keten
+zichtbaar, aantrekkelijk, gemakkelijk en bevredigend; wie er een wil afbreken,
+doet in elk van de vier het omgekeerde. Zijn tweede stelling is dat de
+blijvende verandering niet op het niveau van gedrag zit maar op dat van
+identiteit: niet stoppen met roken, maar iemand worden die geen roker is.
+
+#### De gang van het boek
+
+**Kleine marges**
+
+Het boek opent met de wielerploeg van Groot-Brittannië, die volgens Clear
+jarenlang op alle onderdelen een procent verbetering zocht en daarmee van
+middenmoter wereldtop werd. Het rekenvoorbeeld dat hij eraan koppelt is bekend
+geworden: een procent per dag beter levert over een jaar bijna een
+verzevenendertigvoudiging op, een procent per dag slechter laat vrijwel niets
+over.
+
+De rekensom is een illustratie en geen bewijs, en het verhaal over de
+wielerploeg is later door journalisten genuanceerd. Wat er staat is het punt
+eronder: gewoontes werken als rente, met een lange periode waarin niets
+zichtbaar verandert. Clear noemt dat het dal van de teleurstelling, en het is
+de reden dat de meeste mensen stoppen vlak voor het punt waarop het gaat
+lonen.
+
+**Doelen tegenover systemen**
+
+Zijn scherpste hoofdstuk gaat over doelen. Winnaars en verliezers hebben
+dezelfde doelen, dus het doel kan niet verklaren wie wint. Een doel is
+bovendien een tijdelijke toestand: wie afvalt om een streefgewicht te halen,
+keert daarna terug naar het gedrag dat hem dik maakte.
+
+Daartegenover zet hij het systeem, de reeks handelingen die iemand dagelijks
+uitvoert. De formulering die het meest is overgenomen luidt dat je niet stijgt
+tot het niveau van je doelen maar zakt tot het niveau van je systemen.
+
+**Identiteit als draaipunt**
+
+De laag daaronder noemt hij identiteit. Verandering die van buiten naar binnen
+werkt, van uitkomst naar gedrag naar overtuiging, houdt zelden stand;
+verandering die van binnen naar buiten werkt wel. De vraag is niet wat je wilt
+bereiken maar wie je wilt zijn, en elke uitgevoerde handeling is een stem voor
+dat zelfbeeld.
+
+Het voorbeeld dat hij gebruikt is het verschil tussen iemand die zegt dat hij
+probeert te stoppen met roken en iemand die zegt dat hij geen roker is. Dat
+klinkt als een woordspel en het is de kern van zijn betoog: gedrag dat botst
+met het zelfbeeld wordt niet volgehouden, en gedrag dat het bevestigt wel.
+
+**De vier wetten**
+
+Het middendeel werkt de keten uit. Maak het zichtbaar: leg klaar wat je wilt
+doen, en gebruik een voornemen met plaats en tijd erin. Maak het
+aantrekkelijk: koppel iets wat je moet doen aan iets wat je graag doet, en
+zoek een groep waarin het gewenste gedrag normaal is.
+
+Maak het gemakkelijk: verlaag de weerstand, en houd je aan de regel dat een
+nieuwe gewoonte niet langer dan twee minuten mag duren voordat zij vaststaat.
+Maak het bevredigend: zorg voor een onmiddellijke beloning, want de keten
+wordt gesloten door wat er direct na de handeling gebeurt en niet door wat er
+over een jaar gebeurt. Voor afleren geldt telkens het omgekeerde: onzichtbaar,
+onaantrekkelijk, moeilijk en onbevredigend.
+
+**Omgeving en stapeling**
+
+Twee praktische begrippen zijn los van het boek bruikbaar. Het stapelen van
+gewoontes koppelt de nieuwe handeling aan iets wat al vaststaat: na het zetten
+van koffie doe ik tien minuten dit. Het inrichten van de omgeving verplaatst
+de inspanning van wilskracht naar meubilair, want mensen die als beheerst
+gelden blijken vooral minder verleiding tegen te komen.
+
+Clear behandelt daarnaast het bijhouden van gedrag met een streepjeslijst, met
+de regel om nooit twee keer achter elkaar over te slaan. Dat is de nuchterste
+omgang met terugval die het genre te bieden heeft: één gemiste dag is ruis,
+twee gemiste dagen is het begin van iets anders.
+
+Voor het afleren keert hij de vier wetten om, en daar zit zijn nuchterste
+raad. Een gewoonte verdwijnt zelden door een besluit; zij verdwijnt doordat de
+aanwijzing uit beeld raakt. De telefoon in een andere kamer, de koekjes niet
+in huis, de televisie zonder stekker: dat is geen zwakte maar de erkenning dat
+wilskracht een schaars middel is dat beter aan iets anders besteed kan worden.
+
+**De grens van het systeem**
+
+Aan het eind behandelt hij wat gewoontes niet oplossen. Een vaste routine
+maakt bekwaam en tegelijk blind, omdat aandacht wegvalt zodra iets vanzelf
+gaat; hij bepleit daarom periodieke toetsing van wat iemand doet, met een
+jaarlijkse terugblik.
+
+Ook erkent hij dat aanleg de speelruimte bepaalt: het kiezen van een terrein
+waarin iemand van nature uit de voeten kan, doet meer dan volharding op een
+terrein waar hij dat niet kan. Dat is een nuchtere begrenzing van zijn eigen
+boodschap, en zij verdwijnt in de meeste samenvattingen van het boek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Aanwijzing, verlangen, reactie, beloning | De vier schakels van elke gewoonte; elke ingreep grijpt op een van die vier aan. |
+| De vier wetten | Maak het zichtbaar, aantrekkelijk, gemakkelijk en bevredigend; voor afleren precies het omgekeerde. |
+| Systeem boven doel | Winnaars en verliezers delen hun doelen; het verschil zit in de dagelijkse handelingen. |
+| Identiteitsgewoonte | Verandering die begint bij wie je wilt zijn; elke handeling is een stem voor dat zelfbeeld. |
+| Gewoontestapeling | Een nieuwe handeling koppelen aan iets wat al vaststaat in de dag. |
+| Tweeminutenregel | Begin met een versie die binnen twee minuten klaar is, zodat het aanvangen zelf de gewoonte wordt. |
+| Dal van de teleurstelling | De periode waarin het werk al is geleverd en het resultaat nog niet zichtbaar is; het punt waarop de meesten stoppen. |
+| Nooit twee keer overslaan | Zijn omgang met terugval: één gemiste dag is ruis, twee is een nieuw patroon. |
+| Omgeving boven wilskracht | Mensen die beheerst lijken, komen vooral minder verleiding tegen; richt de omgeving in in plaats van jezelf te dwingen. |
+
+#### Waar het argument op rust
+
+Op gedragspsychologie, met de klassieke leertheorie en het werk over
+voornemens met plaats en tijd erin als stevigste onderdelen; dat laatste is in
+tientallen studies bevestigd. Clear vertaalt dat naar praktijk zonder te doen
+alsof hij het onderzoek zelf heeft gedaan.
+
+Daarnaast leunt het boek op verhalen van sporters, ondernemers en zijn eigen
+herstel na een ernstig ongeluk, en die zijn gekozen omdat zij het punt maken.
+Het getal over eenentwintig of zesenzestig dagen om een gewoonte te vormen,
+dat in dit genre rondzingt, neemt hij terecht niet over.
+
+#### Wat er tegen in te brengen valt
+
+De inhoud is voor een groot deel niet van hem. Het onderscheid tussen
+aanwijzing, routine en beloning komt uit het werk van Duhigg, het
+tweeminutenidee en het aanvangsgemak uit dat van Fogg, en de voornemens met
+plaats en tijd uit het onderzoek van Gollwitzer. Clear ordent dat beter dan
+zijn voorgangers en voegt er weinig nieuws aan toe.
+
+Verder gaat het over gewoontes die van iemand zelf afhangen en niet over de
+omstandigheden die gedrag afdwingen: armoede, ploegendienst, zorg voor
+anderen. Wie het leest als volledige verklaring voor waarom de een wel
+volhoudt en de ander niet, leest het verkeerd. Het verhaal over de Britse
+wielerploeg waarmee het opent is bovendien minder eenduidig dan hij het
+brengt.
+
+#### Wat er concreet mee te doen is
+
+- Formuleer een voornemen met plaats en tijd erin, niet als wens maar als
+afspraak.
+- Koppel het nieuwe gedrag aan iets wat al vaststaat in je dag.
+- Begin met een versie van twee minuten en verleng pas als het aanvangen
+vanzelf gaat.
+- Verander de omgeving in plaats van je wilskracht, en zorg dat de beloning
+onmiddellijk volgt.
+- Houd het bij, en sla nooit twee keer achter elkaar over.
+
+#### Wat je hierna leest
+
+- 23. Mindset. Dweck levert de overtuiging over eigen vermogen die onder dit
+systeem ligt.
+- 29. Grit. Duckworth meet wie het volhoudt en waarom, waar Clear beschrijft
+hoe.
+- 58. Outwitting the Devil. Hill formuleerde in 1938 hetzelfde punt over
+herhaling, zonder bewijs en met een duivel erbij.
+
 ## 23. Mindset
 
 Carol Dweck, 2006. Ondertitel *The New Psychology of Success*. Nederlands als
@@ -895,6 +1053,159 @@ De toepassingen strekken zich uit tot sport, bedrijfsleiding en relaties, en
 daar wordt het boek dunner dan het onderzoeksdeel. Dweck heeft later zelf
 gewaarschuwd tegen wat zij de valse groeimentaliteit noemt, waarbij inspanning
 geprezen wordt terwijl er niets geleerd is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dweck betoogt dat mensen twee overtuigingen kunnen hebben
+over hun eigen vermogen, en dat die overtuiging bepaalt wat zij met
+moeilijkheid doen. Wie aanleg als vaststaand ziet, ervaart een fout als bewijs
+van een grens en gaat opgaven uit de weg waarin hij kan mislukken. Wie aanleg
+als ontwikkelbaar ziet, leest dezelfde fout als informatie en zoekt juist wat
+hij nog niet kan. Het verschil zit niet in wat iemand kan maar in wat een
+tegenslag voor hem betekent, en dat verschil bepaalt over jaren wie er verder
+komt.
+
+#### De gang van het boek
+
+**Twee overtuigingen**
+
+Dweck begint met haar onderzoek onder schoolkinderen die opgaven kregen die te
+moeilijk voor hen waren. Een deel raakte ontmoedigd en verklaarde niet slim
+genoeg te zijn; een ander deel werd zichtbaar enthousiast en zei ervan te
+leren. Datzelfde verschil vond zij terug in de manier waarop de twee groepen
+over aanleg dachten.
+
+Zij noemt die overtuigingen de vaste en de groeiende denkhouding. Het gaat
+niet om zelfvertrouwen en niet om optimisme: iemand met een vaste denkhouding
+kan zeer zeker van zichzelf zijn, zolang hij maar niet wordt getoetst op iets
+wat hij nog niet beheerst.
+
+Zij vond hetzelfde patroon bij volwassenen. In een reeks studies onder
+studenten en werkenden bleek de overtuiging over eigen vermogen te voorspellen
+wie na een slechte uitslag om terugkoppeling vroeg en wie die ontweek. Het
+gaat dus niet om een kindereigenschap die er later af slijt, maar om een
+houding die iemand meeneemt naar zijn werk, zijn opleiding en zijn
+verhoudingen.
+
+**Wat een fout betekent**
+
+Het draaipunt is de betekenis van inspanning. In de vaste denkhouding is
+moeite doen verdacht: wie talent heeft, hoeft zich niet in te spannen, dus
+inspanning verraadt gebrek. In de groeiende denkhouding is inspanning het
+middel waarmee vermogen toeneemt.
+
+Daaruit volgt het gedrag dat zij in haar experimenten meet. Kinderen met een
+vaste denkhouding kiezen de opgave die zij zeker goed doen, verbergen fouten
+en verliezen belangstelling zodra het moeilijk wordt. Kinderen met een
+groeiende denkhouding kiezen de moeilijkere opgave, ook wanneer dat hun cijfer
+schaadt.
+
+**Prijzen zonder schade**
+
+Het bekendste onderzoek uit het boek gaat over prijzen. Kinderen die na een
+goede prestatie te horen kregen dat zij slim waren, kozen daarna makkelijker
+opgaven en presteerden bij tegenslag slechter dan kinderen die te horen kregen
+dat zij hard hadden gewerkt.
+
+De les die daar in het onderwijs uit is getrokken, prijs de inspanning en niet
+de persoon, is te simpel geworden, wat Dweck later zelf heeft gezegd.
+Inspanning prijzen die tot niets leidt is een troostprijs; het gaat om het
+prijzen van wat werkte, de aanpak, de gekozen weg en het doorzetten na een
+verkeerde afslag.
+
+**Sport, werk en relaties**
+
+De middenhoofdstukken passen het toe. In de sport laat zij zien dat het etiket
+natuurtalent een last is en dat de langste loopbanen bij spelers liggen die
+als minder begaafd werden gezien. In organisaties beschrijft zij leiders die
+hun bedrijf gebruiken om hun eigen genialiteit te bevestigen tegenover leiders
+die het als ontwikkelingsopgave zien.
+
+Het hoofdstuk over relaties is het minst overtuigende: het idee dat een
+partner bij de juiste persoon vanzelf hoort te passen, is volgens haar de
+vaste denkhouding toegepast op liefde. Het is aannemelijk en het is met weinig
+onderzoek onderbouwd.
+
+Voor het onderwijs trekt zij de lijn door naar wat een leraar aan een leerling
+laat merken. Een docent die een zwak cijfer met begrip en verlaagde eisen
+beantwoordt, bevestigt daarmee dat hij de leerling niet in staat acht tot
+meer, en die boodschap komt harder aan dan de vriendelijkheid waarin zij
+verpakt zit. Haar alternatief is de combinatie van hoge eisen en de mededeling
+dat de eisen hoog zijn omdat de leerling ze kan halen, met hulp om er te
+komen.
+
+**Verandering**
+
+Het slot behandelt hoe een denkhouding verschuift. Dweck bepleit het herkennen
+van de eigen stem in de vaste stand, het beantwoorden ervan met de andere
+stand, en vooral het toevoegen van het woord nog: ik kan dit niet, met dat
+woord erachter.
+
+Zij waarschuwt tegelijk voor de valse variant, waarin iemand zegt een
+groeiende denkhouding te hebben en zich vervolgens niets aantrekt van wat hij
+niet kan. Wat zij bepleit is niet vrolijkheid over tekortkomingen maar het
+gericht aanpakken ervan.
+
+Het onderzoek dat het meest is nagevolgd betreft de kleinste ingrepen. Korte
+lessen waarin leerlingen te horen krijgen dat het brein bij oefening
+verandert, verschuiven hun keuzes meetbaar, al is het effect kleiner dan de
+eerste publicaties beloofden en het grootst bij leerlingen die het minst goed
+presteren. Dat is voor een boek als dit een eerlijker uitkomst dan een grote
+belofte: het werkt, bescheiden, en vooral daar waar de nood het hoogst is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Vaste denkhouding | De overtuiging dat vermogen vastligt; fouten zijn dan bewijs van een grens en inspanning verraadt gebrek aan talent. |
+| Groeiende denkhouding | De overtuiging dat vermogen door oefening toeneemt; fouten zijn informatie en inspanning is het middel. |
+| Betekenis van inspanning | Het draaipunt tussen beide houdingen: schande of gereedschap. |
+| Prijzen van de aanpak | Niet de persoon prijzen en niet de moeite op zichzelf, maar wat er werkte in de gekozen weg. |
+| Het woord nog | Haar kleinste ingreep: ik kan dit niet, met nog erachter, waardoor een oordeel een tussenstand wordt. |
+| Valse groeihouding | Zeggen dat je ontwikkelbaar bent zonder je iets aan te trekken van wat je niet kunt; door haar zelf benoemd. |
+| Last van het natuurtalent | Vroege bewondering voor aanleg maakt kwetsbaar zodra het moeilijk wordt. |
+
+#### Waar het argument op rust
+
+Op decennia experimenteel werk met kinderen en studenten, met de
+prijsexperimenten als bekendste. De kern, dat de betekenis die iemand aan een
+fout geeft zijn volgende keuze beïnvloedt, is meermaals gevonden.
+
+De toepassing op grote schaal is minder solide. Grote herhalingsstudies naar
+denkhoudingprogramma's op scholen vinden effecten die veel kleiner zijn dan de
+populaire versie belooft, met de meeste winst bij leerlingen die het slechtst
+presteren. Dweck heeft die kritiek deels aanvaard en aangescherpt wat zij wel
+en niet beweert; wie het boek nu leest, houdt daar het beste rekening mee.
+
+#### Wat er tegen in te brengen valt
+
+De tweedeling is te scherp gebracht. Mensen hebben niet één denkhouding maar
+per gebied een andere, en de indeling in twee typen nodigt uit tot precies het
+etiketteren waar het boek tegen waarschuwt.
+
+Verder is het boek in het onderwijs uitgegroeid tot posters en spreuken die
+met het onderzoek weinig te maken hebben. En de vraag hoe een denkhouding
+ontstaat, met opvoeding, klasse en eerdere ervaringen erin, blijft grotendeels
+onbeantwoord; de verklaring blijft daardoor bij het individu liggen.
+
+#### Wat er concreet mee te doen is
+
+- Kies bij twijfel de opgave waarin je kunt mislukken, en let op welk gevoel
+dat oproept.
+- Prijs bij anderen de aanpak en de gekozen weg, niet de persoon en niet de
+moeite op zichzelf.
+- Zet het woord nog achter elke uitspraak over wat je niet kunt.
+- Let op de valse variant: instemmen met het idee zonder iets aan het eigen
+tekort te doen.
+
+#### Wat je hierna leest
+
+- 22. Atomic Habits. Clear bouwt het systeem waarmee de overtuiging in
+dagelijks gedrag wordt omgezet.
+- 29. Grit. Duckworth meet volharding en botst op dezelfde vraag naar de rol
+van omstandigheden.
+- 28. Think Again. Grant past hetzelfde onderscheid toe op overtuigingen in
+plaats van op vermogen.
 
 ## 24. How to Win Friends and Influence People
 
@@ -1016,6 +1327,162 @@ het derde over organisaties en scholen die van hun eigen ongelijk leren. Het
 boek is optimistisch over hoe vaak dit lukt, en dat is de eerlijkste kritiek
 erop.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Grant betoogt dat intelligentie weinig waard is zodra iemand
+aan zijn gelijk gehecht raakt, en dat het vermogen om te herzien belangrijker
+is geworden dan het vermogen om te weten. Zijn kernonderscheid is dat tussen
+overtuigingen als gereedschap en overtuigingen als bezit: wie zijn opvattingen
+als voorlopige theorieën behandelt, kan ze toetsen en weggooien; wie ze als
+deel van zichzelf ziet, ervaart tegenspraak als aanval. Het plezier van
+ongelijk krijgen is bij hem geen deugd maar een vaardigheid die te oefenen
+valt, bij jezelf, bij anderen en in een organisatie.
+
+#### De gang van het boek
+
+**Vier standen**
+
+Grant opent met vier houdingen waarin mensen denken. De prediker verdedigt
+heilige overtuigingen, de aanklager zoekt de fout bij de ander, de politicus
+zoekt bijval bij zijn publiek, en de wetenschapper stelt een vermoeden op en
+probeert het onderuit te halen. De eerste drie voelen aangenaam en leveren
+zelden nieuwe kennis op.
+
+Zijn stelling is dat de meeste mensen in gesprekken heen en weer schakelen
+tussen prediken, aanklagen en politiek bedrijven, en zelden de vierde stand
+kiezen. Dat is geen kwestie van karakter maar van gewoonte, en gewoontes zijn
+te veranderen.
+
+Grant opent met een geval dat het onderscheid meteen scherp maakt: een groep
+parachutistenbrandweerlieden die in 1949 bij een bosbrand in Montana werd
+ingesloten. De meesten bleven rennen met hun gereedschap in de hand en haalden
+het niet; de ploegleider bedacht ter plekke iets dat niemand kende, stak zelf
+een vuur aan en ging liggen in het uitgebrande stuk. Het loslaten van
+vertrouwd gereedschap, letterlijk en overdrachtelijk, is het beeld waarmee het
+hele boek werkt.
+
+**Waarom kunde het herzien in de weg zit**
+
+Het eerste deel gaat over de eigen overtuigingen. Grant beschrijft hoe
+deskundigheid vastroest: wie ergens goed in is, heeft meer te verliezen bij
+een herziening en meer materiaal om zijn standpunt mee te verdedigen. Hij
+haalt onderzoek aan waarin de voorspellingen van bekende deskundigen slechter
+uitpakten naarmate zij zekerder waren.
+
+Zijn beeld daarvoor is het dal van de zelfoverschatting: bij weinig kennis is
+het vertrouwen hoog, bij groeiende kennis zakt het, en pas daarna komt er iets
+terug dat op verdiende zekerheid lijkt. De uitweg die hij aanwijst is het
+losmaken van standpunt en identiteit, met de vraag welke van je opvattingen je
+zou moeten kunnen verliezen zonder zelf iemand anders te worden.
+
+**Anderen aan het denken zetten**
+
+Het tweede deel gaat over het gesprek. Grant behandelt onderzoek naar
+onderhandelaars waaruit blijkt dat de beste onderhandelaars minder argumenten
+aanvoeren dan de gemiddelde, omdat een reeks argumenten de zwakste ervan
+zichtbaar maakt en de ander uitnodigt om die aan te vallen.
+
+Verder werkt hij het motiverende gesprek uit, uit de verslavingszorg: vragen
+stellen, luisteren, samenvatten en de ander zijn eigen redenen laten
+formuleren in plaats van hem de jouwe op te dringen. Zijn voorbeeld van een
+gesprek met twijfelende ouders over vaccinatie laat zien dat feiten aandragen
+bijna nooit werkt en vragen stellen soms wel.
+
+**Groepen en het vals plat van twee kampen**
+
+Het derde deel gaat over gemeenschappen. Grant bestrijdt het denken in twee
+kampen door te laten zien dat vrijwel elk onderwerp meer dan twee posities
+kent, en dat het benoemen van die verscheidenheid mensen meer aan het denken
+zet dan het aandragen van tegenbewijs.
+
+Hij behandelt daarnaast hoe stereotypen slijten wanneer mensen samen aan iets
+werken, en gebruikt het onderzoek naar rivaliserende sportsupporters om te
+laten zien dat gedeelde identiteit sterker werkt dan overtuigingskracht.
+
+**Onderwijs en organisaties**
+
+In het vierde deel verplaatst hij het naar plekken waar het beklijft. Voor
+onderwijs bepleit hij dat leerlingen leren dat kennis voorlopig is,
+bijvoorbeeld door een hoofdstuk uit een verouderd schoolboek te laten
+herschrijven.
+
+Voor organisaties zoekt hij naar een cultuur waarin psychologische veiligheid
+samengaat met scherpte: veilig genoeg om iets te zeggen, streng genoeg om het
+te toetsen. Hij gebruikt de ramp met de Columbia als voorbeeld van wat er
+gebeurt wanneer bezwaren geen weg naar boven vinden, en zet daar de werkwijze
+van een beleggingsfonds tegenover waar elk oordeel openlijk wordt
+bekritiseerd.
+
+**De praktische kern**
+
+Aan het eind komt hij bij het loslaten van plannen. Loopbaanadvies dat vraagt
+wat je wilt worden veronderstelt dat een keuze blijvend is; Grant bepleit
+periodieke herziening, met een jaarlijkse controle of het werk nog past bij
+wie iemand is geworden.
+
+Zijn slotsom is dat een leven, net als een overtuiging, een voorlopige versie
+is. Dat klinkt licht en het is de onaangenaamste boodschap van het boek, want
+het betekent dat de zekerheid waar mensen naar zoeken de prijs is die zij
+betalen om niet te hoeven herzien.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Prediker, aanklager, politicus, wetenschapper | Vier standen van denken; alleen de laatste zoekt naar weerlegging van de eigen aanname. |
+| Overtuiging als gereedschap | Een standpunt behandelen als voorlopige theorie in plaats van als deel van jezelf. |
+| Dal van de zelfoverschatting | Vertrouwen is hoog bij weinig kennis, zakt bij groeiende kennis, en komt pas daarna verdiend terug. |
+| Vreugde van ongelijk krijgen | Zijn gewenste reactie op weerlegging: winst aan inzicht in plaats van verlies aan gezicht. |
+| Minder argumenten | Goede onderhandelaars voeren er weinig aan, omdat een reeks de zwakste zichtbaar maakt. |
+| Motiverend gesprek | Vragen, luisteren en samenvatten, zodat de ander zijn eigen redenen om te veranderen formuleert. |
+| Binaire vertekening | De neiging elk onderwerp als twee kampen te zien; het tonen van meer posities opent het gesprek. |
+| Psychologische veiligheid met scherpte | Veilig genoeg om iets te zeggen en streng genoeg om het te toetsen; volgens hem de enige werkbare combinatie. |
+| Loopbaan als voorlopige versie | Periodiek herzien of het werk nog past, in plaats van een keuze die voor het leven geldt. |
+
+#### Waar het argument op rust
+
+Op onderzoek uit de organisatiepsychologie, deels eigen werk, aangevuld met
+verhalen van mensen die hun standpunt herzagen. Grant is zorgvuldiger in zijn
+verwijzingen dan gebruikelijk in dit genre en geeft een uitgebreid
+notenapparaat.
+
+De zwakte zit in de verhalen: die zijn gekozen omdat zij het punt maken, en de
+sprong van een enkel geval naar een algemene les gaat soms te snel. Een deel
+van het aangehaalde onderzoek komt uit de jaren waarin de replicatiecrisis
+speelde, al zijn de kernstudies over motiverende gesprekken en over veiligheid
+in teams meermaals bevestigd.
+
+#### Wat er tegen in te brengen valt
+
+Het boek doet zelf niet altijd wat het bepleit. De stelling wordt gebracht met
+de zekerheid van iemand die geen tegenspraak verwacht, en de gevallen waarin
+herzien juist slecht uitpakte, bij mensen die zich uit een goed standpunt
+lieten praten, komen niet aan bod.
+
+Verder is het geschreven in de vorm die de Amerikaanse zakelijke non-fictie
+voorschrijft: elk hoofdstuk opent met een verhaal, eindigt met een les, en de
+herhaling is aanzienlijk. Wie het onderwerp kent uit het werk over
+toetsbaarheid en over zelfbedrog, vindt hier vooral de toepassing.
+
+#### Wat er concreet mee te doen is
+
+- Noem bij een sterk standpunt wat je van mening zou doen veranderen; blijft
+dat leeg, dan is het geen standpunt maar een identiteit.
+- Voer in een gesprek je sterkste argument aan en niet je hele reeks.
+- Vraag door in plaats van tegen te spreken, en laat de ander zijn eigen
+redenen formuleren.
+- Plan een vast moment om te toetsen of je werk en je plannen nog kloppen met
+wie je bent geworden.
+
+#### Wat je hierna leest
+
+- 66. The Folly of Fools. Trivers verklaart waarom herzien zo moeilijk is:
+zelfbedrog dient een doel.
+- 63. The Demon-Haunted World. Sagan levert de maatstaf waarmee een herziene
+overtuiging te toetsen valt.
+- 41. Creativity, Inc.. Catmull beschrijft de organisatiekant: een plek bouwen
+waar bezwaren omhoog komen.
+
 ## 29. Grit
 
 Angela Duckworth, 2016. Ondertitel *The Power of Passion and Perseverance*.
@@ -1037,6 +1504,158 @@ De kritiek op het boek is bekend en terecht: de gemeten effecten zijn kleiner
 dan de toon suggereert, en volharden in het verkeerde is geen deugd. Duckworth
 zelf zegt nadrukkelijk dat opgeven van een lager doel om een hoger doel te
 dienen bij haar model hoort.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Duckworth betoogt dat uitzonderlijke prestaties minder met
+aanleg te maken hebben dan iedereen aanneemt, en meer met de combinatie van
+volharding en een richting die jarenlang dezelfde blijft. Zij noemt dat grit.
+Haar formule luidt dat talent maal inspanning vaardigheid oplevert, en dat
+vaardigheid maal inspanning prestatie oplevert; inspanning telt daarmee twee
+keer mee en talent één keer. Wat mensen bewonderen als genialiteit is bij
+nader inzien vrijwel altijd een lange reeks jaren waarin iemand aan hetzelfde
+bleef werken.
+
+#### De gang van het boek
+
+**West Point en het bewijsmateriaal**
+
+Het boek begint bij de militaire academie West Point, waar elk jaar cadetten
+afvallen tijdens de zware introductieweken. De uitgebreide selectie op fysieke
+en verstandelijke maten voorspelde niet wie het zou volhouden; een korte
+vragenlijst over volharding en richtingvastheid deed dat wel.
+
+Duckworth herhaalde dat bij spellingwedstrijden, bij verkopers en bij leraren
+in achterstandswijken, telkens met dezelfde uitkomst: haar schaal voorspelt
+wie er blijft, ook wanneer de gangbare maten dat niet doen. Dat is de
+empirische kern van het boek.
+
+**De twee vermenigvuldigingen**
+
+Haar theoretische kern is de dubbele rol van inspanning. Talent bepaalt hoe
+snel iemand vaardigheid opbouwt bij gelijke inspanning; vaardigheid bepaalt
+wat er per inspanning uitkomt aan prestatie. Wie de twee stappen achter elkaar
+zet, ziet dat inspanning twee keer meetelt.
+
+Daaraan koppelt zij een verklaring waarom mensen liever over talent praten:
+bewondering voor aanleg vraagt geen verklaring en laat de bewonderaar zelf
+buiten schot. Zij haalt onderzoek aan waarin mensen zeggen inspanning te
+waarderen en bij een keuze toch de vermeende natuurtalenten voortrekken.
+
+Zij illustreert het met de studie van Anders Ericsson naar violisten aan een
+conservatorium, waar het verschil tussen de beste en de middelmatige studenten
+vooral in het aantal uren gerichte oefening zat en niet in vroeg vertoond
+talent. Dat onderzoek is later bestreden, onder meer over de vraag hoeveel van
+het verschil door oefening wordt verklaard; het is minder eenduidig dan de
+tienduizenduursregel die eruit is afgeleid, en Duckworth neemt die regel zelf
+niet over.
+
+**Wat grit is en niet is**
+
+Grit bestaat uit twee delen: doorzetten na tegenslag, en jarenlang bij
+dezelfde bovenliggende bedoeling blijven. Het tweede deel wordt vaak vergeten
+en is het belangrijkste. Zij tekent daarvoor een hiërarchie van doelen, met
+onderaan de dagelijkse taken en bovenaan één richting waaraan die alle
+ondergeschikt zijn.
+
+Zij benadrukt ook wat het niet is. Grit betekent niet vasthouden aan een
+verkeerde koers; de onderliggende doelen mogen en moeten worden vervangen
+zodra zij niet werken. Alleen de bovenste blijft staan.
+
+Zij besteedt een apart hoofdstuk aan de vraag of grit door de jaren heen
+toeneemt. Uit haar gegevens blijkt dat ouderen hoger scoren dan jongeren, wat
+op twee manieren te lezen valt: mensen worden volhardender naarmate zij ouder
+worden, of de generatie die nu oud is werd anders opgevoed. Zij houdt beide
+verklaringen open en helt naar de eerste, met als argument dat volharding
+groeit met het vinden van werk dat ergens toe leidt.
+
+**Van binnenuit**
+
+Het tweede deel behandelt hoe het te ontwikkelen valt. Zij onderscheidt
+belangstelling, die eerst moet worden ontdekt en zelden bij het eerste contact
+als roeping voelt, en doelgerichte oefening, waarin iemand telkens werkt aan
+wat hij nog niet beheerst en onmiddellijke terugkoppeling zoekt.
+
+Dat tweede is de nuchterste passage van het boek: doelgerichte oefening voelt
+onaangenaam en is niet vol te houden zonder de reden waarom. Daarna komen
+bedoeling, het besef dat het werk voor anderen iets betekent, en hoop, opgevat
+als de overtuiging dat het uitmaakt wat je doet.
+
+**Van buitenaf**
+
+Het derde deel gaat over opvoeden en over culturen. Zij bepleit een combinatie
+van veeleisend en steunend, met als concrete afspraak in haar eigen gezin de
+regel dat ieder gezinslid iets moeilijks doet, zelf kiest wat dat is, en er
+niet halverwege een seizoen mee stopt.
+
+Verder behandelt zij groepen waarin volharding de norm is en het effect
+daarvan op het individu. Dat deel leunt op voorbeelden en niet op meting, en
+het is het zwakst onderbouwde deel van het boek.
+
+Het slothoofdstuk gaat over de vraag hoeveel volharding een mens nodig heeft,
+en daar is Duckworth voorzichtiger dan het genre eromheen. Zij schrijft dat
+een leven met alleen doorzettingsvermogen geen goed leven is, dat zij haar
+eigen dochters niet op hun grit beoordeelt, en dat de schaal die zij
+ontwikkelde niet bedoeld is om mensen mee te selecteren. Dat laatste gebeurt
+inmiddels wel, in scholen en bij werkgevers, en zij heeft daar publiek afstand
+van genomen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Grit | Volharding bij tegenslag gecombineerd met een richting die jarenlang dezelfde blijft. |
+| Talent maal inspanning | Haar formule in twee stappen, waardoor inspanning twee keer meetelt en talent één keer. |
+| Hiërarchie van doelen | Dagelijkse taken onder tussenliggende doelen onder één bovenliggende bedoeling die niet verandert. |
+| Doelgerichte oefening | Werken aan wat je nog niet kunt, met onmiddellijke terugkoppeling; onaangenaam en daarom zeldzaam. |
+| Belangstelling ontdekken | Een roeping voelt bij het eerste contact zelden als roeping; zij groeit door herhaald contact. |
+| Bedoeling | Het besef dat het werk voor anderen iets oplevert; volgens haar de brandstof onder langdurige volharding. |
+| De harde-dingenregel | Haar gezinsafspraak: iedereen doet iets moeilijks, kiest dat zelf, en stopt niet halverwege. |
+| Bewondering voor aanleg | De neiging talent te verkiezen boven inspanning, ook door mensen die zeggen het tegendeel te vinden. |
+
+#### Waar het argument op rust
+
+Op eigen vragenlijstonderzoek in uiteenlopende omgevingen, van de militaire
+academie tot het onderwijs, en op het werk over doelgerichte oefening van
+Anders Ericsson. De voorspellende waarde die zij vindt is echt en meermaals
+gerepliceerd.
+
+De omvang ervan is kleiner dan het boek suggereert. Overzichtsstudies vinden
+dat grit maar een bescheiden deel van de verschillen in prestatie verklaart en
+dat de schaal sterk overlapt met de bestaande persoonlijkheidstrek
+consciëntieusheid, waardoor de vraag is of er iets nieuws is gemeten.
+Duckworth erkent die overlap en bestrijdt de conclusie.
+
+#### Wat er tegen in te brengen valt
+
+Het meest gehoorde bezwaar is dat het boek de verantwoordelijkheid voor slagen
+bij het individu legt en de omstandigheden onderbelicht. Volharding is
+makkelijker in een leven met rust, geld en steun, en dat verschil verklaart
+een deel van wat als karakterverschil wordt gelezen.
+
+Daar komt bij dat de meting op zelfrapportage rust: mensen beoordelen hun
+eigen volharding, en wie succesvol is beoordeelt zichzelf gunstiger. De
+praktische toepassing in scholen, waar leerlingen op grit worden beoordeeld,
+is een gebruik waar Duckworth zelf tegen heeft gewaarschuwd.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf je bovenliggende bedoeling op en toets of je dagelijkse taken
+daaraan ondergeschikt zijn.
+- Vervang gerust de tussenliggende doelen; alleen de bovenste blijft staan.
+- Oefen gericht op wat je nog niet kunt, met terugkoppeling, en verwacht dat
+het onaangenaam voelt.
+- Spreek af dat je iets moeilijks niet halverwege opgeeft, en kies zelf wat
+dat moeilijke is.
+
+#### Wat je hierna leest
+
+- 23. Mindset. Dweck levert de overtuiging waarop volharding rust; de twee
+boeken worden vaak samen gelezen.
+- 50. So Good They Can't Ignore You. Newport draait de vraag om naar de
+loopbaan: eerst goed worden, dan van het werk gaan houden.
+- 64. Fooled by Randomness. Taleb zet er de tegenwerping naast: hoeveel van
+een uitkomst is toeval en niet volharding.
 
 ## 30. The Obstacle Is the Way
 
@@ -1666,6 +2285,179 @@ zelf, die het over de vraag hoe goed een periode was niet eens worden. Het
 hoofdstuk over priming heeft het reproduceerbaarheidsdebat niet ongeschonden
 doorstaan, wat Kahneman later zelf heeft erkend; het grootste deel van het
 boek staat nog.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Kahneman beschrijft het denken als samenspel van twee
+manieren van werken. De ene levert onmiddellijk een indruk, een gevoel en een
+antwoord, zonder inspanning en zonder dat iemand het kan uitzetten. De andere
+rekent, weegt en controleert, kost moeite en is lui: zij aanvaardt meestal wat
+de eerste aanreikt. Vrijwel alle stelselmatige denkfouten zijn te herleiden
+tot die taakverdeling, en zij verdwijnen niet door er kennis van te nemen. Wat
+wel kan, is de plekken herkennen waar het misgaat en daar de procedure
+veranderen in plaats van de mens.
+
+#### De gang van het boek
+
+**De twee systemen**
+
+Kahneman noemt ze systeem 1 en systeem 2, en waarschuwt zelf dat het geen
+hersengebieden zijn maar een manier van praten. Systeem 1 herkent een boos
+gezicht, maakt de zin af, vult twee plus twee in en beoordeelt een situatie in
+een fractie van een seconde. Systeem 2 vermenigvuldigt zeventien met
+vierentwintig, houdt een regel in het geheugen en controleert een redenering,
+maar alleen wanneer het wordt ingeschakeld.
+
+De verhouding tussen beide is de kern. Systeem 2 denkt dat het de leiding
+heeft en volgt in de praktijk meestal het voorstel van systeem 1. Het beroemde
+voorbeeld is het slaghout en de bal: samen kosten zij een euro en tien cent,
+het slaghout kost een euro meer dan de bal, en bijna iedereen antwoordt tien
+cent. Dat antwoord komt onmiddellijk op, voelt goed en is fout, en de
+meerderheid controleert het niet.
+
+**Vervanging van de vraag**
+
+Het mechanisme dat het meeste verklaart is de vervanging. Wanneer een vraag
+moeilijk is, beantwoordt systeem 1 ongemerkt een makkelijkere vraag die erop
+lijkt. Hoe gelukkig ben ik met mijn leven wordt hoe voel ik me nu. Hoeveel
+risico loopt dit bedrijf wordt hoe sympathiek vind ik de directeur. Hoe
+waarschijnlijk is deze uitkomst wordt hoe goed past dit verhaal.
+
+Daaruit volgt de beschikbaarheidsvertekening: wat makkelijk in gedachten komt,
+lijkt vaker voor te komen. Na berichtgeving over een vliegtuigongeluk schat
+vrijwel iedereen de kans op zo'n ongeluk hoger in, terwijl er niets aan de
+kans is veranderd. Wat het geheugen levert, wordt voor een schatting
+aangezien.
+
+**Ankers, kleine getallen en regressie**
+
+Kahneman behandelt een reeks vertekeningen die alle op dezelfde luiheid
+teruggaan. Een genoemd getal werkt als anker, ook wanneer het aantoonbaar
+willekeurig is: proefpersonen die een rad van fortuin zagen draaien, gaven
+daarna schattingen die naar het gedraaide getal toe bewogen.
+
+Verder behandelt hij de neiging om uit kleine aantallen grote conclusies te
+trekken, en de terugkeer naar het gemiddelde. Dat laatste is het scherpste
+voorbeeld uit het boek: instructeurs bij de luchtmacht merkten dat een piloot
+na een uitbrander beter vloog en na een compliment slechter, en concludeerden
+dat straffen werkt. Wat zij zagen was regressie: op een uitzonderlijk slechte
+vlucht volgt gemiddeld een betere en op een uitzonderlijk goede een mindere,
+ongeacht wat de instructeur zegt.
+
+**Overmoed en de illusie van begrip**
+
+Het middendeel gaat over zekerheid. Mensen bouwen uit de beschikbare gegevens
+een sluitend verhaal en ontlenen hun vertrouwen aan de samenhang van dat
+verhaal en niet aan de hoeveelheid of kwaliteit van de gegevens. Kahneman
+noemt dat wat je ziet is alles wat er is: het ontbrekende telt niet mee, omdat
+het niet in beeld is.
+
+Hij haalt zijn eigen ervaring aan bij de selectie van officieren in het
+Israëlische leger, waar de beoordelaars zeker waren van hun oordeel terwijl de
+voorspellende waarde ervan bijna nul bleek. Die zekerheid verdween niet na het
+zien van de cijfers; hij noemt dat de illusie van geldigheid. Uit hetzelfde
+hoofdstuk komt zijn voorkeur voor eenvoudige formules boven deskundige
+inschatting bij herhaalde beslissingen.
+
+**Vooruitzichttheorie**
+
+Het derde deel bevat het werk waarvoor hij en Tversky de Nobelprijs kregen.
+Mensen beoordelen uitkomsten niet in absolute eindtoestanden maar als winst of
+verlies ten opzichte van een referentiepunt, en verlies weegt ongeveer twee
+keer zo zwaar als winst van dezelfde omvang.
+
+Daaruit volgt dat de manier waarop een keuze wordt gepresenteerd de keuze
+verandert. Een behandeling met negentig procent overleving wordt anders
+gekozen dan dezelfde behandeling met tien procent sterfte. Ook het
+bezitseffect hoort hier: wie iets heeft, vraagt er meer voor dan hij er zelf
+voor zou betalen, omdat afstaan als verlies telt.
+
+**Het ervarende en het herinnerende zelf**
+
+Het slotdeel gaat over geluk en is het persoonlijkst. Kahneman onderscheidt
+het zelf dat een ervaring ondergaat van het zelf dat haar achteraf beoordeelt,
+en laat zien dat het tweede zich vrijwel niets aantrekt van de duur van een
+ervaring. Wat telt zijn de piek en het einde.
+
+In zijn experimenten met pijnlijke medische ingrepen beoordeelden patiënten
+een langere ingreep met een mild slot als minder erg dan een kortere met een
+scherp einde, terwijl zij in totaal meer pijn hadden gehad. De onaangename
+gevolgtrekking is dat mensen bij het kiezen tussen ervaringen niet hun
+ervaring volgen maar hun herinnering, en dat die twee uiteenlopen.
+
+**Wat hij aanraadt**
+
+Kahneman is somber over zelfverbetering: hij zegt dat zijn eigen intuïties na
+decennia onderzoek geen haar beter zijn geworden. Zijn hoop ligt bij
+organisaties, die anders dan een individu procedures kunnen invoeren.
+
+Concreet noemt hij het los van elkaar laten oordelen voordat er wordt
+overlegd, het vooraf vastleggen van beoordelingsmaatstaven, en de
+vooruitblikkende lijkschouwing: stel je voor dat het project over een jaar is
+mislukt en schrijf op waardoor. Dat laatste haalt bezwaren boven water die in
+een gewone vergadering niet worden uitgesproken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Systeem 1 | Het snelle, moeiteloze denken dat onmiddellijk indrukken en antwoorden levert en niet is uit te zetten. |
+| Systeem 2 | Het langzame, inspannende denken dat rekent en controleert, en dat meestal aanvaardt wat systeem 1 aanreikt. |
+| Vervanging | Een moeilijke vraag wordt ongemerkt vervangen door een makkelijkere die erop lijkt. |
+| Beschikbaarheid | Wat makkelijk in gedachten komt, wordt voor waarschijnlijk gehouden. |
+| Verankering | Een genoemd getal verschuift latere schattingen, ook wanneer het aantoonbaar willekeurig is. |
+| Terugkeer naar het gemiddelde | Na een uitzonderlijke prestatie volgt gemiddeld een gewonere; wie dat niet doorziet, ziet oorzaken waar er geen zijn. |
+| Wat je ziet is alles wat er is | Het oordeel rust op de beschikbare gegevens; wat ontbreekt wordt niet gemist en verlaagt de zekerheid niet. |
+| Illusie van geldigheid | De zekerheid van een deskundige blijft bestaan nadat is aangetoond dat zijn oordeel niets voorspelt. |
+| Verliesafkeer | Verlies weegt ongeveer twee keer zo zwaar als winst van dezelfde omvang. |
+| Ervarend en herinnerend zelf | Het zelf dat ondergaat en het zelf dat achteraf oordeelt; het tweede telt vooral de piek en het einde en negeert de duur. |
+| Vooruitblikkende lijkschouwing | Voor het besluit voorstellen dat het project is mislukt en opschrijven waardoor; haalt bezwaren boven die anders onuitgesproken blijven. |
+
+#### Waar het argument op rust
+
+Op vijf decennia experimenteel werk, grotendeels van hemzelf en Amos Tversky,
+met de opzet dat een gevonden effect telkens in verschillende vormen wordt
+herhaald. Voor de kern, verliesafkeer, verankering, vervanging en terugkeer
+naar het gemiddelde, is dat bewijs stevig en herhaaldelijk bevestigd.
+
+Het boek bevat daarnaast hoofdstukken die op onderzoek van anderen leunen
+waarvan de herhaalbaarheid later omstreden werd, met de zogenoemde
+priming-effecten als bekendste voorbeeld. Kahneman heeft dat in 2017 zelf
+publiek erkend en geschreven dat hij dat hoofdstuk te veel vertrouwen had
+gegeven. Wie het boek nu leest, doet er goed aan dat deel met voorbehoud te
+lezen; de kern staat los van die kritiek.
+
+#### Wat er tegen in te brengen valt
+
+Het is lang, herhaalt zich en is in de opbouw eerder een verzameling dan een
+betoog; de laatste twee delen hadden een eigen boek kunnen zijn. Wie de
+hoofdlijn wil, leest deel één en deel vier.
+
+Inhoudelijk is het belangrijkste bezwaar dat de tweedeling in twee systemen
+een beeldspraak is die vaak als beschrijving van de hersenen wordt gelezen,
+ook al waarschuwt hij daar zelf voor. Verder biedt het boek weinig aan wie
+zijn eigen oordeel wil verbeteren, en dat is geen omissie maar zijn uitkomst:
+hij gelooft er niet in.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een snel oordeel welke moeilijke vraag er is vervangen door een
+makkelijkere.
+- Leg maatstaven vast voordat je de gevallen ziet, en laat beoordelaars eerst
+apart oordelen.
+- Doe voor een groot besluit de vooruitblikkende lijkschouwing: stel je de
+mislukking voor en schrijf de oorzaken op.
+- Wantrouw de zekerheid die uit een sluitend verhaal komt; vraag welke
+gegevens ontbreken.
+
+#### Wat je hierna leest
+
+- 59. The Art of Thinking Clearly. Dobelli maakt van dit materiaal een
+controlelijst van negenennegentig punten.
+- 69. Ruis. Ruis behandelt de spreiding in oordelen die hier onbesproken
+blijft, met dezelfde schrijver.
+- 64. Fooled by Randomness. Taleb past dezelfde inzichten toe waar geld en
+toeval samenkomen.
 
 ## 56. Sapiens
 
@@ -5222,6 +6014,31 @@ portefeuille. Het is nuchter, streng en zonder beloftes, en het is de reden
 dat dit boek onder beleggers de status heeft die het heeft. De voorbeelden
 komen uit de jaren tachtig en vragen enige vertaling naar nu.
 
+## 145. Unfuck Your Intimacy
+
+Faith G. Harper, 2018. Ondertitel *Using Science for Better Relationships,
+Sex, and Dating*, bij Microcosm Publishing (2018). Het bestand zat niet in de
+map; deze vermelding rust op wat er over het boek bekend is en niet op de
+tekst zelf. Het bijbehorende werkboek staat als 122 in de lijst. Rubriek:
+levenskunst.
+Tags: `intimiteit`, `relaties`, `seksualiteit`, `communicatie`, `hechting`,
+`therapie`, `toon`
+Bron: aangedragen.
+
+Harper behandelt intimiteit breder dan seks: het gaat over de manier waarop
+mensen zich aan elkaar hechten, wat er in een lichaam gebeurt bij nabijheid en
+bij dreiging, en waarom eerdere ervaringen bepalen hoe iemand op toenadering
+reageert. Vanuit die grondslag komt zij bij het praktische deel, over wensen
+benoemen, toestemming, verschil in verlangen tussen partners, en het voeren
+van gesprekken die meestal worden vermeden.
+
+De reeks waaruit het komt drijft op toon: kort, grof in de mond en zonder
+therapeutenplechtigheid, wat lezers bereikt die van dit onderwerp wegkijken.
+De prijs is dezelfde als bij de andere delen, namelijk dat de verwijzingen
+naar onderzoek los blijven en de stelligheid over hechting en hersenen verder
+gaat dan het bewijs draagt. Wie het leest krijgt een bruikbare woordenschat en
+geen overzicht van het vakgebied.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -5245,7 +6062,7 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 111 · `brainstormen` 33 · `broers` 10 · `burn-out` 135 · `cafeïne` 52 ·
 `Californië` 10 · `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos` 74 ·
 `chapbook` 100 · `cijfers` 39, 65 · `cognitieve-bias` 59 · `columns` 89, 90 ·
-`commando` 97 · `communicatie` 34, 35, 122 · `concentratie` 70 ·
+`commando` 97 · `communicatie` 34, 35, 122, 145 · `concentratie` 70 ·
 `conditionering` 61 · `conflict` 35, 42, 43 · `creativiteit` 11, 12, 13, 14,
 15, 16, 17, 74 · `crisis` 47 · `cultuur` 68 · `cultuurkritiek` 54 · `cursus`
 108, 130 · `cursus-in-wonderen` 102, 131 · `dagboek` 2, 109 · `dagboekmethode`
@@ -5273,21 +6090,21 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 62 · `gezondheid` 52, 88 · `ggz` 104 · `grenzen` 72, 105, 109, 120, 122 ·
 `groeimentaliteit` 116 · `grondstoffen` 92 · `groot-verhaal` 56 ·
 `grootouders` 91 · `handel` 80 · `handelen` 30 · `handleiding` 112 · `hart`
-86, 128 · `heelal` 99 · `helderheid` 82 · `herhaling` 125, 134 · `herkomst`
-127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 · `herstel` 87 ·
-`Holocaust` 48 · `hormonen` 80 · `houding` 117 · `huisvesting` 65 · `humor`
-16, 19, 26, 105 · `huwelijk` 9, 34 · `Huxley` 54 · `hypnose` 123, 124, 125 ·
-`Idaho` 45 · `identiteit` 22, 115 · `identiteitskapitaal` 51 · `ierland` 110 ·
-`ik-vorm` 113 · `illustraties` 109 · `imitatie` 11 · `import` 20 ·
-`individualisme` 9, 96 · `innerlijk-kind` 109 · `instagram` 129 · `internet`
-60 · `interview` 58 · `intimiteit` 122 · `introversie` 33 · `intuitie` 128 ·
-`invloed` 11 · `jaloezie` 19 · `japan` 77 · `jaren-tachtig` 139 ·
-`jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren` 25 · `journalistiek` 4,
-7, 46, 82 · `jung` 143 · `Kaïn-en-Abel` 10 · `kans` 64 · `kansen` 137 ·
-`karakter` 97 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50 · `keuzes` 51,
-71, 72 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144 · `klein-beginnen`
-40 · `kleine-stappen` 22, 133 · `korea` 111 · `kort` 59, 99, 100, 101, 110,
-140 · `kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 ·
+86, 128 · `hechting` 145 · `heelal` 99 · `helderheid` 82 · `herhaling` 125,
+134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 ·
+`herstel` 87 · `Holocaust` 48 · `hormonen` 80 · `houding` 117 · `huisvesting`
+65 · `humor` 16, 19, 26, 105 · `huwelijk` 9, 34 · `Huxley` 54 · `hypnose` 123,
+124, 125 · `Idaho` 45 · `identiteit` 22, 115 · `identiteitskapitaal` 51 ·
+`ierland` 110 · `ik-vorm` 113 · `illustraties` 109 · `imitatie` 11 · `import`
+20 · `individualisme` 9, 96 · `innerlijk-kind` 109 · `instagram` 129 ·
+`internet` 60 · `interview` 58 · `intimiteit` 122, 145 · `introversie` 33 ·
+`intuitie` 128 · `invloed` 11 · `jaloezie` 19 · `japan` 77 · `jaren-tachtig`
+139 · `jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren` 25 ·
+`journalistiek` 4, 7, 46, 82 · `jung` 143 · `Kaïn-en-Abel` 10 · `kans` 64 ·
+`kansen` 137 · `karakter` 97 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50
+· `keuzes` 51, 71, 72 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144 ·
+`klein-beginnen` 40 · `kleine-stappen` 22, 133 · `korea` 111 · `kort` 59, 99,
+100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 ·
 `korte-teksten` 111 · `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 ·
 `kroeg` 4 · `kunst` 11 · `kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw`
 56, 98 · `leefstijl` 86, 103, 138 · `leger` 106 · `leiderschap` 36, 41, 44,
@@ -5335,15 +6152,15 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `propaganda` 60 · `protocol` 69 · `pseudokennis` 126 · `psychiatrie` 1, 48,
 95, 96, 104 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143 ·
 `publiceren` 13 · `Pulitzer` 5 · `quantum` 94 · `quilten` 114 · `rechtspraak`
-69 · `reeks` 114 · `reisverhaal` 1 · `relaties` 34, 51, 101, 120, 122 ·
+69 · `reeks` 114 · `reisverhaal` 1 · `relaties` 34, 51, 101, 120, 122, 145 ·
 `religie` 56 · `REM` 52 · `Renaissance` 15 · `rente` 38 · `replicatie` 79 ·
 `revisie` 18 · `rijkdom` 57 · `risico` 64, 80, 144 · `roeping` 8, 9, 12 ·
 `roman` 61, 113, 114, 115 · `rouw` 95 · `rust` 32 · `Salinas` 10 ·
 `samenleving` 90, 98 · `samenwerken` 25 · `scepsis` 63 · `schaamte` 32, 44 ·
 `schaarste` 92 · `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14,
-18, 19, 81 · `schulden` 20, 38, 121 · `seksualiteit` 100 · `seminar` 139 ·
-`slaap` 52, 87, 88 · `slavernij` 68 · `smartphone` 53 · `sociale-media` 53, 70
-· `somberheid` 119 · `spanning` 101 · `sparen` 21, 38 · `spelen` 32 ·
+18, 19, 81 · `schulden` 20, 38, 121 · `seksualiteit` 100, 145 · `seminar` 139
+· `slaap` 52, 87, 88 · `slavernij` 68 · `smartphone` 53 · `sociale-media` 53,
+70 · `somberheid` 119 · `spanning` 101 · `sparen` 21, 38 · `spelen` 32 ·
 `spiegelogie` 108 · `spiritualiteit` 8, 14, 27, 102, 108, 141 · `sport` 20 ·
 `spreker` 117, 134 · `statistiek` 55, 65, 69 · `status` 39, 66 ·
 `sterfelijkheid` 2, 71 · `sterrenkunde` 99 · `sterven` 49, 95 · `stijl` 18 ·
@@ -5352,35 +6169,35 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 26, 27 · `talent` 23, 29 · `tarieven` 121 · `team` 42 · `techniek` 1, 6, 43,
 61, 92 · `tegen-productiviteit` 71 · `tegenslag` 30, 111 · `tekenen` 15 ·
 `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `Texas` 5 ·
-`therapie` 51, 107, 118, 119, 120, 121, 122 · `thriller` 101 · `tijd` 71 ·
-`toeval` 21, 64, 93, 137 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132 ·
-`trauma` 104, 119 · `trilling` 127 · `twaalf-weken` 14 · `tweede-wereldoorlog`
-115 · `twintigers` 51 · `uitleg` 99, 102 · `uitleggen` 82 · `uitstel` 71, 140
-· `uitstelgedrag` 12 · `uitstellen` 16 · `vaardigheden` 40, 50 · `vaardigheid`
-64 · `vader-en-zoon` 1 · `vaderschap` 49 · `vakmanschap` 1 · `variantie` 137 ·
-`vastgoed` 37 · `veedrift` 5 · `veerkracht` 106 · `veiligheid` 43 ·
-`veiligheidsmarge` 144 · `verantwoordelijkheid` 42, 72, 73, 74, 93 ·
-`verdriet` 111 · `vergaderen` 42 · `vergeving` 31, 102, 120 · `verhaal` 74 ·
-`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136 · `verhouding` 113 ·
-`verhoudingen` 110 · `verklaringen` 68 · `verkoop` 132 · `verlangen` 76, 100,
-113, 130 · `verlies` 95 · `vermaak` 61 · `vermogen` 39 · `verplichting` 9 ·
-`verslaving` 18 · `vertrouwen` 42 · `vervolg` 74, 131 · `visualiseren` 116 ·
-`vlaams` 89, 91, 98, 109 · `voeding` 86, 88 · `volharding` 29 · `voorbeelden`
-128 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55 · `vriendschap`
-5, 7, 114 · `vrije-tijd` 78 · `vrije-wil` 10 · `vrijheid` 61 · `vrouwenhaat`
-110 · `waardebeleggen` 144 · `waarden` 72, 142 · `waardering` 24, 34 ·
-`wall-street` 144 · `weerstand` 12 · `werk` 70, 78 · `werkboek` 14, 122 ·
-`werkplek` 33, 43 · `werkwijze` 16 · `West-Point` 29 · `westen` 67 · `western`
-5 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94 · `wijn` 112 ·
-`wiskunde` 116 · `woede` 119, 120 · `woestijn` 8 · `wraak` 101 · `zeereis` 36
-· `zeldzaam` 144 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129,
-138 · `zelfbeheersing` 75 · `zelfcompassie` 32 · `zelfdiscipline` 2 ·
-`zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136 · `zelfspot`
-19 · `zelfstandig` 40 · `zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125,
-126 · `zelfwaardering` 121 · `zelfzorg` 109 · `zen` 141 · `zenuwstelsel` 87 ·
-`zeven-stappen` 129 · `ziekte` 74 · `zingeving` 9, 48, 77, 91 · `zitten` 84 ·
-`zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwarte-gaten`
-99
+`therapie` 51, 107, 118, 119, 120, 121, 122, 145 · `thriller` 101 · `tijd` 71
+· `toeval` 21, 64, 93, 137 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132,
+145 · `trauma` 104, 119 · `trilling` 127 · `twaalf-weken` 14 ·
+`tweede-wereldoorlog` 115 · `twintigers` 51 · `uitleg` 99, 102 · `uitleggen`
+82 · `uitstel` 71, 140 · `uitstelgedrag` 12 · `uitstellen` 16 · `vaardigheden`
+40, 50 · `vaardigheid` 64 · `vader-en-zoon` 1 · `vaderschap` 49 ·
+`vakmanschap` 1 · `variantie` 137 · `vastgoed` 37 · `veedrift` 5 ·
+`veerkracht` 106 · `veiligheid` 43 · `veiligheidsmarge` 144 ·
+`verantwoordelijkheid` 42, 72, 73, 74, 93 · `verdriet` 111 · `vergaderen` 42 ·
+`vergeving` 31, 102, 120 · `verhaal` 74 · `verhaalvorm` 135 · `verhalen` 56,
+101, 110, 136 · `verhouding` 113 · `verhoudingen` 110 · `verklaringen` 68 ·
+`verkoop` 132 · `verlangen` 76, 100, 113, 130 · `verlies` 95 · `vermaak` 61 ·
+`vermogen` 39 · `verplichting` 9 · `verslaving` 18 · `vertrouwen` 42 ·
+`vervolg` 74, 131 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding`
+86, 88 · `volharding` 29 · `voorbeelden` 128 · `voorbereiding` 82 ·
+`voorkeuren` 89 · `vooroordelen` 55 · `vriendschap` 5, 7, 114 · `vrije-tijd`
+78 · `vrije-wil` 10 · `vrijheid` 61 · `vrouwenhaat` 110 · `waardebeleggen` 144
+· `waarden` 72, 142 · `waardering` 24, 34 · `wall-street` 144 · `weerstand` 12
+· `werk` 70, 78 · `werkboek` 14, 122 · `werkplek` 33, 43 · `werkwijze` 16 ·
+`West-Point` 29 · `westen` 67 · `western` 5 · `wet-van-aantrekking` 127 ·
+`wetenschap` 63, 66, 93, 94 · `wijn` 112 · `wiskunde` 116 · `woede` 119, 120 ·
+`woestijn` 8 · `wraak` 101 · `zeereis` 36 · `zeldzaam` 144 · `zelfbedrog` 66 ·
+`zelfbeeld` 25, 27, 105, 107, 108, 129, 138 · `zelfbeheersing` 75 ·
+`zelfcompassie` 32 · `zelfdiscipline` 2 · `zelfhulp` 15, 22, 25, 34, 58, 72,
+76, 79, 83, 117, 134, 135, 136 · `zelfspot` 19 · `zelfstandig` 40 ·
+`zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125, 126 · `zelfwaardering` 121
+· `zelfzorg` 109 · `zen` 141 · `zenuwstelsel` 87 · `zeven-stappen` 129 ·
+`ziekte` 74 · `zingeving` 9, 48, 77, 91 · `zitten` 84 · `zorg` 96 ·
+`Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwarte-gaten` 99
 
 ## Leesroutes
 
