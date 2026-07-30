@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maps of Meaning &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Peterson stelt dat mythen en religieuze verhalen geen mislukte natuurwetenschap zijn. Ze beschrijven de wereld niet als een verzameling objecten met…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-143">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">143 &middot; Gewoontes en denken</p>
+    <h1>Maps of Meaning</h1>
+    <p class="lede">Jordan B. Peterson, 1999</p>
+    <p class="stats">
+      <span><b>1775</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="143"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Peterson stelt dat mythen en religieuze verhalen geen mislukte natuurwetenschap zijn. Ze beschrijven de wereld niet als een verzameling objecten met eigenschappen, maar als een terrein waarop gehandeld moet worden, en ze leggen vast wat de dingen betekenen voor wie erin leeft. Die betekeniskaarten hebben volgens hem overal ter wereld dezelfde grondvorm, omdat het menselijk zenuwstelsel overal met dezelfde twee omstandigheden te maken heeft: bekend gebied waarin het weet hoe te handelen, en onbekend gebied waarin dat wegvalt. Uit die stelling volgt zijn zwaarste claim: wie de gedeelde structuur van mythen begrijpt, begrijpt hoe de menselijke geest waarde toekent, en begrijpt daarmee ook hoe groepen tot het kwaad van de twintigste eeuw konden komen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Het voorwoord, <i>Descensus ad Inferos</i>, is een persoonlijk verslag. Peterson groeit op in Alberta, gaat naar de kerk met zijn moeder, stopt daarmee rond zijn twaalfde na een gesprek met de dominee over Genesis en de evolutietheorie, en zoekt zijn moraal daarna in de politiek. Hij werkt voor een mild socialistische partij tot George Orwells <i>Road to Wigan Pier</i> hem het argument geeft dat socialisten de armen niet zozeer liefhebben als dat zij de rijken haten. Wat overblijft is wantrouwen tegen ideologie als zodanig: het deelt de wereld op in wie juist denkt en wie niet, en verbergt voor de gelovige zijn eigen wensen.</p>
+      <p>De vraag die daarna niet meer weggaat is hoe groepsgebonden kwaad in de wereld komt. De koude oorlog, de nazi-kampen en het vermogen van gewone mensen tot wreedheid vormen het probleem waarvoor dit boek een verklaring wil zijn. Peterson schrijft dat hij er ruim vijftien jaar aan werkte.</p>
+      <h3>Twee manieren om dezelfde wereld te beschrijven</h3>
+      <p>Hoofdstuk 1 zet het onderscheid neer waarop alles rust. De natuurwetenschap beschrijft de wereld als een plaats van dingen: wat is iets, waaruit bestaat het, hoe gedraagt het zich. De oudere beschrijving vraagt iets anders: wat betekent dit voor mij, wat moet ik ermee doen, brengt het mij dichter bij waar ik heen wil. Peterson noemt dat de wereld als forum voor handelen.</p>
+      <p>Zijn punt is dat de tweede beschrijving niet is vervangen door de eerste. Mensen handelen nog altijd op grond van waardetoekenning, en die toekenning is niet uit de fysieke beschrijving af te leiden. Waar de moderne mens geen expliciete taal meer heeft voor waarde, blijft hij impliciet leven volgens de verhalen die hij denkt te hebben afgeschaft.</p>
+      <h3>Het bekende, het onbekende en de kenner</h3>
+      <p>Hoofdstuk 2 is het hart van het boek. Peterson onderscheidt drie vaste bestanddelen van menselijke ervaring. Het bekende is het gebied waarin onze plannen werken: cultuur, gewoonte, gedeelde verwachting. Het onbekende is alles wat die plannen doorkruist. De kenner is het vermogen om het onbekende te verkennen en er iets bekends van te maken.</p>
+      <p>Hij koppelt dat aan een gedragspatroon: iets onverwachts leidt eerst tot stilvallen en angst, daarna eventueel tot nieuwsgierigheid en verkenning. Kleine fouten dwingen tot bijstelling van de middelen; grote fouten dwingen tot herziening van het doel zelf, en dat gaat gepaard met heftige ontregeling. Vandaar dat mensen ver gaan om hun verhaal intact te houden.</p>
+      <p>Verhalen ordenen die ervaring in twee vormen. In het normale verhaal blijft het doel staan en worden de middelen aangepast. In het omwentelende verhaal sneuvelt het doel en moet het beeld van heden en toekomst opnieuw worden opgebouwd. De cyclus van instorting en herbouw noemt Peterson de metamythe van de weg.</p>
+      <h3>De godenfamilie van de verbeelding</h3>
+      <p>Diezelfde drie bestanddelen keren volgens hem overal terug als personages. Het onbekende krijgt vrouwelijke gedaante, als Grote Moeder die zowel voortbrengt als verslindt, met de uroboros als voorstelling van de toestand vóór alle onderscheid. Het bekende krijgt mannelijke gedaante, als Grote Vader die beschermt en tegelijk tiranniseert. De kenner verschijnt als de zoon, de held die het gebied buiten de muren betreedt en er iets bruikbaars uit terugbrengt.</p>
+      <p>Het materiaal komt uit het Babylonische scheppingsverhaal <i>Enuma elish</i>, waarin Marduk Tiamat verslaat en uit haar lichaam de wereld maakt, en uit de Egyptische cyclus van Osiris, Seth en Horus, waarin de verstarde orde uiteenvalt en door de zoon wordt hersteld. De ruim zestig schematische figuren in het boek zetten die verhalen om in diagrammen, wat de leeswijze verraadt: de verhalen zijn voor Peterson varianten op één onderliggend patroon.</p>
+      <h3>Inwijding en het opduiken van de anomalie</h3>
+      <p>Hoofdstuk 3 gaat over hoe een kind de gedeelde kaart overneemt. Opvoeding en inwijding maken van het individu een lid van de groep; dat is winst en beperking tegelijk. Hoofdstuk 4 behandelt wat er gebeurt wanneer die kaart wordt doorbroken door iets wat er niet in past.</p>
+      <p>De voorbeelden zijn Gautama, die het ommuurde paleis van zijn vader verlaat en oog in oog komt met ziekte, ouderdom en dood, en na zijn verlichting terugkeert naar de wereld in plaats van in nirwana te blijven; en de Genesisvertelling, waarin de vrucht kennis van goed en kwaad brengt en daarmee het besef van de eigen sterfelijkheid. Peterson leest beide als hetzelfde proces: het verlies van een veilige kaart, de afdaling, en de terugkeer met iets wat de gemeenschap kan gebruiken.</p>
+      <h3>De vijandige broers en het slot</h3>
+      <p>Hoofdstuk 5 zet de twee mogelijke antwoorden op het onbekende tegenover elkaar als broers. De ene houdt vast aan het bestaande verhaal, ontkent wat er niet in past en gaat over tot vervolging van wie de anomalie belichaamt; de tweede laat het verhaal instorten en bouwt het opnieuw. Peterson personifieert die keuze als Christus tegenover Satan, en verbindt de eerste weg met de leugen, met ideologie en met de kampen van de twintigste eeuw. Zijn verklaring van massaal kwaad loopt langs de individuele bereidheid om te weten wat men liever niet weet.</p>
+      <p>De slotdelen behandelen de alchemie als een westerse omweg waarin het verdrongen materiaal terugkeerde, en eindigen met wat hij het goddelijke van de belangstelling noemt: wat de aandacht spontaan vasthoudt, wijst naar de plek waar het bekende moet worden uitgebreid. Dat is het enige gedragsvoorschrift dat het boek zelf formuleert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het bekende</td><td>Het gebied waarin onze gewoonten en plannen het gewenste resultaat opleveren, in feite cultuur.</td></tr>
+          <tr><td class="term">Het onbekende</td><td>Alles wat buiten dat gebied valt en zich aandient zodra een plan mislukt.</td></tr>
+          <tr><td class="term">De kenner</td><td>Het verkennende vermogen dat tussen beide bemiddelt en het onbekende in bekend gebied omzet.</td></tr>
+          <tr><td class="term">Anomalie</td><td>Een gebeurtenis die niet in de heersende kaart past en die kaart daarmee ondergraaft.</td></tr>
+          <tr><td class="term">Grote Moeder</td><td>De verbeelding van het onbekende als voortbrengende en verslindende natuur.</td></tr>
+          <tr><td class="term">Grote Vader</td><td>De verbeelding van cultuur en orde als beschermende en tegelijk tirannieke vaderfiguur.</td></tr>
+          <tr><td class="term">Goddelijke Zoon</td><td>De heldenfiguur die het onbekende betreedt en de verstarde orde vernieuwt.</td></tr>
+          <tr><td class="term">Metamythe van de weg</td><td>De kringloop van verlies van paradijs, afdaling, en herstel van een bewoonbare orde die Peterson in uiteenlopende culturen terugvindt.</td></tr>
+          <tr><td class="term">Normaal en omwentelend verhaal</td><td>Het onderscheid tussen bijstelling van de middelen en herziening van het doel zelf.</td></tr>
+          <tr><td class="term">De leugen</td><td>Het weigeren te erkennen wat de eigen kaart tegenspreekt, bij Peterson de wortel van ideologisch geweld.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het argument rust op twee soorten materiaal die Peterson aan elkaar knoopt. Het eerste is mythologisch en religieus: Mesopotamische en Egyptische scheppingsverhalen, Genesis, het leven van de Boeddha, middeleeuwse alchemistische teksten, sprookjes en films. Het tweede is psychologisch en neurologisch: onderzoek naar de reactie op nieuwe prikkels, naar angst en gedragsremming, naar het verschil tussen geheugensystemen, en de ontwikkelingspsychologie van Piaget.</p>
+      <p>De mythologische lezingen komen zichtbaar uit een bepaalde traditie. Jung, Erich Neumann en Mircea Eliade leveren het interpretatiekader, en dat kader bepaalt al vooraf dat uiteenlopende verhalen varianten van één patroon zijn. Peterson leest de bronteksten grotendeels via die secundaire literatuur, wat de gevonden overeenkomsten deels tot een gevolg van de methode maakt.</p>
+      <p>De neuropsychologische kant is de kant die het snelst is verouderd. Het boek verscheen in 1999 en verwerkt onderzoek uit de jaren zeventig tot negentig, onder meer over de rol van hersenstructuren bij de reactie op het onverwachte en over de taakverdeling tussen de hersenhelften. Dat laatste beeld is in de decennia daarna sterk bijgesteld.</p>
+      <p>Wat het boek nergens levert is een toets. Er wordt geen voorspelling gedaan die had kunnen mislukken, en er is geen materiaal opgenomen dat de these zou kunnen weerspreken. De onderbouwing bestaat uit een groot aantal voorbeelden die dezelfde vorm laten zien, aangevuld met dromen van patiënten uit Petersons eigen klinische praktijk.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar zit in de scharnier van het betoog. Dat verhalen uit verschillende culturen op elkaar lijken, is een waarneming over verhalen. Peterson maakt daar uitspraken van over de werking van de menselijke geest, over wat mensen aangeboren waarnemen en waarom zij handelen zoals zij handelen. Die sprong wordt betoogd en met voorbeelden aannemelijk gemaakt, niet aangetoond. Er is geen onafhankelijke meting die laat zien dat de gevonden verhaalstructuur ook de structuur van waardetoekenning in de hersenen is.</p>
+      <p>Daarbij komt dat gelijkenis tussen verhalen ook anders te verklaren valt: door ontlening tussen culturen, door de beperkte hoeveelheid vormen die een vertelling kan aannemen, en door de keuze van de onderzoeker. Zodra een tegenvoorbeeld opduikt, laat het kader zich uitbreiden zonder kosten, en dat is doorgaans een teken dat de these weinig verbiedt.</p>
+      <p>Het boek kreeg in de academische psychologie weinig navolging. Er is geen onderzoeksprogramma uit voortgekomen, het wordt in de vakliteratuur zelden geciteerd en de begrippen zijn buiten Petersons eigen werk nauwelijks overgenomen. Het bereik dat het nu heeft, dankt het aan zijn latere bekendheid als publieke figuur, niet aan de ontvangst in het vak.</p>
+      <p>Ook de vorm werkt tegen de lezer. Vijfhonderd bladzijden lang worden dezelfde grondgedachten in wisselende symboliek herhaald, met lange citaten en een taal die het onderscheid tussen beeld en bewering laat vervagen. En de vaste koppeling van het onbekende aan het vrouwelijke en van de orde aan het mannelijke wordt gepresenteerd als vondst in het materiaal, terwijl zij evengoed de aanname kan zijn waarmee het materiaal is doorzocht.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op wat er de afgelopen maanden misging in het werk, en bepaal per geval of alleen de aanpak moest worden aangepast of ook het doel. Alleen dat tweede kost echt moeite.</li>
+        <li>Let bij ergernis over een collega op de anomalie: welke gebeurtenis paste niet in het beeld dat je van hem had, en welke kant van de keuze koos je daarna.</li>
+        <li>Gebruik het onderscheid bekend en onbekend bij verandering in een organisatie: verzet gaat vaker over het verlies van een werkende kaart dan over de inhoud van het voorstel.</li>
+        <li>Neem de vraag waar de aandacht vanzelf naartoe gaat serieus als aanwijzing voor waar nog iets te leren valt, en niet als afleiding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>The Architecture of Belief</i> (Routledge, 1999). Geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het academische werk waar zijn latere boeken op teruggaan. Peterson betoogt dat mensen de wereld niet in feiten maar in betekenissen ordenen, dat mythen en verhalen de kaarten zijn waarmee dat gebeurt, en dat overal ter wereld dezelfde grondpatronen terugkomen: het bekende, het onbekende, en de held die tussen beide bemiddelt.</p><p>Het is zwaar, langdradig en veel minder toegankelijk dan 73 en 74, met lange uitweidingen over Jung, Nietzsche en de neurologie van angst. De onderbouwing is het punt waarop het meest is aangemerkt: de sprong van gedeelde verhaalpatronen naar uitspraken over hoe de menselijke geest werkt, wordt eerder betoogd dan aangetoond.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mythologie</li><li>psychologie</li><li>jung</li><li>betekenis</li><li>academisch</li><li>zwaar</li><li>overtuigingen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="73"><a href="73.html">12 Rules for Life</a>. De vorm waarin Peterson een breed publiek bereikte; de regels daar zijn de praktische neerslag van wat hier in theorie wordt opgezet.</li>
+          <li value="74"><a href="74.html">Beyond Order</a>. Het latere werk met dezelfde grondgedachten, geschreven voor lezers die dit boek niet zullen doorkomen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

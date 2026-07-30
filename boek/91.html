@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eindelijk oud &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nelissen, gedragsbioloog, stelt dat ouderdom bij de mens geen restpost van een uitgewerkt lichaam is. Hij leest de tweede levenshelft als een fase die de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-91">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">91 &middot; Levenskunst</p>
+    <h1>Eindelijk oud</h1>
+    <p class="lede">Mark Nelissen, 2016</p>
+    <p class="stats">
+      <span><b>1888</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="91"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nelissen, gedragsbioloog, stelt dat ouderdom bij de mens geen restpost van een uitgewerkt lichaam is. Hij leest de tweede levenshelft als een fase die de evolutie zelf heeft opgeleverd: toen onze voorouders na hun voortplantingsjaren bleven leven, ontstond er een groep die kennis kon bewaren, kleinkinderen kon helpen en de cultuur kon versnellen. Daaruit trekt hij een tweede, zwaardere conclusie: wie dat inzicht binnenlaat, hoeft niet bang te zijn voor het ouder worden, want de waarde van een oud mens is in de loop van de evolutie gestegen en niet gedaald. Het boek wil met biologie doen wat religie voor anderen doet, namelijk gemoedsrust geven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een zin na een lezing</h3>
+      <p>Het boek begint met een avond in Amsterdam. Na afloop van een lezing over darwinisme zegt een oude man tegen Nelissen: u hebt mij gemoedsrust bezorgd. De man was opgevoed met angst voor straf van een onzichtbare macht en vond in de evolutietheorie een verklaring die geen bovennatuurlijke kracht nodig heeft. Nelissen zegt daarvan te schrikken, omdat rust brengen nooit zijn bedoeling was.</p>
+      <p>Uit die botsing komt het plan voor dit boek. Nelissen zegt er meteen bij wat het niet is: geen medisch handboek en geen langer-levengids, want dat je je leven aanmerkelijk kunt verlengen is volgens hem nooit aangetoond. Wel formuleert hij een doel: de oudere lezer moet aan het eind een rijper zelfbeeld hebben. Dat doel staat er voor de eerste bladzijde bewijs is geleverd.</p>
+      <h3>Wat evolutie uittekent en wat toevallig meekomt</h3>
+      <p>Voordat hij over ouderdom begint, legt Nelissen zijn gereedschap op tafel. Evolutie is ongelijke voortplanting: wie eigenschappen erft die de kans op nakomelingen vergroten, geeft die eigenschappen door. Zo krijgen niet alleen lichaamsdelen vorm maar ook gedrag, van zorg voor jongen tot partnerkeuze. Welk deel van een gedrag geërfd is en welk deel aangeleerd, noemt hij de opgave van zijn vak.</p>
+      <p>Belangrijk voor de rest van het boek is zijn waarschuwing dat lang niet alles een functie heeft. De navel is zijn schoolvoorbeeld: een litteken van de navelstreng, zonder eigen nut, dat blijft bestaan omdat het niet in de weg zit. Rimpels, huidvlekken, haaruitval en een verhoogde kans op artrose plaatst hij in dezelfde categorie. Het zijn bijverschijnselen van ouder worden, niet iets waar de evolutie op gemikt heeft. Hij vraagt de lezer bovendien zijn manier van schrijven niet letterlijk te nemen: als hij zegt dat evolutie iets heeft uitgetekend, bedoelt hij geen plan en geen doel.</p>
+      <h3>Waarom de mens twee levensfasen kreeg</h3>
+      <p>De kern van het boek is het onderscheid tussen een eerste fase, die in dienst staat van voortplanting, en een tweede fase, die de groep versterkt. Om te verklaren waarom onze cultuur enkele tienduizenden jaren geleden zo snel ging veranderen, legt Nelissen drie verklaringen naast elkaar en presenteert ze als aanvullingen op elkaar.</p>
+      <p>De eerste komt van de archeoloog Steven Mithen, die intelligentie opdeelt in een algemene, een technische, een ecologische en een sociale vorm. Bij eerdere mensachtigen werkten die vormen los van elkaar; bij ons gingen ze samenwerken. Mithen noemt dat cognitieve vloeibaarheid. Nelissen legt het uit aan een beeldje van een neushoorn: kennis van sporen, de wens om iets te melden en de vaardigheid om ivoor te bewerken leveren pas samen een sieraad op dat status uitdrukt. De tweede verklaring wijst op een daling van het testosterongehalte bij mannen, af te lezen aan schedels waarvan de wenkbrauwbogen ongeveer vijftigduizend jaar geleden slonken. De derde is van hemzelf: de mens ging langer leven, en die extra jaren maakten overdracht van kennis mogelijk.</p>
+      <h3>De menopauze en de grootmoeder</h3>
+      <p>Aan de menopauze laat Nelissen zien hoe hij redeneert. De oude verklaring luidde dat de voorraad van ongeveer 450 eicellen simpelweg op is en dat oudere vrouwen te zwak zouden zijn om te baren. Beide delen wijst hij af. Vrouwen van in de zestig bevallen tegenwoordig met medische hulp, en eicelproductie is na de menopauze weer op gang gebracht. Bovendien blijft de chimpansee tot op hoge leeftijd jongen krijgen, dus was langer doorgaan een kleine aanpassing geweest.</p>
+      <p>In plaats daarvan verdedigt hij de grootmoederhypothese: een vrouw die stopt met baren en haar dochters helpt, geeft via kleinkinderen meer van haar genen door dan wanneer ze zelf was blijven baren. Bij de kindersterfte van honderdduizend jaar geleden telde die hulp zwaar. Als steun noemt hij een studie onder de Hadza in Tanzania, waaruit een verband bleek tussen de tijd die een grootmoeder aan de voeding van een kleinkind besteedt en de snelheid waarmee dat kind groeit.</p>
+      <h3>Minder vrienden, en wat dat kost</h3>
+      <p>De tweede fase beschrijft Nelissen liever sociaal dan lichamelijk. De mens noemt hij de meest sociale diersoort, en het verlangen om bij een groep te horen ziet hij als een oud programma dat nog op de savanne is afgestemd. Uitsluiting schaadt de gezondheid en verkort de levensduur.</p>
+      <p>Daartegenover zet hij een bevinding die hij verontrustend vindt: ouderen kiezen er zelf voor om minder vrienden te hebben. Ze worden selectiever en houden de mensen over met wie de band het sterkst is. Dat voelt goed, maar het maakt vereenzaming mogelijk zonder dat iemand het merkt. Ook makaken vlooien minder soortgenoten naarmate ze ouder worden.</p>
+      <h3>Verjongen, en wat daar tot nu toe van klopt</h3>
+      <p>Een apart hoofdstuk gaat over de vraag of je jonger kunt worden. Nelissen beschrijft proeven waarbij de bloedsomloop van een jonge muis werd verbonden met die van een oude. De oude muis liep daarna beter door een doolhof, de jonge slechter, en bij het oude dier werden nieuwe zenuwcellen aangemaakt in de hippocampus. Hetzelfde effect trad op na inspuiting met bloedplasma van menselijke tieners.</p>
+      <p>Bij de menselijke toepassing houdt hij de rem erop. Over sirtuïnen en resveratrol merkt hij op dat het effect bij de mens niet is aangetoond en dat onduidelijk is in hoeverre wetenschappelijke fraude de resultaten heeft vertekend. Een supplementenfabrikant die met een adviesraad vol Nobelprijswinnaars adverteerde, kreeg volgens hem terecht kritiek: de adviseurs konden geen bewijs voor de medische werking overleggen. Dit hoofdstuk is het eerlijkste deel van het boek.</p>
+      <h3>Geluk, de dood en de schoonheid van weten</h3>
+      <p>In het slotdeel verschuift het onderwerp naar geluk. Nelissen citeert een Engels onderzoek onder bijna tienduizend vijftigplussers, driemaal gemeten met tussenpozen van twee jaar; zeven jaar later was ongeveer zestien procent overleden, vooral wie laag scoorde op plezier in het leven. Hij houdt oorzaak en gevolg hier nadrukkelijk open: gelukkige mensen bewegen meer, eten beter en hebben minder stress.</p>
+      <p>Daarna komt de doodsangst aan bod, ingeleid met een lange herinnering aan de schoolfeestjes uit zijn jeugd, waarin het einde van de avond model staat voor het einde van een leven. Het boek sluit af met wat hij de schoonheid van het weten noemt: een voorbijvliegende spreeuw is voor een bioloog een bibliotheek aan inzichten. Dat is dezelfde gemoedsrust waarmee het boek opende, nu als vooruitzicht voor de oudere van morgen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tweede levensfase</td><td>De periode na de voortplantingsjaren, die volgens Nelissen een eigen functie heeft gekregen in het versterken van de groep.</td></tr>
+          <tr><td class="term">Homininen</td><td>Alle soorten in onze voorgeschiedenis die na de mensapen kwamen en op twee benen gingen lopen, de mens inbegrepen.</td></tr>
+          <tr><td class="term">Neveneffect</td><td>Een kenmerk dat meekomt met iets anders zonder zelf geselecteerd te zijn, zoals de navel of de rimpels van een oud gezicht.</td></tr>
+          <tr><td class="term">Cognitieve vloeibaarheid</td><td>Mithens term voor het samenwerken van eerder gescheiden vormen van intelligentie, dat Nelissen aanwijst als motor van de culturele versnelling.</td></tr>
+          <tr><td class="term">Machiavellistische intelligentie</td><td>Sociale slimheid die wordt ingezet om groepsgenoten te manipuleren, en die een theory of mind veronderstelt.</td></tr>
+          <tr><td class="term">Sociale boekhouding</td><td>Nelissens eigen term voor het bijhouden van wie met wie bevriend is, wie iets te goed heeft en wie rivaal is.</td></tr>
+          <tr><td class="term">Grootmoederhypothese</td><td>De verklaring dat vrouwen na de menopauze meer genen doorgeven via hulp aan kleinkinderen dan via eigen kinderen.</td></tr>
+          <tr><td class="term">Sociale selectiviteit</td><td>De vastgestelde neiging van ouderen om hun vriendenkring te beperken tot de emotioneel belangrijkste mensen.</td></tr>
+          <tr><td class="term">Sirtuïnen</td><td>Een groep eiwitten waarvan bij gisten, wormen en muizen levensverlengende effecten zijn beschreven, bij de mens niet.</td></tr>
+          <tr><td class="term">Nature-nurturekwestie</td><td>De vraag welk deel van een gedrag geërfd is en welk deel aangeleerd, die volgens Nelissen nooit met een van beide alleen te beantwoorden is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek staat of valt met de evolutionaire redenering, niet met eigen onderzoek. Nelissen verwijst voor de grondslagen herhaaldelijk naar zijn eerdere titels, waaronder <i>Bloot toeval</i>, <i>De bril van Darwin</i> en <i>De club van ik</i>, en houdt de onderbouwing in dit boek bewust summier. Waar hij wel concreet wordt, is dat solide: de Hadza-studie over grootmoeders, het Engelse cohort van bijna tienduizend vijftigplussers, de muizenproeven met gedeelde bloedsomloop.</p>
+      <p>Zijn omgang met commerciële beloften is zuiver. Hij noemt de fraudevraag rond resveratrol, wijst het supplement met de Nobelprijsadviesraad af bij gebrek aan bewijs, en zegt bij de opening al dat verlenging van de menselijke levensduur nooit is aangetoond. Dat maakt zijn scepsis geloofwaardig.</p>
+      <p>Daar staat tegenover dat de dragende beweringen het minst zijn onderbouwd. Dat ouderen gelukkiger zijn dan jongeren wordt afgedaan met een verwijzing naar massa's studies, zonder naam of getal. Bronvermelding ontbreekt door het hele boek, wat een lezer die iets wil natrekken op eigen kracht laat zoeken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De grens van dit type verklaring is een verhaal dat achteraf alles kan opnemen. De menopauze wordt verklaard uit het voordeel van grootmoederzorg. Maar de chimpansee kent geen menopauze en blijft baren, en Nelissen lost dat op met de opmerking dat de kosten-batenrekening daar anders uitpakt. Zo verklaart hetzelfde model twee tegengestelde uitkomsten. Zonder voorspelling die had kunnen mislukken, blijft het een aannemelijk verhaal en geen toets.</p>
+      <p>Hij levert het gereedschap voor die kritiek zelf. Zijn onderscheid tussen aanpassing en neveneffect is precies bedoeld om te voorkomen dat overal een functie in wordt gezien. Toch past hij het strenge criterium vooral toe op rimpels en haaruitval, en veel minder op de dragende stelling dat de tweede levensfase een functie heeft gekregen. Zijn eigen hypothese, dat een langere levensloop de culturele versnelling verklaart, wordt gepresenteerd maar niet aan gegevens onderworpen.</p>
+      <p>Er zit ook een sprong in het betoog van beschrijven naar waarderen. Uit de vaststelling dat oudere mensen in het verleden nuttig waren voor hun groep volgt niet dat een oud mens vandaag waardevol is. Die waarde staat op andere gronden, en door haar aan een biologische functie te hangen maakt Nelissen haar afhankelijk van iets dat een moderne samenleving niet meer nodig heeft. Wie de redenering aanvaardt, aanvaardt in beginsel ook dat zij kan omslaan.</p>
+      <p>Tot slot stuurt het doel de selectie. Nelissen kondigt aan dat hij de eigenwaarde van de oudere lezer wil laten stijgen en dat hij spetterende verrassingen belooft. Wat de tweede fase kost, zoals dementie, armoede na pensionering en zorgafhankelijkheid, blijft grotendeels buiten beeld. De sociale krimp is de opvallendste uitzondering, en juist daar wordt het boek scherp.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bekijk bij een verklaring over de functie van een eigenschap of het ook een bijverschijnsel kan zijn.</li>
+        <li>Vraag wat de uitkomst had moeten zijn als die verklaring niet klopte.</li>
+        <li>Houd bij welke contacten er in vijf jaar zijn weggevallen.</li>
+        <li>Beoordeel supplementen op gepubliceerd bewijs bij mensen, niet op de namen in een adviesraad.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Bij Lannoo; ondertitel over de biologie en de zin van ouder worden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nelissen stelt de vraag waarom mensen zo lang doorleven nadat zij zich hebben voortgeplant, terwijl dat bij de meeste diersoorten niet gebeurt. Zijn antwoord loopt via de rol van grootouders: een soort die kennis moet doorgeven en langzaam opgroeiende jongen heeft, heeft baat bij ouderen die niet meer voor eigen nageslacht zorgen.</p><p>Van daaruit behandelt hij wat ouder worden lichamelijk en sociaal betekent, en verzet hij zich tegen het beeld van ouderdom als aftakeling zonder functie. Het is een vriendelijk boek met een duidelijke stelling, en de onderbouwing is die van de populaire gedragsbiologie: aannemelijk, met minder hard bewijs dan de stelligheid suggereert.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ouderdom</li><li>evolutie</li><li>biologie</li><li>grootouders</li><li>levensloop</li><li>zingeving</li><li>vlaams</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="89"><a href="../index.html#boek-89">Darwin in de supermarkt</a>. Nelissens eerdere boek waarin dezelfde evolutionaire bril op alledaags gedrag wordt gezet, met dezelfde sterke en zwakke kanten.</li>
+          <li value="90"><a href="../index.html#boek-90">Darwin in het nieuws</a>. Zijn korte stukken over evolutie in het nieuws, bruikbaar om te zien hoe snel hij van bericht naar verklaring stapt.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman rekent met eindigheid zonder biologie en komt tot een andere houding tegenover de resterende jaren.</li>
+          <li value="49"><a href="49.html">When Breath Becomes Air</a>. Kalanithi beschrijft het naderende einde van binnenuit, waar Nelissen erover redeneert van buitenaf.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voorbij de vorm &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bodian stelt dat mindfulness-meditatie, zoals die sinds de jaren zeventig in het Westen wordt onderwezen, haar eigen doel in de weg zit. Wie oefent in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-141">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">141 &middot; Levenskunst</p>
+    <h1>Voorbij de vorm</h1>
+    <p class="lede">Stephan Bodian</p>
+    <p class="stats">
+      <span><b>1597</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="141"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bodian stelt dat mindfulness-meditatie, zoals die sinds de jaren zeventig in het Westen wordt onderwezen, haar eigen doel in de weg zit. Wie oefent in aandachtig waarnemen houdt daarmee de scheiding in stand tussen degene die waarneemt en dat wat waargenomen wordt, en blijft hangen in een toestand die onderhoud vraagt en wegzakt zodra het oefenen stokt. Wat hij Zijnsbesef noemt is volgens hem geen vermogen dat je aankweekt, maar de altijd aanwezige achtergrond van elke ervaring, die alleen herkend hoeft te worden. Daaruit volgt zijn tweede stelling: er bestaat een kortere weg, ontleend aan zen en aan de advaita-traditie, waarin direct wordt gewezen op wat je al bent.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat mindfulness oplevert en waar het volgens Bodian ophoudt</h3>
+      <p>Bodian opent met zijn eigen loopbaan. Hij mediteerde jarenlang als monnik, werd rustiger en minder reactief, en merkte tegelijk dat zijn meditaties droog werden en dat hij het leven meer op afstand onderging. Toen hij dat aan zijn zenleraar voorlegde, was het antwoord dat hij meer moest mediteren. Hij legde zijn gewaden af en ging westerse psychologie studeren.</p>
+      <p>Het eerste hoofdstuk erkent wat de moderne beoefening oplevert: minder stress, betere concentratie, meer gelijkmoedigheid. Zijn bezwaar zit elders. Mindfulness is een gemoedstoestand, dus tijdelijk en afhankelijk van hoe consequent je oefent, en ze rust op een oordeel over hoe je geest hoort te zijn. Wie zich daarop richt houdt een gevoel van tekortschieten in stand, omdat je altijd nog aandachtiger kunt zijn.</p>
+      <p>De scherpste formulering is die van de getuige als fuik. De onthechte waarnemer die meditatie opbouwt is aanvankelijk nuttig, maar wordt een positie waarmee je je gaat vereenzelvigen: hoe meer je mediteert, hoe verder je die fuik in zwemt.</p>
+      <h3>De ezels van Nasruddin: inhoud en context</h3>
+      <p>Het tweede hoofdstuk hangt aan een oud verhaal. Nasruddin gaat jarenlang met beladen ezels de grens over, de douaniers weten zeker dat hij smokkelt, doorzoeken telkens de manden en vinden niets. Na zijn pensioen vertelt hij wat hij smokkelde: ezels.</p>
+      <p>Dat is zijn beeld voor de geest die zich op inhoud richt en de context negeert. Je ziet de tekening en niet het papier, de beelden en niet het scherm, je merkt de zuurstof pas op als die ontbreekt. Bewustzijn is de over het hoofd geziene ezel: zonder dat is geen ervaring mogelijk, en juist daarom valt het niet op.</p>
+      <p>Hier staat het onderscheid dat het hele boek draagt. Onbegrensd bewustzijn is nog een vermogen dat je opbouwt en dat afneemt als je het laat versloffen; Zijnsbesef vraagt geen onderhoud, want het is de voorwaarde voor elke ervaring en niet zelf een ervaring.</p>
+      <h3>Zijnsbesef, Ongrond en de diagnose van Boeddha</h3>
+      <p>Het derde hoofdstuk plaatst het geheel in een boeddhistisch kader. Boeddha stelde volgens Bodian de oorzaak van het lijden vast, namelijk hunkeren naar wat we niet hebben en verzet tegen wat we wel hebben, gedragen door de illusie een afgescheiden individu te zijn.</p>
+      <p>Bodian hanteert twee woorden naast elkaar. Ongrond is de bestaansgrond waarin alles opkomt, aanwezig of we het beseffen of niet. Zijnsbesef is wat er gebeurt zodra die Ongrond zich in een mens als diens eigen aard herkent. Ontwaken is in zijn beschrijving een verschuiving in drie stappen: eerst zie je bewustzijn als functie, dan als grond, en dan zie je dat jij dat bent.</p>
+      <h3>De poortloze poort</h3>
+      <p>In het vierde hoofdstuk staat de paradox centraal: hoe word je wat je al bent. Zen noemt dat de poortloze poort. Je doet er alles aan om erdoorheen te komen, en ontdekt aan de andere kant dat de poort een verzinsel was.</p>
+      <p>Herkenning beschrijft Bodian als een figuur-achtergrondverschuiving, vergelijkbaar met de bekende tekening die een jonge of een oude vrouw laat zien. De directe weg laat zich volgens hem niet plannen: geen mijlpalen, geen gevoel van vooruitgang. Hij citeert Stephen Levine, die het het hoge, smalle pad zonder leuning noemde. Zijn eigen omslag kwam op de snelweg, toen de zin van een leraar in hem terugkwam: de zoeker is wat gezocht wordt.</p>
+      <h3>Verankeren in plaats van oefenen</h3>
+      <p>Het vijfde en zesde hoofdstuk gaan over wat er na de herkenning gebeurt. Bodian is er nuchter over: het ikje steekt telkens weer de kop op en je valt terug in de gewoonte jezelf voor een verhaal te houden. Het werk bestaat dan uit terugkeren en verblijven.</p>
+      <p>Het verschil met meditatie formuleert hij zo: bij mindfulness kies je ervoor aandachtig te zijn, bij de directe benadering herinner je jezelf eraan dat je die aandacht zelf bent. Zelfverbetering noemt hij een doodlopende weg, omdat het individu dat je wilt verbeteren volgens hem geen duurzaam ding is.</p>
+      <h3>Emoties, kernverhalen en fixaties</h3>
+      <p>Het laatste hoofdstuk behandelt woede, paniek, jaloezie en verdriet. Bodian zet vier gewoonten naast elkaar: opgaan in de emotie, haar vermijden via verdringing en projectie, haar in schijn overstijgen door je achter onthechting te verbergen, of haar onderzoeken met mindfulness. Bij die laatste ziet hij het risico dat de afstandelijke getuigepositie subtiele gevoelens wegdrukt.</p>
+      <p>Zijn alternatief is de emotie laten zijn wat ze is in open bewustzijn, zonder tegengif en zonder verhaal. Daarnaast beschrijft hij kernovertuigingen, zoals de overtuiging dat niemand van je houdt, die alle waarneming kleuren, en verwijst hij voor de vaste patronen naar het enneagram, met de aantekening dat een typologie misleidend wordt zodra je gaat denken dat je je fixatie bent.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zijnsbesef</td><td>De vertaling van awakened awareness: de altijd aanwezige achtergrond van elke ervaring, die zichzelf in stand houdt en niet gekweekt kan worden.</td></tr>
+          <tr><td class="term">Ongrond</td><td>De bestaansgrond waarin alles opkomt, aanwezig of iemand zich daarvan bewust is of niet.</td></tr>
+          <tr><td class="term">De directe benadering</td><td>De weg die de omweg van het oefenen laat vallen en direct wijst op wat volgens Bodian altijd al het geval is.</td></tr>
+          <tr><td class="term">De fuik van de getuige</td><td>De positie van onthechte waarnemer die meditatie opbouwt en waarmee de beoefenaar zich uiteindelijk vereenzelvigt.</td></tr>
+          <tr><td class="term">Poortloze poort</td><td>Zenbeeld voor de paradox dat je moeite doet om ergens te komen waar je nooit buiten hebt gestaan.</td></tr>
+          <tr><td class="term">Figuur-achtergrondverschuiving</td><td>De omslag waarbij wat achtergrond was op de voorgrond komt, zoals bij de tekening die een jonge of een oude vrouw kan zijn.</td></tr>
+          <tr><td class="term">Kernverhaal en fixatie</td><td>Een terugkerende overtuiging en het patroon eromheen dat de waarneming van alle situaties kleurt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie dingen: de eigen weg van de schrijver, de tradities waarin hij is opgeleid, en de dialogen uit zijn retraites die elk hoofdstuk afsluiten. Bodian is geregistreerd psychotherapeut en leraar in de zen- en advaita-lijn, en noemt Jean Klein als zijn leraar. Studies, cijfers of vindplaatsen staan er niet in. Waar hij naar onderzoek verwijst, gaat dat over de kant die hij niet verdedigt: de aangetoonde werking van mindfulness op stress, stemming en concentratie erkent hij, en die erkenning is de opstap naar zijn bezwaar.</p>
+      <p>Voor zijn eigen leer is er geen toets. Hij schrijft dat de oefeningen van heiligen en yogi's, net als natuurkundige experimenten, reproduceerbare uitkomsten opleveren, maar levert daar niets voor aan en zwakt het in dezelfde alinea af met de opmerking dat het per persoon anders verloopt.</p>
+      <p>Wat wel controleerbaar is, is de innerlijke samenhang: de begrippen komen uit een traditie die ze al eeuwen zo gebruikt en Bodian past ze consequent toe. De Nederlandse vertaling verzwakt dat op één punt: de vertalers melden dat Zijnsbesef in het boek verschillende lagen van bewustzijn dekt en raden de lezer aan niet te bepalen welke laag bedoeld is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de leer zich niet laat weerleggen. Herkent de lezer Zijnsbesef niet, dan telt dat binnen het boek als teken dat de herkenning nog niet heeft plaatsgevonden en niet als tegenargument. Elke uitkomst bevestigt de stelling, dus de vraag of ze waar is valt binnen het boek niet te beantwoorden. Bodian legt die last uitdrukkelijk bij de lezer neer: zijn beschrijvingen zijn hypotheses die je zelf op waarheid moet beoordelen, en zolang dat niet gebeurt blijft het volgens hemzelf bij gepraat.</p>
+      <p>Het tweede bezwaar komt uit zijn eigen hoek. Binnen de nonduale kring is er kritiek op de belofte van plotseling inzicht, omdat die het psychologische werk kan overslaan; in het Engels heet dat spiritual bypassing. Bodian ziet het probleem, benoemt het transcenderen van gevoelens als een vluchtroute die vooral in spirituele kringen populair is, en noemt leraren die onfeilbaarheid prediken en ondertussen hun volgers misbruiken. Zijn remedie blijft echter dezelfde openheid die de klacht betreft: emoties toelaten en verankerd blijven. Waar therapie, gesprek of tijd nodig is, blijft het boek vaag, en dat is opmerkelijk bij een schrijver die zelf psychotherapeut is.</p>
+      <p>Verder wringt de omgang met de wereld buiten de beoefenaar. Op de vraag van een lezer naar oorlogen, aanslagen en milieuschade antwoordt Bodian dat niemand kan weten of dat niet precies is wat er volgens een niet te bevatten dynamiek moest gebeuren. Protesteren mag, mits je je niet aan het resultaat hecht. Wie dat antwoord op zichzelf leest, houdt een houding over waarin alles wat gebeurt achteraf gelijk krijgt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Merk op of je meditatie het gevoel van tekortschieten voedt: wordt kalmte iets dat je moet bijhouden om overeind te blijven?</li>
+        <li>Onderzoek eens waar de grens van je waarneming ligt in plaats van erover te denken.</li>
+        <li>Schrijf op welke terugkerende overtuiging over jezelf je waarneming van mensen kleurt, en kijk hoe vaak je er bewijs voor meent te vinden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Mindfulness als weg</i>, bij uitgeverij Samsara. Bodian is voormalig zenmonnik en psychotherapeut.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bodian behandelt meditatie niet als techniek om rustiger te worden maar als weg die verder gaat dan het beheersen van de aandacht. Zijn kritiek op de gangbare aandachtstraining is dat zij een middel is geworden om beter te functioneren, terwijl de oefening oorspronkelijk bedoeld was om het beeld van een afzonderlijk zelf te onderzoeken.</p><p>Hij schrijft vanuit twee achtergronden, de zentraditie en de psychotherapie, en dat maakt het praktischer dan zuiver spiritueel werk. Het blijft een tekst binnen een traditie: de uitgangspunten worden uitgelegd en niet getoetst, en de lezer die om bewijs verlegen zit vindt dat hier niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mindfulness</li><li>meditatie</li><li>zen</li><li>aandacht</li><li>nederlands</li><li>spiritualiteit</li><li>oefening</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="111"><a href="../index.html#boek-111">Dingen die je hoop geven</a>. Haemin Sunim komt uit dezelfde boeddhistische hoek, maar houdt het bij troostend advies en gaat de vraag naar de aard van bewustzijn uit de weg.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius werkt aan wat Bodian juist afwijst: dagelijkse oefening in het beheersen van je oordeel, zonder belofte van een omslag.</li>
+          <li value="107"><a href="107.html">Alles draait om angst</a>. Van Gassel behandelt angst als iets wat je psychologisch uitzoekt, precies het werk waarvan critici zeggen dat de directe weg het overslaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

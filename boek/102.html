@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingangen tot Een cursus in wonderen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Glaudemans, vertaler van Een cursus in wonderen, wil met dit boek geen vervanging van de Cursus bieden maar toegangen ertoe. Zijn stelling is dat de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-102">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">102 &middot; Positief denken en manifesteren</p>
+    <h1>Ingangen tot Een cursus in wonderen</h1>
+    <p class="lede">Willem Glaudemans, 2013</p>
+    <p class="stats">
+      <span><b>1600</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="102"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Glaudemans, vertaler van <i>Een cursus in wonderen</i>, wil met dit boek geen vervanging van de Cursus bieden maar toegangen ertoe. Zijn stelling is dat de Cursus een sluitend denksysteem vormt: de wereld die we zien is een projectie van een gespleten denkgeest, het ego bestaat alleen doordat wij erin geloven, en vergeving is het inzien dat er nooit werkelijk iets is gebeurd dat vergeven moet worden. Wie dat aanvaardt, ziet zijn waarneming omslaan van angst naar liefde, en die omslag noemt de Cursus een wonder. Het boek behandelt negen thema's, elk afgesloten met een deel over de praktijk, en verwijst voor de eigenlijke oefening naar het Werkboek met zijn 365 dagelijkse lessen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat de Cursus wil zijn</h3>
+      <p>Het eerste hoofdstuk ruimt misverstanden op. De titel spreekt van een cursus en niet van de cursus, en dat is volgens Glaudemans bedoeld: er zijn volgens de tekst zelf duizenden andere wegen. Een wonder is geen goocheltruc maar een omslag in de waarneming, van angst naar liefde en van schuld naar onschuld.</p>
+      <p>Hij benoemt ook de drempels. De christelijke woordenschat schrikt lezers af, de taal is moeilijk, en de eerste regel noemt het een verplichte cursus, wat hij uitlegt als een belofte aan jezelf. De Cursus is in zijn woorden niet voor iedereen bestemd: je moet aan zelfreflectie willen doen en enige zelfdiscipline hebben. Zendingswerk raadt hij af.</p>
+      <h3>Hoe de tekst tot stand kwam</h3>
+      <p>Het ontstaansverhaal begint in 1965 bij Helen Schucman en haar collega Bill Thetford, beiden psycholoog aan het medisch centrum van Columbia University. Voor een vergadering zei hij dat er een andere manier moest zijn om met elkaar om te gaan, en zij zei toe mee te zoeken. Daarna kreeg Schucman visioenen en ten slotte een stem die haar opdroeg aantekeningen te maken.</p>
+      <p>Zeven jaar lang, tot september 1972, noteerde zij in steno wat zij als innerlijk dictaat ervoer; Thetford typte het uit. Zij noemde zichzelf een joodse atheïste en moest erkennen dat de stem zich als Jezus aandiende. Van haar is de uitspraak overgeleverd dat ze wist dat het waar was maar er niet in geloofde. Ken Wapnick bewerkte de tekst redactioneel, bracht interpunctie en titels aan en haalde persoonlijke passages eruit. Judy Skutch verzorgde de eerste druk van vijfduizend exemplaren.</p>
+      <h3>Het ego als denksysteem</h3>
+      <p>Het tweede hoofdstuk behandelt het ego. In de leer van de Cursus bestaat het ego niet werkelijk; het is een illusie in een gespleten denkgeest die alleen voortduurt doordat wij erin geloven. Om het zichtbaar te maken doet de tekst alsof het een ding met eigen wil is.</p>
+      <p>De uitweg loopt via kijken. Wie naar het ego kijkt, valt er niet mee samen, en daarmee verschuift de identificatie naar de waarnemer die kiest. Glaudemans laat de lezer twee kolommen opschrijven, links wat met angst wordt geassocieerd en rechts wat met liefde, met daarboven een ik met twee pijlen. Volgens hem is de keuze voor de rechterkolom eenvoudig; de moeilijkheid zit in de eerste stap.</p>
+      <h3>Het Werkboek</h3>
+      <p>Het Werkboek noemt Glaudemans het kloppend hart. Zonder de lessen blijft de Cursus een theorie. Hij raadt aan dit hoofdstuk pas te lezen wanneer je al maanden bezig bent, omdat voorkennis de eerste ervaring bederft.</p>
+      <p>Wat de lessen zouden opleveren beschrijft hij ruim: minder oordelen, minder irritatie, een onderstroom van vreugde, soms ervaringen van licht of van eenheid. Daarna behandelt hij de weerstand, die hij aan het ego toeschrijft. Zijn voorbeeld is de man die telkens eerst koffie ging zetten en de krant las.</p>
+      <h3>Speciaalheid</h3>
+      <p>Speciaalheid noemt Glaudemans een van de taaiste maaksels van het ego, een woord dat noch in het Engels noch in het Nederlands bestond voordat de Cursus het invoerde. Aan de oppervlakte is het aangenaam en wordt het in de wereld beloond.</p>
+      <p>De keerzijde ligt in de rekensom eronder. Om speciaal te zijn heb je anderen nodig, als publiek dat applaudisseert en als minderen waartegen je gunstig afsteekt. Onderscheid maken noemt hij op zichzelf neutraal; het wordt speciaalheid zodra langer ook beter betekent.</p>
+      <h3>Vergeving</h3>
+      <p>Vergeving in de zin van de Cursus gaat volgens Glaudemans niet over de ander en niet over herstel van de relatie. Het gaat over het loslaten van eigen, vaak onbewuste schuld. Wie zich afvraagt of hij werkelijk wil vergeven, stuit op gehechtheden en excuses, van eerst moet de ander spijt betuigen tot mijn haat houdt mij scherp.</p>
+      <p>Een beetje bereidheid is genoeg, schrijft hij, want de rest wordt aangevuld door de Heilige Geest. Het ego kan niet vergeven omdat het naar buiten kijkt, op zoek naar schuldigen.</p>
+      <h3>De metafysica</h3>
+      <p>Het slothoofdstuk geeft de achtergrondfilosofie, gebaseerd op Wapnicks uitleg. De wereld is een illusie. Glaudemans begint bij de grot van Plato en bij de gnostische gedachte dat dit leven een droom is waaruit we kunnen ontwaken.</p>
+      <p>Volgens de Cursus heeft God deze wereld niet geschapen. Wat begon, begon als een gedachte in de denkgeest van de Zoon van God die zich afvroeg of er meer dan alles kon zijn; de tekst noemt dat een nietig dwaas idee waarom hij vergat te lachen. Glaudemans zet er zelf bij dat het verhaal een verloop en een tijd suggereert die er niet zijn, en dat het in feite nooit heeft plaatsgevonden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wonder</td><td>Een omslag in de waarneming, van angst naar liefde, die zich vanbinnen voltrekt en geen zichtbaar gevolg hoeft te hebben.</td></tr>
+          <tr><td class="term">Ego</td><td>Het afgescheiden deel van de denkgeest dat volgens de Cursus niet werkelijk bestaat en alleen voortduurt door ons geloof erin.</td></tr>
+          <tr><td class="term">Heilige Geest</td><td>De innerlijke stem die op elke vergissing van het ego de correctie geeft.</td></tr>
+          <tr><td class="term">Keuzemaker</td><td>De waarnemer die inziet dat hij niet samenvalt met het ego en daarom elk moment kan kiezen.</td></tr>
+          <tr><td class="term">Speciaalheid</td><td>Het willen verschillen van anderen, dat volgens de Cursus publiek en minderen nodig heeft en de afscheiding in stand houdt.</td></tr>
+          <tr><td class="term">Vergeving</td><td>Het loslaten van eigen schuld in de denkgeest, en niet het goedmaken van iets tussen twee mensen.</td></tr>
+          <tr><td class="term">Denkgeest</td><td>De plaats waar volgens de Cursus alles gebeurt en waar elke verandering moet plaatsvinden, in plaats van in de wereld buiten.</td></tr>
+          <tr><td class="term">Nietig dwaas idee</td><td>De afscheidende gedachte waarmee de droom van deze wereld volgens de Cursus begon.</td></tr>
+          <tr><td class="term">Werkboek</td><td>Het deel met 365 dagelijkse lessen, dat Glaudemans de enige echte praktijk noemt.</td></tr>
+          <tr><td class="term">Innerlijk dictaat</td><td>De wijze waarop Helen Schucman de tekst naar eigen zeggen ontving, bij vol bewustzijn en in steno genoteerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een uitlegboek, geen betoog. Het gezag komt van de Cursus zelf: Glaudemans citeert doorlopend met vindplaatscodes en verwijst voor de systematiek naar Ken Wapnick, aan wie het boek is opgedragen. Buiten die kring wordt niets aangevoerd.</p>
+      <p>De grondslag van de tekst zelf is een innerlijke stem. Glaudemans vertelt dat eerlijk en zonder opsmuk, met de omstandigheden erbij: de paniek van Schucman, haar uitspraak dat ze wist dat het waar was maar er niet in geloofde, en de redactie door Wapnick achteraf. Hij verplaatst de toets vervolgens naar de ervaring van de lezer: je hoeft het auteurschap niet te geloven om er baat bij te hebben, doe de lessen en merk wat het met je doet.</p>
+      <p>Daarmee is de kern van het stelsel buiten bereik van bewijs geplaatst. De wereld als projectie, de niet-schepping door God, het opheffen van een illusie: er is geen waarneming denkbaar die deze uitspraken zou kunnen weerspreken, en de tekst vraagt daar ook niet om. Wie iets anders verwacht dan een innerlijke leerweg, vindt hier geen aanknopingspunt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het stelsel elke tegenspraak inlijft. Twijfel, uitstel, verzet en zelfs de behoefte aan koffie worden aan het ego toegeschreven, en het ego is per definitie wat de leer wil ondermijnen. Daarmee wordt afwijzing bewijs voor de kracht van wat je afwijst. Glaudemans doet dat vriendelijk en met humor, maar de figuur laat geen ruimte voor een lezer die het gewoon niet gelooft.</p>
+      <p>Uit de metafysica volgt een tweede probleem. Als de wereld een illusie is en er in wezen nooit iets is gebeurd, verliest de vraag naar onrecht haar grond. Glaudemans zegt zelf dat vergeving niet over de ander gaat en niet over herstel van de relatie. Voor wie iets ernstigs is aangedaan, betekent dat dat de erkenning die hij zoekt binnen dit stelsel geen plaats heeft. Het boek stelt die vraag wel en beantwoordt haar door haar naar de denkgeest te verplaatsen.</p>
+      <p>De tekstgeschiedenis krijgt bewondering waar afstand meer op zijn plaats was. De Cursus is in steno genoteerd, uitgetikt, jaren later opnieuw doorgenomen, van interpunctie en titels voorzien en gezuiverd van persoonlijke passages, waarna de aansluiting soms moest worden hersteld. Glaudemans noemt dit alles, zonder de vraag te stellen wat redactie doet met woorden die als dictaat gelden.</p>
+      <p>Ten slotte de belofte. Het hoofdstuk over het Werkboek somt op wat de lessen opleveren, terwijl uitblijvend resultaat verderop wordt geduid als weerstand. Dat legt de uitkomst altijd bij de lezer: lukt het, dan werkt de methode, lukt het niet, dan lag het aan hem.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst een hoofdstuk over een thema dat je bezighoudt; de delen staan los.</li>
+        <li>Wil je weten waar de Cursus op rust, begin dan bij het slothoofdstuk over de metafysica.</li>
+        <li>Scheid bij een begrip als speciaalheid de psychologische laag van de metafysische claim erachter.</li>
+        <li>Toets bij de vergevingsoefeningen of het loslaten lucht geeft of erkenning vervangt die je nog nodig hebt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Bij AnkhHermes (2013, ISBN 9789020210293; e-boek 2016). Glaudemans is neerlandicus, verzorgde de eindredactie van de Nederlandse vertaling van <i>Een cursus in wonderen</i> en schreef er meer boeken over.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een gids bij <i>Een cursus in wonderen</i>, het omvangrijke spirituele werk dat de Amerikaanse psychologe Helen Schucman tussen 1965 en 1972 optekende en dat vergeving tot kern heeft. Glaudemans behandelt in negen hoofdstukken de taal en het ontstaan ervan, het begrip ego, de rol van de Heilige Geest, het werkboek met de dagelijkse lessen, het idee van bijzonderheid, en de vraag of de wereld volgens de cursus werkelijk een illusie is.</p><p>Het is uitleg van binnenuit en geen onderzoek: de schrijver deelt het uitgangspunt van de tekst en toetst het niet. De metafysische kern, dat de waarneembare wereld een projectie van de geest is, wordt uitgelegd en niet beproefd. Wie de cursus zelf leest en vastloopt in de taal ervan heeft hier een bruikbare sleutel; wie wil weten of de aannames houdbaar zijn, vindt dat hier niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spiritualiteit</li><li>cursus-in-wonderen</li><li>vergeving</li><li>ego</li><li>metafysica</li><li>uitleg</li><li>nederlands</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="83"><a href="../index.html#boek-83">The Power of Positive Thinking</a>. Peale bouwt een christelijk gekleurde denkleer op, maar houdt de wereld werkelijk en belooft resultaat in die wereld.</li>
+          <li value="108"><a href="../index.html#boek-108">Handboek Spiegelogie</a>. De Ridder werkt eveneens met de wereld als spiegel van eigen denken, in een lossere en minder uitgewerkte vorm.</li>
+          <li value="127"><a href="../index.html#boek-127">The Law of Attraction</a>. Atkinson legt de oudste laag bloot van het idee dat gedachten de werkelijkheid vormgeven, zonder de metafysica van de Cursus.</li>
+          <li value="131"><a href="../index.html#boek-131">Wonderen manifesteren</a>. Welten gebruikt het woord wonder in de tegenovergestelde betekenis, namelijk een zichtbare uitkomst in de wereld.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

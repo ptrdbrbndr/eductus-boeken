@@ -4687,6 +4687,215 @@ heeft Carnegie zelf voorzien: hij hamert op het woord oprecht en waarschuwt
 dat de trucs zonder werkelijke belangstelling voor de ander zichtbaar hol
 zijn.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Carnegie beweert dat de omgang met mensen een vak is dat te
+leren valt, en dat succes in werk en leven er meer van afhangt dan van
+vakkennis. De kern van zijn leer is dat kritiek zelden gedrag verandert omdat
+vrijwel niemand zichzelf ongelijk geeft, en dat mensen in beweging komen
+wanneer hun verlangen om te tellen wordt erkend. Wie iets van een ander gedaan
+wil krijgen, moet daarom niet uitleggen wat hij zelf wil, maar de zaak zo
+aanbieden dat de ander hem uit eigen beweging wil. Dat is een stelling met een
+prijs: zij maakt eerlijkheid over het eigen belang ondergeschikt aan het
+gewenste resultaat, en juist daar zit de kritiek die het boek negentig jaar
+lang heeft achtervolgd.
+
+#### De gang van het boek
+
+**Een leerboek dat er niet was**
+
+Carnegie geeft vanaf 1912 avondcursussen in New York, eerst in spreken in het
+openbaar, later in de omgang met mensen. Hij schrijft dat de deelnemers dat
+tweede harder nodig hadden dan het eerste, en dat hij het zelf ook nodig had.
+
+Hij voert twee onderzoeken aan als aanleiding. Werk onder de vlag van de
+Carnegie Foundation for the Advancement of Teaching, later bevestigd aan het
+Carnegie Institute of Technology, zou hebben uitgewezen dat zelfs bij
+ingenieurs ongeveer vijftien procent van het financiële succes voortkomt uit
+vakkennis en vijfentachtig procent uit de omgang met mensen. En een enquête
+van de universiteit van Chicago en de Y.M.C.A.-scholen in Meriden,
+Connecticut, die vijfentwintigduizend dollar kostte en twee jaar duurde, met
+honderdzesenvijftig vragen aan elke volwassene in de plaats, wees gezondheid
+aan als grootste belangstelling en mensen als tweede. Er bleek geen leerboek
+te bestaan. Carnegie schreef het voor zijn eigen cursus.
+
+**De opzet: vier delen, dertig regels**
+
+Het boek is een cursus in boekvorm. Deel één geeft drie grondtechnieken in de
+omgang. Deel twee geeft zes manieren om mensen je aardig te laten vinden. Deel
+drie geeft twaalf manieren om iemand voor je standpunt te winnen. Deel vier
+geeft negen manieren om mensen te veranderen zonder hen te kwetsen of tegen je
+in te nemen. Samen dertig regels, elk afgesloten met een vetgedrukt principe.
+
+Vooraf staan negen aanwijzingen over hoe het boek te gebruiken: elk hoofdstuk
+twee keer lezen, met potlood in de hand, maandelijks herhalen, en de regels
+bewust toepassen tot ze gewoonte worden. Carnegie noemt het uitdrukkelijk een
+werkboek en geen leesboek, en waarschuwt dat één keer doorbladeren niets
+oplevert.
+
+**Deel één: waarom kritiek niets doet**
+
+Het openingshoofdstuk begint met de belegering van de moordenaar Two Gun
+Crowley in een flat aan West End Avenue op 7 mei 1931, honderdvijftig
+politiemannen, machinegeweren op de daken. Terwijl er op hem geschoten wordt,
+schrijft Crowley dat onder zijn jas een vermoeid maar vriendelijk hart zit dat
+niemand kwaad zou doen. Al Capone noemde zichzelf een miskende weldoener,
+Dutch Schultz eveneens. Lewis Lawes, jarenlang directeur van de gevangenis
+Sing Sing, schreef Carnegie dat vrijwel geen enkele gedetineerde zichzelf als
+slecht beschouwt.
+
+Daaruit volgt de eerste regel: niet bekritiseren, veroordelen of klagen.
+Kritiek zet mensen in de verdediging, wondt hun trots en wekt wrok, en
+verandert het gedrag zelden. Carnegie illustreert dat met de breuk tussen
+Theodore Roosevelt en Taft, die de Republikeinse partij splitste en Taft in
+tranen liet volhouden dat hij niet anders had gekund, en met het Teapot
+Dome-schandaal rond minister Albert Fall.
+
+De twee andere regels van dit deel zijn eerlijke en oprechte waardering geven,
+en bij de ander het verlangen wekken om zelf te willen wat je voorstelt. Bij
+dat laatste hoort het inzicht dat elk gesprek over wat de spreker wil, aan de
+verkeerde kant begint.
+
+**Deel twee en drie: aardig gevonden worden, en overtuigen**
+
+De zes manieren om aardig gevonden te worden lopen van oprechte belangstelling
+voor de ander, glimlachen en het onthouden en gebruiken van iemands naam, tot
+goed luisteren, praten over waar de ander belang in stelt, en de ander het
+gevoel geven dat hij ertoe doet. Carnegie voegt aan bijna elk daarvan de eis
+van oprechtheid toe.
+
+De twaalf manieren om iemand te winnen beginnen met de regel dat de enige
+manier om een discussie te winnen is haar te vermijden, gevolgd door respect
+tonen voor de mening van de ander en nooit zeggen dat hij ongelijk heeft. Wie
+zelf fout zit, geeft dat snel en nadrukkelijk toe. Verder: de ander laten
+uitpraten wanneer hij een klacht heeft, hem het gevoel geven dat het idee van
+hem is, en de reeks kleine instemmingen die Carnegie de methode van Socrates
+noemt, waarbij de ander vanaf het begin ja zegt.
+
+**Deel vier: leidinggeven zonder wrok te wekken**
+
+Het laatste deel gaat over correctie. Begin met lof, wijs op fouten zonder ze
+rechtstreeks te benoemen, spreek eerst over je eigen misstappen, geef een
+opdracht in de vorm van een vraag, laat de ander zijn gezicht redden, prijs
+elke vooruitgang, en geef iemand een goede naam om waar te maken.
+
+De veranderde toon van de herziene uitgave is hier goed te zien. In een
+toegevoegd voorbeeld vertelt een veiligheidscoördinator uit Enid, Oklahoma,
+dat bevelen over veiligheidshelmen norse instemming opleverden en de helmen na
+zijn vertrek weer afgingen, terwijl vragen of de helm goed zat wel werkte. Dat
+is de hele leer in één geval.
+
+**Waarom het na negentig jaar nog staat**
+
+De eerste druk verscheen in 1936 in vijfduizend exemplaren; uitgever noch
+auteur verwachtte meer. De herziene uitgave uit 1981, verzorgd door Dorothy
+Carnegie, verving verouderde namen en voorbeelden en liet de tekst verder
+staan.
+
+Dat het boek meegaat, komt doordat het zich beperkt tot gedrag dat iedereen
+dagelijks vertoont en dat sindsdien niet is veranderd: zichzelf verdedigen,
+gelijk willen hebben, gezien willen worden. De regels zijn kort, concreet en
+meteen te proberen, en de anekdotes doen het werk dat elders een argument zou
+moeten doen. Vrijwel alle latere adviesliteratuur over samenwerken, verkopen
+en leidinggeven werkt met dezelfde bouwstenen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Eerlijke en oprechte waardering | Lof die op een werkelijk gezien feit berust, door Carnegie steeds afgezet tegen vleierij. |
+| Vleierij | Lof zonder grond, die volgens Carnegie doorzien wordt en de spreker duur komt te staan. |
+| Het verlangen om te tellen | De drijfveer die Carnegie als de sterkste van alle beschouwt en waar zijn hele methode op aangrijpt. |
+| Een gretig verlangen wekken | De zaak zo voorleggen dat de ander haar uit eigen belang wil, in plaats van uit te leggen wat de spreker wil. |
+| De methode van Socrates | Een gesprek openen met vragen waarop de ander alleen ja kan zeggen, zodat de tegenstand niet op gang komt. |
+| De veiligheidsklep | De klager volledig laten uitspreken voordat er iets wordt weerlegd. |
+| Gezicht laten redden | Correctie zo inrichten dat de ander niet vernederd wordt waar anderen bij zijn. |
+| Iemand een goede naam geven | Een goede eigenschap toeschrijven die de ander vervolgens waar wil maken. |
+| Menselijke betrekkingen als vak | Carnegies uitgangspunt dat omgang met mensen aan te leren is als elk ander beroepsonderdeel. |
+
+#### Waar het argument op rust
+
+De onderbouwing is anekdotisch van begin tot eind. Het boek bestaat uit
+verhalen: historische gevallen zoals Roosevelt en Taft of het Teapot
+Dome-schandaal, gesprekken met bekende zakenlieden, brieven van
+gevangenisdirecteur Lewis Lawes, en vooral verslagen van cursisten die een
+regel toepasten en er baat bij hadden. Carnegie schrijft dat hij alles las wat
+hij over het onderwerp kon vinden en een onderzoeker inhuurde, maar de
+vindplaatsen ontbreken.
+
+De twee cijfermatige claims die er wel staan, zijn niet controleerbaar
+gebracht. De verhouding vijftien tegen vijfentachtig procent wordt
+toegeschreven aan onderzoek van twee instellingen zonder titel, jaartal of
+methode. Hetzelfde geldt voor de enquête in Meriden. Beide fungeren als
+opening, niet als bewijs.
+
+De herziene uitgave voegt namen toe die gezag suggereren: B.F. Skinner, van
+wie wordt gezegd dat hij aantoonde dat belonen sneller leert dan straffen, en
+Hans Selye over de vrees voor afkeuring. Dat blijven losse verwijzingen; er
+wordt geen studie besproken en geen enkele regel uit het boek is aan een toets
+onderworpen.
+
+Wat wel voor de inhoud pleit, is dat een deel van de regels later los van
+Carnegie steun heeft gekregen. Dat correctie beter werkt wanneer zij de
+eigenwaarde van de ontvanger spaart, en dat mensen graag praten over zichzelf
+en de gesprekspartner daar gunstiger om beoordelen, zijn in de sociale
+psychologie herhaaldelijk onderzocht. Die steun komt van buiten en staat niet
+in het boek.
+
+#### Wat er tegen in te brengen valt
+
+Het staande bezwaar is dat de methode zich even goed voor manipulatie leent.
+Alle regels beschrijven wat je bij een ander teweegbrengt, en geen enkele
+stelt de vraag of jouw voorstel voor die ander werkelijk goed is. Wie de
+dertig regels leest als handleiding om mensen dingen te laten doen die hun
+niet baten, vindt daarin niets wat hem tegenhoudt. Het boek is dan ook
+decennialang als verkooptechniek gebruikt, en het lemma van de titel wordt tot
+vandaag spottend aangehaald voor berekenende vriendelijkheid.
+
+Carnegie zag het bezwaar en probeerde het op drie manieren te ondervangen. Hij
+herhaalt bij vrijwel elke regel het woord oprecht en zet waardering
+nadrukkelijk af tegen vleierij, die volgens hem doorzien wordt en zich tegen
+de gebruiker keert. Hij vraagt geen techniek maar belangstelling: wie mensen
+niet werkelijk aardig vindt, krijgt de regels niet aan de praat. En hij stelt
+dat het gaat om een verandering van gewoonte en levenshouding, niet om trucs
+voor incidenteel gebruik.
+
+Die waarborg is zwak, omdat zij buiten de methode ligt. Zij berust op de
+belofte van de auteur dat onoprechtheid vanzelf uitkomt, en dat is geen
+eigenschap van de regels zelf. In de praktijk is aangeleerde belangstelling
+van echte belangstelling moeilijk te onderscheiden, zeker bij korte contacten,
+en juist daar wordt het boek het meest gebruikt.
+
+Daarnaast selecteert het boek zijn bewijs. Er staan uitsluitend gevallen in
+waarin de regel werkte; wat er gebeurt wanneer de ander de techniek herkent,
+of wanneer belangen werkelijk botsen en vriendelijkheid het geschil niet
+wegneemt, komt niet aan de orde. Het advies om discussie te vermijden past
+slecht bij situaties waarin iets van waarde op het spel staat en iemand
+ongelijk heeft. En de wereld van het boek is die van de Amerikaanse
+middenklasse van de jaren dertig, waarin verhoudingen tussen chef en werknemer
+worden weergegeven als een kwestie van toon.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf voor een lastig gesprek eerst op wat de ander eruit wil halen, en
+begin het gesprek pas als dat er staat.
+- Vervang de eerstvolgende opdracht die je geeft door een vraag, en let op wat
+dat met de uitvoering doet.
+- Houd bij een klacht je mond tot de klager helemaal is uitgesproken, ook
+wanneer het weerwoord al klaarligt.
+- Noem bij een correctie eerst je eigen vergelijkbare misstap, en pas daarna
+de fout van de ander.
+- Toets voor je een van deze regels gebruikt of je voorstel de ander werkelijk
+iets oplevert; het boek stelt die vraag niet voor je.
+
+#### Wat je hierna leest
+
+- 25. The 7 Habits of Highly Effective Teens. Hetzelfde genre, drie generaties
+later en voor jongeren geschreven, met dezelfde afhankelijkheid van
+voorbeelden zonder onderzoek.
+- 73. 12 Rules for Life. Ook een boek met genummerde gedragsregels, maar dan
+met een wereldbeschouwing eronder in plaats van cursusmateriaal.
+
 ## 25. The 7 Habits of Highly Effective Teens
 
 Sean Covey, 1998. Bewerking voor jongeren van *The 7 Habits of Highly
@@ -4710,6 +4919,183 @@ ouders, verkering en de eigen persoonlijke bankrekening van zelfvertrouwen. De
 vorm is die van een werkboek met opdrachten, cartoons en citaten van
 leeftijdgenoten, en dat maakt het bruikbaar in een gezin en tegelijk gedateerd
 in zijn voorbeelden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sean Covey vertaalt de zeven gewoonten van zijn vader naar
+het leven van een tiener, en bouwt daarbij op één stelling: het verschil
+tussen jongeren die het redden en jongeren die vastlopen zit niet in wat hun
+overkomt maar in hoe zij op hun omstandigheden reageren, en die reactie is een
+aan te leren gewoonte. Alles wat volgt, van proactief zijn tot win-win denken,
+is uitwerking van dat ene idee dat de ruimte tussen prikkel en antwoord van de
+jongere zelf is. Dat is een aantrekkelijke stelling voor een lezer van
+vijftien, en tegelijk een stelling die de invloed van gezin, geld en toeval
+kleiner maakt dan zij in het leven van veel tieners is.
+
+#### De gang van het boek
+
+**Voor wie het geschreven is**
+
+Het boek verscheen in 1998, negen jaar na het werk van Stephen Covey waar het
+op teruggaat. Het publiek is een ander: jongeren van ongeveer twaalf tot
+achttien in plaats van volwassenen in een loopbaan. De vorm is daarop
+ingericht. Strips, kaderteksten, citaten van tieners, zelftests, en aan het
+eind van elk hoofdstuk een reeks kleine stappen die dezelfde dag te doen zijn.
+
+Covey opent met een spiegelbeeld: de zeven gewoonten van zeer ondoeltreffende
+tieners, van uitstellen en anderen de schuld geven tot alleen aan jezelf
+denken. Die omkering doet het werk van een probleemstelling.
+
+**Paradigma's en principes**
+
+Vóór de gewoonten komt het onderscheid tussen paradigma en principe. Een
+paradigma is de bril waardoor iemand naar zichzelf en anderen kijkt; wie
+zichzelf als dom heeft leren zien, gedraagt zich daarnaar. Principes zijn
+volgens Covey de vaste wetten waar gedrag aan onderworpen is, zoals
+eerlijkheid en dienstbaarheid, en die zich niet laten omzeilen.
+
+Daarbij hoort het beeld van de persoonlijke bankrekening. Beloftes aan jezelf
+nakomen, jezelf goed behandelen en iets afmaken zijn stortingen; jezelf
+afbreken en beloftes breken zijn opnames. Hetzelfde beeld keert terug als
+relatiebankrekening voor de omgang met anderen.
+
+**De eerste drie gewoonten: de eigen overwinning**
+
+Wees proactief betekent bij Covey dat de tiener eigenaar is van zijn reactie.
+Hij zet reactieve taal, zoals dat kan ik niet en zo ben ik nu eenmaal,
+tegenover proactieve taal, en onderscheidt de kring van wat iemand kan
+beïnvloeden van de kring waar hij zich zorgen over maakt.
+
+Begin met het einde voor ogen leidt tot een persoonlijke missieverklaring:
+opschrijven waar je voor staat en wie je wilt zijn, voordat de omgeving dat
+invult. Covey laat de lezer zich zijn eigen tachtigste verjaardag voorstellen
+en bedenken wat anderen dan over hem zouden zeggen.
+
+Belangrijke zaken eerst gaat over tijd. De bekende vierdeling van dringend en
+belangrijk komt terug, met de nadruk op het vak van wat wel belangrijk maar
+niet dringend is: huiswerk op tijd, sport, vriendschappen onderhouden. Het
+beeld van de grote stenen die eerst in de pot moeten, anders past er niets
+meer, doet daar het werk.
+
+**De volgende drie: samen met anderen**
+
+Denk win-win zet Covey af tegen drie andere houdingen: winnen ten koste van de
+ander, toegeven ten koste van jezelf, en de houding waarin beiden verliezen.
+Hij verbindt dat aan het schoolleven, waar vergelijking en concurrentie de
+standaard zijn.
+
+Eerst begrijpen, dan begrepen worden is het hoofdstuk over luisteren. Covey
+somt de manieren op waarop tieners niet luisteren, zoals doen alsof, selectief
+horen en het gesprek naar zichzelf toetrekken, en zet daar het naspreken van
+gevoel en inhoud tegenover. Het is het meest concrete deel van het boek.
+
+Synergie betekent dat samenwerken meer oplevert dan de som van de delen, en
+Covey koppelt het aan het waarderen van verschillen in achtergrond, uiterlijk
+en opvatting. Dit hoofdstuk leunt het zwaarst op vertelde voorbeelden en het
+lichtst op iets wat te toetsen valt.
+
+**De zevende gewoonte en de zware onderwerpen**
+
+Houd de zaag scherp gaat over onderhoud van vier gebieden: lichaam, verstand,
+hart en ziel. Hier komen de onderwerpen binnen die het boek van het werk van
+de vader onderscheiden. Covey behandelt lichaamsbeeld en eetstoornissen,
+roken, drank en drugs, en verslaving aan het scherm, en doet dat nuchterder
+dan de rest van het boek.
+
+Het slot roept de lezer op de gewoonten aan iemand anders door te geven. Het
+boek eindigt zoals het begon: met de gedachte dat karakter een optelsom van
+dagelijkse keuzes is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Paradigma | De bril waardoor iemand zichzelf en anderen ziet, die het gedrag stuurt voordat er iets gebeurd is. |
+| Principe | Bij Covey een vaste wet van menselijk gedrag, zoals eerlijkheid, die zich volgens hem niet laat omzeilen. |
+| Proactief | Verantwoordelijk zijn voor je eigen reactie in plaats van je gedrag toeschrijven aan wat je overkomt. |
+| Persoonlijke bankrekening | Het beeld van zelfvertrouwen als saldo dat groeit door nagekomen beloftes aan jezelf. |
+| Relatiebankrekening | Hetzelfde beeld toegepast op een vriendschap, waarin kleine attenties storten en roddel opneemt. |
+| Persoonlijke missieverklaring | Een zelf opgeschreven verklaring van waar je voor staat, bedoeld als richtsnoer bij keuzes. |
+| Win-win | De houding waarin een oplossing wordt gezocht die beide partijen iets oplevert. |
+| Synergie | De opbrengst van samenwerking die groter is dan de som van de afzonderlijke bijdragen. |
+| De zaag scherp houden | Regelmatig onderhoud van lichaam, verstand, hart en ziel, zodat de andere gewoonten vol te houden zijn. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen onderzoek. De onderbouwing bestaat uit verhalen van
+tieners die Covey sprak of die hem schreven, uit eigen jeugdherinneringen, en
+uit citaten van bekende figuren. Er wordt nergens verwezen naar een studie die
+laat zien dat wie de gewoonten aanleert, het beter doet dan wie dat niet doet.
+
+Dat is geen omissie van de zoon alleen. Ook het werk van Stephen Covey uit
+1989, waar dit boek de vertaling van is, presenteerde zijn zeven gewoonten als
+tijdloze principes op grond van een leeservaring met tweehonderd jaar
+Amerikaanse succesliteratuur, zonder toetsing. De jeugdversie neemt dat kader
+over en voegt er geen bewijs aan toe.
+
+Wat het boek wel heeft, is samenhang met dingen die elders wel onderzocht
+zijn. Dat doelen opschrijven de kans op uitvoering vergroot, dat uitstelgedrag
+afneemt wanneer taken worden opgedeeld, en dat naspreken van wat de ander zegt
+het gesprek verbetert, zijn afzonderlijk redelijk goed onderbouwd. Het pakket
+van zeven gewoonten als geheel is dat niet, en de volgorde en de indeling zijn
+een keuze van de auteur.
+
+De praktische waarde zit vooral in de vorm. De oefeningen zijn klein, de taal
+is die van de doelgroep en de voorbeelden gaan over school, ouders en
+vrienden. Voor een lezer die nooit eerder over zijn eigen gedrag heeft
+nagedacht, is dat de winst; het boek werkt als aanleiding, niet als
+bewijsvoering.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek gedrag presenteert als de beslissende
+factor in een leven waarin de omstandigheden dat vaak zijn. Een tiener in een
+gezin met geldzorgen, een onveilige thuissituatie of een school die weinig
+biedt, krijgt hier te horen dat zijn reactie de doorslag geeft. Dat is deels
+waar en werkt averechts wanneer het als volledige verklaring wordt aangeboden,
+omdat het mislukking terugkaatst op de jongere zelf.
+
+De onderbouwing ontbrak al bij de vader en is hier evenmin aanwezig. De zeven
+gewoonten worden principes genoemd en daarmee de status van natuurwet gegeven,
+terwijl het gaat om een ordening die één auteur bedacht heeft. Waarom het er
+zeven zijn, waarom in deze volgorde, en wat er zou moeten gebeuren om vast te
+stellen dat de indeling niet klopt, blijft onbesproken.
+
+Win-win en synergie veronderstellen partijen met ongeveer gelijke macht. Voor
+een jongere tegenover een ouder, een docent of een groep die hem uitsluit,
+gaat die aanname vaak niet op, en het boek zegt weinig over wat te doen
+wanneer de ander geen oplossing wil waar beiden iets aan hebben.
+
+Daar komt bij dat het boek deel is van een cursusbedrijf. De gewoonten worden
+ook als trainingen, agenda's en schoolprogramma's verkocht, en de tekst
+verwijst naar dat aanbod. Dat maakt de inhoud niet onjuist, maar verklaart wel
+waarom nergens de vraag wordt gesteld of het model klopt.
+
+Ten slotte de wereld van de voorbeelden: Amerikaans, overwegend middenklasse,
+met ouders die bereikbaar zijn en een school waar meedoen loont. Nederlandse
+lezers zullen zich in de toon van de anekdotes weinig herkennen, ook in de
+vertaling.
+
+#### Wat er concreet mee te doen is
+
+- Laat de jongere één week opschrijven waar zijn tijd heen gaat, en pas daarna
+praten over prioriteiten.
+- Oefen het onderscheid tussen wat hij kan beïnvloeden en waar hij zich zorgen
+over maakt aan de hand van één concreet probleem.
+- Spreek af dat er per week één belangrijke maar niet dringende taak vooraan
+komt te staan, en bespreek achteraf wat dat opleverde.
+- Gebruik het beeld van de relatiebankrekening bij ruzie met een vriend: welke
+opnames zijn er gedaan en wat zou een storting zijn.
+- Lees de hoofdstukken over lichaamsbeeld en verslaving samen; die zijn
+concreter dan het deel over gewoonten en lenen zich beter voor een gesprek.
+
+#### Wat je hierna leest
+
+- 24. How to Win Friends and Influence People. De grondlegger van hetzelfde
+genre, met dezelfde opzet van genummerde regels en verhalen zonder onderzoek
+eronder.
+- 74. Beyond Order. Regels voor het leven voor volwassen lezers, met een
+wereldbeschouwing als onderbouwing waar Covey principes stelt.
 
 ## 26. Born a Crime
 
@@ -17447,6 +17833,224 @@ Het is een vriendelijk boek met een duidelijke stelling, en de onderbouwing is
 die van de populaire gedragsbiologie: aannemelijk, met minder hard bewijs dan
 de stelligheid suggereert.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Nelissen, gedragsbioloog, stelt dat ouderdom bij de mens geen
+restpost van een uitgewerkt lichaam is. Hij leest de tweede levenshelft als
+een fase die de evolutie zelf heeft opgeleverd: toen onze voorouders na hun
+voortplantingsjaren bleven leven, ontstond er een groep die kennis kon
+bewaren, kleinkinderen kon helpen en de cultuur kon versnellen. Daaruit trekt
+hij een tweede, zwaardere conclusie: wie dat inzicht binnenlaat, hoeft niet
+bang te zijn voor het ouder worden, want de waarde van een oud mens is in de
+loop van de evolutie gestegen en niet gedaald. Het boek wil met biologie doen
+wat religie voor anderen doet, namelijk gemoedsrust geven.
+
+#### De gang van het boek
+
+**Een zin na een lezing**
+
+Het boek begint met een avond in Amsterdam. Na afloop van een lezing over
+darwinisme zegt een oude man tegen Nelissen: u hebt mij gemoedsrust bezorgd.
+De man was opgevoed met angst voor straf van een onzichtbare macht en vond in
+de evolutietheorie een verklaring die geen bovennatuurlijke kracht nodig
+heeft. Nelissen zegt daarvan te schrikken, omdat rust brengen nooit zijn
+bedoeling was.
+
+Uit die botsing komt het plan voor dit boek. Nelissen zegt er meteen bij wat
+het niet is: geen medisch handboek en geen langer-levengids, want dat je je
+leven aanmerkelijk kunt verlengen is volgens hem nooit aangetoond. Wel
+formuleert hij een doel: de oudere lezer moet aan het eind een rijper
+zelfbeeld hebben. Dat doel staat er voor de eerste bladzijde bewijs is
+geleverd.
+
+**Wat evolutie uittekent en wat toevallig meekomt**
+
+Voordat hij over ouderdom begint, legt Nelissen zijn gereedschap op tafel.
+Evolutie is ongelijke voortplanting: wie eigenschappen erft die de kans op
+nakomelingen vergroten, geeft die eigenschappen door. Zo krijgen niet alleen
+lichaamsdelen vorm maar ook gedrag, van zorg voor jongen tot partnerkeuze.
+Welk deel van een gedrag geërfd is en welk deel aangeleerd, noemt hij de
+opgave van zijn vak.
+
+Belangrijk voor de rest van het boek is zijn waarschuwing dat lang niet alles
+een functie heeft. De navel is zijn schoolvoorbeeld: een litteken van de
+navelstreng, zonder eigen nut, dat blijft bestaan omdat het niet in de weg
+zit. Rimpels, huidvlekken, haaruitval en een verhoogde kans op artrose plaatst
+hij in dezelfde categorie. Het zijn bijverschijnselen van ouder worden, niet
+iets waar de evolutie op gemikt heeft. Hij vraagt de lezer bovendien zijn
+manier van schrijven niet letterlijk te nemen: als hij zegt dat evolutie iets
+heeft uitgetekend, bedoelt hij geen plan en geen doel.
+
+**Waarom de mens twee levensfasen kreeg**
+
+De kern van het boek is het onderscheid tussen een eerste fase, die in dienst
+staat van voortplanting, en een tweede fase, die de groep versterkt. Om te
+verklaren waarom onze cultuur enkele tienduizenden jaren geleden zo snel ging
+veranderen, legt Nelissen drie verklaringen naast elkaar en presenteert ze als
+aanvullingen op elkaar.
+
+De eerste komt van de archeoloog Steven Mithen, die intelligentie opdeelt in
+een algemene, een technische, een ecologische en een sociale vorm. Bij eerdere
+mensachtigen werkten die vormen los van elkaar; bij ons gingen ze samenwerken.
+Mithen noemt dat cognitieve vloeibaarheid. Nelissen legt het uit aan een
+beeldje van een neushoorn: kennis van sporen, de wens om iets te melden en de
+vaardigheid om ivoor te bewerken leveren pas samen een sieraad op dat status
+uitdrukt. De tweede verklaring wijst op een daling van het testosterongehalte
+bij mannen, af te lezen aan schedels waarvan de wenkbrauwbogen ongeveer
+vijftigduizend jaar geleden slonken. De derde is van hemzelf: de mens ging
+langer leven, en die extra jaren maakten overdracht van kennis mogelijk.
+
+**De menopauze en de grootmoeder**
+
+Aan de menopauze laat Nelissen zien hoe hij redeneert. De oude verklaring
+luidde dat de voorraad van ongeveer 450 eicellen simpelweg op is en dat oudere
+vrouwen te zwak zouden zijn om te baren. Beide delen wijst hij af. Vrouwen van
+in de zestig bevallen tegenwoordig met medische hulp, en eicelproductie is na
+de menopauze weer op gang gebracht. Bovendien blijft de chimpansee tot op hoge
+leeftijd jongen krijgen, dus was langer doorgaan een kleine aanpassing
+geweest.
+
+In plaats daarvan verdedigt hij de grootmoederhypothese: een vrouw die stopt
+met baren en haar dochters helpt, geeft via kleinkinderen meer van haar genen
+door dan wanneer ze zelf was blijven baren. Bij de kindersterfte van
+honderdduizend jaar geleden telde die hulp zwaar. Als steun noemt hij een
+studie onder de Hadza in Tanzania, waaruit een verband bleek tussen de tijd
+die een grootmoeder aan de voeding van een kleinkind besteedt en de snelheid
+waarmee dat kind groeit.
+
+**Minder vrienden, en wat dat kost**
+
+De tweede fase beschrijft Nelissen liever sociaal dan lichamelijk. De mens
+noemt hij de meest sociale diersoort, en het verlangen om bij een groep te
+horen ziet hij als een oud programma dat nog op de savanne is afgestemd.
+Uitsluiting schaadt de gezondheid en verkort de levensduur.
+
+Daartegenover zet hij een bevinding die hij verontrustend vindt: ouderen
+kiezen er zelf voor om minder vrienden te hebben. Ze worden selectiever en
+houden de mensen over met wie de band het sterkst is. Dat voelt goed, maar het
+maakt vereenzaming mogelijk zonder dat iemand het merkt. Ook makaken vlooien
+minder soortgenoten naarmate ze ouder worden.
+
+**Verjongen, en wat daar tot nu toe van klopt**
+
+Een apart hoofdstuk gaat over de vraag of je jonger kunt worden. Nelissen
+beschrijft proeven waarbij de bloedsomloop van een jonge muis werd verbonden
+met die van een oude. De oude muis liep daarna beter door een doolhof, de
+jonge slechter, en bij het oude dier werden nieuwe zenuwcellen aangemaakt in
+de hippocampus. Hetzelfde effect trad op na inspuiting met bloedplasma van
+menselijke tieners.
+
+Bij de menselijke toepassing houdt hij de rem erop. Over sirtuïnen en
+resveratrol merkt hij op dat het effect bij de mens niet is aangetoond en dat
+onduidelijk is in hoeverre wetenschappelijke fraude de resultaten heeft
+vertekend. Een supplementenfabrikant die met een adviesraad vol
+Nobelprijswinnaars adverteerde, kreeg volgens hem terecht kritiek: de
+adviseurs konden geen bewijs voor de medische werking overleggen. Dit
+hoofdstuk is het eerlijkste deel van het boek.
+
+**Geluk, de dood en de schoonheid van weten**
+
+In het slotdeel verschuift het onderwerp naar geluk. Nelissen citeert een
+Engels onderzoek onder bijna tienduizend vijftigplussers, driemaal gemeten met
+tussenpozen van twee jaar; zeven jaar later was ongeveer zestien procent
+overleden, vooral wie laag scoorde op plezier in het leven. Hij houdt oorzaak
+en gevolg hier nadrukkelijk open: gelukkige mensen bewegen meer, eten beter en
+hebben minder stress.
+
+Daarna komt de doodsangst aan bod, ingeleid met een lange herinnering aan de
+schoolfeestjes uit zijn jeugd, waarin het einde van de avond model staat voor
+het einde van een leven. Het boek sluit af met wat hij de schoonheid van het
+weten noemt: een voorbijvliegende spreeuw is voor een bioloog een bibliotheek
+aan inzichten. Dat is dezelfde gemoedsrust waarmee het boek opende, nu als
+vooruitzicht voor de oudere van morgen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Tweede levensfase | De periode na de voortplantingsjaren, die volgens Nelissen een eigen functie heeft gekregen in het versterken van de groep. |
+| Homininen | Alle soorten in onze voorgeschiedenis die na de mensapen kwamen en op twee benen gingen lopen, de mens inbegrepen. |
+| Neveneffect | Een kenmerk dat meekomt met iets anders zonder zelf geselecteerd te zijn, zoals de navel of de rimpels van een oud gezicht. |
+| Cognitieve vloeibaarheid | Mithens term voor het samenwerken van eerder gescheiden vormen van intelligentie, dat Nelissen aanwijst als motor van de culturele versnelling. |
+| Machiavellistische intelligentie | Sociale slimheid die wordt ingezet om groepsgenoten te manipuleren, en die een theory of mind veronderstelt. |
+| Sociale boekhouding | Nelissens eigen term voor het bijhouden van wie met wie bevriend is, wie iets te goed heeft en wie rivaal is. |
+| Grootmoederhypothese | De verklaring dat vrouwen na de menopauze meer genen doorgeven via hulp aan kleinkinderen dan via eigen kinderen. |
+| Sociale selectiviteit | De vastgestelde neiging van ouderen om hun vriendenkring te beperken tot de emotioneel belangrijkste mensen. |
+| Sirtuïnen | Een groep eiwitten waarvan bij gisten, wormen en muizen levensverlengende effecten zijn beschreven, bij de mens niet. |
+| Nature-nurturekwestie | De vraag welk deel van een gedrag geërfd is en welk deel aangeleerd, die volgens Nelissen nooit met een van beide alleen te beantwoorden is. |
+
+#### Waar het argument op rust
+
+Het boek staat of valt met de evolutionaire redenering, niet met eigen
+onderzoek. Nelissen verwijst voor de grondslagen herhaaldelijk naar zijn
+eerdere titels, waaronder *Bloot toeval*, *De bril van Darwin* en *De club van
+ik*, en houdt de onderbouwing in dit boek bewust summier. Waar hij wel
+concreet wordt, is dat solide: de Hadza-studie over grootmoeders, het Engelse
+cohort van bijna tienduizend vijftigplussers, de muizenproeven met gedeelde
+bloedsomloop.
+
+Zijn omgang met commerciële beloften is zuiver. Hij noemt de fraudevraag rond
+resveratrol, wijst het supplement met de Nobelprijsadviesraad af bij gebrek
+aan bewijs, en zegt bij de opening al dat verlenging van de menselijke
+levensduur nooit is aangetoond. Dat maakt zijn scepsis geloofwaardig.
+
+Daar staat tegenover dat de dragende beweringen het minst zijn onderbouwd. Dat
+ouderen gelukkiger zijn dan jongeren wordt afgedaan met een verwijzing naar
+massa's studies, zonder naam of getal. Bronvermelding ontbreekt door het hele
+boek, wat een lezer die iets wil natrekken op eigen kracht laat zoeken.
+
+#### Wat er tegen in te brengen valt
+
+De grens van dit type verklaring is een verhaal dat achteraf alles kan
+opnemen. De menopauze wordt verklaard uit het voordeel van grootmoederzorg.
+Maar de chimpansee kent geen menopauze en blijft baren, en Nelissen lost dat
+op met de opmerking dat de kosten-batenrekening daar anders uitpakt. Zo
+verklaart hetzelfde model twee tegengestelde uitkomsten. Zonder voorspelling
+die had kunnen mislukken, blijft het een aannemelijk verhaal en geen toets.
+
+Hij levert het gereedschap voor die kritiek zelf. Zijn onderscheid tussen
+aanpassing en neveneffect is precies bedoeld om te voorkomen dat overal een
+functie in wordt gezien. Toch past hij het strenge criterium vooral toe op
+rimpels en haaruitval, en veel minder op de dragende stelling dat de tweede
+levensfase een functie heeft gekregen. Zijn eigen hypothese, dat een langere
+levensloop de culturele versnelling verklaart, wordt gepresenteerd maar niet
+aan gegevens onderworpen.
+
+Er zit ook een sprong in het betoog van beschrijven naar waarderen. Uit de
+vaststelling dat oudere mensen in het verleden nuttig waren voor hun groep
+volgt niet dat een oud mens vandaag waardevol is. Die waarde staat op andere
+gronden, en door haar aan een biologische functie te hangen maakt Nelissen
+haar afhankelijk van iets dat een moderne samenleving niet meer nodig heeft.
+Wie de redenering aanvaardt, aanvaardt in beginsel ook dat zij kan omslaan.
+
+Tot slot stuurt het doel de selectie. Nelissen kondigt aan dat hij de
+eigenwaarde van de oudere lezer wil laten stijgen en dat hij spetterende
+verrassingen belooft. Wat de tweede fase kost, zoals dementie, armoede na
+pensionering en zorgafhankelijkheid, blijft grotendeels buiten beeld. De
+sociale krimp is de opvallendste uitzondering, en juist daar wordt het boek
+scherp.
+
+#### Wat er concreet mee te doen is
+
+- Bekijk bij een verklaring over de functie van een eigenschap of het ook een
+bijverschijnsel kan zijn.
+- Vraag wat de uitkomst had moeten zijn als die verklaring niet klopte.
+- Houd bij welke contacten er in vijf jaar zijn weggevallen.
+- Beoordeel supplementen op gepubliceerd bewijs bij mensen, niet op de namen
+in een adviesraad.
+
+#### Wat je hierna leest
+
+- 89. Darwin in de supermarkt. Nelissens eerdere boek waarin dezelfde
+evolutionaire bril op alledaags gedrag wordt gezet, met dezelfde sterke en
+zwakke kanten.
+- 90. Darwin in het nieuws. Zijn korte stukken over evolutie in het nieuws,
+bruikbaar om te zien hoe snel hij van bericht naar verklaring stapt.
+- 71. Four Thousand Weeks. Burkeman rekent met eindigheid zonder biologie en
+komt tot een andere houding tegenover de resterende jaren.
+- 49. When Breath Becomes Air. Kalanithi beschrijft het naderende einde van
+binnenuit, waar Nelissen erover redeneert van buitenaf.
+
 ## 92. Onze bouwstenen
 
 Anja Røyne, 2018. Oorspronkelijk Noors als *Menneskets grunnstoffer*;
@@ -17526,6 +18130,184 @@ Dat maakt het ongemakkelijk en waardevol tegelijk: de behandelaar die zijn
 eigen adviezen niet kan opvolgen. Het is dun, persoonlijk en zonder methode;
 wie zijn eerdere werk kent leest hier het sluitstuk, wie hem niet kent begint
 beter bij *Scherprechter van de liefde* of *Tegen de zon in kijken*.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Yalom, tegen de negentig en zijn geheugen kwijtrakend, stopte
+met langdurige therapie en ging eenmalige consulten geven aan mensen die zich
+bij hem meldden. Uit ruim driehonderd van die ontmoetingen koos hij er
+tweeëntwintig. Zijn stelling is dat de band tussen therapeut en patiënt het
+werkzame bestanddeel is, en dat een therapeut die zichzelf laat zien meer
+beweging krijgt dan een therapeut die zich afzijdig houdt. Daaronder ligt een
+tweede lijn: existentiële angst en het onvermogen om anderen nabij te laten
+komen zijn niet twee onderwerpen maar één. Het boek voert dat aan het eigen
+leven van de auteur voor, na de dood van zijn vrouw Marilyn en tijdens drie
+jaar isolement.
+
+#### De gang van het boek
+
+**Waarom eenmalige sessies**
+
+In de inleiding legt Yalom uit hoe het zover kwam. Rond zijn tachtigste merkte
+hij dat namen en gezichten niet meer aan elkaar wilden blijven zitten en dat
+hij details van sessies vergat. Hij kon niet langer beloven dezelfde therapeut
+te zijn die hij zestig jaar was geweest, en in plaats van te stoppen ging hij
+losse consulten geven.
+
+Hij verantwoordt ook zijn woordkeus. Intimiteit gebruikt hij in de betekenis
+van geestelijke nabijheid en vertrouwelijkheid, niet in lichamelijke zin. De
+mensen die bij hem komen noemt hij patiënten, met de aantekening dat hij die
+term niet goed vindt: het ene woord betekent zieke, het andere klant, en
+zichzelf ziet hij liever als medereiziger met wat meer overzicht.
+
+**De relatie is de remedie**
+
+Het eerste hoofdstuk beschrijft een gewone werkdag. Jerry, een advocaat van in
+de veertig, kwam na drie stukgelopen relaties en begon met kritiek op het
+honorarium, de tuin en de kunst aan de muur. Yalom bleef warm en bood
+weerwoord, en vroeg hem zich voor te stellen hoe het is om Jerry's vriendin te
+zijn op een dag waarop je niet op je best bent.
+
+Dat is de kern van zijn werkwijze: wat er tussen die twee mensen in de kamer
+gebeurt, wordt het materiaal. Hij noemt het de therapeutische alliantie en
+zegt dat verandering niet komt van een invulblad of een slimme vraag. Jerry
+ging zijn scherpe opmerkingen vervangen door complimenten over de
+citroenboompjes en het boeddhabeeld.
+
+**Wat één uur wel en niet doet**
+
+Meteen daarna zet Yalom de rem erop. Hij is geen voorstander van kortdurende
+therapie en wil de eenmalige sessie niet aanprijzen als volwaardige
+behandeling. Julia, promovenda in de economie, somde een reeks mislukte
+behandelingen op en zei dat ze niet meer te repareren was. Yalom antwoordde
+dat hij schrikt van hoe weinig echte therapie ze heeft gehad, want hij had
+alleen over management gehoord en niets over wat zij zelf dacht, voelde en
+wilde.
+
+Zij vertelde daarop over misbruik door een neef, over een vader die verdween
+toen ze elf was, en over drugs vanaf haar puberteit. De sessie leverde een
+opening op, en Yalom schrijft er zelf bij dat die bij lange na niet genoeg was
+voor wat haar te doen stond.
+
+**Het geheugen van binnenuit**
+
+Een terugkerende lijn is zijn eigen achteruitgang. Tijdens een sessie ging
+zijn hand naar een briefje dat hij zich niet herinnerde te hebben geschreven,
+waarna hij in zijn kennis van de neuropsychiatrie het onderscheid tussen
+expliciet en impliciet geheugen terugvond. Hij noteert dat hij het van
+buitenaf bekeken opwindend vindt en van binnenuit beleefd vreemd.
+
+Elders leest hij een uur voor een gesprek dat hij deze vrouw tien jaar eerder
+al eens behandelde, zonder enige herinnering aan haar. In het park spreekt een
+vrouw hem aan die hem kennelijk goed kent; hij begroet haar bij naam en vraagt
+zich intussen af wie zij is. Hij beschrijft de schaamte en de paniek zonder ze
+weg te schrijven.
+
+**Marilyn, en het bankje in Bol Park**
+
+Marilyn Yalom overleed in 2019, na vijfenzestig jaar huwelijk, aan de ziekte
+van Kahler. Kort daarna begon de pandemie, en de drie jaar waarin dit boek
+speelt bracht hij in zwaar isolement door. Bijna al zijn vrienden en collega's
+waren overleden.
+
+Hij liet in Bol Park een bankje voorzien van een plaatje met haar naam en de
+woorden dat het veel langer had mogen zijn. Bijna elke middag loopt hij er met
+zijn rollator naartoe, vertelt haar hoe zijn dag was en keert dan om. Verder
+dan het bankje gaat hij niet.
+
+**De zoon die meeschrijft**
+
+Het boek is geschreven met zijn jongste zoon Benjamin, die na vijfentwintig
+jaar theater aan een opleiding tot relatie- en gezinstherapeut begon. Dat
+coauteurschap ontstond omdat Yalom de verhaallijnen niet meer tegelijk in zijn
+hoofd kon houden.
+
+In het nawoord neemt Benjamin het woord en vraagt waarom het vak
+zelfonthulling door de therapeut blijft mijden. Hij noemt onder meer het
+medische gezagsmodel, het freudiaanse beeld van de therapeut als leeg scherm,
+de vrees voor ongepaste gevoelens, en de gedachte dat deze aanpak alleen bij
+zijn vader werkt. Dat laatste bestrijdt hij uitdrukkelijk. Na een verwarrend
+verlopen sessie met een patiënt is Yalom met de consulten gestopt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Therapeutische alliantie | De werkrelatie tussen therapeut en patiënt, die Yalom aanwijst als zijn belangrijkste gereedschap. |
+| Hier-en-nu | Werken met wat er op dat moment tussen therapeut en patiënt gebeurt, in plaats van met verslagen over daarbuiten. |
+| Zelfonthulling | Het prijsgeven van eigen gevoelens of ervaringen door de therapeut, in dit boek gebruikt als bewuste interventie. |
+| Existentiële psychotherapie | Yaloms benadering die uitgaat van vier grondvragen: dood, eenzaamheid, zin en vrijheid. |
+| Ultiem isolement | Het besef dat niemand zichzelf volledig met een ander kan delen, dat volgens hem veel existentiële angst voedt. |
+| Intimiteit | Geestelijke nabijheid en vertrouwelijkheid, door hem nadrukkelijk losgekoppeld van de seksuele betekenis. |
+| Eenmalig consult | De vorm waarin hij de laatste jaren werkte: één gesprek, zonder doorlopende zorg of medische verantwoordelijkheid. |
+| Expliciet en impliciet geheugen | Het bewust opgehaalde geheugen tegenover het geheugen dat in gewoontes en handelingen zit, een onderscheid dat hij aan zichzelf waarneemt. |
+| Medereiziger | Zijn eigen aanduiding voor zijn rol, iemand met wat meer overzicht over de weg en geen deskundige boven de patiënt. |
+
+#### Waar het argument op rust
+
+Het bewijs bestaat uit gevalsbeschrijvingen die de auteur zelf heeft
+uitgekozen. Yalom verantwoordt de selectie: tweeëntwintig uit ruim driehonderd
+ontmoetingen, gekozen omdat ze een les doorgeven of een dilemma blootleggen.
+Op één plaats verwijst een noot naar meta-analyses over de werkrelatie in
+psychotherapie, van Flückiger en anderen uit 2018 en Baier, Kline en Feeny uit
+2020, met de aantekening dat de cijfers per onderzoek verschillen en alleen
+een richting aangeven.
+
+Verder rust het boek op zijn ervaring van zes decennia. Er is geen
+controlegroep, geen nameting en geen onafhankelijk oordeel over de vraag of
+die ene sessie iets heeft opgeleverd. Yalom is daar tegenover de lezer open
+over: hij zegt bij Julia zelf dat het gesprek niet toereikend was.
+
+Zijn eerlijkste bewijsmateriaal betreft hemzelf. De beschrijvingen van
+geheugenverlies zijn gedateerd, concreet en niet gunstig voor de verteller, en
+het feit dat een zoon het schrijfwerk moest overnemen staat er zonder
+verzachting bij.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de selectie. Wie tweeëntwintig gesprekken kiest uit
+meer dan driehonderd, kiest de gesprekken waarin iets gebeurde. De
+mislukkingen, de mensen die na een uur ontgoocheld vertrokken en de mensen die
+de ontmoeting achteraf schadelijk vonden, komen nauwelijks in beeld. Voor een
+auteur die de werkzaamheid van zijn benadering wil laten zien, is dat het
+lastigste punt.
+
+Daarbij komt dat niemand is gevolgd. Elke sessie eindigt met een moment waarop
+de patiënt geraakt is of iets inziet, en daar houdt het verhaal op. Of dat
+inzicht een week later nog stand hield, weet noch de lezer noch de auteur. In
+de meeste hoofdstukken is het slotbeeld ook de laatste informatie.
+
+Zijn afrekening met kortdurende therapie is meer stelling dan onderbouwing.
+Hij schrijft de opmars ervan toe aan zorgverzekeraars en zet aanhalingstekens
+rond bewezen methoden, zonder in te gaan op de onderzoeksliteratuur die achter
+die aanduiding ligt. Wie zijn kritiek op cognitieve gedragstherapie wil wegen,
+krijgt in dit boek geen materiaal aangereikt.
+
+Ten slotte is de vorm zelf ongebruikelijk en het boek beantwoordt de vraag
+niet die zij oproept. Een therapeut die zijn geheugen kwijtraakt en toch
+nieuwe mensen op consult ontvangt, neemt een risico dat vooral bij die mensen
+ligt. Yalom stopt uiteindelijk na een sessie die verward verliep, maar de
+vraag hoeveel eerder dat had gemoeten blijft in het boek onbeantwoord.
+
+#### Wat er concreet mee te doen is
+
+- Let in een moeilijk gesprek op wat er tussen de sprekers gebeurt en benoem
+dat, in plaats van alleen over gebeurtenissen elders te praten.
+- Vraag iemand wie op dit moment het dichtst bij hem staat; die vraag opent
+meer dan een vraag naar het probleem.
+- Weeg per situatie of het delen van iets eigens de ander helpt of de aandacht
+verplaatst.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl bouwt zijn praktijk eveneens op
+existentiële grond, maar met een ervaring die geen tweede keer navertelbaar
+is.
+- 49. When Breath Becomes Air. Kalanithi schrijft over het naderen van het
+einde als arts en patiënt tegelijk, met dezelfde afwezigheid van troostende
+afronding.
+- 91. Eindelijk oud. Nelissen benadert ouder worden en doodsangst van de
+andere kant, met biologie in plaats van gesprekken.
 
 ## 96. Het verlaten individu
 
@@ -18627,6 +19409,198 @@ beproefd. Wie de cursus zelf leest en vastloopt in de taal ervan heeft hier
 een bruikbare sleutel; wie wil weten of de aannames houdbaar zijn, vindt dat
 hier niet.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Glaudemans, vertaler van *Een cursus in wonderen*, wil met
+dit boek geen vervanging van de Cursus bieden maar toegangen ertoe. Zijn
+stelling is dat de Cursus een sluitend denksysteem vormt: de wereld die we
+zien is een projectie van een gespleten denkgeest, het ego bestaat alleen
+doordat wij erin geloven, en vergeving is het inzien dat er nooit werkelijk
+iets is gebeurd dat vergeven moet worden. Wie dat aanvaardt, ziet zijn
+waarneming omslaan van angst naar liefde, en die omslag noemt de Cursus een
+wonder. Het boek behandelt negen thema's, elk afgesloten met een deel over de
+praktijk, en verwijst voor de eigenlijke oefening naar het Werkboek met zijn
+365 dagelijkse lessen.
+
+#### De gang van het boek
+
+**Wat de Cursus wil zijn**
+
+Het eerste hoofdstuk ruimt misverstanden op. De titel spreekt van een cursus
+en niet van de cursus, en dat is volgens Glaudemans bedoeld: er zijn volgens
+de tekst zelf duizenden andere wegen. Een wonder is geen goocheltruc maar een
+omslag in de waarneming, van angst naar liefde en van schuld naar onschuld.
+
+Hij benoemt ook de drempels. De christelijke woordenschat schrikt lezers af,
+de taal is moeilijk, en de eerste regel noemt het een verplichte cursus, wat
+hij uitlegt als een belofte aan jezelf. De Cursus is in zijn woorden niet voor
+iedereen bestemd: je moet aan zelfreflectie willen doen en enige
+zelfdiscipline hebben. Zendingswerk raadt hij af.
+
+**Hoe de tekst tot stand kwam**
+
+Het ontstaansverhaal begint in 1965 bij Helen Schucman en haar collega Bill
+Thetford, beiden psycholoog aan het medisch centrum van Columbia University.
+Voor een vergadering zei hij dat er een andere manier moest zijn om met elkaar
+om te gaan, en zij zei toe mee te zoeken. Daarna kreeg Schucman visioenen en
+ten slotte een stem die haar opdroeg aantekeningen te maken.
+
+Zeven jaar lang, tot september 1972, noteerde zij in steno wat zij als
+innerlijk dictaat ervoer; Thetford typte het uit. Zij noemde zichzelf een
+joodse atheïste en moest erkennen dat de stem zich als Jezus aandiende. Van
+haar is de uitspraak overgeleverd dat ze wist dat het waar was maar er niet in
+geloofde. Ken Wapnick bewerkte de tekst redactioneel, bracht interpunctie en
+titels aan en haalde persoonlijke passages eruit. Judy Skutch verzorgde de
+eerste druk van vijfduizend exemplaren.
+
+**Het ego als denksysteem**
+
+Het tweede hoofdstuk behandelt het ego. In de leer van de Cursus bestaat het
+ego niet werkelijk; het is een illusie in een gespleten denkgeest die alleen
+voortduurt doordat wij erin geloven. Om het zichtbaar te maken doet de tekst
+alsof het een ding met eigen wil is.
+
+De uitweg loopt via kijken. Wie naar het ego kijkt, valt er niet mee samen, en
+daarmee verschuift de identificatie naar de waarnemer die kiest. Glaudemans
+laat de lezer twee kolommen opschrijven, links wat met angst wordt
+geassocieerd en rechts wat met liefde, met daarboven een ik met twee pijlen.
+Volgens hem is de keuze voor de rechterkolom eenvoudig; de moeilijkheid zit in
+de eerste stap.
+
+**Het Werkboek**
+
+Het Werkboek noemt Glaudemans het kloppend hart. Zonder de lessen blijft de
+Cursus een theorie. Hij raadt aan dit hoofdstuk pas te lezen wanneer je al
+maanden bezig bent, omdat voorkennis de eerste ervaring bederft.
+
+Wat de lessen zouden opleveren beschrijft hij ruim: minder oordelen, minder
+irritatie, een onderstroom van vreugde, soms ervaringen van licht of van
+eenheid. Daarna behandelt hij de weerstand, die hij aan het ego toeschrijft.
+Zijn voorbeeld is de man die telkens eerst koffie ging zetten en de krant las.
+
+**Speciaalheid**
+
+Speciaalheid noemt Glaudemans een van de taaiste maaksels van het ego, een
+woord dat noch in het Engels noch in het Nederlands bestond voordat de Cursus
+het invoerde. Aan de oppervlakte is het aangenaam en wordt het in de wereld
+beloond.
+
+De keerzijde ligt in de rekensom eronder. Om speciaal te zijn heb je anderen
+nodig, als publiek dat applaudisseert en als minderen waartegen je gunstig
+afsteekt. Onderscheid maken noemt hij op zichzelf neutraal; het wordt
+speciaalheid zodra langer ook beter betekent.
+
+**Vergeving**
+
+Vergeving in de zin van de Cursus gaat volgens Glaudemans niet over de ander
+en niet over herstel van de relatie. Het gaat over het loslaten van eigen,
+vaak onbewuste schuld. Wie zich afvraagt of hij werkelijk wil vergeven, stuit
+op gehechtheden en excuses, van eerst moet de ander spijt betuigen tot mijn
+haat houdt mij scherp.
+
+Een beetje bereidheid is genoeg, schrijft hij, want de rest wordt aangevuld
+door de Heilige Geest. Het ego kan niet vergeven omdat het naar buiten kijkt,
+op zoek naar schuldigen.
+
+**De metafysica**
+
+Het slothoofdstuk geeft de achtergrondfilosofie, gebaseerd op Wapnicks uitleg.
+De wereld is een illusie. Glaudemans begint bij de grot van Plato en bij de
+gnostische gedachte dat dit leven een droom is waaruit we kunnen ontwaken.
+
+Volgens de Cursus heeft God deze wereld niet geschapen. Wat begon, begon als
+een gedachte in de denkgeest van de Zoon van God die zich afvroeg of er meer
+dan alles kon zijn; de tekst noemt dat een nietig dwaas idee waarom hij vergat
+te lachen. Glaudemans zet er zelf bij dat het verhaal een verloop en een tijd
+suggereert die er niet zijn, en dat het in feite nooit heeft plaatsgevonden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Wonder | Een omslag in de waarneming, van angst naar liefde, die zich vanbinnen voltrekt en geen zichtbaar gevolg hoeft te hebben. |
+| Ego | Het afgescheiden deel van de denkgeest dat volgens de Cursus niet werkelijk bestaat en alleen voortduurt door ons geloof erin. |
+| Heilige Geest | De innerlijke stem die op elke vergissing van het ego de correctie geeft. |
+| Keuzemaker | De waarnemer die inziet dat hij niet samenvalt met het ego en daarom elk moment kan kiezen. |
+| Speciaalheid | Het willen verschillen van anderen, dat volgens de Cursus publiek en minderen nodig heeft en de afscheiding in stand houdt. |
+| Vergeving | Het loslaten van eigen schuld in de denkgeest, en niet het goedmaken van iets tussen twee mensen. |
+| Denkgeest | De plaats waar volgens de Cursus alles gebeurt en waar elke verandering moet plaatsvinden, in plaats van in de wereld buiten. |
+| Nietig dwaas idee | De afscheidende gedachte waarmee de droom van deze wereld volgens de Cursus begon. |
+| Werkboek | Het deel met 365 dagelijkse lessen, dat Glaudemans de enige echte praktijk noemt. |
+| Innerlijk dictaat | De wijze waarop Helen Schucman de tekst naar eigen zeggen ontving, bij vol bewustzijn en in steno genoteerd. |
+
+#### Waar het argument op rust
+
+Dit is een uitlegboek, geen betoog. Het gezag komt van de Cursus zelf:
+Glaudemans citeert doorlopend met vindplaatscodes en verwijst voor de
+systematiek naar Ken Wapnick, aan wie het boek is opgedragen. Buiten die kring
+wordt niets aangevoerd.
+
+De grondslag van de tekst zelf is een innerlijke stem. Glaudemans vertelt dat
+eerlijk en zonder opsmuk, met de omstandigheden erbij: de paniek van Schucman,
+haar uitspraak dat ze wist dat het waar was maar er niet in geloofde, en de
+redactie door Wapnick achteraf. Hij verplaatst de toets vervolgens naar de
+ervaring van de lezer: je hoeft het auteurschap niet te geloven om er baat bij
+te hebben, doe de lessen en merk wat het met je doet.
+
+Daarmee is de kern van het stelsel buiten bereik van bewijs geplaatst. De
+wereld als projectie, de niet-schepping door God, het opheffen van een
+illusie: er is geen waarneming denkbaar die deze uitspraken zou kunnen
+weerspreken, en de tekst vraagt daar ook niet om. Wie iets anders verwacht dan
+een innerlijke leerweg, vindt hier geen aanknopingspunt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het stelsel elke tegenspraak inlijft. Twijfel,
+uitstel, verzet en zelfs de behoefte aan koffie worden aan het ego
+toegeschreven, en het ego is per definitie wat de leer wil ondermijnen.
+Daarmee wordt afwijzing bewijs voor de kracht van wat je afwijst. Glaudemans
+doet dat vriendelijk en met humor, maar de figuur laat geen ruimte voor een
+lezer die het gewoon niet gelooft.
+
+Uit de metafysica volgt een tweede probleem. Als de wereld een illusie is en
+er in wezen nooit iets is gebeurd, verliest de vraag naar onrecht haar grond.
+Glaudemans zegt zelf dat vergeving niet over de ander gaat en niet over
+herstel van de relatie. Voor wie iets ernstigs is aangedaan, betekent dat dat
+de erkenning die hij zoekt binnen dit stelsel geen plaats heeft. Het boek
+stelt die vraag wel en beantwoordt haar door haar naar de denkgeest te
+verplaatsen.
+
+De tekstgeschiedenis krijgt bewondering waar afstand meer op zijn plaats was.
+De Cursus is in steno genoteerd, uitgetikt, jaren later opnieuw doorgenomen,
+van interpunctie en titels voorzien en gezuiverd van persoonlijke passages,
+waarna de aansluiting soms moest worden hersteld. Glaudemans noemt dit alles,
+zonder de vraag te stellen wat redactie doet met woorden die als dictaat
+gelden.
+
+Ten slotte de belofte. Het hoofdstuk over het Werkboek somt op wat de lessen
+opleveren, terwijl uitblijvend resultaat verderop wordt geduid als weerstand.
+Dat legt de uitkomst altijd bij de lezer: lukt het, dan werkt de methode, lukt
+het niet, dan lag het aan hem.
+
+#### Wat er concreet mee te doen is
+
+- Lees eerst een hoofdstuk over een thema dat je bezighoudt; de delen staan
+los.
+- Wil je weten waar de Cursus op rust, begin dan bij het slothoofdstuk over de
+metafysica.
+- Scheid bij een begrip als speciaalheid de psychologische laag van de
+metafysische claim erachter.
+- Toets bij de vergevingsoefeningen of het loslaten lucht geeft of erkenning
+vervangt die je nog nodig hebt.
+
+#### Wat je hierna leest
+
+- 83. The Power of Positive Thinking. Peale bouwt een christelijk gekleurde
+denkleer op, maar houdt de wereld werkelijk en belooft resultaat in die
+wereld.
+- 108. Handboek Spiegelogie. De Ridder werkt eveneens met de wereld als
+spiegel van eigen denken, in een lossere en minder uitgewerkte vorm.
+- 127. The Law of Attraction. Atkinson legt de oudste laag bloot van het idee
+dat gedachten de werkelijkheid vormgeven, zonder de metafysica van de Cursus.
+- 131. Wonderen manifesteren. Welten gebruikt het woord wonder in de
+tegenovergestelde betekenis, namelijk een zichtbare uitkomst in de wereld.
+
 ## 103. De psychologie van eetgedrag
 
 Agaath Zondervan, 2024. Uitgave in eigen beheer (2024). De samenvatting hier
@@ -19081,6 +20055,181 @@ gangbare behandelingen bij somberheid en angst. Het is licht van toon en
 beperkt van diepgang, en het bruikbaarst voor wie een strenge zelfhulptoon
 niet verdraagt.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Den Daas draait het zelfhulpboek om. In plaats van te
+beschrijven hoe je gelukkig wordt, beschrijft hij in acht leefregels hoe je
+jezelf zo ongelukkig mogelijk maakt: vat alles persoonlijk op, geef geen
+grenzen aan, vergelijk jezelf voortdurend, ga ervan uit dat je nooit goed
+genoeg bent, vertrouw alleen op bevestiging van buiten, verwaarloos zelfzorg,
+blijf hangen in verleden en toekomst, en kies een baan, relatie en
+vriendschappen waar je je ellendig door voelt. Zijn redenering is dat advies
+weerstand oproept en herkenning niet, en dat iemand die het schadelijke gedrag
+even bewust en overdreven uitvoert, eerder ziet wat het kost dan iemand die te
+horen krijgt dat hij ermee moet stoppen.
+
+#### De gang van het boek
+
+**Waarom de omkering**
+
+In de inleiding legt Den Daas uit waar de vorm vandaan komt. Hij zegt in ruim
+drieduizend therapiesessies steeds dezelfde patronen te hebben zien terugkomen
+bij cliënten die wel weten dat een patroon hen niet helpt, maar er middenin
+niet uit komen. Een nieuw standaardrecept voor geluk wil hij daarom niet
+geven, omdat dat volgens hem niet bestaat. Een recept voor ongeluk bestaat
+volgens hem wel, en dat schrijft hij op.
+
+Daarbij hoort een opvatting over het vak: het slechtste dat een therapeut kan
+doen is de redder spelen en hulp opdringen. Wie iemand veilig en bewust het
+gedrag laat uitvoeren waar hij onder lijdt, vergroot volgens Den Daas de kans
+op verandering. De ironie is dus geen grap om de grap, maar het middel zelf.
+
+**Een vaste vorm per regel**
+
+Elk hoofdstuk is gelijk gebouwd. Eerst de leefregel, dan drie of vier
+vaardigheden om die regel te volgen, dan een oefening die de regel een week
+lang overdrijft, dan een uitleg waarin hij de ironie loslaat en zegt wat het
+gedrag werkelijk aanricht, en tot slot een omkering: een gewone opdracht die
+de andere kant op wijst.
+
+In het hoofdstuk over gebruik van het boek staat de figuur die door de hele
+tekst loopt: de Innerlijke Criticus, ooit ontstaan om te beschermen en nu
+hyperalert en meer hinderlijk dan behulpzaam. Ook noemt hij het
+bevestigingsvooroordeel, de neiging alleen die informatie te zien die het
+bestaande zelfbeeld bevestigt. Lezen in volgorde hoeft niet; hoofdstukken
+staan los.
+
+**Persoonlijk opvatten, grenzen en vergelijken**
+
+De eerste drie regels gaan over de blik naar buiten. Gedachtelezen, de bril
+der bevestiging en de ingebeelde schijnwerper leveren samen het beeld op dat
+alles met jou te maken heeft. De omkering is een oefening met rationeel
+emotieve therapie: situatie, interpretatie, gevoel, en dan de interpretatie
+weerleggen en het eigen aandeel opschrijven. Den Daas noemt Albert Ellis als
+bedenker van die techniek.
+
+Bij de tweede regel gaat het over ja zeggen tegen alles, de emotionele spons
+zijn en de eigen agenda laten vullen door anderen. De derde regel voert naar
+de Olympische Vergelijkingsspelen, waarin de lezer een week lang scoort waarin
+hij minder is dan een ander. De omkering daarvan is het Wiel van het Leven,
+dat hij toeschrijft aan ondernemer Paul Meyer: tien levensgebieden een cijfer
+geven, en per gebied nagaan of je wilt verbeteren voor jezelf of omdat anderen
+het beter lijken te doen.
+
+**Nooit goed genoeg en de blik van buiten**
+
+Regel vier en vijf horen bij elkaar. Wie zeker weet dat hij goed genoeg is,
+zoekt geen bevestiging, dus moet het gevoel tekort te schieten eerst in stand
+blijven. De bijbehorende oefening is de Muur van Schaamte: een dag lang op
+geeltjes zetten waarin je tekortschiet en die thuis op de muur plakken. In de
+uitleg draait hij dat om: de geeltjes zijn gedachten en geen werkelijkheid, en
+de omkering is een eregalerij van drie dingen per dag die goed gingen.
+
+Regel vijf beschrijft de sociale-mediavampier die zijn waarde afleest aan
+duimpjes, en de opiniepeilingverslaafde die geen beslissing neemt zonder de
+mening van anderen. Hier duikt ook Camus op, in de vorm van mentaal met
+pensioen gaan als je veertig bent.
+
+**Lichaam, tijd en omgeving**
+
+De laatste drie regels zijn concreter. Zelfzorg verwaarlozen loopt via slecht
+slapen, bewerkt eten, hobby's laten vallen en nooit om hulp vragen. Stilstaan
+bij het verleden en piekeren over de toekomst krijgt de vorm van
+spijtverzameling en worstcasescenario's, met de zelfvervullende voorspelling
+als mechanisme erachter.
+
+De achtste regel gaat over baan, relatie en vriendschappen, de drie pijlers
+die volgens hem het snelst voor blijvend ongeluk zorgen. De oefening is de
+ongeluksdriehoek: alle drie een cijfer geven en opschrijven hoe je het nog
+erger kunt maken. De omkering is dezelfde driehoek de andere kant op.
+
+**Nazorg**
+
+Het slot laat de ironie los. Alles persoonlijk nemen noemt hij de basis van
+veel lijden. Hij citeert Kristin Neff met de formule pijn maal weerstand is
+lijden, en zegt dat het wegnemen van de weerstand de pijn niet opheft maar wel
+het lijden verkleint. Verder wijst hij op de grens van elk zelfhulpboek: lezen
+zet de stappen niet, en wie er niet uitkomt, kan beter een vriend, een
+praatgroep of een therapeut zoeken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Leefregel | Het fundamentele principe waar elk hoofdstuk mee opent, geformuleerd als aanwijzing om ongelukkig te worden. |
+| Vaardigheid | Een concrete gewoonte waarmee de leefregel in de praktijk te brengen is, zoals gedachtelezen of overdadig mensen pleasen. |
+| Omkering | Het laatste deel van elk hoofdstuk, waarin dezelfde oefening zonder ironie de andere kant op wordt gezet. |
+| Innerlijke Criticus | De oordelende stem die volgens Den Daas ooit ontstond om te beschermen en nu vooral in de weg zit. |
+| Bevestigingsvooroordeel | De neiging onbewust informatie te selecteren die bevestigt wat je al over jezelf gelooft. |
+| Emotionele spons | De gewoonte de problemen en emoties van anderen op te nemen als waren het de eigen problemen. |
+| Muur van Schaamte | Een wand vol geeltjes met eigen tekortkomingen, bedoeld om zichtbaar te maken dat het gedachten zijn en geen feiten. |
+| Eregalerij | De tegenoefening waarin je dagelijks noteert wat wel goed ging, hoe klein ook. |
+| Wiel van het Leven | Een scorebord met tien levensgebieden dat hij toeschrijft aan ondernemer Paul Meyer. |
+| Ongeluksdriehoek | Baan, relatie en vriendschappen als de drie pijlers waarop de laatste leefregel is gebouwd. |
+
+#### Waar het argument op rust
+
+De onderbouwing is praktijkervaring. Den Daas is opgeleid als neuropsycholoog
+aan de Vrije Universiteit Amsterdam, werkt als psycholoog bij OpenUp en
+spreekt volgens de auteurspagina wekelijks ruim vijftig mensen. Zijn getal van
+meer dan drieduizend sessies is de enige kwantitatieve grond in het boek.
+Casuïstiek komt in korte, anonieme vorm voor, bijvoorbeeld de cliënt die met
+zijn gezin aan tafel dagelijks één ding deelde dat goed ging.
+
+Waar naar theorie wordt verwezen, gebeurt dat zonder bronvermelding. Rationeel
+emotieve therapie en Albert Ellis, het Wiel van het Leven en Paul Meyer, de
+zelfvervullende voorspelling, Camus en het citaat van Kristin Neff staan er
+zonder noot of literatuurlijst. Het boek verscheen oorspronkelijk in het
+Engels als *A Psychologist's Guide to Become Truly Unhappy in Life*; de
+Nederlandse uitgave is een vertaling door Timon Meynen.
+
+De vorm zelf staat in een oudere traditie. Het bewust en overdreven uitvoeren
+van klachtgedrag is in de psychotherapie bekend als paradoxale opdracht. Den
+Daas noemt die achtergrond niet en verwijst evenmin naar onderzoek naar wat
+zulke opdrachten opleveren of bij wie ze averechts werken.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de ironie de dosering aan de lezer overlaat.
+Iemand die goed in zijn vel zit, leest acht hoofdstukken lang een spiegel.
+Iemand die midden in een depressie zit, krijgt gedetailleerde instructies om
+zich een week lang te kleineren, met slechts een korte opmerking achteraf dat
+dit geen aanbeveling voor de lange termijn is. In de spreekkamer geeft een
+behandelaar zo'n opdracht met een indicatie en een vervolgafspraak; een boek
+doet dat niet.
+
+Inhoudelijk is het materiaal bekend. Grenzen stellen, minder vergelijken, om
+hulp vragen, slapen, bewegen en piekeren beperken: de omkeringen komen uit
+gangbare cognitieve gedragstherapie en verschillen weinig van wat elders
+staat. De omkeringen zijn ook merkbaar korter dan de ironische delen, waardoor
+het boek meer plaats geeft aan de diagnose dan aan wat je ermee doet.
+
+De grap wordt op sommige plaatsen belangrijker dan het punt. De ingebeelde
+zombie-invasie, de Orwelliaanse camera's en de kudde wilde olifanten leveren
+tempo op, maar spreiden het argument uit. Wie de humor niet deelt, houdt een
+dunne inhoud over.
+
+#### Wat er concreet mee te doen is
+
+- Lees eerst de uitleg en de omkering van een hoofdstuk en pas daarna de
+ironische delen, als je merkt dat het je raakt.
+- Kies één leefregel waarin je jezelf herkent en laat de andere zeven staan.
+- Noteer een week lang situatie, interpretatie en gevoel, en schrijf er per
+situatie één weerlegging bij.
+- Houd de eregalerij vol: drie dingen per dag die goed gingen, ook de kleine.
+- Doe de oefeningen niet in een periode waarin je somber of overspannen bent,
+maar bespreek ze met een behandelaar.
+
+#### Wat je hierna leest
+
+- 32. The Gifts of Imperfection. Brown werkt schaamte uit als thema op
+zichzelf, waar Den Daas er een oefening met geeltjes van maakt.
+- 72. The Subtle Art of Not Giving a F*ck. Manson gebruikt dezelfde
+tegendraadse toon tegen de gangbare zelfhulp, met minder ironie en meer
+betoog.
+- 109. Elke dag zelfzorg. Mouton behandelt dezelfde thema's zonder omkering,
+in 365 korte stukjes.
+
 ## 106. Nu of nooit
 
 Dai Carter, 2021. Bij Prometheus (2021). Carter diende bij het Korps
@@ -19322,6 +20471,194 @@ onderzoek. Wie zich in de beschrijving herkent, heeft er iets aan als taal om
 het eigen gedrag mee te bekijken; als toetsbare theorie over angst is het niet
 bedoeld en niet bruikbaar.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Van Gassel stelt dat vrijwel al ons denken, kiezen en
+gedragen voortkomt uit angst, en dat er in het leven maar twee dingen zijn:
+liefde en angst, met daartussen gedoe. Wij worden volgens hem puur geboren en
+daarna door opvoeding, cultuur, geloof, regels en de prestatiemaatschappij
+eerder vervormd dan gevormd. Angst noemt hij een mechanisme met zes delen:
+verantwoordelijkheid, zelfbeeld, controle, schuld, veiligheid en
+kwetsbaarheid. Daaronder liggen vijf basisbehoeftes en daarboven vier doelen:
+rust, vrede, oké zijn en liefde. Wie zijn angsten aangaat, komt dichter bij
+die doelen. De auteur noemt zijn uitgangspunt zelf herhaaldelijk hypothetisch.
+
+#### De gang van het boek
+
+**Wie er aan het woord is**
+
+Het boek opent met twee hoofdstukken over de schrijver zelf, waarvan er één in
+de derde persoon is geschreven en de leeswijze aankondigt: dit boek is op z'n
+Wiljo's geschreven. Van Gassel werkt ruim twintig jaar als therapeut, coach en
+behandelaar in zijn praktijk Sensus en is opgeleid tot hypnotherapeut. Het is
+zijn tweede boek, na een boek over reageren.
+
+Hij zegt vooraf dat spelling en interpunctie hem niet zoveel schelen en dat
+het om de beleving gaat. De tekst is dan ook eerder een reeks overwegingen dan
+een betoog: ruim tachtig korte hoofdstukken, elk geopend met een spreuk.
+
+**Vervorming: de scheve boom**
+
+De grondmetafoor haalt hij uit een oude, scheefgegroeide boom die hij op een
+camperplaats in Zuidwest-Australië zag staan. Het DNA van de boom is miljoenen
+jaren oud en niet te beïnvloeden, maar de wind en de omringende bomen bepalen
+hoe hij groeit. Zo is het volgens hem ook bij de mens.
+
+Bij de mens vult hij dat in met een drietrapsmodel van het brein:
+reptielenbrein voor ademhaling, hartslag en vechten of vluchten,
+zoogdierenbrein voor emoties en sociaal gedrag, mensenbrein als bibliotheek.
+De invloeden van buitenaf zijn opvoeding, scheidingen, voeding, school,
+sociale media, middelen en prestatiedruk. Zijn conclusie is dat de
+maatschappij aan het buigen of breken is en dat er te weinig aandacht is voor
+oorzaak en preventie.
+
+**Het angstmechanisme en de vier doelen**
+
+Het middenstuk zet de begrippen op een rij. Angst beschrijft hij eerst
+fysiologisch: amygdala, hypothalamus, hypofyse en bijnieren, adrenaline en
+cortisol, sympathisch en parasympathisch zenuwstelsel. Daarna volgt zijn eigen
+indeling in zes delen en de triggers, intern en extern, die het mechanisme in
+werking zetten.
+
+Het referentiekader noemt hij de bibliotheek waarin al onze waarheden liggen
+opgeslagen. Perceptie, projectie en de interne dialoog bepalen hoe die
+bibliotheek wordt geraadpleegd. In het hoofdstuk 4 tegen 4 zet hij de vier
+hoogste doelen tegenover de vier basisemoties woede, angst, verdriet en
+vreugde, telt vier plus vier op tot acht en verbindt dat met het lemniscaat
+als teken van oneindigheid.
+
+**De thema's**
+
+Het grootste deel van het boek bestaat uit korte stukken over losse
+onderwerpen: hechting, loyaliteit, hiërarchie en groepsdynamica,
+conditionering, faalangst, coping, schuld en schaamte, verslaving,
+eenzaamheid, rouw, pensioen en angst voor de dood.
+
+Twee daarvan werkt hij verder uit. In het hoofdstuk over communicatie ontleedt
+hij de zin dat iemand altijd zo dom doet woord voor woord en laat zien welke
+gedachte elk woord bij een kind kan achterlaten. In het hoofdstuk over
+kindsdelen onderscheidt hij het pure kind en het gekwetste kind, en stelt hij
+dat een mens voor tachtig procent gevormd wordt in de eerste tien tot twaalf
+jaar.
+
+**Lichaam en ontsporing**
+
+Een reeks hoofdstukken gaat over wat langdurige angst met het lichaam doet:
+uitputting en energielekken, een stressschaal van nul tot tien, de vier
+hormonen die hij samenvat als DOES, psychosomatiek, burn-out, midlifecrisis en
+posttraumatische stress. Zijn stelling is dat het lichaam de rekening
+presenteert als de draaglast langer dan de draagkracht toelaat groter blijft.
+
+Hier staat ook het persoonlijkste hoofdstuk. Zijn dochter kreeg jaren geleden
+een zwaar auto-ongeluk, met langdurige revalidatie, verlies van werk en
+relatie en jarenlange rechtszaken. Waar het hem om gaat zijn de oordelen uit
+haar omgeving, die haar herstel volgens hem vertraagden.
+
+**Het slot en de cijfers**
+
+Aan het eind staan hoofdstukken over dankbaarheid, affirmaties, loslaten,
+accepteren en regie nemen, en daarna een hoofdstuk dat Onderzoek heet. Daarin
+presenteert hij percentages: van de vier hoogste doelen komt rust op 42
+procent, vrede op 23, oké zijn op 18 en liefde op 17. Bij de vijf
+basisbehoeftes staan knuffelen op 32 procent, luisteren op 28, complimenten op
+23, verzorging op 12 en cadeau op 5.
+
+De lezer krijgt de schema's om zelf in te vullen, met een inschaling van nul
+tot tien per invloed. Van Gassel zegt er zelf bij dat naar de invloeden geen
+onderzoek is gedaan omdat die zich moeilijk in percentages laten verdelen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Angstmechanisme | Zijn indeling van angst in zes delen: verantwoordelijkheid, zelfbeeld, controle, schuld, veiligheid en kwetsbaarheid. |
+| Vervorming | Het idee dat invloeden van buitenaf ons niet zozeer vormen als wel afbrengen van wie we oorspronkelijk waren. |
+| Referentiekader | De innerlijke bibliotheek waarin alle eerder opgedane waarheden liggen opgeslagen en waaruit we reageren. |
+| Vijf basisbehoeftes | Knuffelen, luisteren, complimenten, verzorging en cadeau, die volgens hem in de eerste tien jaar gevuld moeten worden. |
+| Vier doelen | Rust, vrede, oké zijn en liefde, de vier delen waarin hij het hoogste levensdoel uiteenlegt. |
+| 4 tegen 4 | De botsing tussen die vier doelen en de vier basisemoties woede, angst, verdriet en vreugde, die hij in het lemniscaat samenbrengt. |
+| Kindsdeel | Het pure of gekwetste deel uit de kindertijd dat bij triggers heftiger reageert dan de volwassene. |
+| Fuck-gedachten | Zijn praktijkterm voor de aangeleerde, meestal onjuiste negatieve conclusies die het denken vullen. |
+| Ziektewinst | Het voordeel dat klachten opleveren en dat het loslaten ervan bemoeilijkt. |
+| DOES | Zijn ezelsbruggetje voor dopamine, oxytocine, endorfine en serotonine. |
+
+#### Waar het argument op rust
+
+De onderbouwing berust op praktijkervaring en op casuïstiek uit de eigen
+praktijk, niet op systematisch onderzoek. Van Gassel beschrijft zelf hoe hij
+te werk ging: hij spitte zijn dossiers door, haalde uit de hulpvragen de
+onderliggende doelen en behoeftes en verdeelde die in vijf basisbehoeftes en
+zes delen. Het hoofdstuk Onderzoek noemt hulpvragen van tien jaar en
+vijfhonderd cliënten en vrijwilligers, maar geeft geen selectiewijze, geen
+vragenlijst, geen meetmoment en geen vergelijkingsgroep. De percentages zijn
+tellingen binnen zijn eigen cliëntenbestand.
+
+Hij is daar zelf niet geheimzinnig over. Woorden als hypothetisch, in mijn
+beleving en mijn stelling staan door de hele tekst. Zijn uitgangspunt legt hij
+bij de lezer neer als iets om over mee te denken. Het boek verscheen in eigen
+beheer via De Vrije Uitgevers, met redactie door de auteur, zijn echtgenote en
+de vormgever; externe vakredactie ontbreekt.
+
+Waar naar theorie of cijfers wordt verwezen, gebeurt dat zonder
+bronvermelding. De passages over amygdala, hypothalamus, cortisol en de twee
+takken van het autonome zenuwstelsel zijn op leerboekniveau juist weergegeven,
+maar er staat geen literatuurlijst en geen noot. Het getal van twintig procent
+psychische problematiek bij de Europese jeugd, de verwijzing naar UNICEF en de
+sprong van zeshonderd naar negenduizend ingeschreven coaches staan zonder
+vindplaats.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar zit in de titel. Als alles om angst draait, kan geen
+enkele waarneming de stelling weerleggen: liefde, humor, ambitie en zelfs
+gezond risicobesef krijgen in dit boek een angstverklaring. Een idee dat
+overal past, verklaart weinig. Van Gassel merkt zelf op dat hij hypothetisch
+werkt, maar bouwt er intussen wel een indeling met zes delen, vijf behoeftes
+en vier doelen op.
+
+De cijfers in het slothoofdstuk suggereren precisie die de opzet niet draagt.
+Percentages tot op de eenheid uit een niet beschreven verzameling hulpvragen
+zijn een weergave van hoe hij zijn eigen dossiers heeft gerubriceerd, niet een
+meting van de bevolking. Hetzelfde geldt voor de tachtig procent vorming in de
+eerste tien jaar, die als vaststaand feit terugkeert.
+
+Het drietrapsmodel van het brein dat de eerste hoofdstukken draagt, is een
+verouderd populair model dat in de neurowetenschap niet meer als beschrijving
+van de bouw van het brein wordt gebruikt. Ook het verband tussen darmen en
+psyche wordt sterker gepresenteerd dan de stand van kennis toelaat, met de
+suggestie dat klachten bij prikkelbaredarmsyndroom na mentale behandeling
+geheel kunnen verdwijnen.
+
+Tot slot de vorm. Ruim tachtig korte hoofdstukken zonder argumentatieve lijn
+leveren herhaling op en een springerige lezing. Forse maatschappelijke
+uitspraken, zoals de opmerking dat wat ouders en maatschappij kinderen nu
+bieden regelrechte verwaarlozing is, worden gedaan op grond van eigen indruk
+en blijven staan zonder tegenspraak.
+
+#### Wat er concreet mee te doen is
+
+- Vul zijn schema's in als zelfreflectie, niet als uitslag: schaal de
+invloeden van nul tot tien en noteer de gedachte die erbij hoort.
+- Ga per basisbehoefte na waar in je eigen jeugd iets ontbrak en wat je daar
+nu zelf in kunt voorzien.
+- Schrijf een week lang op welke situaties je triggeren en of de volwassene of
+het kindsdeel reageert.
+- Houd bij welke bezigheden energie opleveren en welke energie kosten, en tel
+dat op over een maand.
+- Neem de neurologische en cijfermatige passages niet over zonder ze bij een
+bron na te lopen.
+
+#### Wat je hierna leest
+
+- 87. Activeer je nervus vagus. Swinnen behandelt hetzelfde
+stressfysiologische terrein met een expliciete verwijzing naar de literatuur.
+- 104. Oud zeer. Bakker beschrijft eveneens hoe oude pijn zich in het lichaam
+nestelt, met meer terughoudendheid in de claims.
+- 119. Unfuck Your Brain. Harper legt de neurobiologie van angst en stress uit
+met bronnen erbij, in een even losse toon.
+- 109. Elke dag zelfzorg. Mouton behandelt triggers, kindsdelen en hechting in
+kleinere, praktische stappen.
+
 ## 108. Handboek Spiegelogie
 
 Willem de Ridder, 2018. Bij AnkhHermes. De Ridder was beeldend kunstenaar,
@@ -19363,6 +20700,200 @@ wegleggen geen probleem is, wat het boek onderscheidt van programma's die met
 een schema komen. Het is bedoeld als begeleiding en niet als onderbouwing; de
 begrippen komen uit de hechtings- en gezinstherapie zonder dat het onderzoek
 daarachter wordt behandeld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mouton behandelt zelfzorg niet als ontspanning maar als het
+dagelijks inchecken bij jezelf: nagaan hoe je je voelt, wat je nodig hebt en
+waar je grens ligt. Haar stelling is dat dit geen egoïsme is maar de
+voorwaarde om er voor anderen te kunnen zijn, en dat het pas houdbaar wordt
+wanneer je de herkomst van je reacties kent: hechting, oude kwetsuren,
+triggers en het innerlijke kind. Het boek zet die overtuiging om in 365
+genummerde stukjes, verdeeld over tien thema's, met de nadrukkelijke
+aanwijzing dat de lezer zelf het tempo bepaalt en dagen mag overslaan.
+
+#### De gang van het boek
+
+**De vorm van het boek**
+
+Dit is een dagboekachtige gids van 365 korte stukken: een tekstje om over na
+te denken, een illustratie van haar zus Eva, een milde mantra of een oefening.
+Er zit een volgorde in, maar geen verplichting. Wie een thema wil overslaan of
+er weken in wil blijven hangen, mag dat.
+
+Het is haar tweede boek over zelfzorg, na *Zelfzorg is het begin van alles*
+uit 2022, waarin de onderwerpen theoretisch verder worden uitgewerkt. Dit boek
+is de doe-versie: de lezer kent het al en wil er nu iets mee.
+
+**Beginnen en opnieuw beginnen**
+
+Het eerste deel gaat over de voorwaarden. Zoek een plek die van jou is, plan
+een moment in de agenda en zorg dat je daar niet gestoord wordt. Goede
+voornemens werken volgens haar niet omdat ze te streng zijn en bij de eerste
+misstap sneuvelen; in plaats daarvan werkt ze met intenties en met kleine
+dagelijkse beloftes.
+
+Hier staat ook het beeld dat door het hele boek terugkomt: het zuurstofmasker
+in het vliegtuig, dat je eerst bij jezelf opzet. En de eerste concrete
+methode, verbindende communicatie in vier stappen: waarneming, gevoel,
+behoefte, verzoek, uitgewerkt in een gesprek met een huisgenoot over tijd voor
+jezelf.
+
+**Grenzen**
+
+Het tweede deel begint bij het lichaam. Gespannen nek, maag in de knoop,
+slecht slapen, geen zin meer in dingen die je anders leuk vindt: dat zijn
+volgens haar de signalen dat een grens is gepasseerd. Daarna volgt waar mensen
+makkelijk over hun grenzen gaan: op het werk, in relaties en bij zichzelf.
+
+Twee dingen blijven hangen. De snoepjessituatie: het laatste snoepje van je
+lievelingssmaak dat je uit gewoonte voor een ander laat liggen, als kleine
+test of je jezelf ooit vooropzet. En haar verklaring waarom nee zeggen zo
+moeilijk is: het stemmetje dat bang is om afgewezen te worden, dat ooit leerde
+dat nee zeggen straf of afwijzing opleverde.
+
+**Verbinden**
+
+Het derde deel opent met een oefening uit haar praktijk: teken jezelf in het
+midden van een vel papier en zet de mensen om je heen op de afstand die klopt.
+Ze beschrijft dat de uitkomst vaak verrast, met mensen die omringd zijn en
+zich eenzaam voelen en omgekeerd. Vervolgens worden de namen in kleuren
+omcirkeld naar het soort steun dat ze geven.
+
+Daarna komen de vijf liefdestalen: positieve woorden, tijd en aandacht,
+lichamelijke aanraking, cadeaus krijgen en dienstbaarheid. Haar punt is dat
+liefde die in de verkeerde taal wordt geuit niet aankomt, met het voorbeeld
+van de collega die werk uit handen neemt en daarmee juist irriteert.
+
+**Triggers en het innerlijke kind**
+
+Het middendeel is het persoonlijkst. Triggers noemt ze blauwe plekken: plekken
+die je jaren niet voelt tot iemand erop duwt. Ze opent met het moment waarop
+haar partner de oplader uit het stopcontact trok en haar verlatingsangst
+aansprong, en vertelt daarna waar die vandaan komt. Op tweeënhalfjarige
+leeftijd kreeg ze hete thee over zich heen, met zware brandwonden,
+ziekenhuisopnames en operaties waarbij ouders destijds afscheid moesten nemen
+voor de narcose.
+
+Van daaruit werkt ze het innerlijke kind uit in drie gedaantes: het gekwetste
+kind dat zich klein en alleen voelt, het kwade kind dat buitenproportioneel
+reageert, en het gelukkige kind dat speels en nieuwsgierig is. Het gekwetste
+kind vraagt volgens haar mildheid, het kwade kind liefdevolle begrenzing: de
+kwaadheid mag er zijn, de deuren slaan niet.
+
+**Gevoelens, evenwicht en rust**
+
+In de delen zes tot en met acht staan emoties, energie en stress. Gevoelens
+negeren werkt niet, is de lijn; ze komen terug en dan groter. Voor
+schuldgevoel geeft ze vijf stappen: erkennen, de oorzaak zoeken, nagaan of het
+terecht is, positief herformuleren en mild blijven.
+
+Bij evenwicht horen het energiedagboek en lijstjes met wat oplaadt en wat
+leegtrekt. Bij rust onderscheidt ze spannende, frustrerende en schadelijke
+stress, met draagkracht tegenover draaglast, en beschrijft ze via het verhaal
+van een vrouw na een burn-out hoe ver hoofd en lichaam uit elkaar kunnen komen
+te staan.
+
+**Volwassen worden en het slot**
+
+De laatste delen gaan over groeien in jezelf mogen zijn, over relaties die
+veranderen en over drama als lijm tussen mensen, tegenover verbinding waarin
+je jezelf durft te tonen. Het slot legt de nadruk op twee dingen: zelfzorg is
+nooit af, en zelfzorg is intergenerationeel. Wat je ouders en grootouders
+misten, werkt door in wat jij doorgeeft, en de vraag is welke gewoonten je
+wilt houden en welke niet.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Inchecken | Kort stilstaan bij hoe je je voelt en wat je nodig hebt, lichamelijk zowel als emotioneel. |
+| Blauwe plekken | Oude kwetsuren die pas pijn doen wanneer iemand of iets er onverwacht op drukt. |
+| Triggers | De onzichtbare knopjes die een oude pijn aanzetten en een reactie oproepen die niet bij het heden past. |
+| Innerlijke kind | Het deel van je dat reageert vanuit wat het vroeger nodig had en niet kreeg, in gekwetste, kwade of gelukkige vorm. |
+| Inner voices | De innerlijke stemmen die oordelen, aansporen of waarschuwen en die ze de lezer laat herkennen. |
+| Kleine dagelijkse belofte | Een klein, concreet voornemen voor die ene dag, bedoeld als vervanging van te strenge goede voornemens. |
+| Liefdestalen | De vijf manieren waarop mensen liefde uiten en ontvangen, ontleend aan Gary Chapman. |
+| Verbindende communicatie | De vier stappen waarneming, gevoel, behoefte en verzoek, ontleend aan Marshall Rosenberg. |
+| Energiedagboek | Een overzicht van wat energie geeft en wat energie kost, bijgehouden over weken. |
+| Snoepjessituatie | Het kleine moment waarop blijkt of je jezelf weleens vooropzet. |
+
+#### Waar het argument op rust
+
+De onderbouwing is praktijkervaring en casuïstiek uit de eigen praktijk.
+Mouton werkt als pedagoog en gezinsbegeleider en put uit haar begeleidingen en
+uit haar eigen leven. Door het boek staan korte citaten van cliënten bij een
+voornaam: Claudine over de vrijdagborrel, Andres over grenzen op het werk,
+Leni over de schaamte na haar ontslag, Catherine over haar eindeloze
+takenlijst, Petra die na een burn-out haar eigen lichaam niet meer voelde. Die
+stukjes zijn levendig, maar het zijn illustraties, geen bewijs: ze zijn
+geselecteerd omdat ze het punt tonen.
+
+Systematisch onderzoek staat er niet in. Er zijn geen noten en geen cijfers,
+en waar theorie wordt gebruikt gebeurt dat zonder bronvermelding in de tekst
+zelf. Achterin staat wel een lijst Verder lezen met dertien titels, waaronder
+Brené Brown, Nicole LePera, Esther Perel, Marshall Rosenberg, Gary Chapman en
+een schemagerichte titel van Van Genderen, Jacob en Seebauer. Het is een lijst
+van populaire boeken, geen verantwoording van de beweringen.
+
+Twee gebruikte indelingen verdienen aparte vermelding. De vijf liefdestalen
+komen uit een populair relatieboek van Gary Chapman uit de jaren negentig en
+niet uit onderzoek; ze worden hier als vaststaand gepresenteerd. De driedeling
+in spannende, frustrerende en schadelijke stress en de opdeling van het
+innerlijke kind in drie gedaantes zijn werkindelingen uit de
+begeleidingspraktijk, bruikbaar als taal, maar niet als gemeten categorieën.
+De passages over draagkracht en draaglast zijn gangbare kennis, correct
+weergegeven, maar ook zonder verwijzing.
+
+#### Wat er tegen in te brengen valt
+
+De vorm van 365 stukjes is de grootste zwakte. Een thema dat vraagt om
+verdieping krijgt een halve bladzijde, en de terugkerende geruststelling dat
+het allemaal oké is en dat je je tempo zelf bepaalt keert zo vaak terug dat ze
+aan waarde inboet. Het boek geeft dat zelf toe door voor verdieping naar het
+eerdere boek te verwijzen, wat betekent dat de lezer voor de argumentatie in
+een ander boek moet zijn.
+
+Inhoudelijk voert Mouton vrijwel elk knelpunt terug op de kindertijd. Nee
+zeggen valt zwaar door vroege afwijzing, kwaadheid komt uit het kwade
+innerlijke kind, patronen zijn intergenerationeel. Dat is een bruikbare
+invalshoek maar geen volledige, en het boek geeft geen ruimte aan verklaringen
+buiten de persoon. Een leven zonder tijd voor zichzelf komt lang niet altijd
+uit een blauwe plek; het komt ook uit geld, roosters, alleenstaand ouderschap
+en zorg voor anderen. Het advies om tijd op te eisen en de deur van je kantoor
+te sluiten veronderstelt een positie die niet iedereen heeft.
+
+De mildheid die de toon draagt, zorgt er ook voor dat de grenzen van het boek
+vaag blijven. Trauma, verlatingsangst, burn-out en depressie komen aan bod,
+maar de aanwijzing wanneer je hiermee naar een professional gaat blijft
+algemeen. Bij zwaardere klachten is een dagelijkse mantra geen behandeling, en
+dat wordt niet met zoveel woorden gezegd.
+
+Tot slot het taalgebruik. Deep dive, just show up, inner voices, cut the drama
+en bring them back staan naast Nederlands waarvoor gewone woorden bestaan; in
+een boek dat om zorgvuldig benoemen van gevoel vraagt, valt dat op.
+
+#### Wat er concreet mee te doen is
+
+- Kies één deel dat nu speelt en werk dat af, in plaats van bij dag 1 te
+beginnen.
+- Houd twee weken een energiedagboek bij: wat laadde op, wat trok leeg.
+- Teken je steunnetwerk en omcirkel per persoon of het om praktische of
+emotionele steun gaat.
+- Formuleer een verzoek in vier stappen: waarneming, gevoel, behoefte,
+verzoek.
+- Vraag voor je een verhaal aanhoort of de ander een luisterend oor wil of
+advies.
+
+#### Wat je hierna leest
+
+- 111. Dingen die je hoop geven. Haemin Sunim werkt met dezelfde korte
+dagelijkse stukjes, met een boeddhistische in plaats van pedagogische
+achtergrond.
+- 105. Zo ongelukkig mogelijk in 8 stappen. Den Daas behandelt grenzen,
+vergelijken en zelfzorg via een omgekeerde vorm en met dezelfde praktijkgrond.
+- 32. The Gifts of Imperfection. Brown gaat dieper in op schaamte en niet goed
+genoeg zijn, met onderzoek eronder.
 
 ## 110. Op het allerlaatste moment
 
@@ -21316,6 +22847,193 @@ en dat maakt het praktischer dan zuiver spiritueel werk. Het blijft een tekst
 binnen een traditie: de uitgangspunten worden uitgelegd en niet getoetst, en
 de lezer die om bewijs verlegen zit vindt dat hier niet.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Bodian stelt dat mindfulness-meditatie, zoals die sinds de
+jaren zeventig in het Westen wordt onderwezen, haar eigen doel in de weg zit.
+Wie oefent in aandachtig waarnemen houdt daarmee de scheiding in stand tussen
+degene die waarneemt en dat wat waargenomen wordt, en blijft hangen in een
+toestand die onderhoud vraagt en wegzakt zodra het oefenen stokt. Wat hij
+Zijnsbesef noemt is volgens hem geen vermogen dat je aankweekt, maar de altijd
+aanwezige achtergrond van elke ervaring, die alleen herkend hoeft te worden.
+Daaruit volgt zijn tweede stelling: er bestaat een kortere weg, ontleend aan
+zen en aan de advaita-traditie, waarin direct wordt gewezen op wat je al bent.
+
+#### De gang van het boek
+
+**Wat mindfulness oplevert en waar het volgens Bodian ophoudt**
+
+Bodian opent met zijn eigen loopbaan. Hij mediteerde jarenlang als monnik,
+werd rustiger en minder reactief, en merkte tegelijk dat zijn meditaties droog
+werden en dat hij het leven meer op afstand onderging. Toen hij dat aan zijn
+zenleraar voorlegde, was het antwoord dat hij meer moest mediteren. Hij legde
+zijn gewaden af en ging westerse psychologie studeren.
+
+Het eerste hoofdstuk erkent wat de moderne beoefening oplevert: minder stress,
+betere concentratie, meer gelijkmoedigheid. Zijn bezwaar zit elders.
+Mindfulness is een gemoedstoestand, dus tijdelijk en afhankelijk van hoe
+consequent je oefent, en ze rust op een oordeel over hoe je geest hoort te
+zijn. Wie zich daarop richt houdt een gevoel van tekortschieten in stand,
+omdat je altijd nog aandachtiger kunt zijn.
+
+De scherpste formulering is die van de getuige als fuik. De onthechte
+waarnemer die meditatie opbouwt is aanvankelijk nuttig, maar wordt een positie
+waarmee je je gaat vereenzelvigen: hoe meer je mediteert, hoe verder je die
+fuik in zwemt.
+
+**De ezels van Nasruddin: inhoud en context**
+
+Het tweede hoofdstuk hangt aan een oud verhaal. Nasruddin gaat jarenlang met
+beladen ezels de grens over, de douaniers weten zeker dat hij smokkelt,
+doorzoeken telkens de manden en vinden niets. Na zijn pensioen vertelt hij wat
+hij smokkelde: ezels.
+
+Dat is zijn beeld voor de geest die zich op inhoud richt en de context
+negeert. Je ziet de tekening en niet het papier, de beelden en niet het
+scherm, je merkt de zuurstof pas op als die ontbreekt. Bewustzijn is de over
+het hoofd geziene ezel: zonder dat is geen ervaring mogelijk, en juist daarom
+valt het niet op.
+
+Hier staat het onderscheid dat het hele boek draagt. Onbegrensd bewustzijn is
+nog een vermogen dat je opbouwt en dat afneemt als je het laat versloffen;
+Zijnsbesef vraagt geen onderhoud, want het is de voorwaarde voor elke ervaring
+en niet zelf een ervaring.
+
+**Zijnsbesef, Ongrond en de diagnose van Boeddha**
+
+Het derde hoofdstuk plaatst het geheel in een boeddhistisch kader. Boeddha
+stelde volgens Bodian de oorzaak van het lijden vast, namelijk hunkeren naar
+wat we niet hebben en verzet tegen wat we wel hebben, gedragen door de illusie
+een afgescheiden individu te zijn.
+
+Bodian hanteert twee woorden naast elkaar. Ongrond is de bestaansgrond waarin
+alles opkomt, aanwezig of we het beseffen of niet. Zijnsbesef is wat er
+gebeurt zodra die Ongrond zich in een mens als diens eigen aard herkent.
+Ontwaken is in zijn beschrijving een verschuiving in drie stappen: eerst zie
+je bewustzijn als functie, dan als grond, en dan zie je dat jij dat bent.
+
+**De poortloze poort**
+
+In het vierde hoofdstuk staat de paradox centraal: hoe word je wat je al bent.
+Zen noemt dat de poortloze poort. Je doet er alles aan om erdoorheen te komen,
+en ontdekt aan de andere kant dat de poort een verzinsel was.
+
+Herkenning beschrijft Bodian als een figuur-achtergrondverschuiving,
+vergelijkbaar met de bekende tekening die een jonge of een oude vrouw laat
+zien. De directe weg laat zich volgens hem niet plannen: geen mijlpalen, geen
+gevoel van vooruitgang. Hij citeert Stephen Levine, die het het hoge, smalle
+pad zonder leuning noemde. Zijn eigen omslag kwam op de snelweg, toen de zin
+van een leraar in hem terugkwam: de zoeker is wat gezocht wordt.
+
+**Verankeren in plaats van oefenen**
+
+Het vijfde en zesde hoofdstuk gaan over wat er na de herkenning gebeurt.
+Bodian is er nuchter over: het ikje steekt telkens weer de kop op en je valt
+terug in de gewoonte jezelf voor een verhaal te houden. Het werk bestaat dan
+uit terugkeren en verblijven.
+
+Het verschil met meditatie formuleert hij zo: bij mindfulness kies je ervoor
+aandachtig te zijn, bij de directe benadering herinner je jezelf eraan dat je
+die aandacht zelf bent. Zelfverbetering noemt hij een doodlopende weg, omdat
+het individu dat je wilt verbeteren volgens hem geen duurzaam ding is.
+
+**Emoties, kernverhalen en fixaties**
+
+Het laatste hoofdstuk behandelt woede, paniek, jaloezie en verdriet. Bodian
+zet vier gewoonten naast elkaar: opgaan in de emotie, haar vermijden via
+verdringing en projectie, haar in schijn overstijgen door je achter
+onthechting te verbergen, of haar onderzoeken met mindfulness. Bij die laatste
+ziet hij het risico dat de afstandelijke getuigepositie subtiele gevoelens
+wegdrukt.
+
+Zijn alternatief is de emotie laten zijn wat ze is in open bewustzijn, zonder
+tegengif en zonder verhaal. Daarnaast beschrijft hij kernovertuigingen, zoals
+de overtuiging dat niemand van je houdt, die alle waarneming kleuren, en
+verwijst hij voor de vaste patronen naar het enneagram, met de aantekening dat
+een typologie misleidend wordt zodra je gaat denken dat je je fixatie bent.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zijnsbesef | De vertaling van awakened awareness: de altijd aanwezige achtergrond van elke ervaring, die zichzelf in stand houdt en niet gekweekt kan worden. |
+| Ongrond | De bestaansgrond waarin alles opkomt, aanwezig of iemand zich daarvan bewust is of niet. |
+| De directe benadering | De weg die de omweg van het oefenen laat vallen en direct wijst op wat volgens Bodian altijd al het geval is. |
+| De fuik van de getuige | De positie van onthechte waarnemer die meditatie opbouwt en waarmee de beoefenaar zich uiteindelijk vereenzelvigt. |
+| Poortloze poort | Zenbeeld voor de paradox dat je moeite doet om ergens te komen waar je nooit buiten hebt gestaan. |
+| Figuur-achtergrondverschuiving | De omslag waarbij wat achtergrond was op de voorgrond komt, zoals bij de tekening die een jonge of een oude vrouw kan zijn. |
+| Kernverhaal en fixatie | Een terugkerende overtuiging en het patroon eromheen dat de waarneming van alle situaties kleurt. |
+
+#### Waar het argument op rust
+
+Het boek rust op drie dingen: de eigen weg van de schrijver, de tradities
+waarin hij is opgeleid, en de dialogen uit zijn retraites die elk hoofdstuk
+afsluiten. Bodian is geregistreerd psychotherapeut en leraar in de zen- en
+advaita-lijn, en noemt Jean Klein als zijn leraar. Studies, cijfers of
+vindplaatsen staan er niet in. Waar hij naar onderzoek verwijst, gaat dat over
+de kant die hij niet verdedigt: de aangetoonde werking van mindfulness op
+stress, stemming en concentratie erkent hij, en die erkenning is de opstap
+naar zijn bezwaar.
+
+Voor zijn eigen leer is er geen toets. Hij schrijft dat de oefeningen van
+heiligen en yogi's, net als natuurkundige experimenten, reproduceerbare
+uitkomsten opleveren, maar levert daar niets voor aan en zwakt het in dezelfde
+alinea af met de opmerking dat het per persoon anders verloopt.
+
+Wat wel controleerbaar is, is de innerlijke samenhang: de begrippen komen uit
+een traditie die ze al eeuwen zo gebruikt en Bodian past ze consequent toe. De
+Nederlandse vertaling verzwakt dat op één punt: de vertalers melden dat
+Zijnsbesef in het boek verschillende lagen van bewustzijn dekt en raden de
+lezer aan niet te bepalen welke laag bedoeld is.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de leer zich niet laat weerleggen. Herkent de
+lezer Zijnsbesef niet, dan telt dat binnen het boek als teken dat de
+herkenning nog niet heeft plaatsgevonden en niet als tegenargument. Elke
+uitkomst bevestigt de stelling, dus de vraag of ze waar is valt binnen het
+boek niet te beantwoorden. Bodian legt die last uitdrukkelijk bij de lezer
+neer: zijn beschrijvingen zijn hypotheses die je zelf op waarheid moet
+beoordelen, en zolang dat niet gebeurt blijft het volgens hemzelf bij gepraat.
+
+Het tweede bezwaar komt uit zijn eigen hoek. Binnen de nonduale kring is er
+kritiek op de belofte van plotseling inzicht, omdat die het psychologische
+werk kan overslaan; in het Engels heet dat spiritual bypassing. Bodian ziet
+het probleem, benoemt het transcenderen van gevoelens als een vluchtroute die
+vooral in spirituele kringen populair is, en noemt leraren die onfeilbaarheid
+prediken en ondertussen hun volgers misbruiken. Zijn remedie blijft echter
+dezelfde openheid die de klacht betreft: emoties toelaten en verankerd
+blijven. Waar therapie, gesprek of tijd nodig is, blijft het boek vaag, en dat
+is opmerkelijk bij een schrijver die zelf psychotherapeut is.
+
+Verder wringt de omgang met de wereld buiten de beoefenaar. Op de vraag van
+een lezer naar oorlogen, aanslagen en milieuschade antwoordt Bodian dat
+niemand kan weten of dat niet precies is wat er volgens een niet te bevatten
+dynamiek moest gebeuren. Protesteren mag, mits je je niet aan het resultaat
+hecht. Wie dat antwoord op zichzelf leest, houdt een houding over waarin alles
+wat gebeurt achteraf gelijk krijgt.
+
+#### Wat er concreet mee te doen is
+
+- Merk op of je meditatie het gevoel van tekortschieten voedt: wordt kalmte
+iets dat je moet bijhouden om overeind te blijven?
+- Onderzoek eens waar de grens van je waarneming ligt in plaats van erover te
+denken.
+- Schrijf op welke terugkerende overtuiging over jezelf je waarneming van
+mensen kleurt, en kijk hoe vaak je er bewijs voor meent te vinden.
+
+#### Wat je hierna leest
+
+- 111. Dingen die je hoop geven. Haemin Sunim komt uit dezelfde boeddhistische
+hoek, maar houdt het bij troostend advies en gaat de vraag naar de aard van
+bewustzijn uit de weg.
+- 2. Overpeinzingen. Marcus Aurelius werkt aan wat Bodian juist afwijst:
+dagelijkse oefening in het beheersen van je oordeel, zonder belofte van een
+omslag.
+- 107. Alles draait om angst. Van Gassel behandelt angst als iets wat je
+psychologisch uitzoekt, precies het werk waarvan critici zeggen dat de directe
+weg het overslaat.
+
 ## 142. Designing the Mind
 
 Ryan A. Bush, 2021. Ondertitel *The Principles of Psychitecture*, in eigen
@@ -21481,6 +23199,216 @@ uitweidingen over Jung, Nietzsche en de neurologie van angst. De onderbouwing
 is het punt waarop het meest is aangemerkt: de sprong van gedeelde
 verhaalpatronen naar uitspraken over hoe de menselijke geest werkt, wordt
 eerder betoogd dan aangetoond.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Peterson stelt dat mythen en religieuze verhalen geen
+mislukte natuurwetenschap zijn. Ze beschrijven de wereld niet als een
+verzameling objecten met eigenschappen, maar als een terrein waarop gehandeld
+moet worden, en ze leggen vast wat de dingen betekenen voor wie erin leeft.
+Die betekeniskaarten hebben volgens hem overal ter wereld dezelfde grondvorm,
+omdat het menselijk zenuwstelsel overal met dezelfde twee omstandigheden te
+maken heeft: bekend gebied waarin het weet hoe te handelen, en onbekend gebied
+waarin dat wegvalt. Uit die stelling volgt zijn zwaarste claim: wie de
+gedeelde structuur van mythen begrijpt, begrijpt hoe de menselijke geest
+waarde toekent, en begrijpt daarmee ook hoe groepen tot het kwaad van de
+twintigste eeuw konden komen.
+
+#### De gang van het boek
+
+**Waar het boek vandaan komt**
+
+Het voorwoord, *Descensus ad Inferos*, is een persoonlijk verslag. Peterson
+groeit op in Alberta, gaat naar de kerk met zijn moeder, stopt daarmee rond
+zijn twaalfde na een gesprek met de dominee over Genesis en de
+evolutietheorie, en zoekt zijn moraal daarna in de politiek. Hij werkt voor
+een mild socialistische partij tot George Orwells *Road to Wigan Pier* hem het
+argument geeft dat socialisten de armen niet zozeer liefhebben als dat zij de
+rijken haten. Wat overblijft is wantrouwen tegen ideologie als zodanig: het
+deelt de wereld op in wie juist denkt en wie niet, en verbergt voor de
+gelovige zijn eigen wensen.
+
+De vraag die daarna niet meer weggaat is hoe groepsgebonden kwaad in de wereld
+komt. De koude oorlog, de nazi-kampen en het vermogen van gewone mensen tot
+wreedheid vormen het probleem waarvoor dit boek een verklaring wil zijn.
+Peterson schrijft dat hij er ruim vijftien jaar aan werkte.
+
+**Twee manieren om dezelfde wereld te beschrijven**
+
+Hoofdstuk 1 zet het onderscheid neer waarop alles rust. De natuurwetenschap
+beschrijft de wereld als een plaats van dingen: wat is iets, waaruit bestaat
+het, hoe gedraagt het zich. De oudere beschrijving vraagt iets anders: wat
+betekent dit voor mij, wat moet ik ermee doen, brengt het mij dichter bij waar
+ik heen wil. Peterson noemt dat de wereld als forum voor handelen.
+
+Zijn punt is dat de tweede beschrijving niet is vervangen door de eerste.
+Mensen handelen nog altijd op grond van waardetoekenning, en die toekenning is
+niet uit de fysieke beschrijving af te leiden. Waar de moderne mens geen
+expliciete taal meer heeft voor waarde, blijft hij impliciet leven volgens de
+verhalen die hij denkt te hebben afgeschaft.
+
+**Het bekende, het onbekende en de kenner**
+
+Hoofdstuk 2 is het hart van het boek. Peterson onderscheidt drie vaste
+bestanddelen van menselijke ervaring. Het bekende is het gebied waarin onze
+plannen werken: cultuur, gewoonte, gedeelde verwachting. Het onbekende is
+alles wat die plannen doorkruist. De kenner is het vermogen om het onbekende
+te verkennen en er iets bekends van te maken.
+
+Hij koppelt dat aan een gedragspatroon: iets onverwachts leidt eerst tot
+stilvallen en angst, daarna eventueel tot nieuwsgierigheid en verkenning.
+Kleine fouten dwingen tot bijstelling van de middelen; grote fouten dwingen
+tot herziening van het doel zelf, en dat gaat gepaard met heftige ontregeling.
+Vandaar dat mensen ver gaan om hun verhaal intact te houden.
+
+Verhalen ordenen die ervaring in twee vormen. In het normale verhaal blijft
+het doel staan en worden de middelen aangepast. In het omwentelende verhaal
+sneuvelt het doel en moet het beeld van heden en toekomst opnieuw worden
+opgebouwd. De cyclus van instorting en herbouw noemt Peterson de metamythe van
+de weg.
+
+**De godenfamilie van de verbeelding**
+
+Diezelfde drie bestanddelen keren volgens hem overal terug als personages. Het
+onbekende krijgt vrouwelijke gedaante, als Grote Moeder die zowel voortbrengt
+als verslindt, met de uroboros als voorstelling van de toestand vóór alle
+onderscheid. Het bekende krijgt mannelijke gedaante, als Grote Vader die
+beschermt en tegelijk tiranniseert. De kenner verschijnt als de zoon, de held
+die het gebied buiten de muren betreedt en er iets bruikbaars uit terugbrengt.
+
+Het materiaal komt uit het Babylonische scheppingsverhaal *Enuma elish*,
+waarin Marduk Tiamat verslaat en uit haar lichaam de wereld maakt, en uit de
+Egyptische cyclus van Osiris, Seth en Horus, waarin de verstarde orde
+uiteenvalt en door de zoon wordt hersteld. De ruim zestig schematische figuren
+in het boek zetten die verhalen om in diagrammen, wat de leeswijze verraadt:
+de verhalen zijn voor Peterson varianten op één onderliggend patroon.
+
+**Inwijding en het opduiken van de anomalie**
+
+Hoofdstuk 3 gaat over hoe een kind de gedeelde kaart overneemt. Opvoeding en
+inwijding maken van het individu een lid van de groep; dat is winst en
+beperking tegelijk. Hoofdstuk 4 behandelt wat er gebeurt wanneer die kaart
+wordt doorbroken door iets wat er niet in past.
+
+De voorbeelden zijn Gautama, die het ommuurde paleis van zijn vader verlaat en
+oog in oog komt met ziekte, ouderdom en dood, en na zijn verlichting
+terugkeert naar de wereld in plaats van in nirwana te blijven; en de
+Genesisvertelling, waarin de vrucht kennis van goed en kwaad brengt en daarmee
+het besef van de eigen sterfelijkheid. Peterson leest beide als hetzelfde
+proces: het verlies van een veilige kaart, de afdaling, en de terugkeer met
+iets wat de gemeenschap kan gebruiken.
+
+**De vijandige broers en het slot**
+
+Hoofdstuk 5 zet de twee mogelijke antwoorden op het onbekende tegenover elkaar
+als broers. De ene houdt vast aan het bestaande verhaal, ontkent wat er niet
+in past en gaat over tot vervolging van wie de anomalie belichaamt; de tweede
+laat het verhaal instorten en bouwt het opnieuw. Peterson personifieert die
+keuze als Christus tegenover Satan, en verbindt de eerste weg met de leugen,
+met ideologie en met de kampen van de twintigste eeuw. Zijn verklaring van
+massaal kwaad loopt langs de individuele bereidheid om te weten wat men liever
+niet weet.
+
+De slotdelen behandelen de alchemie als een westerse omweg waarin het
+verdrongen materiaal terugkeerde, en eindigen met wat hij het goddelijke van
+de belangstelling noemt: wat de aandacht spontaan vasthoudt, wijst naar de
+plek waar het bekende moet worden uitgebreid. Dat is het enige
+gedragsvoorschrift dat het boek zelf formuleert.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Het bekende | Het gebied waarin onze gewoonten en plannen het gewenste resultaat opleveren, in feite cultuur. |
+| Het onbekende | Alles wat buiten dat gebied valt en zich aandient zodra een plan mislukt. |
+| De kenner | Het verkennende vermogen dat tussen beide bemiddelt en het onbekende in bekend gebied omzet. |
+| Anomalie | Een gebeurtenis die niet in de heersende kaart past en die kaart daarmee ondergraaft. |
+| Grote Moeder | De verbeelding van het onbekende als voortbrengende en verslindende natuur. |
+| Grote Vader | De verbeelding van cultuur en orde als beschermende en tegelijk tirannieke vaderfiguur. |
+| Goddelijke Zoon | De heldenfiguur die het onbekende betreedt en de verstarde orde vernieuwt. |
+| Metamythe van de weg | De kringloop van verlies van paradijs, afdaling, en herstel van een bewoonbare orde die Peterson in uiteenlopende culturen terugvindt. |
+| Normaal en omwentelend verhaal | Het onderscheid tussen bijstelling van de middelen en herziening van het doel zelf. |
+| De leugen | Het weigeren te erkennen wat de eigen kaart tegenspreekt, bij Peterson de wortel van ideologisch geweld. |
+
+#### Waar het argument op rust
+
+Het argument rust op twee soorten materiaal die Peterson aan elkaar knoopt.
+Het eerste is mythologisch en religieus: Mesopotamische en Egyptische
+scheppingsverhalen, Genesis, het leven van de Boeddha, middeleeuwse
+alchemistische teksten, sprookjes en films. Het tweede is psychologisch en
+neurologisch: onderzoek naar de reactie op nieuwe prikkels, naar angst en
+gedragsremming, naar het verschil tussen geheugensystemen, en de
+ontwikkelingspsychologie van Piaget.
+
+De mythologische lezingen komen zichtbaar uit een bepaalde traditie. Jung,
+Erich Neumann en Mircea Eliade leveren het interpretatiekader, en dat kader
+bepaalt al vooraf dat uiteenlopende verhalen varianten van één patroon zijn.
+Peterson leest de bronteksten grotendeels via die secundaire literatuur, wat
+de gevonden overeenkomsten deels tot een gevolg van de methode maakt.
+
+De neuropsychologische kant is de kant die het snelst is verouderd. Het boek
+verscheen in 1999 en verwerkt onderzoek uit de jaren zeventig tot negentig,
+onder meer over de rol van hersenstructuren bij de reactie op het onverwachte
+en over de taakverdeling tussen de hersenhelften. Dat laatste beeld is in de
+decennia daarna sterk bijgesteld.
+
+Wat het boek nergens levert is een toets. Er wordt geen voorspelling gedaan
+die had kunnen mislukken, en er is geen materiaal opgenomen dat de these zou
+kunnen weerspreken. De onderbouwing bestaat uit een groot aantal voorbeelden
+die dezelfde vorm laten zien, aangevuld met dromen van patiënten uit Petersons
+eigen klinische praktijk.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar zit in de scharnier van het betoog. Dat verhalen uit
+verschillende culturen op elkaar lijken, is een waarneming over verhalen.
+Peterson maakt daar uitspraken van over de werking van de menselijke geest,
+over wat mensen aangeboren waarnemen en waarom zij handelen zoals zij
+handelen. Die sprong wordt betoogd en met voorbeelden aannemelijk gemaakt,
+niet aangetoond. Er is geen onafhankelijke meting die laat zien dat de
+gevonden verhaalstructuur ook de structuur van waardetoekenning in de hersenen
+is.
+
+Daarbij komt dat gelijkenis tussen verhalen ook anders te verklaren valt: door
+ontlening tussen culturen, door de beperkte hoeveelheid vormen die een
+vertelling kan aannemen, en door de keuze van de onderzoeker. Zodra een
+tegenvoorbeeld opduikt, laat het kader zich uitbreiden zonder kosten, en dat
+is doorgaans een teken dat de these weinig verbiedt.
+
+Het boek kreeg in de academische psychologie weinig navolging. Er is geen
+onderzoeksprogramma uit voortgekomen, het wordt in de vakliteratuur zelden
+geciteerd en de begrippen zijn buiten Petersons eigen werk nauwelijks
+overgenomen. Het bereik dat het nu heeft, dankt het aan zijn latere bekendheid
+als publieke figuur, niet aan de ontvangst in het vak.
+
+Ook de vorm werkt tegen de lezer. Vijfhonderd bladzijden lang worden dezelfde
+grondgedachten in wisselende symboliek herhaald, met lange citaten en een taal
+die het onderscheid tussen beeld en bewering laat vervagen. En de vaste
+koppeling van het onbekende aan het vrouwelijke en van de orde aan het
+mannelijke wordt gepresenteerd als vondst in het materiaal, terwijl zij
+evengoed de aanname kan zijn waarmee het materiaal is doorzocht.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op wat er de afgelopen maanden misging in het werk, en bepaal per
+geval of alleen de aanpak moest worden aangepast of ook het doel. Alleen dat
+tweede kost echt moeite.
+- Let bij ergernis over een collega op de anomalie: welke gebeurtenis paste
+niet in het beeld dat je van hem had, en welke kant van de keuze koos je
+daarna.
+- Gebruik het onderscheid bekend en onbekend bij verandering in een
+organisatie: verzet gaat vaker over het verlies van een werkende kaart dan
+over de inhoud van het voorstel.
+- Neem de vraag waar de aandacht vanzelf naartoe gaat serieus als aanwijzing
+voor waar nog iets te leren valt, en niet als afleiding.
+
+#### Wat je hierna leest
+
+- 73. 12 Rules for Life. De vorm waarin Peterson een breed publiek bereikte;
+de regels daar zijn de praktische neerslag van wat hier in theorie wordt
+opgezet.
+- 74. Beyond Order. Het latere werk met dezelfde grondgedachten, geschreven
+voor lezers die dit boek niet zullen doorkomen.
 
 ## 144. Margin of Safety
 
@@ -21746,6 +23674,171 @@ De prijs is dezelfde als bij de andere delen, namelijk dat de verwijzingen
 naar onderzoek los blijven en de stelligheid over hechting en hersenen verder
 gaat dan het bewijs draagt. Wie het leest krijgt een bruikbare woordenschat en
 geen overzicht van het vakgebied.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Harper stelt dat intimiteit een vaardigheid is en geen
+aanleg, en dat de meeste mensen die vaardigheid nooit hebben geleerd omdat er
+over seks, verlangen en hechting thuis, op school en tussen partners
+nauwelijks bruikbaar wordt gesproken. Wat er dan misgaat, schrijft ze, komt
+zelden voort uit onverenigbaarheid en meestal uit ongeschreven aannames: over
+wat de ander hoort te willen, over wat normaal is, over wie het gesprek moet
+beginnen. Haar antwoord is telkens hetzelfde: maak het expliciet. Praat over
+toestemming, over grenzen, over wat je prettig vindt en wat niet, en over de
+vorm die je relatie moet hebben, in plaats van te hopen dat het vanzelf goed
+komt.
+
+#### De gang van het boek
+
+**Wat het boek onder intimiteit verstaat**
+
+Harper rekt het woord intimiteit op tot alles wat mensen dichtbij elkaar
+brengt, met seks als één van de vormen en niet als de enige. Daarmee komen ook
+vriendschap, aanraking zonder seksuele lading en het delen van wat je
+bezighoudt binnen het bestek.
+
+Die keuze bepaalt de rest van het boek. Wie intimiteit smal opvat, komt uit
+bij techniek en frequentie. Harper komt uit bij communicatie, en behandelt
+seksuele problemen grotendeels als gespreksproblemen.
+
+**Hechting als verklaring voor terugkerende patronen**
+
+Een groot deel van het boek leunt op hechtingstheorie. Hoe je als kind ervaren
+hebt of nabijheid veilig was, bepaalt volgens Harper hoe je je als volwassene
+gedraagt zodra een relatie spannend wordt: vastklampen, terugtrekken, of
+afwisselend beide.
+
+Ze gebruikt dat als verklaring waar je iets mee kunt, en verwerpt het als
+excuus. Het patroon herkennen is bij haar de eerste stap, benoemen tegenover
+je partner de tweede. Wat ze daarbij consequent afwijst, is de gedachte dat je
+partner de reparatie van jouw geschiedenis op zich moet nemen.
+
+**Toestemming en grenzen**
+
+Toestemming behandelt Harper niet als een eenmalige horde maar als iets
+doorlopends, dat ook binnen een lange relatie telkens opnieuw aan de orde is
+en dat ingetrokken kan worden zonder verantwoording. Zwijgen telt niet als
+instemming, en instemming onder druk evenmin.
+
+Daaraan koppelt ze grenzen: weten wat je wilt en dat kunnen zeggen. Ze wijst
+erop dat veel mensen daar nooit oefening in hebben gehad en dat het gesprek
+daarom onhandig gaat voordat het beter gaat. Dat het aanvankelijk stroef
+verloopt, is bij haar geen reden om het te laten.
+
+**Verlangen dat niet gelijk loopt**
+
+Een terugkerend onderwerp is het verschil in verlangen tussen partners. Harper
+bestrijdt de aanname dat verlangen bij iedereen spontaan opkomt en dat het
+ontbreken ervan op een gebrek wijst, bij de persoon of bij de relatie.
+
+Haar praktische lijn is dat partners uitzoeken wat verlangen bij hen aanzet en
+wat het afremt, en dat ze afspraken maken die niet neerkomen op verplichting
+van de een en teleurstelling van de ander. Ook hier is de remedie taal:
+benoemen wat er speelt voordat het zich vertaalt in verwijten.
+
+**Relatievormen en het einde van een relatie**
+
+Harper behandelt monogamie als één mogelijke afspraak naast andere, waaronder
+open relaties en vormen van consensuele niet-monogamie. Ze verdedigt geen van
+die vormen als beter en stelt telkens dezelfde eis: dat de afspraak
+uitgesproken is en door alle betrokkenen gedragen wordt.
+
+Ze besteedt ook aandacht aan wat er gebeurt als het ophoudt. Uit elkaar gaan
+geldt bij haar niet als mislukking maar als een uitkomst die net zo goed
+fatsoenlijk kan verlopen, en aan de omgang met de nasleep besteedt ze evenveel
+nuchterheid als aan de rest.
+
+**Toon en vorm**
+
+Het boek is dun, spreektalig en grof in woordkeus, met de vloek in de titel
+als visitekaartje. Harper schrijft in de tweede persoon, wisselt uitleg af met
+opdrachten en verwijst geregeld naar haar eigen praktijk als therapeut.
+
+Die vorm heeft een prijs. Onderwerpen waar hele boeken over bestaan, zoals
+hechting of het effect van seksueel geweld op verlangen, krijgen enkele
+bladzijden. Het boek is bedoeld als startpunt en gedraagt zich ook zo.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Intimiteit | Alles wat mensen werkelijk dichtbij elkaar brengt, waarvan seks één vorm is en niet de maatstaf. |
+| Hechtingsstijl | Het patroon uit je vroege ervaringen met nabijheid dat bepaalt hoe je reageert zodra een relatie onzeker wordt. |
+| Toestemming | Een doorlopende, uitgesproken en intrekbare instemming, ook binnen een bestaande relatie. |
+| Grenzen | Wat je wel en niet wilt, uitgesproken tegenover de ander in plaats van verondersteld. |
+| Verlangensverschil | Het uiteenlopen van seksuele behoefte tussen partners, dat Harper als gegeven behandelt en niet als gebrek. |
+| Relatieafspraak | De expliciete overeenkomst over de vorm van de relatie, of die nu monogaam is of niet. |
+| Seksuele communicatie | Het vermogen om tijdens en buiten seks in gewone woorden te zeggen wat er wel en niet werkt. |
+
+#### Waar het argument op rust
+
+Harper is therapeut en schrijft vanuit haar praktijk. Het boek verwijst naar
+bevindingen uit hechtingsonderzoek en uit onderzoek naar seksuele respons,
+maar doet dat lopend in de tekst en zonder consequente bronvermelding: welke
+studie, welke onderzoeksgroep en welke omvang blijft meestal buiten beeld. Wie
+wil nagaan waar een uitspraak op rust, kan dat aan het boek zelf zelden
+ontlenen.
+
+Dat betekent niet dat de inhoud los staat van de vakliteratuur. De lijnen die
+ze volgt, over hechting, over toestemming als doorlopend gegeven en over
+verschillen in verlangen, zijn in het veld gangbaar en worden breder gedragen
+dan door haar alleen. De vertaalslag naar de lezer is haar eigen bijdrage, en
+die berust op klinische ervaring en niet op onderzoek dat in dit boek wordt
+aangevoerd.
+
+De uitgeverij, Microcosm Publishing, komt uit de zelfuitgeef- en zineweg en
+dat is aan het boek te zien: het is kort, goedkoop, praktisch en ontbeert de
+apparatuur van een handboek. Dat is een keuze en geen omissie, maar het
+beperkt wel wat de lezer op eigen kracht kan controleren.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is de verhouding tussen de reikwijdte van de onderwerpen
+en de omvang van het boek. Trauma, hechting, verschillen in verlangen en het
+opzetten van een niet-monogame afspraak zijn elk stof voor jaren; hier
+passeren ze in bestekken van enkele bladzijden. Wie er weinig van weet, krijgt
+houvast. Wie er middenin zit, houdt honger.
+
+Daarnaast rust vrijwel alles op één aanname: dat praten werkt. Waar beide
+partners welwillend zijn, klopt dat vaak. Het boek heeft weinig te bieden voor
+de gevallen waarin die welwillendheid ontbreekt. Bij dwang, structurele
+oneerlijkheid of geweld schiet praten tekort, en de grens tussen een gesprek
+dat nog zin heeft en een situatie waarin je hulp of een uitgang nodig hebt,
+trekt Harper minder scherp dan het onderwerp verdient.
+
+De toon splijt het publiek. Het schelden schept een sfeer waarin het over seks
+gaan zonder plechtigheid mogelijk wordt, en dat is winst voor lezers die van
+klinische taal dichtklappen. Voor andere lezers werkt dezelfde toon als een
+claim op vertrouwdheid die niet is verdiend, en zij zullen de stelligheid
+waarmee de adviezen worden gebracht moeilijk kunnen wegen zolang de
+onderbouwing niet na te lopen is.
+
+Ten slotte is er de verwarring met het werkboek dat later verscheen. Dit boek
+doet wat het aankondigt, namelijk uitleggen; de oefeningen staan grotendeels
+elders. Wie het boek koopt in de verwachting er systematisch mee aan het werk
+te gaan, moet er het bijbehorende werkboek naast leggen.
+
+#### Wat er concreet mee te doen is
+
+- Zoek uit welke afspraak je met je partner denkt te hebben en vraag na of die
+ooit is uitgesproken.
+- Benoem wat je wilt in gewone woorden, ook als het onhandig klinkt.
+- Ga bij een terugkerende ruzie na welk hechtingspatroon eronder ligt, in
+plaats van de aanleiding nog eens uit te vechten.
+- Behandel toestemming als iets van dit moment, niet als iets dat ooit is
+afgegeven.
+
+#### Wat je hierna leest
+
+- 122. Unfuck Your Intimacy Workbook. Het bijbehorende werkboek van Harper,
+met de oefeningen die in dit boek grotendeels ontbreken.
+- 119. Unfuck Your Brain. Harper legt daarin uit hoe stress en trauma het
+brein sturen, de laag onder veel van wat hier tussen partners misgaat.
+- 34. The 5 Love Languages. Chapman behandelt hetzelfde onderwerp met een veel
+simpeler schema, en laat zien hoeveel Harper wél openlaat.
+- 3. The Will to Change. bell hooks zoekt de oorzaak van moeizame intimiteit
+bij mannen in hun opvoeding, en komt daarmee bij een verklaring waar Harper
+langsloopt.
 
 ## Tag-register
 
