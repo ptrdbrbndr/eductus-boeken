@@ -6236,6 +6236,235 @@ het ondiepe werk terug tot een begroot aantal uren. De onderbouwing is een
 mengsel van onderzoek, portretten van schrijvers en wetenschappers en zijn
 eigen agenda; het is meer een pleidooi met werkwijzen dan een empirisch boek.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Newport stelt dat het vermogen om lang en zonder onderbreking
+aan één cognitief zware taak te werken in de kenniseconomie steeds zeldzamer
+wordt en tegelijk steeds meer waard is, en dat wie die vaardigheid tot de kern
+van zijn werkdag maakt daar zowel economisch als persoonlijk voordeel uit
+haalt. Hij noemt dat de deep work hypothesis, en bouwt er een boek in twee
+helften omheen: eerst het bewijs dat de stelling klopt, daarna vier regels om
+ernaar te leven. Er valt iets tegenover te zetten. In de meeste organisaties
+zit de waarde van werk juist in afstemming, snelle reactie en zichtbaarheid,
+en wie zich terugtrekt in geconcentreerd werk verschuift de coördinatielast
+naar collega's. Newport ziet die spanning en probeert haar op te lossen door
+oppervlakkig werk niet af te schaffen maar te begroten.
+
+#### De gang van het boek
+
+**Twee definities**
+
+Het boek opent bij Carl Jung, die in 1922 in het gehucht Bollingen aan het
+meer van Zürich een stenen toren liet bouwen met een privékamer waarvan hij
+als enige de sleutel had. Newport gebruikt dat beeld om te laten zien dat
+afzondering bij Jung geen vlucht uit het werk was maar een middel om het te
+doen: hij had net *Psychological Types* gepubliceerd en moest zijn breuk met
+Freud onderbouwen. Verderop komen Montaigne in zijn torenbibliotheek, Mark
+Twain in een schuur op Quarry Farm, Woody Allen op een Duitse
+Olympia-typemachine en de Think Weeks van Bill Gates voorbij.
+
+Daarna volgen de twee begrippen waar alles op rust. Diep werk is beroepsmatige
+inspanning in een toestand van afleidingsvrije concentratie die het
+denkvermogen tot de grens belast, nieuwe waarde schept, vaardigheid vergroot
+en moeilijk na te maken is. Oppervlakkig werk is logistiek van aard, kost
+weinig denkkracht, wordt vaak afgeleid uitgevoerd, schept weinig nieuwe waarde
+en is makkelijk te kopiëren. Newport geeft toe dat de term diep werk van
+hemzelf is en dat Jung hem nooit gebruikt zou hebben.
+
+**Waarom het waarde heeft**
+
+Voor de economische kant leunt Newport op *Race Against the Machine* van de
+MIT-economen Erik Brynjolfsson en Andrew McAfee uit 2011, en op *Average Is
+Over* van Tyler Cowen uit 2013. Hun beeld is een arbeidsmarkt die uiteenvalt,
+met drie groepen aan de winnende kant: wie goed kan werken met intelligente
+machines, wie tot de wereldtop van zijn vak behoort en dankzij netwerken
+overal inzetbaar is, en wie kapitaal bezit. Als voorbeelden noemt hij
+statisticus Nate Silver, programmeur David Heinemeier Hansson en
+durfkapitalist John Doerr.
+
+De eerste twee groepen vragen volgens Newport dezelfde twee vaardigheden: snel
+moeilijke dingen leren, en op topniveau produceren in kwaliteit en tempo.
+Beide vragen concentratie. Voor het leren verwijst hij naar het onderzoek naar
+deliberate practice van Anders Ericsson, voor het produceren naar de
+vuistregel dat geleverd werk het product is van bestede tijd en de felheid van
+de aandacht. De onderbouwing van die felheid komt van Sophie Leroy,
+bedrijfskundige aan de University of Minnesota, die in een artikel uit 2009
+met de titel *Why Is It So Hard to Do My Work?* het verschijnsel
+aandachtsresidu beschreef: wie van taak wisselt, laat een deel van zijn
+aandacht achter bij de vorige taak en presteert daardoor slechter aan de
+nieuwe. Als levend voorbeeld dient Adam Grant, die op jonge leeftijd
+hoogleraar werd aan Wharton en in 2012 zeven artikelen publiceerde door zijn
+jaar in blokken van les en onderzoek te hakken.
+
+**Waarom het toch zeldzaam is**
+
+Het tweede hoofdstuk gaat over de vraag waarom organisaties precies het
+omgekeerde doen. Newport noemt het kantoortuinontwerp van Facebook uit 2012,
+de opmars van bedrijfschat, en de druk op journalisten van The New York Times
+om te twitteren. Zijn verklaring is dat kennisarbeid geen betrouwbare
+productiviteitsmaat heeft. Hij noemt dat het metrische zwarte gat: omdat
+niemand kan meten wat een uur ononderbroken denken oplevert, valt men terug op
+zichtbaarheid als bewijs van nut, wat hij het principe van de minste weerstand
+en drukte als vervanging van productiviteit noemt.
+
+Daarbovenop legt hij de cultus van het internet: alles wat met netwerktechniek
+te maken heeft geldt bij voorbaat als vooruitgang, zodat wie zich eraan
+onttrekt zich moet verantwoorden. De redenering is plausibel en goed
+geïllustreerd, maar berust hier vooral op waarneming en anekdote, minder op
+onderzoek dan het hoofdstuk ervoor.
+
+**Betekenis**
+
+Het derde hoofdstuk verlegt de vraag van geld naar zin, en doet dat langs drie
+lijnen. Neurologisch leunt Newport op *Rapt* van wetenschapsjournalist
+Winifred Gallagher uit 2009, die na een kankerdiagnose besloot haar aandacht
+op haar leven te richten in plaats van op de ziekte: wat je aandacht krijgt,
+wordt je wereld. Psychologisch grijpt hij terug op het flowbegrip van Mihaly
+Csikszentmihalyi, met de bevinding dat mensen tijdens werk vaker in flow zijn
+dan tijdens vrije tijd. Filosofisch gebruikt hij het ambachtsdenken van
+Matthew Crawford, met als beeld de smid Ric Furrer, die in een verbouwde
+schuur in Wisconsin met een vijftienhonderd jaar oude techniek een zwaard uit
+smeltkroesstaal probeert te maken en er acht uur hameren voor nodig heeft.
+
+**De vier regels**
+
+De tweede helft is praktisch. Regel één, werk diep, begint bij het inzicht dat
+wilskracht een eindige voorraad is en dat je dus een routine nodig hebt in
+plaats van een voornemen. Newport onderscheidt vier werkwijzen: monastiek,
+waarbij je vrijwel alle oppervlakkige verplichtingen wegsnijdt; bimodaal,
+waarbij je hele dagen of weken afzondert; ritmisch, waarbij je elke dag op
+hetzelfde moment een blok maakt; en journalistiek, waarbij je diep werkt
+wanneer er een gat valt. Hij voegt er het grote gebaar aan toe, een opvallende
+investering in plaats of geld die de inspanning gewicht geeft, en de vier
+disciplines van uitvoering uit het managementboek 4DX: richt op het weinige
+dat telt, stuur op voorspellende maatstaven, houd een zichtbaar scorebord bij,
+en leg regelmatig verantwoording af. Hij sluit af met een afsluitritueel dat
+de werkdag hoorbaar beëindigt.
+
+Regel twee, omarm verveling, stelt dat concentratie een getraind vermogen is
+en dat training mislukt zolang je de rest van de dag elke leegte met een
+scherm vult. Het voorbeeld is Adam Marlin, die zich elke ochtend voor
+zonsopgang met een studiepartner over een bladzijde Talmoed buigt. Newport
+haalt het werk van de Stanford-onderzoeker Clifford Nass aan over de blijvende
+schade van voortdurend schakelen. Zijn tegenmaatregel is niet om aandacht in
+te plannen maar om afleiding in te plannen, plus oefeningen als productieve
+meditatie, waarbij je tijdens lopen of rijden één beroepsprobleem vasthoudt.
+
+Regel drie, stop met sociale media, keert zich tegen wat Newport de
+elke-baat-benadering noemt: een middel gebruiken zodra het enig voordeel
+biedt. Daartegenover zet hij de ambachtsbenadering, waarbij je eerst de paar
+factoren benoemt die je beroepsmatig succes bepalen en vervolgens per middel
+weegt of het daar meer aan bijdraagt dan het afneemt. Als steun gebruikt hij
+de wet van de vitale weinigen, de gedachte dat een klein deel van de
+activiteiten het grootste deel van het resultaat verklaart. Regel vier, droog
+het ondiepe op, wil dat je elk werkuur vooraf een bestemming geeft, de diepte
+van elke taak schat door je af te vragen hoeveel maanden opleiding een pas
+afgestudeerde zou hebben nodig om haar te doen, met je leidinggevende een
+percentage voor oppervlakkig werk afspreekt, en je dag begrenst. Dat laatste
+noemt hij vaste-tijdproductiviteit, naar het voorbeeld van
+Harvard-informatica-hoogleraar Radhika Nagpal. Ook e-mail krijgt regels: laat
+afzenders hun verzoek zelf uitwerken, antwoord procesgericht zodat een
+uitwisseling in één keer rond is, en accepteer dat sommige berichten
+onbeantwoord blijven.
+
+**Het slot**
+
+In het slothoofdstuk rekent Newport voor wat het hem opleverde. Hij beschrijft
+zijn eigen jaar met een verdubbelde publicatiestroom terwijl hij zelden na zes
+uur 's avonds doorwerkte, en zegt dat de winst niet alleen in output zat. Het
+boek eindigt met de zin dat een diep leven een goed leven is, wat de
+economische opening terugbuigt naar een levensbeschouwelijke.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Diep werk | Werken in afleidingsvrije concentratie op de grens van je kunnen, zodat nieuwe waarde ontstaat die moeilijk na te maken is. |
+| Oppervlakkig werk | Logistieke taken die weinig denkkracht vragen, vaak afgeleid worden uitgevoerd en makkelijk door een ander of een machine zijn over te nemen. |
+| Aandachtsresidu | Het deel van je aandacht dat bij een vorige taak blijft hangen nadat je bent overgestapt, met verlies aan prestatie als gevolg. |
+| Metrisch zwart gat | Het ontbreken van een bruikbare productiviteitsmaat in kenniswerk, waardoor drukte en zichtbaarheid als vervanging gaan dienen. |
+| Elke-baat-benadering | De gewoonte om een instrument te gebruiken zodra het enig denkbaar voordeel oplevert, zonder de kosten in aandacht mee te wegen. |
+| Ambachtsbenadering | Eerst vaststellen welke paar factoren je beroepsmatig resultaat bepalen, en pas daarna per instrument beslissen of het daaraan bijdraagt. |
+| Vaste-tijdproductiviteit | Een harde eindtijd voor de werkdag vaststellen en alle andere keuzes binnen die grens maken. |
+| Groot gebaar | Een opvallende investering in plaats, geld of moeite die een project psychologisch gewicht geeft, zoals Jungs toren. |
+| Productieve meditatie | Tijdens lichamelijke bezigheid zonder denkbelasting één beroepsprobleem vasthouden en bewust terugkeren zodra de gedachten afdwalen. |
+| Afsluitritueel | Een vaste handeling aan het eind van de werkdag die openstaande zaken vastlegt en het werk mentaal beëindigt. |
+
+#### Waar het argument op rust
+
+De economische helft van het argument leunt op serieuze bronnen: Brynjolfsson
+en McAfee over de tweedeling in de arbeidsmarkt, Ericsson over doelgerichte
+oefening, en Leroy over aandachtsresidu. Dat zijn gepubliceerde studies, en
+het aandachtsresidu is inmiddels vaker teruggevonden. De stap van dat
+onderzoek naar de conclusie dat diep werk de bepalende beroepsvaardigheid van
+deze eeuw is, maakt Newport echter niet met onderzoek maar met een reeks
+portretten: Jung, Grant, Nagpal, de smid Furrer, de Talmoedstudent Marlin.
+
+Die portretten zijn selectief gekozen omdat ze het punt bewijzen. Er staat
+geen enkele geconcentreerde werker in het boek die alsnog is mislukt, terwijl
+die er ongetwijfeld zijn. Ook Newports eigen loopbaan dient als
+bewijsmateriaal, met alle problemen die zelfrapportage heeft. De praktische
+regels in deel twee zijn vrijwel volledig ontleend aan ervaring en aan
+managementliteratuur zoals 4DX, niet aan effectonderzoek. Dat maakt ze niet
+onbruikbaar, maar ze zijn niet getoetst.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat Newport een individuele oplossing voorstelt voor
+een probleem dat grotendeels in de organisatie zit. Wie de vier regels wil
+volgen heeft zeggenschap over zijn agenda nodig, een leidinggevende die met
+een percentage oppervlakkig werk instemt, en collega's die accepteren dat
+berichten blijven liggen. Newport had die vrijheid als hoogleraar met een
+vaste aanstelling. Voor iemand in een callcenter, een verpleegkundig team of
+een projectorganisatie met vaste overlegritmes is het advies grotendeels niet
+uitvoerbaar, en het boek zegt dat nergens hardop.
+
+Daarnaast is de tweedeling tussen diep en oppervlakkig scherper dan de
+praktijk. Veel waardevol werk in organisaties bestaat uit afstemmen, uitleggen
+en beslissingen doortrekken. In Newports schema valt dat onder oppervlakkig,
+terwijl het vaak bepaalt of het diepe werk van anderen ergens toe leidt. De
+consequentie van zijn advies is dat die last bij collega's terechtkomt.
+
+Ten slotte is de toon van het boek soms die van een moreel oordeel. Wie
+sociale media gebruikt is in Newports vertoog niet gewoon iemand met andere
+voorkeuren, maar iemand die zijn beroepsleven verwaarloost. De hoofdstukken
+over betekenis leunen bovendien op flowonderzoek en op ambachtsromantiek die
+zich lastig laten vertalen naar het administratieve werk waar de meeste lezers
+in zitten.
+
+#### Wat er concreet mee te doen is
+
+- Kies één van de vier werkwijzen die bij je agenda past en leg hem vast in de
+agenda zelf, niet als voornemen.
+- Schat per terugkerende taak in hoeveel maanden opleiding een pas
+afgestudeerde nodig zou hebben om haar te doen, en gebruik die schatting om je
+oppervlakkige werk te begroten.
+- Spreek met je leidinggevende een percentage af voor oppervlakkig werk, zodat
+het een gedeelde afspraak wordt en geen persoonlijke voorkeur.
+- Plan afleiding in plaats van aandacht: leg vooraf vast op welke momenten je
+online gaat, en houd je daaraan ook wanneer je je verveelt.
+- Sluit de werkdag af met een vaste handeling waarin je openstaande zaken
+noteert en het werk expliciet beëindigt.
+- Neem elk middel dat je aandacht vraagt dertig dagen uit gebruik en vraag
+daarna of iemand het gemist heeft.
+
+#### Wat je hierna leest
+
+- 50. So Good They Can't Ignore You. Newports eerdere boek, waarin hij
+loopbaankeuze aan opgebouwde vaardigheid koppelt en de opdracht om je passie
+te volgen verwerpt. *Deep Work* beschrijft de werkwijze waarmee die
+vaardigheid ontstaat.
+- 71. Four Thousand Weeks. Burkeman keert Newports uitgangspunt om: het doel
+is niet meer af te krijgen maar accepteren dat het meeste blijft liggen. Beide
+boeken bekritiseren dezelfde productiviteitsliteratuur, met tegengestelde
+conclusies.
+- 78. Finding Flow. Csikszentmihalyi's flowonderzoek levert het psychologische
+fundament onder Newports hoofdstuk over betekenis, inclusief de bevinding dat
+werk vaker flow oplevert dan vrije tijd.
+- 81. Building a Second Brain. Forte richt zich op wat je met de opbrengst van
+geconcentreerd werk doet: vastleggen en terugvinden. Waar Newport aandacht
+beschermt, organiseert Forte materiaal.
+
 ## 71. Four Thousand Weeks
 
 Oliver Burkeman, 2021. Ondertitel *Time Management for Mortals* (Farrar,
@@ -6258,6 +6487,233 @@ zijn argumenten bij filosofen en bij zijn eigen jaren als schrijver over
 productiviteit, en levert geen stappenplan maar een reeks houdingen. Wie een
 methode zoekt, komt bedrogen uit; wie de onrust van eindeloos inhalen herkent,
 vindt hier de scherpste beschrijving ervan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Burkeman gaat uit van een rekensom: wie tachtig wordt, heeft
+ongeveer vierduizend weken geleefd. Zijn stelling is dat vrijwel alle
+tijdmanagement die stilzwijgend belooft dat je ooit alles af krijgt, het
+probleem verergert, omdat het de illusie in stand houdt dat controle over de
+tijd haalbaar is. Zijn alternatief is dat je die eindigheid onder ogen ziet,
+aanvaardt dat het merendeel van wat je wilt doen nooit gebeurt, en dat je
+bewust kiest waarin je tekortschiet. Daar valt tegenin te brengen dat
+berusting een luxe is die vooral toekomt aan wie al genoeg heeft, en dat de
+mens die twee banen combineert om huur te betalen weinig heeft aan het inzicht
+dat controle een illusie is. Burkeman noemt dat bezwaar zelf, en gaat er niet
+echt op in.
+
+#### De gang van het boek
+
+**De rekensom**
+
+De inleiding zet de verhoudingen neer. De moderne mens verscheen minstens
+tweehonderdduizend jaar geleden, en het leven op aarde houdt naar schatting
+nog anderhalf miljard jaar stand. Daartegenover staan de vierduizend weken van
+een leven van tachtig jaar. Zelfs Jeanne Calment, die in 1997 op vermoedelijk
+122-jarige leeftijd overleed, kwam niet verder dan ongeveer
+zesduizendvierhonderd weken. Burkeman merkt op dat de hele menselijke
+beschaving sinds de Soemeriërs ongeveer driehonderdtienduizend weken beslaat.
+
+Zijn verwijt aan het vakgebied is dat het zich bezighoudt met de
+ochtendroutine en het voorkoken van maaltijden, en zwijgt over de kortheid van
+het leven zelf. Hij verwijst naar Seneca's *De brevitate vitae* en naar de
+filosoof Thomas Nagel, en meldt terloops dat Nederlandse onderzoekers in 2013
+opperden dat drukte-enquêtes de drukte onderschatten omdat de drukste mensen
+geen tijd hebben om mee te doen.
+
+**Deel één: kiezen om te kiezen**
+
+Het eerste hoofdstuk gaat terug naar de middeleeuwse boer, die volgens de
+historische literatuur geen tijdsprobleem kende omdat hij tijd niet als
+afgescheiden grootheid ervoer. Historici noemen dat taakoriëntatie: het ritme
+komt uit het werk zelf, niet uit een schaal waarlangs het werk wordt gemeten.
+Burkeman leent van cultuurcriticus Lewis Mumford het idee van tijd als
+onafhankelijke reeks meeteenheden, en van antropoloog Edward Hall het beeld
+van de lopende band met bakken die je moet vullen. Wie de bakken bijhoudt
+voelt zich rechtvaardig, wie er te veel leeg laat passeren voelt zich
+schuldig.
+
+Het tweede hoofdstuk beschrijft de efficiëntieval. Wie sneller werkt krijgt
+meer werk, want de voorraad taken is niet eindig maar wordt aangevuld naarmate
+je capaciteit blijkt te groeien. Burkeman haalt het advies van journalist
+Arnold Bennett uit 1908 aan, *How to Live on 24 Hours a Day*, dat lezers
+voorhoudt dat ze 's avonds niet werkelijk moe zijn, en wijst erop dat het boek
+stilzwijgend uitgaat van personeel in huis. Rechtsgeleerde Daniel Markovits
+levert het argument dat ook de winnaars van het prestatiebestel vastzitten aan
+onafgebroken hoge werkdruk.
+
+**Eindigheid en het kiezen van je verzuim**
+
+Het derde hoofdstuk gaat over Heidegger, van wie Burkeman meldt dat hij vanaf
+1933 meer dan tien jaar lid was van de nazipartij en die hij vrijwel
+onleesbaar noemt. De gedachte die hij eruit haalt is dat de mens geen tijd
+heeft maar tijd is: eindigheid is geen omstandigheid waarmee je omgaat, maar
+wat je bent. Elke beslissing sluit oneindig veel andere paden af, en Burkeman
+herinnert eraan dat het Latijnse decidere afsnijden betekent.
+
+Het vierde hoofdstuk maakt daar praktijk van. Uitstel is onvermijdelijk, dus
+de vraag is waarop je uitstelt. Burkeman haalt het parabelverhaal van de
+stenen in de pot uit Stephen Coveys *First Things First* uit 1994 onderuit: de
+leraar heeft de proef gemanipuleerd door maar een paar grote stenen mee te
+nemen, terwijl het echte probleem is dat er te veel grote stenen zijn. Zijn
+drie stelregels zijn: betaal jezelf eerst in tijd, ontleend aan tekenaar
+Jessica Abel; begrens het aantal zaken waaraan je tegelijk werkt; en weersta
+de verleiding van tweederangs prioriteiten, waarbij hij het toegeschreven
+vliegtuigadvies van Warren Buffett gebruikt om ambities die net niet
+belangrijk genoeg zijn actief te vermijden.
+
+**Afleiding van binnenuit**
+
+Het vijfde hoofdstuk begint bij een middag in april 2016 waarop ongeveer drie
+miljoen mensen keken hoe twee BuzzFeed-verslaggevers elastiekjes om een
+watermeloen deden tot hij bij het 686ste elastiekje uiteenspatte. Burkeman
+gebruikt dat om te betogen dat afleiding niet in de eerste plaats digitaal is
+maar een oud verschijnsel: aandacht is wat je leven uitmaakt, en de klassieke
+filosofen behandelden verstrooiing als een karakterkwestie.
+
+Het zesde hoofdstuk verlegt de oorzaak naar binnen. Het voorbeeld is Steve
+Young, een Amerikaanse promovendus die zich in de winter van 1969 in de
+Kii-bergen in Japan tot Shingon-monnik liet opleiden en zich driemaal daags
+met gesmolten sneeuw moest overgieten. Wegkijken maakte de pijn erger;
+volledige aandacht voor de kou maakte hem draaglijk. Burkeman leidt daaruit af
+dat we onszelf onderbreken omdat aandacht voor het heden ons confronteert met
+beperking.
+
+**Deel twee: voorbij de controle**
+
+De tweede helft laat de illusie van controle vallen. Hoofdstuk zeven gebruikt
+de wet van Douglas Hofstadter, dat alles langer duurt dan je denkt, ook
+wanneer je die wet al hebt verdisconteerd, met het Sydney Opera House als
+voorbeeld: begroot op vier jaar, gebouwd in veertien, tegen meer dan
+veertienhonderd procent van het oorspronkelijke budget. Hoofdstuk acht gaat
+over het instrumenteel maken van tijd, met psycholoog Steve Taylor die
+toeristen bij de Steen van Rosetta ziet die het object niet bekijken maar
+filmen, en met wat Burkeman de wanneer-ik-eindelijk-geest noemt.
+
+Hoofdstuk negen gaat over rust die zichzelf niet hoeft te rechtvaardigen; hij
+bezoekt de bijeenkomst van de actiegroep Take Back Your Time in Seattle, die
+weigert vrije tijd te verdedigen met verwijzing naar productiviteit, en zet
+daar de bedrijfsgesponsorde tegenhanger Project: Time Off naast. Hoofdstuk
+tien en elf gaan over ongeduld. Het claxonneren in de spits verbetert niets
+voor de claxonneerder, en verkeersonderzoek laat zien dat ongeduldig rijgedrag
+vertraagt. Daartegenover staat het geduld van kunsthistorica Jennifer Roberts,
+die haar studenten aan Harvard opdraagt drie uur onafgebroken naar één werk te
+kijken. Burkeman deed de oefening zelf en beschrijft hoe pijnlijk lang dat is.
+
+De laatste hoofdstukken gaan over de prijs van volledige zeggenschap over je
+eigen tijd, met de Cubaans-Amerikaanse consultant Mario Salcedo die twee
+decennia vrijwel permanent op cruiseschepen woont, zijn tijd volledig zelf
+indeelt en zichtbaar eenzaam is. Burkeman gebruikt hem om te betogen dat tijd
+pas waarde krijgt wanneer zij met anderen samenvalt: een vrije middag zonder
+iemand om hem mee door te brengen is minder waard dan een minder vrije middag
+met gezelschap. Vandaar zijn verdediging van gedeelde ritmes, zoals een vaste
+rustdag voor iedereen tegelijk.
+
+**Het slot**
+
+De laatste twee hoofdstukken verleggen de schaal. Wat Burkeman kosmische
+onbeduidendheidstherapie noemt, begint bij een patiënte van de jungiaanse
+psychotherapeut James Hollis, een directielid van een fabrikant van medische
+instrumenten dat tijdens een vlucht boven het Amerikaanse Midwesten opeens
+denkt: ik haat mijn leven. Zijn antwoord is dat de maat waaraan zij haar leven
+afmeet te groot is. Wie aanvaardt dat zijn bestaan in het geheel weinig
+uitmaakt, hoeft niet langer aan een norm te voldoen die door niemand is
+opgesteld. Het laatste hoofdstuk noemt de wens om de tijd te beheersen de
+menselijke ziekte, en keert terug naar Heidegger en naar de regel van Borges
+dat de tijd de stof is waaruit hij gemaakt is.
+
+Het nawoord draagt de titel Voorbij de hoop en stelt dat hoop op een betere
+afloop de aandacht wegtrekt van wat nu te doen valt. Daarna volgt de appendix
+met tien werkwijzen, waaronder een vast werkvolume met een open en een
+gesloten takenlijst, projecten na elkaar in plaats van naast elkaar, vooraf
+besluiten waarin je zult falen, een lijst van wat af is naast de lijst van wat
+moet, en het inperken van het aantal zaken waarover je je druk maakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Vierduizend weken | De ruwe lengte van een mensenleven van tachtig jaar, gebruikt als vaste maat om plannen aan af te meten. |
+| Efficiëntieval | Het verschijnsel dat sneller werken de hoeveelheid werk vergroot in plaats van verkleint, omdat de voorraad taken zich aanpast aan je capaciteit. |
+| Taakoriëntatie | Een leefwijze waarin het ritme uit het werk zelf voortkomt in plaats van uit een klok of een agenda. |
+| Eindigheid | Heideggers gedachte dat de mens niet over beperkte tijd beschikt maar beperkte tijd is. |
+| Jezelf eerst betalen in tijd | Vandaag al een stuk doen van wat je werkelijk belangrijk vindt, in plaats van te hopen dat er tijd overblijft. |
+| Strategisch onderpresteren | Vooraf hele levensgebieden aanwijzen waarin je niet naar hoge kwaliteit streeft, zodat het tekortschieten geen schaamte oplevert. |
+| Tweederangs prioriteiten | Ambities die belangrijk genoeg zijn om je aandacht te trekken maar niet belangrijk genoeg om af te maken, en die daarom actief vermeden moeten worden. |
+| Wanneer-ik-eindelijk-geest | De houding die het echte leven verplaatst naar het moment waarop een voorwaarde vervuld is, en het heden reduceert tot voorbereiding. |
+| Kosmische onbeduidendheidstherapie | De opluchting die volgt uit het besef dat je leven in kosmisch opzicht niets uitmaakt, waardoor de eisen aan een goed leven kleiner worden. |
+| Vast werkvolume | Een gesloten takenlijst met een vast aantal plekken, waaraan pas iets nieuws mag worden toegevoegd als er iets af is. |
+
+#### Waar het argument op rust
+
+Burkeman schrijft als essayist, niet als onderzoeker. De basis is filosofisch
+en historisch: Seneca, Heidegger, Mumford, Hall, de arbeidsgeschiedenis van de
+klok. Waar hij onderzoek noemt, zoals het werk van Markovits over de
+prestatiecultuur of de constatering dat mensen zich drukker voelen dan
+vroeger, gebruikt hij het als illustratie en niet als toetsing. Het boek
+claimt dat ook niet: het presenteert zichzelf als een andere manier van
+kijken.
+
+De sterkste passages zijn die waarin hij een populair advies natrekt en het
+onderuit haalt, zoals de stenen in de pot van Covey, of het advies van Bennett
+dat op dienstpersoneel rust. Daar is de redenering controleerbaar. Het zwakke
+punt zit in de sprong van vaststelling naar levenshouding. Dat aanvaarding van
+eindigheid tot een beter leven leidt, is een aanname die het boek niet toetst
+en ook niet kan toetsen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek zijn eigen doelgroep niet benoemt. De
+remedie, minder willen, vooraf besluiten waarin je faalt, geduld opbrengen,
+veronderstelt speelruimte. Burkeman schrijft één zin over de mens met twee
+minimumloonbanen en gaat vervolgens verder over de spanning tussen een
+interessante goedbetaalde baan en de wens meer bij je ouder wordende ouders te
+zijn. Dat is de klacht van een bepaalde klasse, en het boek presenteert haar
+als de menselijke conditie.
+
+Ten tweede laat het boek zich lezen als een verzameling essays met een gedeeld
+thema meer dan als een doorlopend betoog. De hoofdstukken over ongeduld, over
+de digitale nomade en over kosmische onbeduidendheid staan naast elkaar zonder
+dat de een uit de ander volgt. Wie op zoek is naar een sluitende redenering
+vindt eerder een reeks goed geschreven observaties.
+
+Ten derde botst de appendix met de rest. Na driehonderd bladzijden waarin hij
+aantoont dat werkwijzen het probleem niet oplossen, volgen tien werkwijzen.
+Burkeman heeft daar een verdediging voor, namelijk dat deze uit aanvaarding
+voortkomen en niet uit controlezucht, maar het onderscheid is dunner dan hij
+toegeeft: een gesloten takenlijst met tien plekken is gewoon een
+productiviteitsmethode.
+
+#### Wat er concreet mee te doen is
+
+- Houd twee takenlijsten aan: een open lijst met alles, en een gesloten lijst
+van hoogstens tien punten waaraan pas iets mag worden toegevoegd als er iets
+af is.
+- Wijs vooraf twee of drie levensgebieden aan waarin je dit kwartaal bewust
+niet naar kwaliteit streeft, en noteer welke.
+- Werk projecten na elkaar af in plaats van naast elkaar, en verdraag de
+onrust die het uitstellen van de rest oplevert.
+- Begin de dag met een stuk van wat je zelf belangrijk vindt, voordat je aan
+de verzoeken van anderen begint.
+- Houd naast de takenlijst een lijst bij van wat af is, om het gevoel van
+achterstand te ijken aan wat er werkelijk gebeurd is.
+- Beperk het aantal zaken waarover je je druk maakt, zodat je aandacht ergens
+verschil maakt in plaats van overal een beetje.
+
+#### Wat je hierna leest
+
+- 70. Deep Work. Newport bouwt zijn werkdag om concentratie heen en gaat ervan
+uit dat het belangrijke werk dan af komt. Burkeman bestrijdt precies die
+aanname, waardoor de twee boeken elkaar goed tegenspreken.
+- 2. Overpeinzingen. Marcus Aurelius schrijft vanuit dezelfde stoïcijnse bron
+waar Burkeman via Seneca uit put: de kortheid van het leven als vertrekpunt
+voor hoe je de dag inricht.
+- 54. Amusing Ourselves to Death. Postman analyseert hoe media de aandacht
+organiseren. Dat is de maatschappelijke kant van het probleem dat Burkeman in
+het watermeloenhoofdstuk als persoonlijk vraagstuk behandelt.
+- 133. The Compound Effect. Hardy's boek staat voor het genre dat Burkeman
+aanvalt: de belofte dat volgehouden kleine stappen uiteindelijk alles
+opleveren. Naast elkaar gelezen wordt zichtbaar wat die belofte verzwijgt.
 
 ## 72. The Subtle Art of Not Giving a F*ck
 
@@ -6417,6 +6873,247 @@ Televisie levert weinig flow en veel tijd; een gesprek, een spel of een
 ambacht leveren het omgekeerde. Het boek is beknopt en gedateerd in zijn
 voorbeelden, en de kern is nog steeds de bruikbaarste beschrijving van
 aandacht die er is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Csikszentmihalyi stelt dat de kwaliteit van een leven bepaald
+wordt door wat er van dag tot dag in het bewustzijn omgaat, en dat de beste
+momenten optreden wanneer een moeilijke opgave en de eigen vaardigheid elkaar
+in evenwicht houden, met heldere doelen en directe terugkoppeling. Die
+toestand noemt hij flow. Zijn tweede en verrassender stelling is dat werk
+vaker flow oplevert dan vrije tijd, terwijl mensen het omgekeerde geloven en
+hun vrije tijd daarom grotendeels aan bezigheden besteden die geen flow geven.
+Daar valt tegenin te brengen dat de meting van flow bij dit boek berust op
+zelfrapportage op piepersignalen, en dat de stap van die gegevens naar
+uitspraken over het goede leven een filosofische is, geen empirische. Het boek
+erkent dat onderscheid maar houdt zich er niet altijd aan.
+
+#### De gang van het boek
+
+**Wat het boek wil zijn**
+
+*Finding Flow* uit 1997 is een dun vervolg op *Flow* uit 1990, geschreven voor
+de reeks Masterminds. Het opent met een regel van W. H. Auden over de keuze
+tussen leven en sterven, en met een voorbeeld: Joe, een nauwelijks geletterde
+lasser van in de zestig in een fabriek waar spoorwagons werden gemonteerd. Joe
+had zichzelf geleerd elke machine in het bedrijf te repareren, en legde thuis
+met zijn vrouw een rotstuin aan met fonteinen die zelfs 's nachts regenbogen
+maakten. Csikszentmihalyi zegt tientallen bestuursvoorzitters en
+Nobelprijswinnaars te hebben ontmoet, en geen van hen een beter leven te
+hebben zien leiden dan Joe.
+
+Hij benoemt drie uitgangspunten: dat oude wijsheid iets waard is maar per
+generatie hervertaald moet worden, dat wetenschap op dit moment de
+betrouwbaarste spiegel van de werkelijkheid is, en dat de vraag naar het goede
+leven alleen beantwoord kan worden door beide te combineren. Zijn instrument
+is de Experience Sampling Method, die hij begin jaren zeventig aan de
+University of Chicago ontwikkelde: proefpersonen dragen een pieper die op
+willekeurige momenten afgaat, en noteren dan waar ze zijn, wat ze doen, met
+wie, en hoe ze zich voelen op een reeks schalen.
+
+**De structuren van de dag**
+
+Het eerste hoofdstuk brengt in kaart waar de tijd heen gaat. Csikszentmihalyi
+deelt de dag in drie blokken: productie, onderhoud en vrije tijd. Werk kost
+ongeveer een derde van de beschikbare tijd, onderhoud omvat eten, verzorging,
+huishouden en autorijden, en de rest is vrij. Hij benadrukt dat het
+zenuwstelsel maar een beperkte hoeveelheid informatie tegelijk kan verwerken,
+zodat aandacht een eindige voorraad is die hij psychische energie noemt.
+
+Het tweede hoofdstuk gaat over de inhoud van de ervaring. Geluk is volgens de
+gegevens verrassend wijdverbreid: in Amerikaanse steekproeven noemt ongeveer
+een derde zich zeer gelukkig en slechts een op de tien niet erg gelukkig, en
+vergelijkbare uitkomsten komen uit tientallen landen. Boven de armoedegrens
+verbetert meer geld het geluk nauwelijks; het persoonlijk inkomen in de
+Verenigde Staten verdubbelde tussen 1960 en de jaren negentig terwijl het
+aandeel zeer gelukkigen op ongeveer dertig procent bleef staan.
+Csikszentmihalyi houdt vervolgens vol dat geluk niet het beste ijkpunt is, en
+verschuift naar betrokkenheid.
+
+**Het flowmodel**
+
+Flow beschrijft hij als de toestand waarin doelen helder zijn, terugkoppeling
+direct is, en de moeilijkheid van de opgave overeenkomt met de vaardigheid van
+wie hem uitvoert. Aandacht richt zich volledig, storende gedachten verdwijnen,
+het zelfbewustzijn valt weg terwijl men zich sterker voelt dan gewoonlijk, en
+het tijdsbesef vervormt. Wat men doet wordt het doen zelf waard.
+
+Daaromheen tekent hij een veld van acht toestanden, bepaald door de verhouding
+tussen uitdaging en vaardigheid. Vanuit opwinding, waarin de opgave iets te
+zwaar is, kom je in flow door vaardigheid bij te leren; vanuit beheersing,
+waarin de opgave te licht is, door de uitdaging te verzwaren. Angst en apathie
+liggen verder weg, en van daaruit trekken mensen zich meestal terug in iets
+makkelijkers. Zo werkt flow als een aantrekkingspunt voor leren: wie de
+toestand opzoekt, verhoogt vanzelf uitdaging en vaardigheid.
+
+Csikszentmihalyi voegt er een waarschuwing aan toe die in de latere
+populariteit van het begrip vaak wegvalt. Flow zegt niets over de waarde van
+wat je doet. Een gokker aan een speelautomaat en een chirurg in een
+operatiekamer kunnen dezelfde toestand melden. Het onderscheid tussen
+bezigheden die complexiteit opbouwen en bezigheden die alleen de leegte
+vullen, moet van buiten het model komen.
+
+**De omkering van werk en vrije tijd**
+
+Het derde hoofdstuk zet per bezigheid af hoe mensen zich voelen. Bij eten is
+de stemming hoog en de concentratie laag, en flow komt er nauwelijks voor.
+Huishoudelijk werk scoort neutraal tot negatief. Autorijden is een verrassing:
+neutraal qua stemming, maar het vraagt vaardigheid en aandacht, en sommige
+mensen ervaren er vaker flow dan waar ook.
+
+Het vierde hoofdstuk beschrijft de paradox van werk. Mensen zeggen in enquêtes
+dat ze zouden blijven werken als ze genoeg geld erfden, vierentachtig procent
+van de mannen en zevenenzeventig procent van de vrouwen, maar op het werk
+gepiept stemmen ze vaker dan op enig ander moment van de dag in met de
+uitspraak dat ze liever iets anders zouden doen. Tijdens werk is het geluk
+lager dan gemiddeld en de motivatie duidelijk lager, terwijl de concentratie
+hoog is en flow relatief vaak optreedt. Csikszentmihalyi zet daar een
+historisch overzicht naast: Aristoteles vond dat alleen wie niet hoefde te
+werken gelukkig kon zijn, terwijl Marx meende dat de mens zich juist in
+productieve arbeid verwerkelijkt.
+
+Het vijfde hoofdstuk keert het beeld van vrije tijd om. Psychoanalyticus
+Sandor Ferenczi merkte rond 1900 al op dat zijn patiënten op zondag vaker
+instortten, wat hij zondagsneurose noemde. In het eigen onderzoek melden
+mensen in het weekend en alleen thuis meer lichamelijke klachten. De
+verklaring is dat aandacht zonder doel of gezelschap afdwaalt naar onoplosbare
+zorgen, wat hij psychische entropie noemt, en dat mensen dat wegdrukken met
+kant-en-klare prikkels. De cijfers zijn concreet: Amerikaanse tieners ervaren
+flow ongeveer dertien procent van de tijd dat ze televisie kijken,
+vierendertig procent bij hobby's en vierenveertig procent bij sport en spel.
+In een Duits bevolkingsonderzoek melden veellezers de meeste flow en
+veelkijkers de minste.
+
+**Anderen, verandering en de autotelische persoonlijkheid**
+
+Het zesde hoofdstuk gaat over relaties, de minst voorspelbare bron van
+stemming die er is. Csikszentmihalyi illustreert het met de piepergegevens van
+Sarah, die op één zaterdag van een vijf zakt naar een een tijdens het
+stofzuigen en binnen anderhalf uur naar een zeven stijgt tijdens het zwemmen
+met haar kleinkinderen, om even later weer op een twee te staan omdat
+diezelfde kleinkinderen haar natspatten. Hij zet daar de Indiase samskara's
+naast als voorbeeld van culturen die het zelf bewust door anderen laten
+vormen.
+
+Het zevende hoofdstuk gaat over veranderen. Het opent met een brief van een
+drieëntachtigjarige lezer die de opwinding van polospelen kort na de Eerste
+Wereldoorlog zestig jaar lang voor onherhaalbaar hield, tot hij *Flow* las en
+aan tuinieren begon. Als voorbeelden van mensen die zware omstandigheden
+overwonnen noemt Csikszentmihalyi Antonio Gramsci, in 1891 geboren op Sardinië
+met een misvormde ruggengraat, en Linus Pauling, die na de vroege dood van
+zijn vader met klusjes zijn studie betaalde.
+
+Het achtste hoofdstuk beschrijft de autotelische persoonlijkheid, van auto en
+telos: iemand die dingen om henzelf doet in plaats van om een later gevolg.
+Csikszentmihalyi meet dat als het aandeel piepersignalen waarop iemand zowel
+hoge uitdaging als hoge vaardigheid meldt. Bij tweehonderd getalenteerde
+tieners besteedde de autotelische groep gemiddeld elf uur per week aan
+studeren tegen zes uur bij de andere groep. Het slothoofdstuk verbreedt naar
+de vraag hoe een leven zin krijgt, met de constatering dat een goed leven niet
+mogelijk is in afzondering van de gemeenschap, en met een boeddhistisch advies
+dat aanraadt te handelen alsof de toekomst van het heelal ervan afhangt,
+terwijl je jezelf uitlacht om de gedachte dat het iets uitmaakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Flow | De toestand waarin uitdaging en vaardigheid in evenwicht zijn, doelen helder en terugkoppeling direct, waardoor aandacht volledig opgaat in de bezigheid. |
+| Psychische energie | Csikszentmihalyi's term voor aandacht, opgevat als eindige voorraad die je aan iets moet toewijzen voordat het bestaat in je ervaring. |
+| Psychische entropie | De wanordelijke toestand van het bewustzijn wanneer aandacht geen doel heeft en gedachten naar onoplosbare zorgen afdwalen. |
+| Experience Sampling Method | Onderzoeksmethode waarbij een pieper op willekeurige momenten afgaat en de deelnemer meteen noteert wat hij doet en hoe hij zich voelt. |
+| Autotelisch | Van een bezigheid of een persoon gezegd wanneer het doel in de handeling zelf ligt en niet in een gevolg erbuiten. |
+| Exotelisch | Het tegendeel: gedreven door een doel dat buiten de handeling ligt, zoals geld of aanzien. |
+| Passieve vrije tijd | Vrije tijd zonder eigen inspanning, zoals televisie kijken en rusten, die wel motiveert maar zelden flow oplevert. |
+| Zondagsneurose | De term van Ferenczi voor de neerslachtigheid die optreedt op vrije dagen zonder structuur of gezelschap. |
+| Onderhoudsactiviteiten | Alles wat het lichaam en het huishouden draaiende houdt: eten, verzorging, schoonmaken, boodschappen en vervoer. |
+| Uitdaging-vaardigheidsmodel | Het schema van acht ervaringstoestanden, waaronder opwinding, beheersing, angst, verveling en apathie, bepaald door de verhouding tussen de zwaarte van de opgave en het eigen kunnen. |
+
+#### Waar het argument op rust
+
+Wat dit boek onderscheidt van de meeste populaire psychologie is dat er een
+eigen dataverzameling onder ligt. De Experience Sampling Method meet op het
+moment zelf in plaats van achteraf, wat het geheugenprobleem van vragenlijsten
+omzeilt, en Csikszentmihalyi kan daardoor uitspraken doen over hoeveel procent
+van de tijd mensen zich op een bepaalde manier voelen. De omkering van werk en
+vrije tijd is een bevinding die zonder deze methode niet zichtbaar was
+geweest, en zij is later in andere landen teruggevonden.
+
+De beperkingen zijn even duidelijk. Flow wordt in de metingen
+geoperationaliseerd als een moment waarop iemand zowel hoge uitdaging als hoge
+vaardigheid meldt, wat een smallere zaak is dan de rijke beschrijving die het
+boek van flow geeft. Alles blijft zelfrapportage, met de bekende neiging om
+achteraf een aannemelijk verhaal te construeren. De cijfers zijn bovendien
+correlaties: dat veellezers meer flow melden dan veelkijkers zegt niets over
+de richting van het verband, en Csikszentmihalyi merkt dat zelf op. De
+steekproeven bestaan grotendeels uit Amerikanen, met kleinere Italiaanse en
+Japanse aanvullingen, en de tienergegevens komen uit één onderzoekslijn.
+
+Het boek bevat geen noten in de lopende tekst maar een notenapparaat achterin.
+Wie een bewering wil natrekken, moet dus de weg terug zoeken naar de
+oorspronkelijke artikelen.
+
+#### Wat er tegen in te brengen valt
+
+Het scherpste bezwaar is dat flow ethisch leeg is. De toestand treedt even
+goed op bij een chirurg als bij een inbreker of een gokker, en het boek erkent
+dat kort maar bouwt er geen antwoord op. Toch loopt de redenering ongehinderd
+door van flow naar het goede leven, alsof betrokkenheid vanzelf iets
+waardevols oplevert. Het slothoofdstuk probeert dat gat te dichten met een
+beroep op verbondenheid met iets groters, maar dat beroep volgt niet uit de
+gegevens en staat er los naast.
+
+Ten tweede legt het boek de verantwoordelijkheid vrijwel volledig bij het
+individu. De lasser Joe wordt opgevoerd als bewijs dat de omstandigheden er
+niet toe doen, en de voorbeelden van Gramsci en Pauling versterken dat. Wie zo
+redeneert, verplaatst een vraag over de inrichting van werk naar de houding
+van de werkende. Csikszentmihalyi noemt de mogelijkheid van slecht ingerichte
+banen wel, maar de aanbevelingen gaan altijd over aanpassing van de eigen
+aandacht.
+
+Ten derde is de toon over vrije tijd en televisie streng op een manier die de
+gegevens niet dragen. Dat passieve ontspanning zelden flow oplevert is
+gemeten; dat zij daarom verspilling is, is een oordeel. De passages waarin
+Csikszentmihalyi zich uitspreekt over individualisme, echtscheiding en het
+verval van instituties berusten op niets uit zijn eigen onderzoek en lezen als
+cultuurkritiek van een bepaalde generatie.
+
+Ten slotte is het boek dun waar het praktisch wordt. De algemene raad, zorg
+dat doelen helder zijn en dat de opgave bij je kunnen past, is juist maar
+weinig sturend. Hoe je dat doet in werk dat je niet zelf inricht, blijft
+grotendeels open.
+
+#### Wat er concreet mee te doen is
+
+- Noteer een week lang op willekeurige momenten wat je doet en hoe
+geconcentreerd en gemotiveerd je bent, en kijk waar de flowmomenten werkelijk
+vallen.
+- Verzwaar een bezigheid die te makkelijk is geworden, en leer bij wanneer een
+bezigheid je juist boven het hoofd groeit.
+- Geef terugkerende taken zonder duidelijk einde een eigen doel en een eigen
+maat, zodat er terugkoppeling ontstaat.
+- Ruil een deel van de passieve vrije tijd in voor een bezigheid met regels en
+vooruitgang, en vergelijk na een maand hoe de avonden voelen.
+- Plan het weekend en de vakantie licht in plaats van helemaal niet, omdat
+lege tijd zonder doel de stemming eerder verlaagt dan verhoogt.
+- Zoek in je huidige werk de onderdelen op waarin je al concentratie ervaart,
+en probeer die uit te breiden voordat je concludeert dat het werk zelf het
+probleem is.
+
+#### Wat je hierna leest
+
+- 70. Deep Work. Newport bouwt zijn hoofdstuk over betekenis rechtstreeks op
+dit flowonderzoek, inclusief de bevinding dat werk vaker flow geeft dan vrije
+tijd, en vertaalt het naar een werkindeling.
+- 29. Grit. Duckworth onderzoekt volhouden bij één zaak over lange tijd. Dat
+is de voorwaarde waaronder de vaardigheid groeit die het flowmodel nodig heeft
+om de uitdaging te kunnen verzwaren.
+- 17. The Creative Act. Rubin beschrijft het maken vanuit dezelfde houding die
+Csikszentmihalyi autotelisch noemt, maar dan vanuit de praktijk van een
+muziekproducent in plaats van vanuit meetgegevens.
+- 53. The Anxious Generation. Haidt beschrijft wat er gebeurt wanneer de vrije
+tijd van jongeren vrijwel geheel in passieve schermtijd verdwijnt, precies de
+verschuiving waarvoor Csikszentmihalyi in 1997 al cijfers had.
 
 ## 79. 59 Seconds
 

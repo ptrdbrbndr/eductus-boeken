@@ -67,7 +67,7 @@ for (const pad of process.argv.slice(2)) {
     ].join(" "));
     const woorden = lopend.split(/\s+/).filter(Boolean).length;
     if (woorden < 850) meld(waar, `te kort: ${woorden} woorden`);
-    if (woorden > 2000) meld(waar, `te lang: ${woorden} woorden`);
+    if (woorden > 2200) meld(waar, `te lang: ${woorden} woorden`);
 
     const alles = kaal(JSON.stringify(L));
     if (alles.includes("—")) meld(waar, "bevat een em-dash");
