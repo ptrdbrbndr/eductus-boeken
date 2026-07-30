@@ -3234,6 +3234,180 @@ die met één vraag opgelost hadden kunnen worden. Het boek is kort, herhaalt
 zich, en de antropologische onderbouwing is dun; de vier regels zelf zijn dat
 niet.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Ruiz stelt dat een mens vanaf zijn geboorte een reeks
+afspraken met de wereld sluit die hij nooit heeft gekozen, en dat lijden
+voortkomt uit die afspraken en niet uit de omstandigheden zelf. Wie ze wil
+verbreken, heeft er vier andere voor nodig: wees onberispelijk in je woorden,
+vat niets persoonlijk op, ga niet uit van aannames, en doe altijd je best. Het
+boek presenteert die vier als een levensregel die de opgelegde overtuigingen
+stukje bij beetje vervangt.
+
+#### De gang van het boek
+
+**De droom van de planeet**
+
+Ruiz opent met het beeld dat de werkelijkheid zoals mensen die beleven een
+collectieve droom is. Taal, geld, godsdienst, fatsoen en schoonheidsidealen
+bestaan alleen omdat iedereen erin meegaat. Een kind wordt in die droom
+geboren en neemt hem over zonder er ooit mee te hebben ingestemd.
+
+Dat overnemen noemt hij domesticatie. Beloning en straf leren het kind welk
+gedrag aandacht oplevert, tot het zichzelf gaat belonen en straffen zonder dat
+er nog iemand bij hoeft te zijn. Wat overblijft is een innerlijke Rechter die
+veroordeelt, een Slachtoffer dat de straf ondergaat, en een Boek van de Wet
+met alle overtuigingen waaraan beide zich houden. Ruiz vergelijkt het geheel
+met een parasiet die zich met angst en zelfverwijt voedt.
+
+**De eerste afspraak: wees onberispelijk in je woorden**
+
+Het woord is bij Ruiz het instrument waarmee de droom wordt gemaakt en in
+stand gehouden. Onberispelijk zijn betekent hier: geen woord tegen jezelf of
+tegen een ander gebruiken dat schade aanricht. Roddel behandelt hij als
+besmetting, waarbij het oordeel van de een zich in het hoofd van de ander
+nestelt en daar doorwerkt.
+
+Hij illustreert dat met een moeder die haar dochter tijdens hoofdpijn toebijt
+dat ze lelijk zingt, waarna het meisje nooit meer zingt. Eén zin, in een
+slecht moment uitgesproken, wordt een levenslange afspraak. Volgens Ruiz is
+dit de eerste en zwaarste van de vier, omdat de andere drie ervan afhangen.
+
+**De tweede en de derde afspraak**
+
+Vat niets persoonlijk op berust op de gedachte dat wat anderen zeggen
+voortkomt uit hun eigen droom en over hen gaat. Wie beledigd wordt, wordt
+geraakt op de plek waar hij het al met de belediging eens was. Ruiz noemt het
+persoonlijk opvatten daarom een vorm van eigenwaan: de aanname dat alles wat
+om je heen gebeurt over jou gaat.
+
+Ga niet uit van aannames gaat over het invullen van wat je niet weet en het
+vervolgens geloven. Mensen nemen aan dat anderen weten wat zij denken, en
+worden boos als dat niet zo blijkt. Het middel dat Ruiz noemt is vragen
+stellen en om duidelijkheid vragen tot er niets meer in te vullen valt. Hij
+verbindt de tweede en derde afspraak nadrukkelijk met elkaar: samen halen ze
+volgens hem het merendeel van het dagelijkse lijden weg.
+
+Het begrip dat hij hierbij hanteert is *mitote*, de duizend stemmen die
+tegelijk in het hoofd praten, ontleend aan het Nahuatl. In die ruis, zegt hij,
+is niet vast te stellen wat je zelf denkt en wat je hebt overgenomen.
+
+**De vierde afspraak en de weg erna**
+
+Doe altijd je best is bij Ruiz uitdrukkelijk geen oproep tot maximale
+prestatie. Je best verschilt per moment: ziek is het minder dan gezond, en
+meer doen dan je best leidt tot uitputting, minder tot zelfverwijt. De vierde
+afspraak is bedoeld als de motor onder de eerste drie, want die worden alleen
+door herhaling gewoonte.
+
+In het slotdeel schetst hij drie wegen naar vrijheid: het meesterschap van het
+bewustzijn, waarin je ziet wat je gelooft, het meesterschap van de
+verandering, waarin je de afspraken loslaat, en de gerichtheid op liefde in
+plaats van angst. Hij noemt daarbij de oefening om iedere dag als de laatste
+te leven en de dood als leermeester, en de nieuwe droom die volgens hem
+ontstaat als de oude wordt losgelaten.
+
+**Vorm en herkomst**
+
+Het boek is dun, ongeveer honderdveertig bladzijden, en geschreven in korte
+alinea's met veel herhaling. De toon is die van een spreker voor een zaal, wat
+het ook was: de tekst komt voort uit Ruiz' lessen. Argumentatie ontbreekt
+vrijwel geheel, het gaat om stelling, beeld en voorbeeld.
+
+Ruiz presenteert de leer als Tolteeks, doorgegeven binnen zijn familie door
+zijn moeder als genezeres en zijn grootvader als nagual. De Tolteken bestonden
+werkelijk, als volk in centraal Mexico rond de tiende tot twaalfde eeuw, maar
+een aantoonbare doorgaande lijn van hun geloofsleer naar deze vier afspraken
+is er niet. Wat Ruiz beschrijft sluit veel dichter aan bij het
+twintigste-eeuwse nagualisme dat via de boeken van Carlos Castaneda bekend
+werd, en dat als antropologie inmiddels als verzinsel geldt. De inhoud van de
+vier afspraken staat of valt daar niet mee, de herkomstclaim wel.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De droom van de planeet | Het geheel van gedeelde regels, oordelen en verwachtingen dat mensen voor de werkelijkheid houden. |
+| Domesticatie | Het proces waarin een kind door beloning en straf de overtuigingen van zijn omgeving overneemt en ze uiteindelijk zelf gaat handhaven. |
+| Het Boek van de Wet | De verzameling overgenomen regels waaraan iemand zichzelf en anderen afmeet. |
+| De Rechter | De innerlijke stem die iedere gedachte en handeling langs dat boek legt en veroordeelt. |
+| Het Slachtoffer | Het deel van iemand dat de veroordeling aanvaardt en zich schuldig of tekortschietend voelt. |
+| De parasiet | Ruiz' beeld voor het samenspel van Rechter, Slachtoffer en geloofsysteem, dat zich met angst en zelfverwijt in stand houdt. |
+| Mitote | De ruis van duizend gelijktijdige stemmen in het hoofd, waardoor eigen gedachten niet van overgenomen gedachten te onderscheiden zijn. |
+| Nagual | In Ruiz' woordgebruik de leraar of ziener binnen de traditie die hij aan zijn grootvader toeschrijft. |
+| Persoonlijke belangrijkheid | De aanname dat wat anderen doen en zeggen over jou gaat, bij Ruiz de grond onder het persoonlijk opvatten. |
+| Meesterschap van het bewustzijn | De eerste stap naar vrijheid, waarin iemand ziet welke afspraken hij zonder het te weten volgt. |
+
+#### Waar het argument op rust
+
+Er is in dit boek geen onderbouwing in de gebruikelijke zin. Ruiz voert geen
+onderzoek aan, geen bronnen, geen tegenvoorbeelden. Het bewijs bestaat uit
+herkenning: de lezer moet in de beschreven Rechter en het beschreven
+Slachtoffer iets van zichzelf terugvinden, en daarmee is de zaak wat Ruiz
+betreft rond.
+
+Wel valt op te merken dat twee van de vier afspraken overeenkomen met
+werkwijzen die in de psychotherapie los van deze traditie gangbaar zijn
+geworden. Het opsporen en toetsen van overgenomen overtuigingen is de kern van
+cognitieve gedragstherapie, en het scheiden van waarneming en interpretatie
+komt terug in vrijwel iedere vorm van gespreksvoering. Dat is geen bevestiging
+van Ruiz' verklaringen, wel een aanwijzing dat de aanwijzingen zelf niet uit
+de lucht komen vallen.
+
+De herkomstclaim is het zwakste onderdeel van de onderbouwing. Ruiz beroept
+zich op een familietraditie, en een familietraditie is per definitie niet na
+te gaan. Voor de bruikbaarheid van de vier afspraken maakt dat niets uit, voor
+het gezag waarmee ze worden gepresenteerd wel.
+
+#### Wat er tegen in te brengen valt
+
+De tweede afspraak is het gevoeligst voor misbruik. Wie niets persoonlijk
+opvat, hoeft ook geen terechte kritiek meer te wegen, en de regel biedt geen
+maatstaf om het verschil te bepalen. In een relatie waarin iemand structureel
+wordt gekleineerd, verschuift de verantwoordelijkheid met deze afspraak
+stilzwijgend naar degene die het over zich heen krijgt: hij had het niet
+persoonlijk moeten opvatten. Ruiz behandelt die situatie niet.
+
+De vierde afspraak is niet te weerleggen. Wat je best is, wordt achteraf
+bepaald door de uitkomst, waardoor zowel succes als mislukking de regel
+bevestigt. Hetzelfde geldt voor het geheel: gaat het beter, dan werkten de
+afspraken, gaat het niet beter, dan waren ze nog niet doorleefd. Een boek dat
+op die manier is opgezet kan niet ongelijk krijgen, en dat is een zwakte en
+geen verdienste.
+
+Verder verklaart Ruiz alle lijden uit overtuigingen. Armoede, ziekte,
+discriminatie en geweld komen in het boek niet voor als oorzaken van ongeluk,
+alleen als omstandigheden waar de droom van de lezer overheen ligt. Dat maakt
+de leer bruikbaar voor wie last heeft van zelfverwijt en ongeschikt voor wie
+last heeft van zijn omstandigheden. Ten slotte hoort bij een eerlijke lezing
+dat Ruiz de vier afspraken presenteert als oud en overgeleverd, terwijl de
+formulering van hem is en het geheel het best te beoordelen valt als
+eigentijdse zelfhulp met een Mexicaans decor.
+
+#### Wat er concreet mee te doen is
+
+- Let een week op wat je tegen jezelf zegt na een fout, en noteer de zinnen
+die terugkeren.
+- Vraag om verduidelijking op het moment dat je merkt dat je aan het invullen
+bent wat iemand bedoelt.
+- Ga bij een opmerking die pijn doet na welk oordeel over jezelf ze raakt, en
+behandel dat oordeel apart van de opmerking.
+- Spreek uit wat je van iemand verwacht in plaats van aan te nemen dat het
+duidelijk is.
+- Stel je maatstaf per dag bij aan wat je die dag aankunt, in plaats van aan
+een vast niveau.
+
+#### Wat je hierna leest
+
+- 8. De alchemist. Coelho, een parabel met dezelfde mengeling van spirituele
+herkomstclaim en praktische levensles.
+- 72. The Subtle Art of Not Giving a F*ck. Manson, die de vraag welke oordelen
+je overneemt nuchterder en met meer voorbehoud behandelt.
+- 2. Overpeinzingen. Marcus Aurelius, die het onderscheid tussen gebeurtenis
+en oordeel tweeduizend jaar eerder maakte.
+- 32. The Gifts of Imperfection. Brené Brown over schaamte en zelfverwijt, met
+onderzoek onder dezelfde verschijnselen.
+
 ## 28. Think Again
 
 Adam Grant, 2021. Ondertitel *The Power of Knowing What You Don't Know*.
@@ -3613,6 +3787,171 @@ D. Rockefeller in de paniek van 1857 tot Amelia Earhart en Ulysses Grant. Dat
 maakt het aanstekelijk en tegelijk selectief, want de voorbeelden zijn
 achteraf gekozen bij de les. Wie de bron wil, leest Aurelius en Epictetus; wie
 een aanloop wil, heeft hier de kortste.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Holiday stelt dat iedere hindernis het materiaal levert voor
+de weg eromheen of erdoorheen, en dat wie zijn waarneming, zijn handeling en
+zijn wil op orde heeft van tegenslag altijd iets kan maken. De titel gaat
+terug op een zin uit de *Overpeinzingen* van Marcus Aurelius: wat de handeling
+in de weg staat, wordt de handeling zelf. Daarmee verplaatst het boek de vraag
+van wat mij overkomt naar wat ik ermee doe, en presenteert het die
+verplaatsing als de kern van het stoïcisme in praktische vorm.
+
+#### De gang van het boek
+
+**De opzet en de zin waar alles op rust**
+
+Het boek is gebouwd op de driedeling die Marcus Aurelius zelf hanteert:
+heldere waarneming, juiste handeling en standvastige wil. Holiday maakt daar
+drie delen van en verdeelt elk deel in korte hoofdstukken van een paar
+bladzijden, telkens met een portret of een episode uit de geschiedenis als
+kern en een korte les aan het slot.
+
+De opening is John D. Rockefeller, die als jonge boekhouder de paniek van 1857
+meemaakt en de ineenstorting om zich heen bestudeert in plaats van mee te
+panieken. Dat portret zet de toon: de gebeurtenis is neutraal, het oordeel
+erover komt van de waarnemer, en dat oordeel is het enige deel dat direct
+binnen bereik ligt.
+
+**Waarneming**
+
+Het eerste deel gaat over wat er in het hoofd gebeurt voordat er iets gedaan
+wordt. Holiday behandelt het beheersen van de eerste emotie, het scheiden van
+feit en interpretatie, het beperken van de aandacht tot wat binnen invloed
+valt, en het omdraaien van de hindernis zodat de mogelijkheid erin zichtbaar
+wordt.
+
+Hier komt Rubin Carter langs, die jaren onterecht vastzat en weigerde zich als
+gevangene te gedragen, en Steve Jobs, van wie de zogeheten
+werkelijkheidsvervorming wordt gepresenteerd als een geoefende weigering om
+grenzen als vaststaand te lezen. Ook Theodore Roosevelt, die als astmatisch
+kind zijn lichaam ging bouwen, hoort in dit deel thuis.
+
+**Handeling**
+
+Het tweede deel gaat over doorgaan. Holiday pleit voor beginnen zonder
+volledig plan, voor volharding boven doorzettingsvermogen in korte stoten,
+voor het aanvaarden van omwegen, en voor het gebruiken van de eigen zwakte als
+aanvalspunt. Demosthenes, die met een spraakgebrek begon en zich ondergronds
+trainde tot redenaar van Athene, staat model voor het laatste.
+
+Ulysses Grant bij Vicksburg dient als voorbeeld van iemand die zeven mislukte
+benaderingen achter elkaar zet en de achtste laat werken. Amelia Earhart neemt
+een vernederend aanbod aan om als passagier mee te vliegen en gebruikt dat als
+opstap. Thomas Edison staat bij de brand in zijn fabriek toe te kijken en
+begint de volgende ochtend opnieuw. Het idee van het proces, ontleend aan
+American footballcoach Nick Saban, vat het deel samen: richt je op de
+eerstvolgende handeling in plaats van op de uitkomst.
+
+**Wil**
+
+Het derde deel behandelt wat overblijft als handelen geen effect meer heeft.
+Hier gaat het over het aanvaarden van wat niet te veranderen valt, over het
+vooraf doordenken van wat er mis kan gaan, over sterfelijkheid, en over de
+vraag voor wie je het doet als het je zelf niets meer oplevert.
+
+De begrippen die Holiday hier gebruikt zijn klassiek: *premeditatio malorum*
+voor het vooraf inbeelden van rampspoed, *amor fati* voor het niet alleen
+dragen maar willen van wat gebeurt, en *memento mori* voor het besef van de
+eigen eindigheid. Abraham Lincoln, die zijn zwaarmoedigheid meedroeg door de
+oorlog heen, is een van de dragende portretten.
+
+**Toon en vorm**
+
+Holiday schrijft in korte zinnen en tweedepersoonsvorm, met veel aansporing.
+Het boek leest als een reeks aantekeningen, wat past bij de *Overpeinzingen*,
+die zelf ook geen doorlopend betoog vormen. Hoofdstukken zijn los te lezen en
+herhalen elkaar bewust.
+
+De historische portretten zijn kort en dienen als bewijs door voorbeeld. Er is
+geen notenapparaat in de lopende tekst, wel een leeslijst achterin met de
+stoïcijnse bronnen en de biografieën waar hij uit put. Het boek is
+uitdrukkelijk bedoeld als handboek, en Holiday heeft het volgens eigen zeggen
+ook geschreven voor sporters en militairen die het als zodanig gebruiken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Waarneming, handeling, wil | De driedeling van Marcus Aurelius die de opbouw van het boek bepaalt: hoe je een gebeurtenis leest, wat je doet, en wat je verdraagt. |
+| De hindernis is de weg | De stelling dat de belemmering zelf het materiaal en de richting van de volgende stap levert, ontleend aan een passage in de *Overpeinzingen*. |
+| Dichotomie van beheersing | Het stoïcijnse onderscheid tussen wat binnen en buiten de eigen invloed valt, bij Holiday vertaald naar het beperken van aandacht en zorg. |
+| Premeditatio malorum | Het vooraf voorstellen van wat er mis kan gaan, zodat tegenslag geen verrassing meer is en de plannen erop berekend zijn. |
+| Amor fati | De houding waarin je het lot niet alleen aanvaardt maar wilt, een term die Holiday van Nietzsche leent en in het stoïcijnse kader zet. |
+| Memento mori | Het bewust vasthouden van de eigen sterfelijkheid als middel om te bepalen wat werkelijk gewicht heeft. |
+| Het proces | De gewoonte om alleen de eerstvolgende handeling te beoordelen in plaats van de uitkomst, ontleend aan de werkwijze van coach Nick Saban. |
+| De kunst van berusting | Het aanvaarden van wat na alle inspanning niet te veranderen blijkt, in het derde deel de laatste stap voor de wil. |
+
+#### Waar het argument op rust
+
+Het argument rust op twee dingen: klassieke teksten en historische anekdotes.
+Voor het eerste is de basis solide. De driedeling en de titelzin staan
+werkelijk bij Marcus Aurelius, en de begrippen die Holiday gebruikt horen tot
+het gangbare stoïcijnse begrippenapparaat, ook terug te vinden bij Epictetus
+en Seneca. Wie de *Overpeinzingen* ernaast legt, herkent de herkomst.
+
+Voor het tweede is de basis zwakker. De portretten komen uit populaire
+biografieën en zijn geselecteerd op uitkomst: allemaal mensen bij wie het
+uiteindelijk goed afliep. Sommige anekdotes zijn bekend om hun mooie vorm meer
+dan om hun bronnen, waaronder het verhaal dat Edison bij de brand van zijn
+fabriek zijn zoon riep om te komen kijken. Er zit geen onderzoek in het boek,
+geen enkele meting, en dat pretendeert Holiday ook niet.
+
+Het boek is bovendien te lezen als toegepaste filosofie en niet als
+filosofiegeschiedenis. Holiday is geen classicus en presenteert zich ook niet
+zo. Wat hij levert is een selectie uit een traditie, gekozen op bruikbaarheid,
+met de bronnen achterin voor wie verder wil.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de selectie achteraf. Iedere hindernis wordt de weg
+zodra je alleen mensen behandelt die er doorheen zijn gekomen. Wie volhardde
+en niets bereikte, wie het lot omarmde en er kapot aan ging, staat er niet in.
+Daarmee is de stelling in de praktijk onweerlegbaar: lukt het, dan werkte het
+denkmodel, lukt het niet, dan is er nog een verdiepingslaag in het derde deel.
+Een lezer die vastzit in een verloren project vindt in dit boek eerder een
+reden om door te gaan dan een maatstaf om te stoppen.
+
+Daarnaast is het stoïcisme hier ingekort tot een gereedschapskist voor
+prestatie. In de oorspronkelijke leer hangen de oefeningen in zelfbeheersing
+samen met een opvatting over deugd, over de rede die de kosmos doortrekt en
+over verplichtingen ten opzichte van anderen. Holiday houdt de oefeningen over
+en laat de rest grotendeels weg. Het resultaat past even goed bij een
+topsporter als bij iemand die anderen benadeelt, en het boek biedt weinig om
+die twee uit elkaar te houden. Holiday heeft dat gat deels zelf gevoeld: *Ego
+Is the Enemy* uit 2016 corrigeert de kant die dit boek open laat.
+
+Tot slot draagt de vorm een prijs. Korte hoofdstukken met een anekdote en een
+slotles lezen prettig en blijven ondiep. Tegenwerpingen komen niet aan bod,
+dezelfde gedachte keert in verschillende bewoordingen terug, en de aansporende
+toon laat weinig ruimte voor de lezer om zelf te wegen. Wie de
+*Overpeinzingen* zelf leest, krijgt hetzelfde materiaal met meer twijfel erin.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij tegenslag de gebeurtenis van je oordeel erover, en schrijf beide
+apart op.
+- Bepaal welk deel van de situatie binnen je invloed valt en besteed je
+aandacht daar uitsluitend aan.
+- Loop voor een project vooraf de manieren langs waarop het kan mislukken, en
+pas het plan daarop aan.
+- Beoordeel je dag op de handelingen die je hebt verricht in plaats van op de
+uitkomst die nog niet zichtbaar is.
+- Stel bij een blokkade de vraag welke mogelijkheid er zonder deze blokkade
+niet zou zijn geweest.
+- Bepaal vooraf waar je stopt, want dit boek levert dat criterium zelf niet.
+
+#### Wat je hierna leest
+
+- 2. Overpeinzingen. Marcus Aurelius zelf, de bron van de titel en van de
+driedeling waar het boek op is gebouwd.
+- 75. Ego Is the Enemy. Holiday's vervolg over het ego, dat de morele leemte
+in dit boek deels vult.
+- 48. Man's Search for Meaning. Frankl, die dezelfde vraag stelt onder
+omstandigheden waarin geen enkele handeling meer helpt.
+- 29. Grit. Duckworth over volhouden, met onderzoek in plaats van historische
+portretten.
 
 ## 31. Unbroken
 
@@ -8077,6 +8416,213 @@ gedateerd aanvoelt; het beste hoofdstuk gaat over het kiezen van je problemen,
 omdat het duidelijk maakt dat een leven zonder pijn geen doel maar een lege
 wens is.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Manson draait de belofte van de gangbare zelfhulp om. Wie
+voortdurend probeert zich beter te voelen, houdt zichzelf voor dat er iets
+ontbreekt, en versterkt daarmee het gevoel tekort te schieten. De kwaliteit
+van een leven wordt volgens hem bepaald door de kwaliteit van de problemen die
+iemand bereid is te dragen, en door de waarden waaraan hij die problemen
+afmeet. Aandacht is beperkt, dus de vraag is niet hoe je meer geeft om meer
+dingen, maar waaraan je je schaarse aandacht besteedt en wat je bewust laat
+vallen.
+
+#### De gang van het boek
+
+**De omgekeerde wet**
+
+Het eerste hoofdstuk opent met Charles Bukowski, dertig jaar mislukt schrijver
+met een baan bij de post, die op zijn vijftigste alsnog werd uitgegeven en
+meer dan twee miljoen boeken verkocht. Op zijn grafsteen staat *Don't try*.
+Manson leest dat niet als valse bescheidenheid: Bukowski werd gelezen omdat
+hij eerlijk was over zijn falen, niet omdat hij zichzelf had opgewerkt tot een
+beter mens.
+
+Daar hangt hij het begrip aan op dat hij van Alan Watts leent, de omgekeerde
+wet: hoe harder je een positieve ervaring najaagt, hoe meer je de afwezigheid
+ervan bevestigt. Wie zich slecht voelt over het feit dat hij zich slecht
+voelt, komt in wat Manson de terugkoppeling uit de hel noemt. De uitweg is de
+negatieve ervaring aanvaarden, wat zelf een positieve ervaring oplevert.
+
+**Geluk is een probleem**
+
+Het tweede hoofdstuk hervertelt het verhaal van de prins die achter de
+paleismuren werd grootgebracht, de wereld in trok, jaren als bedelaar leefde
+en onder een boom tot de slotsom kwam dat lijden bij het leven hoort. Die
+prins werd de Boeddha. Manson gebruikt hem om te betogen dat geluk geen
+vergelijking is die je oplost.
+
+Zijn eigen versie is biologisch en vrij plat: pijn en ontevredenheid zijn de
+signalen waarop mensen in beweging komen, en geluk ontstaat bij het oplossen
+van problemen. Wie het probleem ontkent of vermijdt, blijft ongelukkig. De
+praktische vraag wordt daarmee: welke pijn wil je verdragen, welke strijd kies
+je. Wie schrijver wil zijn zonder afwijzing te willen verdragen, wil vooral
+het resultaat en niet het werk.
+
+**Je bent niet bijzonder**
+
+Het derde hoofdstuk richt zich op de beweging voor een hoog zelfbeeld die
+vanaf de jaren zestig opkwam en vanaf de jaren zeventig in opvoeding en
+onderwijs terechtkwam: cijferinflatie, deelnamebekers, opdrachten waarin
+kinderen opschrijven waarom ze bijzonder zijn. Manson stelt dat het
+meetinstrument verkeerd was. Zelfwaardering afmeten aan hoe goed iemand zich
+over zichzelf voelt, zegt weinig; het gaat om hoe iemand omgaat met zijn
+slechte kanten.
+
+Het portret van Jimmy, een kennis die jaren van familie en vriendinnen leefde
+terwijl hij zichzelf een miskend ondernemer vond, dient als tegenbeeld. Het
+begrip dat Manson eraan verbindt is aanspraak: het gevoel goede dingen te
+verdienen zonder er iets voor te doen. Hij tekent er twee vormen van, de
+opgeblazen en de zielige, en noemt beide een manier om zich niet met de eigen
+middelmatigheid te hoeven verhouden.
+
+**Waarden en de ui van zelfkennis**
+
+Hoofdstuk vier vertelt over Hiroo Onoda, de Japanse luitenant die tot 1974 in
+de jungle van Lubang doorvocht en pamfletten over de capitulatie voor bedrog
+hield, tot de avonturier Norio Suzuki hem in vier dagen vond door zijn naam te
+roepen. Onoda hield vol en offerde dertig jaar, aan een waarde die niet
+deugde.
+
+Daarop volgt de ui van zelfkennis met drie lagen: weten wat je voelt, weten
+waarom je dat voelt, en weten aan welke maatstaf je jezelf meet. Die derde
+laag is de moeilijke. Manson noemt vier slechte waarden, waaronder genot,
+materieel succes en gelijk hebben, en zet er vijf tegenover die hij door het
+boek heen uitwerkt: verantwoordelijkheid, onzekerheid, falen, weigering en
+sterfelijkheid. Goede waarden zijn volgens hem op werkelijkheid gestoeld,
+opbouwend en beheersbaar door de persoon zelf.
+
+**Verantwoordelijkheid zonder schuld**
+
+Hoofdstuk vijf staat op het onderscheid tussen schuld en verantwoordelijkheid.
+Wat iemand overkomt is vaak niet zijn schuld, maar hij blijft verantwoordelijk
+voor wat hij ermee doet. De illustratie is William James, ziekelijk, mislukt
+aan de kunstacademie en aan de medische opleiding, bijna gestorven in de
+Amazone, die zich voornam een jaar lang te leven alsof hij volledig
+verantwoordelijk was voor alles wat hem overkwam, en anders een eind aan zijn
+leven te maken. Hij werd de grondlegger van de Amerikaanse psychologie.
+
+Manson koppelt daar zijn kritiek aan op wat hij slachtofferschap als mode
+noemt: een publieke cultuur waarin het eigen ongelijk voortdurend wordt
+uitvergroot omdat verontwaardiging aandacht oplevert. Dezelfde marathon,
+vrijwillig gelopen of onder dwang, is dezelfde 42 kilometer met een volstrekt
+ander gevoel. Het verschil zit in de keuze.
+
+**Onzekerheid, falen en weigering**
+
+De hoofdstukken zes tot en met acht werken drie waarden uit. Zekerheid noemt
+Manson gevaarlijk: hij formuleert een eigen vuistregel, de wet van vermijding,
+die zegt dat mensen alles ontlopen wat hun beeld van zichzelf zou kunnen
+bedreigen, ook als dat beeld ongunstig is. Groei gaat van fout naar iets
+minder fout, nooit naar juist.
+
+Falen behandelt hij als voorwaarde in plaats van als uitzondering. De anekdote
+over Picasso, die twintigduizend dollar vroeg voor een servet omdat hij er
+zestig jaar over had gedaan, dient om te laten zien dat pijn en herhaling niet
+weg te automatiseren zijn. Wie verlamd is door de vraag wat hij moet doen,
+past het doe-iets-beginsel toe: handelen is niet alleen het gevolg van
+motivatie maar ook de bron ervan.
+
+Hoofdstuk acht gaat over weigeren. Manson beschrijft zijn eigen jaren van
+reizen, vijfenvijftig landen, en de vaststelling dat onbeperkte vrijheid op
+zichzelf niets betekende. Zonder grenzen en zonder verbintenis blijft alles
+inwisselbaar. Hij behandelt daar ook wat hij grenzen noemt in relaties: ieder
+blijft verantwoordelijk voor zijn eigen gevoelens, en wie de gevoelens van de
+ander overneemt of afschuift, houdt het probleem in stand.
+
+**En dan ga je dood**
+
+Het slothoofdstuk begint bij de verdrinking van Manson zijn vriend Josh
+tijdens een feest bij een meer, toen Manson negentien was. Duikers vonden het
+lichaam pas na drie uur. Dat voorval is in het boek de aanleiding voor alles
+wat erna kwam.
+
+Daarna volgt Ernest Becker en diens gedachte dat mensen hun sterfelijkheid
+opvangen met onsterfelijkheidsprojecten: werk, geloof, natie, kinderen, alles
+wat langer meegaat dan het lichaam. Manson leest die projecten als waarden, en
+trekt de conclusie van het boek: de dood in het oog houden is de enige
+maatstaf die niet meebeweegt met stemming of mode.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Omgekeerde wet | Van Alan Watts overgenomen idee dat het najagen van een positieve ervaring de afwezigheid ervan bevestigt, en dat het aanvaarden van een negatieve ervaring zelf positief werkt. |
+| Terugkoppeling uit de hel | Het patroon waarin iemand zich slecht voelt over het feit dat hij zich slecht voelt, waardoor het gevoel zichzelf blijft voeden. |
+| Ui van zelfkennis | Drie lagen van zelfinzicht: weten wat je voelt, weten waarom je dat voelt, en weten aan welke maatstaf je jezelf afmeet. |
+| Slechte waarden | Maatstaven die buiten de eigen invloed liggen of op ontkenning berusten, zoals genot, materieel succes, altijd gelijk hebben en positief blijven. |
+| Schuld tegenover verantwoordelijkheid | Onderscheid tussen wie iets heeft veroorzaakt en wie zich verhoudt tot de gevolgen; het eerste ligt vaak buiten iemand, het tweede altijd bij hem. |
+| Aanspraak | De overtuiging goede dingen te verdienen zonder er iets voor te leveren, die zich zowel als grootspraak als als zelfbeklag kan uiten. |
+| Wet van vermijding van Manson | Zijn eigen vuistregel dat mensen alles ontlopen wat hun beeld van zichzelf zou kunnen bedreigen, ook wanneer dat beeld ongunstig is. |
+| Doe-iets-beginsel | Handelen als beginpunt in plaats van als sluitstuk: doen levert de motivatie op die daarvoor ontbrak. |
+| Grenzen | De regel dat ieder in een relatie verantwoordelijk blijft voor zijn eigen gevoelens en niet voor die van de ander. |
+| Onsterfelijkheidsproject | Term van Ernest Becker voor alles waarmee mensen betekenis bouwen die hun eigen dood overleeft; volgens Manson zijn dat precies iemands waarden. |
+
+#### Waar het argument op rust
+
+Het argument rust op verhalen, niet op onderzoek. Bukowski, Onoda, William
+James, Picasso en Becker zijn stuk voor stuk goed gedocumenteerd, en de
+feitelijke kern klopt: Onoda gaf zich in 1974 over, James kwam na een diepe
+crisis tot zijn werk. Maar het zijn illustraties achteraf. Ze laten zien dat
+de stelling ergens opgaat, ze tonen niet dat ze in het algemeen opgaat.
+
+De plaatsen waar Manson wel naar onderzoek verwijst, zoals de beweging voor
+een hoog zelfbeeld en het verband tussen zelfwaardering en gedrag, blijven
+zonder verwijzing. Deze uitgave heeft geen notenapparaat en geen
+literatuurlijst; na hoofdstuk negen volgen alleen dankwoord, colofon en
+auteursgegevens. Wie de bronnen wil nalopen, kan dat vanuit het boek zelf
+niet.
+
+De ideeën zijn grotendeels niet van Manson. De omgekeerde wet komt van Watts,
+het lijden als grondgegeven van het boeddhisme, de scheiding tussen wat binnen
+en buiten je macht ligt van de stoa, de onsterfelijkheidsprojecten van Becker.
+Manson vermeldt dat ook. De bijdrage van het boek zit in de ordening en de
+toon, niet in nieuw materiaal.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de kern niet te weerleggen valt. Wie zich beter
+voelt, heeft de goede waarden gekozen; wie zich slechter voelt, heeft de
+verkeerde gekozen of niet genoeg verantwoordelijkheid genomen. Er is geen
+uitkomst denkbaar die het model tegenspreekt, en daarmee levert het geen
+voorspelling op maar een manier van praten achteraf.
+
+De nadruk op verantwoordelijkheid gaat over de grens waar omstandigheden
+werkelijk bepalend zijn. Manson ziet dat en scheidt schuld van
+verantwoordelijkheid, maar armoede, ziekte, discriminatie en geweld komen in
+het boek vrijwel alleen voor als aanleiding tot een persoonlijke keuze. Wat er
+structureel aan te doen valt, blijft buiten beeld. Voor een lezer met weinig
+speelruimte kan het boek daardoor als verwijt aankomen.
+
+De vorm doet een deel van het overtuigingswerk. Het boek is geschreven in
+grove taal en met veel scheldwoorden, wat de indruk wekt van iemand die het
+zonder omhaal zegt. Die indruk vervangt op plaatsen het argument: een stelling
+die hard wordt gebracht, leest als vanzelfsprekend zonder dat ze onderbouwd
+is.
+
+Het geheel presenteert lijden als iets dat met betere waarden te dragen is.
+Bij depressie, verslaving of trauma is dat een onvolledige raad.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op waaraan je je succes afmeet, en toets die maatstaf op één punt:
+ligt hij binnen je eigen invloed of niet.
+- Kies bij een doel bewust de bijbehorende last: welke afwijzing of verveling
+hoort erbij, en wil je die dragen.
+- Scheid bij een tegenslag de vraag wie het veroorzaakte van de vraag wat jij
+nu doet, en beantwoord alleen de tweede.
+- Noteer bij een sterke overtuiging hoe je zou merken dat ze onjuist is.
+- Begin bij verlamming met een kleine handeling en kijk of de zin daarna komt.
+
+#### Wat je hierna leest
+
+- 140. Win Your Inner Battles. Ook een boek over de vijand vanbinnen, maar
+veel dunner, praktischer en zonder de wijsgerige laag die Manson eronder legt.
+- 74. Beyond Order. Vervolg in de lijst voor wie de vraag naar waarden en
+zelfkennis verder wil volgen.
+- 30. The Obstacle Is the Way. Voor wie wil zien hoe het thema
+verantwoordelijkheid buiten de zelfhulphoek wordt behandeld.
+
 ## 73. 12 Rules for Life
 
 Jordan B. Peterson, 2018. Ondertitel *An Antidote to Chaos* (Penguin Random
@@ -8100,6 +8646,215 @@ hiërarchietheorie, en het bewijs voor dat verband is dunner dan de stelligheid
 doet vermoeden. Wie Peterson vooral kent uit het publieke debat, treft hier
 een ander boek aan dan verwacht.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Peterson stelt dat het leven in de kern lijden is en dat geen
+politiek programma daar iets aan verandert. Wat wel helpt, is dat het individu
+vrijwillig verantwoordelijkheid op zich neemt: voor de eigen houding, de eigen
+kamer, de eigen kinderen, de eigen woorden. Die verantwoordelijkheid is
+volgens hem geen sociale afspraak maar geworteld in een orde die veel ouder is
+dan de mens, en de oude verhalen van de mensheid hebben die orde al opgeslagen
+voordat iemand haar kon uitleggen. Wie het lijden niet erkent, vervalt in
+wrok, en wrok is de bron van het kwaad.
+
+#### De gang van het boek
+
+**Van een lijstje op internet naar een boek**
+
+In de Overture beschrijft Peterson de aanleiding zonder omhaal. Hij
+beantwoordde vanaf 2012 vragen op de vraag-en-antwoordsite Quora, en zijn
+antwoord op de vraag wat iedereen zou moeten weten was een lijst van
+tweeënveertig regels. Dat antwoord kreeg volgens hem honderdtwintigduizend
+weergaven en drieëntwintighonderd stemmen. Een literair agent hoorde hem
+daarnaast op de Canadese radio kritiek leveren op geluk als levensdoel, en
+vroeg om een boek voor een breed publiek.
+
+De achtergrond is zijn eerste boek, *Maps of Meaning* uit 1999, waar hij van
+1985 af aan ongeveer drie uur per dag aan werkte. De stelling daaruit keert
+terug: mythen en religieuze verhalen zijn niet beschrijvend maar
+voorschrijvend. Ze gaan niet over wat de wereld is, maar over hoe een mens zou
+moeten handelen.
+
+**Orde en chaos als grondstof**
+
+De twaalf regels rusten allemaal op één tweedeling. Orde is verkend gebied:
+mensen om je heen gedragen zich voorspelbaar, de sociale structuur houdt.
+Chaos is wat opduikt als je grap doodvalt op een feest, als je je baan
+kwijtraakt, als een geliefde je verraadt. Peterson koppelt orde aan het
+mannelijke en chaos aan het vrouwelijke, en verwijst daarvoor naar het
+taoïstische teken van twee slangen kop aan staart, met in elke helft een stip
+van de andere kleur.
+
+Betekenis ligt volgens hem op de grens tussen die twee, en dat is beter dan
+geluk. Die zin doet het werk voor het hele boek: elke regel is een manier om
+op die grens te blijven staan. De ondertitel, een tegengif tegen chaos, geeft
+aan naar welke kant hij hier leunt.
+
+**Hiërarchie als natuurgegeven**
+
+Regel 1 opent met kreeften. Hun zenuwstelsel is eenvoudig en goed in kaart
+gebracht, schrijft Peterson, en ze vechten in vier opklimmende niveaus om
+territorium. Wie verliest, verliest ook zijn houding: de verhouding tussen
+serotonine en octopamine kantelt, de verliezer krimpt in elkaar en schrikt
+sneller. Een zwaar verslagen dominante kreeft laat zijn brein oplossen en
+kweekt een nieuw brein dat bij zijn lagere positie past. Prozac, merkt hij op,
+vrolijkt kreeften op.
+
+Daaromheen legt hij een reeks andere voorbeelden: winterkoninkjes die een
+concurrerend nestkastje volstoppen met takjes, de pikorde die de Noorse
+zoöloog Thorleif Schjelderup-Ebbe in 1921 bij kippen beschreef, en de scheve
+verdeling die de wet van Price en de verdeling van Pareto benoemen. Vier
+componisten leveren bijna al het gespeelde klassieke repertoire, vijfhonderd
+van de anderhalf miljoen jaarlijks verschijnende Amerikaanse titels verkopen
+meer dan honderdduizend exemplaren. Dominantiehiërarchieën zijn ouder dan
+bomen, luidt de conclusie, en de houding waarmee je erin staat, doet ertoe.
+
+**Zorg voor jezelf zoals voor een ander**
+
+De regels 2 tot en met 5 gaan over de nabije kring. Mensen geven het medicijn
+van hun hond trouwer dan hun eigen medicijn, is de observatie achter regel 2.
+Regel 3 vraagt om vrienden die je het goede gunnen, en beschrijft hoe lang
+Peterson zelf vasthield aan jeugdvrienden uit Fairview die geen kant op
+wilden. Regel 4 verplaatst de meetlat: vergelijk jezelf met wie je gisteren
+was, niet met wie een ander vandaag is.
+
+Regel 5 is de hardste. Ouders die hun kind alles toestaan, laten het opgroeien
+tot iemand die anderen zullen straffen namens hen. Peterson bepleit weinig
+regels, consequent gehandhaafd, met de laagst mogelijke straf die werkt.
+Achter dit blok schuilt zijn klinische praktijk: het boek staat vol met
+patiënten die hij verkort en geanonimiseerd opvoert.
+
+**Eerst je eigen huis**
+
+Regel 6 begint bij de schutters van Sandy Hook en Columbine, en citeert uit
+het dagboek van een van de Columbine-daders de zin dat de mensheid het niet
+waard is om voor te vechten. Peterson noemt dat een religieus probleem: wie de
+wereld beoordeelt en te licht bevindt, spreekt de rol van Mephistopheles uit
+*Faust*, de geest die ontkent en vindt dat alles wat ontstaat verdient te
+vergaan.
+
+Daartegenover zet hij Tolstoj, die na dezelfde redenering geen uitweg vond, en
+Solzjenitsyn, die in de kampen naar zijn eigen aandeel keek in plaats van naar
+het systeem. Wie zijn eigen leven niet op orde krijgt, heeft geen grond om de
+wereld aan te klagen. Dat is de scharnierregel van het boek en tegelijk de
+meest bekritiseerde, omdat hij ook maatschappelijke klachten kan afserveren.
+
+**Betekenis boven wat uitkomt**
+
+Regel 7 stelt het offer centraal. Peterson leest Genesis en het verhaal van
+Kaïn en Abel als de ontdekking dat je het heden kunt opgeven voor de toekomst,
+en dat het slecht afloopt met wie zijn offer verkeerd brengt en daar wrok uit
+haalt. De keuze is tussen wat betekenis heeft en wat op dat moment uitkomt.
+
+De regels 8 tot en met 10 werken dat uit in taal. Lieg niet, ook niet tegen
+jezelf, want een leven op leugens gebouwd stort in zodra het onder druk komt.
+Ga ervan uit dat je gesprekspartner iets weet wat jij niet weet, en luister
+zoals Carl Rogers het beschreef: vat samen wat de ander zei tot die het
+herkent. Wees precies in wat je zegt, want vage klachten laten problemen
+groeien tot ze niet meer te benoemen zijn.
+
+**Kwetsbaarheid, ziekte en dankbaarheid**
+
+Regel 11 begint bij skateboarders die langs de leuningen van Sidney Smith Hall
+in Toronto glijden, en bij de metalen blokjes die de universiteit later op de
+randen schroefde. Kinderen zoeken risico niet om zich te bezeren maar om
+bekwaam te worden, en overmatige bescherming maakt ze onbekwaam. Vanaf daar
+loopt het hoofdstuk uit op een lange polemiek tegen wat hij postmodernisme en
+identiteitspolitiek noemt.
+
+Regel 12 is het persoonlijkste deel. Zijn dochter Mikhaila bleek op jonge
+leeftijd zware polyarticulaire juveniele idiopathische artritis te hebben, met
+zevenendertig aangedane gewrichten. Peterson zet die geschiedenis naast Ivan
+Karamazov, die de wereld van God weigert te aanvaarden vanwege één gemarteld
+kind. Zijn antwoord is geen verklaring maar een gebaar: let op het kleine
+goede dat zich aandient, en aai de kat die je op straat tegenkomt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Orde | Verkend gebied waarin gedrag voorspelbaar is en handelingen het beoogde resultaat opleveren. |
+| Chaos | Het onverwachte dat door de gewone gang van zaken heen breekt, bron van zowel vernieuwing als ondergang. |
+| Being | Petersons term voor het bestaan zoals het van binnenuit wordt ervaren, met bewustzijn en lijden erin, tegenover de wereld als verzameling voorwerpen. |
+| Dominantiehiërarchie | De rangorde die volgens hem in vrijwel alle sociale diersoorten voorkomt en die de status van een individu aan zijn fysiologie koppelt. |
+| Serotonine en octopamine | Het stoffenpaar waarvan de verhouding bij kreeften samenhangt met houding en vechtlust, door Peterson gebruikt als beeld voor menselijk zelfvertrouwen. |
+| Wet van Price | De regelmaat dat een klein deel van de deelnemers vrijwel alle productie levert, in 1963 door Derek de Solla Price voor de wetenschap vastgesteld. |
+| Mephistofelische geest | De houding die het bestaan zelf veroordeelt en vernietiging verkiest, ontleend aan Goethes *Faust*. |
+| Offer | Het opgeven van iets waardevols nu ten gunste van iets waardevollers later, door Peterson gelezen als de kern van de oudste religieuze verhalen. |
+| Wrok | De reactie op onverdiend lijden die volgens hem, als ze wordt gekoesterd, uitloopt op de wens om te vernietigen. |
+
+#### Waar het argument op rust
+
+Het boek heeft eindnoten en verwijst naar echt onderzoek: het pikordewerk van
+Schjelderup-Ebbe uit 1921, het minimale-groepsonderzoek van Henri Tajfel,
+gegevens over kreeftenzenuwstelsels, de verdelingen van Pareto en Price. Op
+dat niveau is er iets na te lopen.
+
+De dragende laag is echter niet empirisch. Het meeste gewicht ligt bij
+literatuur en mythe: Dostojevski, Goethe, Solzjenitsyn, Genesis, het
+taoïstische teken. Peterson leest die teksten als vindplaatsen van kennis over
+handelen, en die lezing valt niet te toetsen, alleen te beoordelen op
+overtuigingskracht.
+
+Daarnaast leunt hij op zijn klinische praktijk. Die verhalen zijn
+geanonimiseerd en door hemzelf naverteld, met de uitkomst al bekend. Er staan
+geen effectmetingen in over de regels zelf: nergens wordt onderzocht of mensen
+die ze volgen er beter aan toe zijn.
+
+#### Wat er tegen in te brengen valt
+
+De kreeftenpassage is het bekendste zwakke punt en verdient een precieze
+formulering. Wat Peterson over kreeften vertelt is grotendeels juist
+beschreven, maar de sprong is het probleem. Kreeften en mensen staan honderden
+miljoenen jaren uit elkaar, en het serotoninesysteem van een geleedpotige doet
+niet hetzelfde als dat van een gewervelde. Uit de vaststelling dat rangordes
+oud zijn volgt bovendien niet dat een bepaalde menselijke rangorde deugt. Die
+stap van 'het is zo' naar 'zo hoort het' maakt het boek zonder hem te
+verantwoorden.
+
+De hoofdstukken zwerven. Een regel over rechtop staan eindigt bij
+inkomensverdeling, een regel over skateboarden bij universitair beleid en
+gendertheorie. Wie een bezwaar wil formuleren, kan de these vaak niet vinden,
+omdat het betoog associatief verspringt tussen mythe, biologie en
+cultuurkritiek. Bij de passages over postmodernisme en marxisme worden
+nauwelijks primaire bronnen aangehaald.
+
+Peterson kwam in 2016 in het nieuws door zijn weigering om mee te gaan met
+voorgeschreven voornaamwoorden en zijn verzet tegen Canadese wetgeving
+daarover. Hij noemt in de Overture zelf dat zijn kijkcijfers daardoor
+omhoogschoten. Het boek verscheen in die golf en wordt daardoor aan twee
+kanten verkeerd gelezen: als politiek pamflet door tegenstanders, als politiek
+programma door aanhangers, terwijl grote delen ervan gewoon klinische en
+religieuze beschouwing zijn. Dat de auteur die dubbelrol zelf voedde met zijn
+optredens, hoort bij de beoordeling.
+
+Het advies is bovendien eenzijdig gericht op wat het individu kan doen. Regel
+6 kan zo worden gelezen dat kritiek op instituties pas mag als je eigen leven
+vlekkeloos is, en dat is een maatstaf waar niemand aan voldoet. Over
+omstandigheden die je niet zelf kunt ordenen, staat weinig.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op waar je in het afgelopen jaar dichter bij bent gekomen, en
+gebruik dat als vergelijkingspunt in plaats van iemand anders.
+- Benoem één ergernis die zich dagelijks herhaalt en breng die ter sprake
+zolang hij nog klein is.
+- Vat in een lastig gesprek eerst samen wat de ander zei, tot die het herkent,
+voordat je antwoordt.
+- Kies bij het opvoeden een handvol regels die je altijd handhaaft, in plaats
+van veel regels die je soms handhaaft.
+- Ga na welke leugentjes je vertelt om een conflict te vermijden, en tel op
+wat ze samen aan het verzwijgen zijn.
+- Neem één taak in je omgeving die je al maanden ontloopt en maak die af
+voordat je aan een groter plan begint.
+
+#### Wat je hierna leest
+
+- 74. Beyond Order. Het vervolg, geschreven tijdens zijn eigen instorting, en
+met een tegengestelde beweging: daar is teveel orde het gevaar.
+- 75. Ego Is the Enemy. Holiday behandelt dezelfde neiging tot zelfverheffing,
+maar met historische portretten in plaats van mythe en biologie.
+
 ## 74. Beyond Order
 
 Jordan B. Peterson, 2021. Ondertitel *12 More Rules for Life* (Penguin Random
@@ -8122,6 +8877,223 @@ die periode beschrijft. Wie het eerste boek waardeerde, vindt hier hetzelfde
 mengsel van klinische ervaring en verhaaluitleg; wie de sprongen daar te groot
 vond, zal ook dit terzijde leggen.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Waar het eerste boek chaos wilde temmen, waarschuwt dit boek
+voor het omgekeerde: te veel orde. Een leven dat volledig geregeld is,
+verstart en houdt op zich aan te passen, en op maatschappelijke schaal loopt
+diezelfde neiging uit op ideologie en dwang. Peterson bepleit daarom dat
+iemand één voet in het bekende houdt en de andere in wat hij nog niet
+begrijpt, en hij bouwt twaalf regels rond die grenspositie. De inzet is niet
+vermijden van lijden maar de bereidheid om dankbaar te blijven terwijl het
+lijden er is.
+
+#### De gang van het boek
+
+**Een voorwoord dat de rest kleurt**
+
+De Overture opent met de zin dat hij op 5 februari 2020 wakker werd op een
+intensivecareafdeling in Moskou, vastgebonden aan het bed omdat hij in
+bewusteloze toestand de katheters had proberen te verwijderen. Wat daaraan
+voorafging beschrijft hij stap voor stap. Zijn dochter Mikhaila onderging in
+januari 2019 in Zürich een enkeloperatie. Zijn vrouw Tammy bleek in maart van
+dat jaar een zeldzame nierkwaadaardigheid te hebben met een sterftecijfer van
+bijna honderd procent binnen een jaar, gevolgd door een lymfelekkage van
+liters per dag die pas in Philadelphia tot stilstand kwam.
+
+Zijn eigen ineenstorting hangt aan een voorgeschreven kalmeringsmiddel. Begin
+2017 kreeg hij een benzodiazepine tegen extreme angst, kou en slapeloosheid na
+wat op een voedselreactie leek. Hij gebruikte het bijna drie jaar, liet de
+dosis in 2019 tweemaal verhogen en werd daar steeds angstiger van, wat later
+als een omgekeerde reactie op het middel werd geduid. Na twee ketaminesessies
+en abrupt stoppen volgde acute onthouding met akathisie, een niet te
+onderdrukken bewegingsdrang. Een Amerikaanse kliniek kreeg hem niet van het
+middel af. In Moskou werd hij negen dagen in een kunstmatig coma gehouden en
+beademd, en na het ontwaken moest hij opnieuw leren lopen, knopen dichtdoen en
+typen.
+
+**Waarom voorbij de orde**
+
+Peterson herhaalt de tweedeling uit het eerste boek en draait de nadruk om.
+Orde is het gebied waarin je handelingen opleveren wat je verwacht. Dat gebied
+is altijd onvolledig, deels door onwetendheid, deels door onwil om te kijken,
+deels omdat de wereld doorschuift. Wie het toch dicht wil timmeren, komt uit
+bij totalitaire dwang.
+
+Geen van beide toestanden verdient volgens hem de voorkeur. Het eerste boek
+behandelde het herstel na te veel chaos, dit boek de gevaren van te veel
+veiligheid en beheersing. De twaalf regels komen opnieuw uit dezelfde lijst
+van tweeënveertig die hij ooit op Quora publiceerde.
+
+**Instellingen en de mensen die ze opschudden**
+
+Regel I verdedigt sociale instellingen en creatieve prestaties tegelijk.
+Geestelijke gezondheid is volgens Peterson deels een sociale zaak: andere
+mensen houden je waarneming en gedrag binnen de bandbreedte, en wie helemaal
+alleen komt te staan raakt verward. Tegelijk verkalken instellingen zonder
+mensen die ze vernieuwen, en daarvoor voert hij de nar op, de figuur die de
+koning ongestraft mag tegenspreken.
+
+Regel II werkt uit hoe iemand wordt wie hij zou kunnen zijn. Peterson
+analyseert een eeuwenoude alchemistische afbeelding en gebruikt de term
+materia prima, de vormeloze grondstof waaruit iets gemaakt moet worden. De weg
+loopt via het beeld van de held die de draak opzoekt, sterft en herrijst, wat
+hij leest als de beschrijving van hoe een persoonlijkheid zich hervormt door
+vrijwillig het bedreigende op te zoeken.
+
+**De mist**
+
+Regel III is de meest praktische en berust op twee verhalen. Zijn schoonvader
+Dell Roberts snauwde na twintig jaar tegen zijn vrouw dat hij die kleine
+bordjes haatte waarop ze zijn lunch serveerde, en zij had geen idee dat het
+hem stoorde. De les die Peterson eruit haalt: wat zich dagelijks herhaalt is
+niet klein, en honderd of duizend van zulke onbesproken ergernissen leggen een
+huwelijk om.
+
+Het tweede verhaal gaat over een cliënte, een accountant, die pas na maanden
+gesprekken ter sprake bracht wat haar werkelijk ongelukkig maakte, omdat elk
+afzonderlijk voorval het niet waard leek om ruzie over te maken. De mist is
+het geheel van wat je weigert scherp te stellen. Zolang het vaag blijft, kun
+je het niet oplossen en groeit het door.
+
+**Verantwoordelijkheid en geweten**
+
+Regel IV zoekt gelegenheid daar waar niemand verantwoordelijkheid neemt. De
+redenering loopt via het Egyptische verhaal van Osiris en Horus: een zoon moet
+zijn verminkte vader uit de onderwereld halen, wat Peterson leest als de
+opdracht om de traditie niet af te wijzen maar te herstellen. Geluk komt en
+gaat, schrijft hij, betekenis komt uit vrijwillig aanvaarde last.
+
+Regel V draait om één casus. Een cliënte van hem raakte verzeild in een
+langdurig kantoorconflict over de vraag of het Engelse woord voor flip-over
+kwetsend was, met vergaderingen, een verplicht vervangwoord en een wedstrijdje
+om nog meer verdachte woorden te vinden. Peterson gebruikt dat om de vraag te
+stellen wanneer je ophoudt mee te doen aan iets waar je niet achter staat. Doe
+niet wat je haat, want elke keer dat je toch meedoet ondermijn je je eigen
+oordeel.
+
+**Tegen ideologie**
+
+Regel VI is de meest polemische. Ideologie noemt hij het herleiden van
+uiteenlopende maatschappelijke problemen tot één oorzaak: sekse, klasse,
+macht. Dat levert de bevrediging van een sluitende verklaring en een
+gerechtvaardigde vijand, en vraagt geen enkel offer van de gelovige zelf. Het
+is volgens hem het aanbidden van een afgod, en het gaat vergezeld van wrok die
+zich als moreel gelijk voordoet.
+
+In hetzelfde hoofdstuk verantwoordt hij zijn eigen publieke rol. Hij noemt de
+tournee langs honderdzestig theaters, de miljoenen verkochte exemplaren van
+zijn vorige boek, en de man in een Amerikaanse stad die hem na een lezing
+vertelde dat hij twee jaar eerder uit de gevangenis kwam en nu werk, een
+woning en een dochter had. Wat mensen volgens hem bij hem halen, zijn woorden
+voor iets dat ze al aanvoelden.
+
+**Schoonheid, geheugen en de moeite van een relatie**
+
+Regel VIII gaat verder waar het bekendste advies uit het vorige boek ophield.
+Je kamer opruimen is niet genoeg, er moet ook iets moois komen. Peterson geeft
+toe dat zijn eigen werkkamer al drie jaar een rommel is en dat er een
+spotbeeld van rondgaat op internet, en noemt dat een terechte opmerking. Eén
+ruimte werkelijk mooi maken opent volgens hem een verhouding tot schoonheid
+die zich daarna uitbreidt.
+
+Regel IX bepleit oude nare herinneringen zorgvuldig en volledig op te
+schrijven, omdat gebeurtenissen die nog pijn doen kennelijk niet af zijn en
+zich anders herhalen. Regel X behandelt romantiek als iets dat onderhandeld en
+ingeroosterd moet worden: zonder afgesproken tijd en uitgesproken
+verwachtingen glijdt een relatie af naar tirannie of onderwerping. Regel XII
+sluit af met dankbaarheid als vorm van moed, waarbij liefde boven moed wordt
+gesteld.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Voorbij de orde | De positie waarin iemand het bekende vasthoudt en tegelijk zijn aandacht richt op wat hij nog niet begrijpt. |
+| Mist | Het geheel van kwesties dat iemand weigert scherp te benoemen, waardoor ze onopgelost blijven doorwoekeren. |
+| Materia prima | De alchemistische term voor de vormeloze grondstof, door Peterson gebruikt voor het onaffe zelf waaruit een persoon gemaakt moet worden. |
+| Pathologische orde | Regels en gebruiken die zo ver zijn doorgevoerd dat ze aanpassing verhinderen en dwang worden. |
+| Ideologie | Een verklaring die alle maatschappelijke problemen op één oorzaak terugvoert en de gelovige zelf buiten schot laat. |
+| Wrok | Verongelijktheid die zich als moreel gelijk voordoet en zich richt tegen wie het beter heeft getroffen, bij Peterson de motor achter ideologisch denken. |
+| Akathisie | De stoornis van niet te onderdrukken bewegingsdrang die Peterson tijdens zijn onthoudingsperiode beschrijft. |
+| Geestelijke gezondheid als sociale instelling | Het idee dat andere mensen iemands waarneming en gedrag corrigeren, zodat isolement zelf ontregelend werkt. |
+| De nar | De figuur die de heerser ongestraft mag tegenspreken en daarmee de vernieuwing van een instelling mogelijk maakt. |
+
+#### Waar het argument op rust
+
+Het sterkste materiaal is getuigenis. Peterson beschrijft in het voorwoord
+zijn eigen ziekte, de operaties van zijn vrouw en dochter, de kliniek en het
+coma in Moskou, en zegt dat hij tijdens het redigeren alleen die zinnen liet
+staan die ook onder extreme omstandigheden overeind bleven. Als toets is dat
+serieus, maar het is een verslag van één persoon over zichzelf, zonder
+onafhankelijke stukken erbij.
+
+De rest komt uit dezelfde bronnen als het vorige boek: klinische casussen,
+mythe en religieuze verhalen, alchemistische afbeeldingen, literatuur. Er zit
+een notenapparaat achterin, maar het aantal toetsbare empirische beweringen is
+kleiner dan in *12 Rules for Life*. Dat is winst en verlies tegelijk: minder
+aanvechtbaar, ook minder verifieerbaar.
+
+Waar hij psychologisch onderzoek aanhaalt, gaat het meestal om vakgebieden die
+hij zelf bedreef, zoals persoonlijkheidsdimensies. Bij de maatschappelijke
+hoofdstukken ontbreekt dat en blijft één anekdote de last dragen.
+
+#### Wat er tegen in te brengen valt
+
+Regel VI vraagt de lezer ideologie op te geven, maar het boek zelf rust op een
+uitgesproken wereldbeeld: orde tegenover chaos, het mannelijke tegenover het
+vrouwelijke, joods-christelijke verhalen als bodem onder de westerse moraal.
+Dat kader wordt nergens ter discussie gesteld en de regel wordt niet op het
+boek zelf toegepast. Wie de tweedeling niet aanvaardt, heeft aan de rest
+weinig houvast.
+
+Het hoofdstuk over niet doen wat je haat draagt zwaar op één kantoorconflict
+over één woord. Uit die anekdote wordt een uitspraak over de richting van de
+cultuur afgeleid, en de lezer krijgt geen andere gevallen om die stap mee te
+wegen. Hetzelfde geldt voor de behandeling van universiteiten en media.
+
+Het ziekteverslag roept vragen op die het boek niet stelt. De diagnose dat het
+om een omgekeerde reactie op de benzodiazepine ging, is de duiding achteraf
+van de auteur en zijn omgeving; de gekozen behandeling, een kunstmatig coma in
+Moskou om de onthouding te overbruggen, geldt in Noord-Amerika niet voor niets
+als te riskant. Dat een auteur zulke adviezen opschreef terwijl hij in die
+toestand verkeerde, hoeft ze niet ongeldig te maken, maar het maakt de toon
+van zekerheid moeilijker te verdragen.
+
+Zijn publieke optreden werkt door in de tekst. Delen van Regel VI antwoorden
+zichtbaar aan critici in plaats van aan lezers, en de verwijzingen naar
+tournees, kijkcijfers en oplagecijfers dienen deels als weerlegging van de
+aantijging dat hij niet serieus te nemen valt. Voor wie dat debat niet volgde,
+is dat dode ruimte.
+
+Regel X geeft nogal stellige voorschriften over hoe een relatie hoort te
+lopen, met wekelijkse afspraken en volledige openheid, zonder enige
+onderbouwing uit relatieonderzoek. De rolverdeling die eronder ligt blijft
+impliciet en daarmee onbesproken.
+
+#### Wat er concreet mee te doen is
+
+- Noteer een week lang wat zich dagelijks herhaalt en waarover je nooit iets
+zegt, en kies er één uit om ter sprake te brengen.
+- Schrijf een oude herinnering die nog pijn doet volledig uit, inclusief wat
+je toen dacht en wat je nu weet.
+- Maak één ruimte in huis af tot je haar mooi vindt, in plaats van het hele
+huis half.
+- Zet een vaste tijd per week in de agenda voor je partner en spreek uit wat
+je van die tijd verwacht.
+- Ga na welk werk je doet terwijl je het verwerpt, en bepaal waar je grens
+ligt voordat je die weer overschrijdt.
+- Zoek bij een verklaring die alles op één oorzaak terugvoert eerst het geval
+dat er niet in past.
+
+#### Wat je hierna leest
+
+- 73. 12 Rules for Life. Het eerste deel, met dezelfde tweedeling maar gericht
+op het beheersen van chaos in plaats van orde.
+- 75. Ego Is the Enemy. Ook een boek over houding bij tegenslag en succes,
+maar met historische gevallen in plaats van mythe en zonder religieuze
+onderbouw.
+
 ## 75. Ego Is the Enemy
 
 Ryan Holiday, 2016. Penguin Portfolio. Nederlands als *Ego is de vijand* bij
@@ -8142,6 +9114,215 @@ portretten, van generaals tot ondernemers, telkens met een les. Dat leest snel
 en is selectief, want de gekozen voorbeelden bevestigen het punt altijd. Als
 bezwaar tegen de aandacht die het vak van de schrijver zelf verhandelt, is het
 boek ook een zelfportret.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Holiday stelt dat de grootste bedreiging voor wie iets wil
+bereiken niet buiten hem ligt maar binnenin: een ongezond geloof in het eigen
+belang, dat hij ego noemt. Dat ego werkt in alle drie de fasen van een
+loopbaan tegen: het laat de beginner praten in plaats van leren, het maakt de
+geslaagde doof voor correctie, en het verergert elke mislukking door de schuld
+buiten zichzelf te zoeken. Zijn tegengif is stoïcijns van herkomst: nuchter
+zien wat er is, eigen maatstaven aanhouden en het werk boven de erkenning
+stellen.
+
+#### De gang van het boek
+
+**Waarom hij dit boek schreef**
+
+Het boek opent met een hoofdstuk dat hij het pijnlijke voorwoord noemt.
+Holiday stopte op zijn negentiende met zijn studie, werd de jongste
+leidinggevende bij een talentenbureau in Beverly Hills, marketingdirecteur bij
+kledingmerk American Apparel, en publiceerde op zijn vijfentwintigste *Trust
+Me, I'm Lying*, een omstreden bestseller over mediamanipulatie met zijn eigen
+gezicht op de omslag.
+
+Daarna vertelt hij dezelfde jaren opnieuw, met wat hij de eerste keer wegliet:
+de openbare afbranding door iemand die hij bewonderde en waarna hij op de
+spoedeisende hulp belandde, de bestsellerpositie die één week duurde, de
+signeersessie waar één persoon kwam. In 2014 ging American Apparel bijna
+failliet, werd de oprichter door zijn eigen raad van bestuur ontslagen, en
+kreeg Holiday een paniekaanval omdat de wifi niet werkte. Hij noemt zichzelf
+een werkverslaafde en beschrijft dat zijn aanstaande vrouw de deur uit liep.
+Sindsdien staat op zijn onderarm de titel van dit boek getatoeëerd.
+
+**Wat hij met ego bedoelt**
+
+De inleiding legt de definitie vast. Niet het ego van Freud, niet de klinische
+term egotist, maar de alledaagse betekenis: een ongezond geloof in het eigen
+belang, arrogantie, zelfgerichte eerzucht. Het is het gevoel van superioriteit
+dat verder gaat dan wat het talent rechtvaardigt.
+
+Hij citeert de footballtrainer Bill Walsh, bij wie zelfvertrouwen omslaat in
+arrogantie en zelfverzekerdheid in roekeloosheid, en de bestuurder Harold
+Geneen, die egoïsme met alcoholisme vergelijkt: de egoïst stoot niets om en
+lalt niet, hij wordt alleen steeds hooghartiger, en buitenstaanders zien dat
+aan voor kracht. Een vroeg lid van de Anonieme Alcoholisten omschreef ego als
+een bewuste afscheiding van, en die afscheiding is volgens Holiday precies wat
+samenwerken, leren en waarnemen onmogelijk maakt.
+
+**Streven: praten in plaats van doen**
+
+Het eerste deel gaat over wie nog niets heeft bereikt. Praten voelt aan als
+werken en levert alvast de bevrediging op waar het werk pas veel later voor
+zorgt, dus het eerste advies is zwijgen. Het scharnierstuk is het portret van
+John Boyd, gevechtspiloot en later denker op het Pentagon, bijgenaamd
+Forty-Second Boyd omdat hij elke tegenstander binnen veertig seconden uit elke
+positie kon verslaan. Hij publiceerde geen boeken, kwam nooit boven de rang
+van kolonel uit en had waarschijnlijk meer vijanden dan vrienden, maar zijn
+denken zit in de F-15 en de F-16 en in bijna elke militaire strateeg van zijn
+generatie.
+
+De toespraak die Boyd vanaf 1973 aan veelbelovende jonge officieren hield,
+vormt de kern van het hoofdstuk: op de splitsing kun je iemand zijn of iets
+doen, en wie het eerste kiest krijgt de bevorderingen en de goede opdrachten
+en betaalt daarvoor met compromissen. Daarnaast staat het beeld van de
+anteambulo, in Rome degene die voor zijn beschermheer uit liep om de weg vrij
+te maken. De dichter Martialis vervulde die rol jarenlang en haatte het,
+terwijl juist zijn buitenpositie hem het zicht gaf waar zijn werk het van moet
+hebben. Het advies is het doek van een ander vol te schilderen zolang je nog
+niets van jezelf hebt.
+
+**Succes: het verhaal dat je jezelf vertelt**
+
+Het tweede deel gaat over wie iets heeft bereikt. Het gevaar is dan de
+verleiding om achteraf een plan te zien waar toeval en werk zaten. Bill Walsh
+nam in 1979 de 49ers over, een ploeg die het voorgaande seizoen twee keer had
+gewonnen en veertien keer verloren. Hij verloor zijn eerste seizoen opnieuw
+veertien wedstrijden en overwoog halverwege het tweede op te stappen. Drie
+jaar na zijn aantreden won hij de Super Bowl, en toen mensen vroegen naar zijn
+tijdschema antwoordde hij altijd dat hij er geen had gehad.
+
+In plaats van een doel voerde Walsh zijn Standard of Performance in: spelers
+mochten niet op het trainingsveld zitten, coaches droegen een das, de
+kleedkamer moest schoon zijn, passes werden tot op de centimeter beoordeeld,
+trainingen tot op de minuut ingeroosterd. Als de details kloppen, zorgt de
+uitslag voor zichzelf. Daarnaast beschrijft Holiday wat trainer Pat Riley de
+ziekte van het ik noemt: teams beginnen onschuldig, en zodra het winnen en de
+aandacht komen, gaan spelers hun eigen aandeel berekenen. George Marshall
+staat er als tegenvoorbeeld, de generaal die naast Patton en MacArthur meer
+bereikte en minder zichtbaar was.
+
+**Falen: levende tijd of dode tijd**
+
+Het derde deel is het hardste. Holiday ontleent aan Robert Greene het
+onderscheid tussen dode tijd, waarin iemand passief wacht, en levende tijd,
+waarin hij leert en handelt. Malcolm X kreeg in 1946 tien jaar cel voor
+inbraak en heling. In de gevangenis leerde hij zichzelf lezen door het
+woordenboek van voor naar achter over te schrijven, en op de vraag naar zijn
+opleiding antwoordde hij later met één woord: boeken.
+
+Het hoofdstuk over grenzen trekken zet twee reacties op mislukking naast
+elkaar. John DeLorean reed zijn autobedrijf in de grond en probeerde het
+daarna te redden met een cocaïnetransactie van honderd kilo, waarvoor hij werd
+gearresteerd en na een beroep op uitlokking werd vrijgesproken, terwijl er
+beelden bestaan waarop hij een zakje omhooghoudt. Steve Jobs, schrijft
+Holiday, was volledig verantwoordelijk voor zijn ontslag bij Apple en had als
+bestuurder terecht ontslagen moeten worden, maar begon daarna twee bedrijven
+en leerde van de fout. Het slot van het boek gaat over de eigen scorekaart:
+het bestuur van de New England Patriots was ontevreden over zichzelf toen Tom
+Brady in 2000 pas in de zesde ronde als 199e werd gekozen, omdat het feit dat
+het goed uitpakte niet wegneemt dat hun beoordeling niet had gedeugd.
+
+**Vorm en bron**
+
+De hoofdstukken zijn kort, meestal vijf tot acht bladzijden, en volgen steeds
+hetzelfde patroon: een citaat vooraf, een historisch portret, de les die eruit
+volgt, en een korte passage die de lezer aanspreekt. Elk van de drie delen
+sluit af met een hoofdstuk dat de zin uit de titel herhaalt.
+
+Holiday schrijft in het voorwoord dat het boek leunt op de stoïcijnse
+wijsbegeerte en op de klassieke denkers, en dat wat er nuttig aan is aan hen
+toekomt en niet aan hem. Achterin staan een leeslijst en een verantwoording
+van de gebruikte literatuur. De doelstelling die hij zelf formuleert, is dat
+de lezer na afloop minder van zichzelf denkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ego | Een ongezond geloof in het eigen belang, dat de verhouding tot de wereld vertekent en correctie onmogelijk maakt. |
+| Zijn of doen | De keuze van John Boyd tussen een positie verwerven met de bijbehorende compromissen en werk afleveren dat blijft. |
+| Anteambulo | De Romein die voor zijn beschermheer uit liep om de weg vrij te maken, bij Holiday het beeld voor dienstbaar beginnen. |
+| Doekstrategie | Anderen beter laten uitkomen zolang je zelf nog geen positie hebt, in de wetenschap dat het werk dat oplevert je eigen scholing is. |
+| Standard of Performance | Bill Walsh' verzameling voorschriften over gedrag en uitvoering, ingevoerd zonder tijdpad voor het winnen zelf. |
+| Ziekte van het ik | Pat Riley's term voor het uiteenvallen van een team zodra winst en aandacht de leden hun eigen aandeel doen berekenen. |
+| Levende en dode tijd | Robert Greene's onderscheid tussen periodes waarin iemand passief afwacht en periodes waarin hij ze benut om te leren. |
+| Eigen scorekaart | De maatstaf die iemand voor zichzelf aanhoudt, los van uitslagen en oordelen van buiten. |
+| Het verhaal | De achteraf gladgestreken vertelling waarin toeval en geluk wegvallen en de afloop het plan lijkt te zijn geweest. |
+
+#### Waar het argument op rust
+
+Het boek berust vrijwel geheel op geschiedschrijving en biografie. Holiday
+zegt dat zelf: op het voorwoord na houdt hij zijn eigen leven erbuiten en
+werkt hij met wijsbegeerte en historische voorbeelden. Achterin staat een
+verantwoorde leeslijst, zodat de gevallen na te lopen zijn.
+
+Onderzoek in de zin van gecontroleerde studies komt er niet aan te pas. Er
+zijn geen gegevens over hoe vaak zelfoverschatting mensen de das omdoet, geen
+vergelijking tussen bescheiden en hoogmoedige bestuurders, geen effectmeting
+van de voorgestelde houding. De redenering is illustratief van begin tot eind.
+
+De portretten zelf zijn beknopt en gaan meestal terug op secundaire bronnen:
+biografieën, memoires, interviews. Waar iemand als Walsh zijn eigen
+herinneringen te boek stelde, is de bron de betrokkene, met alle nabewerking
+die het boek elders juist als valkuil aanwijst.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar gaat over de bewijskeuze. De voorbeelden zijn gezocht bij
+de stelling, niet omgekeerd. Bescheiden mensen die desondanks faalden komen
+niet voor, en hoogmoedige mensen die desondanks slaagden worden weggewuifd.
+Holiday noemt Steve Jobs en Kanye West zelf als tegenwerping en antwoordt dat
+niemand werkelijk slaagt doordat hij zelfingenomen is. Dat is een
+herformulering van de stelling, geen weerlegging van de tegenwerping.
+
+Het begrip ego is zo ruim opgezet dat het bijna alles dekt: arrogantie,
+ongeduld, aanspraak, achterdocht, zelfmedelijden, achteraf verhalen vertellen.
+Wat er ook misgaat, het is er onder te brengen, en juist daardoor valt er geen
+geval te bedenken dat de these onderuithaalt. Een verklaring die niet kan
+worden weerlegd, verklaart weinig.
+
+De schrijver bekleedt een lastige positie en het voorwoord lost die niet op.
+Holiday verdiende zijn naam met een boek over het manipuleren van de media en
+met marketingwerk waarin aandacht juist het doel was; hier verkoopt hij
+ingetogenheid, met zijn eigen loopbaan als toonbeeld en zijn tatoeage als
+afsluiting van het hoofdstuk. Dat is precies het soort persoonlijk merk
+waartegen hij verderop waarschuwt.
+
+De geschiedenis wordt strak gesneden. Dat Malcolm X zichzelf in de gevangenis
+vormde is juist, maar het hoofdstuk zwijgt over wat er daarna gebeurde en over
+de vraag of het voorbeeld zich laat overzetten op een lezer met een
+tegenvallend kwartaal. Vergelijkbare compressie treft Marshall, DeLorean en
+Brady, en wie de zaken beter kent, ziet de weggelaten helft.
+
+Als geheel is het boek herhalend. Drie delen, dezelfde slotzin, dezelfde
+opbouw per hoofdstuk, en dezelfde stoïcijnse bron als zijn eerdere en latere
+titels. Wie er één van heeft gelezen, komt in de volgende weinig nieuws tegen
+behalve andere namen.
+
+#### Wat er concreet mee te doen is
+
+- Houd een plan voor je tot je iets hebt dat je kunt laten zien, en let op
+hoeveel voldoening het praten alleen al oplevert.
+- Stel bij een aanbod de vraag van Boyd: kies ik hier voor een positie of voor
+werk dat ik wil afleveren.
+- Formuleer een handvol normen voor de uitvoering van je werk en handhaaf die,
+in plaats van een doel met een datum eraan.
+- Schrijf op hoe je je eigen succes vertelt en streep alles weg wat geluk of
+hulp van anderen was.
+- Beoordeel na een goede afloop ook de beslissing zelf: had je gelijk om de
+redenen die je dacht.
+- Bepaal bij tegenslag welke stap je nog kunt zetten die je later niet hoeft
+uit te leggen, en houd op met de rest.
+
+#### Wat je hierna leest
+
+- 73. 12 Rules for Life. Ook gericht op houding en verantwoordelijkheid van
+het individu, maar met mythe en biologie als onderbouw in plaats van
+geschiedenis.
+- 74. Beyond Order. Petersons vervolg behandelt wrok, bedrog en hoogmoed als
+drie samenhangende gevaren, wat dicht bij Holiday's onderwerp ligt.
 
 ## 76. Think and Grow Rich
 
@@ -9208,6 +10389,214 @@ wat aanhoudende toewijding kost en een over de keren dat het bij hem misging.
 Onderbouwing met onderzoek ontbreekt; wat er staat is de werkwijze van iemand
 die in een harde opleidingsomgeving heeft gezien wat mensen staande houdt.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Klaassens stelt dat eigenaarschap de eigenschap is die het
+verschil maakt tussen wie zijn situatie verbetert en wie erover klaagt, en dat
+het geen aanleg is maar getraind gedrag. Zijn kern is dat karakter blijkt uit
+wat iemand dagelijks doet en niet uit wat hij zich voorneemt: de situatie is
+een gegeven, de omgang ermee is een keuze. Het boek werkt dat uit in vijftien
+benoemde bouwstenen en twee voorwaarden, urgentie en belangrijkheid, ontleend
+aan zijn jaren bij het Korps Commandotroepen en aan zijn latere werk als
+ondernemer en spreker. De keerzijde krijgt een eigen deel: dezelfde houding
+die resultaat oplevert, sloopt mensen als er geen herstel tegenover staat.
+
+#### De gang van het boek
+
+**De container open**
+
+Klaassens begint bij zijn ergernis over eigenaarschap als modewoord in
+strategiestukken en functioneringsgesprekken. Hij vergelijkt het begrip met de
+zeecontainer die op missie meegaat: die is gevuld met materiaal dat allemaal
+nodig is, en je laat niets achter omdat het je beter uitkomt. Zo verhoudt hij
+zich ook tot zijn bouwstenen; hij stelt dat ze samen werken en dat het geheel
+moet kloppen.
+
+Zijn omschrijving is de bereidheid volledige verantwoordelijkheid te nemen
+voor een taak, doel of situatie, ook als het spannend is, ook als het formeel
+niet jouw werk is en ook als niemand kijkt. Daarnaast zet hij eigenaarschap
+gelijk aan persoonlijk leiderschap, waardoor het boek zowel over leidinggeven
+als over zelfsturing gaat. Het pad verloopt bij hem in drie fasen: basis,
+versterking en levensstijl.
+
+**Team, taak, ik**
+
+Het model waarmee hij leiderschap terugbrengt tot drie punten is de
+leiderschapsdriehoek: het team, de taak en jijzelf. Onder druk gaat het
+schuren op een van de assen, en de vraag is welke as je laat knappen.
+
+De uitwerking gebruikt een oefening bij de Genie in 1996, waarin hij als jonge
+officier met vijfendertig man in kou, duisternis en met gasmaskers op een
+baileybrug moest bouwen, panelen van 260 kilo met de hand, om dertig
+vrachtwagens over een rivier te krijgen. Per as laat hij twee uitkomsten zien:
+die van de weg van de minste weerstand en die van eigenaarschap. In de eerste
+versie slikt zijn groepscommandant zijn bezwaar in, in de tweede zegt hij wat
+er speelt en krijgt hij extra mankracht. Het is de best uitgewerkte passage
+van het boek.
+
+**Eyes On Target**
+
+De term uit speciale operaties betekent zicht hebben op het doelwit en de
+gegarandeerde toestand ervan doorgeven, zodat een ander team kan optreden.
+Klaassens gebruikt hem als beeld voor doelgerichtheid: het tijdstip stond
+vast, en de hele keten erachter stemde daarop af.
+
+Het voorbeeld is de eindoefening van de elementaire commando-opleiding in
+januari 2002, waarbij hij met drie anderen op vijfentwintig kilometer van het
+doel werd afgezet en in tweeënhalve dag ongezien ter plaatse moest komen, met
+vijftig kilo bepakking, door sloten om het geurspoor te breken, twee uur slaap
+per nacht, en met een gescheurde enkelband halverwege.
+
+**De basis: bouwsteen 1 tot en met 5**
+
+De eerste fase bestaat uit betrouwbaarheid, verantwoordelijkheid, focus,
+toewijding en eerlijkheid. Elk hoofdstuk opent met een voorval en eindigt met
+de vertaling naar gewoon werk. Betrouwbaarheid vat hij samen in de vraag wie
+mensen bellen als er iets misgaat, en of jij die persoon bent.
+
+De inzet van deze fase is voorspelbaar worden voor anderen. Toewijding maakt
+hij concreet aan iets kleins: bij Defensie is op tijd komen de norm, en wie
+dat niet haalt, heeft zijn zaken elders ook niet op orde. Eerlijkheid werkt
+hij uit aan een opdracht voor een schoolbestuur in 2024 waarin hij moest
+zeggen wat men liever niet hoorde.
+
+**Versterking en levensstijl: bouwsteen 6 tot en met 15**
+
+De tweede fase gaat over zichtbaar worden: initiatief, doorzettingsvermogen,
+aanpassingsvermogen, daadkracht en congruentie. Aanpassingsvermogen noemt hij
+de eigenschap waar het bij commando's werkelijk op aankomt, omdat plannen
+zelden overeind blijven. Congruentie is de eis dat gedrag en woorden
+samenvallen, ook als niemand meekijkt.
+
+De derde fase behandelt sfeerkracht, cohesie, authenticiteit, naastenliefde en
+zelfbewustzijn. Hier verschuift het van presteren naar het effect dat iemand
+op anderen heeft. Sfeerkracht is de invloed die je op de stemming van een
+groep uitoefent onder slechte omstandigheden; cohesie het onderlinge verband
+dat maakt dat een team overeind blijft. Zijn beeld daarvoor is de vuurtoren:
+stevig verankerd, zichtbaar en bruikbaar voor anderen om op te varen.
+
+**De prijs van toewijding**
+
+Het vijfde deel is het meest opvallende van het boek, omdat het de eigen leer
+tegenspreekt. Klaassens beschrijft wat doorgaan zonder herstel kost:
+lichamelijke klachten, uitputting, relatieschade, en in het uiterste geval
+posttraumatische stress. Hij haalt de vrouw van een oud-militair aan die
+vertelde dat haar man na Afghanistan lichamelijk thuiskwam en verder afwezig
+bleef, altijd waakzaam.
+
+Hij verwijst hier naar het enige onderzoek in het boek, een meting van TNO en
+het CBS waaruit blijkt dat ongeveer een op de vijf werkenden in Nederland met
+burn-outklachten kampt, en naar Kahneman zijn beschrijving van escalatie van
+betrokkenheid: wie ergens veel in heeft gestoken, blijft doorgaan omdat
+stoppen als verlies voelt. Daarnaast staan hoofdstukken over eigen falen,
+waaronder zijn deelname aan *Wie is de Mol?* in 2024, waar hij onvoorbereid
+instapte en in de tunnelvisie liep waarvoor hij anderen waarschuwt.
+
+**Doen wat nodig is**
+
+Het slotdeel keert terug naar de vraag die hij na lezingen krijgt, of hij nog
+een tip heeft. Zijn antwoord blijft dat er niets verandert zolang je vindt dat
+een ander het anders moet doen. De spiegel is het beeld: wat je ziet is de
+uitkomst van je keuzes, en de vraag is hoe je er over twintig jaar bij wilt
+staan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Eigenaarschap | De bereidheid volledige verantwoordelijkheid te nemen voor een taak, doel of situatie, ook buiten je formele rol en ook als niemand kijkt. |
+| De weg van de minste weerstand | Het alternatief voor eigenaarschap: doen wat op dat moment het makkelijkst is, met de rekening later. |
+| Leiderschapsdriehoek | Model dat leiderschap terugbrengt tot team, taak en ik, waarbij druk altijd op een van de drie assen zichtbaar wordt. |
+| Eyes On Target | Term uit speciale operaties voor het bevestigde zicht op het doelwit, door Klaassens gebruikt als beeld voor doelgerichtheid en tijdige levering. |
+| Bouwsteen | Een van de vijftien benoemde eigenschappen waaruit eigenaarschap volgens hem is opgebouwd, verdeeld over basis, versterking en levensstijl. |
+| Urgentie en belangrijkheid | De twee voorwaarden zonder welke geen van de bouwstenen in beweging komt; belangrijkheid zonder urgentie levert uitstel op, urgentie zonder belangrijkheid paniek. |
+| Sfeerkracht | Het vermogen de stemming van een groep te bepalen onder slechte omstandigheden, door hem als bouwsteen elf behandeld. |
+| Congruentie | Het samenvallen van wat je zegt en wat je doet, ook wanneer er niemand meekijkt. |
+| De knop omzetten | Uitdrukking uit de commando-opleiding voor het moment waarop iemand van afwachten overgaat op handelen. |
+| Escalatie van betrokkenheid | Van Kahneman geleende term voor de val waarin mensen doorgaan met iets omdat ze er al veel in hebben gestoken. |
+
+#### Waar het argument op rust
+
+Het boek staat op ervaring en niet op onderzoek. Klaassens diende bij de
+Genie, de Luchtmobiele Brigade en het Korps Commandotroepen, werkte daarna bij
+de AIVD en begon in 2014 Triangular Group. Hij werd bekend als instructeur in
+*Kamp van Koningsbrugge*. Wat hij beschrijft, heeft hij gedaan, en de
+voorvallen zijn concreet genoeg om te controleren op innerlijke samenhang:
+jaartallen, plaatsen, eenheden en namen staan erbij.
+
+Naast eigen ervaring gebruikt hij portretten van anderen, onder wie Marlin van
+Hal, die van de atletiekbaan via een fitnessketen bij zijn bedrijf terechtkwam
+en er later algemeen directeur werd. Zulke portretten zijn geselecteerd op
+uitkomst: het zijn mensen bij wie het werkte. Wie dezelfde houding aannam en
+het niet redde, komt niet aan het woord.
+
+Er staat één cijfer uit onderzoek in, de meting van TNO en het CBS over
+burn-outklachten, en de bronvermelding daarbij is onnauwkeurig: het jaartal in
+de verwijzing spoort niet met het jaar van de meting waarnaar de tekst
+verwijst. Verder is er geen literatuurlijst en geen notenapparaat. De vijftien
+bouwstenen zijn geen uitkomst van onderzoek maar een persoonlijke keuze, wat
+hij zelf ook zegt: het is bedoeld ter inspiratie en niet als handleiding voor
+iedereen.
+
+Het boek is opgetekend door Wendy Kwaks. Dat is aan de tekst te merken: de
+hoofdstukken zijn kort en volgen alle hetzelfde stramien van voorval, uitleg,
+vertaling.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar zit in de overdracht. De militaire voorbeelden werken
+doordat de opdracht helder is, het doel vaststaat, de eenheid getraind is en
+het belang buiten kijf staat. Precies die voorwaarden ontbreken in de meeste
+organisaties, waar onduidelijk is wat het doel is en wie erover gaat.
+Klaassens benoemt urgentie en belangrijkheid als voorwaarden, maar hoe je die
+opwekt zonder werkelijke urgentie blijft grotendeels bij de raad om heldere
+doelen te stellen.
+
+De vijftien bouwstenen overlappen. Toewijding en doorzettingsvermogen liggen
+dicht bijeen, evenals betrouwbaarheid, eerlijkheid en congruentie, en cohesie
+en sfeerkracht. Er is geen toets waarmee je vaststelt of je een bouwsteen
+beheerst, en geen aanwijzing dat juist deze vijftien de werkzame verzameling
+vormen. Het boek spreekt zichzelf hier ook tegen: het stelt dat je alle
+bouwstenen nodig hebt en even later dat werken aan één of twee al merkbaar
+verschil geeft.
+
+De opgeheven vinger blijft, ook in het deel over de keerzijde. Wie het niet
+lukt, krijgt in de hoofdstukken over smoesjes en over het stemmetje in het
+hoofd te horen dat het aan de eigen bereidheid ligt. Onderbezetting, slecht
+bestuur en ongelijke uitgangsposities komen wel voor, maar vrijwel altijd als
+omstandigheid waar de lezer zich overheen moet zetten. Bij een op de vijf
+werkenden met burn-outklachten is dat een ongemakkelijke verhouding: het boek
+gebruikt dat cijfer als waarschuwing en houdt tegelijk de norm van energie
+leveren overeind.
+
+Tegenover die bezwaren staat dat het boek eerlijk is over de prijs. Het deel
+over zelfopoffering, het hoofdstuk over eigen fouten en het dagboek van de
+afvaller zijn zeldzaam in dit genre, waar de schrijver doorgaans alleen wint.
+Dat maakt het geloofwaardiger dan de gemiddelde titel over leiderschap, ook al
+blijft de leer zelf onbewezen.
+
+#### Wat er concreet mee te doen is
+
+- Leg bij een vastgelopen kwestie de driehoek team, taak, ik ernaast en benoem
+op welke as het schuurt voordat je iets besluit.
+- Schrijf per bouwsteen op wat je in de afgelopen maand hebt gedaan dat het
+aantoont. Blijft een vakje leeg, dan is het een voornemen en geen eigenschap.
+- Toets een taak op urgentie en belangrijkheid apart. Ontbreekt de urgentie,
+spreek dan zelf een termijn af met iemand die je eraan houdt.
+- Vraag bij slecht nieuws aan je leidinggevende wat hij moet weten in plaats
+van wat hij wil horen, en kom met wat je nodig hebt om het alsnog te halen.
+- Zet naast elke periode van doorzetten herstel in de agenda, met dezelfde
+stelligheid als de opdracht zelf.
+
+#### Wat je hierna leest
+
+- 140. Win Your Inner Battles. Behandelt dezelfde keuze om in beweging te
+komen, maar zonder de militaire achtergrond en veel dunner onderbouwd.
+- 44. Daring Greatly. Vervolg in de lijst voor wie leiderschap onder druk
+verder wil volgen.
+- 133. The Compound Effect. Voor wie na dit boek wil zien hoe karakter en
+gewoonten buiten de persoonlijke ervaring worden onderzocht.
+
 ## 98. Waar gaat het heen? En wat kan ik doen?
 
 Lucas De Man, 2025. Bij Pelckmans (2025). De Man is theatermaker en oprichter
@@ -9399,6 +10788,206 @@ hoe een lichaam en een groep reageren wanneer het werkelijk zwaar wordt. De
 zwakte is dezelfde als bij het genre eromheen, namelijk dat lessen uit een
 uitzonderlijke opleiding zonder veel omhaal naar een gewoon leven worden
 vertaald. Zie ook 97, dat vanuit dezelfde wereld komt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Carter behandelt mentale kracht als een verzameling losse
+onderdelen die te benoemen en te oefenen zijn: mindset, veerkracht, omgaan met
+pijn, discipline, verbondenheid, leiderschap, stressregulatie en meesterschap.
+Zijn tien jaar bij het Korps Commandotroepen dienen daarbij als
+bewijsmateriaal en als illustratie tegelijk. De onderliggende claim is dat de
+commando niet uit ander hout is gesneden dan de rest, en dat wat hem
+onderscheidt vooral bestaat uit keuzes, herhaling en een omgeving die hem
+dwingt door te gaan.
+
+#### De gang van het boek
+
+**Een sprong boven de Sahel**
+
+Het boek opent in 2013 boven Mali. Carter verlaat een C-130 op 14.000 voet met
+177 kilo aan lichaam en uitrusting op de weegschaal en landt met een rugzak
+van 67 kilogram in de woestijn, rakelings langs een termietenheuvel die hij
+pas in de laatste meters door zijn nachtkijker ziet. Daarna volgt zeven en een
+halve kilometer lopen naar de observatiepost.
+
+Die scene bakent zijn onderwerp af. In één sprong zitten stressregulatie,
+gedachtecontrole, motorisch leren, lichaamsbewustzijn en aandacht, en die
+verzameling noemt hij mentale kracht. De rest van het boek haalt de onderdelen
+uit elkaar in tien hoofdstukken.
+
+**De weg naar de groene baret**
+
+Het eerste hoofdstuk is autobiografisch. Carter groeit op in de Amsterdamse
+Rivierenbuurt, zijn ouders gaan uit elkaar als hij zeven is, hij verhuist voor
+zijn zeventiende zeker twaalf keer en doorloopt drie basisscholen, waarvan de
+laatste speciaal onderwijs. De middelbare school maakt hij niet af. Via het
+Oriëntatiejaar Koninklijke Landmacht komt hij bij de Luchtmobiele Brigade en
+daarna in Uruzgan, op Camp Hadrian bij Deh Rawod.
+
+De Elementaire Commando Opleiding staat centraal in het tweede en het laatste
+hoofdstuk. Tijdens de afmattingsweek van 2009 breekt hij in de eerste minuten
+een middenvoetsbeen op de Zeelandbrug en loopt hij de resterende kilometers
+uit. Op de laatste mars raakt hij buiten bewustzijn en wordt hij door de
+kapitein uit de colonne gehaald. De baret krijgt hij alsnog, uitgereikt door
+prins Willem-Alexander.
+
+**Mindset en vaardigheden**
+
+Voor het hoofdstuk over mindset leunt Carter op Carol Dweck en haar
+onderscheid tussen een vaste en een groeimindset. Hij vertaalt dat naar de
+opleiding: wie gelooft dat vaardigheid vastligt, geeft eerder op bij tegenslag
+en leest feedback als oordeel. Hij voegt er het begrip oogdienaar aan toe, de
+cursist die presteert zolang een instructeur kijkt en dat vaak ten koste van
+anderen doet.
+
+Daarnaast splitst hij vaardigheden in harde en zachte: schieten, klimmen en
+voertuigbeheersing tegenover communiceren, luisteren en empathie. De uitspraak
+die aan het begin van de opleiding valt, dat je commando niet wordt maar bent,
+relativeert hij aan het slot.
+
+**Veerkracht en pijn**
+
+Het hoofdstuk over veerkracht begint met een aanslag in een stad die hij niet
+noemt, op een route waar zijn team kort daarvoor langsreed. Hij koppelt
+veerkracht aan optimisme, noemt de Life Orientation Test als meetinstrument en
+stelt dat wie daar hoog op scoort beter tegen stress kan.
+
+Bij pijn gebruikt hij het begrippenpaar uit de Acceptance and Commitment
+Therapie. Schone pijn is de gebroken scheen, vuile pijn is het gepieker over
+wat je door die scheen mist. Zijn conclusie is dat alleen de tweede soort te
+verkleinen valt, door de eerste te aanvaarden. De leus van zijn ex-stiefvader,
+pijn is fijn en bloed moet, herschrijft hij tot de pijn mag er zijn. Praktisch
+werkt hij dat uit met tactical breathing, dat hij voor het eerst toepaste bij
+een herkansing van zijn schietexamen.
+
+**Discipline en zelfbeheersing**
+
+Discipline definieert hij met Van Dale als een regime van strenge
+gedragsregels. De anekdote eronder is klein: hij legt tijdens de Luchtmobiele
+Opleiding drie magazijnen te drogen in zijn kast en heeft ze bij een
+nachtelijk alarm niet bij zich. De sergeant vraagt wat hij had gedaan als de
+Quick Reaction Force op dat moment was ingezet.
+
+Zelfbeheersing illustreert hij met het marshmallowexperiment van Walter
+Mischel, en vermeldt dat de kinderen die wachtten later gezonder en
+succesvoller bleken. Zijn eigen toepassing is de vraag die hij zichzelf stelt
+bij uitstel: wat zou ik doen als ik op missie was.
+
+**Broederschap en leiderschap**
+
+Het hoofdstuk over broederschap draait om een appbericht van zijn maatje Hondo
+voor een missie in Afghanistan en het schuldgevoel dat Carter voelt omdat hij
+niet meer bij de eenheid hoort. Hij verbindt dat met Viktor Frankl en diens
+gedachte dat een mens zichzelf overstijgt door een doel of een ander mens te
+dienen. De liefde die hij bedoelt is broederlijk, gedragen door plicht en door
+de aanname dat de ander hetzelfde voor jou zou doen.
+
+Leiderschap opent met de arenapassage van Theodore Roosevelt, die hij op zijn
+zestiende uitprintte en ophing. Hij besteedt weinig aandacht aan
+leiderschapsstijlen en veel aan persoonlijk leiderschap: iedere commando
+draagt binnen zijn specialisme verantwoordelijkheid voor het team. Via Brené
+Brown komt kwetsbaarheid erbij, gekoppeld aan de korpswaarden moed en beleid.
+
+**Stress en meesterschap**
+
+Het stresshoofdstuk is het meest theoretische. Carter gaat terug naar Hans
+Selye en het algemeen aanpassingssyndroom, onderscheidt korte, tolereerbare en
+toxische stress naar McEwen, en beschrijft het kleurcodesysteem van Dave
+Grossman uit *On Combat*, van conditie wit tot conditie zwart. Daarnaast
+behandelt hij ademhaling als regelknop, met de nervus vagus, de Wim
+Hof-methode en het onderzoek van Kox uit 2014 waarin getrainde proefpersonen
+minder ziek werden van een injectie met E. coli.
+
+Meesterschap zet hij af tegen het gezegde dat de moderne commando een
+manusje-van-alles is. Met de achievement goal theory scheidt hij een
+gerichtheid op leren van een gerichtheid op laten zien wat je kunt, en hij
+kiest de eerste. De tienduizend uur van Malcolm Gladwell komt langs bij de
+schietopleiding, met de aantekening dat er goede begeleiding bij hoort. Het
+slothoofdstuk keert terug naar de tranenpoort en eindigt bij de stelling dat
+de commando gewoon een mens is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Pattern of Life | Het door langdurige observatie vaststellen van het bewegingspatroon rond een dorp of stad, de opdracht van de missie in Mali waarmee het boek opent. |
+| Afmatting | De slotweek van de Elementaire Commando Opleiding, ongeveer 250 kilometer in vijf etmalen, eindigend bij de tranenpoort op de kazerne. |
+| Oogdienaar | Cursist die vooral presteert wanneer een instructeur kijkt en daarbij anderen gebruikt om zelf op te vallen. |
+| Vaste en groeimindset | Het onderscheid van Carol Dweck tussen het geloof dat vaardigheid vastligt en het geloof dat ze door inspanning te ontwikkelen is. |
+| Schone en vuile pijn | Termen uit de Acceptance and Commitment Therapie voor het letsel zelf en voor de gedachten en emoties die eromheen groeien. |
+| Tactical breathing | Bewust vertraagd ademhalen vlak voor een handeling onder spanning, door Carter voor het eerst gebruikt bij een schietexamen. |
+| Conditiekleuren | De schaal van Dave Grossman voor de mate van opwinding, van wit voor onoplettend tot zwart voor volledig verlies van controle. |
+| Mastery goal orientation | Doelen nastreven om er beter in te worden, tegenover de performance goal orientation waarbij het gaat om laten zien dat je het kunt. |
+| After Action Review | De evaluatie direct na iedere actie of oefening, op hoofdlijnen, met daarna een hardere teamevaluatie over details. |
+| Kernwaarden | De vaste waarden van het Korps Commandotroepen, waaronder eer, trouw, trots, moed en beleid, die Carter door het boek heen als toetssteen gebruikt. |
+
+#### Waar het argument op rust
+
+De dragende laag is autobiografisch. De sprong boven Mali, de gebroken voet op
+de Zeelandbrug en het bericht van Hondo zijn eigen ervaringen, niet
+controleerbaar door de lezer maar wel consistent en zonder heldendom verteld.
+Carter beschermt collega's met bijnamen en houdt missielocaties vaag. Dat is
+verdedigbaar en beperkt tegelijk de mogelijkheid om iets na te gaan.
+
+Daarnaast staat er een literatuurlijst achterin met echte bronnen: Dweck,
+Selye, Mischel, Grossman, Frankl, Gladwell, Van der Kolk, en artikelen als Kox
+uit 2014 in *PNAS* en McEwen uit 2017 over chronische stress. Carter verwijst
+netjes in de tekst. De functie van die bronnen is illustratief: ze bevestigen
+wat hij al had opgemerkt, ze sturen het betoog niet. Waar hij zelf niets weet,
+zegt hij dat ook, bijvoorbeeld bij de vraag of monniken hun
+lichaamstemperatuur werkelijk kunnen verhogen.
+
+#### Wat er tegen in te brengen valt
+
+De psychologie in het boek loopt achter op de stand van het onderzoek. Het
+marshmallowexperiment krijgt de klassieke lezing mee, terwijl een herhaling
+met een veel grotere en gevarieerdere steekproef in 2018 liet zien dat het
+verband met later succes grotendeels verdwijnt zodra je corrigeert voor de
+achtergrond van het gezin. De tienduizend uur van Gladwell is door Anders
+Ericsson, op wiens werk het teruggaat, zelf tegengesproken. De effecten van
+mindsetinterventies blijken in meta-analyses klein. En de kleurcodering die
+Carter aan Grossman toeschrijft komt oorspronkelijk van schietinstructeur Jeff
+Cooper en is een didactisch hulpmiddel, geen onderzoeksresultaat.
+
+Structureel is er een selectieprobleem. Het boek beschrijft wat werkte voor
+iemand die de opleiding haalde. Wie afviel, en waarom, blijft buiten beeld,
+zodat de lessen niet te scheiden zijn van geluk, aanleg en een lichaam dat het
+toevallig hield. Carter beschrijft zelf dat hij op een gebroken voet doorliep
+en op de laatste mars buiten bewustzijn raakte, en presenteert dat als bewijs
+van wilskracht. Dat het ook een beschrijving van schade kan zijn, komt niet
+aan de orde. Over uitval, blijvend letsel en de psychische nasleep van
+uitzendingen staat vrijwel niets, terwijl dat de keerzijde is van precies het
+gedrag dat hij aanbeveelt.
+
+Ten slotte is het een reeks losse hoofdstukken met per hoofdstuk een anekdote
+en een aangehaalde theorie. Er is geen model dat de tien onderwerpen bindt en
+geen toetsing of wat in een militaire eenheid werkt zich laat overzetten naar
+een kantoor of een gezin.
+
+#### Wat er concreet mee te doen is
+
+- Splits bij tegenslag wat er feitelijk gebeurd is van wat je erover denkt, en
+accepteer het eerste voordat je aan het tweede begint.
+- Adem vlak voor een moment dat spanning geeft een paar keer bewust langzaam
+uit, met een langere uitademing dan inademing.
+- Vraag jezelf bij uitstel wat je zou doen als er vandaag iets van afhing, en
+doe de taak dan meteen.
+- Houd na een afgeronde actie een korte evaluatie op hoofdlijnen, gescheiden
+van de detailbespreking.
+- Schrijf op waarom je aan iets bent begonnen, zodat er een antwoord klaarligt
+op het moment dat je twijfelt.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl, door Carter aangehaald als de bron van
+zijn gedachten over zin, plicht en lijden.
+- 44. Daring Greatly. Brené Brown over kwetsbaarheid, waar het hoofdstuk over
+leiderschap direct op leunt.
+- 29. Grit. Duckworth over volhouden, dezelfde vraag met een
+onderzoeksapparaat eronder.
+- 30. The Obstacle Is the Way. Holiday, die tegenslag op een vergelijkbare
+manier tot oefenmateriaal maakt, met historische in plaats van eigen
+voorbeelden.
 
 ## 107. Alles draait om angst
 
@@ -10311,6 +11900,158 @@ Dat is meteen de beperking: het is een verzameling bekende ideeën zonder eigen
 onderbouwing of nieuwe invalshoek. Wie 2 of 30 heeft gelezen, treft hier de
 verdunde versie aan; als eerste kennismaking met deze manier van denken is het
 kort genoeg om af te maken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Foroux stelt dat de belangrijkste tegenstander in een
+mensenleven binnenin zit, en dat die tegenstander uit twee delen bestaat:
+angst en gebrek aan zelfvertrouwen. Zolang die twee de dienst uitmaken,
+blijven doelen onaangeroerd en wordt uitstel verward met voorzichtigheid. Zijn
+antwoord is een volgorde: eerst de angst leren kennen en het onderscheid maken
+tussen wat je wel en niet in de hand hebt, dan handelen en zelfvertrouwen
+opbouwen door vaardigheden te verwerven, en pas daarna een doel kiezen. Dat
+doel is volgens hem geen ontdekking maar een besluit.
+
+#### De gang van het boek
+
+**Herkomst en opzet**
+
+Het boek verscheen in 2015 onder de titel *Massive Life Success* en werd een
+jaar later herzien en hernoemd. In het voorwoord vertelt Foroux dat hij na
+zijn studie marketing een bedrijf met zijn vader begon, daarna eigen
+ondernemingen had waaronder een mislukte kledinglijn, en zich vervolgens bij
+een IT-onderzoeksbureau in Londen verhuurde omdat hij zichzelf voor een
+mislukte ondernemer hield. Het opzeggen van die baan is het beginpunt van de
+tekst.
+
+De opbouw is drieledig: innerlijke oorlogvoering, beheersing en doel. Elk deel
+bestaat uit korte hoofdstukken, vrijwel allemaal geopend met een citaat van
+Sun Tzu, Maslow, Emerson, Marcus Aurelius of Michael Jordan. Achterin staat
+een bundeling blogstukken.
+
+**Deel een: de vijand kennen**
+
+Angst is volgens Foroux een overblijfsel uit een tijd waarin ze nog
+beschermde. Het brein maakt geen verschil tussen een werkelijke bedreiging en
+een bedachte, en daardoor werkt een verouderd mechanisme door in een leven
+zonder roofdieren. Wie zijn angst wil bestrijden, moet haar eerst herkennen;
+daarvoor geeft hij een lijst van twintig vragen over eigen sterke en zwakke
+kanten, energie, slaap en waarden.
+
+Het deel bevat verder de gedachte dat je geen slachtoffer bent van je
+omstandigheden, met drie mogelijke reacties op een situatie die niet bevalt:
+veranderen, verlaten of aanvaarden. Klagen valt af. Ook staat er de oefening
+om de slechtst denkbare afloop uit te schrijven, wat de omvang van de angst
+meestal terugbrengt tot iets hanteerbaars.
+
+**Deel twee: handelen en zelfvertrouwen**
+
+Het tweede deel begint bij de vaststelling dat handelen zelf moed vraagt, en
+dat het zelfvertrouwen daarvoor uit bekwaamheid komt. Foroux ontleent dat aan
+een artikel van Bernice Milburn Moore uit 1952 in *Educational Leadership*,
+geschreven voor leraren, waaruit hij de regel haalt dat zelfvertrouwen zonder
+bekwaamheid even weinig waard is als bekwaamheid zonder zelfvertrouwen. Zijn
+kringloop is: vaardigheden verbeteren, toepassen, resultaat zien, meer
+vertrouwen, opnieuw.
+
+Daarnaast staan hier klein beginnen en de stelling dat er geen verkeerde
+beslissingen zijn omdat elke uitkomst iets oplevert om van te leren.
+
+**Nee zeggen en ruis**
+
+Een reeks hoofdstukken gaat over grenzen. Verwachtingen van anderen inwilligen
+kost tijd en levert wrok op; wie steeds ja zegt tegen wat hij niet wil, gaat
+zichzelf minder aardig vinden. Foroux geeft manieren om te weigeren en betoogt
+dat weigeren respect oplevert in plaats van kost.
+
+Ruis elimineren gaat over nieuws, meldingen en gezelschap dat niets toevoegt.
+Daarbij hoort de bekende regel dat je wordt beïnvloed door de mensen met wie
+je je tijd doorbrengt, en een hoofdstuk over vergelijken. Zijn tegengif
+daarvoor is inwendige beweegredenen: wie zijn eigen maatstaf hanteert, heeft
+niemand meer om zich aan af te meten.
+
+**Deel drie: doel en doelen**
+
+Het derde deel opent met de stelling dat niemand met een levensdoel wordt
+geboren en dat een doel dus een besluit is. Wie geen antwoord heeft, heeft te
+weinig invoer: meer lezen, reizen, ander gezelschap, en eerst stress aanpakken
+omdat een gejaagd hoofd geen inzichten oplevert.
+
+Daarna volgen aanwezigheid, het temperen van het ego en het stoppen met malen,
+en tot slot doelen stellen in vijf stappen, met onderscheid tussen soorten
+doelen en een hoofdstuk over wat te doen bij het missen ervan. Zijn nuance
+daarbij is dat het niet om het behalen gaat maar om de gewoonten die het
+najagen afdwingt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De vijand vanbinnen | Foroux zijn verzamelnaam voor angst en gebrek aan zelfvertrouwen, de twee zaken die volgens hem een leven op eigen voorwaarden in de weg staan. |
+| Beslissen | Het beginpunt van het boek: toegeven aan angst is zelf ook een keuze, dus is de eerste stap besluiten dat het anders gaat. |
+| Zelfvertrouwen door bekwaamheid | Het aan Bernice Milburn Moore ontleende idee dat vertrouwen volgt op werkelijk beheerste vaardigheden en er niet aan voorafgaat. |
+| De slechtst denkbare afloop | Oefening waarin je de ergste uitkomst van een stap uitschrijft, om te zien dat die meestal draaglijk is. |
+| Ruis | Alles wat aandacht opeist zonder bij te dragen: nieuws, meldingen, gesprekken en gezelschap dat niets oplevert. |
+| Innerlijke beweegredenen | Motivatie uit eigen waarden in plaats van uit salaris, status of bezit, waardoor vergelijken met anderen zijn grond verliest. |
+| Doel als besluit | De stelling dat een levensdoel niet wordt gevonden of aangeboren is, maar wordt gekozen en daarna uitgevoerd. |
+| Vijfstappenmethode voor doelen | Foroux zijn schema om een gekozen richting te vertalen naar afgebakende doelen met een termijn. |
+
+#### Waar het argument op rust
+
+De onderbouwing is dun en het boek verhult dat niet. Vrijwel alles rust op
+eigen ervaring en op citaten van bekende namen. Waar Foroux schrijft dat de
+kringloop van bekwaamheid en vertrouwen door onderzoek wordt gesteund, staat
+daar één bron tegenover: het artikel van Bernice Milburn Moore uit 1952, dat
+over leraren gaat en dat hij zelf een theorie noemt.
+
+Verder komen er losse beweringen voorbij die eerder algemeen gevoel dan
+vaststelling zijn: dat angst uit het reptielenbrein komt, dat de evolutie nog
+duizenden jaren nodig heeft, en dat oorlog en besmettelijke ziekten achter ons
+liggen. Dat laatste was in 2015 al niet vol te houden.
+
+Achterin staat wel een leeslijst, waaruit blijkt waar het materiaal vandaan
+komt: stoïcijnse teksten, klassieke zelfhulp en productiviteitsboeken.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek zijn eigen redenering niet sluit. Angst
+wordt beschreven als iets dat je kunt besluiten te overwinnen, terwijl in
+hetzelfde boek staat dat het brein geen verschil maakt tussen echte en
+bedachte dreiging. Als dat laatste klopt, is een besluit precies niet genoeg.
+Voor wie met angststoornissen of depressie te maken heeft, is de raad om
+gewoon te beslissen niet bruikbaar en mogelijk schadelijk.
+
+Het bewijs voor de werking is dat het bij de schrijver zelf in twee jaar goed
+uitpakte, gemeten aan lezersaantallen en abonnees op zijn nieuwsbrief. Dat is
+een uitkomst van schrijven over zelfontwikkeling, en geen bevestiging van de
+inhoud.
+
+De bijlage van acht eerder verschenen blogstukken beslaat een aanzienlijk deel
+van een toch al dun boek en herhaalt wat ervoor stond.
+
+Wat blijft staan is de kringloop van bekwaamheid en vertrouwen. Die is
+concreet, laat zich nalopen en spreekt de gangbare raad tegen om eerst in
+jezelf te geloven. Voor dat ene punt is het boek de leestijd waard; de rest is
+bekend materiaal.
+
+#### Wat er concreet mee te doen is
+
+- Loop de twintig zelfkennisvragen langs en schrijf de antwoorden op, ook de
+ongunstige.
+- Schrijf bij een stap waar je tegenop ziet de ergst denkbare afloop uit, met
+wat je daarna zou doen.
+- Kies bij een doel eerst de vaardigheid die je mist, en oefen die tot er
+resultaat zichtbaar is.
+- Zeg wekelijks één keer nee tegen iets dat je niet wilt doen.
+
+#### Wat je hierna leest
+
+- 51. The Defining Decade. Voor wie het thema gewoonten en volhouden verder
+wil volgen in de lijst.
+- 106. Nu of nooit. Verwante titel voor wie na dit dunne boek iets met meer
+onderbouwing zoekt.
+- 27. The Four Agreements. Vervolg voor wie de vraag naar doel en richting
+verder wil volgen.
 
 ## 141. Voorbij de vorm
 

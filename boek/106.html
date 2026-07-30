@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nu of nooit &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Carter behandelt mentale kracht als een verzameling losse onderdelen die te benoemen en te oefenen zijn: mindset, veerkracht, omgaan met pijn, discipline,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-106">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">106 &middot; Moed en karakter</p>
+    <h1>Nu of nooit</h1>
+    <p class="lede">Dai Carter, 2021</p>
+    <p class="stats">
+      <span><b>1696</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="106"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Carter behandelt mentale kracht als een verzameling losse onderdelen die te benoemen en te oefenen zijn: mindset, veerkracht, omgaan met pijn, discipline, verbondenheid, leiderschap, stressregulatie en meesterschap. Zijn tien jaar bij het Korps Commandotroepen dienen daarbij als bewijsmateriaal en als illustratie tegelijk. De onderliggende claim is dat de commando niet uit ander hout is gesneden dan de rest, en dat wat hem onderscheidt vooral bestaat uit keuzes, herhaling en een omgeving die hem dwingt door te gaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een sprong boven de Sahel</h3>
+      <p>Het boek opent in 2013 boven Mali. Carter verlaat een C-130 op 14.000 voet met 177 kilo aan lichaam en uitrusting op de weegschaal en landt met een rugzak van 67 kilogram in de woestijn, rakelings langs een termietenheuvel die hij pas in de laatste meters door zijn nachtkijker ziet. Daarna volgt zeven en een halve kilometer lopen naar de observatiepost.</p>
+      <p>Die scene bakent zijn onderwerp af. In één sprong zitten stressregulatie, gedachtecontrole, motorisch leren, lichaamsbewustzijn en aandacht, en die verzameling noemt hij mentale kracht. De rest van het boek haalt de onderdelen uit elkaar in tien hoofdstukken.</p>
+      <h3>De weg naar de groene baret</h3>
+      <p>Het eerste hoofdstuk is autobiografisch. Carter groeit op in de Amsterdamse Rivierenbuurt, zijn ouders gaan uit elkaar als hij zeven is, hij verhuist voor zijn zeventiende zeker twaalf keer en doorloopt drie basisscholen, waarvan de laatste speciaal onderwijs. De middelbare school maakt hij niet af. Via het Oriëntatiejaar Koninklijke Landmacht komt hij bij de Luchtmobiele Brigade en daarna in Uruzgan, op Camp Hadrian bij Deh Rawod.</p>
+      <p>De Elementaire Commando Opleiding staat centraal in het tweede en het laatste hoofdstuk. Tijdens de afmattingsweek van 2009 breekt hij in de eerste minuten een middenvoetsbeen op de Zeelandbrug en loopt hij de resterende kilometers uit. Op de laatste mars raakt hij buiten bewustzijn en wordt hij door de kapitein uit de colonne gehaald. De baret krijgt hij alsnog, uitgereikt door prins Willem-Alexander.</p>
+      <h3>Mindset en vaardigheden</h3>
+      <p>Voor het hoofdstuk over mindset leunt Carter op Carol Dweck en haar onderscheid tussen een vaste en een groeimindset. Hij vertaalt dat naar de opleiding: wie gelooft dat vaardigheid vastligt, geeft eerder op bij tegenslag en leest feedback als oordeel. Hij voegt er het begrip oogdienaar aan toe, de cursist die presteert zolang een instructeur kijkt en dat vaak ten koste van anderen doet.</p>
+      <p>Daarnaast splitst hij vaardigheden in harde en zachte: schieten, klimmen en voertuigbeheersing tegenover communiceren, luisteren en empathie. De uitspraak die aan het begin van de opleiding valt, dat je commando niet wordt maar bent, relativeert hij aan het slot.</p>
+      <h3>Veerkracht en pijn</h3>
+      <p>Het hoofdstuk over veerkracht begint met een aanslag in een stad die hij niet noemt, op een route waar zijn team kort daarvoor langsreed. Hij koppelt veerkracht aan optimisme, noemt de Life Orientation Test als meetinstrument en stelt dat wie daar hoog op scoort beter tegen stress kan.</p>
+      <p>Bij pijn gebruikt hij het begrippenpaar uit de Acceptance and Commitment Therapie. Schone pijn is de gebroken scheen, vuile pijn is het gepieker over wat je door die scheen mist. Zijn conclusie is dat alleen de tweede soort te verkleinen valt, door de eerste te aanvaarden. De leus van zijn ex-stiefvader, pijn is fijn en bloed moet, herschrijft hij tot de pijn mag er zijn. Praktisch werkt hij dat uit met tactical breathing, dat hij voor het eerst toepaste bij een herkansing van zijn schietexamen.</p>
+      <h3>Discipline en zelfbeheersing</h3>
+      <p>Discipline definieert hij met Van Dale als een regime van strenge gedragsregels. De anekdote eronder is klein: hij legt tijdens de Luchtmobiele Opleiding drie magazijnen te drogen in zijn kast en heeft ze bij een nachtelijk alarm niet bij zich. De sergeant vraagt wat hij had gedaan als de Quick Reaction Force op dat moment was ingezet.</p>
+      <p>Zelfbeheersing illustreert hij met het marshmallowexperiment van Walter Mischel, en vermeldt dat de kinderen die wachtten later gezonder en succesvoller bleken. Zijn eigen toepassing is de vraag die hij zichzelf stelt bij uitstel: wat zou ik doen als ik op missie was.</p>
+      <h3>Broederschap en leiderschap</h3>
+      <p>Het hoofdstuk over broederschap draait om een appbericht van zijn maatje Hondo voor een missie in Afghanistan en het schuldgevoel dat Carter voelt omdat hij niet meer bij de eenheid hoort. Hij verbindt dat met Viktor Frankl en diens gedachte dat een mens zichzelf overstijgt door een doel of een ander mens te dienen. De liefde die hij bedoelt is broederlijk, gedragen door plicht en door de aanname dat de ander hetzelfde voor jou zou doen.</p>
+      <p>Leiderschap opent met de arenapassage van Theodore Roosevelt, die hij op zijn zestiende uitprintte en ophing. Hij besteedt weinig aandacht aan leiderschapsstijlen en veel aan persoonlijk leiderschap: iedere commando draagt binnen zijn specialisme verantwoordelijkheid voor het team. Via Brené Brown komt kwetsbaarheid erbij, gekoppeld aan de korpswaarden moed en beleid.</p>
+      <h3>Stress en meesterschap</h3>
+      <p>Het stresshoofdstuk is het meest theoretische. Carter gaat terug naar Hans Selye en het algemeen aanpassingssyndroom, onderscheidt korte, tolereerbare en toxische stress naar McEwen, en beschrijft het kleurcodesysteem van Dave Grossman uit <i>On Combat</i>, van conditie wit tot conditie zwart. Daarnaast behandelt hij ademhaling als regelknop, met de nervus vagus, de Wim Hof-methode en het onderzoek van Kox uit 2014 waarin getrainde proefpersonen minder ziek werden van een injectie met E. coli.</p>
+      <p>Meesterschap zet hij af tegen het gezegde dat de moderne commando een manusje-van-alles is. Met de achievement goal theory scheidt hij een gerichtheid op leren van een gerichtheid op laten zien wat je kunt, en hij kiest de eerste. De tienduizend uur van Malcolm Gladwell komt langs bij de schietopleiding, met de aantekening dat er goede begeleiding bij hoort. Het slothoofdstuk keert terug naar de tranenpoort en eindigt bij de stelling dat de commando gewoon een mens is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Pattern of Life</td><td>Het door langdurige observatie vaststellen van het bewegingspatroon rond een dorp of stad, de opdracht van de missie in Mali waarmee het boek opent.</td></tr>
+          <tr><td class="term">Afmatting</td><td>De slotweek van de Elementaire Commando Opleiding, ongeveer 250 kilometer in vijf etmalen, eindigend bij de tranenpoort op de kazerne.</td></tr>
+          <tr><td class="term">Oogdienaar</td><td>Cursist die vooral presteert wanneer een instructeur kijkt en daarbij anderen gebruikt om zelf op te vallen.</td></tr>
+          <tr><td class="term">Vaste en groeimindset</td><td>Het onderscheid van Carol Dweck tussen het geloof dat vaardigheid vastligt en het geloof dat ze door inspanning te ontwikkelen is.</td></tr>
+          <tr><td class="term">Schone en vuile pijn</td><td>Termen uit de Acceptance and Commitment Therapie voor het letsel zelf en voor de gedachten en emoties die eromheen groeien.</td></tr>
+          <tr><td class="term">Tactical breathing</td><td>Bewust vertraagd ademhalen vlak voor een handeling onder spanning, door Carter voor het eerst gebruikt bij een schietexamen.</td></tr>
+          <tr><td class="term">Conditiekleuren</td><td>De schaal van Dave Grossman voor de mate van opwinding, van wit voor onoplettend tot zwart voor volledig verlies van controle.</td></tr>
+          <tr><td class="term">Mastery goal orientation</td><td>Doelen nastreven om er beter in te worden, tegenover de performance goal orientation waarbij het gaat om laten zien dat je het kunt.</td></tr>
+          <tr><td class="term">After Action Review</td><td>De evaluatie direct na iedere actie of oefening, op hoofdlijnen, met daarna een hardere teamevaluatie over details.</td></tr>
+          <tr><td class="term">Kernwaarden</td><td>De vaste waarden van het Korps Commandotroepen, waaronder eer, trouw, trots, moed en beleid, die Carter door het boek heen als toetssteen gebruikt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De dragende laag is autobiografisch. De sprong boven Mali, de gebroken voet op de Zeelandbrug en het bericht van Hondo zijn eigen ervaringen, niet controleerbaar door de lezer maar wel consistent en zonder heldendom verteld. Carter beschermt collega's met bijnamen en houdt missielocaties vaag. Dat is verdedigbaar en beperkt tegelijk de mogelijkheid om iets na te gaan.</p>
+      <p>Daarnaast staat er een literatuurlijst achterin met echte bronnen: Dweck, Selye, Mischel, Grossman, Frankl, Gladwell, Van der Kolk, en artikelen als Kox uit 2014 in <i>PNAS</i> en McEwen uit 2017 over chronische stress. Carter verwijst netjes in de tekst. De functie van die bronnen is illustratief: ze bevestigen wat hij al had opgemerkt, ze sturen het betoog niet. Waar hij zelf niets weet, zegt hij dat ook, bijvoorbeeld bij de vraag of monniken hun lichaamstemperatuur werkelijk kunnen verhogen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De psychologie in het boek loopt achter op de stand van het onderzoek. Het marshmallowexperiment krijgt de klassieke lezing mee, terwijl een herhaling met een veel grotere en gevarieerdere steekproef in 2018 liet zien dat het verband met later succes grotendeels verdwijnt zodra je corrigeert voor de achtergrond van het gezin. De tienduizend uur van Gladwell is door Anders Ericsson, op wiens werk het teruggaat, zelf tegengesproken. De effecten van mindsetinterventies blijken in meta-analyses klein. En de kleurcodering die Carter aan Grossman toeschrijft komt oorspronkelijk van schietinstructeur Jeff Cooper en is een didactisch hulpmiddel, geen onderzoeksresultaat.</p>
+      <p>Structureel is er een selectieprobleem. Het boek beschrijft wat werkte voor iemand die de opleiding haalde. Wie afviel, en waarom, blijft buiten beeld, zodat de lessen niet te scheiden zijn van geluk, aanleg en een lichaam dat het toevallig hield. Carter beschrijft zelf dat hij op een gebroken voet doorliep en op de laatste mars buiten bewustzijn raakte, en presenteert dat als bewijs van wilskracht. Dat het ook een beschrijving van schade kan zijn, komt niet aan de orde. Over uitval, blijvend letsel en de psychische nasleep van uitzendingen staat vrijwel niets, terwijl dat de keerzijde is van precies het gedrag dat hij aanbeveelt.</p>
+      <p>Ten slotte is het een reeks losse hoofdstukken met per hoofdstuk een anekdote en een aangehaalde theorie. Er is geen model dat de tien onderwerpen bindt en geen toetsing of wat in een militaire eenheid werkt zich laat overzetten naar een kantoor of een gezin.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Splits bij tegenslag wat er feitelijk gebeurd is van wat je erover denkt, en accepteer het eerste voordat je aan het tweede begint.</li>
+        <li>Adem vlak voor een moment dat spanning geeft een paar keer bewust langzaam uit, met een langere uitademing dan inademing.</li>
+        <li>Vraag jezelf bij uitstel wat je zou doen als er vandaag iets van afhing, en doe de taak dan meteen.</li>
+        <li>Houd na een afgeronde actie een korte evaluatie op hoofdlijnen, gescheiden van de detailbespreking.</li>
+        <li>Schrijf op waarom je aan iets bent begonnen, zodat er een antwoord klaarligt op het moment dat je twijfelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Bij Prometheus (2021). Carter diende bij het Korps Commandotroepen, waarvan het credo <i>nunc aut nunquam</i> de titel is.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Carter vertelt zijn eigen verhaal, van een gescheiden gezin in Amsterdam waarin hij van huis naar huis pendelde tot de opleiding en de uitzendingen bij de commandotroepen, en gebruikt dat als drager voor tien onderwerpen: de wil om te winnen, denkhouding, veerkracht, pijn, discipline, broederschap, leiderschap, stress en meesterschap.</p><p>De aantrekkingskracht zit in de ervaring achter de adviezen: iemand die weet hoe een lichaam en een groep reageren wanneer het werkelijk zwaar wordt. De zwakte is dezelfde als bij het genre eromheen, namelijk dat lessen uit een uitzonderlijke opleiding zonder veel omhaal naar een gewoon leven worden vertaald. Zie ook 97, dat vanuit dezelfde wereld komt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>veerkracht</li><li>discipline</li><li>leiderschap</li><li>leger</li><li>memoir</li><li>stress</li><li>nederlands</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl, door Carter aangehaald als de bron van zijn gedachten over zin, plicht en lijden.</li>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Brené Brown over kwetsbaarheid, waar het hoofdstuk over leiderschap direct op leunt.</li>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth over volhouden, dezelfde vraag met een onderzoeksapparaat eronder.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday, die tegenslag op een vergelijkbare manier tot oefenmateriaal maakt, met historische in plaats van eigen voorbeelden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Je bent wat je doet &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Klaassens stelt dat eigenaarschap de eigenschap is die het verschil maakt tussen wie zijn situatie verbetert en wie erover klaagt, en dat het geen aanleg…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-97">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">97 &middot; Moed en karakter</p>
+    <h1>Je bent wat je doet</h1>
+    <p class="lede">Ray Klaassens, 2025</p>
+    <p class="stats">
+      <span><b>1797</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="97"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Klaassens stelt dat eigenaarschap de eigenschap is die het verschil maakt tussen wie zijn situatie verbetert en wie erover klaagt, en dat het geen aanleg is maar getraind gedrag. Zijn kern is dat karakter blijkt uit wat iemand dagelijks doet en niet uit wat hij zich voorneemt: de situatie is een gegeven, de omgang ermee is een keuze. Het boek werkt dat uit in vijftien benoemde bouwstenen en twee voorwaarden, urgentie en belangrijkheid, ontleend aan zijn jaren bij het Korps Commandotroepen en aan zijn latere werk als ondernemer en spreker. De keerzijde krijgt een eigen deel: dezelfde houding die resultaat oplevert, sloopt mensen als er geen herstel tegenover staat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De container open</h3>
+      <p>Klaassens begint bij zijn ergernis over eigenaarschap als modewoord in strategiestukken en functioneringsgesprekken. Hij vergelijkt het begrip met de zeecontainer die op missie meegaat: die is gevuld met materiaal dat allemaal nodig is, en je laat niets achter omdat het je beter uitkomt. Zo verhoudt hij zich ook tot zijn bouwstenen; hij stelt dat ze samen werken en dat het geheel moet kloppen.</p>
+      <p>Zijn omschrijving is de bereidheid volledige verantwoordelijkheid te nemen voor een taak, doel of situatie, ook als het spannend is, ook als het formeel niet jouw werk is en ook als niemand kijkt. Daarnaast zet hij eigenaarschap gelijk aan persoonlijk leiderschap, waardoor het boek zowel over leidinggeven als over zelfsturing gaat. Het pad verloopt bij hem in drie fasen: basis, versterking en levensstijl.</p>
+      <h3>Team, taak, ik</h3>
+      <p>Het model waarmee hij leiderschap terugbrengt tot drie punten is de leiderschapsdriehoek: het team, de taak en jijzelf. Onder druk gaat het schuren op een van de assen, en de vraag is welke as je laat knappen.</p>
+      <p>De uitwerking gebruikt een oefening bij de Genie in 1996, waarin hij als jonge officier met vijfendertig man in kou, duisternis en met gasmaskers op een baileybrug moest bouwen, panelen van 260 kilo met de hand, om dertig vrachtwagens over een rivier te krijgen. Per as laat hij twee uitkomsten zien: die van de weg van de minste weerstand en die van eigenaarschap. In de eerste versie slikt zijn groepscommandant zijn bezwaar in, in de tweede zegt hij wat er speelt en krijgt hij extra mankracht. Het is de best uitgewerkte passage van het boek.</p>
+      <h3>Eyes On Target</h3>
+      <p>De term uit speciale operaties betekent zicht hebben op het doelwit en de gegarandeerde toestand ervan doorgeven, zodat een ander team kan optreden. Klaassens gebruikt hem als beeld voor doelgerichtheid: het tijdstip stond vast, en de hele keten erachter stemde daarop af.</p>
+      <p>Het voorbeeld is de eindoefening van de elementaire commando-opleiding in januari 2002, waarbij hij met drie anderen op vijfentwintig kilometer van het doel werd afgezet en in tweeënhalve dag ongezien ter plaatse moest komen, met vijftig kilo bepakking, door sloten om het geurspoor te breken, twee uur slaap per nacht, en met een gescheurde enkelband halverwege.</p>
+      <h3>De basis: bouwsteen 1 tot en met 5</h3>
+      <p>De eerste fase bestaat uit betrouwbaarheid, verantwoordelijkheid, focus, toewijding en eerlijkheid. Elk hoofdstuk opent met een voorval en eindigt met de vertaling naar gewoon werk. Betrouwbaarheid vat hij samen in de vraag wie mensen bellen als er iets misgaat, en of jij die persoon bent.</p>
+      <p>De inzet van deze fase is voorspelbaar worden voor anderen. Toewijding maakt hij concreet aan iets kleins: bij Defensie is op tijd komen de norm, en wie dat niet haalt, heeft zijn zaken elders ook niet op orde. Eerlijkheid werkt hij uit aan een opdracht voor een schoolbestuur in 2024 waarin hij moest zeggen wat men liever niet hoorde.</p>
+      <h3>Versterking en levensstijl: bouwsteen 6 tot en met 15</h3>
+      <p>De tweede fase gaat over zichtbaar worden: initiatief, doorzettingsvermogen, aanpassingsvermogen, daadkracht en congruentie. Aanpassingsvermogen noemt hij de eigenschap waar het bij commando's werkelijk op aankomt, omdat plannen zelden overeind blijven. Congruentie is de eis dat gedrag en woorden samenvallen, ook als niemand meekijkt.</p>
+      <p>De derde fase behandelt sfeerkracht, cohesie, authenticiteit, naastenliefde en zelfbewustzijn. Hier verschuift het van presteren naar het effect dat iemand op anderen heeft. Sfeerkracht is de invloed die je op de stemming van een groep uitoefent onder slechte omstandigheden; cohesie het onderlinge verband dat maakt dat een team overeind blijft. Zijn beeld daarvoor is de vuurtoren: stevig verankerd, zichtbaar en bruikbaar voor anderen om op te varen.</p>
+      <h3>De prijs van toewijding</h3>
+      <p>Het vijfde deel is het meest opvallende van het boek, omdat het de eigen leer tegenspreekt. Klaassens beschrijft wat doorgaan zonder herstel kost: lichamelijke klachten, uitputting, relatieschade, en in het uiterste geval posttraumatische stress. Hij haalt de vrouw van een oud-militair aan die vertelde dat haar man na Afghanistan lichamelijk thuiskwam en verder afwezig bleef, altijd waakzaam.</p>
+      <p>Hij verwijst hier naar het enige onderzoek in het boek, een meting van TNO en het CBS waaruit blijkt dat ongeveer een op de vijf werkenden in Nederland met burn-outklachten kampt, en naar Kahneman zijn beschrijving van escalatie van betrokkenheid: wie ergens veel in heeft gestoken, blijft doorgaan omdat stoppen als verlies voelt. Daarnaast staan hoofdstukken over eigen falen, waaronder zijn deelname aan <i>Wie is de Mol?</i> in 2024, waar hij onvoorbereid instapte en in de tunnelvisie liep waarvoor hij anderen waarschuwt.</p>
+      <h3>Doen wat nodig is</h3>
+      <p>Het slotdeel keert terug naar de vraag die hij na lezingen krijgt, of hij nog een tip heeft. Zijn antwoord blijft dat er niets verandert zolang je vindt dat een ander het anders moet doen. De spiegel is het beeld: wat je ziet is de uitkomst van je keuzes, en de vraag is hoe je er over twintig jaar bij wilt staan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Eigenaarschap</td><td>De bereidheid volledige verantwoordelijkheid te nemen voor een taak, doel of situatie, ook buiten je formele rol en ook als niemand kijkt.</td></tr>
+          <tr><td class="term">De weg van de minste weerstand</td><td>Het alternatief voor eigenaarschap: doen wat op dat moment het makkelijkst is, met de rekening later.</td></tr>
+          <tr><td class="term">Leiderschapsdriehoek</td><td>Model dat leiderschap terugbrengt tot team, taak en ik, waarbij druk altijd op een van de drie assen zichtbaar wordt.</td></tr>
+          <tr><td class="term">Eyes On Target</td><td>Term uit speciale operaties voor het bevestigde zicht op het doelwit, door Klaassens gebruikt als beeld voor doelgerichtheid en tijdige levering.</td></tr>
+          <tr><td class="term">Bouwsteen</td><td>Een van de vijftien benoemde eigenschappen waaruit eigenaarschap volgens hem is opgebouwd, verdeeld over basis, versterking en levensstijl.</td></tr>
+          <tr><td class="term">Urgentie en belangrijkheid</td><td>De twee voorwaarden zonder welke geen van de bouwstenen in beweging komt; belangrijkheid zonder urgentie levert uitstel op, urgentie zonder belangrijkheid paniek.</td></tr>
+          <tr><td class="term">Sfeerkracht</td><td>Het vermogen de stemming van een groep te bepalen onder slechte omstandigheden, door hem als bouwsteen elf behandeld.</td></tr>
+          <tr><td class="term">Congruentie</td><td>Het samenvallen van wat je zegt en wat je doet, ook wanneer er niemand meekijkt.</td></tr>
+          <tr><td class="term">De knop omzetten</td><td>Uitdrukking uit de commando-opleiding voor het moment waarop iemand van afwachten overgaat op handelen.</td></tr>
+          <tr><td class="term">Escalatie van betrokkenheid</td><td>Van Kahneman geleende term voor de val waarin mensen doorgaan met iets omdat ze er al veel in hebben gestoken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek staat op ervaring en niet op onderzoek. Klaassens diende bij de Genie, de Luchtmobiele Brigade en het Korps Commandotroepen, werkte daarna bij de AIVD en begon in 2014 Triangular Group. Hij werd bekend als instructeur in <i>Kamp van Koningsbrugge</i>. Wat hij beschrijft, heeft hij gedaan, en de voorvallen zijn concreet genoeg om te controleren op innerlijke samenhang: jaartallen, plaatsen, eenheden en namen staan erbij.</p>
+      <p>Naast eigen ervaring gebruikt hij portretten van anderen, onder wie Marlin van Hal, die van de atletiekbaan via een fitnessketen bij zijn bedrijf terechtkwam en er later algemeen directeur werd. Zulke portretten zijn geselecteerd op uitkomst: het zijn mensen bij wie het werkte. Wie dezelfde houding aannam en het niet redde, komt niet aan het woord.</p>
+      <p>Er staat één cijfer uit onderzoek in, de meting van TNO en het CBS over burn-outklachten, en de bronvermelding daarbij is onnauwkeurig: het jaartal in de verwijzing spoort niet met het jaar van de meting waarnaar de tekst verwijst. Verder is er geen literatuurlijst en geen notenapparaat. De vijftien bouwstenen zijn geen uitkomst van onderzoek maar een persoonlijke keuze, wat hij zelf ook zegt: het is bedoeld ter inspiratie en niet als handleiding voor iedereen.</p>
+      <p>Het boek is opgetekend door Wendy Kwaks. Dat is aan de tekst te merken: de hoofdstukken zijn kort en volgen alle hetzelfde stramien van voorval, uitleg, vertaling.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar zit in de overdracht. De militaire voorbeelden werken doordat de opdracht helder is, het doel vaststaat, de eenheid getraind is en het belang buiten kijf staat. Precies die voorwaarden ontbreken in de meeste organisaties, waar onduidelijk is wat het doel is en wie erover gaat. Klaassens benoemt urgentie en belangrijkheid als voorwaarden, maar hoe je die opwekt zonder werkelijke urgentie blijft grotendeels bij de raad om heldere doelen te stellen.</p>
+      <p>De vijftien bouwstenen overlappen. Toewijding en doorzettingsvermogen liggen dicht bijeen, evenals betrouwbaarheid, eerlijkheid en congruentie, en cohesie en sfeerkracht. Er is geen toets waarmee je vaststelt of je een bouwsteen beheerst, en geen aanwijzing dat juist deze vijftien de werkzame verzameling vormen. Het boek spreekt zichzelf hier ook tegen: het stelt dat je alle bouwstenen nodig hebt en even later dat werken aan één of twee al merkbaar verschil geeft.</p>
+      <p>De opgeheven vinger blijft, ook in het deel over de keerzijde. Wie het niet lukt, krijgt in de hoofdstukken over smoesjes en over het stemmetje in het hoofd te horen dat het aan de eigen bereidheid ligt. Onderbezetting, slecht bestuur en ongelijke uitgangsposities komen wel voor, maar vrijwel altijd als omstandigheid waar de lezer zich overheen moet zetten. Bij een op de vijf werkenden met burn-outklachten is dat een ongemakkelijke verhouding: het boek gebruikt dat cijfer als waarschuwing en houdt tegelijk de norm van energie leveren overeind.</p>
+      <p>Tegenover die bezwaren staat dat het boek eerlijk is over de prijs. Het deel over zelfopoffering, het hoofdstuk over eigen fouten en het dagboek van de afvaller zijn zeldzaam in dit genre, waar de schrijver doorgaans alleen wint. Dat maakt het geloofwaardiger dan de gemiddelde titel over leiderschap, ook al blijft de leer zelf onbewezen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg bij een vastgelopen kwestie de driehoek team, taak, ik ernaast en benoem op welke as het schuurt voordat je iets besluit.</li>
+        <li>Schrijf per bouwsteen op wat je in de afgelopen maand hebt gedaan dat het aantoont. Blijft een vakje leeg, dan is het een voornemen en geen eigenschap.</li>
+        <li>Toets een taak op urgentie en belangrijkheid apart. Ontbreekt de urgentie, spreek dan zelf een termijn af met iemand die je eraan houdt.</li>
+        <li>Vraag bij slecht nieuws aan je leidinggevende wat hij moet weten in plaats van wat hij wil horen, en kom met wat je nodig hebt om het alsnog te halen.</li>
+        <li>Zet naast elke periode van doorzetten herstel in de agenda, met dezelfde stelligheid als de opdracht zelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>De situatie is een gegeven, hoe je ermee omgaat is je karakter</i>, bij Nieuw Amsterdam (2025, ISBN 9789463812733). De tekst is opgetekend door Wendy Kwaks; Klaassens diende bij het Korps Commandotroepen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Klaassens bouwt het boek rond één begrip: eigenaarschap, de keuze om de eigen situatie op je te nemen in plaats van de omstandigheden de schuld te geven. Hij noemt eigenaarschap zelf een containerbegrip geworden en werkt het daarom uit in vijftien bouwstenen, van betrouwbaarheid, verantwoordelijkheid en focus tot doorzettingsvermogen, aanpassingsvermogen, cohesie en zelfbewustzijn, met het credo van de commandotroepen als ondergrond.</p><p>De opzet is die van een handleiding met verhalen uit zijn opleiding en zijn werk erdoorheen, en het eerlijkste deel gaat over de prijs: een hoofdstuk over wat aanhoudende toewijding kost en een over de keren dat het bij hem misging. Onderbouwing met onderzoek ontbreekt; wat er staat is de werkwijze van iemand die in een harde opleidingsomgeving heeft gezien wat mensen staande houdt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>eigenaarschap</li><li>karakter</li><li>leiderschap</li><li>commando</li><li>gewoonte</li><li>nederlands</li><li>opgetekend</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="140"><a href="140.html">Win Your Inner Battles</a>. Behandelt dezelfde keuze om in beweging te komen, maar zonder de militaire achtergrond en veel dunner onderbouwd.</li>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Vervolg in de lijst voor wie leiderschap onder druk verder wil volgen.</li>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Voor wie na dit boek wil zien hoe karakter en gewoonten buiten de persoonlijke ervaring worden onderzocht.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

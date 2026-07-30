@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ego Is the Enemy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Holiday stelt dat de grootste bedreiging voor wie iets wil bereiken niet buiten hem ligt maar binnenin: een ongezond geloof in het eigen belang, dat hij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-75">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">75 &middot; Moed en karakter</p>
+    <h1>Ego Is the Enemy</h1>
+    <p class="lede">Ryan Holiday, 2016</p>
+    <p class="stats">
+      <span><b>1861</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="75"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Holiday stelt dat de grootste bedreiging voor wie iets wil bereiken niet buiten hem ligt maar binnenin: een ongezond geloof in het eigen belang, dat hij ego noemt. Dat ego werkt in alle drie de fasen van een loopbaan tegen: het laat de beginner praten in plaats van leren, het maakt de geslaagde doof voor correctie, en het verergert elke mislukking door de schuld buiten zichzelf te zoeken. Zijn tegengif is stoïcijns van herkomst: nuchter zien wat er is, eigen maatstaven aanhouden en het werk boven de erkenning stellen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom hij dit boek schreef</h3>
+      <p>Het boek opent met een hoofdstuk dat hij het pijnlijke voorwoord noemt. Holiday stopte op zijn negentiende met zijn studie, werd de jongste leidinggevende bij een talentenbureau in Beverly Hills, marketingdirecteur bij kledingmerk American Apparel, en publiceerde op zijn vijfentwintigste <i>Trust Me, I'm Lying</i>, een omstreden bestseller over mediamanipulatie met zijn eigen gezicht op de omslag.</p>
+      <p>Daarna vertelt hij dezelfde jaren opnieuw, met wat hij de eerste keer wegliet: de openbare afbranding door iemand die hij bewonderde en waarna hij op de spoedeisende hulp belandde, de bestsellerpositie die één week duurde, de signeersessie waar één persoon kwam. In 2014 ging American Apparel bijna failliet, werd de oprichter door zijn eigen raad van bestuur ontslagen, en kreeg Holiday een paniekaanval omdat de wifi niet werkte. Hij noemt zichzelf een werkverslaafde en beschrijft dat zijn aanstaande vrouw de deur uit liep. Sindsdien staat op zijn onderarm de titel van dit boek getatoeëerd.</p>
+      <h3>Wat hij met ego bedoelt</h3>
+      <p>De inleiding legt de definitie vast. Niet het ego van Freud, niet de klinische term egotist, maar de alledaagse betekenis: een ongezond geloof in het eigen belang, arrogantie, zelfgerichte eerzucht. Het is het gevoel van superioriteit dat verder gaat dan wat het talent rechtvaardigt.</p>
+      <p>Hij citeert de footballtrainer Bill Walsh, bij wie zelfvertrouwen omslaat in arrogantie en zelfverzekerdheid in roekeloosheid, en de bestuurder Harold Geneen, die egoïsme met alcoholisme vergelijkt: de egoïst stoot niets om en lalt niet, hij wordt alleen steeds hooghartiger, en buitenstaanders zien dat aan voor kracht. Een vroeg lid van de Anonieme Alcoholisten omschreef ego als een bewuste afscheiding van, en die afscheiding is volgens Holiday precies wat samenwerken, leren en waarnemen onmogelijk maakt.</p>
+      <h3>Streven: praten in plaats van doen</h3>
+      <p>Het eerste deel gaat over wie nog niets heeft bereikt. Praten voelt aan als werken en levert alvast de bevrediging op waar het werk pas veel later voor zorgt, dus het eerste advies is zwijgen. Het scharnierstuk is het portret van John Boyd, gevechtspiloot en later denker op het Pentagon, bijgenaamd Forty-Second Boyd omdat hij elke tegenstander binnen veertig seconden uit elke positie kon verslaan. Hij publiceerde geen boeken, kwam nooit boven de rang van kolonel uit en had waarschijnlijk meer vijanden dan vrienden, maar zijn denken zit in de F-15 en de F-16 en in bijna elke militaire strateeg van zijn generatie.</p>
+      <p>De toespraak die Boyd vanaf 1973 aan veelbelovende jonge officieren hield, vormt de kern van het hoofdstuk: op de splitsing kun je iemand zijn of iets doen, en wie het eerste kiest krijgt de bevorderingen en de goede opdrachten en betaalt daarvoor met compromissen. Daarnaast staat het beeld van de anteambulo, in Rome degene die voor zijn beschermheer uit liep om de weg vrij te maken. De dichter Martialis vervulde die rol jarenlang en haatte het, terwijl juist zijn buitenpositie hem het zicht gaf waar zijn werk het van moet hebben. Het advies is het doek van een ander vol te schilderen zolang je nog niets van jezelf hebt.</p>
+      <h3>Succes: het verhaal dat je jezelf vertelt</h3>
+      <p>Het tweede deel gaat over wie iets heeft bereikt. Het gevaar is dan de verleiding om achteraf een plan te zien waar toeval en werk zaten. Bill Walsh nam in 1979 de 49ers over, een ploeg die het voorgaande seizoen twee keer had gewonnen en veertien keer verloren. Hij verloor zijn eerste seizoen opnieuw veertien wedstrijden en overwoog halverwege het tweede op te stappen. Drie jaar na zijn aantreden won hij de Super Bowl, en toen mensen vroegen naar zijn tijdschema antwoordde hij altijd dat hij er geen had gehad.</p>
+      <p>In plaats van een doel voerde Walsh zijn Standard of Performance in: spelers mochten niet op het trainingsveld zitten, coaches droegen een das, de kleedkamer moest schoon zijn, passes werden tot op de centimeter beoordeeld, trainingen tot op de minuut ingeroosterd. Als de details kloppen, zorgt de uitslag voor zichzelf. Daarnaast beschrijft Holiday wat trainer Pat Riley de ziekte van het ik noemt: teams beginnen onschuldig, en zodra het winnen en de aandacht komen, gaan spelers hun eigen aandeel berekenen. George Marshall staat er als tegenvoorbeeld, de generaal die naast Patton en MacArthur meer bereikte en minder zichtbaar was.</p>
+      <h3>Falen: levende tijd of dode tijd</h3>
+      <p>Het derde deel is het hardste. Holiday ontleent aan Robert Greene het onderscheid tussen dode tijd, waarin iemand passief wacht, en levende tijd, waarin hij leert en handelt. Malcolm X kreeg in 1946 tien jaar cel voor inbraak en heling. In de gevangenis leerde hij zichzelf lezen door het woordenboek van voor naar achter over te schrijven, en op de vraag naar zijn opleiding antwoordde hij later met één woord: boeken.</p>
+      <p>Het hoofdstuk over grenzen trekken zet twee reacties op mislukking naast elkaar. John DeLorean reed zijn autobedrijf in de grond en probeerde het daarna te redden met een cocaïnetransactie van honderd kilo, waarvoor hij werd gearresteerd en na een beroep op uitlokking werd vrijgesproken, terwijl er beelden bestaan waarop hij een zakje omhooghoudt. Steve Jobs, schrijft Holiday, was volledig verantwoordelijk voor zijn ontslag bij Apple en had als bestuurder terecht ontslagen moeten worden, maar begon daarna twee bedrijven en leerde van de fout. Het slot van het boek gaat over de eigen scorekaart: het bestuur van de New England Patriots was ontevreden over zichzelf toen Tom Brady in 2000 pas in de zesde ronde als 199e werd gekozen, omdat het feit dat het goed uitpakte niet wegneemt dat hun beoordeling niet had gedeugd.</p>
+      <h3>Vorm en bron</h3>
+      <p>De hoofdstukken zijn kort, meestal vijf tot acht bladzijden, en volgen steeds hetzelfde patroon: een citaat vooraf, een historisch portret, de les die eruit volgt, en een korte passage die de lezer aanspreekt. Elk van de drie delen sluit af met een hoofdstuk dat de zin uit de titel herhaalt.</p>
+      <p>Holiday schrijft in het voorwoord dat het boek leunt op de stoïcijnse wijsbegeerte en op de klassieke denkers, en dat wat er nuttig aan is aan hen toekomt en niet aan hem. Achterin staan een leeslijst en een verantwoording van de gebruikte literatuur. De doelstelling die hij zelf formuleert, is dat de lezer na afloop minder van zichzelf denkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ego</td><td>Een ongezond geloof in het eigen belang, dat de verhouding tot de wereld vertekent en correctie onmogelijk maakt.</td></tr>
+          <tr><td class="term">Zijn of doen</td><td>De keuze van John Boyd tussen een positie verwerven met de bijbehorende compromissen en werk afleveren dat blijft.</td></tr>
+          <tr><td class="term">Anteambulo</td><td>De Romein die voor zijn beschermheer uit liep om de weg vrij te maken, bij Holiday het beeld voor dienstbaar beginnen.</td></tr>
+          <tr><td class="term">Doekstrategie</td><td>Anderen beter laten uitkomen zolang je zelf nog geen positie hebt, in de wetenschap dat het werk dat oplevert je eigen scholing is.</td></tr>
+          <tr><td class="term">Standard of Performance</td><td>Bill Walsh' verzameling voorschriften over gedrag en uitvoering, ingevoerd zonder tijdpad voor het winnen zelf.</td></tr>
+          <tr><td class="term">Ziekte van het ik</td><td>Pat Riley's term voor het uiteenvallen van een team zodra winst en aandacht de leden hun eigen aandeel doen berekenen.</td></tr>
+          <tr><td class="term">Levende en dode tijd</td><td>Robert Greene's onderscheid tussen periodes waarin iemand passief afwacht en periodes waarin hij ze benut om te leren.</td></tr>
+          <tr><td class="term">Eigen scorekaart</td><td>De maatstaf die iemand voor zichzelf aanhoudt, los van uitslagen en oordelen van buiten.</td></tr>
+          <tr><td class="term">Het verhaal</td><td>De achteraf gladgestreken vertelling waarin toeval en geluk wegvallen en de afloop het plan lijkt te zijn geweest.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust vrijwel geheel op geschiedschrijving en biografie. Holiday zegt dat zelf: op het voorwoord na houdt hij zijn eigen leven erbuiten en werkt hij met wijsbegeerte en historische voorbeelden. Achterin staat een verantwoorde leeslijst, zodat de gevallen na te lopen zijn.</p>
+      <p>Onderzoek in de zin van gecontroleerde studies komt er niet aan te pas. Er zijn geen gegevens over hoe vaak zelfoverschatting mensen de das omdoet, geen vergelijking tussen bescheiden en hoogmoedige bestuurders, geen effectmeting van de voorgestelde houding. De redenering is illustratief van begin tot eind.</p>
+      <p>De portretten zelf zijn beknopt en gaan meestal terug op secundaire bronnen: biografieën, memoires, interviews. Waar iemand als Walsh zijn eigen herinneringen te boek stelde, is de bron de betrokkene, met alle nabewerking die het boek elders juist als valkuil aanwijst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar gaat over de bewijskeuze. De voorbeelden zijn gezocht bij de stelling, niet omgekeerd. Bescheiden mensen die desondanks faalden komen niet voor, en hoogmoedige mensen die desondanks slaagden worden weggewuifd. Holiday noemt Steve Jobs en Kanye West zelf als tegenwerping en antwoordt dat niemand werkelijk slaagt doordat hij zelfingenomen is. Dat is een herformulering van de stelling, geen weerlegging van de tegenwerping.</p>
+      <p>Het begrip ego is zo ruim opgezet dat het bijna alles dekt: arrogantie, ongeduld, aanspraak, achterdocht, zelfmedelijden, achteraf verhalen vertellen. Wat er ook misgaat, het is er onder te brengen, en juist daardoor valt er geen geval te bedenken dat de these onderuithaalt. Een verklaring die niet kan worden weerlegd, verklaart weinig.</p>
+      <p>De schrijver bekleedt een lastige positie en het voorwoord lost die niet op. Holiday verdiende zijn naam met een boek over het manipuleren van de media en met marketingwerk waarin aandacht juist het doel was; hier verkoopt hij ingetogenheid, met zijn eigen loopbaan als toonbeeld en zijn tatoeage als afsluiting van het hoofdstuk. Dat is precies het soort persoonlijk merk waartegen hij verderop waarschuwt.</p>
+      <p>De geschiedenis wordt strak gesneden. Dat Malcolm X zichzelf in de gevangenis vormde is juist, maar het hoofdstuk zwijgt over wat er daarna gebeurde en over de vraag of het voorbeeld zich laat overzetten op een lezer met een tegenvallend kwartaal. Vergelijkbare compressie treft Marshall, DeLorean en Brady, en wie de zaken beter kent, ziet de weggelaten helft.</p>
+      <p>Als geheel is het boek herhalend. Drie delen, dezelfde slotzin, dezelfde opbouw per hoofdstuk, en dezelfde stoïcijnse bron als zijn eerdere en latere titels. Wie er één van heeft gelezen, komt in de volgende weinig nieuws tegen behalve andere namen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd een plan voor je tot je iets hebt dat je kunt laten zien, en let op hoeveel voldoening het praten alleen al oplevert.</li>
+        <li>Stel bij een aanbod de vraag van Boyd: kies ik hier voor een positie of voor werk dat ik wil afleveren.</li>
+        <li>Formuleer een handvol normen voor de uitvoering van je werk en handhaaf die, in plaats van een doel met een datum eraan.</li>
+        <li>Schrijf op hoe je je eigen succes vertelt en streep alles weg wat geluk of hulp van anderen was.</li>
+        <li>Beoordeel na een goede afloop ook de beslissing zelf: had je gelijk om de redenen die je dacht.</li>
+        <li>Bepaal bij tegenslag welke stap je nog kunt zetten die je later niet hoeft uit te leggen, en houd op met de rest.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Penguin Portfolio. Nederlands als <i>Ego is de vijand</i> bij Lev. (2017); zie ook 30 van dezelfde schrijver.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Holiday deelt een loopbaan in drieën, ambitie, succes en mislukking, en laat zien hoe het ego in elk van die fasen zijn eigen schade aanricht: het praat werk goed dat nog niet af is, het maakt van succes een reden om te stoppen met leren, en het verandert tegenslag in gekrenktheid. Zijn tegengif is nuchter werk zonder publiek, en het aanvaarden dat de meeste inspanning onopgemerkt blijft.</p><p>De vorm is die van zijn andere boeken: korte hoofdstukken met historische portretten, van generaals tot ondernemers, telkens met een les. Dat leest snel en is selectief, want de gekozen voorbeelden bevestigen het punt altijd. Als bezwaar tegen de aandacht die het vak van de schrijver zelf verhandelt, is het boek ook een zelfportret.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ego</li><li>stoicijns</li><li>ambitie</li><li>succes</li><li>falen</li><li>portretten</li><li>zelfbeheersing</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="73"><a href="73.html">12 Rules for Life</a>. Ook gericht op houding en verantwoordelijkheid van het individu, maar met mythe en biologie als onderbouw in plaats van geschiedenis.</li>
+          <li value="74"><a href="74.html">Beyond Order</a>. Petersons vervolg behandelt wrok, bedrog en hoogmoed als drie samenhangende gevaren, wat dicht bij Holiday's onderwerp ligt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

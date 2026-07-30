@@ -84,18 +84,23 @@ if (fouten.length) {
 /* ---------- index.html ---------- */
 const routesHtml = ROUTES.map(r => `
     <div class="route">
-      <h3>${r.titel} <span class="nrs">${r.nrs.join(" &middot; ")}</span></h3>
+      <h3>${r.titel} <span class="nrs">${
+        r.nrs.map(n => `<b class="stap" data-nr="${n}">${n}</b>`).join(" &middot; ")
+      }</span></h3>
       <p>${r.tekst}</p>
     </div>`).join("\n");
 
 const dataJs =
   "const RUBRIEKEN = " + JSON.stringify(RUBRIEKEN) + ";\n" +
+  "const ROUTES = " + JSON.stringify(ROUTES) + ";\n" +
   "const BOEKEN = " + JSON.stringify(BOEKEN) + ";";
 
 const STIJL = lees("src/basis.css").trimEnd();
+const VOORTGANG = lees("src/voortgang.js").trimEnd();
 
 const html = lees("src/template.html")
   .replace("{{STIJL}}", STIJL)
+  .replace("{{VOORTGANG}}", () => VOORTGANG)
   .replace("{{ROUTES}}", routesHtml)
   .replace("{{DATA}}", dataJs)
   .replace("{{DATUM}}", DATUM);
@@ -171,6 +176,7 @@ for (const b of MET_LANG) {
     .replaceAll("{{AUTEUR}}", b.auteur)
     .replaceAll("{{WOORDEN}}", String(woorden))
     .replaceAll("{{DATUM}}", DATUM)
+    .replace("{{VOORTGANG}}", () => VOORTGANG)
     .replace("{{HOOFD}}", hoofd.trimEnd())
     .replace("{{ZIJ}}", zij.trimEnd());
 

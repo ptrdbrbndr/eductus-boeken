@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Subtle Art of Not Giving a F*ck &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Manson draait de belofte van de gangbare zelfhulp om. Wie voortdurend probeert zich beter te voelen, houdt zichzelf voor dat er iets ontbreekt, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-72">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">72 &middot; Levenskunst</p>
+    <h1>The Subtle Art of Not Giving a F*ck</h1>
+    <p class="lede">Mark Manson, 2016</p>
+    <p class="stats">
+      <span><b>1794</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="72"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Manson draait de belofte van de gangbare zelfhulp om. Wie voortdurend probeert zich beter te voelen, houdt zichzelf voor dat er iets ontbreekt, en versterkt daarmee het gevoel tekort te schieten. De kwaliteit van een leven wordt volgens hem bepaald door de kwaliteit van de problemen die iemand bereid is te dragen, en door de waarden waaraan hij die problemen afmeet. Aandacht is beperkt, dus de vraag is niet hoe je meer geeft om meer dingen, maar waaraan je je schaarse aandacht besteedt en wat je bewust laat vallen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De omgekeerde wet</h3>
+      <p>Het eerste hoofdstuk opent met Charles Bukowski, dertig jaar mislukt schrijver met een baan bij de post, die op zijn vijftigste alsnog werd uitgegeven en meer dan twee miljoen boeken verkocht. Op zijn grafsteen staat <i>Don't try</i>. Manson leest dat niet als valse bescheidenheid: Bukowski werd gelezen omdat hij eerlijk was over zijn falen, niet omdat hij zichzelf had opgewerkt tot een beter mens.</p>
+      <p>Daar hangt hij het begrip aan op dat hij van Alan Watts leent, de omgekeerde wet: hoe harder je een positieve ervaring najaagt, hoe meer je de afwezigheid ervan bevestigt. Wie zich slecht voelt over het feit dat hij zich slecht voelt, komt in wat Manson de terugkoppeling uit de hel noemt. De uitweg is de negatieve ervaring aanvaarden, wat zelf een positieve ervaring oplevert.</p>
+      <h3>Geluk is een probleem</h3>
+      <p>Het tweede hoofdstuk hervertelt het verhaal van de prins die achter de paleismuren werd grootgebracht, de wereld in trok, jaren als bedelaar leefde en onder een boom tot de slotsom kwam dat lijden bij het leven hoort. Die prins werd de Boeddha. Manson gebruikt hem om te betogen dat geluk geen vergelijking is die je oplost.</p>
+      <p>Zijn eigen versie is biologisch en vrij plat: pijn en ontevredenheid zijn de signalen waarop mensen in beweging komen, en geluk ontstaat bij het oplossen van problemen. Wie het probleem ontkent of vermijdt, blijft ongelukkig. De praktische vraag wordt daarmee: welke pijn wil je verdragen, welke strijd kies je. Wie schrijver wil zijn zonder afwijzing te willen verdragen, wil vooral het resultaat en niet het werk.</p>
+      <h3>Je bent niet bijzonder</h3>
+      <p>Het derde hoofdstuk richt zich op de beweging voor een hoog zelfbeeld die vanaf de jaren zestig opkwam en vanaf de jaren zeventig in opvoeding en onderwijs terechtkwam: cijferinflatie, deelnamebekers, opdrachten waarin kinderen opschrijven waarom ze bijzonder zijn. Manson stelt dat het meetinstrument verkeerd was. Zelfwaardering afmeten aan hoe goed iemand zich over zichzelf voelt, zegt weinig; het gaat om hoe iemand omgaat met zijn slechte kanten.</p>
+      <p>Het portret van Jimmy, een kennis die jaren van familie en vriendinnen leefde terwijl hij zichzelf een miskend ondernemer vond, dient als tegenbeeld. Het begrip dat Manson eraan verbindt is aanspraak: het gevoel goede dingen te verdienen zonder er iets voor te doen. Hij tekent er twee vormen van, de opgeblazen en de zielige, en noemt beide een manier om zich niet met de eigen middelmatigheid te hoeven verhouden.</p>
+      <h3>Waarden en de ui van zelfkennis</h3>
+      <p>Hoofdstuk vier vertelt over Hiroo Onoda, de Japanse luitenant die tot 1974 in de jungle van Lubang doorvocht en pamfletten over de capitulatie voor bedrog hield, tot de avonturier Norio Suzuki hem in vier dagen vond door zijn naam te roepen. Onoda hield vol en offerde dertig jaar, aan een waarde die niet deugde.</p>
+      <p>Daarop volgt de ui van zelfkennis met drie lagen: weten wat je voelt, weten waarom je dat voelt, en weten aan welke maatstaf je jezelf meet. Die derde laag is de moeilijke. Manson noemt vier slechte waarden, waaronder genot, materieel succes en gelijk hebben, en zet er vijf tegenover die hij door het boek heen uitwerkt: verantwoordelijkheid, onzekerheid, falen, weigering en sterfelijkheid. Goede waarden zijn volgens hem op werkelijkheid gestoeld, opbouwend en beheersbaar door de persoon zelf.</p>
+      <h3>Verantwoordelijkheid zonder schuld</h3>
+      <p>Hoofdstuk vijf staat op het onderscheid tussen schuld en verantwoordelijkheid. Wat iemand overkomt is vaak niet zijn schuld, maar hij blijft verantwoordelijk voor wat hij ermee doet. De illustratie is William James, ziekelijk, mislukt aan de kunstacademie en aan de medische opleiding, bijna gestorven in de Amazone, die zich voornam een jaar lang te leven alsof hij volledig verantwoordelijk was voor alles wat hem overkwam, en anders een eind aan zijn leven te maken. Hij werd de grondlegger van de Amerikaanse psychologie.</p>
+      <p>Manson koppelt daar zijn kritiek aan op wat hij slachtofferschap als mode noemt: een publieke cultuur waarin het eigen ongelijk voortdurend wordt uitvergroot omdat verontwaardiging aandacht oplevert. Dezelfde marathon, vrijwillig gelopen of onder dwang, is dezelfde 42 kilometer met een volstrekt ander gevoel. Het verschil zit in de keuze.</p>
+      <h3>Onzekerheid, falen en weigering</h3>
+      <p>De hoofdstukken zes tot en met acht werken drie waarden uit. Zekerheid noemt Manson gevaarlijk: hij formuleert een eigen vuistregel, de wet van vermijding, die zegt dat mensen alles ontlopen wat hun beeld van zichzelf zou kunnen bedreigen, ook als dat beeld ongunstig is. Groei gaat van fout naar iets minder fout, nooit naar juist.</p>
+      <p>Falen behandelt hij als voorwaarde in plaats van als uitzondering. De anekdote over Picasso, die twintigduizend dollar vroeg voor een servet omdat hij er zestig jaar over had gedaan, dient om te laten zien dat pijn en herhaling niet weg te automatiseren zijn. Wie verlamd is door de vraag wat hij moet doen, past het doe-iets-beginsel toe: handelen is niet alleen het gevolg van motivatie maar ook de bron ervan.</p>
+      <p>Hoofdstuk acht gaat over weigeren. Manson beschrijft zijn eigen jaren van reizen, vijfenvijftig landen, en de vaststelling dat onbeperkte vrijheid op zichzelf niets betekende. Zonder grenzen en zonder verbintenis blijft alles inwisselbaar. Hij behandelt daar ook wat hij grenzen noemt in relaties: ieder blijft verantwoordelijk voor zijn eigen gevoelens, en wie de gevoelens van de ander overneemt of afschuift, houdt het probleem in stand.</p>
+      <h3>En dan ga je dood</h3>
+      <p>Het slothoofdstuk begint bij de verdrinking van Manson zijn vriend Josh tijdens een feest bij een meer, toen Manson negentien was. Duikers vonden het lichaam pas na drie uur. Dat voorval is in het boek de aanleiding voor alles wat erna kwam.</p>
+      <p>Daarna volgt Ernest Becker en diens gedachte dat mensen hun sterfelijkheid opvangen met onsterfelijkheidsprojecten: werk, geloof, natie, kinderen, alles wat langer meegaat dan het lichaam. Manson leest die projecten als waarden, en trekt de conclusie van het boek: de dood in het oog houden is de enige maatstaf die niet meebeweegt met stemming of mode.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Omgekeerde wet</td><td>Van Alan Watts overgenomen idee dat het najagen van een positieve ervaring de afwezigheid ervan bevestigt, en dat het aanvaarden van een negatieve ervaring zelf positief werkt.</td></tr>
+          <tr><td class="term">Terugkoppeling uit de hel</td><td>Het patroon waarin iemand zich slecht voelt over het feit dat hij zich slecht voelt, waardoor het gevoel zichzelf blijft voeden.</td></tr>
+          <tr><td class="term">Ui van zelfkennis</td><td>Drie lagen van zelfinzicht: weten wat je voelt, weten waarom je dat voelt, en weten aan welke maatstaf je jezelf afmeet.</td></tr>
+          <tr><td class="term">Slechte waarden</td><td>Maatstaven die buiten de eigen invloed liggen of op ontkenning berusten, zoals genot, materieel succes, altijd gelijk hebben en positief blijven.</td></tr>
+          <tr><td class="term">Schuld tegenover verantwoordelijkheid</td><td>Onderscheid tussen wie iets heeft veroorzaakt en wie zich verhoudt tot de gevolgen; het eerste ligt vaak buiten iemand, het tweede altijd bij hem.</td></tr>
+          <tr><td class="term">Aanspraak</td><td>De overtuiging goede dingen te verdienen zonder er iets voor te leveren, die zich zowel als grootspraak als als zelfbeklag kan uiten.</td></tr>
+          <tr><td class="term">Wet van vermijding van Manson</td><td>Zijn eigen vuistregel dat mensen alles ontlopen wat hun beeld van zichzelf zou kunnen bedreigen, ook wanneer dat beeld ongunstig is.</td></tr>
+          <tr><td class="term">Doe-iets-beginsel</td><td>Handelen als beginpunt in plaats van als sluitstuk: doen levert de motivatie op die daarvoor ontbrak.</td></tr>
+          <tr><td class="term">Grenzen</td><td>De regel dat ieder in een relatie verantwoordelijk blijft voor zijn eigen gevoelens en niet voor die van de ander.</td></tr>
+          <tr><td class="term">Onsterfelijkheidsproject</td><td>Term van Ernest Becker voor alles waarmee mensen betekenis bouwen die hun eigen dood overleeft; volgens Manson zijn dat precies iemands waarden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het argument rust op verhalen, niet op onderzoek. Bukowski, Onoda, William James, Picasso en Becker zijn stuk voor stuk goed gedocumenteerd, en de feitelijke kern klopt: Onoda gaf zich in 1974 over, James kwam na een diepe crisis tot zijn werk. Maar het zijn illustraties achteraf. Ze laten zien dat de stelling ergens opgaat, ze tonen niet dat ze in het algemeen opgaat.</p>
+      <p>De plaatsen waar Manson wel naar onderzoek verwijst, zoals de beweging voor een hoog zelfbeeld en het verband tussen zelfwaardering en gedrag, blijven zonder verwijzing. Deze uitgave heeft geen notenapparaat en geen literatuurlijst; na hoofdstuk negen volgen alleen dankwoord, colofon en auteursgegevens. Wie de bronnen wil nalopen, kan dat vanuit het boek zelf niet.</p>
+      <p>De ideeën zijn grotendeels niet van Manson. De omgekeerde wet komt van Watts, het lijden als grondgegeven van het boeddhisme, de scheiding tussen wat binnen en buiten je macht ligt van de stoa, de onsterfelijkheidsprojecten van Becker. Manson vermeldt dat ook. De bijdrage van het boek zit in de ordening en de toon, niet in nieuw materiaal.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de kern niet te weerleggen valt. Wie zich beter voelt, heeft de goede waarden gekozen; wie zich slechter voelt, heeft de verkeerde gekozen of niet genoeg verantwoordelijkheid genomen. Er is geen uitkomst denkbaar die het model tegenspreekt, en daarmee levert het geen voorspelling op maar een manier van praten achteraf.</p>
+      <p>De nadruk op verantwoordelijkheid gaat over de grens waar omstandigheden werkelijk bepalend zijn. Manson ziet dat en scheidt schuld van verantwoordelijkheid, maar armoede, ziekte, discriminatie en geweld komen in het boek vrijwel alleen voor als aanleiding tot een persoonlijke keuze. Wat er structureel aan te doen valt, blijft buiten beeld. Voor een lezer met weinig speelruimte kan het boek daardoor als verwijt aankomen.</p>
+      <p>De vorm doet een deel van het overtuigingswerk. Het boek is geschreven in grove taal en met veel scheldwoorden, wat de indruk wekt van iemand die het zonder omhaal zegt. Die indruk vervangt op plaatsen het argument: een stelling die hard wordt gebracht, leest als vanzelfsprekend zonder dat ze onderbouwd is.</p>
+      <p>Het geheel presenteert lijden als iets dat met betere waarden te dragen is. Bij depressie, verslaving of trauma is dat een onvolledige raad.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op waaraan je je succes afmeet, en toets die maatstaf op één punt: ligt hij binnen je eigen invloed of niet.</li>
+        <li>Kies bij een doel bewust de bijbehorende last: welke afwijzing of verveling hoort erbij, en wil je die dragen.</li>
+        <li>Scheid bij een tegenslag de vraag wie het veroorzaakte van de vraag wat jij nu doet, en beantwoord alleen de tweede.</li>
+        <li>Noteer bij een sterke overtuiging hoe je zou merken dat ze onjuist is.</li>
+        <li>Begin bij verlamming met een kleine handeling en kijk of de zin daarna komt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>A Counterintuitive Approach to Living a Good Life</i> (HarperOne). Nederlands als <i>De edele kunst van not giving a f*ck</i> bij Kosmos (2017).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Manson keert de gebruikelijke belofte van zelfhulp om: het probleem is niet dat mensen te weinig zelfvertrouwen hebben, maar dat zij zich om te veel dingen druk maken. Aandacht is beperkt, dus de vraag is niet hoe je overal om kunt geven maar waarover wel. Daaraan koppelt hij het onderscheid tussen schuld en verantwoordelijkheid: wat iemand overkomt is niet altijd zijn schuld, wat hij ermee doet altijd zijn verantwoordelijkheid.</p><p>De inhoud is grotendeels stoïcijns en boeddhistisch materiaal in straattaal, met eigen ervaringen en historische voorbeelden erdoorheen. De toon is de reden dat het boek miljoenen lezers vond en ook de reden dat het snel gedateerd aanvoelt; het beste hoofdstuk gaat over het kiezen van je problemen, omdat het duidelijk maakt dat een leven zonder pijn geen doel maar een lege wens is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>waarden</li><li>verantwoordelijkheid</li><li>zelfhulp</li><li>grenzen</li><li>falen</li><li>toon</li><li>keuzes</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="140"><a href="140.html">Win Your Inner Battles</a>. Ook een boek over de vijand vanbinnen, maar veel dunner, praktischer en zonder de wijsgerige laag die Manson eronder legt.</li>
+          <li value="74"><a href="74.html">Beyond Order</a>. Vervolg in de lijst voor wie de vraag naar waarden en zelfkennis verder wil volgen.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Voor wie wil zien hoe het thema verantwoordelijkheid buiten de zelfhulphoek wordt behandeld.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond Order &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Waar het eerste boek chaos wilde temmen, waarschuwt dit boek voor het omgekeerde: te veel orde. Een leven dat volledig geregeld is, verstart en houdt op…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-74">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">74 &middot; Moed en karakter</p>
+    <h1>Beyond Order</h1>
+    <p class="lede">Jordan B. Peterson, 2021</p>
+    <p class="stats">
+      <span><b>1838</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="74"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Waar het eerste boek chaos wilde temmen, waarschuwt dit boek voor het omgekeerde: te veel orde. Een leven dat volledig geregeld is, verstart en houdt op zich aan te passen, en op maatschappelijke schaal loopt diezelfde neiging uit op ideologie en dwang. Peterson bepleit daarom dat iemand één voet in het bekende houdt en de andere in wat hij nog niet begrijpt, en hij bouwt twaalf regels rond die grenspositie. De inzet is niet vermijden van lijden maar de bereidheid om dankbaar te blijven terwijl het lijden er is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een voorwoord dat de rest kleurt</h3>
+      <p>De Overture opent met de zin dat hij op 5 februari 2020 wakker werd op een intensivecareafdeling in Moskou, vastgebonden aan het bed omdat hij in bewusteloze toestand de katheters had proberen te verwijderen. Wat daaraan voorafging beschrijft hij stap voor stap. Zijn dochter Mikhaila onderging in januari 2019 in Zürich een enkeloperatie. Zijn vrouw Tammy bleek in maart van dat jaar een zeldzame nierkwaadaardigheid te hebben met een sterftecijfer van bijna honderd procent binnen een jaar, gevolgd door een lymfelekkage van liters per dag die pas in Philadelphia tot stilstand kwam.</p>
+      <p>Zijn eigen ineenstorting hangt aan een voorgeschreven kalmeringsmiddel. Begin 2017 kreeg hij een benzodiazepine tegen extreme angst, kou en slapeloosheid na wat op een voedselreactie leek. Hij gebruikte het bijna drie jaar, liet de dosis in 2019 tweemaal verhogen en werd daar steeds angstiger van, wat later als een omgekeerde reactie op het middel werd geduid. Na twee ketaminesessies en abrupt stoppen volgde acute onthouding met akathisie, een niet te onderdrukken bewegingsdrang. Een Amerikaanse kliniek kreeg hem niet van het middel af. In Moskou werd hij negen dagen in een kunstmatig coma gehouden en beademd, en na het ontwaken moest hij opnieuw leren lopen, knopen dichtdoen en typen.</p>
+      <h3>Waarom voorbij de orde</h3>
+      <p>Peterson herhaalt de tweedeling uit het eerste boek en draait de nadruk om. Orde is het gebied waarin je handelingen opleveren wat je verwacht. Dat gebied is altijd onvolledig, deels door onwetendheid, deels door onwil om te kijken, deels omdat de wereld doorschuift. Wie het toch dicht wil timmeren, komt uit bij totalitaire dwang.</p>
+      <p>Geen van beide toestanden verdient volgens hem de voorkeur. Het eerste boek behandelde het herstel na te veel chaos, dit boek de gevaren van te veel veiligheid en beheersing. De twaalf regels komen opnieuw uit dezelfde lijst van tweeënveertig die hij ooit op Quora publiceerde.</p>
+      <h3>Instellingen en de mensen die ze opschudden</h3>
+      <p>Regel I verdedigt sociale instellingen en creatieve prestaties tegelijk. Geestelijke gezondheid is volgens Peterson deels een sociale zaak: andere mensen houden je waarneming en gedrag binnen de bandbreedte, en wie helemaal alleen komt te staan raakt verward. Tegelijk verkalken instellingen zonder mensen die ze vernieuwen, en daarvoor voert hij de nar op, de figuur die de koning ongestraft mag tegenspreken.</p>
+      <p>Regel II werkt uit hoe iemand wordt wie hij zou kunnen zijn. Peterson analyseert een eeuwenoude alchemistische afbeelding en gebruikt de term materia prima, de vormeloze grondstof waaruit iets gemaakt moet worden. De weg loopt via het beeld van de held die de draak opzoekt, sterft en herrijst, wat hij leest als de beschrijving van hoe een persoonlijkheid zich hervormt door vrijwillig het bedreigende op te zoeken.</p>
+      <h3>De mist</h3>
+      <p>Regel III is de meest praktische en berust op twee verhalen. Zijn schoonvader Dell Roberts snauwde na twintig jaar tegen zijn vrouw dat hij die kleine bordjes haatte waarop ze zijn lunch serveerde, en zij had geen idee dat het hem stoorde. De les die Peterson eruit haalt: wat zich dagelijks herhaalt is niet klein, en honderd of duizend van zulke onbesproken ergernissen leggen een huwelijk om.</p>
+      <p>Het tweede verhaal gaat over een cliënte, een accountant, die pas na maanden gesprekken ter sprake bracht wat haar werkelijk ongelukkig maakte, omdat elk afzonderlijk voorval het niet waard leek om ruzie over te maken. De mist is het geheel van wat je weigert scherp te stellen. Zolang het vaag blijft, kun je het niet oplossen en groeit het door.</p>
+      <h3>Verantwoordelijkheid en geweten</h3>
+      <p>Regel IV zoekt gelegenheid daar waar niemand verantwoordelijkheid neemt. De redenering loopt via het Egyptische verhaal van Osiris en Horus: een zoon moet zijn verminkte vader uit de onderwereld halen, wat Peterson leest als de opdracht om de traditie niet af te wijzen maar te herstellen. Geluk komt en gaat, schrijft hij, betekenis komt uit vrijwillig aanvaarde last.</p>
+      <p>Regel V draait om één casus. Een cliënte van hem raakte verzeild in een langdurig kantoorconflict over de vraag of het Engelse woord voor flip-over kwetsend was, met vergaderingen, een verplicht vervangwoord en een wedstrijdje om nog meer verdachte woorden te vinden. Peterson gebruikt dat om de vraag te stellen wanneer je ophoudt mee te doen aan iets waar je niet achter staat. Doe niet wat je haat, want elke keer dat je toch meedoet ondermijn je je eigen oordeel.</p>
+      <h3>Tegen ideologie</h3>
+      <p>Regel VI is de meest polemische. Ideologie noemt hij het herleiden van uiteenlopende maatschappelijke problemen tot één oorzaak: sekse, klasse, macht. Dat levert de bevrediging van een sluitende verklaring en een gerechtvaardigde vijand, en vraagt geen enkel offer van de gelovige zelf. Het is volgens hem het aanbidden van een afgod, en het gaat vergezeld van wrok die zich als moreel gelijk voordoet.</p>
+      <p>In hetzelfde hoofdstuk verantwoordt hij zijn eigen publieke rol. Hij noemt de tournee langs honderdzestig theaters, de miljoenen verkochte exemplaren van zijn vorige boek, en de man in een Amerikaanse stad die hem na een lezing vertelde dat hij twee jaar eerder uit de gevangenis kwam en nu werk, een woning en een dochter had. Wat mensen volgens hem bij hem halen, zijn woorden voor iets dat ze al aanvoelden.</p>
+      <h3>Schoonheid, geheugen en de moeite van een relatie</h3>
+      <p>Regel VIII gaat verder waar het bekendste advies uit het vorige boek ophield. Je kamer opruimen is niet genoeg, er moet ook iets moois komen. Peterson geeft toe dat zijn eigen werkkamer al drie jaar een rommel is en dat er een spotbeeld van rondgaat op internet, en noemt dat een terechte opmerking. Eén ruimte werkelijk mooi maken opent volgens hem een verhouding tot schoonheid die zich daarna uitbreidt.</p>
+      <p>Regel IX bepleit oude nare herinneringen zorgvuldig en volledig op te schrijven, omdat gebeurtenissen die nog pijn doen kennelijk niet af zijn en zich anders herhalen. Regel X behandelt romantiek als iets dat onderhandeld en ingeroosterd moet worden: zonder afgesproken tijd en uitgesproken verwachtingen glijdt een relatie af naar tirannie of onderwerping. Regel XII sluit af met dankbaarheid als vorm van moed, waarbij liefde boven moed wordt gesteld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Voorbij de orde</td><td>De positie waarin iemand het bekende vasthoudt en tegelijk zijn aandacht richt op wat hij nog niet begrijpt.</td></tr>
+          <tr><td class="term">Mist</td><td>Het geheel van kwesties dat iemand weigert scherp te benoemen, waardoor ze onopgelost blijven doorwoekeren.</td></tr>
+          <tr><td class="term">Materia prima</td><td>De alchemistische term voor de vormeloze grondstof, door Peterson gebruikt voor het onaffe zelf waaruit een persoon gemaakt moet worden.</td></tr>
+          <tr><td class="term">Pathologische orde</td><td>Regels en gebruiken die zo ver zijn doorgevoerd dat ze aanpassing verhinderen en dwang worden.</td></tr>
+          <tr><td class="term">Ideologie</td><td>Een verklaring die alle maatschappelijke problemen op één oorzaak terugvoert en de gelovige zelf buiten schot laat.</td></tr>
+          <tr><td class="term">Wrok</td><td>Verongelijktheid die zich als moreel gelijk voordoet en zich richt tegen wie het beter heeft getroffen, bij Peterson de motor achter ideologisch denken.</td></tr>
+          <tr><td class="term">Akathisie</td><td>De stoornis van niet te onderdrukken bewegingsdrang die Peterson tijdens zijn onthoudingsperiode beschrijft.</td></tr>
+          <tr><td class="term">Geestelijke gezondheid als sociale instelling</td><td>Het idee dat andere mensen iemands waarneming en gedrag corrigeren, zodat isolement zelf ontregelend werkt.</td></tr>
+          <tr><td class="term">De nar</td><td>De figuur die de heerser ongestraft mag tegenspreken en daarmee de vernieuwing van een instelling mogelijk maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste materiaal is getuigenis. Peterson beschrijft in het voorwoord zijn eigen ziekte, de operaties van zijn vrouw en dochter, de kliniek en het coma in Moskou, en zegt dat hij tijdens het redigeren alleen die zinnen liet staan die ook onder extreme omstandigheden overeind bleven. Als toets is dat serieus, maar het is een verslag van één persoon over zichzelf, zonder onafhankelijke stukken erbij.</p>
+      <p>De rest komt uit dezelfde bronnen als het vorige boek: klinische casussen, mythe en religieuze verhalen, alchemistische afbeeldingen, literatuur. Er zit een notenapparaat achterin, maar het aantal toetsbare empirische beweringen is kleiner dan in <i>12 Rules for Life</i>. Dat is winst en verlies tegelijk: minder aanvechtbaar, ook minder verifieerbaar.</p>
+      <p>Waar hij psychologisch onderzoek aanhaalt, gaat het meestal om vakgebieden die hij zelf bedreef, zoals persoonlijkheidsdimensies. Bij de maatschappelijke hoofdstukken ontbreekt dat en blijft één anekdote de last dragen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Regel VI vraagt de lezer ideologie op te geven, maar het boek zelf rust op een uitgesproken wereldbeeld: orde tegenover chaos, het mannelijke tegenover het vrouwelijke, joods-christelijke verhalen als bodem onder de westerse moraal. Dat kader wordt nergens ter discussie gesteld en de regel wordt niet op het boek zelf toegepast. Wie de tweedeling niet aanvaardt, heeft aan de rest weinig houvast.</p>
+      <p>Het hoofdstuk over niet doen wat je haat draagt zwaar op één kantoorconflict over één woord. Uit die anekdote wordt een uitspraak over de richting van de cultuur afgeleid, en de lezer krijgt geen andere gevallen om die stap mee te wegen. Hetzelfde geldt voor de behandeling van universiteiten en media.</p>
+      <p>Het ziekteverslag roept vragen op die het boek niet stelt. De diagnose dat het om een omgekeerde reactie op de benzodiazepine ging, is de duiding achteraf van de auteur en zijn omgeving; de gekozen behandeling, een kunstmatig coma in Moskou om de onthouding te overbruggen, geldt in Noord-Amerika niet voor niets als te riskant. Dat een auteur zulke adviezen opschreef terwijl hij in die toestand verkeerde, hoeft ze niet ongeldig te maken, maar het maakt de toon van zekerheid moeilijker te verdragen.</p>
+      <p>Zijn publieke optreden werkt door in de tekst. Delen van Regel VI antwoorden zichtbaar aan critici in plaats van aan lezers, en de verwijzingen naar tournees, kijkcijfers en oplagecijfers dienen deels als weerlegging van de aantijging dat hij niet serieus te nemen valt. Voor wie dat debat niet volgde, is dat dode ruimte.</p>
+      <p>Regel X geeft nogal stellige voorschriften over hoe een relatie hoort te lopen, met wekelijkse afspraken en volledige openheid, zonder enige onderbouwing uit relatieonderzoek. De rolverdeling die eronder ligt blijft impliciet en daarmee onbesproken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer een week lang wat zich dagelijks herhaalt en waarover je nooit iets zegt, en kies er één uit om ter sprake te brengen.</li>
+        <li>Schrijf een oude herinnering die nog pijn doet volledig uit, inclusief wat je toen dacht en wat je nu weet.</li>
+        <li>Maak één ruimte in huis af tot je haar mooi vindt, in plaats van het hele huis half.</li>
+        <li>Zet een vaste tijd per week in de agenda voor je partner en spreek uit wat je van die tijd verwacht.</li>
+        <li>Ga na welk werk je doet terwijl je het verwerpt, en bepaal waar je grens ligt voordat je die weer overschrijdt.</li>
+        <li>Zoek bij een verklaring die alles op één oorzaak terugvoert eerst het geval dat er niet in past.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>12 More Rules for Life</i> (Penguin Random House). Nederlands als <i>Voorbij de orde: nog 12 regels voor het leven</i> bij Prometheus (2021).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het vervolg keert de vraagstelling om. Waar het eerste boek betoogde dat mensen orde nodig hebben tegen de chaos, gaat dit over de gevaren van te veel orde: gewoontes die verstenen, instellingen die zichzelf gaan dienen, mensen die uit angst voor het onbekende hun leven dichttimmeren. De regels gaan daardoor vaker over durven, verbeelden en loslaten.</p><p>Het is geschreven in een periode waarin Peterson ernstig ziek was en verslaafd raakte aan een voorgeschreven kalmeringsmiddel, en dat is aan de toon te merken: minder stellig, meer over kwetsbaarheid, met een voorwoord waarin hij die periode beschrijft. Wie het eerste boek waardeerde, vindt hier hetzelfde mengsel van klinische ervaring en verhaaluitleg; wie de sprongen daar te groot vond, zal ook dit terzijde leggen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>orde</li><li>chaos</li><li>creativiteit</li><li>verhaal</li><li>verantwoordelijkheid</li><li>ziekte</li><li>vervolg</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="73"><a href="73.html">12 Rules for Life</a>. Het eerste deel, met dezelfde tweedeling maar gericht op het beheersen van chaos in plaats van orde.</li>
+          <li value="75"><a href="75.html">Ego Is the Enemy</a>. Ook een boek over houding bij tegenslag en succes, maar met historische gevallen in plaats van mythe en zonder religieuze onderbouw.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

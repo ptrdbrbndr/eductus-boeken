@@ -96,6 +96,83 @@
     font-style:italic;
   }
 
+  article.boek[data-stand="samenvatting"]{border-left:3px solid var(--sam)}
+  article.boek[data-stand="boek"]{border-left:3px solid var(--klaar)}
+
+  section.overzicht{
+    max-width:1080px; margin:46px auto 0; background:var(--card);
+    border:1px solid var(--line); border-radius:var(--radius);
+  }
+  section.overzicht summary{
+    cursor:pointer; padding:18px 26px; display:flex; flex-wrap:wrap;
+    gap:6px 16px; align-items:baseline; list-style:none;
+  }
+  section.overzicht summary::-webkit-details-marker{display:none}
+  section.overzicht summary h2{
+    font-family:var(--display); font-size:22px; font-weight:600; margin:0;
+  }
+  section.overzicht summary h2::before{content:"\25B8\00a0"; color:var(--ochre)}
+  section.overzicht details[open] summary h2::before{content:"\25BE\00a0"}
+  .vg-samenvat{font-family:var(--mono); font-size:12.5px; color:var(--muted)}
+  .vg-samenvat b{font-weight:500}
+  .vg-samenvat b.sam{color:var(--sam)}
+  .vg-samenvat b.klaar{color:var(--klaar-diep)}
+  .vg-body{padding:0 26px 24px}
+  .vg-balk{
+    display:flex; height:9px; border-radius:999px; overflow:hidden;
+    background:var(--parchment-deep); margin:0 0 18px;
+  }
+  .vg-balk i{display:block; transition:width .25s}
+  .vg-balk i.klaar{background:var(--klaar)}
+  .vg-balk i.sam{background:var(--sam)}
+  .vg-sorteer{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:0 0 16px}
+  .vg-sorteer span{font-family:var(--mono); font-size:11.5px; color:var(--muted)}
+  .vg-groep{margin:0 0 26px}
+  .vg-groep:last-child{margin-bottom:0}
+  .vg-groep h3{
+    font-family:var(--display); font-size:13px; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--ochre); font-weight:600;
+    margin:0 0 8px; padding-bottom:6px; border-bottom:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline;
+  }
+  .vg-groep h3 em{
+    font-family:var(--mono); font-size:11px; font-style:normal; letter-spacing:0;
+    text-transform:none; color:var(--muted); margin-left:auto;
+  }
+  table.vg-tabel{border-collapse:collapse; width:100%; font-size:15px}
+  table.vg-tabel th{
+    font-family:var(--mono); font-size:11px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+    text-align:left; padding:4px 8px 6px 0;
+  }
+  table.vg-tabel th.mid, table.vg-tabel td.mid{text-align:center; width:74px}
+  table.vg-tabel td{padding:5px 8px 5px 0; border-top:1px solid var(--line); vertical-align:top}
+  table.vg-tabel td.nummer{font-family:var(--mono); font-size:12px; width:38px; color:var(--muted)}
+  table.vg-tabel td.titel a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  table.vg-tabel td.waar{color:var(--muted); font-size:13px}
+  tr[data-stand="samenvatting"] td.nummer{color:var(--sam); font-weight:500}
+  tr[data-stand="boek"] td.nummer{color:var(--klaar-diep); font-weight:500}
+  button.vg-cel{
+    font-family:var(--mono); font-size:13px; line-height:1; cursor:pointer;
+    width:26px; height:26px; border-radius:50%; border:1px solid var(--line);
+    background:var(--parchment); color:var(--muted);
+  }
+  button.vg-cel[aria-pressed="true"][data-veld="samenvatting"]{
+    background:var(--sam); border-color:var(--sam); color:#fff;
+  }
+  button.vg-cel[aria-pressed="true"][data-veld="boek"]{
+    background:var(--klaar); border-color:var(--klaar); color:#fff;
+  }
+  .vg-uitleg{
+    margin:22px 0 0; padding-top:14px; border-top:1px solid var(--line);
+    font-size:13.5px; color:var(--muted);
+  }
+  .vg-uitleg button{
+    font-family:var(--mono); font-size:11.5px; cursor:pointer; background:none;
+    border:none; padding:0 2px; color:var(--teal-deep);
+    border-bottom:1px dotted var(--teal);
+  }
+
   section.routes{
     max-width:1080px; margin:70px auto 0; padding:30px 26px;
     background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
@@ -161,9 +238,38 @@
 <main>
   <div class="wrap" id="lijst"></div>
 
+  <section class="overzicht">
+    <details id="vg-blok">
+      <summary>
+        <h2>Voortgang</h2>
+        <span class="vg-samenvat" id="vg-samenvat"></span>
+      </summary>
+      <div class="vg-body">
+        <div class="vg-balk" id="vg-balk"><i class="klaar"></i><i class="sam"></i></div>
+        <div class="vg-sorteer" id="vg-sorteer">
+          <span>sorteren</span>
+          <button class="chip" data-sort="route" aria-pressed="true">op leesroute</button>
+          <button class="chip" data-sort="rubriek" aria-pressed="false">op rubriek</button>
+          <button class="chip" data-sort="nr" aria-pressed="false">op nummer</button>
+        </div>
+        <div id="vg-tabel"></div>
+        <p class="vg-uitleg">
+          De stand staat in de opslag van deze browser en gaat niet mee naar een
+          ander apparaat. Wie hem wil meenemen of veiligstellen:
+          <button type="button" id="vg-export">exporteren</button> ·
+          <button type="button" id="vg-import">importeren</button> ·
+          <button type="button" id="vg-wis">alles wissen</button>
+          <input type="file" id="vg-bestand" accept="application/json" hidden>
+        </p>
+      </div>
+    </details>
+  </section>
+
   <section class="routes">
     <h2>Leesroutes</h2>
-    <p class="intro">Lijnen die door meer dan één titel heen lopen.</p>
+    <p class="intro">Lijnen die door meer dan één titel heen lopen. Een nummer is
+      <b class="stap sam">blauw</b> als de samenvatting is gelezen en
+      <b class="stap klaar">groen</b> als het boek zelf is gelezen.</p>
 {{ROUTES}}
   </section>
 
@@ -192,6 +298,8 @@
 
 <script>
 {{DATA}}
+
+{{VOORTGANG}}
 
 let filterRubriek = "*";
 let filterLang = false;
@@ -271,6 +379,11 @@ function kaart(b){
         : '')+
     '</div>';
 
+  art.appendChild(vgKnoppen(b.nr, kaartAC.signal));
+  const merkStand = () => { art.dataset.stand = vgStand(b.nr); };
+  document.addEventListener("voortgang", merkStand, {signal: kaartAC.signal});
+  merkStand();
+
   const toggle = art.querySelector(".toggle");
   toggle.addEventListener("click", () => {
     const open = art.classList.toggle("open");
@@ -286,7 +399,13 @@ function kaart(b){
   return art;
 }
 
+/* De kaarten worden bij elke render opnieuw gemaakt; deze controller haalt de
+   luisteraars van de vorige lichting weg. */
+let kaartAC = new AbortController();
+
 function render(){
+  kaartAC.abort();
+  kaartAC = new AbortController();
   lijst.innerHTML = "";
   const zichtbaar = BOEKEN.filter(past);
 
@@ -318,6 +437,142 @@ function render(){
 }
 
 render();
+
+/* ---------- voortgangsoverzicht ---------- */
+const opNr = new Map(BOEKEN.map(b => [b.nr, b]));
+const tabelEl = document.getElementById("vg-tabel");
+const samenvatEl = document.getElementById("vg-samenvat");
+const balkEl = document.getElementById("vg-balk");
+let sortering = "route";
+let tabelAC = new AbortController();
+
+function groepen(){
+  if (sortering === "nr")
+    return [{kop: "Alle titels", set: BOEKEN}];
+  if (sortering === "rubriek")
+    return RUBRIEKEN.map(([naam]) => ({
+      kop: naam, set: BOEKEN.filter(b => b.rubriek === naam)
+    })).filter(g => g.set.length);
+
+  const inRoute = new Set();
+  const uit = ROUTES.map(r => {
+    r.nrs.forEach(n => inRoute.add(n));
+    return {kop: r.titel, set: r.nrs.map(n => opNr.get(n)).filter(Boolean)};
+  });
+  const rest = BOEKEN.filter(b => !inRoute.has(b.nr));
+  if (rest.length) uit.push({kop: "Buiten de leesroutes", set: rest});
+  return uit;
+}
+
+function cel(b, veld){
+  const aan = !!vgVan(b.nr)[veld];
+  return '<td class="mid"><button type="button" class="vg-cel" data-nr="'+b.nr+
+    '" data-veld="'+veld+'" aria-pressed="'+aan+'" aria-label="'+
+    (veld === "boek" ? "boek" : "samenvatting")+' gelezen: '+
+    b.titel.replace(/<[^>]+>/g,"").replace(/"/g,"&quot;")+'">'+
+    (aan ? "&check;" : "&nbsp;")+'</button></td>';
+}
+
+function tekenTabel(){
+  tabelAC.abort();
+  tabelAC = new AbortController();
+  tabelEl.innerHTML = groepen().map(g => {
+    const klaar = g.set.filter(b => vgStand(b.nr) === "boek").length;
+    const sam = g.set.filter(b => vgStand(b.nr) === "samenvatting").length;
+    const rijen = g.set.map(b => {
+      const doel = b.lang ? "boek/"+String(b.nr).padStart(2,"0")+".html" : "#boek-"+b.nr;
+      return '<tr data-stand="'+vgStand(b.nr)+'">'+
+        '<td class="nummer">'+String(b.nr).padStart(2,"0")+'</td>'+
+        '<td class="titel"><a href="'+doel+'">'+b.titel+'</a></td>'+
+        '<td class="waar">'+(sortering === "rubriek" ? b.auteur : b.rubriek)+'</td>'+
+        cel(b, "samenvatting") + cel(b, "boek") +
+      '</tr>';
+    }).join("");
+    return '<div class="vg-groep"><h3>'+g.kop+
+      '<em>'+klaar+' boek'+(klaar === 1 ? "" : "en")+', '+sam+
+      ' alleen samenvatting, van '+g.set.length+'</em></h3>'+
+      '<table class="vg-tabel"><thead><tr>'+
+        '<th>nr</th><th>titel</th><th>'+(sortering === "rubriek" ? "auteur" : "rubriek")+'</th>'+
+        '<th class="mid">samenv.</th><th class="mid">boek</th>'+
+      '</tr></thead><tbody>'+rijen+'</tbody></table></div>';
+  }).join("");
+
+  tabelEl.addEventListener("click", e => {
+    const knop = e.target.closest("button.vg-cel");
+    if (!knop) return;
+    vgZet(Number(knop.dataset.nr), knop.dataset.veld,
+      knop.getAttribute("aria-pressed") !== "true");
+  }, {signal: tabelAC.signal});
+}
+
+function tekenSamenvat(){
+  const klaar = BOEKEN.filter(b => vgStand(b.nr) === "boek").length;
+  const sam = BOEKEN.filter(b => vgStand(b.nr) === "samenvatting").length;
+  samenvatEl.innerHTML = '<b class="klaar">'+klaar+'</b> boek'+(klaar === 1 ? "" : "en")+
+    ' gelezen &middot; '+
+    '<b class="sam">'+sam+'</b> alleen de samenvatting &middot; '+
+    (BOEKEN.length - klaar - sam)+' nog niet';
+  const pct = n => (n / BOEKEN.length * 100).toFixed(2) + "%";
+  balkEl.querySelector("i.klaar").style.width = pct(klaar);
+  balkEl.querySelector("i.sam").style.width = pct(sam);
+}
+
+document.getElementById("vg-sorteer").addEventListener("click", e => {
+  const knop = e.target.closest("button[data-sort]");
+  if (!knop) return;
+  sortering = knop.dataset.sort;
+  document.querySelectorAll("#vg-sorteer button[data-sort]").forEach(k =>
+    k.setAttribute("aria-pressed", String(k === knop)));
+  tekenTabel();
+});
+
+/* exporteren, importeren en wissen van de stand */
+document.getElementById("vg-export").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(VOORTGANG, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "boeken-voortgang.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+const bestandEl = document.getElementById("vg-bestand");
+document.getElementById("vg-import").addEventListener("click", () => bestandEl.click());
+bestandEl.addEventListener("change", () => {
+  const f = bestandEl.files[0];
+  if (!f) return;
+  f.text().then(t => {
+    let binnen;
+    try { binnen = JSON.parse(t); } catch (e) { binnen = null; }
+    if (!binnen || typeof binnen !== "object" || Array.isArray(binnen)){
+      alert("Dat bestand bevat geen leesstand.");
+      return;
+    }
+    for (const [nr, s] of Object.entries(binnen)){
+      if (!opNr.has(Number(nr)) || !s || typeof s !== "object") continue;
+      const doel = VOORTGANG[nr] || (VOORTGANG[nr] = {});
+      if (s.samenvatting) doel.samenvatting = true;
+      if (s.boek) doel.boek = true;
+    }
+    vgBewaar();
+    vgMeld();
+  });
+  bestandEl.value = "";
+});
+document.getElementById("vg-wis").addEventListener("click", () => {
+  if (!confirm("De hele leesstand in deze browser wissen?")) return;
+  VOORTGANG = {};
+  vgBewaar();
+  vgMeld();
+});
+
+document.addEventListener("voortgang", () => {
+  tekenTabel();
+  tekenSamenvat();
+  vgKleurRoutes();
+});
+tekenTabel();
+tekenSamenvat();
+vgKleurRoutes();
 </script>
 </body>
 </html>
