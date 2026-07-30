@@ -22845,6 +22845,165 @@ van de andere titels: geen betoog en geen stelling, maar een handleiding
 waarin het onderwerp zelf de ordening bepaalt. Als eerste kennismaking met
 wijn doet het wat het belooft.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Wijn is een breed en ingewikkeld onderwerp, en juist daarom
+hoeft niemand te wachten met drinken tot hij het snapt. Dat is de stelling van
+McCarthy en Ewing-Mulligan: het vertoon rondom wijn, de ceremonie, het
+taalgebruik en het gereedschap, is geen toegangsexamen maar een gewoonte die
+je kunt negeren. Wat je wel nodig hebt is een handvol ordeningen, druif,
+streek, etiket, en het besef dat niemand alles weet. Het boek is geen betoog
+maar een naslagwerk dat vanaf de eerste bladzijde zegt dat je het niet van
+kaft tot kaft hoeft te lezen.
+
+#### De gang van het boek
+
+**Wat voor boek dit is**
+
+Dit is de vijfde editie van een boek dat in 1995 voor het eerst verscheen, in
+een Nederlandse uitgave bij BBNC. De auteurs schrijven in het voorwoord dat de
+vorige editie acht jaar oud was en dat de wijnwereld sindsdien is veranderd:
+nieuwe wijnen uit Zuid-Amerika, een ander soort wijnhandel, gestegen prijzen,
+nieuwe oogstjaren.
+
+Ed McCarthy en Mary Ewing-Mulligan zijn getrouwd en schreven samen elf titels
+in de *For Dummies*-reeks. Mary is de eerste vrouwelijke Master of Wine in de
+Verenigde Staten, voorzitter van het International Wine Center in New York en
+Amerikaans directeur van de Wine & Spirit Education Trust. Ed schreef
+daarnaast alleen *Champagne For Dummies*. Beiden zijn Certified Wine Educator.
+
+**Voor wie het bedoeld is**
+
+De auteurs noemen hun lezer in een apart kopje: iemand die weinig van wijn
+weet en meer wil weten, of iemand die al wat drinkt en het gevoel heeft dat
+hij de kaart in een restaurant niet kan lezen. Prijsniveaus in de
+aanbevelingen liggen in het gebied van een gewone fles, met uitstapjes naar
+duurdere wijnen die apart als zodanig worden aangekondigd.
+
+Er staat ook uitdrukkelijk bij wat je niet hoeft te lezen. De alinea's met het
+pictogram Technische info kun je overslaan, evenals de grijze tekstkaders, die
+naast de hoofdtekst staan. Wie niet verzamelt, kan deel VI laten liggen; wie
+geen zoete wijn drinkt, hoofdstuk 16.
+
+**De indeling in acht delen**
+
+Deel I legt de basis: hoe wijn wordt gemaakt, hoe je proeft, welke
+druivenrassen ertoe doen, hoe je een etiket leest en welk jargon wijnmakers
+gebruiken. Deel II gaat over de lezer zelf: wijn kopen in de winkel en online,
+bestellen in een restaurant, ontkurken, schenken, temperaturen en glazen, en
+wijn bij eten.
+
+Deel III en IV verdelen de wereld in oud en nieuw. Frankrijk krijgt een heel
+hoofdstuk, Italië ook, en Spanje, Portugal, Duitsland, Oostenrijk en
+Griekenland delen er een. Nederland heeft binnen dat hoofdstuk een eigen
+paragraaf over gaarden, streken en kwaliteit. Deel IV behandelt Australië,
+Nieuw-Zeeland, Chili, Argentinië, Zuid-Afrika en de Verenigde Staten, waarbij
+Californië veruit de meeste bladzijden krijgt.
+
+Deel V staat apart voor mousserende, versterkte en zoete wijnen: champagne,
+cava, sherry, port, madeira, sauternes. Deel VI is voor wie doorslaat: kopen
+op veilingen, kelderen, wijnscholen, proefnotities schrijven. Deel VII is de
+vaste reeksvorm van tien vragen en tien mythen. Deel VIII bevat drie bijlagen:
+Nederlandse wijngaarden, een verklarende woordenlijst en een oogstjarentabel
+over 1993 tot 2013.
+
+**Wat het levert**
+
+Het bruikbaarst zijn de hoofdstukken die een systeem uitleggen in plaats van
+een lijst geven. Het onderscheid tussen wijnen die naar de druif zijn genoemd
+en wijnen die naar de plaats zijn genoemd maakt in één keer duidelijk waarom
+een etiket uit Bordeaux geen druivennaam draagt en een fles uit Californië
+wel. Hetzelfde geldt voor de uitleg van de Franse rangorde en de Italiaanse en
+Duitse kwaliteitscategorieën.
+
+Ook praktisch: welke smaakelementen in wijn botsen of aansluiten bij eten, hoe
+je een wijnkaart leest, wanneer decanteren zin heeft, en het hoofdstuk dat een
+aantal gangbare overtuigingen uit elkaar haalt, waaronder dat een schroefdop
+op mindere kwaliteit wijst en dat de kwaliteit van een wijn objectief te meten
+is.
+
+**Wat het niet levert**
+
+Geen wijnbouwkundige of scheikundige diepte: gisting, malolactische omzetting
+en houtrijping komen in een paar alinea's langs. Geen actuele koopgids meer:
+de aanbevolen producenten en de oogstjarentabel lopen tot 2013 en de prijzen
+zijn achterhaald. Geen kritische blik op de wijnindustrie zelf, en weinig over
+duurzaamheid, alcoholgebruik of gezondheid, behalve een kort antwoord op de
+vraag of je dik wordt van wijn.
+
+Ook geen leidraad om je smaak te ontwikkelen op een systematische manier. Het
+proefhoofdstuk beschrijft de handeling, maar er is geen oefenprogramma en geen
+serie proeverijen die je kunt afwerken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Variëteitswijn (cépagewijn) | Wijn die naar zijn druivenras is genoemd, zoals chardonnay of pinot noir. |
+| Appellation | Wettelijk afgebakend herkomstgebied waarvan de naam op het etiket staat in plaats van de druif. |
+| Edele druiven | De handvol rassen die overal ter wereld goede wijn opleveren en de internationale markt beheersen. |
+| Tannine | Stof uit schil, pit en hout die de mond samentrekt en die rode wijn houdbaarheid geeft. |
+| Terroir | Het samenstel van bodem, klimaat en ligging waaraan een wijn zijn plaatsgebonden karakter ontleent. |
+| Flesgisting | Tweede gisting van mousserende wijn in de fles zelf, tegenover de goedkopere gisting in een tank. |
+| Flor | Gistlaag op sherry in het vat die de wijn tegen lucht beschermt en zijn smaak bepaalt. |
+| Decanteren | Wijn overschenken in een karaf, om depot achter te laten of om lucht toe te laten. |
+| Oogstjaar | Het jaar waarin de druiven zijn geplukt, dat vooral in koelere streken de kwaliteit sterk laat wisselen. |
+| Huiswijn | De wijn die een restaurant per glas schenkt, meestal de goedkoopste inkoop op de kaart. |
+
+#### Waar het argument op rust
+
+De onderbouwing is beroepservaring, geen onderzoek. De auteurs hebben samen
+meer dan een halve eeuw in het vak gezeten, geven wijnles, jureren op
+wedstrijden en schrijven columns. Voor de feitelijke laag, wetgeving,
+druivenrassen, streekgrenzen, productiemethoden, is dat voldoende: dat is te
+controleren en het klopt.
+
+Voor de smaakoordelen en de producentenlijsten geldt dat niet. Daar staat de
+voorkeur van twee mensen. Het boek is daar zelf eerlijk over in het hoofdstuk
+over mythen, waar het stelt dat kwaliteit niet objectief meetbaar is en dat
+puntenscores een schijnnauwkeurigheid geven. Een technisch corrector, Mary
+Gorman-McAdams, staat in het dankwoord genoemd.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is veroudering. Deze editie stamt uit de jaren tien en de
+oogstjarentabel eindigt in 2013. Wie het boek nu opslaat voor koopadvies
+krijgt prijzen, importeurs en aanbevelingen die niet meer kloppen. De
+structurele hoofdstukken over etiketten en streken houden zich veel beter.
+
+Het perspectief blijft Amerikaans, ook in de Nederlandse editie. Californië
+krijgt meer ruimte dan Spanje en Duitsland samen, terwijl de Nederlandse
+aanvullingen over gaarden, wijnscholen en handel kort zijn. Voor een lezer die
+in Nederland een fles koopt, is het schap in de winkel anders samengesteld dan
+het boek veronderstelt.
+
+De toon is bewust luchtig, met grappen over blufen aan tafel en een tekening
+bij elk deel. Wie liever een strak opgezet handboek heeft, zal de verhouding
+tussen aantal bladzijden en hoeveelheid informatie ongunstig vinden. En de
+reeksbelofte dat je het boek niet hoeft te lezen maar kunt raadplegen, houdt
+alleen stand als je de register- en verwijsstructuur gebruikt; achter elkaar
+door gelezen herhaalt het zich.
+
+#### Wat er concreet mee te doen is
+
+- Lees eerst hoofdstuk 4 over etiketten en hoofdstuk 3 over druiven. Die twee
+samen maken een winkelschap leesbaar.
+- Sla de producentenlijsten en prijzen over en gebruik voor koopadvies iets
+van dit jaar.
+- Gebruik hoofdstuk 9 als denkgereedschap voor eten en wijn: kijk naar zuur,
+zoet, tannine en alcohol in plaats van naar kleur.
+- Neem uit hoofdstuk 19 het schema voor proefnotities over en schrijf een half
+jaar lang bij elke fles drie regels op.
+
+#### Wat je hierna leest
+
+- 116. Mindset Mathematics, Grade 7. Een ander soort naslagwerk uit dezelfde
+rubriek: geen boek om iets op te zoeken, maar een map met les- en
+werkopdrachten voor een vakdocent.
+- 122. Unfuck Your Intimacy Workbook. Ook praktijkmateriaal, maar dan met
+opdrachten die de lezer zelf moet uitvoeren; het verschil met een
+raadpleegboek als dit wordt daar goed zichtbaar.
+
 ## 113. Aangeraakt
 
 Emma Fasol, 2010. Bij Archipel. Fasol is een pseudoniem; het boek verscheen
@@ -23360,6 +23519,167 @@ is de didactische uitwerking van het denken over aanleg dat Dweck heeft
 onderzocht, met de kanttekening dat het onderwijsonderzoek achter beide
 omstredener is dan de populaire versie doet vermoeden.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Wiskunde is geen verzameling methoden om uit het hoofd te
+leren maar een klein aantal met elkaar verbonden ideeën, en leerlingen leren
+die het best door ze te zien, ermee te spelen en ze te onderzoeken. Dat is het
+uitgangspunt waarmee Boaler, Munson en Williams tien hoofdideeën voor groep
+zeven van het Amerikaanse middenbouwcurriculum uitwerken in dertig
+lesopzetten. Het boek levert geen betoog en geen leerlijn, maar kant-en-klaar
+lesmateriaal met tijdschema's, materialenlijsten, gespreksvragen en
+kopieerbare bijlagen, gedragen door de claim dat visueel en onderzoekend
+werken meer hersengebieden aanspreekt dan symbolisch rekenwerk.
+
+#### De gang van het boek
+
+**Herkomst en opzet**
+
+Het boek verscheen in 2019 bij Jossey-Bass, een Wiley-uitgeverij, als deel van
+een reeks die per leerjaar loopt. De auteurs zijn verbonden aan Youcubed, het
+centrum dat Jo Boaler aan Stanford leidt met Cathy Williams; Jen Munson is de
+derde auteur. De inleiding vertelt hoe Youcubed ontstond en waarom de site
+naar hun zeggen miljoenen bezoeken per maand trekt.
+
+De aanleiding is expliciet: leraren vroegen om meer taken zoals op de site
+staan, en de auteurs vinden bestaande methodeboeken te smal en te weinig
+verbonden met onderzoek naar leren. Het boek is de papieren voorraad van dat
+soort taken.
+
+**Voor wie het bedoeld is**
+
+De lezer is een docent van elf- tot dertienjarigen die zelf voor de klas staat
+en tijd heeft om een les van een uur of langer aan één opgave te besteden. Er
+staat een pagina met vrijgave voor kopieergebruik in onderwijs: werkbladen
+mogen worden vermenigvuldigd, tot honderd exemplaren per pagina per jaar.
+
+Het materiaal is Amerikaans. Elke les vermeldt een koppeling met een standaard
+uit Common Core, bijvoorbeeld 7.G.3 bij de eerste les. Een Nederlandse
+gebruiker moet die koppeling zelf vertalen naar de eigen kerndoelen.
+
+**De tien hoofdideeën**
+
+De inhoud loopt langs tien Big Ideas: verband tussen twee- en driedimensionale
+vormen, figuren op schaal construeren, evenredige verbanden zien, procenten in
+de wereld, gevoel voor kans opbouwen, kansen modelleren, steekproeven om
+populaties te begrijpen, rekenen met tegengestelden, algebra als gereedschap
+bij problemen, en cirkels.
+
+Elk hoofdidee opent met een korte tekst van Boaler waarin zij uitlegt waarom
+dit onderwerp zich leent voor de gekozen aanpak, met literatuurverwijzingen
+eronder. Daarna volgen drie activiteiten in een vaste volgorde: Visualize,
+Play en Investigate. De eerste laat het idee zien, de tweede geeft speelruimte
+zonder wedstrijdelement, de derde stelt open vragen die geen plafond hebben.
+
+**Hoe één les eruitziet**
+
+Elke activiteit heeft dezelfde onderdelen. Een Snapshot van twee regels. De
+koppeling met de standaard. Een Agenda in tabelvorm met de fasen Launch,
+Explore en Discuss, per fase een tijdsindicatie, een omschrijving van wat de
+docent doet en de benodigde materialen. Dan een rubriek To the Teacher met
+vakinhoudelijke achtergrond en waarschuwingen over wat misgaat.
+
+Daarna staat de activiteit zelf uitgeschreven in stappen, gevolgd door
+Look-Fors: waar de docent tijdens het rondlopen op let, met suggesties voor
+vragen die dieper duwen. Elke les sluit met een reflectievraag voor de
+leerlingen. In de eerste les kneden leerlingen bijvoorbeeld een balk uit klei
+en snijden die met tandzijde door om te onderzoeken welke doorsneden mogelijk
+zijn, en welke niet.
+
+**De randvoorwaarden**
+
+Voor de lessen beginnen staan twee opzetten om werkafspraken te maken: één
+over samenwerken in groepjes en één papiervouwoefening waarmee de drie niveaus
+van overtuigen worden ingevoerd. Die drie zijn: jezelf overtuigen, een vriend
+overtuigen, en een scepticus overtuigen. Leerlingen wordt gevraagd bij elkaar
+de scepticus te zijn.
+
+Er is een lijst met benodigdheden: klei, snijdraad, dobbelstenen,
+snapkubussen, geoborden, isometrisch stippapier, ruitjespapier. Een bijlage
+achterin bevat het kopieerbare papier. De auteurs raden schriften aan waarin
+leerlingen hun denken vastleggen en waar de docent niet in schrijft, en het in
+kleur coderen van dezelfde grootheid in formule, tabel, grafiek en tekening.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Big idea | Een groter wiskundig thema waaronder losse regels en methoden hun plaats krijgen. |
+| Low floor, high ceiling | Een opgave waar iedere leerling aan kan beginnen en die tegelijk tot ver boven het lesdoel door te trekken is. |
+| Visualize, Play, Investigate | De drie vaste activiteitsvormen per hoofdidee: laten zien, vrij mee spelen, open onderzoeken. |
+| Launch, Explore, Discuss | De drie fasen van elke les: gezamenlijke start, werk in groepjes, nabespreking. |
+| Look-fors | De signalen waar de docent tijdens het rondlopen op let om te weten wat leerlingen denken. |
+| Een scepticus overtuigen | Het hoogste van drie niveaus van redeneren, waarbij een medeleerling doorvraagt tot het argument sluit. |
+| Compressie | Het samenpakken van begrepen wiskunde tot iets dat weinig ruimte inneemt en snel oproepbaar is, naar Thurston. |
+| Number talk | Kort klassikaal gesprek waarin leerlingen verschillende manieren om een som aan te pakken naast elkaar leggen. |
+| Gallery walk | Werkvorm waarbij groepjes elkaars posters langslopen en van elkaars aanpak leren. |
+| Manipulatives | Tastbaar materiaal, van klei tot kubussen, waarmee leerlingen een wiskundig idee vasthouden. |
+
+#### Waar het argument op rust
+
+De inleiding leunt op vier soorten onderbouwing. Ten eerste een analyse van de
+PISA-gegevens uit 2012, waaruit de auteurs afleiden dat leerlingen die vooral
+memoriseren in elk deelnemend land het laagst scoren. Ten tweede
+neurowetenschappelijk werk over visuele verwerking en over de invloed van
+stress op het werkgeheugen. Ten derde citaten van wiskundigen: Thurston over
+compressie, Lockhart over bewijzen. Ten vierde het eigen zomerkamp.
+
+Dat kamp is het enige bewijs dat over de eigen taken gaat. De inleiding meldt
+81 leerlingen, achttien lessen en een gemiddelde vooruitgang van vijftig
+procent op toetsscores, vertaald naar 1,6 schooljaar. In het eerste hoofdidee
+schrijft dezelfde auteur over 83 leerlingen in dezelfde zomer. Er wordt geen
+controlegroep genoemd, geen toetsinstrument, geen publicatie waarin die meting
+is nagerekend.
+
+De rest van het boek claimt geen onderzoeksbasis en pretendeert dat ook niet.
+De lesopzetten zijn beroepsproduct: uitgeprobeerd in klassen, opgeschreven
+door mensen die het werk kennen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de onderbouwing van de omlijstende ideeën, niet
+van de lessen. Het denken over aanleg waarop het boek voortbouwt, is in de
+afgelopen jaren een stuk minder zeker geworden: grootschalige herhalingen en
+overzichtsstudies vinden voor mindsetinterventies gemiddelde effecten die veel
+kleiner zijn dan de populaire versie doet vermoeden, en meestal beperkt tot
+leerlingen die het slecht doen. Ook het onderwijsonderzoek van de hoofdauteur
+zelf is in de vakwereld openlijk betwist. Het boek noemt niets van die
+discussie.
+
+De vijftig procent uit het zomerkamp wordt gepresenteerd als resultaat,
+terwijl een kamp met vrijwillig aangemelde leerlingen, achttien lessen en geen
+vergelijkingsgroep zo'n getal niet kan dragen. Dat het aantal deelnemers
+binnen hetzelfde boek verschilt, helpt niet.
+
+Praktisch: de lessen vragen materiaal, ruimte en tijd die niet elke school
+heeft, en een klas die al gewend is aan samenwerken en hardop redeneren. Er
+zit geen toetsing bij, geen leerlijn die de tien hoofdideeën aan elkaar
+knoopt, en geen aanwijzing wat je doet met leerlingen die twee jaar
+achterlopen. Wie hiermee een compleet jaarprogramma wil vullen, moet zelf de
+helft bijbouwen.
+
+#### Wat er concreet mee te doen is
+
+- Begin met de twee opzetten over werkafspraken voordat je een hoofdidee
+aanpakt; de lessen veronderstellen die gespreksvorm.
+- Gebruik het boek als aanvulling naast een methode, niet als vervanging, en
+kies per blok één activiteit.
+- Vertaal de Common Core-verwijzing zelf naar het eigen curriculum voordat je
+een les inroostert.
+- Lees de rubriek To the Teacher vooraf en probeer het materiaal eerst zelf
+uit; bij de kleiles hangt het resultaat af van de stevigheid van de klei.
+- Neem de Look-fors mee als observatielijst en noteer wat je hoort, in plaats
+van te beoordelen of het antwoord goed is.
+
+#### Wat je hierna leest
+
+- 23. Mindset. Het onderzoek naar denken over aanleg waar dit werkboek de
+didactische uitwerking van is; lees beide met dezelfde terughoudendheid, want
+de replicatieproblemen gelden voor allebei.
+- 122. Unfuck Your Intimacy Workbook. Ook een werkboek dat opdrachten geeft in
+plaats van conclusies, maar dan voor persoonlijk gebruik in plaats van voor
+een klas.
+
 ## 117. Attitude Is Everything for Success
 
 Keith Harrell, 2003. Bij Hay House (2004). Harrell was spreker en trainer en
@@ -23379,6 +23699,174 @@ toon. Onderzoek komt er niet aan te pas, en waar hij naar de werking van
 gedachten op resultaten verwijst, doet hij dat als overtuiging. Als opkikker
 werkt het voor wie ervoor openstaat; als verklaring van waarom iets lukt of
 mislukt is het te dun.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Harrell stelt dat houding het punt is waar succes wordt
+beslist, en dat houding wordt aangedreven door de woorden die iemand hardop
+over zichzelf uitspreekt. Wie zijn taal verandert, verandert zijn overtuiging;
+wie zijn overtuiging verandert, gaat zich ernaar gedragen en krijgt
+uiteindelijk wat hij zegt te willen. Het boek werkt die redenering uit als een
+kalender van dertig woorden, één voor elke dag van de maand, telkens in drie
+stappen: uitspreken, geloven, ontvangen.
+
+#### De gang van het boek
+
+**Wat het boek wil zijn**
+
+Harrell schrijft in de inleiding dat hij twee decennia lang lezingen gaf voor
+bedrijven en daarbij duizenden mensen sprak die hij als geslaagd beschouwde.
+Hem viel op dat zij steeds dezelfde woorden gebruikten. Hij noteerde er dertig
+en maakte er een dagboek van, één woord per dag van de maand.
+
+Het formaat is opzettelijk klein. Harrell zegt met zoveel woorden dat hij geen
+zevengangenmenu voorschotelt maar hapjes, omdat de lezer geen tijd heeft om
+een heel zelfverbeteringsboek te lezen of een cassette te beluisteren. Wie het
+boek als doorlopend betoog leest, houdt weinig over: het is bedoeld om er
+dagelijks één stukje uit te nemen.
+
+**De drie stappen**
+
+Say It bestaat uit vijf affirmaties per woord, opgebouwd in drie vormen die
+Harrell I-statements noemt: ik erken, ik bezit, ik ben. Volgens hem leggen die
+formuleringen de verantwoordelijkheid voor gevoelens en uitkomsten bij de
+spreker zelf. Hij vraagt de lezer ze meerdere keren per dag te herhalen,
+dertig dagen lang, ook als het aanvankelijk onwennig voelt.
+
+Believe It is een korte beschouwing met een anekdote erin. Receive It is de
+oefening: je stelt je voor dat je het gewenste al bezit en gedraagt je ernaar.
+Harrell noemt dat zelf fake it till you make it. Het voorbeeld dat hij geeft
+is iemand die afdelingsmanager wil worden en zich daarom nu al kleedt als
+manager, vroeg op het werk verschijnt en zichtbare projecten aanpakt. Elk
+hoofdstuk sluit af met drie citaten.
+
+**De dertig woorden**
+
+De woorden staan op alfabetische volgorde en niet in een opbouwende reeks:
+achievement, action, attitude, belief, challenge, change, choice, commitment,
+communication, completion, desire, destiny, faith, goal, gratitude, humility,
+integrity, love, persistence, possibility, purpose, risk, sacrifice, setback,
+wisdom en enkele andere. Elk hoofdstuk opent met een woordenboekdefinitie uit
+Webster's II New Riverside Dictionary.
+
+Doordat de volgorde alfabetisch is, staat dag 22 over volharding niet in
+verband met dag 28 over tegenslag. De lezer krijgt dertig losse stukjes van
+ongeveer gelijke lengte. Dat is een keuze die het boek bruikbaar maakt als
+dagelijkse routine en ongeschikt als redenering.
+
+**De voorbeelden**
+
+De verhalen zijn kort en meestal persoonlijk. Harrell vertelt dat hij als
+kleuter stotterde, jarenlang logopedie kreeg en van zijn moeder en therapeuten
+te horen bleef krijgen dat hij ooit zijn eigen naam vlekkeloos zou uitspreken.
+Dat hij nu een hele lezing houdt zonder te struikelen, schrijft hij toe aan
+het geloof dat zij in hem legden en dat hij daarna zelf overnam.
+
+Daarnaast staat er het verhaal van Barbara, die dierenarts wilde worden maar
+achterstand had in wiskunde en zichzelf voorhield dat ze er nooit goed in zou
+worden; ze koos journalistiek. En dat van Nido Qubein, die volgens het boek
+als tiener met vijftig dollar uit het Midden-Oosten naar de Verenigde Staten
+kwam en later bedrijfsleider werd. Harrell tekent aan dat sommige namen zijn
+veranderd.
+
+**De religieuze onderlaag**
+
+Het boek is niet neutraal van levensbeschouwing. Harrell beschrijft hoe hij
+elke ochtend in bed applaudisseert voor de nieuwe dag en daarna God dankt. Bij
+het woord uitdaging schrijft hij dat God beproevingen gebruikt om iemand te
+scherpen. De aansporing om iets uit te spreken dat nog niet bestaat,
+onderbouwt hij met een zin uit Romeinen 4:17.
+
+Wie die laag wegdenkt, houdt een instrumenteel boek over dat toch een
+geloofsdaad vraagt: de lezer moet aannemen dat uitgesproken woorden de
+werkelijkheid vormgeven voordat er iets van te merken is.
+
+**Wat er niet in staat**
+
+Er staat geen enkele passage in waarin houding niet volstond. Geen ziekte,
+geen ontslagronde, geen geval waarin iemand de affirmaties dertig dagen
+uitsprak en er niets gebeurde. Er staat ook geen onderscheid in tussen
+omstandigheden die je kunt veranderen en omstandigheden die je alleen kunt
+dragen, terwijl het boek over beide gaat.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Say It | De eerste stap: het hardop uitspreken van vaste affirmaties bij het woord van die dag. |
+| Believe It | De tweede stap: een korte beschouwing plus een herinnering aan een eerdere geslaagde ervaring, bedoeld om de uitgesproken woorden geloofwaardig te maken. |
+| Receive It | De derde stap: je voorstellen dat je het gewenste al bezit en je er ook naar gedragen. |
+| I-statements | Affirmaties in de vaste drieledige vorm ik erken, ik bezit, ik ben, die de verantwoordelijkheid bij de spreker leggen. |
+| Self-talk | Het inwendige gesprek dat volgens Harrell bepaalt wat iemand voor mogelijk houdt. |
+| Positive programming | Het bewust vervangen van ontmoedigende invloeden en zinnen door bemoedigende, zoals je een computer opnieuw inricht. |
+| Attitude tune-up | De dagelijkse bijstelling van je houding, waarvoor het boek als gereedschap dient. |
+| Word tools | Harrells aanduiding voor de dertig woorden zelf: gereedschap dat je bij tegenslag uit de kist haalt. |
+| Daily Quotes | De drie citaten aan het eind van elk dagdeel, bedoeld om uit het hoofd te leren en te herhalen. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen onderzoek. De enige verwijzing naar een bron buiten de
+eigen ervaring is de Franse apotheker Emile Coue, die begin twintigste eeuw
+*Self Mastery Through Conscious Autosuggestion* publiceerde en zijn patienten
+een dagelijkse formule liet herhalen. Harrell noemt hem om te laten zien dat
+het idee ouder is dan hijzelf, niet om aan te tonen dat het werkt; Coue
+leverde zelf ook geen gecontroleerd bewijs.
+
+De rest rust op anekdotes uit Harrells eigen leven en op korte portretten van
+mensen die hij ontmoette tijdens lezingen. Het gezag van het boek komt uit
+zijn loopbaan: veertien jaar bij IBM, daarna een eigen sprekersbureau, in 1997
+de titel Certified Speaking Professional van de National Speakers Association
+en in 2000 opname in de CPAE Speaker Hall of Fame. Het boek verscheen in 2004
+bij Hay House.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek nergens toetst of houding oorzaak of
+gevolg is. Het verhaal van Barbara maakt dat zichtbaar: haar achterstand begon
+op de lagere school, waar ze de basis van het rekenen miste, en die
+achterstand bleef zich wreken. Harrell legt de schuld bij haar zelfspraak en
+concludeert dat een andere zin haar dierenarts had gemaakt. Dat is een uitleg
+achteraf die net zo goed omgekeerd kan luiden: wie iets niet beheerst, gaat er
+ook negatief over praten.
+
+Alle dertig verhalen lopen goed af. Die selectie maakt de stelling
+onweerlegbaar. Blijft succes uit, dan volgt uit het boek dat de lezer het niet
+genoeg geloofde, en die redenering is niet te ontkrachten.
+
+Over affirmaties bestaat wel onderzoek, en het wijst niet eenduidig dezelfde
+kant op als Harrell. Wood, Perunovic en Lee lieten in 2009 zien dat het
+herhalen van positieve uitspraken over jezelf bij mensen met een laag
+zelfbeeld de stemming juist kan verslechteren, omdat de uitspraak te ver van
+hun zelfbeeld af staat. Dat is precies de groep die naar dit boek grijpt.
+
+Ten slotte is het boek gemaakt binnen een bedrijf. Harrell verkocht lezingen,
+en achterin staan zijn postadres en website met de vraag hem te schrijven. Dat
+maakt het niet onwaar, maar het verklaart wel waarom er geen enkele twijfel in
+staat.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf een week lang op welke zinnen je over jezelf zegt als iets misgaat.
+Dat is het enige deel van de methode dat je kunt nagaan.
+- Kies bij een concrete gedragsverandering de stap Receive It en laat de
+affirmaties liggen: gedrag dat je nu al vertoont, is toetsbaar.
+- Gebruik het boek als dagelijkse routine van vijf minuten, niet als
+verklaring waarom iets in je leven mislukt is.
+- Houd bij elk hoofdstuk de vraag apart of het om iets gaat dat je kunt
+veranderen of om iets dat je alleen kunt dragen. Het boek maakt dat
+onderscheid zelf niet.
+
+#### Wat je hierna leest
+
+- 83. The Power of Positive Thinking. Peale legde in 1952 dezelfde koppeling
+tussen gedachte, geloof en uitkomst, met dezelfde christelijke onderlaag en
+dezelfde soort anekdotes. Harrell staat in die lijn.
+- 76. Think and Grow Rich. Hill formuleerde in 1937 het idee dat een
+vastgehouden gedachte zich in de werkelijkheid vertaalt. Alles wat Harrell
+over uitspreken zegt, is daarvan een verkorte versie.
+- 133. The Compound Effect. Hardy behandelt hetzelfde onderwerp van dagelijkse
+herhaling, maar redeneert vanuit gedrag en samengestelde effecten in plaats
+van vanuit taal.
 
 ## 118. Coping Skills
 
@@ -24209,6 +24697,165 @@ van het invullen. Zoals bij de rest van de reeks is de toon los en de
 onderbouwing beperkt; als aanleiding voor een gesprek dat anders niet gevoerd
 wordt, doet het zijn werk.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Intimiteit is aan te leren, en wat de meeste mensen ervan
+weten is een mengsel van culturele mythen en onverwerkte ervaring. Faith
+Harper, traumatherapeut met een aanvullende opleiding in de seksuologie, zet
+daar een praktische lijn tegenover: eerst uitzoeken wat je hebt meegekregen en
+wat het met je heeft gedaan, dan je verhouding tot jezelf op orde brengen, dan
+pas die tot anderen. Ze weigert daarbij de twee vormen die het genre volgens
+haar beheersen, het brave boek dat uitgaat van een getrouwd heterostel en het
+gespecialiseerde boek over één nis, en schrijft in de taal en de toon van haar
+spreekkamer.
+
+#### De gang van het boek
+
+**Wat voor boek dit is**
+
+Uitgegeven bij Microcosm Publishing, de kleine uitgever waar Harpers reeks met
+*Unfuck*-titels verschijnt. Het is werkmateriaal: korte hoofdstukken van een
+paar bladzijden, elk afgesloten met vragen of een oefening, bedoeld om in
+stukjes te doen. De auteur zegt in de conclusie zelf dat het geen vervanging
+is voor therapie.
+
+Harper omschrijft haar rol in twee taken: coach, die helpt uitzoeken wat je
+wilt, en toestemminggever, die mensen expliciet toestaat iets te beginnen of
+te stoppen. Dat tweede is de motor van het boek en verklaart waarom veel
+hoofdstukken eindigen in een vraag.
+
+**Voor wie het bedoeld is**
+
+De inleiding richt zich op lezers die buiten het standaardbeeld vallen of dat
+willen: alle genders, alle oriëntaties, alle relatievormen. Het materiaal is
+nadrukkelijk ook geschreven voor mensen met een traumageschiedenis, voor
+mensen met veranderende of hinderende lichamen, en voor lezers die zich niet
+in monogamie herkennen.
+
+De toon is grof en informeel, met scheldwoorden in vrijwel elke alinea en
+grappen tussen de definities door. Dat is een bewuste keuze en ze werkt
+uitsluitend voor wie daar niets op tegen heeft. Wie deze taal storend vindt,
+komt niet door de eerste bladzijden heen.
+
+**Deel een: hoe het misgaat**
+
+Het eerste deel is de diagnostische helft. Er staat een hoofdstuk met vijf
+mythen: dat alleen bepaalde seks echte seks is, dat seks vanzelf gaat, dat
+voorlichting alleen voor sommigen nodig is, dat seks er in het grote geheel
+niet toe doet, en dat sommige mensen nu eenmaal onaantrekkelijk zijn. Bij de
+vierde formuleert ze de vuistregel dat goede seks tien procent van een relatie
+is en slechte seks negentig.
+
+Daarna volgt het hoofdstuk over trauma, dicht bij haar eigen vak. Ze legt uit
+dat een traumareactie ontstaat wanneer verwerking niet lukt, dat de klinische
+lijst van wat als trauma telt smaller is dan wat mensen feitelijk meemaken, en
+dat een getriggerde reactie niets zegt over het huidige moment. Het deel sluit
+met hoofdstukken over godsdienst en opvoeding en over veranderende lichamen.
+
+**Deel twee en drie: jezelf, en de ander**
+
+Het tweede deel gaat over de lezer alleen: zelfcompassie, grenzen,
+toestemming, seksuele identiteit, opnieuw contact maken met het lichaam,
+tastzin, seks met jezelf, en een hoofdstuk waarin ze stelt dat seks- en
+pornoverslaving niet bestaan als diagnose. Bij zelfcompassie neemt ze het
+model van Kristin Neff over, met mindfulness, zelfvriendelijkheid en gedeelde
+menselijkheid, en voegt daar zelf een vierde onderdeel aan toe dat ze
+zelfempathie noemt, ontleend aan het werk van Marshall Rosenberg.
+
+Het derde deel gaat over anderen: daten, relaties onderhouden, communicatie,
+ontrouw, open relaties, kink en BDSM, en een slothoofdstuk over sensate touch.
+Het hoofdstuk over open relaties bevat een genummerde reeks vuistregels; het
+hoofdstuk over ontrouw gaat over herstel na een vertrouwensbreuk. Achterin
+staan een leeslijst en verwijzingen naar hulpbronnen.
+
+**Wat voor opdrachten erin staan**
+
+Vier soorten. Ten eerste vragenlijsten voor zelfonderzoek: wie merk je op,
+waar raak je emotioneel aan gehecht, wat heb je meegemaakt en wat vond je
+daarvan, waar liep je tegen weerstand aan van jezelf of van anderen. Ten
+tweede grensbepaling: de lezer moet benoemen wat een breekpunt is en waar de
+grens absoluut ligt.
+
+Ten derde wat zij een gut check noemt: nadat je een vraag verstandelijk hebt
+beantwoord, opnieuw kijken wat je lichaam antwoordt, en het verschil serieus
+nemen. Ten vierde lichaamsoefeningen: aandacht voor aanraking los van seks,
+oefeningen om na dissociatie of na een negatief zelfbeeld weer contact met het
+eigen lichaam te maken, en aan het slot een opzet voor sensate touch met een
+partner, in stappen en met afspraken vooraf.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Intimiteit | Harpers definitie: de menselijke uitdrukking van onze belangrijkste verbindingen met anderen en met onszelf. |
+| Traumareactie | Wat overblijft wanneer een schokkende ervaring niet verwerkt is en het dagelijks functioneren blijft hinderen. |
+| Trigger | Klinisch gebruikt: iets uit het heden zet een oude ervaring aan, waardoor de reactie niet meer over het nu gaat. |
+| Zelfcompassie | Bewuste erkenning van je eigen waarde als gebrekkig mens, anders dan zelfvertrouwen omdat ze niet van succes afhangt. |
+| Zelfempathie | Harpers toevoeging aan het model van Neff: actief luisteren naar je eigen gevoel zoals je naar een vriend zou luisteren. |
+| Grenzen | De dagelijkse uitdrukking van toestemming, in haar woorden, en niet alleen iets voor de slaapkamer. |
+| Doorlaatbare grenzen | Grenzen die van buitenaf worden bepaald, tegenover starre grenzen en flexibele grenzen die van binnenuit komen. |
+| Polyamorie | Bij haar een verzamelterm voor elke relatievorm die niet monogaam is, ook zonder vaste tweede relatie. |
+| Aseksualiteit | Een oriëntatie waarbij seksuele aantrekking aanhoudend ontbreekt, te onderscheiden van onthouding, die over gedrag gaat. |
+| Sensate touch | Oefening waarbij partners elkaar aanraken met afspraken vooraf en zonder doel, om aandacht en veiligheid te herstellen. |
+
+#### Waar het argument op rust
+
+De sterkste laag is haar eigen vak. Wat ze over trauma, verwerking en
+getriggerde reacties schrijft, sluit aan bij wat in de traumazorg gangbaar is,
+en ze verwijst voor de uitgebreide versie naar haar eerdere boek over
+hetzelfde onderwerp. Ook de hoofdstukken over grenzen, toestemming en
+communicatie zijn herkenbaar therapeutisch handwerk.
+
+De cijfers zijn zwakker. Ze noemt een enquête van een trendbureau uit 2016
+waarin 48 procent van de generatie geboren tussen 1995 en 2010 zich
+uitsluitend heteroseksueel noemde tegen 65 procent van de millennials, ze
+noemt de schaal van Kinsey en zijn categorie X van ongeveer anderhalf procent,
+en een onderzoek uit 2004 waarin minstens één procent aseksueel bleek. Bij de
+open relaties komen percentages langs over monogamie bij primaten en
+zoogdieren en over hoeveel mensen ergens tussen monogaam en polyamoreus zouden
+zitten. Vindplaatsen staan er niet bij.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de tekst haar zekerheden niet onderscheidt.
+Klinische ervaring, gepubliceerd onderzoek, een marktonderzoek van een
+reclamebureau en een vuistregel uit de spreekkamer staan in dezelfde toon
+naast elkaar, zonder noten. De bewering dat ongeveer de helft van de mensen op
+monogamie is bedraad en de andere helft niet, wordt gepresenteerd als
+bevinding, terwijl daar geen gevestigde onderzoeksbasis voor bestaat.
+
+Het hoofdstuk dat stelt dat seks- en pornoverslaving niet bestaan, kiest
+partij in een lopend vakdebat en laat de andere kant weg. Er is een
+internationaal erkende diagnose voor dwangmatig seksueel gedrag, en of dat een
+verslaving heet is precies waar de discussie over gaat. Een lezer die zich in
+dat probleem herkent, krijgt hier te horen dat het niet bestaat.
+
+De oefeningen zijn kort en open; wie een programma zoekt met opbouw en
+herhaling, krijgt dat niet. En het boek waarschuwt wel dat sommige onderwerpen
+een traumareactie kunnen oproepen, maar geeft weinig houvast over wanneer je
+moet stoppen en hulp zoeken.
+
+#### Wat er concreet mee te doen is
+
+- Werk het boek per hoofdstuk af met tussenpozen; achter elkaar doorlezen
+levert weinig op omdat de opbrengst in de vragen zit.
+- Schrijf de antwoorden ergens anders op dan in het boek zelf als je het niet
+wilt laten rondslingeren.
+- Doe de gut check bij elke vraag: noteer eerst je verstandelijke antwoord,
+dan wat er lichamelijk gebeurt, en vergelijk.
+- Sla het gedeelte over trauma over of doe het samen met een hulpverlener als
+je merkt dat het te dichtbij komt.
+- Bespreek de grenzenvragen pas met een partner nadat je ze alleen hebt
+beantwoord.
+
+#### Wat je hierna leest
+
+- 145. Unfuck Your Intimacy. Het boek waar dit werkboek bij hoort; de theorie
+en de voorbeelden staan daar, hier alleen de vragen en de oefeningen.
+- 116. Mindset Mathematics, Grade 7. Een werkboek van een heel ander soort,
+voor een klas in plaats van voor jezelf, maar met dezelfde keuze om opdrachten
+te geven waarop het antwoord niet vastligt.
+
 ## 123. Dark Psychology: 7 in 1
 
 toegeschreven aan Jack Mind en Caroline Power, 2020. Zonder uitgever in het
@@ -24595,6 +25242,187 @@ Het deel over eigen overtuigingen rond geld is scherp en herkenbaar. Het deel
 waarin het universum meebetaalt is dat niet, en de twee lopen in het boek door
 elkaar heen. De toon is luid en Amerikaans, en het verhaal over haar eigen
 doorbraak is tegelijk de reclame voor haar praktijk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sincero stelt dat wie krap zit, dat vooral aan aangeleerde
+overtuigingen over geld te danken heeft en niet aan gebrek aan kansen, ideeen
+of talent. Rijk worden begint volgens haar met jezelf toestemming geven, gaat
+verder met het opsporen en vervangen van wat je onbewust over geld gelooft, en
+eindigt bij samenwerking met wat zij Universal Intelligence noemt: de gedachte
+aan het bedrag bestaat al, dus het bedrag bestaat ook al en kan naar je toe
+bewegen.
+
+#### De gang van het boek
+
+**Toestemming**
+
+Het eerste hoofdstuk gaat over de weigering om rijk te willen zijn. Sincero
+vertelt dat zij jarenlang volhield dat geld smakeloos was en rijke mensen
+onaangenaam, terwijl ze in een verbouwde garage woonde en in de supermarkt bij
+de kassa deed alsof haar pas kapot was. Toen ze *The Science of Getting Rich*
+van Wallace Wattles opensloeg en de eerste zin las, dat een volwaardig leven
+zonder rijkdom niet mogelijk is, sloeg ze het boek beledigd dicht en bleef nog
+jaren arm.
+
+Ze geeft een eigen omschrijving van rijk: in staat zijn alles te betalen wat
+je nodig hebt om het leven te leiden dat bij je past. Het bedrag verschilt per
+persoon, maar volgens haar rijdt niemand gratis mee, omdat vrijwel alles wat
+met groei en zelfexpressie te maken heeft geld kost.
+
+**Waarom je nog niet rijk bent**
+
+Het tweede hoofdstuk bevat het scherpste idee van het boek. Sincero vertelt
+hoe ze als kind van zeven in Napels een bord gefrituurde ringen kreeg
+voorgezet en overtuigd raakte dat het wormen waren. Ze kokhalsde en werd
+misselijk. Het waren inktvisringen. Haar conclusie: wat je gelooft, ervaar je.
+
+Daaruit volgt haar model van het onderbewuste als een prins van zeven die
+koning wordt: hij bestuurt je volwassen leven met informatie die hij op de
+stoep heeft opgepikt en nooit heeft gewogen. Wie als kind zag dat een
+familielid met geld werd buitengesloten, werkt daar als volwassene nog steeds
+omheen zonder het te weten. De opdracht is die aannames op te sporen en te
+vervangen.
+
+**Universal Intelligence**
+
+Het korte hoofdstuk 2a zet een tweede fundament naast het eerste. Sincero
+vraagt de sceptische lezer zijn bezwaren opzij te zetten en aan te nemen dat
+er een scheppende kracht bestaat waarvan zijn eigen gedachten deel uitmaken.
+Alles is energie en trilling; de vijf zintuigen tonen daar maar een deel van.
+
+Uitgaande gedachten geven volgens haar aan die kracht door hoe het is, en daar
+wordt naar gehandeld. Wat je kunt denken, bestaat al, anders had je het niet
+kunnen denken; dus als je vijftigduizend dollar kunt bedenken, bestaan dat
+bedrag en de weg ernaartoe al. Vanaf dit punt loopt het boek op twee sporen
+tegelijk verder.
+
+**De methode**
+
+De praktische hoofdstukken zijn concreet. Noem een bedrag en een datum, en zeg
+erbij waarvoor het is. Betrap jezelf op de zinnen waarmee je jezelf klein
+houdt. Neem een besluit en handel ernaar voordat je weet hoe het moet. Kijk
+naar je cijfers in plaats van eromheen: in het hoofdstuk over haar boekhouder
+vergelijkt ze het vermijden van je bankrekening met het weken laten zitten van
+vies verband omdat je niet wil zien wat eronder zit.
+
+Verder gaan hoofdstukken over de invloed van je omgeving, over volharding en
+over gezelschap zoeken dat verandering aanmoedigt. Het hoofdstuk over
+volharding draait om haar buurvrouw die haar hele spaargeld in een
+beleggingsbedrijf stak, met twee kleine kinderen en een jaar aan de rand van
+de afgrond, en haar vermogen daarna ongeveer vertwintigvoudigde.
+
+**De verhalen**
+
+Sincero werkt vrijwel volledig met vertellingen. Jim Carrey die zichzelf een
+cheque van tien miljoen dollar uitschreef, drie jaar vooruit gedateerd, en
+kort voor die datum *Dumb and Dumber* kreeg. Prince die in zijn ondergoed werd
+uitgejouwd in het voorprogramma van de Rolling Stones en besloot nooit meer
+iemands voorprogramma te zijn. De klimmer uit *Touching the Void* die met een
+gebroken been terugkruipt naar het basiskamp. Haar eigen geiten die in vijf
+uur een huis slopen, als beeld voor doorzetten.
+
+Het enige stuk wetenschap in het boek gaat over Vilayanur Ramachandran, die
+met een spiegelopstelling fantoompijn bij geamputeerden verlicht door het
+brein te laten zien dat de ontbrekende arm ontspant. Dat klopt, en het laat
+zien dat overtuiging lichamelijke gewaarwording verandert. Sincero gebruikt
+het als opstap naar de stelling dat overtuiging ook je banksaldo verandert, en
+dat is een andere bewering.
+
+**Toon**
+
+Het boek is grof, snel en zelfspottend geschreven. Dat is niet alleen stijl:
+het maakt het onderwerp geld bespreekbaar voor lezers die het gene vinden. Wie
+de toon niet verdraagt, komt niet ver, want er staat geen enkele bladzijde in
+een andere registerkeuze.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Rich | Sincero's eigen definitie: kunnen betalen wat nodig is om het leven te leiden dat bij je past, waarbij het bedrag per persoon verschilt. |
+| Allowance | Jezelf toestemming geven om rijk te willen zijn, volgens haar de eerste en meest overgeslagen stap. |
+| Truth blueprint | Het geheel van aannames dat je in je jeugd hebt opgepikt en waardoor je je waarnemingen filtert. |
+| The little prince | Haar beeld van het onderbewuste: een kind van zeven dat het koninkrijk van je volwassen leven bestuurt op ongewogen informatie. |
+| Universal Intelligence | De scheppende kracht waarvan je gedachten volgens haar deel uitmaken en die op die gedachten reageert. |
+| Outgoing en incoming thought | Uitgaande gedachten geven je opdracht door, inkomende gedachten zijn de ingevingen en kansen die je vervolgens moet opmerken. |
+| Frequency | De veronderstelde trillingshoogte van je gemoedstoestand, waarbij hogere frequentie meer zou aantrekken. |
+| Money goal | Een genoemd bedrag met een datum en een reden, in plaats van de wens om meer te verdienen. |
+| Decisive action | Besluiten en handelen voordat je weet hoe het moet, omdat het wachten op de route het besluit uitholt. |
+| Your Why | De reden achter het bedrag, die volgens haar moet dragen als het een jaar lang tegenzit. |
+
+#### Waar het argument op rust
+
+Er staat geen onderzoek in dat de kernbewering steunt. De verhalen zijn
+geselecteerd op afloop: Carrey werd beroemd, Prince werd Prince, de buurvrouw
+haalde het. Wie een cheque uitschreef en niets bereikte, komt in het boek niet
+voor. Dat maakt de bewijsvoering nul, hoe overtuigend de verhalen ook lezen.
+
+De ene wetenschappelijke verwijzing, het spiegelwerk van Ramachandran, is
+echt, maar toont iets anders aan dan waarvoor zij hem inzet. Het
+overtuigendste bewijsstuk is haar eigen loopbaan: van freelanceschrijver
+zonder geld naar zeven cijfers als coach en auteur, in een jaar of vijf. Dat
+is een echte omslag, maar het is er een. En een deel van dat inkomen komt uit
+het verkopen van deze methode.
+
+#### Wat er tegen in te brengen valt
+
+Het boek bestaat uit twee delen die niet even veel waard zijn en die door
+elkaar heen lopen. Het deel over aangeleerde overtuigingen rond geld is
+scherp: dat mensen zonder het te weten een prijskaartje aan hun eigen werk
+hangen, uit schaamte hun bankrekening niet openen, en jaren besteden aan
+besparen wat ze in minder tijd hadden kunnen verdienen. Dat is herkenbaar,
+toetsbaar en bruikbaar. Het deel waarin het universum meebetaalt is dat niet:
+dat de gedachte aan een bedrag betekent dat het bedrag al bestaat, is geen
+bewering die je kunt nagaan. De twee staan in hetzelfde hoofdstuk, soms in
+dezelfde alinea, en de lezer krijgt geen middel aangereikt om ze uit elkaar te
+houden.
+
+Die vermenging heeft een praktisch gevolg. Blijft het geld uit, dan biedt het
+boek maar een verklaring: je geloofde het niet genoeg of je trilde te laag.
+Dat is niet te weerleggen, en het legt de schuld voor een uitblijvend
+resultaat bij de lezer.
+
+Het boek is tegelijk de reclame voor de praktijk van de schrijfster. Sincero
+is coach, en een van de langste hoofdstukken beschrijft hoe zij
+vijfentachtigduizend dollar bijeenbracht om zelf een coach in te huren, met
+als uitkomst dat die investering zichzelf terugbetaalde. De boodschap dat je
+diep in de buidel moet tasten voor begeleiding komt van iemand die begeleiding
+verkoopt. Dat wordt nergens benoemd.
+
+Ten slotte gaat het boek nauwelijks in op omstandigheden die zich niet laten
+weggedenken: schulden met rente, ziekte, zorgtaken, geen startkapitaal.
+Sincero begon met een netwerk, een opleiding en de mogelijkheid om duizenden
+dollars aan cursussen uit te geven. Dat is een andere uitgangspositie dan die
+van veel lezers.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op wat je over geld hebt geleerd voor je twaalfde was, en wie het
+zei. Dat is het deel van het boek dat werkt.
+- Noem een bedrag, een datum en de reden. Zonder die drie blijft het bij de
+wens om meer te verdienen.
+- Reken uit wat je maandelijks binnenkrijgt en wat eruit gaat, ook als je dat
+liever niet weet. Het hoofdstuk over haar boekhouder is het nuchterste van het
+boek.
+- Vergelijk de tijd die je aan besparen besteedt met de tijd die je aan
+verdienen besteedt. Sincero's rekensom over haar gebreide kaftans is daarvoor
+bruikbaar.
+- Laat het gedeelte over trilling en universum staan als je er niets mee kunt;
+de rest van de methode blijft dan overeind.
+
+#### Wat je hierna leest
+
+- 76. Think and Grow Rich. Hill legde in 1937 de gedachte vast dat een
+vastgehouden voornemen zich in geld vertaalt. Sincero's universum-hoofdstukken
+zijn daarvan een moderne bewerking.
+- 21. The Psychology of Money. Housel behandelt hetzelfde onderwerp, gedrag
+rond geld, maar met cijfers, en komt tot de tegenovergestelde conclusie over
+de rol van toeval.
+- 37. Rich Dad Poor Dad. Kiyosaki koppelt net als Sincero armoede aan
+aangeleerde denkwijze; ook bij hem is het verhaal niet te controleren.
+- 129. Manifest. Nafousi doet in 2022 dezelfde belofte in een strakker
+stappenplan, met dezelfde onbewijsbare kern.
 
 ## 133. The Compound Effect
 
@@ -25151,6 +25979,198 @@ De kracht zit in het persoonlijke deel, dat openhartig is. De rest is een
 samenvatting van wat er in dit genre circuleert, met verwijzingen naar
 onderzoek die vooral als versiering dienen. Wie de gesprekkenreeks kent, treft
 hier weinig nieuws aan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Howes stelt dat wat hij greatness noemt niet uit talent of
+resultaat voortkomt maar uit een denkwijze die je opbouwt en onderhoudt. Wie
+een Meaningful Mission vindt, zijn angsten benoemt en omzet in brandstof, zijn
+verleden heelt en zijn eigen identiteit kiest in plaats van die van anderen te
+dragen, kan daarna een uitvoeringsplan maken dat wel werkt. Zijn tegenstelling
+is niet slagen tegenover falen, maar een goed leven dat toch leegloopt
+tegenover een leven met richting.
+
+#### De gang van het boek
+
+**Het vertrekpunt**
+
+Het boek opent bij Howes zelf, drieentwintig jaar oud, blut op de bank van
+zijn zus in Columbus, Ohio. Hij was All-American in de tienkamp en in football
+en hield het wereldrecord ontvangen yards in een enkele wedstrijd, maar brak
+in 2007 tijdens een wedstrijd zijn pols. Er werd bot uit zijn heup gehaald om
+de pols vast te zetten: zes maanden gips en een jaar herstel. Zijn vader was
+het jaar daarvoor in Nieuw-Zeeland verongelukt en had zwaar hersenletsel; hij
+herkende weinig van wat hem eerder dierbaar was.
+
+Wat Howes weer op gang bracht was klein en concreet: zijn zus zei dat hij
+moest meebetalen of vertrekken, een mentor tipte hem over een nieuw platform
+dat LinkedIn heette, zijn broer gaf hem met kerst ongewikkeld *The 4-Hour
+Workweek*, en een spreker adviseerde hem een jaar lang wekelijks bij
+Toastmasters te spreken. Hij deed dat alle drie.
+
+**De vijand: geen missie**
+
+Het eerste deel wijst het ontbreken van een Meaningful Mission aan als de kern
+van het probleem. Wie niet weet waar hij heen gaat, blijft staan of rent
+achter elk glimmend voorwerp aan en komt uit waar hij begon. Howes illustreert
+dat met Dwayne Johnson, die na zijn ontslag bij een Canadese footballclub bij
+zijn ouders introk met zeven dollar op zak, en die pas vooruitkwam toen hij
+zijn richting koos in plaats van zijn oude droom te blijven rouwen.
+
+Het tweede hoofdstuk vertelt het verhaal van Jason Redman, een Navy SEAL die
+in 2007 in Irak in een hinderlaag liep, ongeveer veertig procent van zijn
+bloed verloor en zijn gezicht verwoest zag raken. Howes gebruikt hem als
+iemand met alle reden om af te haken die dat niet deed.
+
+**De barrieres: drie angsten en de zelftwijfel**
+
+Deel twee behandelt achtereenvolgens de angst om te falen, de angst om te
+slagen en de angst voor oordeel, met zelftwijfel als aparte vierde figuur die
+hij de dream killer noemt. Het bekendste voorbeeld is Sara Blakely, die aan de
+eettafel van haar vader elke avond de vraag kreeg waar ze die dag in gefaald
+was en die daardoor leerde falen te lezen als niet proberen. Met een schaar in
+een panty begon SPANX; in oktober 2021 werd het bedrijf op 1,2 miljard dollar
+gewaardeerd.
+
+Het achtste hoofdstuk is een oefeningenset, de Fear Conversion Tool Kit. De
+lezer schrijft alle angsten op, kiest er drie tot vijf uit en werkt ze uit in
+als-dan-zinnen tot duidelijk wordt waar de angst werkelijk over gaat. In het
+voorbeeld blijkt angst voor spreken in het openbaar bij nader inzien angst om
+onvoorbereid over te komen, en dat is wel aan te pakken.
+
+**Het verleden helen**
+
+Het negende hoofdstuk is het beste van het boek en ook het minst opgewekte.
+Howes schrijft dat hij als kind seksueel misbruikt is, dat hij in de speciale
+klas zat en daarom werd gepest, dat zijn broer de gevangenis in ging toen hij
+acht was, en dat hij de eerste dertien jaar van zijn leven bang was voor het
+humeur van zijn vader terwijl zijn moeder alles deed om vrede te bewaren.
+
+Hij verbindt dat aan zijn eigen gedrag als volwassene: hij koos partners die
+hij wilde repareren, kon geen grenzen stellen omdat hij stukken van zichzelf
+weggaf om ruzie te vermijden, en zocht in sport en later in zaken een lichaam
+en een status waarmee niemand hem nog klein kon maken. Dat leverde resultaten
+op en geen rust. Deze passages zijn concreet, zonder mooie afloop, en ze
+verklaren waarom het boek bij lezers aanslaat.
+
+**Identiteit en de cyclus**
+
+Daarna volgt de vraag wie je bent als het antwoord niet meer uit je prestaties
+komt. Howes leent van Adam Grant de term identity foreclosure: je vastleggen
+op een identiteit voordat je andere hebt verkend, waarna je je gevangen voelt
+in een keuze die bij een vroegere versie van jezelf paste. Payal Kadakia dient
+als voorbeeld van iemand die twee identiteiten had en pas vooruitkwam toen ze
+ze allebei toeliet.
+
+Het model dat hij daarna presenteert heet de Mindset-in-Motion Cycle: denken,
+voelen en doen die elkaar in een rondgang versterken, ten goede of ten kwade.
+Het is een eenvoudige weergave van wat in de cognitieve gedragstherapie
+gangbaar is, zonder dat het boek dat verband legt.
+
+**Het plan**
+
+Het laatste deel is uitvoerend: moedige vragen stellen, jezelf toestemming
+geven, de uitdaging aannemen, doelen vaststellen, steun regelen en doorwerken.
+Bij de moedige vragen beschrijft hij een gesprek met ondernemer Rachel
+Rodgers, waarin hij haar tijdens de opname liet toezeggen dat ze binnen een
+dag een aanmeldformulier online zou zetten en vijf mensen zou bellen; ze
+haalde tweehonderdduizend dollar op en kon veertig moeders helpen.
+
+Zijn eigen voorbeeld bij doelen stellen is handbal: hij zag het sporten om
+drie uur 's nachts op de Spelen van 2008, ging er volledig in op, verhuisde
+naar New York, werd uitgelachen door een club vol Europeanen en bleef
+terugkomen. Het slot gaat over vieren wat af is, iets wat hij naar eigen
+zeggen jarenlang naliet omdat hij zich er nooit goed genoeg voor voelde.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Meaningful Mission | Het onderliggende doel dat richting geeft aan wat je doet; het ontbreken ervan noemt Howes de vijand. |
+| Enemy of Greatness | Zijn benaming voor het gemis van zo'n missie, dat volgens hem alle andere problemen voedt. |
+| Barriers to Greatness | De drie angsten waar het tweede deel over gaat: falen, slagen en het oordeel van anderen. |
+| Dream Killer | Zelftwijfel, die hij apart zet van de angsten omdat die niet over de buitenwereld gaat maar over je eigen oordeel. |
+| Fear Conversion Tool Kit | De oefeningenset waarmee je angsten opschrijft en met als-dan-zinnen uitpelt tot ze hanteerbaar worden. |
+| Mindset-in-Motion Cycle | Het model waarin denken, voelen en doen elkaar versterken in een op- of neergaande rondgang. |
+| Identity foreclosure | Term van Adam Grant voor het te vroeg vastleggen op een identiteit, waardoor andere richtingen buiten beeld blijven. |
+| Greatness Goals | Doelen die uit je missie volgen in plaats van uit wat anderen bewonderenswaardig vinden. |
+| Massive imperfect action | Handelen voordat je je klaar voelt, omdat wachten op perfectie volgens hem een vorm van bescherming is. |
+| 1 Percent Rule | Vuistregel van Thomas Frank: bij elke herhaling een procent beter worden in plaats van goed willen zijn. |
+
+#### Waar het argument op rust
+
+De onderbouwing komt vrijwel volledig uit gesprekken die Howes voerde voor
+zijn eigen podcast. De eindnoten verwijzen daar dan ook naar. Dat levert een
+aardige verzameling meningen op van bekende gasten, maar het is geen bewijs
+dat de methode werkt: niemand van hen is geselecteerd omdat hij faalde.
+
+Waar het boek naar cijfers grijpt, gaan die over de omvang van het probleem en
+niet over de oplossing: veertig miljoen Amerikaanse volwassenen met een
+angststoornis, percentages per leeftijdsgroep van het National Institute of
+Mental Health, cijfers over overgewicht, een enquete over dalend geluk tussen
+1973 en 2016. Die getallen schetsen dat er iets aan de hand is; ze zeggen
+niets over het stappenplan dat erop volgt.
+
+Het onderzoek dat wel wordt aangehaald staat los van de kern. Herminia Ibarra
+bestudeerde hoe mensen loopbanen opbouwen en zag dat succesvolle mensen
+meerdere identiteiten uitproberen; Adam Grant leverde de term identity
+foreclosure. Beide bevindingen kloppen en beide worden gebruikt om een
+hoofdstuk te versieren dat ook zonder hen precies hetzelfde had gezegd.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is het sterkst waar Howes over zichzelf schrijft. De hoofdstukken
+over misbruik, grenzen, therapie en het jarenlang najagen van resultaten om
+een kindergevoel te dempen zijn preciezer en eerlijker dan de rest, en ze
+staan zonder nette afloop. Zodra hij naar onderzoek wijst, wordt het
+versiering: een naam, een percentage, een noot naar zijn eigen aflevering, en
+dan verder met het betoog dat er toch al lag.
+
+De voorbeelden zijn zonder uitzondering geslaagde mensen. Johnson, Blakely,
+Redman, Curry, Rodgers: allemaal zijn ze doorgegaan en allemaal hebben ze het
+gehaald. Dat maakt de bewering onweerlegbaar, want de mensen die doorgingen en
+het niet haalden komen niet aan het woord. Het slaagverhaal van Blakely bevat
+bovendien elementen die niets met denkwijze te maken hebben, zoals een octrooi
+en een afnemer.
+
+Het boek is tegelijk de reclame voor de praktijk van de schrijver. De podcast
+levert het bronmateriaal, de podcast wordt in de tekst genoemd, de vorige
+boeken worden aangehaald en het merk waaronder Howes cursussen en evenementen
+verkoopt is ook de titel van het boek. Wie het uitleest, is doorverwezen naar
+het platform. Dat maakt het advies niet slecht, maar het verklaart waarom er
+geen enkel hoofdstuk in staat dat de methode begrenst.
+
+Ten slotte zet het boek het helen van verwondingen in dienst van prestatie.
+Trauma wordt aangepakt zodat je missie kan doorgaan. Voor lezers voor wie
+herstel op zichzelf al zwaar genoeg is, is dat een ongemakkelijke volgorde, en
+het boek staat er niet bij stil dat een therapeut hier meer op zijn plaats is
+dan een oefening.
+
+#### Wat er concreet mee te doen is
+
+- Maak de angstlijst uit hoofdstuk acht en werk de drie zwaarste uit in
+als-dan-zinnen tot je ziet waar de angst werkelijk over gaat.
+- Schrijf op welke doelen je najaagt om iemand ongelijk te geven. Howes noemt
+dat de brandstof van het gewonde kind, en die raakt op.
+- Zet bij een doel dat blijft liggen de vraag om wat je binnen vierentwintig
+uur kunt doen, en spreek dat met iemand af. Dat is het enige mechanisme in het
+boek met een controlepunt.
+- Gebruik het onderscheid tussen een goed en een gewenst leven als toets bij
+een loopbaankeuze, los van de rest van het stappenplan.
+- Zoek bij het hoofdstuk over het verleden professionele begeleiding als er
+echt iets ligt; het boek levert wel de vraagstelling maar niet de behandeling.
+
+#### Wat je hierna leest
+
+- 44. Daring Greatly. Brown behandelt schaamte en kwetsbaarheid met onderzoek
+eronder, waar Howes hetzelfde terrein met podcastgesprekken bestrijkt.
+- 29. Grit. Duckworth meet volharding en toont ook de grenzen ervan; dat is de
+tegenhanger van Howes' aanname dat doorzetten altijd loont.
+- 30. The Obstacle Is the Way. Holiday werkt hetzelfde idee uit, tegenslag als
+leerstof, vanuit de stoicijnse traditie en zonder platform eromheen.
+- 132. You Are a Badass at Making Money. Sincero maakt dezelfde beweging van
+innerlijk werk naar uiterlijk resultaat, met geld als onderwerp en met een
+veel losser bewijsregime.
 
 ## 137. The Poker Mindset
 
