@@ -4468,6 +4468,169 @@ laten werken voordat zij overleggen, en de spreiding zelf periodiek meten met
 wat zij een ruisonderzoek noemen. Het boek is lang en herhaalt zich; wie de
 kern wil, heeft aan de eerste honderd bladzijden en de aanbevelingen genoeg.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Waar het eerdere werk van Kahneman over stelselmatige
+afwijking ging, gaat dit over toevallige spreiding. Twee rechters geven voor
+dezelfde zaak verschillende straffen, twee schade-experts stellen voor
+hetzelfde dossier bedragen vast die tientallen procenten uiteenlopen, en
+dezelfde beoordelaar oordeelt anders na de lunch dan ervoor. De schrijvers
+noemen dat ruis en betogen dat organisaties zich blindstaren op vertekening,
+die een richting heeft en daardoor opvalt, terwijl ruis evenveel schade
+aanricht en vrijwel nooit wordt gemeten. Het goede nieuws is dat ruis te meten
+valt zonder te weten wat het juiste antwoord is.
+
+#### De gang van het boek
+
+**Het schietschijfbeeld**
+
+Het boek opent met vier schietschijven. Op de eerste zitten de treffers dicht
+bijeen in het midden, op de tweede dicht bijeen maar buiten het midden, op de
+derde verspreid rond het midden en op de vierde verspreid en scheef. De tweede
+toont vertekening, de derde ruis.
+
+De kern van dat beeld is dat de spreiding op de achterkant van het doel
+zichtbaar blijft, ook wanneer niemand weet waar het midden lag. Een
+organisatie kan dus haar eigen ruis vaststellen zonder te weten welk oordeel
+juist was, en dat maakt het een probleem waar iets aan te doen valt.
+
+**Waar ruis zit**
+
+De voorbeelden komen uit de rechtspraak, waar onderzoek uit de jaren zeventig
+al liet zien dat dezelfde zaak bij verschillende rechters tot sterk
+uiteenlopende straffen leidde, en uit het verzekeringswezen, waar de
+schrijvers zelf een onderzoek deden. Zij vroegen leidinggevenden vooraf
+hoeveel twee experts zouden verschillen; de schatting was vijf tot tien
+procent en de werkelijkheid was rond de vijftig.
+
+Verder behandelen zij aanstellingsgesprekken, medische diagnoses,
+beoordelingen van personeel en het toekennen van asiel. Het patroon is telkens
+hetzelfde: de betrokkenen weten dat collega's soms anders oordelen en
+onderschatten stelselmatig hoeveel.
+
+**Drie soorten**
+
+Zij ontleden ruis in delen. Niveauruis is het verschil in strengheid tussen
+beoordelaars: de een geeft gemiddeld hogere cijfers dan de ander. Patroonruis
+is eigenzinniger: een beoordelaar is streng op het ene soort geval en mild op
+het andere, op een manier die alleen bij hem hoort.
+
+Daarnaast staat de gelegenheidsruis, de spreiding binnen één persoon over de
+tijd: honger, weer, stemming en de zaak die eraan voorafging. De ontleding is
+nuttig omdat elk deel om een andere ingreep vraagt; patroonruis is het grootst
+en het lastigst te bestrijden.
+
+**Waarom mensen het niet zien**
+
+Het middendeel verklaart waarom ruis onzichtbaar blijft. Oordelen worden
+meestal één voor één geveld, zonder dat iemand ziet wat een ander bij
+hetzelfde geval zou hebben gedaan. Daarbij komt wat zij de illusie van
+eensgezindheid noemen: mensen nemen aan dat een redelijke collega tot
+hetzelfde besluit zou komen, omdat het eigen oordeel vanzelfsprekend voelt.
+
+Zij behandelen ook de rol van deskundigheid. Waar geen juist antwoord bestaat,
+gaat kwaliteit over op respect binnen de beroepsgroep, en dat beloont
+zelfvertrouwen en samenhang in de redenering en niet nauwkeurigheid.
+
+Een aparte oorzaak is dat organisaties ruis niet meten omdat de uitkomst
+pijnlijk is. Wie vaststelt dat twee medewerkers voor hetzelfde dossier sterk
+uiteenlopende bedragen vaststellen, moet daarna iets doen, en dat kost geld en
+gezag. De schrijvers noemen voorbeelden van bedrijven die het onderzoek lieten
+uitvoeren en de uitkomst in de la legden, en betogen dat het niet meten
+daarmee zelf een besluit is.
+
+**De ingrepen**
+
+Hun voorstel noemen zij besluithygiëne, en de naam is met opzet saai: het gaat
+om maatregelen die werken zonder dat je weet welke fout je ermee voorkomt,
+zoals handen wassen. Laat beoordelaars onafhankelijk oordelen voordat zij
+overleggen, want anders bepaalt wie het eerst spreekt de uitkomst.
+
+Verder: knip een oordeel op in vaste onderdelen die apart worden gescoord,
+gebruik een gedeelde meetschaal met ankervoorbeelden in plaats van woorden als
+goed en uitstekend, stel het totaaloordeel uit tot het eind, en gebruik waar
+mogelijk een eenvoudige formule of regel. Zij bepleiten daarnaast het
+periodiek uitvoeren van een ruisonderzoek: leg dezelfde gevallen aan meerdere
+beoordelaars voor en meet wat eruit komt.
+
+Zij besteden apart aandacht aan de volgorde waarin informatie binnenkomt. Een
+beoordelaar die eerst het dossier leest en daarna de kandidaat spreekt, komt
+tot een ander oordeel dan andersom, en de eerste indruk kleurt alles wat erna
+komt. Hun raad is om gegevens gedoseerd en in een vaste volgorde aan te
+bieden, en om beoordelaars pas informatie te geven op het moment dat zij die
+nodig hebben voor het onderdeel dat zij scoren.
+
+**De tegenwerpingen die zij zelf behandelen**
+
+Het slotdeel gaat over bezwaren. Regels en formules voelen onmenselijk, ze
+kunnen de vertekening van hun bouwers overnemen, en zij ontnemen beoordelaars
+het gevoel van vakmanschap. De schrijvers erkennen dat en zetten er de kosten
+van ruis tegenover, die door de betrokkenen zelden worden gedragen maar wel
+door de mensen over wie wordt geoordeeld.
+
+Hun houding is uiteindelijk bescheiden: zij beloven geen betere besluiten in
+individuele gevallen maar minder willekeur over veel gevallen. Voor wie ooit
+aan de ontvangende kant van een beoordeling stond, is dat het overtuigendste
+argument in het boek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ruis | Ongewenste spreiding in oordelen die hetzelfde zouden moeten zijn; anders dan vertekening heeft zij geen richting. |
+| Vertekening | Een stelselmatige afwijking in één richting; opvallend en daardoor het enige waar organisaties naar kijken. |
+| Niveauruis | Het verschil in gemiddelde strengheid tussen beoordelaars. |
+| Patroonruis | De eigenaardige combinatie van streng en mild per soort geval die alleen bij één beoordelaar hoort; volgens hen de grootste component. |
+| Gelegenheidsruis | Spreiding binnen één persoon over de tijd, door stemming, vermoeidheid en het vorige geval. |
+| Illusie van eensgezindheid | De aanname dat een redelijke collega tot hetzelfde oordeel zou komen, omdat het eigen oordeel vanzelfsprekend voelt. |
+| Besluithygiëne | Maatregelen die willekeur verkleinen zonder dat bekend is welke fout ermee wordt voorkomen. |
+| Ruisonderzoek | Dezelfde gevallen door meerdere beoordelaars laten beoordelen om de spreiding te meten. |
+| Opknippen van het oordeel | Een besluit in vaste onderdelen scoren en het totaaloordeel tot het eind uitstellen. |
+
+#### Waar het argument op rust
+
+Op onderzoek uit de rechtspraak, de verzekeringsbranche, de geneeskunde en
+personeelsselectie, aangevuld met het eigen onderzoek van de schrijvers bij
+een verzekeraar. De kern, dat de spreiding groot is en stelselmatig wordt
+onderschat, is met veel verschillende gegevensbronnen ondersteund.
+
+De aanbevelingen zijn minder hard onderbouwd. Dat het opsplitsen van oordelen
+en het onafhankelijk laten oordelen helpt, komt uit onderzoek naar selectie en
+uit de statistiek; dat het geheel als besluithygiëne in een organisatie werkt,
+is aannemelijk gemaakt en niet gemeten.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is aanzienlijk langer dan de inhoud vraagt, met veel herhaling en met
+bijlagen die eerdere hoofdstukken samenvatten. Wie de kern wil, leest het
+eerste deel en de aanbevelingen; de tussenliggende delen voegen vooral
+voorbeelden toe.
+
+Inhoudelijk is de belangrijkste tegenwerping dat ruis in sommige omgevingen
+niet alleen kost maar ook iets oplevert: verschillen tussen beoordelaars maken
+zichtbaar dat een norm ontbreekt, en volledige gelijkvormigheid kan een
+verkeerde norm onaantastbaar maken. De schrijvers noemen dat en wegen het
+licht.
+
+#### Wat er concreet mee te doen is
+
+- Laat beoordelaars eerst apart oordelen en pas daarna overleggen.
+- Knip een oordeel op in vaste onderdelen en stel het totaaloordeel uit tot
+het eind.
+- Vervang woorden als goed en uitstekend door een schaal met concrete
+ankervoorbeelden.
+- Meet je eigen spreiding: leg dezelfde gevallen aan meerdere mensen voor en
+vergelijk.
+
+#### Wat je hierna leest
+
+- 55. Thinking, Fast and Slow. Kahnemans eerdere boek behandelt de vertekening
+waar dit boek de spreiding naast zet.
+- 137. The Poker Mindset. Het pokerboek hanteert dezelfde scheiding tussen de
+kwaliteit van een besluit en de afloop ervan.
+- 43. Crucial Conversations. Crucial Conversations behandelt het gesprek
+waarin dat onafhankelijke oordeel moet worden ingebracht.
+
 ## 70. Deep Work
 
 Cal Newport, 2016. Ondertitel *Rules for Focused Success in a Distracted
@@ -4695,6 +4858,137 @@ het omgekeerde effect blijken te hebben. Het bezwaar dat bij herlezing opkomt
 is dat een deel van de studies uit de jaren waarin hij schreef, later niet
 meer te herhalen bleek; het boek is daarmee zelf een goede oefening in de
 vraag hoe stevig een verwijzing naar onderzoek is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wiseman betoogt dat het meeste zelfhulpadvies niet is
+getoetst en dat een deel ervan aantoonbaar averechts werkt, terwijl er wel
+degelijk ingrepen bestaan waarvan het effect in onderzoek is aangetoond en die
+in minder dan een minuut zijn uit te voeren. Zijn boek is de tegenhanger van
+het genre waarin het staat: per onderwerp zoekt hij op wat er is onderzocht,
+zegt hij wat er niet uit blijkt, en geeft hij de kortst mogelijke ingreep die
+wel standhoudt.
+
+#### De gang van het boek
+
+**De aanleiding**
+
+Wiseman is psycholoog en raakte geërgerd aan de kloof tussen wat er in
+tijdschriften over gedrag wordt gepubliceerd en wat er in zelfhulpboeken wordt
+beweerd. Hij noemt de sector een bedrijfstak die adviezen verkoopt zonder ze
+te toetsen, en zet daar de eis tegenover dat een advies uit onderzoek moet
+volgen en snel uitvoerbaar moet zijn.
+
+De titel verwijst naar die tweede eis. Het is een verkoopargument en het is
+ook een inhoudelijke keuze: langdurige programma's worden zelden volgehouden,
+en de kans dat iemand iets doet neemt af met elke minuut die het kost.
+
+**Geluk en dankbaarheid**
+
+Het eerste hoofdstuk behandelt geluk. Wiseman haalt onderzoek aan waaruit
+blijkt dat het opschrijven van waar iemand dankbaar voor is meetbaar meer
+oplevert dan erover praten, en dat een korte oefening waarin iemand zijn beste
+denkbare toekomst beschrijft, effect heeft op zijn stemming in de weken erna.
+
+Hij haalt daarnaast een gangbaar advies onderuit: het uiten van woede als
+afvoerkanaal. In onderzoek blijkt slaan op een kussen of schreeuwen de woede
+niet te verminderen maar te versterken, doordat het de gedachten eraan levend
+houdt.
+
+**Overtuigen en solliciteren**
+
+Bij overtuigen behandelt hij onder meer het effect van een kleine fout op
+sympathie, de werking van een gunst die je aan iemand vraagt in plaats van
+bewijst, en het belang van de eerste seconden van een gesprek.
+
+Zijn advies bij sollicitaties is nuchter: noem vroeg in het gesprek één klein
+nadeel van jezelf, want kritiek die eerst komt maakt de rest geloofwaardiger,
+terwijl kritiek aan het eind blijft hangen. Het is een voorbeeld van hoe hij
+werkt: één bevinding, één handeling, geen theorie eromheen.
+
+**Uitstellen, beslissen en onthouden**
+
+Bij uitstelgedrag komt hij uit bij het beginnen zelf: wie een paar minuten aan
+een taak werkt, houdt de onafgemaakte taak in zijn hoofd en maakt haar eerder
+af. Bij beslissen behandelt hij het nut van een nacht slapen bij ingewikkelde
+keuzes en de schade van te veel opties.
+
+Verder behandelt hij het geheugen, waar zijn advies neerkomt op het spreiden
+van herhaling en het koppelen van nieuwe informatie aan iets bestaands, en de
+creativiteit, waar hij de waarde van gezamenlijk brainstormen bestrijdt:
+mensen komen apart op meer en betere ideeën dan in een groep.
+
+**Wat het boek zelf oproept**
+
+Bij herlezing is het boek zelf een oefening geworden in de vraag hoe stevig
+een verwijzing naar onderzoek is. Een deel van de studies die Wiseman aanhaalt
+komt uit de jaren waarin de sociale psychologie werkte met kleine groepen en
+enkelvoudige metingen, en een aantal daarvan hield bij herhaling niet stand.
+
+Dat is geen verwijt aan hem, want hij deed in 2009 precies wat hij bepleitte,
+en het is wel de reden om zijn adviezen nu met dezelfde strengheid te bekijken
+als waarmee hij het genre bekeek. De adviezen over dankbaarheid opschrijven,
+over voornemens met plaats en tijd erin en over het apart bedenken van ideeën
+horen tot het steviger deel.
+
+Nog een onderdeel dat hij onderuit haalt is de klassieke motivatietechniek van
+het visualiseren van succes. In onderzoek blijkt dat wie zich levendig
+voorstelt dat hij zijn doel bereikt, daarna minder onderneemt, doordat het
+voorstellen al een deel van de voldoening geeft. Wat wel werkt is het
+voorstellen van de stappen en van de tegenslagen onderweg, en dat verschil is
+een van de nuttigste dingen die het boek te bieden heeft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Toetsbaar advies | Zijn eis: een aanbeveling moet uit onderzoek volgen en niet uit ervaring van de schrijver. |
+| De minuut als grens | Ingrepen die langer duren worden niet volgehouden; korte handelingen halen de praktijk wel. |
+| Schrijven boven praten | Dankbaarheid en doelen opschrijven werkt meetbaar beter dan erover spreken. |
+| Woede uiten werkt averechts | Afreageren vermindert woede niet maar houdt haar levend; een van de hardnekkigste onjuiste adviezen. |
+| Vroege zelfkritiek | Een klein nadeel vroeg in een gesprek noemen maakt de rest geloofwaardiger. |
+| Beginnen als middel tegen uitstel | Een paar minuten werk houdt de onafgemaakte taak actief in het hoofd. |
+| Apart bedenken | Mensen komen alleen op meer en betere ideeën dan in een gezamenlijke sessie. |
+
+#### Waar het argument op rust
+
+Op gepubliceerd onderzoek, per hoofdstuk aangehaald, met eigen experimenten
+van Wiseman erbij; hij deed grootschalige proeven met publiek en pers, onder
+meer over humor en over geluk hebben.
+
+De beperking is de tijd. Het boek stamt uit 2009 en leunt deels op onderzoek
+dat later moeilijk te herhalen bleek. Wie het nu leest doet er goed aan de
+aangehaalde studie bij de meest verrassende beweringen zelf op te zoeken; dat
+kan, want hij noemt ze.
+
+#### Wat er tegen in te brengen valt
+
+De opzet met korte adviezen maakt het boek bruikbaar en oppervlakkig tegelijk:
+waarom iets werkt en wanneer het niet werkt, blijft grotendeels buiten beeld.
+Wie de mechanismen wil begrijpen, komt bij 55 uit.
+
+Verder deelt het boek een zwakte met het genre dat het bestrijdt: het gaat
+over ingrepen bij het individu, terwijl een aanzienlijk deel van geluk en
+uitstelgedrag met omstandigheden te maken heeft. En de belofte in de titel is
+zelf een verkooptruc van het soort waar hij elders tegen waarschuwt.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op waar je dankbaar voor bent, in plaats van erover te praten.
+- Reageer woede niet af, want dat houdt haar levend; leid de aandacht weg of
+schrijf erover.
+- Werk twee minuten aan wat je uitstelt, en laat de taak daarna onafgemaakt
+liggen.
+- Laat mensen eerst apart ideeën bedenken en breng ze pas daarna bij elkaar.
+
+#### Wat je hierna leest
+
+- 55. Thinking, Fast and Slow. Kahneman levert de verklaring onder de losse
+bevindingen die Wiseman opsomt.
+- 22. Atomic Habits. Clear werkt hetzelfde uit voor gewoontes, met de nadruk
+op het systeem in plaats van de losse ingreep.
+- 59. The Art of Thinking Clearly. Dobelli doet voor denkfouten wat Wiseman
+voor adviezen doet: inventariseren en ontnuchteren.
 
 ## 80. The Hour Between Dog and Wolf
 
@@ -5800,6 +6094,126 @@ beschreven in 22. Wat het toevoegt is de nadruk op meten: bijhouden wat er
 werkelijk gebeurt in plaats van afgaan op de indruk. Wat eraan ontbreekt is
 bewijs; de voorbeelden zijn gekozen en de toon is die van een seminar.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Hardy betoogt dat resultaten in geld, gewicht en verhoudingen
+bijna nooit uit één besluit voortkomen maar uit kleine keuzes die lang genoeg
+worden herhaald, en dat hetzelfde mechanisme naar beneden even hard werkt als
+naar boven. Omdat de uitkomst pas laat zichtbaar wordt, schrijven mensen die
+toe aan geluk of aanleg, terwijl zij het gevolg is van gedrag dat maanden
+eerder is begonnen. Zijn praktische kern is meten: wie zijn eigen gedrag een
+tijdlang bijhoudt, ziet wat hij werkelijk doet in plaats van wat hij denkt te
+doen.
+
+#### De gang van het boek
+
+**Het rekenvoorbeeld**
+
+Het boek opent met de keuze tussen drie miljoen dollar nu en een cent die
+dertig dagen lang verdubbelt. De cent wint ruim, en het punt van het voorbeeld
+is dat de winst zich vrijwel volledig in de laatste dagen voordoet: op dag
+twintig is er nog geen tienduizend dollar.
+
+Dat is de vorm van elk resultaat dat uit gewoonte voortkomt. In de periode
+waarin het werk wordt geleverd, is er niets te zien, en dat is de reden dat de
+meeste mensen stoppen. Hardy noemt dat de onzichtbare fase.
+
+**Keuzes en het loggen ervan**
+
+Zijn eerste ingreep is het bijhouden. Wie wil weten waar zijn geld heen gaat,
+schrijft dertig dagen elke uitgave op; wie wil weten waarom hij niet afvalt,
+schrijft alles op wat hij eet. Hardy stelt dat het bijhouden zelf al gedrag
+verandert, doordat het de automatische keuze zichtbaar maakt.
+
+Hij vraagt daarnaast om het benoemen van de gewoontes die iemand in de
+verkeerde richting duwen, en om het besef dat er geen neutrale keuzes bestaan:
+elke handeling telt op naar de ene of de andere kant.
+
+Zijn tweede ingreep is het onderscheid tussen wat iemand zegt te willen en wat
+hij op een gewone dinsdag doet. Hardy laat lezers hun eigen week naast hun
+eigen doelen leggen, en het ongemak dat daaruit komt is de motor van het boek.
+Het is dezelfde oefening die begeleiders bij verslaving, geld en gewicht als
+eerste stap gebruiken, en zij werkt doordat zij geen mening bevat: er staat
+alleen wat er is gebeurd.
+
+**Gewoonte, ritme en omgeving**
+
+Het middendeel behandelt het opbouwen van gewoontes, met vaste tijden, het
+opruimen van verleidingen en het langzaam verhogen van de inzet. Zijn nadruk
+ligt op ritme: iets kleins dat elke dag gebeurt levert meer op dan iets groots
+dat af en toe gebeurt.
+
+Verder behandelt hij invloed van buiten, met de mensen om iemand heen, de
+informatie die hij tot zich neemt en de omgeving waarin hij werkt. Zijn advies
+om die drie te snoeien is streng en is het minst uitgewerkt van het boek.
+
+**Het laatste zetje**
+
+Het slot gaat over wat hij het overschrijden noemt: op het moment dat het
+resultaat begint te komen, nog iets meer doen dan de gewoonte vraagt, omdat de
+opbrengst dan het hoogst is. Dat is de meest wervende en minst onderbouwde
+gedachte van het boek.
+
+De vorm is die van een seminar op papier, met opdrachten aan het eind van elk
+hoofdstuk. Wie de opdrachten overslaat, houdt weinig over; wie ze doet, houdt
+vooral het bijhouden over, en dat is het deel dat werkt.
+
+Waar het boek zwak wordt is bij de vraag waarom mensen de onzichtbare fase
+niet doorstaan. Hardy komt niet verder dan de aansporing om vol te houden,
+terwijl juist daar de verklaring nodig is: geen terugkoppeling, geen zichtbaar
+resultaat en een omgeving die er niets van merkt. De boeken die na hem
+verschenen behandelen precies dat gat, met beloningen die onmiddellijk volgen
+en met het bijhouden als vorm van zichtbaar bewijs.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Samengesteld effect | Kleine keuzes die zich over lange tijd opstapelen, in beide richtingen even hard. |
+| De onzichtbare fase | De periode waarin het werk al is geleverd en het resultaat nog niet zichtbaar is. |
+| Bijhouden | Zijn eerste ingreep: dertig dagen registreren wat je werkelijk doet, want dat wijkt af van wat je denkt te doen. |
+| Geen neutrale keuze | Elke handeling telt op naar de ene of de andere kant; niets doen is ook een keuze. |
+| Ritme boven omvang | Iets kleins dat elke dag gebeurt levert meer op dan iets groots dat af en toe gebeurt. |
+| Invloed van buiten | Mensen, informatie en omgeving als drie bronnen die het gedrag sturen en die te snoeien zijn. |
+| Het overschrijden | Extra inzet op het moment dat het resultaat begint te komen; zijn minst onderbouwde aanbeveling. |
+
+#### Waar het argument op rust
+
+Nauwelijks. Hardy was uitgever van een tijdschrift over succes en put uit
+gesprekken met ondernemers en uit eigen ervaring; verwijzingen naar onderzoek
+ontbreken vrijwel geheel.
+
+De onderliggende gedachte over herhaling en opbouw is wel onderbouwd, maar
+elders: in het werk over gewoontes en over gerichte oefening. Dit boek levert
+de aansporing en niet het bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het is een vroege populaire versie van wat 22 beter en met onderbouwing doet.
+De voorbeelden zijn gekozen om het punt te maken, de toon is die van een
+seminar, en de belofte dat elk resultaat uit eigen keuzes voortkomt laat
+omstandigheden buiten beschouwing.
+
+Wat overeind blijft is de nadruk op meten. Dat is een controleerbare ingreep
+die weinig kost, en het is het enige deel van dit boek dat je zonder
+voorbehoud kunt overnemen.
+
+#### Wat er concreet mee te doen is
+
+- Houd dertig dagen bij wat je werkelijk uitgeeft, eet of doet, zonder iets te
+veranderen.
+- Kies daarna één gedraging en zet die op een vast tijdstip.
+- Verwacht de onzichtbare fase en spreek van tevoren af hoe lang je doorgaat
+voordat je oordeelt.
+
+#### Wat je hierna leest
+
+- 22. Atomic Habits. Clear behandelt hetzelfde met onderbouwing en met een
+bruikbaarder systeem.
+- 21. The Psychology of Money. Housel laat zien wat dit mechanisme met geld
+doet, en waarom tijd de belangrijkste factor is.
+- 29. Grit. Duckworth meet wie het volhoudt tijdens de onzichtbare fase.
+
 ## 134. The Everyday Hero Manifesto
 
 Robin Sharma, 2021. Bij HarperCollins (2021). Nederlands als *Het manifest van
@@ -5874,6 +6288,127 @@ Daarmee is het bruikbaar ver buiten het kaartspel. De begrippen die het
 hanteert, spreiding, verwachte waarde en het achteraf beoordelen van
 besluiten, zijn dezelfde die 64 op de financiële markten toepast en 69 in
 organisaties. Voor wie niet pokert zijn de voorbeelden een drempel.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Taylor en Hilger betogen dat het verschil tussen goede en
+slechte pokerspelers minder in speltechniek zit dan in de houding tegenover
+onzekerheid. Een goede beslissing kan geld kosten en een slechte kan geld
+opleveren, en wie die twee door elkaar haalt leert de verkeerde les van elke
+uitkomst. Hun begrip pokerhouding bestaat uit een reeks aannames waarmee een
+speler de spreiding in resultaten kan verdragen zonder zijn spel aan te passen
+aan wat er toevallig gebeurde.
+
+#### De gang van het boek
+
+**Besluit en afloop**
+
+De kern is het onderscheid tussen de kwaliteit van een beslissing en de
+kwaliteit van de afloop. In een spel met kansen levert de beste zet op de
+lange duur het meeste op en in een enkel geval vaak niets, en dat betekent dat
+de uitkomst een slechte leermeester is.
+
+De schrijvers werken dat uit met het begrip verwachte waarde: de gemiddelde
+opbrengst van een keuze als je haar oneindig vaak zou maken. Een speler die
+daarop stuurt, verliest regelmatig en heeft toch gelijk, en dat is precies wat
+de meeste mensen niet kunnen verdragen.
+
+**Spreiding**
+
+Het tweede kernbegrip is de spreiding in uitkomsten. Zij rekenen voor hoeveel
+handen er nodig zijn voordat vaardigheid boven het toeval uitkomt, en dat
+aantal is groot genoeg om de meeste spelers een verkeerd beeld te geven van
+hun eigen niveau.
+
+Daaruit volgen twee gevolgtrekkingen. Een verliezende reeks bewijst weinig, en
+een winnende reeks bewijst even weinig; en wie zijn inzet afstemt op zijn
+recente resultaten, doet precies het omgekeerde van wat verstandig is.
+
+**Op tilt**
+
+Het praktische hart van het boek gaat over het verschijnsel dat pokerspelers
+tilt noemen: na een pijnlijk verlies harder en slechter spelen om het terug te
+halen. Zij beschrijven de vormen ervan, van agressief spelen tot juist te
+voorzichtig worden, en behandelen de aanleidingen.
+
+Hun tegengif is nuchter: van tevoren afspreken wanneer je stopt, het bedrag
+van een sessie loskoppelen van het gevoel van die avond, en de tafel verlaten
+bij de eerste tekenen. Dat is dezelfde raad die in het beleggen wordt gegeven
+en zij wordt hier concreter gemaakt.
+
+Zij behandelen ook de omgekeerde vorm, die zij minder bekend maar even
+schadelijk noemen: het spel van iemand die net veel gewonnen heeft. Winst
+maakt roekeloos, verlaagt de aandacht en verleidt tot hogere inzet, terwijl er
+aan het spel zelf niets is veranderd. Wie alleen op verlies let, mist dus de
+helft van het probleem, en dat geldt buiten het kaartspel evengoed voor
+beleggen en ondernemen.
+
+**Geld, ego en de lange termijn**
+
+Verder behandelen zij het beheer van de speelkas, met vaste regels over welk
+deel van het geld in één sessie mag worden ingezet, en de rol van het ego: de
+behoefte om gelijk te krijgen, om te laten zien dat je een bluf doorziet, en
+om aan de tafel te blijven zitten tegen betere spelers.
+
+Hun voortdurende punt is dat het spel over jaren wordt gespeeld en niet over
+een avond, en dat vrijwel elke fout die zij behandelen voortkomt uit het
+verwarren van die twee tijdschalen.
+
+Het aardigste hoofdstuk gaat over de omgang met betere spelers. Hun raad is de
+omgekeerde van wat het ego wil: zoek tafels waar je de sterkste bent en niet
+waar je het meest leert, want leren doe je bij de analyse achteraf en
+verliezen doe je aan tafel. Dat onderscheid tussen de plek waar je oefent en
+de plek waar je speelt, is los van het kaartspel bruikbaar voor iedereen die
+zijn inzet moet afstemmen op zijn niveau.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Pokerhouding | De verzameling aannames waarmee een speler spreiding verdraagt zonder zijn spel aan de laatste uitkomst aan te passen. |
+| Besluit tegenover afloop | Een goede zet kan verliezen en een slechte kan winnen; de uitkomst is een onbetrouwbare leermeester. |
+| Verwachte waarde | De gemiddelde opbrengst van een keuze bij oneindige herhaling; de enige maatstaf die op termijn klopt. |
+| Spreiding | De schommeling in resultaten die zoveel handen vraagt dat de meeste spelers hun eigen niveau verkeerd inschatten. |
+| Tilt | Slechter spelen na een pijnlijk verlies, in een poging het terug te halen. |
+| Speelkasbeheer | Vaste regels over welk deel van het geld in één sessie mag worden ingezet, los van hoe het gaat. |
+| Twee tijdschalen | Het verwarren van één avond met een loopbaan; volgens hen de bron van bijna elke fout. |
+
+#### Waar het argument op rust
+
+Op speltheorie, op eenvoudige kansrekening en op de ervaring van twee spelers
+die er hun werk van maakten. De rekenkundige kern is juist en na te rekenen;
+de psychologische adviezen zijn praktijkkennis en geen onderzoek.
+
+Het boek is van 2007 en gaat over het onlinepoker van die tijd. De
+speltechnische omgeving is sindsdien sterk veranderd door programma's die het
+best mogelijke spel benaderen; de houdingskant is dat niet.
+
+#### Wat er tegen in te brengen valt
+
+Voor wie niet pokert zijn de voorbeelden een drempel, en het boek doet geen
+moeite die te verlagen. Er is ook herhaling: het onderscheid tussen besluit en
+afloop wordt vaker uitgelegd dan nodig.
+
+De ruimere toepassing die het boek elders heeft gekregen, wordt hier
+nauwelijks gemaakt; dat werk is later door anderen gedaan. Wie de gedachte
+zonder kaarten wil, leest 64 of het werk van Annie Duke.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel je besluit op wat je wist, niet op wat eruit kwam.
+- Spreek vooraf af wanneer je stopt, en houd je eraan ongeacht de stand.
+- Koppel de inzet los van recente resultaten; een reeks bewijst minder dan zij
+voelt.
+- Herken je eigen vorm van tilt en verlaat de situatie bij de eerste tekenen.
+
+#### Wat je hierna leest
+
+- 64. Fooled by Randomness. Taleb behandelt hetzelfde onderscheid op de
+financiële markten, met meer gal en minder kaarten.
+- 69. Ruis. Ruis behandelt de spreiding in oordelen zoals dit boek de
+spreiding in uitkomsten behandelt.
+- 55. Thinking, Fast and Slow. Kahneman verklaart waarom mensen de uitkomst
+voor bewijs van de beslissing aanzien.
 
 ## 138. The Shift
 
@@ -5970,6 +6505,133 @@ boeddhistische oefening en gedragstherapie, waarbij de ordening zelf het meest
 oplevert: het maakt zichtbaar dat die drie tradities dezelfde ingrepen
 aanbevelen. Nieuw onderzoek staat er niet in, en de systeemtaal van
 herbedraden en algoritmen is beeldspraak en geen neurologie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bush behandelt het eigen denken als iets dat te ontwerpen
+valt, en noemt dat psychitectuur. Zijn stelling is dat de meeste mensen hun
+overtuigingen, verlangens en gewoontes hebben overgenomen zonder ze te kiezen,
+en dat wie ze wel kiest een leven inricht dat minder van omstandigheden
+afhangt. De methode die hij daarvoor beschrijft is een samenvoeging van drie
+tradities die dezelfde ingrepen aanbevelen: de stoïcijnse filosofie, de
+boeddhistische oefening en de gedragstherapie.
+
+#### De gang van het boek
+
+**Het uitgangspunt**
+
+Bush zet de geest neer als een verzameling patronen die zijn ontstaan door
+aanleg, opvoeding en toeval, en die grotendeels ongemerkt blijven werken. Zijn
+woord daarvoor is algoritmen: vaste omzettingen van waarneming naar gevoel
+naar gedrag.
+
+Anders dan de zelfhulp waarmee zijn boek in de kast staat, belooft hij geen
+uitkomsten maar een werkwijze. Het doel is niet geluk maar zelfbeschikking:
+het vermogen om te bepalen hoe je reageert, in plaats van dat te laten bepalen
+door wat er gebeurt.
+
+**Denken**
+
+Het eerste blok gaat over cognitie. Bush behandelt de bekende denkfouten en
+betoogt dat kennis ervan niet volstaat, omdat het herkennen achteraf gebeurt.
+Zijn voorstel is het inbouwen van vaste controlemomenten en het aanleren van
+tegengestelde vragen, zodat de toets voor het oordeel komt.
+
+Daaraan koppelt hij een hoofdstuk over waarden en zelfonderzoek: opschrijven
+wat je belangrijk vindt, toetsen of je gedrag daarmee klopt, en het verschil
+benoemen. Dat is oude wijn en het is bruikbaar geordend.
+
+Hij besteedt een apart hoofdstuk aan wat hij invoerfilters noemt: waar iemand
+zijn informatie vandaan haalt bepaalt welke gedachten hij überhaupt kan
+hebben. Wie zijn dag begint met berichten die op verontwaardiging zijn
+geselecteerd, ontwerpt zijn geest niet zelf maar laat dat door de aanbieder
+doen. Dat is de plek waar dit boek raakt aan wat 60 over de mediamarkt
+beschrijft, en het is het praktischste hoofdstuk van de eerste helft.
+
+**Voelen**
+
+Het tweede blok gaat over emoties, die hij niet als vijand behandelt maar als
+uitkomst van een aanname. Wie zich ergert, gelooft iets over hoe de wereld
+hoort te zijn; het onderzoeken van die aanname verandert de emotie meer dan
+het onderdrukken ervan.
+
+Hier leunt hij op de gedragstherapie en op de stoïcijnen tegelijk, en hij is
+eerlijk over die herkomst. Zijn toevoeging is de ordening: hij laat zien dat
+de twee tradities dezelfde ingreep vanuit een andere richting beschrijven.
+
+**Willen en doen**
+
+Het derde blok gaat over verlangens, met de gewenning aan alles wat iemand
+krijgt als kernprobleem: het gewenste voorwerp of resultaat verliest zijn
+waarde zodra het bereikt is. Zijn tegenwicht is het bewust verlagen van de
+referentiepunten en het zoeken van bezigheden die geen eindpunt kennen.
+
+Het laatste blok gaat over zelfbeheersing, met de omgeving als voornaamste
+middel en met de erkenning dat wilskracht schaars is. Het boek eindigt bij
+zelfbeschikking als het begrip dat het geheel draagt: het vermogen om je eigen
+richting te kiezen en die vast te houden.
+
+Wat het boek onderscheidt van de zelfhulp eromheen is de nadruk op volgorde.
+Bush stelt dat werken aan gedrag zonder eerst de overtuigingen en verlangens
+te onderzoeken, neerkomt op het dichtdraaien van een kraan terwijl de leiding
+lekt: het kost wilskracht en het houdt niet stand. Zijn opbouw van denken naar
+voelen naar willen naar doen is daarmee geen indeling voor de leesbaarheid
+maar zijn eigenlijke aanbeveling.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Psychitectuur | Zijn woord voor het bewust ontwerpen van de eigen geest, naar analogie van architectuur. |
+| Algoritme | Een vaste omzetting van waarneming naar gevoel naar gedrag; volgens hem het bouwmateriaal van een karakter. |
+| Zelfbeschikking | Het doel van zijn methode: bepalen hoe je reageert in plaats van dat te laten bepalen. |
+| Emotie als aanname | Achter elke ergernis zit een overtuiging over hoe de wereld hoort te zijn; die onderzoeken werkt beter dan onderdrukken. |
+| Gewenning | Het verschijnsel dat het bereikte zijn waarde verliest, waardoor verlangen zichzelf in stand houdt. |
+| Referentiepunt verlagen | Bewust de maatstaf bijstellen waaraan je je situatie afmeet. |
+| Omgeving boven wilskracht | Zelfbeheersing organiseren in plaats van opbrengen; dezelfde raad als bij 22. |
+
+#### Waar het argument op rust
+
+Op bestaande literatuur, met verwijzingen naar de gedragspsychologie, de
+stoïcijnse teksten en het boeddhistische werk. Eigen onderzoek is er niet; de
+waarde zit in de ordening en niet in nieuwe bevindingen.
+
+De taal van algoritmen en herbedraden is beeldspraak en geen neurologie, en
+het boek is daar op sommige plaatsen minder duidelijk over dan verstandig is.
+Waar het naar onderzoek verwijst, is dat doorgaans het algemeen aanvaarde
+deel.
+
+#### Wat er tegen in te brengen valt
+
+Het is in eigen beheer uitgegeven en dat is te merken aan de redactie: er zit
+herhaling in en de indeling in tien hoofdstukken is strakker dan de inhoud
+rechtvaardigt. De systeemtaal geeft het geheel een schijn van precisie die de
+inhoud niet heeft.
+
+Inhoudelijk is de vraag wat er nieuw aan is. Wie de stoïcijnen en de
+gedragstherapie kent, treft hier een samenvatting aan; wie ze niet kent,
+krijgt een bruikbare ingang maar zonder de diepgang van de bronnen. Het
+ontbreekt bovendien aan aandacht voor de grens van zelfsturing: sommige
+toestanden zijn geen ontwerpfout maar ziekte.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op welke overtuiging onder een terugkerende ergernis zit, en toets
+die.
+- Bouw een vast controlemoment in voordat je een oordeel velt, in plaats van
+achteraf te herkennen.
+- Kies bezigheden zonder eindpunt boven doelen die na het bereiken hun waarde
+verliezen.
+- Organiseer je omgeving zo dat wilskracht minder nodig is.
+
+#### Wat je hierna leest
+
+- 2. Overpeinzingen. De stoïcijnse bron waaruit het grootste deel van deze
+ingrepen komt.
+- 22. Atomic Habits. Clear werkt het gedragsdeel praktischer en beter
+onderbouwd uit.
+- 59. The Art of Thinking Clearly. Dobelli levert de inventaris van denkfouten
+waar dit boek een werkwijze tegenover zet.
 
 ## 143. Maps of Meaning
 
