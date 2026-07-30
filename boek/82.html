@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Explanation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Atkins stelt dat uitleggen een ambacht is met een proces, en niet een talent dat je hebt of niet hebt. Alles wat je zegt of schrijft dat niet bijdraagt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-82">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">82 &middot; Samenwerken en gesprek</p>
+    <h1>The Art of Explanation</h1>
+    <p class="lede">Ros Atkins, 2023</p>
+    <p class="stats">
+      <span><b>1696</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="82"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Atkins stelt dat uitleggen een ambacht is met een proces, en niet een talent dat je hebt of niet hebt. Alles wat je zegt of schrijft dat niet bijdraagt aan wat je wilt overbrengen, noemt hij een obstakel voor begrip: het is niet neutraal maar schadelijk. Daaruit volgt een werkwijze in zeven stappen, van doel bepalen tot uitspreken, die hij zowel toepast op voorbereide uitleg als op gesprekken waarin je niet weet wat er komt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat het boek wil</h3>
+      <p>Atkins is presentator en journalist bij de BBC en maakte naam met verklarende video’s. Zijn uitgangspunt is dat uitleggen niets garandeert: je kunt het goed doen en toch de baan mislopen. Wat het wel doet, is de kans dat je begrepen wordt zo groot mogelijk maken. Hij trekt het bewust breed, van een leraar die een vergelijking uitlegt tot een overheidsdienst die beschrijft hoe je iets aanvraagt, en biedt het boek aan als een kookboek waaruit je één recept kiest.</p>
+      <h3>Tien eigenschappen van goede uitleg</h3>
+      <p>Hoofdstuk 1 somt tien punten op: eenvoud, noodzakelijk detail, complexiteit, doelmatigheid, precisie, context, geen afleiding, aantrekkelijkheid, bruikbaarheid en helderheid over je doel. Ze functioneren als beginselen waar de latere stappen op rusten.</p>
+      <p>Onder eenvoud staat de zin van BBC-journalist Allan Little die het boek zijn kernbegrip gaf: korte woorden in korte zinnen leggen de lezer de minste obstakels voor begrip in de weg. Atkins maakte daar ‘obstacles to understanding’ van en gebruikt het als toets bij elke zin. Hij tekent er wel bij aan dat het niet om kortheid gaat: detail is de valuta van uitleg, en de vraag is welk detail nodig is, niet hoeveel er weg kan. Bij elke eigenschap staat een vraag die je jezelf stelt, zoals ‘is dit de eenvoudigste manier waarop ik dit kan zeggen?’</p>
+      <h3>Je publiek kennen</h3>
+      <p>Hoofdstuk 2 bestaat uit vijf vragen. Tegen wie praat ik? Wat weten zij van dit onderwerp en wat willen zij weten? Welke vragen moet deze uitleg beantwoorden? Wat weet ik over hoe zij informatie tot zich nemen? En kan ik daar meer over te weten komen?</p>
+      <p>Zijn punt is dat de meeste mensen dit alleen doen als het beroepsmatig moet. Hij beschrijft zijn eigen misser bij een cultuurrubriek op de boordradio van British Airways: hij verzamelde alle praktische informatie over evenementen, terwijl het publiek uit passagiers bestond die er nooit zouden komen. Voor die groep was aangenaam luisteren de opgave.</p>
+      <h3>De zeven stappen voor uitleg die je zelf bepaalt</h3>
+      <p>Stap één is de opzet: in één zin je doel, plus de vragen over je publiek, waar het gelezen of gehoord wordt, hoe lang het mag duren en of die duur hard is. Hij geeft als voorbeeld zijn eigen antwoorden voor een lezing van vijfenveertig minuten aan een groep journalistiekstudenten. Stap twee is verzamelen, in wat hij een informatiestort noemt, met voorrang voor directe bronnen en betrouwbare bronnen, met bijhouden waar iets vandaan komt en met de tweebronnenregel van de BBC World Service.</p>
+      <p>Stap drie is uitdunnen, waarvoor hij het beeld van de kogelmolen in de Cornish tinmijn Geevor gebruikt. Je gaat regel voor regel na of iets relevant is, schrapt de zinsbouw eromheen en houdt kale feiten over. Als voorbeeld reduceert hij een alinea over de Slag aan de Somme tot vijf regels: 1 juli 1916, grootste aantal slachtoffers ooit voor het Britse leger, 19.200 doden, ongeveer 60.000 gewonden of vermisten, de meesten in de eerste honderd meter. Daarna volgt een tweede ronde langs hetzelfde materiaal.</p>
+      <p>Stap vier is ordenen in wat hij strands noemt, plus twee extra: één voor materiaal met veel zeggingskracht voor begin en slot, en één voor wat je nog niet kunt plaatsen. Voor een presentatie van tien minuten houdt hij ongeveer vijf strands aan, voor een lange lezing vijf tot tien. Stap vijf is verbinden: schrijven rond de elementen, met de vragen van je publiek naast je. Stap zes is aanhalen, zin voor zin, inclusief het schrappen van stukken waar je veel tijd in stopte. Stap zeven is uitspreken, waarbij hij van sessiemuzikant Dean Parks overneemt dat je voorbij het punt van foutloosheid moet werken tot het weer natuurlijk klinkt.</p>
+      <h3>Uitleg in situaties die je niet stuurt</h3>
+      <p>Voor gesprekken, vergaderingen en interviews past hij dezelfde zeven stappen aan. De eerste drie blijven verzamelen en uitdunnen. Bij het ordenen geldt een harde grens: maximaal vijf onderdelen per strand, in de vorm van één hoofdpunt, drie feiten en één stuk context. Meer krijg je op het moment zelf niet uit je hoofd.</p>
+      <p>Stap vijf wordt verbaliseren: hardop oefenen tot de zinnen bekend zijn, zodat je hoofd tijdens het gesprek ruimte overhoudt om te beoordelen wat er gevraagd wordt. Stap zes is onthouden via blokken, ontleend aan het geheugenspel Simon en toegepast tijdens zijn verslaggeving over de Griekse schuldencrisis in 2015. Stap zeven gaat over vragen: mensen en onderwerpen zijn voorspelbaar, dus schrijf op welke vragen vrijwel zeker komen.</p>
+      <h3>Korte uitleg: gesprekken en e-mail</h3>
+      <p>Het laatste hoofdstuk verkort alles tot iets van een minuut. Voor een kort gesprek drie vragen: welke onderwerpen wil ik langs, wat wil ik zeggen, wat wil ik vragen. Hij schrijft dat op een papiertje en kijkt er tijdens het gesprek gewoon op.</p>
+      <p>Voor e-mail en berichten is zijn uitgangspunt dat je niet meer mag aannemen dat iets gelezen of beantwoord wordt. Zijn voorbeeld is een school die ouders over een schoolreis informeert: staat alles erin en is het vindbaar, dan is het klaar; ontbreekt er iets, dan volgen honderden vragen die niet hoefden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Obstacles to understanding</td><td>Woorden, feiten en zinnen die niet bijdragen aan je boodschap en die volgens hem actief schade doen aan het begrip.</td></tr>
+          <tr><td class="term">Strand</td><td>Een hoofdsectie binnen een uitleg, een afgebakend aspect van het onderwerp met een eigen korte kop.</td></tr>
+          <tr><td class="term">Distilleren</td><td>Het terugbrengen van verzamelde informatie tot kale feiten zonder omringende zinsbouw, in twee opeenvolgende rondes.</td></tr>
+          <tr><td class="term">Directe en betrouwbare bronnen</td><td>Informatie rechtstreeks van wie het weet, of van een tussenpartij met een staat van dienst in juistheid.</td></tr>
+          <tr><td class="term">Tweebronnenregel</td><td>De gewoonte van de BBC World Service om een feit pas te gebruiken als het uit twee betrouwbare bronnen komt.</td></tr>
+          <tr><td class="term">Strand voor hoge zeggingskracht</td><td>Een aparte verzamelplaats voor materiaal dat je bewaart voor het begin en het slot van je uitleg.</td></tr>
+          <tr><td class="term">Verbaliseren</td><td>Hardop oefenen met je voorbereide materiaal zodat de formuleringen bekend zijn voordat je ze in het echt nodig hebt.</td></tr>
+          <tr><td class="term">Blokken onthouden</td><td>Informatie in groepjes samennemen en die groepjes zelf weer groeperen, zodat lange reeksen oproepbaar blijven.</td></tr>
+          <tr><td class="term">Dynamische uitleg</td><td>Uitleg in situaties waarin je de vragen en het verloop niet bepaalt, zoals gesprekken, vergaderingen en interviews.</td></tr>
+          <tr><td class="term">De aanvangsinvestering</td><td>De term van zijn vrouw voor de moeite die je vooraf in een bericht steekt en die later heen-en-weerverkeer bespaart.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust vrijwel geheel op de werkervaring van de auteur. De zeven stappen komen voort uit zijn geschiedeniswerkstukken op de universiteit en uit twintig jaar nieuwswerk. Kernmomenten die hij noemt zijn een BBC-cursus uit 2002 met de titel ‘Controlling your two-way’, waarin verslaggevers leerden te zeggen wat ze wilden zeggen ongeacht de vraag, de Griekse schuldencrisis van 2015 en de Nederlandse verkiezingen van 2017.</p>
+      <p>Er staan enkele externe verwijzingen in: de Plain Language Bill die Nieuw-Zeeland in oktober 2022 aannam, een artikel uit 2020 van Todd Rogers en Jessica Lasky-Fink over het vereenvoudigen van taal, cijfers die YouTube hem in 2016 liet zien over langer kijken, en de opkomst van Vox vanaf 2014 tegen de aanname in dat publiek geen lange video’s wil.</p>
+      <p>Wat ontbreekt is toetsing van het proces zelf. Nergens wordt vergeleken hoe uitleg uitpakt met en zonder de zeven stappen. De tien eigenschappen zijn zijn eigen lijst, uit introspectie ontstaan, niet uit onderzoek naar wat luisteraars beter begrijpen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat een boek dat schrappen predikt zelf niet is geschrapt. De anekdotes over de tinmijn in Cornwall, Steely Dan in Los Angeles, het geheugenspel bij zijn zus en Roger Federer aan de opslag voegen aan de handeling weinig toe. Wie het advies van stap zes op de tekst zelf toepast, houdt ongeveer een derde over.</p>
+      <p>De onderbouwing is die van één beroep. Uitleg in de nieuwsjournalistiek heeft eigenschappen die de meeste lezers niet delen: een publiek dat niets terugvraagt, een strakke tijdslimiet, redactionele steun. Dat het proces ook werkt voor een aannemer, een arts of een leraar wordt gesteld en niet getoond.</p>
+      <p>Het onderzoek dat hij wel aanhaalt, wordt breder getrokken dan het draagt. Rogers en Lasky-Fink onderzochten hoe ontvangers reageren op vereenvoudigde berichten in een specifieke context; bij Atkins wordt dat een algemene onderbouwing voor eenvoud in alle uitleg. De YouTube-cijfers uit 2016 zijn hem door het bedrijf zelf getoond en zijn niet controleerbaar. De grens van vijf onderdelen per strand is eveneens een ronde vuistregel zonder herkomst, die in het hele hoofdstuk als vaste maat dienstdoet.</p>
+      <p>Ten slotte overlappen sommige stappen. Uitdunnen en aanhalen zijn beide schrappen op verschillende momenten, en de tien eigenschappen komen bij de zeven stappen grotendeels terug als controlevragen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf je doel in één zin op voordat je iets voorbereidt; lukt dat niet, schrijf dan een alinea en dun die terug tot één zin.</li>
+        <li>Beantwoord de vijf publieksvragen: wie, wat weten ze, wat willen ze weten, welke vragen moet ik beantwoorden, hoe nemen ze informatie tot zich.</li>
+        <li>Verzamel eerst alles in één document zonder te ordenen, en houd bij elk feit bij waar het vandaan komt.</li>
+        <li>Dun in twee ronden uit: schrap wat niet relevant is en haal bij wat blijft de zinsbouw weg tot er kale feiten staan.</li>
+        <li>Verdeel het materiaal in vijf tot tien strands, met een extra strand voor materiaal met veel zeggingskracht en een extra voor twijfelgevallen.</li>
+        <li>Bij een gesprek: houd per strand één hoofdpunt, drie feiten en één stuk context aan, en oefen die hardop.</li>
+        <li>Ga bij elke e-mail na welke vervolgvragen je zou krijgen, en beantwoord die meteen in het bericht.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>How to Communicate with Clarity and Confidence</i> (Wildfire/Headline). Geen Nederlandse uitgave gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Atkins maakt bij de BBC video's waarin hij een ingewikkelde kwestie in enkele minuten uitlegt, en dit boek is de werkwijze daarachter. Zijn kern is dat helderheid het resultaat is van voorbereiding en niet van welsprekendheid: eerst alles verzamelen, dan meedogenloos schrappen tot alleen dat overblijft wat het publiek nodig heeft, dan de volgorde bepalen en pas daarna formuleren.</p><p>Hij werkt dat uit in tien stappen en past het toe op vergaderingen, sollicitaties en presentaties, met voorbeelden uit zijn eigen uitzendingen. Het boek is praktisch en aan de dunne kant voor wie al veel presenteert; de bruikbaarste gedachte is dat de vraag wat het publiek al weet vóór het opstellen komt en niet erna.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>uitleggen</li><li>journalistiek</li><li>presenteren</li><li>structuur</li><li>helderheid</li><li>bbc</li><li>voorbereiding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Patterson en collega’s behandelen het gesprek met hoge inzet en oplopende emoties, waar Atkins’ dynamische stappen het dunst zijn.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenberg richt zich op het gesprek waarin de relatie op het spel staat, waar Atkins bij de informatieoverdracht blijft.</li>
+          <li value="34"><a href="34.html">The 5 Love Languages</a>. Chapman past hetzelfde idee toe, je boodschap richten op de ontvanger, maar dan in persoonlijke relaties.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan geeft het gereedschap om te beoordelen of je materiaal deugt, waar Atkins bij de bronnenkeuze snel overheen gaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

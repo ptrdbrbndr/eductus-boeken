@@ -13731,6 +13731,199 @@ Het boek is praktisch en aan de dunne kant voor wie al veel presenteert; de
 bruikbaarste gedachte is dat de vraag wat het publiek al weet vóór het
 opstellen komt en niet erna.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Atkins stelt dat uitleggen een ambacht is met een proces, en
+niet een talent dat je hebt of niet hebt. Alles wat je zegt of schrijft dat
+niet bijdraagt aan wat je wilt overbrengen, noemt hij een obstakel voor
+begrip: het is niet neutraal maar schadelijk. Daaruit volgt een werkwijze in
+zeven stappen, van doel bepalen tot uitspreken, die hij zowel toepast op
+voorbereide uitleg als op gesprekken waarin je niet weet wat er komt.
+
+#### De gang van het boek
+
+**Wat het boek wil**
+
+Atkins is presentator en journalist bij de BBC en maakte naam met verklarende
+video’s. Zijn uitgangspunt is dat uitleggen niets garandeert: je kunt het goed
+doen en toch de baan mislopen. Wat het wel doet, is de kans dat je begrepen
+wordt zo groot mogelijk maken. Hij trekt het bewust breed, van een leraar die
+een vergelijking uitlegt tot een overheidsdienst die beschrijft hoe je iets
+aanvraagt, en biedt het boek aan als een kookboek waaruit je één recept kiest.
+
+**Tien eigenschappen van goede uitleg**
+
+Hoofdstuk 1 somt tien punten op: eenvoud, noodzakelijk detail, complexiteit,
+doelmatigheid, precisie, context, geen afleiding, aantrekkelijkheid,
+bruikbaarheid en helderheid over je doel. Ze functioneren als beginselen waar
+de latere stappen op rusten.
+
+Onder eenvoud staat de zin van BBC-journalist Allan Little die het boek zijn
+kernbegrip gaf: korte woorden in korte zinnen leggen de lezer de minste
+obstakels voor begrip in de weg. Atkins maakte daar ‘obstacles to
+understanding’ van en gebruikt het als toets bij elke zin. Hij tekent er wel
+bij aan dat het niet om kortheid gaat: detail is de valuta van uitleg, en de
+vraag is welk detail nodig is, niet hoeveel er weg kan. Bij elke eigenschap
+staat een vraag die je jezelf stelt, zoals ‘is dit de eenvoudigste manier
+waarop ik dit kan zeggen?’
+
+**Je publiek kennen**
+
+Hoofdstuk 2 bestaat uit vijf vragen. Tegen wie praat ik? Wat weten zij van dit
+onderwerp en wat willen zij weten? Welke vragen moet deze uitleg beantwoorden?
+Wat weet ik over hoe zij informatie tot zich nemen? En kan ik daar meer over
+te weten komen?
+
+Zijn punt is dat de meeste mensen dit alleen doen als het beroepsmatig moet.
+Hij beschrijft zijn eigen misser bij een cultuurrubriek op de boordradio van
+British Airways: hij verzamelde alle praktische informatie over evenementen,
+terwijl het publiek uit passagiers bestond die er nooit zouden komen. Voor die
+groep was aangenaam luisteren de opgave.
+
+**De zeven stappen voor uitleg die je zelf bepaalt**
+
+Stap één is de opzet: in één zin je doel, plus de vragen over je publiek, waar
+het gelezen of gehoord wordt, hoe lang het mag duren en of die duur hard is.
+Hij geeft als voorbeeld zijn eigen antwoorden voor een lezing van
+vijfenveertig minuten aan een groep journalistiekstudenten. Stap twee is
+verzamelen, in wat hij een informatiestort noemt, met voorrang voor directe
+bronnen en betrouwbare bronnen, met bijhouden waar iets vandaan komt en met de
+tweebronnenregel van de BBC World Service.
+
+Stap drie is uitdunnen, waarvoor hij het beeld van de kogelmolen in de Cornish
+tinmijn Geevor gebruikt. Je gaat regel voor regel na of iets relevant is,
+schrapt de zinsbouw eromheen en houdt kale feiten over. Als voorbeeld
+reduceert hij een alinea over de Slag aan de Somme tot vijf regels: 1 juli
+1916, grootste aantal slachtoffers ooit voor het Britse leger, 19.200 doden,
+ongeveer 60.000 gewonden of vermisten, de meesten in de eerste honderd meter.
+Daarna volgt een tweede ronde langs hetzelfde materiaal.
+
+Stap vier is ordenen in wat hij strands noemt, plus twee extra: één voor
+materiaal met veel zeggingskracht voor begin en slot, en één voor wat je nog
+niet kunt plaatsen. Voor een presentatie van tien minuten houdt hij ongeveer
+vijf strands aan, voor een lange lezing vijf tot tien. Stap vijf is verbinden:
+schrijven rond de elementen, met de vragen van je publiek naast je. Stap zes
+is aanhalen, zin voor zin, inclusief het schrappen van stukken waar je veel
+tijd in stopte. Stap zeven is uitspreken, waarbij hij van sessiemuzikant Dean
+Parks overneemt dat je voorbij het punt van foutloosheid moet werken tot het
+weer natuurlijk klinkt.
+
+**Uitleg in situaties die je niet stuurt**
+
+Voor gesprekken, vergaderingen en interviews past hij dezelfde zeven stappen
+aan. De eerste drie blijven verzamelen en uitdunnen. Bij het ordenen geldt een
+harde grens: maximaal vijf onderdelen per strand, in de vorm van één
+hoofdpunt, drie feiten en één stuk context. Meer krijg je op het moment zelf
+niet uit je hoofd.
+
+Stap vijf wordt verbaliseren: hardop oefenen tot de zinnen bekend zijn, zodat
+je hoofd tijdens het gesprek ruimte overhoudt om te beoordelen wat er gevraagd
+wordt. Stap zes is onthouden via blokken, ontleend aan het geheugenspel Simon
+en toegepast tijdens zijn verslaggeving over de Griekse schuldencrisis in
+2015. Stap zeven gaat over vragen: mensen en onderwerpen zijn voorspelbaar,
+dus schrijf op welke vragen vrijwel zeker komen.
+
+**Korte uitleg: gesprekken en e-mail**
+
+Het laatste hoofdstuk verkort alles tot iets van een minuut. Voor een kort
+gesprek drie vragen: welke onderwerpen wil ik langs, wat wil ik zeggen, wat
+wil ik vragen. Hij schrijft dat op een papiertje en kijkt er tijdens het
+gesprek gewoon op.
+
+Voor e-mail en berichten is zijn uitgangspunt dat je niet meer mag aannemen
+dat iets gelezen of beantwoord wordt. Zijn voorbeeld is een school die ouders
+over een schoolreis informeert: staat alles erin en is het vindbaar, dan is
+het klaar; ontbreekt er iets, dan volgen honderden vragen die niet hoefden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Obstacles to understanding | Woorden, feiten en zinnen die niet bijdragen aan je boodschap en die volgens hem actief schade doen aan het begrip. |
+| Strand | Een hoofdsectie binnen een uitleg, een afgebakend aspect van het onderwerp met een eigen korte kop. |
+| Distilleren | Het terugbrengen van verzamelde informatie tot kale feiten zonder omringende zinsbouw, in twee opeenvolgende rondes. |
+| Directe en betrouwbare bronnen | Informatie rechtstreeks van wie het weet, of van een tussenpartij met een staat van dienst in juistheid. |
+| Tweebronnenregel | De gewoonte van de BBC World Service om een feit pas te gebruiken als het uit twee betrouwbare bronnen komt. |
+| Strand voor hoge zeggingskracht | Een aparte verzamelplaats voor materiaal dat je bewaart voor het begin en het slot van je uitleg. |
+| Verbaliseren | Hardop oefenen met je voorbereide materiaal zodat de formuleringen bekend zijn voordat je ze in het echt nodig hebt. |
+| Blokken onthouden | Informatie in groepjes samennemen en die groepjes zelf weer groeperen, zodat lange reeksen oproepbaar blijven. |
+| Dynamische uitleg | Uitleg in situaties waarin je de vragen en het verloop niet bepaalt, zoals gesprekken, vergaderingen en interviews. |
+| De aanvangsinvestering | De term van zijn vrouw voor de moeite die je vooraf in een bericht steekt en die later heen-en-weerverkeer bespaart. |
+
+#### Waar het argument op rust
+
+Het boek berust vrijwel geheel op de werkervaring van de auteur. De zeven
+stappen komen voort uit zijn geschiedeniswerkstukken op de universiteit en uit
+twintig jaar nieuwswerk. Kernmomenten die hij noemt zijn een BBC-cursus uit
+2002 met de titel ‘Controlling your two-way’, waarin verslaggevers leerden te
+zeggen wat ze wilden zeggen ongeacht de vraag, de Griekse schuldencrisis van
+2015 en de Nederlandse verkiezingen van 2017.
+
+Er staan enkele externe verwijzingen in: de Plain Language Bill die
+Nieuw-Zeeland in oktober 2022 aannam, een artikel uit 2020 van Todd Rogers en
+Jessica Lasky-Fink over het vereenvoudigen van taal, cijfers die YouTube hem
+in 2016 liet zien over langer kijken, en de opkomst van Vox vanaf 2014 tegen
+de aanname in dat publiek geen lange video’s wil.
+
+Wat ontbreekt is toetsing van het proces zelf. Nergens wordt vergeleken hoe
+uitleg uitpakt met en zonder de zeven stappen. De tien eigenschappen zijn zijn
+eigen lijst, uit introspectie ontstaan, niet uit onderzoek naar wat
+luisteraars beter begrijpen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat een boek dat schrappen predikt zelf niet is
+geschrapt. De anekdotes over de tinmijn in Cornwall, Steely Dan in Los
+Angeles, het geheugenspel bij zijn zus en Roger Federer aan de opslag voegen
+aan de handeling weinig toe. Wie het advies van stap zes op de tekst zelf
+toepast, houdt ongeveer een derde over.
+
+De onderbouwing is die van één beroep. Uitleg in de nieuwsjournalistiek heeft
+eigenschappen die de meeste lezers niet delen: een publiek dat niets
+terugvraagt, een strakke tijdslimiet, redactionele steun. Dat het proces ook
+werkt voor een aannemer, een arts of een leraar wordt gesteld en niet getoond.
+
+Het onderzoek dat hij wel aanhaalt, wordt breder getrokken dan het draagt.
+Rogers en Lasky-Fink onderzochten hoe ontvangers reageren op vereenvoudigde
+berichten in een specifieke context; bij Atkins wordt dat een algemene
+onderbouwing voor eenvoud in alle uitleg. De YouTube-cijfers uit 2016 zijn hem
+door het bedrijf zelf getoond en zijn niet controleerbaar. De grens van vijf
+onderdelen per strand is eveneens een ronde vuistregel zonder herkomst, die in
+het hele hoofdstuk als vaste maat dienstdoet.
+
+Ten slotte overlappen sommige stappen. Uitdunnen en aanhalen zijn beide
+schrappen op verschillende momenten, en de tien eigenschappen komen bij de
+zeven stappen grotendeels terug als controlevragen.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf je doel in één zin op voordat je iets voorbereidt; lukt dat niet,
+schrijf dan een alinea en dun die terug tot één zin.
+- Beantwoord de vijf publieksvragen: wie, wat weten ze, wat willen ze weten,
+welke vragen moet ik beantwoorden, hoe nemen ze informatie tot zich.
+- Verzamel eerst alles in één document zonder te ordenen, en houd bij elk feit
+bij waar het vandaan komt.
+- Dun in twee ronden uit: schrap wat niet relevant is en haal bij wat blijft
+de zinsbouw weg tot er kale feiten staan.
+- Verdeel het materiaal in vijf tot tien strands, met een extra strand voor
+materiaal met veel zeggingskracht en een extra voor twijfelgevallen.
+- Bij een gesprek: houd per strand één hoofdpunt, drie feiten en één stuk
+context aan, en oefen die hardop.
+- Ga bij elke e-mail na welke vervolgvragen je zou krijgen, en beantwoord die
+meteen in het bericht.
+
+#### Wat je hierna leest
+
+- 43. Crucial Conversations. Patterson en collega’s behandelen het gesprek met
+hoge inzet en oplopende emoties, waar Atkins’ dynamische stappen het dunst
+zijn.
+- 35. Nonviolent Communication. Rosenberg richt zich op het gesprek waarin de
+relatie op het spel staat, waar Atkins bij de informatieoverdracht blijft.
+- 34. The 5 Love Languages. Chapman past hetzelfde idee toe, je boodschap
+richten op de ontvanger, maar dan in persoonlijke relaties.
+- 63. The Demon-Haunted World. Sagan geeft het gereedschap om te beoordelen of
+je materiaal deugt, waar Atkins bij de bronnenkeuze snel overheen gaat.
+
 ## 83. The Power of Positive Thinking
 
 Norman Vincent Peale, 1952. Prentice Hall, later Fireside/Simon and Schuster.
@@ -14016,6 +14209,206 @@ en gezamenlijk oefenen als voorbeeld. Het is een essay met een stelling en
 niet een onderzoek; wie de diagnose deelt vindt hier woorden, wie haar niet
 deelt zal de sprong van spreekkamer naar samenleving te groot vinden.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Van Fenema stelt dat de westerse mens zichzelf uit de groep
+heeft losgemaakt en daarmee de begrenzing kwijtraakte die de zeven hoofdzonden
+ooit in toom hield. Wie de plaats van God inneemt, meent overal recht op te
+hebben en weigert de verantwoordelijkheid die bij die positie hoort. Wat
+overblijft is volgens haar een achtste zonde die in geen enkele traditie
+voorkomt: de leegte, of vacu&uuml;m, het eindstadium van zeven driften die
+niemand meer afremt.
+
+#### De gang van het boek
+
+**Waar het boek vandaan komt**
+
+Van Fenema is psychiater. Zij opent met de woorden van psalm 22, ‘mijn God,
+mijn God, waarom hebt Gij mij verlaten’, en zegt daarna wat het boek is: een
+persoonlijke verkenning van de rol van de zeven hoofdzonden in deze tijd,
+waaraan zij er zelf een toevoegt. Ze schrijft dat ze de gevolgen van
+verlatenheid dagelijks tegenkomt in haar spreekkamer, bij organisaties die ze
+adviseert en in de samenleving.
+
+In de introductie staat de redenering al compleet. Door ontzuiling en
+individualisering trokken we de baleinen uit de samenleving. Dat bevrijdde, en
+het leverde een individu op dat zelf de grenzen bepaalt, zonder dat iemand hem
+beschermt tegen vraatzucht, lust en verslaving. Zij noemt dat spanningsveld:
+we zijn tegelijk slachtoffer van een verleidende omgeving en dader, omdat we
+principieel verantwoordelijk blijven voor onze keuzes.
+
+**Het bouwplan van elk hoofdstuk**
+
+De zeven hoofdstukken hebben allemaal dezelfde vorm. Eerst een introductie
+waarin de zonde wordt omschreven in termen van liefde: hoogmoed is te veel
+liefde voor jezelf, acedia is het goede te weinig liefhebben, avaritia is
+verkeerd gerichte liefde, gula gebrek aan liefde voor jezelf, luxuria verboden
+liefde, ira te weinig liefde, invidia geperverteerde liefde.
+
+Daarna volgt een deel ‘Cultuur’ met Bijbelpassages, Griekse mythologie,
+filosofie, kerkgeschiedenis, schilderkunst, literatuur, film en soms muziek.
+Vervolgens ‘Uit de spreekkamer’ met neurobiologie en twee of drie
+patiëntbeschrijvingen onder een voornaam en een leeftijd. Elk hoofdstuk sluit
+af met ‘het hoogmoedige individu’, ‘de hebzuchtige samenleving’ en een
+conclusie. Die herhaling maakt het boek voorspelbaar in de goede zin: je weet
+steeds waar je bent.
+
+**De eerste vier zonden**
+
+Superbia is bij haar de zonde van het buitensporige individualisme. Ze leest
+Genesis 3 en de val van Icarus als hetzelfde motief: een grens die door een
+hogere macht is gesteld en die de mens negeert. De hedendaagse variant is dat
+‘de val’ lijkt te zijn weggemanaged. Wie zijn klant aan de andere kant van de
+wereld bedriegt, hoeft geen confrontatie op het dorpsplein meer te vrezen.
+
+Acedia beschrijft ze als mentale luiheid en onverschilligheid, het wegvallen
+van betrokkenheid bij de ander en bij jezelf. Avaritia noemt ze de meest
+opzichtige zonde van deze tijd, met Midas, Dante, Thomas More, Dickens en de
+speech van Gordon Gekko uit *Wall Street* als illustratie, en met Adam Smith
+en Ayn Rand als de denkers die de hebzucht respectabel maakten. Gula gaat over
+impulsen van buiten die het winnen van de eigen autonomie: puppets on a
+string, met een buitenwereld die aan de touwtjes trekt.
+
+**Lust, woede en afgunst**
+
+Luxuria was ooit de zonde van het slippertje, een overtreding die alleen
+bestaat omdat er een ander is met eigen grenzen. Nu, schrijft ze, zijn de
+gemeenschappelijke grenzen vervaagd terwijl de driften onveranderd bleven, en
+verwachten we bescherming van een groep die er niet meer is.
+
+Ira komt voort uit gebrek aan erkenning. Zonder groep moet je elke dag opnieuw
+vechten om gezien te worden, en dat is een verloren strijd, want niemand heeft
+er belang bij jou te zien. Invidia is volgens haar in enkele decennia van
+buurmanjaloezie uitgegroeid tot een wereldwijd verschijnsel, omdat we
+onafgebroken zien wat iedereen bezit. Zij noemt afgunst een ontkende emotie,
+en juist daardoor gevaarlijk: de pijn ervan is alleen te stillen als de ander
+verdwijnt.
+
+**De achtste zonde**
+
+Het slothoofdstuk voert vacu&uuml;m op als de zonde die deze tijd tekent.
+Leegte is bij haar zowel de uitkomst van de zeven andere zonden als een zonde
+op zichzelf, omdat we haar geen halt toeroepen en ons laten afleiden. Zij
+haalt Nietzsche aan, die het verdwijnen van gezag en daarmee van betekenis
+voorspelde, en Openbaring, met de antichrist die de mens verleidt zich van God
+af te keren.
+
+De culturele voorbeelden zijn hier het sterkst: Houellebecqs *Elementaire
+deeltjes* uit 1998 over levens die identiek blijken ‘als appartementen in de
+banlieue’, de film *A Zed and Two Noughts* van Peter Greenaway uit 1985 over
+ontbinding, *The Matrix* met zijn woestijn van de realiteit, en 4’33 van John
+Cage uit 1952, waarin stilte hoorbaar maakt dat er geen stilte bestaat.
+
+**De groep als remedie**
+
+Haar tegengif is de groep. Zij gebruikt dat woord als metafoor voor alles wat
+mensen verbindt en zingeving geeft, en ‘God’ voor het hogere dat
+disciplineert. De groep werkt bij haar als een celwand: zij begrenst, en juist
+die begrenzing maakt leven mogelijk. Het individu levert er belang voor in en
+krijgt er bescherming en betekenis voor terug.
+
+Ze pleit niet voor herinvoering van het geloof. Waar het haar om gaat is dat
+betekenisgeving iets gemeenschappelijks is, en dat een samenleving die alleen
+consumeren en genieten als hoogste doel kent, dat gemeenschappelijke niet meer
+produceert.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Het verlaten individu | De mens die zich uit alle groepsverbanden heeft losgemaakt en daardoor zonder houvast, bescherming en gedeelde betekenis is komen te staan. |
+| Superbia | Hoogmoed: te veel liefde voor jezelf, bij haar vooral het individualisme dat de eigen grenzen niet meer erkent. |
+| Acedia | Onverschilligheid of mentale luiheid: het goede te weinig liefhebben, waardoor betrokkenheid en verantwoordelijkheid verdwijnen. |
+| Avaritia | Hebzucht als verkeerd gerichte liefde, die volgens haar voor het eerst in de geschiedenis oneindig is geworden. |
+| Gula | Onmatigheid: prikkels van buiten winnen het van de eigen autonomie, waardoor het evenwicht doorslaat naar overmaat. |
+| Luxuria | Lust als verboden liefde, die haar zondigheid alleen kan tonen doordat er een ander met grenzen bestaat. |
+| Ira | Woede die voortkomt uit gebrek aan erkenning, wanneer het eigen bestaansrecht niet meer door anderen wordt bevestigd. |
+| Invidia | Afgunst, door haar beschreven als een ontkende en daardoor onbeheerste emotie die pas stilvalt als de ander verdwijnt. |
+| Vacu&uuml;m | De leegte die zij als achtste hoofdzonde van deze tijd voorstelt: het eindstadium van zeven driften die niemand meer begrenst. |
+| De groep | Haar metafoor voor het verband dat mensen bindt, grenzen stelt en zingeving mogelijk maakt, vergeleken met een celwand. |
+
+#### Waar het argument op rust
+
+Het boek staat of valt met cultuurlezing. Van Fenema haalt Genesis 3,
+Spreuken, Matte&uuml;s en Openbaring aan, de mythen van Icarus en Midas,
+Dante, Thomas van Aquino, Thomas More, Huizinga’s *Herfsttij der Middeleeuwen*
+uit 1919, Dickens, Houellebecq, Memlings *IJdelheid* uit 1485, films van
+Greenaway en de gebroeders Wachowski, en de compositie 4’33 van Cage. Die
+bronnen zijn juist weergegeven en zij gaat er zorgvuldig mee om.
+
+De tweede pijler is haar praktijk. Elk hoofdstuk bevat een of twee
+patiëntbeschrijvingen onder voornaam en leeftijd, bijvoorbeeld Herman van 62
+en Madeleine van 34 in het hoofdstuk over hebzucht. Daarnaast staan er korte
+stukken neurobiologie in, over oude beloningsgebieden in het brein en over wat
+er gebeurt als de rem daarop beschadigd raakt.
+
+Wat er niet in staat is eigen of geciteerd empirisch onderzoek dat de these
+draagt. Er zijn geen reeksen over eenzaamheid, psychische klachten of sociale
+samenhang door de tijd heen, geen vergelijking tussen landen, geen cijfers
+waaruit blijkt dat het verlaten individu inderdaad talrijker of ongelukkiger
+is dan het individu van vijftig jaar geleden. Losse verwijzingen, zoals naar
+het boek van Jeroen Linssen over hebzucht of naar een column in Trouw,
+ondersteunen deelpunten en niet het geheel.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de kern van het betoog een aanname is die nergens
+wordt getoetst. Dat de groep vroeger de driften begrensde en dat het verval
+van de groep de oorzaak is van hedendaags onbehagen, wordt geïllustreerd en
+niet aangetoond. Illustraties uit de Bijbel en uit vijftiende-eeuwse
+schilderkunst laten zien hoe men over hoogmoed dacht, niet dat mensen zich
+toen anders gedroegen.
+
+De anekdote over de Babembastam, waarin de zondaar door het hele dorp wordt
+omringd en zijn goede daden hoort opsommen, staat aan het begin als bewijs van
+heilzame collectieve begrenzing. Dat verhaal circuleert al decennia in
+managementliteratuur zonder etnografische bron. Zij noemt geen herkomst en
+gebruikt het toch als scharnier onder haar groepsbegrip.
+
+Ook de neurobiologische passages worden steviger gepresenteerd dan ze zijn.
+Dat ons brein ‘middeleeuws’ zou zijn en zich alleen echt kan verbinden met
+groepen van honderdvijftig tot vijfhonderd mensen, staat er als vaststaand
+feit; het is een omstreden schatting waar geen bron bij staat. Hetzelfde geldt
+voor de sprong van beschadigde remsystemen in het brein naar de hebzucht van
+een samenleving.
+
+Het boek weegt de kosten van de oude ordening niet mee. De groep die
+begrensde, sloot ook uit, dwong en strafte, en juist daarom trokken mensen de
+baleinen eruit. Wie het verlies van die ordening als hoofdverklaring
+aandraagt, moet aannemelijk maken dat de winst kleiner was dan het verlies.
+Dat gebeurt niet.
+
+Ten slotte is de achtste zonde een metafoor die zich aan weerlegging onttrekt.
+Leegte is in haar opzet tegelijk oorzaak, gevolg en symptoom, en elk
+verschijnsel dat zij bespreekt past erin. Wie het boek leest als
+cultuurbeschouwing krijgt veel; wie er een diagnose van de samenleving in
+zoekt, krijgt een lezing die niet fout kan gaan.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de zeven hoofdstukken als lenzen bij een concreet vraagstuk: schrijf
+op welk gedrag in jouw organisatie onder acedia valt en welk onder invidia.
+- Noteer bij een beslissing die je neemt wie de gevolgen draagt en of je die
+persoon ooit ziet. Dat is haar hoogmoedstoets in praktische vorm.
+- Zoek bij elk cultuurvoorbeeld dat je overtuigt het bijbehorende cijfer op
+voordat je de conclusie overneemt.
+- Bespreek in een team welke begrenzing je gezamenlijk wilt afspreken, in
+plaats van elk lid zijn eigen grens te laten bepalen.
+
+#### Wat je hierna leest
+
+- 98. Waar gaat het heen? En wat kan ik doen?. De Man beschrijft hetzelfde
+verval van een gedeeld verhaal, maar zoekt de uitweg in nieuwe verhalen en
+vaardigheden in plaats van in herstel van de groep.
+- 54. Amusing Ourselves to Death. Postman legt de oorzaak van dezelfde
+verdoving bij het medium zelf, wat een concurrerende verklaring biedt voor
+haar acedia.
+- 53. The Anxious Generation. Haidt probeert wel met cijfers te onderbouwen
+wat Van Fenema als cultuurdiagnose stelt, en laat zien wat zo’n onderbouwing
+kost.
+- 9. The Second Mountain. Brooks vertrekt vanuit hetzelfde tekort aan
+verbondenheid en werkt het uit als een keuze voor toewijding.
+
 ## 97. Je bent wat je doet
 
 Ray Klaassens, 2025. Ondertitel *De situatie is een gegeven, hoe je ermee
@@ -14270,6 +14663,212 @@ met de vraag uit de titel, wat kan ik doen, en dat maakt het meer een
 handleiding voor betrokkenheid dan een analyse. Wie een sluitend betoog zoekt
 zal de sprongen groot vinden; de kracht zit in de combinatie van breed kijken
 en klein beginnen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De Man stelt dat het dominante verhaal van de laatste
+driehonderd jaar aan het instorten is, een verhaal van individuele vrijheid,
+marktwerking, meetbaarheid en wantrouwen dat hij het Grote Verhaal van het Ego
+noemt. Wat daarvoor in de plaats komt weet niemand, en volgens hem hoeft dat
+ook niet: zoeken is de menselijke grondhouding, het is te leren via vijf
+vaardigheden, en handelen betekent je daden blijven toetsen aan je waarden in
+plaats van het juiste antwoord af te wachten.
+
+#### De gang van het boek
+
+**Opzet en herkomst**
+
+Het boek bestaat uit twee delen. Deel 1 beantwoordt de twee titelvragen zo
+bondig mogelijk, deel 2 werkt negen thema’s uit: vier die hij hard noemt,
+bouw, landbouw, economie en werk, en vijf zachte, de dood, democratie, mentaal
+welzijn, erotiek en eenzaamheid. Na elk hoofdstuk staan noten met verwijzingen
+naar onderzoek en naar websites van voorbeelden.
+
+De Man is theatermaker en oprichter van Stichting Nieuwe Helden, met de
+studio’s Biobased Creations en Possible Futures. Hij zegt in zestien jaar ruim
+honderdvijftig projecten in meer dan twintig landen te hebben gemaakt. Voor
+dit boek sprak hij veertig denkers en doeners, die achterin bij naam staan.
+Klimaat en technologie behandelt hij bewust niet apart maar door alle
+hoofdstukken heen.
+
+**Het Grote Verhaal van het Ego**
+
+Zijn vertrekpunt is een leraar die hem op zijn zestiende vertelde dat het
+postmodernisme de Grote Verhalen had gesloopt. Dat bleek volgens hem onwaar:
+er kwam een nieuw dominant verhaal voor in de plaats, gebouwd op vrijheid,
+individualisme, efficiëntie, marktwerking, risicomijding, winstmaximalisatie
+en wantrouwen.
+
+Hij dateert het begin in de achttiende eeuw, toen naast God ook de mens als
+maker van de wereld werd gezien en een rijke burgerij haar plek opeiste. Als
+voorbeeld van de keerzijde neemt hij Carl Linnaeus, die in 1735 *Systema
+Naturae* uitbracht en de mens in vier rangen indeelde met witte mensen
+bovenaan. Tegenover het idee van een rechte lijn naar meer beschaving zet hij
+*Het begin van alles* van Graeber en Wengrow, waaruit hij overneemt dat de
+geschiedenis eerder golven van meer en minder samenleven kent.
+
+**Vijf gevaren**
+
+Het eerste is geweld. Hij citeert politicoloog Jonathan Holslag over toenemend
+protectionisme en geopolitieke onrust, maar zegt banger te zijn voor geweld
+van binnenuit, van mensen hier die zich stelselmatig niet gezien voelen. Het
+tweede noemt hij sustain-ability, letterlijk de mogelijkheid om door te
+blijven gaan: net genoeg veranderen om alles te kunnen laten zoals het is, met
+groene logo’s, vage reductiecijfers en burgerberaden waarvan de uitkomst al
+vaststond. Daar zet hij accountability tegenover.
+
+Het derde gevaar zijn neotribes: groepen, wijken of regio’s die zich zo goed
+organiseren dat wie er niet bij hoort er verder buiten valt. Het vierde is een
+nieuwe morele elite die zichzelf hoogstaand vindt en de rest bekritiseert
+zonder hen mede-auteur te maken. Het vijfde is technologie, in het bijzonder
+kunstmatige intelligentie.
+
+**Wat kunstmatige intelligentie met het zelfbeeld doet**
+
+Zijn punt over kunstmatige intelligentie gaat niet over banen maar over
+identiteit. Als de mens zich driehonderd jaar lang de beste denker waande en
+die positie kwijtraakt, blijft de vraag over wat de mens dan wel is. Hij
+ontleent dat aan Stefan Leijnen, lector kunstmatige intelligentie, die de
+vraag naar banen een vraag van de vorige eeuw noemt en de vraag naar zingeving
+de echte.
+
+Als waarschuwing gebruikt hij de magazijnen van Amazon: er kwamen banen bij en
+de efficiëntie steeg, maar het systeem bepaalt nu waar het pakje heen gaat,
+evalueert de medewerker aan het eind van de dag en let op de pauzeduur. Meer
+werk, minder werk om over na te denken. Ethicus Ignaas Devisch voegt toe dat
+elke nieuwe techniek het leven niet eenvoudiger maakt maar de vragen over hoe
+wij willen leven vermeerdert.
+
+**Zoeken en vijf vaardigheden**
+
+Deel 1 draait om de stelling ‘ik weet niet dus ik ben’. Voor het eerst moet in
+het Westen iedereen zelf uitzoeken wat waar en goed is, terwijl er nog wel een
+taboe rust op falen en er geen gedeelde maat voor succes meer is. Dat noemt
+hij de bron van de paniek, en zoeken de vaardigheid die je daartegen kunt
+trainen.
+
+De vijf zijn: toekomsten denken, met Futures Literacy van Loes Damhof naast
+forecasting en backcasting, en het voorbeeld van een ziekenhuis dat in 2018
+een scenario zonder aanraking doordacht; zelfwaarde, het steeds opnieuw
+bepalen van je eigen waarden via een innerlijke dialoog en via stemmen die
+niet op je lijken; ont-moeting, de ander als ander blijven zien, met de vier
+vaardigheden communicatie, samenwerken, creativiteit en kritisch denken;
+actieve hoop, ontleend aan Joanna Macy en Chris Johnstone en door Werner
+Schouten scherp onderscheiden van optimisme, dat hij inactief noemt; en
+verbeelding, het zoeken naar een vorm waarin het zoeken kan plaatsvinden.
+
+**Activisme, systemen en de dubbele conclusie**
+
+Activisme is bij hem geen categorie mensen maar een handeling: wel of niet
+iets doen, en dat blijven toetsen aan je waarden. Hij bestrijdt de gedachte
+dat er één Systeem is dat omver moet. Filosoof Chris Julien levert hem de
+formulering dat Het Systeem als olietanker met een anonieme kapitein te groot
+is om iets mee te kunnen; er zijn wel afzonderlijke systemen die je als
+burger, koper, werknemer of bestuurder kunt bijstellen.
+
+Zijn slotsom is de en-en-en die door het hele boek loopt. Het wordt tegelijk
+beter en slechter, je hebt invloed en je bent een radertje, er komen nieuwe
+verhalen en er komt meer geweld en uitsluiting. Wie die dubbelheid niet
+verdraagt, schrijft hij, schaart zich makkelijker achter wie roept dat wie
+anders is weg moet.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Het Grote Verhaal van het Ego | Zijn eigen naam voor het dominante westerse verhaal van vrijheid, individualisme, efficiëntie, marktwerking, winstmaximalisatie en wantrouwen. |
+| En, en, en | De houding die tegenstrijdige ontwikkelingen naast elkaar laat bestaan in plaats van te kiezen tussen twee kampen. |
+| Sustain-ability | Net genoeg veranderen om te kunnen doorgaan met wat je altijd deed, waar hij accountability tegenover zet. |
+| Neotribes | Groepen of regio’s die zich zo goed organiseren dat wie er niet bij hoort er des te harder buiten valt. |
+| Futures Literacy | Het vermogen om met meerdere mogelijke toekomsten om te gaan, om te ontdekken wat je nu belangrijk vindt. |
+| Forecasting en backcasting | Vooruitrekenen vanuit het heden en terugredeneren vanuit een gekozen punt op de horizon, bruikbaar bij concrete doelen. |
+| Vriendelijke scepsis | Van Lieven Scheire overgenomen houding om bij alles wat je hoort te vragen of het echt zo is, zonder de ander af te schrijven. |
+| Intellectuele bescheidenheid | Erkennen dat je eigen kennis begrensd is en dat je oordeel bij nieuwe informatie mag verschuiven. |
+| Actieve hoop | Hoop die uit daden voortkomt, door hem onderscheiden van optimisme omdat dat laatste passief blijft. |
+| Ont-moeting | De ander als ander blijven zien en geen aannames voor hem invullen, als basis voor nieuwe samenwerkingen. |
+
+#### Waar het argument op rust
+
+De sterkste onderbouwing zijn de veertig gesprekken. Ze staan met naam en
+functie in het boek en in de namenlijst achterin, en de uitspraken zijn als
+citaat weergegeven: Holslag over geopolitiek, Damhof over toekomsten denken,
+Leijnen over kunstmatige intelligentie, Devisch over techniek, Schouten over
+hoop, Julien over systemen, Van Zelm over landschap. Dat maakt controleerbaar
+wie wat zegt.
+
+De noten verwijzen naar onderzoek en journalistiek: een Rabobankstudie over
+het al bijna veertig jaar stilstaande besteedbaar inkomen, een artikel in
+Nature over eenzaamheid, cijfers van het Sociaal en Cultureel Planbureau over
+het steeds minder ontmoeten van arm en rijk, en de Europese AI Act van
+augustus 2024. Het zijn secundaire bronnen, maar ze zijn vindbaar en hij
+verstopt ze niet.
+
+De rest is eigen ervaring uit zestien jaar projecten. Dat levert bruikbare
+beelden op, en het is geen materiaal waarmee een stelling over de samenleving
+te bewijzen valt. Hij zegt dat zelf ook: hij pretendeert niet de antwoorden te
+hebben.
+
+#### Wat er tegen in te brengen valt
+
+Het dragende begrip is van hemzelf en blijft ongedefinieerd op een manier die
+toetsing toelaat. Het Grote Verhaal van het Ego omvat de verlichting, de vrije
+markt, wantrouwen, meetbaarheid en risicomijding tegelijk. Dat het instort,
+wordt niet gemeten maar aangewezen: klimaat, wooncrisis, burn-outs,
+polarisatie. Dat zijn losse verschijnselen die ook zonder één overkoepelend
+verhaal te verklaren zijn, en hij bespreekt geen enkele concurrerende
+verklaring.
+
+De vijf gevaren zijn expliciet vermoedens. Hij schrijft ‘ik vrees dat’ en ‘het
+kan ook zijn dat’. Dat is eerlijk, maar het betekent dat een derde van deel 1
+uit voorspellingen bestaat waarvoor geen andere grond wordt gegeven dan zijn
+indruk en één gesprek per gevaar.
+
+De veertig gesprekspartners komen uit zijn eigen netwerk en delen zijn
+premisse. Er is geen econoom die de instorting van het verhaal betwist, geen
+socioloog die de neotribes-these tegenspreekt, geen ondernemer die verdedigt
+wat hij sustain-ability noemt. Daardoor bevestigen de interviews de these
+vaker dan dat ze haar beproeven.
+
+De vijf vaardigheden worden aangeboden als leerbaar, met verwijzing naar
+cursussen en platforms, zonder enig onderzoek dat laat zien dat dat leren
+werkt of overdraagbaar is. Voor een boek dat elders wel netjes noten geeft, is
+dat een opvallend gat op precies de plek waar het praktisch wordt.
+
+De en-en-enhouding maakt het betoog moeilijk te weerleggen. Elke uitkomst past
+erin: gaat het beter, dan bloeien de nieuwe verhalen; gaat het slechter, dan
+is dat de voorspelde stuiptrekking van het oude. Als houding voor een lezer is
+dat aangenaam, als redenering laat het niets over dat mis kan gaan.
+
+Ten slotte is het boek ongelijk verdeeld. Deel 2 telt negen thema’s met
+concrete voorbeelden en is daardoor het bruikbaarste deel, terwijl de these in
+deel 1 staat. Wie deel 1 leest krijgt het argument zonder veel materiaal; wie
+deel 2 leest krijgt materiaal dat het argument maar deels draagt.
+
+#### Wat er concreet mee te doen is
+
+- Kies uit deel 2 het harde en het zachte thema dat je werk raakt en lees
+alleen die twee; de auteur stelt dat zelf voor.
+- Doe de sustain-abilitytoets op je eigen organisatie: leg de waarden op de
+website naast de beslissingen van het afgelopen jaar.
+- Oefen het derde soort toekomstdenken door bij een plan drie scenario’s te
+bedenken die je ongemakkelijk vinden, en noteer wat je reactie erop zegt over
+je waarden.
+- Zoek voor één onderwerp bewust een stem op die niet in je gebruikelijke
+leesvoer zit, en schrijf achteraf op wat er aan je oordeel schoof.
+
+#### Wat je hierna leest
+
+- 96. Het verlaten individu. Van Fenema stelt dezelfde diagnose over het
+losgemaakte individu, maar zoekt het herstel in begrenzing door de groep in
+plaats van in zoeken.
+- 56. Sapiens. Harari werkt het idee uit dat samenlevingen op gedeelde
+verhalen draaien, wat de mechanica achter De Mans centrale begrip beschrijft.
+- 57. The Lessons of History. De Durants zetten tegenover zijn
+overgangsdiagnose het beeld van herhalende patronen, en tonen wat er van zulke
+tijdsdiagnoses overblijft.
+- 111. Dingen die je hoop geven. Haemin Sunim behandelt hetzelfde niet-weten
+als persoonlijke oefening, zonder de maatschappelijke inzet die De Man eraan
+hangt.
 
 ## 99. Sterrenkunde voor in bed, op het toilet of in bad
 

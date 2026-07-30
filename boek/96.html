@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het verlaten individu &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Fenema stelt dat de westerse mens zichzelf uit de groep heeft losgemaakt en daarmee de begrenzing kwijtraakte die de zeven hoofdzonden ooit in toom…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-96">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">96 &middot; Geschiedenis en samenleving</p>
+    <h1>Het verlaten individu</h1>
+    <p class="lede">Esther van Fenema, 2022</p>
+    <p class="stats">
+      <span><b>1686</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="96"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Fenema stelt dat de westerse mens zichzelf uit de groep heeft losgemaakt en daarmee de begrenzing kwijtraakte die de zeven hoofdzonden ooit in toom hield. Wie de plaats van God inneemt, meent overal recht op te hebben en weigert de verantwoordelijkheid die bij die positie hoort. Wat overblijft is volgens haar een achtste zonde die in geen enkele traditie voorkomt: de leegte, of vacu&uuml;m, het eindstadium van zeven driften die niemand meer afremt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Van Fenema is psychiater. Zij opent met de woorden van psalm 22, ‘mijn God, mijn God, waarom hebt Gij mij verlaten’, en zegt daarna wat het boek is: een persoonlijke verkenning van de rol van de zeven hoofdzonden in deze tijd, waaraan zij er zelf een toevoegt. Ze schrijft dat ze de gevolgen van verlatenheid dagelijks tegenkomt in haar spreekkamer, bij organisaties die ze adviseert en in de samenleving.</p>
+      <p>In de introductie staat de redenering al compleet. Door ontzuiling en individualisering trokken we de baleinen uit de samenleving. Dat bevrijdde, en het leverde een individu op dat zelf de grenzen bepaalt, zonder dat iemand hem beschermt tegen vraatzucht, lust en verslaving. Zij noemt dat spanningsveld: we zijn tegelijk slachtoffer van een verleidende omgeving en dader, omdat we principieel verantwoordelijk blijven voor onze keuzes.</p>
+      <h3>Het bouwplan van elk hoofdstuk</h3>
+      <p>De zeven hoofdstukken hebben allemaal dezelfde vorm. Eerst een introductie waarin de zonde wordt omschreven in termen van liefde: hoogmoed is te veel liefde voor jezelf, acedia is het goede te weinig liefhebben, avaritia is verkeerd gerichte liefde, gula gebrek aan liefde voor jezelf, luxuria verboden liefde, ira te weinig liefde, invidia geperverteerde liefde.</p>
+      <p>Daarna volgt een deel ‘Cultuur’ met Bijbelpassages, Griekse mythologie, filosofie, kerkgeschiedenis, schilderkunst, literatuur, film en soms muziek. Vervolgens ‘Uit de spreekkamer’ met neurobiologie en twee of drie patiëntbeschrijvingen onder een voornaam en een leeftijd. Elk hoofdstuk sluit af met ‘het hoogmoedige individu’, ‘de hebzuchtige samenleving’ en een conclusie. Die herhaling maakt het boek voorspelbaar in de goede zin: je weet steeds waar je bent.</p>
+      <h3>De eerste vier zonden</h3>
+      <p>Superbia is bij haar de zonde van het buitensporige individualisme. Ze leest Genesis 3 en de val van Icarus als hetzelfde motief: een grens die door een hogere macht is gesteld en die de mens negeert. De hedendaagse variant is dat ‘de val’ lijkt te zijn weggemanaged. Wie zijn klant aan de andere kant van de wereld bedriegt, hoeft geen confrontatie op het dorpsplein meer te vrezen.</p>
+      <p>Acedia beschrijft ze als mentale luiheid en onverschilligheid, het wegvallen van betrokkenheid bij de ander en bij jezelf. Avaritia noemt ze de meest opzichtige zonde van deze tijd, met Midas, Dante, Thomas More, Dickens en de speech van Gordon Gekko uit <i>Wall Street</i> als illustratie, en met Adam Smith en Ayn Rand als de denkers die de hebzucht respectabel maakten. Gula gaat over impulsen van buiten die het winnen van de eigen autonomie: puppets on a string, met een buitenwereld die aan de touwtjes trekt.</p>
+      <h3>Lust, woede en afgunst</h3>
+      <p>Luxuria was ooit de zonde van het slippertje, een overtreding die alleen bestaat omdat er een ander is met eigen grenzen. Nu, schrijft ze, zijn de gemeenschappelijke grenzen vervaagd terwijl de driften onveranderd bleven, en verwachten we bescherming van een groep die er niet meer is.</p>
+      <p>Ira komt voort uit gebrek aan erkenning. Zonder groep moet je elke dag opnieuw vechten om gezien te worden, en dat is een verloren strijd, want niemand heeft er belang bij jou te zien. Invidia is volgens haar in enkele decennia van buurmanjaloezie uitgegroeid tot een wereldwijd verschijnsel, omdat we onafgebroken zien wat iedereen bezit. Zij noemt afgunst een ontkende emotie, en juist daardoor gevaarlijk: de pijn ervan is alleen te stillen als de ander verdwijnt.</p>
+      <h3>De achtste zonde</h3>
+      <p>Het slothoofdstuk voert vacu&uuml;m op als de zonde die deze tijd tekent. Leegte is bij haar zowel de uitkomst van de zeven andere zonden als een zonde op zichzelf, omdat we haar geen halt toeroepen en ons laten afleiden. Zij haalt Nietzsche aan, die het verdwijnen van gezag en daarmee van betekenis voorspelde, en Openbaring, met de antichrist die de mens verleidt zich van God af te keren.</p>
+      <p>De culturele voorbeelden zijn hier het sterkst: Houellebecqs <i>Elementaire deeltjes</i> uit 1998 over levens die identiek blijken ‘als appartementen in de banlieue’, de film <i>A Zed and Two Noughts</i> van Peter Greenaway uit 1985 over ontbinding, <i>The Matrix</i> met zijn woestijn van de realiteit, en 4’33 van John Cage uit 1952, waarin stilte hoorbaar maakt dat er geen stilte bestaat.</p>
+      <h3>De groep als remedie</h3>
+      <p>Haar tegengif is de groep. Zij gebruikt dat woord als metafoor voor alles wat mensen verbindt en zingeving geeft, en ‘God’ voor het hogere dat disciplineert. De groep werkt bij haar als een celwand: zij begrenst, en juist die begrenzing maakt leven mogelijk. Het individu levert er belang voor in en krijgt er bescherming en betekenis voor terug.</p>
+      <p>Ze pleit niet voor herinvoering van het geloof. Waar het haar om gaat is dat betekenisgeving iets gemeenschappelijks is, en dat een samenleving die alleen consumeren en genieten als hoogste doel kent, dat gemeenschappelijke niet meer produceert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het verlaten individu</td><td>De mens die zich uit alle groepsverbanden heeft losgemaakt en daardoor zonder houvast, bescherming en gedeelde betekenis is komen te staan.</td></tr>
+          <tr><td class="term">Superbia</td><td>Hoogmoed: te veel liefde voor jezelf, bij haar vooral het individualisme dat de eigen grenzen niet meer erkent.</td></tr>
+          <tr><td class="term">Acedia</td><td>Onverschilligheid of mentale luiheid: het goede te weinig liefhebben, waardoor betrokkenheid en verantwoordelijkheid verdwijnen.</td></tr>
+          <tr><td class="term">Avaritia</td><td>Hebzucht als verkeerd gerichte liefde, die volgens haar voor het eerst in de geschiedenis oneindig is geworden.</td></tr>
+          <tr><td class="term">Gula</td><td>Onmatigheid: prikkels van buiten winnen het van de eigen autonomie, waardoor het evenwicht doorslaat naar overmaat.</td></tr>
+          <tr><td class="term">Luxuria</td><td>Lust als verboden liefde, die haar zondigheid alleen kan tonen doordat er een ander met grenzen bestaat.</td></tr>
+          <tr><td class="term">Ira</td><td>Woede die voortkomt uit gebrek aan erkenning, wanneer het eigen bestaansrecht niet meer door anderen wordt bevestigd.</td></tr>
+          <tr><td class="term">Invidia</td><td>Afgunst, door haar beschreven als een ontkende en daardoor onbeheerste emotie die pas stilvalt als de ander verdwijnt.</td></tr>
+          <tr><td class="term">Vacu&uuml;m</td><td>De leegte die zij als achtste hoofdzonde van deze tijd voorstelt: het eindstadium van zeven driften die niemand meer begrenst.</td></tr>
+          <tr><td class="term">De groep</td><td>Haar metafoor voor het verband dat mensen bindt, grenzen stelt en zingeving mogelijk maakt, vergeleken met een celwand.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek staat of valt met cultuurlezing. Van Fenema haalt Genesis 3, Spreuken, Matte&uuml;s en Openbaring aan, de mythen van Icarus en Midas, Dante, Thomas van Aquino, Thomas More, Huizinga’s <i>Herfsttij der Middeleeuwen</i> uit 1919, Dickens, Houellebecq, Memlings <i>IJdelheid</i> uit 1485, films van Greenaway en de gebroeders Wachowski, en de compositie 4’33 van Cage. Die bronnen zijn juist weergegeven en zij gaat er zorgvuldig mee om.</p>
+      <p>De tweede pijler is haar praktijk. Elk hoofdstuk bevat een of twee patiëntbeschrijvingen onder voornaam en leeftijd, bijvoorbeeld Herman van 62 en Madeleine van 34 in het hoofdstuk over hebzucht. Daarnaast staan er korte stukken neurobiologie in, over oude beloningsgebieden in het brein en over wat er gebeurt als de rem daarop beschadigd raakt.</p>
+      <p>Wat er niet in staat is eigen of geciteerd empirisch onderzoek dat de these draagt. Er zijn geen reeksen over eenzaamheid, psychische klachten of sociale samenhang door de tijd heen, geen vergelijking tussen landen, geen cijfers waaruit blijkt dat het verlaten individu inderdaad talrijker of ongelukkiger is dan het individu van vijftig jaar geleden. Losse verwijzingen, zoals naar het boek van Jeroen Linssen over hebzucht of naar een column in Trouw, ondersteunen deelpunten en niet het geheel.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de kern van het betoog een aanname is die nergens wordt getoetst. Dat de groep vroeger de driften begrensde en dat het verval van de groep de oorzaak is van hedendaags onbehagen, wordt geïllustreerd en niet aangetoond. Illustraties uit de Bijbel en uit vijftiende-eeuwse schilderkunst laten zien hoe men over hoogmoed dacht, niet dat mensen zich toen anders gedroegen.</p>
+      <p>De anekdote over de Babembastam, waarin de zondaar door het hele dorp wordt omringd en zijn goede daden hoort opsommen, staat aan het begin als bewijs van heilzame collectieve begrenzing. Dat verhaal circuleert al decennia in managementliteratuur zonder etnografische bron. Zij noemt geen herkomst en gebruikt het toch als scharnier onder haar groepsbegrip.</p>
+      <p>Ook de neurobiologische passages worden steviger gepresenteerd dan ze zijn. Dat ons brein ‘middeleeuws’ zou zijn en zich alleen echt kan verbinden met groepen van honderdvijftig tot vijfhonderd mensen, staat er als vaststaand feit; het is een omstreden schatting waar geen bron bij staat. Hetzelfde geldt voor de sprong van beschadigde remsystemen in het brein naar de hebzucht van een samenleving.</p>
+      <p>Het boek weegt de kosten van de oude ordening niet mee. De groep die begrensde, sloot ook uit, dwong en strafte, en juist daarom trokken mensen de baleinen eruit. Wie het verlies van die ordening als hoofdverklaring aandraagt, moet aannemelijk maken dat de winst kleiner was dan het verlies. Dat gebeurt niet.</p>
+      <p>Ten slotte is de achtste zonde een metafoor die zich aan weerlegging onttrekt. Leegte is in haar opzet tegelijk oorzaak, gevolg en symptoom, en elk verschijnsel dat zij bespreekt past erin. Wie het boek leest als cultuurbeschouwing krijgt veel; wie er een diagnose van de samenleving in zoekt, krijgt een lezing die niet fout kan gaan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de zeven hoofdstukken als lenzen bij een concreet vraagstuk: schrijf op welk gedrag in jouw organisatie onder acedia valt en welk onder invidia.</li>
+        <li>Noteer bij een beslissing die je neemt wie de gevolgen draagt en of je die persoon ooit ziet. Dat is haar hoogmoedstoets in praktische vorm.</li>
+        <li>Zoek bij elk cultuurvoorbeeld dat je overtuigt het bijbehorende cijfer op voordat je de conclusie overneemt.</li>
+        <li>Bespreek in een team welke begrenzing je gezamenlijk wilt afspreken, in plaats van elk lid zijn eigen grens te laten bepalen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Bij Prometheus (2022). Van Fenema is psychiater en violiste en schrijft over geestelijke gezondheidszorg en cultuur.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Van Fenema betoogt dat de nadruk op zelfontplooiing en eigen keuze mensen alleen heeft gelaten, en dat de geestelijke gezondheidszorg de rekening daarvan krijgt gepresenteerd zonder haar te kunnen betalen. Zij ziet in haar praktijk klachten die niet in de eerste plaats medisch zijn: zingeving, verbinding en houvast ontbreken, en daar bestaat geen behandeling voor.</p><p>Haar tegenvoorstel is herstel van gemeenschap, ambacht en traditie, met muziek en gezamenlijk oefenen als voorbeeld. Het is een essay met een stelling en niet een onderzoek; wie de diagnose deelt vindt hier woorden, wie haar niet deelt zal de sprong van spreekkamer naar samenleving te groot vinden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychiatrie</li><li>eenzaamheid</li><li>zorg</li><li>gemeenschap</li><li>individualisme</li><li>nederland</li><li>essay</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="98"><a href="98.html">Waar gaat het heen? En wat kan ik doen?</a>. De Man beschrijft hetzelfde verval van een gedeeld verhaal, maar zoekt de uitweg in nieuwe verhalen en vaardigheden in plaats van in herstel van de groep.</li>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman legt de oorzaak van dezelfde verdoving bij het medium zelf, wat een concurrerende verklaring biedt voor haar acedia.</li>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt probeert wel met cijfers te onderbouwen wat Van Fenema als cultuurdiagnose stelt, en laat zien wat zo’n onderbouwing kost.</li>
+          <li value="9"><a href="09.html">The Second Mountain</a>. Brooks vertrekt vanuit hetzelfde tekort aan verbondenheid en werkt het uit als een keuze voor toewijding.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
