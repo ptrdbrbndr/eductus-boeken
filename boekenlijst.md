@@ -2973,6 +2973,219 @@ opbrengst van geld noemt, en een spaarpercentage dat losstaat van een concreet
 doel. Wie een handleiding voor fondsen zoekt heeft hier niets aan; het boek
 gaat over de lezer, niet over de markt.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Housel stelt dat de uitkomst van een financieel leven vooral
+door gedrag wordt bepaald en nauwelijks door rekenvaardigheid, en dat dat
+gedrag zich slecht laat onderwijzen omdat ieder mens zijn overtuigingen over
+geld ontleent aan de smalle strook geschiedenis die hij zelf heeft meegemaakt.
+Wie volwassen werd tijdens hoge inflatie belegt zijn verdere leven anders dan
+wie begon tijdens een hausse, en geen van beiden kan de ander overtuigen met
+cijfers. Daaruit volgt de kern van het boek: er bestaat geen algemeen juist
+antwoord op de vraag wat je met je geld moet doen, alleen een antwoord waar
+iemand tientallen jaren mee door kan gaan zonder af te haken.
+
+#### De gang van het boek
+
+**Iedereen redeneert vanuit zijn eigen tijdvak**
+
+Het eerste hoofdstuk voert de stelling in dat niemand gek is. Mensen doen met
+geld dingen die van buitenaf onverstandig lijken, maar die volgen uit wat zij
+zelf hebben meegemaakt. Housel schat dat de persoonlijke ervaring van een
+individu misschien een honderdmiljoenste deel beslaat van wat er in de wereld
+met geld gebeurd is, en toch tachtig procent bepaalt van hoe die persoon denkt
+dat de wereld werkt.
+
+Hij illustreert dat met John F. Kennedy, die als presidentskandidaat toegaf
+dat hij de Grote Depressie niet uit eigen ervaring kende: zijn familie werd er
+rijker van, en hij leerde er pas over toen hij erover las op Harvard. Het punt
+is dat lezen over een crisis en er middenin zitten niet hetzelfde spoor
+achterlaten.
+
+**Geluk en risico zijn hetzelfde verschijnsel**
+
+Housel behandelt geluk en risico als broer en zus: allebei zijn ze de
+vaststelling dat elke uitkomst mede wordt bepaald door krachten buiten de
+eigen inspanning. Zijn voorbeeld is Bill Gates, die in 1968 op Lakeside School
+zat, een van de weinige middelbare scholen ter wereld met een computer. Van de
+ruim driehonderd miljoen scholieren van die leeftijd wereldwijd zaten er
+ongeveer driehonderd op die school.
+
+Daartegenover zet hij Kent Evans, de derde computerleerling uit dezelfde
+groep, minstens zo begaafd, die voor zijn eindexamen omkwam bij een
+bergongeluk. Dezelfde kracht, dezelfde orde van waarschijnlijkheid,
+tegengestelde richting. De les die Housel eruit trekt is praktisch: wees
+voorzichtig met het navolgen van individuele succesverhalen en met het
+afschrijven van individuele mislukkingen, want in beide zit ruis die je niet
+kunt scheiden van vaardigheid.
+
+**Rente op rente, en de kunst van niet stoppen**
+
+Het hoofdstuk over samengestelde groei begint bij de ijstijden. De verklaring
+die stand hield is niet die van extreem koude winters maar van zomers die net
+niet warm genoeg zijn om de sneeuw van de vorige winter te laten smelten. Een
+dun laagje dat blijft liggen, jaar na jaar, wordt binnen enkele eeuwen een
+ijskap.
+
+De financiële toepassing is Warren Buffett. Housel noteert dat van diens
+vermogen van 84,5 miljard dollar op het moment van schrijven er 84,2 miljard
+na zijn vijftigste is opgebouwd, en 81,5 miljard na zijn vijfenzestigste. De
+verklaring ligt niet alleen in rendement maar in duur: Buffett belegt serieus
+sinds zijn tiende. Housel rekent voor wat er van dat vermogen over zou zijn
+als Buffett pas op zijn dertigste was begonnen en op zijn zestigste gestopt.
+
+**Rijk worden en rijk blijven zijn twee vaardigheden**
+
+Rijk worden vraagt om risico nemen, optimisme en zichtbaarheid. Rijk blijven
+vraagt om het omgekeerde: zuinigheid, en de vrees dat wat je hebt verdiend je
+even snel weer kan worden afgenomen. Housel zet Jesse Livermore, die in
+oktober 1929 met een shortpositie op één dag het equivalent van meer dan drie
+miljard dollar verdiende, naast Abraham Germansky, die in diezelfde week
+verdween nadat hij zich in aandelen had vastgezet.
+
+Vier jaar later was Livermore alles kwijt en uiteindelijk maakte hij een eind
+aan zijn leven. Housel gebruikt het paar om zijn samenvatting van financieel
+succes in één woord te onderbouwen: overleven. Hij noemt daarbij dat de Forbes
+400 per decennium ongeveer twintig procent verloop kent dat niets met
+overlijden of vererving te maken heeft.
+
+**De staarten bepalen de uitkomst**
+
+Een klein aantal gebeurtenissen verklaart het merendeel van de uitkomsten.
+Housel opent met kunsthandelaar Heinz Berggruen, die kocht wat hij kon en
+wachtte tot enkele werken de rest van de verzameling zouden dragen. Walt
+Disney had halverwege de jaren dertig ruim vierhonderd tekenfilms gemaakt,
+waarvan de meeste verlies leden, tot de drieëntachtig minuten van Snow White
+het bedrijf schuldenvrij maakten.
+
+Hij onderbouwt dit met cijfers. Correlation Ventures bekeek ruim 21.000
+durfkapitaalfinancieringen tussen 2004 en 2014: 65 procent verloor geld, 2,5
+procent leverde tien tot twintig maal in, één procent meer dan twintig maal,
+en een half procent, ongeveer honderd bedrijven, vijftig maal of meer. J.P.
+Morgan Asset Management vond voor de Russell 3000 sinds 1980 dat veertig
+procent van de aandelen minstens zeventig procent van hun waarde verloor en
+nooit herstelde. Beursgenoteerde aandelen gedragen zich in dit opzicht niet
+wezenlijk anders dan durfkapitaal.
+
+**Wat geld oplevert, en wat het niet oplevert**
+
+De hoofdstukken over vrijheid en over uiterlijk vertoon vormen samen het
+antwoord op de vraag waar geld eigenlijk voor dient. Het hoogste rendement van
+geld is volgens Housel zeggenschap over de eigen tijd. Daartegenover staat de
+paradox van de man in de auto: wie een dure auto ziet, bewondert de auto en
+niet de bestuurder.
+
+Vermogen is bovendien per definitie onzichtbaar. Wat je ziet is uitgegeven
+geld, dus juist het tegendeel. Housel haalt de reactie aan van de financieel
+adviseur van Rihanna, die na haar rechtszaak opmerkte dat iemand haar
+blijkbaar had moeten vertellen dat je, als je geld aan spullen uitgeeft,
+spullen overhoudt en geen geld. Hij scheidt daarom rijk, wat een inkomen is,
+van vermogend, wat het niet uitgegeven deel is.
+
+**Redelijk boven rationeel, en ruimte voor fouten**
+
+Housel raadt af om koel rationeel te willen zijn met geld en beveelt aan om
+redelijk te zijn, omdat je een redelijke aanpak langer volhoudt. Hij
+illustreert de aantrekkingskracht van doorredeneren met Julius Wagner-Jauregg,
+die syfilispatiënten besmette met malaria om koorts op te wekken, daar in zijn
+eigen rapportage zes op de tien mee zag herstellen tegen ongeveer drie op de
+tien onbehandeld, en er in 1927 de Nobelprijs voor kreeg. Op papier klopte de
+redenering; als voorschrift voor gewone mensen deugde ze niet.
+
+Ruimte voor fouten haalt hij bij kaarttellers in het blackjack, die met een
+voordeel van enkele procenten toch bijna de helft van de handen verliezen en
+hun inzet daarop afstemmen. Hij verbindt dat aan Benjamin Graham en diens
+veiligheidsmarge, met de formulering dat het doel van een veiligheidsmarge is
+om de voorspelling overbodig te maken.
+
+Het hoofdstuk over verschillende spelers legt uit waarom zeepbellen ontstaan
+zonder dat er iemand gek hoeft te zijn: beleggers nemen signalen over van
+anderen die een ander spel spelen, met een andere horizon. Een prijs die
+onzinnig is voor wie dertig jaar wil bezitten, kan verdedigbaar zijn voor wie
+tot volgende week kijkt.
+
+**Bekentenissen**
+
+Het boek eindigt met wat Housel zelf doet. Hij bezit geen individuele
+aandelen, houdt een hoog aandeel spaargeld aan dat volgens de leerboeken te
+hoog is, en heeft zijn huis zonder hypotheek gekocht, wat hij zelf de
+slechtste financiële beslissing en de beste geldbeslissing van zijn leven
+noemt. De maat is niet het rendement maar de nachtrust.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| No one's crazy | De stelling dat afwijkend geldgedrag voortkomt uit een andere levenservaring en niet uit domheid. |
+| Tail events | De zeldzame uitkomsten aan het uiteinde van de verdeling die het merendeel van het totaalresultaat verklaren. |
+| Room for error | Het bewust vergroten van de afstand tussen wat je verwacht en wat er kan gebeuren, zodat je een misrekening overleeft. |
+| Margin of safety | De term van Benjamin Graham die Housel overneemt als de speling die een voorspelling overbodig maakt. |
+| Reasonable &gt; rational | De voorkeur voor een aanpak die je jarenlang volhoudt boven een aanpak die op papier het hoogste verwachte resultaat geeft. |
+| Man in the car paradox | De waarneming dat een dure auto bewondering oplevert voor de auto en niet voor de eigenaar. |
+| Wealth is what you don't see | Vermogen bestaat uit bezit dat nog niet in zichtbare spullen is omgezet, waardoor het per definitie onzichtbaar blijft. |
+| Getting wealthy vs. staying wealthy | Het onderscheid tussen de eigenschappen die geld opleveren en de tegengestelde eigenschappen die het vasthouden. |
+| Playing a different game | Het overnemen van koers- of koopsignalen van beleggers met een andere tijdshorizon, wat prijzen losmaakt van waarde. |
+| Enough | Het punt waarop iemand ophoudt de doelpaal te verzetten, door Housel neergezet als voorwaarde om niet alles te verspelen. |
+
+#### Waar het argument op rust
+
+Het boek rust op drie soorten materiaal. Ten eerste een handvol verwijzingen
+naar economisch onderzoek, waaronder het werk van Ulrike Malmendier en Stefan
+Nagel uit 2006, die vijftig jaar Survey of Consumer Finances doorspitten en
+vonden dat beleggingskeuzes sterk samenhangen met wat mensen vroeg in hun
+volwassen leven meemaakten. Ten tweede verdelingsstatistiek: de cijfers van
+Correlation Ventures over 21.000 financieringen en die van J.P. Morgan over de
+Russell 3000. Die twee dragen het staarthoofdstuk daadwerkelijk.
+
+Ten derde, en verreweg het meest, verhalen: Gates en Evans, Livermore en
+Germansky, Berggruen, Disney, de valetparkeerder in Los Angeles. Housel
+selecteert die verhalen omdat ze de stelling illustreren, niet omdat ze uit
+een systematische steekproef komen. Dat maakt ze bruikbaar als uitleg en zwak
+als bewijs. Waar het boek het sterkst staat, is waar de statistiek de anekdote
+ondersteunt; waar alleen de anekdote er is, blijft het bij een aannemelijk
+verhaal.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de stellingen zo geformuleerd zijn dat ze
+nauwelijks te weerleggen vallen. Sparen, geduld en speling zijn goede raad,
+maar wie ze niet opvolgt en toch rijk wordt, wordt in dit boek onder geluk
+geboekt, en wie ze wel opvolgt en toch verliest onder risico. Een verklaring
+die beide uitkomsten opvangt, verklaart weinig.
+
+De rekensom rond Buffett is bovendien onvolledig. Housel schrijft diens
+vermogen vooral toe aan de duur van het beleggen, maar laat weg dat een
+aanzienlijk deel van het resultaat komt uit goedkope hefboom via de
+verzekeringspremies van Berkshire Hathaway, iets wat een particuliere spaarder
+niet tot zijn beschikking heeft. Het hoofdstuk over samengestelde groei
+suggereert daardoor dat tijd op zichzelf het verschil maakt.
+
+Verder is het boek uitgesproken Amerikaans, met een naschrift dat expliciet
+over de Amerikaanse consument gaat. Aannames over pensioenopbouw, ziektekosten
+en huizenbezit vertalen zich niet zonder meer naar Nederlandse verhoudingen.
+En de raad om ruim te sparen veronderstelt een overschot; over mensen zonder
+dat overschot heeft het boek weinig te melden.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op welke gebeurtenis met geld je zelf hebt meegemaakt in je
+twintiger jaren, en wat je daar sindsdien uit afleidt. Dat is de aanname die
+je het slechtst kunt toetsen.
+- Bepaal vooraf welk bedrag of welk maandinkomen genoeg is, en leg vast wat je
+daarna niet meer gaat najagen.
+- Beoordeel een spaar- of beleggingsplan op de vraag of je het twintig jaar
+volhoudt, niet op het verwachte rendement.
+- Vraag bij elk advies dat je krijgt of de gever het zelf toepast, en met
+welke horizon hij belegt.
+
+#### Wat je hierna leest
+
+- 80. The Hour Between Dog and Wolf. Coates zoekt de verklaring voor
+onverstandig risicogedrag niet in levenservaring maar in hormonen op de
+handelsvloer.
+- 144. Margin of Safety. Klarman werkt de veiligheidsmarge die Housel als
+vuistregel gebruikt uit tot een volledige beleggingsmethode.
+
 ## 22. Atomic Habits
 
 James Clear, 2018. Ondertitel *An Easy & Proven Way to Build Good Habits &
@@ -11304,6 +11517,221 @@ als rekensom ziet: hausse en krach hebben een lichamelijke component. Het
 onderzoek is klein van opzet en de generalisatie naar hele markten is een
 sprong die hij zelf ook benoemt.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Coates betoogt dat het nemen van financieel risico geen
+zuiver verstandelijke bezigheid is maar een lichamelijke, en dat de hormonen
+die daarbij vrijkomen de beoordeling van risico zelf verschuiven. Winst
+verhoogt testosteron, testosteron verhoogt de risicobereidheid, en die lus kan
+een handelaar over een reeks winstdagen roekeloos maken. Verlies en
+onzekerheid verhogen cortisol, dat bij aanhoudende blootstelling angst en
+risicomijding oplevert. Zijn slotstelling is dat zeepbellen en crashes
+daardoor deels een fysiologisch verschijnsel zijn: markten worden niet alleen
+gedreven door verkeerde overtuigingen, maar door lichamen die op winst en
+verlies reageren zoals ze op een gevecht of een vlucht zouden reageren.
+
+#### De gang van het boek
+
+**Deel I: lichaam en geest op de handelsvloer**
+
+Coates opent met een gedramatiseerde scène op een handelsvloer in New York in
+de aanloop naar een rentebesluit van de Federal Reserve. Twee handelaren,
+Scott en Logan, merken de verschuiving in de koersen op voordat ze kunnen
+zeggen waarom. Hij verklaart dat via de locus ceruleus, een kern in de
+hersenstam die reageert op nieuwheid en op het wegvallen van vertrouwde
+verbanden, en die het lichaam in staat van paraatheid brengt voordat het
+bewustzijn iets registreert.
+
+Daarna beschrijft hij wat er ondertussen in het lichaam gebeurt: versnelde
+stofwisseling en ademhaling, herverdeling van bloed weg van maag en
+voortplantingsorganen naar spieren, hart en hersenen, en het op gang komen van
+steroïdhormonen. Het eerste hoofdstuk zet dit tegenover de gangbare
+economische voorstelling van risico als rekensom over rendementen en kansen.
+
+**De aanloop: de dotcomzeepbel als aanleiding**
+
+Coates handelde in de jaren negentig in derivaten bij Goldman Sachs, Merrill
+Lynch en Deutsche Bank en zag de Nasdaq van rond de 1.500 naar ruim 5.000 gaan
+in anderhalf jaar, een stijging van meer dan driehonderd procent zonder dat de
+onderliggende cijfers dat droegen. Wat hem opviel was niet de koersen maar het
+gedrag van collega's: mensen veranderden van karakter, werden zelfverzekerd
+tot in het onaangename, en bleven kopen.
+
+Die waarneming brengt hem terug naar de wetenschap. Hij verruilt de handel
+voor onderzoek in de neurowetenschappen en endocrinologie in Cambridge, met de
+vraag of hij het verschijnsel kan meten in plaats van beschrijven.
+
+**Deel II: denken met het lichaam**
+
+De hoofdstukken over snelheid van denken en over gevoel in de buik voeren het
+begrip pre-attentieve verwerking in. Veel van wat een handelaar of een sporter
+doet, gebeurt sneller dan bewuste beslissingen mogelijk maken. Coates
+beschrijft interoceptie, het waarnemen van signalen uit het eigen lichaam, als
+de fysiologische basis van wat men een onderbuikgevoel noemt.
+
+Hier past hij zijn eigen meting in: hij liet handelaren de snelheid van hun
+hartslag beoordelen en vergeleek dat met hun daadwerkelijke hartslag. De
+ervaren handelaren deden dat beter dan de vergelijkingsgroep. Zijn uitleg is
+dat wie zijn eigen lichaam nauwkeurig afleest, ook de vroege signalen van een
+kansrijke of gevaarlijke situatie nauwkeuriger oppikt.
+
+**Deel III: het winnaarseffect**
+
+Het hoofdstuk over de brandstof van uitbundigheid draagt de kern van het boek.
+In de biologie is het winnaarseffect het verschijnsel dat een dier dat een
+gevecht wint, het volgende gevecht met grotere kans wint, ook wanneer de
+tegenstanders in grootte en motivatie gelijk zijn. De verklaring loopt via
+testosteron: het stijgt vóór de wedstrijd, stijgt verder na winst, en verhoogt
+daarna spiermassa, doorzettingsvermogen en bereidheid om opnieuw de strijd aan
+te gaan.
+
+Coates onderzocht dit op een handelsvloer in de City of London. Bij zeventien
+mannelijke handelaren nam hij speekselmonsters af. Wanneer hun testosteron in
+de ochtend hoog was ten opzichte van hun eigen middenwaarde, verdienden zij in
+de middag aanzienlijk meer dan op dagen dat het laag was. Hij vond daarnaast
+dat de verhouding tussen de lengte van wijsvinger en ringvinger, de zogeheten
+2D:4D-ratio die als maat voor blootstelling aan androgenen in de baarmoeder
+wordt gebruikt, samenhing met de winstgevendheid van diezelfde handelaren over
+de voorafgaande twee jaar en met de duur van hun loopbaan.
+
+De doorredenering naar de markt is dat een aanhoudende hausse bij veel
+handelaren tegelijk het winnaarseffect aanzet, waarna posities groter worden
+dan het oordeel rechtvaardigt. Coates noemt dit de laatste fase van het
+winnaarseffect, waarin overmoed zich vermomt als inzicht.
+
+**De keerzijde: cortisol en de stressrespons**
+
+Het hoofdstuk over stress beschrijft de tegenhanger. Coates en zijn collega's
+redeneerden dat niet verlies zelf maar onzekerheid over waar prijzen zullen
+staan de sterkste prikkel is, en gebruikten koersbeweeglijkheid als maat.
+Cortisol hoort in de loop van de dag met ongeveer de helft te dalen; op
+beweeglijke dagen steeg het bij deze handelaren juist, bij sommigen met
+vijfhonderd procent, waarden die men normaal alleen bij patiënten ziet.
+
+Bij een vragenlijst bleek dat de handelaren zelf niet aangaven meer stress te
+ervaren bij grote verliezen of hoge beweeglijkheid. Hun cortisol volgde die
+factoren wel. Coates gebruikt dat verschil om te betogen dat de reactie
+grotendeels buiten de zelfwaarneming om verloopt. Langdurig verhoogd cortisol
+maakt volgens de literatuur die hij aanhaalt risicomijdend en somber, en heeft
+lichamelijke gevolgen tot en met hoge bloeddruk en terugkerende infecties.
+
+Daarmee is de asymmetrie van de markt verklaard zoals Coates haar ziet: in een
+hausse nemen handelaren te veel risico, in een crash te weinig, precies op het
+moment dat de prijzen aantrekkelijk zijn.
+
+**Deel IV: weerbaarheid en wat eraan te doen valt**
+
+Het hoofdstuk over weerbaarheid vraagt of de stressrespons te sturen valt, en
+het antwoord is voorzichtig. Coates verwerpt de gedachte dat je cortisol kunt
+wegdenken. Wat volgens hem wel werkt, is gewenning door herhaalde, beheersbare
+blootstelling aan lichamelijke belasting: training, kou, tekort aan slaap dat
+weer wordt ingehaald. Het lichaam leert daarvan sneller aanzetten en sneller
+afschakelen.
+
+Het slothoofdstuk trekt de lijn naar beleid. Coates stelt voor de
+samenstelling van handelsvloeren te veranderen, met meer vrouwen en meer
+oudere mannen, omdat beide groepen minder vatbaar zouden zijn voor het
+winnaarseffect: vrouwen produceren gemiddeld tien tot twintig procent van de
+testosteronhoeveelheid van mannen en zijn niet aan dezelfde prenatale
+androgenen blootgesteld. Hij noemt daarbij zelf ook niet-biologische oorzaken
+van de instabiliteit sinds de jaren negentig, waaronder lage reële rente,
+deregulering, hoge hefboom en het verdwijnen van de vennootschapsvorm waarin
+partners met eigen vermogen aansprakelijk waren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Winner effect | Het verschijnsel dat winst de kans op volgende winst verhoogt via een stijging van testosteron en de daaruit volgende grotere risicobereidheid. |
+| Het uur tussen hond en wolf | De schemering waarin je een hond niet meer van een wolf kunt onderscheiden, bij Coates het beeld voor het moment waarop zelfvertrouwen omslaat in overmoed. |
+| Cortisol | Het stresshormoon dat volgens zijn metingen vooral reageert op onzekerheid en dat bij aanhoudende verhoging risicomijding en somberheid oplevert. |
+| Interoceptie | Het waarnemen van signalen uit het eigen lichaam, door Coates aangewezen als de basis van wat handelaren onderbuikgevoel noemen. |
+| Pre-attentieve verwerking | Het opmerken en reageren op een verandering voordat die het bewustzijn bereikt, in het boek gekoppeld aan de locus ceruleus. |
+| 2D:4D-ratio | De verhouding tussen de lengte van wijsvinger en ringvinger, gebruikt als maat voor blootstelling aan mannelijke hormonen vóór de geboorte. |
+| Locus ceruleus | Een blauwgekleurde kern in de hersenstam die reageert op nieuwheid en op het wegvallen van bekende verbanden, en het lichaam in verhoogde staat van paraatheid brengt. |
+| Body-brain feedback loop | De wederkerige beïnvloeding waarbij hormonen uit het lichaam de manier veranderen waarop de hersenen denken, en omgekeerd. |
+| Toughness | Weerbaarheid die volgens Coates ontstaat door herhaalde beheersbare lichamelijke belasting, waardoor de stressrespons sneller aan- en uitgaat. |
+| Hormesis | Het principe dat een matige dosis van een belastende prikkel het lichaam sterker maakt in plaats van zwakker. |
+
+#### Waar het argument op rust
+
+Het boek steunt op twee eigen veldstudies op een handelsvloer in de City of
+London, plus een omvangrijke literatuur uit de dierbiologie en de
+sportfysiologie. De opzet van de eigen studies is klein. In de
+testosteronstudie gaat het om zeventien mannelijke handelaren op één vloer,
+gedurende een beperkte reeks handelsdagen. De cortisolstudie werd op
+vergelijkbare schaal uitgevoerd. Coates rapporteert die getallen zelf en
+presenteert de uitkomsten als voorlopig bewijs, in zijn eigen woorden goede
+eerste aanwijzingen dat het winnaarseffect ook op de financiële markten
+optreedt.
+
+Het achterliggende dieronderzoek is stukken steviger. Dat een winnaar in een
+volgend gevecht een grotere kans heeft, ook bij gelijke grootte en motivatie,
+is in de biologie meermaals vastgesteld, en de rol van testosteron daarin is
+goed beschreven. Hetzelfde geldt voor de literatuur over aanhoudend verhoogd
+cortisol en de gevolgen voor stemming en gezondheid. Coates leunt zwaarder op
+die literatuur dan op zijn eigen cijfers.
+
+De zwakste schakel in de bewijsvoering is de 2D:4D-ratio. Dat de
+vingerverhouding de winstgevendheid over twee jaar en de loopbaanduur van zijn
+handelaren voorspelde, is een opvallende uitkomst uit een kleine groep, en de
+bredere literatuur over deze maat kent replicaties die de oorspronkelijke
+bevindingen niet terugvonden. Coates behandelt de maat als een indirecte
+aanwijzing voor prenatale hormoonblootstelling en niet als een verklaring op
+zich, maar het gewicht dat het hoofdstuk eraan geeft is groter dan de
+onderbouwing draagt.
+
+#### Wat er tegen in te brengen valt
+
+De stap van zeventien handelaren op één vloer naar het gedrag van hele markten
+is een sprong, en het is te prijzen dat Coates dat zelf benoemt. Hij spreekt
+over voorlopige aanwijzingen en over een hypothese die verder onderzoek
+verdient. In de latere hoofdstukken en in de beleidsvoorstellen wordt die
+voorzichtigheid echter minder zichtbaar dan in het onderzoeksdeel, en de titel
+en de opzet van het boek suggereren een verklaring van zeepbellen die de
+metingen niet leveren.
+
+Een tweede bezwaar is dat de hormonale verklaring concurreert met andere
+verklaringen die Coates zelf aandraagt: lage reële rente, deregulering, lage
+marginverplichtingen en hoge hefboom, en het verdwijnen van partnerschappen
+waarin het verlies bij de partners zelf terechtkwam. Die factoren kunnen het
+gedrag dat hij beschrijft grotendeels verklaren zonder dat er een hormoon aan
+te pas komt. Het boek weegt niet af hoeveel de biologie hier bovenop de
+prikkelstructuur verklaart.
+
+Verder is de causale richting in de eigen studies niet vastgelegd. Dat hoge
+ochtendtestosteron samenging met hogere middagwinst kan betekenen dat het
+hormoon de prestatie verbetert, maar even goed dat handelaren op dagen met
+gunstige marktomstandigheden of na een goede nacht zowel meer testosteron
+hebben als meer verdienen. Er is geen ingreep, alleen waarneming.
+
+Ten slotte gaat het boek vrijwel volledig over jonge mannen op een
+handelsvloer, en de aanbeveling om meer vrouwen aan te nemen rust op een
+gemiddeld verschil in hormoonspiegels waarvan de gedragsgevolgen niet in
+dezelfde studies zijn gemeten. Dat is een beleidsvoorstel op basis van een
+aanname, en het verdient de kanttekening die Coates er niet bij geeft.
+
+#### Wat er concreet mee te doen is
+
+- Houd bij een reeks winstdagen bij hoeveel groter je posities of uitgaven
+worden, en spreek vooraf een bovengrens af die niet meebeweegt met recente
+uitkomsten.
+- Leg beslisregels vast op een moment dat er niets speelt, en volg ze op
+momenten dat er wel iets speelt.
+- Vertrouw je eigen oordeel over hoe gestrest je bent niet als enige maat;
+Coates' handelaren merkten hun eigen cortisolstijging niet op.
+- Bouw na een verlies een pauze in voordat je opnieuw beslist, omdat de
+risicomijding die dan optreedt langer aanhoudt dan de aanleiding.
+- Behandel slaap, beweging en herstel als onderdeel van je beslissingsvermogen
+en niet als iets wat daarnaast staat.
+
+#### Wat je hierna leest
+
+- 21. The Psychology of Money. Housel verklaart hetzelfde onverstandige
+geldgedrag uit levenservaring en gewoonte in plaats van uit fysiologie.
+- 144. Margin of Safety. Klarman beschrijft vanuit de praktijk hoe beleggers
+zich in een hausse laten meenemen, zonder de biologische verklaring te zoeken.
+
 ## 81. Building a Second Brain
 
 Tiago Forte, 2022. Atria Books (2022); de ondertitel belooft een beproefde
@@ -13752,6 +14180,223 @@ zoals faillissementen en afsplitsingen, en over het inrichten van een
 portefeuille. Het is nuchter, streng en zonder beloftes, en het is de reden
 dat dit boek onder beleggers de status heeft die het heeft. De voorbeelden
 komen uit de jaren tachtig en vragen enige vertaling naar nu.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Klarman stelt dat beleggen begint bij het vermijden van
+verlies en niet bij het najagen van rendement, en dat de enige verdedigbare
+weg daartoe het kopen van effecten is tegen een aanzienlijke korting op hun
+onderliggende waarde. Die korting, de veiligheidsmarge, is voor hem geen extra
+voorzorg maar de kern van de methode: zij maakt het overbodig om de toekomst
+juist te voorspellen. Daaruit volgt een reeks stellingen die tegen de gangbare
+praktijk ingaan, waaronder dat risico niet uit koersbeweeglijkheid valt af te
+lezen maar uit de betaalde prijs, dat volledig belegd blijven een fout is
+wanneer er niets goedkoops te vinden is, en dat de instellingen die het meeste
+geld beheren juist het slechtst zijn ingericht om dit te doen.
+
+#### De gang van het boek
+
+**Deel I: speculanten, Wall Street en de institutionele wedloop**
+
+Het eerste deel behandelt vier oorzaken van verlies. Speculanten kopen papier
+in de verwachting het duurder door te verkopen, zonder oordeel over de
+onderliggende onderneming. Wall Street verdient aan het volume van transacties
+en niet aan het nut ervan, en heeft er dus belang bij dat er veel gehandeld en
+veel uitgegeven wordt.
+
+Het hoofdstuk over de institutionele prestatiewedloop is het scherpst.
+Pensioen- en stichtingsvermogen dat er voor tientallen jaren staat, wordt
+beheerd door managers die per kwartaal worden afgerekend en die elkaar
+proberen te verslaan. Daaruit volgt de neiging om altijd volledig belegd te
+zijn en om nooit ver van de index af te wijken, omdat afwijken en ongelijk
+krijgen zwaarder wordt afgestraft dan meelopen en ongelijk krijgen. De klant
+betaalt de rekening.
+
+Het vierde hoofdstuk is een ontleding van de markt voor rommelobligaties in de
+jaren tachtig. Klarman laat zien hoe het standaard wanbetalingspercentage
+rekenkundig te gunstig werd berekend door uitstaande leningen te delen door
+een snel groeiende noemer, en hoe EBITDA werd ingevoerd als maatstaf voor
+vrije kasstroom. Zijn voorbeeld daarbij zijn twee bedrijven met dezelfde
+EBITDA van twintig miljoen, waarvan het ene dienstverlener is zonder
+afschrijvingen en dus twintig miljoen verdient, en het andere producent met
+twintig miljoen afschrijving en dus nul. Wie op EBITDA afgaat waardeert ze
+gelijk. Hij sluit af met de gesecuritiseerde pakketten rommelobligaties
+waarvan de bovenste laag een kredietwaardige beoordeling kreeg, met de
+opmerking dat een stapel rommel rommel blijft, hoe je hem ook stapelt.
+
+**Deel II: doelen stellen en de veiligheidsmarge**
+
+Het vijfde hoofdstuk gaat in tegen de gewoonte om een rendementsdoel te
+stellen. Een doel stellen maakt het niet haalbaar, en het richt de aandacht op
+wat er kan worden verdiend in plaats van op wat er kan worden verloren.
+Klarman stelt daartegenover dat een belegger risico moet aansturen en niet
+rendement, met de rente op schatkistpapier als het nulpunt waarboven elk extra
+risico zich moet terugverdienen.
+
+Hij onderbouwt dat met de rekenkunde van samengestelde groei: wie tien jaar
+zestien procent per jaar haalt, eindigt met meer dan wie negen jaar twintig
+procent haalt en in het tiende jaar vijftien procent verliest. De tweede
+belegger presteert negen van de tien jaar beter, wat volgens Klarman verklaart
+waarom instellingen die manier van beleggen belonen.
+
+Het zesde hoofdstuk definieert waardebeleggen als het kopen van effecten met
+een flinke korting op de onderliggende waarde en het vasthouden tot die waarde
+zich toont. De veiligheidsmarge is de omvang van die korting. Hij citeert
+Buffett met het beeld van een brug die je op dertigduizend pond bouwt en waar
+je vrachtwagens van tienduizend pond overheen rijdt. Klarman geeft daarbij de
+voorkeur aan materiële activa boven immateriële, omdat een receptuur of een
+uitzendlicentie geen restwaarde heeft als de smaak van het publiek verandert.
+
+**De voorbeelden waarop de methode rust**
+
+Klarman werkt de veiligheidsmarge uit aan concrete posities uit zijn eigen
+praktijk. Erie Lackawanna had eind 1987 bijna 140 dollar aan contanten per
+aandeel plus een goed onderbouwde belastingvordering, terwijl het aandeel op
+110 dollar te koop was; tot medio 1991 was cumulatief 179 dollar per aandeel
+uitgekeerd en handelde het aandeel nog rond acht dollar. De achttien procent
+tweede hypotheekobligaties van Public Service Company of New Hampshire
+noteerden begin 1989 rond pari terwijl de onderliggende nutsactiva de hoofdsom
+vele malen dekten.
+
+Zijn bekendste voorbeeld zijn de obligaties van Texaco. Nadat het bedrijf in
+1987 surseance aanvroeg vanwege een vonnis van tien miljard dollar ten gunste
+van Pennzoil, noteerden de 11,875 procent obligaties met looptijd tot mei 1994
+rond de 90. Bij volledige betaling van hoofdsom en rente kwam dat neer op een
+jaarrendement van 44,1 procent bij een jaar aanhouden, 25,4 procent bij twee
+jaar en 19,5 procent bij drie jaar. De onzekerheid zat in de timing, niet in
+de dekking.
+
+Tegenover die voorbeelden zet hij aandelen waarvan de prijs op verwachtingen
+rustte. Compaq noteerde op 6 maart 1991 72, viel naar 61 en verloor op 14 mei
+nog eens ruim dertien punten tot 36 na een tegenvallend kwartaal. En Telefonos
+de Mexico noteerde begin 1987 tien cent en begin 1991 ruim 3,25 dollar, wat
+volgens Klarman voor het grootste deel te verklaren was uit een veranderde
+stemming en niet uit veranderde bedrijfsresultaten.
+
+**De onderbouwing: waarom prijzen van waarde afwijken**
+
+Het zevende hoofdstuk behandelt de vraag waarom deze methode kan werken.
+Klarman aanvaardt alleen de zwakke vorm van de theorie van efficiënte markten,
+namelijk dat koersgeschiedenis niets zegt over toekomstige koersen; technische
+analyse noemt hij tijdverspilling. De halfsterke en sterke vorm verwerpt hij.
+Zijn argument is deels empirisch, via Buffetts artikel over de superbeleggers
+uit Graham-and-Doddsville, waarin negen leerlingen van Benjamin Graham met
+sterk uiteenlopende portefeuilles langdurig hoge rendementen haalden.
+
+Deels is het argument mechanisch: koersen komen op korte termijn tot stand
+door vraag en aanbod, en veel kopers en verkopers handelen om redenen die
+niets met waarde te maken hebben. Een indexfonds koopt wat in de index zit
+ongeacht de prijs. Grote fondsen mogen bepaalde categorieën niet bezitten.
+Klarman verwacht daarom de meeste onjuiste prijzen buiten de best gevolgde
+grote fondsen, in kleine ondernemingen, in noodlijdende schuld en in
+verwaarloosde hoeken.
+
+**Deel III: het waarderen en het proces**
+
+Het achtste hoofdstuk noemt waardering uitdrukkelijk een kunst en geen
+rekensom. Klarman werkt drie benaderingen uit: de contante waarde van
+toekomstige kasstromen, de liquidatiewaarde en de waarde die de aandelenmarkt
+aan een vergelijkbare onderneming toekent. Hij wantrouwt precisie in alle drie
+en beveelt aan met bandbreedtes en conservatieve aannames te werken, omdat een
+schijnnauwkeurige uitkomst tot te hoge biedingen leidt.
+
+Het derde deel beschrijft het werk. Onderzoek als het zoeken naar zeldzame
+kansen, met de aanvaarding dat je veel zaken diepgaand bekijkt zonder er één
+te kopen. Daarna de plekken waar die kansen zitten: aanleidingen die waarde
+vrijmaken, marktinefficiënties en beperkingen die instellingen zichzelf
+opleggen. Twee hoofdstukken werken specifieke terreinen uit, de omzetting van
+spaarbanken naar beursvennootschappen en het beleggen in noodlijdende en
+failliete effecten.
+
+De laatste twee hoofdstukken gaan over portefeuillebeheer, handelen en de
+mogelijkheden voor een particulier. Klarman verdedigt daarin het aanhouden van
+liquiditeit wanneer er niets goedkoops te koop is, spreiding zonder de
+gedachte dat spreiding op zichzelf beschermt, en het afdekken van posities
+alleen wanneer dat financieel aantrekkelijk is en niet uit gewoonte.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Margin of safety | Het verschil tussen de betaalde prijs en de geschatte onderliggende waarde, groot genoeg om een verkeerde inschatting op te vangen. |
+| Value investing | Het kopen van effecten tegen een aanzienlijke korting op hun onderliggende waarde en vasthouden tot die waarde zich in de prijs vertaalt. |
+| Loss avoidance | Het uitgangspunt dat een portefeuille over meerdere jaren geen noemenswaardig verlies van hoofdsom mag lijden, hetgeen boven rendementsdoelen gaat. |
+| Catalyst | Een aanwijsbare gebeurtenis, zoals een liquidatie, afsplitsing of afwikkeling van een faillissement, die de onderliggende waarde daadwerkelijk vrijmaakt. |
+| Yield pigs | Klarmans aanduiding voor beleggers die enkele basispunten extra rente najagen ten koste van kredietkwaliteit. |
+| Torpedo stocks | Aandelen waarvan de prijs op hooggespannen verwachtingen rust en die bij de eerste tegenvaller hard onderuitgaan. |
+| Institutional performance derby | De onderlinge kwartaalwedloop tussen vermogensbeheerders die hen dwingt volledig belegd te blijven en dicht bij de index. |
+| EBITDA | De maatstaf die in de jaren tachtig werd ingevoerd als benadering van vrije kasstroom en die volgens Klarman investeringen in vervanging ten onrechte wegdenkt. |
+| Liquidation value | De opbrengst van de activa bij afwikkeling, door Klarman gebruikt als ondergrens bij de waardering van een onderneming. |
+| Bottom-up investing | Het zoeken naar goedkope effecten stuk voor stuk, in plaats van te beginnen bij een verwachting over economie of markt. |
+
+#### Waar het argument op rust
+
+Het boek onderscheidt zich van het meeste in dit genre doordat de voorbeelden
+benoemd zijn: Erie Lackawanna, Public Service Company of New Hampshire,
+Texaco, Compaq, Telefonos de Mexico, met koersen, data en rendementen erbij.
+Klarman schreef ze op uit de praktijk van Baupost, waar hij op dat moment
+negen jaar werkte. Dat maakt de redenering navolgbaar en toetsbaar op een
+manier die in beleggingsliteratuur zeldzaam is.
+
+Tegelijk is dit geselecteerd bewijs uit één portefeuille. Klarman geeft geen
+rendementsreeks van Baupost, geen aantal posities, geen verhouding tussen
+geslaagde en mislukte gevallen. De lezer krijgt de gevallen die de methode
+illustreren. Voor de kernstelling, dat kopen met een grote korting het
+neerwaartse risico beperkt, is dat aannemelijk maar niet bewezen; het bewijs
+dat de methode over een volledige portefeuille en over meerdere cycli beter
+uitpakt, staat niet in het boek.
+
+De aanval op de theorie van efficiënte markten leunt op Buffetts artikel over
+de superbeleggers uit Graham-and-Doddsville. Klarman merkt op dat de
+aanhangers van de efficiënte markt dat argument nooit hebben beantwoord. De
+tegenwerping die daarop bestaat, dat negen achteraf geselecteerde beleggers
+uit een grote populatie ook door toeval kunnen ontstaan, wordt in het boek wel
+genoemd maar niet met cijfers weerlegd.
+
+#### Wat er tegen in te brengen valt
+
+Het boek heeft een bijzondere status die de beoordeling vertroebelt. Het is na
+1991 nooit herdrukt, en tweedehands exemplaren gaan voor bedragen die de
+inhoud niet kunnen rechtvaardigen. Die schaarste heeft het boek een reputatie
+gegeven die deels op onbereikbaarheid rust. Wie het leest, treft een helder en
+degelijk boek aan, en niet een openbaring die de prijs verklaart. Een deel van
+wat erin staat is in latere brieven en interviews van Klarman zelf
+toegankelijk herhaald.
+
+Inhoudelijk is het sterkste bezwaar dat de methode moeilijk overdraagbaar is.
+Klarman erkent dat zelf: waardebeleggen vraagt veel werk, strenge
+zelfbeheersing en een lange horizon, en volgens hem is maar een fractie van de
+mensen die dat willen ook geschikt. Wat het boek daarmee levert is een
+verantwoording van hoe hij werkt, en geen werkwijze die een lezer kan
+overnemen. De waarderingshoofdstukken geven bandbreedtes en waarschuwingen,
+geen procedure.
+
+Verder is een groot deel van deel I tijdgebonden. Het uitvoerige hoofdstuk
+over rommelobligaties in de jaren tachtig was in 1991 actueel en is nu vooral
+leerzaam als voorbeeld van hoe een maatstaf wordt opgerekt om een prijs te
+rechtvaardigen. Ook de terreinen die Klarman als jachtgebied aanwijst,
+spaarbankomzettingen en noodlijdende schuld, zijn sindsdien door
+gespecialiseerde fondsen bezet, waardoor de korting die hij daar vond niet
+zonder meer nog bestaat.
+
+#### Wat er concreet mee te doen is
+
+- Bepaal bij elke aankoop eerst wat je kunt verliezen als je aanname niet
+klopt, en pas daarna wat je kunt verdienen.
+- Schrijf op waarom een belegging ondergewaardeerd is, en verkoop wanneer die
+reden niet meer geldt, ook als de prijs nog niet is opgelopen.
+- Kijk bij een winstmaatstaf altijd wat eruit is weggelaten, met EBITDA en
+vervangingsinvesteringen als vaste controle.
+- Aanvaard dat niets kopen een geldige uitkomst is van onderzoek, en leg
+vooraf vast hoeveel je bereid bent aan liquiditeit aan te houden.
+
+#### Wat je hierna leest
+
+- 21. The Psychology of Money. Housel gebruikt de veiligheidsmarge als
+vuistregel voor het persoonlijke huishoudboekje in plaats van als
+analysemethode.
+- 80. The Hour Between Dog and Wolf. Coates verklaart met hormonen waarom
+beleggers doen wat Klarman in deel I aan onvoorzichtigheid toeschrijft.
 
 ## 145. Unfuck Your Intimacy
 

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hour Between Dog and Wolf &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Coates betoogt dat het nemen van financieel risico geen zuiver verstandelijke bezigheid is maar een lichamelijke, en dat de hormonen die daarbij vrijkomen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-80">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">80 &middot; Geld en ondernemen</p>
+    <h1>The Hour Between Dog and Wolf</h1>
+    <p class="lede">John Coates, 2012</p>
+    <p class="stats">
+      <span><b>1849</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="80"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Coates betoogt dat het nemen van financieel risico geen zuiver verstandelijke bezigheid is maar een lichamelijke, en dat de hormonen die daarbij vrijkomen de beoordeling van risico zelf verschuiven. Winst verhoogt testosteron, testosteron verhoogt de risicobereidheid, en die lus kan een handelaar over een reeks winstdagen roekeloos maken. Verlies en onzekerheid verhogen cortisol, dat bij aanhoudende blootstelling angst en risicomijding oplevert. Zijn slotstelling is dat zeepbellen en crashes daardoor deels een fysiologisch verschijnsel zijn: markten worden niet alleen gedreven door verkeerde overtuigingen, maar door lichamen die op winst en verlies reageren zoals ze op een gevecht of een vlucht zouden reageren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel I: lichaam en geest op de handelsvloer</h3>
+      <p>Coates opent met een gedramatiseerde scène op een handelsvloer in New York in de aanloop naar een rentebesluit van de Federal Reserve. Twee handelaren, Scott en Logan, merken de verschuiving in de koersen op voordat ze kunnen zeggen waarom. Hij verklaart dat via de locus ceruleus, een kern in de hersenstam die reageert op nieuwheid en op het wegvallen van vertrouwde verbanden, en die het lichaam in staat van paraatheid brengt voordat het bewustzijn iets registreert.</p>
+      <p>Daarna beschrijft hij wat er ondertussen in het lichaam gebeurt: versnelde stofwisseling en ademhaling, herverdeling van bloed weg van maag en voortplantingsorganen naar spieren, hart en hersenen, en het op gang komen van steroïdhormonen. Het eerste hoofdstuk zet dit tegenover de gangbare economische voorstelling van risico als rekensom over rendementen en kansen.</p>
+      <h3>De aanloop: de dotcomzeepbel als aanleiding</h3>
+      <p>Coates handelde in de jaren negentig in derivaten bij Goldman Sachs, Merrill Lynch en Deutsche Bank en zag de Nasdaq van rond de 1.500 naar ruim 5.000 gaan in anderhalf jaar, een stijging van meer dan driehonderd procent zonder dat de onderliggende cijfers dat droegen. Wat hem opviel was niet de koersen maar het gedrag van collega's: mensen veranderden van karakter, werden zelfverzekerd tot in het onaangename, en bleven kopen.</p>
+      <p>Die waarneming brengt hem terug naar de wetenschap. Hij verruilt de handel voor onderzoek in de neurowetenschappen en endocrinologie in Cambridge, met de vraag of hij het verschijnsel kan meten in plaats van beschrijven.</p>
+      <h3>Deel II: denken met het lichaam</h3>
+      <p>De hoofdstukken over snelheid van denken en over gevoel in de buik voeren het begrip pre-attentieve verwerking in. Veel van wat een handelaar of een sporter doet, gebeurt sneller dan bewuste beslissingen mogelijk maken. Coates beschrijft interoceptie, het waarnemen van signalen uit het eigen lichaam, als de fysiologische basis van wat men een onderbuikgevoel noemt.</p>
+      <p>Hier past hij zijn eigen meting in: hij liet handelaren de snelheid van hun hartslag beoordelen en vergeleek dat met hun daadwerkelijke hartslag. De ervaren handelaren deden dat beter dan de vergelijkingsgroep. Zijn uitleg is dat wie zijn eigen lichaam nauwkeurig afleest, ook de vroege signalen van een kansrijke of gevaarlijke situatie nauwkeuriger oppikt.</p>
+      <h3>Deel III: het winnaarseffect</h3>
+      <p>Het hoofdstuk over de brandstof van uitbundigheid draagt de kern van het boek. In de biologie is het winnaarseffect het verschijnsel dat een dier dat een gevecht wint, het volgende gevecht met grotere kans wint, ook wanneer de tegenstanders in grootte en motivatie gelijk zijn. De verklaring loopt via testosteron: het stijgt vóór de wedstrijd, stijgt verder na winst, en verhoogt daarna spiermassa, doorzettingsvermogen en bereidheid om opnieuw de strijd aan te gaan.</p>
+      <p>Coates onderzocht dit op een handelsvloer in de City of London. Bij zeventien mannelijke handelaren nam hij speekselmonsters af. Wanneer hun testosteron in de ochtend hoog was ten opzichte van hun eigen middenwaarde, verdienden zij in de middag aanzienlijk meer dan op dagen dat het laag was. Hij vond daarnaast dat de verhouding tussen de lengte van wijsvinger en ringvinger, de zogeheten 2D:4D-ratio die als maat voor blootstelling aan androgenen in de baarmoeder wordt gebruikt, samenhing met de winstgevendheid van diezelfde handelaren over de voorafgaande twee jaar en met de duur van hun loopbaan.</p>
+      <p>De doorredenering naar de markt is dat een aanhoudende hausse bij veel handelaren tegelijk het winnaarseffect aanzet, waarna posities groter worden dan het oordeel rechtvaardigt. Coates noemt dit de laatste fase van het winnaarseffect, waarin overmoed zich vermomt als inzicht.</p>
+      <h3>De keerzijde: cortisol en de stressrespons</h3>
+      <p>Het hoofdstuk over stress beschrijft de tegenhanger. Coates en zijn collega's redeneerden dat niet verlies zelf maar onzekerheid over waar prijzen zullen staan de sterkste prikkel is, en gebruikten koersbeweeglijkheid als maat. Cortisol hoort in de loop van de dag met ongeveer de helft te dalen; op beweeglijke dagen steeg het bij deze handelaren juist, bij sommigen met vijfhonderd procent, waarden die men normaal alleen bij patiënten ziet.</p>
+      <p>Bij een vragenlijst bleek dat de handelaren zelf niet aangaven meer stress te ervaren bij grote verliezen of hoge beweeglijkheid. Hun cortisol volgde die factoren wel. Coates gebruikt dat verschil om te betogen dat de reactie grotendeels buiten de zelfwaarneming om verloopt. Langdurig verhoogd cortisol maakt volgens de literatuur die hij aanhaalt risicomijdend en somber, en heeft lichamelijke gevolgen tot en met hoge bloeddruk en terugkerende infecties.</p>
+      <p>Daarmee is de asymmetrie van de markt verklaard zoals Coates haar ziet: in een hausse nemen handelaren te veel risico, in een crash te weinig, precies op het moment dat de prijzen aantrekkelijk zijn.</p>
+      <h3>Deel IV: weerbaarheid en wat eraan te doen valt</h3>
+      <p>Het hoofdstuk over weerbaarheid vraagt of de stressrespons te sturen valt, en het antwoord is voorzichtig. Coates verwerpt de gedachte dat je cortisol kunt wegdenken. Wat volgens hem wel werkt, is gewenning door herhaalde, beheersbare blootstelling aan lichamelijke belasting: training, kou, tekort aan slaap dat weer wordt ingehaald. Het lichaam leert daarvan sneller aanzetten en sneller afschakelen.</p>
+      <p>Het slothoofdstuk trekt de lijn naar beleid. Coates stelt voor de samenstelling van handelsvloeren te veranderen, met meer vrouwen en meer oudere mannen, omdat beide groepen minder vatbaar zouden zijn voor het winnaarseffect: vrouwen produceren gemiddeld tien tot twintig procent van de testosteronhoeveelheid van mannen en zijn niet aan dezelfde prenatale androgenen blootgesteld. Hij noemt daarbij zelf ook niet-biologische oorzaken van de instabiliteit sinds de jaren negentig, waaronder lage reële rente, deregulering, hoge hefboom en het verdwijnen van de vennootschapsvorm waarin partners met eigen vermogen aansprakelijk waren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Winner effect</td><td>Het verschijnsel dat winst de kans op volgende winst verhoogt via een stijging van testosteron en de daaruit volgende grotere risicobereidheid.</td></tr>
+          <tr><td class="term">Het uur tussen hond en wolf</td><td>De schemering waarin je een hond niet meer van een wolf kunt onderscheiden, bij Coates het beeld voor het moment waarop zelfvertrouwen omslaat in overmoed.</td></tr>
+          <tr><td class="term">Cortisol</td><td>Het stresshormoon dat volgens zijn metingen vooral reageert op onzekerheid en dat bij aanhoudende verhoging risicomijding en somberheid oplevert.</td></tr>
+          <tr><td class="term">Interoceptie</td><td>Het waarnemen van signalen uit het eigen lichaam, door Coates aangewezen als de basis van wat handelaren onderbuikgevoel noemen.</td></tr>
+          <tr><td class="term">Pre-attentieve verwerking</td><td>Het opmerken en reageren op een verandering voordat die het bewustzijn bereikt, in het boek gekoppeld aan de locus ceruleus.</td></tr>
+          <tr><td class="term">2D:4D-ratio</td><td>De verhouding tussen de lengte van wijsvinger en ringvinger, gebruikt als maat voor blootstelling aan mannelijke hormonen vóór de geboorte.</td></tr>
+          <tr><td class="term">Locus ceruleus</td><td>Een blauwgekleurde kern in de hersenstam die reageert op nieuwheid en op het wegvallen van bekende verbanden, en het lichaam in verhoogde staat van paraatheid brengt.</td></tr>
+          <tr><td class="term">Body-brain feedback loop</td><td>De wederkerige beïnvloeding waarbij hormonen uit het lichaam de manier veranderen waarop de hersenen denken, en omgekeerd.</td></tr>
+          <tr><td class="term">Toughness</td><td>Weerbaarheid die volgens Coates ontstaat door herhaalde beheersbare lichamelijke belasting, waardoor de stressrespons sneller aan- en uitgaat.</td></tr>
+          <tr><td class="term">Hormesis</td><td>Het principe dat een matige dosis van een belastende prikkel het lichaam sterker maakt in plaats van zwakker.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op twee eigen veldstudies op een handelsvloer in de City of London, plus een omvangrijke literatuur uit de dierbiologie en de sportfysiologie. De opzet van de eigen studies is klein. In de testosteronstudie gaat het om zeventien mannelijke handelaren op één vloer, gedurende een beperkte reeks handelsdagen. De cortisolstudie werd op vergelijkbare schaal uitgevoerd. Coates rapporteert die getallen zelf en presenteert de uitkomsten als voorlopig bewijs, in zijn eigen woorden goede eerste aanwijzingen dat het winnaarseffect ook op de financiële markten optreedt.</p>
+      <p>Het achterliggende dieronderzoek is stukken steviger. Dat een winnaar in een volgend gevecht een grotere kans heeft, ook bij gelijke grootte en motivatie, is in de biologie meermaals vastgesteld, en de rol van testosteron daarin is goed beschreven. Hetzelfde geldt voor de literatuur over aanhoudend verhoogd cortisol en de gevolgen voor stemming en gezondheid. Coates leunt zwaarder op die literatuur dan op zijn eigen cijfers.</p>
+      <p>De zwakste schakel in de bewijsvoering is de 2D:4D-ratio. Dat de vingerverhouding de winstgevendheid over twee jaar en de loopbaanduur van zijn handelaren voorspelde, is een opvallende uitkomst uit een kleine groep, en de bredere literatuur over deze maat kent replicaties die de oorspronkelijke bevindingen niet terugvonden. Coates behandelt de maat als een indirecte aanwijzing voor prenatale hormoonblootstelling en niet als een verklaring op zich, maar het gewicht dat het hoofdstuk eraan geeft is groter dan de onderbouwing draagt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De stap van zeventien handelaren op één vloer naar het gedrag van hele markten is een sprong, en het is te prijzen dat Coates dat zelf benoemt. Hij spreekt over voorlopige aanwijzingen en over een hypothese die verder onderzoek verdient. In de latere hoofdstukken en in de beleidsvoorstellen wordt die voorzichtigheid echter minder zichtbaar dan in het onderzoeksdeel, en de titel en de opzet van het boek suggereren een verklaring van zeepbellen die de metingen niet leveren.</p>
+      <p>Een tweede bezwaar is dat de hormonale verklaring concurreert met andere verklaringen die Coates zelf aandraagt: lage reële rente, deregulering, lage marginverplichtingen en hoge hefboom, en het verdwijnen van partnerschappen waarin het verlies bij de partners zelf terechtkwam. Die factoren kunnen het gedrag dat hij beschrijft grotendeels verklaren zonder dat er een hormoon aan te pas komt. Het boek weegt niet af hoeveel de biologie hier bovenop de prikkelstructuur verklaart.</p>
+      <p>Verder is de causale richting in de eigen studies niet vastgelegd. Dat hoge ochtendtestosteron samenging met hogere middagwinst kan betekenen dat het hormoon de prestatie verbetert, maar even goed dat handelaren op dagen met gunstige marktomstandigheden of na een goede nacht zowel meer testosteron hebben als meer verdienen. Er is geen ingreep, alleen waarneming.</p>
+      <p>Ten slotte gaat het boek vrijwel volledig over jonge mannen op een handelsvloer, en de aanbeveling om meer vrouwen aan te nemen rust op een gemiddeld verschil in hormoonspiegels waarvan de gedragsgevolgen niet in dezelfde studies zijn gemeten. Dat is een beleidsvoorstel op basis van een aanname, en het verdient de kanttekening die Coates er niet bij geeft.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd bij een reeks winstdagen bij hoeveel groter je posities of uitgaven worden, en spreek vooraf een bovengrens af die niet meebeweegt met recente uitkomsten.</li>
+        <li>Leg beslisregels vast op een moment dat er niets speelt, en volg ze op momenten dat er wel iets speelt.</li>
+        <li>Vertrouw je eigen oordeel over hoe gestrest je bent niet als enige maat; Coates' handelaren merkten hun eigen cortisolstijging niet op.</li>
+        <li>Bouw na een verlies een pauze in voordat je opnieuw beslist, omdat de risicomijding die dan optreedt langer aanhoudt dan de aanleiding.</li>
+        <li>Behandel slaap, beweging en herstel als onderdeel van je beslissingsvermogen en niet als iets wat daarnaast staat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Risk-taking, Gut Feelings and the Biology of Boom and Bust</i> (Fourth Estate/Random House Canada). Nederlands als <i>Het uur tussen hond en wolf</i> bij Nieuw Amsterdam (2012).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Coates handelde in derivaten en werd daarna neurowetenschapper, en dit boek is de kruising van die twee. Zijn stelling is dat beslissen over risico geen zaak van het verstand alleen is: bij winstreeksen stijgt het testosteron, wat tot grotere posities en meer zelfvertrouwen leidt, en bij langdurige onzekerheid stijgt het cortisol, wat mensen risicomijdend maakt op het moment dat kopen juist verstandig zou zijn.</p><p>Hij onderbouwt dat met speekselmetingen bij handelaren op een echte handelsvloer, en verbindt de uitkomsten met wat er in het lichaam gebeurt tijdens inspanning en stress. De conclusie is ongemakkelijk voor wie markten als rekensom ziet: hausse en krach hebben een lichamelijke component. Het onderzoek is klein van opzet en de generalisatie naar hele markten is een sprong die hij zelf ook benoemt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>risico</li><li>hormonen</li><li>handel</li><li>lichaam</li><li>onderzoek</li><li>beurs</li><li>stress</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel verklaart hetzelfde onverstandige geldgedrag uit levenservaring en gewoonte in plaats van uit fysiologie.</li>
+          <li value="144"><a href="144.html">Margin of Safety</a>. Klarman beschrijft vanuit de praktijk hoe beleggers zich in een hausse laten meenemen, zonder de biologische verklaring te zoeken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

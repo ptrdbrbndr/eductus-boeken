@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Margin of Safety &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Klarman stelt dat beleggen begint bij het vermijden van verlies en niet bij het najagen van rendement, en dat de enige verdedigbare weg daartoe het kopen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-144">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">144 &middot; Geld en ondernemen</p>
+    <h1>Margin of Safety</h1>
+    <p class="lede">Seth A. Klarman, 1991</p>
+    <p class="stats">
+      <span><b>1895</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>30 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="144"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Klarman stelt dat beleggen begint bij het vermijden van verlies en niet bij het najagen van rendement, en dat de enige verdedigbare weg daartoe het kopen van effecten is tegen een aanzienlijke korting op hun onderliggende waarde. Die korting, de veiligheidsmarge, is voor hem geen extra voorzorg maar de kern van de methode: zij maakt het overbodig om de toekomst juist te voorspellen. Daaruit volgt een reeks stellingen die tegen de gangbare praktijk ingaan, waaronder dat risico niet uit koersbeweeglijkheid valt af te lezen maar uit de betaalde prijs, dat volledig belegd blijven een fout is wanneer er niets goedkoops te vinden is, en dat de instellingen die het meeste geld beheren juist het slechtst zijn ingericht om dit te doen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel I: speculanten, Wall Street en de institutionele wedloop</h3>
+      <p>Het eerste deel behandelt vier oorzaken van verlies. Speculanten kopen papier in de verwachting het duurder door te verkopen, zonder oordeel over de onderliggende onderneming. Wall Street verdient aan het volume van transacties en niet aan het nut ervan, en heeft er dus belang bij dat er veel gehandeld en veel uitgegeven wordt.</p>
+      <p>Het hoofdstuk over de institutionele prestatiewedloop is het scherpst. Pensioen- en stichtingsvermogen dat er voor tientallen jaren staat, wordt beheerd door managers die per kwartaal worden afgerekend en die elkaar proberen te verslaan. Daaruit volgt de neiging om altijd volledig belegd te zijn en om nooit ver van de index af te wijken, omdat afwijken en ongelijk krijgen zwaarder wordt afgestraft dan meelopen en ongelijk krijgen. De klant betaalt de rekening.</p>
+      <p>Het vierde hoofdstuk is een ontleding van de markt voor rommelobligaties in de jaren tachtig. Klarman laat zien hoe het standaard wanbetalingspercentage rekenkundig te gunstig werd berekend door uitstaande leningen te delen door een snel groeiende noemer, en hoe EBITDA werd ingevoerd als maatstaf voor vrije kasstroom. Zijn voorbeeld daarbij zijn twee bedrijven met dezelfde EBITDA van twintig miljoen, waarvan het ene dienstverlener is zonder afschrijvingen en dus twintig miljoen verdient, en het andere producent met twintig miljoen afschrijving en dus nul. Wie op EBITDA afgaat waardeert ze gelijk. Hij sluit af met de gesecuritiseerde pakketten rommelobligaties waarvan de bovenste laag een kredietwaardige beoordeling kreeg, met de opmerking dat een stapel rommel rommel blijft, hoe je hem ook stapelt.</p>
+      <h3>Deel II: doelen stellen en de veiligheidsmarge</h3>
+      <p>Het vijfde hoofdstuk gaat in tegen de gewoonte om een rendementsdoel te stellen. Een doel stellen maakt het niet haalbaar, en het richt de aandacht op wat er kan worden verdiend in plaats van op wat er kan worden verloren. Klarman stelt daartegenover dat een belegger risico moet aansturen en niet rendement, met de rente op schatkistpapier als het nulpunt waarboven elk extra risico zich moet terugverdienen.</p>
+      <p>Hij onderbouwt dat met de rekenkunde van samengestelde groei: wie tien jaar zestien procent per jaar haalt, eindigt met meer dan wie negen jaar twintig procent haalt en in het tiende jaar vijftien procent verliest. De tweede belegger presteert negen van de tien jaar beter, wat volgens Klarman verklaart waarom instellingen die manier van beleggen belonen.</p>
+      <p>Het zesde hoofdstuk definieert waardebeleggen als het kopen van effecten met een flinke korting op de onderliggende waarde en het vasthouden tot die waarde zich toont. De veiligheidsmarge is de omvang van die korting. Hij citeert Buffett met het beeld van een brug die je op dertigduizend pond bouwt en waar je vrachtwagens van tienduizend pond overheen rijdt. Klarman geeft daarbij de voorkeur aan materiële activa boven immateriële, omdat een receptuur of een uitzendlicentie geen restwaarde heeft als de smaak van het publiek verandert.</p>
+      <h3>De voorbeelden waarop de methode rust</h3>
+      <p>Klarman werkt de veiligheidsmarge uit aan concrete posities uit zijn eigen praktijk. Erie Lackawanna had eind 1987 bijna 140 dollar aan contanten per aandeel plus een goed onderbouwde belastingvordering, terwijl het aandeel op 110 dollar te koop was; tot medio 1991 was cumulatief 179 dollar per aandeel uitgekeerd en handelde het aandeel nog rond acht dollar. De achttien procent tweede hypotheekobligaties van Public Service Company of New Hampshire noteerden begin 1989 rond pari terwijl de onderliggende nutsactiva de hoofdsom vele malen dekten.</p>
+      <p>Zijn bekendste voorbeeld zijn de obligaties van Texaco. Nadat het bedrijf in 1987 surseance aanvroeg vanwege een vonnis van tien miljard dollar ten gunste van Pennzoil, noteerden de 11,875 procent obligaties met looptijd tot mei 1994 rond de 90. Bij volledige betaling van hoofdsom en rente kwam dat neer op een jaarrendement van 44,1 procent bij een jaar aanhouden, 25,4 procent bij twee jaar en 19,5 procent bij drie jaar. De onzekerheid zat in de timing, niet in de dekking.</p>
+      <p>Tegenover die voorbeelden zet hij aandelen waarvan de prijs op verwachtingen rustte. Compaq noteerde op 6 maart 1991 72, viel naar 61 en verloor op 14 mei nog eens ruim dertien punten tot 36 na een tegenvallend kwartaal. En Telefonos de Mexico noteerde begin 1987 tien cent en begin 1991 ruim 3,25 dollar, wat volgens Klarman voor het grootste deel te verklaren was uit een veranderde stemming en niet uit veranderde bedrijfsresultaten.</p>
+      <h3>De onderbouwing: waarom prijzen van waarde afwijken</h3>
+      <p>Het zevende hoofdstuk behandelt de vraag waarom deze methode kan werken. Klarman aanvaardt alleen de zwakke vorm van de theorie van efficiënte markten, namelijk dat koersgeschiedenis niets zegt over toekomstige koersen; technische analyse noemt hij tijdverspilling. De halfsterke en sterke vorm verwerpt hij. Zijn argument is deels empirisch, via Buffetts artikel over de superbeleggers uit Graham-and-Doddsville, waarin negen leerlingen van Benjamin Graham met sterk uiteenlopende portefeuilles langdurig hoge rendementen haalden.</p>
+      <p>Deels is het argument mechanisch: koersen komen op korte termijn tot stand door vraag en aanbod, en veel kopers en verkopers handelen om redenen die niets met waarde te maken hebben. Een indexfonds koopt wat in de index zit ongeacht de prijs. Grote fondsen mogen bepaalde categorieën niet bezitten. Klarman verwacht daarom de meeste onjuiste prijzen buiten de best gevolgde grote fondsen, in kleine ondernemingen, in noodlijdende schuld en in verwaarloosde hoeken.</p>
+      <h3>Deel III: het waarderen en het proces</h3>
+      <p>Het achtste hoofdstuk noemt waardering uitdrukkelijk een kunst en geen rekensom. Klarman werkt drie benaderingen uit: de contante waarde van toekomstige kasstromen, de liquidatiewaarde en de waarde die de aandelenmarkt aan een vergelijkbare onderneming toekent. Hij wantrouwt precisie in alle drie en beveelt aan met bandbreedtes en conservatieve aannames te werken, omdat een schijnnauwkeurige uitkomst tot te hoge biedingen leidt.</p>
+      <p>Het derde deel beschrijft het werk. Onderzoek als het zoeken naar zeldzame kansen, met de aanvaarding dat je veel zaken diepgaand bekijkt zonder er één te kopen. Daarna de plekken waar die kansen zitten: aanleidingen die waarde vrijmaken, marktinefficiënties en beperkingen die instellingen zichzelf opleggen. Twee hoofdstukken werken specifieke terreinen uit, de omzetting van spaarbanken naar beursvennootschappen en het beleggen in noodlijdende en failliete effecten.</p>
+      <p>De laatste twee hoofdstukken gaan over portefeuillebeheer, handelen en de mogelijkheden voor een particulier. Klarman verdedigt daarin het aanhouden van liquiditeit wanneer er niets goedkoops te koop is, spreiding zonder de gedachte dat spreiding op zichzelf beschermt, en het afdekken van posities alleen wanneer dat financieel aantrekkelijk is en niet uit gewoonte.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Margin of safety</td><td>Het verschil tussen de betaalde prijs en de geschatte onderliggende waarde, groot genoeg om een verkeerde inschatting op te vangen.</td></tr>
+          <tr><td class="term">Value investing</td><td>Het kopen van effecten tegen een aanzienlijke korting op hun onderliggende waarde en vasthouden tot die waarde zich in de prijs vertaalt.</td></tr>
+          <tr><td class="term">Loss avoidance</td><td>Het uitgangspunt dat een portefeuille over meerdere jaren geen noemenswaardig verlies van hoofdsom mag lijden, hetgeen boven rendementsdoelen gaat.</td></tr>
+          <tr><td class="term">Catalyst</td><td>Een aanwijsbare gebeurtenis, zoals een liquidatie, afsplitsing of afwikkeling van een faillissement, die de onderliggende waarde daadwerkelijk vrijmaakt.</td></tr>
+          <tr><td class="term">Yield pigs</td><td>Klarmans aanduiding voor beleggers die enkele basispunten extra rente najagen ten koste van kredietkwaliteit.</td></tr>
+          <tr><td class="term">Torpedo stocks</td><td>Aandelen waarvan de prijs op hooggespannen verwachtingen rust en die bij de eerste tegenvaller hard onderuitgaan.</td></tr>
+          <tr><td class="term">Institutional performance derby</td><td>De onderlinge kwartaalwedloop tussen vermogensbeheerders die hen dwingt volledig belegd te blijven en dicht bij de index.</td></tr>
+          <tr><td class="term">EBITDA</td><td>De maatstaf die in de jaren tachtig werd ingevoerd als benadering van vrije kasstroom en die volgens Klarman investeringen in vervanging ten onrechte wegdenkt.</td></tr>
+          <tr><td class="term">Liquidation value</td><td>De opbrengst van de activa bij afwikkeling, door Klarman gebruikt als ondergrens bij de waardering van een onderneming.</td></tr>
+          <tr><td class="term">Bottom-up investing</td><td>Het zoeken naar goedkope effecten stuk voor stuk, in plaats van te beginnen bij een verwachting over economie of markt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek onderscheidt zich van het meeste in dit genre doordat de voorbeelden benoemd zijn: Erie Lackawanna, Public Service Company of New Hampshire, Texaco, Compaq, Telefonos de Mexico, met koersen, data en rendementen erbij. Klarman schreef ze op uit de praktijk van Baupost, waar hij op dat moment negen jaar werkte. Dat maakt de redenering navolgbaar en toetsbaar op een manier die in beleggingsliteratuur zeldzaam is.</p>
+      <p>Tegelijk is dit geselecteerd bewijs uit één portefeuille. Klarman geeft geen rendementsreeks van Baupost, geen aantal posities, geen verhouding tussen geslaagde en mislukte gevallen. De lezer krijgt de gevallen die de methode illustreren. Voor de kernstelling, dat kopen met een grote korting het neerwaartse risico beperkt, is dat aannemelijk maar niet bewezen; het bewijs dat de methode over een volledige portefeuille en over meerdere cycli beter uitpakt, staat niet in het boek.</p>
+      <p>De aanval op de theorie van efficiënte markten leunt op Buffetts artikel over de superbeleggers uit Graham-and-Doddsville. Klarman merkt op dat de aanhangers van de efficiënte markt dat argument nooit hebben beantwoord. De tegenwerping die daarop bestaat, dat negen achteraf geselecteerde beleggers uit een grote populatie ook door toeval kunnen ontstaan, wordt in het boek wel genoemd maar niet met cijfers weerlegd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek heeft een bijzondere status die de beoordeling vertroebelt. Het is na 1991 nooit herdrukt, en tweedehands exemplaren gaan voor bedragen die de inhoud niet kunnen rechtvaardigen. Die schaarste heeft het boek een reputatie gegeven die deels op onbereikbaarheid rust. Wie het leest, treft een helder en degelijk boek aan, en niet een openbaring die de prijs verklaart. Een deel van wat erin staat is in latere brieven en interviews van Klarman zelf toegankelijk herhaald.</p>
+      <p>Inhoudelijk is het sterkste bezwaar dat de methode moeilijk overdraagbaar is. Klarman erkent dat zelf: waardebeleggen vraagt veel werk, strenge zelfbeheersing en een lange horizon, en volgens hem is maar een fractie van de mensen die dat willen ook geschikt. Wat het boek daarmee levert is een verantwoording van hoe hij werkt, en geen werkwijze die een lezer kan overnemen. De waarderingshoofdstukken geven bandbreedtes en waarschuwingen, geen procedure.</p>
+      <p>Verder is een groot deel van deel I tijdgebonden. Het uitvoerige hoofdstuk over rommelobligaties in de jaren tachtig was in 1991 actueel en is nu vooral leerzaam als voorbeeld van hoe een maatstaf wordt opgerekt om een prijs te rechtvaardigen. Ook de terreinen die Klarman als jachtgebied aanwijst, spaarbankomzettingen en noodlijdende schuld, zijn sindsdien door gespecialiseerde fondsen bezet, waardoor de korting die hij daar vond niet zonder meer nog bestaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal bij elke aankoop eerst wat je kunt verliezen als je aanname niet klopt, en pas daarna wat je kunt verdienen.</li>
+        <li>Schrijf op waarom een belegging ondergewaardeerd is, en verkoop wanneer die reden niet meer geldt, ook als de prijs nog niet is opgelopen.</li>
+        <li>Kijk bij een winstmaatstaf altijd wat eruit is weggelaten, met EBITDA en vervangingsinvesteringen als vaste controle.</li>
+        <li>Aanvaard dat niets kopen een geldige uitkomst is van onderzoek, en leg vooraf vast hoeveel je bereid bent aan liquiditeit aan te houden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Risk-Averse Value Investing Strategies for the Thoughtful Investor</i> (HarperBusiness, 1991). Nooit herdrukt; tweedehandsexemplaren worden voor honderden dollars verhandeld.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Klarman beheert een groot beleggingsfonds en schreef dit boek vanuit één vraag: hoe voorkom je verlies. Het eerste deel legt uit waar beleggers stuklopen, met de prikkels van Wall Street en van de institutionele vermogensbeheerders die op kwartaalrendement worden afgerekend. Het tweede deel zet daar het waardebeleggen tegenover, met de veiligheidsmarge als kern: koop ver onder de waarde, zodat een misrekening geen ramp is.</p><p>Het derde deel is praktisch en gaat over waarderen, over bijzondere situaties zoals faillissementen en afsplitsingen, en over het inrichten van een portefeuille. Het is nuchter, streng en zonder beloftes, en het is de reden dat dit boek onder beleggers de status heeft die het heeft. De voorbeelden komen uit de jaren tachtig en vragen enige vertaling naar nu.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>waardebeleggen</li><li>risico</li><li>veiligheidsmarge</li><li>wall-street</li><li>klassieker</li><li>zeldzaam</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel gebruikt de veiligheidsmarge als vuistregel voor het persoonlijke huishoudboekje in plaats van als analysemethode.</li>
+          <li value="80"><a href="80.html">The Hour Between Dog and Wolf</a>. Coates verklaart met hormonen waarom beleggers doen wat Klarman in deel I aan onvoorzichtigheid toeschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
