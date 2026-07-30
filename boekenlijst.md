@@ -15227,6 +15227,214 @@ van gedachte naar uitkomst is een geloofsuitspraak. Wat er blijft staan is de
 praktische kern over vastgelegde doelen en volharding, die later beter is
 onderbouwd door anderen.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Hill beweert dat rijkdom begint bij een gedachte en dat het
+overgaan van gedachte naar geld verloopt volgens dertien stappen die hij in
+vijfentwintig jaar zou hebben afgeleid uit het leven van meer dan vijfhonderd
+zeer vermogende Amerikanen, op aanwijzing van Andrew Carnegie. De kern is een
+brandend verlangen naar een vastgesteld bedrag, dat door dagelijkse hardop
+herhaalde autosuggestie in het onderbewuste wordt geplant tot het geloof
+wordt, waarna het onderbewuste in verbinding met wat hij Oneindige
+Intelligentie noemt de plannen aanlevert. Wie de methode volgt en niets
+bereikt, heeft volgens Hill niet de methode maar zichzelf zien falen.
+
+#### De gang van het boek
+
+**Het geheim en de belofte van de bron**
+
+Titelblad, voorwoord van de uitgever en voorwoord van de auteur zetten de
+aanspraak neer waarop het hele boek rust: de formule komt van Andrew Carnegie,
+die haar volgens Hill terloops in zijn hoofd wierp toen hij nog een jongen was
+en hem daarna vroeg twintig jaar te besteden aan het uitwerken ervan. Het boek
+zou zijn georganiseerd uit de ervaring van meer dan vijfhonderd vermogende
+mannen die met niets begonnen.
+
+Hill noemt het geheim nooit bij naam. Hij schrijft dat het in elk hoofdstuk
+wordt genoemd en zich alleen openbaart aan wie er klaar voor is. De
+aanbevelingen vooraan komen van Woolworth, Robert Dollar, Samuel Gompers en
+Woodrow Wilson, en gaan alle over Hills eerdere werk *The Law of Success*.
+
+**Verlangen: de zes stappen**
+
+Het openingsverhaal is Edwin C. Barnes, die zonder geld en zonder introductie
+naar Orange kwam met het voornemen de zakenpartner van Edison te worden, vijf
+jaar het geringste werk deed en dat uiteindelijk werd. Daarnaast staan de
+veldheer die zijn schepen liet verbranden en Marshall Field die na de brand
+van Chicago op dezelfde plek herbouwde.
+
+Uit die verhalen leidt Hill zes stappen af: stel het exacte bedrag vast,
+bepaal wat u ervoor teruggeeft, kies een datum, maak een plan en begin meteen,
+schrijf alles in één verklaring op, en lees die verklaring tweemaal daags
+hardop terwijl u zichzelf het geld al ziet en voelt bezitten. De stappen
+zouden door Edison zijn goedgekeurd.
+
+**Geloof en autosuggestie**
+
+Geloof is bij Hill geen gave maar een toestand die met herhaling te maken is.
+Hij verwijst naar een criminoloog die zegt dat wie lang genoeg met misdaad
+omgaat haar eerst verdraagt en dan omarmt, en trekt daaruit de gevolgtrekking
+dat elke herhaalde gedachte uiteindelijk door het onderbewuste wordt aanvaard
+en uitgevoerd. Hij noemt het uitdrukkelijk een toegestane misleiding van het
+eigen onderbewuste.
+
+Autosuggestie is het kanaal. Zonder gevoel erbij werkt het niet: de formule
+van Emile Coué kan men een miljoen maal herhalen en er niets mee bereiken
+zolang er geen emotie in zit. Hier keert ook de trillingsleer terug. Geloof,
+liefde en seks kleuren volgens Hill de trilling van een gedachte zo dat zij
+het onderbewuste bereikt en van daar de Oneindige Intelligentie.
+
+**Kennis, verbeelding, planning**
+
+Algemene kennis levert geen geld op; alleen gespecialiseerde kennis die in
+plannen is georganiseerd doet dat. Hill bestrijdt de zegswijze dat kennis
+macht is en noemt haar hoogstens macht in aanleg. Het bewijsstuk is Henry
+Ford, die in een smaadproces feitenvragen niet kon beantwoorden en antwoordde
+dat hij een rij knoppen had om mensen te bellen die het wel wisten.
+
+Verbeelding splitst hij in synthetische verbeelding, die bestaande denkbeelden
+hercombineert, en scheppende verbeelding, die volgens hem ideeën uit de ether
+opvangt. Georganiseerde planning voegt daar de praktijk aan toe: een groep
+bondgenoten, tweemaal per week bijeen, in volkomen harmonie, met lijsten van
+oorzaken van mislukking en de formule QQS voor het verkopen van eigen
+diensten, kwaliteit plus kwantiteit plus de juiste geest van samenwerking.
+
+**Besluitvaardigheid en volharding**
+
+Uit een analyse van naar eigen zeggen meer dan vijfentwintigduizend mislukte
+mensen komt gebrek aan besluitvaardigheid als een van de dertig hoofdoorzaken
+van mislukking. Vermogenden nemen besluiten snel en herzien ze langzaam; wie
+faalt doet het omgekeerde en laat de mening van buren en kranten voor zich
+denken.
+
+Volharding is voor het karakter wat koolstof voor staal is. Hill koppelt haar
+rechtstreeks aan de sterkte van het verlangen: zwakke verlangens leveren
+zwakke uitkomsten, en wie merkt onverschillig te zijn heeft het geldbewustzijn
+nog niet.
+
+**Mastermind, transmutatie en de zesde zintuiglijkheid**
+
+De mastermind is de afstemming van kennis en inspanning tussen twee of meer
+mensen in volkomen harmonie. Hill kent haar naast een zakelijke ook een
+psychische kant: waar twee geesten samenkomen ontstaat volgens hem een derde,
+onzichtbare geest.
+
+In het hoofdstuk over seksuele transmutatie stelt hij dat seksuele energie
+omgeleid kan worden naar scheppend werk, dat mannen van grote prestatie sterk
+ontwikkelde seksuele naturen hebben en steeds door een vrouw waren
+aangedreven. Daarna volgt het brein als zend- en ontvangstation voor
+gedachtetrillingen, en als dertiende stap de zesde zintuiglijkheid, waarin de
+Oneindige Intelligentie zich vanzelf meldt en de lezer voor gevaren zou
+waarschuwen. Hill beschrijft ook zijn gewoonte om 's nachts denkbeeldige
+vergaderingen te houden met negen mannen die hij bewonderde, waaronder
+Emerson, Darwin, Lincoln, Napoleon, Ford en Carnegie.
+
+**De zes spoken van vrees**
+
+Het slothoofdstuk keert de zaak om: voordat de leer kan werken moeten
+besluiteloosheid, twijfel en vrees weg. Hill telt zes grondvrezen, voor
+armoede, kritiek, ziekte, verlies van iemands liefde, ouderdom en dood, en
+beschrijft hun symptomen.
+
+De redenering is dezelfde als in de rest van het boek en daarmee volledig
+gesloten. Gedachten worden werkelijkheid, of ze nu gewild zijn of niet, dus
+wie vreest bouwt zijn armoede zelf. Als voorbeeld voert Hill aan dat artsen
+niet ziek worden omdat zij ziekte niet vrezen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Burning Desire | Een verlangen dat tot een obsessie is opgevoerd, in tegenstelling tot een wens, en dat volgens Hill het beginpunt van elke verwerving is. |
+| Definiteness of Purpose | Een tot op het bedrag en de datum vastgelegd doel, wat Hill de voorwaarde noemt waarop al het overige rust. |
+| Autosuggestie | Het tweemaal daags hardop en met gevoel herhalen van de geschreven verklaring, om die in het onderbewuste te planten. |
+| Money consciousness | Een geest die zo verzadigd is van het verlangen naar geld dat men zich al in bezit ervan ziet. |
+| Infinite Intelligence | De alles doordringende macht waarmee het onderbewuste volgens Hill in verbinding staat en waaruit plannen worden aangeleverd. |
+| Mastermind | Een groep die kennis en inzet in volkomen harmonie bundelt voor één vastgesteld doel. |
+| Synthetische en scheppende verbeelding | Het hercombineren van bekende denkbeelden tegenover het naar Hills zeggen opvangen van ideeën uit de ether. |
+| Seksuele transmutatie | Het omleiden van seksuele drift naar scheppend werk, door Hill de tiende stap genoemd. |
+| QQS | Kwaliteit, kwantiteit en de juiste geest van samenwerking als maat voor het verkopen van de eigen dienstverlening. |
+| De zes spoken van vrees | Armoede, kritiek, ziekte, liefdesverlies, ouderdom en dood, die volgens Hill uit de geest verwijderd moeten zijn voordat de methode werkt. |
+
+#### Waar het argument op rust
+
+Het boek staat of valt met een onderzoek dat nergens wordt getoond. De
+vijfhonderd gesprekken met vermogende mannen zijn nooit aangetoond: er zijn
+geen aantekeningen, geen vragenlijst, geen namenlijst en geen methode. Ook de
+omgang met Andrew Carnegie die Hill claimt wordt door zijn biografen betwist.
+De cijfers die hij noemt, vijfentwintigduizend geanalyseerde mislukkelingen,
+dertig oorzaken van mislukking, tienduizend mislukte pogingen van Edison,
+komen zonder bron en zonder telling.
+
+Wat als onderbouwing dient zijn verhalen achteraf over mensen die het gemaakt
+hebben: Barnes bij Edison, Ford, Marshall Field, Woolworth. Elk van die
+verhalen selecteert op uitkomst. De duizenden die met even sterke overtuiging
+in dezelfde jaren failliet gingen komen niet in het boek voor, en juist zij
+zouden de bewering kunnen toetsen.
+
+Een aantal onderdelen is bruikbaar zonder de leer eromheen: een doel meetbaar
+maken, een termijn stellen, opschrijven wat men in ruil levert, besluiten
+nemen zonder ze bij de eerste tegenspraak te herzien, en een kring van mensen
+om zich heen zetten die meedenken. Die punten hangen niet af van trillingen of
+Oneindige Intelligentie en ontlenen hun waarde niet aan Hills verklaring
+ervan.
+
+De natuurkundige laag is beeldspraak. Het brein als zend- en ontvangstation,
+gedachten die door de ether reizen, emoties die de trillingssnelheid opvoeren:
+er wordt geen grootheid genoemd, geen meting gedaan en geen proef beschreven.
+Het boek verscheen in 1937, toen radio als beeld voor de hand lag, en de
+vergelijking blijft precies dat.
+
+#### Wat er tegen in te brengen valt
+
+De sterkste tegenwerping is dat de leer niet te weerleggen is. Hill schrijft
+dat waar mislukking optreedt, het individu heeft gefaald en niet de methode.
+Daarmee kan geen enkele uitkomst de bewering onderuithalen; wie het geld niet
+krijgt had niet genoeg brandend verlangen. Dezelfde bouw zit in het
+slothoofdstuk, waar het uitblijven van resultaat aan restanten van vrees wordt
+toegeschreven.
+
+De omkering van oorzaak en gevolg loopt door het hele boek. Dat Barnes en Ford
+volhardend waren staat vast; dat hun volharding hun vermogen verklaart is een
+gevolgtrekking uit uitsluitend geslaagde gevallen. Kapitaal, tijdstip,
+netwerk, huidskleur en toeval blijven buiten beschouwing, terwijl het boek
+verscheen in de nasleep van een crisis waarin miljoenen mensen om redenen
+buiten hun denken verarmden.
+
+Enkele beweringen zijn feitelijk onjuist. Dat artsen niet ziek worden omdat
+zij ziekte niet vrezen was in 1937 al weerlegd door de sterfte onder artsen.
+De uitspraak dat wetenschappelijk onderzoek zou hebben uitgewezen dat mannen
+van grote prestatie sterk ontwikkelde seksuele naturen hebben, verwijst naar
+geen enkel onderzoek en is niet controleerbaar.
+
+Het boek spreekt vrijwel uitsluitend over mannen en over geld, en meet succes
+af aan vermogen. De hoofdstukken over seksuele transmutatie en over de vrouw
+achter de man zijn tijdgebonden en berusten op niets. Wie de organisatorische
+delen wil houden, houdt een handzaam boek over doelen en samenwerking over; de
+metafysische helft draagt daar niets aan bij.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf het doel op zoals stap één tot vijf voorschrijven: bedrag of maat,
+datum, tegenprestatie, plan. Laat stap zes, het hardop lezen met het gevoel
+het al te bezitten, weg of behandel het als geheugensteun.
+- Zet een kleine kring van mensen op die het plan met regelmaat met u
+doorneemt. Dat is de mastermind zonder de aanname van een derde onzichtbare
+geest.
+- Neem de dertig oorzaken van mislukking als checklist voor eigen gedrag en
+niet als diagnose van anderen.
+- Toets elke belofte in het boek aan de vraag welke uitkomst haar zou
+weerleggen. Blijkt er geen, dan is het een geloofsuitspraak.
+
+#### Wat je hierna leest
+
+- 127. The Law of Attraction. Atkinson schreef in 1906 de leer van
+gedachtetrilling en aantrekking die Hill dertig jaar later grotendeels
+ongewijzigd overneemt.
+- 83. The Power of Positive Thinking. Peale gebruikt vijftien jaar later
+dezelfde verwachtingsleer, maar richt haar op gemoedsrust en gezondheid in
+plaats van op vermogen.
+
 ## 77. Ikigai
 
 Héctor García en Francesc Miralles, 2016. Oorspronkelijk Spaans; Nederlands
@@ -16569,6 +16777,198 @@ genre. Peale voert geen onderzoek aan, zijn gevallen zijn niet na te trekken,
 en psychiaters van zijn eigen tijd verweten hem dat hij mensen met echte
 klachten van hulp weghield. Wie het leest, leest een historisch document en
 geen handleiding.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Peale stelt dat de meeste mensen niet door hun omstandigheden
+worden verslagen maar door hun gedachtepatroon, en dat dat patroon met
+oefening te vervangen is. Zijn middel is toegepast christendom: bijbelverzen
+die als formule hardop worden herhaald, gebed dat wordt aangevuld met het zich
+voorstellen van de gewenste uitkomst, en het dagelijks legen van de geest van
+vrees, wrok en schuld. Wie dat volhoudt krijgt volgens hem meer rust, meer
+uithoudingsvermogen, betere gezondheid, meer waardering van anderen en betere
+afloop van zijn zaken, omdat verwachting van het beste een aantrekkende
+werking heeft en verwachting van het slechtste een afstotende.
+
+#### De gang van het boek
+
+**Wat het boek belooft**
+
+De inleiding legt de aanspraak vast: dit is geen literair werk en geen
+wetenschappelijk werk, maar een handboek voor persoonlijke verbetering, met
+technieken die in de Marble Collegiate Church in New York jarenlang op
+honderden mensen zijn beproefd. Peale noemt zijn stelsel toegepast christendom
+en zegt dat de beginselen niet van hem zijn maar van de grootste Leraar die
+geleefd heeft.
+
+De opzet is over zeventien hoofdstukken vrijwel gelijk. Een geval uit zijn
+praktijk of van een lezing, een gesprek, een bijbelvers dat als recept wordt
+meegegeven, en het bericht dat het geholpen heeft. Het boek verscheen in 1952
+en werd een van de best verkochte Amerikaanse boeken van de eeuw.
+
+**Zelfvertrouwen en het minderwaardigheidsgevoel**
+
+Het eerste hoofdstuk gaat over gebrek aan geloof in eigen kunnen. Een zakenman
+die voor de belangrijkste afspraak van zijn leven in de stad is, krijgt van
+Peale de zin uit Filippenzen 4:13 mee, met de instructie die drie keer in bed
+te herhalen, drie keer bij het opstaan en drie keer onderweg. Peale voegt
+eraan toe dat de oorzaak van zulke gevoelens ook onderzocht moet worden en dat
+dat tijd kost.
+
+Als voorbeeld van hoe zulke gevoelens ontstaan gebruikt hij zichzelf: als
+jongen mager, wilde dik zijn, en daarnaast domineeszoon met alle opmerkingen
+die daarbij hoorden. Het hoofdstuk eindigt met een lijst oefeningen om een
+beeld van zichzelf als geslaagd persoon vast te houden.
+
+**Rust in het hoofd als bron van vermogen**
+
+Hoofdstuk twee opent met twee reizigers aan het ontbijt, de een met een oor
+vol narigheid van het late nieuws, de ander met een hoofd vol vrede na
+bijbellezen en gebed. Peale beveelt aan de geest ten minste tweemaal per dag
+doelbewust te legen van vrees, haat, spijt en schuldgevoel, en daarna te
+vullen met woorden die rust geven.
+
+In hetzelfde hoofdstuk staat het telefoongebed met een man die na de lezing
+was weggelopen, en de raad aan reizigers op een schip om hun zorg denkbeeldig
+aan de achtersteven overboord te zetten. Peale erkent dat die suggestie
+kinderlijk aandoet en meldt dat een passagier hem vertelde er baat bij te
+hebben gehad.
+
+**Energie, gebed en de drie stappen**
+
+Gezondheid en uithoudingsvermogen behandelt Peale als een zaak van denken. Een
+werper in het betaalde honkbal, Frank Hiller, vertelde hem dat het opzeggen
+van Jesaja 40:31 op de heuvel hem bij grote hitte nieuwe kracht gaf.
+Godsdienst werkt volgens Peale via de gedachten en is een stelsel van
+denktucht dat energie levert.
+
+Zijn gebedsleer vat hij in drie werkwoorden: bidden, zich de uitkomst
+voorstellen en die verwezenlijken. Het gebed is daarmee geen verzoek maar een
+geestelijke oefening waarin het beeld van de gewenste afloop wordt
+vastgehouden. Hij raadt korte gebeden aan op elk moment van de dag, ook onder
+het lopen en het werk.
+
+**Verwacht het beste**
+
+In hoofdstuk zeven staat de kern van de leer het duidelijkst. Peale schrijft
+dat wie het beste verwacht een magnetische werking in zijn geest losmaakt die
+volgens een wet van aantrekking het beste naar hem toe brengt, en dat wie het
+slechtste verwacht een afstotende werking losmaakt. Het voorbeeld is een man
+van dertig die in alles faalde en na het aannemen van Marcus 9:23 een bedrijf
+opbouwde.
+
+Peale bouwt er zelf een beperking in. Geloven betekent niet dat men alles
+krijgt wat men denkt te willen, want wie zich aan God toevertrouwt gaat
+volgens hem geen dingen willen die niet goed voor hem zijn. Hoofdstuk acht,
+over het niet geloven in nederlaag, werkt hetzelfde uit met de man die
+hindernissen eerst weghaalt en ze dan vergeet.
+
+**Zorg, ziekte en de omgang met anderen**
+
+Het hoofdstuk over genezing is behoedzamer dan de rest. Peale voert de Weense
+chirurg Hans Finsterer aan, die meer dan twintigduizend grote operaties deed
+en het aandeel van de goddelijke hand benadrukte, en zegt zelf dat men niet op
+geloof alleen moet vertrouwen maar op de samenwerking van God en de arts.
+
+Verder komen het afleren van de zorggewoonte door de geest dagelijks leeg te
+maken, ontspanning en slaap, en een hoofdstuk over aardig gevonden worden, met
+namen onthouden, belangstelling tonen en geen ruzie zoeken. Het slothoofdstuk
+over het aanboren van de hogere macht en de epiloog vatten het geheel samen
+als een reeks technieken die werken wanneer men ze uitvoert.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Positive thinking | Het aanhoudend vervangen van gedachten van nederlaag door gedachten van geloof, bij Peale altijd met een godsdienstige inhoud. |
+| Toegepast christendom | Peales aanduiding voor zijn stelsel: bijbelse uitspraken gebruikt als praktische techniek voor het dagelijks leven. |
+| Bijbelvers als formule | Een korte tekst die op vaste tijden hardop wordt herhaald tot zij de heersende gemoedstoestand bepaalt. |
+| Mind emptying | Het bewust legen van de geest van vrees, wrok, spijt en schuldgevoel, aanbevolen ten minste tweemaal daags. |
+| Prayerize, picturize, actualize | Bidden, de gewenste uitkomst zich voorstellen en haar zo tot stand laten komen, Peales drieledige gebedstechniek. |
+| Wet van aantrekking | De aanname dat verwachting van het beste het beste aantrekt en verwachting van het slechtste het afstoot. |
+| Inferioriteitsgevoel | Het gebrek aan geloof in eigen kunnen dat Peale als voornaamste rem op geluk en prestatie aanwijst. |
+| Spiritual power | De vanuit God ontvangen energie die volgens Peale via de gedachten binnenkomt en vermoeidheid opheft. |
+| Hogere macht | De bron buiten de mens waaruit men volgens het slothoofdstuk kan putten wanneer eigen middelen tekortschieten. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit gevallen uit Peales eigen praktijk, vrijwel altijd
+zonder naam en zonder navolgbare afloop. Een zakenman, een leidinggevende, een
+ontmoedigde man in een kleedkamer: telkens volgt na een gesprek de mededeling
+dat het geholpen heeft. Er is geen groep die de methode niet kreeg, geen
+meting vooraf en achteraf, en geen enkel geval waarin het middel niet werkte.
+
+De namen die wel vallen dragen de bewering niet. William James wordt tweemaal
+geciteerd, waaronder de veelgebruikte zin dat mensen hun leven kunnen
+veranderen door hun geesteshouding te veranderen; die uitspraak is bij James
+niet als onderzoeksuitkomst bedoeld. De chirurg Hans Finsterer getuigt over
+zijn eigen overtuiging, niet over gemeten uitkomsten. De cijfers over
+slaapmiddelen en hoofdpijn komen van een verkoper en van een ambtenaar die
+volgens Peale graag met getallen speelt.
+
+Peale noemt zijn stelsel op meerdere plaatsen wetenschappelijk. Dat woord
+staat in het boek voor herhaalbaar en praktisch, niet voor getoetst. Zijn
+sterkste eerlijke uitspraak staat in het hoofdstuk over genezing, waar hij
+geloof naast de arts zet en niet in de plaats ervan, en in het eerste
+hoofdstuk, waar hij naast de bijbelformule ook onderzoek naar de oorzaak van
+de klacht aanraadt.
+
+Dat sommige onderdelen effect kunnen hebben is los van het boek aannemelijk.
+Ontspanningsoefening, vaste slaapgewoonten, het uitspreken van zorgen tegen
+iemand die luistert en het richten van aandacht op wat wel kan, zijn later in
+de gedragstherapie in herkenbare vorm teruggekeerd. Het boek levert daar zelf
+geen bewijs voor en verbindt ze aan een verklaring die dat bewijs ook niet
+nodig acht.
+
+#### Wat er tegen in te brengen valt
+
+Psychiaters van zijn eigen tijd verweten Peale dat hij mensen met echte
+klachten van hulp weghield. Het bezwaar raakt de opzet van het boek: wie
+ernstig somber, angstig of ziek is krijgt hier een bijbelvers, een
+ademhalingsoefening en de mededeling dat het bij honderden anderen gewerkt
+heeft, en dat kan behandeling uitstellen. Peale zwakt dat op enkele plaatsen
+af, maar de hoofdlijn van zeventien hoofdstukken blijft dat het probleem in
+het denken zit.
+
+De leer is zo geformuleerd dat zij niet te weerleggen valt. Blijft de uitkomst
+uit, dan was het geloof niet echt, of wilde men iets wat niet goed voor hem
+was. Beide ontsnappingen staan letterlijk in het boek. Daarmee telt elk
+gunstig geval mee en kan geen ongunstig geval iets weerleggen.
+
+De taal van magnetische werking en een wet van aantrekking heeft met
+natuurkunde niets te maken. Peale gebruikt haar zonder haar uit te leggen, en
+hij haalt daarmee een stuk New Thought binnen dat op gespannen voet staat met
+het christendom dat hij zegt toe te passen. Theologen uit zijn tijd verweten
+hem dat gebed bij hem een techniek wordt waarmee de gelovige uitkomsten
+regelt.
+
+Het boek is opvallend eenvormig in zijn voorbeelden. Het gaat over Amerikaanse
+zakenlieden, hun loopbaan, hun slaap en hun aanzien; armoede, onrecht, rouw en
+ziekte die niet weggedacht kunnen worden komen nauwelijks aan bod. Wie in
+zulke omstandigheden verkeert, leest hier vooral dat zijn houding de oorzaak
+is.
+
+#### Wat er concreet mee te doen is
+
+- Neem de oefeningen los van de verklaring: op vaste tijden een korte tekst
+herhalen, zorgen opschrijven of uitspreken, en de dag afsluiten zonder nieuws
+vlak voor het slapen.
+- Gebruik het onderdeel dat over gedrag gaat. Namen onthouden, belangstelling
+tonen en niet zoeken naar de fout in elk voorstel, zijn punten die geen
+godsdienstige aanname vereisen.
+- Behandel het boek niet als vervanging van behandeling. Bij aanhoudende
+somberheid, angst of lichamelijke klachten hoort een arts of hulpverlener, met
+de oefeningen hoogstens ernaast.
+- Let erop hoe de gevallen zijn verteld: uitsluitend geslaagde afloop, geen
+naam, geen navolging. Dat patroon keert in de hele latere zelfhulpmarkt terug.
+
+#### Wat je hierna leest
+
+- 127. The Law of Attraction. Atkinson formuleerde in 1906 de wet van
+aantrekking waar Peale in hoofdstuk zeven zonder bronvermelding op
+teruggrijpt.
+- 76. Think and Grow Rich. Hill richtte dezelfde leer vijftien jaar eerder op
+geldverwerving; Peale richt haar op rust, gezondheid en aanzien.
 
 ## 84. Laat je hersenen niet zitten
 
@@ -23915,6 +24315,189 @@ trillingen en magnetisme is uit de tijd waarin zij is bedacht en heeft met
 natuurkunde niets te maken. Wie de moderne manifestatieboeken naast dit boek
 legt, ziet dat er in ruim honderd jaar aan de kern niets is toegevoegd en aan
 de onderbouwing evenmin.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Atkinson stelt dat het heelal door één wet wordt geregeerd en
+dat de aantrekkingskracht die atomen bijeenhoudt en planeten in hun baan houdt
+op precies dezelfde manier werkt in wat hij de gedachtewereld noemt. Elke
+gedachte zendt trillingen uit die van dezelfde orde zijn als licht, warmte en
+magnetisme, alleen op een andere trillingssnelheid, en die trillingen trekken
+uit de omgeving de mensen, omstandigheden en gebeurtenissen aan die met hen in
+toon overeenkomen. Wie dat begrijpt kan zijn eigen geluk, gezondheid en
+positie kiezen door zijn gewoontedenken te veranderen. Wie het niet begrijpt
+wordt evengoed door de wet geregeerd, alleen dan door zijn angsten.
+
+#### De gang van het boek
+
+**Eén wet, ook voor het denken**
+
+Het boek verscheen in 1906 onder de titel *Thought Vibration or the Law of
+Attraction in the Thought World* en is de tekst waarin de uitdrukking Law of
+Attraction voor het eerst als leerstelsel wordt uitgewerkt. Atkinson was
+redacteur van het tijdschrift *New Thought* en schreef vanuit de New
+Thought-beweging, een Amerikaanse stroming die uit het transcendentalisme
+voortkwam en leerde dat er één scheppende macht is, bij Atkinson het Absolute
+genoemd.
+
+Het eerste hoofdstuk zet de redenering neer. We erkennen de zwaartekracht, we
+erkennen de kracht waarmee een magneet staal aantrekt, en we sluiten onze ogen
+voor de wet die ons de dingen toevoert die we begeren of vrezen. Dat we die
+trillingen niet zien of horen is volgens Atkinson geen tegenwerping, want we
+horen de trillingen van een magneet evenmin.
+
+**Gedachtegolven en gelijkgestemde ontvangst**
+
+Gedachten planten zich volgens hoofdstuk twee voort als golven in een zee van
+geest, in alle richtingen tegelijk, zoals stralen uit de zon. Ze hebben de
+eigenschap zichzelf te reproduceren: zoals een vioolnoot dun glas laat
+meetrillen, wekt een sterke gedachte dezelfde trilling op in geesten die erop
+zijn afgestemd.
+
+Daaruit volgt de kern van de leer. We ontvangen alleen gedachten die passen
+bij de algemene mentale houding die we zelf aanhouden. Wie zichzelf vertrouwt
+wordt niet geraakt door de moedeloosheid van anderen; wie laag gestemd is
+trekt de mislukkingsgedachten van duizenden anderen aan. Atkinson vergelijkt
+dit met de draadloze telegrafie van Marconi, waar het ontvangtoestel alleen
+reageert op de zender die op dezelfde sleutel is afgestemd.
+
+**Actieve en passieve werking van de geest**
+
+Er is één geest met vele vermogens, en elk vermogen werkt op twee manieren. De
+actieve inspanning is nieuw en bewust gemaakt, de passieve komt uit
+herinnering, gewoonte, suggestie van anderen of erfelijkheid. Een handeling
+die eerst actief werd voortgebracht wordt door herhaling automatisch en loopt
+dan op passieve lijnen door tot een nieuwe actieve inspanning haar stopt.
+
+Dit is het mechaniek onder de rest van het boek. Gewoontedenken is opgeslagen
+beweging, en het enige wat die beweging kan neutraliseren is een nieuwe
+gedachtegewoonte met sterkere trilling die de oude opslokt. Atkinson merkt op
+dat de wet even goed voor goede als voor slechte gewoonten geldt.
+
+**Angst uitschakelen, de wil aansluiten**
+
+Het praktische deel begint bij vrees. Wie iets vreest verwacht het, en voor de
+wet van aantrekking is verwachten hetzelfde als wensen. Bestrijden van een
+negatieve gedachte door haar te ontkennen noemt Atkinson tijdverlies; de
+werkzame weg is de tegengestelde eigenschap aannemen en vasthouden. In plaats
+van te zeggen dat men niet bang is, zegt men dat men vol moed is, en men
+blijft dat zeggen tot het de heersende houding is.
+
+Over de wil heeft hij een eigen opvatting. Iedereen bezit al een sterke wil,
+want de eigen voorraad is aangesloten op de universele wilskracht en die is
+onuitputtelijk. Wat getraind moet worden is niet de wil maar de geest, want de
+geest is het instrument waardoor de wil zich toont.
+
+**Verlangen als de aantrekkende macht**
+
+In het latere deel verschuift het zwaartepunt naar begeerte. Wie iets wil
+bereiken moet er verliefd op worden en het tot heersende hartstocht maken, met
+de nuance dat de geest verstrooiing en rust nodig blijft houden. Het lek dat
+Atkinson bestrijdt is niet luiheid maar verspreide aandacht: energie zonder
+gebundelde richting levert niets op.
+
+Het onderbewuste werkt volgens hem dag en nacht langs de lijn van die
+heersende begeerte en levert plannen aan op het moment dat ze nodig zijn. Wie
+zijn aandacht verdeelt, geeft het onderbewuste geen opdracht die het kan
+uitvoeren.
+
+**Opeisen wat van u is**
+
+Het voorlaatste hoofdstuk gaat over de gedachte dat iets te goed voor iemand
+zou zijn. Atkinson vertelt over een vrouw die haar lang verlangde uitkomst
+binnen bereik had en bleef herhalen dat het te mooi was om waar te zijn. De
+wet neemt zulke uitspraken letterlijk, schrijft hij, dus wie zegt onwaardig te
+zijn krijgt gelijk.
+
+Het slothoofdstuk sluit de kring door geluk als verklaring af te wijzen. Een
+man die vertelde dat alles hem altijd tegenzat, leverde volgens Atkinson
+zonder het te merken het sterkste bewijs voor de wet: hij verwachtte tegenslag
+en kreeg haar. Wet, geen toeval, luidt de titel. Het bijgevoegde *My Working
+Creed* uit 1901 vat het geheel samen in een reeks geloofsuitspraken, waaronder
+het geloof in werken en in doen naast zijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Law of Attraction | De wet dat gedachten trillingen uitzenden die soortgelijke gedachten, mensen en omstandigheden naar de denker toe trekken. |
+| Thought Vibration | Atkinsons aanname dat denken een vorm van energie is die op een eigen frequentie trilt, onder die van licht en warmte. |
+| Het Absolute | De ene scheppende macht waarvan volgens de New Thought-leer alles een verschijningsvorm is, ook de mens. |
+| Mental attitude | De heersende gemoedstoestand die bepaalt welke gedachten van buiten wel en niet binnenkomen. |
+| Actieve en passieve inspanning | Het onderscheid tussen bewust gemaakt denken en het automatisch doorlopende gewoontedenken. |
+| Desire Force | De aantrekkende werking van een begeerte die tot heersende hartstocht is gemaakt. |
+| Mental leaks | Het verlies aan werking dat ontstaat doordat de aandacht door elke voorbijgaande gril wordt afgeleid. |
+| Habit-Mind | Het deel van de geest dat aangeleerde patronen vasthoudt en door herhaalde nieuwe indrukken te hertrainen is. |
+| Autosuggestie | Het herhaald aan zichzelf voorhouden van een gedachte tot zij de normale houding wordt. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan en beweert dat ook niet te doen. De twee
+wetenschappelijke citaten in hoofdstuk één, van Elisha Gray over onhoorbare
+geluidsgolven en van M. M. Williams over het gat tussen geluid en warmte, gaan
+over trillingen in de natuurkunde en zeggen niets over denken. Atkinson
+schrijft er zelf bij dat hij ze aanhaalt om te voeden en niet om te bewijzen;
+dat de gedachtetrilling bestaat acht hij bij talrijke onderzoekers al
+vastgesteld, zonder één naam of proef te noemen.
+
+Wat overblijft is analogie en anekdote: de magneet, de vioolsnaar die glas
+laat meetrillen, het telegraaftoestel van Marconi, de vrouw die zich onwaardig
+voelde, de man die altijd pech had. De beeldspraak van trillingen en
+frequenties is aan de natuurkunde ontleend zonder dat er natuurkunde in zit.
+Er is geen grootheid, geen meting en geen mechanisme dat gedachten met de
+gemeten wereld verbindt. Wie het boek beoordeelt op de vraag of het aantoont
+wat het beweert, houdt niets in handen.
+
+Een deel van de waarnemingen staat wel overeind, maar dan om alledaagse
+redenen. Dat wie tegenslag verwacht zich anders gedraagt, minder initiatief
+neemt en door anderen minder vertrouwd wordt, verklaart Atkinsons voorbeelden
+zonder enige wet van aantrekking. Hij noemt dat mechanisme in hoofdstuk
+zestien zelf terloops: anderen vangen de mislukkingsgeest op en gunnen de man
+geen opdracht.
+
+#### Wat er tegen in te brengen valt
+
+De leer is zo geformuleerd dat zij niet te weerleggen valt. Blijft het
+gewenste uit, dan was de begeerte te zwak, de aandacht verdeeld of de vrees te
+sterk. Bevestiging telt mee, tegenspraak wordt aan de lezer toegeschreven. Het
+hoofdstuk over de man met pech maakt dat expliciet: zijn ontkenning van de wet
+geldt als bewijs ervoor.
+
+De keerzijde is hard voor wie het slecht treft. Als verwachting het lot
+bepaalt, dragen zieken, armen en getroffenen zelf de schuld voor hun toestand.
+Atkinson schrijft dat men zijn omstandigheden en zijn geluk kan wijzigen door
+positief denken; over ziekte, armoede en ongeval die buiten het denken om
+gebeuren zwijgt het boek. Zijn eigen instemmende zinnen over vriendelijkheid
+en gelijkheid staan naast een leer die tegenslag als eigen werk aanmerkt.
+
+De hier gelezen uitgave is geen letterlijke herdruk van 1906. De tekst is
+gemoderniseerd en van mannelijke voornaamwoorden ontdaan, met een inleiding
+van Joel Fotinos en een voorwoord van Franklin L. Berry. Dat maakt het geheel
+leesbaarder en tegelijk minder bruikbaar als historisch document. Wie de
+bronvorm van het genre wil zien, leest een facsimile van de oorspronkelijke
+uitgave.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als bron van het genre en niet als handleiding: het laat
+zien welke aannames latere manifestatieboeken ongewijzigd hebben overgenomen.
+- Scheid het onderdeel dat werkt van de verklaring erbij. Aandacht bundelen op
+één doel, ophouden met elke week iets anders beginnen en tegenslag niet als
+karakteruitspraak lezen, zijn bruikbaar zonder de trillingsleer.
+- Schrijf de eigen gewoonteverwachting op voor een lopende zaak, en daarnaast
+wat er feitelijk gebeurd is. Dat maakt zichtbaar wat verwachting werkelijk
+verandert aan gedrag en wat niet.
+- Let bij elke belofte in dit genre op de ontsnappingsclausule. Staat er dat
+uitblijvend resultaat aan te weinig overtuiging ligt, dan is de uitspraak niet
+toetsbaar.
+
+#### Wat je hierna leest
+
+- 76. Think and Grow Rich. Hill neemt dezelfde trillingsleer over en bouwt
+haar in 1937 om tot een dertienstappenmethode voor geld.
+- 83. The Power of Positive Thinking. Peale zet in 1952 dezelfde
+verwachtingsleer in een christelijk pastoraal kader, met bijbelverzen in
+plaats van gedachtegolven.
 
 ## 128. Leer manifesteren zoals Oprah Winfrey en J.K. Rowling
 
