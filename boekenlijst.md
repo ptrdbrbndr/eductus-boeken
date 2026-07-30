@@ -22257,6 +22257,176 @@ te vergeten. Wat het onderscheidt van de stapel eromheen is dat de schrijver
 zelf toegeeft dat hij het ook niet altijd redt, en dat hij niet belooft dat
 aandacht het lijden opheft.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Sunim verdedigt de gedachte dat tegenslag geen storing in een
+goed leven is maar de plaats waar inzicht ontstaat, en dat het meeste van wat
+wij lijden noemen voortkomt uit hechting en weerstand: uit de eis dat het
+anders loopt dan het loopt. Wie zijn moeilijke gevoelens toelaat en onderzoekt
+waar ze vandaan komen, raakt de pijn niet kwijt maar wel het extra leed dat
+hij er zelf omheen bouwt. Die stelling wordt in dit boek getoond in korte
+herinneringen en spreuken, en nergens beredeneerd.
+
+#### De gang van het boek
+
+**Vorm en herkomst**
+
+Het boek verscheen in het Engels als *When Things Don't Go Your Way* en telt
+zes hoofdstukken die elk een moeilijke periode behandelen: pijn in het hart,
+uitgeblust zijn, eenzaamheid, onzekerheid, en de tijd waarin verlichting nog
+moet komen.
+
+Elk hoofdstuk heeft dezelfde bouw. Drie langere stukken van drie tot zes
+bladzijden, meestal een herinnering die uitloopt op een les, worden
+afgewisseld met pagina's met losse regels en tekeningen. Die losse regels
+vormen in aantal het grootste deel van het boek. Sunim schrijft als zenmonnik,
+maar haalt evenveel uit de psychologie en de Koreaanse poëzie als uit de
+boeddhistische leer.
+
+**Hechting, weerstand en het beeld van het universum**
+
+De inleiding opent met een verhaal uit de Nirvana Sutra. Bij een eenzame man
+verschijnt de Godin van het Welbehagen, die welvaart en liefde belooft; even
+later staat haar zuster er, de Godin van het Onbehagen, die armoede en
+eenzaamheid brengt. Wie de eerste wil binnenlaten, moet ook de tweede
+binnenlaten.
+
+In het eerste hoofdstuk werkt Sunim dat uit. Bij iets aangenaams hecht de
+geest zich en voelt hij leegte tot hij het bezit. Bij iets onaangenaams biedt
+de geest weerstand, en die weerstand noemen psychologen stress. Zijn punt is
+dat het onaangename niet in de persoon of de situatie zelf zit, want dan zou
+iedereen dezelfde persoon onaangenaam vinden.
+
+Daarna komt de vraag welk gevoel iemand over het universum heeft: overvloedig
+en welwillend, of schaars en onverschillig. Dat gevoel komt volgens hem uit de
+opvoeding en uit de omgang in de eigen gemeenschap, en het bepaalt hoe goed
+iemand moeilijke tijden doorkomt.
+
+**Afwijzing, verlies en jaloezie**
+
+Sunim vertelt over een sollicitatie van drie dagen bij een faculteit waar hij
+docent hoopte te worden. Hij ging al naar appartementen in de buurt kijken en
+werd daarna afgewezen. Zijn advies erna is klein: verwacht niet dat iedereen
+die jij aardig vindt jou ook aardig vindt, praat erover met mensen die van je
+houden, en vraag jezelf af wat de ervaring je heeft geleerd.
+
+Verder staan hier een vriendschap uit zijn promotietijd in Princeton die
+stukliep, en de jaloezie die hij als kind voelde in het huis van zijn oom in
+Seoul. Dat is de vaste beweging van het boek: eerst een voorval, dan een
+duiding, dan spreuken.
+
+**Uitgeblust zijn en een plek om te herstellen**
+
+Het derde hoofdstuk zet twee dingen tegenover de uitputting. Het eerste is wat
+Koreaanse jongeren SBCH noemen, small but certain happiness, een uitdrukking
+uit een essay van Haruki Murakami: warm brood dat je openbreekt, kamermuziek
+van Brahms in de middagzon, een lade met opgevouwen ondergoed.
+
+Het tweede is de querencia, in het Spaans de plek in de arena waar de stier na
+het gevecht tot rust komt. Voor Sunim is dat de Mihwang-tempel op het
+zuidpuntje van het Koreaanse schiereiland. Het hoofdstuk sluit af met een
+etentje met een schoolvriend die net partner werd bij zijn accountantskantoor
+en toch niet gelukkig bleek, omdat er ook onder partners nog een rangorde
+bestond.
+
+**Eenzaamheid en het sociale masker**
+
+Voor de eenzaamheid leunt Sunim op Carl Rogers: wij tonen onze ware aard niet
+omdat we vrezen daarom veroordeeld te worden, dus houden we het contact veilig
+en oppervlakkig, en juist dat sluit een diepe band uit. Geld, macht en
+bekendheid helpen daar niet tegen, want wie meer te verliezen heeft wordt
+argwanender.
+
+Daarnaast beschrijft hij het tijdperk van samen alleen. Hij legt uit waarom
+hij zelf liever tekstberichten stuurt dan belt, en stelt vervolgens vast dat
+dit soort contact het gesprek niet vervangt. Zelf nam hij een vrije dag om de
+eenzaamheid eens niet te ontlopen; zijn conclusie is dat alleen zijn niet de
+oorzaak kan zijn, want alleen zijn voelt vaak juist als een geschenk.
+
+**Onzekerheid, twee ikken en de slotfabel**
+
+Het vijfde hoofdstuk begint met het gedicht 'Moed' van de Koreaanse dichter
+Lee Kyu-gyeong, dat eindigt met de bekentenis 'Ik kan het niet'. Sunim betrekt
+dat op zijn zeven jaar lesgeven in de Verenigde Staten, een pad dat hij naar
+eigen zeggen vooral insloeg om erkenning van vakgenoten te krijgen. Hij
+onderscheidt daarbij de ik van mezelf en de ik van anderen, de tweede
+opgebouwd uit verwachtingen die hij zich heeft eigen gemaakt.
+
+Het zesde hoofdstuk gaat over samenleven en over de stilte achter gedachten en
+gevoelens. Hij beschrijft een herfstretraite in het Bongamklooster met
+ongeveer honderd monniken, waar de ongeschreven regel geldt dat je je eigen
+manier van reciteren niet oplegt. Ook vertelt hij hoe hij tolkte voor Thich
+Nhat Hanh en van hem leerde om de aandacht naar lichamelijke gewaarwordingen
+te brengen. Het boek eindigt met de fabel van Rondo, de vis die de Oceaan
+zoekt en er al in zwemt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Hechting | De neiging van de geest om zich vast te maken aan iets aangenaams, waardoor alles tot het bezit ervan leeg aanvoelt. |
+| Weerstand | De tegenbeweging bij iets onaangenaams, die volgens Sunim samenvalt met wat psychologen stress noemen. |
+| Querencia | Spaans voor de plek in de arena waar de stier op adem komt, door Sunim gebruikt voor het eigen toevluchtsoord. |
+| Klein maar zeker geluk | De Koreaanse afkorting SBCH voor vreugde in dagelijkse handelingen, ontleend aan een essay van Murakami. |
+| Samen alleen | Zijn aanduiding voor contact dat via tekstberichten wel doorloopt maar geen ontmoeting meer is. |
+| De ik van mezelf | Het deel van iemand dat op eigen verlangens is gericht. |
+| De ik van anderen | Het deel dat wordt gevuld door de verwachtingen van familie, vrienden en samenleving. |
+| De ware ik | Wat volgens Sunim overblijft als je merkt dat je al bestond voordat een gedachte opkwam en nog bestaat nadat zij verdween. |
+| Rondo | De vis uit de slotfabel die de heilige Oceaan zoekt en niet doorheeft dat hij er al in leeft. |
+
+#### Waar het argument op rust
+
+Het boek rust op de ervaringen van de schrijver en op de boeddhistische leer,
+niet op onderzoek. Hij houdt zich in met grote claims: hij belooft geen
+genezing en geen methode.
+
+Waar hij anderen aanhaalt, doet hij dat met naam: Carl Rogers, Thich Nhat
+Hanh, Murakami, en verder Rumi, Rilke, Jung, Maslow en Montaigne. Achterin
+staat een bibliografie van ongeveer twintig titels, vrijwel allemaal literair
+of filosofisch.
+
+De spreuken vormen het grootste deel van de bladzijden en dragen geen bewijs
+met zich mee. Zij zijn geformuleerd als vaststelling, bijvoorbeeld dat wat we
+begrijpen rust brengt, en zij kunnen niet worden nagegaan of weersproken. Wie
+het boek aanneemt, neemt de toon aan.
+
+#### Wat er tegen in te brengen valt
+
+De troost is algemeen gehouden. Regels als 'accepteer je verdriet' of 'trek
+het je niet aan wat anderen zeggen' gelden voor iedereen en daarmee voor
+niemand in het bijzonder. Wat de lezer erin herkent, brengt hij er zelf aan
+mee.
+
+Sunim maakt geen onderscheid tussen alledaags verdriet en een aanhoudende
+depressie of angststoornis. Zijn raad om moeilijke emoties toe te laten lijkt
+op wat in de aanvaardingsgerichte therapie gebeurt, maar dan zonder
+begeleiding en zonder grens waarbij hulp nodig is.
+
+De duiding is naar binnen gericht. Afwijzing wordt een leermoment, jaloezie
+een oefening in zelfkennis, eenzaamheid een gevolg van het masker dat je zelf
+ophoudt. Dat een deel van dat lijden ook uit omstandigheden komt die niet in
+de eigen geest zitten, blijft buiten beeld.
+
+Het herhaalt de stof en de vorm van zijn eerdere werk en leest in een uur uit.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij een moeilijk gevoel eerst uit waar de weerstand op gericht is.
+- Wijs één plek aan die je querencia is en ga erheen voordat je omvalt.
+- Schrijf na een afwijzing op wat de ervaring je heeft geleerd.
+- Ga na welk deel van je agenda uit de ik van anderen komt.
+
+#### Wat je hierna leest
+
+- 77. Ikigai. *Ikigai* zoekt dezelfde soort levenskunst in Japan, en loopt
+tegen hetzelfde bezwaar aan: mooie voorbeelden, dunne onderbouwing.
+- 141. Voorbij de vorm. Bodian werkt de stilte achter gedachten en gevoelens,
+waar Sunim in zijn laatste hoofdstuk op uitkomt, veel verder uit.
+- 71. Four Thousand Weeks. Burkeman verdedigt eveneens het aanvaarden van
+beperking, maar bouwt daar wel een redenering omheen.
+- 95. Het uur van het hart. Yalom schrijft over verlies vanuit dezelfde
+nabijheid, en met meer klinische ervaring achter zich.
+
 ## 112. Wijn voor Dummies
 
 Ed McCarthy en Mary Ewing-Mulligan, 5e editie. Nederlandse editie bij BBNC
@@ -24000,6 +24170,191 @@ Onderbouwing ontbreekt, de voorbeelden zijn anekdotisch en de vorm is die van
 een spreker die zijn programma op papier zet. Wie zich door dit soort toon
 laat aanzetten heeft er iets aan; wie naar inzicht zoekt niet.
 
+### Uitgebreide samenvatting
+
+**De stelling.** Sharma stelt dat heldendom geen zaak is van grote namen maar
+van gewone mensen die hun dagen inrichten rond een hoge norm, en dat vrijwel
+iedereen zijn kwaliteiten heeft toegedekt onder twijfel en gewenning. Wie zijn
+gewoontes, omgeving en gedachten opnieuw inricht, komt volgens hem uit bij
+werk van hoge kwaliteit, gezondheid, rust en dienstbaarheid, en dat alles is
+een kwestie van keuze. Achter dat betoog ligt de aanname dat de belemmeringen
+in iemands leven vooral binnen in hem zitten, een aanname die het boek nergens
+toetst.
+
+#### De gang van het boek
+
+**Vorm en toonzetting**
+
+Het boek bestaat uit honderdeen korte hoofdstukken, meestal twee tot zes
+bladzijden, gevolgd door drie bijlagen met zijn vijfentwintig favoriete
+boeken, films en documentaires. De hoofdstukken staan los van elkaar en kunnen
+in vrijwel elke volgorde gelezen worden.
+
+Sharma schrijft in de tweede persoon en richt zich rechtstreeks tot de lezer.
+Het openingshoofdstuk zet de toon: hij zou sterven voor de gedachte dat de
+lezer groots is, het verleden hoeft de toekomst niet te bepalen, en de lezer
+is een leeuw en geen schaap. Die stelligheid houdt het hele boek aan.
+
+**De persoonlijke lijn**
+
+Een deel van de hoofdstukken is autobiografisch. Hij groeide op in een plaats
+van ongeveer vijfduizend inwoners bij de kust, als kind van ouders die als
+migranten waren gekomen. Een schoolhoofd zou zijn moeder hebben verteld dat
+hij de middelbare school niet zou afmaken. Zijn geschiedenislerares in het
+vijfde leerjaar, Cora Greenaway, geloofde wel in hem en leerde hem dat ieder
+mens ergens goed in is.
+
+Later beschrijft hij verlies en vernedering. Negen jaargangen van zijn
+persoonlijke dagboeken werden hem afgenomen, wat hij achteraf uitlegt als een
+les in loslaten. Trauma noemt hij zijn belangrijkste leraar, en hij
+onderscheidt macrotrauma van microtrauma, waarbij het tweede staat voor
+ruzies, tegenslagen en afwijzingen die iedereen meemaakt.
+
+**De verhalen als drager van het betoog**
+
+De argumentatie loopt vrijwel altijd via een anekdote. In Bangkok bezocht hij
+de Gouden Boeddha, het beeld dat volgens de overlevering eeuwen onder een laag
+aarde verborgen bleef voor invallers en pas veel later werd teruggevonden. Dat
+wordt zijn beeld voor het blootleggen van eigen gaven.
+
+Een tweede voorbeeld is de kastanjeverkoper die hij rond middernacht in een
+Europese stad aantrof. De man vertelde dat hij in zijn eigen land een geslaagd
+zakenman was geweest, ziek werd en alles verloor, en zei: ik leef nog, dus ik
+kan nog dromen. Sharma leidt eruit af dat de man zijn zaak zal uitbreiden en
+misschien nog fabrieken zal bouwen, wat hij zelf als vermoeden aanduidt maar
+wel in de conclusie meeneemt.
+
+**De modellen**
+
+Naast de verhalen staan genummerde schema's. De sprong van slachtoffer naar
+held bestaat uit vijf stappen, waarvan de eerste de overgang van kan niet naar
+kan is. De zeven bedreigingen voor werk van wereldklasse beschrijven waarom
+mensen die de top halen daar weer af zakken, te beginnen bij het uithollen van
+talent en het wegvallen van de dagelijkse oefening.
+
+Verder staan er acht vormen van rijkdom in, waarvan geld er één is, met een
+zelfbeoordeling van één tot tien per vorm. De productiviteitspiramide en het
+weekplanningssysteem sluiten daarop aan. Bij die twee laatste verwijst hij
+naar zijn eigen website voor werkbladen en instructiefilms, wat het boek deels
+tot toegangspoort voor zijn andere diensten maakt.
+
+**De inhoudelijke kern**
+
+Onder de losse hoofdstukken ligt een klein aantal terugkerende gedachten. Je
+omgeving bepaalt je energie, wat hij het IPOP-beginsel noemt: wie positieve
+dingen tot zich neemt, brengt positieve dingen voort. Vergelijking met anderen
+vernietigt tevredenheid, en de rijkdom van zeer vermogende mensen die hij
+adviseerde ging in zijn waarneming vaak samen met zorgen.
+
+Het hoofdstuk over de dertien eigenschappen van de miljardairs die hij
+adviseerde is daarvan de spiegel: zelfvertrouwen tegen de stroom in, een beeld
+van een betere toekomst, en een neiging tot opstandigheid. Opvallend is dat
+hij op één plaats zijn eigen genre tegenspreekt. Positief denken werkt volgens
+hem niet zolang je de gevoelens overslaat die de tegenslag heeft opgeroepen;
+eerst verwerken, dan herzien.
+
+**Waar het boek naar toe werkt**
+
+De laatste hoofdstukken verschuiven van prestatie naar afscheid. Spijt op het
+sterfbed, de vraag wat je zou doen met zes maanden te leven, en een slotstuk
+dat als gebed is opgeschreven: geef meer dan je neemt, houd je leven
+eenvoudig, blijf trouw aan je eigen weg.
+
+Daarmee eindigt een boek dat begon met prestatie en wereldklasse bij matiging
+en dienstbaarheid. Die verschuiving wordt niet uitgelegd, en de twee kanten
+blijven zonder verbinding naast elkaar staan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De alledaagse held | De gewone werkende mens die zich naar zijn hoogste norm gedraagt, tegenover de bekende historische held. |
+| De sprong van slachtoffer naar held | Vijf verschuivingen in denken en gedrag waarmee iemand zijn positie als slachtoffer verlaat. |
+| De paradox van de goudzoeker | Het idee dat uiterlijk succes voortkomt uit een reis naar binnen, ontleend aan het verhaal van de Gouden Boeddha. |
+| Het IPOP-beginsel | Wie positieve invloeden binnenlaat, brengt positief werk voort, en de omgeving moet daarop worden gefilterd. |
+| De zeven bedreigingen voor wereldklasse | De gevaren die mensen aan de top weer doen zakken, waaronder het uithollen van talent en afleiding door roem. |
+| De acht vormen van rijkdom | Zijn indeling van welvaart in acht gebieden, waarvan geld er één is, elk met een cijfer van één tot tien. |
+| De vier innerlijke rijken | Zijn ordening van denken, voelen, gezondheid en ziel als de vier gebieden waaraan gewerkt wordt. |
+| Macrotrauma en microtrauma | Zijn onderscheid tussen zwaar leed en de dagelijkse kwetsuren die iedereen oploopt. |
+| Het wekelijkse ontwerpsysteem | Zijn planningsronde van een uur op zondagochtend waarin de week per gebied wordt vastgelegd. |
+| Aandachtsrest | Het deel van de aandacht dat bij een vorige taak achterblijft, een begrip dat hij toeschrijft aan onderzoekster Sophie Leroy. |
+
+#### Waar het argument op rust
+
+Het boek bevat vrijwel geen verwijzingen. Er is geen notenapparaat en geen
+literatuurlijst; de bijlagen bevatten leeslijsten, geen bronnen. De schema's
+met genummerde punten zijn zijn eigen ordening en worden nergens onderbouwd of
+getoetst.
+
+Waar wel onderzoek wordt genoemd, is het kort en zonder vindplaats. Hij noemt
+cognitieve bandbreedte, toegeschreven aan de Princeton-psycholoog Eldar
+Shafir, en aandachtsrest, toegeschreven aan Sophie Leroy van de University of
+Minnesota. Die twee begrippen bestaan in de vakliteratuur, maar in het boek
+staan zij zonder studie erbij en dienen zij als opstap naar zijn eigen model.
+
+De rest van het materiaal bestaat uit verhalen over ongenoemde klanten:
+miljardairs, filmsterren en topsporters die hij naar eigen zeggen jarenlang
+adviseerde. Namen, sectoren en jaartallen ontbreken, dus is de lezer
+aangewezen op zijn woord. Ook de conclusies zijn niet toetsbaar geformuleerd:
+dat de kastanjeverkoper het ver zal schoppen, is een vermoeden dat als
+illustratie wordt gebruikt.
+
+Wat het boek wel biedt is een aantal concrete gewoontes: een vast uur planning
+per week, dagelijks lezen, beweging, telefoon weg tijdens werkblokken. Die
+adviezen zijn niet ongewoon en worden elders wel onderbouwd, maar hier rusten
+zij op het gezag van de schrijver.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de stelling niet weersproken kan worden. Wie de
+gewoontes volgt en toch vastloopt, heeft volgens de opzet van het boek te
+weinig toewijding getoond, want de belemmeringen zitten binnenin. Gezondheid,
+geld, zorgtaken, uitsluiting en toeval komen als verklaring nauwelijks voor.
+
+De selectie werkt maar één kant op. Uit de mensen die het gemaakt hebben,
+worden dertien eigenschappen afgeleid, zonder te kijken naar de veel grotere
+groep die dezelfde eigenschappen had en het niet maakte. Zonder die
+vergelijking zegt de lijst niets over oorzaak.
+
+De vorm van honderdeen losse stukken zorgt voor herhaling. Dezelfde gedachten
+over omgeving, gewoonte en zelfvertrouwen komen in verschillende verpakkingen
+terug, en de dichtheid per bladzijde is laag omdat elk hoofdstuk opnieuw moet
+opbouwen.
+
+De taal is voortdurend hoog opgeschroefd, met woorden als grootsheid,
+meesterschap en legendarisch in vrijwel elke alinea. Dat maakt het moeilijk om
+onderscheid te maken tussen een gewoon advies en een grote claim, omdat beide
+dezelfde nadruk krijgen.
+
+Het boek is verweven met zijn bedrijf. Op meerdere plaatsen wordt de lezer
+naar een webadres gestuurd voor werkbladen en films, wat betekent dat het boek
+zelf de methode niet volledig bevat.
+
+#### Wat er concreet mee te doen is
+
+- Neem het uur wekelijkse planning over en leg per gebied vast wat er in de
+agenda komt.
+- Beoordeel de acht gebieden van rijkdom eens met een cijfer en kijk waar de
+laagste score zit.
+- Verwerk eerst wat een tegenslag met je deed voordat je hem probeert te
+herzien.
+- Ga na welke invloeden in je week je energie kosten en welke haar geven, en
+verander er één.
+- Behandel de lijstjes als vragen om te overwegen, niet als vastgestelde
+wetten.
+
+#### Wat je hierna leest
+
+- 135. The Monk Who Sold His Ferrari. Sharma's eerste boek brengt dezelfde
+leer als parabel; dit boek zet haar om in losse stukken en schema's.
+- 76. Think and Grow Rich. Hill werkte bijna een eeuw eerder met dezelfde
+bouw: zekerheid, verhalen over succesvolle mannen en geen controleerbaar
+onderzoek.
+- 29. Grit. Duckworth behandelt volhouden wel met onderzoek erbij, wat laat
+zien wat er bij Sharma ontbreekt.
+- 75. Ego Is the Enemy. Holiday werkt het gevaar van roem en zelfingenomenheid
+uit dat Sharma in zijn zeven bedreigingen aanstipt.
+
 ## 135. The Monk Who Sold His Ferrari
 
 Robin Sharma, 1997. Bij HarperCollins. Nederlands als *De monnik die zijn
@@ -24020,6 +24375,181 @@ stoïcijnse en oosterse gemeenplaatsen zonder bronvermelding. Het is een van de
 bestverkochte zelfhulpboeken ooit en het is te lezen als kennismaking met dat
 genre; wie de oorspronkelijke bronnen wil, komt bij 2 en bij het
 boeddhistische werk in deze lijst uit.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sharma verpakt een leefregel in een verhaal: een advocaat die
+in de rechtszaal instort, alles verkoopt en in de Himalaya wordt onderwezen,
+keert terug met zeven deugden die in één beeldverhaal zijn opgeslagen. De
+gedachte erachter is dat een leven van hoge kwaliteit ontstaat uit dagelijkse
+oefening in denken, doel, zelfbeheersing en tijd, en dat deze kennis eeuwenoud
+is en alleen vergeten. Het boek presenteert die leer als vondst van wijzen in
+plaats van als voorstel van de schrijver, waardoor er geen manier is om haar
+te bespreken of te weerleggen.
+
+#### De gang van het verhaal
+
+**De opzet**
+
+Het verhaal wordt verteld door John, een advocaat, over zijn oudere collega
+Julian Mantle, die aan het begin van het boek midden in een volle rechtszaal
+een zware hartaanval krijgt. Mantle is bekend om zijn dure pakken, zijn
+opzienbarende zaken en zijn nachtelijk leven. Hij verlaat het kantoor,
+verkoopt zijn huis, zijn vliegtuig, zijn eiland en zijn Ferrari, en vertrekt
+naar India.
+
+Ruim drie jaar later staat hij onaangekondigd bij John in de kamer, jonger
+ogend dan voorheen, en vertelt in één nacht wat hij heeft geleerd. Die
+vertelling vormt de rest van het boek, dat dertien hoofdstukken telt en waarin
+John de rol van vragensteller heeft.
+
+**Sivana en de fabel**
+
+In het verhaal reist Mantle naar een afgelegen gemeenschap in de Himalaya,
+Sivana, waar hij les krijgt van Yogi Raman. Na drie maanden vertelt Raman hem
+het geheel in de vorm van één beeld, met het argument dat een verhaal beter
+blijft hangen dan een reeks lezingen.
+
+Dat beeld gaat zo. Je zit in een weelderige tuin. In het midden staat een rode
+vuurtoren van zes verdiepingen. De deur gaat open en er komt een
+sumoworstelaar naar buiten, naakt op een roze draadkabel na. Hij vindt een
+gouden stopwatch, doet die om, valt bewusteloos neer en wordt weer wakker door
+de geur van gele rozen. Dan ziet hij aan de rand van de tuin een kronkelend
+pad bedekt met diamanten en slaat dat in.
+
+Mantle was naar eigen zeggen teleurgesteld toen hij dit hoorde. Raman
+antwoordt dat de eenvoud van het verhaal de bedoeling is. Elk onderdeel staat
+voor een deugd, en het verhaal dient als geheugensteun.
+
+**De zeven deugden**
+
+De tuin staat voor het beheersen van de eigen geest; het boek behandelt haar
+als een plek die verwaarloosd of verzorgd kan worden. De vuurtoren staat voor
+het volgen van een doel, met daarbij het stellen van persoonlijke,
+professionele en spirituele doelen. De sumoworstelaar staat voor kaizen, de
+gestage verbetering van jezelf.
+
+De roze draadkabel staat voor zelfbeheersing: een kabel bestaat uit dunne
+draden die apart niets voorstellen en samen sterker zijn dan ijzer. De
+stopwatch staat voor de omgang met tijd, die het boek de meest waardevolle en
+niet aanvulbare bezitting noemt. De rozen staan voor dienstbaarheid aan
+anderen, en het diamanten pad voor het leven in het heden.
+
+**De technieken**
+
+Bij elke deugd horen oefeningen. Het Hart van de Roos vraagt om dagelijks naar
+het hart van een verse roos te kijken tot de aandacht stil wordt. Tegengesteld
+denken vervangt een negatieve gedachte door haar tegendeel, met het argument
+dat de geest maar één gedachte tegelijk kan vasthouden. Het Geheim van het
+Meer betreft het zich voorstellen van het gewenste resultaat, iets wat de
+wijzen volgens het verhaal om vier uur 's ochtends bij een bergmeer deden.
+
+Verder staan er tien rituelen voor stralend leven in: stilte, lichaamsbeweging
+van minstens vijf uur per week, levend voedsel, dagelijks een halfuur lezen,
+zelfonderzoek, vroeg opstaan, muziek, mantra's, karaktervorming en eenvoud.
+Daarnaast noemt het boek de oude regel van twintig, het leren zeggen van nee,
+de gelofte van zwijgen en het denken vanaf het sterfbed.
+
+**Dharma en het slot**
+
+Het twaalfde hoofdstuk brengt alles samen onder dharma, in het boek het
+Sanskriet woord voor levensdoel: ieder mens heeft een opdracht en gaven die
+daarbij horen, en blijvende voldoening komt uit het vervullen daarvan. Mantle
+noemt het zijne het belangeloos dienen van anderen.
+
+Het laatste hoofdstuk gaat over het heden: leef nu, offer geluk niet op voor
+prestatie, beleef de kindertijd van je kinderen mee. Aan het einde van de
+nacht is John overtuigd en verandert hij zijn eigen leven. Elk hoofdstuk sluit
+af met een schema waarin symbool, deugd, wijsheid en technieken op één
+bladzijde staan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Sivana | De verzonnen gemeenschap in de Himalaya waar de leer van het boek vandaan zou komen. |
+| De mystieke fabel | Het beeld van tuin, vuurtoren, worstelaar, kabel, stopwatch, rozen en diamanten pad, bedoeld als geheugensteun voor zeven deugden. |
+| Kaizen | Het gestaag verbeteren van jezelf, in het boek gekoppeld aan het doen van de dingen waar je bang voor bent. |
+| Het Hart van de Roos | De oefening waarbij je naar het hart van een roos kijkt om de aandacht tot rust te brengen. |
+| Tegengesteld denken | Het vervangen van een negatieve gedachte door haar tegendeel, omdat de geest volgens het boek maar één gedachte tegelijk vasthoudt. |
+| Het Geheim van het Meer | Het zich voorstellen van het gewenste resultaat, in het verhaal beoefend bij een bergmeer voor zonsopgang. |
+| De tien rituelen voor stralend leven | De dagelijkse gewoontes van stilte, beweging, voeding, lezen, zelfonderzoek, vroeg opstaan, muziek, mantra's, karakter en eenvoud. |
+| Dharma | Het levensdoel dat ieder mens volgens het boek heeft en waaruit blijvende voldoening voortkomt. |
+| Het denken vanaf het sterfbed | Het beoordelen van je dagindeling vanuit het einde van je leven om te zien wat er werkelijk toe doet. |
+
+#### Waar het argument op rust
+
+Het boek is uitdrukkelijk verzonnen. In het colofon staat dat alle personages
+fictief zijn. Sivana, Yogi Raman en Julian Mantle bestaan niet, en het boek
+verwijst niet naar bronnen of onderzoek. Wat als eeuwenoude kennis wordt
+aangekondigd, is de leer van de schrijver in verhalende vorm.
+
+De herkomstclaim doet wel werk. Doordat de leefregels aan wijzen in de
+Himalaya worden toegeschreven, krijgen zij een gezag dat de schrijver zelf
+niet heeft, terwijl hij ze in feite alleen maar voorstelt. Wie ze wil
+bestrijden, moet een verzonnen figuur bestrijden.
+
+Sommige onderdelen komen elders wel onderbouwd voor. Beweging, regelmatig
+slapen, lezen, minder verspreide aandacht en helder gestelde doelen zijn
+buiten dit boek onderzocht. Andere onderdelen niet: dat zes uur slaap voor de
+gemiddelde mens genoeg is, dat de geest slechts één gedachte tegelijk kan
+bevatten, en dat verbeelden een uitkomst dichterbij brengt, zijn beweringen
+die het boek zonder ondersteuning doet.
+
+Het bestand waaruit ik werkte is een matige omzetting. De slottabel van de
+zeven deugden met hun symbolen breekt daarin af, dus die koppeling is hier
+afgeleid uit de hoofdstukoverzichten zelf, waar deugd en symbool voluit staan.
+Paginanummers, de bijlagen en de precieze bewoording van het slot heb ik niet
+kunnen nagaan.
+
+#### Wat er tegen in te brengen valt
+
+Het verhaal draagt niets bij aan de bewijskracht. Julian is genezen, verjongd
+en overtuigd omdat de schrijver dat zo heeft geschreven; het is een gedaante
+van de bewering, geen ondersteuning ervan. Elke leer kan op deze manier een
+geslaagde volgeling krijgen.
+
+De personages zijn er alleen om de leer te vervoeren. John stelt de vragen die
+de volgende alinea nodig heeft en verzet zich nooit langer dan een zin.
+Daardoor blijft het boek als verhaal vlak, en vervalt ook de mogelijkheid dat
+de leer in het verhaal wordt beproefd.
+
+De inhoud is een verzameling zonder eigen onderbouwing. Kaizen, dharma,
+mantra's, de kabel als beeld voor wilskracht en het strenge dagritme worden
+uit verschillende tradities gehaald, ontdaan van hun samenhang en tot één
+stelsel gemaakt. Het toeschrijven aan een verzonnen Indiase gemeenschap maakt
+van die tradities een decor.
+
+De hoofdstukoverzichten laten zien hoe dun de stof is: elk hoofdstuk laat zich
+terugbrengen tot vier regels wijsheid en twee technieken. De omvang van het
+boek zit in de omlijsting, niet in het aantal gedachten.
+
+Het boek erkent geen omstandigheid. Julian is een rijke advocaat die alles kan
+verkopen en jaren in de bergen kan doorbrengen. Voor wie dat niet kan, blijft
+de weg naar de leer buiten beeld, terwijl het boek haar wel als voor iedereen
+bereikbaar aanbiedt.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het beeld van de tuin en de vuurtoren als geheugensteun als je de
+zeven punten wilt onthouden.
+- Kies uit de tien rituelen de twee die je nu al zou kunnen volhouden en laat
+de rest liggen.
+- Zet de vraag van het sterfbed één keer per jaar naast je agenda van de
+afgelopen maand.
+- Behandel de uitspraken over slaap, gedachten en verbeelding als voorstellen
+die je zelf moet nagaan.
+
+#### Wat je hierna leest
+
+- 134. The Everyday Hero Manifesto. Vierentwintig jaar later brengt Sharma
+dezelfde leer zonder verhaal, in honderdeen losse stukken.
+- 8. De alchemist. Coelho gebruikt dezelfde bouw van een parabel over een reis
+die eindigt bij wat de hoofdpersoon al had.
+- 2. Overpeinzingen. Marcus Aurelius schrijft over dezelfde onderwerpen van
+zelfbeheersing en sterfelijkheid, zonder leraar en zonder belofte.
+- 22. Atomic Habits. Clear onderbouwt wat hier alleen wordt beweerd: dat
+kleine, herhaalde handelingen zich opstapelen.
 
 ## 136. The Greatness Mindset
 

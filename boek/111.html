@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dingen die je hoop geven &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sunim verdedigt de gedachte dat tegenslag geen storing in een goed leven is maar de plaats waar inzicht ontstaat, en dat het meeste van wat wij lijden…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-111">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">111 &middot; Levenskunst</p>
+    <h1>Dingen die je hoop geven</h1>
+    <p class="lede">Haemin Sunim, 2023</p>
+    <p class="stats">
+      <span><b>1398</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>31 juli 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="111"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sunim verdedigt de gedachte dat tegenslag geen storing in een goed leven is maar de plaats waar inzicht ontstaat, en dat het meeste van wat wij lijden noemen voortkomt uit hechting en weerstand: uit de eis dat het anders loopt dan het loopt. Wie zijn moeilijke gevoelens toelaat en onderzoekt waar ze vandaan komen, raakt de pijn niet kwijt maar wel het extra leed dat hij er zelf omheen bouwt. Die stelling wordt in dit boek getoond in korte herinneringen en spreuken, en nergens beredeneerd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vorm en herkomst</h3>
+      <p>Het boek verscheen in het Engels als <i>When Things Don't Go Your Way</i> en telt zes hoofdstukken die elk een moeilijke periode behandelen: pijn in het hart, uitgeblust zijn, eenzaamheid, onzekerheid, en de tijd waarin verlichting nog moet komen.</p>
+      <p>Elk hoofdstuk heeft dezelfde bouw. Drie langere stukken van drie tot zes bladzijden, meestal een herinnering die uitloopt op een les, worden afgewisseld met pagina's met losse regels en tekeningen. Die losse regels vormen in aantal het grootste deel van het boek. Sunim schrijft als zenmonnik, maar haalt evenveel uit de psychologie en de Koreaanse poëzie als uit de boeddhistische leer.</p>
+      <h3>Hechting, weerstand en het beeld van het universum</h3>
+      <p>De inleiding opent met een verhaal uit de Nirvana Sutra. Bij een eenzame man verschijnt de Godin van het Welbehagen, die welvaart en liefde belooft; even later staat haar zuster er, de Godin van het Onbehagen, die armoede en eenzaamheid brengt. Wie de eerste wil binnenlaten, moet ook de tweede binnenlaten.</p>
+      <p>In het eerste hoofdstuk werkt Sunim dat uit. Bij iets aangenaams hecht de geest zich en voelt hij leegte tot hij het bezit. Bij iets onaangenaams biedt de geest weerstand, en die weerstand noemen psychologen stress. Zijn punt is dat het onaangename niet in de persoon of de situatie zelf zit, want dan zou iedereen dezelfde persoon onaangenaam vinden.</p>
+      <p>Daarna komt de vraag welk gevoel iemand over het universum heeft: overvloedig en welwillend, of schaars en onverschillig. Dat gevoel komt volgens hem uit de opvoeding en uit de omgang in de eigen gemeenschap, en het bepaalt hoe goed iemand moeilijke tijden doorkomt.</p>
+      <h3>Afwijzing, verlies en jaloezie</h3>
+      <p>Sunim vertelt over een sollicitatie van drie dagen bij een faculteit waar hij docent hoopte te worden. Hij ging al naar appartementen in de buurt kijken en werd daarna afgewezen. Zijn advies erna is klein: verwacht niet dat iedereen die jij aardig vindt jou ook aardig vindt, praat erover met mensen die van je houden, en vraag jezelf af wat de ervaring je heeft geleerd.</p>
+      <p>Verder staan hier een vriendschap uit zijn promotietijd in Princeton die stukliep, en de jaloezie die hij als kind voelde in het huis van zijn oom in Seoul. Dat is de vaste beweging van het boek: eerst een voorval, dan een duiding, dan spreuken.</p>
+      <h3>Uitgeblust zijn en een plek om te herstellen</h3>
+      <p>Het derde hoofdstuk zet twee dingen tegenover de uitputting. Het eerste is wat Koreaanse jongeren SBCH noemen, small but certain happiness, een uitdrukking uit een essay van Haruki Murakami: warm brood dat je openbreekt, kamermuziek van Brahms in de middagzon, een lade met opgevouwen ondergoed.</p>
+      <p>Het tweede is de querencia, in het Spaans de plek in de arena waar de stier na het gevecht tot rust komt. Voor Sunim is dat de Mihwang-tempel op het zuidpuntje van het Koreaanse schiereiland. Het hoofdstuk sluit af met een etentje met een schoolvriend die net partner werd bij zijn accountantskantoor en toch niet gelukkig bleek, omdat er ook onder partners nog een rangorde bestond.</p>
+      <h3>Eenzaamheid en het sociale masker</h3>
+      <p>Voor de eenzaamheid leunt Sunim op Carl Rogers: wij tonen onze ware aard niet omdat we vrezen daarom veroordeeld te worden, dus houden we het contact veilig en oppervlakkig, en juist dat sluit een diepe band uit. Geld, macht en bekendheid helpen daar niet tegen, want wie meer te verliezen heeft wordt argwanender.</p>
+      <p>Daarnaast beschrijft hij het tijdperk van samen alleen. Hij legt uit waarom hij zelf liever tekstberichten stuurt dan belt, en stelt vervolgens vast dat dit soort contact het gesprek niet vervangt. Zelf nam hij een vrije dag om de eenzaamheid eens niet te ontlopen; zijn conclusie is dat alleen zijn niet de oorzaak kan zijn, want alleen zijn voelt vaak juist als een geschenk.</p>
+      <h3>Onzekerheid, twee ikken en de slotfabel</h3>
+      <p>Het vijfde hoofdstuk begint met het gedicht 'Moed' van de Koreaanse dichter Lee Kyu-gyeong, dat eindigt met de bekentenis 'Ik kan het niet'. Sunim betrekt dat op zijn zeven jaar lesgeven in de Verenigde Staten, een pad dat hij naar eigen zeggen vooral insloeg om erkenning van vakgenoten te krijgen. Hij onderscheidt daarbij de ik van mezelf en de ik van anderen, de tweede opgebouwd uit verwachtingen die hij zich heeft eigen gemaakt.</p>
+      <p>Het zesde hoofdstuk gaat over samenleven en over de stilte achter gedachten en gevoelens. Hij beschrijft een herfstretraite in het Bongamklooster met ongeveer honderd monniken, waar de ongeschreven regel geldt dat je je eigen manier van reciteren niet oplegt. Ook vertelt hij hoe hij tolkte voor Thich Nhat Hanh en van hem leerde om de aandacht naar lichamelijke gewaarwordingen te brengen. Het boek eindigt met de fabel van Rondo, de vis die de Oceaan zoekt en er al in zwemt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hechting</td><td>De neiging van de geest om zich vast te maken aan iets aangenaams, waardoor alles tot het bezit ervan leeg aanvoelt.</td></tr>
+          <tr><td class="term">Weerstand</td><td>De tegenbeweging bij iets onaangenaams, die volgens Sunim samenvalt met wat psychologen stress noemen.</td></tr>
+          <tr><td class="term">Querencia</td><td>Spaans voor de plek in de arena waar de stier op adem komt, door Sunim gebruikt voor het eigen toevluchtsoord.</td></tr>
+          <tr><td class="term">Klein maar zeker geluk</td><td>De Koreaanse afkorting SBCH voor vreugde in dagelijkse handelingen, ontleend aan een essay van Murakami.</td></tr>
+          <tr><td class="term">Samen alleen</td><td>Zijn aanduiding voor contact dat via tekstberichten wel doorloopt maar geen ontmoeting meer is.</td></tr>
+          <tr><td class="term">De ik van mezelf</td><td>Het deel van iemand dat op eigen verlangens is gericht.</td></tr>
+          <tr><td class="term">De ik van anderen</td><td>Het deel dat wordt gevuld door de verwachtingen van familie, vrienden en samenleving.</td></tr>
+          <tr><td class="term">De ware ik</td><td>Wat volgens Sunim overblijft als je merkt dat je al bestond voordat een gedachte opkwam en nog bestaat nadat zij verdween.</td></tr>
+          <tr><td class="term">Rondo</td><td>De vis uit de slotfabel die de heilige Oceaan zoekt en niet doorheeft dat hij er al in leeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de ervaringen van de schrijver en op de boeddhistische leer, niet op onderzoek. Hij houdt zich in met grote claims: hij belooft geen genezing en geen methode.</p>
+      <p>Waar hij anderen aanhaalt, doet hij dat met naam: Carl Rogers, Thich Nhat Hanh, Murakami, en verder Rumi, Rilke, Jung, Maslow en Montaigne. Achterin staat een bibliografie van ongeveer twintig titels, vrijwel allemaal literair of filosofisch.</p>
+      <p>De spreuken vormen het grootste deel van de bladzijden en dragen geen bewijs met zich mee. Zij zijn geformuleerd als vaststelling, bijvoorbeeld dat wat we begrijpen rust brengt, en zij kunnen niet worden nagegaan of weersproken. Wie het boek aanneemt, neemt de toon aan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De troost is algemeen gehouden. Regels als 'accepteer je verdriet' of 'trek het je niet aan wat anderen zeggen' gelden voor iedereen en daarmee voor niemand in het bijzonder. Wat de lezer erin herkent, brengt hij er zelf aan mee.</p>
+      <p>Sunim maakt geen onderscheid tussen alledaags verdriet en een aanhoudende depressie of angststoornis. Zijn raad om moeilijke emoties toe te laten lijkt op wat in de aanvaardingsgerichte therapie gebeurt, maar dan zonder begeleiding en zonder grens waarbij hulp nodig is.</p>
+      <p>De duiding is naar binnen gericht. Afwijzing wordt een leermoment, jaloezie een oefening in zelfkennis, eenzaamheid een gevolg van het masker dat je zelf ophoudt. Dat een deel van dat lijden ook uit omstandigheden komt die niet in de eigen geest zitten, blijft buiten beeld.</p>
+      <p>Het herhaalt de stof en de vorm van zijn eerdere werk en leest in een uur uit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij een moeilijk gevoel eerst uit waar de weerstand op gericht is.</li>
+        <li>Wijs één plek aan die je querencia is en ga erheen voordat je omvalt.</li>
+        <li>Schrijf na een afwijzing op wat de ervaring je heeft geleerd.</li>
+        <li>Ga na welk deel van je agenda uit de ik van anderen komt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlands bij Meulenhoff Boekerij (2023), vertaald uit het Koreaans. Sunim is boeddhistisch leraar en schreef eerder <i>De dingen die je alleen ziet als je er de tijd voor neemt</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Korte overwegingen geordend naar situatie: als je hart pijn doet, als je uitgeblust bent, als je eenzaam bent, als onzekerheid je plaagt. Sunim schrijft over afwijzing, jaloezie, het verliezen van werk en het krijgen van een slechte uitslag, en biedt daarbij geen oplossing maar een andere verhouding tot het ongemak.</p><p>De vorm is die van losse stukjes met veel wit, prettig te lezen en makkelijk te vergeten. Wat het onderscheidt van de stapel eromheen is dat de schrijver zelf toegeeft dat hij het ook niet altijd redt, en dat hij niet belooft dat aandacht het lijden opheft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>tegenslag</li><li>eenzaamheid</li><li>verdriet</li><li>korte-teksten</li><li>meditatie</li><li>korea</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="77"><a href="77.html">Ikigai</a>. <i>Ikigai</i> zoekt dezelfde soort levenskunst in Japan, en loopt tegen hetzelfde bezwaar aan: mooie voorbeelden, dunne onderbouwing.</li>
+          <li value="141"><a href="141.html">Voorbij de vorm</a>. Bodian werkt de stilte achter gedachten en gevoelens, waar Sunim in zijn laatste hoofdstuk op uitkomt, veel verder uit.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman verdedigt eveneens het aanvaarden van beperking, maar bouwt daar wel een redenering omheen.</li>
+          <li value="95"><a href="95.html">Het uur van het hart</a>. Yalom schrijft over verlies vanuit dezelfde nabijheid, en met meer klinische ervaring achter zich.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
