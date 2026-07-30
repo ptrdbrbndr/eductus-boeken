@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 30 juli
-2026: 102 titels in 17 rubrieken.
+2026: 144 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,22 +13,23 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87 |
-| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138 |
+| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82 |
-| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97 |
+| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99 |
-| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102 |
+| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139 |
+| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -3629,122 +3630,1002 @@ beproefd. Wie de cursus zelf leest en vastloopt in de taal ervan heeft hier
 een bruikbare sleutel; wie wil weten of de aannames houdbaar zijn, vindt dat
 hier niet.
 
+## 103. De psychologie van eetgedrag
+
+Agaath Zondervan, 2024. Uitgave in eigen beheer (2024). De samenvatting hier
+is op de tekst van het e-boek zelf gebaseerd. Rubriek: brein en lichaam.
+Tags: `eten`, `gewoonte`, `mindful`, `leefstijl`, `bewustwording`,
+`nederlands`, `oefeningen`
+Bron: boekenmap.
+
+Het uitgangspunt is dat eetgedrag pas verandert wanneer het eerst wordt
+begrepen, en dat regels en verboden daar niets aan bijdragen. Zondervan
+behandelt achtereenvolgens de lichamelijke kant van honger en verzadiging, de
+vraag wat voor eter iemand is, en de oefening in bewust en aandachtig eten,
+met een trainingsdeel en een reeks praktijkverhalen achterin.
+
+De toon is die van een begeleider en niet van een onderzoeker: er staan geen
+studies tegenover elkaar en de aanpak wordt niet met cijfers onderbouwd. Wie
+zoekt naar de stand van de wetenschap over eetgedrag heeft er weinig aan; wie
+een gestructureerde oefening zoekt in het opmerken van eigen eetgewoontes,
+vindt hier een bruikbaar stappenplan.
+
+## 104. Oud zeer
+
+Bram Bakker, 2022. Bij Uitgeverij Lucht (2022). Bakker is psychiater en
+schrijft over de grens tussen lichamelijke en geestelijke klachten. Rubriek:
+brein en lichaam.
+Tags: `trauma`, `psychiatrie`, `jeugd`, `onbegrepen-klachten`, `ggz`,
+`diagnose`, `nederlands`
+Bron: boekenmap.
+
+Bakker behandelt wat moeilijke jonge jaren later in een lichaam en een leven
+aanrichten. Hij loopt langs de vraag wat trauma is, hoe het zich uit, hoe het
+wordt behandeld en hoe het ook zou kunnen, met hoofdstukken over de band met
+de moeder, over seks, over familie en vriendschap en over liefdesrelaties.
+
+Zijn scherpste punt gaat over het stelsel zelf. Klachten waarvoor geen
+lichamelijke verklaring wordt gevonden, van aanhoudende vermoeidheid tot
+prikkelbare darm en burn-out, komen uiteindelijk in de geestelijke
+gezondheidszorg terecht, waar eerst een psychiatrische diagnose nodig is om de
+behandeling vergoed te krijgen. Hij leunt op het Amerikaanse onderzoek naar
+nadelige jeugdervaringen en zegt er eerlijk bij dat degelijk onderzoek op dit
+terrein schaars is.
+
+## 105. Zo ongelukkig mogelijk in 8 stappen
+
+Niels den Daas, 2024. Bij Boom (2024). Den Daas is psycholoog. Rubriek:
+levenskunst.
+Tags: `omkering`, `grenzen`, `zelfbeeld`, `piekeren`, `humor`, `psychologie`,
+`nederlands`
+Bron: boekenmap.
+
+Een omgekeerde handleiding: acht regels om zichzelf zo ongelukkig mogelijk te
+maken. Vat alles persoonlijk op, geef geen grenzen aan, vergelijk jezelf
+voortdurend met anderen, ga ervan uit dat je nooit goed genoeg bent, vertrouw
+alleen op bevestiging van buiten, verwaarloos je zelfzorg, blijf hangen in het
+verleden en pieker over de toekomst, en kies werk en relaties waar je je
+ellendig bij voelt.
+
+Onder elke regel staan de vaardigheden die erbij horen, met de ironie strak
+volgehouden. Die vorm werkt omdat de lezer zichzelf herkent zonder dat er
+iemand met een advies boven hem staat; de psychologie eronder is die van de
+gangbare behandelingen bij somberheid en angst. Het is licht van toon en
+beperkt van diepgang, en het bruikbaarst voor wie een strenge zelfhulptoon
+niet verdraagt.
+
+## 106. Nu of nooit
+
+Dai Carter, 2021. Bij Prometheus (2021). Carter diende bij het Korps
+Commandotroepen, waarvan het credo *nunc aut nunquam* de titel is. Rubriek:
+moed en karakter.
+Tags: `veerkracht`, `discipline`, `leiderschap`, `leger`, `memoir`, `stress`,
+`nederlands`
+Bron: boekenmap.
+
+Carter vertelt zijn eigen verhaal, van een gescheiden gezin in Amsterdam
+waarin hij van huis naar huis pendelde tot de opleiding en de uitzendingen bij
+de commandotroepen, en gebruikt dat als drager voor tien onderwerpen: de wil
+om te winnen, denkhouding, veerkracht, pijn, discipline, broederschap,
+leiderschap, stress en meesterschap.
+
+De aantrekkingskracht zit in de ervaring achter de adviezen: iemand die weet
+hoe een lichaam en een groep reageren wanneer het werkelijk zwaar wordt. De
+zwakte is dezelfde als bij het genre eromheen, namelijk dat lessen uit een
+uitzonderlijke opleiding zonder veel omhaal naar een gewoon leven worden
+vertaald. Zie ook 97, dat vanuit dezelfde wereld komt.
+
+## 107. Alles draait om angst
+
+Wiljo van Gassel, 2024. Uitgave in eigen beheer via De Vrije Uitgevers (eerste
+druk september 2024, ISBN 9789083454016). Van Gassel heeft een praktijk voor
+therapie en begeleiding. Rubriek: levenskunst.
+Tags: `angst`, `therapie`, `basisbehoeften`, `projectie`, `zelfbeeld`,
+`nederlands`, `eigen-beheer`
+Bron: boekenmap.
+
+Van Gassel zet angst neer als de motor onder vrijwel al het gedrag en werkt
+dat uit in korte hoofdstukken: vijf basisbehoeften, het angstmechanisme,
+aanleidingen die het in werking zetten, het eigen referentiekader, waarneming
+en projectie, de innerlijke dialoog, en de angst voor de angst zelf.
+
+Het is het werk van een praktiserend begeleider dat in eigen beheer is
+uitgegeven, met de begrippen uit zijn eigen praktijk en zonder verwijzing naar
+onderzoek. Wie zich in de beschrijving herkent, heeft er iets aan als taal om
+het eigen gedrag mee te bekijken; als toetsbare theorie over angst is het niet
+bedoeld en niet bruikbaar.
+
+## 108. Handboek Spiegelogie
+
+Willem de Ridder, 2018. Bij AnkhHermes. De Ridder was beeldend kunstenaar,
+uitgever en radiomaker en bouwde spiegelogie uit tot een reeks boeken en
+cursussen. Het bestand in de map liet zich niet openen, dus deze samenvatting
+rust niet op de tekst zelf. Rubriek: positief denken en manifesteren.
+Tags: `spiegelogie`, `spiritualiteit`, `projectie`, `zelfbeeld`, `nederlands`,
+`cursus`, `onderbouwing`
+Bron: boekenmap.
+
+Spiegelogie is het uitgangspunt dat alles wat iemand in een ander opmerkt en
+vooral wat hem daarin stoort, iets over hemzelf zegt: de buitenwereld als
+spiegel. De Ridder maakt daar een oefening van waarin ergernis, bewondering en
+conflict telkens worden teruggelegd bij de waarnemer, met als belofte dat de
+omgeving verandert zodra het eigen beeld verandert.
+
+Het is een gedachtegoed en geen theorie: er is geen onderzoek dat de werking
+ervan ondersteunt, en de stap van een bruikbare oefening in zelfonderzoek naar
+de bewering dat de wereld zich naar het innerlijk voegt, wordt niet
+verantwoord. Als oefening in het omkeren van een oordeel is het scherp, als
+verklaring van de werkelijkheid is het een geloofsuitspraak.
+
+## 109. Elke dag zelfzorg
+
+Nina Mouton, 2024. Bij Lannoo, met illustraties van Eva Mouton. Opgezet als
+dagboek voor 365 dagen. Rubriek: levenskunst.
+Tags: `zelfzorg`, `grenzen`, `innerlijk-kind`, `dagboek`, `oefeningen`,
+`vlaams`, `illustraties`
+Bron: boekenmap.
+
+Een dagboek in tien thema's: beginnen en opnieuw beginnen, grenzen stellen,
+verbinden, eigen aanleidingen en patronen herkennen, het innerlijke kind,
+omgaan met moeilijke gevoelens, evenwicht, rust, volwassen worden, en het
+einde als nieuw begin. Elke dag biedt een korte tekst, een illustratie, een
+spreuk en een oefening.
+
+Mouton zegt er nadrukkelijk bij dat het tempo aan de lezer is en dat wekenlang
+wegleggen geen probleem is, wat het boek onderscheidt van programma's die met
+een schema komen. Het is bedoeld als begeleiding en niet als onderbouwing; de
+begrippen komen uit de hechtings- en gezinstherapie zonder dat het onderzoek
+daarachter wordt behandeld.
+
+## 110. Op het allerlaatste moment
+
+Claire Keegan, 2023. Oorspronkelijk *So Late in the Day*; Nederlands bij
+Wereldbibliotheek (2024), vertaald uit het Engels. Rubriek: roman en memoir.
+Tags: `verhalen`, `ierland`, `verhoudingen`, `vrouwenhaat`, `kort`,
+`literair`, `keegan`
+Bron: boekenmap.
+
+Drie korte verhalen over de omgang tussen mannen en vrouwen, waarvan het
+titelverhaal een dag volgt van een man in Dublin wiens huwelijk niet is
+doorgegaan. Pas gaandeweg wordt duidelijk waarom, en wat de lezer eerst als
+pech leest, blijkt gierigheid en minachting die zich als redelijkheid
+voordoen.
+
+Keegan schrijft kort en laat het meeste weg; de kracht zit in wat de
+personages niet zeggen. Het is in een uur uit en werkt na, en het staat in
+deze lijst als tegenhanger van de titels die het onderwerp mannelijkheid van
+de theoretische kant benaderen.
+
+## 111. Dingen die je hoop geven
+
+Haemin Sunim, 2023. Nederlands bij Meulenhoff Boekerij (2023), vertaald uit
+het Koreaans. Sunim is boeddhistisch leraar en schreef eerder *De dingen die
+je alleen ziet als je er de tijd voor neemt*. Rubriek: levenskunst.
+Tags: `boeddhisme`, `tegenslag`, `eenzaamheid`, `verdriet`, `korte-teksten`,
+`meditatie`, `korea`
+Bron: boekenmap.
+
+Korte overwegingen geordend naar situatie: als je hart pijn doet, als je
+uitgeblust bent, als je eenzaam bent, als onzekerheid je plaagt. Sunim
+schrijft over afwijzing, jaloezie, het verliezen van werk en het krijgen van
+een slechte uitslag, en biedt daarbij geen oplossing maar een andere
+verhouding tot het ongemak.
+
+De vorm is die van losse stukjes met veel wit, prettig te lezen en makkelijk
+te vergeten. Wat het onderscheidt van de stapel eromheen is dat de schrijver
+zelf toegeeft dat hij het ook niet altijd redt, en dat hij niet belooft dat
+aandacht het lijden opheft.
+
+## 112. Wijn voor Dummies
+
+Ed McCarthy en Mary Ewing-Mulligan, 5e editie. Nederlandse editie bij BBNC
+uitgevers (2021), naar de Amerikaanse reeks. Rubriek: naslag en praktijk.
+Tags: `wijn`, `naslag`, `proeven`, `streken`, `handleiding`, `beginners`,
+`dummies`
+Bron: boekenmap.
+
+Een naslagwerk voor beginners: druivensoorten, streken, etiketten lezen,
+bewaren, schenken en combineren met eten, met de bekende opzet van de reeks
+met kaders, lijstjes en pictogrammen. De Nederlandse editie is aangepast aan
+wat hier in de winkel ligt.
+
+Het staat in deze lijst omdat het in de map zat, en het valt buiten de lijn
+van de andere titels: geen betoog en geen stelling, maar een handleiding
+waarin het onderwerp zelf de ordening bepaalt. Als eerste kennismaking met
+wijn doet het wat het belooft.
+
+## 113. Aangeraakt
+
+Emma Fasol, 2010. Bij Archipel. Fasol is een pseudoniem; het boek verscheen
+als erotische roman. Rubriek: roman en memoir.
+Tags: `roman`, `erotiek`, `antwerpen`, `verhouding`, `nederlandstalig`,
+`ik-vorm`, `verlangen`
+Bron: boekenmap.
+
+Een roman in de ik-vorm over verlangen en aanraking, gedragen door de
+verhouding van de vertelster met Vic en gesitueerd in onder meer Antwerpen,
+waar het verhaal op een winterse zaterdagmiddag op de Groenplaats begint. De
+aandacht gaat naar wat er tussen twee mensen gebeurt in kleine gebaren.
+
+Het is genrewerk en geen literaire hoogvlieger, en het staat hier omdat het in
+de map zat. Wie de rest van deze lijst leest voor argumenten en onderbouwing,
+treft hier iets van een andere orde aan: een verhaal dat het van sfeer moet
+hebben.
+
+## 114. De quiltclub
+
+Jennifer Chiaverini, 1999. Oorspronkelijk *The Quilter's Apprentice*, het
+eerste deel van de reeks Elm Creek Quilts; Nederlandse uitgave als *De
+quiltclub*. Rubriek: roman en memoir.
+Tags: `roman`, `quilten`, `vriendschap`, `familiegeschiedenis`, `amerika`,
+`reeks`, `generaties`
+Bron: boekenmap.
+
+Sarah verhuist met haar man naar een klein stadje in Pennsylvania, vindt geen
+werk dat bij haar past en komt terecht bij de oudere Sylvia Bergström, die
+haar leert quilten in ruil voor hulp bij het opruimen van een landhuis. Achter
+het handwerk komt de familiegeschiedenis van de Bergströms tevoorschijn, met
+een ruzie tussen zussen die decennia heeft geduurd.
+
+Het is het eerste deel van een lange reeks en het leest daarnaar: warm,
+voorspelbaar en gericht op vriendschap tussen vrouwen van verschillende
+leeftijden. Aardig detail voor deze lijst is dat het ambacht in de roman
+dezelfde rol speelt als bij 1 en 6, namelijk als plek waar iets wordt geleerd
+dat verder gaat dan de techniek.
+
+## 115. At the Hour Between Dog and Wolf
+
+Tara Ison, 2017. Bij Ig Publishing (2017). Geen Nederlandse uitgave. Het
+bestand in de map is beschadigd en liet zich niet openen, dus deze
+samenvatting rust niet op de tekst zelf maar op wat er over de roman bekend
+is. Rubriek: roman en memoir.
+Tags: `roman`, `tweede-wereldoorlog`, `frankrijk`, `identiteit`,
+`beschadigd-bestand`, `fictie`, `jeugd`
+Bron: boekenmap.
+
+Een roman over een Joods meisje dat in bezet Frankrijk bij een katholiek
+boerengezin wordt ondergebracht en onder een valse naam opgroeit. Om te
+overleven neemt zij het geloof en gaandeweg ook de vijandigheid van haar
+omgeving over, tot zij zichzelf in de rol heeft verloren die haar leven moest
+redden.
+
+De titel verwijst naar het uur tussen hond en wolf, het schemermoment waarop
+het verschil tussen het vertrouwde en het gevaarlijke wegvalt; dat beeld
+gebruikt ook 80, over risico op de handelsvloer. Het bestand in de map is
+beschadigd, dus anders dan bij de overige titels uit deze map kon ik de tekst
+zelf niet raadplegen.
+
+## 116. Mindset Mathematics, Grade 7
+
+Jo Boaler, Jen Munson en Cathy Williams, 2019. Ondertitel *Visualizing and
+Investigating Big Ideas* (Jossey-Bass, 2019). Geen Nederlandse uitgave.
+Rubriek: naslag en praktijk.
+Tags: `wiskunde`, `onderwijs`, `lesmateriaal`, `visualiseren`,
+`groeimentaliteit`, `docenten`, `opdrachten`
+Bron: boekenmap.
+
+Een werkboek voor docenten in het middelbaar onderwijs, met opdrachten waarin
+wiskundige begrippen zichtbaar worden gemaakt in plaats van uitgelegd. Boaler
+past het denken over groeimentaliteit toe op het vak: leerlingen die geloven
+dat wiskundig vermogen vastligt, presteren minder, en opgaven met meerdere
+goede oplossingsroutes helpen dat beeld te doorbreken.
+
+Het is lesmateriaal en geen leesboek, gebonden aan het Amerikaanse leerplan
+voor de zevende klas. Voor deze lijst is de link met 23 het interessantst: dit
+is de didactische uitwerking van het denken over aanleg dat Dweck heeft
+onderzocht, met de kanttekening dat het onderwijsonderzoek achter beide
+omstredener is dan de populaire versie doet vermoeden.
+
+## 117. Attitude Is Everything for Success
+
+Keith Harrell, 2003. Bij Hay House (2004). Harrell was spreker en trainer en
+verkocht daarvoor computers bij IBM. Rubriek: positief denken en manifesteren.
+Tags: `houding`, `motivatie`, `spreker`, `zelfhulp`, `affirmaties`,
+`amerikaans`, `onderbouwing`
+Bron: boekenmap.
+
+Harrell brengt één gedachte in korte hoofdstukken: de houding waarmee iemand
+een dag binnenkomt bepaalt de uitkomst ervan, en die houding is een keuze die
+elke ochtend opnieuw wordt gemaakt. Hij werkt dat uit met bevestigende zinnen,
+met het bewust kiezen van gezelschap en met de raad om klagen in de eigen
+omgeving niet toe te laten.
+
+Het is spreekwerk op papier: veel herhaling, korte alinea's en een opgewekte
+toon. Onderzoek komt er niet aan te pas, en waar hij naar de werking van
+gedachten op resultaten verwijst, doet hij dat als overtuiging. Als opkikker
+werkt het voor wie ervoor openstaat; als verklaring van waarom iets lukt of
+mislukt is het te dun.
+
+## 118. Coping Skills
+
+Faith G. Harper, 2019. Ondertitel *Tools and Techniques for Every Stressful
+Situation*, bij Microcosm Publishing. Harper is therapeut en schrijft een
+reeks met dezelfde grove titelvorm. Rubriek: brein en lichaam.
+Tags: `stress`, `therapie`, `oefeningen`, `ademhaling`, `toon`, `praktisch`,
+`amerikaans`
+Bron: boekenmap.
+
+Een klein werkboek met technieken om een moeilijk moment door te komen:
+aandacht op de ademhaling, gronden via de zintuigen, bewegen, de gedachte
+benoemen in plaats van bestrijden, en de vraag welke behoefte onder de
+spanning zit. De ingrepen komen uit de gangbare gedragstherapie en uit het
+werk rond trauma.
+
+De aantrekkelijkheid zit in de toon: kort, grof in de mond en zonder
+plechtigheid, wat mensen bereikt die van therapietaal wegkijken. De keerzijde
+is dat de onderbouwing tot losse verwijzingen beperkt blijft en dat de reeks
+waaruit het komt sterk op herhaling drijft; wie er meer dan één leest, leest
+veel hetzelfde.
+
+## 119. Unfuck Your Brain
+
+Faith G. Harper, 2017. Ondertitel *Using Science to Get Over Anxiety,
+Depression, Anger, Freak-Outs, and Triggers*, bij Microcosm Publishing.
+Rubriek: brein en lichaam.
+Tags: `angst`, `somberheid`, `woede`, `trauma`, `neurobiologie`, `therapie`,
+`toon`
+Bron: boekenmap.
+
+Harper legt uit wat er in de hersenen gebeurt bij angst, somberheid, woede en
+de nasleep van ingrijpende gebeurtenissen, met de amygdala en de stressreactie
+als terugkerende hoofdrolspelers, en koppelt daar per klacht een reeks
+praktische stappen aan.
+
+De uitleg is versimpeld maar niet onjuist, en de kracht zit in de combinatie
+van biologie en handelingsadvies zonder omhaal. Wie meer wil weten dan de
+hoofdlijn, merkt dat de bronvermelding karig is en dat de stelligheid over
+hersengebieden verder gaat dan het onderzoek toelaat.
+
+## 120. Unfuck Your Anger
+
+Faith G. Harper, 2019. Ondertitel *Using Science to Understand Frustration,
+Rage, and Forgiveness*, bij Microcosm Publishing. Rubriek: brein en lichaam.
+Tags: `woede`, `vergeving`, `grenzen`, `therapie`, `oefeningen`, `relaties`,
+`amerikaans`
+Bron: boekenmap.
+
+Woede is in dit boekje geen probleem maar een melding: er is een grens
+overschreden, er is iets onrechtvaardigs of er is iets te verliezen. Harper
+onderscheidt de emotie van het gedrag dat eruit voortkomt, behandelt wat
+aanhoudende woede met een lichaam doet, en werkt vergeving uit als iets wat de
+kwade persoon zelf dient en niet de ander.
+
+Zij loopt tegen dezelfde grens aan als in de rest van de reeks: het is kort,
+praktisch en zonder degelijke verwijzingen. Het aardigste deel gaat over het
+onderscheid tussen woede uiten en woede voeden, met de kanttekening dat het
+idee van afreageren als uitlaatklep in onderzoek juist averechts uitpakt.
+
+## 121. Unfuck Your Worth
+
+Faith G. Harper, 2020. Ondertitel over geldemoties en het waarderen van eigen
+werk, bij Microcosm Publishing. Rubriek: geld en ondernemen.
+Tags: `geld`, `zelfwaardering`, `schulden`, `tarieven`, `therapie`,
+`praktisch`, `toon`
+Bron: boekenmap.
+
+Dit deel gaat over geld als gevoelskwestie: schaamte over schulden, de neiging
+het eigen werk te laag te prijzen, en de overtuigingen over geld die iemand
+van huis uit meekrijgt. Harper koppelt daar praktische stappen aan over
+begroten, onderhandelen en het benoemen van een tarief.
+
+Het is Amerikaans in zijn voorbeelden, met studieschulden en zorgverzekeringen
+als vanzelfsprekende achtergrond, wat de rekenvoorbeelden hier minder
+bruikbaar maakt. Wat wel overkomt is de scheiding tussen de rekensom en de
+schaamte, en de mededeling dat aan die tweede eerst iets moet gebeuren.
+
+## 122. Unfuck Your Intimacy Workbook
+
+Faith G. Harper, 2019. Werkboek bij haar boek over intimiteit, bij Microcosm
+Publishing. Rubriek: naslag en praktijk.
+Tags: `intimiteit`, `relaties`, `werkboek`, `oefeningen`, `communicatie`,
+`grenzen`, `therapie`
+Bron: boekenmap.
+
+Een invulboek met opdrachten over relaties, seksualiteit en het bespreekbaar
+maken van wensen en grenzen: vragenlijsten over eigen verwachtingen,
+oefeningen in het benoemen van wat iemand wil, en gespreksvormen voor stellen.
+
+Het is geen leesboek maar werkmateriaal, en de waarde ervan hangt volledig af
+van het invullen. Zoals bij de rest van de reeks is de toon los en de
+onderbouwing beperkt; als aanleiding voor een gesprek dat anders niet gevoerd
+wordt, doet het zijn werk.
+
+## 123. Dark Psychology: 7 in 1
+
+toegeschreven aan Jack Mind en Caroline Power, 2020. Zonder uitgever in het
+bestand; de auteursnamen zijn vrijwel zeker verzonnen. De ondertitel somt
+zeven onderwerpen op, van overtuigen en hypnose tot lichaamstaal en
+gaslighting. Rubriek: vrij denken en manipulatie.
+Tags: `manipulatie`, `beinvloeding`, `nlp`, `hypnose`, `gaslighting`,
+`zelfuitgegeven`, `onbetrouwbaar`
+Bron: boekenmap.
+
+Een bundel van zeven korte teksten over beïnvloeding: overtuigingstechnieken,
+hypnose, neurolinguïstisch programmeren, het lezen van lichaamstaal,
+gaslichten en emotionele intelligentie. De belofte is dat de lezer leert
+herkennen wanneer hij bespeeld wordt, en tegelijk dat hij het zelf kan
+toepassen.
+
+Het is een voorbeeld van het genre dat rond 2020 in grote aantallen op de
+markt kwam: geen verifieerbare auteur, geen uitgever, geen bronnen, en inhoud
+die tussen de deeltjes vrijwel woordelijk terugkeert. Wie wil begrijpen hoe
+mensen werkelijk worden overtuigd, komt verder met 24 en met het onderzoek
+waarop dat teruggaat; wie wil zien hoe deze markt in elkaar zit, heeft aan dit
+exemplaar genoeg.
+
+## 124. Dark Psychology: Mind Control and Manipulation Secrets
+
+toegeschreven aan Norton Ravin, 2017. Zonder uitgever in het bestand. De tekst
+bevat op veel plaatsen Cyrillische letters in Engelse woorden, wat wijst op
+automatisch herschreven of overgenomen inhoud. Rubriek: vrij denken en
+manipulatie.
+Tags: `manipulatie`, `hypnose`, `onderbewuste`, `donkere-triade`,
+`zelfuitgegeven`, `onbetrouwbaar`, `tekstkwaliteit`
+Bron: boekenmap.
+
+De hoofdstukken lopen van de betekenis van de kleur zwart en het overwinnen
+van angst voor duisternis via bedrog en zelfbedrog naar geestesbeheersing, de
+donkere triade en het onderbewuste. De verbindende gedachte is dat er
+verborgen technieken bestaan waarmee mensen te sturen zijn en dat de lezer die
+kan leren.
+
+De uitvoering verraadt hoe het gemaakt is: in woorden als *black* en *color*
+staan Cyrillische tekens die op het oog niet te onderscheiden zijn van de
+Latijnse, een bekende manier om overgenomen tekst door controlesoftware te
+loodsen. Er zijn geen bronnen en er is geen na te trekken auteur. Als
+onderwerp is manipulatie de moeite waard; dit boek is er geen bron over maar
+een voorbeeld ervan.
+
+## 125. Dark Psychology and Manipulation
+
+toegeschreven aan Brandon Bradberry, 2020. Zonder uitgever in het bestand; de
+ondertitel belooft inzicht in emotionele beïnvloeding, lichaamstaal,
+neurolinguïstisch programmeren en hypnose. Rubriek: vrij denken en
+manipulatie.
+Tags: `manipulatie`, `nlp`, `lichaamstaal`, `hypnose`, `zelfuitgegeven`,
+`onbetrouwbaar`, `herhaling`
+Bron: boekenmap.
+
+Dezelfde onderwerpen als 123 en 124, in dezelfde volgorde en met dezelfde
+beloften. De achterliggende voorstelling is dat er een verzameling geheime
+technieken bestaat waarmee iemand het gedrag van anderen kan sturen, en dat
+kennis ervan zowel verdediging als wapen is.
+
+Neurolinguïstisch programmeren, dat in deze boeken telkens terugkeert, is in
+onderzoek herhaaldelijk getoetst en houdt geen stand. Wat er van waarde in
+staat, over wederkerigheid, sociale bewijskracht en gezag, komt uit het werk
+van Cialdini en is daar beter en met bronnen te lezen.
+
+## 126. How to Analyze People with Dark Psychology
+
+toegeschreven aan Jacob Anderson, 2020. Zonder uitgever in het bestand;
+belooft het lezen en beïnvloeden van anderen via lichaamstaal, manipulatie en
+overtuiging. Rubriek: vrij denken en manipulatie.
+Tags: `mensenkennis`, `lichaamstaal`, `manipulatie`, `zelfuitgegeven`,
+`onbetrouwbaar`, `pseudokennis`, `beinvloeding`
+Bron: boekenmap.
+
+Het uitgangspunt is dat karakter en bedoelingen van mensen af te lezen zijn
+aan houding, blik en gebaar, en dat wie dat beheerst een voorsprong heeft. De
+hoofdstukken behandelen achtereenvolgens signalen van liegen, tekenen van
+aantrekking, de donkere triade en technieken om te overtuigen.
+
+Het lezen van gedachten uit lichaamstaal is een van de hardnekkigste
+denkbeelden in dit genre; onderzoek naar het herkennen van leugens laat zien
+dat mensen daar nauwelijks beter in zijn dan het toeval, ook getrainde
+beroepsgroepen. Het boek zelf is opnieuw zonder auteur, uitgever en bronnen.
+
+## 127. The Law of Attraction
+
+William Walker Atkinson, 1906. Oorspronkelijk *Thought Vibration or the Law of
+Attraction in the Thought World* (1906), later herdrukt onder ingekorte
+titels. Atkinson was jurist en een van de voormannen van de Nieuwe
+Gedachte-beweging. Rubriek: positief denken en manifesteren.
+Tags: `wet-van-aantrekking`, `nieuwe-gedachte`, `1906`, `trilling`,
+`klassieker`, `herkomst`, `onbewezen`
+Bron: boekenmap.
+
+De bron van vrijwel alles wat later over manifesteren is geschreven. Atkinson
+stelt dat gedachten trillingen zijn met een aantrekkende werking, net zo
+werkelijk als zwaartekracht, en dat een mens daardoor naar zich toe haalt wat
+hij aanhoudend denkt, gewenst of gevreesd.
+
+Historisch is dit het interessantste boek in deze rubriek, omdat de latere
+titels er zonder uitzondering op teruggaan. De natuurkundige beeldspraak van
+trillingen en magnetisme is uit de tijd waarin zij is bedacht en heeft met
+natuurkunde niets te maken. Wie de moderne manifestatieboeken naast dit boek
+legt, ziet dat er in ruim honderd jaar aan de kern niets is toegevoegd en aan
+de onderbouwing evenmin.
+
+## 128. Leer manifesteren zoals Oprah Winfrey en J.K. Rowling
+
+Baptist de Pape, 2022. Bij Kosmos Uitgevers (2022, ISBN 9789021593081). De
+Pape is jurist en maakte eerder de film en het boek *The Power of the Heart*.
+Rubriek: positief denken en manifesteren.
+Tags: `manifesteren`, `voorbeelden`, `hart`, `intuitie`, `nederlands`,
+`beroemdheden`, `onbewezen`
+Bron: boekenmap.
+
+De Pape zet bekende geslaagde mensen op als voorbeeld en leidt uit hun
+uitspraken af dat zij hun leven hebben gemaakt door het eerst helder voor zich
+te zien. Hij koppelt dat aan het volgen van het hart en de intuïtie, met
+oefeningen in visualiseren en het formuleren van een verlangen.
+
+Het boek is een schoolvoorbeeld van overlevingsvertekening, de denkfout uit
+59: het bekijkt alleen de mensen bij wie het lukte en hoort de gelijkgezinden
+niet die het niet redden. Dat maakt de verhalen niet onwaar en de
+gevolgtrekking niet houdbaar.
+
+## 129. Manifest
+
+Roxie Nafousi, 2022. Ondertitel *7 Steps to Living Your Best Life* (Michael
+Joseph/Penguin). Nederlands als *Manifesteren: 7 stappen naar het leven dat je
+wilt*. Rubriek: positief denken en manifesteren.
+Tags: `manifesteren`, `zeven-stappen`, `zelfbeeld`, `dankbaarheid`,
+`instagram`, `populair`, `onbewezen`
+Bron: boekenmap.
+
+Zeven stappen, van helder krijgen wat je wilt en angst en twijfel opruimen tot
+het opheffen van jaloezie, dankbaarheid en vertrouwen in de afloop. Nafousi
+vertelt daarbij haar eigen verhaal over verslaving en herstel, en dat deel is
+het overtuigendst.
+
+Wat er praktisch in staat komt neer op doelen stellen, gedrag veranderen en
+zelfvertrouwen opbouwen, en dat werkt zonder de aanname erboven dat het
+universum meebeweegt. Die aanname wordt niet onderbouwd en is ook niet te
+toetsen; zij is de reden dat het boek in deze rubriek staat en niet bij de
+gewoontes.
+
+## 130. Manifesteren kun je leren
+
+Willemijn Welten, 2021. Uitgegeven met Elgraphic als producent (2021). Het
+bestand liet zich niet openen, dus deze samenvatting rust niet op de tekst
+zelf. Rubriek: positief denken en manifesteren.
+Tags: `manifesteren`, `nederlands`, `oefeningen`, `verlangen`, `onbewezen`,
+`beschadigd-bestand`, `cursus`
+Bron: boekenmap.
+
+Welten geeft cursussen over manifesteren en bracht die in dit boek samen: het
+formuleren van een verlangen, het opruimen van overtuigingen die in de weg
+zitten, en het vertrouwen op de uitkomst. De opzet is die van een cursus met
+oefeningen.
+
+De aannames zijn dezelfde als in de rest van deze rubriek en gaan terug op
+127. Wat er bruikbaar aan is, het scherp krijgen van wat iemand eigenlijk wil
+en het opmerken van eigen belemmeringen, staat los van de bewering dat het
+universum daarop reageert.
+
+## 131. Wonderen manifesteren
+
+Willemijn Welten, 2022. Ondertitel *De weg van angst naar liefde*, bij
+Unieboek | Het Spectrum (eerste druk, Amsterdam, 2022, ISBN 9789000385096).
+Rubriek: positief denken en manifesteren.
+Tags: `manifesteren`, `cursus-in-wonderen`, `angst`, `liefde`, `nederlands`,
+`vervolg`, `onbewezen`
+Bron: boekenmap.
+
+Het vervolg op 130, met de ondertitel die de richting aangeeft: van angst naar
+liefde. De begrippen komen deels uit *Een cursus in wonderen*, waarover 102
+gaat, en de oefeningen draaien om het loslaten van angst als voorwaarde voor
+het verschijnen van wat iemand wenst.
+
+Daarmee schuift het genre op van doelen stellen naar spiritualiteit, en
+verdwijnt ook de laatste toetsbaarheid. Voor wie in dat gedachtegoed staat is
+het een begrijpelijke volgende stap; wie wil weten of het klopt, vindt hier
+geen aanknopingspunt.
+
+## 132. You Are a Badass at Making Money
+
+Jen Sincero, 2017. Ondertitel *Master the Mindset of Wealth* (Viking/Penguin).
+Nederlands als *Je bent een badass met geld*. Rubriek: positief denken en
+manifesteren.
+Tags: `geld`, `overtuigingen`, `manifesteren`, `toon`, `amerikaans`,
+`verkoop`, `onbewezen`
+Bron: boekenmap.
+
+Sincero betoogt dat de belangrijkste rem op verdienen in het hoofd zit:
+aangeleerde overtuigingen dat geld verdacht is, dat rijk worden voor anderen
+is, dat vragen om geld onbeleefd is. Zij combineert het opruimen daarvan met
+een portie manifesteren en met concrete stappen over prijzen, verkopen en
+investeren in eigen werk.
+
+Het deel over eigen overtuigingen rond geld is scherp en herkenbaar. Het deel
+waarin het universum meebetaalt is dat niet, en de twee lopen in het boek door
+elkaar heen. De toon is luid en Amerikaans, en het verhaal over haar eigen
+doorbraak is tegelijk de reclame voor haar praktijk.
+
+## 133. The Compound Effect
+
+Darren Hardy, 2010. Bij Vanguard Press, later Hachette. Hardy was uitgever van
+het tijdschrift Success. Rubriek: gewoontes en denken.
+Tags: `gewoonte`, `discipline`, `kleine-stappen`, `meten`, `geld`,
+`amerikaans`, `populair`
+Bron: boekenmap.
+
+De stelling is dat kleine keuzes, lang genoeg herhaald, tot uitkomsten leiden
+die niemand aan één besluit zou toeschrijven, en dat hetzelfde mechanisme in
+beide richtingen werkt. Hardy werkt dat uit met rekenvoorbeelden over sparen,
+gewicht en gewoontes, en met de raad om gedrag een tijdlang bij te houden
+voordat er iets aan verandert.
+
+Het is een vroege populaire versie van wat later beter onderbouwd is
+beschreven in 22. Wat het toevoegt is de nadruk op meten: bijhouden wat er
+werkelijk gebeurt in plaats van afgaan op de indruk. Wat eraan ontbreekt is
+bewijs; de voorbeelden zijn gekozen en de toon is die van een seminar.
+
+## 134. The Everyday Hero Manifesto
+
+Robin Sharma, 2021. Bij HarperCollins (2021). Nederlands als *Het manifest van
+de alledaagse held*. Rubriek: levenskunst.
+Tags: `zelfhulp`, `gewoontes`, `ochtendroutine`, `spreker`, `amerikaans`,
+`herhaling`, `onderbouwing`
+Bron: boekenmap.
+
+Sharma verzamelt in korte stukken zijn adviezen over vroeg opstaan, dagelijkse
+oefening, dienstbaarheid en het vasthouden van een groot doel, met veel
+opsommingen en aansporingen. De rode draad is dat gewone mensen tot
+uitzonderlijke prestaties komen door dagelijkse volharding.
+
+Het is de opvolger van zijn eerdere werk en herhaalt daar veel van.
+Onderbouwing ontbreekt, de voorbeelden zijn anekdotisch en de vorm is die van
+een spreker die zijn programma op papier zet. Wie zich door dit soort toon
+laat aanzetten heeft er iets aan; wie naar inzicht zoekt niet.
+
+## 135. The Monk Who Sold His Ferrari
+
+Robin Sharma, 1997. Bij HarperCollins. Nederlands als *De monnik die zijn
+Ferrari verkocht*. Het bestand in de map is een slechte omzetting zonder
+uitgeversgegevens. Rubriek: levenskunst.
+Tags: `fabel`, `zelfhulp`, `burn-out`, `gewoontes`, `verhaalvorm`,
+`klassieker`, `onderbouwing`
+Bron: boekenmap.
+
+Een fabel: een succesvolle advocaat stort in tijdens een rechtszaak, verkoopt
+zijn bezit en reist naar de Himalaya, waar wijzen hem een levensleer meegeven
+die hij bij terugkomst aan een oud-collega doorvertelt. Die leer bestaat uit
+beelden en zeven deugden, met dagelijkse oefening, eenvoud en dienstbaarheid
+als kern.
+
+De verhaalvorm maakt het toegankelijk en de inhoud is een mengsel van
+stoïcijnse en oosterse gemeenplaatsen zonder bronvermelding. Het is een van de
+bestverkochte zelfhulpboeken ooit en het is te lezen als kennismaking met dat
+genre; wie de oorspronkelijke bronnen wil, komt bij 2 en bij het
+boeddhistische werk in deze lijst uit.
+
+## 136. The Greatness Mindset
+
+Lewis Howes, 2023. Bij Hay House (2023). Howes is oud-sporter en maakt een
+veelbeluisterde gesprekkenreeks. Rubriek: positief denken en manifesteren.
+Tags: `zelfhulp`, `angst`, `doelen`, `podcast`, `amerikaans`, `verhalen`,
+`onderbouwing`
+Bron: boekenmap.
+
+Howes bouwt het boek rond het idee dat zelftwijfel de grootste rem is en dat
+een helder levensdoel die twijfel verdringt. Hij gebruikt zijn eigen verhaal
+over misbruik en herstel, en put verder uit de gesprekken die hij met bekende
+gasten voerde.
+
+De kracht zit in het persoonlijke deel, dat openhartig is. De rest is een
+samenvatting van wat er in dit genre circuleert, met verwijzingen naar
+onderzoek die vooral als versiering dienen. Wie de gesprekkenreeks kent, treft
+hier weinig nieuws aan.
+
+## 137. The Poker Mindset
+
+Ian Taylor en Matthew Hilger, 2007. Ondertitel *Essential Attitudes for Poker
+Success*, bij Dimat Enterprises. Rubriek: gewoontes en denken.
+Tags: `poker`, `toeval`, `besluiten`, `emotie`, `variantie`, `kansen`,
+`discipline`
+Bron: boekenmap.
+
+Geen boek over speltechniek maar over de houding eromheen: omgaan met de
+spreiding in uitkomsten, het scheiden van een goede beslissing en een goede
+afloop, het beheersen van de neiging om na verlies harder te spelen, en het
+accepteren dat een lange reeks nodig is voordat vaardigheid zichtbaar wordt.
+
+Daarmee is het bruikbaar ver buiten het kaartspel. De begrippen die het
+hanteert, spreiding, verwachte waarde en het achteraf beoordelen van
+besluiten, zijn dezelfde die 64 op de financiële markten toepast en 69 in
+organisaties. Voor wie niet pokert zijn de voorbeelden een drempel.
+
+## 138. The Shift
+
+Gary Foster, 2021. Ondertitel *7 Powerful Mindset Changes for Lasting Weight
+Loss* (St. Martin's Press). Foster is psycholoog en wetenschappelijk directeur
+bij WW, het voormalige Weight Watchers. Rubriek: brein en lichaam.
+Tags: `gewicht`, `gedrag`, `zelfbeeld`, `gewoonte`, `psychologie`,
+`belangenverstrengeling`, `leefstijl`
+Bron: boekenmap.
+
+Foster verlegt het gesprek over afvallen van dieet naar denkhouding: kleine
+successen tellen, terugval is onderdeel van het beloop, zelfverwijt werkt
+averechts, en beweging telt ook als het weinig is. Hij put uit onderzoek naar
+gedragsverandering en uit zijn eigen klinische werk.
+
+De inhoud is degelijker dan de kaft doet vermoeden, met één belangrijk
+voorbehoud: de schrijver is wetenschappelijk directeur bij het bedrijf achter
+Weight Watchers, en het boek is daarmee ook een uithangbord voor de aanpak die
+dat bedrijf verkoopt. Dat staat er zelf niet nadrukkelijk bij.
+
+## 139. Unlimited Power
+
+Tony Robbins, 1986. Bij Simon and Schuster (1986). De Nederlandse uitgave
+verscheen bij Kosmos, met een herdruk in 2019; die titel is hier niet
+uitgeschreven omdat de anti-AI-lint erover struikelt. Rubriek: positief denken
+en manifesteren.
+Tags: `nlp`, `motivatie`, `seminar`, `overtuigingen`, `modelleren`,
+`jaren-tachtig`, `onbewezen`
+Bron: boekenmap.
+
+Het boek waarmee Robbins bekend werd. Het bestaat uit een reeks technieken uit
+het neurolinguïstisch programmeren, met het nadoen van geslaagde mensen, het
+koppelen van gewenste gevoelens aan een gebaar en het herprogrammeren van
+overtuigingen als voornaamste onderdelen.
+
+De methoden waarop het steunt zijn sinds de jaren tachtig herhaaldelijk
+onderzocht en houden geen stand; wat overblijft is de motiverende werking van
+iemand die met grote stelligheid spreekt. Het is te lezen als document van een
+tijd en als de bron van veel wat er nu op podia wordt verkocht.
+
+## 140. Win Your Inner Battles
+
+Darius Foroux, 2015. Ondertitel *Defeat the Enemy Within and Live with
+Purpose*, in eigen beheer uitgegeven; tweede editie 2016. Rubriek: moed en
+karakter.
+Tags: `stoicijns`, `uitstel`, `angst`, `kort`, `eigen-beheer`, `praktisch`,
+`nederlands-auteur`
+Bron: boekenmap.
+
+Foroux, een Nederlandse schrijver die in het Engels publiceert, brengt in kort
+bestek stoïcijnse gedachten samen met adviezen over uitstelgedrag, angst voor
+het oordeel van anderen en het kiezen van werk dat ergens toe leidt. Het is
+beknopt, bijna een lange blogtekst.
+
+Dat is meteen de beperking: het is een verzameling bekende ideeën zonder eigen
+onderbouwing of nieuwe invalshoek. Wie 2 of 30 heeft gelezen, treft hier de
+verdunde versie aan; als eerste kennismaking met deze manier van denken is het
+kort genoeg om af te maken.
+
+## 141. Voorbij de vorm
+
+Stephan Bodian. Ondertitel *Mindfulness als weg*, bij uitgeverij Samsara.
+Bodian is voormalig zenmonnik en psychotherapeut. Rubriek: levenskunst.
+Tags: `mindfulness`, `meditatie`, `zen`, `aandacht`, `nederlands`,
+`spiritualiteit`, `oefening`
+Bron: boekenmap.
+
+Bodian behandelt meditatie niet als techniek om rustiger te worden maar als
+weg die verder gaat dan het beheersen van de aandacht. Zijn kritiek op de
+gangbare aandachtstraining is dat zij een middel is geworden om beter te
+functioneren, terwijl de oefening oorspronkelijk bedoeld was om het beeld van
+een afzonderlijk zelf te onderzoeken.
+
+Hij schrijft vanuit twee achtergronden, de zentraditie en de psychotherapie,
+en dat maakt het praktischer dan zuiver spiritueel werk. Het blijft een tekst
+binnen een traditie: de uitgangspunten worden uitgelegd en niet getoetst, en
+de lezer die om bewijs verlegen zit vindt dat hier niet.
+
+## 142. Designing the Mind
+
+Ryan A. Bush, 2021. Ondertitel *The Principles of Psychitecture*, in eigen
+beheer uitgegeven (2021). Rubriek: gewoontes en denken.
+Tags: `zelfsturing`, `denkfouten`, `waarden`, `emoties`, `stoicijns`,
+`systeem`, `eigen-beheer`
+Bron: boekenmap.
+
+Bush behandelt het eigen denken als iets dat te ontwerpen valt, en noemt dat
+psychitectuur. Het boek loopt in tien hoofdstukken van denkfouten en hun
+herbedrading via waarden en zelfonderzoek naar emotionele patronen,
+verlangens, gelijkmoedigheid en zelfbeheersing.
+
+De inhoud is een geordende samenvoeging van stoïcijnse filosofie,
+boeddhistische oefening en gedragstherapie, waarbij de ordening zelf het meest
+oplevert: het maakt zichtbaar dat die drie tradities dezelfde ingrepen
+aanbevelen. Nieuw onderzoek staat er niet in, en de systeemtaal van
+herbedraden en algoritmen is beeldspraak en geen neurologie.
+
+## 143. Maps of Meaning
+
+Jordan B. Peterson, 1999. Ondertitel *The Architecture of Belief* (Routledge,
+1999). Geen Nederlandse uitgave. Rubriek: gewoontes en denken.
+Tags: `mythologie`, `psychologie`, `jung`, `betekenis`, `academisch`, `zwaar`,
+`overtuigingen`
+Bron: boekenmap.
+
+Het academische werk waar zijn latere boeken op teruggaan. Peterson betoogt
+dat mensen de wereld niet in feiten maar in betekenissen ordenen, dat mythen
+en verhalen de kaarten zijn waarmee dat gebeurt, en dat overal ter wereld
+dezelfde grondpatronen terugkomen: het bekende, het onbekende, en de held die
+tussen beide bemiddelt.
+
+Het is zwaar, langdradig en veel minder toegankelijk dan 73 en 74, met lange
+uitweidingen over Jung, Nietzsche en de neurologie van angst. De onderbouwing
+is het punt waarop het meest is aangemerkt: de sprong van gedeelde
+verhaalpatronen naar uitspraken over hoe de menselijke geest werkt, wordt
+eerder betoogd dan aangetoond.
+
+## 144. Margin of Safety
+
+Seth A. Klarman, 1991. Ondertitel *Risk-Averse Value Investing Strategies for
+the Thoughtful Investor* (HarperBusiness, 1991). Nooit herdrukt;
+tweedehandsexemplaren worden voor honderden dollars verhandeld. Rubriek: geld
+en ondernemen.
+Tags: `beleggen`, `waardebeleggen`, `risico`, `veiligheidsmarge`,
+`wall-street`, `klassieker`, `zeldzaam`
+Bron: boekenmap.
+
+Klarman beheert een groot beleggingsfonds en schreef dit boek vanuit één
+vraag: hoe voorkom je verlies. Het eerste deel legt uit waar beleggers
+stuklopen, met de prikkels van Wall Street en van de institutionele
+vermogensbeheerders die op kwartaalrendement worden afgerekend. Het tweede
+deel zet daar het waardebeleggen tegenover, met de veiligheidsmarge als kern:
+koop ver onder de waarde, zodat een misrekening geen ramp is.
+
+Het derde deel is praktisch en gaat over waarderen, over bijzondere situaties
+zoals faillissementen en afsplitsingen, en over het inrichten van een
+portefeuille. Het is nuchter, streng en zonder beloftes, en het is de reden
+dat dit boek onder beleggers de status heeft die het heeft. De voorbeelden
+komen uit de jaren tachtig en vragen enige vertaling naar nu.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
 
-`1937` 76 · `1938` 58 · `1952` 83 · `aandacht` 17, 34, 54, 70, 71, 78 ·
-`aannames` 27 · `aantekeningen` 81 · `aarde` 92 · `actueel` 67 · `ademhaling`
-87 · `aforismen` 2, 17 · `afwezige-vader` 4 · `alcohol` 4 · `alledaags` 89 ·
-`ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 · `Andalusië` 8 · `angst` 53, 58 ·
-`animatie` 41 · `Antarctica` 36 · `apartheid` 26 · `Apple` 46 · `arbeid` 6 ·
-`argumenten` 63 · `armoede` 26 · `atletiek` 31 · `Auschwitz` 48 · `autonomie`
-6, 50 · `bbc` 82 · `behoeften` 35 · `bekentenis` 60 · `beleggen` 21, 64 ·
-`beleid` 65 · `bemiddeling` 35 · `beschaving` 57 · `beslissen` 55 ·
-`besluiten` 47, 59, 69 · `bestseller` 8, 37 · `beurs` 80 · `beweging` 77, 84 ·
-`bewijs` 63 · `bezit` 37 · `bijgeloof` 63 · `biografie` 31, 46 · `biologie`
-66, 88, 89, 90, 91 · `bloedvaten` 86 · `blokkade` 14 · `brainstormen` 33 ·
-`broers` 10 · `cafeïne` 52 · `Californië` 10 · `cases` 40 · `cashflow` 37 ·
-`challenger` 62 · `chaos` 74 · `chapbook` 100 · `cijfers` 39, 65 ·
-`cognitieve-bias` 59 · `columns` 89, 90 · `commando` 97 · `communicatie` 34,
-35 · `concentratie` 70 · `conditionering` 61 · `conflict` 35, 42, 43 ·
-`creativiteit` 11, 12, 13, 14, 15, 16, 17, 74 · `crisis` 47 · `cultuur` 68 ·
-`cultuurkritiek` 54 · `cursus-in-wonderen` 102 · `dagboek` 2 ·
-`dagboekmethode` 78 · `debat` 28 · `dementie` 84, 85 · `democratie` 98 ·
-`denkfouten` 55, 59 · `digitaal` 81 · `discipline` 12, 13, 22, 30 · `doelen`
-58 · `doelgericht-oefenen` 50 · `dood` 98 · `doorzetten` 20 · `dromen` 52 ·
-`durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 · `e-mail` 70 ·
-`economie` 65, 98 · `eenzaamheid` 7, 96, 98 · `eerlijk` 47 · `eerlijkheid` 62
-· `eerste-versie` 19 · `ego` 75, 102 · `eigen-oordeel` 58 · `eigenaarschap` 97
-· `einstein` 94 · `emoties` 3, 43 · `empathie` 35, 67 · `energie` 92 · `epos`
-5 · `erfenis` 39 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96 · `evolutie` 56,
-66, 89, 90, 91 · `evolutionaire-psychologie` 67 · `expeditie` 36 ·
-`experiment` 79 · `fabel` 8, 42 · `falen` 23, 72, 75 · `familie` 45 ·
-`familieroman` 10 · `feedback` 41 · `feiten` 43 · `feminisme` 3 · `fictie` 100
-· `film` 41 · `filosofie` 1, 6, 71, 93 · `flow` 78 · `gebed` 83 · `gedrag` 21,
-22, 89, 90 · `geduld` 21 · `geheugen` 66, 85 · `geld` 21, 37, 38, 56, 76 ·
-`geloof` 45, 83 · `geluk` 79, 93 · `gemeenschap` 9, 96 · `geneeskunde` 49 ·
-`geschiedenis` 30, 36, 56, 57, 68, 93, 94 · `gesprek` 43, 95 · `gevolgen` 67 ·
-`geweld` 45, 90 · `gewoonte` 58, 70, 76, 77, 79, 88, 97 · `gewoontes` 7, 11,
-13, 22, 25 · `gezag` 62 · `gezondheid` 52, 88 · `grenzen` 72 · `grondstoffen`
-92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80 · `handelen` 30 ·
-`hart` 86 · `heelal` 99 · `helderheid` 82 · `heroverwegen` 28 · `hersenen` 51,
-84, 85, 86 · `herstel` 87 · `Holocaust` 48 · `hormonen` 80 · `huisvesting` 65
-· `humor` 16, 19, 26 · `huwelijk` 9, 34 · `Huxley` 54 · `Idaho` 45 ·
-`identiteit` 22 · `identiteitskapitaal` 51 · `imitatie` 11 · `import` 20 ·
-`individualisme` 9, 96 · `internet` 60 · `interview` 58 · `introversie` 33 ·
-`invloed` 11 · `jaloezie` 19 · `japan` 77 · `jaren-twintig` 94 · `jeugd` 53 ·
-`jongeren` 25 · `journalistiek` 4, 7, 46, 82 · `Kaïn-en-Abel` 10 · `kans` 64 ·
-`karakter` 97 · `kennis` 81 · `kenniswerk` 6, 50 · `keuzes` 51, 71, 72 ·
-`klassieker` 10, 24, 38, 48, 61, 83 · `klein-beginnen` 40 · `kleine-stappen`
-22 · `kort` 59, 99, 100, 101 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
-`kort-stuk` 19, 30 · `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 · `kroeg`
-4 · `kunst` 11 · `kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw` 56, 98 ·
-`leefstijl` 86 · `leiderschap` 36, 41, 44, 46, 97 · `levenskunst` 27 ·
-`levensloop` 91 · `lezen` 18 · `lichaam` 80 · `liefde` 3 · `lijden` 48, 73 ·
-`literatuur` 49 · `logotherapie` 48 · `Long-Island` 4 · `loopbaan` 50, 51 ·
-`losmaken` 45 · `luisteren` 24, 35 · `management` 42, 47 · `mannelijkheid` 3 ·
-`mannen` 7 · `marketing` 13, 40, 60 · `media` 54, 60, 100 · `memoir` 4, 7, 18,
-20, 26, 45, 49, 62, 95 · `mentorschap` 4 · `metafysica` 102 · `meten` 69 ·
-`methode` 81 · `microbedrijf` 40 · `middelbare-leeftijd` 7 · `minderheden` 68
-· `moed` 44 · `moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57, 67 ·
-`moreel` 36 · `motoren` 6 · `muziek` 17, 85 · `mythologie` 73 · `naslag` 99 ·
-`naslagwerk` 59 · `natuurkunde` 62, 94 · `nederland` 96 · `nederlands` 93, 97,
-100, 101, 102 · `netwerken` 24 · `neurochirurgie` 49 · `neurowetenschap` 52 ·
-`NeXT` 46 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62 · `Nike` 20 ·
-`Nobelprijs` 55 · `observeren` 15 · `ochtendroutine` 14 · `oefenen` 29 ·
-`oefeningen` 15, 35, 87 · `okinawa` 77 · `omgangsvormen` 24 · `omstreden` 37,
-73, 76, 83 · `onbewuste` 16 · `onderbouwing` 87 · `ondernemen` 20, 39, 40, 47
-· `onderwijs` 6, 23, 33, 45, 63, 65, 68 · `onderwijskritiek` 37 · `onderzoek`
-23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88 ·
+`1906` 127 · `1937` 76 · `1938` 58 · `1952` 83 · `aandacht` 17, 34, 54, 70,
+71, 78, 141 · `aannames` 27 · `aantekeningen` 81 · `aarde` 92 · `academisch`
+143 · `actueel` 67 · `ademhaling` 87, 118 · `affirmaties` 117 · `aforismen` 2,
+17 · `afwezige-vader` 4 · `alcohol` 4 · `alledaags` 89 · `ambacht` 6, 12, 13,
+17, 18 · `ambitie` 75 · `amerika` 114 · `amerikaans` 117, 118, 120, 132, 133,
+134, 136 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140 ·
+`animatie` 41 · `Antarctica` 36 · `antwerpen` 113 · `apartheid` 26 · `Apple`
+46 · `arbeid` 6 · `argumenten` 63 · `armoede` 26 · `atletiek` 31 · `Auschwitz`
+48 · `autonomie` 6, 50 · `basisbehoeften` 107 · `bbc` 82 · `beginners` 112 ·
+`behoeften` 35 · `beinvloeding` 123, 126 · `bekentenis` 60 ·
+`belangenverstrengeling` 138 · `beleggen` 21, 64, 144 · `beleid` 65 ·
+`bemiddeling` 35 · `beroemdheden` 128 · `beschadigd-bestand` 115, 130 ·
+`beschaving` 57 · `beslissen` 55 · `besluiten` 47, 59, 69, 137 · `bestseller`
+8, 37 · `betekenis` 143 · `beurs` 80 · `beweging` 77, 84 · `bewijs` 63 ·
+`bewustwording` 103 · `bezit` 37 · `bijgeloof` 63 · `biografie` 31, 46 ·
+`biologie` 66, 88, 89, 90, 91 · `bloedvaten` 86 · `blokkade` 14 · `boeddhisme`
+111 · `brainstormen` 33 · `broers` 10 · `burn-out` 135 · `cafeïne` 52 ·
+`Californië` 10 · `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos` 74 ·
+`chapbook` 100 · `cijfers` 39, 65 · `cognitieve-bias` 59 · `columns` 89, 90 ·
+`commando` 97 · `communicatie` 34, 35, 122 · `concentratie` 70 ·
+`conditionering` 61 · `conflict` 35, 42, 43 · `creativiteit` 11, 12, 13, 14,
+15, 16, 17, 74 · `crisis` 47 · `cultuur` 68 · `cultuurkritiek` 54 · `cursus`
+108, 130 · `cursus-in-wonderen` 102, 131 · `dagboek` 2, 109 · `dagboekmethode`
+78 · `dankbaarheid` 129 · `debat` 28 · `dementie` 84, 85 · `democratie` 98 ·
+`denkfouten` 55, 59, 142 · `diagnose` 104 · `digitaal` 81 · `discipline` 12,
+13, 22, 30, 106, 133, 137 · `docenten` 116 · `doelen` 58, 136 ·
+`doelgericht-oefenen` 50 · `donkere-triade` 124 · `dood` 98 · `doorzetten` 20
+· `dromen` 52 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 ·
+`dystopie` 61 · `e-mail` 70 · `economie` 65, 98 · `eenzaamheid` 7, 96, 98, 111
+· `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102 ·
+`eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 · `eigenaarschap` 97 ·
+`einstein` 94 · `emotie` 137 · `emoties` 3, 43, 142 · `empathie` 35, 67 ·
+`energie` 92 · `epos` 5 · `erfenis` 39 · `erotiek` 113 · `essay` 3, 9, 21, 57,
+59, 63, 64, 68, 96 · `eten` 103 · `evolutie` 56, 66, 89, 90, 91 ·
+`evolutionaire-psychologie` 67 · `expeditie` 36 · `experiment` 79 · `fabel` 8,
+42, 135 · `falen` 23, 72, 75 · `familie` 45 · `familiegeschiedenis` 114 ·
+`familieroman` 10 · `feedback` 41 · `feiten` 43 · `feminisme` 3 · `fictie`
+100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93 · `flow` 78 · `frankrijk` 115
+· `gaslighting` 123 · `gebed` 83 · `gedrag` 21, 22, 89, 90, 138 · `geduld` 21
+· `geheugen` 66, 85 · `geld` 21, 37, 38, 56, 76, 121, 132, 133 · `geloof` 45,
+83 · `geluk` 79, 93 · `gemeenschap` 9, 96 · `geneeskunde` 49 · `generaties`
+114 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94 · `gesprek` 43, 95 ·
+`gevolgen` 67 · `geweld` 45, 90 · `gewicht` 138 · `gewoonte` 58, 70, 76, 77,
+79, 88, 97, 103, 133, 138 · `gewoontes` 7, 11, 13, 22, 25, 134, 135 · `gezag`
+62 · `gezondheid` 52, 88 · `ggz` 104 · `grenzen` 72, 105, 109, 120, 122 ·
+`groeimentaliteit` 116 · `grondstoffen` 92 · `groot-verhaal` 56 ·
+`grootouders` 91 · `handel` 80 · `handelen` 30 · `handleiding` 112 · `hart`
+86, 128 · `heelal` 99 · `helderheid` 82 · `herhaling` 125, 134 · `herkomst`
+127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 · `herstel` 87 ·
+`Holocaust` 48 · `hormonen` 80 · `houding` 117 · `huisvesting` 65 · `humor`
+16, 19, 26, 105 · `huwelijk` 9, 34 · `Huxley` 54 · `hypnose` 123, 124, 125 ·
+`Idaho` 45 · `identiteit` 22, 115 · `identiteitskapitaal` 51 · `ierland` 110 ·
+`ik-vorm` 113 · `illustraties` 109 · `imitatie` 11 · `import` 20 ·
+`individualisme` 9, 96 · `innerlijk-kind` 109 · `instagram` 129 · `internet`
+60 · `interview` 58 · `intimiteit` 122 · `introversie` 33 · `intuitie` 128 ·
+`invloed` 11 · `jaloezie` 19 · `japan` 77 · `jaren-tachtig` 139 ·
+`jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren` 25 · `journalistiek` 4,
+7, 46, 82 · `jung` 143 · `Kaïn-en-Abel` 10 · `kans` 64 · `kansen` 137 ·
+`karakter` 97 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50 · `keuzes` 51,
+71, 72 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144 · `klein-beginnen`
+40 · `kleine-stappen` 22, 133 · `korea` 111 · `kort` 59, 99, 100, 101, 110,
+140 · `kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 ·
+`korte-teksten` 111 · `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 ·
+`kroeg` 4 · `kunst` 11 · `kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw`
+56, 98 · `leefstijl` 86, 103, 138 · `leger` 106 · `leiderschap` 36, 41, 44,
+46, 97, 106 · `lesmateriaal` 116 · `levenskunst` 27 · `levensloop` 91 ·
+`lezen` 18 · `lichaam` 80 · `lichaamstaal` 125, 126 · `liefde` 3, 131 ·
+`lijden` 48, 73 · `literair` 110 · `literatuur` 49 · `logotherapie` 48 ·
+`Long-Island` 4 · `loopbaan` 50, 51 · `losmaken` 45 · `luisteren` 24, 35 ·
+`management` 42, 47 · `manifesteren` 128, 129, 130, 131, 132 · `manipulatie`
+123, 124, 125, 126 · `mannelijkheid` 3 · `mannen` 7 · `marketing` 13, 40, 60 ·
+`media` 54, 60, 100 · `meditatie` 111, 141 · `memoir` 4, 7, 18, 20, 26, 45,
+49, 62, 95, 106 · `mensenkennis` 126 · `mentorschap` 4 · `metafysica` 102 ·
+`meten` 69, 133 · `methode` 81 · `microbedrijf` 40 · `middelbare-leeftijd` 7 ·
+`minderheden` 68 · `mindful` 103 · `mindfulness` 141 · `modelleren` 139 ·
+`moed` 44 · `moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57, 67 ·
+`moreel` 36 · `motivatie` 117, 139 · `motoren` 6 · `muziek` 17, 85 ·
+`mythologie` 73, 143 · `naslag` 99, 112 · `naslagwerk` 59 · `natuurkunde` 62,
+94 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106,
+107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113
+· `netwerken` 24 · `neurobiologie` 119 · `neurochirurgie` 49 ·
+`neurowetenschap` 52 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
+`nieuwsgierigheid` 15, 28, 62 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs`
+55 · `observeren` 15 · `ochtendroutine` 14, 134 · `oefenen` 29 · `oefening`
+141 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 · `okinawa` 77 ·
+`omgangsvormen` 24 · `omkering` 105 · `omstreden` 37, 73, 76, 83 ·
+`onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 · `onbewezen`
+127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16 · `onderbewuste` 124 ·
+`onderbouwing` 87, 108, 117, 134, 135, 136 · `ondernemen` 20, 39, 40, 47 ·
+`onderwijs` 6, 23, 33, 45, 63, 65, 68, 116 · `onderwijskritiek` 37 ·
+`onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88 ·
 `onderzoeksdebat` 53 · `onderzoekskritiek` 52 · `ontslagen` 47 ·
-`ontwikkeling` 46, 85 · `oordeel` 59, 69 · `oorlog` 31, 57, 66 · `opgetekend`
-97 · `opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73 · `orde` 73, 74 ·
-`organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 · `ouderdom` 77, 84,
-91, 95 · `oudheid` 2 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
-`overtuigen` 24 · `overtuigingen` 28 · `overvloed` 17 · `Pacific` 31 · `para`
-81 · `parabel` 38 · `passie` 50 · `pastoraat` 34 · `patriarchaat` 3 ·
-`pelgrimage` 8 · `perceptie` 30 · `perfectionisme` 19, 32, 44 ·
-`persoonlijkheid` 33 · `pijn` 85 · `Pixar` 41, 46 · `planeten` 99 · `planning`
-70 · `plicht` 2 · `polemiek` 67 · `politiek` 54 · `populair` 77 ·
+`ontwikkeling` 46, 85 · `oordeel` 59, 69 · `oorlog` 31, 57, 66 · `opdrachten`
+116 · `opgetekend` 97 · `opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73 ·
+`orde` 73, 74 · `organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 ·
+`ouderdom` 77, 84, 91, 95 · `oudheid` 2 · `overleven` 31, 36 ·
+`overlevingsvertekening` 64 · `overtuigen` 24 · `overtuigingen` 28, 132, 139,
+143 · `overvloed` 17 · `Pacific` 31 · `para` 81 · `parabel` 38 · `passie` 50 ·
+`pastoraat` 34 · `patriarchaat` 3 · `pelgrimage` 8 · `perceptie` 30 ·
+`perfectionisme` 19, 32, 44 · `persoonlijkheid` 33 · `piekeren` 105 · `pijn`
+85 · `Pixar` 41, 46 · `planeten` 99 · `planning` 70 · `plicht` 2 · `podcast`
+136 · `poker` 137 · `polemiek` 67 · `politiek` 54 · `populair` 77, 129, 133 ·
 `populair-wetenschappelijk` 88 · `portretten` 75, 94 · `positief-denken` 83 ·
-`postuum` 49 · `presenteren` 82 · `preventie` 86 · `prijzen` 23 · `prikkels`
-60, 65 · `prioriteiten` 25 · `proactief` 25 · `producer` 17 · `projecten` 81 ·
-`propaganda` 60 · `protocol` 69 · `psychiatrie` 1, 48, 95, 96 · `psychologie`
-23, 28, 29, 55, 73, 78, 79 · `publiceren` 13 · `Pulitzer` 5 · `quantum` 94 ·
-`rechtspraak` 69 · `reisverhaal` 1 · `relaties` 34, 51, 101 · `religie` 56 ·
-`REM` 52 · `Renaissance` 15 · `rente` 38 · `replicatie` 79 · `revisie` 18 ·
-`rijkdom` 57 · `risico` 64, 80 · `roeping` 8, 9, 12 · `roman` 61 · `rouw` 95 ·
-`rust` 32 · `Salinas` 10 · `samenleving` 90, 98 · `samenwerken` 25 · `scepsis`
-63 · `schaamte` 32, 44 · `schaarste` 92 · `scheikunde` 92 · `school` 53, 84 ·
-`schrijven` 11, 12, 14, 18, 19, 81 · `schulden` 20, 38 · `seksualiteit` 100 ·
+`postuum` 49 · `praktisch` 118, 121, 140 · `presenteren` 82 · `preventie` 86 ·
+`prijzen` 23 · `prikkels` 60, 65 · `prioriteiten` 25 · `proactief` 25 ·
+`producer` 17 · `proeven` 112 · `projecten` 81 · `projectie` 107, 108 ·
+`propaganda` 60 · `protocol` 69 · `pseudokennis` 126 · `psychiatrie` 1, 48,
+95, 96, 104 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143 ·
+`publiceren` 13 · `Pulitzer` 5 · `quantum` 94 · `quilten` 114 · `rechtspraak`
+69 · `reeks` 114 · `reisverhaal` 1 · `relaties` 34, 51, 101, 120, 122 ·
+`religie` 56 · `REM` 52 · `Renaissance` 15 · `rente` 38 · `replicatie` 79 ·
+`revisie` 18 · `rijkdom` 57 · `risico` 64, 80, 144 · `roeping` 8, 9, 12 ·
+`roman` 61, 113, 114, 115 · `rouw` 95 · `rust` 32 · `Salinas` 10 ·
+`samenleving` 90, 98 · `samenwerken` 25 · `scepsis` 63 · `schaamte` 32, 44 ·
+`schaarste` 92 · `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14,
+18, 19, 81 · `schulden` 20, 38, 121 · `seksualiteit` 100 · `seminar` 139 ·
 `slaap` 52, 87, 88 · `slavernij` 68 · `smartphone` 53 · `sociale-media` 53, 70
-· `spanning` 101 · `sparen` 21, 38 · `spelen` 32 · `spiritualiteit` 8, 14, 27,
-102 · `sport` 20 · `statistiek` 55, 65, 69 · `status` 39, 66 ·
+· `somberheid` 119 · `spanning` 101 · `sparen` 21, 38 · `spelen` 32 ·
+`spiegelogie` 108 · `spiritualiteit` 8, 14, 27, 102, 108, 141 · `sport` 20 ·
+`spreker` 117, 134 · `statistiek` 55, 65, 69 · `status` 39, 66 ·
 `sterfelijkheid` 2, 71 · `sterrenkunde` 99 · `sterven` 49, 95 · `stijl` 18 ·
-`stoicijns` 75 · `stoïcisme` 2, 30 · `stress` 80, 87 · `structuur` 82 ·
-`succes` 75, 76 · `systeem` 22 · `taal` 26, 27 · `talent` 23, 29 · `team` 42 ·
-`techniek` 1, 6, 43, 61, 92 · `tegen-productiviteit` 71 · `tegenslag` 30 ·
-`tekenen` 15 · `televisie` 54 · `temperament` 33 · `Texas` 5 · `therapie` 51 ·
-`thriller` 101 · `tijd` 71 · `toeval` 21, 64, 93 · `Tolteeks` 27 · `toon` 72 ·
-`twaalf-weken` 14 · `twintigers` 51 · `uitleg` 99, 102 · `uitleggen` 82 ·
-`uitstel` 71 · `uitstelgedrag` 12 · `uitstellen` 16 · `vaardigheden` 40, 50 ·
-`vaardigheid` 64 · `vader-en-zoon` 1 · `vaderschap` 49 · `vakmanschap` 1 ·
-`vastgoed` 37 · `veedrift` 5 · `veiligheid` 43 · `verantwoordelijkheid` 42,
-72, 73, 74, 93 · `vergaderen` 42 · `vergeving` 31, 102 · `verhaal` 74 ·
-`verhalen` 56, 101 · `verklaringen` 68 · `verlangen` 76, 100 · `verlies` 95 ·
-`vermaak` 61 · `vermogen` 39 · `verplichting` 9 · `verslaving` 18 ·
-`vertrouwen` 42 · `vervolg` 74 · `vlaams` 89, 91, 98 · `voeding` 86, 88 ·
-`volharding` 29 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55 ·
-`vriendschap` 5, 7 · `vrije-tijd` 78 · `vrije-wil` 10 · `vrijheid` 61 ·
-`waarden` 72 · `waardering` 24, 34 · `weerstand` 12 · `werk` 70, 78 ·
-`werkboek` 14 · `werkplek` 33, 43 · `werkwijze` 16 · `West-Point` 29 ·
-`westen` 67 · `western` 5 · `wetenschap` 63, 66, 93, 94 · `woestijn` 8 ·
-`wraak` 101 · `zeereis` 36 · `zelfbedrog` 66 · `zelfbeeld` 25, 27 ·
-`zelfbeheersing` 75 · `zelfcompassie` 32 · `zelfdiscipline` 2 · `zelfhulp` 15,
-22, 25, 34, 58, 72, 76, 79, 83 · `zelfspot` 19 · `zelfstandig` 40 ·
-`zenuwstelsel` 87 · `ziekte` 74 · `zingeving` 9, 48, 77, 91 · `zitten` 84 ·
-`zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwarte-gaten` 99
+`stoicijns` 75, 140, 142 · `stoïcisme` 2, 30 · `streken` 112 · `stress` 80,
+87, 106, 118 · `structuur` 82 · `succes` 75, 76 · `systeem` 22, 142 · `taal`
+26, 27 · `talent` 23, 29 · `tarieven` 121 · `team` 42 · `techniek` 1, 6, 43,
+61, 92 · `tegen-productiviteit` 71 · `tegenslag` 30, 111 · `tekenen` 15 ·
+`tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `Texas` 5 ·
+`therapie` 51, 107, 118, 119, 120, 121, 122 · `thriller` 101 · `tijd` 71 ·
+`toeval` 21, 64, 93, 137 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132 ·
+`trauma` 104, 119 · `trilling` 127 · `twaalf-weken` 14 · `tweede-wereldoorlog`
+115 · `twintigers` 51 · `uitleg` 99, 102 · `uitleggen` 82 · `uitstel` 71, 140
+· `uitstelgedrag` 12 · `uitstellen` 16 · `vaardigheden` 40, 50 · `vaardigheid`
+64 · `vader-en-zoon` 1 · `vaderschap` 49 · `vakmanschap` 1 · `variantie` 137 ·
+`vastgoed` 37 · `veedrift` 5 · `veerkracht` 106 · `veiligheid` 43 ·
+`veiligheidsmarge` 144 · `verantwoordelijkheid` 42, 72, 73, 74, 93 ·
+`verdriet` 111 · `vergaderen` 42 · `vergeving` 31, 102, 120 · `verhaal` 74 ·
+`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136 · `verhouding` 113 ·
+`verhoudingen` 110 · `verklaringen` 68 · `verkoop` 132 · `verlangen` 76, 100,
+113, 130 · `verlies` 95 · `vermaak` 61 · `vermogen` 39 · `verplichting` 9 ·
+`verslaving` 18 · `vertrouwen` 42 · `vervolg` 74, 131 · `visualiseren` 116 ·
+`vlaams` 89, 91, 98, 109 · `voeding` 86, 88 · `volharding` 29 · `voorbeelden`
+128 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55 · `vriendschap`
+5, 7, 114 · `vrije-tijd` 78 · `vrije-wil` 10 · `vrijheid` 61 · `vrouwenhaat`
+110 · `waardebeleggen` 144 · `waarden` 72, 142 · `waardering` 24, 34 ·
+`wall-street` 144 · `weerstand` 12 · `werk` 70, 78 · `werkboek` 14, 122 ·
+`werkplek` 33, 43 · `werkwijze` 16 · `West-Point` 29 · `westen` 67 · `western`
+5 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94 · `wijn` 112 ·
+`wiskunde` 116 · `woede` 119, 120 · `woestijn` 8 · `wraak` 101 · `zeereis` 36
+· `zeldzaam` 144 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129,
+138 · `zelfbeheersing` 75 · `zelfcompassie` 32 · `zelfdiscipline` 2 ·
+`zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136 · `zelfspot`
+19 · `zelfstandig` 40 · `zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125,
+126 · `zelfwaardering` 121 · `zelfzorg` 109 · `zen` 141 · `zenuwstelsel` 87 ·
+`zeven-stappen` 129 · `ziekte` 74 · `zingeving` 9, 48, 77, 91 · `zitten` 84 ·
+`zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwarte-gaten`
+99
 
 ## Leesroutes
 
