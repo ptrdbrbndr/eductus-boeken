@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stop Doing That Sh*t &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bishop stelt dat mensen zichzelf systematisch tegenwerken door drie onbewuste conclusies die ze als kind vormden: een conclusie over wie ze zijn, een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-161">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">161 &middot; Gewoontes en denken</p>
+    <h1>Stop Doing That Sh*t</h1>
+    <p class="lede">Gary John Bishop, 2019</p>
+    <p class="stats">
+      <span><b>1459</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="161"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bishop stelt dat mensen zichzelf systematisch tegenwerken door drie onbewuste conclusies die ze als kind vormden: een conclusie over wie ze zijn, een conclusie over andere mensen en een conclusie over hoe het leven werkt. Die conclusies werken als een filter waardoor ervaringen zo worden waargenomen dat ze de conclusie bevestigen, zodat het heden een herhaling van het verleden blijft. Wie dat patroon wil doorbreken, moet volgens Bishop eerst deze drie conclusies onder woorden brengen en vervolgens op het moment zelf een andere keuze maken, wat hij redirecten noemt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een tweede boek uit dezelfde koker</h3>
+      <p>Bishop opent met de hoofdstukken <i>Here's the Rub</i> en <i>A Life of Sabotage</i> en plaatst het boek meteen naast <i>Unfu*k Yourself</i>, zijn debuut over de zelfpraat die iemand tegenhoudt. Dit boek gaat over het patroon dat zich telkens herhaalt zonder dat de lezer dat zelf lijkt te kiezen. Bishop stelt dat de meeste mensen op meerdere terreinen tegelijk zichzelf in de weg zitten, van geld tot relaties tot werk, en dat daar volgens hem een vast mechanisme achter zit dat de rest van het boek blootlegt.</p>
+      <h3>De vraag naar het waarom en de spons</h3>
+      <p>In <i>The Question</i> stelt Bishop zichzelf de vraag waarom zijn leven eruitzag zoals het eruitzag, en maakt daarvan de opening van het boek. Het antwoord zoekt hij in <i>The Magic Little Sponge</i>: als kind neemt een mens alles op wat er in de omgeving gebeurt, zonder het te kunnen beoordelen, en die vroege indrukken zetten zich vast voordat er kritisch denkvermogen is om ze te toetsen.</p>
+      <p>Wie dat patroon dagelijks herhaalt, blijft volgens Bishop in een toekomst leven die een verlengstuk is van dat vroege verleden. Nieuwe voornemens veranderen daar weinig aan zolang de onderliggende conclusies uit de kindertijd blijven staan.</p>
+      <h3>De waarheid vaststellen en de drie saboteurs</h3>
+      <p><i>Establishing the Truth</i> vraagt de lezer eerst vast te stellen wat er werkelijk aan de hand is, los van de verklaringen en excuses die er al jaren bij horen. Daarna introduceert <i>The Three Saboteurs</i> het middelpunt van het boek: iedereen draagt drie conclusies mee die als kind zijn gevormd, een conclusie over zichzelf, een conclusie over andere mensen en een conclusie over het leven zelf.</p>
+      <p>Bishop noemt deze conclusies saboteurs omdat ze niet als mening voelen maar als feit, waardoor ze het gedrag sturen zonder dat er nog een herkenbaar keuzemoment lijkt te zijn.</p>
+      <h3>Jezelf, anderen en het leven</h3>
+      <p>De hoofdstukken <i>You</i>, <i>Them</i> en <i>Life</i> werken elke conclusie apart uit, met voorbeelden van typische bewoordingen: ik ben niet goed genoeg, mensen laten je uiteindelijk vallen, het leven is oneerlijk. Bishop laat zien hoe zo'n zin, ooit gevormd naar aanleiding van een concrete gebeurtenis, is gaan gelden als een algemene waarheid over de wereld.</p>
+      <p>Die conclusie raakt vervolgens verweven met dagelijkse beslissingen: welke baan iemand aanneemt of afwijst, welke relatie iemand aangaat of verlaat, en hoe iemand op tegenslag reageert.</p>
+      <h3>Granaten en het punt van de speer</h3>
+      <p>Bishop noemt de momenten waarop dat patroon zichtbaar wordt granaten: gedrag dat op een kritiek moment het eigen project opblaast, zoals ruzie zoeken vlak voor een doorbraak in een relatie of geld uitgeven zodra er iets is gespaard. In <i>The Point of the Spear</i> brengt hij de hele voorgeschiedenis samen in het heden: dat punt is het enige moment waarop ingrijpen nog mogelijk is, omdat het verleden vaststaat en de toekomst nog niet bestaat.</p>
+      <p>Die nadruk op het huidige moment onderscheidt het boek van benaderingen die vooral in het verleden naar oorzaken zoeken. Bishop wil dat de lezer het patroon herkent terwijl het gebeurt, niet pas achteraf.</p>
+      <h3>Omkeren en volhouden</h3>
+      <p><i>Redirecting Your Way Outta This</i> beschrijft de praktische stap: op het punt van de speer een andere respons kiezen dan de conclusie voorschrijft, ook al voelt die andere respons ongemakkelijk. Bishop benadrukt daarbij het gewicht van de eigen zelfpraat, die hij beschrijft als sturing van het onderbewuste: wat iemand zichzelf voorhoudt, werkt door in wat er vervolgens gebeurt.</p>
+      <p>Als richting voor die nieuwe respons geeft hij de oefening om zich een toekomstige versie van zichzelf voor te stellen en de eigenschappen daarvan meteen te belichamen, in plaats van te wachten tot de omstandigheden vanzelf veranderen. Het slothoofdstuk sluit af met de oproep dat de lezer, nu de saboteurs benoemd zijn, geen aanleiding meer heeft om het oude patroon voort te zetten. Een reeks herhaalbare oefeningen, zoals in een werkboek, biedt het boek niet; het blijft bij het blootleggen van het mechanisme en een aansporing om het te doorbreken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zelfsabotage</td><td>Gedrag dat het eigen doel ondermijnt zonder dat de persoon dat op het moment zelf als zodanig herkent.</td></tr>
+          <tr><td class="term">De spons</td><td>Het beeld uit <i>The Magic Little Sponge</i> van het jonge kind dat alles uit de omgeving opneemt zonder het te kunnen beoordelen, waardoor de vroegste overtuigingen ongefilterd blijven staan.</td></tr>
+          <tr><td class="term">De drie saboteurs</td><td>De drie conclusies die iedereen als kind vormt, over zichzelf, over andere mensen en over het leven, die volgens Bishop achter zelfsabotage zitten.</td></tr>
+          <tr><td class="term">Conclusie</td><td>Een vroeg gevormd oordeel dat nadien nooit meer is getoetst en dat als feit aanvoelt in plaats van als mening.</td></tr>
+          <tr><td class="term">Granaat</td><td>Terugkerend gedrag dat op een kritiek moment een project of relatie laat ontsporen, genoemd naar het beeld van een geworpen handgranaat.</td></tr>
+          <tr><td class="term">Het punt van de speer</td><td>Het huidige moment waarop de hele voorgeschiedenis samenkomt en de conclusie het gedrag stuurt, het enige moment waarop ingrijpen nog mogelijk is.</td></tr>
+          <tr><td class="term">Redirecten</td><td>Op het punt van de speer bewust een andere respons kiezen dan de conclusie voorschrijft.</td></tr>
+          <tr><td class="term">Zelfpraat</td><td>De inwendige taal die Bishop omschrijft als sturing van het onderbewuste, die de conclusies telkens opnieuw bevestigt of doorbreekt.</td></tr>
+          <tr><td class="term">Vertrouwd verleden</td><td>Het mechanisme waarbij dagelijks herhaald gedrag de kindertijdconclusies in stand houdt, zodat de toekomst een verlengstuk van het verleden blijft.</td></tr>
+          <tr><td class="term">Wees nu je toekomstige zelf</td><td>De oefening om de eigenschappen van de gewenste toekomstige versie van zichzelf meteen te belichamen, in plaats van te wachten tot de situatie dat vanzelf mogelijk maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bishop is geen onderzoeker of psycholoog. Hij groeide op in Glasgow, werkte eerst als aannemer en werd na een omslag in zijn leven coach voor persoonlijke ontwikkeling, eerst in dienst van een groter opleidingsbedrijf en later zelfstandig. <i>Stop Doing That Sh*t</i> citeert geen onderzoek, geen cijfers en geen bronnen; het bouwt op herkenbare scenario's uit geld, relaties en werk en op de ervaring die Bishop opdeed in zijn coachingspraktijk.</p>
+      <p>De driedeling in conclusies over zichzelf, anderen en het leven vertoont raakvlakken met wat in de cognitieve gedragstherapie kernovertuigingen heet, maar Bishop verwijst daar zelf niet naar en bouwt zijn model ook niet op die literatuur voort. Het boek noemt zichzelf een praktische levensles vanuit eigen ervaring en die van cliënten, geen wetenschappelijk werk, wat betekent dat de lezer de claims niet aan onderzoek kan toetsen, alleen aan de eigen herkenning.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het model van de drie saboteurs is ruim genoeg om vrijwel elk gedrag achteraf te verklaren: tegenslag bevestigt de conclusie, en voorspoed wordt dan uitgelegd als een uitzondering die de conclusie juist onderstreept. Dat maakt het aantrekkelijk als verhaal over de eigen geschiedenis, terwijl er weinig aan valt te toetsen of te weerleggen.</p>
+      <p>De confronterende, ongefilterde toon werkt voor lezers die tegen zich aan geschreeuwd willen worden, maar biedt geen ruimte voor patronen die met trauma samenhangen en meer vragen dan een andere respons op het punt van de speer. Het boek herhaalt bovendien grotendeels het vocabulaire en de aanpak van <i>Unfu*k Yourself</i>, waardoor recensenten er weinig nieuws in vinden ten opzichte van dat eerdere boek, en het levert geen enkele aanwijzing of de aangeraden methode bij lezers tot blijvende verandering leidt.</p>
+      <p>Ook de oefening om nu al de toekomstige versie van zichzelf te belichamen krijgt geen uitwerking in concrete stappen; het blijft bij het voornemen, terwijl juist de weg van voornemen naar vol te houden gedrag de kern van het probleem is dat het boek zegt op te lossen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf de drie conclusies op die als kind zijn gevormd, over jezelf, over andere mensen en over het leven, in de exacte bewoordingen die opkomen.</li>
+        <li>Noteer bij elke terugkerende tegenslag in geld, relatie of werk welke van de drie conclusies daarachter zit.</li>
+        <li>Leg vast op welk moment de sabotage zich voltrekt, het punt van de speer, in plaats van pas achteraf te concluderen dat het weer is misgegaan.</li>
+        <li>Formuleer voor dat moment vooraf een andere respons en spreek die uit voordat de oude reactie de kans krijgt.</li>
+        <li>Beschrijf de toekomstige versie van jezelf die het patroon niet meer heeft en noteer welke eigenschap daarvan vandaag al te belichamen is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Stop Doing That Sh*t: End Self-Sabotage and Demand Your Life Back</i> (HarperOne, 2019), het vervolg op <i>Unfu*k Yourself</i> uit dezelfde reeks. In het Nederlands verschenen onder dezelfde titel bij HarperCollins Holland (2019, vertaling Erica Disco, ISBN 9789402704341), als paperback en als e-book; bronnen over het exacte aantal bladzijden lopen uiteen, dus dat getal staat hier niet.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Stop Doing That Sh*t is het vervolg op Bishops bestseller <i>Unfu*k Yourself</i> en gaat over de patronen waarmee mensen zichzelf onbewust tegenwerken. Bishop, opgegroeid in Glasgow en werkzaam als coach voor persoonlijke ontwikkeling, stelt dat ieder mens als kind drie conclusies vormt: een oordeel over zichzelf, een oordeel over andere mensen en een oordeel over hoe het leven werkt. Die conclusies ontstaan voordat er kritisch denkvermogen is, zoals een spons die opneemt wat er langskomt, en blijven daarna als filter werken waardoor nieuwe ervaringen de oude overtuiging bevestigen.</p><p>Het boek herkent dat patroon in geld, relaties en werk en noemt de terugkerende uitbarstingen granaten: gedrag dat op een kritiek moment het eigen project opblaast. De remedie ligt volgens Bishop in het punt van de speer, het moment zelf waarop de oude conclusie het gedrag stuurt en waarop nog een andere respons mogelijk is, in plaats van in het analyseren van het verleden. De toon is direct en ongefilterd, in lijn met de rest van de reeks.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>zelfsabotage</li><li>gewoontevorming</li><li>zelfpraat</li><li>gedragspatronen</li><li>coaching</li><li>persoonlijke ontwikkeling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Beschrijft hoe herhaald gedrag identiteit vormt, wat aansluit bij Bishops idee dat het vertrouwde verleden de toekomst voorspelt.</li>
+          <li value="142"><a href="142.html">Designing the Mind</a>. Behandelt het herprogrammeren van denkpatronen met een preciezere methode dan Bishops directe aanpak.</li>
+          <li value="153"><a href="153.html">Control Your Emotions</a>. Gaat over het reguleren van een emotionele reactie op het moment zelf, vergelijkbaar met wat Bishop het punt van de speer noemt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broke Millennial &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lowry betoogt dat financiële problemen bij twintigers en dertigers zelden aan onwetendheid alleen liggen. Studieschuld en een onzekerder arbeidsmarkt dan…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-159">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">159 &middot; Geld en ondernemen</p>
+    <h1>Broke Millennial</h1>
+    <p class="lede">Erin Lowry, 2017</p>
+    <p class="stats">
+      <span><b>1730</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="159"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lowry betoogt dat financiële problemen bij twintigers en dertigers zelden aan onwetendheid alleen liggen. Studieschuld en een onzekerder arbeidsmarkt dan die van hun ouders spelen mee, maar de kern zit volgens haar in onbesproken overtuigingen over geld die al in de kindertijd zijn gevormd en die mensen vasthouden aan hetzelfde gedrag, ook nadat ze de theorie van budgetteren en beleggen kennen. Haar aanpak begint daarom bij het blootleggen van die 'money mentality' voordat ze naar de techniek gaat, opgebouwd als een stappenplan waarin elk hoofdstuk op zichzelf leesbaar is voor wie met één specifiek probleem zit.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een blog die een boek wordt</h3>
+      <p>Het openingshoofdstuk, "Money Isn't the Worst! Seriously.", opent met een jeugdherinnering: Lowry verkoopt op haar zevende met haar zusje donuts op een rommelmarkt en krijgt van haar vader, die de inkoop had voorgeschoten, meteen een lesje in winst en belasting doordat hij een deel van de opbrengst opeist. Die scène staat model voor de toon van het boek: geldkwesties worden verteld als herkenbare, licht komische situaties in plaats van als droge regels.</p>
+      <p>Het boek is opgezet als opeenvolging van achttien hoofdstukken die elk met een probleem openen en met concrete stappen sluiten. Lowry raadt aan minimaal hoofdstuk twee en drie te lezen om de eigen uitgangspositie te bepalen, en daarna te springen naar het hoofdstuk dat bij de eigen situatie past. De epiloog heet "Now That You're A Financial Badass, Keep It Up!", en die term, financial badass, vat samen wat het boek als eindpunt voor ogen heeft.</p>
+      <h3>De psychologische blokkade eerst</h3>
+      <p>Hoofdstuk twee, "Is Money a Tinder Date or Marriage Material?", vraagt de lezer via een reeks vragen terug te denken aan de vroegste geldherinnering en aan hoe er thuis over geld werd gepraat of gezwegen. Lowry noemt de uitkomst van die zelfreflectie iemands money mentality: het patroon van overtuigingen en reacties op geld dat mensen van huis uit meekrijgen en dat volgens haar bepalender is voor financieel gedrag dan kennis van rentepercentages.</p>
+      <p>Ze illustreert dit met haar eigen ouders, die haar bewust controle over geld meegaven, tegenover lezers die vertellen over schaamte, ruzie of stilzwijgen rond geld in hun jeugd. De stelling van het hoofdstuk is dat wie deze onderstroom niet kent, later dezelfde patronen herhaalt, ook als het budget op papier klopt.</p>
+      <h3>Een nulmeting van de eigen financiën</h3>
+      <p>Hoofdstuk drie, "Do You Have a Gold Star in Personal Finance?", laat de lezer via een puntensysteem een uitkomst bepalen: een Financial Gold Star voor wie de basis op orde heeft, een You Went Viral-status voor wie verder is dan gemiddeld, of Living in Your Parents' Basement Forever voor wie nog achterloopt. Bij elke uitkomst verwijst Lowry door naar de hoofdstukken die daar het beste bij aansluiten.</p>
+      <p>Hetzelfde hoofdstuk introduceert de berekening van het eigen vermogen: alle bezittingen bij elkaar opgeteld min alle schulden. Lowry benadrukt dat dit getal, ook als het negatief uitvalt, iets anders is dan iemands eigenwaarde, en dat het vooral dient als vertrekpunt om vooruitgang te meten.</p>
+      <h3>Vijf manieren om te budgetteren</h3>
+      <p>Hoofdstuk vier zet vijf budgetmethoden naast elkaar zodat de lezer kan kiezen wat past: de Cash Diet, waarbij alleen contant geld wordt uitgegeven zodat pinnen niet meer kan; Tracking Every Penny, het handmatig bijhouden van elke uitgave; het Envelope System, waarbij een vast bedrag per categorie in een aparte enveloppe gaat en op is als de enveloppe leeg is; Percentage Budgeting, met een vaste verdeling van ongeveer vijftig procent vaste lasten, twintig procent financiële doelen en dertig procent vrije bestedingen; en het Zero-Sum Budget, waarin elke binnenkomende dollar aan het begin van de maand al een bestemming krijgt.</p>
+      <p>De hoofdstukken vijf tot en met zeven bouwen daarop voort met de keuze van een bank en rekening, de opbouw van de Amerikaanse kredietscore en het onderscheid tussen verstandig en onverstandig gebruik van een creditcard. Deze hoofdstukken zijn sterk toegesneden op het Amerikaanse bankwezen en de FICO-score, een systeem zonder directe tegenhanger in Nederland.</p>
+      <h3>Schulden aflossen en toch sparen</h3>
+      <p>Voor bestaande consumentenschuld zet hoofdstuk acht twee strategieën tegenover elkaar. De Debt Avalanche lost eerst de schuld met de hoogste rente af en is rekenkundig de goedkoopste route; de Debt Snowball lost eerst de kleinste schuld af, kost op papier meer rente, maar houdt mensen volgens Lowry vaker vol omdat ze sneller een schuld helemaal zien verdwijnen. Ze beschrijft ook een combinatie van beide, waarbij iemand met de Snowball begint voor het gevoel van vooruitgang en daarna op de Avalanche overstapt.</p>
+      <p>Hoofdstuk negen behandelt Amerikaanse studieschuld apart, met de afweging tussen uitstel, een inkomensafhankelijk aflossingsplan en herfinanciering, waarbij herfinanciering van een federale lening ook de toegang tot kwijtschelding en inkomensafhankelijke aflossing laat vervallen. Hoofdstuk tien stelt daarna dat sparen niet hoeft te wachten tot de schuld weg is en introduceert het noodfonds van drie tot zes maanden vaste lasten, voor zelfstandigen zes tot negen maanden, als eerste financiële doel naast het aflossen zelf. Ze zet hier ook twee typen lezers tegenover elkaar die ze Team YOLOFOMO en Team Dreaming About Retirement noemt, de één gericht op vandaag en de ander op de toekomst, met als les dat allebei een tegenwicht nodig hebben.</p>
+      <h3>Geld tussen vrienden, partners en ouders</h3>
+      <p>Hoofdstuk elf gaat over het ongelijk verdelen van een rekening in een vriendengroep als het inkomen of de bestelling uiteenloopt, met concrete zinnen om dat bespreekbaar te maken zonder de vriendschap te belasten. Hoofdstuk twaalf, "Getting Financially Naked with Your Partner", beschrijft het gefaseerd delen van financiële details met een partner: eerst algemene gewoonten rond uitgeven en sparen, dan schulden en spaargeld, en pas laat de exacte bedragen. Lowry gebruikt de term financieel naakt worden als terugkerend beeld voor die opbouw van openheid.</p>
+      <p>Hoofdstuk dertien behandelt terugkeer naar het ouderlijk huis na de studie, met afspraken over een bijdrage in de huur en over de manier waarop ouders en volwassen kinderen dan met elkaar omgaan.</p>
+      <h3>Onderhandelen, beleggen en een huis kopen</h3>
+      <p>Hoofdstuk veertien gaat over salarisonderhandeling en introduceert het idee van een bottom line, de laagste uitkomst die iemand zou accepteren, die de onderhandelaar zelf kent maar nooit uitspreekt. Lowry onderbouwt dit met haar eigen ervaring: bij een jaarlijkse beoordeling onderhandelde ze op basis van vergelijkingsmateriaal en eigen resultaten een salarisverhoging van veertig procent, van vijftigduizend naar zeventigduizend dollar.</p>
+      <p>De laatste hoofdstukken behandelen beleggen als iets anders dan gokken, met de nadruk op brede indexfondsen boven het kiezen van losse aandelen, pensioensparen via de Amerikaanse 401(k) en IRA, de vraag wanneer een financieel planner nodig is, en het kopen van een huis waarbij de maximale hypotheek van een bank losstaat van wat iemand zich comfortabel kan veroorloven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Money mentality</td><td>Het patroon van overtuigingen en reacties op geld dat iemand van huis uit meekrijgt en dat financieel gedrag sterker stuurt dan kennis van cijfers.</td></tr>
+          <tr><td class="term">Getting Financially Naked</td><td>Het gefaseerd en volledig delen van financiële details met een partner, van gewoonten tot exacte schuld- en spaarbedragen.</td></tr>
+          <tr><td class="term">Financial Gold Star</td><td>De hoogste uitkomst van de zelftest in hoofdstuk drie, voor wie de financiële basis al op orde heeft.</td></tr>
+          <tr><td class="term">Cash Diet</td><td>Een maand lang alleen met contant geld betalen, zodat pinnen en overbesteden niet meer mogelijk zijn.</td></tr>
+          <tr><td class="term">Envelope System</td><td>Budgetteren door voor elke uitgavencategorie een vast bedrag apart te zetten dat op is zodra de enveloppe leeg is.</td></tr>
+          <tr><td class="term">Zero-Sum Budget</td><td>Een budget waarin elke binnenkomende dollar aan het begin van de maand al een bestemming krijgt, zodat er niets ongepland overblijft.</td></tr>
+          <tr><td class="term">Debt Avalanche</td><td>Schulden aflossen te beginnen met de hoogste rente, rekenkundig de goedkoopste volgorde.</td></tr>
+          <tr><td class="term">Debt Snowball</td><td>Schulden aflossen te beginnen met het kleinste bedrag, duurder in rente maar volgens Lowry volhoudbaarder.</td></tr>
+          <tr><td class="term">YOLOFOMO</td><td>Lowry's naam voor de houding van uitgeven in het nu zonder aan de toekomst te denken, tegenover wie juist alleen voor later spaart.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een praktijkboek, geen onderzoek. De onderbouwing bestaat uit Lowry's eigen ervaring als schrijver van de blog Broke Millennial, uit ingekorte interviews met met naam genoemde lezers en vakgenoten zoals schuldenexpert Andrew Josuweit en financieel schrijver Kristin Wong, en uit vuistregels die in de Amerikaanse persoonlijke-financiënwereld breed gedeeld worden, zoals het noodfonds van drie tot zes maanden. Die vuistregels worden overgenomen, niet zelf onderzocht of aan een bron toegeschreven.</p>
+      <p>Het boek bevat een notenapparaat met verwijzingen naar websites en instanties voor wie meer wil weten, maar geen citaten uit wetenschappelijke studies naar spaargedrag of schuldaflossing. Waar Lowry twee strategieën tegenover elkaar zet, zoals Debt Avalanche tegenover Debt Snowball, beschrijft ze eerlijk dat de ene rekenkundig beter is en de andere psychologisch effectiever blijkt in de praktijk van financieel adviseurs, zonder daar cijfers uit onderzoek bij te noemen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Lowry groeide zelf op met een financieel geletterde en actief betrokken vader, bleef vrij van studieschuld en beschrijft in dit boek geen eigen periode van serieuze financiële nood. Dat maakt de toon van het boek luchtiger dan de problemen die het behandelt, en lezers die in reviews wijzen op deze afstand hebben daarin gelijk: het boek adviseert vanuit een uitgangspositie die niet iedereen deelt en biedt weinig voor wie te weinig verdient om structureel iets te sparen.</p>
+      <p>Een groot deel van de inhoud is bovendien specifiek Amerikaans: kredietscore, 401(k), IRA, federale studieleningen en het Amerikaanse belastingstelsel hebben geen directe tegenhanger in Nederland, waardoor de hoofdstukken over schulden, pensioen en belasting vooral als denkkader bruikbaar zijn en niet als handleiding. De informele stijl met verwijzingen naar Tinder, hashtags en andere tijdgebonden verwijzingen naar haar eigen generatie maakt het boek bovendien sneller gedateerd dan een boek dat die toon vermijdt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bereken de eigen nettowaarde door alle bezittingen op te tellen en alle schulden ervan af te trekken, als vertrekpunt en niet als oordeel.</li>
+        <li>Kies een van de vijf budgetmethoden uit het boek en houd er minimaal een maand aan vast voor die op basis van ervaring wordt vervangen.</li>
+        <li>Zet bij een schuld met meerdere posten de Debt Avalanche en de Debt Snowball naast elkaar en kies bewust, ook als dat niet de rekenkundig goedkoopste route is.</li>
+        <li>Bouw een noodfonds op van drie tot zes maanden vaste lasten voordat extra geld naar aflossen of beleggen gaat.</li>
+        <li>Bepaal voorafgaand aan een salarisgesprek de eigen ondergrens en spreek die niet hardop uit tijdens het gesprek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Broke Millennial: Stop Scraping By and Get Your Financial Life Together</i> (TarcherPerigee, 2017, 288 blz., ISBN 9780143130406). Er is geen Nederlandse vertaling gevonden, niet op bibliotheek.nl en niet bij Nederlandse uitgevers; het boek is in Nederland alleen in het Engels verkrijgbaar, onder meer via bol.com. Lowry schreef twee vervolgdelen in dezelfde reeks, <i>Broke Millennial Takes On Investing</i> (2019) en <i>Broke Millennial Talks Money</i> (2020), die evenmin vertaald zijn.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lowry begon in 2013 de blog Broke Millennial nadat ze merkte dat leeftijdgenoten wel over huur en uitjes praatten maar zelden over schulden, spaargeld of salaris. Dit boek zet die aanpak om in een handleiding voor twintigers en dertigers en begint daarom niet bij een budgetformulier maar bij de vraag wat iemand van huis uit over geld heeft meegekregen, met een test die vraagt of iemand geld behandelt als een Tinder-date of als huwelijksmateriaal. Pas na dat zelfonderzoek volgen budgetteren, bankproducten, kredietscore en schulden.</p><p>Een groot deel van het boek gaat over geld tussen mensen: hoe een rekening ongelijk verdelen in een vriendengroep, hoe een partner financieel open te leggen, hoe met ouders om te gaan bij terugkeer in het ouderlijk huis na de studie. Het laatste deel behandelt salaris onderhandelen, beleggen, pensioen, financieel advies en een eerste huis. Lowry schrijft in een informele, grappende toon vol verwijzingen naar haar eigen generatie, in korte hoofdstukken die ook los van elkaar te lezen zijn.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geld</li><li>millennials</li><li>budgetteren</li><li>schulden</li><li>onderhandelen</li><li>sparen</li><li>praktisch</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel onderbouwt met meer diepgang waarom gedrag bij geld zwaarder weegt dan rekenkennis, het uitgangspunt dat Lowry hier vooral praktisch invult.</li>
+          <li value="39"><a href="39.html">The Millionaire Next Door</a>. Legt de nadruk op cijfers over vermogensopbouw door zuinigheid, tegenover Lowry's anekdotische en generatiespecifieke aanpak.</li>
+          <li value="121"><a href="121.html">Unfuck Your Worth</a>. Behandelt dezelfde emotionele kant van geld met een therapeutische inslag, waar Lowry het bij herkenbare anekdotes en concrete stappen houdt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

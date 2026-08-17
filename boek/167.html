@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Missing Piece &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De gangbare lezing van deze fabel is dat volledigheid een prijs heeft. Het wezen dat een stuk zoekt om zichzelf compleet te maken, ontdekt dat het precies…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-167">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">167 &middot; Levenskunst</p>
+    <h1>The Missing Piece</h1>
+    <p class="lede">Shel Silverstein, 1976</p>
+    <p class="stats">
+      <span><b>1160</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="167"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De gangbare lezing van deze fabel is dat volledigheid een prijs heeft. Het wezen dat een stuk zoekt om zichzelf compleet te maken, ontdekt dat het precies passende stuk juist de eigenschappen wegneemt waarmee het onderweg plezier had: traag rollen, zingen, aandacht voor wie het passeert. Compleet zijn en vrij zijn vallen in dit verhaal niet samen, en het wezen kiest voor de vrijheid door het gevonden stuk weer los te laten. Die keuze is de these van het boek: de zoektocht zelf levert het wezen meer op dan de voltooiing ervan.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het uitgangspunt</h3>
+      <p>Het boek opent met een cirkelvormig wezen waaruit een taartpuntvormig stuk ontbreekt. Silverstein tekent dat gemis zonder aanleiding of voorgeschiedenis: het wezen is niet gebroken geraakt, het mist eenvoudig een deel van zichzelf en vindt dat vervelend. Vanaf de eerste bladzijde zingt het een regel die door het hele boek terugkeert, over het zoeken naar zijn ontbrekende stuk.</p>
+      <p>Door de vorm te geven als een cirkel met een hap eruit, maakt Silverstein het onderwerp bespreekbaar zonder dat er een mens, een naam of een aanleiding bij hoeft. Die abstractie is de reden dat het boek zich zo makkelijk laat lezen als beeld voor iets anders dan zichzelf.</p>
+      <h3>De zoektocht en de stukken die niet passen</h3>
+      <p>Het wezen rolt door een wereld van seizoenen en weer en komt onderweg stukken tegen die op het eerste gezicht kunnen passen. Sommige zijn te klein, andere te groot, weer andere hebben scherpe hoeken of brokkelen af zodra het wezen ze optilt. Bij een aantal stukken drukt het te hard om ze te laten passen, waarna het stuk breekt. Die reeks mislukte pogingen beslaat het grootste deel van het boek en heeft geen aflopende spanningsboog: elke ontmoeting staat op zichzelf.</p>
+      <p>Onderweg praat het wezen met wormen en kevers en neemt het de tijd voor een bloem langs de weg. Juist dat trage, aandachtige rollen krijgt later in het verhaal betekenis, als blijkt dat het precies is wat de voltooiing onmogelijk maakt.</p>
+      <h3>Het gevonden stuk</h3>
+      <p>Uiteindelijk vindt het wezen een stuk dat qua vorm en grootte precies aansluit. Het wordt een gesloten cirkel en kan voor het eerst zonder onderbreking rollen. De nieuwe, vloeiende beweging gaat echter zo snel dat het wezen de rups niet meer opmerkt en niet meer kan stoppen om te praten. Zingen lukt evenmin: de mond die eerst de regel zong, past niet meer bij het ritme van een volmaakte cirkel.</p>
+      <h3>Het loslaten</h3>
+      <p>Het wezen legt het gevonden stuk zachtjes neer op de weg en rolt onvolledig verder, weer zingend. Silverstein laat die keuze zien zonder haar toe te lichten: er is geen personage dat het wezen aanspoort of geruststelt. De laatste bladzijden herhalen het beeld waarmee het boek begon, een rollend, onvolledig wezen op zoek, met dat verschil dat het nu een stuk heeft gehad en het bewust heeft losgelaten.</p>
+      <h3>De omkering in het vervolgboek</h3>
+      <p>In <i>The Missing Piece Meets the Big O</i> (1981) keert Silverstein het uitgangspunt om. Het perspectief ligt nu bij het stukje zelf, een driehoekje dat wacht tot iemand het optilt en meeneemt, tot het een cirkel ontmoet die zelf geen stuk zoekt en die het stukje voordoet dat rollen ook zonder hulp kan. Door zichzelf keer op keer om te slaan, slijten de hoeken van het stukje af tot het uiteindelijk zelf een cirkel wordt en meerolt.</p>
+      <p>De twee boeken zijn zo elkaars spiegelbeeld. Het eerste boek laat zien hoe een stuk dat past ook kan beperken. Het tweede boek laat zien wat er gebeurt als het stukje zelf in beweging komt in plaats van te wachten tot het opgetild wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het rond zijn</td><td>De staat van volledigheid die het wezen bereikt zodra het gevonden stuk aansluit, in latere lezingen gelijkgesteld aan compleet of af zijn.</td></tr>
+          <tr><td class="term">Het passende stuk</td><td>Het stuk dat qua vorm precies aansluit maar dat de bewegingsvrijheid wegneemt zodra het is aangebracht.</td></tr>
+          <tr><td class="term">Rollen en zingen</td><td>De twee bezigheden die alleen mogelijk zijn zolang het wezen onvolledig is en die verdwijnen zodra het rond wordt.</td></tr>
+          <tr><td class="term">Loslaten</td><td>De keuze om het gevonden stuk weer af te staan en de onvolledigheid opnieuw te aanvaarden.</td></tr>
+          <tr><td class="term">De Grote O</td><td>Het figuur uit het vervolgboek dat zelf rond is zonder een stuk te missen en dat voordoet dat rollen ook zonder aanvulling kan.</td></tr>
+          <tr><td class="term">Zelf rond worden</td><td>De uitkomst uit het vervolgboek waarbij vorm ontstaat door eigen inspanning en slijtage in plaats van door een stuk van buiten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een fabel in beeld, met op de meeste bladzijden niet meer dan één regel tekst, en geen feitelijke claim om te toetsen. De begrippen hierboven zijn dan ook geen vaktermen van Silverstein zelf: hij gebruikt in het boek vrijwel geen abstract woord, laat staan een uiteenzetting van wat rondheid of een passend stuk zouden betekenen. Het zijn woorden waarin lezers en recensenten het verhaal sindsdien navertellen, en die woorden verschillen van uitleg tot uitleg.</p>
+      <p>De sterkste aanwijzing dat de lezing over afhankelijkheid en volledigheid geen overinterpretatie is, komt van Silverstein zelf, al is die aanwijzing indirect. Vijf jaar na <i>The Missing Piece</i> schreef hij er een tegenhanger bij die de boodschap omdraait. Dat een auteur de moeite neemt om zijn eigen boek van repliek te dienen, wijst erop dat hij de eerste lezing kende en kennelijk onvolledig vond. Een uitspraak van Silverstein waarin hij die bedoeling met zoveel woorden bevestigt, is niet overgeleverd; hij liet zijn werk doorgaans zonder toelichting bij de lezer terugkomen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het felste bezwaar tegen het boek richt zich op de moraal aan het slot. Het wezen laat het stuk los zodra het hem beperkt, zonder dat er iets misgaat tussen wezen en stuk: het stuk past, er is geen conflict, er is alleen het verlies van tempo en geluid. Wie het boek als parabel over relaties leest, kan er een boodschap in lezen die niet bij elk kinderboek past, namelijk dat wie zich door een ander beperkt voelt die ander achterlaat, zonder dat het verhaal weegt wat dat voor het achtergelaten stuk betekent.</p>
+      <p>Een tweede punt is dat het boek geen uitweg biedt. Aan het eind is het wezen weer onvolledig en weer op zoek, in dezelfde regels waarmee het begon, en dat kan als een open einde overtuigen of als een verhaal dat nergens uitkomt, afhankelijk van de lezer. Pas het vervolgboek geeft een antwoord, met een figuur dat zichzelf rond maakt in plaats van op een passend stuk te wachten, maar dat antwoord staat in een apart boek uit 1981 en is niet vanzelfsprekend wat een lezer van het eerste deel meekrijgt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Missing Piece</i> (Harper &amp; Row, 1976). Nederlands als <i>Het ontbrekende stuk</i>, vertaald door Arthur Japin (Mozaïek, 2007, 106 blz., ISBN 9789023992233). Vervolg: <i>The Missing Piece Meets the Big O</i> (1981), niet in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>The Missing Piece is een prentenboek van iets meer dan honderd bladzijden, met op de meeste ervan niet meer dan een enkele regel tekst naast een zwart-wit tekening. Het hoofdpersonage is een cirkelvormig wezen waar een taartpuntvormig stuk uit is weggesneden. Zingend gaat het op zoek naar dat ontbrekende stuk. Onderweg rolt het door regen en sneeuw, praat het met wormen en kevers, en probeert het stuk na stuk uit dat niet past: te klein, te groot, te scherp van hoek, of stukgebroken doordat het te hard vastgepakt wordt. Silverstein tekent die mislukte pogingen zonder verklaring of moraal, in reeksen die zichzelf herhalen.</p><p>Uiteindelijk vindt het wezen een stuk dat precies past en wordt het een gesloten cirkel. Maar rond zijn blijkt niet alleen winst: het wezen rolt nu zo snel en zo vloeiend dat het niet meer kan stoppen bij een rups of bloem, en zingen lukt niet meer in het ritme van een volmaakte cirkel. Het legt het gevonden stuk daarom weer neer en rolt onvolledig verder, weer zingend. Lezers en recensenten lezen het boek sindsdien vooral als een parabel over relaties: iets of iemand dat precies past, kan tegelijk een vrijheid wegnemen. Het vervolgboek <i>The Missing Piece Meets the Big O</i> (1981) draait dat gegeven om en vertelt hetzelfde verhaal vanuit het perspectief van het stuk zelf.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>prentenboek</li><li>fabel</li><li>relaties</li><li>volledigheid</li><li>afhankelijkheid</li><li>kinderboek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="8"><a href="08.html">De alchemist</a>. <i>De alchemist</i> is eveneens een parabel over een zoektocht die zelf de opbrengst blijkt, met een hoofdpersoon die onderweg figuren tegenkomt zoals het wezen hier stukken tegenkomt.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. <i>Four Thousand Weeks</i> beargumenteert dat een leven per definitie onaf blijft en dat het najagen van volledigheid tijd kost die de eindigheid juist vraagt te aanvaarden.</li>
+          <li value="77"><a href="77.html">Ikigai</a>. <i>Ikigai</i> zoekt eveneens naar iets dat een leven compleet maakt, maar plaatst dat vinden in een gemeenschap in plaats van in een enkel passend stuk.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

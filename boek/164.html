@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mating in Captivity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Perel betoogt dat liefde en verlangen uit tegengestelde behoeften voortkomen: liefde zoekt nabijheid, vertrouwdheid en veiligheid, verlangen zoekt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-164">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">164 &middot; Brein en lichaam</p>
+    <h1>Mating in Captivity</h1>
+    <p class="lede">Esther Perel, 2006</p>
+    <p class="stats">
+      <span><b>1789</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="164"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Perel betoogt dat liefde en verlangen uit tegengestelde behoeften voortkomen: liefde zoekt nabijheid, vertrouwdheid en veiligheid, verlangen zoekt afstand, onzekerheid en het besef dat de ander niet volledig te kennen is. Naarmate partners in een langdurige relatie meer met elkaar versmelten en het mysterie tussen hen wegvalt, verdwijnt volgens haar ook de erotische spanning, ook als de liefde zelf overeind blijft. De veiligheid die mensen in een relatie zoeken, is in haar lezing dezelfde veiligheid die het verlangen doet doven; wie dat wil keren, moet binnen de relatie weer ruimte voor afstand en het onbekende toelaten in plaats van almaar meer nabijheid na te streven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Gevangenschap als paradox</h3>
+      <p>Perel opent met de vraag waarom juist de veiligheid van een vaste relatie de begeerte kan doven. De gangbare aanname is dat een goede relatie op nabijheid, gelijkwaardigheid en volledige openheid rust, en dat diezelfde eigenschappen ook de seksuele aantrekkingskracht in stand houden. In haar praktijk ziet ze het omgekeerde: stellen die alles met elkaar delen en niets meer voor elkaar verborgen houden, melden zich juist met de klacht dat het verlangen is verdwenen. Ze formuleert de kernvraag van het boek als: hoe kun je nog willen wat je al hebt.</p>
+      <p>Ze wijst erop dat het moderne huwelijk een taak vervult die vroeger over een hele gemeenschap verspreid lag. Waar een partner vroeger een van de vele mensen was die in aandacht, steun en gezelschap voorzagen, moet die partner nu vriend, minnaar, medeouder, financieel medeplichtige en bevestiging van de eigen identiteit tegelijk zijn. Die stapeling van rollen maakt de relatie zwaarder en de ruimte voor het onbekende, waar begeerte volgens haar op teert, kleiner.</p>
+      <h3>Nabijheid en afstand</h3>
+      <p>Het onderscheid dat door het hele boek terugkeert, is dat liefde nabijheid zoekt en verlangen afstand nodig heeft. Liefde groeit met vertrouwdheid, voorspelbaarheid en het gevoel dat de ander bekend en veilig is. Verlangen groeit met het besef dat de ander een eigen, niet volledig kenbaar innerlijk leven heeft. Perel noemt dat de erotische afstand: geen fysieke afstand, maar het besef dat de partner een apart persoon blijft die kan verrassen.</p>
+      <p>Ze werkt dat uit met voorbeelden van stellen die zoveel in elkaar zijn opgegaan dat ze eerder huisgenoten dan minnaars zijn geworden. Haar advies richt zich op het bewaren van ruimte binnen de relatie voor het deel van de ander dat niet wordt opgeëist: een eigen vriendenkring, een eigen bezigheid, een innerlijk leven waartoe de partner geen volledige toegang heeft.</p>
+      <h3>Wat de kindertijd meegeeft</h3>
+      <p>Een deel van het boek gaat over de gezinspatronen die iemand een relatie in meeneemt. De manier waarop een kind leerde omgaan met afhankelijkheid, met de eigen lichamelijkheid en met wat er in het gezin over seksualiteit werd gezegd of juist verzwegen, werkt door in hoe iemand als volwassene met nabijheid en met de eigen verlangens omgaat. Iemand die als kind voor een ouder moest zorgen, kan als volwassene bijvoorbeeld moeite hebben om zich in een relatie te laten verzorgen zonder het gevoel van controle te verliezen.</p>
+      <p>Perel gebruikt die achtergrond vooral om te laten zien dat een probleem dat een stel als actueel voorlegt, vaak een patroon is dat van veel eerder dateert.</p>
+      <h3>Fantasie en de erotische verbeelding</h3>
+      <p>Fantasie krijgt in het boek een eigen plaats, los van de vraag of ze wordt uitgevoerd. Perel leest fantasieën als een soort beeldtaal. Een fantasie over overgave gaat volgens haar zelden over de letterlijke wens onderworpen te worden; vaker gaat het om het verlangen om even geen verantwoordelijkheid te dragen. Ze moedigt stellen aan fantasie te zien als informatie over wat iemand nodig heeft, in plaats van als een agenda die moet worden afgewerkt.</p>
+      <p>In het slothoofdstuk keert ze terug naar het onderscheid tussen seks en erotiek. Seks is volgens haar iets wat mensen met dieren delen, erotiek is de verbeelding die daar bovenop komt en van een lichamelijke handeling een ervaring met betekenis maakt. Een blik, een geur of een herinnering aan een eerdere ontmoeting kunnen volgens haar evenveel opwinding geven als aanraking zelf, en die verbeelding is volgens haar thuis, tussen de was en het avondeten, het eerst wat verdwijnt.</p>
+      <h3>Gelijkheid, macht en het spel van verlangen</h3>
+      <p>Perel besteedt een deel van het boek aan de spanning tussen de gelijkwaardigheid die partners in het dagelijks leven nastreven en de ongelijkheid die in erotisch spel juist opwindend kan werken. Wie in de rest van het leven taken, geld en aandacht eerlijk verdeelt, kan in bed toch behoefte hebben aan een rolverdeling met dominantie en overgave.</p>
+      <p>Ze onderscheidt dat spel uitdrukkelijk van een blijvende machtsverhouding: het gaat om een afgesproken en omkeerbaar spel binnen een verder gelijkwaardige relatie.</p>
+      <h3>De grenzen van het praten en de druk van het ouderschap</h3>
+      <p>Tegen de aanname dat meer communicatie elk relatieprobleem oplost, brengt Perel in dat praten intimiteit dichterbij brengt en tegelijk het mysterie wegneemt waarop verlangen teert. Een stel dat elk gevoel uitspreekt en elke onduidelijkheid wegneemt, wint aan begrip en verliest aan spanning. Woorden zijn in haar ogen niet de enige route naar nabijheid; een blik, een gebaar of een gedeelde stilte kunnen dezelfde verbinding geven zonder de afstand op te heffen die begeerte nodig heeft.</p>
+      <p>Ouderschap versterkt die druk. Perel beschrijft hoe de rolverdeling van vader en moeder de eerdere rol van minnaars kan overschaduwen, hoe vermoeidheid en de voortdurende aanwezigheid van kinderen letterlijk weinig ruimte overlaten, en hoe stellen zich vaak schuldig voelen zodra ze tijd voor zichzelf claimen boven tijd voor het gezin. Haar advies is nuchter: ze noemt het gebruikelijk dat de eerste jaren met jonge kinderen minder seksueel leven met zich meebrengen, mits het stel dat samen erkent in plaats van er in stilte overheen te glijden.</p>
+      <h3>De derde: ontrouw heroverwogen</h3>
+      <p>Tegen het einde van het boek richt Perel zich op aantrekkingskracht buiten de relatie, wat ze de derde noemt: de gedachte aan, het contact met of de aantrekking tot iemand anders dan de partner. Ze wijst erop dat zulke aantrekking bij bijna iedereen voorkomt, ook binnen een gelukkig huwelijk, en dat stellen vooral verschillen in de manier waarop ze ermee omgaan.</p>
+      <p>Perel pleit ervoor ontrouw niet meteen te lezen als bewijs dat er iets aan de relatie ontbreekt. Voor sommige stellen is openheid over die aantrekkingskracht, zonder haar uit te leven, een manier om trouw opnieuw te kiezen in plaats van vanzelfsprekend te vinden. Het slothoofdstuk keert terug naar de vraag waarmee het boek begon en formuleert een antwoord in de vorm van een houding eerder dan een techniek: erotiek vraagt om nieuwsgierigheid naar de partner die je al hebt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Erotische intelligentie</td><td>Het vermogen om spanning, mysterie en spel in een relatie te onderhouden zonder de intimiteit op te geven; de titel van de Nederlandse vertaling.</td></tr>
+          <tr><td class="term">Nabijheid en afstand</td><td>Het onderscheid tussen wat liefde en wat verlangen voedt: liefde zoekt nabijheid en vertrouwdheid, verlangen heeft afstand en het onbekende nodig.</td></tr>
+          <tr><td class="term">Gevangenschap</td><td>Perels beeld voor een relatie waarin veiligheid en voorspelbaarheid zo overheersen dat er geen ruimte meer overblijft voor begeerte.</td></tr>
+          <tr><td class="term">Erotiek versus seks</td><td>Haar onderscheid tussen de lichamelijke handeling, die mensen met dieren delen, en de verbeelding die er betekenis en spanning aan toevoegt.</td></tr>
+          <tr><td class="term">De derde</td><td>Perels term voor de aantrekkingskracht tot iemand buiten de relatie, in gedachte of in werkelijkheid, die ze als bijna universeel beschrijft.</td></tr>
+          <tr><td class="term">Mysterie</td><td>Het besef dat een partner nooit volledig te kennen is; volgens Perel de voedingsbodem van verlangen.</td></tr>
+          <tr><td class="term">Spel</td><td>De afgesproken, omkeerbare rolverdeling met macht en overgave die in erotische context opwindend kan werken zonder de gelijkwaardigheid van de relatie aan te tasten.</td></tr>
+          <tr><td class="term">Fantasie als beeldtaal</td><td>Perels opvatting dat een seksuele fantasie zelden letterlijk moet worden genomen en meer zegt over een onderliggende behoefte dan over een concrete wens.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Perel bouwt het boek op ervaring uit haar eigen praktijk: ze werkt al decennia als psychotherapeut in New York, gaf lange tijd les aan het medisch centrum van New York University en behandelt sinds de jaren tachtig stellen. De voorbeelden in het boek zijn bewerkte weergaven van sessies, aangepast om cliënten onherkenbaar te maken, en dienen als illustratie van een patroon, niet als steekproef. Ze citeert daarnaast psychoanalytische auteurs en denkers over ritueel en verlangen, geen cijfermatig onderzoek.</p>
+      <p>Dat betekent dat de onderbouwing klinisch van aard is en niet experimenteel. Perel ziet alleen stellen die met een probleem naar haar toe komen, zodat ze geen zicht heeft op hoeveel stellen zonder problemen dezelfde spanning tussen nabijheid en verlangen ervaren of juist niet. De claims in het boek zijn zo eerder een klinische hypothese, opgebouwd uit herhaalde observatie, dan een uitkomst die in gecontroleerd onderzoek is getoetst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste tegenwerping betreft de selectie van de voorbeelden. Perel ziet in haar praktijk uitsluitend stellen bij wie het verlangen al is weggezakt, en generaliseert van daaruit naar relaties in het algemeen. Zonder een groep stellen die wel nabijheid en aanhoudend verlangen combineren, valt niet vast te stellen of de spanning die ze beschrijft een algemeen kenmerk van langdurige relaties is of vooral kenmerkend voor de stellen die in therapie belanden.</p>
+      <p>Het boek citeert nauwelijks onderzoek en werkt niet met noten die een uitspraak aan een bron koppelen, waardoor claims over bijvoorbeeld sekseverschillen in verlangen moeilijk te onderscheiden zijn van Perels eigen klinische indruk. Dat staat op gespannen voet met het hechtingsonderzoek waarop boeken als <i>Attached</i> steunen, dat voorspelbaarheid en beschikbaarheid van een partner juist als voorwaarde voor een veilige relatie beschrijft, en niet als bedreiging voor een opwindende.</p>
+      <p>Verder biedt het boek relatief weinig concrete stappen. Perel is sterk in het benoemen van de paradox en zwakker in het aanreiken van een weg eruit; de meeste hoofdstukken eindigen met een verruimde blik op het probleem, niet met een procedure. Wie na het lezen op zoek is naar oefeningen of een stappenplan, vindt die eerder in werkboeken die op haar werk voortbouwen dan in dit boek zelf.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Laat in de agenda van de relatie ruimte staan die niet is ingevuld met gezamenlijke taken of gesprekken over het gezin.</li>
+        <li>Onderzoek een terugkerende fantasie op wat ze over een onderliggende behoefte zegt, voordat de conclusie is dat ze uitgevoerd moet worden.</li>
+        <li>Spreek in de eerste jaren met jonge kinderen samen uit dat het seksuele leven tijdelijk minder ruimte krijgt, in plaats van dat stilzwijgend te laten gebeuren.</li>
+        <li>Houd bij het praten over de relatie ook een deel van het eigen innerlijk leven voor zichzelf, in plaats van alles te delen.</li>
+        <li>Behandel aantrekkingskracht tot iemand anders als een gegeven om mee om te gaan, niet als een teken dat de relatie tekortschiet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Mating in Captivity</i> (Harper, New York, 2006), verschenen met twee verschillende ondertitels naargelang de druk. Nederlandse editie als <i>Erotische intelligentie</i>, vertaald door Marga Goeting, oorspronkelijk in 2006 bij Bruna (Utrecht) verschenen en sinds 2019 in de elfde druk bij uitgeverij Lev. (Amsterdam, 268 blz., ISBN 9789400512320).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Esther Perel, van oorsprong Belgisch en al decennia werkzaam als psychotherapeut in New York, onderzoekt waarom passie in langdurige relaties vaak wegebt, ook wanneer de liefde zelf overeind blijft. Haar stelling is dat liefde en verlangen uit verschillende bronnen komen: liefde zoekt nabijheid, vertrouwdheid en veiligheid, verlangen heeft juist afstand, onzekerheid en een zeker mysterie nodig. Naarmate partners volledig met elkaar versmelten, alles delen en elkaar door en door kennen, verdwijnt precies de ruimte waarin erotische aantrekkingskracht kan bestaan. Perel noemt die spanning de gevangenschap uit de titel: de veiligheid waar mensen in een relatie naar zoeken, is dezelfde veiligheid die het verlangen verstikt.</p><p>Aan de hand van gesprekken uit haar eigen praktijk werkt ze die spanning uit langs verschillende lijnen: de invloed van de kindertijd op de omgang met nabijheid, de plaats van fantasie en verbeelding, de manier waarop gelijkheid en macht doorwerken in verlangen, en de druk die ouderschap op het erotische leven van een stel legt. Een apart deel gaat over aantrekkingskracht buiten de relatie, die ze beschrijft als iets dat bijna elk stel op enig moment overkomt. Het boek eindigt met de vraag hoe erotiek weer een plaats in het dagelijkse leven van een stel kan krijgen zonder dat de intimiteit daarvoor wordt opgeofferd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>relaties</li><li>verlangen</li><li>seksualiteit</li><li>intimiteit</li><li>psychotherapie</li><li>erotiek</li><li>communicatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="152"><a href="152.html">Attached</a>. Beschrijft vanuit de hechtingstheorie het tegenovergestelde uitgangspunt: voorspelbaarheid en beschikbaarheid van een partner maken juist zelfstandiger en veiliger, waar dit boek diezelfde voorspelbaarheid als bedreiging voor het verlangen ziet.</li>
+          <li value="145"><a href="145.html">Unfuck Your Intimacy</a>. Werkt intimiteit en seksualiteit net als dit boek vanuit de praktijk uit, maar dan vanuit onveilige hechtingspatronen en met concrete oefeningen in plaats van Perels klinische essayvorm.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

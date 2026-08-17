@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Not Die Alone &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ury betoogt dat een goede relatie voortkomt uit een reeks beslissingen, en dat de meeste mensen die beslissingen slecht nemen. Wie alleen blijft, mist…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-166">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">166 &middot; Brein en lichaam</p>
+    <h1>How to Not Die Alone</h1>
+    <p class="lede">Logan Ury, 2021</p>
+    <p class="stats">
+      <span><b>1624</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="166"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ury betoogt dat een goede relatie voortkomt uit een reeks beslissingen, en dat de meeste mensen die beslissingen slecht nemen. Wie alleen blijft, mist volgens haar zelden geschikte kandidaten; vaker loopt iemand vast in een van drie terugkerende denkpatronen die goede opties laten liggen of verkeerde juist te lang vasthouden. Diezelfde denkfouten zijn bekend uit gedragseconomisch onderzoek naar besluitvorming in het algemeen, en daaruit leidt Ury af dat daten een vaardigheid is die te trainen valt en geen lot dat iemand overkomt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie datingtypes</h3>
+      <p>Ury onderscheidt drie tendensen die singles onbewust laten vastlopen. De romanticizer gelooft in een zielsverwant en verwacht dat een goede relatie vanzelf soepel verloopt; zodra het ergens wringt, concludeert deze persoon dat de verkeerde partner gekozen is en begint de zoektocht opnieuw. De maximizer wil zeker weten dat er niemand beter beschikbaar is voordat hij of zij zich vastlegt, blijft daardoor lang zoeken en twijfelt ook na een keuze aan die keuze. De hesitater stelt daten uit tot een moment waarop het leven op orde is: eerst afvallen, eerst een betere baan, eerst het zelfvertrouwen op peil.</p>
+      <p>Voor de maximizer wijst Ury naar het secretaryprobleem uit de wiskunde: wie een deel van de beschikbare tijd besteedt aan verkennen en pas daarna de eerste persoon kiest die beter is dan alles wat eerder voorbijkwam, ontloopt zowel eindeloos zoeken als voortijdig settelen. Voor de romanticizer stelt ze een omslag in perspectief voor: geluk in een relatie is minder een kwestie van de juiste persoon vinden dan van het werk dat er daarna in gestoken wordt. Voor de hesitater raadt ze een vaste datum aan om te beginnen, drie weken vooruit, zodat uitstel een grens krijgt.</p>
+      <h3>De mythe van de vonk</h3>
+      <p>Een tweede gewoonte die Ury aanwijst is het wachten op de vonk, een onmiddellijk gevoel van aantrekkingskracht dat volgens veel daters zou moeten bewijzen dat iemand de juiste is. Ze wijst op onderzoek naar het mere-exposure-effect: in een klas die aan het begin van een semester elkaars aantrekkelijkheid beoordeelde, lag die beoordeling aan het eind van het semester hoger, zonder dat er verder iets aan de klasgenoten veranderd was. Vertrouwdheid bouwt aantrekkingskracht op die een eerste ontmoeting niet laat zien.</p>
+      <p>Haar praktische regel is daarom: ga, tenzij er een echte dealbreaker is geraakt, altijd op een tweede afspraak. Een eerste afspraak levert volgens haar te weinig informatie op om er een blijvend oordeel op te baseren, en het ontbreken van een vonk is geen betrouwbare voorspeller van hoe een relatie zich verder ontwikkelt.</p>
+      <h3>Wat er echt toe doet in een partner</h3>
+      <p>Ury maakt onderscheid tussen een echte dealbreaker, zoals een onverenigbaar verschil in de wens om kinderen in een bepaald geloof op te voeden, en wat ze een PPP noemt: een permissible pet peeve, een voorkeur die als een dealbreaker aanvoelt maar in werkelijkheid een ergernis is die te verdragen valt. Volgens haar verwarren daters die twee voortdurend, en laten ze op basis van een PPP, zoals handschrift of muzieksmaak, kandidaten vallen die verder passend zijn.</p>
+      <p>In het hoofdstuk dat ze een levenspartner, geen galabalpartner noemt, zet ze eigenschappen die op een eerste indruk goed scoren, zoals charisma of status, tegenover eigenschappen die een relatie op de lange termijn dragen: emotionele stabiliteit, vriendelijkheid, betrouwbaarheid, een houding gericht op groeien, en het vermogen om samen moeilijke beslissingen te nemen. De eerste groep is zichtbaar op een date, de tweede pas na verloop van tijd.</p>
+      <h3>Gehechtheid in de praktijk</h3>
+      <p>Ury vertaalt gehechtheidstheorie naar het daten. Wie veilig gehecht is, voelt zich comfortabel bij intimiteit en reageert rustig op onzekerheid; wie angstig gehecht is, zoekt voortdurend bevestiging en raakt in paniek bij stilte na een bericht; wie vermijdend gehecht is, houdt afstand omdat nabijheid onveilig aanvoelt. Ze raadt lezers met een angstige of vermijdende stijl aan bewust naar veilig gehechte partners te zoeken, omdat die stijl beter bestand is tegen de onrust van de andere twee, en om de eigen directe reactie op onzekerheid te leren herkennen voordat die reactie een relatie beëindigt.</p>
+      <h3>Beslissen versus meeglijden</h3>
+      <p>Voor de fase waarin een relatie serieus wordt, ontleent Ury het onderscheid tussen beslissen en meeglijden aan onderzoek naar samenwonen: stellen die bewust een fase ingaan, zoals verhuizen of trouwen, en daar vooraf over spreken, doen het volgens dat onderzoek beter dan stellen bij wie zo'n stap er ongemerkt insluipt. Ze onderscheidt daarnaast hitchers, die te lang blijven hangen en waarschuwingssignalen negeren, en ditchers, die weglopen zodra de aanvankelijke opwinding wegebt en zich dan op de tekortkomingen van de partner gaan richten.</p>
+      <p>Haar advies is om op vaste momenten, bijvoorbeeld na een paar maanden of bij een volgende stap, hardop te evalueren of de relatie past bij wat iemand zoekt, in plaats van dat stilzwijgend te laten gebeuren.</p>
+      <h3>Het relatiecontract</h3>
+      <p>Het boek sluit af met twee hulpmiddelen uit de bijlage: een lijst met vragen voor een belangrijk gesprek over onderwerpen als kinderen, geld en werk, en een relatiecontract waarin partners vastleggen wat ze van elkaar verwachten en hoe ze conflicten willen oplossen. Ury behandelt ook het beëindigen van een relatie als een vaardigheid: vooraf een breekplan maken, zodat een breuk niet voortkomt uit een opwelling, en het einde van een relatie zien als iets dat iemand iets heeft opgeleverd, in plaats van alleen als verlies.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Romanticizer</td><td>Wacht op een vonk en zielsverwantschap, en concludeert bij tegenslag al snel dat de verkeerde partner gekozen is.</td></tr>
+          <tr><td class="term">Maximizer</td><td>Wil zeker weten dat er niets beters beschikbaar is voordat hij of zij zich vastlegt, en twijfelt ook na de keuze.</td></tr>
+          <tr><td class="term">Hesitater</td><td>Stelt daten uit tot een moment waarop het leven eerst op orde is.</td></tr>
+          <tr><td class="term">Satisficen</td><td>Kiezen voor wie aan de eigen maatstaven voldoet, in plaats van blijven zoeken naar de beste van allemaal.</td></tr>
+          <tr><td class="term">De vonk</td><td>Het idee dat onmiddellijke aantrekkingskracht een voorwaarde is voor een goede relatie; volgens Ury een misleidende maatstaf.</td></tr>
+          <tr><td class="term">Dealbreaker en PPP</td><td>Het onderscheid tussen een werkelijke onverenigbaarheid en een permissible pet peeve die als dealbreaker aanvoelt maar dat niet is.</td></tr>
+          <tr><td class="term">Gehechtheidsstijlen</td><td>Veilig, angstig en vermijdend: het patroon waarmee iemand met nabijheid en onzekerheid in een relatie omgaat.</td></tr>
+          <tr><td class="term">Beslissen versus meeglijden</td><td>Bewust een fase in een relatie ingaan tegenover er ongemerkt in terechtkomen.</td></tr>
+          <tr><td class="term">Hitchers en ditchers</td><td>Wie te lang blijft hangen ondanks waarschuwingssignalen, tegenover wie te snel weer vertrekt zodra de opwinding wegebt.</td></tr>
+          <tr><td class="term">Secretaryprobleem en 37%-regel</td><td>De wiskundige vuistregel om een deel van de beschikbare tijd te verkennen voordat je kiest voor de eerstvolgende die beter is dan alles daarvoor.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het onderbouwende materiaal valt in drie soorten uiteen. Het eerste is gepubliceerd gedragswetenschappelijk onderzoek dat Ury samenvat en toepast: gehechtheidstheorie zoals die door Cindy Hazan en Phillip Shaver vanuit Bowlby's werk is doorgetrokken naar volwassen relaties, en het mere-exposure-effect zoals Robert Zajonc dat beschreef. Het onderscheid tussen beslissen en meeglijden ontleent ze aan onderzoek van Scott Stanley en Galena Rhoades naar samenwonen. Dit is bestaande literatuur die Ury citeert, geen onderzoek dat zij zelf heeft uitgevoerd.</p>
+      <p>Het tweede soort bewijs is Hinges eigen materiaal: gebruikersonderzoek zoals de "We Met"-vragenlijst waarmee de app feedback verzamelt over hoe dates verlopen, en observaties uit haar functie als hoofd relatiewetenschap bij het bedrijf. Dat is bedrijfsdata, niet onafhankelijk gepubliceerd en niet extern getoetst; de lezer moet Ury's weergave ervan op haar woord aannemen. Het derde soort is haar eigen coachingpraktijk: patronen die ze bij cliënten heeft gezien en die ze als illustratie gebruikt, niet als bewijs in de strikte zin.</p>
+      <p>De 37%-regel voor maximizers is van een andere orde: dat is een wiskundig resultaat uit de optimal-stopping-theorie, oorspronkelijk geformuleerd voor het aannemen van personeel, dat Ury als vuistregel naar het daten vertaalt. Het is een analogie uit een ander domein en geen gedragswetenschappelijke bevinding over daten zelf. De aanname waarop de wiskunde rust, dat kandidaten na afwijzing niet meer terugkomen en in willekeurige volgorde verschijnen, past slecht op hoe daten in de praktijk verloopt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwakste punt is de overname van het secretaryprobleem. Wiskundigen die zich met optimal stopping bezighouden, wijzen erop dat het model aannames hanteert die niet bij daten passen: het aantal kandidaten staat vooraf niet vast, een eerder afgewezen partner is in de praktijk vaak nog wel te benaderen, en het model maximaliseert de kans op de allerbeste optie in plaats van de kans op een goede uitkomst. Ury noemt de 37%-regel zelf een vuistregel en geen recept, maar het boek presenteert haar wel als oplossing voor de maximizer, terwijl de wiskundige basis ervan op een ander probleem is gebouwd.</p>
+      <p>Verder steunt een groot deel van het boek op Hinges eigen gebruikers en op Ury's coachingcliënten: mensen die al actief op een datingapp zitten of geld uitgeven aan coaching, veelal Engelstalig en stedelijk. Hoe ver haar bevindingen daarbuiten opgaan, staat niet vast. Ten slotte toetst het boek de eigen adviezen niet: er wordt geen vervolgonderzoek aangehaald dat laat zien of lezers die de drie tendensen leren herkennen, ook daadwerkelijk vaker een goede relatie vinden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal welke van de drie tendensen, romanticizer, maximizer of hesitater, het eigen datinggedrag het best beschrijft, aan de hand van de laatste vijf afspraken of relaties.</li>
+        <li>Noteer voor een aankomende date drie dealbreakers en onderscheid die van voorkeuren die eigenlijk een PPP zijn.</li>
+        <li>Ga standaard op een tweede afspraak, tenzij een echte dealbreaker is geraakt, in plaats van te varen op het ontbreken van een vonk.</li>
+        <li>Leg bij een naderende stap, zoals samenwonen of exclusiviteit, de verwachtingen vooraf hardop vast in plaats van de stap te laten gebeuren.</li>
+        <li>Gebruik de vragenlijst voor het belangrijke gesprek uit de bijlage om onderwerpen als geld, kinderen en werk te bespreken voordat ze een probleem worden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>How to Not Die Alone: The Surprising Science That Will Help You Find Love</i> (Simon &amp; Schuster, 2021). Nederlands als <i>Wat je moet doen om niet alleen dood te gaan</i> bij Kosmos Uitgevers (2022, 352 blz., ISBN 9789021586038); de catalogus noemt daar geen vertaler bij.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Logan Ury werkte als gedragswetenschapper bij Google voordat ze hoofd relatiewetenschap werd bij de dating-app Hinge. In <i>How to Not Die Alone</i> past ze inzichten uit de gedragseconomie toe op het daten zelf en onderscheidt ze drie denkpatronen die singles ongemerkt in de weg zitten: de romanticizer die op een vonk wacht, de maximizer die altijd blijft zoeken naar een betere optie, en de hesitater die het daten telkens uitstelt tot een beter moment. Elk patroon komt volgens haar voort uit dezelfde denkfout: te veel gewicht geven aan het gevoel van het eerste moment en te weinig aan wat een relatie na verloop van tijd wordt.</p><p>De rest van het boek volgt de fasen van het daten: hoe iemand te ontmoeten, wat een eerste afspraak wel en niet bewijst, en hoe een relatie serieus wordt zonder dat er ooit een echte keuze is gemaakt. Ury onderbouwt haar advies met gedragswetenschappelijk onderzoek, met materiaal uit Hinges eigen gebruikersonderzoek en met voorbeelden uit haar werk als datingcoach. Het boek sluit af met een vragenlijst voor een gesprek over de toekomst van een relatie en met een relatiecontract, bedoeld om aannames expliciet te maken voordat ze problemen worden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>daten</li><li>gedragswetenschap</li><li>relaties</li><li>besluitvorming</li><li>gehechtheid</li><li>Hinge</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="152"><a href="152.html">Attached</a>. Gaat dieper in op de gehechtheidsstijlen die Ury in dit boek toepast op het daten.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Behandelt de denkfouten en heuristieken uit de gedragseconomie waarop Ury's analyse van datingbeslissingen leunt.</li>
+          <li value="145"><a href="145.html">Unfuck Your Intimacy</a>. Sluit aan bij de hoofdstukken over intimiteit en gehechtheid, vanuit een andere invalshoek dan Ury's coachingperspectief.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

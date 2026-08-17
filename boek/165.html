@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Passionate Marriage &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Schnarch stelt dat een langdurige relatie niet oplevert wat mensen ervan verwachten, juist omdat zij de plek is waar mensen het felst worden aangesproken…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-165">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">165 &middot; Brein en lichaam</p>
+    <h1>Passionate Marriage</h1>
+    <p class="lede">David Schnarch, 1997</p>
+    <p class="stats">
+      <span><b>1473</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="165"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Schnarch stelt dat een langdurige relatie niet oplevert wat mensen ervan verwachten, juist omdat zij de plek is waar mensen het felst worden aangesproken op hun onvermogen zichzelf te blijven bij een ander. Passie en intimiteit op de lange termijn hangen volgens hem niet af van communicatietechnieken of compromissen, maar van differentiatie: het vermogen een eigen koers te houden onder druk van de partner, zonder daarvoor afstand te moeten nemen. Wie te veel op de partner leunt voor een gevoel van eigenwaarde, wat hij borrowed functioning noemt, loopt vast zodra de partner niet meewerkt. Dat vastlopen noemt hij emotioneel gridlock: geen storing die om reparatie vraagt, maar een fase die bij groei hoort.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee soorten intimiteit</h3>
+      <p>Schnarch begint met een onderscheid tussen wat hij een reflected sense of self noemt en een solid flexible self. Bij de eerste ontleent iemand zijn identiteit aan bevestiging, instemming of op zijn minst voorspelbare reacties van de ander; verdwijnt die bevestiging, dan verdwijnt ook het houvast. Bij de tweede blijft iemand zichzelf herkennen, ook als de partner het oneens is of boos wordt.</p>
+      <p>Veel koppels bouwen hun relatie op de eerste vorm, wat hij borrowed functioning noemt: elke partner leent zijn gevoel van eigenwaarde van de ander. Dat werkt zolang beiden zich aanpassen, maar laat geen ruimte voor een verschil van mening zonder dat de relatie meteen op het spel lijkt te staan.</p>
+      <h3>Differentiatie als opgave</h3>
+      <p>Differentiatie is bij Schnarch geen eigenschap die iemand op enig moment heeft, maar een doorlopende opgave: jezelf blijven onderscheiden van de mensen om je heen terwijl je toch dichtbij blijft. Hij ontleent het begrip aan de systeemtheorie van Murray Bowen, die differentiatie beschreef binnen families; Schnarch past het toe op de seksuele relatie tussen partners, een terrein waar Bowen zelf niet over schreef.</p>
+      <p>Zijn stelling is dat een langdurige, gecommitteerde relatie de zwaarste test van differentiatie is die er bestaat, zwaarder dan het ouderlijk gezin waarin de meeste mensen die eigenschap voor het eerst ontwikkelen. Juist omdat partners zo dicht op elkaar leven en zoveel van elkaar verlangen, dwingt een langdurige relatie mensen verder te groeien dan zij uit zichzelf zouden doen.</p>
+      <h3>Emotioneel gridlock</h3>
+      <p>Elk koppel loopt volgens Schnarch op een gegeven moment vast in een terugkerend conflict waar geen compromis meer voor te vinden is: emotioneel gridlock. Dat kan gaan over een seksuele voorkeur die de een wil en de ander weigert, over de tijd die een van beiden aan werk of familie besteedt, of over een gewoonte die de ander kwetst. Compromis, betere communicatie of eromheen praten lossen het niet op, omdat het probleem niet in de communicatie zit maar in het niveau van differentiatie van de partners.</p>
+      <p>Gridlock ontstaat volgens hem juist op de terreinen die het meest met identiteit te maken hebben. Hij noemt dat de tweekeuzedilemma's (two-choice dilemmas) van een relatie: situaties waarin elke optie een prijs heeft, zoals zwijgen en jezelf wegcijferen, of spreken en de partner van streek maken. Die dilemma's zijn geen falen van de relatie, maar het punt waarop verdere differentiatie mogelijk wordt, mits iemand de spanning ervan kan verdragen zonder toe te geven of te vluchten.</p>
+      <h3>Alledaagse wreedheid</h3>
+      <p>Onder de noemer normal marital sadism beschrijft Schnarch de kleine, meestal onbewuste manieren waarop partners elkaar in een gewone relatie pijn doen: een steek onder water, iets expres vergeten, een verjaardag half vieren. Hij behandelt dat niet als een teken van een slechte relatie, maar als een vast onderdeel van elke langdurige relatie, dat zichtbaar wordt zodra de aanvankelijke aanpassing aan elkaar afneemt.</p>
+      <p>De reactie die hij aanraadt is zelfregulatie: leren de eigen onrust te verdragen zonder de ander erop af te rekenen, wat hij self-soothing noemt. Wie dat niet kan, blijft afhankelijk van de partner om zich rustig te voelen, en dat is precies de afhankelijkheid die differentiatie moet doorbreken.</p>
+      <h3>Oefeningen voor lichamelijke nabijheid</h3>
+      <p>Het middendeel van het boek werkt de theorie uit in lichamelijke oefeningen. Bij hugging till relaxed staan beide partners rechtop, omarmen elkaar en blijven staan tot de spanning in het lichaam wegzakt, zonder op de ander te leunen voor steun of balans: een oefening in differentiatie in plaats van een knuffel om te troosten.</p>
+      <p>Bij wat hij eyes-open orgasm noemt, stelt Schnarch voor om tijdens seks de ogen open te houden en oogcontact te houden op het moment van het hoogtepunt, in plaats van de ogen te sluiten en weg te zakken in een fantasie. Dat maakt seks volgens hem tot een ontmoeting tussen twee mensen in plaats van een individuele ervaring die toevallig samen plaatsvindt, en dat vraagt om meer moed dan de meeste koppels gewend zijn op te brengen.</p>
+      <h3>Seksueel potentieel op latere leeftijd</h3>
+      <p>Schnarch keert zich tegen het idee dat de beste seks vroeg in een relatie plaatsvindt en daarna afneemt. Volgens hem groeit het seksuele en emotionele potentieel van een relatie juist met de jaren, mits beide partners differentiëren in plaats van zich steeds verder bij elkaar aan te passen. Koppels die decennia samen zijn en die opgave zijn aangegaan, beschrijft hij als in staat tot een intimiteit die jonge relaties nog niet kunnen bereiken.</p>
+      <p>Het slothoofdstuk verbindt dat met sterfelijkheid: hoe langer een relatie duurt, hoe dichter zij bij het besef komt dat de gedeelde tijd eindig is, en Schnarch stelt dat juist dat besef mensen aanzet om de relatie niet langer uit te stellen tot een gemakkelijker moment.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Differentiatie</td><td>Het vermogen jezelf te blijven onderscheiden van de partner en een eigen koers te houden, ook onder druk om mee te bewegen.</td></tr>
+          <tr><td class="term">Reflected sense of self</td><td>Een identiteit die afhankelijk is van bevestiging, instemming of voorspelbare reacties van de ander.</td></tr>
+          <tr><td class="term">Solid flexible self</td><td>Een identiteit die zichzelf blijft herkennen, ook als de partner het oneens is of boos reageert.</td></tr>
+          <tr><td class="term">Borrowed functioning</td><td>Het ontlenen van een gevoel van eigenwaarde aan de reacties van de partner in plaats van aan jezelf.</td></tr>
+          <tr><td class="term">Emotioneel gridlock</td><td>Een terugkerend conflict waarvoor geen compromis meer te vinden is, omdat het niet in de communicatie zit maar in de differentiatie van de partners.</td></tr>
+          <tr><td class="term">Two-choice dilemma</td><td>Een situatie waarin elke optie een prijs heeft, zoals zwijgen en jezelf wegcijferen of spreken en de ander van streek maken.</td></tr>
+          <tr><td class="term">Normal marital sadism</td><td>De kleine, meestal onbewuste manieren waarop partners elkaar in een gewone relatie pijn doen.</td></tr>
+          <tr><td class="term">Self-soothing</td><td>Het vermogen de eigen onrust te verdragen zonder de partner erop af te rekenen.</td></tr>
+          <tr><td class="term">Hugging till relaxed</td><td>Een omhelzing waarbij beide partners rechtop staan tot de spanning wegzakt, zonder op elkaar te leunen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Schnarch onderbouwt zijn theorie op twee manieren. De eerste is de systeemtheorie van Murray Bowen, die differentiatie beschreef als de mate waarin iemand zich binnen een gezin kan onderscheiden van de anderen zonder de band te verbreken; Schnarch neemt dat begrip over en breidt het uit naar seksualiteit en intimiteit tussen partners, een stap die Bowen zelf niet zette.</p>
+      <p>De tweede grond is zijn eigen klinische praktijk: decennia werk met stellen in zijn praktijk en workshops, waaruit de voorbeelden, de oefeningen en de begrippen in het boek voortkomen. Een gecontroleerde studie naar de werkzaamheid van zijn aanpak bevat het boek niet, en Schnarch citeert ook geen onderzoek van anderen om zijn stellingen te toetsen. De onderbouwing is dus de ervaring van een praktiserend seksuoloog, niet empirisch onderzoek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het belangrijkste bezwaar betreft het begrip differentiatie zelf: Schnarch definieert het deels aan de hand van zijn eigen oefeningen en deels aan de hand van het resultaat dat die oefeningen zouden moeten opleveren, waardoor lastig vast te stellen is wanneer iemand wel of niet gedifferentieerd is buiten wat Schnarch daar zelf over zegt. Critici wijzen er ook op dat het boek zich uitsluitend richt op heteroseksuele, monogame paren die aan een huwelijk of vergelijkbare relatie vasthouden, terwijl de claims over menselijke intimiteit breder worden gepresenteerd.</p>
+      <p>De schrijfstijl is uitvoerig en herhalend, met lange casussen die dezelfde punten meerdere keren illustreren. Sommige lezers en recensenten noemen de toon van de auteur zelfingenomen, vooral waar hij zijn eigen aanpak afzet tegen wat hij de tekortkomingen van gangbare relatietherapie noemt. De seksueel expliciete beschrijvingen, nodig voor oefeningen zoals eyes-open orgasm, kunnen lezers die daar niet op rekenen onaangenaam verrassen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf een terugkerend meningsverschil met de partner als tweekeuzedilemma: welke twee opties liggen er, en wat kost elke optie.</li>
+        <li>Onderscheid bij een conflict of het om een praktisch probleem gaat of om emotioneel gridlock; bij gridlock helpt verder onderhandelen niet.</li>
+        <li>Oefen self-soothing door bij onrust eerst de eigen ademhaling en houding te veranderen voordat je de partner aanspreekt.</li>
+        <li>Probeer de omhelzing uit hugging till relaxed: rechtop staan, de ander vasthouden, niet op de ander leunen voor steun.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Passionate Marriage: Love, Sex, and Intimacy in Emotionally Committed Relationships</i> (Henry Holt, New York, 1997). Sinds de heruitgave bij W. W. Norton &amp; Company (paperback, 27 april 2009, 448 blz., ISBN 9780393334272) bekend onder de titel <i>Passionate Marriage: Keeping Love and Intimacy Alive in Committed Relationships</i>. Geen Nederlandse vertaling; wel vertaald is Schnarchs latere boek <i>Resurrecting Sex</i>, als <i>Seksdrive</i> (Lannoo, 2004).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Schnarch was klinisch psycholoog en seksuoloog en behandelde stellen die vastliepen op precies het punt waarop de meeste relatietherapie stopt: een langdurige relatie waarin de seks is verdwenen en de partners elkaar niet meer durven tegenspreken. Zijn stelling is dat dat vastlopen niet wijst op een gebrek aan communicatie, maar op een gebrek aan wat hij differentiatie noemt: het vermogen om jezelf te blijven terwijl je dicht bij een ander blijft. Wie te weinig gedifferentieerd is, ontleent zijn gevoel van eigenwaarde aan de partner en wordt daardoor juist afhankelijker naarmate de relatie langer duurt.</p><p>Het boek combineert die theorie met concrete oefeningen, waaronder een omhelzing waarbij je jezelf staande houdt zonder op de ander te leunen, en het advies om tijdens seks de ogen open te houden in plaats van weg te dromen. Schnarch bouwt voort op de systeemtheorie van Murray Bowen en past die toe op seksualiteit, een gebied waar Bowen zelf niet over schreef. Onderzoek naar de werkzaamheid van zijn aanpak levert het boek niet; het rust op zijn eigen klinische praktijk en workshops. De toon is direct en soms grof, met een woordgebruik dat verder gaat dan de meeste zelfhulpboeken over relaties.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>relatietherapie</li><li>seksualiteit</li><li>differentiatie</li><li>intimiteit</li><li>huwelijk</li><li>zelfregulatie</li><li>systeemtheorie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="152"><a href="152.html">Attached</a>. Benadert nabijheid vanuit hechtingstheorie in plaats van differentiatie: waar Schnarch afhankelijkheid als een op te lossen opgave ziet, beschrijft dit boek gehechtheidsstijlen als min of meer vaste patronen.</li>
+          <li value="145"><a href="145.html">Unfuck Your Intimacy</a>. Behandelt net als dit boek intimiteit en seksualiteit in relaties, maar vanuit onderzoek naar hechting in plaats van Schnarchs klinische differentiatietheorie, en in een directere toon.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

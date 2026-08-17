@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boundaries &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Boundaries stelt dat mensen die geen grenzen kennen, hun eigen leven verliezen aan de eisen en de pijn van anderen. Cloud en Townsend, allebei klinisch…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-162">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">162 &middot; Samenwerken en gesprek</p>
+    <h1>Boundaries</h1>
+    <p class="lede">Henry Cloud en John Townsend, 1992</p>
+    <p class="stats">
+      <span><b>1604</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="162"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Boundaries stelt dat mensen die geen grenzen kennen, hun eigen leven verliezen aan de eisen en de pijn van anderen. Cloud en Townsend, allebei klinisch psycholoog, betogen dat ieder mens voor God rentmeester is over zijn eigen gevoelens, gedachten, gedrag, keuzes en waarden, en dat het onvermogen om nee te zeggen doorgaans voortkomt uit angst of schuldgevoel, ook wanneer het zich voordoet als liefde of zelfopoffering. Een grens die ontbreekt dient volgens de auteurs uiteindelijk niemand, ook niet degene voor wie zij uit welwillendheid wordt weggelaten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een grens als eigendomsgrens</h3>
+      <p>Cloud en Townsend vergelijken een grens met de erfgrens van een stuk grond: zij markeert waar iemands eigendom begint en dat van de buurman ophoudt, en zonder die lijn weet niemand wie waarvoor moet zorgen. Toegepast op een mens vallen onder dat eigendom de gevoelens, de gedachten, het gedrag, de houding, de keuzes, de waarden, de talenten en de lichamelijke grenzen; wat iemand daarvan als eigen erkent, kan hij verzorgen, en wat hij aan een ander toeschrijft, laat hij aan die ander over.</p>
+      <p>De auteurs noemen dat eigenaarschap de kern van het probleem. Wie het verdriet van een ander tot zijn eigen taak maakt, of wie zijn eigen boosheid aan een ander toeschrijft, heeft de grens al verlegd voordat er een gesprek plaatsvindt. Een grens stellen begint daarom met de vaststelling van wat van wie is.</p>
+      <h3>Vier manieren waarop grenzen ontbreken</h3>
+      <p>Cloud en Townsend onderscheiden vier terugkerende patronen. Complianten zeggen bijna altijd ja, ook als ze nee bedoelen, omdat afwijzing of schuldgevoel hen meer kost dan toegeven. Vermijders vragen zelf nooit om hulp en trekken zich terug zodra ze iets nodig hebben, uit angst een ander tot last te zijn. Controleurs respecteren de grens van de ander niet en vallen uiteen in twee soorten: de agressieve controleur die met druk of woede een ja afdwingt, en de manipulatieve controleur die hetzelfde bereikt met overreding, schuldgevoel of een omweg. Niet-reagerenden ten slotte horen de behoefte van de ander niet, ook niet wanneer die met zoveel woorden is uitgesproken.</p>
+      <p>De indeling is bedoeld om lezers hun eigen patroon te laten herkennen. De auteurs merken op dat de meeste mensen zich in meer dan één rol herkennen, afhankelijk van de relatie waarin ze staan.</p>
+      <h3>Hoe grenzen ontstaan</h3>
+      <p>Het boek plaatst grenzen in de vroege ontwikkeling. Een kind bouwt eerst een veilige hechting aan een verzorger op voordat het zich kan losmaken; pas met die basis achter de hand durft het zich af te zetten, nee te leren zeggen en het verschil tussen zichzelf en de ander te ontdekken. Cloud en Townsend stellen dat volwassenen die als kind geen ruimte kregen om nee te zeggen, dat vermogen alsnog moeten opbouwen, vaak met dezelfde ongemakkelijke stappen die een peuter doorloopt.</p>
+      <h3>De tien wetten van grenzen</h3>
+      <p>Een apart hoofdstuk zet tien wetten op een rij die volgens de auteurs bepalen hoe grenzen werken. De wet van zaaien en oogsten stelt dat gedrag gevolgen heeft en dat wie die gevolgen wegneemt, het leren blokkeert. De wet van verantwoordelijkheid onderscheidt verantwoordelijkheid tegenover een ander van verantwoordelijkheid voor een ander. De wet van macht wijst op de grens van wat iemand kan veranderen: zichzelf. De wet van respect verbindt het vragen van eigen grenzen aan het erkennen van die van een ander, en de wet van motivatie stelt dat een ja pas iets waard is als een nee ook mogelijk was.</p>
+      <p>De overige wetten gaan over het evalueren van de pijn die een grens bij een ander veroorzaakt, over proactief handelen in plaats van reageren, over afgunst die de aandacht wegtrekt van de eigen grens, over het nemen van initiatief, en over de wet van openbaarmaking: een grens moet worden uitgesproken voordat een ander hem kan respecteren.</p>
+      <h3>Mythes die grenzen tegenhouden</h3>
+      <p>Een volgend hoofdstuk behandelt bezwaren waar Cloud en Townsend in hun praktijk telkens tegenaan lopen, vaak afkomstig uit een christelijke opvoeding: dat een grens stellen egoïstisch is, dat het een ander pijn doet die je hem niet mag aandoen, of dat christenen juist geacht worden zichzelf weg te cijferen. Hun weerwoord is dat zelfopoffering zonder grens uitmondt in uitputting en wrok, en dat Jezus in de evangeliën zelf grenzen stelde aan wie zijn tijd en aandacht kreeg.</p>
+      <h3>Grenzen in familie, huwelijk, werk en geloof</h3>
+      <p>Het middendeel van het boek werkt de grens per relatie uit: ouders en volwassen kinderen, vriendschap, huwelijk, de opvoeding van eigen kinderen, de werkvloer en de omgang met zichzelf. Steeds keert hetzelfde stramien terug: een voorbeeld uit de praktijk van de auteurs, de grens die ontbrak, en de stap die de cliënt zette om die alsnog te trekken.</p>
+      <p>Het laatste hoofdstuk van dit deel gaat over de relatie met God zelf. Cloud en Townsend lezen het scheppingsverhaal en de wet van Mozes als een geschiedenis van grenzen die God stelt en respecteert, en houden dat de mens voor als model.</p>
+      <h3>Weerstand en de praktijk van een grens</h3>
+      <p>Het laatste deel gaat over wat er gebeurt zodra iemand voor het eerst een grens trekt: boosheid, verwijten of een stilte bij de ander, en bij de grenstrekker zelf schuldgevoel, twijfel en de neiging om toch toe te geven. De auteurs noemen dat een gevecht met weerstand van buiten en van binnen, en beschrijven succes niet aan de reactie van de ander maar aan het feit dat de grens overeind blijft. Het slothoofdstuk schetst hoe een dag verloopt voor iemand die dat wel geleerd heeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Grens</td><td>De eigendomslijn van gevoelens, gedachten, gedrag en keuzes, die vastlegt wat van iemand zelf is en waarvoor hij verantwoordelijk is.</td></tr>
+          <tr><td class="term">Complianten</td><td>Mensen die vrijwel altijd ja zeggen uit angst voor afwijzing of uit schuldgevoel.</td></tr>
+          <tr><td class="term">Vermijders</td><td>Mensen die zelf geen hulp vragen en zich terugtrekken zodra ze iets nodig hebben.</td></tr>
+          <tr><td class="term">Controleurs</td><td>Mensen die de grens van een ander niet respecteren, verdeeld in agressieve en manipulatieve controleurs.</td></tr>
+          <tr><td class="term">Niet-reagerenden</td><td>Mensen die de behoefte van een ander niet horen, ook niet wanneer die is uitgesproken.</td></tr>
+          <tr><td class="term">Wet van zaaien en oogsten</td><td>Gedrag heeft gevolgen, en wie die gevolgen voor een ander wegneemt, blokkeert diens leerproces.</td></tr>
+          <tr><td class="term">Wet van macht</td><td>Het besef dat iemand alleen zichzelf kan veranderen en niet de ander.</td></tr>
+          <tr><td class="term">Wet van openbaarmaking</td><td>Een grens moet worden uitgesproken voordat een ander hem kan respecteren.</td></tr>
+          <tr><td class="term">Rentmeesterschap</td><td>De christelijke gedachte dat een mens beheerder is van het leven dat God hem heeft toevertrouwd, inclusief zijn grenzen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee ongelijksoortige fundamenten die de auteurs niet scheiden. Het eerste is hun klinische praktijk: Cloud en Townsend zijn allebei psycholoog en illustreren vrijwel elk hoofdstuk met een cliënt uit hun eigen praktijk, herkenbaar gemaakt maar niet met naam en toenaam controleerbaar. Het tweede is een expliciet christelijk-theologisch kader: grenzen worden verantwoord met verwijzingen naar het scheppingsverhaal, de wet van Mozes en gelijkenissen uit de evangeliën. Onderzoek naar assertiviteit of naar gezinssystemen uit de seculiere psychologie komt in het boek niet aan bod, hoewel de gebruikte begrippen er dicht tegenaan liggen.</p>
+      <p>Cloud en Townsend citeren geen studies en leggen geen methode voor waarmee hun uitspraken te toetsen zijn; hun autoriteit ligt in de combinatie van klinische ervaring en een bijbelse lezing die zij zelf maken. Voor een lezer die dat kader deelt vormt dat een samenhangend geheel. Voor een lezer die het niet deelt blijft de onderbouwing een keuze van de auteurs, aannemelijk gemaakt met voorbeelden en niet onderbouwd met gegevens.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste kritiek is theologisch en komt van binnen het christendom. De Amerikaanse predikant Nathan Schulte wijst er in zijn bespreking op dat Cloud en Townsend bijbelteksten gebruiken op een manier die met het verband weinig te maken heeft: de gelijkenis van de barmhartige Samaritaan wordt aangehaald omdat die de gewonde man maar één nacht verzorgde, en Jezus' laatste woorden aan het kruis worden gelezen als een uitspraak over het afronden van een taak. Schulte noemt het boek psychologisch bruikbaar maar theologisch dun: het mist volgens hem de wortel in genade die van evangelische literatuur verwacht mag worden en leest eerder als een moreel zelfhulpboek met bijbelverzen erbij.</p>
+      <p>Een tweede bezwaar, ook terug te vinden in lezersreacties, is dat de voorbeelden vaak eenzijdig zijn opgebouwd: de cliënt van de auteurs trekt een grens en wordt daarin bevestigd, terwijl de partij aan de andere kant zelden met evenveel begrip wordt beschreven. Dat maakt het boek bruikbaar als rechtvaardiging om een relatie of verplichting te beëindigen zonder het eigen aandeel te wegen, terwijl de wet van verantwoordelijkheid die de auteurs zelf noemen daar juist voor waarschuwt. Onderzoek naar assertiviteit en naar gezinssystemen bestond ruim voor 1992 en wordt in het boek niet genoemd, waardoor het oogt als een op zichzelf staand werk terwijl het begrippen gebruikt die elders al waren uitgewerkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng bij een lastige relatie in kaart welk van de vier patronen, compliant, vermijder, controleur of niet-reagerende, aan beide kanten het meest voorkomt.</li>
+        <li>Oefen een nee eerst in een kleine, veilige situatie voor een grote relatie aan de beurt is.</li>
+        <li>Spreek een grens uit voor van een ander verwacht wordt dat hij hem respecteert; de wet van openbaarmaking gaat daaraan vooraf.</li>
+        <li>Weeg bij een conflict de eigen verantwoordelijkheid en die van de ander apart, voor de schuld wordt verdeeld.</li>
+        <li>Beoordeel het resultaat van een nieuwe grens aan het overeind blijven ervan, niet aan de reactie van de ander.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Boundaries: When to Say Yes, How to Say No to Take Control of Your Life</i> (Zondervan, 1992), in 2017 door dezelfde uitgeverij herzien en uitgebreid met een hoofdstuk. Nederlands als <i>Grenzen: wanneer zeg ik ja, wanneer zeg ik nee, hoe bepaal ik mijn eigen grenzen</i>, vertaald door M. Lufting-Heijna, sinds 1997 bij uitgeverij Koinonia (289 blz., ISBN 9789076193014); in 2021 verscheen bij Ellel Media een nieuwe, uitgebreide druk (319 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Boundaries verscheen in 1992 bij de Amerikaanse uitgeverij Zondervan en is geschreven door de klinisch psychologen Henry Cloud en John Townsend. De kernvraag is wanneer iemand ja hoort te zeggen en wanneer nee, en wat er misgaat wanneer die grens ontbreekt. De auteurs vergelijken een grens met een eigendomsgrens: zij markeert waar de verantwoordelijkheid van de een eindigt en die van de ander begint, en beslaat gevoelens, gedachten, gedrag, keuzes en waarden. Zonder die grens ontstaan volgens hen vier terugkerende patronen: wie bijna altijd toegeeft, wie zelf nooit om hulp vraagt, wie de grens van een ander negeert, en wie de behoefte van de ander niet opmerkt.</p><p>Het boek plaatst dit uitdrukkelijk in een christelijk kader: God wordt opgevoerd als voorbeeld van iemand die zelf grenzen stelt en mensen de vrijheid geeft om te kiezen, en grenzen stellen wordt voorgesteld als rentmeesterschap over het leven dat God iemand heeft toevertrouwd. Cloud en Townsend werken tien wetten van grenzen uit, van de wet dat gedrag gevolgen heeft tot de wet dat een grens pas gerespecteerd kan worden nadat zij is uitgesproken, en passen die toe op familie, vriendschap, huwelijk, opvoeding en werk. Het boek werd in het Nederlands vertaald als <i>Grenzen</i>, voor het eerst in 1997 bij uitgeverij Koinonia.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychologie</li><li>relaties</li><li>christendom</li><li>zelfhulp</li><li>communicatie</li><li>opvoeding</li><li>assertiviteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenbergs Nonviolent Communication geeft een concrete taal om een grens te formuleren zonder verwijt, waar Boundaries vooral het waarom van de grens uitwerkt.</li>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Crucial Conversations behandelt hoe een moeilijk gesprek op het moment zelf gevoerd wordt, een vaardigheid die Boundaries veronderstelt maar niet in detail uitwerkt.</li>
+          <li value="24"><a href="24.html">How to Win Friends and Influence People</a>. How to Win Friends and Influence People staat voor de tegenovergestelde reflex: mensen voor je winnen door in te schikken, precies het patroon dat Cloud en Townsend compliant noemen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

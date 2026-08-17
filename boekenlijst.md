@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 17
-augustus 2026: 158 titels in 18 rubrieken.
+augustus 2026: 167 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,17 +13,17 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155 |
@@ -32249,6 +32249,1873 @@ ondernemers leunen.
 vraag over geluk tegenover discipline, en formuleert zijn claim voorzichtiger
 dan Tracy's belofte dat succes voorspelbaar is.
 
+## 159. Broke Millennial
+
+Erin Lowry, 2017. Oorspronkelijk *Broke Millennial: Stop Scraping By and Get
+Your Financial Life Together* (TarcherPerigee, 2017, 288 blz., ISBN
+9780143130406). Er is geen Nederlandse vertaling gevonden, niet op
+bibliotheek.nl en niet bij Nederlandse uitgevers; het boek is in Nederland
+alleen in het Engels verkrijgbaar, onder meer via bol.com. Lowry schreef twee
+vervolgdelen in dezelfde reeks, *Broke Millennial Takes On Investing* (2019)
+en *Broke Millennial Talks Money* (2020), die evenmin vertaald zijn. Rubriek:
+geld en ondernemen.
+Tags: `geld`, `millennials`, `budgetteren`, `schulden`, `onderhandelen`,
+`sparen`, `praktisch`
+
+Lowry begon in 2013 de blog Broke Millennial nadat ze merkte dat
+leeftijdgenoten wel over huur en uitjes praatten maar zelden over schulden,
+spaargeld of salaris. Dit boek zet die aanpak om in een handleiding voor
+twintigers en dertigers en begint daarom niet bij een budgetformulier maar bij
+de vraag wat iemand van huis uit over geld heeft meegekregen, met een test die
+vraagt of iemand geld behandelt als een Tinder-date of als huwelijksmateriaal.
+Pas na dat zelfonderzoek volgen budgetteren, bankproducten, kredietscore en
+schulden.
+
+Een groot deel van het boek gaat over geld tussen mensen: hoe een rekening
+ongelijk verdelen in een vriendengroep, hoe een partner financieel open te
+leggen, hoe met ouders om te gaan bij terugkeer in het ouderlijk huis na de
+studie. Het laatste deel behandelt salaris onderhandelen, beleggen, pensioen,
+financieel advies en een eerste huis. Lowry schrijft in een informele,
+grappende toon vol verwijzingen naar haar eigen generatie, in korte
+hoofdstukken die ook los van elkaar te lezen zijn.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lowry betoogt dat financiële problemen bij twintigers en
+dertigers zelden aan onwetendheid alleen liggen. Studieschuld en een
+onzekerder arbeidsmarkt dan die van hun ouders spelen mee, maar de kern zit
+volgens haar in onbesproken overtuigingen over geld die al in de kindertijd
+zijn gevormd en die mensen vasthouden aan hetzelfde gedrag, ook nadat ze de
+theorie van budgetteren en beleggen kennen. Haar aanpak begint daarom bij het
+blootleggen van die 'money mentality' voordat ze naar de techniek gaat,
+opgebouwd als een stappenplan waarin elk hoofdstuk op zichzelf leesbaar is
+voor wie met één specifiek probleem zit.
+
+#### De gang van het boek
+
+**Een blog die een boek wordt**
+
+Het openingshoofdstuk, "Money Isn't the Worst! Seriously.", opent met een
+jeugdherinnering: Lowry verkoopt op haar zevende met haar zusje donuts op een
+rommelmarkt en krijgt van haar vader, die de inkoop had voorgeschoten, meteen
+een lesje in winst en belasting doordat hij een deel van de opbrengst opeist.
+Die scène staat model voor de toon van het boek: geldkwesties worden verteld
+als herkenbare, licht komische situaties in plaats van als droge regels.
+
+Het boek is opgezet als opeenvolging van achttien hoofdstukken die elk met een
+probleem openen en met concrete stappen sluiten. Lowry raadt aan minimaal
+hoofdstuk twee en drie te lezen om de eigen uitgangspositie te bepalen, en
+daarna te springen naar het hoofdstuk dat bij de eigen situatie past. De
+epiloog heet "Now That You're A Financial Badass, Keep It Up!", en die term,
+financial badass, vat samen wat het boek als eindpunt voor ogen heeft.
+
+**De psychologische blokkade eerst**
+
+Hoofdstuk twee, "Is Money a Tinder Date or Marriage Material?", vraagt de
+lezer via een reeks vragen terug te denken aan de vroegste geldherinnering en
+aan hoe er thuis over geld werd gepraat of gezwegen. Lowry noemt de uitkomst
+van die zelfreflectie iemands money mentality: het patroon van overtuigingen
+en reacties op geld dat mensen van huis uit meekrijgen en dat volgens haar
+bepalender is voor financieel gedrag dan kennis van rentepercentages.
+
+Ze illustreert dit met haar eigen ouders, die haar bewust controle over geld
+meegaven, tegenover lezers die vertellen over schaamte, ruzie of stilzwijgen
+rond geld in hun jeugd. De stelling van het hoofdstuk is dat wie deze
+onderstroom niet kent, later dezelfde patronen herhaalt, ook als het budget op
+papier klopt.
+
+**Een nulmeting van de eigen financiën**
+
+Hoofdstuk drie, "Do You Have a Gold Star in Personal Finance?", laat de lezer
+via een puntensysteem een uitkomst bepalen: een Financial Gold Star voor wie
+de basis op orde heeft, een You Went Viral-status voor wie verder is dan
+gemiddeld, of Living in Your Parents' Basement Forever voor wie nog
+achterloopt. Bij elke uitkomst verwijst Lowry door naar de hoofdstukken die
+daar het beste bij aansluiten.
+
+Hetzelfde hoofdstuk introduceert de berekening van het eigen vermogen: alle
+bezittingen bij elkaar opgeteld min alle schulden. Lowry benadrukt dat dit
+getal, ook als het negatief uitvalt, iets anders is dan iemands eigenwaarde,
+en dat het vooral dient als vertrekpunt om vooruitgang te meten.
+
+**Vijf manieren om te budgetteren**
+
+Hoofdstuk vier zet vijf budgetmethoden naast elkaar zodat de lezer kan kiezen
+wat past: de Cash Diet, waarbij alleen contant geld wordt uitgegeven zodat
+pinnen niet meer kan; Tracking Every Penny, het handmatig bijhouden van elke
+uitgave; het Envelope System, waarbij een vast bedrag per categorie in een
+aparte enveloppe gaat en op is als de enveloppe leeg is; Percentage Budgeting,
+met een vaste verdeling van ongeveer vijftig procent vaste lasten, twintig
+procent financiële doelen en dertig procent vrije bestedingen; en het Zero-Sum
+Budget, waarin elke binnenkomende dollar aan het begin van de maand al een
+bestemming krijgt.
+
+De hoofdstukken vijf tot en met zeven bouwen daarop voort met de keuze van een
+bank en rekening, de opbouw van de Amerikaanse kredietscore en het onderscheid
+tussen verstandig en onverstandig gebruik van een creditcard. Deze
+hoofdstukken zijn sterk toegesneden op het Amerikaanse bankwezen en de
+FICO-score, een systeem zonder directe tegenhanger in Nederland.
+
+**Schulden aflossen en toch sparen**
+
+Voor bestaande consumentenschuld zet hoofdstuk acht twee strategieën tegenover
+elkaar. De Debt Avalanche lost eerst de schuld met de hoogste rente af en is
+rekenkundig de goedkoopste route; de Debt Snowball lost eerst de kleinste
+schuld af, kost op papier meer rente, maar houdt mensen volgens Lowry vaker
+vol omdat ze sneller een schuld helemaal zien verdwijnen. Ze beschrijft ook
+een combinatie van beide, waarbij iemand met de Snowball begint voor het
+gevoel van vooruitgang en daarna op de Avalanche overstapt.
+
+Hoofdstuk negen behandelt Amerikaanse studieschuld apart, met de afweging
+tussen uitstel, een inkomensafhankelijk aflossingsplan en herfinanciering,
+waarbij herfinanciering van een federale lening ook de toegang tot
+kwijtschelding en inkomensafhankelijke aflossing laat vervallen. Hoofdstuk
+tien stelt daarna dat sparen niet hoeft te wachten tot de schuld weg is en
+introduceert het noodfonds van drie tot zes maanden vaste lasten, voor
+zelfstandigen zes tot negen maanden, als eerste financiële doel naast het
+aflossen zelf. Ze zet hier ook twee typen lezers tegenover elkaar die ze Team
+YOLOFOMO en Team Dreaming About Retirement noemt, de één gericht op vandaag en
+de ander op de toekomst, met als les dat allebei een tegenwicht nodig hebben.
+
+**Geld tussen vrienden, partners en ouders**
+
+Hoofdstuk elf gaat over het ongelijk verdelen van een rekening in een
+vriendengroep als het inkomen of de bestelling uiteenloopt, met concrete
+zinnen om dat bespreekbaar te maken zonder de vriendschap te belasten.
+Hoofdstuk twaalf, "Getting Financially Naked with Your Partner", beschrijft
+het gefaseerd delen van financiële details met een partner: eerst algemene
+gewoonten rond uitgeven en sparen, dan schulden en spaargeld, en pas laat de
+exacte bedragen. Lowry gebruikt de term financieel naakt worden als
+terugkerend beeld voor die opbouw van openheid.
+
+Hoofdstuk dertien behandelt terugkeer naar het ouderlijk huis na de studie,
+met afspraken over een bijdrage in de huur en over de manier waarop ouders en
+volwassen kinderen dan met elkaar omgaan.
+
+**Onderhandelen, beleggen en een huis kopen**
+
+Hoofdstuk veertien gaat over salarisonderhandeling en introduceert het idee
+van een bottom line, de laagste uitkomst die iemand zou accepteren, die de
+onderhandelaar zelf kent maar nooit uitspreekt. Lowry onderbouwt dit met haar
+eigen ervaring: bij een jaarlijkse beoordeling onderhandelde ze op basis van
+vergelijkingsmateriaal en eigen resultaten een salarisverhoging van veertig
+procent, van vijftigduizend naar zeventigduizend dollar.
+
+De laatste hoofdstukken behandelen beleggen als iets anders dan gokken, met de
+nadruk op brede indexfondsen boven het kiezen van losse aandelen,
+pensioensparen via de Amerikaanse 401(k) en IRA, de vraag wanneer een
+financieel planner nodig is, en het kopen van een huis waarbij de maximale
+hypotheek van een bank losstaat van wat iemand zich comfortabel kan
+veroorloven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Money mentality | Het patroon van overtuigingen en reacties op geld dat iemand van huis uit meekrijgt en dat financieel gedrag sterker stuurt dan kennis van cijfers. |
+| Getting Financially Naked | Het gefaseerd en volledig delen van financiële details met een partner, van gewoonten tot exacte schuld- en spaarbedragen. |
+| Financial Gold Star | De hoogste uitkomst van de zelftest in hoofdstuk drie, voor wie de financiële basis al op orde heeft. |
+| Cash Diet | Een maand lang alleen met contant geld betalen, zodat pinnen en overbesteden niet meer mogelijk zijn. |
+| Envelope System | Budgetteren door voor elke uitgavencategorie een vast bedrag apart te zetten dat op is zodra de enveloppe leeg is. |
+| Zero-Sum Budget | Een budget waarin elke binnenkomende dollar aan het begin van de maand al een bestemming krijgt, zodat er niets ongepland overblijft. |
+| Debt Avalanche | Schulden aflossen te beginnen met de hoogste rente, rekenkundig de goedkoopste volgorde. |
+| Debt Snowball | Schulden aflossen te beginnen met het kleinste bedrag, duurder in rente maar volgens Lowry volhoudbaarder. |
+| YOLOFOMO | Lowry's naam voor de houding van uitgeven in het nu zonder aan de toekomst te denken, tegenover wie juist alleen voor later spaart. |
+
+#### Waar het argument op rust
+
+Dit is een praktijkboek, geen onderzoek. De onderbouwing bestaat uit Lowry's
+eigen ervaring als schrijver van de blog Broke Millennial, uit ingekorte
+interviews met met naam genoemde lezers en vakgenoten zoals schuldenexpert
+Andrew Josuweit en financieel schrijver Kristin Wong, en uit vuistregels die
+in de Amerikaanse persoonlijke-financiënwereld breed gedeeld worden, zoals het
+noodfonds van drie tot zes maanden. Die vuistregels worden overgenomen, niet
+zelf onderzocht of aan een bron toegeschreven.
+
+Het boek bevat een notenapparaat met verwijzingen naar websites en instanties
+voor wie meer wil weten, maar geen citaten uit wetenschappelijke studies naar
+spaargedrag of schuldaflossing. Waar Lowry twee strategieën tegenover elkaar
+zet, zoals Debt Avalanche tegenover Debt Snowball, beschrijft ze eerlijk dat
+de ene rekenkundig beter is en de andere psychologisch effectiever blijkt in
+de praktijk van financieel adviseurs, zonder daar cijfers uit onderzoek bij te
+noemen.
+
+#### Wat er tegen in te brengen valt
+
+Lowry groeide zelf op met een financieel geletterde en actief betrokken vader,
+bleef vrij van studieschuld en beschrijft in dit boek geen eigen periode van
+serieuze financiële nood. Dat maakt de toon van het boek luchtiger dan de
+problemen die het behandelt, en lezers die in reviews wijzen op deze afstand
+hebben daarin gelijk: het boek adviseert vanuit een uitgangspositie die niet
+iedereen deelt en biedt weinig voor wie te weinig verdient om structureel iets
+te sparen.
+
+Een groot deel van de inhoud is bovendien specifiek Amerikaans: kredietscore,
+401(k), IRA, federale studieleningen en het Amerikaanse belastingstelsel
+hebben geen directe tegenhanger in Nederland, waardoor de hoofdstukken over
+schulden, pensioen en belasting vooral als denkkader bruikbaar zijn en niet
+als handleiding. De informele stijl met verwijzingen naar Tinder, hashtags en
+andere tijdgebonden verwijzingen naar haar eigen generatie maakt het boek
+bovendien sneller gedateerd dan een boek dat die toon vermijdt.
+
+#### Wat er concreet mee te doen is
+
+- Bereken de eigen nettowaarde door alle bezittingen op te tellen en alle
+schulden ervan af te trekken, als vertrekpunt en niet als oordeel.
+- Kies een van de vijf budgetmethoden uit het boek en houd er minimaal een
+maand aan vast voor die op basis van ervaring wordt vervangen.
+- Zet bij een schuld met meerdere posten de Debt Avalanche en de Debt Snowball
+naast elkaar en kies bewust, ook als dat niet de rekenkundig goedkoopste route
+is.
+- Bouw een noodfonds op van drie tot zes maanden vaste lasten voordat extra
+geld naar aflossen of beleggen gaat.
+- Bepaal voorafgaand aan een salarisgesprek de eigen ondergrens en spreek die
+niet hardop uit tijdens het gesprek.
+
+#### Wat je hierna leest
+
+- 21. The Psychology of Money. Housel onderbouwt met meer diepgang waarom
+gedrag bij geld zwaarder weegt dan rekenkennis, het uitgangspunt dat Lowry
+hier vooral praktisch invult.
+- 39. The Millionaire Next Door. Legt de nadruk op cijfers over
+vermogensopbouw door zuinigheid, tegenover Lowry's anekdotische en
+generatiespecifieke aanpak.
+- 121. Unfuck Your Worth. Behandelt dezelfde emotionele kant van geld met een
+therapeutische inslag, waar Lowry het bij herkenbare anekdotes en concrete
+stappen houdt.
+
+## 160. The Meaning of Your Life
+
+Arthur C. Brooks, 2026. Oorspronkelijk *The Meaning of Your Life: Finding
+Purpose in an Age of Emptiness* (Portfolio, 31 maart 2026, 304 blz., ISBN
+9780593545423). Een Nederlandse vertaling is er nog niet: bibliotheek.nl en de
+gangbare boekhandels leveren voor deze titel geen resultaat, terwijl Brooks'
+eerdere boeken *Het beste komt nog* en, met Oprah Winfrey, *Het leven dat jou
+past* wel bij A.W. Bruna zijn verschenen. Rubriek: levenskunst.
+Tags: `zingeving`, `geluk`, `spiritualiteit`, `roeping`, `liefde`, `lijden`,
+`technologie`
+
+Brooks is sociaalwetenschapper aan Harvard en richt zich op mensen die naar
+elke buitenmaatstaf geslaagd zijn en zich toch leeg voelen. Hij noemt de
+stijging van depressie en angst onder jongvolwassenen sinds 2005 een
+psychogene epidemie en wijst niet naar armoede of naar een oneerlijke
+generatie als oorzaak, maar naar een cultuur die het zoeken naar zin is
+verleerd. Zin bestaat volgens hem uit drie onderdelen: coherentie, het gevoel
+dat het leven samenhangt, doel, een richting om naartoe te werken, en
+betekenis, de overtuiging dat het eigen bestaan voor anderen iets uitmaakt.
+Hij steunt daarbij op de Meaning in Life Questionnaire, een bestaand
+meetinstrument uit de psychologie, en op het verhaal van Tolstoj, die op zijn
+eenenvijftigste ondanks aanzien en rijkdom een existentiële crisis doormaakte.
+
+Het tweede deel van het boek gaat over de weg terug. Brooks leent van de
+psychiater Iain McGilchrist het onderscheid tussen de linkerhersenhelft, die
+meet en oplost, en de rechterhersenhelft, die onbeantwoorde vragen, liefde,
+roeping, schoonheid en lijden verdraagt zonder ze op te lossen. Telefoons en
+sociale media houden mensen volgens hem gevangen in wat hij een *meaning doom
+loop* noemt: hoe leger iemand zich voelt, hoe vaker die naar het scherm
+grijpt, en hoe verder de rechterhersenhelft buiten bereik raakt. Per hoofdstuk
+werkt hij dat uit in oefeningen, van bewuste verveling tot een aantekenboek
+over tegenslag.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Brooks betoogt dat de westerse cultuur mensen traint in het
+meten en oplossen van problemen, en dat diezelfde training de toegang
+blokkeert tot wat hij het werk van de rechterhersenhelft noemt: het vermogen
+om onbeantwoorde vragen, liefde, roeping, schoonheid en lijden te verdragen
+zonder ze op te lossen. Zonder dat vermogen blijft succes hol, ook bij wie
+naar elke maatstaf geslaagd is. Zijn stelling is dat zingeving niet vanzelf
+ontstaat uit prestatie of geluk, maar uit de bereidheid om met opzet tijd te
+besteden aan wat zich niet laat meten. Wie dat betwist, kan wijzen op mensen
+die zonder zulke oefeningen wel degelijk een samenhangend en betekenisvol
+leven leiden.
+
+#### De gang van het boek
+
+**Een epidemie zonder duidelijke dader**
+
+Brooks opent met cijfers: het aandeel Amerikaanse tieners met depressieve
+klachten steeg van 2005 tot 2019 tot bijna het drievoudige, en angstklachten
+verdubbelden bijna in diezelfde periode. Hij noemt dat een psychogene
+epidemie, een probleem van de geest en niet van het lichaam, en sluit de voor
+de hand liggende verklaringen een voor een uit: het zijn niet de babyboomers
+die valse beloften deden en het is geen generatie die te veel verwacht.
+Schermgebruik hangt wel samen met de klachten, maar hij behandelt dat als
+symptoom van een dieper gemis, te vergelijken met een verslaving die een
+onvervulde behoefte camoufleert.
+
+Wat er volgens hem ontbreekt zijn drie onderdelen die samen zin vormen:
+coherentie, de mate waarin het leven als een samenhangend verhaal aanvoelt in
+plaats van als een reeks toevalligheden; doel, een richting die het handelen
+stuurt; en betekenis, het besef dat het eigen leven voor anderen iets
+uitmaakt. Hij onderbouwt dat met de Meaning in Life Questionnaire, een
+bestaand meetinstrument dat aanwezigheid van zin en het actief zoeken ernaar
+apart meet, en met het voorbeeld van Tolstoj, die op zijn eenenvijftigste
+ondanks roem en rijkdom vond dat niets nog reden gaf om verder te leven.
+
+**De twee hersenhelften**
+
+Voor de verklaring leent Brooks het onderscheid van de psychiater Iain
+McGilchrist tussen de twee hersenhelften: de linkerhelft die de wereld opdeelt
+in meetbare, oplosbare onderdelen, en de rechterhelft die kijkt naar wat zich
+niet laat vastpinnen, zoals liefde, twijfel of het besef van sterfelijkheid.
+Hij noemt dat het verschil tussen gecompliceerde problemen, die met genoeg
+kennis op te lossen zijn, en complexe mysteries, waarmee iemand alleen kan
+leren leven. Een cultuur die alleen nog de linkerhelft aanspreekt, vergelijkt
+hij met een kristallen paleis: doorzichtig, precies en zonder plek om te
+schuilen.
+
+Schermgebruik versterkt die scheefgroei volgens hem in een kringloop die hij
+de *meaning doom loop* noemt: leegte drijft iemand naar het scherm, het scherm
+biedt afleiding zonder voeding, en de rechterhersenhelft raakt daardoor verder
+buiten gebruik. Wie strever is, zo schrijft hij over zichzelf en over de
+bestuurders en studenten met wie hij werkt, is doorgaans juist heel goed in
+het linkerhelft-werk en daardoor extra kwetsbaar voor deze val.
+
+**De gewoonte doorbreken**
+
+Het doorbreken van die val vraagt volgens Brooks om een bewuste tegenbeweging,
+niet om zelfbeheersing in het algemeen. Hij grijpt terug op Ralph Waldo
+Emerson en diens pleidooi voor onafhankelijk denken tegen de weerstand van de
+groep in, want de neiging om bij de kudde te blijven zit evolutionair diep.
+Concreet betekent dat vaste momenten zonder telefoon, meldingen uitzetten en
+bewust minder scherm opzoeken dan de gewoonte toelaat.
+
+De kern van dit hoofdstuk is wat hij doelbewuste verveling noemt: met opzet
+niets doen, zodat de rechterhersenhelft de ruimte krijgt om te associëren in
+plaats van te reageren. Die leegte is het startpunt voor de terreinen die de
+rest van het boek behandelt: de grote vragen, de liefde, het transcendente, de
+roeping, schoonheid en lijden.
+
+**Drie grote vragen**
+
+In plaats van de vragen wat en hoe, die de linkerhersenhelft aankan, moet er
+volgens Brooks ruimte komen voor de vraag waarom: waarom gebeuren dingen zoals
+ze gebeuren, waarom doe ik wat ik doe, en waarom maakt mijn leven voor iemand
+anders uit. Hij koppelt die drie vragen terug aan coherentie, doel en
+betekenis uit het eerste hoofdstuk en werkt ze uit met analytische meditatie,
+een vorm van gericht nadenken over de eigen antwoorden.
+
+Twee begrippen dragen dit hoofdstuk. De arrival fallacy is de ervaring dat een
+bereikt doel zelden de voldoening geeft die ervan verwacht werd, omdat de
+voldoening in de vooruitgang zat en niet in de aankomst. De striver's curse is
+de leegte die overblijft bij wie zijn hele leven op uitwendige beloning heeft
+gebouwd. Als tegenwicht wijst hij op Aristoteles' vriendschap van de deugd,
+gebaseerd op wederzijdse waardering van karakter, als een van de weinige
+bronnen van betekenis die niet vanzelf uitdooft.
+
+**Liefde en het transcendente**
+
+Brooks behandelt romantische liefde als toegangspoort tot de
+rechterhersenhelft en leent daarvoor Plato's ladder van de liefde uit het
+Symposium: van fysieke aantrekking via de liefde voor het karakter van één
+persoon naar een liefde voor het goede zelf. Hij vult dat aan met de
+neurochemie van hechting, oxytocine en vasopressine, om te laten zien dat het
+lichaam dezelfde beweging maakt die de filosofie beschrijft.
+
+Daarnaast bespreekt hij spirituele openheid, ongeacht traditie, als oefening
+in het verdragen van vragen die geen sluitend antwoord krijgen. Brooks is zelf
+katholiek en verwijst geregeld naar christelijke bronnen, maar behandelt de
+andere wereldreligies als gelijkwaardige wegen naar hetzelfde soort
+transcendentie, zonder er één als de juiste aan te wijzen.
+
+**Roeping, schoonheid en lijden**
+
+Voor werk onderscheidt Brooks een oplopende reeks van broodwinning via
+carrière naar roeping, waarbij pas de laatste vorm werk verbindt aan wie
+iemand wil zijn. Schoonheid deelt hij op in drie soorten, artistiek,
+natuurlijk en moreel, en illustreert dat met de componist Olivier Messiaen,
+die zijn *Quatuor pour la fin du temps* schreef in een Duits
+krijgsgevangenkamp: schoonheid die niet wegneemt wat er gebeurt, maar er wel
+doorheen kijkt.
+
+Het laatste terrein is lijden, dat Brooks niet als kwaad maar als onderdeel
+van een zinvol leven beschrijft, van lichte tegenslag tot ernstig verlies. Hij
+plaatst die gedachte in een lange lijn van stoïcijnse, boeddhistische en
+christelijke tradities die lijden niet wegredeneren maar er een plaats aan
+geven, en stelt voor tegenslag bij te houden in een aantekenboek in plaats van
+hem te ontwijken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Coherentie | Het gevoel dat het eigen leven samenhangt in plaats van uit losse gebeurtenissen bestaat. |
+| Doel | Een richting die het handelen stuurt, los van of die richting van buitenaf beloond wordt. |
+| Betekenis | De overtuiging dat het eigen bestaan voor anderen iets uitmaakt. |
+| Meaning in Life Questionnaire | Bestaand meetinstrument uit de psychologie dat aanwezigheid van zin en het zoeken ernaar los van elkaar meet. |
+| Linker- en rechterhersenhelft | Bij Brooks staat de linkerhelft voor meten en oplossen, de rechterhelft voor wat zich niet laat vastpinnen, zoals liefde en twijfel. |
+| Meaning doom loop | De kringloop waarin leegte tot schermgebruik leidt en schermgebruik de leegte vergroot. |
+| Doelbewuste verveling | Met opzet niets doen om de rechterhersenhelft ruimte te geven. |
+| Arrival fallacy | De ervaring dat het bereiken van een doel zelden de voldoening geeft die ervan verwacht werd. |
+| Striver's curse | De leegte bij wie zijn leven heeft gebouwd op uitwendige beloning in plaats van op een eigen doel. |
+
+#### Waar het argument op rust
+
+Brooks is sociaalwetenschapper, verbonden aan de Harvard Kennedy School en de
+Harvard Business School, en het boek steunt op een mengeling van bestaande
+empirie en eigen praktijkervaring. Coherentie, doel en betekenis als drie
+onderdelen van zin zijn geen uitvinding van Brooks maar een gangbaar model uit
+de psychologie van zingeving, en de Meaning in Life Questionnaire waarmee hij
+dat meet is een bestaand en gevalideerd instrument. Zijn tweedeling tussen
+linker- en rechterhersenhelft ontleent hij aan Iain McGilchrist, wiens boek
+*The Master and His Emissary* uit 2009 in de neurowetenschap wordt gebruikt
+als metafoor voor twee manieren van aandacht en niet als een beschreven
+anatomisch feit; McGilchrist zelf presenteert het als denkkader, niet als
+afgerond onderzoek.
+
+Voor de rest van het argument put Brooks vooral uit eigen werk: gesprekken met
+bestuurders en studenten die hij strevers noemt, zijn columns over geluk en
+zijn jarenlange onderzoek daarnaar. Historische voorbeelden zoals Tolstojs
+crisis en Messiaens compositie in het krijgsgevangenkamp zijn navertelbaar en
+verifieerbaar, maar functioneren als illustratie, niet als bewijs dat de
+voorgestelde aanpak bij anderen ook werkt. Het boek citeert geen eigen
+gecontroleerd onderzoek naar het effect van de aanbevolen oefeningen, zoals
+doelbewuste verveling of een lijdensdagboek.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek een religieuze lading draagt zonder die
+uit te spreken. Brooks is zelf katholiek en werkt met christelijke voorbeelden
+naast boeddhistische en stoïcijnse, maar hij wijst geen enkele traditie aan
+als het antwoord, terwijl zijn eigen betoog daar wel naartoe leunt. Een
+recensie in Christianity Today benoemt dat met zoveel woorden: een auteur die
+zijn geloof niet verbergt, noemt Christus in een boek over de zin van het
+leven toch niet.
+
+Een tweede bezwaar raakt de titel zelf. Ondanks de nadruk op liefde, roeping
+en betekenis-voor-anderen blijft de opzet individualistisch: het is de lezer
+die op zoek moet naar zijn of haar zin, met oefeningen die in de eigen agenda
+passen. Wie meent dat zin eerder ontstaat uit een gedeeld verhaal dan uit een
+persoonlijk project, vindt in dit boek weinig tegenwicht. Daarnaast leunt het
+gebruik van McGilchrists hersenhelften zwaarder op metafoor dan op vastgesteld
+feit, wat het boek een schijn van neurowetenschappelijke fundering geeft die
+het onderliggende onderzoek niet volledig draagt.
+
+#### Wat er concreet mee te doen is
+
+- Stel een keer per week een vraag die niet oplosbaar is, zoals waarom een
+gebeurtenis zo liep, en schrijf het antwoord niet meteen op.
+- Plan een vast moment zonder telefoon en gebruik het niet om iets anders te
+doen, maar om niets te doen.
+- Beschrijf voor het huidige werk of het broodwinning, carrière of roeping is,
+en wat er nodig zou zijn voor een stap hogerop in die reeks.
+- Houd tegenslag bij in een kort aantekenboek in plaats van hem te vermijden
+of meteen op te lossen.
+
+#### Wat je hierna leest
+
+- 71. Four Thousand Weeks. Burkeman start bij dezelfde eindigheid en dezelfde
+overprikkeling, maar landt bij aanvaarding van beperking in plaats van bij een
+zoektocht naar zin.
+- 77. Ikigai. Ikigai zoekt eveneens naar een kruispunt van roeping en
+betekenis, in een lossere en minder onderbouwde vorm dan Brooks hanteert.
+- 9. The Second Mountain. David Brooks, geen familie, stelt een vergelijkbare
+diagnose van hol succes en zoekt het antwoord in toewijding aan gemeenschap in
+plaats van in oefeningen voor het individu.
+
+## 161. Stop Doing That Sh*t
+
+Gary John Bishop, 2019. Oorspronkelijk *Stop Doing That Sh*t: End
+Self-Sabotage and Demand Your Life Back* (HarperOne, 2019), het vervolg op
+*Unfu*k Yourself* uit dezelfde reeks. In het Nederlands verschenen onder
+dezelfde titel bij HarperCollins Holland (2019, vertaling Erica Disco, ISBN
+9789402704341), als paperback en als e-book; bronnen over het exacte aantal
+bladzijden lopen uiteen, dus dat getal staat hier niet. Rubriek: gewoontes en
+denken.
+Tags: `zelfhulp`, `zelfsabotage`, `gewoontevorming`, `zelfpraat`,
+`gedragspatronen`, `coaching`, `persoonlijke ontwikkeling`
+
+Stop Doing That Sh*t is het vervolg op Bishops bestseller *Unfu*k Yourself* en
+gaat over de patronen waarmee mensen zichzelf onbewust tegenwerken. Bishop,
+opgegroeid in Glasgow en werkzaam als coach voor persoonlijke ontwikkeling,
+stelt dat ieder mens als kind drie conclusies vormt: een oordeel over
+zichzelf, een oordeel over andere mensen en een oordeel over hoe het leven
+werkt. Die conclusies ontstaan voordat er kritisch denkvermogen is, zoals een
+spons die opneemt wat er langskomt, en blijven daarna als filter werken
+waardoor nieuwe ervaringen de oude overtuiging bevestigen.
+
+Het boek herkent dat patroon in geld, relaties en werk en noemt de
+terugkerende uitbarstingen granaten: gedrag dat op een kritiek moment het
+eigen project opblaast. De remedie ligt volgens Bishop in het punt van de
+speer, het moment zelf waarop de oude conclusie het gedrag stuurt en waarop
+nog een andere respons mogelijk is, in plaats van in het analyseren van het
+verleden. De toon is direct en ongefilterd, in lijn met de rest van de reeks.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bishop stelt dat mensen zichzelf systematisch tegenwerken
+door drie onbewuste conclusies die ze als kind vormden: een conclusie over wie
+ze zijn, een conclusie over andere mensen en een conclusie over hoe het leven
+werkt. Die conclusies werken als een filter waardoor ervaringen zo worden
+waargenomen dat ze de conclusie bevestigen, zodat het heden een herhaling van
+het verleden blijft. Wie dat patroon wil doorbreken, moet volgens Bishop eerst
+deze drie conclusies onder woorden brengen en vervolgens op het moment zelf
+een andere keuze maken, wat hij redirecten noemt.
+
+#### De gang van het boek
+
+**Een tweede boek uit dezelfde koker**
+
+Bishop opent met de hoofdstukken *Here's the Rub* en *A Life of Sabotage* en
+plaatst het boek meteen naast *Unfu*k Yourself*, zijn debuut over de zelfpraat
+die iemand tegenhoudt. Dit boek gaat over het patroon dat zich telkens
+herhaalt zonder dat de lezer dat zelf lijkt te kiezen. Bishop stelt dat de
+meeste mensen op meerdere terreinen tegelijk zichzelf in de weg zitten, van
+geld tot relaties tot werk, en dat daar volgens hem een vast mechanisme achter
+zit dat de rest van het boek blootlegt.
+
+**De vraag naar het waarom en de spons**
+
+In *The Question* stelt Bishop zichzelf de vraag waarom zijn leven eruitzag
+zoals het eruitzag, en maakt daarvan de opening van het boek. Het antwoord
+zoekt hij in *The Magic Little Sponge*: als kind neemt een mens alles op wat
+er in de omgeving gebeurt, zonder het te kunnen beoordelen, en die vroege
+indrukken zetten zich vast voordat er kritisch denkvermogen is om ze te
+toetsen.
+
+Wie dat patroon dagelijks herhaalt, blijft volgens Bishop in een toekomst
+leven die een verlengstuk is van dat vroege verleden. Nieuwe voornemens
+veranderen daar weinig aan zolang de onderliggende conclusies uit de
+kindertijd blijven staan.
+
+**De waarheid vaststellen en de drie saboteurs**
+
+*Establishing the Truth* vraagt de lezer eerst vast te stellen wat er
+werkelijk aan de hand is, los van de verklaringen en excuses die er al jaren
+bij horen. Daarna introduceert *The Three Saboteurs* het middelpunt van het
+boek: iedereen draagt drie conclusies mee die als kind zijn gevormd, een
+conclusie over zichzelf, een conclusie over andere mensen en een conclusie
+over het leven zelf.
+
+Bishop noemt deze conclusies saboteurs omdat ze niet als mening voelen maar
+als feit, waardoor ze het gedrag sturen zonder dat er nog een herkenbaar
+keuzemoment lijkt te zijn.
+
+**Jezelf, anderen en het leven**
+
+De hoofdstukken *You*, *Them* en *Life* werken elke conclusie apart uit, met
+voorbeelden van typische bewoordingen: ik ben niet goed genoeg, mensen laten
+je uiteindelijk vallen, het leven is oneerlijk. Bishop laat zien hoe zo'n zin,
+ooit gevormd naar aanleiding van een concrete gebeurtenis, is gaan gelden als
+een algemene waarheid over de wereld.
+
+Die conclusie raakt vervolgens verweven met dagelijkse beslissingen: welke
+baan iemand aanneemt of afwijst, welke relatie iemand aangaat of verlaat, en
+hoe iemand op tegenslag reageert.
+
+**Granaten en het punt van de speer**
+
+Bishop noemt de momenten waarop dat patroon zichtbaar wordt granaten: gedrag
+dat op een kritiek moment het eigen project opblaast, zoals ruzie zoeken vlak
+voor een doorbraak in een relatie of geld uitgeven zodra er iets is gespaard.
+In *The Point of the Spear* brengt hij de hele voorgeschiedenis samen in het
+heden: dat punt is het enige moment waarop ingrijpen nog mogelijk is, omdat
+het verleden vaststaat en de toekomst nog niet bestaat.
+
+Die nadruk op het huidige moment onderscheidt het boek van benaderingen die
+vooral in het verleden naar oorzaken zoeken. Bishop wil dat de lezer het
+patroon herkent terwijl het gebeurt, niet pas achteraf.
+
+**Omkeren en volhouden**
+
+*Redirecting Your Way Outta This* beschrijft de praktische stap: op het punt
+van de speer een andere respons kiezen dan de conclusie voorschrijft, ook al
+voelt die andere respons ongemakkelijk. Bishop benadrukt daarbij het gewicht
+van de eigen zelfpraat, die hij beschrijft als sturing van het onderbewuste:
+wat iemand zichzelf voorhoudt, werkt door in wat er vervolgens gebeurt.
+
+Als richting voor die nieuwe respons geeft hij de oefening om zich een
+toekomstige versie van zichzelf voor te stellen en de eigenschappen daarvan
+meteen te belichamen, in plaats van te wachten tot de omstandigheden vanzelf
+veranderen. Het slothoofdstuk sluit af met de oproep dat de lezer, nu de
+saboteurs benoemd zijn, geen aanleiding meer heeft om het oude patroon voort
+te zetten. Een reeks herhaalbare oefeningen, zoals in een werkboek, biedt het
+boek niet; het blijft bij het blootleggen van het mechanisme en een aansporing
+om het te doorbreken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zelfsabotage | Gedrag dat het eigen doel ondermijnt zonder dat de persoon dat op het moment zelf als zodanig herkent. |
+| De spons | Het beeld uit *The Magic Little Sponge* van het jonge kind dat alles uit de omgeving opneemt zonder het te kunnen beoordelen, waardoor de vroegste overtuigingen ongefilterd blijven staan. |
+| De drie saboteurs | De drie conclusies die iedereen als kind vormt, over zichzelf, over andere mensen en over het leven, die volgens Bishop achter zelfsabotage zitten. |
+| Conclusie | Een vroeg gevormd oordeel dat nadien nooit meer is getoetst en dat als feit aanvoelt in plaats van als mening. |
+| Granaat | Terugkerend gedrag dat op een kritiek moment een project of relatie laat ontsporen, genoemd naar het beeld van een geworpen handgranaat. |
+| Het punt van de speer | Het huidige moment waarop de hele voorgeschiedenis samenkomt en de conclusie het gedrag stuurt, het enige moment waarop ingrijpen nog mogelijk is. |
+| Redirecten | Op het punt van de speer bewust een andere respons kiezen dan de conclusie voorschrijft. |
+| Zelfpraat | De inwendige taal die Bishop omschrijft als sturing van het onderbewuste, die de conclusies telkens opnieuw bevestigt of doorbreekt. |
+| Vertrouwd verleden | Het mechanisme waarbij dagelijks herhaald gedrag de kindertijdconclusies in stand houdt, zodat de toekomst een verlengstuk van het verleden blijft. |
+| Wees nu je toekomstige zelf | De oefening om de eigenschappen van de gewenste toekomstige versie van zichzelf meteen te belichamen, in plaats van te wachten tot de situatie dat vanzelf mogelijk maakt. |
+
+#### Waar het argument op rust
+
+Bishop is geen onderzoeker of psycholoog. Hij groeide op in Glasgow, werkte
+eerst als aannemer en werd na een omslag in zijn leven coach voor persoonlijke
+ontwikkeling, eerst in dienst van een groter opleidingsbedrijf en later
+zelfstandig. *Stop Doing That Sh*t* citeert geen onderzoek, geen cijfers en
+geen bronnen; het bouwt op herkenbare scenario's uit geld, relaties en werk en
+op de ervaring die Bishop opdeed in zijn coachingspraktijk.
+
+De driedeling in conclusies over zichzelf, anderen en het leven vertoont
+raakvlakken met wat in de cognitieve gedragstherapie kernovertuigingen heet,
+maar Bishop verwijst daar zelf niet naar en bouwt zijn model ook niet op die
+literatuur voort. Het boek noemt zichzelf een praktische levensles vanuit
+eigen ervaring en die van cliënten, geen wetenschappelijk werk, wat betekent
+dat de lezer de claims niet aan onderzoek kan toetsen, alleen aan de eigen
+herkenning.
+
+#### Wat er tegen in te brengen valt
+
+Het model van de drie saboteurs is ruim genoeg om vrijwel elk gedrag achteraf
+te verklaren: tegenslag bevestigt de conclusie, en voorspoed wordt dan
+uitgelegd als een uitzondering die de conclusie juist onderstreept. Dat maakt
+het aantrekkelijk als verhaal over de eigen geschiedenis, terwijl er weinig
+aan valt te toetsen of te weerleggen.
+
+De confronterende, ongefilterde toon werkt voor lezers die tegen zich aan
+geschreeuwd willen worden, maar biedt geen ruimte voor patronen die met trauma
+samenhangen en meer vragen dan een andere respons op het punt van de speer.
+Het boek herhaalt bovendien grotendeels het vocabulaire en de aanpak van
+*Unfu*k Yourself*, waardoor recensenten er weinig nieuws in vinden ten
+opzichte van dat eerdere boek, en het levert geen enkele aanwijzing of de
+aangeraden methode bij lezers tot blijvende verandering leidt.
+
+Ook de oefening om nu al de toekomstige versie van zichzelf te belichamen
+krijgt geen uitwerking in concrete stappen; het blijft bij het voornemen,
+terwijl juist de weg van voornemen naar vol te houden gedrag de kern van het
+probleem is dat het boek zegt op te lossen.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf de drie conclusies op die als kind zijn gevormd, over jezelf, over
+andere mensen en over het leven, in de exacte bewoordingen die opkomen.
+- Noteer bij elke terugkerende tegenslag in geld, relatie of werk welke van de
+drie conclusies daarachter zit.
+- Leg vast op welk moment de sabotage zich voltrekt, het punt van de speer, in
+plaats van pas achteraf te concluderen dat het weer is misgegaan.
+- Formuleer voor dat moment vooraf een andere respons en spreek die uit
+voordat de oude reactie de kans krijgt.
+- Beschrijf de toekomstige versie van jezelf die het patroon niet meer heeft
+en noteer welke eigenschap daarvan vandaag al te belichamen is.
+
+#### Wat je hierna leest
+
+- 22. Atomic Habits. Beschrijft hoe herhaald gedrag identiteit vormt, wat
+aansluit bij Bishops idee dat het vertrouwde verleden de toekomst voorspelt.
+- 142. Designing the Mind. Behandelt het herprogrammeren van denkpatronen met
+een preciezere methode dan Bishops directe aanpak.
+- 153. Control Your Emotions. Gaat over het reguleren van een emotionele
+reactie op het moment zelf, vergelijkbaar met wat Bishop het punt van de speer
+noemt.
+
+## 162. Boundaries
+
+Henry Cloud en John Townsend, 1992. Oorspronkelijk *Boundaries: When to Say
+Yes, How to Say No to Take Control of Your Life* (Zondervan, 1992), in 2017
+door dezelfde uitgeverij herzien en uitgebreid met een hoofdstuk. Nederlands
+als *Grenzen: wanneer zeg ik ja, wanneer zeg ik nee, hoe bepaal ik mijn eigen
+grenzen*, vertaald door M. Lufting-Heijna, sinds 1997 bij uitgeverij Koinonia
+(289 blz., ISBN 9789076193014); in 2021 verscheen bij Ellel Media een nieuwe,
+uitgebreide druk (319 blz.). Rubriek: samenwerken en gesprek.
+Tags: `psychologie`, `relaties`, `christendom`, `zelfhulp`, `communicatie`,
+`opvoeding`, `assertiviteit`
+
+Boundaries verscheen in 1992 bij de Amerikaanse uitgeverij Zondervan en is
+geschreven door de klinisch psychologen Henry Cloud en John Townsend. De
+kernvraag is wanneer iemand ja hoort te zeggen en wanneer nee, en wat er
+misgaat wanneer die grens ontbreekt. De auteurs vergelijken een grens met een
+eigendomsgrens: zij markeert waar de verantwoordelijkheid van de een eindigt
+en die van de ander begint, en beslaat gevoelens, gedachten, gedrag, keuzes en
+waarden. Zonder die grens ontstaan volgens hen vier terugkerende patronen: wie
+bijna altijd toegeeft, wie zelf nooit om hulp vraagt, wie de grens van een
+ander negeert, en wie de behoefte van de ander niet opmerkt.
+
+Het boek plaatst dit uitdrukkelijk in een christelijk kader: God wordt
+opgevoerd als voorbeeld van iemand die zelf grenzen stelt en mensen de
+vrijheid geeft om te kiezen, en grenzen stellen wordt voorgesteld als
+rentmeesterschap over het leven dat God iemand heeft toevertrouwd. Cloud en
+Townsend werken tien wetten van grenzen uit, van de wet dat gedrag gevolgen
+heeft tot de wet dat een grens pas gerespecteerd kan worden nadat zij is
+uitgesproken, en passen die toe op familie, vriendschap, huwelijk, opvoeding
+en werk. Het boek werd in het Nederlands vertaald als *Grenzen*, voor het
+eerst in 1997 bij uitgeverij Koinonia.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Boundaries stelt dat mensen die geen grenzen kennen, hun
+eigen leven verliezen aan de eisen en de pijn van anderen. Cloud en Townsend,
+allebei klinisch psycholoog, betogen dat ieder mens voor God rentmeester is
+over zijn eigen gevoelens, gedachten, gedrag, keuzes en waarden, en dat het
+onvermogen om nee te zeggen doorgaans voortkomt uit angst of schuldgevoel, ook
+wanneer het zich voordoet als liefde of zelfopoffering. Een grens die
+ontbreekt dient volgens de auteurs uiteindelijk niemand, ook niet degene voor
+wie zij uit welwillendheid wordt weggelaten.
+
+#### De gang van het boek
+
+**Een grens als eigendomsgrens**
+
+Cloud en Townsend vergelijken een grens met de erfgrens van een stuk grond:
+zij markeert waar iemands eigendom begint en dat van de buurman ophoudt, en
+zonder die lijn weet niemand wie waarvoor moet zorgen. Toegepast op een mens
+vallen onder dat eigendom de gevoelens, de gedachten, het gedrag, de houding,
+de keuzes, de waarden, de talenten en de lichamelijke grenzen; wat iemand
+daarvan als eigen erkent, kan hij verzorgen, en wat hij aan een ander
+toeschrijft, laat hij aan die ander over.
+
+De auteurs noemen dat eigenaarschap de kern van het probleem. Wie het verdriet
+van een ander tot zijn eigen taak maakt, of wie zijn eigen boosheid aan een
+ander toeschrijft, heeft de grens al verlegd voordat er een gesprek
+plaatsvindt. Een grens stellen begint daarom met de vaststelling van wat van
+wie is.
+
+**Vier manieren waarop grenzen ontbreken**
+
+Cloud en Townsend onderscheiden vier terugkerende patronen. Complianten zeggen
+bijna altijd ja, ook als ze nee bedoelen, omdat afwijzing of schuldgevoel hen
+meer kost dan toegeven. Vermijders vragen zelf nooit om hulp en trekken zich
+terug zodra ze iets nodig hebben, uit angst een ander tot last te zijn.
+Controleurs respecteren de grens van de ander niet en vallen uiteen in twee
+soorten: de agressieve controleur die met druk of woede een ja afdwingt, en de
+manipulatieve controleur die hetzelfde bereikt met overreding, schuldgevoel of
+een omweg. Niet-reagerenden ten slotte horen de behoefte van de ander niet,
+ook niet wanneer die met zoveel woorden is uitgesproken.
+
+De indeling is bedoeld om lezers hun eigen patroon te laten herkennen. De
+auteurs merken op dat de meeste mensen zich in meer dan één rol herkennen,
+afhankelijk van de relatie waarin ze staan.
+
+**Hoe grenzen ontstaan**
+
+Het boek plaatst grenzen in de vroege ontwikkeling. Een kind bouwt eerst een
+veilige hechting aan een verzorger op voordat het zich kan losmaken; pas met
+die basis achter de hand durft het zich af te zetten, nee te leren zeggen en
+het verschil tussen zichzelf en de ander te ontdekken. Cloud en Townsend
+stellen dat volwassenen die als kind geen ruimte kregen om nee te zeggen, dat
+vermogen alsnog moeten opbouwen, vaak met dezelfde ongemakkelijke stappen die
+een peuter doorloopt.
+
+**De tien wetten van grenzen**
+
+Een apart hoofdstuk zet tien wetten op een rij die volgens de auteurs bepalen
+hoe grenzen werken. De wet van zaaien en oogsten stelt dat gedrag gevolgen
+heeft en dat wie die gevolgen wegneemt, het leren blokkeert. De wet van
+verantwoordelijkheid onderscheidt verantwoordelijkheid tegenover een ander van
+verantwoordelijkheid voor een ander. De wet van macht wijst op de grens van
+wat iemand kan veranderen: zichzelf. De wet van respect verbindt het vragen
+van eigen grenzen aan het erkennen van die van een ander, en de wet van
+motivatie stelt dat een ja pas iets waard is als een nee ook mogelijk was.
+
+De overige wetten gaan over het evalueren van de pijn die een grens bij een
+ander veroorzaakt, over proactief handelen in plaats van reageren, over
+afgunst die de aandacht wegtrekt van de eigen grens, over het nemen van
+initiatief, en over de wet van openbaarmaking: een grens moet worden
+uitgesproken voordat een ander hem kan respecteren.
+
+**Mythes die grenzen tegenhouden**
+
+Een volgend hoofdstuk behandelt bezwaren waar Cloud en Townsend in hun
+praktijk telkens tegenaan lopen, vaak afkomstig uit een christelijke
+opvoeding: dat een grens stellen egoïstisch is, dat het een ander pijn doet
+die je hem niet mag aandoen, of dat christenen juist geacht worden zichzelf
+weg te cijferen. Hun weerwoord is dat zelfopoffering zonder grens uitmondt in
+uitputting en wrok, en dat Jezus in de evangeliën zelf grenzen stelde aan wie
+zijn tijd en aandacht kreeg.
+
+**Grenzen in familie, huwelijk, werk en geloof**
+
+Het middendeel van het boek werkt de grens per relatie uit: ouders en
+volwassen kinderen, vriendschap, huwelijk, de opvoeding van eigen kinderen, de
+werkvloer en de omgang met zichzelf. Steeds keert hetzelfde stramien terug:
+een voorbeeld uit de praktijk van de auteurs, de grens die ontbrak, en de stap
+die de cliënt zette om die alsnog te trekken.
+
+Het laatste hoofdstuk van dit deel gaat over de relatie met God zelf. Cloud en
+Townsend lezen het scheppingsverhaal en de wet van Mozes als een geschiedenis
+van grenzen die God stelt en respecteert, en houden dat de mens voor als
+model.
+
+**Weerstand en de praktijk van een grens**
+
+Het laatste deel gaat over wat er gebeurt zodra iemand voor het eerst een
+grens trekt: boosheid, verwijten of een stilte bij de ander, en bij de
+grenstrekker zelf schuldgevoel, twijfel en de neiging om toch toe te geven. De
+auteurs noemen dat een gevecht met weerstand van buiten en van binnen, en
+beschrijven succes niet aan de reactie van de ander maar aan het feit dat de
+grens overeind blijft. Het slothoofdstuk schetst hoe een dag verloopt voor
+iemand die dat wel geleerd heeft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Grens | De eigendomslijn van gevoelens, gedachten, gedrag en keuzes, die vastlegt wat van iemand zelf is en waarvoor hij verantwoordelijk is. |
+| Complianten | Mensen die vrijwel altijd ja zeggen uit angst voor afwijzing of uit schuldgevoel. |
+| Vermijders | Mensen die zelf geen hulp vragen en zich terugtrekken zodra ze iets nodig hebben. |
+| Controleurs | Mensen die de grens van een ander niet respecteren, verdeeld in agressieve en manipulatieve controleurs. |
+| Niet-reagerenden | Mensen die de behoefte van een ander niet horen, ook niet wanneer die is uitgesproken. |
+| Wet van zaaien en oogsten | Gedrag heeft gevolgen, en wie die gevolgen voor een ander wegneemt, blokkeert diens leerproces. |
+| Wet van macht | Het besef dat iemand alleen zichzelf kan veranderen en niet de ander. |
+| Wet van openbaarmaking | Een grens moet worden uitgesproken voordat een ander hem kan respecteren. |
+| Rentmeesterschap | De christelijke gedachte dat een mens beheerder is van het leven dat God hem heeft toevertrouwd, inclusief zijn grenzen. |
+
+#### Waar het argument op rust
+
+Het boek rust op twee ongelijksoortige fundamenten die de auteurs niet
+scheiden. Het eerste is hun klinische praktijk: Cloud en Townsend zijn allebei
+psycholoog en illustreren vrijwel elk hoofdstuk met een cliënt uit hun eigen
+praktijk, herkenbaar gemaakt maar niet met naam en toenaam controleerbaar. Het
+tweede is een expliciet christelijk-theologisch kader: grenzen worden
+verantwoord met verwijzingen naar het scheppingsverhaal, de wet van Mozes en
+gelijkenissen uit de evangeliën. Onderzoek naar assertiviteit of naar
+gezinssystemen uit de seculiere psychologie komt in het boek niet aan bod,
+hoewel de gebruikte begrippen er dicht tegenaan liggen.
+
+Cloud en Townsend citeren geen studies en leggen geen methode voor waarmee hun
+uitspraken te toetsen zijn; hun autoriteit ligt in de combinatie van klinische
+ervaring en een bijbelse lezing die zij zelf maken. Voor een lezer die dat
+kader deelt vormt dat een samenhangend geheel. Voor een lezer die het niet
+deelt blijft de onderbouwing een keuze van de auteurs, aannemelijk gemaakt met
+voorbeelden en niet onderbouwd met gegevens.
+
+#### Wat er tegen in te brengen valt
+
+De sterkste kritiek is theologisch en komt van binnen het christendom. De
+Amerikaanse predikant Nathan Schulte wijst er in zijn bespreking op dat Cloud
+en Townsend bijbelteksten gebruiken op een manier die met het verband weinig
+te maken heeft: de gelijkenis van de barmhartige Samaritaan wordt aangehaald
+omdat die de gewonde man maar één nacht verzorgde, en Jezus' laatste woorden
+aan het kruis worden gelezen als een uitspraak over het afronden van een taak.
+Schulte noemt het boek psychologisch bruikbaar maar theologisch dun: het mist
+volgens hem de wortel in genade die van evangelische literatuur verwacht mag
+worden en leest eerder als een moreel zelfhulpboek met bijbelverzen erbij.
+
+Een tweede bezwaar, ook terug te vinden in lezersreacties, is dat de
+voorbeelden vaak eenzijdig zijn opgebouwd: de cliënt van de auteurs trekt een
+grens en wordt daarin bevestigd, terwijl de partij aan de andere kant zelden
+met evenveel begrip wordt beschreven. Dat maakt het boek bruikbaar als
+rechtvaardiging om een relatie of verplichting te beëindigen zonder het eigen
+aandeel te wegen, terwijl de wet van verantwoordelijkheid die de auteurs zelf
+noemen daar juist voor waarschuwt. Onderzoek naar assertiviteit en naar
+gezinssystemen bestond ruim voor 1992 en wordt in het boek niet genoemd,
+waardoor het oogt als een op zichzelf staand werk terwijl het begrippen
+gebruikt die elders al waren uitgewerkt.
+
+#### Wat er concreet mee te doen is
+
+- Breng bij een lastige relatie in kaart welk van de vier patronen, compliant,
+vermijder, controleur of niet-reagerende, aan beide kanten het meest voorkomt.
+- Oefen een nee eerst in een kleine, veilige situatie voor een grote relatie
+aan de beurt is.
+- Spreek een grens uit voor van een ander verwacht wordt dat hij hem
+respecteert; de wet van openbaarmaking gaat daaraan vooraf.
+- Weeg bij een conflict de eigen verantwoordelijkheid en die van de ander
+apart, voor de schuld wordt verdeeld.
+- Beoordeel het resultaat van een nieuwe grens aan het overeind blijven ervan,
+niet aan de reactie van de ander.
+
+#### Wat je hierna leest
+
+- 35. Nonviolent Communication. Rosenbergs Nonviolent Communication geeft een
+concrete taal om een grens te formuleren zonder verwijt, waar Boundaries
+vooral het waarom van de grens uitwerkt.
+- 43. Crucial Conversations. Crucial Conversations behandelt hoe een moeilijk
+gesprek op het moment zelf gevoerd wordt, een vaardigheid die Boundaries
+veronderstelt maar niet in detail uitwerkt.
+- 24. How to Win Friends and Influence People. How to Win Friends and
+Influence People staat voor de tegenovergestelde reflex: mensen voor je winnen
+door in te schikken, precies het patroon dat Cloud en Townsend compliant
+noemen.
+
+## 163. Wealth Is a Skill
+
+Neeraj Tiwari. *Wealth Is a Skill* (Bigfoot Publications, 16 februari 2026,
+168 blz., ISBN 9789363475564, paperback). Een Nederlandse vertaling is niet
+gevonden: de catalogus van bibliotheek.nl levert op de naam Neeraj Tiwari geen
+resultaat op, en ook breder onderzoek wijst niet op een Nederlandse editie.
+Rubriek: geld en ondernemen.
+Tags: `persoonlijke financiën`, `vermogensopbouw`, `financiële geletterdheid`,
+`ondernemerschap`, `India`
+
+Tiwari stelt dat vermogen opbouwen geen kwestie is van geluk, afkomst of
+toeval, maar een vaardigheid die te leren valt, vergelijkbaar met een ambacht.
+Daarmee keert hij zich tegen wat hij als de meest verspreide misvatting rond
+geld ziet: het idee dat rijkdom voorbehouden is aan wie al in welvaart geboren
+is. Vanuit die stelling behandelt hij de gebruikelijke bouwstenen van
+financiële zelfstandigheid: uitgaven bijhouden, structureel sparen, de eerste
+stappen in beleggen en het opzetten van een eigen onderneming. Een terugkerend
+voorbeeld is de lezersfiguur Alex, aan wie hij laat zien hoe een hobby tot een
+aanvullende bron van inkomen kan worden ontwikkeld.
+
+Naast die praktische kant besteedt het boek aandacht aan de mentale instelling
+die volgens Tiwari nodig is om vermogen te behouden: geduld, discipline en een
+gerichtheid op de lange termijn, ook wanneer de economie tegenzit. Het boek
+richt zich op beginners, studenten en op wie als eerste in de eigen familie
+financiële onafhankelijkheid nastreeft, in een toegankelijke, verhalende stijl
+met weinig technisch jargon. Van dit recente en bij een kleine uitgeverij
+verschenen boek zijn nauwelijks onafhankelijke besprekingen te vinden; de
+enige aantoonbare recensie geeft het vier van de vijf sterren en prijst vooral
+de leesbaarheid, zonder de onderliggende claims te toetsen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tiwari's stelling is dat vermogen een aan te leren
+vaardigheid is, op te bouwen met kennis, gewoonten en herhaling, en geen
+gevolg van geluk, afkomst of toeval. Wie de juiste financiële basiskennis en
+de juiste mentale instelling ontwikkelt, kan volgens hem ongeacht de
+startpositie financiële onafhankelijkheid bereiken. Daarmee keert hij zich
+tegen het idee dat rijkdom vooral toevalt aan wie al bevoorrecht is, en legt
+hij de verantwoordelijkheid voor vermogensopbouw nadrukkelijk bij het handelen
+van de lezer zelf.
+
+#### De gang van het boek
+
+**Vermogen als vaardigheid, niet als lot**
+
+Tiwari opent met het weerleggen van de aanname dat vermogen vooral toevalt aan
+wie in welvaart geboren is of geluk heeft. Daar zet hij de vergelijking met
+een ambacht tegenover: iets dat te leren en te oefenen valt door kennis,
+gewoonten en herhaling. Die herformulering loopt door het hele boek en
+verklaart ook de titel.
+
+Voor deze samenvatting was geen inzage in de volledige tekst of in een
+inhoudsopgave beschikbaar, zodat de exacte hoofdstukindeling niet met
+zekerheid is vast te stellen. De thema's hieronder zijn ontleend aan de
+uitgeversbeschrijving en aan de enige vindbare recensie, en volgen dus het
+niveau van beschrijving dat daar beschikbaar is, niet noodzakelijk de volgorde
+van het boek zelf.
+
+**Budgetteren, sparen en beleggen**
+
+De praktische basis van het boek bestaat uit de gebruikelijke bouwstenen van
+persoonlijke financiën: uitgaven bijhouden, structureel sparen en de eerste
+stappen in beleggen. Tiwari behandelt deze onderwerpen als vaardigheden die
+met oefening beter worden, in lijn met zijn centrale stelling, en niet als een
+reeks eenmalige beslissingen.
+
+**Ondernemerschap: het voorbeeld van Alex**
+
+Een terugkerend voorbeeld in het boek is de figuur Alex, aan wie Tiwari laat
+zien hoe een hobby of interesse tot een aanvullende bron van inkomen kan
+worden ontwikkeld. Het voorbeeld brengt ondernemerschap dichter bij de lezer
+dan een verhaal over startkapitaal en risicokapitaal zou doen, en sluit aan
+bij de bredere claim dat vermogen ontstaat door herhaalbare stappen.
+
+**Risico en omgaan met verandering**
+
+Tiwari besteedt aandacht aan risicobeheer en aan de manier waarop lezers
+economische veranderingen kunnen doorstaan zonder in paniek te raken, zo
+blijkt uit de beschikbare bespreking van het boek. Concrete cijfers,
+scenario's of een methode om risico te meten worden in de vindbare bronnen
+niet genoemd, zodat onduidelijk blijft hoe ver dat onderdeel praktisch wordt
+uitgewerkt.
+
+**Denkwijze en lange termijn**
+
+Naast de praktische kant besteedt het boek aandacht aan de mentale instelling
+die volgens Tiwari nodig is om vermogen op te bouwen en te behouden: geduld,
+discipline en een gerichtheid op de lange termijn in plaats van op snel
+resultaat. Die twee lagen, de praktische en de mentale, worden in de
+beschrijvingen van het boek voortdurend naast elkaar gelegd.
+
+**Doelgroep en toon**
+
+Het boek richt zich uitdrukkelijk op beginners, studenten en op wie de
+uitgever omschrijft als eerste-generatie vermogensopbouwers: lezers die als
+eerste in hun familie financiële onafhankelijkheid nastreven. De enige
+vindbare recensie omschrijft de schrijfstijl als toegankelijk en verhalend,
+met weinig technisch jargon, wat past bij die doelgroep.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Vermogen als vaardigheid | De herformulering waarmee Tiwari geld verdienen gelijkstelt aan een leerbare vaardigheid in plaats van een kwestie van geluk of afkomst. |
+| Financiële geletterdheid | De basiskennis van budgetteren, sparen en beleggen die volgens Tiwari de voorwaarde is voor vermogensopbouw. |
+| Eerste-generatie vermogensopbouwer | Tiwari's aanduiding voor de lezer die als eerste in de eigen familie financiële onafhankelijkheid nastreeft. |
+| Inkomstenstroom uit een hobby | Het idee, uitgewerkt in het voorbeeld van de lezersfiguur Alex, dat een hobby tot een aanvullende bron van inkomen te ontwikkelen is. |
+| Mentale instelling | De houding van geduld en discipline die Tiwari naast financiële kennis nodig acht om vermogen te behouden. |
+
+#### Waar het argument op rust
+
+Het boek lijkt vooral te steunen op illustrerend vertellen en algemeen advies
+over persoonlijke financiën, niet op aangehaald onderzoek of cijfermateriaal.
+De uitgeversbeschrijving noemt geen studies, statistieken of bronvermeldingen,
+en tijdens dit onderzoek kwamen die ook niet naar voren. De claim dat vermogen
+een vaardigheid is, wordt gesteld en met het voorbeeld van Alex geïllustreerd,
+niet aangetoond met bijvoorbeeld een vergelijking tussen lezers die de aanpak
+wel en niet volgen.
+
+Het boek is bovendien zeer recent, verscheen in februari 2026 bij een kleine
+uitgeverij met beperkte verspreiding, en is niet via een inkijkfunctie of
+inhoudsopgave te raadplegen. Er is één vindbare, min of meer onafhankelijke
+bespreking, een blogrecensie die vooral beschrijvend is en het boek vier van
+de vijf sterren geeft. Wat hier staat, berust dus op de uitgeversbeschrijving
+en op die ene recensie, niet op het lezen van de volledige tekst.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat door het ontbreken van toegang tot de volledige
+tekst en van kritische, onafhankelijke recensies niet te beoordelen valt of de
+claim dat vermogen een vaardigheid is, wordt onderbouwd met iets concreters
+dan het voorbeeld van Alex. De kenmerken van populaire boeken over
+persoonlijke financiën zijn zichtbaar: brede beloften, algemeen advies over
+budgetteren en beleggen, en één fictief voorbeeld dat voor een breed publiek
+moet gelden. Hoe overtuigend of eigenzinnig de uitwerking daarvan is, valt op
+basis van het beschikbare materiaal niet vast te stellen.
+
+Ook de begrippenlijst hierboven is daardoor beperkter dan bij een uitgelezen
+boek: waar normaal de eigen terminologie van de auteur is te herleiden uit de
+tekst zelf, moest hier worden teruggevallen op de bewoordingen van de
+uitgeversbeschrijving. Dat de enige vindbare recensie vier van de vijf sterren
+geeft, zegt weinig zolang onduidelijk blijft hoe onafhankelijk die bespreking
+is en met hoeveel andere boeken in dit genre zij is vergeleken.
+
+#### Wat er concreet mee te doen is
+
+- Breng eerst de eigen uitgaven en het spaargedrag in kaart voordat aan
+beleggen wordt begonnen.
+- Onderzoek of een bestaande hobby of vaardigheid tot een aanvullende
+inkomstenbron is te ontwikkelen, zoals in het voorbeeld van Alex.
+- Bouw een financiële buffer op die tegenslag opvangt zonder dat paniek de
+doorslag geeft bij beslissingen.
+- Herzie het eigen risicoprofiel en de spreiding van inkomsten en beleggingen
+op vaste momenten, niet alleen na een tegenvaller.
+
+#### Wat je hierna leest
+
+- 21. The Psychology of Money. Onderbouwt met gedragspsychologie en
+historische voorbeelden waarom geduld en gedrag zwaarder wegen dan kennis
+alleen, waar Tiwari's boek dat vooral beweert.
+- 37. Rich Dad Poor Dad. Een oudere en veel besprokener versie van dezelfde
+mythe-doorbrekende opzet: vermogen als denkwijze en gewoonte in plaats van
+afkomst.
+- 39. The Millionaire Next Door. Levert wel het soort empirisch materiaal,
+onderzoek onder werkelijke vermogende huishoudens, dat in Tiwari's boek
+ontbreekt.
+
+## 164. Mating in Captivity
+
+Esther Perel, 2006. Oorspronkelijk *Mating in Captivity* (Harper, New York,
+2006), verschenen met twee verschillende ondertitels naargelang de druk.
+Nederlandse editie als *Erotische intelligentie*, vertaald door Marga Goeting,
+oorspronkelijk in 2006 bij Bruna (Utrecht) verschenen en sinds 2019 in de
+elfde druk bij uitgeverij Lev. (Amsterdam, 268 blz., ISBN 9789400512320).
+Rubriek: brein en lichaam.
+Tags: `relaties`, `verlangen`, `seksualiteit`, `intimiteit`, `psychotherapie`,
+`erotiek`, `communicatie`
+
+Esther Perel, van oorsprong Belgisch en al decennia werkzaam als
+psychotherapeut in New York, onderzoekt waarom passie in langdurige relaties
+vaak wegebt, ook wanneer de liefde zelf overeind blijft. Haar stelling is dat
+liefde en verlangen uit verschillende bronnen komen: liefde zoekt nabijheid,
+vertrouwdheid en veiligheid, verlangen heeft juist afstand, onzekerheid en een
+zeker mysterie nodig. Naarmate partners volledig met elkaar versmelten, alles
+delen en elkaar door en door kennen, verdwijnt precies de ruimte waarin
+erotische aantrekkingskracht kan bestaan. Perel noemt die spanning de
+gevangenschap uit de titel: de veiligheid waar mensen in een relatie naar
+zoeken, is dezelfde veiligheid die het verlangen verstikt.
+
+Aan de hand van gesprekken uit haar eigen praktijk werkt ze die spanning uit
+langs verschillende lijnen: de invloed van de kindertijd op de omgang met
+nabijheid, de plaats van fantasie en verbeelding, de manier waarop gelijkheid
+en macht doorwerken in verlangen, en de druk die ouderschap op het erotische
+leven van een stel legt. Een apart deel gaat over aantrekkingskracht buiten de
+relatie, die ze beschrijft als iets dat bijna elk stel op enig moment
+overkomt. Het boek eindigt met de vraag hoe erotiek weer een plaats in het
+dagelijkse leven van een stel kan krijgen zonder dat de intimiteit daarvoor
+wordt opgeofferd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Perel betoogt dat liefde en verlangen uit tegengestelde
+behoeften voortkomen: liefde zoekt nabijheid, vertrouwdheid en veiligheid,
+verlangen zoekt afstand, onzekerheid en het besef dat de ander niet volledig
+te kennen is. Naarmate partners in een langdurige relatie meer met elkaar
+versmelten en het mysterie tussen hen wegvalt, verdwijnt volgens haar ook de
+erotische spanning, ook als de liefde zelf overeind blijft. De veiligheid die
+mensen in een relatie zoeken, is in haar lezing dezelfde veiligheid die het
+verlangen doet doven; wie dat wil keren, moet binnen de relatie weer ruimte
+voor afstand en het onbekende toelaten in plaats van almaar meer nabijheid na
+te streven.
+
+#### De gang van het boek
+
+**Gevangenschap als paradox**
+
+Perel opent met de vraag waarom juist de veiligheid van een vaste relatie de
+begeerte kan doven. De gangbare aanname is dat een goede relatie op nabijheid,
+gelijkwaardigheid en volledige openheid rust, en dat diezelfde eigenschappen
+ook de seksuele aantrekkingskracht in stand houden. In haar praktijk ziet ze
+het omgekeerde: stellen die alles met elkaar delen en niets meer voor elkaar
+verborgen houden, melden zich juist met de klacht dat het verlangen is
+verdwenen. Ze formuleert de kernvraag van het boek als: hoe kun je nog willen
+wat je al hebt.
+
+Ze wijst erop dat het moderne huwelijk een taak vervult die vroeger over een
+hele gemeenschap verspreid lag. Waar een partner vroeger een van de vele
+mensen was die in aandacht, steun en gezelschap voorzagen, moet die partner nu
+vriend, minnaar, medeouder, financieel medeplichtige en bevestiging van de
+eigen identiteit tegelijk zijn. Die stapeling van rollen maakt de relatie
+zwaarder en de ruimte voor het onbekende, waar begeerte volgens haar op teert,
+kleiner.
+
+**Nabijheid en afstand**
+
+Het onderscheid dat door het hele boek terugkeert, is dat liefde nabijheid
+zoekt en verlangen afstand nodig heeft. Liefde groeit met vertrouwdheid,
+voorspelbaarheid en het gevoel dat de ander bekend en veilig is. Verlangen
+groeit met het besef dat de ander een eigen, niet volledig kenbaar innerlijk
+leven heeft. Perel noemt dat de erotische afstand: geen fysieke afstand, maar
+het besef dat de partner een apart persoon blijft die kan verrassen.
+
+Ze werkt dat uit met voorbeelden van stellen die zoveel in elkaar zijn
+opgegaan dat ze eerder huisgenoten dan minnaars zijn geworden. Haar advies
+richt zich op het bewaren van ruimte binnen de relatie voor het deel van de
+ander dat niet wordt opgeëist: een eigen vriendenkring, een eigen bezigheid,
+een innerlijk leven waartoe de partner geen volledige toegang heeft.
+
+**Wat de kindertijd meegeeft**
+
+Een deel van het boek gaat over de gezinspatronen die iemand een relatie in
+meeneemt. De manier waarop een kind leerde omgaan met afhankelijkheid, met de
+eigen lichamelijkheid en met wat er in het gezin over seksualiteit werd gezegd
+of juist verzwegen, werkt door in hoe iemand als volwassene met nabijheid en
+met de eigen verlangens omgaat. Iemand die als kind voor een ouder moest
+zorgen, kan als volwassene bijvoorbeeld moeite hebben om zich in een relatie
+te laten verzorgen zonder het gevoel van controle te verliezen.
+
+Perel gebruikt die achtergrond vooral om te laten zien dat een probleem dat
+een stel als actueel voorlegt, vaak een patroon is dat van veel eerder
+dateert.
+
+**Fantasie en de erotische verbeelding**
+
+Fantasie krijgt in het boek een eigen plaats, los van de vraag of ze wordt
+uitgevoerd. Perel leest fantasieën als een soort beeldtaal. Een fantasie over
+overgave gaat volgens haar zelden over de letterlijke wens onderworpen te
+worden; vaker gaat het om het verlangen om even geen verantwoordelijkheid te
+dragen. Ze moedigt stellen aan fantasie te zien als informatie over wat iemand
+nodig heeft, in plaats van als een agenda die moet worden afgewerkt.
+
+In het slothoofdstuk keert ze terug naar het onderscheid tussen seks en
+erotiek. Seks is volgens haar iets wat mensen met dieren delen, erotiek is de
+verbeelding die daar bovenop komt en van een lichamelijke handeling een
+ervaring met betekenis maakt. Een blik, een geur of een herinnering aan een
+eerdere ontmoeting kunnen volgens haar evenveel opwinding geven als aanraking
+zelf, en die verbeelding is volgens haar thuis, tussen de was en het
+avondeten, het eerst wat verdwijnt.
+
+**Gelijkheid, macht en het spel van verlangen**
+
+Perel besteedt een deel van het boek aan de spanning tussen de
+gelijkwaardigheid die partners in het dagelijks leven nastreven en de
+ongelijkheid die in erotisch spel juist opwindend kan werken. Wie in de rest
+van het leven taken, geld en aandacht eerlijk verdeelt, kan in bed toch
+behoefte hebben aan een rolverdeling met dominantie en overgave.
+
+Ze onderscheidt dat spel uitdrukkelijk van een blijvende machtsverhouding: het
+gaat om een afgesproken en omkeerbaar spel binnen een verder gelijkwaardige
+relatie.
+
+**De grenzen van het praten en de druk van het ouderschap**
+
+Tegen de aanname dat meer communicatie elk relatieprobleem oplost, brengt
+Perel in dat praten intimiteit dichterbij brengt en tegelijk het mysterie
+wegneemt waarop verlangen teert. Een stel dat elk gevoel uitspreekt en elke
+onduidelijkheid wegneemt, wint aan begrip en verliest aan spanning. Woorden
+zijn in haar ogen niet de enige route naar nabijheid; een blik, een gebaar of
+een gedeelde stilte kunnen dezelfde verbinding geven zonder de afstand op te
+heffen die begeerte nodig heeft.
+
+Ouderschap versterkt die druk. Perel beschrijft hoe de rolverdeling van vader
+en moeder de eerdere rol van minnaars kan overschaduwen, hoe vermoeidheid en
+de voortdurende aanwezigheid van kinderen letterlijk weinig ruimte overlaten,
+en hoe stellen zich vaak schuldig voelen zodra ze tijd voor zichzelf claimen
+boven tijd voor het gezin. Haar advies is nuchter: ze noemt het gebruikelijk
+dat de eerste jaren met jonge kinderen minder seksueel leven met zich
+meebrengen, mits het stel dat samen erkent in plaats van er in stilte overheen
+te glijden.
+
+**De derde: ontrouw heroverwogen**
+
+Tegen het einde van het boek richt Perel zich op aantrekkingskracht buiten de
+relatie, wat ze de derde noemt: de gedachte aan, het contact met of de
+aantrekking tot iemand anders dan de partner. Ze wijst erop dat zulke
+aantrekking bij bijna iedereen voorkomt, ook binnen een gelukkig huwelijk, en
+dat stellen vooral verschillen in de manier waarop ze ermee omgaan.
+
+Perel pleit ervoor ontrouw niet meteen te lezen als bewijs dat er iets aan de
+relatie ontbreekt. Voor sommige stellen is openheid over die
+aantrekkingskracht, zonder haar uit te leven, een manier om trouw opnieuw te
+kiezen in plaats van vanzelfsprekend te vinden. Het slothoofdstuk keert terug
+naar de vraag waarmee het boek begon en formuleert een antwoord in de vorm van
+een houding eerder dan een techniek: erotiek vraagt om nieuwsgierigheid naar
+de partner die je al hebt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Erotische intelligentie | Het vermogen om spanning, mysterie en spel in een relatie te onderhouden zonder de intimiteit op te geven; de titel van de Nederlandse vertaling. |
+| Nabijheid en afstand | Het onderscheid tussen wat liefde en wat verlangen voedt: liefde zoekt nabijheid en vertrouwdheid, verlangen heeft afstand en het onbekende nodig. |
+| Gevangenschap | Perels beeld voor een relatie waarin veiligheid en voorspelbaarheid zo overheersen dat er geen ruimte meer overblijft voor begeerte. |
+| Erotiek versus seks | Haar onderscheid tussen de lichamelijke handeling, die mensen met dieren delen, en de verbeelding die er betekenis en spanning aan toevoegt. |
+| De derde | Perels term voor de aantrekkingskracht tot iemand buiten de relatie, in gedachte of in werkelijkheid, die ze als bijna universeel beschrijft. |
+| Mysterie | Het besef dat een partner nooit volledig te kennen is; volgens Perel de voedingsbodem van verlangen. |
+| Spel | De afgesproken, omkeerbare rolverdeling met macht en overgave die in erotische context opwindend kan werken zonder de gelijkwaardigheid van de relatie aan te tasten. |
+| Fantasie als beeldtaal | Perels opvatting dat een seksuele fantasie zelden letterlijk moet worden genomen en meer zegt over een onderliggende behoefte dan over een concrete wens. |
+
+#### Waar het argument op rust
+
+Perel bouwt het boek op ervaring uit haar eigen praktijk: ze werkt al decennia
+als psychotherapeut in New York, gaf lange tijd les aan het medisch centrum
+van New York University en behandelt sinds de jaren tachtig stellen. De
+voorbeelden in het boek zijn bewerkte weergaven van sessies, aangepast om
+cliënten onherkenbaar te maken, en dienen als illustratie van een patroon,
+niet als steekproef. Ze citeert daarnaast psychoanalytische auteurs en denkers
+over ritueel en verlangen, geen cijfermatig onderzoek.
+
+Dat betekent dat de onderbouwing klinisch van aard is en niet experimenteel.
+Perel ziet alleen stellen die met een probleem naar haar toe komen, zodat ze
+geen zicht heeft op hoeveel stellen zonder problemen dezelfde spanning tussen
+nabijheid en verlangen ervaren of juist niet. De claims in het boek zijn zo
+eerder een klinische hypothese, opgebouwd uit herhaalde observatie, dan een
+uitkomst die in gecontroleerd onderzoek is getoetst.
+
+#### Wat er tegen in te brengen valt
+
+De sterkste tegenwerping betreft de selectie van de voorbeelden. Perel ziet in
+haar praktijk uitsluitend stellen bij wie het verlangen al is weggezakt, en
+generaliseert van daaruit naar relaties in het algemeen. Zonder een groep
+stellen die wel nabijheid en aanhoudend verlangen combineren, valt niet vast
+te stellen of de spanning die ze beschrijft een algemeen kenmerk van
+langdurige relaties is of vooral kenmerkend voor de stellen die in therapie
+belanden.
+
+Het boek citeert nauwelijks onderzoek en werkt niet met noten die een
+uitspraak aan een bron koppelen, waardoor claims over bijvoorbeeld
+sekseverschillen in verlangen moeilijk te onderscheiden zijn van Perels eigen
+klinische indruk. Dat staat op gespannen voet met het hechtingsonderzoek
+waarop boeken als *Attached* steunen, dat voorspelbaarheid en beschikbaarheid
+van een partner juist als voorwaarde voor een veilige relatie beschrijft, en
+niet als bedreiging voor een opwindende.
+
+Verder biedt het boek relatief weinig concrete stappen. Perel is sterk in het
+benoemen van de paradox en zwakker in het aanreiken van een weg eruit; de
+meeste hoofdstukken eindigen met een verruimde blik op het probleem, niet met
+een procedure. Wie na het lezen op zoek is naar oefeningen of een stappenplan,
+vindt die eerder in werkboeken die op haar werk voortbouwen dan in dit boek
+zelf.
+
+#### Wat er concreet mee te doen is
+
+- Laat in de agenda van de relatie ruimte staan die niet is ingevuld met
+gezamenlijke taken of gesprekken over het gezin.
+- Onderzoek een terugkerende fantasie op wat ze over een onderliggende
+behoefte zegt, voordat de conclusie is dat ze uitgevoerd moet worden.
+- Spreek in de eerste jaren met jonge kinderen samen uit dat het seksuele
+leven tijdelijk minder ruimte krijgt, in plaats van dat stilzwijgend te laten
+gebeuren.
+- Houd bij het praten over de relatie ook een deel van het eigen innerlijk
+leven voor zichzelf, in plaats van alles te delen.
+- Behandel aantrekkingskracht tot iemand anders als een gegeven om mee om te
+gaan, niet als een teken dat de relatie tekortschiet.
+
+#### Wat je hierna leest
+
+- 152. Attached. Beschrijft vanuit de hechtingstheorie het tegenovergestelde
+uitgangspunt: voorspelbaarheid en beschikbaarheid van een partner maken juist
+zelfstandiger en veiliger, waar dit boek diezelfde voorspelbaarheid als
+bedreiging voor het verlangen ziet.
+- 145. Unfuck Your Intimacy. Werkt intimiteit en seksualiteit net als dit boek
+vanuit de praktijk uit, maar dan vanuit onveilige hechtingspatronen en met
+concrete oefeningen in plaats van Perels klinische essayvorm.
+
+## 165. Passionate Marriage
+
+David Schnarch, 1997. Oorspronkelijk *Passionate Marriage: Love, Sex, and
+Intimacy in Emotionally Committed Relationships* (Henry Holt, New York, 1997).
+Sinds de heruitgave bij W. W. Norton & Company (paperback, 27 april 2009, 448
+blz., ISBN 9780393334272) bekend onder de titel *Passionate Marriage: Keeping
+Love and Intimacy Alive in Committed Relationships*. Geen Nederlandse
+vertaling; wel vertaald is Schnarchs latere boek *Resurrecting Sex*, als
+*Seksdrive* (Lannoo, 2004). Rubriek: brein en lichaam.
+Tags: `relatietherapie`, `seksualiteit`, `differentiatie`, `intimiteit`,
+`huwelijk`, `zelfregulatie`, `systeemtheorie`
+
+David Schnarch was klinisch psycholoog en seksuoloog en behandelde stellen die
+vastliepen op precies het punt waarop de meeste relatietherapie stopt: een
+langdurige relatie waarin de seks is verdwenen en de partners elkaar niet meer
+durven tegenspreken. Zijn stelling is dat dat vastlopen niet wijst op een
+gebrek aan communicatie, maar op een gebrek aan wat hij differentiatie noemt:
+het vermogen om jezelf te blijven terwijl je dicht bij een ander blijft. Wie
+te weinig gedifferentieerd is, ontleent zijn gevoel van eigenwaarde aan de
+partner en wordt daardoor juist afhankelijker naarmate de relatie langer
+duurt.
+
+Het boek combineert die theorie met concrete oefeningen, waaronder een
+omhelzing waarbij je jezelf staande houdt zonder op de ander te leunen, en het
+advies om tijdens seks de ogen open te houden in plaats van weg te dromen.
+Schnarch bouwt voort op de systeemtheorie van Murray Bowen en past die toe op
+seksualiteit, een gebied waar Bowen zelf niet over schreef. Onderzoek naar de
+werkzaamheid van zijn aanpak levert het boek niet; het rust op zijn eigen
+klinische praktijk en workshops. De toon is direct en soms grof, met een
+woordgebruik dat verder gaat dan de meeste zelfhulpboeken over relaties.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Schnarch stelt dat een langdurige relatie niet oplevert wat
+mensen ervan verwachten, juist omdat zij de plek is waar mensen het felst
+worden aangesproken op hun onvermogen zichzelf te blijven bij een ander.
+Passie en intimiteit op de lange termijn hangen volgens hem niet af van
+communicatietechnieken of compromissen, maar van differentiatie: het vermogen
+een eigen koers te houden onder druk van de partner, zonder daarvoor afstand
+te moeten nemen. Wie te veel op de partner leunt voor een gevoel van
+eigenwaarde, wat hij borrowed functioning noemt, loopt vast zodra de partner
+niet meewerkt. Dat vastlopen noemt hij emotioneel gridlock: geen storing die
+om reparatie vraagt, maar een fase die bij groei hoort.
+
+#### De gang van het boek
+
+**Twee soorten intimiteit**
+
+Schnarch begint met een onderscheid tussen wat hij een reflected sense of self
+noemt en een solid flexible self. Bij de eerste ontleent iemand zijn
+identiteit aan bevestiging, instemming of op zijn minst voorspelbare reacties
+van de ander; verdwijnt die bevestiging, dan verdwijnt ook het houvast. Bij de
+tweede blijft iemand zichzelf herkennen, ook als de partner het oneens is of
+boos wordt.
+
+Veel koppels bouwen hun relatie op de eerste vorm, wat hij borrowed
+functioning noemt: elke partner leent zijn gevoel van eigenwaarde van de
+ander. Dat werkt zolang beiden zich aanpassen, maar laat geen ruimte voor een
+verschil van mening zonder dat de relatie meteen op het spel lijkt te staan.
+
+**Differentiatie als opgave**
+
+Differentiatie is bij Schnarch geen eigenschap die iemand op enig moment
+heeft, maar een doorlopende opgave: jezelf blijven onderscheiden van de mensen
+om je heen terwijl je toch dichtbij blijft. Hij ontleent het begrip aan de
+systeemtheorie van Murray Bowen, die differentiatie beschreef binnen families;
+Schnarch past het toe op de seksuele relatie tussen partners, een terrein waar
+Bowen zelf niet over schreef.
+
+Zijn stelling is dat een langdurige, gecommitteerde relatie de zwaarste test
+van differentiatie is die er bestaat, zwaarder dan het ouderlijk gezin waarin
+de meeste mensen die eigenschap voor het eerst ontwikkelen. Juist omdat
+partners zo dicht op elkaar leven en zoveel van elkaar verlangen, dwingt een
+langdurige relatie mensen verder te groeien dan zij uit zichzelf zouden doen.
+
+**Emotioneel gridlock**
+
+Elk koppel loopt volgens Schnarch op een gegeven moment vast in een
+terugkerend conflict waar geen compromis meer voor te vinden is: emotioneel
+gridlock. Dat kan gaan over een seksuele voorkeur die de een wil en de ander
+weigert, over de tijd die een van beiden aan werk of familie besteedt, of over
+een gewoonte die de ander kwetst. Compromis, betere communicatie of eromheen
+praten lossen het niet op, omdat het probleem niet in de communicatie zit maar
+in het niveau van differentiatie van de partners.
+
+Gridlock ontstaat volgens hem juist op de terreinen die het meest met
+identiteit te maken hebben. Hij noemt dat de tweekeuzedilemma's (two-choice
+dilemmas) van een relatie: situaties waarin elke optie een prijs heeft, zoals
+zwijgen en jezelf wegcijferen, of spreken en de partner van streek maken. Die
+dilemma's zijn geen falen van de relatie, maar het punt waarop verdere
+differentiatie mogelijk wordt, mits iemand de spanning ervan kan verdragen
+zonder toe te geven of te vluchten.
+
+**Alledaagse wreedheid**
+
+Onder de noemer normal marital sadism beschrijft Schnarch de kleine, meestal
+onbewuste manieren waarop partners elkaar in een gewone relatie pijn doen: een
+steek onder water, iets expres vergeten, een verjaardag half vieren. Hij
+behandelt dat niet als een teken van een slechte relatie, maar als een vast
+onderdeel van elke langdurige relatie, dat zichtbaar wordt zodra de
+aanvankelijke aanpassing aan elkaar afneemt.
+
+De reactie die hij aanraadt is zelfregulatie: leren de eigen onrust te
+verdragen zonder de ander erop af te rekenen, wat hij self-soothing noemt. Wie
+dat niet kan, blijft afhankelijk van de partner om zich rustig te voelen, en
+dat is precies de afhankelijkheid die differentiatie moet doorbreken.
+
+**Oefeningen voor lichamelijke nabijheid**
+
+Het middendeel van het boek werkt de theorie uit in lichamelijke oefeningen.
+Bij hugging till relaxed staan beide partners rechtop, omarmen elkaar en
+blijven staan tot de spanning in het lichaam wegzakt, zonder op de ander te
+leunen voor steun of balans: een oefening in differentiatie in plaats van een
+knuffel om te troosten.
+
+Bij wat hij eyes-open orgasm noemt, stelt Schnarch voor om tijdens seks de
+ogen open te houden en oogcontact te houden op het moment van het hoogtepunt,
+in plaats van de ogen te sluiten en weg te zakken in een fantasie. Dat maakt
+seks volgens hem tot een ontmoeting tussen twee mensen in plaats van een
+individuele ervaring die toevallig samen plaatsvindt, en dat vraagt om meer
+moed dan de meeste koppels gewend zijn op te brengen.
+
+**Seksueel potentieel op latere leeftijd**
+
+Schnarch keert zich tegen het idee dat de beste seks vroeg in een relatie
+plaatsvindt en daarna afneemt. Volgens hem groeit het seksuele en emotionele
+potentieel van een relatie juist met de jaren, mits beide partners
+differentiëren in plaats van zich steeds verder bij elkaar aan te passen.
+Koppels die decennia samen zijn en die opgave zijn aangegaan, beschrijft hij
+als in staat tot een intimiteit die jonge relaties nog niet kunnen bereiken.
+
+Het slothoofdstuk verbindt dat met sterfelijkheid: hoe langer een relatie
+duurt, hoe dichter zij bij het besef komt dat de gedeelde tijd eindig is, en
+Schnarch stelt dat juist dat besef mensen aanzet om de relatie niet langer uit
+te stellen tot een gemakkelijker moment.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Differentiatie | Het vermogen jezelf te blijven onderscheiden van de partner en een eigen koers te houden, ook onder druk om mee te bewegen. |
+| Reflected sense of self | Een identiteit die afhankelijk is van bevestiging, instemming of voorspelbare reacties van de ander. |
+| Solid flexible self | Een identiteit die zichzelf blijft herkennen, ook als de partner het oneens is of boos reageert. |
+| Borrowed functioning | Het ontlenen van een gevoel van eigenwaarde aan de reacties van de partner in plaats van aan jezelf. |
+| Emotioneel gridlock | Een terugkerend conflict waarvoor geen compromis meer te vinden is, omdat het niet in de communicatie zit maar in de differentiatie van de partners. |
+| Two-choice dilemma | Een situatie waarin elke optie een prijs heeft, zoals zwijgen en jezelf wegcijferen of spreken en de ander van streek maken. |
+| Normal marital sadism | De kleine, meestal onbewuste manieren waarop partners elkaar in een gewone relatie pijn doen. |
+| Self-soothing | Het vermogen de eigen onrust te verdragen zonder de partner erop af te rekenen. |
+| Hugging till relaxed | Een omhelzing waarbij beide partners rechtop staan tot de spanning wegzakt, zonder op elkaar te leunen. |
+
+#### Waar het argument op rust
+
+Schnarch onderbouwt zijn theorie op twee manieren. De eerste is de
+systeemtheorie van Murray Bowen, die differentiatie beschreef als de mate
+waarin iemand zich binnen een gezin kan onderscheiden van de anderen zonder de
+band te verbreken; Schnarch neemt dat begrip over en breidt het uit naar
+seksualiteit en intimiteit tussen partners, een stap die Bowen zelf niet
+zette.
+
+De tweede grond is zijn eigen klinische praktijk: decennia werk met stellen in
+zijn praktijk en workshops, waaruit de voorbeelden, de oefeningen en de
+begrippen in het boek voortkomen. Een gecontroleerde studie naar de
+werkzaamheid van zijn aanpak bevat het boek niet, en Schnarch citeert ook geen
+onderzoek van anderen om zijn stellingen te toetsen. De onderbouwing is dus de
+ervaring van een praktiserend seksuoloog, niet empirisch onderzoek.
+
+#### Wat er tegen in te brengen valt
+
+Het belangrijkste bezwaar betreft het begrip differentiatie zelf: Schnarch
+definieert het deels aan de hand van zijn eigen oefeningen en deels aan de
+hand van het resultaat dat die oefeningen zouden moeten opleveren, waardoor
+lastig vast te stellen is wanneer iemand wel of niet gedifferentieerd is
+buiten wat Schnarch daar zelf over zegt. Critici wijzen er ook op dat het boek
+zich uitsluitend richt op heteroseksuele, monogame paren die aan een huwelijk
+of vergelijkbare relatie vasthouden, terwijl de claims over menselijke
+intimiteit breder worden gepresenteerd.
+
+De schrijfstijl is uitvoerig en herhalend, met lange casussen die dezelfde
+punten meerdere keren illustreren. Sommige lezers en recensenten noemen de
+toon van de auteur zelfingenomen, vooral waar hij zijn eigen aanpak afzet
+tegen wat hij de tekortkomingen van gangbare relatietherapie noemt. De
+seksueel expliciete beschrijvingen, nodig voor oefeningen zoals eyes-open
+orgasm, kunnen lezers die daar niet op rekenen onaangenaam verrassen.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf een terugkerend meningsverschil met de partner als
+tweekeuzedilemma: welke twee opties liggen er, en wat kost elke optie.
+- Onderscheid bij een conflict of het om een praktisch probleem gaat of om
+emotioneel gridlock; bij gridlock helpt verder onderhandelen niet.
+- Oefen self-soothing door bij onrust eerst de eigen ademhaling en houding te
+veranderen voordat je de partner aanspreekt.
+- Probeer de omhelzing uit hugging till relaxed: rechtop staan, de ander
+vasthouden, niet op de ander leunen voor steun.
+
+#### Wat je hierna leest
+
+- 152. Attached. Benadert nabijheid vanuit hechtingstheorie in plaats van
+differentiatie: waar Schnarch afhankelijkheid als een op te lossen opgave
+ziet, beschrijft dit boek gehechtheidsstijlen als min of meer vaste patronen.
+- 145. Unfuck Your Intimacy. Behandelt net als dit boek intimiteit en
+seksualiteit in relaties, maar vanuit onderzoek naar hechting in plaats van
+Schnarchs klinische differentiatietheorie, en in een directere toon.
+
+## 166. How to Not Die Alone
+
+Logan Ury, 2021. Oorspronkelijk *How to Not Die Alone: The Surprising Science
+That Will Help You Find Love* (Simon & Schuster, 2021). Nederlands als *Wat je
+moet doen om niet alleen dood te gaan* bij Kosmos Uitgevers (2022, 352 blz.,
+ISBN 9789021586038); de catalogus noemt daar geen vertaler bij. Rubriek: brein
+en lichaam.
+Tags: `daten`, `gedragswetenschap`, `relaties`, `besluitvorming`,
+`gehechtheid`, `Hinge`, `zelfhulp`
+
+Logan Ury werkte als gedragswetenschapper bij Google voordat ze hoofd
+relatiewetenschap werd bij de dating-app Hinge. In *How to Not Die Alone* past
+ze inzichten uit de gedragseconomie toe op het daten zelf en onderscheidt ze
+drie denkpatronen die singles ongemerkt in de weg zitten: de romanticizer die
+op een vonk wacht, de maximizer die altijd blijft zoeken naar een betere
+optie, en de hesitater die het daten telkens uitstelt tot een beter moment.
+Elk patroon komt volgens haar voort uit dezelfde denkfout: te veel gewicht
+geven aan het gevoel van het eerste moment en te weinig aan wat een relatie na
+verloop van tijd wordt.
+
+De rest van het boek volgt de fasen van het daten: hoe iemand te ontmoeten,
+wat een eerste afspraak wel en niet bewijst, en hoe een relatie serieus wordt
+zonder dat er ooit een echte keuze is gemaakt. Ury onderbouwt haar advies met
+gedragswetenschappelijk onderzoek, met materiaal uit Hinges eigen
+gebruikersonderzoek en met voorbeelden uit haar werk als datingcoach. Het boek
+sluit af met een vragenlijst voor een gesprek over de toekomst van een relatie
+en met een relatiecontract, bedoeld om aannames expliciet te maken voordat ze
+problemen worden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ury betoogt dat een goede relatie voortkomt uit een reeks
+beslissingen, en dat de meeste mensen die beslissingen slecht nemen. Wie
+alleen blijft, mist volgens haar zelden geschikte kandidaten; vaker loopt
+iemand vast in een van drie terugkerende denkpatronen die goede opties laten
+liggen of verkeerde juist te lang vasthouden. Diezelfde denkfouten zijn bekend
+uit gedragseconomisch onderzoek naar besluitvorming in het algemeen, en
+daaruit leidt Ury af dat daten een vaardigheid is die te trainen valt en geen
+lot dat iemand overkomt.
+
+#### De gang van het boek
+
+**Drie datingtypes**
+
+Ury onderscheidt drie tendensen die singles onbewust laten vastlopen. De
+romanticizer gelooft in een zielsverwant en verwacht dat een goede relatie
+vanzelf soepel verloopt; zodra het ergens wringt, concludeert deze persoon dat
+de verkeerde partner gekozen is en begint de zoektocht opnieuw. De maximizer
+wil zeker weten dat er niemand beter beschikbaar is voordat hij of zij zich
+vastlegt, blijft daardoor lang zoeken en twijfelt ook na een keuze aan die
+keuze. De hesitater stelt daten uit tot een moment waarop het leven op orde
+is: eerst afvallen, eerst een betere baan, eerst het zelfvertrouwen op peil.
+
+Voor de maximizer wijst Ury naar het secretaryprobleem uit de wiskunde: wie
+een deel van de beschikbare tijd besteedt aan verkennen en pas daarna de
+eerste persoon kiest die beter is dan alles wat eerder voorbijkwam, ontloopt
+zowel eindeloos zoeken als voortijdig settelen. Voor de romanticizer stelt ze
+een omslag in perspectief voor: geluk in een relatie is minder een kwestie van
+de juiste persoon vinden dan van het werk dat er daarna in gestoken wordt.
+Voor de hesitater raadt ze een vaste datum aan om te beginnen, drie weken
+vooruit, zodat uitstel een grens krijgt.
+
+**De mythe van de vonk**
+
+Een tweede gewoonte die Ury aanwijst is het wachten op de vonk, een
+onmiddellijk gevoel van aantrekkingskracht dat volgens veel daters zou moeten
+bewijzen dat iemand de juiste is. Ze wijst op onderzoek naar het
+mere-exposure-effect: in een klas die aan het begin van een semester elkaars
+aantrekkelijkheid beoordeelde, lag die beoordeling aan het eind van het
+semester hoger, zonder dat er verder iets aan de klasgenoten veranderd was.
+Vertrouwdheid bouwt aantrekkingskracht op die een eerste ontmoeting niet laat
+zien.
+
+Haar praktische regel is daarom: ga, tenzij er een echte dealbreaker is
+geraakt, altijd op een tweede afspraak. Een eerste afspraak levert volgens
+haar te weinig informatie op om er een blijvend oordeel op te baseren, en het
+ontbreken van een vonk is geen betrouwbare voorspeller van hoe een relatie
+zich verder ontwikkelt.
+
+**Wat er echt toe doet in een partner**
+
+Ury maakt onderscheid tussen een echte dealbreaker, zoals een onverenigbaar
+verschil in de wens om kinderen in een bepaald geloof op te voeden, en wat ze
+een PPP noemt: een permissible pet peeve, een voorkeur die als een dealbreaker
+aanvoelt maar in werkelijkheid een ergernis is die te verdragen valt. Volgens
+haar verwarren daters die twee voortdurend, en laten ze op basis van een PPP,
+zoals handschrift of muzieksmaak, kandidaten vallen die verder passend zijn.
+
+In het hoofdstuk dat ze een levenspartner, geen galabalpartner noemt, zet ze
+eigenschappen die op een eerste indruk goed scoren, zoals charisma of status,
+tegenover eigenschappen die een relatie op de lange termijn dragen: emotionele
+stabiliteit, vriendelijkheid, betrouwbaarheid, een houding gericht op groeien,
+en het vermogen om samen moeilijke beslissingen te nemen. De eerste groep is
+zichtbaar op een date, de tweede pas na verloop van tijd.
+
+**Gehechtheid in de praktijk**
+
+Ury vertaalt gehechtheidstheorie naar het daten. Wie veilig gehecht is, voelt
+zich comfortabel bij intimiteit en reageert rustig op onzekerheid; wie angstig
+gehecht is, zoekt voortdurend bevestiging en raakt in paniek bij stilte na een
+bericht; wie vermijdend gehecht is, houdt afstand omdat nabijheid onveilig
+aanvoelt. Ze raadt lezers met een angstige of vermijdende stijl aan bewust
+naar veilig gehechte partners te zoeken, omdat die stijl beter bestand is
+tegen de onrust van de andere twee, en om de eigen directe reactie op
+onzekerheid te leren herkennen voordat die reactie een relatie beëindigt.
+
+**Beslissen versus meeglijden**
+
+Voor de fase waarin een relatie serieus wordt, ontleent Ury het onderscheid
+tussen beslissen en meeglijden aan onderzoek naar samenwonen: stellen die
+bewust een fase ingaan, zoals verhuizen of trouwen, en daar vooraf over
+spreken, doen het volgens dat onderzoek beter dan stellen bij wie zo'n stap er
+ongemerkt insluipt. Ze onderscheidt daarnaast hitchers, die te lang blijven
+hangen en waarschuwingssignalen negeren, en ditchers, die weglopen zodra de
+aanvankelijke opwinding wegebt en zich dan op de tekortkomingen van de partner
+gaan richten.
+
+Haar advies is om op vaste momenten, bijvoorbeeld na een paar maanden of bij
+een volgende stap, hardop te evalueren of de relatie past bij wat iemand
+zoekt, in plaats van dat stilzwijgend te laten gebeuren.
+
+**Het relatiecontract**
+
+Het boek sluit af met twee hulpmiddelen uit de bijlage: een lijst met vragen
+voor een belangrijk gesprek over onderwerpen als kinderen, geld en werk, en
+een relatiecontract waarin partners vastleggen wat ze van elkaar verwachten en
+hoe ze conflicten willen oplossen. Ury behandelt ook het beëindigen van een
+relatie als een vaardigheid: vooraf een breekplan maken, zodat een breuk niet
+voortkomt uit een opwelling, en het einde van een relatie zien als iets dat
+iemand iets heeft opgeleverd, in plaats van alleen als verlies.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Romanticizer | Wacht op een vonk en zielsverwantschap, en concludeert bij tegenslag al snel dat de verkeerde partner gekozen is. |
+| Maximizer | Wil zeker weten dat er niets beters beschikbaar is voordat hij of zij zich vastlegt, en twijfelt ook na de keuze. |
+| Hesitater | Stelt daten uit tot een moment waarop het leven eerst op orde is. |
+| Satisficen | Kiezen voor wie aan de eigen maatstaven voldoet, in plaats van blijven zoeken naar de beste van allemaal. |
+| De vonk | Het idee dat onmiddellijke aantrekkingskracht een voorwaarde is voor een goede relatie; volgens Ury een misleidende maatstaf. |
+| Dealbreaker en PPP | Het onderscheid tussen een werkelijke onverenigbaarheid en een permissible pet peeve die als dealbreaker aanvoelt maar dat niet is. |
+| Gehechtheidsstijlen | Veilig, angstig en vermijdend: het patroon waarmee iemand met nabijheid en onzekerheid in een relatie omgaat. |
+| Beslissen versus meeglijden | Bewust een fase in een relatie ingaan tegenover er ongemerkt in terechtkomen. |
+| Hitchers en ditchers | Wie te lang blijft hangen ondanks waarschuwingssignalen, tegenover wie te snel weer vertrekt zodra de opwinding wegebt. |
+| Secretaryprobleem en 37%-regel | De wiskundige vuistregel om een deel van de beschikbare tijd te verkennen voordat je kiest voor de eerstvolgende die beter is dan alles daarvoor. |
+
+#### Waar het argument op rust
+
+Het onderbouwende materiaal valt in drie soorten uiteen. Het eerste is
+gepubliceerd gedragswetenschappelijk onderzoek dat Ury samenvat en toepast:
+gehechtheidstheorie zoals die door Cindy Hazan en Phillip Shaver vanuit
+Bowlby's werk is doorgetrokken naar volwassen relaties, en het
+mere-exposure-effect zoals Robert Zajonc dat beschreef. Het onderscheid tussen
+beslissen en meeglijden ontleent ze aan onderzoek van Scott Stanley en Galena
+Rhoades naar samenwonen. Dit is bestaande literatuur die Ury citeert, geen
+onderzoek dat zij zelf heeft uitgevoerd.
+
+Het tweede soort bewijs is Hinges eigen materiaal: gebruikersonderzoek zoals
+de "We Met"-vragenlijst waarmee de app feedback verzamelt over hoe dates
+verlopen, en observaties uit haar functie als hoofd relatiewetenschap bij het
+bedrijf. Dat is bedrijfsdata, niet onafhankelijk gepubliceerd en niet extern
+getoetst; de lezer moet Ury's weergave ervan op haar woord aannemen. Het derde
+soort is haar eigen coachingpraktijk: patronen die ze bij cliënten heeft
+gezien en die ze als illustratie gebruikt, niet als bewijs in de strikte zin.
+
+De 37%-regel voor maximizers is van een andere orde: dat is een wiskundig
+resultaat uit de optimal-stopping-theorie, oorspronkelijk geformuleerd voor
+het aannemen van personeel, dat Ury als vuistregel naar het daten vertaalt.
+Het is een analogie uit een ander domein en geen gedragswetenschappelijke
+bevinding over daten zelf. De aanname waarop de wiskunde rust, dat kandidaten
+na afwijzing niet meer terugkomen en in willekeurige volgorde verschijnen,
+past slecht op hoe daten in de praktijk verloopt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwakste punt is de overname van het secretaryprobleem. Wiskundigen die
+zich met optimal stopping bezighouden, wijzen erop dat het model aannames
+hanteert die niet bij daten passen: het aantal kandidaten staat vooraf niet
+vast, een eerder afgewezen partner is in de praktijk vaak nog wel te
+benaderen, en het model maximaliseert de kans op de allerbeste optie in plaats
+van de kans op een goede uitkomst. Ury noemt de 37%-regel zelf een vuistregel
+en geen recept, maar het boek presenteert haar wel als oplossing voor de
+maximizer, terwijl de wiskundige basis ervan op een ander probleem is gebouwd.
+
+Verder steunt een groot deel van het boek op Hinges eigen gebruikers en op
+Ury's coachingcliënten: mensen die al actief op een datingapp zitten of geld
+uitgeven aan coaching, veelal Engelstalig en stedelijk. Hoe ver haar
+bevindingen daarbuiten opgaan, staat niet vast. Ten slotte toetst het boek de
+eigen adviezen niet: er wordt geen vervolgonderzoek aangehaald dat laat zien
+of lezers die de drie tendensen leren herkennen, ook daadwerkelijk vaker een
+goede relatie vinden.
+
+#### Wat er concreet mee te doen is
+
+- Bepaal welke van de drie tendensen, romanticizer, maximizer of hesitater,
+het eigen datinggedrag het best beschrijft, aan de hand van de laatste vijf
+afspraken of relaties.
+- Noteer voor een aankomende date drie dealbreakers en onderscheid die van
+voorkeuren die eigenlijk een PPP zijn.
+- Ga standaard op een tweede afspraak, tenzij een echte dealbreaker is
+geraakt, in plaats van te varen op het ontbreken van een vonk.
+- Leg bij een naderende stap, zoals samenwonen of exclusiviteit, de
+verwachtingen vooraf hardop vast in plaats van de stap te laten gebeuren.
+- Gebruik de vragenlijst voor het belangrijke gesprek uit de bijlage om
+onderwerpen als geld, kinderen en werk te bespreken voordat ze een probleem
+worden.
+
+#### Wat je hierna leest
+
+- 152. Attached. Gaat dieper in op de gehechtheidsstijlen die Ury in dit boek
+toepast op het daten.
+- 55. Thinking, Fast and Slow. Behandelt de denkfouten en heuristieken uit de
+gedragseconomie waarop Ury's analyse van datingbeslissingen leunt.
+- 145. Unfuck Your Intimacy. Sluit aan bij de hoofdstukken over intimiteit en
+gehechtheid, vanuit een andere invalshoek dan Ury's coachingperspectief.
+
+## 167. The Missing Piece
+
+Shel Silverstein, 1976. Oorspronkelijk *The Missing Piece* (Harper & Row,
+1976). Nederlands als *Het ontbrekende stuk*, vertaald door Arthur Japin
+(Mozaïek, 2007, 106 blz., ISBN 9789023992233). Vervolg: *The Missing Piece
+Meets the Big O* (1981), niet in het Nederlands vertaald. Rubriek:
+levenskunst.
+Tags: `prentenboek`, `fabel`, `relaties`, `volledigheid`, `afhankelijkheid`,
+`kinderboek`
+
+The Missing Piece is een prentenboek van iets meer dan honderd bladzijden, met
+op de meeste ervan niet meer dan een enkele regel tekst naast een zwart-wit
+tekening. Het hoofdpersonage is een cirkelvormig wezen waar een
+taartpuntvormig stuk uit is weggesneden. Zingend gaat het op zoek naar dat
+ontbrekende stuk. Onderweg rolt het door regen en sneeuw, praat het met wormen
+en kevers, en probeert het stuk na stuk uit dat niet past: te klein, te groot,
+te scherp van hoek, of stukgebroken doordat het te hard vastgepakt wordt.
+Silverstein tekent die mislukte pogingen zonder verklaring of moraal, in
+reeksen die zichzelf herhalen.
+
+Uiteindelijk vindt het wezen een stuk dat precies past en wordt het een
+gesloten cirkel. Maar rond zijn blijkt niet alleen winst: het wezen rolt nu zo
+snel en zo vloeiend dat het niet meer kan stoppen bij een rups of bloem, en
+zingen lukt niet meer in het ritme van een volmaakte cirkel. Het legt het
+gevonden stuk daarom weer neer en rolt onvolledig verder, weer zingend. Lezers
+en recensenten lezen het boek sindsdien vooral als een parabel over relaties:
+iets of iemand dat precies past, kan tegelijk een vrijheid wegnemen. Het
+vervolgboek *The Missing Piece Meets the Big O* (1981) draait dat gegeven om
+en vertelt hetzelfde verhaal vanuit het perspectief van het stuk zelf.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De gangbare lezing van deze fabel is dat volledigheid een
+prijs heeft. Het wezen dat een stuk zoekt om zichzelf compleet te maken,
+ontdekt dat het precies passende stuk juist de eigenschappen wegneemt waarmee
+het onderweg plezier had: traag rollen, zingen, aandacht voor wie het
+passeert. Compleet zijn en vrij zijn vallen in dit verhaal niet samen, en het
+wezen kiest voor de vrijheid door het gevonden stuk weer los te laten. Die
+keuze is de these van het boek: de zoektocht zelf levert het wezen meer op dan
+de voltooiing ervan.
+
+#### De gang van het verhaal
+
+**Het uitgangspunt**
+
+Het boek opent met een cirkelvormig wezen waaruit een taartpuntvormig stuk
+ontbreekt. Silverstein tekent dat gemis zonder aanleiding of voorgeschiedenis:
+het wezen is niet gebroken geraakt, het mist eenvoudig een deel van zichzelf
+en vindt dat vervelend. Vanaf de eerste bladzijde zingt het een regel die door
+het hele boek terugkeert, over het zoeken naar zijn ontbrekende stuk.
+
+Door de vorm te geven als een cirkel met een hap eruit, maakt Silverstein het
+onderwerp bespreekbaar zonder dat er een mens, een naam of een aanleiding bij
+hoeft. Die abstractie is de reden dat het boek zich zo makkelijk laat lezen
+als beeld voor iets anders dan zichzelf.
+
+**De zoektocht en de stukken die niet passen**
+
+Het wezen rolt door een wereld van seizoenen en weer en komt onderweg stukken
+tegen die op het eerste gezicht kunnen passen. Sommige zijn te klein, andere
+te groot, weer andere hebben scherpe hoeken of brokkelen af zodra het wezen ze
+optilt. Bij een aantal stukken drukt het te hard om ze te laten passen, waarna
+het stuk breekt. Die reeks mislukte pogingen beslaat het grootste deel van het
+boek en heeft geen aflopende spanningsboog: elke ontmoeting staat op zichzelf.
+
+Onderweg praat het wezen met wormen en kevers en neemt het de tijd voor een
+bloem langs de weg. Juist dat trage, aandachtige rollen krijgt later in het
+verhaal betekenis, als blijkt dat het precies is wat de voltooiing onmogelijk
+maakt.
+
+**Het gevonden stuk**
+
+Uiteindelijk vindt het wezen een stuk dat qua vorm en grootte precies
+aansluit. Het wordt een gesloten cirkel en kan voor het eerst zonder
+onderbreking rollen. De nieuwe, vloeiende beweging gaat echter zo snel dat het
+wezen de rups niet meer opmerkt en niet meer kan stoppen om te praten. Zingen
+lukt evenmin: de mond die eerst de regel zong, past niet meer bij het ritme
+van een volmaakte cirkel.
+
+**Het loslaten**
+
+Het wezen legt het gevonden stuk zachtjes neer op de weg en rolt onvolledig
+verder, weer zingend. Silverstein laat die keuze zien zonder haar toe te
+lichten: er is geen personage dat het wezen aanspoort of geruststelt. De
+laatste bladzijden herhalen het beeld waarmee het boek begon, een rollend,
+onvolledig wezen op zoek, met dat verschil dat het nu een stuk heeft gehad en
+het bewust heeft losgelaten.
+
+**De omkering in het vervolgboek**
+
+In *The Missing Piece Meets the Big O* (1981) keert Silverstein het
+uitgangspunt om. Het perspectief ligt nu bij het stukje zelf, een driehoekje
+dat wacht tot iemand het optilt en meeneemt, tot het een cirkel ontmoet die
+zelf geen stuk zoekt en die het stukje voordoet dat rollen ook zonder hulp
+kan. Door zichzelf keer op keer om te slaan, slijten de hoeken van het stukje
+af tot het uiteindelijk zelf een cirkel wordt en meerolt.
+
+De twee boeken zijn zo elkaars spiegelbeeld. Het eerste boek laat zien hoe een
+stuk dat past ook kan beperken. Het tweede boek laat zien wat er gebeurt als
+het stukje zelf in beweging komt in plaats van te wachten tot het opgetild
+wordt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Het rond zijn | De staat van volledigheid die het wezen bereikt zodra het gevonden stuk aansluit, in latere lezingen gelijkgesteld aan compleet of af zijn. |
+| Het passende stuk | Het stuk dat qua vorm precies aansluit maar dat de bewegingsvrijheid wegneemt zodra het is aangebracht. |
+| Rollen en zingen | De twee bezigheden die alleen mogelijk zijn zolang het wezen onvolledig is en die verdwijnen zodra het rond wordt. |
+| Loslaten | De keuze om het gevonden stuk weer af te staan en de onvolledigheid opnieuw te aanvaarden. |
+| De Grote O | Het figuur uit het vervolgboek dat zelf rond is zonder een stuk te missen en dat voordoet dat rollen ook zonder aanvulling kan. |
+| Zelf rond worden | De uitkomst uit het vervolgboek waarbij vorm ontstaat door eigen inspanning en slijtage in plaats van door een stuk van buiten. |
+
+#### Waar het argument op rust
+
+Dit is een fabel in beeld, met op de meeste bladzijden niet meer dan één regel
+tekst, en geen feitelijke claim om te toetsen. De begrippen hierboven zijn dan
+ook geen vaktermen van Silverstein zelf: hij gebruikt in het boek vrijwel geen
+abstract woord, laat staan een uiteenzetting van wat rondheid of een passend
+stuk zouden betekenen. Het zijn woorden waarin lezers en recensenten het
+verhaal sindsdien navertellen, en die woorden verschillen van uitleg tot
+uitleg.
+
+De sterkste aanwijzing dat de lezing over afhankelijkheid en volledigheid geen
+overinterpretatie is, komt van Silverstein zelf, al is die aanwijzing
+indirect. Vijf jaar na *The Missing Piece* schreef hij er een tegenhanger bij
+die de boodschap omdraait. Dat een auteur de moeite neemt om zijn eigen boek
+van repliek te dienen, wijst erop dat hij de eerste lezing kende en kennelijk
+onvolledig vond. Een uitspraak van Silverstein waarin hij die bedoeling met
+zoveel woorden bevestigt, is niet overgeleverd; hij liet zijn werk doorgaans
+zonder toelichting bij de lezer terugkomen.
+
+#### Wat er tegen in te brengen valt
+
+Het felste bezwaar tegen het boek richt zich op de moraal aan het slot. Het
+wezen laat het stuk los zodra het hem beperkt, zonder dat er iets misgaat
+tussen wezen en stuk: het stuk past, er is geen conflict, er is alleen het
+verlies van tempo en geluid. Wie het boek als parabel over relaties leest, kan
+er een boodschap in lezen die niet bij elk kinderboek past, namelijk dat wie
+zich door een ander beperkt voelt die ander achterlaat, zonder dat het verhaal
+weegt wat dat voor het achtergelaten stuk betekent.
+
+Een tweede punt is dat het boek geen uitweg biedt. Aan het eind is het wezen
+weer onvolledig en weer op zoek, in dezelfde regels waarmee het begon, en dat
+kan als een open einde overtuigen of als een verhaal dat nergens uitkomt,
+afhankelijk van de lezer. Pas het vervolgboek geeft een antwoord, met een
+figuur dat zichzelf rond maakt in plaats van op een passend stuk te wachten,
+maar dat antwoord staat in een apart boek uit 1981 en is niet vanzelfsprekend
+wat een lezer van het eerste deel meekrijgt.
+
+#### Wat je hierna leest
+
+- 8. De alchemist. *De alchemist* is eveneens een parabel over een zoektocht
+die zelf de opbrengst blijkt, met een hoofdpersoon die onderweg figuren
+tegenkomt zoals het wezen hier stukken tegenkomt.
+- 71. Four Thousand Weeks. *Four Thousand Weeks* beargumenteert dat een leven
+per definitie onaf blijft en dat het najagen van volledigheid tijd kost die de
+eindigheid juist vraagt te aanvaarden.
+- 77. Ikigai. *Ikigai* zoekt eveneens naar iets dat een leven compleet maakt,
+maar plaatst dat vinden in een gemeenschap in plaats van in een enkel passend
+stuk.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -32256,140 +34123,148 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `1906` 127 · `1937` 76 · `1938` 58 · `1952` 83 · `aandacht` 17, 34, 54, 70,
 71, 78, 141 · `aannames` 27 · `aanpassingsvermogen` 157 · `aantekeningen` 81 ·
 `aanwezigheid` 149 · `aarde` 92 · `academisch` 143 · `actueel` 67 ·
-`ademhaling` 87, 118 · `adviespraktijk` 151 · `affirmaties` 117 · `aforismen`
-2, 17 · `afwezige-vader` 4 · `alcohol` 4 · `alledaags` 89 · `ambacht` 6, 12,
-13, 17, 18 · `ambitie` 75 · `amerika` 114 · `amerikaans` 117, 118, 120, 132,
-133, 134, 136, 158 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140 ·
-`animatie` 41 · `Antarctica` 36 · `antwerpen` 113 · `apartheid` 26 · `Apple`
-46 · `arbeid` 6 · `argumenten` 63 · `armoede` 26 · `atletiek` 31 · `Auschwitz`
-48 · `autonomie` 6, 50 · `basisbehoeften` 107 · `bbc` 82 · `beginners` 112 ·
+`ademhaling` 87, 118 · `adviespraktijk` 151 · `affirmaties` 117 ·
+`afhankelijkheid` 167 · `aforismen` 2, 17 · `afwezige-vader` 4 · `alcohol` 4 ·
+`alledaags` 89 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 · `amerika` 114 ·
+`amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 · `Andalusië` 8 · `angst`
+53, 58, 107, 119, 131, 136, 140 · `animatie` 41 · `Antarctica` 36 ·
+`antwerpen` 113 · `apartheid` 26 · `Apple` 46 · `arbeid` 6 · `argumenten` 63 ·
+`armoede` 26 · `assertiviteit` 162 · `atletiek` 31 · `Auschwitz` 48 ·
+`autonomie` 6, 50 · `basisbehoeften` 107 · `bbc` 82 · `beginners` 112 ·
 `behoeften` 35 · `beinvloeding` 123, 126 · `bekentenis` 60 ·
 `belangenverstrengeling` 138 · `beleggen` 21, 64, 144 · `beleid` 65 ·
 `bemiddeling` 35 · `beroemdheden` 128 · `beschadigd-bestand` 115, 130 ·
 `beschaving` 57 · `beslissen` 55 · `besluiten` 47, 59, 69, 137 ·
-`besluitvorming` 151 · `bestseller` 8, 37 · `betekenis` 143 · `beurs` 80 ·
-`beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 · `bewustzijn` 148 ·
+`besluitvorming` 151, 166 · `bestseller` 8, 37 · `betekenis` 143 · `beurs` 80
+· `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 · `bewustzijn` 148 ·
 `bezit` 37 · `bijgeloof` 63 · `biografie` 31, 46 · `biologie` 66, 88, 89, 90,
 91 · `bloedvaten` 86 · `blokkade` 14 · `boeddhisme` 111 · `brainstormen` 33 ·
-`broers` 10 · `burn-out` 135 · `cafeïne` 52 · `Californië` 10 · `carrière`
-146, 158 · `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos` 74 ·
-`chapbook` 100 · `cijfers` 39, 65 · `cognitieve gedragstherapie` 147, 153 ·
-`cognitieve-bias` 59 · `columns` 89, 90 · `commando` 97 · `communicatie` 34,
-35, 122, 145, 152, 156 · `concentratie` 70 · `conditionering` 61 · `conflict`
-35, 42, 43 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74 · `crisis` 47 ·
-`cultuur` 68 · `cultuurkritiek` 54 · `cursus` 108, 130 · `cursus-in-wonderen`
-102, 131 · `dagboek` 2, 109 · `dagboekmethode` 78 · `dankbaarheid` 129 ·
+`broers` 10 · `budgetteren` 159 · `burn-out` 135 · `cafeïne` 52 · `Californië`
+10 · `carrière` 146, 158 · `cases` 40 · `cashflow` 37 · `challenger` 62 ·
+`chaos` 74 · `chapbook` 100 · `christendom` 162 · `cijfers` 39, 65 ·
+`coaching` 161 · `cognitieve gedragstherapie` 147, 153 · `cognitieve-bias` 59
+· `columns` 89, 90 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152,
+156, 162, 164 · `concentratie` 70 · `conditionering` 61 · `conflict` 35, 42,
+43 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74 · `crisis` 47 · `cultuur`
+68 · `cultuurkritiek` 54 · `cursus` 108, 130 · `cursus-in-wonderen` 102, 131 ·
+`dagboek` 2, 109 · `dagboekmethode` 78 · `dankbaarheid` 129 · `daten` 166 ·
 `debat` 28 · `dementie` 84, 85 · `democratie` 98 · `denkfouten` 55, 59, 142 ·
-`design thinking` 150 · `diagnose` 104 · `digitaal` 81 · `DISC` 156 ·
-`discipline` 12, 13, 22, 30, 106, 133, 137, 146 · `docenten` 116 · `doelen`
-58, 136, 158 · `doelgericht-oefenen` 50 · `donkere-triade` 124 · `dood` 98 ·
-`doorzetten` 20 · `dromen` 52 · `dummies` 112 · `durfkapitaal` 47 ·
-`duurzaamheid` 92 · `dystopie` 61 · `e-mail` 70 · `economie` 65, 98 ·
+`design thinking` 150 · `diagnose` 104 · `differentiatie` 165 · `digitaal` 81
+· `DISC` 156 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146 · `docenten`
+116 · `doelen` 58, 136, 158 · `doelgericht-oefenen` 50 · `donkere-triade` 124
+· `dood` 98 · `doorzetten` 20 · `dromen` 52 · `dummies` 112 · `durfkapitaal`
+47 · `duurzaamheid` 92 · `dystopie` 61 · `e-mail` 70 · `economie` 65, 98 ·
 `economische geschiedenis` 155 · `eenzaamheid` 7, 96, 98, 111 · `eerlijk` 47 ·
 `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149 · `eigen-beheer`
 107, 140, 142 · `eigen-oordeel` 58 · `eigenaarschap` 97 · `einstein` 94 ·
 `emotie` 137 · `emoties` 3, 43, 142, 147, 153 · `empathie` 35, 67 · `energie`
-92 · `epos` 5 · `erfenis` 39 · `erotiek` 113 · `essay` 3, 9, 21, 57, 59, 63,
-64, 68, 96 · `eten` 103 · `evolutie` 56, 66, 89, 90, 91 ·
+92 · `epos` 5 · `erfenis` 39 · `erotiek` 113, 164 · `essay` 3, 9, 21, 57, 59,
+63, 64, 68, 96 · `eten` 103 · `evolutie` 56, 66, 89, 90, 91 ·
 `evolutionaire-psychologie` 67 · `expeditie` 36 · `experiment` 79 · `fabel` 8,
-42, 135 · `falen` 23, 72, 75 · `familie` 45 · `familiegeschiedenis` 114 ·
+42, 135, 167 · `falen` 23, 72, 75 · `familie` 45 · `familiegeschiedenis` 114 ·
 `familieroman` 10 · `FBI` 154 · `feedback` 41 · `feiten` 43 · `feminisme` 3 ·
-`fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93 · `flow` 78 ·
-`frankrijk` 115 · `gaslighting` 123 · `gebed` 83 · `gedachten` 148 · `gedrag`
-21, 22, 89, 90, 138, 154 · `gedragstypen` 156 · `geduld` 21 · `geheugen` 66,
-85 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158 · `geloof` 45, 83 · `geluk`
-79, 93 · `gemeenschap` 9, 96 · `geneeskunde` 49 · `generaties` 114 ·
-`geschiedenis` 30, 36, 56, 57, 68, 93, 94 · `gesprek` 43, 95 · `gevolgen` 67 ·
-`geweld` 45, 90 · `gewicht` 138 · `gewoonte` 58, 70, 76, 77, 79, 88, 97, 103,
-133, 138 · `gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158 ·
-`gewoontevorming` 146 · `gezag` 62 · `gezondheid` 52, 88 · `ggz` 104 ·
-`grenzen` 72, 105, 109, 120, 122 · `grenzen stellen` 151 · `groeimentaliteit`
-116 · `grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80
-· `handelen` 30 · `handleiding` 112 · `hart` 86, 128 · `hechting` 145, 152 ·
-`heelal` 99 · `helderheid` 82 · `herhaling` 125, 134 · `herkomst` 127 ·
-`heroverwegen` 28 · `hersenen` 51, 84, 85, 86 · `herstel` 87 · `Holocaust` 48
-· `hormonen` 80 · `houding` 117 · `huisvesting` 65 · `humor` 16, 19, 26, 105 ·
-`huwelijk` 9, 34 · `Huxley` 54 · `hypnose` 123, 124, 125 · `Idaho` 45 ·
-`identiteit` 22, 115 · `identiteitskapitaal` 51 · `ierland` 110 · `ik-vorm`
-113 · `illustraties` 109 · `imitatie` 11 · `import` 20 · `individualisme` 9,
-96 · `innerlijk-kind` 109 · `instagram` 129 · `internet` 60 · `interview` 58 ·
-`intimiteit` 122, 145 · `introversie` 33 · `intuitie` 128 · `invloed` 11 ·
-`Italië` 155 · `jaloezie` 19 · `japan` 77 · `jaren-tachtig` 139 ·
-`jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren` 25 · `journaling` 147 ·
-`journalistiek` 4, 7, 46, 82 · `jung` 143 · `Kaïn-en-Abel` 10 · `kans` 64 ·
+`fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93 · `financiële
+geletterdheid` 163 · `flow` 78 · `frankrijk` 115 · `gaslighting` 123 · `gebed`
+83 · `gedachten` 148 · `gedrag` 21, 22, 89, 90, 138, 154 · `gedragspatronen`
+161 · `gedragstypen` 156 · `gedragswetenschap` 166 · `geduld` 21 ·
+`gehechtheid` 166 · `geheugen` 66, 85 · `geld` 21, 37, 38, 56, 76, 121, 132,
+133, 158, 159 · `geloof` 45, 83 · `geluk` 79, 93, 160 · `gemeenschap` 9, 96 ·
+`geneeskunde` 49 · `generaties` 114 · `geschiedenis` 30, 36, 56, 57, 68, 93,
+94 · `gesprek` 43, 95 · `gevolgen` 67 · `geweld` 45, 90 · `gewicht` 138 ·
+`gewoonte` 58, 70, 76, 77, 79, 88, 97, 103, 133, 138 · `gewoontes` 7, 11, 13,
+22, 25, 134, 135, 147, 157, 158 · `gewoontevorming` 146, 161 · `gezag` 62 ·
+`gezondheid` 52, 88 · `ggz` 104 · `grenzen` 72, 105, 109, 120, 122 · `grenzen
+stellen` 151 · `groeimentaliteit` 116 · `grondstoffen` 92 · `groot-verhaal` 56
+· `grootouders` 91 · `handel` 80 · `handelen` 30 · `handleiding` 112 · `hart`
+86, 128 · `hechting` 145, 152 · `heelal` 99 · `helderheid` 82 · `herhaling`
+125, 134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 ·
+`herstel` 87 · `Hinge` 166 · `Holocaust` 48 · `hormonen` 80 · `houding` 117 ·
+`huisvesting` 65 · `humor` 16, 19, 26, 105 · `huwelijk` 9, 34, 165 · `Huxley`
+54 · `hypnose` 123, 124, 125 · `Idaho` 45 · `identiteit` 22, 115 ·
+`identiteitskapitaal` 51 · `ierland` 110 · `ik-vorm` 113 · `illustraties` 109
+· `imitatie` 11 · `import` 20 · `India` 163 · `individualisme` 9, 96 ·
+`innerlijk-kind` 109 · `instagram` 129 · `internet` 60 · `interview` 58 ·
+`intimiteit` 122, 145, 164, 165 · `introversie` 33 · `intuitie` 128 ·
+`invloed` 11 · `Italië` 155 · `jaloezie` 19 · `japan` 77 · `jaren-tachtig` 139
+· `jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren` 25 · `journaling` 147
+· `journalistiek` 4, 7, 46, 82 · `jung` 143 · `Kaïn-en-Abel` 10 · `kans` 64 ·
 `kansen` 137 · `karakter` 97 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50
-· `keuzes` 51, 71, 72 · `kinderjaren` 152 · `klassieker` 10, 24, 38, 48, 61,
-83, 127, 135, 144 · `klein-beginnen` 40 · `kleine-stappen` 22, 133 · `korea`
-111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
-`kort-stuk` 19, 30 · `korte-teksten` 111 · `krijgsgevangenschap` 31 ·
-`kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 · `kwaliteit` 1 ·
-`kwetsbaarheid` 32, 44 · `landbouw` 56, 98 · `leefstijl` 86, 103, 138 ·
-`leger` 106 · `leiderschap` 36, 41, 44, 46, 97, 106, 157 · `leidinggeven` 156
-· `lesmateriaal` 116 · `leugendetectie` 154 · `levenskeuzes` 150 ·
-`levenskunst` 27 · `levensloop` 91 · `lezen` 18 · `lichaam` 80 ·
-`lichaamstaal` 125, 126, 154 · `liefde` 3, 131 · `lijden` 48, 73 · `literair`
-110 · `literatuur` 49 · `logotherapie` 48 · `Long-Island` 4 · `loopbaan` 50,
-51, 150 · `losmaken` 45 · `luisteren` 24, 35 · `machtsverhoudingen` 155 ·
-`management` 42, 47 · `manifesteren` 128, 129, 130, 131, 132 · `manipulatie`
-123, 124, 125, 126 · `mannelijkheid` 3 · `mannen` 7 · `marketing` 13, 40, 60 ·
-`media` 54, 60, 100 · `meditatie` 111, 141, 149 · `memoir` 4, 7, 18, 20, 26,
-45, 49, 62, 95, 106 · `menselijk gedrag` 155 · `mensenkennis` 126 · `mentale
-helderheid` 148 · `mentorschap` 4 · `metafysica` 102 · `meten` 69, 133 ·
-`methode` 81 · `microbedrijf` 40 · `middelbare-leeftijd` 7 · `minderheden` 68
-· `mindful` 103 · `mindfulness` 141, 147, 149 · `mindset` 146 · `modelleren`
-139 · `moed` 44 · `moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57, 67
-· `moreel` 36 · `motivatie` 117, 139, 146 · `motoren` 6 · `muziek` 17, 85 ·
-`mythologie` 73, 143 · `naslag` 99, 112 · `naslagwerk` 59 · `natuurkunde` 62,
-94 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106,
-107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113
-· `netwerken` 24 · `neurobiologie` 119 · `neurochirurgie` 49 ·
-`neurowetenschap` 52 · `new age` 149 · `NeXT` 46 · `nieuwe-gedachte` 127 ·
-`nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62 · `Nike` 20 · `nlp` 123, 125,
-139 · `Nobelprijs` 55 · `non-verbale communicatie` 154 · `observeren` 15 ·
-`ochtendroutine` 14, 134 · `oefenen` 29 · `oefening` 141 · `oefeningen` 15,
-35, 87, 103, 109, 118, 120, 122, 130 · `okinawa` 77 · `omgangsvormen` 24 ·
-`omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 ·
-`onbetrouwbaar` 123, 124, 125, 126 · `onbewezen` 127, 128, 129, 130, 131, 132,
-139 · `onbewuste` 16 · `onderbewuste` 124 · `onderbouwing` 87, 108, 117, 134,
-135, 136 · `ondernemen` 20, 39, 40, 47 · `ondernemerschap` 157 · `onderwijs`
-6, 23, 33, 45, 63, 65, 68, 116 · `onderwijskritiek` 37 · `onderzoek` 23, 28,
-29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152 ·
-`onderzoeksdebat` 53 · `onderzoekskritiek` 52 · `ontslagen` 47 ·
+· `keuzes` 51, 71, 72 · `kinderboek` 167 · `kinderjaren` 152 · `klassieker`
+10, 24, 38, 48, 61, 83, 127, 135, 144 · `klein-beginnen` 40 · `kleine-stappen`
+22, 133 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11,
+13, 16, 27, 38, 57 · `kort-stuk` 19, 30 · `korte-teksten` 111 ·
+`krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 ·
+`kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw` 56, 98 · `leefstijl` 86,
+103, 138 · `leger` 106 · `leiderschap` 36, 41, 44, 46, 97, 106, 157 ·
+`leidinggeven` 156 · `lesmateriaal` 116 · `leugendetectie` 154 ·
+`levenskeuzes` 150 · `levenskunst` 27 · `levensloop` 91 · `lezen` 18 ·
+`lichaam` 80 · `lichaamstaal` 125, 126, 154 · `liefde` 3, 131, 160 · `lijden`
+48, 73, 160 · `literair` 110 · `literatuur` 49 · `logotherapie` 48 ·
+`Long-Island` 4 · `loopbaan` 50, 51, 150 · `losmaken` 45 · `luisteren` 24, 35
+· `machtsverhoudingen` 155 · `management` 42, 47 · `manifesteren` 128, 129,
+130, 131, 132 · `manipulatie` 123, 124, 125, 126 · `mannelijkheid` 3 ·
+`mannen` 7 · `marketing` 13, 40, 60 · `media` 54, 60, 100 · `meditatie` 111,
+141, 149 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106 · `menselijk gedrag`
+155 · `mensenkennis` 126 · `mentale helderheid` 148 · `mentorschap` 4 ·
+`metafysica` 102 · `meten` 69, 133 · `methode` 81 · `microbedrijf` 40 ·
+`middelbare-leeftijd` 7 · `millennials` 159 · `minderheden` 68 · `mindful` 103
+· `mindfulness` 141, 147, 149 · `mindset` 146 · `modelleren` 139 · `moed` 44 ·
+`moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57, 67 · `moreel` 36 ·
+`motivatie` 117, 139, 146 · `motoren` 6 · `muziek` 17, 85 · `mythologie` 73,
+143 · `naslag` 99, 112 · `naslagwerk` 59 · `natuurkunde` 62, 94 · `nederland`
+96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128,
+130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `netwerken`
+24 · `neurobiologie` 119 · `neurochirurgie` 49 · `neurowetenschap` 52 · `new
+age` 149 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
+`nieuwsgierigheid` 15, 28, 62 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs`
+55 · `non-verbale communicatie` 154 · `observeren` 15 · `ochtendroutine` 14,
+134 · `oefenen` 29 · `oefening` 141 · `oefeningen` 15, 35, 87, 103, 109, 118,
+120, 122, 130 · `okinawa` 77 · `omgangsvormen` 24 · `omkering` 105 ·
+`omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
+124, 125, 126 · `onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16
+· `onderbewuste` 124 · `onderbouwing` 87, 108, 117, 134, 135, 136 ·
+`onderhandelen` 159 · `ondernemen` 20, 39, 40, 47 · `ondernemerschap` 157, 163
+· `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116 · `onderwijskritiek` 37 ·
+`onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88,
+152 · `onderzoeksdebat` 53 · `onderzoekskritiek` 52 · `ontslagen` 47 ·
 `ontwikkeling` 46, 85 · `oordeel` 59, 69 · `oorlog` 31, 57, 66 · `opdrachten`
-116 · `opgetekend` 97 · `opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73 ·
-`orde` 73, 74 · `organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 ·
+116 · `opgetekend` 97 · `opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73, 162
+· `orde` 73, 74 · `organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 ·
 `ouderdom` 77, 84, 91, 95 · `oudheid` 2 · `overdenken` 148 · `overleven` 31,
 36 · `overlevingsvertekening` 64 · `overtuigen` 24 · `overtuigingen` 28, 132,
 139, 143 · `overvloed` 17 · `Pacific` 31 · `para` 81 · `parabel` 38 · `passie`
 50 · `pastoraat` 34 · `patriarchaat` 3 · `pelgrimage` 8 · `perceptie` 30 ·
-`perfectionisme` 19, 32, 44 · `persoonlijkheid` 33 · `piekeren` 105 · `pijn`
-85 · `Pixar` 41, 46 · `planeten` 99 · `planning` 70 · `plicht` 2 · `podcast`
-136 · `poker` 137 · `polemiek` 67 · `politiek` 54 · `populair` 77, 129, 133 ·
+`perfectionisme` 19, 32, 44 · `persoonlijke financiën` 163 · `persoonlijke
+ontwikkeling` 161 · `persoonlijkheid` 33 · `piekeren` 105 · `pijn` 85 ·
+`Pixar` 41, 46 · `planeten` 99 · `planning` 70 · `plicht` 2 · `podcast` 136 ·
+`poker` 137 · `polemiek` 67 · `politiek` 54 · `populair` 77, 129, 133 ·
 `populair-wetenschappelijk` 88 · `populaire psychologie` 156 · `portretten`
-75, 94 · `positief-denken` 83 · `postuum` 49 · `praktisch` 118, 121, 140 ·
-`presenteren` 82 · `preventie` 86 · `prijzen` 23 · `prikkels` 60, 65 ·
-`prioriteiten` 25 · `prioriteren` 151 · `proactief` 25 · `producer` 17 ·
-`productiviteit` 151 · `proeven` 112 · `projecten` 81 · `projectie` 107, 108 ·
-`propaganda` 60 · `protocol` 69 · `pseudokennis` 126 · `psychiatrie` 1, 48,
-95, 96, 104 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147,
-152, 154 · `publiceren` 13 · `Pulitzer` 5 · `quantum` 94 · `quilten` 114 ·
-`rechtspraak` 69 · `reeks` 114 · `reisverhaal` 1 · `relaties` 34, 51, 101,
-120, 122, 145, 152 · `religie` 56 · `REM` 52 · `Renaissance` 15 · `rente` 38 ·
-`replicatie` 79 · `revisie` 18 · `rijkdom` 57 · `risico` 64, 80, 144 ·
-`roeping` 8, 9, 12 · `roman` 61, 113, 114, 115 · `rouw` 95 · `rust` 32 ·
-`Salinas` 10 · `samenleving` 90, 98 · `samenwerken` 25 · `satire` 155 ·
+75, 94 · `positief-denken` 83 · `postuum` 49 · `praktisch` 118, 121, 140, 159
+· `prentenboek` 167 · `presenteren` 82 · `preventie` 86 · `prijzen` 23 ·
+`prikkels` 60, 65 · `prioriteiten` 25 · `prioriteren` 151 · `proactief` 25 ·
+`producer` 17 · `productiviteit` 151 · `proeven` 112 · `projecten` 81 ·
+`projectie` 107, 108 · `propaganda` 60 · `protocol` 69 · `pseudokennis` 126 ·
+`psychiatrie` 1, 48, 95, 96, 104 · `psychologie` 23, 28, 29, 55, 73, 78, 79,
+105, 138, 143, 147, 152, 154, 162 · `psychotherapie` 164 · `publiceren` 13 ·
+`Pulitzer` 5 · `quantum` 94 · `quilten` 114 · `rechtspraak` 69 · `reeks` 114 ·
+`reisverhaal` 1 · `relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166,
+167 · `relatietherapie` 165 · `religie` 56 · `REM` 52 · `Renaissance` 15 ·
+`rente` 38 · `replicatie` 79 · `revisie` 18 · `rijkdom` 57 · `risico` 64, 80,
+144 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115 · `rouw` 95 · `rust`
+32 · `Salinas` 10 · `samenleving` 90, 98 · `samenwerken` 25 · `satire` 155 ·
 `scepsis` 63 · `schaamte` 32, 44 · `schaarste` 92 · `scheikunde` 92 · `school`
-53, 84 · `schrijven` 11, 12, 14, 18, 19, 81 · `schulden` 20, 38, 121 ·
-`seksualiteit` 100, 145 · `seminar` 139 · `slaap` 52, 87, 88 · `slavernij` 68
-· `smartphone` 53 · `sociale-media` 53, 70 · `somberheid` 119 · `spanning` 101
-· `sparen` 21, 38 · `spelen` 32 · `spiegelogie` 108 · `spiritualiteit` 8, 14,
-27, 102, 108, 141, 149 · `sport` 20 · `spreker` 117, 134 · `Stanford` 150 ·
-`statistiek` 55, 65, 69 · `status` 39, 66 · `sterfelijkheid` 2, 71 ·
-`sterrenkunde` 99 · `sterven` 49, 95 · `stijl` 18 · `stoicijns` 75, 140, 142 ·
-`stoïcijnse filosofie` 153 · `stoïcisme` 2, 30 · `stommiteit` 155 · `streken`
-112 · `stress` 80, 87, 106, 118 · `stressmanagement` 153 · `structuur` 82 ·
-`succes` 75, 76 · `systeem` 22, 142 · `taal` 26, 27 · `talent` 23, 29 ·
-`tarieven` 121 · `team` 42 · `teamwork` 156 · `techniek` 1, 6, 43, 61, 92 ·
+53, 84 · `schrijven` 11, 12, 14, 18, 19, 81 · `schulden` 20, 38, 121, 159 ·
+`seksualiteit` 100, 145, 164, 165 · `seminar` 139 · `slaap` 52, 87, 88 ·
+`slavernij` 68 · `smartphone` 53 · `sociale-media` 53, 70 · `somberheid` 119 ·
+`spanning` 101 · `sparen` 21, 38, 159 · `spelen` 32 · `spiegelogie` 108 ·
+`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160 · `sport` 20 · `spreker`
+117, 134 · `Stanford` 150 · `statistiek` 55, 65, 69 · `status` 39, 66 ·
+`sterfelijkheid` 2, 71 · `sterrenkunde` 99 · `sterven` 49, 95 · `stijl` 18 ·
+`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153 · `stoïcisme` 2, 30 ·
+`stommiteit` 155 · `streken` 112 · `stress` 80, 87, 106, 118 ·
+`stressmanagement` 153 · `structuur` 82 · `succes` 75, 76 · `systeem` 22, 142
+· `systeemtheorie` 165 · `taal` 26, 27 · `talent` 23, 29 · `tarieven` 121 ·
+`team` 42 · `teamwork` 156 · `techniek` 1, 6, 43, 61, 92 · `technologie` 160 ·
 `tegen-productiviteit` 71 · `tegenslag` 30, 111 · `tekenen` 15 ·
 `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `Texas` 5 ·
 `therapie` 51, 107, 118, 119, 120, 121, 122, 145 · `thriller` 101 · `tijd` 71
@@ -32403,26 +34278,27 @@ helderheid` 148 · `mentorschap` 4 · `metafysica` 102 · `meten` 69, 133 ·
 `verantwoordelijkheid` 42, 72, 73, 74, 93 · `verdriet` 111 · `vergaderen` 42 ·
 `vergeving` 31, 102, 120 · `verhaal` 74 · `verhaalvorm` 135 · `verhalen` 56,
 101, 110, 136 · `verhouding` 113 · `verhoudingen` 110 · `verklaringen` 68 ·
-`verkoop` 132 · `verlangen` 76, 100, 113, 130 · `verlies` 95 · `vermaak` 61 ·
-`vermogen` 39 · `verplichting` 9 · `verslaving` 18 · `vertrouwen` 42 ·
-`vervolg` 74, 131 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding`
-86, 88 · `volharding` 29 · `voorbeelden` 128 · `voorbereiding` 82 ·
-`voorkeuren` 89 · `vooroordelen` 55 · `vriendschap` 5, 7, 114 · `vrije-tijd`
-78 · `vrije-wil` 10 · `vrijheid` 61 · `vrouwenhaat` 110 · `waardebeleggen` 144
-· `waarden` 72, 142 · `waardering` 24, 34 · `waarneming` 154 · `wall-street`
-144 · `weerstand` 12 · `werk` 70, 78, 151 · `werkboek` 14, 122, 150 ·
-`werkplek` 33, 43 · `werkwijze` 16 · `West-Point` 29 · `westen` 67 · `western`
-5 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94 · `wijn` 112 ·
-`wiskunde` 116 · `woede` 119, 120 · `woestijn` 8 · `wraak` 101 · `zeereis` 36
-· `zeldzaam` 144 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129,
-138 · `zelfbeheersing` 75, 148 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158
-· `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
-148, 149, 150, 151, 152, 153, 156, 157, 158 · `zelfregulatie` 153 · `zelfspot`
-19 · `zelfstandig` 40 · `zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125,
-126 · `zelfvertrouwen` 157 · `zelfwaardering` 121 · `zelfzorg` 109 · `zen` 141
-· `zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74 · `zingeving` 9, 48,
-77, 91 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 ·
-`zwaar` 143 · `zwarte-gaten` 99
+`verkoop` 132 · `verlangen` 76, 100, 113, 130, 164 · `verlies` 95 · `vermaak`
+61 · `vermogen` 39 · `vermogensopbouw` 163 · `verplichting` 9 · `verslaving`
+18 · `vertrouwen` 42 · `vervolg` 74, 131 · `visualiseren` 116 · `vlaams` 89,
+91, 98, 109 · `voeding` 86, 88 · `volharding` 29 · `volledigheid` 167 ·
+`voorbeelden` 128 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55 ·
+`vriendschap` 5, 7, 114 · `vrije-tijd` 78 · `vrije-wil` 10 · `vrijheid` 61 ·
+`vrouwenhaat` 110 · `waardebeleggen` 144 · `waarden` 72, 142 · `waardering`
+24, 34 · `waarneming` 154 · `wall-street` 144 · `weerstand` 12 · `werk` 70,
+78, 151 · `werkboek` 14, 122, 150 · `werkplek` 33, 43 · `werkwijze` 16 ·
+`West-Point` 29 · `westen` 67 · `western` 5 · `wet-van-aantrekking` 127 ·
+`wetenschap` 63, 66, 93, 94 · `wijn` 112 · `wiskunde` 116 · `woede` 119, 120 ·
+`woestijn` 8 · `wraak` 101 · `zeereis` 36 · `zeldzaam` 144 · `zelfbedrog` 66 ·
+`zelfbeeld` 25, 27, 105, 107, 108, 129, 138 · `zelfbeheersing` 75, 148 ·
+`zelfcompassie` 32 · `zelfdiscipline` 2, 158 · `zelfhulp` 15, 22, 25, 34, 58,
+72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152, 153,
+156, 157, 158, 161, 162, 166 · `zelfpraat` 161 · `zelfregulatie` 153, 165 ·
+`zelfsabotage` 161 · `zelfspot` 19 · `zelfstandig` 40 · `zelfsturing` 142 ·
+`zelfuitgegeven` 123, 124, 125, 126 · `zelfvertrouwen` 157 · `zelfwaardering`
+121 · `zelfzorg` 109 · `zen` 141 · `zenuwstelsel` 87 · `zeven-stappen` 129 ·
+`ziekte` 74 · `zingeving` 9, 48, 77, 91, 160 · `zitten` 84 · `zorg` 96 ·
+`Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwarte-gaten` 99
 
 ## Leesroutes
 
