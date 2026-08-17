@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 17
-augustus 2026: 157 titels in 18 rubrieken.
+augustus 2026: 158 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -19,7 +19,7 @@ bij de volgende build verloren.
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158 |
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144 |
@@ -32026,6 +32026,229 @@ onderbouwing kleeft.
 druk zijn gedrag stuurt, het thema dat Khans pijler Behave slechts kort
 aanstipt.
 
+## 158. No Excuses!
+
+Brian Tracy, 2010. Oorspronkelijk *No Excuses! The Power of Self-Discipline*
+(Vanguard Press, 2010). Nederlands als *No Excuses! De kracht van
+zelfdiscipline*, sinds 2024 bij Kosmos Uitgevers (304 blz., ISBN
+9789043935555); noch de uitgever noch de catalogus noemt daar een vertaler
+bij. Rubriek: gewoontes en denken.
+Tags: `zelfdiscipline`, `zelfhulp`, `gewoontes`, `doelen`, `geld`, `carrière`,
+`amerikaans`
+
+Tracy behandelt zelfdiscipline als de vaardigheid die alle andere vaardigheden
+draagt: het vermogen te doen wat nodig is, ongeacht de zin die je erin hebt op
+dat moment. Het boek is verdeeld in eenentwintig hoofdstukken die telkens
+hetzelfde stramien volgen, zelfdiscipline toegepast op weer een ander terrein:
+karakter, doelen, moed, werk, leiderschap, verkoop, geld, tijdmanagement,
+gezondheid, huwelijk, kinderen, vriendschap en gemoedsrust. Elk hoofdstuk
+sluit af met een korte oefening. Als bewijs voor zijn stelling dat succes
+voorspelbaar is, leunt Tracy vooral op zijn eigen levensverhaal: hij haalde
+geen middelbareschooldiploma, werkte als bouwvakker en later als verkoper, en
+bouwde daarna een trainingsbedrijf op dat in tientallen landen actief werd.
+Daarnaast citeert hij het onderzoek van Thomas Stanley en William Danko onder
+Amerikaanse miljonairs, en de wet van oorzaak en gevolg, die hij presenteert
+als een vaste natuurwet: wie doet wat succesvolle mensen doen, boekt op
+termijn dezelfde uitkomst.
+
+De herhaling van het stramien maakt het boek voorspelbaar om te lezen: wie één
+hoofdstuk kent, kent de opbouw van de overige twintig. Een aantal technieken
+keert terug in verschillende gedaanten, zoals het wedge-principe om de helft
+van elke inkomensstijging opzij te zetten, en het advies om in de top twintig
+procent van het eigen vakgebied te komen, ontleend aan het principe van
+Pareto. Wat ontbreekt is onderbouwing die verder gaat dan overtuiging en
+anekdote: het boek citeert cijfers waar die het argument steunen, maar toetst
+de eigen aanpak nergens aan een controlegroep of een vervolgmeting bij lezers
+die de oefeningen daadwerkelijk deden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tracy stelt dat zelfdiscipline de vaardigheid is die alle
+andere vaardigheden draagt, en dat mensen die veel bereiken zich onderscheiden
+door dagelijks te kiezen voor wat nodig is boven wat aangenaam is. Volgens hem
+is die keuze aan te leren door haar te blijven herhalen, op elk gebied van het
+leven tegelijk: geld, werk, gezondheid, relaties. Zijn scherpste claim is dat
+succes daardoor voorspelbaar wordt, een kwestie van de juiste oorzaken
+herhalen tot het gevolg zich voordoet, wat weinig ruimte laat voor toeval of
+omstandigheden.
+
+#### De gang van het boek
+
+**Drie delen, eenentwintig hoofdstukken**
+
+Het boek volgt een vaste driedeling. Het eerste deel gaat over persoonlijk
+succes en behandelt karakter, verantwoordelijkheid, doelen, persoonlijke
+uitmuntendheid, moed en doorzettingsvermogen. Het tweede deel past
+zelfdiscipline toe op werk, leiderschap, het runnen van een bedrijf, verkoop,
+geld, tijdmanagement en probleemoplossing. Het derde deel gaat over wat Tracy
+het goede leven noemt: geluk, gezondheid, fitheid, huwelijk, kinderen,
+vriendschap en gemoedsrust.
+
+Elk hoofdstuk is opgebouwd rond dezelfde formule, zelfdiscipline en een
+onderwerp, en sluit af met concrete stappen die de lezer die dag nog kan
+zetten. Die herhaling is bedoeld als methode: het boek is zo ontworpen dat er
+dagelijks één hoofdstuk te lezen is.
+
+**De wet van oorzaak en gevolg**
+
+De basis van het eerste hoofdstuk is wat Tracy de wet van oorzaak en gevolg
+noemt: voor elk gevolg bestaat een specifieke oorzaak of reeks oorzaken, en
+wie dezelfde oorzaken herhaalt als succesvolle mensen, bereikt op termijn
+dezelfde uitkomst. Hij noemt dit zijn IJzeren Wet van het Universum en
+verbindt haar aan de bijbelse regel dat een mens oogst wat hij zaait.
+
+Aan die wet koppelt hij het principe van Pareto: twintig procent van de mensen
+verdient tachtig procent van het geld. Zijn advies is concreet: bepaal als
+eerste doel dat je tot de twintig procent van je vakgebied gaat behoren die
+het meeste verdient.
+
+**Zelfdiscipline als gewoonte**
+
+Tracy opent met een definitie die hij ontleent aan de Amerikaanse schrijver
+Elbert Hubbard: zelfdiscipline is het vermogen te doen wat je moet doen,
+wanneer je het moet doen, of je er zin in hebt of niet. Hij gebruikt daarnaast
+de verwante termen zelfmeesterschap, zelfbeheersing en zelfverloochening,
+zonder ze scherp van elkaar te onderscheiden.
+
+Zijn punt is dat deze eigenschap als een spier werkt: elke keer dat iemand de
+moeilijkere keuze maakt boven de makkelijkere, wordt de volgende keer
+eenvoudiger. Bewijs voor dat mechanisme levert hij niet; de aanname staat aan
+het begin van het boek en wordt daarna als gegeven behandeld.
+
+**Toepassing op geld**
+
+In het hoofdstuk over geld werkt Tracy twee regels uit. De eerste is de
+1-procentformule: wie moeite heeft met sparen, begint met één procent van het
+inkomen opzij te zetten en leeft van de rest, en verhoogt dat percentage zodra
+het went. De tweede is het wedge-principe: spaar de helft van elke
+inkomensstijging, zodat het leven geleidelijk welvarender wordt zonder dat de
+uitgaven even hard meegroeien als het inkomen.
+
+Beide regels zijn eenvoudig te volgen en vragen geen voorkennis van beleggen
+of financiële planning. Ze zeggen weinig over mensen voor wie een vast inkomen
+of een regelmatige inkomensstijging niet vanzelfsprekend is.
+
+**Toepassing op werk en carrière**
+
+In de hoofdstukken over werk, leiderschap, verkoop en tijdmanagement herhaalt
+Tracy zijn kernpatroon: benoem het gedrag van mensen die al succesvol zijn in
+het vakgebied, en herhaal dat gedrag tot het een gewoonte wordt. Voor
+tijdmanagement luidt de aanbeveling dat de belangrijkste taak van de dag als
+eerste wordt gedaan, ook als die het minst aantrekkelijk is.
+
+**Toepassing op het persoonlijke leven**
+
+In het derde deel verschuift de toon van carrière naar de rest van het leven.
+Bij gezondheid en fitheid gaat het om vaste gewoontes rond voeding en
+beweging, bij huwelijk en kinderen om aandacht en het nakomen van beloftes,
+bij vriendschap om anderen het gevoel te geven dat ze ertoe doen. Het
+slothoofdstuk over gemoedsrust gaat onder meer over het loslaten van het
+gelijk willen hebben en het vergeven van anderen; Tracy noemt dat laatste
+zelfgericht, omdat wrok volgens hem vooral degene beschadigt die hem
+vasthoudt.
+
+**Aangehaalde denkers en voorbeelden**
+
+Naast zijn eigen ervaring citeert Tracy kortere bronnen die hij niet
+uitgebreid toelicht. Hij noemt Kop Kopmeyer, een schrijver die naar eigen
+zeggen duizend succesprincipes verzamelde, en Herbert Gray, een zakenman die
+onderzoek deed naar wat hij de gemeenschappelijke noemer van succes noemde.
+Beide verwijzingen blijven bij de naam en de vondst, zonder dat het boek laat
+zien hoe dat onderzoek tot stand kwam.
+
+**Tracy's eigen verhaal als bewijs**
+
+Door het hele boek heen keert Tracy's eigen biografie terug als illustratie:
+geen middelbareschooldiploma, werk als ongeschoold arbeider, en later de
+opbouw van vijfenzestig Suzuki-dealerships met een omzet van vijfentwintig
+miljoen dollar aan voertuigen. Daarna volgde een trainingsbedrijf dat volgens
+het boek in tientallen landen actief werd.
+
+Daarnaast verwijst hij naar het onderzoek van Thomas Stanley en William Danko
+onder Amerikaanse miljonairs, waarin harder werken door de ondervraagden zelf
+vaker als verklaring voor hun rijkdom werd genoemd dan opleiding of aangeboren
+talent, en naar bekende ondernemers als Bill Gates en Warren Buffett als
+voorbeelden van doorzettingsvermogen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zelfdiscipline | Het vermogen te doen wat je moet doen, wanneer je het moet doen, of je er zin in hebt of niet, in Tracy's definitie ontleend aan Elbert Hubbard. |
+| Wet van oorzaak en gevolg | Voor elk gevolg bestaat een specifieke oorzaak; wie de oorzaken herhaalt die succesvolle mensen toepassen, krijgt volgens Tracy hetzelfde gevolg. |
+| Pareto-principe | Twintig procent van de mensen verdient tachtig procent van het geld; Tracy's advies is om tot die twintig procent te gaan behoren. |
+| Wedge-principe | Spaar de helft van elke inkomensstijging, zodat vermogen groeit zonder dat de levensstijl meteen meegroeit met het inkomen. |
+| 1-procentformule | Begin met sparen van één procent van het inkomen en verhoog dat percentage geleidelijk zodra het went. |
+| Zelfmeesterschap | Verwant begrip dat Tracy naast zelfdiscipline gebruikt voor de heerschappij over de eigen impulsen. |
+| Zelfverloochening | Het opzij zetten van een onmiddellijke behoefte ten gunste van een doel dat later resultaat oplevert. |
+| Zelfbeheersing | Beheersing van emoties en directe reacties op het moment zelf, door Tracy als voorwaarde voor discipline genoemd. |
+
+#### Waar het argument op rust
+
+Het sterkste deel van de onderbouwing is Tracy's eigen levensloop: een
+carrière die van ongeschoold werk naar een internationaal trainingsbedrijf
+liep, wordt in het boek herhaaldelijk als illustratie gebruikt van wat
+discipline en herhaling kunnen opleveren. Daarnaast citeert hij het onderzoek
+van Thomas Stanley en William Danko onder een grote groep Amerikaanse
+miljonairs, waarin harder werken door de respondenten zelf vaker als
+verklaring werd genoemd dan opleiding of aangeboren talent.
+
+Verder dan dat komt de onderbouwing zelden. Het boek noemt geen methodologie
+en geen jaartallen van de aangehaalde onderzoeken buiten het werk van Stanley
+en Danko, en geen tegenvoorbeelden. De voorbeelden van rijke en beroemde
+mensen zijn stuk voor stuk mensen die al succesvol waren voordat het boek
+verscheen, waardoor de redenering vooral van uitkomst naar verklaring werkt en
+zelden andersom getoetst wordt.
+
+#### Wat er tegen in te brengen valt
+
+De belangrijkste zwakte zit in de vorm zelf. Eenentwintig hoofdstukken volgens
+hetzelfde stramien geven het boek een herhalende toon, en de diepgang per
+onderwerp blijft daardoor beperkt: geen van de eenentwintig terreinen krijgt
+meer dan enkele bladzijden aan onderbouwing die verder gaat dan raad en
+anekdote.
+
+De voorbeelden van succesvolle mensen zijn typerend voor wat in de psychologie
+overlevingsvertekening heet: alleen wie slaagde is zichtbaar, terwijl de
+mensen die dezelfde discipline toepasten en niet slaagden in het boek
+ontbreken. Tracy schreef tientallen vergelijkbare titels over succes, verkoop
+en tijdmanagement en herhaalt daarin geregeld dezelfde technieken, waardoor
+wie dit boek kent al grote delen van zijn andere werk kent.
+
+De titel belooft dat er geen excuses meer overblijven zodra iemand zich aan de
+methode houdt, maar het boek besteedt nergens aandacht aan verschillen in
+vertrekpositie, zoals armoede, ziekte of discriminatie, die de uitkomst van
+dezelfde discipline tussen mensen uiteen kunnen laten lopen. De belofte dat
+succes voorspelbaar wordt, gaat aan die verschillen voorbij.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf voor elk van de drie levensgebieden, persoonlijk, werk en privé, één
+gewoonte op die vandaag kan beginnen.
+- Begin bij sparen met een klein, vol te houden percentage van het inkomen en
+verhoog dat pas als het went.
+- Doe de belangrijkste taak van de dag als eerste, ook als een andere taak
+aantrekkelijker lijkt.
+- Leg bij een inkomensstijging vooraf vast welk deel gespaard blijft, voordat
+het bedrag op de rekening staat.
+- Noteer welk excuus het vaakst terugkeert bij een gewoonte die niet lukt, en
+vervang dat excuus door de eerste concrete handeling die er tegenin gaat.
+
+#### Wat je hierna leest
+
+- 22. Atomic Habits. Clear werkt uit hoe een gewoonte concreet wordt opgebouwd
+via aanwijzing, verlangen, reactie en beloning, waar Tracy vooral bij
+herhaling en wilskracht blijft.
+- 133. The Compound Effect. Hardy beschrijft hetzelfde mechanisme van kleine
+herhaalde keuzes, verschenen bij dezelfde uitgever in hetzelfde jaar, met meer
+nadruk op het bijhouden van eigen gedrag.
+- 59. The Art of Thinking Clearly. Dobelli beschrijft overlevingsvertekening
+als denkfout, precies het patroon waarop Tracy's voorbeelden van geslaagde
+ondernemers leunen.
+- 157. You Don't Need Luck You Need B.A.B.A.. Khan stelt een vergelijkbare
+vraag over geluk tegenover discipline, en formuleert zijn claim voorzichtiger
+dan Tracy's belofte dat succes voorspelbaar is.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -32036,7 +32259,7 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `ademhaling` 87, 118 · `adviespraktijk` 151 · `affirmaties` 117 · `aforismen`
 2, 17 · `afwezige-vader` 4 · `alcohol` 4 · `alledaags` 89 · `ambacht` 6, 12,
 13, 17, 18 · `ambitie` 75 · `amerika` 114 · `amerikaans` 117, 118, 120, 132,
-133, 134, 136 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140 ·
+133, 134, 136, 158 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140 ·
 `animatie` 41 · `Antarctica` 36 · `antwerpen` 113 · `apartheid` 26 · `Apple`
 46 · `arbeid` 6 · `argumenten` 63 · `armoede` 26 · `atletiek` 31 · `Auschwitz`
 48 · `autonomie` 6, 50 · `basisbehoeften` 107 · `bbc` 82 · `beginners` 112 ·
@@ -32048,97 +32271,97 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 · `bewustzijn` 148 ·
 `bezit` 37 · `bijgeloof` 63 · `biografie` 31, 46 · `biologie` 66, 88, 89, 90,
 91 · `bloedvaten` 86 · `blokkade` 14 · `boeddhisme` 111 · `brainstormen` 33 ·
-`broers` 10 · `burn-out` 135 · `cafeïne` 52 · `Californië` 10 · `carrière` 146
-· `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos` 74 · `chapbook` 100 ·
-`cijfers` 39, 65 · `cognitieve gedragstherapie` 147, 153 · `cognitieve-bias`
-59 · `columns` 89, 90 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152,
-156 · `concentratie` 70 · `conditionering` 61 · `conflict` 35, 42, 43 ·
-`creativiteit` 11, 12, 13, 14, 15, 16, 17, 74 · `crisis` 47 · `cultuur` 68 ·
-`cultuurkritiek` 54 · `cursus` 108, 130 · `cursus-in-wonderen` 102, 131 ·
-`dagboek` 2, 109 · `dagboekmethode` 78 · `dankbaarheid` 129 · `debat` 28 ·
-`dementie` 84, 85 · `democratie` 98 · `denkfouten` 55, 59, 142 · `design
-thinking` 150 · `diagnose` 104 · `digitaal` 81 · `DISC` 156 · `discipline` 12,
-13, 22, 30, 106, 133, 137, 146 · `docenten` 116 · `doelen` 58, 136 ·
-`doelgericht-oefenen` 50 · `donkere-triade` 124 · `dood` 98 · `doorzetten` 20
-· `dromen` 52 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 ·
-`dystopie` 61 · `e-mail` 70 · `economie` 65, 98 · `economische geschiedenis`
-155 · `eenzaamheid` 7, 96, 98, 111 · `eerlijk` 47 · `eerlijkheid` 62 ·
-`eerste-versie` 19 · `ego` 75, 102, 149 · `eigen-beheer` 107, 140, 142 ·
-`eigen-oordeel` 58 · `eigenaarschap` 97 · `einstein` 94 · `emotie` 137 ·
-`emoties` 3, 43, 142, 147, 153 · `empathie` 35, 67 · `energie` 92 · `epos` 5 ·
-`erfenis` 39 · `erotiek` 113 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96 ·
-`eten` 103 · `evolutie` 56, 66, 89, 90, 91 · `evolutionaire-psychologie` 67 ·
-`expeditie` 36 · `experiment` 79 · `fabel` 8, 42, 135 · `falen` 23, 72, 75 ·
-`familie` 45 · `familiegeschiedenis` 114 · `familieroman` 10 · `FBI` 154 ·
-`feedback` 41 · `feiten` 43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 ·
-`filosofie` 1, 6, 71, 93 · `flow` 78 · `frankrijk` 115 · `gaslighting` 123 ·
-`gebed` 83 · `gedachten` 148 · `gedrag` 21, 22, 89, 90, 138, 154 ·
-`gedragstypen` 156 · `geduld` 21 · `geheugen` 66, 85 · `geld` 21, 37, 38, 56,
-76, 121, 132, 133 · `geloof` 45, 83 · `geluk` 79, 93 · `gemeenschap` 9, 96 ·
-`geneeskunde` 49 · `generaties` 114 · `geschiedenis` 30, 36, 56, 57, 68, 93,
-94 · `gesprek` 43, 95 · `gevolgen` 67 · `geweld` 45, 90 · `gewicht` 138 ·
-`gewoonte` 58, 70, 76, 77, 79, 88, 97, 103, 133, 138 · `gewoontes` 7, 11, 13,
-22, 25, 134, 135, 147, 157 · `gewoontevorming` 146 · `gezag` 62 · `gezondheid`
-52, 88 · `ggz` 104 · `grenzen` 72, 105, 109, 120, 122 · `grenzen stellen` 151
-· `groeimentaliteit` 116 · `grondstoffen` 92 · `groot-verhaal` 56 ·
-`grootouders` 91 · `handel` 80 · `handelen` 30 · `handleiding` 112 · `hart`
-86, 128 · `hechting` 145, 152 · `heelal` 99 · `helderheid` 82 · `herhaling`
-125, 134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 ·
-`herstel` 87 · `Holocaust` 48 · `hormonen` 80 · `houding` 117 · `huisvesting`
-65 · `humor` 16, 19, 26, 105 · `huwelijk` 9, 34 · `Huxley` 54 · `hypnose` 123,
-124, 125 · `Idaho` 45 · `identiteit` 22, 115 · `identiteitskapitaal` 51 ·
-`ierland` 110 · `ik-vorm` 113 · `illustraties` 109 · `imitatie` 11 · `import`
-20 · `individualisme` 9, 96 · `innerlijk-kind` 109 · `instagram` 129 ·
-`internet` 60 · `interview` 58 · `intimiteit` 122, 145 · `introversie` 33 ·
-`intuitie` 128 · `invloed` 11 · `Italië` 155 · `jaloezie` 19 · `japan` 77 ·
-`jaren-tachtig` 139 · `jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren`
-25 · `journaling` 147 · `journalistiek` 4, 7, 46, 82 · `jung` 143 ·
-`Kaïn-en-Abel` 10 · `kans` 64 · `kansen` 137 · `karakter` 97 · `keegan` 110 ·
-`kennis` 81 · `kenniswerk` 6, 50 · `keuzes` 51, 71, 72 · `kinderjaren` 152 ·
-`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144 · `klein-beginnen` 40 ·
-`kleine-stappen` 22, 133 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 ·
-`kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 · `korte-teksten` 111
-· `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 ·
-`kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw` 56, 98 · `leefstijl` 86,
-103, 138 · `leger` 106 · `leiderschap` 36, 41, 44, 46, 97, 106, 157 ·
-`leidinggeven` 156 · `lesmateriaal` 116 · `leugendetectie` 154 ·
-`levenskeuzes` 150 · `levenskunst` 27 · `levensloop` 91 · `lezen` 18 ·
-`lichaam` 80 · `lichaamstaal` 125, 126, 154 · `liefde` 3, 131 · `lijden` 48,
-73 · `literair` 110 · `literatuur` 49 · `logotherapie` 48 · `Long-Island` 4 ·
-`loopbaan` 50, 51, 150 · `losmaken` 45 · `luisteren` 24, 35 ·
-`machtsverhoudingen` 155 · `management` 42, 47 · `manifesteren` 128, 129, 130,
-131, 132 · `manipulatie` 123, 124, 125, 126 · `mannelijkheid` 3 · `mannen` 7 ·
-`marketing` 13, 40, 60 · `media` 54, 60, 100 · `meditatie` 111, 141, 149 ·
-`memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106 · `menselijk gedrag` 155 ·
-`mensenkennis` 126 · `mentale helderheid` 148 · `mentorschap` 4 · `metafysica`
-102 · `meten` 69, 133 · `methode` 81 · `microbedrijf` 40 ·
-`middelbare-leeftijd` 7 · `minderheden` 68 · `mindful` 103 · `mindfulness`
-141, 147, 149 · `mindset` 146 · `modelleren` 139 · `moed` 44 ·
-`moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57, 67 · `moreel` 36 ·
-`motivatie` 117, 139, 146 · `motoren` 6 · `muziek` 17, 85 · `mythologie` 73,
-143 · `naslag` 99, 112 · `naslagwerk` 59 · `natuurkunde` 62, 94 · `nederland`
-96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128,
-130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `netwerken`
-24 · `neurobiologie` 119 · `neurochirurgie` 49 · `neurowetenschap` 52 · `new
-age` 149 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
-`nieuwsgierigheid` 15, 28, 62 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs`
-55 · `non-verbale communicatie` 154 · `observeren` 15 · `ochtendroutine` 14,
-134 · `oefenen` 29 · `oefening` 141 · `oefeningen` 15, 35, 87, 103, 109, 118,
-120, 122, 130 · `okinawa` 77 · `omgangsvormen` 24 · `omkering` 105 ·
-`omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
-124, 125, 126 · `onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16
-· `onderbewuste` 124 · `onderbouwing` 87, 108, 117, 134, 135, 136 ·
-`ondernemen` 20, 39, 40, 47 · `ondernemerschap` 157 · `onderwijs` 6, 23, 33,
-45, 63, 65, 68, 116 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33,
-39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152 · `onderzoeksdebat` 53 ·
-`onderzoekskritiek` 52 · `ontslagen` 47 · `ontwikkeling` 46, 85 · `oordeel`
-59, 69 · `oorlog` 31, 57, 66 · `opdrachten` 116 · `opgetekend` 97 ·
-`opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73 · `orde` 73, 74 ·
-`organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 · `ouderdom` 77, 84,
-91, 95 · `oudheid` 2 · `overdenken` 148 · `overleven` 31, 36 ·
-`overlevingsvertekening` 64 · `overtuigen` 24 · `overtuigingen` 28, 132, 139,
-143 · `overvloed` 17 · `Pacific` 31 · `para` 81 · `parabel` 38 · `passie` 50 ·
-`pastoraat` 34 · `patriarchaat` 3 · `pelgrimage` 8 · `perceptie` 30 ·
+`broers` 10 · `burn-out` 135 · `cafeïne` 52 · `Californië` 10 · `carrière`
+146, 158 · `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos` 74 ·
+`chapbook` 100 · `cijfers` 39, 65 · `cognitieve gedragstherapie` 147, 153 ·
+`cognitieve-bias` 59 · `columns` 89, 90 · `commando` 97 · `communicatie` 34,
+35, 122, 145, 152, 156 · `concentratie` 70 · `conditionering` 61 · `conflict`
+35, 42, 43 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74 · `crisis` 47 ·
+`cultuur` 68 · `cultuurkritiek` 54 · `cursus` 108, 130 · `cursus-in-wonderen`
+102, 131 · `dagboek` 2, 109 · `dagboekmethode` 78 · `dankbaarheid` 129 ·
+`debat` 28 · `dementie` 84, 85 · `democratie` 98 · `denkfouten` 55, 59, 142 ·
+`design thinking` 150 · `diagnose` 104 · `digitaal` 81 · `DISC` 156 ·
+`discipline` 12, 13, 22, 30, 106, 133, 137, 146 · `docenten` 116 · `doelen`
+58, 136, 158 · `doelgericht-oefenen` 50 · `donkere-triade` 124 · `dood` 98 ·
+`doorzetten` 20 · `dromen` 52 · `dummies` 112 · `durfkapitaal` 47 ·
+`duurzaamheid` 92 · `dystopie` 61 · `e-mail` 70 · `economie` 65, 98 ·
+`economische geschiedenis` 155 · `eenzaamheid` 7, 96, 98, 111 · `eerlijk` 47 ·
+`eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149 · `eigen-beheer`
+107, 140, 142 · `eigen-oordeel` 58 · `eigenaarschap` 97 · `einstein` 94 ·
+`emotie` 137 · `emoties` 3, 43, 142, 147, 153 · `empathie` 35, 67 · `energie`
+92 · `epos` 5 · `erfenis` 39 · `erotiek` 113 · `essay` 3, 9, 21, 57, 59, 63,
+64, 68, 96 · `eten` 103 · `evolutie` 56, 66, 89, 90, 91 ·
+`evolutionaire-psychologie` 67 · `expeditie` 36 · `experiment` 79 · `fabel` 8,
+42, 135 · `falen` 23, 72, 75 · `familie` 45 · `familiegeschiedenis` 114 ·
+`familieroman` 10 · `FBI` 154 · `feedback` 41 · `feiten` 43 · `feminisme` 3 ·
+`fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93 · `flow` 78 ·
+`frankrijk` 115 · `gaslighting` 123 · `gebed` 83 · `gedachten` 148 · `gedrag`
+21, 22, 89, 90, 138, 154 · `gedragstypen` 156 · `geduld` 21 · `geheugen` 66,
+85 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158 · `geloof` 45, 83 · `geluk`
+79, 93 · `gemeenschap` 9, 96 · `geneeskunde` 49 · `generaties` 114 ·
+`geschiedenis` 30, 36, 56, 57, 68, 93, 94 · `gesprek` 43, 95 · `gevolgen` 67 ·
+`geweld` 45, 90 · `gewicht` 138 · `gewoonte` 58, 70, 76, 77, 79, 88, 97, 103,
+133, 138 · `gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158 ·
+`gewoontevorming` 146 · `gezag` 62 · `gezondheid` 52, 88 · `ggz` 104 ·
+`grenzen` 72, 105, 109, 120, 122 · `grenzen stellen` 151 · `groeimentaliteit`
+116 · `grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80
+· `handelen` 30 · `handleiding` 112 · `hart` 86, 128 · `hechting` 145, 152 ·
+`heelal` 99 · `helderheid` 82 · `herhaling` 125, 134 · `herkomst` 127 ·
+`heroverwegen` 28 · `hersenen` 51, 84, 85, 86 · `herstel` 87 · `Holocaust` 48
+· `hormonen` 80 · `houding` 117 · `huisvesting` 65 · `humor` 16, 19, 26, 105 ·
+`huwelijk` 9, 34 · `Huxley` 54 · `hypnose` 123, 124, 125 · `Idaho` 45 ·
+`identiteit` 22, 115 · `identiteitskapitaal` 51 · `ierland` 110 · `ik-vorm`
+113 · `illustraties` 109 · `imitatie` 11 · `import` 20 · `individualisme` 9,
+96 · `innerlijk-kind` 109 · `instagram` 129 · `internet` 60 · `interview` 58 ·
+`intimiteit` 122, 145 · `introversie` 33 · `intuitie` 128 · `invloed` 11 ·
+`Italië` 155 · `jaloezie` 19 · `japan` 77 · `jaren-tachtig` 139 ·
+`jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren` 25 · `journaling` 147 ·
+`journalistiek` 4, 7, 46, 82 · `jung` 143 · `Kaïn-en-Abel` 10 · `kans` 64 ·
+`kansen` 137 · `karakter` 97 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50
+· `keuzes` 51, 71, 72 · `kinderjaren` 152 · `klassieker` 10, 24, 38, 48, 61,
+83, 127, 135, 144 · `klein-beginnen` 40 · `kleine-stappen` 22, 133 · `korea`
+111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
+`kort-stuk` 19, 30 · `korte-teksten` 111 · `krijgsgevangenschap` 31 ·
+`kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 · `kwaliteit` 1 ·
+`kwetsbaarheid` 32, 44 · `landbouw` 56, 98 · `leefstijl` 86, 103, 138 ·
+`leger` 106 · `leiderschap` 36, 41, 44, 46, 97, 106, 157 · `leidinggeven` 156
+· `lesmateriaal` 116 · `leugendetectie` 154 · `levenskeuzes` 150 ·
+`levenskunst` 27 · `levensloop` 91 · `lezen` 18 · `lichaam` 80 ·
+`lichaamstaal` 125, 126, 154 · `liefde` 3, 131 · `lijden` 48, 73 · `literair`
+110 · `literatuur` 49 · `logotherapie` 48 · `Long-Island` 4 · `loopbaan` 50,
+51, 150 · `losmaken` 45 · `luisteren` 24, 35 · `machtsverhoudingen` 155 ·
+`management` 42, 47 · `manifesteren` 128, 129, 130, 131, 132 · `manipulatie`
+123, 124, 125, 126 · `mannelijkheid` 3 · `mannen` 7 · `marketing` 13, 40, 60 ·
+`media` 54, 60, 100 · `meditatie` 111, 141, 149 · `memoir` 4, 7, 18, 20, 26,
+45, 49, 62, 95, 106 · `menselijk gedrag` 155 · `mensenkennis` 126 · `mentale
+helderheid` 148 · `mentorschap` 4 · `metafysica` 102 · `meten` 69, 133 ·
+`methode` 81 · `microbedrijf` 40 · `middelbare-leeftijd` 7 · `minderheden` 68
+· `mindful` 103 · `mindfulness` 141, 147, 149 · `mindset` 146 · `modelleren`
+139 · `moed` 44 · `moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57, 67
+· `moreel` 36 · `motivatie` 117, 139, 146 · `motoren` 6 · `muziek` 17, 85 ·
+`mythologie` 73, 143 · `naslag` 99, 112 · `naslagwerk` 59 · `natuurkunde` 62,
+94 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106,
+107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113
+· `netwerken` 24 · `neurobiologie` 119 · `neurochirurgie` 49 ·
+`neurowetenschap` 52 · `new age` 149 · `NeXT` 46 · `nieuwe-gedachte` 127 ·
+`nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62 · `Nike` 20 · `nlp` 123, 125,
+139 · `Nobelprijs` 55 · `non-verbale communicatie` 154 · `observeren` 15 ·
+`ochtendroutine` 14, 134 · `oefenen` 29 · `oefening` 141 · `oefeningen` 15,
+35, 87, 103, 109, 118, 120, 122, 130 · `okinawa` 77 · `omgangsvormen` 24 ·
+`omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 ·
+`onbetrouwbaar` 123, 124, 125, 126 · `onbewezen` 127, 128, 129, 130, 131, 132,
+139 · `onbewuste` 16 · `onderbewuste` 124 · `onderbouwing` 87, 108, 117, 134,
+135, 136 · `ondernemen` 20, 39, 40, 47 · `ondernemerschap` 157 · `onderwijs`
+6, 23, 33, 45, 63, 65, 68, 116 · `onderwijskritiek` 37 · `onderzoek` 23, 28,
+29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152 ·
+`onderzoeksdebat` 53 · `onderzoekskritiek` 52 · `ontslagen` 47 ·
+`ontwikkeling` 46, 85 · `oordeel` 59, 69 · `oorlog` 31, 57, 66 · `opdrachten`
+116 · `opgetekend` 97 · `opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73 ·
+`orde` 73, 74 · `organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 ·
+`ouderdom` 77, 84, 91, 95 · `oudheid` 2 · `overdenken` 148 · `overleven` 31,
+36 · `overlevingsvertekening` 64 · `overtuigen` 24 · `overtuigingen` 28, 132,
+139, 143 · `overvloed` 17 · `Pacific` 31 · `para` 81 · `parabel` 38 · `passie`
+50 · `pastoraat` 34 · `patriarchaat` 3 · `pelgrimage` 8 · `perceptie` 30 ·
 `perfectionisme` 19, 32, 44 · `persoonlijkheid` 33 · `piekeren` 105 · `pijn`
 85 · `Pixar` 41, 46 · `planeten` 99 · `planning` 70 · `plicht` 2 · `podcast`
 136 · `poker` 137 · `polemiek` 67 · `politiek` 54 · `populair` 77, 129, 133 ·
@@ -32192,14 +32415,14 @@ age` 149 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
 5 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94 · `wijn` 112 ·
 `wiskunde` 116 · `woede` 119, 120 · `woestijn` 8 · `wraak` 101 · `zeereis` 36
 · `zeldzaam` 144 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129,
-138 · `zelfbeheersing` 75, 148 · `zelfcompassie` 32 · `zelfdiscipline` 2 ·
-`zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
-148, 149, 150, 151, 152, 153, 156, 157 · `zelfregulatie` 153 · `zelfspot` 19 ·
-`zelfstandig` 40 · `zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125, 126 ·
-`zelfvertrouwen` 157 · `zelfwaardering` 121 · `zelfzorg` 109 · `zen` 141 ·
-`zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74 · `zingeving` 9, 48, 77,
-91 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar`
-143 · `zwarte-gaten` 99
+138 · `zelfbeheersing` 75, 148 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158
+· `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
+148, 149, 150, 151, 152, 153, 156, 157, 158 · `zelfregulatie` 153 · `zelfspot`
+19 · `zelfstandig` 40 · `zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125,
+126 · `zelfvertrouwen` 157 · `zelfwaardering` 121 · `zelfzorg` 109 · `zen` 141
+· `zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74 · `zingeving` 9, 48,
+77, 91 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 ·
+`zwaar` 143 · `zwarte-gaten` 99
 
 ## Leesroutes
 
