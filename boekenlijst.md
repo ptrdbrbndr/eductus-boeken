@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 17
-augustus 2026: 156 titels in 18 rubrieken.
+augustus 2026: 157 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -19,7 +19,7 @@ bij de volgende build verloren.
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157 |
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144 |
@@ -31852,20 +31852,194 @@ op onderzoek.
 - 33. Quiet. Bespreekt, met wel wetenschappelijke onderbouwing, hoe
 temperament en persoonlijkheid het functioneren in groepen beïnvloeden.
 
+## 157. You Don't Need Luck You Need B.A.B.A.
+
+Arshad Kamal Khan, 2026. Oorspronkelijk *You Don't Need Luck You Need
+B.A.B.A.: How to Stop Waiting for Luck and Start Creating It Through 4 Proven
+Habits That Redefine Success* (Notion Press, 31 januari 2026, 178 blz., ISBN
+9798902079828), Khans eerste boek. Er is geen Nederlandse vertaling gevonden:
+een zoekopdracht op de naam van de auteur levert in de catalogus van
+bibliotheek.nl geen resultaat op, wat voor een zelfpublicatie van januari 2026
+ook niet te verwachten was. Rubriek: gewoontes en denken.
+Tags: `zelfhulp`, `leiderschap`, `gewoontes`, `aanpassingsvermogen`,
+`zelfvertrouwen`, `ondernemerschap`
+
+Arshad Kamal Khan richtte in 2011 het adviesbureau Claycan Business Solutions
+op en werkt sindsdien als groei-coach voor kleinere en middelgrote bedrijven.
+In zijn debuut zet hij tegenover het idee dat succes van toeval afhangt een
+eigen letterwoord: B.A.B.A., voor Believe, Adapt, Behave en Achieve. Zijn
+stelling is dat succes voortkomt uit een helder geloof in de eigen koers, het
+vermogen om mee te bewegen met een veranderende omgeving, gedisciplineerd
+gedrag en doelgericht doorzetten, en dat wie deze vier op orde heeft niet op
+een gunstig moment hoeft te wachten maar er klaar voor is zodra het zich
+voordoet.
+
+Khan werkt de vier onderdelen uit met praktijkverhalen uit zijn
+adviespraktijk, inzichten die hij aan leiderschap ontleent, en
+reflectieoefeningen, en richt zich daarmee op professionals en ondernemers die
+merken dat inspanning alleen niet volstaat. Het boek is dun, verscheen zeer
+recent bij Notion Press en heeft, voor zover na te gaan, nog geen
+onafhankelijke recensies van gewicht: op Goodreads staat een enkele
+beoordeling.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Khan stelt dat succes voortkomt uit vier eigenschappen die
+iemand zelf kan opbouwen, in plaats van uit toeval: een vast geloof in de
+eigen koers (Believe), het vermogen om mee te bewegen met een veranderende
+omgeving (Adapt), consistent gedrag onder druk (Behave) en doelgericht
+doorzetten tot resultaat (Achieve). Wie deze vier eigenschappen bezit, hoeft
+volgens hem niet op een gunstig moment te wachten: dat moment dient zich
+vanzelf aan, en wie er klaar voor is grijpt het en houdt het vast.
+
+#### De gang van het boek
+
+**Een groei-coach als auteur**
+
+Arshad Kamal Khan richtte in 2011 Claycan Business Solutions op, een
+adviesbureau dat kleinere en middelgrote bedrijven begeleidt op het gebied van
+groei, leiderschap en bedrijfsvoering. *You Don't Need Luck You Need B.A.B.A.*
+is zijn eerste boek en verscheen op 31 januari 2026 bij Notion Press, een
+uitgeverij waar auteurs tegen betaling in eigen beheer publiceren.
+
+Khan schrijft vanuit die adviespraktijk. Het boek presenteert geen apart
+onderzoek, maar een aanpak die hij naar eigen zeggen bij ondernemers en
+leidinggevenden toepast en hier voor een breder publiek beschrijft.
+
+**Believe: een vast geloof als fundament**
+
+De eerste pijler, Believe, gaat over een helder en standvastig geloof in de
+eigen richting. Khan plaatst dat tegenover een houding van afwachten: wie geen
+vast uitgangspunt heeft, blijft naar zijn opvatting hangen in twijfel en
+herkent een kans niet op het moment dat zij zich voordoet.
+
+**Adapt: meebewegen met een veranderende omgeving**
+
+De tweede pijler, Adapt, betreft het aanpassingsvermogen aan een omgeving die
+zelf verandert. Het boek werkt dit onder meer uit in een hoofdstuk dat
+specifiek over aanpassingsvermogen gaat; in reacties die na de release online
+verschenen, werd de timing daarvan toepasselijk genoemd, gezien de snelle
+veranderingen waarmee beroepen door nieuwe technologie te maken krijgen.
+
+Verder dan die algemene strekking is over de inhoud van dit onderdeel weinig
+concreets te vinden. Notion Press publiceert geen volledige inhoudsopgave van
+het boek, en een uitgebreide bespreking van dit hoofdstuk was niet te
+achterhalen.
+
+**Behave: gedrag als draagvlak**
+
+De derde pijler, Behave, gaat over consistent en gedisciplineerd gedrag: wat
+iemand dag in dag uit daadwerkelijk doet, los van wat iemand gelooft of van
+plan is. Khan plaatst dit als het scharnier tussen geloof en resultaat, de
+plek waar een voornemen zich moet bewijzen in herhaald gedrag.
+
+**Achieve: doelgericht doorzetten**
+
+De vierde pijler, Achieve, sluit de cirkel: doelgericht handelen en volhouden
+tot een resultaat zichtbaar wordt. Volgens de beschikbare beschrijving voedt
+een bereikt resultaat op zijn beurt het geloof van de eerste pijler, waarmee
+de vier onderdelen een doorlopend proces vormen in plaats van een eenmalige
+stappenlijst.
+
+**Vorm: verhalen en oefeningen in plaats van trucs**
+
+Khan werkt de vier pijlers uit met praktijkverhalen, inzichten die hij aan
+leiderschap ontleent, en reflectieoefeningen, en zet dat uitdrukkelijk af
+tegen kortstondige motivatietrucs. Het boek is met 178 bladzijden dun en richt
+zich op professionals, ondernemers en leidinggevenden die merken dat
+inspanning alleen geen resultaat oplevert.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| B.A.B.A. | Het letterwoord waarmee Khan zijn vier pijlers samenvat: Believe, Adapt, Behave, Achieve. |
+| Believe | Een vast geloof in de eigen koers, volgens Khan de eigenschap die iemand overeind houdt. |
+| Adapt | Het vermogen om mee te bewegen met een veranderende omgeving, wat iemand naar zijn opvatting in beweging houdt. |
+| Behave | Consistent en gedisciplineerd gedrag, de eigenschap die volgens Khan iemand met beide voeten op de grond houdt. |
+| Achieve | Doelgericht doorzetten tot een resultaat, wat Khan omschrijft als de eigenschap die tot een volgende stap aanzet. |
+| Innerlijke gereedheid | De staat waarin iemand zo is voorbereid dat een gelegenheid, zodra zij zich voordoet, ook wordt vastgehouden. |
+
+#### Waar het argument op rust
+
+Khans onderbouwing bestaat uit zijn eigen ervaring als oprichter van Claycan
+Business Solutions, waar hij sinds 2011 kleinere en middelgrote bedrijven
+begeleidt als groei-coach, en uit de praktijkvoorbeelden en
+leiderschapsinzichten die hij daaruit put. Voor de vier pijlers zelf citeert
+het boek, voor zover na te gaan in de beschikbare beschrijvingen, geen
+onderzoek, geen literatuur en geen namen van bedrijven of personen uit de
+gebruikte voorbeelden.
+
+Publieke bevestiging van de inhoud is er nauwelijks. Op Goodreads staat een
+enkele beoordeling (vijf sterren, één stem), en het boek verscheen zo kort
+geleden, op 31 januari 2026, dat een langere staat van dienst of een reeks
+onafhankelijke besprekingen ontbreekt.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is een zelfpublicatie via Notion Press van een auteur die voor het
+eerst publiceert, en de claims in de beschikbare beschrijvingen zijn generiek
+voor het genre. Succes opdelen in geloof, aanpassing, gedrag en doorzetten is
+een indeling die in vrijwel elk zelfhulpboek in een andere volgorde
+terugkeert, zoals de vier gewoontewetten van Clear of het herhalingsmechanisme
+van Hardy, zonder dat Khan uitlegt waarom precies deze vier eigenschappen de
+doorslag geven en andere niet.
+
+Doordat de voorbeelden uit de eigen adviespraktijk komen en er, in de bronnen
+die voor deze samenvatting te raadplegen waren, geen namen, cijfers of
+naspeurbare gevallen beschikbaar zijn, valt niet te controleren of de
+aangehaalde successen representatief zijn of een selectie van geslaagde
+gevallen. Dat is dezelfde overlevingsvertekening die Dobelli in *The Art of
+Thinking Clearly* beschrijft: van wie faalt, hoort een lezer niets.
+
+Ook de hoofdstukindeling van het boek is niet volledig na te gaan. Buiten de
+vier pijlers en de vermelding van een hoofdstuk over aanpassingsvermogen
+publiceert Notion Press geen inhoudsopgave, en er zijn behalve één beoordeling
+op Goodreads geen onafhankelijke recensies gevonden die de inhoud bevestigen
+of tegenspreken. Het aantal begrippen dat de auteur zelf met een eigen naam
+onderscheidt, blijft daardoor beperkt tot het letterwoord en de vier pijlers
+zelf; van een verder uitgewerkt begrippenapparaat, zoals oudere en beter
+gedocumenteerde titels in dit genre dat wel hebben, is op basis van het
+beschikbare materiaal geen sprake.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel voor een eigen situatie per pijler waar de zwakte zit: geloof,
+aanpassing, gedrag of doorzetten.
+- Leg voor de sterkste pijler een concreet voorbeeld uit de eigen praktijk
+vast, en doe hetzelfde voor de zwakste.
+- Ga bij een tegenvallend resultaat eerst na welk gedrag daaraan voorafging,
+voordat de conclusie wordt getrokken dat de omstandigheden ongunstig waren.
+
+#### Wat je hierna leest
+
+- 22. Atomic Habits. Clears vier gewoontewetten bieden een uitgewerkte en
+beter onderbouwde versie van wat Khans pijler Behave alleen in grote lijnen
+beschrijft.
+- 133. The Compound Effect. Hardy legt uit hoe kleine, herhaalde keuzes
+optellen tot een resultaat, hetzelfde mechanisme dat Khan in de pijler Achieve
+veronderstelt zonder het uit te werken.
+- 59. The Art of Thinking Clearly. Dobelli beschrijft de
+overlevingsvertekening die ook aan Khans op eigen succesverhalen gebaseerde
+onderbouwing kleeft.
+- 153. Control Your Emotions. King werkt gedetailleerder uit hoe iemand onder
+druk zijn gedrag stuurt, het thema dat Khans pijler Behave slechts kort
+aanstipt.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
 
 `1906` 127 · `1937` 76 · `1938` 58 · `1952` 83 · `aandacht` 17, 34, 54, 70,
-71, 78, 141 · `aannames` 27 · `aantekeningen` 81 · `aanwezigheid` 149 ·
-`aarde` 92 · `academisch` 143 · `actueel` 67 · `ademhaling` 87, 118 ·
-`adviespraktijk` 151 · `affirmaties` 117 · `aforismen` 2, 17 ·
-`afwezige-vader` 4 · `alcohol` 4 · `alledaags` 89 · `ambacht` 6, 12, 13, 17,
-18 · `ambitie` 75 · `amerika` 114 · `amerikaans` 117, 118, 120, 132, 133, 134,
-136 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140 · `animatie` 41
-· `Antarctica` 36 · `antwerpen` 113 · `apartheid` 26 · `Apple` 46 · `arbeid` 6
-· `argumenten` 63 · `armoede` 26 · `atletiek` 31 · `Auschwitz` 48 ·
-`autonomie` 6, 50 · `basisbehoeften` 107 · `bbc` 82 · `beginners` 112 ·
+71, 78, 141 · `aannames` 27 · `aanpassingsvermogen` 157 · `aantekeningen` 81 ·
+`aanwezigheid` 149 · `aarde` 92 · `academisch` 143 · `actueel` 67 ·
+`ademhaling` 87, 118 · `adviespraktijk` 151 · `affirmaties` 117 · `aforismen`
+2, 17 · `afwezige-vader` 4 · `alcohol` 4 · `alledaags` 89 · `ambacht` 6, 12,
+13, 17, 18 · `ambitie` 75 · `amerika` 114 · `amerikaans` 117, 118, 120, 132,
+133, 134, 136 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140 ·
+`animatie` 41 · `Antarctica` 36 · `antwerpen` 113 · `apartheid` 26 · `Apple`
+46 · `arbeid` 6 · `argumenten` 63 · `armoede` 26 · `atletiek` 31 · `Auschwitz`
+48 · `autonomie` 6, 50 · `basisbehoeften` 107 · `bbc` 82 · `beginners` 112 ·
 `behoeften` 35 · `beinvloeding` 123, 126 · `bekentenis` 60 ·
 `belangenverstrengeling` 138 · `beleggen` 21, 64, 144 · `beleid` 65 ·
 `bemiddeling` 35 · `beroemdheden` 128 · `beschadigd-bestand` 115, 130 ·
@@ -31904,9 +32078,9 @@ thinking` 150 · `diagnose` 104 · `digitaal` 81 · `DISC` 156 · `discipline` 1
 `geneeskunde` 49 · `generaties` 114 · `geschiedenis` 30, 36, 56, 57, 68, 93,
 94 · `gesprek` 43, 95 · `gevolgen` 67 · `geweld` 45, 90 · `gewicht` 138 ·
 `gewoonte` 58, 70, 76, 77, 79, 88, 97, 103, 133, 138 · `gewoontes` 7, 11, 13,
-22, 25, 134, 135, 147 · `gewoontevorming` 146 · `gezag` 62 · `gezondheid` 52,
-88 · `ggz` 104 · `grenzen` 72, 105, 109, 120, 122 · `grenzen stellen` 151 ·
-`groeimentaliteit` 116 · `grondstoffen` 92 · `groot-verhaal` 56 ·
+22, 25, 134, 135, 147, 157 · `gewoontevorming` 146 · `gezag` 62 · `gezondheid`
+52, 88 · `ggz` 104 · `grenzen` 72, 105, 109, 120, 122 · `grenzen stellen` 151
+· `groeimentaliteit` 116 · `grondstoffen` 92 · `groot-verhaal` 56 ·
 `grootouders` 91 · `handel` 80 · `handelen` 30 · `handleiding` 112 · `hart`
 86, 128 · `hechting` 145, 152 · `heelal` 99 · `helderheid` 82 · `herhaling`
 125, 134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 ·
@@ -31926,7 +32100,7 @@ thinking` 150 · `diagnose` 104 · `digitaal` 81 · `DISC` 156 · `discipline` 1
 `kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 · `korte-teksten` 111
 · `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 ·
 `kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw` 56, 98 · `leefstijl` 86,
-103, 138 · `leger` 106 · `leiderschap` 36, 41, 44, 46, 97, 106 ·
+103, 138 · `leger` 106 · `leiderschap` 36, 41, 44, 46, 97, 106, 157 ·
 `leidinggeven` 156 · `lesmateriaal` 116 · `leugendetectie` 154 ·
 `levenskeuzes` 150 · `levenskunst` 27 · `levensloop` 91 · `lezen` 18 ·
 `lichaam` 80 · `lichaamstaal` 125, 126, 154 · `liefde` 3, 131 · `lijden` 48,
@@ -31954,20 +32128,20 @@ age` 149 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
 `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
 124, 125, 126 · `onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16
 · `onderbewuste` 124 · `onderbouwing` 87, 108, 117, 134, 135, 136 ·
-`ondernemen` 20, 39, 40, 47 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116 ·
-`onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
-79, 80, 84, 85, 86, 88, 152 · `onderzoeksdebat` 53 · `onderzoekskritiek` 52 ·
-`ontslagen` 47 · `ontwikkeling` 46, 85 · `oordeel` 59, 69 · `oorlog` 31, 57,
-66 · `opdrachten` 116 · `opgetekend` 97 · `opgroeien` 4 · `opvoeding` 3, 23,
-29, 44, 53, 73 · `orde` 73, 74 · `organisatie` 28, 41, 69 · `Orwell` 54 ·
-`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95 · `oudheid` 2 · `overdenken` 148
-· `overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24 ·
-`overtuigingen` 28, 132, 139, 143 · `overvloed` 17 · `Pacific` 31 · `para` 81
-· `parabel` 38 · `passie` 50 · `pastoraat` 34 · `patriarchaat` 3 ·
-`pelgrimage` 8 · `perceptie` 30 · `perfectionisme` 19, 32, 44 ·
-`persoonlijkheid` 33 · `piekeren` 105 · `pijn` 85 · `Pixar` 41, 46 ·
-`planeten` 99 · `planning` 70 · `plicht` 2 · `podcast` 136 · `poker` 137 ·
-`polemiek` 67 · `politiek` 54 · `populair` 77, 129, 133 ·
+`ondernemen` 20, 39, 40, 47 · `ondernemerschap` 157 · `onderwijs` 6, 23, 33,
+45, 63, 65, 68, 116 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33,
+39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152 · `onderzoeksdebat` 53 ·
+`onderzoekskritiek` 52 · `ontslagen` 47 · `ontwikkeling` 46, 85 · `oordeel`
+59, 69 · `oorlog` 31, 57, 66 · `opdrachten` 116 · `opgetekend` 97 ·
+`opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73 · `orde` 73, 74 ·
+`organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 · `ouderdom` 77, 84,
+91, 95 · `oudheid` 2 · `overdenken` 148 · `overleven` 31, 36 ·
+`overlevingsvertekening` 64 · `overtuigen` 24 · `overtuigingen` 28, 132, 139,
+143 · `overvloed` 17 · `Pacific` 31 · `para` 81 · `parabel` 38 · `passie` 50 ·
+`pastoraat` 34 · `patriarchaat` 3 · `pelgrimage` 8 · `perceptie` 30 ·
+`perfectionisme` 19, 32, 44 · `persoonlijkheid` 33 · `piekeren` 105 · `pijn`
+85 · `Pixar` 41, 46 · `planeten` 99 · `planning` 70 · `plicht` 2 · `podcast`
+136 · `poker` 137 · `polemiek` 67 · `politiek` 54 · `populair` 77, 129, 133 ·
 `populair-wetenschappelijk` 88 · `populaire psychologie` 156 · `portretten`
 75, 94 · `positief-denken` 83 · `postuum` 49 · `praktisch` 118, 121, 140 ·
 `presenteren` 82 · `preventie` 86 · `prijzen` 23 · `prikkels` 60, 65 ·
@@ -32020,12 +32194,12 @@ age` 149 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
 · `zeldzaam` 144 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129,
 138 · `zelfbeheersing` 75, 148 · `zelfcompassie` 32 · `zelfdiscipline` 2 ·
 `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
-148, 149, 150, 151, 152, 153, 156 · `zelfregulatie` 153 · `zelfspot` 19 ·
+148, 149, 150, 151, 152, 153, 156, 157 · `zelfregulatie` 153 · `zelfspot` 19 ·
 `zelfstandig` 40 · `zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125, 126 ·
-`zelfwaardering` 121 · `zelfzorg` 109 · `zen` 141 · `zenuwstelsel` 87 ·
-`zeven-stappen` 129 · `ziekte` 74 · `zingeving` 9, 48, 77, 91 · `zitten` 84 ·
-`zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwarte-gaten`
-99
+`zelfvertrouwen` 157 · `zelfwaardering` 121 · `zelfzorg` 109 · `zen` 141 ·
+`zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74 · `zingeving` 9, 48, 77,
+91 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar`
+143 · `zwarte-gaten` 99
 
 ## Leesroutes
 
