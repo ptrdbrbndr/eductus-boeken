@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Biggest Enemy Is Your Uncontrolled Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat de eigen gedachtestroom, zolang niemand haar bijstuurt, de grootste belemmering in een mensenleven vormt: een ongecontroleerde geest…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-148">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">148 &middot; Gewoontes en denken</p>
+    <h1>Your Biggest Enemy Is Your Uncontrolled Mind</h1>
+    <p class="lede">Sufyan Khan</p>
+    <p class="stats">
+      <span><b>1141</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="148"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat de eigen gedachtestroom, zolang niemand haar bijstuurt, de grootste belemmering in een mensenleven vormt: een ongecontroleerde geest overdenkt, herhaalt angsten en spreekt met een zelfverzekerdheid die niets zegt over of ze klopt. Khan zet daar een tegenpool tegenover: dezelfde geest wordt, mits met aandacht en oefening bijgestuurd, het sterkste werktuig dat iemand heeft. Zijn weg naar die omslag loopt via het leren onderscheiden welke gedachte aandacht verdient en welke genegeerd mag worden, eerder dan via het onderdrukken van gedachten als zodanig.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt: de geest als tegenstander</h3>
+      <p>Khan opent met de constatering die de titel samenvat: van alle tegenstanders die een mens tegenkomt is de eigen, ongerichte gedachtestroom de hardnekkigste, omdat ze zich vermomt als de eigen stem. Een gedachte die iets beweert klinkt vanzelf gezaghebbend, ook wanneer ze feitelijk onjuist is of nergens op steunt. Die verwarring tussen het hebben van een gedachte en het voor waar aannemen ervan vormt volgens hem de kern van waarom mensen zich laten meeslepen door piekeren, zelfkritiek en angst.</p>
+      <h3>Overdenken als aanhoudende ruis</h3>
+      <p>Een deel van het boek behandelt overdenken zelf: het herhalen van dezelfde gedachte zonder dat daar een besluit of inzicht uit volgt. Khan beschrijft dat als een vorm van mentale ruis die zich voordoet als nadenken, maar geen enkele vraag verder brengt. Welke concrete situaties hij daarbij gebruikt en hoe uitgebreid hij dat patroon uitwerkt, staat niet in de fragmenten van de tekst die voor deze samenvatting te achterhalen waren; het boek lijkt zich vooral te beperken tot het benoemen van het patroon.</p>
+      <h3>Een gedachte bevragen in plaats van gehoorzamen</h3>
+      <p>De vaardigheid die het boek aanreikt, is een gedachte bevragen voordat ze als waarheid wordt aangenomen: nagaan of ze klopt, of ze helpt, en of ze werkelijk om een handeling vraagt. Khan formuleert dat als een keuze die iemand voortdurend heeft, namelijk dat een gedachte niet gehoorzaamd hoeft te worden alleen omdat ze zich aandient.</p>
+      <h3>Emoties en het gevoel van controleverlies</h3>
+      <p>Naast het denken zelf komt er aandacht voor emoties, met name voor het moment waarop een gevoel een gedachte lijkt over te nemen en iemand handelt vanuit paniek, boosheid of schaamte in plaats van vanuit overweging. Ook hier blijft de beschrijving in de beschikbare bronnen algemeen: welke stappen Khan precies aanreikt om dat moment te herkennen of te doorbreken, is niet met zekerheid te reconstrueren.</p>
+      <h3>Bewustzijn als voorwaarde voor controle</h3>
+      <p>Het boek plaatst bewustzijn, het opmerken van een gedachte terwijl ze zich voordoet, voor elke andere techniek. Zonder dat opmerken is er volgens Khan niets om bij te sturen; met dat opmerken ontstaat de ruimte om te kiezen. Die volgorde, eerst zien en dan pas sturen, is het dichtst dat de beschikbare beschrijvingen bij een methode komen.</p>
+      <h3>De belofte aan het einde</h3>
+      <p>Khan sluit af met het vooruitzicht dat wie zijn gedachten leert doorzien, niet langer in een aanhoudend conflict met zichzelf leeft. Mentale helderheid is in die lezing geen eindpunt maar een andere verhouding tot het eigen denken: dezelfde gedachten kunnen blijven opkomen, alleen krijgen ze niet langer vanzelfsprekend het laatste woord.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Overdenken</td><td>Het herhalen van dezelfde gedachte zonder dat er een besluit of inzicht uit volgt.</td></tr>
+          <tr><td class="term">Mentale ruis</td><td>Khans aanduiding voor gedachten die zich voordoen als nadenken maar niets opleveren.</td></tr>
+          <tr><td class="term">Een gedachte bevragen</td><td>Nagaan of een gedachte klopt en helpt voordat ze als waarheid wordt aangenomen.</td></tr>
+          <tr><td class="term">Bewustzijn</td><td>Het opmerken van een gedachte op het moment dat ze zich voordoet, als voorwaarde voor elke bijsturing.</td></tr>
+          <tr><td class="term">Mentale helderheid</td><td>De andere verhouding tot het eigen denken die het boek als uitkomst voorstelt, niet de afwezigheid van gedachten.</td></tr>
+          <tr><td class="term">In conflict met zichzelf</td><td>Khans beeld voor de staat waarin een ongecontroleerde geest iemand brengt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Khan onderbouwt zijn stellingen, voor zover uit de beschikbare fragmenten van de tekst is af te leiden, niet met onderzoek, bronvermeldingen of casussen met naam en toenaam. Het boek werkt met beweringen en korte formuleringen die de lezer wordt voorgehouden om te herkennen, niet met argumenten die stap voor stap op te volgen zijn. Dat is op zichzelf niet ongebruikelijk voor een kort zelfhulpboek, maar hier is de onderbouwing ook naar die maatstaf dun: geen van de bronnen die voor deze samenvatting geraadpleegd zijn citeert een concreet voorbeeld, een auteursachtergrond of een verwijzing naar ander werk.</p>
+      <p>Ook de herkomst van het boek zelf is nauwelijks te achterhalen. Er is geen Goodreads-pagina gevonden, geen inkijkexemplaar en geen bespreking die verder gaat dan het overnemen van de titel als motiverende uitspraak op sociale media. Deze samenvatting is opgebouwd uit de productomschrijving zoals die via zoekmachines terug te vinden was, niet uit een volledige lezing van het boek; de indeling hierboven is een reconstructie op basis van terugkerende thema's in die fragmenten, geen bevestigde inhoudsopgave.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar tegen dit boek is hier niet inhoudelijk maar methodologisch vast te stellen: er is voor deze samenvatting geen manier gevonden om de tekst zelf te raadplegen, en de bronnen die er wel zijn herhalen vooral dezelfde paar zinnen uit de productomschrijving. Dat maakt het onmogelijk om vast te stellen of het boek de aangekondigde aanpak, een gedachte bevragen en bewustzijn opbouwen, uitwerkt tot iets dat verder gaat dan de bekende adviezen uit de zelfhulpliteratuur, of dat het bij het benoemen daarvan blijft. Om diezelfde reden zijn hierboven minder begrippen opgenomen dan gebruikelijk: verder gaan dan de handvol termen die in de beschikbare fragmenten terugkeren, zou betekenen dat er woorden aan de auteur worden toegeschreven die niet te verantwoorden zijn.</p>
+      <p>Wat wel vaststaat, is dat het boek geen onderzoek aanhaalt, geen erkende methode zoals cognitieve gedragstherapie noemt, en geen auteursachtergrond vermeldt die gezag aan de claims zou geven. Titel en ondertitel volgen bovendien een format dat op Kindle veelvuldig terugkeert bij vergelijkbare, snel geproduceerde titels over overdenken en mentale rust, wat de vraag oproept hoeveel van de tekst op eigen inzicht rust en hoeveel op het herschikken van bestaande adviezen.</p>
+      <p>Voor wie dit boek overweegt is dat een reden om de verwachtingen bij te stellen. Waar een boek als <i>Atomic Habits</i> zijn stellingen aan gedrag en herhaalbare mechanismen koppelt, biedt dit boek, voor zover te beoordelen, vooral herkenning en een woordenschat om over overdenken te praten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees titel en ondertitel als de kern van wat het boek biedt: een gedachte bevragen voordat ze als waarheid geldt.</li>
+        <li>Zoek bij herkenning van het thema overdenken naar een boek met een uitgewerkte methode, zoals literatuur over cognitieve gedragstherapie, als de herkenning uit dit boek niet volstaat.</li>
+        <li>Houd rekening met een korte, algemene tekst zonder stappenplan of oefeningen; dat is althans wat de beschikbare beschrijvingen van het boek laten zien.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Zelfpublicatie in het Engels, alleen teruggevonden als Kindle-uitgave (ASIN B0GDXXQWC1) bij Amazon India, met als volledige titel <i>Your Biggest Enemy Is Your Uncontrolled Mind: How to Master Your Thoughts, Control Overthinking, and Regain Mental Clarity</i>. Een publicatiejaar, een uitgeverij, een paginentelling of een papieren editie staan nergens vermeld op een manier die te controleren viel. Het boek heeft geen Goodreads-pagina en geen inkijkexemplaar. Van een Nederlandse vertaling is geen spoor: bibliotheek.nl en de gangbare boekhandelscatalogi kennen geen titel van deze auteur.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sufyan Khan behandelt in dit korte Engelstalige boek de gedachte dat de eigen, ongerichte gedachtestroom de grootste belemmering in een mensenleven vormt. Een gedachte klinkt vanzelf gezaghebbend zodra ze opkomt, ook wanneer ze niet klopt, en wie dat verschil niet herkent laat zich meeslepen door piekeren, zelfkritiek en angst. Khan werkt dat uit langs een handvol thema's: overdenken als aanhoudende mentale ruis, het bevragen van een gedachte voordat ze als waarheid wordt aangenomen, de rol van emoties op het moment dat de controle wegvalt, en bewustzijn als voorwaarde om daar iets aan te veranderen. Het boek eindigt met het vooruitzicht dat wie zijn gedachten leert doorzien, niet langer in een aanhoudend conflict met zichzelf leeft.</p><p>Van dit boek is buiten een korte productomschrijving weinig te achterhalen: er bestaat geen inkijkexemplaar, geen Goodreads-pagina en geen Nederlandse vertaling. Titel en opzet volgen een vorm die op Kindle vaker voorkomt bij snel geproduceerde titels over overdenken, en niets in de bronnen die voor deze samenvatting geraadpleegd konden worden wijst op onderzoek, een uitgewerkte methode of een auteursachtergrond die aan de claims gewicht geeft. Deze samenvatting steunt daarom op wat over het boek te verifiëren viel, niet op een volledige lezing van de tekst zelf.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>overdenken</li><li>gedachten</li><li>mentale helderheid</li><li>zelfbeheersing</li><li>bewustzijn</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Biedt onderbouwde categorieën van denkfouten waar dit boek alleen in algemene termen naar verwijst.</li>
+          <li value="142"><a href="142.html">Designing the Mind</a>. Werkt het idee van de eigen geest bijsturen uit in een concreter model, waar dit boek vooral bij het benoemen van het doel blijft.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Laat zien hoe een boek over zelfsturing met herhaalbare mechanismen werkt, in plaats van met algemene aansporingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

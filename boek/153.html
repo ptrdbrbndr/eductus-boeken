@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Control Your Emotions &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="King stelt dat een emotie een overlevingsmechanisme is dat in een moderne omgeving vaak op de verkeerde aanleiding afgaat. Een late e-mail of een file in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-153">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">153 &middot; Gewoontes en denken</p>
+    <h1>Control Your Emotions</h1>
+    <p class="lede">Patrick King, 2020</p>
+    <p class="stats">
+      <span><b>1255</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="153"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>King stelt dat een emotie een overlevingsmechanisme is dat in een moderne omgeving vaak op de verkeerde aanleiding afgaat. Een late e-mail of een file in het verkeer wekt bij het lichaam dezelfde alarmreactie op als vroeger een roofdier deed. Wie leert de aanleiding, de reactie en het gevolg van een emotionele uitbarsting apart te herkennen, kan volgens hem ingrijpen op het moment van de aanleiding, voordat de reactie zich voltrekt. Dat ingrijpen noemt hij een vaardigheid die te trainen valt met een klein aantal terugkerende oefeningen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom emoties uit de bocht vliegen</h3>
+      <p>Het eerste deel legt uit dat emoties ontstonden om snel te reageren op gevaar: angst zette het lichaam vroeger aan tot vluchten voor een roofdier, woede tot verdediging van een territorium. In een kantoor of huiskamer is dat gevaar er zelden nog, maar het lichaam reageert nog altijd met dezelfde intensiteit op een kritische e-mail, een file of een opmerking van een collega. King noemt dat het verschil tussen de snelheid van het lichaam en de snelheid van de omgeving waarin het nu leeft.</p>
+      <h3>Triggers opsporen</h3>
+      <p>Het tweede deel gaat over het herkennen van de eigen triggers: de specifieke situaties, woorden of gedragingen van anderen die telkens dezelfde heftige reactie oproepen. King wijst erop dat een trigger zelden op zichzelf staat en meestal teruggaat op een patroon dat zich al vaker heeft voorgedaan, bijvoorbeeld een gevoel van buitengesloten worden of van niet gehoord worden. Pas als iemand het patroon achter de losse gebeurtenissen ziet, kan hij er volgens King iets aan doen.</p>
+      <h3>Herkennen, reageren, reguleren</h3>
+      <p>In het derde deel introduceert King de ABC-lus: de aanleiding, het gedrag en het gevolg van een emotionele reactie. Door die drie stappen apart te benoemen, wordt zichtbaar op welk punt een reactie nog is bij te sturen. Daarnaast beschrijft hij vijf manieren om op een emotie te reageren: de situatie vermijden, de situatie aanpassen, de aandacht ergens anders op richten, de gedachte erover herwaarderen, of de uiterlijke reactie bijsturen. Elke manier grijpt op een ander moment in de keten in.</p>
+      <h3>De cyclus doorbreken</h3>
+      <p>Het vierde deel werkt de ABC-lus uit tot een dagelijkse oefening die King een emotioneel dashboard noemt: bij elke sterke emotie noteert de lezer de context, de gedachte, het gevoel, de lichamelijke sensatie en de neiging tot handelen. Een patroon dat eerst automatisch verliep, wordt daarmee iets waar bewust naar gekeken kan worden. King besteedt in dit deel ook aandacht aan zelfspraak: de toon van het innerlijke commentaar bij een tegenslag werkt volgens hem door in het gedrag dat erop volgt.</p>
+      <h3>Het emotionele immuunsysteem</h3>
+      <p>Het vijfde deel gebruikt het immuunsysteem als beeld voor emotionele veerkracht. Net zoals het lichaam antistoffen opbouwt door blootstelling aan een ziekteverwekker, bouwt iemand emotionele weerbaarheid op doordat kleine tegenslagen bewust worden verwerkt. King koppelt dat aan vaste gewoontes, zoals het opschrijven van wat goed ging en het bewust stilstaan bij een prettige ervaring in plaats van er meteen overheen te stappen.</p>
+      <h3>Filosofisch kader: stoa en boeddhisme</h3>
+      <p>In het zesde deel zoekt King steun bij twee tradities. Van de stoa neemt hij de tweedeling tussen wat binnen eigen invloed ligt en wat daarbuiten valt, als leidraad om te bepalen waar energie in een emotionele situatie aan te besteden is. Uit het boeddhisme haalt hij het uitgangspunt dat vasthouden aan een vergankelijke toestand zelf een bron van lijden is. King behandelt beide tradities kort, gericht op toepassing in het moment zelf.</p>
+      <h3>Grenzen en vol te houden gewoontes</h3>
+      <p>De laatste delen gaan over preventie. King beschrijft hoe een grens die herhaaldelijk wordt overschreden, terug te zien is in wrok, schuldgevoel en vermoeidheid, en dat die grens op tijd uitspreken escalatie voorkomt. Hij bespreekt ook het verdragen van onbehagen: leren zitten met een naar gevoel zonder het meteen te willen wegnemen, als voorwaarde voor blijvende weerbaarheid. Het boek sluit af met een overzicht dat de eerdere hoofdstukken samenbrengt tot een kort te raadplegen leidraad.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Emotionele triggers</td><td>Specifieke situaties of gedragingen van anderen die telkens een sterke emotionele reactie oproepen, vaak gekoppeld aan een terugkerend patroon.</td></tr>
+          <tr><td class="term">ABC-lus</td><td>Het model van aanleiding, gedrag en gevolg waarmee King een emotionele reactie in losse stappen ontleedt.</td></tr>
+          <tr><td class="term">Emotioneel dashboard</td><td>De dagboekvorm waarin context, gedachte, gevoel, lichamelijke sensatie en handelingsneiging van een emotionele episode worden vastgelegd.</td></tr>
+          <tr><td class="term">Regulatiestrategieën</td><td>De vijf manieren om op een emotie te reageren: de situatie vermijden, de situatie aanpassen, de aandacht verleggen, de gedachte herwaarderen of de reactie bijsturen.</td></tr>
+          <tr><td class="term">Emotioneel immuunsysteem</td><td>Het beeld dat King gebruikt voor de weerbaarheid die ontstaat doordat kleine tegenslagen bewust worden verwerkt.</td></tr>
+          <tr><td class="term">Dichotomie van controle</td><td>De stoïcijnse tweedeling tussen wat binnen eigen invloed ligt en wat daarbuiten valt.</td></tr>
+          <tr><td class="term">Onthechting</td><td>Het boeddhistische uitgangspunt dat vasthouden aan een vergankelijke toestand een bron van lijden is.</td></tr>
+          <tr><td class="term">Grenzen</td><td>De persoonlijke grens die, als hij herhaaldelijk wordt overschreden, terug te zien is in wrok, schuldgevoel en vermoeidheid.</td></tr>
+          <tr><td class="term">Zelfspraak</td><td>De toon van het innerlijke commentaar bij een tegenslag, die volgens King doorwerkt in het gedrag dat volgt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>King schrijft populaire zelfhulp en voert geen eigen onderzoek uit. Zijn bronnen zijn bestaande kaders uit de gedragstherapie, zoals het ABC-model van aanleiding, gedrag en gevolg, en uit de dialectische gedragstherapie, waar het verdragen van onbehagen een vaste term is. De vijf regulatiestrategieën uit deel drie komen overeen met een indeling die in de emotieregulatie-literatuur wordt gebruikt om het moment van ingrijpen te onderscheiden, al noemt King zijn bron daarvoor niet met naam.</p>
+      <p>Voor het filosofische deel steunt hij op een korte lezing van de stoa en het boeddhisme, zonder primaire teksten aan te halen. In de voorbeeldpagina's en recensies die van het boek zijn na te gaan, ontbreekt een literatuurlijst met specifieke studies; de claims over hoe emoties werken worden onderbouwd met voorbeelden en niet met verwijzingen naar onderzoek. Dat maakt het boek bruikbaar als verzameling geleende, breed gedragen technieken. Als wetenschappelijke bron is het niet controleerbaar, omdat een lezer de herkomst van losse claims niet kan natrekken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen het boek is dat het onderdeel is van een omvangrijke reeks vergelijkbare titels van dezelfde uitgeverij, PKCS Media, waarin King in korte tijd tientallen boeken publiceerde over aangrenzende onderwerpen als sociale vaardigheden, communicatie en zelfvertrouwen. Dat productietempo werkt door in de tekst: de technieken worden kort geïntroduceerd en met een enkel voorbeeld toegelicht, zonder dat de herkomst ervan wordt uitgediept of de grenzen van hun werkzaamheid worden besproken.</p>
+      <p>De filosofische hoofdstukken behandelen de stoa en het boeddhisme oppervlakkig: een paar kernbegrippen worden gebruikt als praktische vuistregel, los van de bredere leer waarin ze oorspronkelijk staan. Voor wie al bekend is met gedragstherapie of met eerdere boeken over emotieregulatie voegt dit deel weinig nieuws toe. De waarde van het boek zit vooral in de compacte, geordende presentatie van bestaande technieken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer een week lang bij elke sterke emotie de aanleiding, de reactie en het gevolg volgens de ABC-lus.</li>
+        <li>Houd bij een emotionele episode een kort dashboard bij: context, gedachte, gevoel, lichamelijke sensatie en de neiging tot handelen.</li>
+        <li>Kies bij een terugkerende trigger een van de vijf regulatiestrategieën: vermijd de situatie, pas haar aan, verleg de aandacht, herwaardeer de gedachte of stel de reactie bij.</li>
+        <li>Formuleer een grens die vaker wordt overschreden en spreek die uit voordat de wrok oploopt.</li>
+        <li>Onderscheid bij een tegenslag wat binnen eigen invloed ligt en wat daarbuiten valt, volgens de stoïcijnse tweedeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Control Your Emotions: Gain Balance, Resilience, and Calm; Find Freedom from Stress, Anxiety, and Negativity</i> (PKCS Media, zelfpublicatie, 2019/2020), zesde deel in Kings reeks <i>The Psychology of Social Dynamics</i>. Er verscheen geen Nederlandse vertaling; bibliotheek.nl en de Nederlandse boekhandel voeren alleen de Engelstalige editie. Let op: er bestaan meerdere boeken met een vergelijkbare titel van andere auteurs, zoals Bob Phillips' <i>Controlling Your Emotions Before They Control You</i>; dit betreft het boek van Patrick King uit zijn reeks over sociale psychologie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Patrick King, auteur van tientallen compacte boeken over sociale vaardigheden en zelfregulatie, beschrijft in dit deel van zijn reeks <i>The Psychology of Social Dynamics</i> hoe iemand grip krijgt op de eigen emoties zonder ze te onderdrukken. Het boek gaat uit van de gedachte dat emoties ooit een overlevingsfunctie hadden en nu vaak reageren op onschuldige moderne aanleidingen zoals een e-mail of een file. King wil laten zien hoe iemand zo'n reactie leert herkennen voordat ze escaleert.</p><p>Daarvoor put hij uit gedragstherapie, de stoïcijnse filosofie en het boeddhisme. Hij werkt met een klein aantal terugkerende hulpmiddelen: een model om een emotionele reactie te ontleden in aanleiding, gedrag en gevolg, een dagboekvorm om patronen zichtbaar te maken, en vijf manieren om op een emotie te reageren voordat die uit de hand loopt. Het boek is nadrukkelijk praktisch van opzet en bevat weinig verwijzingen naar onderzoek; de waarde zit in de toepasbaarheid van de oefeningen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>emoties</li><li>zelfregulatie</li><li>stressmanagement</li><li>cognitieve gedragstherapie</li><li>stoïcijnse filosofie</li><li>zelfhulp</li><li>veerkracht</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Beschrijft de denkfouten die aan de basis liggen van veel misplaatste emotionele reacties die King in dit boek behandelt.</li>
+          <li value="142"><a href="142.html">Designing the Mind</a>. Werkt de gedragstherapeutische aanpak achter Kings ABC-lus en regulatiestrategieën verder uit tot een samenhangend model.</li>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Laat zien waarom de kleine, herhaalde oefeningen die King aanraadt, zoals het dashboard, op termijn effect hebben.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

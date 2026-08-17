@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Every BODY Is Saying &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Navarro betoogt dat het lichaam voortdurend en onwillekeurig laat zien wat iemand voelt, omdat het limbisch brein op dreiging en ongemak reageert voordat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-154">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">154 &middot; Samenwerken en gesprek</p>
+    <h1>What Every BODY Is Saying</h1>
+    <p class="lede">Joe Navarro en Marvin Karlins, 2008</p>
+    <p class="stats">
+      <span><b>1548</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="154"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Navarro betoogt dat het lichaam voortdurend en onwillekeurig laat zien wat iemand voelt, omdat het limbisch brein op dreiging en ongemak reageert voordat het bewuste denken kan ingrijpen. Wie leert kijken naar voeten, romp en handen in plaats van naar het gezicht alleen, ziet volgens hem eerlijker signalen dan wie alleen op woorden en gezichtsuitdrukking let. Die signalen tonen comfort of ongemak, niet waarheid of leugen: dat onderscheid is de spil van het boek en meteen het punt waarop de populaire lezing ervan vaak misgaat. Het boek is geschreven als praktisch naslagwerk, hoofdstuk voor hoofdstuk langs de lichaamsdelen, en niet als theoretisch betoog.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het limbisch brein als uitgangspunt</h3>
+      <p>Navarro opent met een model van drie hersendelen: de hersenstam voor basale functies, het limbisch brein voor emotie en overleving, en de neocortex voor bewust denken. Het limbisch brein reageert volgens hem het snelst en het eerlijkst, omdat het evolutionair ouder is en niet wacht op overweging. Zijn stelling is dat dit deel van het brein niet liegt, en dat lichaamssignalen die eruit voortkomen daarom betrouwbaarder zijn dan wat iemand zegt.</p>
+      <p>Daarop bouwt hij het drieluik freeze, flight en fight: bevriezen, vluchten of aanvallen als reactie op waargenomen dreiging. Deze reacties beginnen volgens hem het eerst in het onderlichaam, wat zijn latere nadruk op voeten en benen verklaart.</p>
+      <p>Het boek is geschreven met Marvin Karlins, hoogleraar management aan de University of South Florida en gepromoveerd psycholoog aan Princeton. Karlins had al eerder boeken over gedrag en overtuiging op zijn naam staan, en zijn rol in dit boek is vooral het ordenen van Navarro's praktijkkennis tot een leesbare, systematische tekst.</p>
+      <h3>Voeten en benen als eerlijkste segment</h3>
+      <p>Het derde hoofdstuk behandelt voeten en benen als het deel van het lichaam waarop mensen het minst letten en dat zij daarom het minst controleren. Onrustig wippen, een voet die naar de uitgang wijst of benen die plotseling stilvallen leest Navarro als aanwijzingen voor ongemak, verveling of de wens om weg te gaan.</p>
+      <p>Hij plaatst dit nadrukkelijk tegenover het gezicht, dat mensen van jongs af aan trainen om te beheersen. Wat de voeten doen, is volgens hem daardoor onwillekeuriger en dus een betere ingang dan een glimlach of frons.</p>
+      <p>Als voorbeeld noemt Navarro de voet die tijdens een gesprek van de gesprekspartner wegdraait naar de dichtstbijzijnde uitgang, terwijl romp en gezicht nog toegewijd naar die gesprekspartner gericht blijven. Zulke verschillen tussen lichaamsdelen zijn volgens hem informatiever dan één enkel signaal, omdat ze laten zien welk deel van het lichaam nog onder bewuste controle staat en welk deel niet.</p>
+      <h3>Romp, armen en handen</h3>
+      <p>De volgende hoofdstukken werken omhoog: de romp toont door houding en oriëntatie wie zich op iemand richt of juist afwendt, de armen tonen door hun afstand tot het lichaam hoeveel ruimte iemand claimt of juist inneemt, en de handen tonen door spanning, vingers en gebaren wat er onder de woorden zit.</p>
+      <p>Steeds terugkerend is het onderscheid tussen comfort en discomfort: ontspannen gedrag is lichter en meer naar boven gericht, ongemakkelijk gedrag is zwaarder en meer naar beneden of naar binnen gericht. Navarro noemt dit onderscheid cultuuroverstijgend, in tegenstelling tot losse gebaren die van cultuur tot cultuur van betekenis kunnen wisselen.</p>
+      <h3>Geruststellend gedrag</h3>
+      <p>Een terugkerend begrip is geruststellend gedrag: handelingen waarmee iemand zichzelf na spanning kalmeert, zoals het aanraken van de hals, het strijken over het gezicht of het spelen met haar, sieraden of een pen. Navarro onderscheidt dit gedrag naar de plek waar het optreedt en noemt het een teken dat er even daarvoor spanning is geweest, niet een teken van wat die spanning veroorzaakte.</p>
+      <p>Hij herhaalt op meerdere plaatsen dat zulk gedrag alleen ongemak aantoont, en dat de oorzaak van dat ongemak apart moet worden vastgesteld uit de context. Een advocaat die zijn nek wrijft bij een lastige vraag kan zenuwachtig zijn over de uitkomst, maar evengoed over iets dat niets met de zaak te maken heeft.</p>
+      <p>Navarro onderscheidt binnen dit gedrag verschillende varianten naar de plek van het lichaam waar ze optreden, van aanraken van de hals tot wrijven over het voorhoofd tot het uitblazen van adem met bolle wangen. Al deze varianten dienen volgens hem hetzelfde doel: het zenuwstelsel na een moment van spanning weer tot rust brengen, ongeacht de precieze aanleiding.</p>
+      <h3>Het gezicht als minst betrouwbare signaal</h3>
+      <p>Waar de eerdere hoofdstukken het lichaam van onderaf opbouwen, behandelt Navarro het gezicht als laatste en met de meeste terughoudendheid. Gezichtsuitdrukkingen zijn volgens hem het gemakkelijkst te veinzen, omdat mensen er van jongs af aan op geoefend worden, en microscopisch korte uitdrukkingen kunnen aan de waarnemer ontsnappen zonder training om ze te zien.</p>
+      <p>Zijn advies is daarom om het gezicht nooit los te lezen, maar altijd samen met wat de rest van het lichaam op hetzelfde moment doet.</p>
+      <h3>Leugendetectie als apart en beperkt hoofdstuk</h3>
+      <p>Pas in het voorlaatste hoofdstuk gaat Navarro in op het opsporen van leugens, en hij doet dat met nadrukkelijke terughoudendheid. Hij stelt dat er geen enkel gebaar bestaat dat op zichzelf een leugen bewijst, en dat het enige wat betrouwbaar te zien is, een verandering in gedrag is ten opzichte van iemands basisgedrag op een rustig moment.</p>
+      <p>Die basislijn moet eerst worden vastgesteld voor er iets over afwijkingen te zeggen valt, en zelfs dan blijft de conclusie een aanwijzing voor stress of ongemak, geen bewijs van bedrog. Navarro noemt zelf dat zelfs ervaren waarnemers zoals hij op zijn best rond de zestig procent juist zitten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Limbisch brein</td><td>Het hersendeel dat volgens Navarro razendsnel en onwillekeurig reageert op dreiging, en dat hij als eerlijkste bron van gedrag beschouwt.</td></tr>
+          <tr><td class="term">Freeze, flight, fight</td><td>De drie overlevingsreacties die het limbisch brein bij waargenomen dreiging inzet, in die volgorde van voorkeur.</td></tr>
+          <tr><td class="term">Geruststellend gedrag</td><td>Zelfkalmerende handelingen zoals het aanraken van hals, gezicht of haar na een moment van spanning.</td></tr>
+          <tr><td class="term">Comfort en discomfort</td><td>Het basisonderscheid tussen ontspannen gedrag, licht en opwaarts, en ongemakkelijk gedrag, zwaar en neerwaarts.</td></tr>
+          <tr><td class="term">Basisgedrag</td><td>Iemands gewone, rustige manier van doen, die eerst moet worden vastgesteld voor afwijkingen daarvan iets kunnen zeggen.</td></tr>
+          <tr><td class="term">Territoriaal gedrag</td><td>Houdingen waarmee iemand door armen, benen of voorwerpen meer of minder ruimte claimt.</td></tr>
+          <tr><td class="term">Voeten als eerlijkste segment</td><td>Navarro's stelling dat voeten en benen minder bewust gecontroleerd worden dan het gezicht en daardoor onwillekeuriger reageren.</td></tr>
+          <tr><td class="term">Speed-reading people</td><td>De ondertitel van het boek, de snelle inschatting van gedrag door getrainde waarneming van het hele lichaam.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Navarro's onderbouwing steunt op vijfentwintig jaar praktijkervaring bij de FBI en op duizenden verhoren en observaties in contraspionagezaken. Dat is een omvangrijke, maar ongecontroleerde praktijk: geen van de gevallen is systematisch vastgelegd, gecodeerd of getoetst zoals in experimenteel onderzoek gebeurt, en het boek citeert geen eigen dataverzameling waarop de claims te controleren zijn.</p>
+      <p>Voor de onderliggende neurologie verwijst hij naar algemeen aanvaarde kennis over het limbisch systeem, maar de sprong van die kennis naar specifieke, herkenbare gedragspatronen zoals nekaanraken of voetgericht wippen is Navarro's eigen interpretatie, niet iets dat in gecontroleerd onderzoek naar die specifieke signalen is bevestigd.</p>
+      <p>Karlins' bijdrage als hoogleraar management geeft het boek een academische toon, maar dat betekent niet dat de specifieke gedragsclaims zelf in vakliteratuur zijn getoetst. De literatuurlijst achter in het boek bevat algemene bronnen over lichaamstaal en gedrag, geen reeks peer-reviewed studies die elk apart genoemd signaal onderbouwen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De wetenschappelijke status van populaire lichaamstaalclaims is omstreden. Onafhankelijk onderzoek naar het herkennen van leugens uit non-verbaal gedrag laat zien dat mensen, inclusief getrainde ondervragers en rechercheurs, daar nauwelijks beter in zijn dan toeval. De meta-analyse van Bond en DePaulo uit 2006, gebaseerd op ruim tweehonderd studies en meer dan vierentwintigduizend proefpersonen, komt uit op een gemiddelde nauwkeurigheid van ongeveer vierenvijftig procent, terwijl vijftig procent al door gokken wordt gehaald.</p>
+      <p>Navarro erkent deze beperking gedeeltelijk zelf, met zijn eigen schatting van hoogstens zestig procent juiste inschattingen en zijn herhaalde waarschuwing dat een los gebaar niets bewijst. Toch presenteert het boek per hoofdstuk lange lijsten specifieke signalen met vaste betekenissen, wat de lezer makkelijk als een betrouwbare catalogus kan gaan lezen ondanks die waarschuwingen. Losse gebaren blijven bovendien gevoelig voor culturele variatie, individuele gewoonte en simpele fysieke oorzaken zoals kou of een ongemakkelijke stoel, factoren die het boek noemt maar niet systematisch uitsluit.</p>
+      <p>Het onderscheid dat het boek zelf maakt tussen comfort en ongemak enerzijds en leugendetectie anderzijds, is verstandiger dan hoe veel lezers het boek gebruiken. Onderzoek naar stressreacties ondersteunt in algemene zin dat spanning zich in houding en beweging uit, maar dat is iets anders dan de claim dat een getraind persoon daaruit betrouwbaar kan afleiden wat iemand denkt of verzwijgt. Wie het boek als stappenplan voor waarheidsvinding leest, gaat verder dan waar Navarro's eigen bewijs hem brengt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kijk bij een gesprek eerst naar voeten en benen voor een indruk van ontspanning of onrust, voor het gezicht wordt beoordeeld.</li>
+        <li>Stel eerst iemands rustige basisgedrag vast voor je een verandering daarin als signaal leest.</li>
+        <li>Lees een enkel gebaar nooit als bewijs, maar alleen als aanleiding om verder te vragen naar de oorzaak van het ongemak.</li>
+        <li>Let bij geruststellend gedrag op het moment waarop het optreedt, niet alleen op het gedrag zelf.</li>
+        <li>Beoordeel het gezicht nooit los, maar altijd samen met wat romp, armen en benen op hetzelfde moment doen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>What Every BODY Is Saying: An Ex-FBI Agent's Guide to Speed-Reading People</i> (William Morrow, 2008). Nederlands verschenen bij Just Publishers (Meppel) onder de titel <i>Bodylanguage: mensen kennen door hun lichaamstaal</i>, vertaald door Maaike van der Rijst, eerste druk 2014 (ISBN 9789089754301, circa 287 blz.), latere druk 2018 (ISBN 9789089756725).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Navarro werkte vijfentwintig jaar bij de FBI, het grootste deel in contraspionage, en behoorde tot de oprichters van het gedragsanalyseprogramma van de National Security Division. In dat werk observeerde hij duizenden verhoren en ontmoetingen met spionnen en informanten, en daaruit destilleert hij een methode om non-verbaal gedrag te lezen. Zijn uitgangspunt is dat het limbisch brein, het deel dat instinctief reageert op dreiging, sneller en eerlijker is dan het bewuste denken. Onder stress vertoont het lichaam volgens hem drie soorten reacties: bevriezen, vluchten of aanvallen, en die reacties zijn het duidelijkst zichtbaar in voeten en benen, omdat mensen daar het minst op letten en ze dus het minst kunnen faken.</p><p>Het boek werkt van onder naar boven: eerst voeten en benen, dan romp, armen, handen en gezicht, met telkens dezelfde vraag of een houding op ontspanning wijst of op ongemak. Een terugkerend begrip is het geruststellend gedrag, aanraken van hals, gezicht of haar waarmee iemand zichzelf kalmeert na spanning. Navarro benadrukt dat zulke signalen nooit op zichzelf iets bewijzen en dat ze geen leugen aantonen, alleen ongemak, waarvan de oorzaak apart moet worden vastgesteld. Het slothoofdstuk gaat expliciet over de grenzen van het lezen op leugens, en waarschuwt tegen het idee dat één gebaar een sluitend bewijs kan zijn.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>lichaamstaal</li><li>non-verbale communicatie</li><li>FBI</li><li>gedrag</li><li>waarneming</li><li>leugendetectie</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="24"><a href="24.html">How to Win Friends and Influence People</a>. Beide boeken bieden een praktische, op ervaring gebaseerde methode zonder gecontroleerd onderzoek eronder.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenberg werkt uit hoe woorden gevoel en behoefte overbrengen, waar Navarro zich beperkt tot het lichaam.</li>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Behandelt de gesprekstechniek voor het moment waarop Navarro's signalen ongemak laten zien.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

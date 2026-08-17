@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Brain Weighs 500 Pounds &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pledgers stelling is dat mensen vastlopen doordat hun brein verzadigd is geraakt met nutteloze informatie, schadelijke gewoontes en angst voor mislukking,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-146">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">146 &middot; Gewoontes en denken</p>
+    <h1>Your Brain Weighs 500 Pounds</h1>
+    <p class="lede">Derrick Pledger, 2023</p>
+    <p class="stats">
+      <span><b>1409</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="146"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pledgers stelling is dat mensen vastlopen doordat hun brein verzadigd is geraakt met nutteloze informatie, schadelijke gewoontes en angst voor mislukking, ongeacht talent, geld of geluk. Net zoals een lichaam gezond wordt van de juiste voeding, wordt een brein volgens hem sterk van de juiste mentale voeding: discipline, ambitie, focus en het vermogen om van fouten te leren. Wie zich aan de honderd recepten uit dit boek houdt, verandert stap voor stap zijn gedrag en daarmee zijn resultaten in werk, relaties en gezondheid. De stelling laat zich moeilijk toetsen, want ze verklaart succes en falen allebei uit dezelfde oorzaak: wat er in het hoofd omgaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Honderd recepten voor een hersendieet</h3>
+      <p>Het boek bestaat uit honderd korte hoofdstukken die Pledger recepten noemt, elk een paar bladzijden lang en voorzien van een eigen titel, zoals <i>Embrace Adversity</i>, <i>Be Prepared</i> en <i>Happiness Starts Within</i>. De opzet is die van een kookboek voor de geest: een inhoudsopgave vooraan laat zien welk recept bij welk onderwerp hoort, en de lezer kan naar eigen behoefte bladeren in plaats van van voor naar achter te lezen. Het boek telt 224 bladzijden en verscheen later ook als luisterboek, ingesproken door Salathiel Reagan, een formaat dat bij losse, kortlopende recepten goed past.</p>
+      <p>Onder de recepten ligt de metafoor uit de titel. Een brein dat zich voedt met ruis, sociale media en negatieve gedachten raakt volgens Pledger net zo opgeblazen als een lichaam dat zich voedt met junkfood, en heeft een dieet nodig van betere mentale voeding: discipline, ambitie en gerichte aandacht.</p>
+      <h3>Ambitie, discipline en tijd</h3>
+      <p>Een groot deel van de recepten gaat over de basisvoorwaarden voor prestatie. Pledger stelt dat ambitie op zich goed is, dat discipline de grondslag van elke prestatie vormt, en dat wie zijn tijd niet bewust indeelt, hem aan anderen verliest. Een van de recepten beschrijft wat hij environmental sabotage noemt: de eigen omgeving zo inrichten dat verleidingen als een volle koelkast of een telefoon binnen handbereik simpelweg afwezig zijn, zodat wilskracht overbodig wordt.</p>
+      <p>Ter illustratie gebruikt hij herkenbare beelden uit populaire cultuur: de trainingsmontage uit de film <i>Rocky IV</i> staat voor volgehouden inspanning zonder direct zichtbaar resultaat, en Arnold Schwarzeneggers uitspraak dat hij nooit een plan B achter de hand hield, staat voor onvoorwaardelijke inzet op één doel. Een ander terugkerend voorbeeld is dat van rondtrekkende encyclopedieverkopers uit de vorige eeuw, bij wie Pledger doorzettingsvermogen bij herhaalde afwijzing illustreert.</p>
+      <h3>Vallen, falen en opnieuw beginnen</h3>
+      <p>Een tweede cluster recepten gaat over tegenslag. <i>Embrace Adversity</i> beschrijft moeilijkheden als onderdeel van vooruitgang, <i>Failure Is a Journey</i> plaatst mislukking in een langere reeks stappen, en <i>Make Mistakes Every Day</i> stelt het maken van fouten voor als een teken van beweging in het proces zelf. <i>Turn Your Challenges Upside Down</i> vraagt om in een tegenslag ook te zoeken naar wat zij oplevert.</p>
+      <h3>Omgang met anderen</h3>
+      <p>Een derde lijn gaat over gedrag naar anderen: ouderwetse omgangsvormen, gesprekstechniek en het bouwen van een netwerk. Pledger leent hier onder meer de term <i>The Circle of Safety</i>, een kring van mensen die elkaar vertrouwen en dekken, en verbindt die met ervaringen uit leger en bedrijfsleven. Herhaaldelijk komt de gedachte terug dat wie anderen dient, uiteindelijk zelf verder komt.</p>
+      <h3>Happiness starts within en het slot</h3>
+      <p>Naar het einde toe verschuift de toon van prestatie naar tevredenheid. <i>Happiness Starts Within</i> en <i>Live for Today</i> stellen geluk voor als een keuze die nu al gemaakt kan worden, los van het bereiken van een doel. Het boek sluit af met een lijst van tien kernideeën die de honderd recepten terugbrengt tot een kern, van ambitie is goed tot leer alsof je leven ervan afhangt.</p>
+      <h3>De achtergrond van de schrijver</h3>
+      <p>Pledger is legerveteraan met diensttijd in Irak, Afghanistan en de Hoorn van Afrika, en klom daarna op tot chief information officer bij een groot Amerikaans defensiebedrijf. Hij zegt meer dan vijftienhonderd uur te hebben besteed aan onderzoek naar mindset en prestatiegedrag, en het boek te hebben gebouwd op die research, eigen ervaring en jarenlang bijgehouden dagboeken.</p>
+      <p>Hij schrijft zelf geen zelfhulpgoeroe te zijn, terwijl het boek wel belooft dat het perspectieven verandert en gewoontes overhoop haalt: een belofte die met dat eigen voorbehoud op gespannen voet staat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Recept</td><td>De naam voor elk van de honderd hoofdstukken, een kort advies van een paar bladzijden met een eigen titel.</td></tr>
+          <tr><td class="term">Hersendieet</td><td>De metafoor waarop het boek is gebouwd: het brein als lichaam dat gezond wordt van de juiste mentale voeding en opzwelt van ruis en negativiteit.</td></tr>
+          <tr><td class="term">Environmental sabotage</td><td>De eigen omgeving zo inrichten dat verleiding wordt weggenomen in plaats van weerstaan.</td></tr>
+          <tr><td class="term">Embrace Adversity</td><td>Het recept dat tegenslag voorstelt als aanjager van vooruitgang in plaats van als obstakel.</td></tr>
+          <tr><td class="term">Failure Is a Journey</td><td>Het recept dat mislukking als stap in een langere reeks beschrijft en niet als eindpunt.</td></tr>
+          <tr><td class="term">Make Mistakes Every Day</td><td>Het recept dat het dagelijks maken van fouten voorstelt als teken van vooruitgang.</td></tr>
+          <tr><td class="term">The Circle of Safety</td><td>Geleende term voor een kring van mensen die elkaar vertrouwen en beschermen.</td></tr>
+          <tr><td class="term">Happiness Starts Within</td><td>Het recept dat geluk als keuze in het nu voorstelt, los van het bereiken van een doel.</td></tr>
+          <tr><td class="term">De tien kernideeën</td><td>De lijst waarmee het boek afsluit en die de honderd recepten terugbrengt tot een kern.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat vrijwel volledig uit persoonlijke ervaring. Pledger zegt meer dan vijftienhonderd uur te hebben gestoken in onderzoek naar mindset en prestatiegedrag en jarenlang dagboeken te hebben bijgehouden, maar het boek geeft geen voetnoten of verwijzingen naar specifieke studies. Wat als bewijs dient, zijn vooral anekdotes uit zijn eigen loopbaan als legerveteraan en later als IT-topfunctionaris, aangevuld met bekende voorbeelden uit sport en film.</p>
+      <p>Voor autoriteit leunt het boek op namen die de lezer al kent: Tony Robbins, James Clear en Warren Buffett worden aangehaald zonder dat hun uitspraken verder worden getoetst. Dat maakt het boek een verzameling van ervaring en geleend gezag, geen boek dat eigen onderzoek presenteert of bestaand onderzoek weergeeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De ontvangst loopt uiteen. Kleinere recensieplatforms prijzen vooral de directe, bemoedigende toon en de bruikbaarheid van losse recepten voor wie weinig leestijd heeft. Kirkus Reviews, dat het boek professioneel beoordeelde, is kritischer en signaleert de tegenspraak in de opzet: Pledger schrijft dat hij geen zelfhulpgoeroe wil zijn, terwijl het boek zelf belooft dat het perspectieven verandert en gewoontes overhoop haalt, precies de taal van het genre waarvan hij zich probeert te onderscheiden. De honderd recepten herhalen voor een groot deel bekende adviezen uit ander zelfhulpwerk, met een toon die door die recensie wordt vergeleken met die van een wenskaart.</p>
+      <p>Een tweede bezwaar raakt de inhoud zelf. Een deel van de recepten gaat uit van een werkethiek waarin weekenden niet voor ontspanning zijn en werk-privébalans een mythe heet, een opvatting die niet voor iedere lezer houdbaar of wenselijk is en die het boek zelf niet van kritische afstand voorziet. Doordat het boek geen aanspraak maakt op wetenschap of systematisch onderzoek, valt er ook weinig te toetsen: de honderd recepten staan los naast elkaar en worden zelden tegen elkaar of tegen een alternatief afgewogen. De bronvermelding is bovendien inconsistent: gevestigde namen als Robbins en Clear worden met naam genoemd, maar bij het merendeel van de recepten blijft onduidelijk welk idee van Pledger zelf komt en welk elders is geleend.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies uit de honderd recepten een handvol dat aansluit bij een concreet probleem, bijvoorbeeld tijdsbesteding of tegenslag op het werk, in plaats van het boek van voor naar achter te lezen.</li>
+        <li>Pas environmental sabotage toe door één omgeving aan te passen, zoals de telefoon buiten de slaapkamer leggen, in plaats van te vertrouwen op wilskracht.</li>
+        <li>Gebruik de tien kernideeën aan het eind als toets: herken je ze terug in de honderd recepten, of blijven ze los daarvan staan.</li>
+        <li>Zoek voor onderbouwde varianten van dezelfde adviezen naar boeken die wel onderzoek of herhaalbare experimenten citeren.</li>
+        <li>Noteer bij elk recept dat aanspreekt of het gaat om een eigen inzicht van Pledger of om een idee dat hij elders heeft opgepikt, voordat je het als vaststaand overneemt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Your Brain Weighs 500 Pounds: Change Your Mindset to Achieve Desired Outcomes</i> (Lioncrest Publishing, 2023, 224 blz., ISBN 9781544544397 / 9781544544403). Geen Nederlandse vertaling gevonden: de catalogus van bibliotheek.nl levert op de naam Pledger geen resultaat op, en Nederlandse boekhandels als Libris verkopen alleen de Engelse editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pledger vergelijkt het brein met een lichaam dat kan opzwellen van verkeerde voeding: wie zich voedt met ruis, afleiding en negatieve gewoontes, raakt net zo vastgelopen als iemand die zich vol eet met junkfood. Tegenover die opgeblazen staat zet hij honderd korte lessen die hij recepten noemt, elk een paar bladzijden lang, over onderwerpen als ambitie, discipline, tijdsbesteding, omgang met tegenslag en netwerken. De recepten staan los van elkaar en zijn bedoeld om in willekeurige volgorde te lezen, met een inhoudsopgave vooraan die als menu fungeert.</p><p>Het boek opent met Pledgers eigen verhaal, van legerveteraan naar IT-topfunctionaris, en sluit af met een lijst van tien kernideeën die de honderd recepten terugbrengt tot een kern. De toon is die van een coach die tegenover je aan tafel zit: direct, praktisch, met voorbeelden uit sport, film en het eigen dagelijks leven, zoals een vast ochtendritueel om 5.02 uur. Wie eerder zelfhulpboeken van Tony Robbins of James Clear heeft gelezen, herkent het meeste materiaal; Pledger citeert hen ook met naam.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>mindset</li><li>discipline</li><li>gewoontevorming</li><li>motivatie</li><li>carrière</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Pledger citeert Clear met naam; <i>Atomic Habits</i> onderbouwt met herhaalbaar onderzoek naar gewoontevorming wat dit boek als los recept aanreikt.</li>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Beide boeken stellen dat kleine, volgehouden acties zich opstapelen tot resultaat, maar <i>The Compound Effect</i> werkt dat mechanisme uit waar dit boek het bij een recept laat.</li>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. <i>The Art of Thinking Clearly</i> beschrijft de denkfouten die verklaren waarom een recept als <i>Happiness Starts Within</i> aantrekkelijk klinkt, los van de vraag of het klopt.</li>
+          <li value="23"><a href="23.html">Mindset</a>. <i>Mindset</i> van Carol Dweck onderbouwt met eigen onderzoek het idee dat Pledger als vanzelfsprekend aanneemt: dat een op groei gerichte instelling gedrag en resultaat verandert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

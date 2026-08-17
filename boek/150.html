@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Designing Your Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De stelling van het boek is dat er geen leven bestaat dat iemand hoeft te "ontdekken" of "vinden", en dat de vraag naar het ene juiste pad zelf het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-150">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">150 &middot; Levenskunst</p>
+    <h1>Designing Your Life</h1>
+    <p class="lede">Bill Burnett en Dave Evans, 2016</p>
+    <p class="stats">
+      <span><b>1718</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="150"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De stelling van het boek is dat er geen leven bestaat dat iemand hoeft te "ontdekken" of "vinden", en dat de vraag naar het ene juiste pad zelf het probleem is. Wie een leven wil bouwen, kan volgens Burnett en Evans dezelfde werkwijze gebruiken als een ontwerper: problemen herformuleren tot iets waar wel aan te werken valt, meerdere richtingen tegelijk openhouden in plaats van er meteen één te kiezen, en ideeën eerst klein en goedkoop toetsen voordat er iets op het spel staat. Actie gaat daarbij vooraf aan inzicht: niet nadenken tot de motivatie er is, maar iets proberen en zien wat het met de energie doet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst: een cursus aan de d.school</h3>
+      <p>Burnett en Evans geven de cursus "Designing Your Life" al sinds het midden van de jaren tweeduizend aan Stanford, bij de Hasso Plattner Institute of Design, kortweg de d.school, waar design thinking wordt onderwezen als algemene probleemoplosmethode en niet alleen voor productontwikkeling. Het vak trekt studenten uit alle faculteiten die vastlopen op de vraag wat ze na hun studie moeten doen, en het boek herschrijft de opdrachten van die cursus voor een lezer zonder klaslokaal.</p>
+      <p>De auteurs formuleren vijf ontwerpuitgangspunten die door het hele boek terugkeren: nieuwsgierigheid, een neiging tot uitproberen boven lang nadenken, het herformuleren van problemen, bewustzijn van het eigen proces, en radicale samenwerking. Elk volgend hoofdstuk is een uitwerking van een van deze punten in oefenvorm.</p>
+      <h3>Reframing en gravity problems</h3>
+      <p>Het boek begint met wat het "dysfunctional beliefs" noemt, aannames die het denken over werk en leven op voorhand vastzetten, zoals de gedachte dat er één ware roeping bestaat die iemand alleen nog hoeft te vinden. Tegenover elke aanname zet het boek een reframe, een herformulering die de aanname niet ontkent maar er ruimte in aanbrengt.</p>
+      <p>Een aparte categorie krijgt een eigen naam: het gravity problem. Dat is een omstandigheid die zich niet laat oplossen, zoals de zwaartekracht zelf, en die dus geen probleem is om aan te werken maar een gegeven om mee te leven. Het boek geeft als voorbeeld een sollicitant die blijft worstelen met het feit dat zijn wensberoep in zijn regio nauwelijks bestaat: dat is geen op te lossen probleem maar een omstandigheid, en de opdracht is die te aanvaarden en de energie ergens anders in te zetten.</p>
+      <h3>Het kompas: workview en lifeview</h3>
+      <p>Voordat er iets ontworpen wordt, vraagt het boek om een kompas te maken: twee korte teksten van ongeveer een halve bladzijde, een workview over wat werk voor de lezer betekent en een lifeview over wat het leven zin geeft. De oefening daarna is te kijken waar de twee elkaar tegenspreken of juist versterken, want die samenhang, niet de tekst zelf, is volgens het boek waar het om gaat.</p>
+      <p>Daarnaast introduceert het boek een dashboard: een score op vier gebieden, gezondheid, werk, spel en liefde, elk op een meter van leeg naar vol. Het dashboard is bedoeld om in één oogopslag te zien welk gebied de meeste aandacht nodig heeft, zonder dat daar een cijfermatige weging aan hangt.</p>
+      <h3>Wayfinding: het Good Time Journal en AEIOU</h3>
+      <p>Voor de vraag waar iemand naartoe zou moeten, gebruikt het boek de term wayfinding: een richting zoeken zonder vast eindpunt, aan de hand van signalen die zich onderweg voordoen. Het instrument daarvoor is het Good Time Journal, een dagboek waarin de lezer twee weken lang activiteiten noteert samen met de energie en de betrokkenheid die ze opleverden.</p>
+      <p>De aantekeningen worden vervolgens geordend met de AEIOU-indeling, afkomstig uit ontwerpobservatie: activities, environments, interactions, objects, users. Uit de patronen die zo zichtbaar worden, leidt het boek af welke soort werk en omgeving energie geven, in plaats van dat de lezer dat vooraf bedenkt.</p>
+      <h3>Van ideeën naar Odyssey Plans</h3>
+      <p>Met mindmapping in drie lagen worden associaties bij de gevonden patronen breder gemaakt dan het eerste idee dat opkomt. Daaruit ontstaan de Odyssey Plans, het middel waarmee het boek het bekendst is geworden: drie afzonderlijke schetsen van de komende vijf jaar, elk met een titel van zes woorden, een tijdlijn, een dashboardscore en drie onderzoeksvragen.</p>
+      <p>Het eerste plan bouwt voort op de huidige richting, het tweede beschrijft wat de lezer zou doen als die richting om externe redenen wegviel, en het derde staat los van geld of aanzien. De drie plannen zijn nadrukkelijk niet bedoeld als drie opties om uit te kiezen, maar als bewijs dat er meer dan één goed leven mogelijk is.</p>
+      <h3>Prototyping: gesprekken en ervaringen</h3>
+      <p>Een Odyssey Plan wordt niet beoordeeld maar getoetst, met wat het boek prototype gesprekken noemt: korte, gerichte gesprekken met mensen die al doen waar het plan over gaat, gericht op hun ervaring en niet op advies. Waar dat kan komt daar een prototype-ervaring bij, een korte, laagdrempelige manier om een deel van de overwogen richting zelf te beproeven, zoals een dag meelopen of een cursus van een week volgen.</p>
+      <p>Het idee achter beide is dat een besluit pas met voldoende informatie genomen wordt als die informatie uit de praktijk komt en niet uit veronderstelling.</p>
+      <h3>Kiezen en falen</h3>
+      <p>Het slot van het boek behandelt kiezen zelf als een vaardigheid: eerst opties verzamelen zonder ze te beoordelen, dan de lijst bewust inperken, en pas dan een keuze maken en die loslaten in plaats van te blijven twijfelen of vergelijken met wat niet gekozen is.</p>
+      <p>Daarnaast beschrijft het boek failure immunity, het bijhouden van een logboek van mislukkingen en het indelen daarvan in categorieën: fouten om van te leren, mislukkingen die bij het vak horen, en mislukkingen die simpelweg zwaktes blootleggen. Het doel is mislukking als onderdeel van het ontwerpproces te gaan zien in plaats van als bewijs dat de gekozen richting verkeerd was.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Reframing</td><td>Het herformuleren van een vastgelopen aanname over werk of leven, niet om haar te ontkennen maar om er beweegruimte in aan te brengen.</td></tr>
+          <tr><td class="term">Gravity problem</td><td>Een omstandigheid die zich niet laat oplossen, zoals de zwaartekracht, en die dus om aanvaarding vraagt in plaats van om een besluit.</td></tr>
+          <tr><td class="term">Kompas (workview en lifeview)</td><td>Twee korte teksten waarin de lezer vastlegt wat werk voor hem betekent en wat het leven zin geeft, en waar hij ze op elkaar toetst.</td></tr>
+          <tr><td class="term">Dashboard</td><td>Een score op de vier gebieden gezondheid, werk, spel en liefde, bedoeld om te zien welk gebied aandacht nodig heeft.</td></tr>
+          <tr><td class="term">Wayfinding</td><td>Het zoeken van een richting zonder vast eindpunt, geleid door signalen van energie en betrokkenheid die zich onderweg voordoen.</td></tr>
+          <tr><td class="term">Good Time Journal</td><td>Een dagboek waarin de lezer twee weken lang activiteiten noteert samen met de energie en betrokkenheid die ze opleverden.</td></tr>
+          <tr><td class="term">AEIOU</td><td>De indeling van dagboeknotities naar activiteiten, omgevingen, interacties, objecten en mensen, gebruikt om patronen te vinden.</td></tr>
+          <tr><td class="term">Odyssey Plan</td><td>Drie afzonderlijke schetsen van de komende vijf jaar, elk vanuit een ander uitgangspunt, bedoeld om te tonen dat meer dan één goed leven mogelijk is.</td></tr>
+          <tr><td class="term">Prototype gesprek</td><td>Een kort, gericht gesprek met iemand die al doet waar een overwogen richting over gaat, bedoeld om die richting te toetsen aan de praktijk.</td></tr>
+          <tr><td class="term">Failure immunity</td><td>Het bijhouden en indelen van mislukkingen in een logboek, om ze als onderdeel van het ontwerpproces te zien in plaats van als bewijs van een verkeerde keuze.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op een cursus die Burnett en Evans sinds het midden van de jaren tweeduizend aan Stanford geven, en op de workshops en het adviesbureau die daaruit zijn voortgekomen. Dat is ervaring met veel deelnemers over een lange periode, maar geen gecontroleerd onderzoek: er is geen vergelijkingsgroep, geen meting voor en na buiten de anekdotes om, en de deelnemers zijn overwegend Stanford-studenten en -alumni, een groep met toegang tot tijd, netwerk en financiële ruimte die niet representatief is voor wie het boek leest.</p>
+      <p>De methode zelf is afkomstig uit productontwerp en wordt in het boek overgezet naar levenskeuzes zonder dat daar apart bewijs voor wordt aangedragen dat mensen zich als producten laten prototypen. De onderbouwing bestaat vooral uit voorbeelden van cursisten die worden aangehaald bij naam of functie, zonder brongegevens die een lezer zelf kan natrekken. Waar het boek algemene beweringen doet over motivatie en geluk, zoals dat actie aan inzicht voorafgaat, verwijst het naar bredere psychologische literatuur zonder die zelf te toetsen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste tegenwerping betreft de reikwijdte van de methode. Wat voor een Stanford-student met een diploma, een netwerk en financiële ruimte een kwestie van uitproberen en herformuleren is, is voor iemand zonder die ruimte vaak een kwestie van geld, zorgtaken of een arbeidsmarkt die geen ruimte laat voor experimenten. Het boek erkent dit slechts terloops en behandelt de eigen uitgangssituatie als vanzelfsprekend.</p>
+      <p>Het onderscheid tussen een op te lossen probleem en een gravity problem is bruikbaar, maar het boek geeft weinig houvast om ze uit elkaar te houden. Een lezer die tegen een structureel probleem aanloopt, zoals een discriminerende arbeidsmarkt of een gebrek aan kinderopvang, kan de gravity-indeling ook gebruiken om een oplosbaar probleem voortijdig als onveranderlijk weg te zetten, en het boek biedt geen criterium om dat verschil te maken buiten het eigen gevoel van de lezer.</p>
+      <p>De taal van het boek, met termen als prototype en radicale samenwerking, komt rechtstreeks uit de bedrijfswereld van productontwikkeling, en de overdracht naar een privéleven blijft grotendeels een analogie. Een leven is geen product met gebruikers en iteraties, en het boek onderzoekt niet waar die vergelijking spaak loopt, bijvoorbeeld bij beslissingen die andere mensen raken, zoals een partner of kinderen, en die zich niet in het klein laten uitproberen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf een workview en een lifeview van elk een halve bladzijde en kijk waar ze elkaar tegenspreken.</li>
+        <li>Houd twee weken een Good Time Journal bij en noteer bij elke activiteit de energie en de betrokkenheid die ze gaf.</li>
+        <li>Orden de aantekeningen volgens AEIOU en zoek het patroon in wat energie geeft.</li>
+        <li>Schrijf drie Odyssey Plans voor de komende vijf jaar, elk vanuit een ander uitgangspunt.</li>
+        <li>Voer bij elk plan minstens één prototype gesprek met iemand die al doet waar het plan over gaat.</li>
+        <li>Houd een logboek van mislukkingen bij en deel ze in categorieën in voordat je concludeert wat ze betekenen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Designing Your Life: How to Build a Well-Lived, Joyful Life</i> (Knopf, 2016). Nederlands als <i>Ontwerp je eigen leven: hoe je het beste uit je leven en werk haalt</i>, bij Hollands Diep, Amsterdam (2016, 272 blz., ISBN 9789048827176; herdruk als paperback 2022, ISBN 9789048861682), vertaald door Jan van den Berg, Piet Dal en Marieke van Muijden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bill Burnett en Dave Evans geven aan Stanford de cursus "Designing Your Life" bij de d.school, de afdeling die design thinking onderwijst aan studenten uit alle richtingen. Dit boek zet die cursus om in een werkboek voor wie vastloopt in werk of leven. De grondgedachte is dat de methode waarmee ontwerpers producten maken, ook op een leven toepasbaar is: niet zoeken naar het ene juiste antwoord, maar een probleem eerst goed herformuleren, dan opties verkennen en die klein en concreet uitproberen voordat er een besluit valt. Burnett was jarenlang productontwerper bij Apple, Evans werkte in personeelsontwikkeling bij onder meer Electronic Arts, en die achtergrond in ontwerpwerk kleurt elk hoofdstuk.</p><p>Het boek werkt met een vaste reeks oefeningen: een kompas van twee korte teksten over wat werk en het leven betekenen, een dagboek dat energie en betrokkenheid volgt, drie alternatieve vijfjarenplannen en gesprekken met mensen die al doen wat de lezer overweegt. De toon is die van een cursusdictaat, met opdrachten aan het eind van elk hoofdstuk en weinig terughoudendheid over wat de methode oplevert.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>loopbaan</li><li>levenskeuzes</li><li>design thinking</li><li>Stanford</li><li>zelfhulp</li><li>werkboek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Waar dit boek uitgaat van vijfjarenplannen en gerichte keuzes, stelt Four Thousand Weeks de eindigheid van tijd zelf centraal en relativeert het idee dat een leven maakbaar te plannen valt.</li>
+          <li value="78"><a href="78.html">Finding Flow</a>. De energie en betrokkenheid die het Good Time Journal probeert te vangen, zijn precies het onderwerp van Finding Flow, dat de onderliggende psychologie van die momenten uitwerkt.</li>
+          <li value="51"><a href="51.html">The Defining Decade</a>. The Defining Decade behandelt dezelfde levensfase van onbesliste keuzes, maar vanuit ontwikkelingspsychologisch onderzoek in plaats van een ontwerpmethode.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 31 juli
-2026: 145 titels in 18 rubrieken.
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 17
+augustus 2026: 156 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,20 +13,20 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41 |
-| Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81 |
+| Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122 |
@@ -29560,135 +29560,2440 @@ simpeler schema, en laat zien hoeveel Harper wél openlaat.
 bij mannen in hun opvoeding, en komt daarmee bij een verklaring waar Harper
 langsloopt.
 
+## 146. Your Brain Weighs 500 Pounds
+
+Derrick Pledger, 2023. Oorspronkelijk *Your Brain Weighs 500 Pounds: Change
+Your Mindset to Achieve Desired Outcomes* (Lioncrest Publishing, 2023, 224
+blz., ISBN 9781544544397 / 9781544544403). Geen Nederlandse vertaling
+gevonden: de catalogus van bibliotheek.nl levert op de naam Pledger geen
+resultaat op, en Nederlandse boekhandels als Libris verkopen alleen de Engelse
+editie. Rubriek: gewoontes en denken.
+Tags: `zelfhulp`, `mindset`, `discipline`, `gewoontevorming`, `motivatie`,
+`carrière`
+
+Pledger vergelijkt het brein met een lichaam dat kan opzwellen van verkeerde
+voeding: wie zich voedt met ruis, afleiding en negatieve gewoontes, raakt net
+zo vastgelopen als iemand die zich vol eet met junkfood. Tegenover die
+opgeblazen staat zet hij honderd korte lessen die hij recepten noemt, elk een
+paar bladzijden lang, over onderwerpen als ambitie, discipline,
+tijdsbesteding, omgang met tegenslag en netwerken. De recepten staan los van
+elkaar en zijn bedoeld om in willekeurige volgorde te lezen, met een
+inhoudsopgave vooraan die als menu fungeert.
+
+Het boek opent met Pledgers eigen verhaal, van legerveteraan naar
+IT-topfunctionaris, en sluit af met een lijst van tien kernideeën die de
+honderd recepten terugbrengt tot een kern. De toon is die van een coach die
+tegenover je aan tafel zit: direct, praktisch, met voorbeelden uit sport, film
+en het eigen dagelijks leven, zoals een vast ochtendritueel om 5.02 uur. Wie
+eerder zelfhulpboeken van Tony Robbins of James Clear heeft gelezen, herkent
+het meeste materiaal; Pledger citeert hen ook met naam.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Pledgers stelling is dat mensen vastlopen doordat hun brein
+verzadigd is geraakt met nutteloze informatie, schadelijke gewoontes en angst
+voor mislukking, ongeacht talent, geld of geluk. Net zoals een lichaam gezond
+wordt van de juiste voeding, wordt een brein volgens hem sterk van de juiste
+mentale voeding: discipline, ambitie, focus en het vermogen om van fouten te
+leren. Wie zich aan de honderd recepten uit dit boek houdt, verandert stap
+voor stap zijn gedrag en daarmee zijn resultaten in werk, relaties en
+gezondheid. De stelling laat zich moeilijk toetsen, want ze verklaart succes
+en falen allebei uit dezelfde oorzaak: wat er in het hoofd omgaat.
+
+#### De gang van het boek
+
+**Honderd recepten voor een hersendieet**
+
+Het boek bestaat uit honderd korte hoofdstukken die Pledger recepten noemt,
+elk een paar bladzijden lang en voorzien van een eigen titel, zoals *Embrace
+Adversity*, *Be Prepared* en *Happiness Starts Within*. De opzet is die van
+een kookboek voor de geest: een inhoudsopgave vooraan laat zien welk recept
+bij welk onderwerp hoort, en de lezer kan naar eigen behoefte bladeren in
+plaats van van voor naar achter te lezen. Het boek telt 224 bladzijden en
+verscheen later ook als luisterboek, ingesproken door Salathiel Reagan, een
+formaat dat bij losse, kortlopende recepten goed past.
+
+Onder de recepten ligt de metafoor uit de titel. Een brein dat zich voedt met
+ruis, sociale media en negatieve gedachten raakt volgens Pledger net zo
+opgeblazen als een lichaam dat zich voedt met junkfood, en heeft een dieet
+nodig van betere mentale voeding: discipline, ambitie en gerichte aandacht.
+
+**Ambitie, discipline en tijd**
+
+Een groot deel van de recepten gaat over de basisvoorwaarden voor prestatie.
+Pledger stelt dat ambitie op zich goed is, dat discipline de grondslag van
+elke prestatie vormt, en dat wie zijn tijd niet bewust indeelt, hem aan
+anderen verliest. Een van de recepten beschrijft wat hij environmental
+sabotage noemt: de eigen omgeving zo inrichten dat verleidingen als een volle
+koelkast of een telefoon binnen handbereik simpelweg afwezig zijn, zodat
+wilskracht overbodig wordt.
+
+Ter illustratie gebruikt hij herkenbare beelden uit populaire cultuur: de
+trainingsmontage uit de film *Rocky IV* staat voor volgehouden inspanning
+zonder direct zichtbaar resultaat, en Arnold Schwarzeneggers uitspraak dat hij
+nooit een plan B achter de hand hield, staat voor onvoorwaardelijke inzet op
+één doel. Een ander terugkerend voorbeeld is dat van rondtrekkende
+encyclopedieverkopers uit de vorige eeuw, bij wie Pledger doorzettingsvermogen
+bij herhaalde afwijzing illustreert.
+
+**Vallen, falen en opnieuw beginnen**
+
+Een tweede cluster recepten gaat over tegenslag. *Embrace Adversity*
+beschrijft moeilijkheden als onderdeel van vooruitgang, *Failure Is a Journey*
+plaatst mislukking in een langere reeks stappen, en *Make Mistakes Every Day*
+stelt het maken van fouten voor als een teken van beweging in het proces zelf.
+*Turn Your Challenges Upside Down* vraagt om in een tegenslag ook te zoeken
+naar wat zij oplevert.
+
+**Omgang met anderen**
+
+Een derde lijn gaat over gedrag naar anderen: ouderwetse omgangsvormen,
+gesprekstechniek en het bouwen van een netwerk. Pledger leent hier onder meer
+de term *The Circle of Safety*, een kring van mensen die elkaar vertrouwen en
+dekken, en verbindt die met ervaringen uit leger en bedrijfsleven.
+Herhaaldelijk komt de gedachte terug dat wie anderen dient, uiteindelijk zelf
+verder komt.
+
+**Happiness starts within en het slot**
+
+Naar het einde toe verschuift de toon van prestatie naar tevredenheid.
+*Happiness Starts Within* en *Live for Today* stellen geluk voor als een keuze
+die nu al gemaakt kan worden, los van het bereiken van een doel. Het boek
+sluit af met een lijst van tien kernideeën die de honderd recepten terugbrengt
+tot een kern, van ambitie is goed tot leer alsof je leven ervan afhangt.
+
+**De achtergrond van de schrijver**
+
+Pledger is legerveteraan met diensttijd in Irak, Afghanistan en de Hoorn van
+Afrika, en klom daarna op tot chief information officer bij een groot
+Amerikaans defensiebedrijf. Hij zegt meer dan vijftienhonderd uur te hebben
+besteed aan onderzoek naar mindset en prestatiegedrag, en het boek te hebben
+gebouwd op die research, eigen ervaring en jarenlang bijgehouden dagboeken.
+
+Hij schrijft zelf geen zelfhulpgoeroe te zijn, terwijl het boek wel belooft
+dat het perspectieven verandert en gewoontes overhoop haalt: een belofte die
+met dat eigen voorbehoud op gespannen voet staat.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Recept | De naam voor elk van de honderd hoofdstukken, een kort advies van een paar bladzijden met een eigen titel. |
+| Hersendieet | De metafoor waarop het boek is gebouwd: het brein als lichaam dat gezond wordt van de juiste mentale voeding en opzwelt van ruis en negativiteit. |
+| Environmental sabotage | De eigen omgeving zo inrichten dat verleiding wordt weggenomen in plaats van weerstaan. |
+| Embrace Adversity | Het recept dat tegenslag voorstelt als aanjager van vooruitgang in plaats van als obstakel. |
+| Failure Is a Journey | Het recept dat mislukking als stap in een langere reeks beschrijft en niet als eindpunt. |
+| Make Mistakes Every Day | Het recept dat het dagelijks maken van fouten voorstelt als teken van vooruitgang. |
+| The Circle of Safety | Geleende term voor een kring van mensen die elkaar vertrouwen en beschermen. |
+| Happiness Starts Within | Het recept dat geluk als keuze in het nu voorstelt, los van het bereiken van een doel. |
+| De tien kernideeën | De lijst waarmee het boek afsluit en die de honderd recepten terugbrengt tot een kern. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat vrijwel volledig uit persoonlijke ervaring. Pledger
+zegt meer dan vijftienhonderd uur te hebben gestoken in onderzoek naar mindset
+en prestatiegedrag en jarenlang dagboeken te hebben bijgehouden, maar het boek
+geeft geen voetnoten of verwijzingen naar specifieke studies. Wat als bewijs
+dient, zijn vooral anekdotes uit zijn eigen loopbaan als legerveteraan en
+later als IT-topfunctionaris, aangevuld met bekende voorbeelden uit sport en
+film.
+
+Voor autoriteit leunt het boek op namen die de lezer al kent: Tony Robbins,
+James Clear en Warren Buffett worden aangehaald zonder dat hun uitspraken
+verder worden getoetst. Dat maakt het boek een verzameling van ervaring en
+geleend gezag, geen boek dat eigen onderzoek presenteert of bestaand onderzoek
+weergeeft.
+
+#### Wat er tegen in te brengen valt
+
+De ontvangst loopt uiteen. Kleinere recensieplatforms prijzen vooral de
+directe, bemoedigende toon en de bruikbaarheid van losse recepten voor wie
+weinig leestijd heeft. Kirkus Reviews, dat het boek professioneel beoordeelde,
+is kritischer en signaleert de tegenspraak in de opzet: Pledger schrijft dat
+hij geen zelfhulpgoeroe wil zijn, terwijl het boek zelf belooft dat het
+perspectieven verandert en gewoontes overhoop haalt, precies de taal van het
+genre waarvan hij zich probeert te onderscheiden. De honderd recepten herhalen
+voor een groot deel bekende adviezen uit ander zelfhulpwerk, met een toon die
+door die recensie wordt vergeleken met die van een wenskaart.
+
+Een tweede bezwaar raakt de inhoud zelf. Een deel van de recepten gaat uit van
+een werkethiek waarin weekenden niet voor ontspanning zijn en werk-privébalans
+een mythe heet, een opvatting die niet voor iedere lezer houdbaar of wenselijk
+is en die het boek zelf niet van kritische afstand voorziet. Doordat het boek
+geen aanspraak maakt op wetenschap of systematisch onderzoek, valt er ook
+weinig te toetsen: de honderd recepten staan los naast elkaar en worden zelden
+tegen elkaar of tegen een alternatief afgewogen. De bronvermelding is
+bovendien inconsistent: gevestigde namen als Robbins en Clear worden met naam
+genoemd, maar bij het merendeel van de recepten blijft onduidelijk welk idee
+van Pledger zelf komt en welk elders is geleend.
+
+#### Wat er concreet mee te doen is
+
+- Kies uit de honderd recepten een handvol dat aansluit bij een concreet
+probleem, bijvoorbeeld tijdsbesteding of tegenslag op het werk, in plaats van
+het boek van voor naar achter te lezen.
+- Pas environmental sabotage toe door één omgeving aan te passen, zoals de
+telefoon buiten de slaapkamer leggen, in plaats van te vertrouwen op
+wilskracht.
+- Gebruik de tien kernideeën aan het eind als toets: herken je ze terug in de
+honderd recepten, of blijven ze los daarvan staan.
+- Zoek voor onderbouwde varianten van dezelfde adviezen naar boeken die wel
+onderzoek of herhaalbare experimenten citeren.
+- Noteer bij elk recept dat aanspreekt of het gaat om een eigen inzicht van
+Pledger of om een idee dat hij elders heeft opgepikt, voordat je het als
+vaststaand overneemt.
+
+#### Wat je hierna leest
+
+- 22. Atomic Habits. Pledger citeert Clear met naam; *Atomic Habits*
+onderbouwt met herhaalbaar onderzoek naar gewoontevorming wat dit boek als los
+recept aanreikt.
+- 133. The Compound Effect. Beide boeken stellen dat kleine, volgehouden
+acties zich opstapelen tot resultaat, maar *The Compound Effect* werkt dat
+mechanisme uit waar dit boek het bij een recept laat.
+- 59. The Art of Thinking Clearly. *The Art of Thinking Clearly* beschrijft de
+denkfouten die verklaren waarom een recept als *Happiness Starts Within*
+aantrekkelijk klinkt, los van de vraag of het klopt.
+- 23. Mindset. *Mindset* van Carol Dweck onderbouwt met eigen onderzoek het
+idee dat Pledger als vanzelfsprekend aanneemt: dat een op groei gerichte
+instelling gedrag en resultaat verandert.
+
+## 147. The Pyramid Mind
+
+Vlad Beliavsky, 2023. Oorspronkelijk *The Pyramid Mind* (Simon & Schuster UK,
+2 februari 2023, 368 blz., ISBN 9781398507463). Een Nederlandse vertaling is
+niet gevonden: noch de Nationale Bibliotheekcatalogus (bibliotheek.nl) noch de
+gangbare Nederlandse boekverkopers vermelden een Nederlandstalige uitgave.
+Rubriek: brein en lichaam.
+Tags: `psychologie`, `zelfhulp`, `cognitieve gedragstherapie`, `mindfulness`,
+`emoties`, `gewoontes`, `journaling`
+
+Beliavsky deelt de geest op in zes met elkaar verbonden gebieden: aandacht,
+overtuigingen, herinneringen, emoties, de verhalen die iemand zichzelf vertelt
+en gedrag. Volgens hem werken die gebieden op elkaar in: een overtuiging roept
+een emotie op en die emotie kleurt weer een herinnering, zodat wie maar aan
+één gebied sleutelt volgens hem maar tijdelijk vooruitgang boekt. Hij noemt
+zijn kader het Pyramid Model en bouwt het op vanuit zijn eigen achtergrond:
+geboren in Oekraïne, opgeleid in het Verenigd Koninkrijk in psychologie en
+filosofie, en daarnaast actief in de vechtsport, een ervaring die hij als
+vergelijking blijft gebruiken voor wat het kost om op meerdere fronten
+tegelijk in vorm te blijven.
+
+Het boek combineert cognitieve gedragstherapie en mindfulness met eigen
+casussen van cliënten en reikt per gebied oefeningen aan: gedachten bijhouden,
+ademhaling, het benoemen van emoties, journaling. Elk hoofdstuk eindigt met
+een samenvatting in tekst en in schema. Beliavsky is ook de oprichter van de
+journaling-app Brightway, waarin dezelfde aanpak terugkomt. Een Nederlandse
+vertaling van het boek is niet gevonden in de catalogus van de openbare
+bibliotheken of bij Nederlandse boekverkopers.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Beliavsky stelt dat mentaal welzijn niet in één gebied van de
+geest zit, maar in de samenhang tussen zes gebieden: aandacht, overtuigingen,
+herinneringen, emoties, de verhalen die iemand zichzelf vertelt en gedrag. De
+gebieden voeden elkaar: een overtuiging roept een emotie op, de emotie kleurt
+hoe een gebeurtenis wordt onthouden, en die herinnering wordt weer het verhaal
+dat het gedrag stuurt. Wie maar aan één schakel sleutelt, bijvoorbeeld alleen
+aan gedachten via cognitieve gedragstherapie of alleen aan gedrag via
+gewoontevorming, boekt volgens hem tijdelijk resultaat, omdat de andere vijf
+gebieden het oude patroon terugtrekken. Zijn Pyramid Model is bedoeld als
+kader om alle zes gebieden tegelijk in kaart te brengen en bij te sturen.
+
+#### De gang van het boek
+
+**Een kader uit de kliniek en de vechtsportmat**
+
+Beliavsky opent met zijn eigen achtergrond: geboren in Oekraïne, opgeleid in
+het Verenigd Koninkrijk in psychologie en filosofie, en parallel daaraan
+actief in de vechtsport. Die laatste ervaring gebruikt hij als terugkerende
+vergelijking: een vechter houdt pas stand als techniek, conditie en mentale
+rust samen op orde zijn, en mentale gezondheid houdt volgens hem pas stand als
+alle zes gebieden van de geest samen worden aangepakt.
+
+In het eerste deel van het boek zet hij het model zelf neer: een piramide van
+zes lagen die hij koppelt aan bevindingen uit de neurowetenschap en aan twee
+bestaande therapiescholen, cognitieve gedragstherapie en mindfulness. Casussen
+van cliënten illustreren hoe de gebieden op elkaar inwerken, en elk hoofdstuk
+sluit af met een samenvatting in zowel tekst als schema. Het boek telt daarna
+nog drie delen: het tweede en derde deel werken de zes gebieden stuk voor stuk
+uit, het vierde deel gaat over de toepassing in het dagelijks leven.
+
+**Aandacht en overtuigingen**
+
+De eerste twee gebieden zijn reason, door Beliavsky ingevuld als aandacht en
+redenerend vermogen, en beliefs, de overtuigingen die iemand over zichzelf en
+de wereld aanhoudt, met de nadruk op de negatieve exemplaren daarvan. Voor dit
+deel reikt hij oefeningen aan in zelfreflectie en het bijhouden van gedachten,
+bedoeld om een overtuiging zichtbaar te maken voordat ze automatisch een
+emotie of een handeling oproept.
+
+De redenering daarachter is dat een overtuiging pas houvast verliest zodra
+iemand haar kan opschrijven en benoemen als aanname in plaats van als feit.
+Beliavsky werkt dat uit met stapsgewijze vragenlijsten, die in recensies
+worden omschreven als toegankelijk voor lezers zonder eerdere ervaring met
+gedragstherapie.
+
+**Herinneringen**
+
+Het derde gebied gaat over hoe herinneringen, ook pijnlijke of ingrijpende,
+het huidige gedrag blijven sturen. Beliavsky bespreekt hier ook aandoeningen
+die het geheugen raken, zoals ADHD en dementie, als voorbeeld van wat er
+misgaat wanneer dit gebied ontregeld raakt, en zet daar geheugentraining en
+gestructureerde reflectie tegenover.
+
+Hij behandelt trauma nadrukkelijk als grensgeval: herinneringen aan een
+ingrijpende gebeurtenis kunnen volgens hem met de aangereikte oefeningen
+worden geordend, maar de verwerking van het trauma zelf valt buiten wat dit
+boek aanbiedt.
+
+**Emoties**
+
+Het vierde gebied behandelt emoties, met sterke negatieve gevoelens als
+uitgangspunt. De aangereikte technieken, ademhalingsoefeningen en het benoemen
+van een emotie op het moment dat ze opkomt, komen rechtstreeks uit de
+mindfulnesstraditie en uit de emotieregulatietechnieken die in de
+gedragstherapie gebruikelijk zijn.
+
+Beliavsky onderbouwt dit gebied met casussen van cliënten die een emotie pas
+konden temperen nadat ze haar hardop of op papier hadden benoemd. Dat sluit
+aan bij de gangbare praktijk in de gedragstherapie, al noemt hij geen aparte
+bron voor de casussen zelf.
+
+**Verhalen en gedrag**
+
+De laatste twee gebieden zijn speech, de verhalen die iemand over zichzelf
+vertelt, en behaviour, de gewoontes waarin dat verhaal zich vastzet. Beliavsky
+laat zien hoe een verhaal dat iemand blijft herhalen, bijvoorbeeld dat hij nu
+eenmaal iemand is die opgeeft, een gewoonte in stand houdt, en reikt aan hoe
+dat verhaal te herschrijven is voordat de gewoonte zelf wordt aangepakt.
+
+Pas in dit gebied komt gedrag in beeld als sluitstuk van de piramide: de vier
+gebieden eronder bepalen volgens Beliavsky welke gewoonte blijft hangen,
+waardoor hij aanraadt niet bij het gedrag zelf te beginnen maar bij wat eraan
+voorafgaat.
+
+**Het vierde deel: van model naar dagelijkse praktijk**
+
+Het laatste deel van het boek zet de zes gebieden om in een dagelijkse
+routine, met journaling als centraal instrument, een keuze die aansluit bij
+Beliavsky's eigen Brightway-app. Het boek stelt daarbij een grens: bij trauma
+of een ernstiger psychische aandoening is volgens de auteur meer nodig dan dit
+programma alleen.
+
+Recensenten noemen dit deel het meest praktische van het boek: het bevat een
+stappenplan om de zes gebieden dagelijks, wekelijks en maandelijks bij te
+houden, met de eerdere hoofdstuksamenvattingen als naslag.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Pyramid Model | Het model dat de geest opdeelt in zes met elkaar verbonden gebieden en dat gelijktijdige aandacht voor alle zes vraagt. |
+| Reason | Het eerste gebied, bij Beliavsky ingevuld als aandacht en redenerend vermogen. |
+| Beliefs | Het gebied van overtuigingen over zichzelf en de wereld, met de nadruk op de negatieve variant. |
+| Memories | Het gebied van herinneringen, ook pijnlijke of ingrijpende gebeurtenissen, die het gedrag blijven sturen. |
+| Emotions | Het gebied van emoties, met sterke negatieve gevoelens als belangrijkste aandachtspunt. |
+| Speech | Het gebied van de verhalen die iemand over zichzelf vertelt en telkens herhaalt. |
+| Behaviour | Het gebied van gewoontes, het zichtbare resultaat van de andere vijf gebieden samen. |
+| Integratieve aanpak | De manier waarop Beliavsky cognitieve gedragstherapie, mindfulness en zijn eigen klinische ervaring samenvoegt tot één programma. |
+
+#### Waar het argument op rust
+
+Het boek combineert, volgens de uitgever, onderzoek met mindfulness en
+cognitieve gedragstherapie. Geen van de geraadpleegde bronnen, waaronder de
+website van de uitgever, de auteurswebsite, recensies op Goodreads en twee
+uitgebreide besprekingen, noemt een specifieke studie, een jaartal van
+onderzoek of een literatuurlijst in het boek zelf. De onderbouwing die wél
+zichtbaar is, ligt in de twee therapiescholen waarop Beliavsky voortbouwt:
+cognitieve gedragstherapie en mindfulness zijn zelf uitvoerig onderzocht, maar
+dat onderzoek gaat over die technieken los van elkaar, niet over het Pyramid
+Model als geheel of over de claim dat alle zes gebieden gelijktijdig moeten
+worden aangepakt.
+
+Beliavsky publiceerde in 2020 ook *Freedom, Responsibility, and Therapy*, een
+academischer werk over vrije wil en verantwoordelijkheid binnen
+psychotherapie. Dat laat zien dat hij naast zelfhulpboeken ook vaktheoretisch
+schrijft, maar The Pyramid Mind zelf leunt op praktijkervaring en casussen van
+cliënten, niet op verwijzingen naar gepubliceerd onderzoek.
+
+De casussen zelf zijn niet te verifiëren: het boek werkt, zoals in dit genre
+gebruikelijk is, met voorbeelden van cliënten die niet met naam of jaartal
+zijn te herleiden tot een gepubliceerde bron. Dat is geen bijzonderheid van
+dit boek, maar het betekent wel dat de lezer de illustraties op gezag van de
+auteur moet aannemen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het model zelf niet onafhankelijk is getoetst: het
+is Beliavsky's eigen indeling, gepresenteerd als kader, zonder dat is nagegaan
+of het gelijktijdig aanpakken van alle zes gebieden beter werkt dan het
+aanpakken van één gebied met bijvoorbeeld reguliere cognitieve
+gedragstherapie. Lezers op Goodreads melden dat delen van het boek te simpel
+en te basaal overkomen en dat sommige hoofdstukken lang uitweiden over
+concepten die met minder woorden waren uitgelegd.
+
+Dat spoort met het karakter van het boek: het herhaalt voor een groot deel
+bekende technieken uit mindfulness en gedragstherapie, ademhaling, gedachten
+benoemen, journaling, onder een nieuwe naam en met een nieuw schema, zonder
+dat duidelijk wordt wat het model toevoegt aan wat die technieken los van
+elkaar al doen. De auteur erkent zelf dat het programma niet is bedoeld voor
+trauma of een ernstiger psychische aandoening. Dat is eerlijk, en het laat
+tegelijk onduidelijk waar precies de grens ligt tussen wat het boek wel en
+niet aankan.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het overzicht van de zes gebieden als vaste checklist bij een
+terugkerend probleem: ga na welk gebied op dat moment het meest speelt, in
+plaats van meteen aan het gedrag te sleutelen.
+- Zet de ademhalings- en emotiebenoemingsoefeningen in als eerste stap bij een
+sterke emotie, vóór de overtuiging of de herinnering ter sprake komt.
+- Zoek bij trauma of een ernstiger psychische aandoening behandeling die
+daarop is toegesneden; het boek geeft zelf aan dat het daarvoor niet is
+bedoeld.
+
+#### Wat je hierna leest
+
+- 118. Coping Skills. Voor de ademhalings- en emotiebenoemingsoefeningen uit
+het gebied emoties biedt *Coping Skills* een compacter werkboek met
+vergelijkbare, direct bruikbare technieken.
+- 119. Unfuck Your Brain. Wie de neurobiologische kant van het gebied emoties
+verder wil uitdiepen, vindt in *Unfuck Your Brain* een uitleg van dezelfde
+amygdala- en stressmechanismen, in een directere toon.
+- 84. Laat je hersenen niet zitten. Voor het gebied herinneringen, waarin
+Beliavsky ADHD en dementie noemt, gaat *Laat je hersenen niet zitten* dieper
+in op wat bewegen voor het geheugen en de veroudering van de hersenen doet.
+- 145. Unfuck Your Intimacy. Het gebied gedrag raakt ook aan relaties; *Unfuck
+Your Intimacy* werkt dat specifiek uit voor hechting en intimiteit, waar
+Beliavsky het bij de bredere categorie relaties laat.
+
+## 148. Your Biggest Enemy Is Your Uncontrolled Mind
+
+Sufyan Khan. Zelfpublicatie in het Engels, alleen teruggevonden als
+Kindle-uitgave (ASIN B0GDXXQWC1) bij Amazon India, met als volledige titel
+*Your Biggest Enemy Is Your Uncontrolled Mind: How to Master Your Thoughts,
+Control Overthinking, and Regain Mental Clarity*. Een publicatiejaar, een
+uitgeverij, een paginentelling of een papieren editie staan nergens vermeld op
+een manier die te controleren viel. Het boek heeft geen Goodreads-pagina en
+geen inkijkexemplaar. Van een Nederlandse vertaling is geen spoor:
+bibliotheek.nl en de gangbare boekhandelscatalogi kennen geen titel van deze
+auteur. Rubriek: gewoontes en denken.
+Tags: `zelfhulp`, `overdenken`, `gedachten`, `mentale helderheid`,
+`zelfbeheersing`, `bewustzijn`
+
+Sufyan Khan behandelt in dit korte Engelstalige boek de gedachte dat de eigen,
+ongerichte gedachtestroom de grootste belemmering in een mensenleven vormt.
+Een gedachte klinkt vanzelf gezaghebbend zodra ze opkomt, ook wanneer ze niet
+klopt, en wie dat verschil niet herkent laat zich meeslepen door piekeren,
+zelfkritiek en angst. Khan werkt dat uit langs een handvol thema's: overdenken
+als aanhoudende mentale ruis, het bevragen van een gedachte voordat ze als
+waarheid wordt aangenomen, de rol van emoties op het moment dat de controle
+wegvalt, en bewustzijn als voorwaarde om daar iets aan te veranderen. Het boek
+eindigt met het vooruitzicht dat wie zijn gedachten leert doorzien, niet
+langer in een aanhoudend conflict met zichzelf leeft.
+
+Van dit boek is buiten een korte productomschrijving weinig te achterhalen: er
+bestaat geen inkijkexemplaar, geen Goodreads-pagina en geen Nederlandse
+vertaling. Titel en opzet volgen een vorm die op Kindle vaker voorkomt bij
+snel geproduceerde titels over overdenken, en niets in de bronnen die voor
+deze samenvatting geraadpleegd konden worden wijst op onderzoek, een
+uitgewerkte methode of een auteursachtergrond die aan de claims gewicht geeft.
+Deze samenvatting steunt daarom op wat over het boek te verifiëren viel, niet
+op een volledige lezing van de tekst zelf.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het boek stelt dat de eigen gedachtestroom, zolang niemand
+haar bijstuurt, de grootste belemmering in een mensenleven vormt: een
+ongecontroleerde geest overdenkt, herhaalt angsten en spreekt met een
+zelfverzekerdheid die niets zegt over of ze klopt. Khan zet daar een tegenpool
+tegenover: dezelfde geest wordt, mits met aandacht en oefening bijgestuurd,
+het sterkste werktuig dat iemand heeft. Zijn weg naar die omslag loopt via het
+leren onderscheiden welke gedachte aandacht verdient en welke genegeerd mag
+worden, eerder dan via het onderdrukken van gedachten als zodanig.
+
+#### De gang van het boek
+
+**Het uitgangspunt: de geest als tegenstander**
+
+Khan opent met de constatering die de titel samenvat: van alle tegenstanders
+die een mens tegenkomt is de eigen, ongerichte gedachtestroom de
+hardnekkigste, omdat ze zich vermomt als de eigen stem. Een gedachte die iets
+beweert klinkt vanzelf gezaghebbend, ook wanneer ze feitelijk onjuist is of
+nergens op steunt. Die verwarring tussen het hebben van een gedachte en het
+voor waar aannemen ervan vormt volgens hem de kern van waarom mensen zich
+laten meeslepen door piekeren, zelfkritiek en angst.
+
+**Overdenken als aanhoudende ruis**
+
+Een deel van het boek behandelt overdenken zelf: het herhalen van dezelfde
+gedachte zonder dat daar een besluit of inzicht uit volgt. Khan beschrijft dat
+als een vorm van mentale ruis die zich voordoet als nadenken, maar geen enkele
+vraag verder brengt. Welke concrete situaties hij daarbij gebruikt en hoe
+uitgebreid hij dat patroon uitwerkt, staat niet in de fragmenten van de tekst
+die voor deze samenvatting te achterhalen waren; het boek lijkt zich vooral te
+beperken tot het benoemen van het patroon.
+
+**Een gedachte bevragen in plaats van gehoorzamen**
+
+De vaardigheid die het boek aanreikt, is een gedachte bevragen voordat ze als
+waarheid wordt aangenomen: nagaan of ze klopt, of ze helpt, en of ze werkelijk
+om een handeling vraagt. Khan formuleert dat als een keuze die iemand
+voortdurend heeft, namelijk dat een gedachte niet gehoorzaamd hoeft te worden
+alleen omdat ze zich aandient.
+
+**Emoties en het gevoel van controleverlies**
+
+Naast het denken zelf komt er aandacht voor emoties, met name voor het moment
+waarop een gevoel een gedachte lijkt over te nemen en iemand handelt vanuit
+paniek, boosheid of schaamte in plaats van vanuit overweging. Ook hier blijft
+de beschrijving in de beschikbare bronnen algemeen: welke stappen Khan precies
+aanreikt om dat moment te herkennen of te doorbreken, is niet met zekerheid te
+reconstrueren.
+
+**Bewustzijn als voorwaarde voor controle**
+
+Het boek plaatst bewustzijn, het opmerken van een gedachte terwijl ze zich
+voordoet, voor elke andere techniek. Zonder dat opmerken is er volgens Khan
+niets om bij te sturen; met dat opmerken ontstaat de ruimte om te kiezen. Die
+volgorde, eerst zien en dan pas sturen, is het dichtst dat de beschikbare
+beschrijvingen bij een methode komen.
+
+**De belofte aan het einde**
+
+Khan sluit af met het vooruitzicht dat wie zijn gedachten leert doorzien, niet
+langer in een aanhoudend conflict met zichzelf leeft. Mentale helderheid is in
+die lezing geen eindpunt maar een andere verhouding tot het eigen denken:
+dezelfde gedachten kunnen blijven opkomen, alleen krijgen ze niet langer
+vanzelfsprekend het laatste woord.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Overdenken | Het herhalen van dezelfde gedachte zonder dat er een besluit of inzicht uit volgt. |
+| Mentale ruis | Khans aanduiding voor gedachten die zich voordoen als nadenken maar niets opleveren. |
+| Een gedachte bevragen | Nagaan of een gedachte klopt en helpt voordat ze als waarheid wordt aangenomen. |
+| Bewustzijn | Het opmerken van een gedachte op het moment dat ze zich voordoet, als voorwaarde voor elke bijsturing. |
+| Mentale helderheid | De andere verhouding tot het eigen denken die het boek als uitkomst voorstelt, niet de afwezigheid van gedachten. |
+| In conflict met zichzelf | Khans beeld voor de staat waarin een ongecontroleerde geest iemand brengt. |
+
+#### Waar het argument op rust
+
+Khan onderbouwt zijn stellingen, voor zover uit de beschikbare fragmenten van
+de tekst is af te leiden, niet met onderzoek, bronvermeldingen of casussen met
+naam en toenaam. Het boek werkt met beweringen en korte formuleringen die de
+lezer wordt voorgehouden om te herkennen, niet met argumenten die stap voor
+stap op te volgen zijn. Dat is op zichzelf niet ongebruikelijk voor een kort
+zelfhulpboek, maar hier is de onderbouwing ook naar die maatstaf dun: geen van
+de bronnen die voor deze samenvatting geraadpleegd zijn citeert een concreet
+voorbeeld, een auteursachtergrond of een verwijzing naar ander werk.
+
+Ook de herkomst van het boek zelf is nauwelijks te achterhalen. Er is geen
+Goodreads-pagina gevonden, geen inkijkexemplaar en geen bespreking die verder
+gaat dan het overnemen van de titel als motiverende uitspraak op sociale
+media. Deze samenvatting is opgebouwd uit de productomschrijving zoals die via
+zoekmachines terug te vinden was, niet uit een volledige lezing van het boek;
+de indeling hierboven is een reconstructie op basis van terugkerende thema's
+in die fragmenten, geen bevestigde inhoudsopgave.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar tegen dit boek is hier niet inhoudelijk maar
+methodologisch vast te stellen: er is voor deze samenvatting geen manier
+gevonden om de tekst zelf te raadplegen, en de bronnen die er wel zijn
+herhalen vooral dezelfde paar zinnen uit de productomschrijving. Dat maakt het
+onmogelijk om vast te stellen of het boek de aangekondigde aanpak, een
+gedachte bevragen en bewustzijn opbouwen, uitwerkt tot iets dat verder gaat
+dan de bekende adviezen uit de zelfhulpliteratuur, of dat het bij het benoemen
+daarvan blijft. Om diezelfde reden zijn hierboven minder begrippen opgenomen
+dan gebruikelijk: verder gaan dan de handvol termen die in de beschikbare
+fragmenten terugkeren, zou betekenen dat er woorden aan de auteur worden
+toegeschreven die niet te verantwoorden zijn.
+
+Wat wel vaststaat, is dat het boek geen onderzoek aanhaalt, geen erkende
+methode zoals cognitieve gedragstherapie noemt, en geen auteursachtergrond
+vermeldt die gezag aan de claims zou geven. Titel en ondertitel volgen
+bovendien een format dat op Kindle veelvuldig terugkeert bij vergelijkbare,
+snel geproduceerde titels over overdenken en mentale rust, wat de vraag
+oproept hoeveel van de tekst op eigen inzicht rust en hoeveel op het
+herschikken van bestaande adviezen.
+
+Voor wie dit boek overweegt is dat een reden om de verwachtingen bij te
+stellen. Waar een boek als *Atomic Habits* zijn stellingen aan gedrag en
+herhaalbare mechanismen koppelt, biedt dit boek, voor zover te beoordelen,
+vooral herkenning en een woordenschat om over overdenken te praten.
+
+#### Wat er concreet mee te doen is
+
+- Lees titel en ondertitel als de kern van wat het boek biedt: een gedachte
+bevragen voordat ze als waarheid geldt.
+- Zoek bij herkenning van het thema overdenken naar een boek met een
+uitgewerkte methode, zoals literatuur over cognitieve gedragstherapie, als de
+herkenning uit dit boek niet volstaat.
+- Houd rekening met een korte, algemene tekst zonder stappenplan of
+oefeningen; dat is althans wat de beschikbare beschrijvingen van het boek
+laten zien.
+
+#### Wat je hierna leest
+
+- 59. The Art of Thinking Clearly. Biedt onderbouwde categorieën van
+denkfouten waar dit boek alleen in algemene termen naar verwijst.
+- 142. Designing the Mind. Werkt het idee van de eigen geest bijsturen uit in
+een concreter model, waar dit boek vooral bij het benoemen van het doel
+blijft.
+- 22. Atomic Habits. Laat zien hoe een boek over zelfsturing met herhaalbare
+mechanismen werkt, in plaats van met algemene aansporingen.
+
+## 149. The Power of Now
+
+Eckhart Tolle, 1997. Oorspronkelijk *The Power of Now: A Guide to Spiritual
+Enlightenment* (Namaste Publishing, 1997; heruitgegeven door New World
+Library, 1999). Nederlands als *De kracht van het NU*, vertaald door Peter
+Roelofsen, sinds 2001 bij uitgeverij Ankh-Hermes (38e druk, 2021, 224 blz.,
+ISBN 9789020219098). Rubriek: levenskunst.
+Tags: `spiritualiteit`, `mindfulness`, `ego`, `aanwezigheid`, `zelfhulp`, `new
+age`, `meditatie`
+
+Tolle vertelt hoe hij op zijn negenentwintigste, na jaren van depressie, op
+een nacht wakker werd met de gedachte dat hij niet langer met zichzelf kon
+leven, en zich meteen afvroeg wie dat "ik" dan was dat niet met "zichzelf" kon
+leven. Die vraag markeert volgens hem de overgang van denken naar waarnemen,
+waarna een gevoel van vrede overbleef dat maanden aanhield. Het boek dat
+daaruit voortkwam is opgebouwd als een gesprek tussen een leerling en een
+leraar: korte vragen gevolgd door Tolle's antwoorden, zonder noten en zonder
+verwijzingen naar bronnen. De leerling stelt de vragen die een lezer zelf zou
+kunnen stellen, de leraar antwoordt met herhaling en met beelden in plaats van
+met een opbouwend betoog.
+
+De rode draad is het onderscheid tussen de mens en zijn gedachten. Tolle noemt
+de stroom van gedachten die zichzelf herhaalt de denkende geest, en stelt dat
+mensen zich daarmee zo vereenzelvigen dat ze de waarnemer erachter niet meer
+opmerken. Pijn die niet verwerkt is, blijft volgens hem liggen als een
+pijnlichaam, een soort energieveld dat zich voedt met nieuwe pijn en zich op
+tijd weer meldt. De uitweg die het boek aanreikt is het richten van de
+aandacht op het huidige moment: op het lichaam, de adem en de ruimte tussen
+twee gedachten. Wie zich daarop concentreert, merkt volgens Tolle dat de
+gedachtestroom vanzelf tot rust komt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tolle's stelling is dat vrijwel al het menselijk lijden
+voortkomt uit de vereenzelviging met de denkende geest en met de tijd die dat
+denken schept: het verleden waaraan de identiteit zich vastklampt en de
+toekomst waarnaar zij op weg is. Toegang tot wat hij Zijn noemt, de
+werkelijkheid onder de gedachten, is er volgens hem alleen in het Nu, het
+enige moment dat werkelijk bestaat. Wie zich met zijn gedachten blijft
+vereenzelvigen mist die toegang en blijft gevangen in een geest die zichzelf
+voedt met problemen om iets omhanden te hebben. Daar staat een ander
+uitgangspunt tegenover: denken en tijdsbesef zijn ook de instrumenten waarmee
+mensen plannen, van het verleden leren en verantwoordelijkheid nemen voor de
+toekomst, en het loslaten daarvan is voor wie al moeite heeft in de
+werkelijkheid te functioneren eerder een risico dan een uitkomst.
+
+#### De gang van het boek
+
+**De geest die zichzelf voor de mens aanziet**
+
+Het eerste deel zet uiteen wat Tolle de denkende geest noemt: de vrijwel
+ononderbroken stroom van gedachten waarmee mensen zich zo vereenzelvigen dat
+ze vergeten dat er een bewustzijn is dat die gedachten waarneemt. Dat
+vereenzelvigen zelf noemt hij het ego, dat zijn gevoel van bestaan ontleent
+aan denken, aan bezit en aan de rollen die iemand speelt.
+
+Om dat voelbaar te maken beschrijft Tolle hoe gedachten vaak doorlopen zonder
+aanleiding, bijvoorbeeld tijdens het wachten of het autorijden. Die herhaling
+zonder doel noemt hij compulsief denken, een gewoonte die volgens hem is af te
+leren zodra er een waarnemer komt die de gedachte opmerkt voordat iemand zich
+erin verliest.
+
+**Het pijnlichaam**
+
+In het tweede deel introduceert Tolle het pijnlichaam: opgeslagen emotionele
+pijn uit het verleden van een mens en, naar zijn zeggen, ook uit voorgaande
+generaties en de omgeving waarin iemand opgroeit. Dat pijnlichaam ligt
+grotendeels slapend, maar wordt wakker van iets wat er oppervlakkig op lijkt
+en voedt zich dan met nieuwe negatieve gedachten en ruzies om zichzelf in
+stand te houden.
+
+Herkenning is voor Tolle de eerste stap: wie merkt dat een emotie zwaarder
+weegt dan de aanleiding rechtvaardigt, heeft volgens hem te maken met het
+pijnlichaam en niet met de situatie zelf. Aandacht die er zonder oordeel bij
+blijft, ontneemt het pijnlichaam naar zijn zeggen de voeding waarop het teert.
+
+**Het Nu als enige toegang tot Zijn**
+
+Het middendeel werkt uit wat Tolle onder het Nu verstaat: geen moment op een
+tijdlijn tussen verleden en toekomst, maar de enige plek waar ooit iets
+gebeurt. Verleden en toekomst noemt hij gedachtevormen, nuttig als geheugen en
+planning, maar zonder eigen bestaan zodra ze de plaats innemen van het huidige
+moment zelf.
+
+Zijn, de tweede kernterm, is wat overblijft wanneer de aandacht niet langer
+wordt opgeslokt door die gedachtevormen. Tolle beschrijft dat als een besef
+van aanwezig zijn dat aan elke gedachte, elk gevoel en elke waarneming
+voorafgaat en dat hij toegankelijk noemt voor iedereen, ongeacht
+omstandigheden.
+
+**De strategieën waarmee de geest het Nu ontwijkt**
+
+Een volgend deel loopt de manieren langs waarop de denkende geest het huidige
+moment volgens Tolle vermijdt: wachten als vaste houding, waarbij het heden
+steeds wordt behandeld als opstap naar iets beters, klagen als manier om het
+ego te voeden zonder de situatie te veranderen, en de gewoonte om identiteit
+te ontlenen aan problemen.
+
+Tijd gebruiken voor een concreet doel noemt hij klok-tijd, onvermijdelijk en
+functioneel. Erin blijven hangen zonder dat doel noemt hij psychologische
+tijd, de bron van vrijwel al het onnodige lijden dat het boek beschrijft.
+
+**Aanwezigheid en het innerlijk lichaam**
+
+Tolle beschrijft vervolgens oefeningen om aanwezig te blijven: de aandacht
+richten op het lichaam van binnenuit, op het gevoel van leven dat daar volgens
+hem altijd aanwezig is, ook zonder dat er iets gebeurt. Dat innerlijk lichaam
+werkt in zijn beschrijving als een anker waarnaar de aandacht kan terugkeren
+zodra ze is opgeslokt door een gedachte.
+
+Aan die staat van aanwezigheid koppelt hij ook stilte en ruimte: de pauzes
+tussen geluiden, tussen gedachten en tussen ademhalingen, die hij portalen
+naar het onvormelijke noemt en die er volgens hem al zijn, ze vragen alleen om
+opgemerkt te worden.
+
+**Relaties, gelijkmoedigheid en overgave**
+
+De laatste delen passen het onderscheid tussen ego en aanwezigheid toe op
+relaties. Tolle beschrijft hoe twee ego's die elkaar nodig hebben om zich
+compleet te voelen samen een relatie vormen die vooral wrijving oplevert zodra
+de aanvankelijke verliefdheid wegvalt. Pas wanneer beide partners vanuit
+aanwezigheid handelen in plaats van vanuit behoefte, noemt hij een relatie
+verlicht.
+
+Het boek sluit af met een onderscheid tussen geluk, dat volgens Tolle
+afhankelijk blijft van omstandigheden, en een vrede die daaraan voorafgaat en
+er niet van afhangt. Overgave is de term die hij gebruikt voor het aanvaarden
+van wat er is voordat er wordt gehandeld: een houding die volgens hem juist
+heldere actie mogelijk maakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Het Nu | Het enige moment dat volgens Tolle werkelijk bestaat; verleden en toekomst zijn gedachtevormen die zich daarop beroepen. |
+| De denkende geest | De vrijwel ononderbroken gedachtestroom waarmee mensen zich vereenzelvigen tot ze de waarnemer erachter niet meer opmerken. |
+| Ego | De vereenzelviging met denken, bezit en rol, die zijn gevoel van bestaan ontleent aan iets buiten het loutere aanwezig zijn. |
+| Pijnlichaam | Opgeslagen emotionele pijn die periodiek actief wordt en zich voedt met nieuwe negatieve gedachten en ruzies. |
+| Zijn | De aanwezigheid die overblijft wanneer de aandacht niet wordt opgeslokt door gedachten, toegankelijk in elk moment. |
+| Psychologische tijd | Het denken in verleden en toekomst voor identiteit in plaats van voor planning, volgens Tolle de bron van het meeste lijden. |
+| Het innerlijk lichaam | Het gevoel van leven binnen het lichaam waarop de aandacht kan worden gericht om in het Nu te blijven. |
+| Overgave | Het aanvaarden van wat er is voordat er wordt gehandeld, als voorwaarde voor een heldere reactie op de situatie. |
+
+#### Waar het argument op rust
+
+Tolle onderbouwt zijn stellingen niet met onderzoek, cijfers of verwijzingen
+naar bronnen. Het boek bevat geen literatuurlijst en geen noten; wat er staat
+wordt gepresenteerd als iets dat de lezer bij zichzelf kan nagaan, niet als
+iets dat wordt bewezen. De vorm van vraag en antwoord versterkt dat: een vraag
+van de leerling krijgt een antwoord dat herhaalt en toelicht, zelden een
+antwoord dat naar een gegeven of een studie verwijst.
+
+Waar het boek wel op leunt is een lange traditie. Tolle citeert Boeddha,
+Jezus, Zen-meesters en de christelijke mysticus Meester Eckhart, naar wie hij
+zijn voornaam koos, en laat zien dat verschillende tradities onafhankelijk van
+elkaar tot vergelijkbare uitspraken over het huidige moment zijn gekomen. Dat
+is een argument voor herkenning over tijd en cultuur heen, geen bewijs in de
+zin waarin een empirische claim bewijs vereist. Het boek opent bovendien met
+Tolle's eigen crisis op zijn negenentwintigste, een nacht van wanhoop die
+overging in een blijvend gevoel van vrede; die ervaring werkt in de tekst als
+eerste aanwijzing dat zijn weg werkt, niet als een herhaalbaar gegeven.
+
+#### Wat er tegen in te brengen valt
+
+Het meest gehoorde bezwaar is dat het boek een gesloten systeem opzet: elke
+twijfel of tegenwerping wordt binnen de eigen termen verklaard als een uiting
+van de denkende geest of het ego, waardoor er weinig manier overblijft om de
+stelling te weerleggen. Een lezer die de redenering niet volgt, wordt door de
+tekst zelf al geduid als iemand die nog te veel in zijn hoofd zit, wat kritiek
+bij voorbaat buitenspel zet.
+
+Een tweede bezwaar betreft het gebruik van psychologische taal zonder
+psychologische onderbouwing. Tolle spreekt over pijnlichamen, egostructuren en
+collectieve pijn met een stelligheid die aan een klinische diagnose doet
+denken, terwijl het begrip in de psychologie of psychiatrie geen equivalent
+heeft en niet is getoetst. Recensenten noemden het boek daarnaast slecht
+geschreven, en de kernterm zelf onderbepaald: buiten de omschrijving dat het
+Nu de enige plaats is waar iets bestaat, zegt het boek weinig concreets over
+wat er in dat Nu dan te vinden is.
+
+#### Wat er concreet mee te doen is
+
+- Merk op wanneer een gedachte zich herhaalt zonder dat er iets te beslissen
+valt, en richt de aandacht dan op het lichaam of de ademhaling.
+- Ga bij een emotie die zwaarder weegt dan de aanleiding na of de reactie bij
+de situatie hoort of bij ouder, opgeslagen ongenoegen.
+- Behandel een wachtsituatie als volledige tijd in plaats van als opstap naar
+iets anders.
+- Onderscheid bij het plannen van iets de klok-tijd die nodig is om het te
+regelen van het piekeren dat daar geen deel van uitmaakt.
+
+#### Wat je hierna leest
+
+- 2. Overpeinzingen. Marcus Aurelius oefent eveneens aandacht voor het huidige
+moment, maar als dagelijkse stoïcijnse discipline en niet als leer over een
+Zijn achter de gedachten.
+- 141. Voorbij de vorm. Bodian beschrijft dezelfde stilte achter gedachten en
+gevoelens als direct toegankelijk, vanuit de traditie van de directe weg in
+plaats van vanuit Tolle's eigen leer.
+- 8. De alchemist. Coelho verwerkt een vergelijkbare zoektocht naar wat achter
+de dagelijkse werkelijkheid ligt, in een verhalende vorm in plaats van in een
+leer.
+
+## 150. Designing Your Life
+
+Bill Burnett en Dave Evans, 2016. Oorspronkelijk *Designing Your Life: How to
+Build a Well-Lived, Joyful Life* (Knopf, 2016). Nederlands als *Ontwerp je
+eigen leven: hoe je het beste uit je leven en werk haalt*, bij Hollands Diep,
+Amsterdam (2016, 272 blz., ISBN 9789048827176; herdruk als paperback 2022,
+ISBN 9789048861682), vertaald door Jan van den Berg, Piet Dal en Marieke van
+Muijden. Rubriek: levenskunst.
+Tags: `loopbaan`, `levenskeuzes`, `design thinking`, `Stanford`, `zelfhulp`,
+`werkboek`
+
+Bill Burnett en Dave Evans geven aan Stanford de cursus "Designing Your Life"
+bij de d.school, de afdeling die design thinking onderwijst aan studenten uit
+alle richtingen. Dit boek zet die cursus om in een werkboek voor wie vastloopt
+in werk of leven. De grondgedachte is dat de methode waarmee ontwerpers
+producten maken, ook op een leven toepasbaar is: niet zoeken naar het ene
+juiste antwoord, maar een probleem eerst goed herformuleren, dan opties
+verkennen en die klein en concreet uitproberen voordat er een besluit valt.
+Burnett was jarenlang productontwerper bij Apple, Evans werkte in
+personeelsontwikkeling bij onder meer Electronic Arts, en die achtergrond in
+ontwerpwerk kleurt elk hoofdstuk.
+
+Het boek werkt met een vaste reeks oefeningen: een kompas van twee korte
+teksten over wat werk en het leven betekenen, een dagboek dat energie en
+betrokkenheid volgt, drie alternatieve vijfjarenplannen en gesprekken met
+mensen die al doen wat de lezer overweegt. De toon is die van een
+cursusdictaat, met opdrachten aan het eind van elk hoofdstuk en weinig
+terughoudendheid over wat de methode oplevert.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De stelling van het boek is dat er geen leven bestaat dat
+iemand hoeft te "ontdekken" of "vinden", en dat de vraag naar het ene juiste
+pad zelf het probleem is. Wie een leven wil bouwen, kan volgens Burnett en
+Evans dezelfde werkwijze gebruiken als een ontwerper: problemen herformuleren
+tot iets waar wel aan te werken valt, meerdere richtingen tegelijk openhouden
+in plaats van er meteen één te kiezen, en ideeën eerst klein en goedkoop
+toetsen voordat er iets op het spel staat. Actie gaat daarbij vooraf aan
+inzicht: niet nadenken tot de motivatie er is, maar iets proberen en zien wat
+het met de energie doet.
+
+#### De gang van het boek
+
+**Herkomst: een cursus aan de d.school**
+
+Burnett en Evans geven de cursus "Designing Your Life" al sinds het midden van
+de jaren tweeduizend aan Stanford, bij de Hasso Plattner Institute of Design,
+kortweg de d.school, waar design thinking wordt onderwezen als algemene
+probleemoplosmethode en niet alleen voor productontwikkeling. Het vak trekt
+studenten uit alle faculteiten die vastlopen op de vraag wat ze na hun studie
+moeten doen, en het boek herschrijft de opdrachten van die cursus voor een
+lezer zonder klaslokaal.
+
+De auteurs formuleren vijf ontwerpuitgangspunten die door het hele boek
+terugkeren: nieuwsgierigheid, een neiging tot uitproberen boven lang nadenken,
+het herformuleren van problemen, bewustzijn van het eigen proces, en radicale
+samenwerking. Elk volgend hoofdstuk is een uitwerking van een van deze punten
+in oefenvorm.
+
+**Reframing en gravity problems**
+
+Het boek begint met wat het "dysfunctional beliefs" noemt, aannames die het
+denken over werk en leven op voorhand vastzetten, zoals de gedachte dat er één
+ware roeping bestaat die iemand alleen nog hoeft te vinden. Tegenover elke
+aanname zet het boek een reframe, een herformulering die de aanname niet
+ontkent maar er ruimte in aanbrengt.
+
+Een aparte categorie krijgt een eigen naam: het gravity problem. Dat is een
+omstandigheid die zich niet laat oplossen, zoals de zwaartekracht zelf, en die
+dus geen probleem is om aan te werken maar een gegeven om mee te leven. Het
+boek geeft als voorbeeld een sollicitant die blijft worstelen met het feit dat
+zijn wensberoep in zijn regio nauwelijks bestaat: dat is geen op te lossen
+probleem maar een omstandigheid, en de opdracht is die te aanvaarden en de
+energie ergens anders in te zetten.
+
+**Het kompas: workview en lifeview**
+
+Voordat er iets ontworpen wordt, vraagt het boek om een kompas te maken: twee
+korte teksten van ongeveer een halve bladzijde, een workview over wat werk
+voor de lezer betekent en een lifeview over wat het leven zin geeft. De
+oefening daarna is te kijken waar de twee elkaar tegenspreken of juist
+versterken, want die samenhang, niet de tekst zelf, is volgens het boek waar
+het om gaat.
+
+Daarnaast introduceert het boek een dashboard: een score op vier gebieden,
+gezondheid, werk, spel en liefde, elk op een meter van leeg naar vol. Het
+dashboard is bedoeld om in één oogopslag te zien welk gebied de meeste
+aandacht nodig heeft, zonder dat daar een cijfermatige weging aan hangt.
+
+**Wayfinding: het Good Time Journal en AEIOU**
+
+Voor de vraag waar iemand naartoe zou moeten, gebruikt het boek de term
+wayfinding: een richting zoeken zonder vast eindpunt, aan de hand van signalen
+die zich onderweg voordoen. Het instrument daarvoor is het Good Time Journal,
+een dagboek waarin de lezer twee weken lang activiteiten noteert samen met de
+energie en de betrokkenheid die ze opleverden.
+
+De aantekeningen worden vervolgens geordend met de AEIOU-indeling, afkomstig
+uit ontwerpobservatie: activities, environments, interactions, objects, users.
+Uit de patronen die zo zichtbaar worden, leidt het boek af welke soort werk en
+omgeving energie geven, in plaats van dat de lezer dat vooraf bedenkt.
+
+**Van ideeën naar Odyssey Plans**
+
+Met mindmapping in drie lagen worden associaties bij de gevonden patronen
+breder gemaakt dan het eerste idee dat opkomt. Daaruit ontstaan de Odyssey
+Plans, het middel waarmee het boek het bekendst is geworden: drie
+afzonderlijke schetsen van de komende vijf jaar, elk met een titel van zes
+woorden, een tijdlijn, een dashboardscore en drie onderzoeksvragen.
+
+Het eerste plan bouwt voort op de huidige richting, het tweede beschrijft wat
+de lezer zou doen als die richting om externe redenen wegviel, en het derde
+staat los van geld of aanzien. De drie plannen zijn nadrukkelijk niet bedoeld
+als drie opties om uit te kiezen, maar als bewijs dat er meer dan één goed
+leven mogelijk is.
+
+**Prototyping: gesprekken en ervaringen**
+
+Een Odyssey Plan wordt niet beoordeeld maar getoetst, met wat het boek
+prototype gesprekken noemt: korte, gerichte gesprekken met mensen die al doen
+waar het plan over gaat, gericht op hun ervaring en niet op advies. Waar dat
+kan komt daar een prototype-ervaring bij, een korte, laagdrempelige manier om
+een deel van de overwogen richting zelf te beproeven, zoals een dag meelopen
+of een cursus van een week volgen.
+
+Het idee achter beide is dat een besluit pas met voldoende informatie genomen
+wordt als die informatie uit de praktijk komt en niet uit veronderstelling.
+
+**Kiezen en falen**
+
+Het slot van het boek behandelt kiezen zelf als een vaardigheid: eerst opties
+verzamelen zonder ze te beoordelen, dan de lijst bewust inperken, en pas dan
+een keuze maken en die loslaten in plaats van te blijven twijfelen of
+vergelijken met wat niet gekozen is.
+
+Daarnaast beschrijft het boek failure immunity, het bijhouden van een logboek
+van mislukkingen en het indelen daarvan in categorieën: fouten om van te
+leren, mislukkingen die bij het vak horen, en mislukkingen die simpelweg
+zwaktes blootleggen. Het doel is mislukking als onderdeel van het
+ontwerpproces te gaan zien in plaats van als bewijs dat de gekozen richting
+verkeerd was.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Reframing | Het herformuleren van een vastgelopen aanname over werk of leven, niet om haar te ontkennen maar om er beweegruimte in aan te brengen. |
+| Gravity problem | Een omstandigheid die zich niet laat oplossen, zoals de zwaartekracht, en die dus om aanvaarding vraagt in plaats van om een besluit. |
+| Kompas (workview en lifeview) | Twee korte teksten waarin de lezer vastlegt wat werk voor hem betekent en wat het leven zin geeft, en waar hij ze op elkaar toetst. |
+| Dashboard | Een score op de vier gebieden gezondheid, werk, spel en liefde, bedoeld om te zien welk gebied aandacht nodig heeft. |
+| Wayfinding | Het zoeken van een richting zonder vast eindpunt, geleid door signalen van energie en betrokkenheid die zich onderweg voordoen. |
+| Good Time Journal | Een dagboek waarin de lezer twee weken lang activiteiten noteert samen met de energie en betrokkenheid die ze opleverden. |
+| AEIOU | De indeling van dagboeknotities naar activiteiten, omgevingen, interacties, objecten en mensen, gebruikt om patronen te vinden. |
+| Odyssey Plan | Drie afzonderlijke schetsen van de komende vijf jaar, elk vanuit een ander uitgangspunt, bedoeld om te tonen dat meer dan één goed leven mogelijk is. |
+| Prototype gesprek | Een kort, gericht gesprek met iemand die al doet waar een overwogen richting over gaat, bedoeld om die richting te toetsen aan de praktijk. |
+| Failure immunity | Het bijhouden en indelen van mislukkingen in een logboek, om ze als onderdeel van het ontwerpproces te zien in plaats van als bewijs van een verkeerde keuze. |
+
+#### Waar het argument op rust
+
+Het boek rust op een cursus die Burnett en Evans sinds het midden van de jaren
+tweeduizend aan Stanford geven, en op de workshops en het adviesbureau die
+daaruit zijn voortgekomen. Dat is ervaring met veel deelnemers over een lange
+periode, maar geen gecontroleerd onderzoek: er is geen vergelijkingsgroep,
+geen meting voor en na buiten de anekdotes om, en de deelnemers zijn
+overwegend Stanford-studenten en -alumni, een groep met toegang tot tijd,
+netwerk en financiële ruimte die niet representatief is voor wie het boek
+leest.
+
+De methode zelf is afkomstig uit productontwerp en wordt in het boek overgezet
+naar levenskeuzes zonder dat daar apart bewijs voor wordt aangedragen dat
+mensen zich als producten laten prototypen. De onderbouwing bestaat vooral uit
+voorbeelden van cursisten die worden aangehaald bij naam of functie, zonder
+brongegevens die een lezer zelf kan natrekken. Waar het boek algemene
+beweringen doet over motivatie en geluk, zoals dat actie aan inzicht
+voorafgaat, verwijst het naar bredere psychologische literatuur zonder die
+zelf te toetsen.
+
+#### Wat er tegen in te brengen valt
+
+De belangrijkste tegenwerping betreft de reikwijdte van de methode. Wat voor
+een Stanford-student met een diploma, een netwerk en financiële ruimte een
+kwestie van uitproberen en herformuleren is, is voor iemand zonder die ruimte
+vaak een kwestie van geld, zorgtaken of een arbeidsmarkt die geen ruimte laat
+voor experimenten. Het boek erkent dit slechts terloops en behandelt de eigen
+uitgangssituatie als vanzelfsprekend.
+
+Het onderscheid tussen een op te lossen probleem en een gravity problem is
+bruikbaar, maar het boek geeft weinig houvast om ze uit elkaar te houden. Een
+lezer die tegen een structureel probleem aanloopt, zoals een discriminerende
+arbeidsmarkt of een gebrek aan kinderopvang, kan de gravity-indeling ook
+gebruiken om een oplosbaar probleem voortijdig als onveranderlijk weg te
+zetten, en het boek biedt geen criterium om dat verschil te maken buiten het
+eigen gevoel van de lezer.
+
+De taal van het boek, met termen als prototype en radicale samenwerking, komt
+rechtstreeks uit de bedrijfswereld van productontwikkeling, en de overdracht
+naar een privéleven blijft grotendeels een analogie. Een leven is geen product
+met gebruikers en iteraties, en het boek onderzoekt niet waar die vergelijking
+spaak loopt, bijvoorbeeld bij beslissingen die andere mensen raken, zoals een
+partner of kinderen, en die zich niet in het klein laten uitproberen.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf een workview en een lifeview van elk een halve bladzijde en kijk
+waar ze elkaar tegenspreken.
+- Houd twee weken een Good Time Journal bij en noteer bij elke activiteit de
+energie en de betrokkenheid die ze gaf.
+- Orden de aantekeningen volgens AEIOU en zoek het patroon in wat energie
+geeft.
+- Schrijf drie Odyssey Plans voor de komende vijf jaar, elk vanuit een ander
+uitgangspunt.
+- Voer bij elk plan minstens één prototype gesprek met iemand die al doet waar
+het plan over gaat.
+- Houd een logboek van mislukkingen bij en deel ze in categorieën in voordat
+je concludeert wat ze betekenen.
+
+#### Wat je hierna leest
+
+- 71. Four Thousand Weeks. Waar dit boek uitgaat van vijfjarenplannen en
+gerichte keuzes, stelt Four Thousand Weeks de eindigheid van tijd zelf
+centraal en relativeert het idee dat een leven maakbaar te plannen valt.
+- 78. Finding Flow. De energie en betrokkenheid die het Good Time Journal
+probeert te vangen, zijn precies het onderwerp van Finding Flow, dat de
+onderliggende psychologie van die momenten uitwerkt.
+- 51. The Defining Decade. The Defining Decade behandelt dezelfde levensfase
+van onbesliste keuzes, maar vanuit ontwikkelingspsychologisch onderzoek in
+plaats van een ontwerpmethode.
+
+## 151. Essentialism
+
+Greg McKeown, 2014. Oorspronkelijk *Essentialism: The Disciplined Pursuit of
+Less* (Crown Business, 2014, 260 blz., ISBN 9780804137386). Nederlands als
+*Essentialisme*, vertaald door Marike Groot en Sander Brink, sinds 2018 bij
+Kosmos Uitgevers (Utrecht). De eerste druk (2018, ISBN 9789021567617, 286
+blz.) droeg als ondertitel "Niet meer alles moeten"; de negende druk (2025,
+ISBN 9789043936972, 296 blz.) heet "Tijd overhouden voor dingen die voor jou
+belangrijk zijn". Rubriek: werk en aandacht.
+Tags: `zelfhulp`, `productiviteit`, `prioriteren`, `grenzen stellen`,
+`besluitvorming`, `werk`, `adviespraktijk`
+
+Greg McKeown was jarenlang adviseur en gaf trainingen bij bedrijven als Apple,
+Google, Facebook en LinkedIn. Zijn boek opent met een anekdote over zichzelf:
+enkele uren na de geboorte van zijn dochter ging hij toch naar een
+cliëntgesprek, uit angst om nee te zeggen, en ontdekte achteraf dat het
+gesprek ook zonder hem prima was verlopen. Die ervaring is de aanleiding voor
+zijn stelling dat mensen die overal ja op zeggen hun tijd en aandacht zo dun
+uitsmeren dat er voor niets meer ruimte overblijft om het werkelijk goed te
+doen. Tegenover die "non-essentialist" zet hij de essentialist, die uitgaat
+van een klein aantal zaken die er echt toe doen en de rest bewust laat liggen.
+
+Het boek is opgebouwd in vier delen: Essence, Explore, Eliminate en Execute,
+met korte hoofdstukken rond telkens één begrip, van de *trade-off* tot de 90
+procent-regel en "protect the asset" voor slaap. McKeown onderbouwt zijn these
+vrijwel volledig met casuïstiek: gesprekken uit zijn eigen adviespraktijk,
+zijn eigen anekdote over de geboorte van zijn dochter, en bekende verhalen van
+buiten zijn praktijk zoals Bill Gates' Think Week en Warren Buffetts lijst met
+vijfentwintig doelen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het boek stelt dat wie alles wil doen uiteindelijk weinig van
+waarde doet: door overal ja op te zeggen verdunt een mens zijn tijd en energie
+tot er voor de paar zaken die er werkelijk toe doen niets meer overblijft.
+Tegenover de non-essentialist, die bijna elke kans als een verplichting ziet
+en het leven ervaart als iets dat hem overkomt, zet McKeown de essentialist,
+die minder dingen doet maar die dan beter, en die het vermogen om te kiezen
+behandelt als een vaardigheid die verdwijnt zodra iemand hem niet meer
+gebruikt.
+
+#### De gang van het boek
+
+**Een middag in het ziekenhuis**
+
+In de proloog vertelt McKeown hoe hij, enkele uren nadat zijn vrouw Anna van
+hun dochter was bevallen, naar kantoor ging voor een geplande cliëntafspraak.
+Een collega had dagen eerder al gezegd dat die vrijdag een ongelukkig moment
+voor de bevalling zou zijn. McKeown probeerde die dag beide te doen, het gezin
+en het werk, en hoorde na afloop van zijn leidinggevende dat het gesprek ook
+zonder hem prima was verlopen. Die ervaring vormt volgens hem het moment
+waarop hij zich afvroeg waarom hij nooit had geleerd om nee te zeggen, en
+waarom hij dat wel bewonderde bij anderen maar zelf niet toepaste.
+
+**Essence: de essentialist tegenover de non-essentialist**
+
+In het eerste deel, dat drie hoofdstukken telt (Choose, Discern en Trade-off),
+zet McKeown twee typen tegenover elkaar. De non-essentialist denkt dat bijna
+alles belangrijk is, zegt bijna overal ja op en behandelt kansen als min of
+meer gelijkwaardig. De essentialist gaat ervan uit dat vrijwel alles
+onbelangrijk is op een klein aantal zaken na, en onderscheidt bewust de enkele
+zaak die telt van de vele die dat niet doen. In het hoofdstuk Choose benadrukt
+hij dat kiezen een vaardigheid is die kan verschrompelen als iemand haar niet
+gebruikt, in Discern dat de meeste opties helemaal geen serieuze afweging
+verdienen. Centraal staat de *trade-off*: wie een taak aanneemt, wijst daarmee
+onvermijdelijk iets anders af, ook als hij dat niet uitspreekt. De vraag
+verschuift van "hoe krijg ik dit er ook nog bij" naar "welk probleem wil ik
+oplossen". McKeown noemt daarnaast het gevaar van "de ongedisciplineerde jacht
+op meer": succes levert meer kansen en verzoeken op, waardoor de aandacht
+verder verdund raakt en het succes zelf op termijn ondermijnd wordt.
+
+**Explore: ruimte maken om te zien wat telt**
+
+Het tweede deel behandelt de hoofdstukken Escape, Look, Play, Sleep en Select.
+McKeown pleit voor tijd en ruimte om na te denken voordat er gekozen wordt, en
+noemt daarbij Bill Gates' gewoonte om zich twee keer per jaar een week terug
+te trekken om alleen te lezen en na te denken, zijn zogeheten Think Week. In
+Play bepleit hij spel en oneigenlijk tijdverdrijf niet als beloning achteraf
+maar als voorwaarde voor het zien van nieuwe verbanden, met een verwijzing
+naar zijn eigen kinderen. In het hoofdstuk Sleep introduceert hij de
+uitdrukking "protect the asset": slaap is volgens hem geen verloren tijd maar
+onderhoud aan het enige instrument waarmee iemand zijn werk doet, het eigen
+lichaam en brein, en wie daarop bezuinigt beschadigt dat instrument. In Select
+beschrijft hij de 90 procent-regel: bij een keuze tussen opties kiest men één
+maatstaf, geeft elke optie een score van nul tot honderd op die maatstaf, en
+behandelt alles onder de negentig als een nul.
+
+**Eliminate: nee zeggen en snijden**
+
+Het derde deel, met hoofdstukken als Clarify, Dare, Uncommit en Edit, gaat
+over het wegsnijden van wat al eerder is aangenomen. McKeown introduceert de
+*essential intent*, één zin die concreet en persoonlijk genoeg is om duizend
+latere beslissingen alvast te beantwoorden. Hij pleit voor een "gracieus nee",
+een manier om een verzoek af te wijzen zonder de relatie te beschadigen, en
+voor het "uncommitten": een lopend project stoppen zodra het niet meer
+bijdraagt, ook als er al veel tijd en geld in zit. Dat laatste noemt hij met
+zoveel woorden een verzet tegen de neiging om vast te houden aan iets omdat er
+al in geïnvesteerd is.
+
+**Execute: uitvoeren zonder wrijving**
+
+Het vierde deel, met hoofdstukken als Buffer, Subtract, Progress, Flow en
+Focus, gaat over de uitvoering nadat de keuze eenmaal gemaakt is. McKeown
+adviseert marges in te bouwen voor het onverwachte, obstakels weg te nemen in
+plaats van harder te duwen, en met kleine, zichtbare stappen te beginnen in
+plaats van in één keer het hele doel na te jagen. In Focus keert hij terug
+naar de vraag die de rode draad van het boek vormt, wat op dit moment het
+enige is dat er werkelijk toe doet, en stelt hij dat die vraag telkens opnieuw
+gesteld moet worden omdat de omstandigheden veranderen. Het boek sluit af met
+het beeld van essentialisme als een terugkerende routine die zichzelf
+onderhoudt zodra de eerste keuzes eenmaal gemaakt zijn, en niet als een
+eenmalige opruimactie.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Essentialist | Wie ervan uitgaat dat vrijwel alles onbelangrijk is op een klein aantal zaken na, en daaruit bewust kiest. |
+| Non-essentialist | Wie bijna alles als min of meer belangrijk beschouwt en daardoor overal ja op zegt. |
+| Trade-off | Het onvermijdelijke gegeven dat het aannemen van de ene taak een andere taak uitsluit, ook als dat niet wordt uitgesproken. |
+| De ongedisciplineerde jacht op meer | Het patroon waarbij succes leidt tot meer kansen en verzoeken, waardoor de aandacht verdund raakt en het succes zelf ondermijnd wordt. |
+| Essential intent | Eén concrete, persoonlijke zin die zo scherp geformuleerd is dat hij duizend latere beslissingen alvast beantwoordt. |
+| De 90 procent-regel | Bij een keuze één maatstaf kiezen, opties scoren van nul tot honderd, en alles onder de negentig als een nul behandelen. |
+| Protect the asset | Slaap behandelen als onderhoud aan het lichaam en brein, het enige instrument waarmee iemand zijn werk doet, niet als verloren tijd. |
+| Een gracieus nee | Een verzoek afwijzen op een manier die de relatie met de vrager niet beschadigt. |
+| Uncommitten | Een lopend project stopzetten zodra blijkt dat het niet meer bijdraagt, ook als er al tijd en geld in geïnvesteerd is. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat vrijwel volledig uit casuïstiek. McKeown was jarenlang
+adviseur en gaf workshops bij bedrijven als Apple, Google, Facebook en
+LinkedIn, en put uit gesprekken met leidinggevenden die hij daar begeleidde,
+doorgaans zonder achternaam of met een gefingeerde voornaam. Het meest
+concrete voorbeeld is zijn eigen verhaal over de geboorte van zijn dochter,
+dat hij als aanleiding voor het boek presenteert en dat als persoonlijke
+ervaring op zichzelf staat.
+
+Voor bredere claims leunt hij op bekende anekdotes van buiten zijn eigen
+praktijk, zoals Bill Gates' Think Week en het verhaal over Warren Buffett die
+zijn piloot vroeg om vijfentwintig doelen op te schrijven, er vijf te
+omcirkelen en de overige twintig tot een vermijdlijst te verklaren. Dat
+laatste verhaal circuleert al jaren van horen zeggen in managementliteratuur,
+Buffett heeft het zelf nooit publiekelijk bevestigd, en McKeown vermeldt die
+onzekerheid niet. Gecontroleerd onderzoek, cijfers of vergelijkende studies
+ontbreken vrijwel geheel; waar het boek in het voorbijgaan verwijst naar
+bevindingen over bijvoorbeeld multitasking, gebeurt dat zonder brongegevens
+die de lezer zelf kan natrekken.
+
+#### Wat er tegen in te brengen valt
+
+Het boek herhaalt zijn eigen uitgangspunt voortdurend in net iets andere
+hoofdstukken: Escape, Look, Play en Select voegen relatief weinig nieuws toe
+aan het onderscheid dat in deel een al gemaakt is, en wie de eerste vijftig
+bladzijden gelezen heeft, kent het argument in grote lijnen al. Recensenten
+noemen dat een bekende zwakte van Amerikaanse managementboeken, een gedachte
+die in een kort essay had gepast en over ruim driehonderd bladzijden wordt
+uitgesmeerd met telkens nieuwe etiketten voor hetzelfde idee.
+
+Zwaarder weegt dat vrijwel alle voorbeelden afkomstig zijn van leidinggevenden
+met veel keuzevrijheid: mensen die vergaderingen kunnen weigeren, personeel
+kunnen aansturen en grotendeels zelf hun agenda bepalen. McKeown erkent
+nergens dat die vrijheid om nee te zeggen zelf een vorm van voorrecht is. Voor
+wie in ploegendienst werkt, een zorgtaak heeft of geen onderhandelingspositie
+tegenover een werkgever heeft, is de raad om grenzen te stellen aanzienlijk
+lastiger uit te voeren dan het boek suggereert, en dat verschil in
+uitgangspositie komt in geen van de voorbeelden aan bod.
+
+#### Wat er concreet mee te doen is
+
+- Stel bij een nieuw verzoek eerst de vraag welk probleem het oplost, niet of
+er nog tijd voor is.
+- Formuleer voor een lopend project één zin die concreet en persoonlijk genoeg
+is om latere keuzes al te beantwoorden.
+- Gebruik bij een keuze tussen meerdere opties één maatstaf en wijs alles af
+dat daar niet ruim bovenuit steekt.
+- Bouw voor belangrijke afspraken standaard marge in plaats van de agenda
+achter elkaar vol te plannen.
+- Beoordeel lopende verplichtingen periodiek op de vraag of ze vandaag opnieuw
+gekozen zouden worden.
+
+#### Wat je hierna leest
+
+- 70. Deep Work. Waar McKeown vooral over keuzes en grenzen schrijft, gaat dit
+boek dieper in op de concentratie die na het kiezen nog nodig is om het werk
+zelf te doen.
+- 81. Building a Second Brain. Een aanvulling voor wie de essentialistische
+selectie ook wil toepassen op de stroom informatie en ideeën die binnenkomt,
+niet alleen op afspraken en verplichtingen.
+- 71. Four Thousand Weeks. Een scherpere, minder optimistische tegenhanger:
+waar McKeown belooft dat kiezen tot meer ruimte leidt, betoogt dit boek dat de
+eindigheid van de tijd elke keuze onvermijdelijk een verlies maakt.
+
+## 152. Attached
+
+Amir Levine en Rachel Heller, 2010. Oorspronkelijk *Attached: The New Science
+of Adult Attachment and How It Can Help You Find and Keep Love* (Jeremy P.
+Tarcher/Penguin, New York, 2010). De Nederlandse editie heet *Verbonden:
+hechting & liefde*, vertaald door Lieke Berkhuizen, sinds 2016 bij uitgeverij
+Boom (Amsterdam, 259 blz., ISBN 9789089538758); in 2023 verscheen de
+vijftiende druk. Rubriek: brein en lichaam.
+Tags: `hechting`, `relaties`, `psychologie`, `communicatie`, `kinderjaren`,
+`zelfhulp`, `onderzoek`
+
+Amir Levine, psychiater, neurowetenschapper en hoogleraar aan Columbia
+University, en Rachel Heller, psycholoog en supervisor in de klinische
+praktijk, passen de gehechtheidstheorie van John Bowlby en het observatiewerk
+van Mary Ainsworth toe op de liefdesrelaties van volwassenen. Ainsworth zag
+bij baby's in haar experiment de Strange Situation drie patronen ontstaan in
+hoe een kind reageert op scheiding van en hereniging met een ouder: veilig,
+angstig en vermijdend. Levine en Heller nemen die indeling over voor partners
+en bouwen er een boek omheen dat wetenschappelijke uitleg combineert met een
+stappenplan om de eigen stijl te herkennen en om te gaan met een partner die
+een andere stijl heeft.
+
+Het boek beschrijft wat er gebeurt zodra het gehechtheidssysteem in werking
+treedt, het moment waarop iemand zich onveilig voelt in een relatie, en welk
+gedrag daarop volgt. De angstig gehechte partner zoekt nabijheid en raakt
+gepreoccupeerd met de vraag of de ander nog wel beschikbaar is. De vermijdend
+gehechte trekt zich terug en benadrukt de eigen onafhankelijkheid. De veilig
+gehechte blijft rustig en spreekt uit wat er nodig is. Levine en Heller geven
+daarbij vragenlijsten, voorbeelden uit hun eigen praktijk en een lijst met
+signalen die op onveiligheid in een relatie wijzen. Het boek is geschreven
+voor wie een partner zoekt of al heeft, met de praktijk voorop.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Levine en Heller stellen dat de behoefte aan nabijheid van
+een partner een ingebouwd biologisch systeem is met dezelfde functie als de
+gehechtheid van een kind aan zijn ouder, eerder dan een zwakte die overwonnen
+moet worden. Wie dat systeem negeert of bij een partner verwacht dat afstand
+normaal is, meet zichzelf en anderen af aan een ideaal van zelfstandigheid dat
+volgens de auteurs niet bestaat. Relatieproblemen komen volgens hen vaker
+voort uit de botsing tussen twee gehechtheidsstijlen met een verschillend
+alarmniveau dan uit veeleisendheid of afstandelijkheid op zichzelf, vooral als
+niemand het onderliggende patroon herkent. Wie de eigen stijl en die van een
+partner kent, kan volgens hen gerichter kiezen en communiceren in plaats van
+te blijven hangen in een terugkerend conflict.
+
+#### De gang van het boek
+
+**Van kindergehechtheid naar partnerkeuze**
+
+Het boek opent met de overstap die de auteurs willen maken:
+gehechtheidstheorie, ontwikkeld voor de band tussen baby en ouder, toepassen
+op de liefdesrelaties van volwassenen. Ze zetten uiteen dat Bowlby gehechtheid
+zag als een overlevingsmechanisme, en dat latere onderzoekers aantoonden dat
+volwassenen bij een partner naar hetzelfde soort nabijheid zoeken als een kind
+bij een ouder: een vaste basis om vandaan te vertrekken en naar terug te
+keren.
+
+Vanuit die aanname bouwen Levine en Heller de rest van het boek op. Ze wijzen
+de gangbare opvatting af dat een gezonde volwassene zonder veel behoefte aan
+een ander zou moeten kunnen functioneren, en noemen die opvatting zelf een
+bron van onnodige onzekerheid bij mensen die juist veel behoefte aan nabijheid
+voelen.
+
+**Het gehechtheidssysteem en de activering ervan**
+
+Centraal staat wat de auteurs de activering van het gehechtheidssysteem
+noemen: het moment waarop een partner ontoegankelijk of onvoorspelbaar lijkt
+en het lichaam met alarm reageert, ongeacht of dat alarm terecht is. Bij een
+veilig gehechte partner ebt dat alarm weg zodra de ander weer bereikbaar is.
+Bij een angstig gehechte partner blijft het systeem actief, ook na
+geruststelling, en bij een vermijdend gehechte partner wordt het alarm juist
+onderdrukt door meer afstand te nemen.
+
+De auteurs benadrukken dat dit geen bewuste keuze is. Het systeem werkt onder
+de aandacht door en stuurt gedrag aan voordat iemand er woorden voor heeft,
+wat volgens hen verklaart waarom uitleg over een conflict achteraf zo vaak
+niet aansluit bij wat er op het moment zelf gebeurde.
+
+**Drie stijlen, drie reactiepatronen**
+
+Levine en Heller werken de drie stijlen uit aan de hand van herkenbaar gedrag
+in plaats van alleen theorie. Veilig gehechte mensen voelen zich op hun gemak
+met intimiteit, spreken uit wat ze nodig hebben en reageren niet in paniek op
+een korte periode van afstand. Angstig gehechte mensen zijn gevoelig voor
+signalen van afwijzing, zoeken bevestiging en interpreteren zwijgen al snel
+als onheil. Vermijdend gehechte mensen waarderen zelfstandigheid boven
+nabijheid, ervaren behoeften van een partner al snel als een claim en trekken
+zich terug zodra een relatie serieus wordt.
+
+Onder verwijzing naar bevolkingsonderzoek noemen de auteurs iets meer dan de
+helft van de mensen veilig gehecht, ongeveer een vijfde angstig en ongeveer
+een kwart vermijdend, met een klein restant dat kenmerken van angstig en
+vermijdend combineert. Die verdeling gebruiken ze om te onderbouwen dat de
+twee onveilige stijlen niet zeldzaam zijn en dus geregeld met elkaar in
+aanraking komen.
+
+**Protestgedrag en de angstig-vermijdende val**
+
+Een groot deel van het boek gaat over wat de auteurs protestgedrag noemen: de
+reeks handelingen waarmee een angstig gehechte partner probeert de aandacht
+van de ander terug te winnen, van herhaald bellen tot expres afstandelijk doen
+om een reactie uit te lokken. Protestgedrag werkt averechts bij een vermijdend
+gehechte partner, die de druk juist als bevestiging leest dat afstand nodig
+is.
+
+Die wisselwerking noemen ze de angstig-vermijdende val: hoe harder de een
+aandringt, hoe verder de ander terugtrekt, en hoe verder die ander terugtrekt,
+hoe harder de eerste aandringt. Levine en Heller beschrijven dit patroon als
+het meest voorkomende en meest hardnekkige conflict dat ze in hun praktijk
+tegenkomen.
+
+**De afhankelijkheidsparadox en effectieve communicatie**
+
+Tegenover het beeld van afhankelijkheid als last zetten de auteurs wat ze de
+afhankelijkheidsparadox noemen: mensen die kunnen leunen op een partner die
+aantoonbaar beschikbaar is, worden daardoor juist zelfstandiger en durven meer
+risico te nemen, omdat er een vaste basis is om op terug te vallen.
+Onzekerheid over de beschikbaarheid van een partner kost energie die anders
+naar andere dingen zou gaan.
+
+Daaruit volgt hun pleidooi voor wat ze effectieve communicatie noemen: een
+behoefte direct benoemen op het moment dat die speelt, zonder verwijt en
+zonder te wachten tot de irritatie is opgelopen. Ze zetten dat af tegen
+indirecte strategieën als testen, terugtrekken of jaloezie opwekken, die
+volgens hen op korte termijn een reactie uitlokken maar het onderliggende
+wantrouwen juist voeden.
+
+**Signalen herkennen en de eigen stijl bijstellen**
+
+In de slothoofdstukken geven Levine en Heller een lijst met signalen die er
+volgens hen op wijzen dat een relatie chronisch onveilig maakt, ongeacht hoe
+aantrekkelijk een partner verder is, en raden ze aan die signalen serieus te
+nemen bij de keuze om door te gaan of te stoppen. Ze wijzen er daarbij op dat
+de test voor de eigen stijl een momentopname is en per relatie kan
+verschillen.
+
+De auteurs sluiten af met de stelling dat een gehechtheidsstijl niet vaststaat
+voor het leven. Herhaalde ervaring met een veilig gehechte partner kan volgens
+hen bijdragen aan een stabielere stijl, net zoals herhaalde ervaring met een
+onbeschikbare partner een onveilige stijl kan bevestigen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Gehechtheidssysteem | Het aangeboren mechanisme dat nabijheid tot een gehechtheidsfiguur regelt, bij een kind gericht op een ouder en bij een volwassene op een partner. |
+| Activering van het gehechtheidssysteem | Het moment waarop een partner ontoegankelijk of onvoorspelbaar lijkt en het systeem met alarm reageert, los van de vraag of dat alarm terecht is. |
+| Veilige gehechtheid | De stijl waarbij iemand zich op zijn gemak voelt met intimiteit, behoeften rechtstreeks uit en niet in paniek raakt bij tijdelijke afstand. |
+| Angstige gehechtheid | De stijl waarbij iemand sterk gericht is op signalen van afwijzing en bevestiging blijft zoeken, ook na geruststelling. |
+| Vermijdende gehechtheid | De stijl waarbij iemand zelfstandigheid boven nabijheid stelt en zich terugtrekt zodra een relatie serieuzer wordt. |
+| Protestgedrag | De reeks handelingen waarmee een angstig gehechte partner de aandacht van de ander probeert terug te winnen. |
+| De angstig-vermijdende val | Het herhaalpatroon waarbij aandringen van de een leidt tot terugtrekken van de ander, wat het aandringen weer versterkt. |
+| Afhankelijkheidsparadox | Het idee dat kunnen leunen op een beschikbare partner iemand juist zelfstandiger maakt, in plaats van afhankelijker. |
+| Effectieve communicatie | Een behoefte direct en zonder verwijt benoemen op het moment dat die speelt, in plaats van indirecte signalen te sturen. |
+
+#### Waar het argument op rust
+
+De indeling in drie stijlen rust op onderzoek dat decennia teruggaat. Bowlby
+beschreef vanaf de jaren vijftig de gehechtheidsband tussen kind en ouder als
+overlevingsmechanisme, en Ainsworth bracht in de Strange Situation, een
+gestandaardiseerde observatie van baby's die kort van hun ouder gescheiden
+worden, de drie hoofdpatronen in kaart die Levine en Heller overnemen. De stap
+naar volwassen liefdesrelaties werd wetenschappelijk gezet door Cindy Hazan en
+Phillip Shaver, die in 1987 in een vragenlijstonderzoek onder ruim zeshonderd
+volwassenen lieten zien dat mensen zich in dezelfde drie stijlen herkennen als
+romantische partner. Dat die drie categorieën, met vergelijkbare percentages
+als in het boek genoemd, in herhaald onderzoek terugkomen, is het stevigste
+deel van de onderbouwing.
+
+Wat Levine en Heller daarbovenop leggen, komt uit hun eigen praktijk: Levine
+als psychiater en oprichter van een onderzoekslaboratorium naar gehechtheid
+aan Columbia, Heller als praktiserend en supervisor psycholoog. De
+voorbeelden, de vragenlijsten en de concrete adviezen over communicatie zijn
+hun klinische synthese van de onderliggende theorie, niet resultaten uit een
+gecontroleerd onderzoek naar het effect van dat advies zelf. Het boek maakt
+dat onderscheid nergens expliciet: de wetenschappelijke basis en de eigen
+aanbevelingen worden in dezelfde toon gepresenteerd, terwijl alleen de eerste
+in herhaald onderzoek is getoetst.
+
+#### Wat er tegen in te brengen valt
+
+De drie stijlen zijn een vereenvoudiging van gedrag dat in de praktijk minder
+vast ligt. Onderzoek waarop het boek zelf leunt laat zien dat de stijl van
+iemand per relatie en in de tijd kan verschillen, terwijl de vragenlijst in
+het boek een uitkomst geeft die lezers al snel als een blijvend etiket gaan
+gebruiken voor zichzelf of voor een partner.
+
+Het boek is geschreven als zelfhulpboek, met eindnoten maar zonder lopende
+verwijzingen in de tekst zelf, waardoor een lezer een specifieke claim niet
+direct tegen de bijbehorende studie kan afzetten. Dat maakt het moeilijk te
+beoordelen welke uitspraken breed gedragen onderzoek weergeven en welke de
+invulling van de auteurs zijn.
+
+De toon van het boek ligt dichter bij de angstige dan bij de vermijdende
+lezer: vermijdend gedrag wordt vooral beschreven als een obstakel dat een
+partner moet leren herkennen en omzeilen, terwijl angstig gedrag meer ruimte
+krijgt als een begrijpelijke reactie op onbeschikbaarheid. Wie zelf vermijdend
+gehecht is, herkent zich in het boek vooral als het probleem dat een ander
+moet oplossen.
+
+Sinds de publicatie is de indeling in brede kring buiten de klinische context
+gaan leven, tot en met het gebruik van labels als vermijdend om het gedrag van
+een ex te verklaren zonder de eigen aandeel te onderzoeken. Dat komt vooral
+doordat de indeling zich zo gemakkelijk laat overnemen zonder de nuance die de
+auteurs er zelf nog wel bij zetten, minder door een tekortkoming in het boek
+zelf.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf bij een terugkerend conflict eerst wat er feitelijk gebeurde, los
+van de uitleg die daar meteen bij komt.
+- Gebruik de vragenlijst voor de eigen stijl als een voorlopige inschatting,
+niet als een vaststaand label voor zichzelf of een partner.
+- Benoem een behoefte op het moment dat die speelt, in een enkele zin en
+zonder verwijt, in plaats van te wachten tot de irritatie oploopt.
+- Let bij een nieuwe partner op een patroon van herhaalde onbeschikbaarheid
+over meerdere ontmoetingen, niet op een enkel voorval.
+- Onderscheid bij onenigheid met een partner het onderliggende patroon van
+aandringen en terugtrekken van het onderwerp waarover het conflict lijkt te
+gaan.
+
+#### Wat je hierna leest
+
+- 145. Unfuck Your Intimacy. Gaat net als dit boek over hechting in relaties,
+maar dan vanuit onveilig gehechte patronen in intimiteit en seksualiteit, met
+een directere en minder klinische toon.
+- 23. Mindset. Onderzoekt net als dit boek of een persoonlijk patroon
+vaststaat of kan veranderen, daar toegepast op prestatie in plaats van
+gehechtheid.
+- 33. Quiet. Beschrijft een ander aangeboren patroon, temperament in plaats
+van gehechtheidsstijl, en hoe dat evengoed onderschat wordt in wat als een
+gezonde omgang met anderen geldt.
+
+## 153. Control Your Emotions
+
+Patrick King, 2020. Oorspronkelijk *Control Your Emotions: Gain Balance,
+Resilience, and Calm; Find Freedom from Stress, Anxiety, and Negativity* (PKCS
+Media, zelfpublicatie, 2019/2020), zesde deel in Kings reeks *The Psychology
+of Social Dynamics*. Er verscheen geen Nederlandse vertaling; bibliotheek.nl
+en de Nederlandse boekhandel voeren alleen de Engelstalige editie. Let op: er
+bestaan meerdere boeken met een vergelijkbare titel van andere auteurs, zoals
+Bob Phillips' *Controlling Your Emotions Before They Control You*; dit betreft
+het boek van Patrick King uit zijn reeks over sociale psychologie. Rubriek:
+gewoontes en denken.
+Tags: `emoties`, `zelfregulatie`, `stressmanagement`, `cognitieve
+gedragstherapie`, `stoïcijnse filosofie`, `zelfhulp`, `veerkracht`
+
+Patrick King, auteur van tientallen compacte boeken over sociale vaardigheden
+en zelfregulatie, beschrijft in dit deel van zijn reeks *The Psychology of
+Social Dynamics* hoe iemand grip krijgt op de eigen emoties zonder ze te
+onderdrukken. Het boek gaat uit van de gedachte dat emoties ooit een
+overlevingsfunctie hadden en nu vaak reageren op onschuldige moderne
+aanleidingen zoals een e-mail of een file. King wil laten zien hoe iemand zo'n
+reactie leert herkennen voordat ze escaleert.
+
+Daarvoor put hij uit gedragstherapie, de stoïcijnse filosofie en het
+boeddhisme. Hij werkt met een klein aantal terugkerende hulpmiddelen: een
+model om een emotionele reactie te ontleden in aanleiding, gedrag en gevolg,
+een dagboekvorm om patronen zichtbaar te maken, en vijf manieren om op een
+emotie te reageren voordat die uit de hand loopt. Het boek is nadrukkelijk
+praktisch van opzet en bevat weinig verwijzingen naar onderzoek; de waarde zit
+in de toepasbaarheid van de oefeningen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** King stelt dat een emotie een overlevingsmechanisme is dat in
+een moderne omgeving vaak op de verkeerde aanleiding afgaat. Een late e-mail
+of een file in het verkeer wekt bij het lichaam dezelfde alarmreactie op als
+vroeger een roofdier deed. Wie leert de aanleiding, de reactie en het gevolg
+van een emotionele uitbarsting apart te herkennen, kan volgens hem ingrijpen
+op het moment van de aanleiding, voordat de reactie zich voltrekt. Dat
+ingrijpen noemt hij een vaardigheid die te trainen valt met een klein aantal
+terugkerende oefeningen.
+
+#### De gang van het boek
+
+**Waarom emoties uit de bocht vliegen**
+
+Het eerste deel legt uit dat emoties ontstonden om snel te reageren op gevaar:
+angst zette het lichaam vroeger aan tot vluchten voor een roofdier, woede tot
+verdediging van een territorium. In een kantoor of huiskamer is dat gevaar er
+zelden nog, maar het lichaam reageert nog altijd met dezelfde intensiteit op
+een kritische e-mail, een file of een opmerking van een collega. King noemt
+dat het verschil tussen de snelheid van het lichaam en de snelheid van de
+omgeving waarin het nu leeft.
+
+**Triggers opsporen**
+
+Het tweede deel gaat over het herkennen van de eigen triggers: de specifieke
+situaties, woorden of gedragingen van anderen die telkens dezelfde heftige
+reactie oproepen. King wijst erop dat een trigger zelden op zichzelf staat en
+meestal teruggaat op een patroon dat zich al vaker heeft voorgedaan,
+bijvoorbeeld een gevoel van buitengesloten worden of van niet gehoord worden.
+Pas als iemand het patroon achter de losse gebeurtenissen ziet, kan hij er
+volgens King iets aan doen.
+
+**Herkennen, reageren, reguleren**
+
+In het derde deel introduceert King de ABC-lus: de aanleiding, het gedrag en
+het gevolg van een emotionele reactie. Door die drie stappen apart te
+benoemen, wordt zichtbaar op welk punt een reactie nog is bij te sturen.
+Daarnaast beschrijft hij vijf manieren om op een emotie te reageren: de
+situatie vermijden, de situatie aanpassen, de aandacht ergens anders op
+richten, de gedachte erover herwaarderen, of de uiterlijke reactie bijsturen.
+Elke manier grijpt op een ander moment in de keten in.
+
+**De cyclus doorbreken**
+
+Het vierde deel werkt de ABC-lus uit tot een dagelijkse oefening die King een
+emotioneel dashboard noemt: bij elke sterke emotie noteert de lezer de
+context, de gedachte, het gevoel, de lichamelijke sensatie en de neiging tot
+handelen. Een patroon dat eerst automatisch verliep, wordt daarmee iets waar
+bewust naar gekeken kan worden. King besteedt in dit deel ook aandacht aan
+zelfspraak: de toon van het innerlijke commentaar bij een tegenslag werkt
+volgens hem door in het gedrag dat erop volgt.
+
+**Het emotionele immuunsysteem**
+
+Het vijfde deel gebruikt het immuunsysteem als beeld voor emotionele
+veerkracht. Net zoals het lichaam antistoffen opbouwt door blootstelling aan
+een ziekteverwekker, bouwt iemand emotionele weerbaarheid op doordat kleine
+tegenslagen bewust worden verwerkt. King koppelt dat aan vaste gewoontes,
+zoals het opschrijven van wat goed ging en het bewust stilstaan bij een
+prettige ervaring in plaats van er meteen overheen te stappen.
+
+**Filosofisch kader: stoa en boeddhisme**
+
+In het zesde deel zoekt King steun bij twee tradities. Van de stoa neemt hij
+de tweedeling tussen wat binnen eigen invloed ligt en wat daarbuiten valt, als
+leidraad om te bepalen waar energie in een emotionele situatie aan te besteden
+is. Uit het boeddhisme haalt hij het uitgangspunt dat vasthouden aan een
+vergankelijke toestand zelf een bron van lijden is. King behandelt beide
+tradities kort, gericht op toepassing in het moment zelf.
+
+**Grenzen en vol te houden gewoontes**
+
+De laatste delen gaan over preventie. King beschrijft hoe een grens die
+herhaaldelijk wordt overschreden, terug te zien is in wrok, schuldgevoel en
+vermoeidheid, en dat die grens op tijd uitspreken escalatie voorkomt. Hij
+bespreekt ook het verdragen van onbehagen: leren zitten met een naar gevoel
+zonder het meteen te willen wegnemen, als voorwaarde voor blijvende
+weerbaarheid. Het boek sluit af met een overzicht dat de eerdere hoofdstukken
+samenbrengt tot een kort te raadplegen leidraad.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Emotionele triggers | Specifieke situaties of gedragingen van anderen die telkens een sterke emotionele reactie oproepen, vaak gekoppeld aan een terugkerend patroon. |
+| ABC-lus | Het model van aanleiding, gedrag en gevolg waarmee King een emotionele reactie in losse stappen ontleedt. |
+| Emotioneel dashboard | De dagboekvorm waarin context, gedachte, gevoel, lichamelijke sensatie en handelingsneiging van een emotionele episode worden vastgelegd. |
+| Regulatiestrategieën | De vijf manieren om op een emotie te reageren: de situatie vermijden, de situatie aanpassen, de aandacht verleggen, de gedachte herwaarderen of de reactie bijsturen. |
+| Emotioneel immuunsysteem | Het beeld dat King gebruikt voor de weerbaarheid die ontstaat doordat kleine tegenslagen bewust worden verwerkt. |
+| Dichotomie van controle | De stoïcijnse tweedeling tussen wat binnen eigen invloed ligt en wat daarbuiten valt. |
+| Onthechting | Het boeddhistische uitgangspunt dat vasthouden aan een vergankelijke toestand een bron van lijden is. |
+| Grenzen | De persoonlijke grens die, als hij herhaaldelijk wordt overschreden, terug te zien is in wrok, schuldgevoel en vermoeidheid. |
+| Zelfspraak | De toon van het innerlijke commentaar bij een tegenslag, die volgens King doorwerkt in het gedrag dat volgt. |
+
+#### Waar het argument op rust
+
+King schrijft populaire zelfhulp en voert geen eigen onderzoek uit. Zijn
+bronnen zijn bestaande kaders uit de gedragstherapie, zoals het ABC-model van
+aanleiding, gedrag en gevolg, en uit de dialectische gedragstherapie, waar het
+verdragen van onbehagen een vaste term is. De vijf regulatiestrategieën uit
+deel drie komen overeen met een indeling die in de emotieregulatie-literatuur
+wordt gebruikt om het moment van ingrijpen te onderscheiden, al noemt King
+zijn bron daarvoor niet met naam.
+
+Voor het filosofische deel steunt hij op een korte lezing van de stoa en het
+boeddhisme, zonder primaire teksten aan te halen. In de voorbeeldpagina's en
+recensies die van het boek zijn na te gaan, ontbreekt een literatuurlijst met
+specifieke studies; de claims over hoe emoties werken worden onderbouwd met
+voorbeelden en niet met verwijzingen naar onderzoek. Dat maakt het boek
+bruikbaar als verzameling geleende, breed gedragen technieken. Als
+wetenschappelijke bron is het niet controleerbaar, omdat een lezer de herkomst
+van losse claims niet kan natrekken.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar tegen het boek is dat het onderdeel is van een
+omvangrijke reeks vergelijkbare titels van dezelfde uitgeverij, PKCS Media,
+waarin King in korte tijd tientallen boeken publiceerde over aangrenzende
+onderwerpen als sociale vaardigheden, communicatie en zelfvertrouwen. Dat
+productietempo werkt door in de tekst: de technieken worden kort
+geïntroduceerd en met een enkel voorbeeld toegelicht, zonder dat de herkomst
+ervan wordt uitgediept of de grenzen van hun werkzaamheid worden besproken.
+
+De filosofische hoofdstukken behandelen de stoa en het boeddhisme
+oppervlakkig: een paar kernbegrippen worden gebruikt als praktische
+vuistregel, los van de bredere leer waarin ze oorspronkelijk staan. Voor wie
+al bekend is met gedragstherapie of met eerdere boeken over emotieregulatie
+voegt dit deel weinig nieuws toe. De waarde van het boek zit vooral in de
+compacte, geordende presentatie van bestaande technieken.
+
+#### Wat er concreet mee te doen is
+
+- Noteer een week lang bij elke sterke emotie de aanleiding, de reactie en het
+gevolg volgens de ABC-lus.
+- Houd bij een emotionele episode een kort dashboard bij: context, gedachte,
+gevoel, lichamelijke sensatie en de neiging tot handelen.
+- Kies bij een terugkerende trigger een van de vijf regulatiestrategieën:
+vermijd de situatie, pas haar aan, verleg de aandacht, herwaardeer de gedachte
+of stel de reactie bij.
+- Formuleer een grens die vaker wordt overschreden en spreek die uit voordat
+de wrok oploopt.
+- Onderscheid bij een tegenslag wat binnen eigen invloed ligt en wat
+daarbuiten valt, volgens de stoïcijnse tweedeling.
+
+#### Wat je hierna leest
+
+- 59. The Art of Thinking Clearly. Beschrijft de denkfouten die aan de basis
+liggen van veel misplaatste emotionele reacties die King in dit boek
+behandelt.
+- 142. Designing the Mind. Werkt de gedragstherapeutische aanpak achter Kings
+ABC-lus en regulatiestrategieën verder uit tot een samenhangend model.
+- 133. The Compound Effect. Laat zien waarom de kleine, herhaalde oefeningen
+die King aanraadt, zoals het dashboard, op termijn effect hebben.
+
+## 154. What Every BODY Is Saying
+
+Joe Navarro en Marvin Karlins, 2008. Oorspronkelijk *What Every BODY Is
+Saying: An Ex-FBI Agent's Guide to Speed-Reading People* (William Morrow,
+2008). Nederlands verschenen bij Just Publishers (Meppel) onder de titel
+*Bodylanguage: mensen kennen door hun lichaamstaal*, vertaald door Maaike van
+der Rijst, eerste druk 2014 (ISBN 9789089754301, circa 287 blz.), latere druk
+2018 (ISBN 9789089756725). Rubriek: samenwerken en gesprek.
+Tags: `lichaamstaal`, `non-verbale communicatie`, `FBI`, `gedrag`,
+`waarneming`, `leugendetectie`, `psychologie`
+
+Navarro werkte vijfentwintig jaar bij de FBI, het grootste deel in
+contraspionage, en behoorde tot de oprichters van het gedragsanalyseprogramma
+van de National Security Division. In dat werk observeerde hij duizenden
+verhoren en ontmoetingen met spionnen en informanten, en daaruit destilleert
+hij een methode om non-verbaal gedrag te lezen. Zijn uitgangspunt is dat het
+limbisch brein, het deel dat instinctief reageert op dreiging, sneller en
+eerlijker is dan het bewuste denken. Onder stress vertoont het lichaam volgens
+hem drie soorten reacties: bevriezen, vluchten of aanvallen, en die reacties
+zijn het duidelijkst zichtbaar in voeten en benen, omdat mensen daar het minst
+op letten en ze dus het minst kunnen faken.
+
+Het boek werkt van onder naar boven: eerst voeten en benen, dan romp, armen,
+handen en gezicht, met telkens dezelfde vraag of een houding op ontspanning
+wijst of op ongemak. Een terugkerend begrip is het geruststellend gedrag,
+aanraken van hals, gezicht of haar waarmee iemand zichzelf kalmeert na
+spanning. Navarro benadrukt dat zulke signalen nooit op zichzelf iets bewijzen
+en dat ze geen leugen aantonen, alleen ongemak, waarvan de oorzaak apart moet
+worden vastgesteld. Het slothoofdstuk gaat expliciet over de grenzen van het
+lezen op leugens, en waarschuwt tegen het idee dat één gebaar een sluitend
+bewijs kan zijn.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Navarro betoogt dat het lichaam voortdurend en onwillekeurig
+laat zien wat iemand voelt, omdat het limbisch brein op dreiging en ongemak
+reageert voordat het bewuste denken kan ingrijpen. Wie leert kijken naar
+voeten, romp en handen in plaats van naar het gezicht alleen, ziet volgens hem
+eerlijker signalen dan wie alleen op woorden en gezichtsuitdrukking let. Die
+signalen tonen comfort of ongemak, niet waarheid of leugen: dat onderscheid is
+de spil van het boek en meteen het punt waarop de populaire lezing ervan vaak
+misgaat. Het boek is geschreven als praktisch naslagwerk, hoofdstuk voor
+hoofdstuk langs de lichaamsdelen, en niet als theoretisch betoog.
+
+#### De gang van het boek
+
+**Het limbisch brein als uitgangspunt**
+
+Navarro opent met een model van drie hersendelen: de hersenstam voor basale
+functies, het limbisch brein voor emotie en overleving, en de neocortex voor
+bewust denken. Het limbisch brein reageert volgens hem het snelst en het
+eerlijkst, omdat het evolutionair ouder is en niet wacht op overweging. Zijn
+stelling is dat dit deel van het brein niet liegt, en dat lichaamssignalen die
+eruit voortkomen daarom betrouwbaarder zijn dan wat iemand zegt.
+
+Daarop bouwt hij het drieluik freeze, flight en fight: bevriezen, vluchten of
+aanvallen als reactie op waargenomen dreiging. Deze reacties beginnen volgens
+hem het eerst in het onderlichaam, wat zijn latere nadruk op voeten en benen
+verklaart.
+
+Het boek is geschreven met Marvin Karlins, hoogleraar management aan de
+University of South Florida en gepromoveerd psycholoog aan Princeton. Karlins
+had al eerder boeken over gedrag en overtuiging op zijn naam staan, en zijn
+rol in dit boek is vooral het ordenen van Navarro's praktijkkennis tot een
+leesbare, systematische tekst.
+
+**Voeten en benen als eerlijkste segment**
+
+Het derde hoofdstuk behandelt voeten en benen als het deel van het lichaam
+waarop mensen het minst letten en dat zij daarom het minst controleren.
+Onrustig wippen, een voet die naar de uitgang wijst of benen die plotseling
+stilvallen leest Navarro als aanwijzingen voor ongemak, verveling of de wens
+om weg te gaan.
+
+Hij plaatst dit nadrukkelijk tegenover het gezicht, dat mensen van jongs af
+aan trainen om te beheersen. Wat de voeten doen, is volgens hem daardoor
+onwillekeuriger en dus een betere ingang dan een glimlach of frons.
+
+Als voorbeeld noemt Navarro de voet die tijdens een gesprek van de
+gesprekspartner wegdraait naar de dichtstbijzijnde uitgang, terwijl romp en
+gezicht nog toegewijd naar die gesprekspartner gericht blijven. Zulke
+verschillen tussen lichaamsdelen zijn volgens hem informatiever dan één enkel
+signaal, omdat ze laten zien welk deel van het lichaam nog onder bewuste
+controle staat en welk deel niet.
+
+**Romp, armen en handen**
+
+De volgende hoofdstukken werken omhoog: de romp toont door houding en
+oriëntatie wie zich op iemand richt of juist afwendt, de armen tonen door hun
+afstand tot het lichaam hoeveel ruimte iemand claimt of juist inneemt, en de
+handen tonen door spanning, vingers en gebaren wat er onder de woorden zit.
+
+Steeds terugkerend is het onderscheid tussen comfort en discomfort: ontspannen
+gedrag is lichter en meer naar boven gericht, ongemakkelijk gedrag is zwaarder
+en meer naar beneden of naar binnen gericht. Navarro noemt dit onderscheid
+cultuuroverstijgend, in tegenstelling tot losse gebaren die van cultuur tot
+cultuur van betekenis kunnen wisselen.
+
+**Geruststellend gedrag**
+
+Een terugkerend begrip is geruststellend gedrag: handelingen waarmee iemand
+zichzelf na spanning kalmeert, zoals het aanraken van de hals, het strijken
+over het gezicht of het spelen met haar, sieraden of een pen. Navarro
+onderscheidt dit gedrag naar de plek waar het optreedt en noemt het een teken
+dat er even daarvoor spanning is geweest, niet een teken van wat die spanning
+veroorzaakte.
+
+Hij herhaalt op meerdere plaatsen dat zulk gedrag alleen ongemak aantoont, en
+dat de oorzaak van dat ongemak apart moet worden vastgesteld uit de context.
+Een advocaat die zijn nek wrijft bij een lastige vraag kan zenuwachtig zijn
+over de uitkomst, maar evengoed over iets dat niets met de zaak te maken
+heeft.
+
+Navarro onderscheidt binnen dit gedrag verschillende varianten naar de plek
+van het lichaam waar ze optreden, van aanraken van de hals tot wrijven over
+het voorhoofd tot het uitblazen van adem met bolle wangen. Al deze varianten
+dienen volgens hem hetzelfde doel: het zenuwstelsel na een moment van spanning
+weer tot rust brengen, ongeacht de precieze aanleiding.
+
+**Het gezicht als minst betrouwbare signaal**
+
+Waar de eerdere hoofdstukken het lichaam van onderaf opbouwen, behandelt
+Navarro het gezicht als laatste en met de meeste terughoudendheid.
+Gezichtsuitdrukkingen zijn volgens hem het gemakkelijkst te veinzen, omdat
+mensen er van jongs af aan op geoefend worden, en microscopisch korte
+uitdrukkingen kunnen aan de waarnemer ontsnappen zonder training om ze te
+zien.
+
+Zijn advies is daarom om het gezicht nooit los te lezen, maar altijd samen met
+wat de rest van het lichaam op hetzelfde moment doet.
+
+**Leugendetectie als apart en beperkt hoofdstuk**
+
+Pas in het voorlaatste hoofdstuk gaat Navarro in op het opsporen van leugens,
+en hij doet dat met nadrukkelijke terughoudendheid. Hij stelt dat er geen
+enkel gebaar bestaat dat op zichzelf een leugen bewijst, en dat het enige wat
+betrouwbaar te zien is, een verandering in gedrag is ten opzichte van iemands
+basisgedrag op een rustig moment.
+
+Die basislijn moet eerst worden vastgesteld voor er iets over afwijkingen te
+zeggen valt, en zelfs dan blijft de conclusie een aanwijzing voor stress of
+ongemak, geen bewijs van bedrog. Navarro noemt zelf dat zelfs ervaren
+waarnemers zoals hij op zijn best rond de zestig procent juist zitten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Limbisch brein | Het hersendeel dat volgens Navarro razendsnel en onwillekeurig reageert op dreiging, en dat hij als eerlijkste bron van gedrag beschouwt. |
+| Freeze, flight, fight | De drie overlevingsreacties die het limbisch brein bij waargenomen dreiging inzet, in die volgorde van voorkeur. |
+| Geruststellend gedrag | Zelfkalmerende handelingen zoals het aanraken van hals, gezicht of haar na een moment van spanning. |
+| Comfort en discomfort | Het basisonderscheid tussen ontspannen gedrag, licht en opwaarts, en ongemakkelijk gedrag, zwaar en neerwaarts. |
+| Basisgedrag | Iemands gewone, rustige manier van doen, die eerst moet worden vastgesteld voor afwijkingen daarvan iets kunnen zeggen. |
+| Territoriaal gedrag | Houdingen waarmee iemand door armen, benen of voorwerpen meer of minder ruimte claimt. |
+| Voeten als eerlijkste segment | Navarro's stelling dat voeten en benen minder bewust gecontroleerd worden dan het gezicht en daardoor onwillekeuriger reageren. |
+| Speed-reading people | De ondertitel van het boek, de snelle inschatting van gedrag door getrainde waarneming van het hele lichaam. |
+
+#### Waar het argument op rust
+
+Navarro's onderbouwing steunt op vijfentwintig jaar praktijkervaring bij de
+FBI en op duizenden verhoren en observaties in contraspionagezaken. Dat is een
+omvangrijke, maar ongecontroleerde praktijk: geen van de gevallen is
+systematisch vastgelegd, gecodeerd of getoetst zoals in experimenteel
+onderzoek gebeurt, en het boek citeert geen eigen dataverzameling waarop de
+claims te controleren zijn.
+
+Voor de onderliggende neurologie verwijst hij naar algemeen aanvaarde kennis
+over het limbisch systeem, maar de sprong van die kennis naar specifieke,
+herkenbare gedragspatronen zoals nekaanraken of voetgericht wippen is
+Navarro's eigen interpretatie, niet iets dat in gecontroleerd onderzoek naar
+die specifieke signalen is bevestigd.
+
+Karlins' bijdrage als hoogleraar management geeft het boek een academische
+toon, maar dat betekent niet dat de specifieke gedragsclaims zelf in
+vakliteratuur zijn getoetst. De literatuurlijst achter in het boek bevat
+algemene bronnen over lichaamstaal en gedrag, geen reeks peer-reviewed studies
+die elk apart genoemd signaal onderbouwen.
+
+#### Wat er tegen in te brengen valt
+
+De wetenschappelijke status van populaire lichaamstaalclaims is omstreden.
+Onafhankelijk onderzoek naar het herkennen van leugens uit non-verbaal gedrag
+laat zien dat mensen, inclusief getrainde ondervragers en rechercheurs, daar
+nauwelijks beter in zijn dan toeval. De meta-analyse van Bond en DePaulo uit
+2006, gebaseerd op ruim tweehonderd studies en meer dan vierentwintigduizend
+proefpersonen, komt uit op een gemiddelde nauwkeurigheid van ongeveer
+vierenvijftig procent, terwijl vijftig procent al door gokken wordt gehaald.
+
+Navarro erkent deze beperking gedeeltelijk zelf, met zijn eigen schatting van
+hoogstens zestig procent juiste inschattingen en zijn herhaalde waarschuwing
+dat een los gebaar niets bewijst. Toch presenteert het boek per hoofdstuk
+lange lijsten specifieke signalen met vaste betekenissen, wat de lezer
+makkelijk als een betrouwbare catalogus kan gaan lezen ondanks die
+waarschuwingen. Losse gebaren blijven bovendien gevoelig voor culturele
+variatie, individuele gewoonte en simpele fysieke oorzaken zoals kou of een
+ongemakkelijke stoel, factoren die het boek noemt maar niet systematisch
+uitsluit.
+
+Het onderscheid dat het boek zelf maakt tussen comfort en ongemak enerzijds en
+leugendetectie anderzijds, is verstandiger dan hoe veel lezers het boek
+gebruiken. Onderzoek naar stressreacties ondersteunt in algemene zin dat
+spanning zich in houding en beweging uit, maar dat is iets anders dan de claim
+dat een getraind persoon daaruit betrouwbaar kan afleiden wat iemand denkt of
+verzwijgt. Wie het boek als stappenplan voor waarheidsvinding leest, gaat
+verder dan waar Navarro's eigen bewijs hem brengt.
+
+#### Wat er concreet mee te doen is
+
+- Kijk bij een gesprek eerst naar voeten en benen voor een indruk van
+ontspanning of onrust, voor het gezicht wordt beoordeeld.
+- Stel eerst iemands rustige basisgedrag vast voor je een verandering daarin
+als signaal leest.
+- Lees een enkel gebaar nooit als bewijs, maar alleen als aanleiding om verder
+te vragen naar de oorzaak van het ongemak.
+- Let bij geruststellend gedrag op het moment waarop het optreedt, niet alleen
+op het gedrag zelf.
+- Beoordeel het gezicht nooit los, maar altijd samen met wat romp, armen en
+benen op hetzelfde moment doen.
+
+#### Wat je hierna leest
+
+- 24. How to Win Friends and Influence People. Beide boeken bieden een
+praktische, op ervaring gebaseerde methode zonder gecontroleerd onderzoek
+eronder.
+- 35. Nonviolent Communication. Rosenberg werkt uit hoe woorden gevoel en
+behoefte overbrengen, waar Navarro zich beperkt tot het lichaam.
+- 43. Crucial Conversations. Behandelt de gesprekstechniek voor het moment
+waarop Navarro's signalen ongemak laten zien.
+
+## 155. The Basic Laws of Human Stupidity
+
+Carlo M. Cipolla, 1976. Cipolla schreef het essay in 1976 in het Engels en
+liet het aanvankelijk alleen privé drukken, voor een kleine kring vrienden,
+samen met een ouder essay uit 1973 over specerijen, wijn en wol in de
+middeleeuwse economie. Pas in 1988 bracht de Italiaanse uitgeverij Il Mulino
+beide teksten samen uit onder de titel *Allegro ma non troppo*, vertaald naar
+het Italiaans en voor het eerst bedoeld voor een breder publiek. Een
+zelfstandige Engelse editie volgde in 2011 bij Il Mulino, en de editie die
+Doubleday in 2019 uitbracht, met een voorwoord van Nassim Nicholas Taleb,
+maakte het essay tot een internationale bestseller, negentien jaar na
+Cipolla's dood in 2000. In het Nederlands verscheen het in 2016 als *De wetten
+van menselijke stupiditeit* bij Amsterdam University Press (85 blz., ISBN
+9789462980891), vertaald door Fred Reurs. Rubriek: geschiedenis en
+samenleving.
+Tags: `economische geschiedenis`, `stommiteit`, `menselijk gedrag`, `satire`,
+`machtsverhoudingen`, `Italië`
+
+Carlo M. Cipolla was hoogleraar economische geschiedenis in Pavia en Berkeley,
+en schreef in 1976 een essay dat niet bedoeld was voor een breed publiek. In
+vijf wetten, geformuleerd als natuurwetten, beschrijft hij de stommeling als
+een vast aandeel van elke groep mensen, los van opleiding, geslacht of beroep.
+De kern is de derde wet, die Cipolla zelf de Gouden Wet noemt: een stommeling
+is iemand die een ander schade toebrengt zonder daar zelf voordeel bij te
+hebben, soms zelfs met verlies voor zichzelf erbij. Dat maakt de stommeling
+volgens Cipolla gevaarlijker dan een bandiet, want een bandiet is tenminste te
+voorspellen.
+
+Om dat te laten zien tekent Cipolla een vlak met twee assen: winst of verlies
+voor jezelf, en winst of verlies voor de ander. Daarin onderscheidt hij de
+intelligente, die voordeel voor beide partijen zoekt, de bandiet, die zichzelf
+verrijkt ten koste van de ander, de hulpeloze, die zichzelf schaadt terwijl de
+ander wint, en de stommeling, in het vak waar niemand iets wint. Cipolla liet
+de tekst aanvankelijk alleen privé drukken voor vrienden. Pas na zijn dood
+verscheen er een Engelse editie die een bestseller werd, met een voorwoord van
+Nassim Nicholas Taleb.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Cipolla betoogt dat stommiteit geen incident is maar een
+constante in de menselijke bevolking, gelijk verdeeld over elke denkbare groep
+en onafhankelijk van opleiding, afkomst of positie. Een stommeling is niet
+degene die zichzelf schaadt of laag scoort op een test, maar degene die een
+ander schade toebrengt zonder daar zelf ook maar iets aan over te houden. Die
+schade zonder enig voordeel maakt de stommeling volgens Cipolla gevaarlijker
+dan de bandiet, wiens berekenende eigenbelang tenminste te voorspellen is. De
+samenleving onderschat zowel het aantal stommelingen als de schade die zij
+aanrichten, en dat dubbele blinde vlek is de reden dat Cipolla zijn observatie
+in de vorm van wetten goot.
+
+#### De gang van het essay
+
+**Een essay dat niet voor verkoop was bedoeld**
+
+Cipolla schreef het essay in 1976, in het Engels, en liet het alleen privé
+drukken voor een kleine kring vrienden. Het stond naast een ouder essay uit
+1973 over de rol van specerijen, wijn en wol in de middeleeuwse economie, dat
+evenmin voor de handel bedoeld was. Pas in 1988 bracht de Italiaanse
+uitgeverij Il Mulino beide teksten samen uit onder de titel *Allegro ma non
+troppo*, nu vertaald naar het Italiaans en voor het eerst voor een algemeen
+publiek.
+
+Een zelfstandige Engelse uitgave volgde in 2011 bij dezelfde uitgeverij. Pas
+de editie die Doubleday in 2019 uitbracht, met een voorwoord van Nassim
+Nicholas Taleb, maakte het essay tot een internationale bestseller, negentien
+jaar na Cipolla's dood. In het Nederlands verscheen het in 2016 als *De wetten
+van menselijke stupiditeit* bij Amsterdam University Press, vertaald door Fred
+Reurs, in een uitgave van 85 bladzijden.
+
+**De eerste twee wetten: een constante die niemand serieus neemt**
+
+De eerste wet stelt dat iedereen het aantal stommelingen in omloop onderschat,
+hoe voorzichtig die schatting ook al lijkt. De tweede wet zegt dat de kans dat
+iemand een stommeling is los staat van elke andere eigenschap van die persoon:
+geslacht, opleiding, inkomen of beroep maken geen verschil. Cipolla
+illustreert dat met zijn eigen ervaring aan de universiteit, waar hij naar
+eigen zeggen evenveel stommelingen tegenkwam onder hoogleraren als daarbuiten.
+
+Beide wetten zijn geen precieze meting maar een correctie op de gewoonte om
+stommiteit als uitzondering te zien. Cipolla schrijft dat elke groep, hoe
+select ook samengesteld, hetzelfde aandeel stommelingen bevat als de rest van
+de bevolking.
+
+**Vier typen mensen op een vlak van winst en verlies**
+
+Om stommiteit van ander gedrag te onderscheiden tekent Cipolla een vlak met
+twee assen. De horizontale as meet de winst of het verlies dat iemand aan zijn
+eigen handelen overhoudt, de verticale as meet de winst of het verlies dat de
+ander eraan overhoudt. In het vak waar beide assen positief zijn staat de
+intelligente, wiens handelen voordeel voor zichzelf en voor de ander oplevert.
+In het vak waar de eigen winst positief is en die van de ander negatief staat
+de bandiet, die wint doordat de ander verliest.
+
+Het tegenovergestelde vak, waar de eigen as negatief is en die van de ander
+positief, is voor de hulpeloze: hij schaadt zichzelf terwijl de ander wint.
+Het laatste vak, waar beide assen negatief zijn, is voor de stommeling. Daar
+wint niemand: de stommeling verliest en de ander verliest ook, zonder dat er
+ergens een voordeel ontstaat.
+
+**De Gouden Wet: schade zonder enig voordeel**
+
+De derde wet noemt Cipolla zelf de Gouden Wet, en die legt vast wat een
+stommeling eigenlijk is: iemand die een ander of een groep anderen schade
+toebrengt, terwijl hij daar zelf geen enkel voordeel bij heeft en soms zelfs
+verlies lijdt. Die definitie kijkt naar het resultaat, niet naar bedoeling of
+naar intelligentie in de gewone zin: wie schade aanricht zonder baat, valt
+onder de wet, ongeacht wat hij dacht te doen.
+
+Daarmee onderscheidt de wet de stommeling scherp van de bandiet. Een bandiet
+is berekenend en zijn gedrag is te voorspellen zodra zijn belang bekend is.
+Bij een stommeling ontbreekt dat belang, waardoor zijn handelen zich niet laat
+doorzien.
+
+**De vierde en vijfde wet: de macht van de stommeling**
+
+De vierde wet zegt dat mensen die zelf niet dom zijn de schadelijke invloed
+van stommelingen stelselmatig onderschatten. Ze vergeten dat omgaan met een
+stommeling, op elk moment en onder elke omstandigheid, achteraf een dure
+vergissing blijkt. De vijfde wet trekt daaruit de conclusie: de stommeling is
+het gevaarlijkste type mens dat er bestaat, gevaarlijker dan de bandiet.
+
+Cipolla onderbouwt dat door het gedrag van de bandiet voorspelbaar te noemen:
+wie weet welk voordeel een bandiet zoekt, kan zich daartegen wapenen. Bij de
+stommeling ontbreekt dat aanknopingspunt, waardoor schade willekeurig toeslaat
+en niemand zich er goed tegen kan indekken.
+
+**Vorm en toon: een historicus die met wetten speelt**
+
+Cipolla schrijft als econoom die met de vorm van een wetenschappelijke wet
+speelt: genummerd, met een grafiek erbij, terwijl de inhoud een persoonlijke
+observatie blijft. Die combinatie van ernst in de vorm en luchtigheid in de
+toon is het handelsmerk van het essay, en verklaart mede waarom het
+decennialang alleen binnen een kleine kring circuleerde voordat het een groot
+publiek vond.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Stommeling | De persoon die volgens de Gouden Wet een ander schade toebrengt zonder daar zelf voordeel bij te hebben. |
+| Bandiet | De persoon die zelf wint doordat de ander verliest, en van wie het gedrag daardoor voorspelbaar is. |
+| Hulpeloze | De persoon die zichzelf schaadt terwijl de ander wint, het spiegelbeeld van de bandiet. |
+| Intelligente | De persoon wiens handelen zowel voor zichzelf als voor de ander winst oplevert. |
+| Gouden Wet | Cipolla's eigen naam voor de derde wet, die de stommeling definieert aan de hand van het gevolg van zijn gedrag, niet aan de hand van zijn bedoeling. |
+| Onderschatting | Het terugkerende thema van de eerste en de vierde wet: zowel het aantal stommelingen als hun schadelijke invloed wordt stelselmatig te laag ingeschat. |
+| Vlak van winst en verlies | Het assenstelsel waarmee Cipolla de vier typen mensen naast elkaar zet, met op de ene as de eigen winst of het eigen verlies en op de andere as die van de ander. |
+
+#### Waar het argument op rust
+
+Cipolla onderbouwt zijn wetten niet met onderzoek, tellingen of enquêtes. Het
+essay is een persoonlijke observatie van een econoom die zijn hele loopbaan
+met cijfers en historische bronnen werkte, maar hier bewust de vorm van een
+wet aanhoudt zonder de onderbouwing die daar normaal bij hoort. De enige
+voorbeelden die hij geeft, komen uit zijn eigen ervaring op de universiteit en
+in het dagelijks leven, en die voorbeelden dienen als illustratie, niet als
+bewijs in sociaalwetenschappelijke zin.
+
+Dat is ook de grap van het stuk: door alledaagse observaties in de taal van
+natuurwetten te gieten, met een assenstelsel en genummerde wetten, wekt
+Cipolla de indruk van een sluitend model terwijl de inhoud een reeks aforismen
+blijft. Wie het leest als een getoetste theorie, leest het tegen de bedoeling
+in.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar richt zich op de Gouden Wet zelf. Die definieert een
+stommeling uitsluitend aan de hand van het resultaat van zijn handelen, niet
+aan de hand van zijn overwegingen. Dat maakt de definitie achteraf op vrijwel
+elk mislukt besluit toepasbaar: wie schade veroorzaakt zonder er zelf beter
+van te worden, wordt met terugwerkende kracht stommeling genoemd, ook als de
+beslissing op het moment zelf redelijk leek. Daarmee verwart het essay
+uitkomst met beoordelingsvermogen.
+
+Verder rust het model op een indeling die geen ruimte laat voor twijfel over
+de eigen inschatting: iedere lezer herkent zichzelf als intelligent of
+hoogstens als slachtoffer van andermans stommiteit, zelden als de stommeling
+zelf. Het essay biedt daarvoor geen correctie, en de losse, essayistische vorm
+maakt het ook lastig te weerleggen: er is geen claim die zich laat toetsen,
+alleen een indeling die plausibel aanvoelt.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een inschatting van een groep uit van een hoger aandeel stommelingen
+dan de intuïtie aangeeft, ook binnen de eigen kring.
+- Beoordeel gedrag aan de hand van het gevolg voor beide partijen, niet aan de
+hand van de intentie die erachter leek te zitten.
+- Reken bij samenwerking met de kosten van omgang met stommelingen, ook als
+die op voorhand niet als zodanig herkenbaar zijn.
+- Onderscheid een bandiet van een stommeling voordat een tegenmaatregel wordt
+gekozen: voorspelbaar eigenbelang vraagt om een andere aanpak dan
+onvoorspelbare schade.
+
+#### Wat je hierna leest
+
+- 65. Economic Facts and Fallacies. Sowell onderzoekt net als Cipolla
+hardnekkige denkfouten, maar dan in economische claims die feitelijk te
+toetsen zijn, tegenover Cipolla's ontoetsbare typering van gedrag.
+- 56. Sapiens. Harari beschrijft hoe grote groepen mensen zich laten sturen
+door gedeelde verhalen, wat een verklaring oppert voor de macht die Cipolla
+aan de stommeling toeschrijft.
+- 60. Trust Me, I'm Lying. Holiday laat zien hoe verkeerde informatie zich
+verspreidt doordat mensen niet doorvragen, een concreet voorbeeld van het
+soort schade dat Cipolla's vierde wet beschrijft.
+
+## 156. Surrounded by Idiots
+
+Thomas Erikson, 2014. Oorspronkelijk Zweeds als *Omgiven av idioter* (2014);
+de Engelse vertaling *Surrounded by Idiots* verscheen in 2019. Nederlandse
+editie als *Omringd door idioten: inzicht in de vier gedragstypes*, sinds 2018
+bij HarperCollins Holland; in 2025 verscheen daarvan een volledig herziene en
+uitgebreide editie (384 blz., ISBN 9789402718881). De gevonden
+catalogusgegevens noemen geen vertaler bij naam. Wereldwijd zijn van het boek
+meer dan anderhalf miljoen exemplaren verkocht, in meer dan vijftig talen;
+HarperCollins Holland meldde in Nederland een oplage van boven de
+honderdduizend. Rubriek: samenwerken en gesprek.
+Tags: `communicatie`, `gedragstypen`, `DISC`, `zelfhulp`, `teamwork`,
+`leidinggeven`, `populaire psychologie`
+
+Thomas Erikson, oud-bankmedewerker en later trainer in communicatie,
+beschrijft in dit boek vier gedragstypes die hij aanduidt met de kleuren rood,
+geel, groen en blauw. Rood staat voor dominant en resultaatgericht, geel voor
+sociaal en enthousiast, groen voor kalm en behulpzaam, blauw voor analytisch
+en precies. Volgens Erikson heeft iedereen een hoofdkleur met een
+ondersteunende tweede kleur, en ontstaat het grootste deel van de irritatie
+tussen mensen doordat de ene kleur de andere niet begrijpt. De eerste helft
+van het boek werkt elk type uit aan de hand van herkenbare situaties op
+kantoor en thuis, de tweede helft geeft aanwijzingen om de eigen toon aan te
+passen aan het type tegenover je.
+
+Het model is een populaire bewerking van DISC, een indeling die teruggaat op
+het werk van William Moulton Marston uit 1928 en die Erikson zelf koppelt aan
+de vier temperamenten van Hippocrates. Het boek werd in tientallen talen
+vertaald en verkocht wereldwijd in de miljoenen, en wordt sindsdien veel
+gebruikt in trainingen voor leidinggevenden en verkoopteams. Erikson heeft
+geen opleiding in de psychologie en presenteert zichzelf als gedragsexpert op
+grond van zijn ervaring als trainer en spreker.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Erikson stelt dat het grootste deel van de wrijving tussen
+mensen ontstaat door verschil in gedragsstijl en niet door onwil of domheid,
+en dat wie de vier gedragskleuren van het DISC-model bij zichzelf en anderen
+leert herkennen, zijn communicatie daarop kan afstemmen en zo misverstand en
+irritatie kan verminderen. Het boek presenteert die kleurindeling als een vast
+en algemeen geldig systeem waarmee gedrag te verklaren en te voorspellen valt,
+terwijl onderzoekers de wetenschappelijke onderbouwing daarvoor betwisten.
+
+#### De gang van het boek
+
+**Waarom mensen elkaar irriteren**
+
+Het boek is opgebouwd uit materiaal dat Erikson gebruikte in zijn lezingen en
+trainingen voor bedrijven. Het opent met de constatering dat vrijwel iedereen
+zich weleens ergert aan een collega, partner of familielid, en dat die
+ergernis meestal ontstaat doordat de ander in een ander tempo denkt, beslist
+of praat. Erikson wil geen oordeel over goed of fout gedrag geven, maar een
+verklaring voor het verschil.
+
+Zijn uitgangspunt is dat gedrag is terug te brengen tot vier hoofdtypen,
+aangeduid met de kleuren rood, geel, groen en blauw. Niemand is volgens hem
+zuiver één kleur: elk mens heeft een hoofdkleur en een ondersteunende tweede
+kleur, die samen bepalen hoe iemand reageert onder druk, in een vergadering of
+in een conflict.
+
+**Van Hippocrates tot DISC**
+
+Voor de herkomst van zijn indeling verwijst Erikson naar de vier temperamenten
+van Hippocrates: het cholerische, het sanguinische, het flegmatische en het
+melancholische type. Hij legt die naast het werk van William Moulton Marston,
+die in 1928 in *Emotions of Normal People* vier gedragsdimensies
+onderscheidde: dominantie, invloed, stabiliteit en correctheid, de letters die
+de afkorting DISC vormen.
+
+Marston ontwikkelde zelf geen testinstrument; dat gebeurde pas later, via
+onder meer de bedrijfspsycholoog Walter Clarke. Erikson vertaalt de vier
+dimensies naar zijn eigen kleuren en past ze toe op alledaagse situaties op de
+werkvloer, zonder de tussenliggende ontwikkeling van het model of de
+bijbehorende meetinstrumenten te bespreken.
+
+**Rood: dominant en resultaatgericht**
+
+De rode kleur staat voor mensen die snel beslissen, direct communiceren en op
+resultaat gericht zijn. Erikson beschrijft ze als ongeduldig met details,
+gericht op winnen en geneigd anderen te onderbreken. Hun kracht ligt in
+daadkracht en tempo, hun valkuil in botheid en een gebrek aan interesse in de
+gevoelens van anderen.
+
+Als voorbeeld gebruikt Erikson een manager die een vergadering na tien minuten
+wil afronden omdat de conclusie voor hem al vaststaat. Onder druk wordt de
+rode kleur volgens hem harder in plaats van stiller, en kan ongeduld omslaan
+in kortaf of kleinerend gedrag tegen wie trager tot een besluit komt.
+
+**Geel: sociaal en enthousiast**
+
+De gele kleur staat voor mensen die praten voor ze denken, makkelijk contact
+leggen en anderen graag enthousiast maken voor een idee. Erikson noemt ze
+optimistisch en overtuigend, maar ook snel afgeleid en onbetrouwbaar in
+details en afspraken. Aandacht en waardering zijn voor dit type belangrijker
+dan structuur.
+
+In een van zijn voorbeelden belooft een geel type in een vergadering
+enthousiast een deadline die hij daarna niet haalt, niet uit onwil maar omdat
+het volgende idee zijn aandacht al heeft opgeëist. Onder druk wordt dit type
+volgens Erikson chaotischer en gaat het praten om de spanning te verdrijven.
+
+**Groen: kalm en behulpzaam**
+
+De groene kleur staat voor mensen die rust brengen, luisteren en zich
+aanpassen aan de groep. Erikson beschrijft ze als loyaal, geduldig en gericht
+op harmonie, maar ook als besluiteloos en geneigd conflict te vermijden, ook
+wanneer dat nodig zou zijn. Verandering ervaart dit type sneller als
+bedreigend dan de andere drie.
+
+Een groen type geeft in Eriksons voorbeelden vaak pas na herhaald aandringen
+aan het ergens niet mee eens te zijn, uit angst de sfeer te verstoren. Onder
+aanhoudende druk trekt dit type zich volgens hem terug in stilzwijgen in
+plaats van het conflict aan te gaan.
+
+**Blauw: analytisch en precies**
+
+De blauwe kleur staat voor mensen die eerst feiten verzamelen en pas daarna
+een oordeel vellen. Erikson noemt ze systematisch, kwaliteitsgericht en
+kritisch, met als keerzijde traagheid in beslissingen en een neiging om fouten
+van anderen scherp te benoemen. Emoties tonen ze volgens hem het minst van de
+vier typen.
+
+In Eriksons voorbeelden vraagt een blauw type in een vergadering om
+onderbouwing van een voorstel waar de andere aanwezigen al mee instemden, wat
+hem in de ogen van rode en gele collega's tot een remmende factor maakt. Onder
+druk trekt dit type zich terug in nog meer detail in plaats van in een
+gesprek.
+
+**Combinaties en de eigen toon aanpassen**
+
+In het tweede deel van het boek werkt Erikson uit hoe de meeste mensen een
+combinatie van twee kleuren zijn, en hoe die combinatie verschuift onder
+stress. Hij geeft per kleur aanwijzingen om een gesprek, een vergadering of
+een sollicitatie zo in te richten dat die aansluit bij het type van de ander:
+kort en zakelijk bij rood, ruimte voor gesprek bij geel, tijd en veiligheid
+bij groen, en onderbouwde feiten bij blauw.
+
+Die aanpassing noemt hij geen truc maar een vorm van respect: wie zijn toon
+niet aanpast, communiceert vooral met zichzelf. Het boek sluit af met
+voorbeelden uit teams en gezinnen waarin die aanpassing volgens Erikson
+conflicten voorkwam.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| DISC | De onderliggende indeling in dominantie, invloed, stabiliteit en correctheid, waarop Erikson zijn vier kleuren baseert. |
+| Rood | Het dominante, resultaatgerichte type dat snel beslist en direct communiceert. |
+| Geel | Het sociale, enthousiaste type dat makkelijk contact legt maar snel afgeleid raakt. |
+| Groen | Het kalme, behulpzame type dat harmonie zoekt en conflict liever vermijdt. |
+| Blauw | Het analytische, precieze type dat op feiten en kwaliteit stuurt. |
+| Hoofdkleur en tweede kleur | De combinatie van een dominant en een ondersteunend gedragstype die volgens Erikson elk mens vormt. |
+| Comfortzone | Het gedragspatroon waarin iemand van nature het makkelijkst communiceert, en dat onder druk kan omslaan. |
+| Toon aanpassen | De aanbevolen vaardigheid om taal, tempo en toon af te stemmen op de kleur van de gesprekspartner. |
+
+#### Waar het argument op rust
+
+Het boek rust vrijwel volledig op de ervaring van Erikson als trainer en
+spreker: herkenbare anekdotes uit vergaderingen, verkoopgesprekken en
+gezinssituaties die laten zien hoe een botsing tussen twee kleuren volgens hem
+verloopt. Eigen onderzoek, vragenlijsten of gegevens over een grotere groep
+mensen komen in het boek niet voor.
+
+Waar Erikson wetenschappelijk gezag suggereert, is dat de verwijzing naar
+Hippocrates en naar Marstons boek uit 1928. Die verwijzing beschrijft de
+herkomst van de indeling, niet de geldigheid ervan: dat een idee honderd jaar
+meegaat, zegt niets over of het gedrag daadwerkelijk in vier stabiele typen
+valt te vangen. Onderzoek dat dat laatste zou moeten aantonen, ontbreekt in
+het boek.
+
+Het boek geeft ook geen lezer de mogelijkheid zichzelf op een
+gestandaardiseerde manier te testen; de kleurtoewijzing gebeurt via herkenning
+in de beschrijvingen, niet via een vragenlijst met een vaste puntentelling
+zoals commerciële DISC-instrumenten die wel gebruiken. Dat maakt de toepassing
+van het boek losser dan van een testinstrument, maar de onderliggende claim
+dat gedrag in vier vaste typen te vatten is, blijft hetzelfde.
+
+#### Wat er tegen in te brengen valt
+
+Het DISC-model waarop het boek steunt, is na bijna een eeuw gebruik niet in
+gecontroleerd onderzoek bevestigd als betrouwbaar en voorspellend instrument
+voor gedrag. Psychologen rekenen persoonlijkheidstyperingen in vaste
+categorieën, DISC inbegrepen, doorgaans tot de pseudowetenschap: mensen worden
+ingedeeld in een van enkele vaste hokjes, terwijl gedrag in gecontroleerd
+onderzoek eerder continu en situatieafhankelijk blijkt dan vast per type.
+
+Erikson heeft zelf geen opleiding of registratie in de psychologie of
+gedragswetenschap en presenteert zich desondanks als gedragsexpert. De Zweedse
+skeptici-vereniging Föreningen Vetenskap och Folkbildning kende hem in 2018 de
+titel Fraudster of the Year toe, met als reden dat hij een model zonder
+wetenschappelijke onderbouwing als vaststaand feit presenteert.
+
+De beschrijvingen van elke kleur zijn algemeen genoeg om bij vrijwel iedere
+lezer een herkenningspunt te vinden, vergelijkbaar met de manier waarop een
+horoscoop of persoonlijkheidsrapport bijna altijd als treffend wordt ervaren,
+een effect dat in de psychologie bekendstaat als het Forer-effect. Gedrag dat
+niet bij de toegekende kleur past, wordt in het boek verklaard vanuit de
+tweede kleur of vanuit stress, waardoor het model nooit met een tegenvoorbeeld
+te weerleggen is.
+
+In 2026 verscheen in het wetenschappelijke tijdschrift Theoria een artikel dat
+het boek expliciet als pseudowetenschap bespreekt en de vraag onderzoekt of
+een onderbouwd onjuist model toch praktisch nut kan hebben voor lezers. Die
+vraagstelling op zich bevestigt dat de wetenschappelijke status van het boek
+onder vakgenoten niet ter discussie staat: die wordt als negatief beschouwd,
+het debat gaat over wat daarna nog overeind blijft.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de kleuromschrijvingen als vocabulaire om een gesprek te bespreken,
+niet als vaststaand oordeel over iemands karakter.
+- Let bij een lastig gesprek eerst op tempo en toon van de ander voordat je de
+inhoud aanpast.
+- Wees terughoudend met het toepassen van de typering op basis van één
+ontmoeting of één slechte dag.
+- Zoek bij een teamconflict eerst naar een concrete aanleiding voordat je het
+verschil toeschrijft aan een gedragstype.
+- Vraag bij een sollicitatie of functioneringsgesprek naar concreet gedrag in
+plaats van naar een kleur, en laat de typering weg uit een beoordeling.
+
+#### Wat je hierna leest
+
+- 24. How to Win Friends and Influence People. Oudere en zelf ook niet
+wetenschappelijk onderbouwde klassieker over hetzelfde onderwerp: hoe je met
+de toon van een ander meebeweegt.
+- 42. The Five Dysfunctions of a Team. Beschrijft teamgedrag en vertrouwen
+vanuit een ander model, eveneens gebaseerd op ervaring als consultant en niet
+op onderzoek.
+- 33. Quiet. Bespreekt, met wel wetenschappelijke onderbouwing, hoe
+temperament en persoonlijkheid het functioneren in groepen beïnvloeden.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
 
 `1906` 127 · `1937` 76 · `1938` 58 · `1952` 83 · `aandacht` 17, 34, 54, 70,
-71, 78, 141 · `aannames` 27 · `aantekeningen` 81 · `aarde` 92 · `academisch`
-143 · `actueel` 67 · `ademhaling` 87, 118 · `affirmaties` 117 · `aforismen` 2,
-17 · `afwezige-vader` 4 · `alcohol` 4 · `alledaags` 89 · `ambacht` 6, 12, 13,
-17, 18 · `ambitie` 75 · `amerika` 114 · `amerikaans` 117, 118, 120, 132, 133,
-134, 136 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140 ·
-`animatie` 41 · `Antarctica` 36 · `antwerpen` 113 · `apartheid` 26 · `Apple`
-46 · `arbeid` 6 · `argumenten` 63 · `armoede` 26 · `atletiek` 31 · `Auschwitz`
-48 · `autonomie` 6, 50 · `basisbehoeften` 107 · `bbc` 82 · `beginners` 112 ·
+71, 78, 141 · `aannames` 27 · `aantekeningen` 81 · `aanwezigheid` 149 ·
+`aarde` 92 · `academisch` 143 · `actueel` 67 · `ademhaling` 87, 118 ·
+`adviespraktijk` 151 · `affirmaties` 117 · `aforismen` 2, 17 ·
+`afwezige-vader` 4 · `alcohol` 4 · `alledaags` 89 · `ambacht` 6, 12, 13, 17,
+18 · `ambitie` 75 · `amerika` 114 · `amerikaans` 117, 118, 120, 132, 133, 134,
+136 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140 · `animatie` 41
+· `Antarctica` 36 · `antwerpen` 113 · `apartheid` 26 · `Apple` 46 · `arbeid` 6
+· `argumenten` 63 · `armoede` 26 · `atletiek` 31 · `Auschwitz` 48 ·
+`autonomie` 6, 50 · `basisbehoeften` 107 · `bbc` 82 · `beginners` 112 ·
 `behoeften` 35 · `beinvloeding` 123, 126 · `bekentenis` 60 ·
 `belangenverstrengeling` 138 · `beleggen` 21, 64, 144 · `beleid` 65 ·
 `bemiddeling` 35 · `beroemdheden` 128 · `beschadigd-bestand` 115, 130 ·
-`beschaving` 57 · `beslissen` 55 · `besluiten` 47, 59, 69, 137 · `bestseller`
-8, 37 · `betekenis` 143 · `beurs` 80 · `beweging` 77, 84 · `bewijs` 63 ·
-`bewustwording` 103 · `bezit` 37 · `bijgeloof` 63 · `biografie` 31, 46 ·
-`biologie` 66, 88, 89, 90, 91 · `bloedvaten` 86 · `blokkade` 14 · `boeddhisme`
-111 · `brainstormen` 33 · `broers` 10 · `burn-out` 135 · `cafeïne` 52 ·
-`Californië` 10 · `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos` 74 ·
-`chapbook` 100 · `cijfers` 39, 65 · `cognitieve-bias` 59 · `columns` 89, 90 ·
-`commando` 97 · `communicatie` 34, 35, 122, 145 · `concentratie` 70 ·
-`conditionering` 61 · `conflict` 35, 42, 43 · `creativiteit` 11, 12, 13, 14,
-15, 16, 17, 74 · `crisis` 47 · `cultuur` 68 · `cultuurkritiek` 54 · `cursus`
-108, 130 · `cursus-in-wonderen` 102, 131 · `dagboek` 2, 109 · `dagboekmethode`
-78 · `dankbaarheid` 129 · `debat` 28 · `dementie` 84, 85 · `democratie` 98 ·
-`denkfouten` 55, 59, 142 · `diagnose` 104 · `digitaal` 81 · `discipline` 12,
-13, 22, 30, 106, 133, 137 · `docenten` 116 · `doelen` 58, 136 ·
+`beschaving` 57 · `beslissen` 55 · `besluiten` 47, 59, 69, 137 ·
+`besluitvorming` 151 · `bestseller` 8, 37 · `betekenis` 143 · `beurs` 80 ·
+`beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 · `bewustzijn` 148 ·
+`bezit` 37 · `bijgeloof` 63 · `biografie` 31, 46 · `biologie` 66, 88, 89, 90,
+91 · `bloedvaten` 86 · `blokkade` 14 · `boeddhisme` 111 · `brainstormen` 33 ·
+`broers` 10 · `burn-out` 135 · `cafeïne` 52 · `Californië` 10 · `carrière` 146
+· `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos` 74 · `chapbook` 100 ·
+`cijfers` 39, 65 · `cognitieve gedragstherapie` 147, 153 · `cognitieve-bias`
+59 · `columns` 89, 90 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152,
+156 · `concentratie` 70 · `conditionering` 61 · `conflict` 35, 42, 43 ·
+`creativiteit` 11, 12, 13, 14, 15, 16, 17, 74 · `crisis` 47 · `cultuur` 68 ·
+`cultuurkritiek` 54 · `cursus` 108, 130 · `cursus-in-wonderen` 102, 131 ·
+`dagboek` 2, 109 · `dagboekmethode` 78 · `dankbaarheid` 129 · `debat` 28 ·
+`dementie` 84, 85 · `democratie` 98 · `denkfouten` 55, 59, 142 · `design
+thinking` 150 · `diagnose` 104 · `digitaal` 81 · `DISC` 156 · `discipline` 12,
+13, 22, 30, 106, 133, 137, 146 · `docenten` 116 · `doelen` 58, 136 ·
 `doelgericht-oefenen` 50 · `donkere-triade` 124 · `dood` 98 · `doorzetten` 20
 · `dromen` 52 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 ·
-`dystopie` 61 · `e-mail` 70 · `economie` 65, 98 · `eenzaamheid` 7, 96, 98, 111
-· `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102 ·
-`eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 · `eigenaarschap` 97 ·
-`einstein` 94 · `emotie` 137 · `emoties` 3, 43, 142 · `empathie` 35, 67 ·
-`energie` 92 · `epos` 5 · `erfenis` 39 · `erotiek` 113 · `essay` 3, 9, 21, 57,
-59, 63, 64, 68, 96 · `eten` 103 · `evolutie` 56, 66, 89, 90, 91 ·
-`evolutionaire-psychologie` 67 · `expeditie` 36 · `experiment` 79 · `fabel` 8,
-42, 135 · `falen` 23, 72, 75 · `familie` 45 · `familiegeschiedenis` 114 ·
-`familieroman` 10 · `feedback` 41 · `feiten` 43 · `feminisme` 3 · `fictie`
-100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93 · `flow` 78 · `frankrijk` 115
-· `gaslighting` 123 · `gebed` 83 · `gedrag` 21, 22, 89, 90, 138 · `geduld` 21
-· `geheugen` 66, 85 · `geld` 21, 37, 38, 56, 76, 121, 132, 133 · `geloof` 45,
-83 · `geluk` 79, 93 · `gemeenschap` 9, 96 · `geneeskunde` 49 · `generaties`
-114 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94 · `gesprek` 43, 95 ·
-`gevolgen` 67 · `geweld` 45, 90 · `gewicht` 138 · `gewoonte` 58, 70, 76, 77,
-79, 88, 97, 103, 133, 138 · `gewoontes` 7, 11, 13, 22, 25, 134, 135 · `gezag`
-62 · `gezondheid` 52, 88 · `ggz` 104 · `grenzen` 72, 105, 109, 120, 122 ·
+`dystopie` 61 · `e-mail` 70 · `economie` 65, 98 · `economische geschiedenis`
+155 · `eenzaamheid` 7, 96, 98, 111 · `eerlijk` 47 · `eerlijkheid` 62 ·
+`eerste-versie` 19 · `ego` 75, 102, 149 · `eigen-beheer` 107, 140, 142 ·
+`eigen-oordeel` 58 · `eigenaarschap` 97 · `einstein` 94 · `emotie` 137 ·
+`emoties` 3, 43, 142, 147, 153 · `empathie` 35, 67 · `energie` 92 · `epos` 5 ·
+`erfenis` 39 · `erotiek` 113 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96 ·
+`eten` 103 · `evolutie` 56, 66, 89, 90, 91 · `evolutionaire-psychologie` 67 ·
+`expeditie` 36 · `experiment` 79 · `fabel` 8, 42, 135 · `falen` 23, 72, 75 ·
+`familie` 45 · `familiegeschiedenis` 114 · `familieroman` 10 · `FBI` 154 ·
+`feedback` 41 · `feiten` 43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 ·
+`filosofie` 1, 6, 71, 93 · `flow` 78 · `frankrijk` 115 · `gaslighting` 123 ·
+`gebed` 83 · `gedachten` 148 · `gedrag` 21, 22, 89, 90, 138, 154 ·
+`gedragstypen` 156 · `geduld` 21 · `geheugen` 66, 85 · `geld` 21, 37, 38, 56,
+76, 121, 132, 133 · `geloof` 45, 83 · `geluk` 79, 93 · `gemeenschap` 9, 96 ·
+`geneeskunde` 49 · `generaties` 114 · `geschiedenis` 30, 36, 56, 57, 68, 93,
+94 · `gesprek` 43, 95 · `gevolgen` 67 · `geweld` 45, 90 · `gewicht` 138 ·
+`gewoonte` 58, 70, 76, 77, 79, 88, 97, 103, 133, 138 · `gewoontes` 7, 11, 13,
+22, 25, 134, 135, 147 · `gewoontevorming` 146 · `gezag` 62 · `gezondheid` 52,
+88 · `ggz` 104 · `grenzen` 72, 105, 109, 120, 122 · `grenzen stellen` 151 ·
 `groeimentaliteit` 116 · `grondstoffen` 92 · `groot-verhaal` 56 ·
 `grootouders` 91 · `handel` 80 · `handelen` 30 · `handleiding` 112 · `hart`
-86, 128 · `hechting` 145 · `heelal` 99 · `helderheid` 82 · `herhaling` 125,
-134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 ·
+86, 128 · `hechting` 145, 152 · `heelal` 99 · `helderheid` 82 · `herhaling`
+125, 134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 ·
 `herstel` 87 · `Holocaust` 48 · `hormonen` 80 · `houding` 117 · `huisvesting`
 65 · `humor` 16, 19, 26, 105 · `huwelijk` 9, 34 · `Huxley` 54 · `hypnose` 123,
 124, 125 · `Idaho` 45 · `identiteit` 22, 115 · `identiteitskapitaal` 51 ·
 `ierland` 110 · `ik-vorm` 113 · `illustraties` 109 · `imitatie` 11 · `import`
 20 · `individualisme` 9, 96 · `innerlijk-kind` 109 · `instagram` 129 ·
 `internet` 60 · `interview` 58 · `intimiteit` 122, 145 · `introversie` 33 ·
-`intuitie` 128 · `invloed` 11 · `jaloezie` 19 · `japan` 77 · `jaren-tachtig`
-139 · `jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren` 25 ·
-`journalistiek` 4, 7, 46, 82 · `jung` 143 · `Kaïn-en-Abel` 10 · `kans` 64 ·
-`kansen` 137 · `karakter` 97 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50
-· `keuzes` 51, 71, 72 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144 ·
-`klein-beginnen` 40 · `kleine-stappen` 22, 133 · `korea` 111 · `kort` 59, 99,
-100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 ·
-`korte-teksten` 111 · `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 ·
-`kroeg` 4 · `kunst` 11 · `kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw`
-56, 98 · `leefstijl` 86, 103, 138 · `leger` 106 · `leiderschap` 36, 41, 44,
-46, 97, 106 · `lesmateriaal` 116 · `levenskunst` 27 · `levensloop` 91 ·
-`lezen` 18 · `lichaam` 80 · `lichaamstaal` 125, 126 · `liefde` 3, 131 ·
-`lijden` 48, 73 · `literair` 110 · `literatuur` 49 · `logotherapie` 48 ·
-`Long-Island` 4 · `loopbaan` 50, 51 · `losmaken` 45 · `luisteren` 24, 35 ·
-`management` 42, 47 · `manifesteren` 128, 129, 130, 131, 132 · `manipulatie`
-123, 124, 125, 126 · `mannelijkheid` 3 · `mannen` 7 · `marketing` 13, 40, 60 ·
-`media` 54, 60, 100 · `meditatie` 111, 141 · `memoir` 4, 7, 18, 20, 26, 45,
-49, 62, 95, 106 · `mensenkennis` 126 · `mentorschap` 4 · `metafysica` 102 ·
-`meten` 69, 133 · `methode` 81 · `microbedrijf` 40 · `middelbare-leeftijd` 7 ·
-`minderheden` 68 · `mindful` 103 · `mindfulness` 141 · `modelleren` 139 ·
-`moed` 44 · `moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57, 67 ·
-`moreel` 36 · `motivatie` 117, 139 · `motoren` 6 · `muziek` 17, 85 ·
-`mythologie` 73, 143 · `naslag` 99, 112 · `naslagwerk` 59 · `natuurkunde` 62,
-94 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106,
-107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113
-· `netwerken` 24 · `neurobiologie` 119 · `neurochirurgie` 49 ·
-`neurowetenschap` 52 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
+`intuitie` 128 · `invloed` 11 · `Italië` 155 · `jaloezie` 19 · `japan` 77 ·
+`jaren-tachtig` 139 · `jaren-twintig` 94 · `jeugd` 53, 104, 115 · `jongeren`
+25 · `journaling` 147 · `journalistiek` 4, 7, 46, 82 · `jung` 143 ·
+`Kaïn-en-Abel` 10 · `kans` 64 · `kansen` 137 · `karakter` 97 · `keegan` 110 ·
+`kennis` 81 · `kenniswerk` 6, 50 · `keuzes` 51, 71, 72 · `kinderjaren` 152 ·
+`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144 · `klein-beginnen` 40 ·
+`kleine-stappen` 22, 133 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 ·
+`kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 · `korte-teksten` 111
+· `krijgsgevangenschap` 31 · `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 ·
+`kwaliteit` 1 · `kwetsbaarheid` 32, 44 · `landbouw` 56, 98 · `leefstijl` 86,
+103, 138 · `leger` 106 · `leiderschap` 36, 41, 44, 46, 97, 106 ·
+`leidinggeven` 156 · `lesmateriaal` 116 · `leugendetectie` 154 ·
+`levenskeuzes` 150 · `levenskunst` 27 · `levensloop` 91 · `lezen` 18 ·
+`lichaam` 80 · `lichaamstaal` 125, 126, 154 · `liefde` 3, 131 · `lijden` 48,
+73 · `literair` 110 · `literatuur` 49 · `logotherapie` 48 · `Long-Island` 4 ·
+`loopbaan` 50, 51, 150 · `losmaken` 45 · `luisteren` 24, 35 ·
+`machtsverhoudingen` 155 · `management` 42, 47 · `manifesteren` 128, 129, 130,
+131, 132 · `manipulatie` 123, 124, 125, 126 · `mannelijkheid` 3 · `mannen` 7 ·
+`marketing` 13, 40, 60 · `media` 54, 60, 100 · `meditatie` 111, 141, 149 ·
+`memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106 · `menselijk gedrag` 155 ·
+`mensenkennis` 126 · `mentale helderheid` 148 · `mentorschap` 4 · `metafysica`
+102 · `meten` 69, 133 · `methode` 81 · `microbedrijf` 40 ·
+`middelbare-leeftijd` 7 · `minderheden` 68 · `mindful` 103 · `mindfulness`
+141, 147, 149 · `mindset` 146 · `modelleren` 139 · `moed` 44 ·
+`moeder-en-zoon` 26 · `Monty-Python` 16 · `moraal` 9, 57, 67 · `moreel` 36 ·
+`motivatie` 117, 139, 146 · `motoren` 6 · `muziek` 17, 85 · `mythologie` 73,
+143 · `naslag` 99, 112 · `naslagwerk` 59 · `natuurkunde` 62, 94 · `nederland`
+96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128,
+130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `netwerken`
+24 · `neurobiologie` 119 · `neurochirurgie` 49 · `neurowetenschap` 52 · `new
+age` 149 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
 `nieuwsgierigheid` 15, 28, 62 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs`
-55 · `observeren` 15 · `ochtendroutine` 14, 134 · `oefenen` 29 · `oefening`
-141 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 · `okinawa` 77 ·
-`omgangsvormen` 24 · `omkering` 105 · `omstreden` 37, 73, 76, 83 ·
-`onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 · `onbewezen`
-127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16 · `onderbewuste` 124 ·
-`onderbouwing` 87, 108, 117, 134, 135, 136 · `ondernemen` 20, 39, 40, 47 ·
-`onderwijs` 6, 23, 33, 45, 63, 65, 68, 116 · `onderwijskritiek` 37 ·
-`onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88 ·
-`onderzoeksdebat` 53 · `onderzoekskritiek` 52 · `ontslagen` 47 ·
-`ontwikkeling` 46, 85 · `oordeel` 59, 69 · `oorlog` 31, 57, 66 · `opdrachten`
-116 · `opgetekend` 97 · `opgroeien` 4 · `opvoeding` 3, 23, 29, 44, 53, 73 ·
-`orde` 73, 74 · `organisatie` 28, 41, 69 · `Orwell` 54 · `ouder-worden` 5 ·
-`ouderdom` 77, 84, 91, 95 · `oudheid` 2 · `overleven` 31, 36 ·
-`overlevingsvertekening` 64 · `overtuigen` 24 · `overtuigingen` 28, 132, 139,
-143 · `overvloed` 17 · `Pacific` 31 · `para` 81 · `parabel` 38 · `passie` 50 ·
-`pastoraat` 34 · `patriarchaat` 3 · `pelgrimage` 8 · `perceptie` 30 ·
-`perfectionisme` 19, 32, 44 · `persoonlijkheid` 33 · `piekeren` 105 · `pijn`
-85 · `Pixar` 41, 46 · `planeten` 99 · `planning` 70 · `plicht` 2 · `podcast`
-136 · `poker` 137 · `polemiek` 67 · `politiek` 54 · `populair` 77, 129, 133 ·
-`populair-wetenschappelijk` 88 · `portretten` 75, 94 · `positief-denken` 83 ·
-`postuum` 49 · `praktisch` 118, 121, 140 · `presenteren` 82 · `preventie` 86 ·
-`prijzen` 23 · `prikkels` 60, 65 · `prioriteiten` 25 · `proactief` 25 ·
-`producer` 17 · `proeven` 112 · `projecten` 81 · `projectie` 107, 108 ·
+55 · `non-verbale communicatie` 154 · `observeren` 15 · `ochtendroutine` 14,
+134 · `oefenen` 29 · `oefening` 141 · `oefeningen` 15, 35, 87, 103, 109, 118,
+120, 122, 130 · `okinawa` 77 · `omgangsvormen` 24 · `omkering` 105 ·
+`omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
+124, 125, 126 · `onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16
+· `onderbewuste` 124 · `onderbouwing` 87, 108, 117, 134, 135, 136 ·
+`ondernemen` 20, 39, 40, 47 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116 ·
+`onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
+79, 80, 84, 85, 86, 88, 152 · `onderzoeksdebat` 53 · `onderzoekskritiek` 52 ·
+`ontslagen` 47 · `ontwikkeling` 46, 85 · `oordeel` 59, 69 · `oorlog` 31, 57,
+66 · `opdrachten` 116 · `opgetekend` 97 · `opgroeien` 4 · `opvoeding` 3, 23,
+29, 44, 53, 73 · `orde` 73, 74 · `organisatie` 28, 41, 69 · `Orwell` 54 ·
+`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95 · `oudheid` 2 · `overdenken` 148
+· `overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24 ·
+`overtuigingen` 28, 132, 139, 143 · `overvloed` 17 · `Pacific` 31 · `para` 81
+· `parabel` 38 · `passie` 50 · `pastoraat` 34 · `patriarchaat` 3 ·
+`pelgrimage` 8 · `perceptie` 30 · `perfectionisme` 19, 32, 44 ·
+`persoonlijkheid` 33 · `piekeren` 105 · `pijn` 85 · `Pixar` 41, 46 ·
+`planeten` 99 · `planning` 70 · `plicht` 2 · `podcast` 136 · `poker` 137 ·
+`polemiek` 67 · `politiek` 54 · `populair` 77, 129, 133 ·
+`populair-wetenschappelijk` 88 · `populaire psychologie` 156 · `portretten`
+75, 94 · `positief-denken` 83 · `postuum` 49 · `praktisch` 118, 121, 140 ·
+`presenteren` 82 · `preventie` 86 · `prijzen` 23 · `prikkels` 60, 65 ·
+`prioriteiten` 25 · `prioriteren` 151 · `proactief` 25 · `producer` 17 ·
+`productiviteit` 151 · `proeven` 112 · `projecten` 81 · `projectie` 107, 108 ·
 `propaganda` 60 · `protocol` 69 · `pseudokennis` 126 · `psychiatrie` 1, 48,
-95, 96, 104 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143 ·
-`publiceren` 13 · `Pulitzer` 5 · `quantum` 94 · `quilten` 114 · `rechtspraak`
-69 · `reeks` 114 · `reisverhaal` 1 · `relaties` 34, 51, 101, 120, 122, 145 ·
-`religie` 56 · `REM` 52 · `Renaissance` 15 · `rente` 38 · `replicatie` 79 ·
-`revisie` 18 · `rijkdom` 57 · `risico` 64, 80, 144 · `roeping` 8, 9, 12 ·
-`roman` 61, 113, 114, 115 · `rouw` 95 · `rust` 32 · `Salinas` 10 ·
-`samenleving` 90, 98 · `samenwerken` 25 · `scepsis` 63 · `schaamte` 32, 44 ·
-`schaarste` 92 · `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14,
-18, 19, 81 · `schulden` 20, 38, 121 · `seksualiteit` 100, 145 · `seminar` 139
-· `slaap` 52, 87, 88 · `slavernij` 68 · `smartphone` 53 · `sociale-media` 53,
-70 · `somberheid` 119 · `spanning` 101 · `sparen` 21, 38 · `spelen` 32 ·
-`spiegelogie` 108 · `spiritualiteit` 8, 14, 27, 102, 108, 141 · `sport` 20 ·
-`spreker` 117, 134 · `statistiek` 55, 65, 69 · `status` 39, 66 ·
-`sterfelijkheid` 2, 71 · `sterrenkunde` 99 · `sterven` 49, 95 · `stijl` 18 ·
-`stoicijns` 75, 140, 142 · `stoïcisme` 2, 30 · `streken` 112 · `stress` 80,
-87, 106, 118 · `structuur` 82 · `succes` 75, 76 · `systeem` 22, 142 · `taal`
-26, 27 · `talent` 23, 29 · `tarieven` 121 · `team` 42 · `techniek` 1, 6, 43,
-61, 92 · `tegen-productiviteit` 71 · `tegenslag` 30, 111 · `tekenen` 15 ·
+95, 96, 104 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147,
+152, 154 · `publiceren` 13 · `Pulitzer` 5 · `quantum` 94 · `quilten` 114 ·
+`rechtspraak` 69 · `reeks` 114 · `reisverhaal` 1 · `relaties` 34, 51, 101,
+120, 122, 145, 152 · `religie` 56 · `REM` 52 · `Renaissance` 15 · `rente` 38 ·
+`replicatie` 79 · `revisie` 18 · `rijkdom` 57 · `risico` 64, 80, 144 ·
+`roeping` 8, 9, 12 · `roman` 61, 113, 114, 115 · `rouw` 95 · `rust` 32 ·
+`Salinas` 10 · `samenleving` 90, 98 · `samenwerken` 25 · `satire` 155 ·
+`scepsis` 63 · `schaamte` 32, 44 · `schaarste` 92 · `scheikunde` 92 · `school`
+53, 84 · `schrijven` 11, 12, 14, 18, 19, 81 · `schulden` 20, 38, 121 ·
+`seksualiteit` 100, 145 · `seminar` 139 · `slaap` 52, 87, 88 · `slavernij` 68
+· `smartphone` 53 · `sociale-media` 53, 70 · `somberheid` 119 · `spanning` 101
+· `sparen` 21, 38 · `spelen` 32 · `spiegelogie` 108 · `spiritualiteit` 8, 14,
+27, 102, 108, 141, 149 · `sport` 20 · `spreker` 117, 134 · `Stanford` 150 ·
+`statistiek` 55, 65, 69 · `status` 39, 66 · `sterfelijkheid` 2, 71 ·
+`sterrenkunde` 99 · `sterven` 49, 95 · `stijl` 18 · `stoicijns` 75, 140, 142 ·
+`stoïcijnse filosofie` 153 · `stoïcisme` 2, 30 · `stommiteit` 155 · `streken`
+112 · `stress` 80, 87, 106, 118 · `stressmanagement` 153 · `structuur` 82 ·
+`succes` 75, 76 · `systeem` 22, 142 · `taal` 26, 27 · `talent` 23, 29 ·
+`tarieven` 121 · `team` 42 · `teamwork` 156 · `techniek` 1, 6, 43, 61, 92 ·
+`tegen-productiviteit` 71 · `tegenslag` 30, 111 · `tekenen` 15 ·
 `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `Texas` 5 ·
 `therapie` 51, 107, 118, 119, 120, 121, 122, 145 · `thriller` 101 · `tijd` 71
 · `toeval` 21, 64, 93, 137 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132,
@@ -29697,7 +32002,7 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 82 · `uitstel` 71, 140 · `uitstelgedrag` 12 · `uitstellen` 16 · `vaardigheden`
 40, 50 · `vaardigheid` 64 · `vader-en-zoon` 1 · `vaderschap` 49 ·
 `vakmanschap` 1 · `variantie` 137 · `vastgoed` 37 · `veedrift` 5 ·
-`veerkracht` 106 · `veiligheid` 43 · `veiligheidsmarge` 144 ·
+`veerkracht` 106, 153 · `veiligheid` 43 · `veiligheidsmarge` 144 ·
 `verantwoordelijkheid` 42, 72, 73, 74, 93 · `verdriet` 111 · `vergaderen` 42 ·
 `vergeving` 31, 102, 120 · `verhaal` 74 · `verhaalvorm` 135 · `verhalen` 56,
 101, 110, 136 · `verhouding` 113 · `verhoudingen` 110 · `verklaringen` 68 ·
@@ -29707,18 +32012,20 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 86, 88 · `volharding` 29 · `voorbeelden` 128 · `voorbereiding` 82 ·
 `voorkeuren` 89 · `vooroordelen` 55 · `vriendschap` 5, 7, 114 · `vrije-tijd`
 78 · `vrije-wil` 10 · `vrijheid` 61 · `vrouwenhaat` 110 · `waardebeleggen` 144
-· `waarden` 72, 142 · `waardering` 24, 34 · `wall-street` 144 · `weerstand` 12
-· `werk` 70, 78 · `werkboek` 14, 122 · `werkplek` 33, 43 · `werkwijze` 16 ·
-`West-Point` 29 · `westen` 67 · `western` 5 · `wet-van-aantrekking` 127 ·
-`wetenschap` 63, 66, 93, 94 · `wijn` 112 · `wiskunde` 116 · `woede` 119, 120 ·
-`woestijn` 8 · `wraak` 101 · `zeereis` 36 · `zeldzaam` 144 · `zelfbedrog` 66 ·
-`zelfbeeld` 25, 27, 105, 107, 108, 129, 138 · `zelfbeheersing` 75 ·
-`zelfcompassie` 32 · `zelfdiscipline` 2 · `zelfhulp` 15, 22, 25, 34, 58, 72,
-76, 79, 83, 117, 134, 135, 136 · `zelfspot` 19 · `zelfstandig` 40 ·
-`zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125, 126 · `zelfwaardering` 121
-· `zelfzorg` 109 · `zen` 141 · `zenuwstelsel` 87 · `zeven-stappen` 129 ·
-`ziekte` 74 · `zingeving` 9, 48, 77, 91 · `zitten` 84 · `zorg` 96 ·
-`Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwarte-gaten` 99
+· `waarden` 72, 142 · `waardering` 24, 34 · `waarneming` 154 · `wall-street`
+144 · `weerstand` 12 · `werk` 70, 78, 151 · `werkboek` 14, 122, 150 ·
+`werkplek` 33, 43 · `werkwijze` 16 · `West-Point` 29 · `westen` 67 · `western`
+5 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94 · `wijn` 112 ·
+`wiskunde` 116 · `woede` 119, 120 · `woestijn` 8 · `wraak` 101 · `zeereis` 36
+· `zeldzaam` 144 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129,
+138 · `zelfbeheersing` 75, 148 · `zelfcompassie` 32 · `zelfdiscipline` 2 ·
+`zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
+148, 149, 150, 151, 152, 153, 156 · `zelfregulatie` 153 · `zelfspot` 19 ·
+`zelfstandig` 40 · `zelfsturing` 142 · `zelfuitgegeven` 123, 124, 125, 126 ·
+`zelfwaardering` 121 · `zelfzorg` 109 · `zen` 141 · `zenuwstelsel` 87 ·
+`zeven-stappen` 129 · `ziekte` 74 · `zingeving` 9, 48, 77, 91 · `zitten` 84 ·
+`zorg` 96 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwarte-gaten`
+99
 
 ## Leesroutes
 
