@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archetypen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Jung stelt dat de psyche niet alleen een persoonlijk onbewuste bevat, gevuld met verdrongen ervaringen van het eigen leven, maar ook een dieper,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-360">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">360 &middot; Brein en lichaam</p>
+    <h1>Archetypen</h1>
+    <p class="lede">C.G. Jung</p>
+    <p class="stats">
+      <span><b>1686</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="360"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Jung stelt dat de psyche niet alleen een persoonlijk onbewuste bevat, gevuld met verdrongen ervaringen van het eigen leven, maar ook een dieper, collectief onbewuste dat alle mensen delen en dat is opgebouwd uit archetypen: aangeboren vormen die zich telkens vullen met nieuwe inhoud zodra een mens droomt, een mythe vertelt of een sprookje naspeelt. Een archetype is voor hem geen voorstelling maar een lege matrijs, vergelijkbaar met het bouwplan van een kristal, die pas zichtbaar wordt in het beeld dat de individuele verbeelding eromheen legt. De moeder, het kind, de schaduw en de held keren daarom in elke cultuur terug in een andere vorm maar met een herkenbare structuur, en die herhaling is voor Jung de aanwijzing dat er onder de persoonlijke geschiedenis een gedeelde laag ligt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het onbewuste voorbij Freud</h3>
+      <p>Voor Freud was het onbewuste vooral een opslagplaats van verdrongen persoonlijke ervaringen: wensen, herinneringen en driften die het bewustzijn niet kon verdragen en had weggeduwd. Jung nam dat persoonlijke onbewuste over, maar voegde er een tweede, dieper niveau aan toe dat niet uit het eigen leven stamt en dat hij het collectieve onbewuste noemde. Die laag is bij ieder mens identiek van opbouw, ook al is de inhoud die eruit opkomt telkens anders gekleurd door de cultuur en de tijd waarin iemand leeft.</p>
+      <p>Zijn eerste aanwijzing kwam uit de kliniek. Jung beschrijft een patiënt in het Burghölzli-ziekenhuis die tijdens een psychose een visioen had van een buis die aan de zon hing en waarvan de beweging de wind veroorzaakte. Jaren later publiceerde de classicus Albrecht Dieterich een Griekse Mithras-liturgie met een vrijwel identiek beeld, een tekst die de patiënt onmogelijk kon hebben gekend. Voor Jung was dat geen bewijs in de strikte zin, maar wel de aanleiding om te veronderstellen dat sommige beelden niet uit de persoonlijke geschiedenis komen maar uit een laag die alle mensen delen.</p>
+      <h3>Het archetype als vorm zonder inhoud</h3>
+      <p>Jung onderscheidt nadrukkelijk het archetype op zich van het archetypische beeld. Het archetype zelf is niet waarneembaar en niet voorstelbaar; het is een lege vorm, te vergelijken met het kristalrooster dat pas zichtbaar wordt zodra er een concreet kristal in groeit. Wat een mens ziet in dromen, kunst of mythen is altijd al het gevormde beeld, gekleurd door zijn eigen tijd en cultuur, nooit het archetype zelf.</p>
+      <p>Die onderscheiding beschermt het begrip tegen de meest simpele lezing, dat er ergens een voorraad kant-en-klare beelden in het brein zou zitten. Jung vergelijkt het archetype liever met een instinct: zoals een vogel zonder onderricht een nest bouwt in een herkenbaar patroon, produceert de menselijke psyche zonder onderricht bepaalde typen ervaringen, zoals de ontmoeting met een dreigende figuur of een wijze oude gestalte, in een herkenbare vorm.</p>
+      <h3>Anima en schaduw</h3>
+      <p>Twee archetypen werkt hij uitvoerig uit. De schaduw bevat de eigenschappen die iemand niet bij zichzelf wil erkennen en die hij daardoor bij anderen ziet en veroordeelt: wie een sterke afkeer voelt van een trek bij een ander, loopt volgens Jung een goede kans die trek zelf onbewust in zich te dragen. De anima is bij de man het onbewuste beeld van het vrouwelijke, gevormd door de eigen moeder en door elke latere vrouw die hij ontmoet, en zij verschijnt in dromen als een figuur die hem tegelijk aantrekt en verwart. Bij de vrouw beschrijft hij de spiegelfiguur, de animus, minder uitgebreid dan de anima.</p>
+      <p>Beide archetypen werken volgens hetzelfde mechanisme van projectie: onbewuste inhoud wordt op een ander persoon gelegd, die daardoor groter of angstaanjagender lijkt dan hij is. Het herkennen van een projectie is voor Jung een van de eerste stappen in het proces dat hij individuatie noemt.</p>
+      <h3>Het moeder- en kindarchetype</h3>
+      <p>In het essay over het moederarchetype zet Jung een lange reeks beelden naast elkaar: de eigen moeder, maar ook de aarde, de kerk, de stad, de put en de heks, telkens als drager van hetzelfde archetype in een positieve gedaante (vruchtbaarheid, bescherming, groei) of een negatieve (verslinding, vergiftiging, de heks die opsluit). Geen van die beelden is het archetype zelf; ze zijn de vormen waarin het zich in verschillende culturen laat zien.</p>
+      <p>Het kindarchetype werkt hij uit als het beeld van het goddelijke kind dat in mythen overal terugkeert, van Hermes tot de jonge held die in het geheim wordt grootgebracht. Voor Jung staat die figuur niet voor een letterlijk kind maar voor de toekomstige mogelijkheid in de psyche, het deel dat nog moet groeien, vaak juist zichtbaar op momenten waarop het bewustzijn zelf vastloopt.</p>
+      <h3>De trickster en de Kore</h3>
+      <p>Voor het trickster-essay leunt Jung op het werk van de antropoloog Paul Radin over de bedriegersfiguur in de mythologie van de Winnebago, aangevuld met een bijdrage van de classicus Karl Kerényi. De trickster is de figuur die regels breekt, zichzelf voor de gek houdt en tegenstellingen door elkaar haalt, en Jung leest hem als een archaïsche voorloper van de latere held: nog niet gevormd, nog grotendeels dier, maar al met de kiem van zelfbewustzijn.</p>
+      <p>De Kore, de figuur van Persephone naast haar moeder Demeter, staat model voor de vrouwelijke tegenhanger: het meisje dat nog niet volgroeid is en de belofte van iets nieuws in zich draagt, tegenover de oude wijze vrouw die de andere pool van hetzelfde archetype vormt.</p>
+      <h3>Sprookjes en mandala's</h3>
+      <p>Voor het essay over de verschijning van archetypen in sprookjes gebruikt Jung Europese volksverhalen om te laten zien hoe eenzelfde motief, de geest die uit een fles ontsnapt, de dankbare dieren, de drie beproevingen, in telkens andere vorm dezelfde structuur laat zien.</p>
+      <p>In het laatste deel van de bundel bespreekt hij de mandala, de cirkelvormige figuur met een vierledige symmetrie die spontaan opduikt in dromen en in de tekeningen van patiënten, vaak juist in periodes van innerlijke chaos. Hij legt die tekeningen naast Tibetaans-boeddhistische mandala's en Navajo-zandschilderingen, niet om een historisch verband te beweren maar om te laten zien dat de psyche kennelijk uit zichzelf naar dezelfde ordenende vorm grijpt.</p>
+      <h3>Individuatie als richting</h3>
+      <p>Individuatie is het proces waarin een mens de onbewuste inhoud die hij eerst op anderen projecteert, geleidelijk als eigen deel erkent en in zijn bewuste persoonlijkheid opneemt. Het doel daarvan noemt Jung het zelf: niet het ego, dat alleen het centrum van het bewustzijn is, maar de omvattende eenheid van bewuste en onbewuste psyche waar het ego deel van uitmaakt.</p>
+      <p>Hij benadrukt dat dit geen genezing is die op een dag voltooid raakt, maar een levenslange beweging die zelden een eindpunt bereikt. De mandala is daarvan het symbool: een figuur van orde die telkens opnieuw ontstaat, zonder dat de cirkel ooit definitief gesloten wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Archetype</td><td>De aangeboren, zelf onzichtbare vorm die pas zichtbaar wordt in het archetypische beeld waarmee een cultuur haar invult.</td></tr>
+          <tr><td class="term">Collectief onbewuste</td><td>De laag van de psyche die niet uit het persoonlijke leven stamt en bij alle mensen dezelfde structuur heeft.</td></tr>
+          <tr><td class="term">Archetypisch beeld</td><td>De concrete, door tijd en cultuur gekleurde vorm waarin een archetype zich in droom, mythe of kunst laat zien.</td></tr>
+          <tr><td class="term">Schaduw</td><td>De eigenschappen die iemand niet bij zichzelf erkent en daardoor bij anderen ziet en afwijst.</td></tr>
+          <tr><td class="term">Anima/animus</td><td>Het onbewuste beeld van het andere geslacht in de eigen psyche, gevormd door vroege en latere ervaringen.</td></tr>
+          <tr><td class="term">Projectie</td><td>Het onbewust toeschrijven van eigen, nog niet erkende inhoud aan een ander persoon of figuur.</td></tr>
+          <tr><td class="term">Individuatie</td><td>Het levenslange proces waarin onbewuste inhoud wordt herkend en in de bewuste persoonlijkheid opgenomen.</td></tr>
+          <tr><td class="term">Het zelf</td><td>De omvattende eenheid van bewuste en onbewuste psyche, en het doel waar individuatie naartoe werkt.</td></tr>
+          <tr><td class="term">Mandala</td><td>De cirkelvormige, vierledig geordende figuur die spontaan als symbool van psychische heelheid opduikt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Jungs onderbouwing is klinisch en vergelijkend, niet experimenteel. Hij verzamelt dromen en tekeningen van patiënten en legt die naast mythen, sprookjes en religieuze beelden uit uiteenlopende culturen, een methode die hij amplificatie noemt: niet het ene beeld verklaren met een vaste sleutel, maar het omringen met verwante beelden totdat de betekenis zich aftekent.</p>
+      <p>Voor de these dat sommige beelden niet uit de persoonlijke geschiedenis komen, steunt hij vooral op gevallen zoals de patiënt met het zonnebuis-visioen, waarin iemand een beeld produceerde dat hij niet uit boeken of gesprekken kon kennen en dat later bleek samen te vallen met een antieke tekst. Dat zijn stuk voor stuk overtuigende anekdotes voor wie ze leest zoals Jung ze presenteert, en geen gecontroleerde reeks waarnemingen die is getoetst tegen alternatieve verklaringen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het archetype-begrip zich moeilijk laat weerleggen. Elk motief dat in twee culturen terugkeert, kan als bevestiging worden gelezen, en elk motief dat niet terugkeert, kan worden verklaard doordat het archetype zich anders heeft gevuld. Een verklaring die vrijwel elke uitkomst kan absorberen, is wetenschappelijk moeilijk te toetsen, en Jung geeft zelf geen criterium waarmee zijn these zou kunnen sneuvelen.</p>
+      <p>Zijn vergelijkende methode kent hetzelfde probleem als veel negentiende- en vroeg twintigste-eeuwse mythevergelijking: beelden uit sterk verschillende culturen en tijden worden naast elkaar gelegd zonder dat cultureel contact, toeval of de selectie van de onderzoeker zelf wordt uitgesloten. Latere godsdiensthistorici hebben Jungs gebruik van mythologisch materiaal om die reden losgemaakt bevonden van de historische context waarin die mythen functioneerden.</p>
+      <p>Ook het mechanisme van overerving blijft onbepaald. Jung stelt uitdrukkelijk niet dat er kant-en-klare voorstellingen worden doorgegeven, alleen vormen, maar hoe een vorm zonder inhoud genetisch zou worden doorgegeven, werkt hij nergens biologisch uit. De aanname blijft daardoor filosofisch van aard, ook waar hij haar als klinische waarneming presenteert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer een terugkerend droombeeld en zoek er eerst een vergelijkbaar motief uit een sprookje of mythe bij, zonder meteen een duiding vast te leggen.</li>
+        <li>Ga bij een sterke afkeer van iemand na of die eigenschap ook, in mindere mate, bij jezelf aanwezig is.</li>
+        <li>Houd het onderscheid tussen archetype en archetypisch beeld vast voordat je een symbool één vaste betekenis toekent.</li>
+        <li>Lees een mandala-achtige tekening of droom als signaal van de behoefte aan orde, niet als voorspelling of boodschap.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk een reeks essays over archetypen en het collectieve onbewuste, geschreven en herzien tussen 1934 en 1955, gebundeld als <i>The Archetypes and the Collective Unconscious</i> (Collected Works deel 9-I, Bollingen Series XX), vertaald door R.F.C. Hull en uitgegeven door Princeton University Press (1959, herziene 2e druk 1968). Nederlands als <i>Archetypen</i>, vertaald door Pety de Vries-Ek (Lemniscaat, 2003, ISBN 9789056373542); eerder al opgenomen als <i>Archetype en onbewuste</i> in het Verzameld werk (Lemniscaat, 1995).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een bundel essays waarin Jung uitwerkt wat hij het collectieve onbewuste noemt: een laag van de psyche die niet uit het persoonlijke leven stamt maar bij alle mensen dezelfde structuur heeft. Die laag is opgebouwd uit archetypen, aangeboren vormen die zich telkens vullen met beelden uit de eigen cultuur zodra iemand droomt, een mythe naspeelt of een sprookje leest.</p><p>Aan de hand van klinisch materiaal en vergelijkende mythologie werkt hij archetypen als de schaduw, de anima, de moeder, het kind, de trickster en de mandala uit, en plaatst hij ze in het proces dat hij individuatie noemt: de langzame weg waarop een mens onbewuste inhoud leert herkennen en in zijn persoonlijkheid opneemt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychoanalyse</li><li>archetype</li><li>collectief onbewuste</li><li>mythologie</li><li>dromen</li><li>individuatie</li><li>symboliek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="143"><a href="143.html">Maps of Meaning</a>. Peterson bouwt zijn eigen leer van mythen en betekenis rechtstreeks op Jungs archetypen, met minder terughoudendheid over wat daaruit te bewijzen valt.</li>
+          <li value="213"><a href="213.html">Games People Play</a>. Berne werkt met een ander, kleiner stel terugkerende patronen in gedrag, vanuit dezelfde psychoanalytische traditie maar met een klinisch overzichtelijker model.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan biedt vanuit de andere hoek de vraag die dit boek oproept: wanneer is een overtuigende parallel bewijs en wanneer alleen een aantrekkelijk verhaal.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

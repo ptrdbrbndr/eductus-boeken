@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het Rode Boek &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het Rode Boek is geen verklaring van Jungs theorie maar het rauwe materiaal waaruit die theorie later is gedestilleerd: een verslag, in eigen hand…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-359">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">359 &middot; Brein en lichaam</p>
+    <h1>Het Rode Boek</h1>
+    <p class="lede">C.G. Jung, geschreven 1914-1930</p>
+    <p class="stats">
+      <span><b>1425</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="359"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het Rode Boek is geen verklaring van Jungs theorie maar het rauwe materiaal waaruit die theorie later is gedestilleerd: een verslag, in eigen hand geschreven en geschilderd, van een aantal jaren waarin Jung zichzelf bewust blootstelde aan visioenen en innerlijke figuren en weigerde ze meteen te duiden. De inzet van het boek is dat rechtstreekse omgang met het onbewuste, zonder de bescherming van theorie, nodig is om er iets van te begrijpen, en dat wie dat vermijdt hooguit over het onbewuste praat in plaats van het te kennen. Wie daar iets tegenover wil zetten, kan zich afvragen of een tekst die zelf weigert zich te verklaren, wel te onderscheiden is van een gecontroleerde psychose, een vraag die Jung zich in het boek ook zelf stelt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het begin: een leegte na Freud</h3>
+      <p>Na de breuk met Freud in 1913 verloor Jung, naar eigen zeggen in zijn latere autobiografie, houvast in zijn eigen werk. Hij besloot in plaats van ertegen te vechten zijn fantasieën bewust te laten komen en op te schrijven, een methode die hij later actieve imaginatie noemde. De eerste aantekeningen maakte hij in wat bekendstaat als de <i>Zwarte Boeken</i>, werkschriften waarin hij in korte tijd optekende wat er opkwam.</p>
+      <p>Vanaf ongeveer 1915 werkte hij die aantekeningen uit tot een verzorgd manuscript: kalligrafisch handschrift in een gotische letter, met eigen schilderingen, gebonden in rood leer. Dat handschrift is wat bekendstaat als <i>Het Rode Boek</i>.</p>
+      <h3>Philemon en de andere figuren</h3>
+      <p>De tekst bestaat grotendeels uit dialogen met innerlijke gestalten die zich aan Jung voordeden alsof ze een eigen wil hadden. De belangrijkste is Philemon, een oude man met vleugels van een ijsvogel, die Jung beschrijft als een figuur die hem dingen vertelde die hij zelf niet had bedacht, en die hij daarom als een soort innerlijke leraar behandelde.</p>
+      <p>Andere figuren, onder wie een blinde profeet genaamd Elia en een vrouw genaamd Salome, verschijnen in scènes die op mythologische en bijbelse verhalen lijken zonder er één op één mee samen te vallen. Jung schrijft de dialogen op zoals ze zich aan hem voordeden, met weinig commentaar erbij.</p>
+      <h3>Weigering om te verklaren</h3>
+      <p>Wat het boek onderscheidt van Jungs latere, theoretische geschriften is dat het bewust geen uitleg geeft. Waar hij in <i>Man and His Symbols</i> en elders zijn ervaringen achteraf in begrippen als archetype en individuatie vangt, laat hij ze hier in hun eigen, beeldende en soms onsamenhangende vorm staan.</p>
+      <p>Jung was zich bewust van het risico dat dit materiaal met een psychose te verwarren was, en schrijft daar op een aantal plaatsen zelf over: het verschil tussen wie de beelden actief opzoekt en er weer uit kan stappen, en wie erdoor wordt overspoeld.</p>
+      <h3>Waarom het decennia ongepubliceerd bleef</h3>
+      <p>Jung heeft het manuscript nooit afgemaakt in de vorm die hij aanvankelijk voor ogen had en het bij zijn leven niet gepubliceerd. Na zijn dood in 1961 bleef het in een bankkluis van de familie, deels uit voorzichtigheid: de erfgenamen vreesden dat de tekst zijn reputatie als arts en wetenschapper zou schaden als die los van context werd gelezen.</p>
+      <p>Pas na jarenlange onderhandelingen kreeg historicus Sonu Shamdasani toestemming voor een wetenschappelijke uitgave, die in 2009 verscheen als een facsimile met Engelse vertaling en een uitgebreid inleidend essay over de ontstaansgeschiedenis.</p>
+      <h3>Verhouding tot Jungs latere werk</h3>
+      <p>Shamdasani en latere onderzoekers hebben laten zien hoe direct Jungs latere begrippen uit dit materiaal voortkomen. Passages over de anima, over de schaduw en over wat Jung later het Zelf noemt, zijn in <i>Het Rode Boek</i> al als beeld aanwezig, jaren voordat ze in zijn wetenschappelijke publicaties als begrip verschijnen.</p>
+      <p>Dat maakt het boek voor lezers van zijn latere werk een soort grondlaag: niet de theorie, maar het materiaal waaruit die theorie is gedestilleerd, met alle ruwheid die bij een dergelijk oorspronkelijk document hoort.</p>
+      <h3>De Nederlandse uitgave</h3>
+      <p>De vertaling van Hans Huisman volgt de Engelse <i>Reader's Edition</i> uit 2012, die de tekst zonder de volledige facsimile van Jungs schilderingen aanbiedt, en raadpleegt daarnaast het Duitse origineel waar de Engelse vertaling naar zijn oordeel afweek. Een nawoord van Tjeu van den Berk plaatst de tekst in de context van Jungs verdere werk.</p>
+      <h3>Ontvangst</h3>
+      <p>Na de publicatie in 2009 werd een deel van het originele manuscript enige tijd tentoongesteld, onder meer in het Rubin Museum of Art in New York, waar bezoekers voor het eerst de fysieke bladzijden met Jungs schilderingen te zien kregen. De uitgave veranderde het beeld van Jung binnen en buiten de jungiaanse gemeenschap: waar zijn werk eerder vooral via de latere, uitgewerkte theorie bekend was, kwam nu het beeldmateriaal beschikbaar waarop die theorie teruggaat.</p>
+      <p>De facsimile-editie uit 2009 was met een prijs van enkele honderden dollars en een beperkte oplage aanvankelijk vooral toegankelijk voor gespecialiseerde bibliotheken en vermogende liefhebbers. Pas de goedkopere <i>Reader's Edition</i> uit 2012, waarop ook de Nederlandse vertaling is gebaseerd, maakte de tekst zonder de schilderingen breder beschikbaar.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Liber Novus</td><td>De Latijnse titel die Jung zelf aan het manuscript gaf, letterlijk nieuw boek.</td></tr>
+          <tr><td class="term">Zwarte Boeken</td><td>De werkschriften waarin Jung tussen 1913 en 1932 zijn eerste, ongepolijste aantekeningen van visioenen en fantasieën maakte.</td></tr>
+          <tr><td class="term">Actieve imaginatie</td><td>De methode waarbij Jung zich bewust openstelde voor innerlijke beelden en ze liet doorlopen zonder ze meteen te sturen of te duiden.</td></tr>
+          <tr><td class="term">Philemon</td><td>Een gevleugelde, oude gestalte die zich aan Jung voordeed als een innerlijke leraar met een eigen, van Jung onafhankelijke stem.</td></tr>
+          <tr><td class="term">Confrontatie met het onbewuste</td><td>Jungs eigen benaming voor de jaren waarin hij dit materiaal opzocht en optekende, later ook de titel van een hoofdstuk in zijn autobiografie.</td></tr>
+          <tr><td class="term">Het Zelf</td><td>Het ordenende midden van de persoonlijkheid dat in Het Rode Boek al in beeld verschijnt, jaren voordat Jung het als begrip uitwerkte.</td></tr>
+          <tr><td class="term">Facsimile-editie</td><td>De uitgave uit 2009 die het originele handschrift met schilderingen in fotografische reproductie weergeeft, naast de vertaalde tekst.</td></tr>
+          <tr><td class="term">Illuminatie</td><td>De met de hand geschilderde, aan middeleeuwse manuscripten ontleende beeldtaal waarin Jung de tekst van Het Rode Boek uitwerkte.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is zelf het bewijsmateriaal en niet de weergave van bewijs: het is het eigenhandig geschreven en geschilderde document waarop Jung zijn latere theorie baseerde. De echtheid en datering van het manuscript zijn door Shamdasani uitvoerig gereconstrueerd aan de hand van Jungs correspondentie, de Zwarte Boeken en getuigenissen van tijdgenoten, en op dat punt is de wetenschappelijke onderbouwing van de uitgave zelf stevig.</p>
+      <p>Voor de inhoud van de visioenen zelf bestaat geen andere toetsing dan Jungs eigen, gelijktijdige aantekeningen. Er is geen manier om na te gaan of de dialogen met Philemon of Elia gebeurtenissen weergeven die zich exact zo hebben voorgedaan in Jungs binnenwereld, en dat hoeft ook niet: het boek presenteert zichzelf niet als verslag van feiten maar als weergave van innerlijke ervaring. Dat de kalligrafie en de schilderingen over een reeks van jaren zijn aangebracht, laat wel zien dat het geen haastig neergeschreven materiaal is maar werk waarop Jung lang en zorgvuldig heeft teruggekomen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Jungs werk is klinisch en interpretatief van aard, en <i>Het Rode Boek</i> is daarvan de meest onverdunde vorm: er is geen extern criterium om vast te stellen of de gestalten die Jung tekent iets over een universele psyche zeggen of vooral iets over zijn eigen, zeer bijzondere geestesgesteldheid in die jaren. Jung stelde zichzelf de vraag of hij een psychose doormaakte en beantwoordde die zelf ontkennend, wat als eigen getuigenis moeilijk onafhankelijk te toetsen is.</p>
+      <p>De keuze om het manuscript decennialang niet uit te geven, zegt ook iets. De familie en latere bewaarders vreesden reputatieschade, wat betekent dat de tekst nooit is blootgesteld aan het soort collegiale kritiek waarmee wetenschappelijk werk normaal gesproken tot stand komt. Toen de uitgave er kwam, gebeurde dat onder redactie van onderzoekers die al overtuigd waren van het belang van het document, wat de presentatie kleurt.</p>
+      <p>Voor lezers zonder voorkennis van Jungs latere begrippenkader is de tekst bovendien nauwelijks op zichzelf te lezen: zonder Shamdasani's uitgebreide inleiding en voetnoten, en zonder kennis van <i>Herinneringen, dromen, gedachten</i>, blijven de meeste scènes ondoorzichtig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst <i>Herinneringen, dromen, gedachten</i> of een inleiding over de ontstaansgeschiedenis, zodat de losse scènes een kader krijgen.</li>
+        <li>Behandel de dialogen als origineel materiaal en niet als uitleg; zoek de duiding pas achteraf, in Jungs latere werk.</li>
+        <li>Vergelijk een scène met Philemon met de latere beschrijving van de anima of het Zelf in Jungs eigen studies, om te zien hoe een beeld tot begrip wordt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Manuscript getiteld <i>Liber Novus</i>, met de hand geschreven en geïllustreerd door Jung tussen 1914 en ongeveer 1930, decennialang bewaard in een Zwitserse bankkluis en pas na toestemming van de familie in facsimile en Engelse vertaling uitgegeven als <i>The Red Book: Liber Novus</i>, onder redactie van Sonu Shamdasani, vertaald door Mark Kyburz, John Peck en Shamdasani (W.W. Norton, 2009; goedkopere <i>Reader's Edition</i> zonder facsimile in 2012). Nederlands als <i>Het Rode Boek</i>, vertaald door Hans Huisman op basis van de <i>Reader's Edition</i> met raadpleging van het Duitse origineel, met een nawoord van Tjeu van den Berk (Van Warven, 2019).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Na zijn breuk met Freud in 1913 begon Jung aan een reeks fantasieën en visioenen die hij bewust opriep en vervolgens optekende, eerst in zwarte schriften en daarna, in een sierlijk kalligrafisch handschrift met eigen schilderingen, in een groot, in rood leer gebonden foliant. Dat handschrift bleef bij zijn leven ongepubliceerd en is pas in 2009, bijna vijftig jaar na zijn dood, in facsimile uitgegeven.</p><p>Het boek bestaat uit dialogen met innerlijke figuren, onder wie Philemon, een oude man met vleugels die Jung als een soort innerlijke leraar beschrijft, en uit dromerige, mythische verhalen zonder de uitleg die zijn latere, theoretische werk kenmerkt. Jung zelf noemde het de bron waaruit al zijn latere werk is voortgekomen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dromen</li><li>onbewuste</li><li>visioenen</li><li>individuatie</li><li>Jung</li><li>manuscript</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. Talbot citeert Jungs visioenen en archetypen als vroeg voorbeeld van wat hij later een holografische opvatting van de werkelijkheid noemt.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Yogananda beschrijft net als Jung hier eigen visioenen zonder ze meteen in een theoretisch kader te vangen.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan biedt het scherpste tegengeluid: een pleidooi om buitengewone ervaringen juist wel aan toetsing te onderwerpen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

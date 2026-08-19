@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content Inc. &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pulizzi stelt dat een onderneming met weinig kapitaal het best begint met content in plaats van met een product: wie stelselmatig waardevolle informatie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-369">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">369 &middot; Geld en ondernemen</p>
+    <h1>Content Inc.</h1>
+    <p class="lede">Joe Pulizzi, 2015</p>
+    <p class="stats">
+      <span><b>1498</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="369"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pulizzi stelt dat een onderneming met weinig kapitaal het best begint met content in plaats van met een product: wie stelselmatig waardevolle informatie deelt met een nauw omschreven doelgroep, bouwt een publiek op dat zelf het onderpand wordt voor alles wat er later verkocht wordt, van cursussen tot evenementen tot fysieke producten. De omkering die hij bepleit is dat vertrouwen en bereik eerder moeten ontstaan dan het aanbod, terwijl de gangbare volgorde in bedrijfsplannen precies andersom is. Wie geen geduld heeft voor de jaren die dat kost, is bij deze methode aan het verkeerde adres.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De omkering van het gewone startpad</h3>
+      <p>Pulizzi opent met de klassieke volgorde van een startup: bedenk een product, zoek financiering, verkoop het aan klanten die je nog niet kent. Zijn model draait dat om. Eerst bouw je, vaak naast een baan of met een klein budget, een stroom content op rond één onderwerp voor één duidelijk afgebakende doelgroep. Pas als daar een publiek voor terugkomt, ontstaat de vraag wat je eraan kunt verkopen.</p>
+      <p>Die omkering is volgens hem geen marketingtruc maar een andere volgorde van risico. Een product bouwen voor een markt die nog niet is getoetst, is duur als het misgaat. Een publiek opbouwen kost vooral tijd, en het levert onderweg al informatie op over wat die mensen willen kopen.</p>
+      <h3>De sweet spot</h3>
+      <p>De eerste stap is het vinden van wat Pulizzi de sweet spot noemt: het snijvlak van een kennisgebied waarin de ondernemer goed is en een onderwerp waar hij oprecht in geïnteresseerd is. Zonder die twee samen houdt niemand de productie van content jarenlang vol, want het rendement komt pas laat.</p>
+      <p>Hij benadrukt dat de sweet spot smal moet zijn. Een te brede belofte, zoals algemeen zakelijk advies, verdrinkt in de concurrentie. Een precies afgebakend onderwerp geeft een nieuwe speler juist de ruimte om op te vallen bij een klein deel van een groter veld.</p>
+      <h3>De content tilt</h3>
+      <p>De tweede stap is het kantelen van dat onderwerp naar een hoek waar weinig of geen andere content over bestaat, wat hij de content tilt noemt. Het onderwerp zelf hoeft daarvoor zelden zeldzaam te zijn, de invalshoek moet dat wel zijn. Pulizzi geeft als eigen voorbeeld dat content marketing als vakgebied al langer bestond, maar dat een uitgave die zich in 2010 uitsluitend daarop richtte, er nog niet was toen hij begon.</p>
+      <p>Zonder die kanteling loop je vast in een markt waar het grootste budget wint. Met een scherpe kanteling kan een kleine partij een deelgebied domineren, ook tegenover uitgevers met veel meer geld. Pulizzi noemt dat de reden waarom een nieuwkomer niet hoeft te concurreren met een gevestigde speler op diens eigen terrein: de kanteling verlegt het speelveld naar een hoek die de gevestigde partij nog niet bezet houdt.</p>
+      <h3>Eén kanaal als basis</h3>
+      <p>De derde stap is het kiezen van precies één primair kanaal, een blog, een podcast of een videokanaal, en daar consistent op te publiceren. Pulizzi raadt af om van meet af aan overal tegelijk aanwezig te zijn: dat versplintert de tijd van een beginnende ondernemer over te veel kanalen om ergens goed in te worden.</p>
+      <p>Consistentie krijgt hier een letterlijke betekenis: een vast ritme, wekelijks of vaker, dat lang genoeg wordt volgehouden voordat er resultaat merkbaar is. Hij noemt vijftien tot zeventien maanden als de tijd die de ondernemers in zijn eigen praktijkvoorbeelden gemiddeld nodig hadden voordat er inkomsten uit ontstonden.</p>
+      <h3>Publiek oogsten en verspreiden</h3>
+      <p>De vierde stap is het omzetten van bezoekers in abonnees, via e-maillijsten of andere kanalen die de ondernemer zelf bezit in plaats van een sociaal platform dat elk moment zijn regels kan veranderen. Pas daarna, in de vijfde stap, komt diversificatie naar meer kanalen: als de basis staat, kan dezelfde content ook als podcast, nieuwsbrief of video verschijnen en zo nieuw publiek aantrekken.</p>
+      <p>Pulizzi waarschuwt met klem tegen het omdraaien van deze volgorde. Wie eerst uitwaaiert over veel kanalen voordat er één basis staat, verliest focus en bouwt nergens een schaal op die groot genoeg is om iets aan te verdienen.</p>
+      <h3>Monetariseren als laatste stap</h3>
+      <p>Pas in de zesde stap komt het verdienmodel: producten, diensten, evenementen, lidmaatschappen of reclame, gebouwd op een publiek dat de ondernemer al vertrouwt. Pulizzi wijst erop dat de meeste ondernemers uit zijn voorbeelden uiteindelijk vijf tot zeven verschillende inkomstenbronnen combineerden in plaats van op één te leunen.</p>
+      <p>Zijn eigen bedrijf illustreert dat: content marketing was gratis, en het geld kwam uit een jaarlijkse conferentie, uit onderzoeksrapporten en uit advertenties op de site, tot de verkoop van het geheel aan UBM in 2016.</p>
+      <h3>Brian Clark als opening</h3>
+      <p>Het boek opent met het voorwoord van Brian Clark, oprichter van Copyblogger, die zijn eigen verhaal vertelt als illustratie van het model: een advocaat die zonder product bijna twee jaar lang gestaag content over schrijven en marketing publiceerde voordat daar een verdienmodel uit groeide. Pulizzi gebruikt dat voorbeeld en tientallen vergelijkbare, kortere portretten om te laten zien dat het patroon niet aan zijn eigen branche gebonden is.</p>
+      <p>Die keuze voor een voorwoord van iemand anders dan de auteur is functioneel: het boek moet aantonen dat het model overdraagbaar is, en een tweede stem die hetzelfde patroon uit een andere sector bevestigt, doet dat overtuigender dan de schrijver die alleen zijn eigen geschiedenis navertelt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Content Inc.-model</td><td>De zes stappen waarmee een ondernemer eerst een publiek opbouwt met content en pas daarna een verdienmodel eromheen bouwt.</td></tr>
+          <tr><td class="term">Sweet spot</td><td>Het snijvlak van eigen kennis en oprechte interesse waarbinnen een ondernemer een onderwerp kiest dat hij jarenlang kan volhouden.</td></tr>
+          <tr><td class="term">Content tilt</td><td>De specifieke invalshoek op een onderwerp waar nog weinig of geen andere content voor bestaat.</td></tr>
+          <tr><td class="term">Building the base</td><td>Het opbouwen van één primair kanaal met een vast publicatieritme, voordat er naar andere kanalen wordt uitgebreid.</td></tr>
+          <tr><td class="term">Harvesting audience</td><td>Het omzetten van eenmalige bezoekers in abonnees op een lijst die de ondernemer zelf bezit, los van een extern platform.</td></tr>
+          <tr><td class="term">Diversificatie</td><td>De uitbreiding van dezelfde content naar meerdere kanalen zodra de basis genoeg publiek trekt.</td></tr>
+          <tr><td class="term">Monetization</td><td>De laatste stap, waarin het opgebouwde publiek wordt omgezet in een of meer verdienmodellen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoeksdata maar een verzameling praktijkgevallen: Pulizzi's eigen bedrijf, het voorwoord van Brian Clark over Copyblogger, en tientallen kortere portretten van andere content-ondernemers die hij interviewde. De cijfers die terugkeren, zoals de vijftien tot zeventien maanden tot de eerste inkomsten en de vijf tot zeven inkomstenbronnen per bedrijf, zijn gemiddelden uit die eigen selectie van gevallen en niet uit een onafhankelijke steekproef.</p>
+      <p>De sterkste onderbouwing is dat Pulizzi het model zelf heeft toegepast en de uitkomst controleerbaar is: de verkoop van het Content Marketing Institute aan UBM voor 17,6 miljoen dollar in 2016 is publiek gedocumenteerd. Dat is één succesvol geval, aangevuld met andere die niet met dezelfde precisie zijn na te trekken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De praktijkgevallen zijn stuk voor stuk bedrijven die het gehaald hebben; er staat geen telling bij van ondernemers die dezelfde zes stappen volgden en toch niet doorbraken, terwijl uitvalcijfers bij dit soort trajecten hoog liggen. Dat maakt het boek een verzameling succesverhalen in plaats van een getoetste methode.</p>
+      <p>De tijdshorizon die het model vraagt, meer dan een jaar zonder zeker verdienmodel, is voor wie geen spaargeld of ander inkomen heeft nauwelijks te overbruggen, en het boek gaat daar weinig op in. Ook de aanname dat contentmarkten met de tijd niet verzadigen, is sinds 2015 minder vanzelfsprekend geworden nu bijna elke niche al meerdere gevestigde makers kent.</p>
+      <p>De rol van de platforms waarop het model leunt, blijft onderbelicht. Zoekmachines en sociale netwerken bepalen mede of een beginnende maker gevonden wordt, en de regels van die platforms zijn sinds 2015 herhaaldelijk veranderd op een manier die het bereik van kleine, onafhankelijke makers juist heeft ingeperkt. Het boek beschrijft het bouwen van een eigen lijst als beschermingsmiddel daartegen, maar erkent niet hoezeer zelfs die eerste opbouwfase van platforms afhankelijk is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf in één zin het snijvlak van je eigen kennis en interesse, en toets of je daar wekelijks een jaar lang over zou kunnen schrijven of praten.</li>
+        <li>Zoek drie bestaande makers in hetzelfde onderwerp en formuleer de invalshoek waarmee je van hen verschilt.</li>
+        <li>Kies één kanaal als vaste basis en stel een vast, haalbaar publicatieritme in voordat je aan een tweede kanaal begint.</li>
+        <li>Bouw vanaf de eerste publicatie een eigen lijst van abonnees op, in plaats van alleen te vertrouwen op het bereik van een extern platform.</li>
+        <li>Reken vooraf uit hoeveel maanden zonder inkomsten uit dit werk haalbaar zijn, en leg dat naast de vijftien tot zeventien maanden die het boek als gemiddelde noemt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Content Inc.: How Entrepreneurs Use Content to Build Massive Audiences and Create Radically Successful Businesses</i> (McGraw-Hill Education, 8 september 2015, 352 blz., ISBN 9781259589652). In 2021 verscheen een herziene tweede editie met de ondertitel <i>Start a Content-First Business, Build a Massive Audience and Become Radically Successful</i>. Geen Nederlandse uitgave gevonden; de samenvatting hier is op de eerste Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pulizzi keert het gangbare startpad om: niet eerst een product bouwen en dan klanten zoeken, maar eerst een publiek opbouwen met regelmatige, nuttige content over één afgebakend onderwerp, en pas daarna bepalen wat je aan dat publiek verkoopt. Hij werkt dat uit in zes stappen, van het vinden van een niche tot het gestaag verbreden van inkomstenbronnen, en onderbouwt elke stap met de geschiedenis van ondernemers die zo begonnen, onder wie hijzelf.</p><p>Het boek trekt zijn eigen loopbaan als voorbeeld: Pulizzi bouwde vanuit een B2B-uitgeverij het latere Content Marketing Institute op, dat hij in 2016 voor 17,6 miljoen dollar verkocht aan UBM. Die ervaring vormt de ruggengraat van het boek, aangevuld met tientallen kortere portretten van andere content-ondernemers.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>content marketing</li><li>ondernemerschap</li><li>publiek opbouwen</li><li>bootstrapping</li><li>abonnees</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="279"><a href="279.html">All Marketers Are Liars</a>. Godin beschrijft vanuit een ander perspectief waarom een verhaal en het vertrouwen van een publiek de kern van marketing vormen, wat de aanname onder Pulizzi's model verder uitwerkt.</li>
+          <li value="309"><a href="309.html">DotCom Secrets</a>. Brunson bouwt vanuit dezelfde overtuiging dat een publiek eerst moet ontstaan, maar werkt vooral de technische verkooptrechter uit die na de contentfase komt.</li>
+          <li value="198"><a href="198.html">Crush It!</a>. Vaynerchuk beschrijft dezelfde route van gratis content naar een merk, maar dan gericht op sociale kanalen in plaats van op één eigen basis.</li>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Guillebeau beschrijft ondernemingen die met weinig geld beginnen, het soort startsituatie waarvoor het Content Inc.-model bedoeld is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talent Is Overrated &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Colvin beweert dat wat mensen talent noemen bij nader onderzoek zelden standhoudt: de mensen die aan de top van hun vak staan, onderscheiden zich niet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-376">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">376 &middot; Vakmanschap en aandacht</p>
+    <h1>Talent Is Overrated</h1>
+    <p class="lede">Geoff Colvin, 2008</p>
+    <p class="stats">
+      <span><b>1422</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="376"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Colvin beweert dat wat mensen talent noemen bij nader onderzoek zelden standhoudt: de mensen die aan de top van hun vak staan, onderscheiden zich niet door een aangeboren gave maar door de hoeveelheid en de kwaliteit van hun oefening. Hij bouwt dat op rond het begrip deliberate practice van psycholoog Anders Ericsson: oefening die specifiek is ontworpen om een zwakte te verbeteren, vaak onder begeleiding, met directe terugkoppeling, herhaald tot vervelens toe en zelden op zichzelf plezierig. Zijn stelling is dat dit soort oefenen zeldzaam is, precies omdat het onaangenaam is, en dat het verschil tussen goed en uitzonderlijk vooral daarin zit.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het wonderkind ontleed</h3>
+      <p>Colvin opent met het beeld van het natuurtalent en breekt dat af aan de hand van Mozart, wiens vroegste composities vandaag als weinig bijzonder gelden en die vanaf zijn derde jaar door zijn vader, zelf een gerespecteerd muziekpedagoog, intensief werd getraind. Wat aanvankelijk als aangeboren genie oogt, blijkt bij nadere blik het resultaat van duizenden uren gerichte training vanaf zeer jonge leeftijd.</p>
+      <p>Hetzelfde patroon vindt hij bij Tiger Woods, die al voor zijn tweede levensjaar onder begeleiding van zijn vader met golf begon. Colvin gebruikt beide voorbeelden niet om de inspanning van deze mensen te bagatelliseren, maar om te laten zien dat vroege training vaak wordt verward met een gave die er vanaf de geboorte al zou zijn.</p>
+      <h3>Waarom ervaring niet vanzelf beter maakt</h3>
+      <p>Een kernpunt van het boek is dat jarenlange ervaring op zichzelf weinig oplevert. Colvin bespreekt onderzoek onder artsen waaruit blijkt dat hun diagnostische nauwkeurigheid niet vanzelfsprekend toeneemt met de jaren, en in sommige metingen zelfs afneemt, omdat routinematig werk zonder gerichte terugkoppeling geen nieuwe vaardigheid oplevert.</p>
+      <p>Hij trekt daaruit de conclusie dat het aantal jaren in een vak weinig zegt; wat telt is hoeveel van die tijd is besteed aan oefening die specifiek op verbetering gericht was, met terugkoppeling die aangeeft wat er nog niet klopt.</p>
+      <h3>Wat deliberate practice precies is</h3>
+      <p>Colvin werkt het begrip van Ericsson uit in een reeks kenmerken: de oefening is ontworpen om een specifieke zwakte te verbeteren, vaak door een leraar of coach; ze kan vele malen herhaald worden; er is voortdurend terugkoppeling over de uitkomst beschikbaar; ze is mentaal veeleisend; en ze is doorgaans niet plezierig om te doen.</p>
+      <p>Hij onderscheidt dat scherp van gewoon spelen of gewoon werken in een vak: wie een instrument bespeelt voor het plezier of een taak uitvoert zoals altijd, oefent niet gericht op de eigen zwakke plekken en groeit daardoor nauwelijks.</p>
+      <h3>Waarom zo weinig mensen het doen</h3>
+      <p>Colvin besteedt een deel van het boek aan de vraag waarom deliberate practice zo zeldzaam is, ondanks het bewijs voor haar effect. Zijn antwoord is dat het onaangenaam is: het richt de aandacht voortdurend op wat nog niet lukt, in plaats van op wat al goed gaat, en dat vraagt om motivatie die verder reikt dan het plezier van de activiteit zelf.</p>
+      <p>Hij bespreekt daarbij ook de rol van vroege begeleiding en gezinsomstandigheden: kinderen die op jonge leeftijd toegang hebben tot goede coaching en tot ouders die hen aanmoedigen om door te zetten, krijgen een voorsprong die niet uit aanleg voortkomt maar uit gelegenheid.</p>
+      <h3>Domeinspecifieke expertise</h3>
+      <p>Colvin bespreekt onderzoek waaruit blijkt dat expertise zelden overdraagbaar is van het ene domein naar het andere. Een schaakgrootmeester heeft geen algemeen superieur geheugen; zijn geheugenprestatie geldt specifiek voor schaakposities en valt terug naar gemiddeld zodra de stukken willekeurig worden neergezet.</p>
+      <p>Dat pleit volgens hem tegen het idee van een algemeen talent dat zich in elk vak zou uiten, en voor de opvatting dat vaardigheid zich opbouwt in het specifieke domein waarin ze geoefend wordt, niet daarbuiten.</p>
+      <h3>Toepassing in organisaties</h3>
+      <p>In de slothoofdstukken vertaalt Colvin zijn bevindingen naar bedrijven: het aanbieden van gerichte, veeleisende oefening met snelle terugkoppeling, in plaats van het zoeken naar aangeboren talent bij werving. Hij pleit voor het inbouwen van reflectiemomenten en het bewust opzoeken van de eigen zwakke plekken in plaats van het werk te laten bij wat al goed gaat.</p>
+      <p>Hij bespreekt daarbij ook waarom veel beroepen, van management tot journalistiek, weinig ingebouwde deliberate practice kennen: er is zelden een vaste coach, zelden directe terugkoppeling op een specifieke deelvaardigheid, en het dagelijkse werk zelf levert de druk om te presteren eerder dan de ruimte om gericht te oefenen.</p>
+      <h3>Voorbeelden van extreme oefening</h3>
+      <p>Colvin onderbouwt zijn these met voorbeelden van sporters die opvallen door de hoeveelheid gerichte oefening buiten de wedstrijd zelf, zoals de Amerikaanse American-footballspeler Jerry Rice, wiens trainingsroutine buiten het reguliere teamprogramma bekendstond als uitzonderlijk zwaar en specifiek gericht op onderdelen van zijn spel die nog niet perfect waren.</p>
+      <p>Dat soort voorbeelden gebruikt hij niet om te suggereren dat oefening alleen om kwantiteit gaat; zijn punt is dat de oefening steeds gericht moest zijn op een concrete zwakte, en niet louter op het herhalen van wat al goed ging.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Deliberate practice</td><td>Oefening die specifiek is ontworpen om een zwakte te verbeteren, met directe terugkoppeling, herhaald en mentaal veeleisend.</td></tr>
+          <tr><td class="term">Domeinspecifieke expertise</td><td>Vaardigheid die is opgebouwd binnen één specifiek vakgebied en zich niet vanzelf naar andere gebieden vertaalt.</td></tr>
+          <tr><td class="term">Het wonderkindbeeld</td><td>De aanname dat uitzonderlijke prestatie op jonge leeftijd op aangeboren gave wijst, tegenover vroege, intensieve training.</td></tr>
+          <tr><td class="term">Routine zonder terugkoppeling</td><td>Jaren ervaring die geen vaardigheid oplevert omdat er geen gerichte terugkoppeling op fouten plaatsvindt.</td></tr>
+          <tr><td class="term">Terugkoppeling</td><td>Directe informatie over wat er wel en niet lukte, een van de vaste kenmerken van deliberate practice.</td></tr>
+          <tr><td class="term">Vroege gelegenheid</td><td>Toegang tot goede begeleiding en aanmoediging op jonge leeftijd, die een voorsprong geeft die niet uit aanleg voortkomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Colvin bouwt zijn boek vrijwel volledig op het onderzoek van K. Anders Ericsson, met name diens studie naar violisten aan een Berlijnse muziekacademie uit 1993, die een sterk verband vond tussen opgebouwde uren gerichte oefening en het bereikte niveau. Dat onderzoek gold decennialang als een van de stevigste fundamenten voor het idee dat oefening talent overstijgt.</p>
+      <p>In 2019 herhaalden onderzoekers Brooke Macnamara en Megha Maitra die studie met een strenger opgezette, dubbelblinde methode. Zij vonden nog altijd een verband tussen oefening en niveau, maar aanzienlijk zwakker dan in het origineel: deliberate practice verklaarde in hun heranalyse ongeveer een kwart van het verschil tussen violisten in plaats van bijna de helft, en de beste violisten hadden niet consequent meer alleen geoefend dan de goede. Dat betekent niet dat oefening er niet toe doet, maar wel dat de sterke claim uit Colvins boek, dat oefening bijna het hele verschil verklaart, breder onderzoek niet volledig heeft doorstaan.</p>
+      <p>Colvins boek verscheen voordat deze heranalyse bekend werd, en moet dus gelezen worden als een weergave van de stand van het onderzoek in 2008, niet als de huidige consensus.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de wetenschappelijke basis onder het boek sindsdien is verzwakt. De heranalyse van Ericssons violistenstudie in 2019 laat zien dat individuele verschillen in prestatie minder volledig door geoefende uren worden verklaard dan het boek suggereert, en dat andere factoren, waaronder mogelijk aanleg, een rol blijven spelen die Colvin grotendeels wegredeneert.</p>
+      <p>Colvin neemt het begrip deliberate practice over zonder de latere discussie daarover te kunnen kennen, en formuleert zijn conclusies daardoor stelliger dan het onderliggende onderzoek achteraf bezien toelaat.</p>
+      <p>Het boek besteedt weinig aandacht aan mensen die wel duizenden uren gericht oefenden zonder ooit tot de top door te breken; door vooral uitzonderlijke prestaties te bestuderen, blijft onduidelijk hoeveel van het verschil tussen goed en uitzonderlijk werkelijk door oefening wordt verklaard en hoeveel door andere, minder goed gemeten factoren.</p>
+      <p>Colvin schreef zijn boek met de stelligheid van een journalist die net een overtuigend nieuw onderzoeksveld heeft ontdekt; die toon maakt het boek prettig leesbaar, maar ook minder terughoudend dan de latere, genuanceerdere stand van het onderzoek achteraf rechtvaardigt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies bij het oefenen van een vaardigheid steeds het onderdeel waar je het zwakst in bent, niet het onderdeel waar je al goed in bent.</li>
+        <li>Zoek terugkoppeling die direct aangeeft wat er niet klopte, in plaats van te vertrouwen op eigen inschatting.</li>
+        <li>Bouw herhaling in die mentaal inspannend blijft; zodra een oefening routine wordt, verleg dan de moeilijkheidsgraad.</li>
+        <li>Verwacht niet dat jaren ervaring op zich tot verbetering leidt zonder dat je gericht op je zwakke plekken hebt geoefend.</li>
+        <li>Zoek voor een vaardigheid die je wilt verbeteren iemand die je kan zien werken en die specifiek kan aangeven wat er nog niet klopt, in plaats van in je eentje te herhalen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Voluit <i>Talent Is Overrated: What Really Separates World-Class Performers from Everybody Else</i> (Portfolio, 2008, ISBN 9781591842248). Geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Colvin, journalist bij <i>Fortune</i>, onderzoekt waarom sommige mensen op hun vakgebied ver boven het gemiddelde uitstijgen. Zijn antwoord bouwt op het werk van psycholoog K. Anders Ericsson naar deliberate practice: een specifieke, veeleisende vorm van oefenen die zich onderscheidt van gewone herhaling of ervaring.</p><p>Colvin ontkracht daarbij het beeld van het wonderkind aan de hand van onder meer Mozart en Tiger Woods, die beiden al op zeer jonge leeftijd onder intensieve begeleiding stonden. Hij benadrukt dat jaren ervaring op zich weinig zeggen, zoals onderzoek onder artsen laat zien: routine alleen leidt niet automatisch tot betere prestaties.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>deliberate practice</li><li>vakmanschap</li><li>prestatieonderzoek</li><li>expertise</li><li>training</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="274"><a href="274.html">Outliers</a>. Gladwell's Outliers verscheen in hetzelfde jaar en trekt uit hetzelfde onderzoek de bekendere, stelliger claim van tienduizend uur.</li>
+          <li value="296"><a href="296.html">Get Better at Anything</a>. Young actualiseert het begrip deliberate practice met recenter onderzoek naar hoe vaardigheden precies worden opgebouwd.</li>
+          <li value="320"><a href="320.html">Mastery</a>. Greene beschrijft meesterschap als langdurig leerproces dat op vergelijkbare wijze draait om gerichte, ongemakkelijke oefening.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

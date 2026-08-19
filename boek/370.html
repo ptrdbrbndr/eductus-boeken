@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Chanakya Playbook &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gupta stelt dat de oudste systematische Indiase tekst over machtsuitoefening, de Arthashastra die aan de adviseur Chanakya (ook Kautilya genoemd, vierde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-370">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">370 &middot; Geld en ondernemen</p>
+    <h1>The Chanakya Playbook</h1>
+    <p class="lede">Abhiraj Gupta, 2026</p>
+    <p class="stats">
+      <span><b>1484</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="370"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gupta stelt dat de oudste systematische Indiase tekst over machtsuitoefening, de <i>Arthashastra</i> die aan de adviseur Chanakya (ook Kautilya genoemd, vierde eeuw voor Christus) wordt toegeschreven, een bruikbaarder kader voor hedendaags ondernemerschap biedt dan de gangbare westerse managementliteratuur, omdat de tekst leiderschap nooit los ziet van de instandhouding van het geheel op lange termijn. Zijn stelling is dat bedrijven die alleen op groeicijfers sturen, dezelfde fout maken als heersers die alleen op verovering sturen: beide verliezen het fundament onder het eigen succes uit het oog. Wie daar iets tegenover wil zetten, kan wijzen op het gemak waarmee tweeduizend jaar oude staatsraad wordt vertaald naar de kwartaalcijfers van een beursgenoteerd bedrijf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een oude tekst voor een nieuw publiek</h3>
+      <p>Gupta plaatst zijn boek uitdrukkelijk tegenover de dominantie van Amerikaanse managementliteratuur. De <i>Arthashastra</i>, een handboek voor bestuur, economie en oorlogvoering dat aan de staatsman en leermeester Chanakya wordt toegeschreven, bevat volgens hem een even doordacht stelsel van regels voor het opbouwen en behouden van macht, alleen dan toegepast op een koninkrijk in plaats van een onderneming.</p>
+      <p>Het boek vertaalt dat stelsel naar drie thema's die de opbouw dragen: interne beheersing van de leider zelf, structurele bestendigheid van de organisatie, en strategische wendbaarheid in de uitvoering. Die driedeling keert in vrijwel elk hoofdstuk terug als raamwerk waarbinnen een klassiek begrip wordt geplaatst.</p>
+      <h3>Interne beheersing van de leider</h3>
+      <p>Het eerste deel richt zich op de leider als persoon. Centraal begrip is <i>rajadharma</i>, de plicht van wie regeert, die Gupta uitlegt als de eis dat een leider zijn eigen verlangens ondergeschikt maakt aan het belang van wie van hem afhankelijk zijn. Daarnaast bespreekt hij <i>prajnasakti</i>, het vermogen tot vooruitzien en beoordelen dat volgens de <i>Arthashastra</i> de eerste voorwaarde voor goed bestuur is.</p>
+      <p>In dit deel keren discipline, zelfkennis en helderheid over het eigen doel terug als voorwaarden die aan elke andere stap voorafgaan. Wie zichzelf niet beheerst, kan volgens de klassieke tekst geen instelling beheersen, en Gupta past die volgorde toe op de hedendaagse ondernemer.</p>
+      <h3>Structurele bestendigheid: de zeven ledematen van de staat</h3>
+      <p>Het tweede deel bouwt op wat in de <i>Arthashastra</i> bekendstaat als de <i>saptanga</i>, de zeven onderdelen die samen een staat vormen: heerser, ministers, gebied, vesting, schatkist, leger en bondgenoten. Gupta vertaalt dat raamwerk naar de onderdelen van een onderneming, waarbij <i>kosha</i> (schatkist) voor financiële draagkracht staat, <i>durga</i> (vesting) voor de weerbaarheid van de organisatiestructuur, <i>danda</i> (leger, letterlijk de staf) voor het vermogen om besluiten daadwerkelijk uit te voeren, en <i>janapada</i> (gebied en bevolking) voor het menselijk kapitaal.</p>
+      <p>De strekking van dit deel is dat een instelling die op sterke systemen rust een langer leven heeft dan een instelling die op de persoonlijke kwaliteiten van één leider drijft. Als voorbeelden van het tegendeel bespreekt het boek de val van Enron en het verlies van marktpositie bij Nokia en Kodak, ondernemingen die volgens Gupta hun eigen fundament verwaarloosden terwijl de resultaten op korte termijn nog goed oogden.</p>
+      <h3>Strategische wendbaarheid: het zesvoudige beleid</h3>
+      <p>Het derde deel behandelt wat in de <i>Arthashastra</i> de <i>shadgunya</i> heet, het zesvoudige buitenlandbeleid van een staat tegenover zijn buren: vrede sluiten, oorlog voeren, neutraal blijven, optrekken, een bondgenootschap zoeken, of een dubbele koers varen. Gupta zet dat raamwerk om in een instrument voor concurrentiestrategie, waarbij een onderneming per situatie moet kiezen tussen samenwerken, confronteren, afwachten of zich terugtrekken in plaats van vast te houden aan één vaste opstelling.</p>
+      <p>Als hedendaags voorbeeld noemt het boek de omgang van verschillende bedrijven met de verstoring van de coronapandemie, waarin sommige ondernemingen hun positie aanpasten en andere vasthielden aan een koers die niet meer paste bij de omstandigheden. Reliance Jio en Apple worden aangehaald als voorbeelden van bedrijven die hun aanpak op het juiste moment bijstelden.</p>
+      <h3>De opbouw per hoofdstuk</h3>
+      <p>Volgens besprekingen van het boek volgt elk van de zestien hoofdstukken een vast stramien: een inleiding, een citaat of parafrase uit de <i>Arthashastra</i>, uitleg van het onderliggende begrip, een of meer hedendaagse bedrijfscasussen, en een afsluiting met puntsgewijze lessen. Een verklarende woordenlijst achterin helpt de lezer bij de Sanskriet-termen die door het boek heen terugkeren.</p>
+      <p>Die opzet maakt het boek uitdrukkelijk tot een naslagwerk voor de praktijk en niet tot een historische of filologische studie van de <i>Arthashastra</i> zelf; besprekers van het boek noemen dat zelf als de bewuste keuze van de auteur.</p>
+      <h3>Ethiek als voorwaarde voor duurzaam succes</h3>
+      <p>Door alle delen heen keert de stelling terug dat winst zonder ethische grondslag zichzelf ondermijnt. Gupta gebruikt daarvoor herhaaldelijk de bedrijven die als waarschuwend voorbeeld dienen, Enron voorop, om te laten zien dat kortetermijnresultaten een verrotte structuur lang kunnen verbergen voordat die alsnog instort.</p>
+      <p>Daarmee plaatst het boek zich in een traditie van bedrijfsethiek die winst niet als tegenpool van moraal ziet, maar als een grootheid die zonder moraal op termijn niet vol te houden is. Het onderscheid tussen <i>dharma</i>, de morele plicht, en <i>artha</i>, materiële welvaart, dat in de <i>Arthashastra</i> zelf al centraal staat, vormt daarvan het uitgangspunt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Arthashastra</td><td>Het oude Indiase traktaat over staatsbestuur, economie en oorlogvoering waarop het boek zijn hedendaagse lessen baseert.</td></tr>
+          <tr><td class="term">Rajadharma</td><td>De plicht van wie regeert of leiding geeft, waarbij het eigen belang ondergeschikt is aan het belang van wie ervan afhankelijk zijn.</td></tr>
+          <tr><td class="term">Prajnasakti</td><td>Het vermogen tot vooruitzien en beoordelen, in het boek voorgesteld als de eerste voorwaarde voor goed leiderschap.</td></tr>
+          <tr><td class="term">Saptanga</td><td>De zeven onderdelen die volgens de <i>Arthashastra</i> samen een staat vormen en die Gupta vertaalt naar de onderdelen van een onderneming.</td></tr>
+          <tr><td class="term">Kosha, durga, danda, janapada</td><td>Vier van de zeven onderdelen: schatkist, vesting, uitvoerend vermogen en gebied met bevolking, in het boek respectievelijk financiën, structuur, uitvoering en mensen.</td></tr>
+          <tr><td class="term">Shadgunya</td><td>Het zesvoudige buitenlandbeleid, in het boek omgezet naar een keuzemodel voor concurrentiestrategie.</td></tr>
+          <tr><td class="term">Dharma en artha</td><td>De morele plicht tegenover de materiële welvaart; de klassieke tekst en het boek stellen dat de tweede zonder de eerste niet standhoudt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek werkt met een vaste combinatie per hoofdstuk: een klassiek begrip uit de <i>Arthashastra</i>, gevolgd door een of meer hedendaagse bedrijfscasussen die het moeten illustreren, onder meer Enron, Nokia, Kodak, Reliance Jio en Apple. Dat is een manier van beargumenteren met voorbeelden, niet met onderzoek: er worden geen aantallen bedrijven vergeleken en er wordt niet getoetst of het patroon ook opgaat bij bedrijven die met dezelfde beginselen wél doorgroeiden.</p>
+      <p>De vertaling van staatkundige begrippen als saptanga en shadgunya naar bedrijfsvoering is de eigen constructie van de auteur; de <i>Arthashastra</i> zelf schreef die begrippen niet voor ondernemingen. Wat vaststaat, onafhankelijk van het boek, is dat deze begrippen daadwerkelijk in de klassieke tekst voorkomen en door Kautilya-onderzoekers al langer besproken worden; de toepassing op moderne bedrijven komt van Gupta.</p>
+      <p>Deze samenvatting is gebaseerd op besprekingen, persberichten en de boekbeschrijving, niet op een eigen lezing van de volledige tekst, omdat die niet beschikbaar was. Voor de precieze bewoording van citaten en de exacte hoofdstuktitels is dat een beperking; de hier beschreven driedeling, de vier saptanga-begrippen en de genoemde bedrijfscasussen zijn wel in meerdere onafhankelijke besprekingen terug te vinden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek verscheen in april 2026 en is daarmee te vers voor de kritische afstand die klassiekers in dit genre al hebben opgebouwd; vrijwel alle beschikbare besprekingen zijn welwillend en afkomstig van boekbloggers, persberichten of het eigen netwerk van de auteur, wat de onafhankelijke toetsing van de claims beperkt.</p>
+      <p>Een bezwaar dat in ten minste één bespreking wordt genoemd, is dat de vertaling van de <i>Arthashastra</i> sterk gemoderniseerd is: wie op zoek is naar een precieze, historisch verantwoorde lezing van de brontekst, krijgt in plaats daarvan een praktijkgerichte parafrase. De koppeling van eeuwenoude staatsraad aan specifieke bedrijven als Enron of Nokia loopt bovendien het risico dat het patroon achteraf wordt ingelezen: bedrijven die faalden, hadden vaak tegelijk tientallen andere problemen die met dezelfde saptanga-begrippen evengoed te verklaren zouden zijn geweest.</p>
+      <p>De auteur is zelf bedrijfsbestuurder en geen historicus of Sanskrit-geleerde; dat verklaart de praktische invalshoek, maar betekent ook dat het gezag van het boek op de klassieke tekst leunt zonder dat er filologisch tegenspel wordt geboden aan zijn interpretatie ervan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng de vier onderdelen kosha, durga, danda en janapada, financiën, structuur, uitvoering en mensen, in kaart voor je eigen organisatie en ga na welk onderdeel het zwakst is.</li>
+        <li>Kies bij een concurrentievraagstuk expliciet tussen de zes shadgunya-opties, samenwerken, confronteren, afwachten, aanvallen, een bondgenootschap zoeken of een dubbele koers varen, in plaats van standaard voor dezelfde opstelling te kiezen.</li>
+        <li>Toets een groeiplan aan de vraag of het resultaat standhoudt zonder de persoon die het nu drijft, als proef op structurele bestendigheid.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The Chanakya Playbook: Ancient Wisdom for the Modern Entrepreneur</i> (Rupa Publications, 9 april 2026, gebonden, 232 blz., ISBN 9789376466627). Verschenen in India; geen Nederlandse uitgave. De samenvatting hier is op de Engelse editie gebaseerd en op besprekingen ervan, omdat de tekst zelf niet beschikbaar was; waar dat het geval is, staat dat aangegeven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gupta, directeur van het Indiase farmaceutische bedrijf IOL Chemicals and Pharmaceuticals, herschrijft de <i>Arthashastra</i>, het oude Indiase staatkundige traktaat dat aan de adviseur Chanakya wordt toegeschreven, tot een handleiding voor hedendaagse ondernemers. Het boek is opgebouwd rond drie thema's: persoonlijke discipline van de leider, de opbouw van een organisatie die op systemen draait in plaats van op één persoon, en het vermogen om snel te schakelen zonder de koers te verliezen.</p><p>Elk van de zestien hoofdstukken volgt hetzelfde stramien: een klassiek begrip uit de <i>Arthashastra</i>, de uitleg ervan, en een hedendaags bedrijfsvoorbeeld waarin hetzelfde patroon zichtbaar wordt, met onder meer Enron, Nokia, Kodak en Reliance Jio. De terugkerende stelling is dat welvaart die zonder ethische grondslag is opgebouwd, zichzelf op termijn ondermijnt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Chanakya</li><li>Arthashastra</li><li>leiderschap</li><li>strategie</li><li>ondernemerschap</li><li>India</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="272"><a href="272.html">The Art of War</a>. Sun Tzu levert het Chinese equivalent van vroege staatkundige strategie, eveneens vertaald naar hedendaagse toepassing, en biedt een vergelijkingspunt voor wat in beide tradities overeenkomt en verschilt.</li>
+          <li value="219"><a href="219.html">The Thirty-Six Stratagems</a>. De Chinese strategemen bieden een tweede klassieke bron voor manoeuvreren tussen confrontatie en samenwerking, naast de shadgunya die dit boek bespreekt.</li>
+          <li value="270"><a href="270.html">Principles</a>. Dalio werkt vanuit een geheel andere traditie een vergelijkbaar streven uit: vaste beginselen die persoonlijk gedrag en organisatiestructuur allebei moeten dragen.</li>
+          <li value="353"><a href="353.html">Good to Great</a>. Collins onderzoekt met bedrijfsdata welke structurele eigenschappen bedrijven blijvend sterk maken, waar dit boek voor hetzelfde onderwerp op klassieke tekst en casussen leunt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

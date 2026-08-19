@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build, Don't Talk &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Shamani stelt dat school iemand voorbereidt op een examen en niet op een leven, en dat de vaardigheden die daadwerkelijk geld en kansen opleveren, zoals…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-365">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">365 &middot; Geld en ondernemen</p>
+    <h1>Build, Don't Talk</h1>
+    <p class="lede">Raj Shamani, 2022</p>
+    <p class="stats">
+      <span><b>1472</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="365"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Shamani stelt dat school iemand voorbereidt op een examen en niet op een leven, en dat de vaardigheden die daadwerkelijk geld en kansen opleveren, zoals verkopen, onderhandelen, een product prijzen en een publiek opbouwen, iemand zichzelf moet aanleren door te doen. Zijn advies is niet om te wachten tot een plan compleet is, maar om te beginnen met wat er is en de rest onderweg te leren. Wie dat doet, moet volgens hem eerst toegeven waar hij zwak in is, en dat gebrek ofwel wegwerken door te oefenen, ofwel uitbesteden aan iemand die het al kan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van een scholier met 43 procent tot ondernemer</h3>
+      <p>Shamani opent met zijn eigen middelbareschooltijd in Indore: hij haalde 43 procent waar neven en nichten in de negentig scoorden, verzon verhalen over een reis naar Dubai om aanzien te krijgen en werd erop betrapt. Pas toen zijn vader ernstig ziek werd, veranderde die houding volgens hem in de wens om iets echts op te bouwen in plaats van indruk te maken.</p>
+      <p>Dat kantelpunt is de rode draad van het boek: elk hoofdstuk koppelt een algemene les aan een moment uit zijn eigen leven, van de eerste onderneming tot zijn podcast.</p>
+      <h3>Wat school niet leert</h3>
+      <p>Shamani beschrijft het Indiase onderwijssysteem als gericht op onthouden in plaats van denken, en stelt daar een vraag tegenover die Israëlische ouders volgens hem aan hun kinderen stellen: welke vraag heb je vandaag gesteld, in plaats van welk cijfer heb je gehaald. Zijn punt is dat vaardigheden als verkopen, onderhandelen en geld beheren nergens op het lesrooster staan, terwijl ze bepalen of iemand na school zelfstandig kan functioneren.</p>
+      <h3>Zwakte toegeven, taken uitbesteden</h3>
+      <p>Een terugkerend advies is dat succes begint met erkennen waar iemand slecht in is. Shamani noemt zijn eigen angst om in het openbaar te spreken, die hij twee jaar lang wegwerkte bij Toastmasters, tegenover zijn onvermogen om goed te schrijven, waarvoor hij een ghostwriter inhuurde voor dit boek zelf. Zijn onderscheid: vaardigheden die de kern van je werk raken oefen je, taken daarbuiten besteed je uit.</p>
+      <h3>Vragen als vaardigheid</h3>
+      <p>Onder de titel 'bedelen' beschrijft Shamani hoe hij als student ongevraagd mensen benaderde die hij nodig had, zoals de chemicus die hij voor 2.000 roepie via LinkedIn inhuurde om de afwasmiddelformule te ontwikkelen. Zijn punt is dat een student weinig te verliezen heeft bij een botte afwijzing, en dat die positie, die hij liever kans dan schaamte noemt, na de studietijd verdwijnt.</p>
+      <h3>De angst om af te gaan</h3>
+      <p>Een apart hoofdstuk gaat over de angst om dom over te komen, die Shamani na zijn jeugdervaring met het verzonnen Dubai-verhaal jarenlang parten speelde bij spreken in het openbaar. Hij zet daar historische voorbeelden tegenover, zoals Edison die honderden mislukte experimenten voor de gloeilamp deed en de gebroeders Wright die voor gestoord werden versleten, en citeert Michelle Obama's advies om door een deur van kansen te lopen in plaats van jezelf buiten te sluiten omdat je denkt het niet te verdienen. Zijn eigen aanpak is om zichzelf bewust aan kleine, ongevaarlijke momenten van gêne bloot te stellen, zodat het onbehagen bij grotere risico's kleiner wordt.</p>
+      <h3>Het afwasmiddel: van marktinzicht naar product</h3>
+      <p>De kernanekdote van het boek is zijn eerste onderneming. Shamani zag dat er in zijn regio maar twee merken vloeibaar afwasmiddel bestonden, testte thuis met zijn vader tot de 87e poging een bruikbare formule opleverde, en zette de kostprijs van 45 roepie tegenover de verkoopprijs van 110 roepie bij de gevestigde merken. Gratis proefflesjes onder studiegenoten leverden bij drie van elke vijf een herhaalaankoop op.</p>
+      <p>Zijn regel voor prijzen volgt uit dezelfde ervaring: de prijs stijgt naarmate meer mensen bereid blijken te betalen, niet andersom. Een product eerst laten bewijzen dat er vraag naar is, is voor hem de voorwaarde om aan de prijs te mogen sleutelen.</p>
+      <h3>Systemen in plaats van doelen</h3>
+      <p>Shamani zet een dagelijks systeem tegenover een doel dat van externe factoren afhangt: een studiedoel haalde hij pas toen hij zijn manier van leren veranderde, niet door zijn cijferdoel te herhalen. Hij noemt James Clears werk over gewoontes als bron van dat idee, en past het toe op zijn eigen contentproductie: geen vast aantal volgers als doel, maar een vaste dagelijkse routine van opnemen en publiceren.</p>
+      <h3>Zeven inkomstenbronnen uit één vaardigheid</h3>
+      <p>Rond zijn vijfentwintigste had Shamani volgens eigen zeggen zeven inkomstenbronnen opgebouwd vanuit dezelfde kern van marketing en contentcreatie: consultancy voor een autodealer, betaalde lezingen na honderd gratis optredens, merkdeals vanaf 150.000 volgers, affiliate-inkomsten vanaf een miljoen volgers, een cursus van 500 roepie, een boekcontract met voorschot en royalty's, en een eigen contentbureau met redacteuren en analisten.</p>
+      <p>Zijn les daarbij is dat één kernvaardigheid zich over meerdere verdienmodellen laat verspreiden, in plaats van dat elk inkomen een aparte vaardigheid vereist.</p>
+      <h3>Authenticiteit en het vinden van een niche</h3>
+      <p>Shamani schrijft zijn succes toe aan het feit dat hij zichzelf presenteert als een gemiddelde jonge Indiër met een middenklasse-achtergrond, en toetst content aan de vraag of die zijn eigen leven met minstens 1 procent verbeterd zou hebben op het moment dat hij zelf begon. Toen TikTok in India verboden werd, verschoof hij naar Instagram Reels met vereenvoudigd zakennieuws. Dat noemt hij zijn overlap van interesse, sterkte, platform en stijl: een niche vinden door die vier factoren te laten samenvallen, in plaats van concurrenten te ontwijken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nutteloze knul</td><td>Het zelfbeeld waarmee Shamani als scholier werd weggezet en dat hij in het boek ombuigt tot uitgangspunt van zijn verhaal.</td></tr>
+          <tr><td class="term">Overlap van interesse, sterkte, platform en stijl</td><td>Zijn model om een niche te vinden door die vier factoren te laten samenvallen in plaats van concurrenten te ontwijken.</td></tr>
+          <tr><td class="term">Systemen boven doelen</td><td>Het idee dat een dagelijkse routine stuurbaarder is dan een doel dat van omstandigheden afhangt.</td></tr>
+          <tr><td class="term">De 1 procent-toets</td><td>Zijn filter voor content: zou dit zijn eigen leven met minstens 1 procent verbeterd hebben toen hij zelf begon.</td></tr>
+          <tr><td class="term">Zeven inkomstenbronnen</td><td>Zijn overzicht van verdienmodellen die uit dezelfde kernvaardigheid van marketing en contentcreatie voortkomen.</td></tr>
+          <tr><td class="term">Stop met innoveren, begin met kopiëren</td><td>Zijn advies om bestaande oplossingen te verbeteren in plaats van vanaf nul iets nieuws te bedenken.</td></tr>
+          <tr><td class="term">Prijs volgens vraag</td><td>Zijn regel dat de prijs van een product stijgt naarmate meer mensen bereid blijken te betalen, niet op basis van kostprijs alleen.</td></tr>
+          <tr><td class="term">Uitbesteden versus oefenen</td><td>Zijn onderscheid tussen kernvaardigheden die je zelf leert en taken daarbuiten die je beter aan een ander overlaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust vrijwel volledig op Shamani's eigen ervaring: de cijfers over zijn eerste onderneming, zijn volgersaantallen en zijn inkomstenbronnen zijn niet extern te verifiëren en komen uit dezelfde bron als het verhaal zelf. Waar hij zich op anderen beroept, zijn dat losse verwijzingen naar bekende auteurs als Napoleon Hill en James Clear, niet naar onderzoek.</p>
+      <p>Shamani vermeldt zelf dat hij voor het schrijven een ghostwriter inschakelde, wat aansluit bij zijn eigen advies om te schrijven uit te besteden als je daar zwak in bent, maar het maakt de tekst ook een bewerkt verslag in plaats van een directe getuigenis.</p>
+      <p>De historische voorbeelden die hij aanhaalt, zoals Edison en de gebroeders Wright, zijn algemeen bekende anekdotes uit de motivatieliteratuur en worden niet aan een bron gekoppeld; ze illustreren zijn punt zonder het te onderbouwen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de zeven inkomstenbronnen en de snelle groei op sociale media zich moeilijk laten herhalen: Shamani bouwde zijn bereik op in een periode waarin Instagram Reels en YouTube in India nog een relatief open speelveld waren, en het boek behandelt dat tijdgebonden voordeel niet als factor.</p>
+      <p>Ook zijn startkapitaal wordt onderbelicht. Shamani kon als scholier experimenteren met een chemicus die hij via LinkedIn vond en met een vader die meehielp aan de productie, een andere uitgangspositie dan de boodschap 'begin met wat je hebt' suggereert.</p>
+      <p>Recensenten op Goodreads noemen de inhoud generiek en wijzen erop dat losse hoofdstukken net zo goed een blogpost hadden kunnen zijn; het boek herhaalt bekende adviezen uit de zelfhulpliteratuur, zoals doelen die systemen worden en vraag die de prijs bepaalt, zonder ze verder te onderbouwen dan met eigen anekdotes.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op welke vaardigheid je zelf oefent en welke taak je beter uitbesteedt, en waarom.</li>
+        <li>Test een productidee eerst gratis bij een kleine groep voor je aan de prijs rekent.</li>
+        <li>Vervang een doel door een dagelijkse routine en meet die routine, niet de uitkomst.</li>
+        <li>Leg elk plan of stuk content naast de vraag of het je eigen situatie van een jaar geleden verder had geholpen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Build, Don't Talk: Things You Wish You Were Taught in School</i> (Penguin Random House India, 25 november 2022, 226 blz., ISBN 9780143459682), geschreven met een ghostwriter. Geen Nederlandse vertaling gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Shamani vertelt zijn eigen weg van een middelmatige scholier in Indore tot ondernemer en podcasthost, en gebruikt dat verhaal als kapstok voor lessen die volgens hem niet op school worden onderwezen: verkopen, onderhandelen, geld beheren en een merk bouwen. Hij begon op zijn zestiende, na een gezondheidscrisis van zijn vader, met een afwasmiddel dat hij na 86 mislukte pogingen zelf leerde produceren en goedkoper verkocht dan de twee bestaande merken.</p><p>Het boek staat in 39 korte hoofdstukken, elk met een samenvatting van de belangrijkste punten, en werd in India een bestseller. Shamani bouwde na die eerste onderneming een podcast, <i>Figuring Out with Raj Shamani</i>, en een reeks inkomstenbronnen op rond dezelfde kern van contentcreatie en marketing.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>persoonlijk merk</li><li>sociale media</li><li>zelfvertrouwen</li><li>India</li><li>content creatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Napoleon Hill is de auteur die Shamani zelf noemt als eerste ontdekking op zijn zoektocht naar rijkdom, met een veel ouder en breder programma achter dezelfde belofte.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. James Clear levert het gewoontemodel waarop Shamani's systemen boven doelen rechtstreeks teruggaat, uitgewerkt met het onderzoek dat hier ontbreekt.</li>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Guillebeau beschrijft ondernemingen die net als Shamani's afwasmiddel met weinig geld beginnen, maar bouwt dat op tientallen cases in plaats van één eigen verhaal.</li>
+          <li value="37"><a href="37.html">Rich Dad Poor Dad</a>. Kiyosaki richt zich op dezelfde jonge lezer zonder financiële opvoeding, vanuit een ouder en even weinig onderbouwd persoonlijk verhaal.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

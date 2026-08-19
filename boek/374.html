@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inner Excellence &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Murphy stelt dat de grootste belemmering voor topprestatie niet techniek of talent is, maar de angst om te falen en de gewoonte om de eigen waarde af te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-374">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">374 &middot; Moed en karakter</p>
+    <h1>Inner Excellence</h1>
+    <p class="lede">Jim Murphy, 2020</p>
+    <p class="stats">
+      <span><b>1406</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="374"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Murphy stelt dat de grootste belemmering voor topprestatie niet techniek of talent is, maar de angst om te falen en de gewoonte om de eigen waarde af te meten aan het resultaat. Wie zijn identiteit loskoppelt van winst en verlies, oordeelt zijn tegenstander en zichzelf niet langer, en kan daardoor met minder ruis presteren. Zijn programma rust op drie begrippen die hij liefde, wijsheid en moed noemt: onvoorwaardelijke acceptatie van jezelf en anderen, helder onderscheid tussen wat wel en niet in je macht ligt, en de bereidheid om ondanks angst te handelen. Dat maakt van mentale training bij hem evenzeer een levenshouding als een prestatiemiddel.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van zakelijk boek naar levensprogramma</h3>
+      <p>Murphy schreef in 2009 een eerste versie van dit boek, gericht op zakelijk succes via mentale weerbaarheid. Ruim tien jaar later herschreef hij het volledig tot een breder werk over prestatie en leven, gevoed door zijn eigen loopbaan als honkballer, coach van de Texas Rangers en later mentaal coach van topgolfers en olympiërs.</p>
+      <p>Die herschreven versie is degene die dit boek tot een veelgelezen titel maakte binnen de golfwereld en daarbuiten, en is de editie waarop deze samenvatting is gebaseerd.</p>
+      <h3>Identiteit loskoppelen van resultaat</h3>
+      <p>De kern van het boek is dat sporters hun zelfbeeld vaak laten meebewegen met hun laatste slag, ronde of wedstrijd, waardoor elke tegenslag een aanval op de eigen waarde wordt. Murphy noemt dat de bron van de meeste onnodige spanning tijdens prestatie.</p>
+      <p>Zijn voorstel is een identiteit die niet aan uitkomsten hangt, gebouwd op wie iemand is los van het scorebord. Wie dat bereikt, kan een slechte ronde spelen zonder daarmee ook zichzelf te verliezen, en dat maakt volgens hem juist herstel binnen een wedstrijd mogelijk.</p>
+      <h3>Liefde, wijsheid en moed</h3>
+      <p>Murphy bouwt zijn programma op rond drie begrippen. Liefde betekent bij hem onvoorwaardelijke acceptatie, van jezelf na een fout en van anderen zonder ze te veroordelen. Wijsheid is het onderscheid tussen wat binnen je macht ligt, zoals voorbereiding en inzet, en wat erbuiten ligt, zoals de uitslag of het oordeel van anderen. Moed is het vermogen om ondanks angst toch te handelen.</p>
+      <p>Hij presenteert deze drie niet als losse technieken maar als een samenhangend geheel: wie zichzelf niet accepteert, kan de grens tussen wel en niet beïnvloedbaar niet helder trekken, en wie die grens niet trekt, blijft vechten tegen wat hij niet kan veranderen.</p>
+      <h3>Angst en ego als tegenstanders</h3>
+      <p>Een groot deel van het boek gaat over de twee krachten die Murphy als grootste belemmering ziet: angst voor een slecht resultaat en ego dat bevestiging zoekt via prestatie. Beide houden de aandacht af van de handeling zelf en richten haar op de uitkomst of op wat anderen ervan zullen vinden.</p>
+      <p>Zijn oefeningen zijn erop gericht die aandacht terug te brengen naar het huidige moment: ademhaling, korte routines voor en tijdens een wedstrijd, en het bewust benoemen van angst in plaats van hem te verdringen.</p>
+      <h3>Dankbaarheid als prestatiemiddel</h3>
+      <p>Murphy behandelt dankbaarheid niet als een beleefdheidsformule maar als een werktuig: wie de aandacht bewust richt op wat er al is, blijft volgens hem kalmer en scherper dan wie de aandacht op een tekort richt. Hij koppelt dat aan concrete oefeningen, zoals het dagelijks benoemen van een paar dingen waar iemand dankbaar voor is, uit te voeren vlak voor of tijdens een belangrijke gebeurtenis.</p>
+      <p>Aan diezelfde gedachte koppelt hij dienstbaarheid: een sporter die zijn optreden mede opdraagt aan iets buiten zichzelf, verlegt de aandacht van de eigen prestatie en het eigen ego naar iets groters. Murphy stelt dat die verlegging de druk vermindert die ontstaat wanneer alle betekenis van een moment op de uitkomst voor de sporter zelf rust.</p>
+      <h3>Interviews met topsporters</h3>
+      <p>Murphy onderbouwt zijn programma met gesprekken die hij in de loop van zijn coachcarrière voerde met golfers, honkballers en andere topsporters over hoe zij met druk omgaan. Die interviews functioneren als illustratie van zijn drie begrippen, niet als apart onderzoek.</p>
+      <p>Het boek bevat daarnaast dagelijkse oefeningen en een soort werkboekstructuur, bedoeld om de lezer de principes te laten inoefenen in plaats van ze alleen te lezen: een dagelijks doel om het beste te geven, aanwezig te blijven, dankbaarheid te oefenen en de aandacht te richten op wat binnen bereik ligt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Liefde</td><td>Onvoorwaardelijke acceptatie van jezelf na een fout en van anderen zonder oordeel.</td></tr>
+          <tr><td class="term">Wijsheid</td><td>Het onderscheid tussen wat binnen je macht ligt, zoals voorbereiding, en wat erbuiten ligt, zoals de uitslag.</td></tr>
+          <tr><td class="term">Moed</td><td>Handelen ondanks angst, in plaats van wachten tot de angst verdwenen is.</td></tr>
+          <tr><td class="term">Identiteit los van resultaat</td><td>Een zelfbeeld dat niet meebeweegt met winst of verlies, waardoor tegenslag geen aanval op de eigen waarde wordt.</td></tr>
+          <tr><td class="term">Ego als tegenstander</td><td>De behoefte aan bevestiging via prestatie, die de aandacht van de handeling zelf afleidt.</td></tr>
+          <tr><td class="term">Aandacht op het huidige moment</td><td>Het terugbrengen van de focus naar de handeling zelf in plaats van naar de uitkomst of het oordeel van anderen.</td></tr>
+          <tr><td class="term">Dankbaarheid als werktuig</td><td>Het bewust richten van de aandacht op wat er al is, ingezet als middel om kalm en scherp te blijven.</td></tr>
+          <tr><td class="term">Dienstbaarheid</td><td>Het opdragen van een prestatie aan iets buiten jezelf, waardoor de druk van de eigen uitkomst vermindert.</td></tr>
+          <tr><td class="term">Werkboekstructuur</td><td>De opzet met dagelijkse oefeningen, bedoeld om de drie begrippen in te oefenen in plaats van ze alleen te lezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Murphy's gezag komt uit zijn eigen loopbaan als prestatiecoach van topgolfers en andere topsporters, en uit interviews die hij in die rol met hen voerde. Dat maakt het boek rijk aan praktijkvoorbeelden uit een omgeving waar de druk reëel en meetbaar is.</p>
+      <p>Het boek citeert nauwelijks gepubliceerd onderzoek en presenteert zijn drie begrippen niet als resultaat van een studie maar als destillaat van zijn eigen ervaring en gesprekken. De drieslag liefde, wijsheid en moed is zijn eigen indeling en heeft geen vaste plaats in de sportpsychologische vakliteratuur. Ook de nadruk op dankbaarheid en dienstbaarheid als prestatiemiddel steunt op zijn eigen praktijkervaring, niet op vergelijkend onderzoek naar het effect ervan op prestatie.</p>
+      <p>Murphy schrijft vanuit een expliciet religieuze, christelijke overtuiging die zijn begrip van liefde en genade kleurt; lezers die dat kader niet delen, zullen delen van het boek als geloofsbelijdenis lezen in plaats van als methode.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het onderscheid tussen wat binnen en buiten iemands macht ligt, is filosofisch niet nieuw en wordt door Murphy nergens herleid tot zijn stoïcijnse oorsprong; het boek presenteert het als eigen inzicht zonder die traditie te noemen.</p>
+      <p>De religieuze inkleuring van zijn begrip liefde maakt het boek minder toegankelijk voor lezers zonder christelijke achtergrond, ook al is de toepassing op prestatie op zichzelf niet aan een geloof gebonden.</p>
+      <p>Doordat het boek vooral put uit gesprekken met topsporters in een omgeving met intensieve begeleiding, blijft onduidelijk hoe zijn drieslag standhoudt buiten de topsport, in een gewoon leven zonder coach die de oefeningen begeleidt.</p>
+      <p>De belofte dat dankbaarheid en dienstbaarheid de druk van een prestatiemoment verminderen, wordt met anekdotes onderbouwd en niet met een vergelijking tussen sporters die dat wel en niet toepassen; het is aannemelijk gemaakt, niet aangetoond.</p>
+      <p>Dat het boek eerst als zakelijk werk verscheen en jaren later grondig werd herschreven tot een breder, deels religieus geïnspireerd boek over prestatie en leven, wordt in het boek zelf niet toegelicht. Wie alleen de huidige editie leest, mist die voorgeschiedenis en de vraag welke stukken van het programma zijn blijven staan en welke zijn toegevoegd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf voor jezelf wie je bent los van je laatste resultaat, en lees dat terug na een tegenslag.</li>
+        <li>Maak voor een lastige taak een lijst van wat binnen je macht ligt en wat niet, en richt je voorbereiding op het eerste.</li>
+        <li>Benoem angst voor een belangrijk moment hardop in plaats van hem weg te drukken, en handel daarna toch.</li>
+        <li>Bouw een korte vaste routine voor het begin van een taak, gericht op het huidige moment in plaats van op de uitkomst.</li>
+        <li>Noteer voor een belangrijk moment kort waar je dankbaar voor bent, om de aandacht van het tekort naar wat er al is te verleggen.</li>
+        <li>Draag een lastige taak op aan iets buiten jezelf, een team, een naaste, een doel dat groter is dan de uitkomst voor jou alleen.</li>
+        <li>Kijk aan het eind van een dag waarop iets mislukte terug of je erin geslaagd bent dat te erkennen zonder jezelf erop af te rekenen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Voluit <i>Inner Excellence: Train Your Mind for Extraordinary Performance and the Best Possible Life</i>. Murphy publiceerde in 2009 bij McGraw-Hill al een zakelijk gericht boek onder dezelfde hoofdtitel, <i>Inner Excellence: Achieve Extraordinary Business Success through Mental Toughness</i>. De hier samengevatte, herschreven versie verscheen in 2020 in eigen beheer (Academy of Excellence, ISBN 9781734654806) en werd in 2025 door Grand Central Publishing (Hachette) opnieuw uitgebracht, zonder inhoudelijke koerswijziging. Geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Murphy speelde professioneel honkbal in de organisatie van de Chicago Cubs tot een oogaandoening daar een einde aan maakte, en werkte daarna als mentaal coach voor topsporters, onder wie golfers op het hoogste niveau. Zijn boek herschrijft een eerder, zakelijk gericht werk tot een breder programma voor prestatie en levenshouding.</p><p>De kern is dat prestatie op het scherpst van de snede vooral wordt bepaald door de relatie die iemand met zichzelf heeft: hoe hij omgaat met angst, ego en de behoefte aan een goed resultaat. Murphy bouwt zijn programma op rond drie begrippen die hij liefde, wijsheid en moed noemt, en onderbouwt dat met gesprekken die hij door de jaren heen voerde met topsporters en coaches.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mentale weerbaarheid</li><li>sportpsychologie</li><li>identiteit</li><li>gratie</li><li>topprestatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday werkt hetzelfde onderscheid tussen beïnvloedbaar en onbeïnvloedbaar uit vanuit de stoïcijnse traditie die Murphy niet noemt.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle's nadruk op het huidige moment raakt aan Murphys pleidooi om de aandacht van de uitkomst naar de handeling te verplaatsen.</li>
+          <li value="320"><a href="320.html">Mastery</a>. Greene beschrijft meesterschap als langdurig proces waarin ego eveneens als grootste hindernis geldt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

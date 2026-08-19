@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Extreme Ownership &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Willink en Babin stellen dat er geen slechte teams bestaan, alleen slechte leiders, en dat een leider pas invloed krijgt op het moment dat hij volledige…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-364">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">364 &middot; Samenwerken en gesprek</p>
+    <h1>Extreme Ownership</h1>
+    <p class="lede">Jocko Willink en Leif Babin, 2015</p>
+    <p class="stats">
+      <span><b>1825</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="364"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Willink en Babin stellen dat er geen slechte teams bestaan, alleen slechte leiders, en dat een leider pas invloed krijgt op het moment dat hij volledige verantwoordelijkheid neemt voor elke uitkomst binnen zijn bevoegdheid, zonder verzachtende omstandigheden en zonder naar boven of naar opzij te wijzen. Die houding noemen zij Extreme Ownership. Wat daaronder ligt is een praktische aanname: een organisatie faalt zelden aan het front, zij faalt in de plannen, de communicatie en de training die het front had moeten voorbereiden, en dat is stuk voor stuk het werk van de leiding. Wie dat aanvaardt, kan volgens hen dezelfde discipline die in de straten van Ramadi levens redde, gebruiken om een team, een afdeling of een bedrijf te laten functioneren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Ramadi, 2006</h3>
+      <p>Task Unit Bruiser bestond uit twee pelotons van SEAL Team Three en werd ingezet in Ramadi, destijds de gevaarlijkste stad van Irak en een bolwerk van de opstand. Willink voerde het bevel over de task unit, Babin leidde het Charlie-peloton. Vanuit voorgeschoven bases, combat outposts genoemd, werkten SEAL-scherpschutters en gevechtszwemmers samen met Amerikaanse leger- en mariniereenheden en met Iraakse legereenheden om wijk voor wijk te zuiveren en te bezetten.</p>
+      <p>Drie namen keren terug in het boek: Marc Lee, op 2 augustus 2006 de eerste SEAL die sneuvelde in Irak, Ryan Job, die dezelfde dag door een afketsende kogel zijn gezichtsvermogen verloor en enkele jaren later aan de gevolgen overleed, en Michael Monsoor, die op 29 september 2006 op een granaat sprong om drie teamgenoten te beschermen en daarvoor postuum de Medal of Honor kreeg. Het boek is aan hen opgedragen en de verliezen lopen als een ondertoon door de gevechtsverhalen heen.</p>
+      <h3>Extreme Ownership</h3>
+      <p>Het openingshoofdstuk beschrijft een operatie waarbij Amerikaanse en Iraakse eenheden elkaar in de vroege ochtend voor vijand aanzagen. Een SEAL-element zat met een Iraakse partnereenheid vast in een gebouw onder vuur van Amerikaanse en Iraakse troepen die buiten stonden en de schutters binnen niet als bondgenoot herkenden. Er viel een dode Iraakse soldaat en een gewonde SEAL.</p>
+      <p>Willink was op het moment van het incident niet zelf de schutter en kon de fout technisch bij een ondergeschikte leggen die de doelidentificatie verkeerd inschatte. In het debriefingsgesprek nam hij in plaats daarvan de volledige verantwoordelijkheid, omdat de taakverdeling en het commandoplan die hijzelf had opgesteld de verwarring mogelijk hadden gemaakt. Die opstelling wordt de basis van het boek: verantwoordelijkheid kan niet gedeeld worden naar de omvang van iemands eigen aandeel, zij hoort volledig bij degene die het geheel aanstuurde.</p>
+      <h3>Het overige van de innerlijke instelling</h3>
+      <p>De volgende drie hoofdstukken werken dezelfde houding verder uit. <i>No Bad Teams, Only Bad Leaders</i> steunt op Willinks eigen ervaring tijdens de BUD/S-training, waar een zwak presterende bootbemanning binnen enkele oefeningen verbeterde nadat alleen de leider werd vervangen, terwijl de bemanning zelf gelijk bleef. <i>Believe</i> beschrijft zijn aanvankelijke twijfel over de opdracht om met de Iraakse strijdkrachten samen te werken en hoe hij zich pas kon inzetten voor die missie nadat hij zelf overtuigd raakte van het nut ervan.</p>
+      <p><i>Check the Ego</i> gaat over de wrijving tussen SEAL-eenheden en de conventionele leger- en mariniereenheden in Ramadi, die eigen aanpak en status verdedigden ten koste van de gezamenlijke opdracht. Het hoofdstuk stelt dat ego, ook het soort dat zich voordoet als beroepstrots, de blik vertroebelt voor eigen fouten en samenwerking ondermijnt zodra het zwaarder weegt dan de missie.</p>
+      <h3>Cover and Move</h3>
+      <p>Deel twee, de wetten van de strijd, opent met een operatie waarbij Amerikaanse legereenheden van Team Bulldog, uitgezonden vanaf combat outpost Falcon, een groot doorzoekingsgebied in Zuid-Centraal-Ramadi afzetten terwijl twee SEAL-scherpschuttersposten, aangeduid als OP1 en OP2, dekking gaven vanaf de daken. Toen een van beide posten onder zwaar vuur kwam en zich moest terugtrekken, verliep de afstemming met de andere post gebrekkig doordat beide elementen zich eerder als aparte teams dan als onderdelen van dezelfde operatie gedroegen.</p>
+      <p>Het principe dat daaruit volgt is dat elk onderdeel van een organisatie de andere onderdelen als bondgenoot in dezelfde missie moet zien, niet als concurrent om middelen of erkenning. Zoals het ene vuurteam dekking geeft zodat het andere kan opschuiven, moet een afdeling weten wat een naburige afdeling nodig heeft om vooruit te komen.</p>
+      <h3>Simple, Prioritize and Execute, Decentralized Command</h3>
+      <p><i>Simple</i> stelt dat een plan dat op papier compleet is maar in de praktijk te veel schakels bevat, uiteenvalt zodra de eerste onvoorziene gebeurtenis zich voordoet, zeker wanneer Iraakse partnereenheden met een taalbarrière hun deel van het plan moeten uitvoeren. <i>Prioritize and Execute</i> beschrijft een operatie waarin tegelijk gewonden vielen, een geïmproviseerd explosief werd aangetroffen en een vijandelijke mitrailleurstelling het vuur opende, en formuleert de regel die daaruit volgt: rustig worden, de situatie overzien, het grootste risico benoemen, dat oplossen, en dan pas naar het volgende probleem.</p>
+      <p>Het achtste hoofdstuk, <i>Decentralized Command</i>, geldt in het boek zelf als het zwaarste principe. Task Unit Bruiser werkte in kleine elementen van ongeveer vier tot vijf man, elk met een eigen leider die de bedoeling van de commandant kende en zelfstandig mocht handelen zodra het plan door de werkelijkheid werd ingehaald. Dat vereist dat de bedoeling, in het boek Commander's Intent genoemd, aan iedereen tot op het laagste niveau is uitgelegd, zodat beslissingen ook zonder toestemming van boven de missie blijven dienen.</p>
+      <h3>Een overwinning vasthouden</h3>
+      <p>Het derde deel gaat over wat na de actie komt. <i>Plan</i> beschrijft de vaste procedure van Task Unit Bruiser: de opdracht analyseren, meerdere uitvoeringsvarianten laten aandragen door het team zelf in plaats van alleen door de commandant, de risico's doorspreken, de hele groep briefen en na afloop altijd debriefen. <i>Leading Up and Down the Chain of Command</i> behandelt het besturen in twee richtingen tegelijk: de eigen meerderen op de hoogte houden en gefundeerd tegenspreken in plaats van klakkeloos gehoorzamen of zwijgend mopperen, en ondergeschikten het waarom van een order meegeven in plaats van alleen het wat.</p>
+      <p><i>Decisiveness amid Uncertainty</i> stelt dat een commandant met veertig tot zeventig procent van de benodigde informatie al een besluit moet nemen, omdat wachten op zekerheid in de strijd zelf een besluit is, namelijk het besluit om niets te doen. Het laatste hoofdstuk, <i>Discipline Equals Freedom</i>, sluit af met de dichotomie van leiderschap: zelfverzekerd zonder overmoedig te zijn, assertief zonder roekeloos te zijn, gedisciplineerd zonder star te zijn. Vaste persoonlijke discipline, zoals Willinks bekende gewoonte om ruim voor zonsopgang te trainen, is in die lezing niet het tegendeel van vrijheid maar de voorwaarde ervoor.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Extreme Ownership</td><td>Volledige, ongedeelde verantwoordelijkheid van de leider voor elke uitkomst binnen zijn bevoegdheid, zonder die af te wentelen op ondergeschikten of omstandigheden.</td></tr>
+          <tr><td class="term">No Bad Teams, Only Bad Leaders</td><td>De prestatie van een team is een directe afspiegeling van de leiding, niet van de kwaliteit van de teamleden zelf.</td></tr>
+          <tr><td class="term">Check the Ego</td><td>Persoonlijke trots en status ondergeschikt maken aan de missie en aan wat het team nodig heeft.</td></tr>
+          <tr><td class="term">Cover and Move</td><td>Onderdelen van een organisatie dekken en ondersteunen elkaar als bondgenoten in dezelfde opdracht, in plaats van als concurrenten om middelen.</td></tr>
+          <tr><td class="term">Prioritize and Execute</td><td>Bij meerdere gelijktijdige problemen eerst het grootste risico vaststellen en oplossen voordat het volgende probleem wordt aangepakt.</td></tr>
+          <tr><td class="term">Decentralized Command</td><td>Bevoegdheid neerleggen bij kleine eenheden met een eigen leider die de bedoeling van de commandant kent en zelfstandig mag handelen.</td></tr>
+          <tr><td class="term">Commander's Intent</td><td>De achterliggende bedoeling van een opdracht, zo helder uitgelegd dat ondergeschikten hun handelen erop kunnen aanpassen als het plan misloopt.</td></tr>
+          <tr><td class="term">Discipline Equals Freedom</td><td>Vaste, dagelijkse discipline schept de ruimte voor goed oordeel onder druk, in plaats van die ruimte te beperken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek, het levert getuigenis. De gevechtsverhalen komen uit de eigen diensttijd van Willink en Babin bij Task Unit Bruiser en zijn op geen enkel punt door een buitenstaander geverifieerd; de lezer moet op hun geheugen en hun weergave vertrouwen. De zakelijke voorbeelden komen uit hun adviesbureau Echelon Front en zijn opdrachten die zij zelf uitkozen om precies het principe te illustreren dat het hoofdstuk al had vastgesteld, wat de kans klein maakt dat er een voorbeeld tussen zit dat het principe tegenspreekt.</p>
+      <p>De kracht van het boek zit in de herhaling van eenzelfde vorm: een concrete, invoelbare gevechtssituatie, gevolgd door een principe en een bedrijfscasus die laat zien hoe dat principe er in een kantoor uitziet. Dat maakt de stof onthoudbaar en toepasbaar, maar het is een didactische vorm, geen bewijsvoering. Nergens wordt een principe getoetst aan een geval waarin het niet werkte.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar richt zich op de reikwijdte van het begrip Extreme Ownership. Volledige verantwoordelijkheid nemen voor de uitvoering van een opdracht is iets anders dan verantwoordelijkheid voor de vraag of die opdracht de juiste was. In het leger is die vraag geen onderdeel van de taak van een uitvoerend officier, een order wordt uitgevoerd, niet ter discussie gesteld. Het boek neemt die aanname stilzwijgend over naar het bedrijfsleven, waar het kiezen van het juiste doel vaak de moeilijkere vraag is dan het halen ervan, en besteedt daar nauwelijks aandacht aan.</p>
+      <p>Doorgevoerd tot een persoonlijke leefregel kan Extreme Ownership omslaan in een verklaring die alles bij het individu legt en systemische factoren, onvolledige informatie of andermans nalatigheid wegredeneert; het boek waarschuwt daar zelf niet expliciet voor, terwijl juist deze lezing bij lezers buiten een militaire hiërarchie voor de hand ligt.</p>
+      <p>De vorm van het boek, telkens dezelfde opbouw van gevechtsverhaal naar principe naar bedrijfscasus, is door recensenten herhaaldelijk eenvormig en langdradig genoemd. Het maakt de stof gemakkelijk te volgen, maar laat weinig ruimte voor een principe dat conflicteert met een ander principe uit hetzelfde boek, terwijl juist die conflicten, bijvoorbeeld tussen decentraal beslissen en het strak vasthouden aan een plan, in de praktijk het moeilijkst zijn.</p>
+      <p>Ten slotte draagt de emotionele lading van de verhalen, met de dood van Marc Lee en Michael Monsoor als zwaartepunt, het argument voor een deel op een manier die los staat van de logica van het principe zelf. Dat een les werd geleerd op een moment van groot verlies, maakt de les invoelbaar maar niet noodzakelijk juister dan een les die uit een rustiger voorval was gekomen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een fout in je team eerst na welke eigen beslissing, briefing of aanname de fout mogelijk maakte, voordat je een ondergeschikte aanspreekt.</li>
+        <li>Splits een groot project op in kleine eenheden met een eigen verantwoordelijke die het einddoel kent, in plaats van alles zelf te blijven aansturen.</li>
+        <li>Leg bij elke opdracht het waarom uit naast het wat, zodat iemand zelf een goede beslissing kan nemen als de situatie afwijkt van het plan.</li>
+        <li>Benoem bij meerdere gelijktijdige problemen hardop welk probleem nu het grootste risico vormt, en begin daar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>How U.S. Navy SEALs Lead and Win</i> (St. Martin's Press, 2015; herziene editie 2017, 384 blz., ISBN 9781250183866). Nederlands als <i>Extreem eigenaarschap: hoe Navy SEALs leiden en winnen</i> (Business Contact, 2020, 344 blz., ISBN 9789047014294); geen vertaler vermeld.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jocko Willink en Leif Babin waren officieren bij Task Unit Bruiser, samengesteld uit het Charlie- en Delta-peloton van SEAL Team Three, tijdens de Slag om Ramadi in 2006. Na hun diensttijd richtten zij het adviesbureau Echelon Front op en vertalen sindsdien wat zij in die stad leerden naar leiderschap in bedrijven. Elk hoofdstuk volgt hetzelfde stramien: een gevechtssituatie uit Ramadi, het principe dat eruit volgt, en een aflevering uit hun advieswerk waarin hetzelfde principe een bedrijf uit de problemen haalt.</p><p>De kern is dat een leider alles in zijn omgeving als zijn eigen verantwoordelijkheid behandelt, ook wat een ondergeschikte fout deed, en dat hij lof juist naar beneden doorschuift. Het boek werkt dat uit in twaalf principes, verdeeld over drie delen: de innerlijke instelling van de leider, de wetten van de strijd die op elk team toepasbaar zijn, en het vasthouden van een overwinning op langere termijn.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leiderschap</li><li>navy seals</li><li>teams</li><li>verantwoordelijkheid</li><li>oorlog</li><li>management</li><li>besluitvorming</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="273"><a href="273.html">Leaders Eat Last</a>. Sinek beschrijft eveneens hoe militaire leiderschapservaring naar het bedrijfsleven wordt vertaald, met meer nadruk op biologie en vertrouwen dan op procedure.</li>
+          <li value="42"><a href="42.html">The Five Dysfunctions of a Team</a>. Lencioni behandelt vanuit een fabelvorm dezelfde stelling dat een falend team vrijwel altijd een falende leiding als oorzaak heeft.</li>
+          <li value="229"><a href="229.html">Can't Hurt Me</a>. Goggins komt uit dezelfde wereld van Amerikaanse special forces en laat zien hoe de nadruk op zelfdiscipline eruitziet zonder het commandoperspectief van dit boek.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Voss vertaalt eveneens ervaring uit een hoogrisico-beroep, gijzelingsonderhandelingen bij de FBI, naar toepasbare regels voor gesprekken onder druk.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

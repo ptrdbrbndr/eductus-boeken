@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 19
-augustus 2026: 346 titels in 18 rubrieken.
+augustus 2026: 363 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -12,23 +12,23 @@ bij de volgende build verloren.
 
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
-| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346 |
+| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338 |
-| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367 |
+| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347 |
-| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340 |
+| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -69932,6 +69932,3508 @@ strategie maakte.
 rustige niveau 5-bestuurders een verslag van leiderschap onder acute crisis,
 geschreven vanuit de praktijk in plaats van vanuit onderzoek achteraf.
 
+## 356. The Art of Dealing with People
+
+Les Giblin. Kort boekje van ongeveer 40 tot 48 bladzijden, uitgegeven door
+Executive Books (Mechanicsburg, Pennsylvania), met een editie uit 2001;
+drukjaar en oorspronkelijke uitgever van de eerste druk zijn niet met
+zekerheid vast te stellen. Het boekje bouwt op hetzelfde materiaal als Giblins
+bekendere boeken *How to Have Confidence and Power in Dealing with People*
+(1956) en *Skill With People* (1968), maar staat als eigen titel apart in de
+handel. Geen Nederlandse vertaling gevonden. Rubriek: samenwerken en gesprek.
+Tags: `zelfhulp`, `mensenkennis`, `communicatie`, `overtuigen`, `complimenten
+geven`, `kritiek geven`
+
+Les Giblin was jarenlang reizend verkoper voor een pennenfabrikant en werd
+tweemaal tot beste verkoper van de Verenigde Staten gekozen, voordat hij zich
+toelegde op lezingen en boekjes over de omgang met mensen. In *The Art of
+Dealing with People* zet hij zijn regels op een rij in elf korte hoofdstukken:
+mensen accepteren zoals ze zijn, hun ego respecteren, oprecht luisteren,
+prijzen met naam en toenaam, en kritiek zo brengen dat de ander zijn
+waardigheid behoudt.
+
+Het boekje bevat geen theorie over persoonlijkheid en geen onderzoek, maar een
+reeks vaste vuistregels die de lezer de volgende dag al kan toepassen. De kern
+keert in elk hoofdstuk in een andere vorm terug: wie iemand het gevoel geeft
+dat hij ertoe doet, krijgt medewerking terug.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Giblin stelt dat succes in werk en het grootste deel van
+persoonlijk geluk niet voortkomt uit vakkennis of intelligentie, maar uit de
+omgang met andere mensen. Wie het ego van de ander respecteert, zijn behoefte
+aan erkenning en waardering, krijgt vanzelf medewerking; wie daaraan
+voorbijgaat, roept weerstand op ook wanneer de zaak zelf juist is. Daarvoor
+geeft hij een vaste reeks omgangsregels: mensen accepteren zoals ze zijn,
+oprecht luisteren, prijzen met naam en toenaam, en kritiek zo leveren dat de
+ander zijn gezicht kan redden. Wie dat betwist, kan wijzen op mensen die
+zonder die regels toch ver komen op puur vakmanschap of op macht.
+
+#### De gang van het boek
+
+**Waarom mensenkennis volgens Giblin alles bepaalt**
+
+Giblin was reizend verkoper voor de Sheaffer Pen Company en werd tweemaal tot
+beste verkoper van het land verkozen. Daaruit trok hij de les dat vakkennis
+zelden de doorslag geeft en dat de meeste mislukkingen in werk niet aan gebrek
+aan kennis liggen, maar aan onhandigheid in het contact met anderen.
+
+Het boekje is daarom geen theorie over persoonlijkheid, maar een reeks
+concrete regels, gericht op een lezer die ze de volgende ochtend al kan
+toepassen.
+
+**Het ego als uitgangspunt**
+
+Het tweede hoofdstuk zet de toon voor de rest van het boek: ieder mens draagt
+een ego dat vraagt om respect, goedkeuring en het gevoel iets te betekenen.
+Wie zich gewaardeerd voelt, wordt volgens Giblin toeschietelijker en
+vrijgeviger; wie zich miskend voelt, sluit zich af of gaat in de verdediging.
+
+Zijn advies is dan ook simpel en herhaald: geef mensen dagelijks reden om
+zichzelf iets waard te vinden, met een handvol oprechte complimenten die niet
+overdreven zijn.
+
+**Mensen het gevoel geven dat ze ertoe doen**
+
+In de hoofdstukken daarna werkt hij dat uit in gedrag: mensen accepteren zoals
+ze zijn, ze daadwerkelijk opmerken in plaats van negeren, niet met ze in
+wedijver gaan, en kleine fouten laten rusten in plaats van ze steeds te
+corrigeren.
+
+Ook het eigen optreden werkt door op de ander. Een rechte houding, een stevige
+handdruk, een duidelijke stem en een oprechte glimlach roepen bij de ander
+hetzelfde gedrag op, omdat mensen volgens Giblin vooral de houding weerkaatsen
+die ze aantreffen. Wie een gesprek met een instemmende toon begint, houdt zo
+ruimte open voor de ander om er zelf ook zo doorheen te bewegen.
+
+**De Triple-A-formule**
+
+Een van de hoofdstukken vat de methode samen in wat Giblin de Triple-A-formule
+noemt: acceptance, approval, appreciation. Iemand accepteren zoals hij is,
+iets aan hem prijzenswaardig vinden en dat laten blijken, en waardering tonen
+voor wat hij doet.
+
+Hij presenteert dit niet als truc voor de korte termijn, maar als vaste
+omgangsvorm, en herhaalt door het hele boek dat de waardering oprecht moet
+zijn: gespeelde vleierij wordt volgens hem sneller doorzien dan mensen denken.
+
+**Praten, luisteren en overtuigen**
+
+De hoofdstukken over communicatie werken dezelfde regel uit voor het gesprek
+zelf. Een gesprek begint met vragen naar de ander in plaats van met een
+verhaal over jezelf; zelfbeklag en sarcasme werken averechts. Luisteren met
+oogcontact, een knik en een vraag ertussendoor is volgens Giblin
+doeltreffender voor vriendschap dan goed praten.
+
+Bij het overtuigen van een ander raadt hij aan de ander eerst zijn zaak
+volledig te laten uitspreken, gelijk te geven waar dat kan, feiten rustig te
+noemen in plaats van te overtuigen met stemverheffing, en de ander een uitweg
+te bieden om van standpunt te veranderen zonder gezichtsverlies.
+
+**Prijzen en corrigeren**
+
+De laatste twee hoofdstukken behandelen de twee kanten van erkenning: lof
+geven en kritiek leveren. Lof werkt volgens Giblin het best als hij iemand bij
+naam noemt, gericht is op een concrete daad in plaats van op het karakter, en
+komt op een moment dat de ander het niet verwacht.
+
+Kritiek hoort onder vier ogen, begint met iets waarderends, richt zich op de
+daad en niet op de persoon, bevat een voorstel voor verbetering, en eindigt
+vriendelijk zodat de relatie overeind blijft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ego | Het gevoel van eigenwaarde dat om erkenning vraagt en bepaalt of iemand meewerkt of zich afsluit. |
+| Triple-A-formule | De drie stappen om iemand aan zich te binden: acceptance, approval, appreciation, accepteren, prijzen en waarderen. |
+| Gezicht redden | De ander de kans geven om van mening of gedrag te veranderen zonder aan waardigheid in te boeten. |
+| Weerkaatste houding | Het idee dat de houding die iemand toont in een gesprek, in de ander wordt teruggekaatst. |
+| Face value | Het beginsel dat mensen elkaar aanvankelijk beoordelen op het eerste optreden, niet op wat ze werkelijk zijn. |
+| Oprechte complimenten | Erkenning die volgens Giblin dagelijks en gemeend gegeven moet worden, in tegenstelling tot vleierij. |
+| Actief luisteren | Aandacht tonen via oogcontact, knikken en doorvragen; door Giblin belangrijker genoemd dan goed spreken. |
+| Kritiek zonder te kwetsen | Het regelblok voor corrigeren: onder vier ogen, met een waarderende inleiding, gericht op de daad, met een voorstel en een vriendelijk slot. |
+
+#### Waar het argument op rust
+
+Giblin onderbouwt zijn regels niet met onderzoek, maar met eigen ervaring als
+verkoper en met anekdotes uit lezingen die hij decennialang gaf. Hij citeert
+geen studies en geen bronnen; de claim dat mensenomgang voor het grootste deel
+het succes in zaken bepaalt, is een cijfer dat al decennia rondgaat in de
+Amerikaanse verkoopliteratuur, ook bij Dale Carnegie, zonder dat een
+oorspronkelijk onderzoek ervoor terug te vinden is.
+
+Wat het boekje wel heeft is consistentie: dezelfde regel, mensen erkennen in
+hun eigenwaarde, komt in elk hoofdstuk in een andere vorm terug. Dat maakt het
+gemakkelijk te onthouden en toe te passen, wat voor een boekje van deze omvang
+het eigenlijke doel lijkt te zijn geweest.
+
+#### Wat er tegen in te brengen valt
+
+Het boekje behandelt mensen vooral als doel: de regels zijn erop gericht om
+medewerking, instemming of een verkoop te krijgen, zelden om de ander zelf
+beter te leren kennen. Dat brengt het dicht bij manipulatie, ook al waarschuwt
+Giblin zelf tegen gespeelde vleierij en benadrukt hij oprechtheid; het
+verschil tussen een oprecht compliment en een compliment met een verkoopdoel
+blijft in de tekst zelf onbesproken.
+
+Het boek generaliseert sterk: adviezen die voor een verkoper in het Amerika
+van de jaren zestig werkten, worden zonder onderscheid naar cultuur,
+machtsverhouding of context toegepast op elk gesprek. En het boekje van
+veertig bladzijden herhaalt zijn kernregel zo vaak dat er weinig nieuwe inhoud
+overblijft na het eerste hoofdstuk; wie Dale Carnegies *How to Win Friends and
+Influence People* al kent, leest hier grotendeels dezelfde adviezen in kortere
+vorm.
+
+#### Wat er concreet mee te doen is
+
+- Geef dagelijks een handvol oprechte complimenten, gericht op een concrete
+daad in plaats van op de persoon in het algemeen.
+- Laat de ander bij een meningsverschil eerst zijn hele verhaal doen voordat
+je reageert.
+- Bewaar kritiek voor een gesprek onder vier ogen en begin met iets
+waarderends.
+- Let op de eigen houding in een gesprek: een rechte rug en een duidelijke
+stem roepen ander gedrag op dan een onzekere houding.
+
+#### Wat je hierna leest
+
+- 24. How to Win Friends and Influence People. Carnegies boek uit 1936
+behandelt dezelfde regels uitvoeriger en met meer voorbeelden; Giblins boekje
+leest als een korte, latere versie ervan.
+- 271. Never Split the Difference. Voss werkt het luisteren en het laten
+uitspreken van de ander uit tot een methode voor onderhandelen onder hogere
+druk dan Giblins verkoopgesprek.
+- 154. What Every BODY Is Saying. Navarro en Karlins behandelen de
+lichaamstaal die bij Giblin terloops voorkomt, houding, handdruk, gezicht,
+veel uitgebreider en met een FBI-achtergrond.
+- 213. Games People Play. Berne beschrijft dezelfde behoefte aan erkenning die
+Giblin ego noemt, maar dan als terugkerend patroon in vaste sociale
+spelletjes.
+
+## 357. De mens en zijn symbolen
+
+C.G. Jung (red.), met M.-L. von Franz, Joseph L. Henderson, Aniela Jaffé en
+Jolande Jacobi, 1964. Oorspronkelijk *Man and His Symbols* (Aldus
+Books/Doubleday, 1964), Jungs laatste project: hij schreef zelf deel 1 en
+droeg de redactie na zijn dood in 1961 over aan Marie-Louise von Franz, met
+John Freeman als coördinerend redacteur. Nederlands als *De mens en zijn
+symbolen*, vertaald door Annie J. Blits en E. Camerling (Lemniscaat, sinds
+1966, huidige druk 391 blz., ISBN 9789060698303). Rubriek: brein en lichaam.
+Tags: `psychologie`, `dromen`, `symboliek`, `archetypen`, `collectief
+onbewuste`, `mythologie`
+
+Jung schreef dit boek op verzoek van John Freeman, de BBC-journalist die hem
+in 1959 interviewde en later coördinerend redacteur van het boek werd. Jung
+stemde kort voor zijn dood in 1961 in en schreef zelf het eerste deel, over de
+taal van dromen en de functie van het onbewuste; de rest droeg hij over aan
+vier naaste medewerkers, van wie Marie-Louise von Franz na zijn dood de
+eindredactie voltooide.
+
+Het boek werkt met een groot aantal illustraties: dromen van patiënten,
+tekeningen, mythologische afbeeldingen en kunstwerken staan naast de tekst.
+Jung onderscheidt een teken, dat rechtstreeks naar iets bekends verwijst, van
+een symbool, de best mogelijke uitdrukking voor iets dat zich niet volledig
+laat kennen. Dromen spreken volgens hem in symbolen omdat het onbewuste geen
+andere taal heeft.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Jungs stelling is dat het moderne, rationele bewustzijn zich
+heeft afgesneden van een laag in de psyche die ouder is dan het individu, het
+collectieve onbewuste, en dat die laag zich alleen laat kennen via symbolen:
+in dromen, in mythen, in kunst en in religieuze voorstellingen. Wie die
+symbolen negeert omdat ze niet aan wetenschappelijke logica voldoen, verliest
+volgens hem het contact met een deel van zichzelf dat een compenserende
+functie vervult en dat, onbegrepen, in eenzijdigheid of psychische klachten
+tot uiting komt. De inzet van het boek is dat begrip van symbolen geen
+esoterische liefhebberij is maar een voorwaarde voor psychische heelheid. Wie
+daar iets tegenover wil zetten, kan wijzen op de vraag of dat collectieve
+onbewuste iets anders is dan een aansprekende metafoor voor wat mensen
+cultureel met elkaar gemeen hebben.
+
+#### De gang van het boek
+
+**Een verzoek van buiten de kliniek**
+
+Jung stemde kort voor zijn dood in 1961 in met een ongewoon verzoek. John
+Freeman, de BBC-journalist die hem in 1959 interviewde en later coördinerend
+redacteur van het boek werd, vroeg hem zijn ideeën voor een breed publiek op
+te schrijven, in gewone taal en met illustraties, in plaats van voor de kleine
+kring van analisten die zijn eerdere werk las. Jung twijfelde en zei
+uiteindelijk ja, naar eigen zeggen mede door een droom die hem liet zien dat
+zijn werk ook buiten de psychiatrie kon worden begrepen.
+
+Hij schreef zelf het openingsdeel, over de taal van dromen, en stierf voordat
+het boek af was. Marie-Louise von Franz, zijn naaste medewerker, nam de
+eindredactie over. Joseph Henderson, Aniela Jaffé en Jolande Jacobi schreven
+ieder een deel dat aansluit op wat Jung had neergezet: mythologie, beeldende
+kunst en een enkele analyse.
+
+**Teken en symbool**
+
+Het onderscheid waarmee het boek opent is dat tussen een teken en een symbool.
+Een teken staat voor iets dat je al kent, zoals een verkeersbord. Een symbool
+is de best mogelijke uitdrukking voor iets dat zich niet volledig laat kennen
+of uitleggen, en juist daarom blijft het meer betekenen dan elke uitleg ervan
+dekt. Een droombeeld is voor Jung altijd symbolisch in die zin: het wijst naar
+iets in de dromer dat nog geen woorden heeft.
+
+Dromen zijn volgens hem geen versluierde boodschappen die eerst ontcijferd
+moeten worden, zoals Freud meende, maar spontane, eerlijke uitingen van het
+onbewuste in zijn eigen taal. Ze proberen iets recht te zetten dat in het
+waakbewustzijn scheef is gaan staan, een functie die Jung compensatie noemt.
+
+**Het collectieve onbewuste en de archetypen**
+
+Onder de persoonlijke laag van het onbewuste, gevuld met vergeten en
+verdrongen ervaringen, veronderstelt Jung een tweede laag die niet uit het
+eigen leven stamt: het collectieve onbewuste. Die laag bevat geen
+herinneringen maar vormen, archetypen genoemd, die zich in elke cultuur in
+gelijkende gedaanten tonen: de moeder, de held, de wijze oude man, de schaduw.
+
+Een archetype is voor Jung geen kant-en-klaar beeld maar een neiging om op een
+bepaalde manier te ervaren en te verbeelden, zoals een rivierbedding geen
+water is maar wel bepaalt waar het water heen stroomt. Wat een cultuur ervan
+maakt, verschilt, het patroon eronder herhaalt zich.
+
+**Mythen als grote dromen**
+
+Henderson werkt dat idee uit in het deel over mythologie. Initiatierites,
+heldenverhalen en scheppingsmythen uit uiteenlopende culturen vertonen volgens
+hem dezelfde onderliggende structuur: een afscheid van de kindertijd, een
+beproeving, een terugkeer met iets gewonnens. Hij leest die overeenkomst niet
+als bewijs van historisch contact tussen die culturen, maar als teken dat de
+menselijke psyche overal met dezelfde patronen werkt.
+
+Waar het individuele droombeeld voor Jung een kleine, persoonlijke uiting van
+een archetype is, is de mythe de grote, collectieve uiting ervan: een verhaal
+dat een hele gemeenschap gebruikt om met dezelfde overgangen om te gaan.
+
+**Individuatie**
+
+Von Franz beschrijft in het langste deel het proces dat Jung individuatie
+noemt: de geleidelijke ontwikkeling waarin iemand de delen van zichzelf die
+hij heeft afgesplitst, weer leert kennen en een plaats geeft. Eerst komt de
+schaduw in beeld, de kant van de persoonlijkheid die niet bij het zelfbeeld
+past en die in dromen vaak als een onaangename figuur van hetzelfde geslacht
+verschijnt.
+
+Daarna volgen de anima bij mannen en de animus bij vrouwen, de innerlijke
+tegenpool van het andere geslacht, en uiteindelijk het Zelf, het ordenende
+midden van de hele persoonlijkheid dat zich vaak toont als een mandala: een
+gecentreerde, symmetrische figuur die in dromen, in tekeningen en in
+religieuze kunst overal terugkeert.
+
+**Beeld en geval**
+
+Jaffé laat in haar deel zien hoe dezelfde symbolen, de cirkel, het vierkant,
+het kruis, door de kunstgeschiedenis heen opduiken, van middeleeuwse rozetten
+tot de moderne, abstracte schilderkunst, waarin ze volgens haar juist
+zichtbaar worden nu de kunst zich van het herkenbare voorwerp heeft
+losgemaakt.
+
+Jacobi sluit af met de dromen en tekeningen van één jongeman tijdens zijn
+analyse, in chronologische volgorde. Aan die reeks laat zij zien hoe de eerder
+besproken begrippen, schaduw, anima, mandala, niet los van elkaar staan maar
+samen een beweging vormen die met de tijd meer ordening krijgt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Archetype | Een aangeboren neiging om ervaringen in bepaalde, overal herkenbare vormen te ordenen, geen kant-en-klaar beeld maar een patroon. |
+| Collectief onbewuste | De laag van de psyche die niet uit het eigen leven stamt en die archetypen als gemeenschappelijk erfgoed van de mensheid bevat. |
+| Symbool | De best mogelijke uitdrukking voor iets dat zich niet volledig laat kennen, tegenover een teken dat voor iets bekends staat. |
+| Compensatie | De functie van dromen om iets recht te zetten dat in het waakbewustzijn eenzijdig of scheef is geworden. |
+| Individuatie | Het levenslange proces waarin iemand afgesplitste delen van zichzelf leert kennen en tot een geheel maakt. |
+| Schaduw | De kant van de persoonlijkheid die niet bij het zelfbeeld past en in dromen vaak als een figuur van hetzelfde geslacht verschijnt. |
+| Anima en animus | De innerlijke tegenpool van het andere geslacht, bij mannen de anima en bij vrouwen de animus genoemd. |
+| Het Zelf | Het ordenende midden van de hele persoonlijkheid, bewust en onbewust samen, dat zich vaak als mandala toont. |
+| Mandala | Een gecentreerde, symmetrische figuur die als beeld van het Zelf in dromen, tekeningen en religieuze kunst terugkeert. |
+
+#### Waar het argument op rust
+
+Het boek rust op decennia klinische ervaring van Jung en zijn medewerkers, op
+de vergelijking van mythologisch en religieus materiaal uit uiteenlopende
+culturen, en op reeksen dromen en tekeningen die tijdens analyses zijn
+verzameld. Jacobi's slotdeel is daarvan de duidelijkste demonstratie: een
+doorlopende reeks beelden van één patiënt, waarin de eerder beschreven
+begrippen terug te zien zijn.
+
+Dat is geen onderzoek in de zin van een vooraf vastgelegde methode, een
+steekproef en een toetsing die ook tot een ander resultaat had kunnen leiden.
+Het is interpretatie van klinisch materiaal door mensen die al wisten waar ze
+naar zochten, gepresenteerd als illustratie van een theorie en niet als toets
+ervan. De vergelijkende mythologie berust op geselecteerde voorbeelden, niet
+op een systematisch overzicht van alle beschikbare mythen, met of zonder het
+patroon.
+
+#### Wat er tegen in te brengen valt
+
+Jungs werk is klinisch en interpretatief van aard, en dat geldt voor dit boek
+nadrukkelijk. Er is geen experiment dat het bestaan van een collectief
+onbewuste aantoont of uitsluit, en er is geen manier aangegeven om een
+verkeerde symboolinterpretatie van een juiste te onderscheiden. Wie een droom
+eenmaal als uitdrukking van de schaduw of de anima leest, kan bijna elk beeld
+in dat kader passend maken, wat de theorie moeilijk weerlegbaar maakt en
+daarmee, in de striktere zin van het woord, geen wetenschappelijke verklaring.
+
+De keuze van mythologisch materiaal is evenmin neutraal. Voorbeelden die het
+patroon van afscheid, beproeving en terugkeer bevestigen, krijgen ruim baan,
+terwijl mythen die niet in dat schema passen nauwelijks aan bod komen. Dat
+zegt meer over de selectie dan over de mythologie als geheel.
+
+Ten slotte zijn anima en animus opgezet vanuit een strikte tweedeling tussen
+mannelijk en vrouwelijk die het boek als vanzelfsprekend behandelt en die uit
+de jaren waarin het geschreven is stamt. Latere jungiaanse auteurs hebben dat
+onderdeel dan ook het meest herzien.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf een recente droom zo letterlijk mogelijk op, zonder er meteen een
+betekenis aan te geven.
+- Ga na welk beeld in de droom bekend en eenduidig is, een teken, en welk
+beeld meer oproept dan één uitleg dekt, een symbool.
+- Leg een terugkerend droombeeld naast een mythe of sprookje dat er
+oppervlakkig op lijkt, en beoordeel of de vergelijking iets verklaart of
+vooral aantrekkelijk klinkt.
+- Bewaar dromen een aantal weken achter elkaar voordat er een patroon in
+gezocht wordt; een enkele droom draagt weinig.
+
+#### Wat je hierna leest
+
+- 340. The Holographic Universe. Talbot bouwt zijn holografische model van de
+werkelijkheid uitdrukkelijk op Jungs archetypen en collectieve onbewuste
+voort.
+- 149. The Power of Now. Tolle werkt met dezelfde aanname dat er een laag
+onder het denken zit die vergeten is, maar dan als praktijk in plaats van als
+theorie.
+- 63. The Demon-Haunted World. Sagan laat zien hoe streng je een claim over
+het onzichtbare kunt toetsen, en biedt zo het scherpste tegenwicht tegen Jungs
+interpretatieve methode.
+
+## 358. Herinneringen, dromen, gedachten
+
+C.G. Jung, opgetekend door Aniela Jaffé, 1962. Oorspronkelijk Duits als
+*Erinnerungen, Träume, Gedanken* (Rascher Verlag, Zürich, 1962), opgetekend en
+uitgegeven door Aniela Jaffé op basis van gesprekken die zij vanaf 1957 met
+Jung voerde; enkele hoofdstukken schreef hij zelf. Engels als *Memories,
+Dreams, Reflections*, vertaald door Richard en Clara Winston (Pantheon Books,
+1963). Nederlands als *Herinneringen, dromen, gedachten*, vertaald door Pety
+de Vries-Ek (Lemniscaat, tiende druk 2018, 398 blz., ISBN 9789060698068).
+Rubriek: roman en memoir.
+Tags: `autobiografie`, `psychologie`, `dromen`, `onbewuste`, `Jung`,
+`spiritualiteit`
+
+Op zijn eenentachtigste begon Jung, na aandringen van zijn medewerkers, aan
+zijn levensverhaal. Hij deed dat niet alleen: vanaf 1957 voerde hij regelmatig
+gesprekken met Aniela Jaffé, die de aantekeningen tot een doorlopende tekst
+verwerkte, terwijl Jung zelf een aantal hoofdstukken eigenhandig schreef en
+tot kort voor zijn dood in 1961 aan het manuscript bleef werken.
+
+Het boek is uitdrukkelijk geen kroniek van uiterlijke gebeurtenissen. Jung
+vertelt weinig over zijn huwelijk, zijn kinderen of zijn beroepsleven, en veel
+over dromen, visioenen en de innerlijke ervaringen die zijn denken hebben
+gevormd, van een jeugdherinnering aan een steen tot de vraag hoe zijn breuk
+met Freud rond 1913 tot een periode van innerlijke desoriëntatie leidde.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Jung stelt zijn levensverhaal voor als het verslag van een
+innerlijk proces en niet van uiterlijke gebeurtenissen: wat er in zijn
+droomleven, zijn visioenen en zijn omgang met het onbewuste gebeurde, was voor
+hem belangrijker dan wat er in de buitenwereld met hem gebeurde, en dat is
+precies wat dit boek anders maakt dan de meeste autobiografieën. Hij
+beschrijft zichzelf als iemand wiens hele werk voortkwam uit persoonlijke
+ervaringen met het onbewuste die hij vervolgens theoretisch heeft proberen te
+verantwoorden, in plaats van andersom. Wie dat verslag leest als betrouwbare
+geschiedschrijving in plaats van als het zelfbeeld van een oude man aan het
+einde van zijn leven, loopt het risico feit en constructie door elkaar te
+halen.
+
+#### De gang van het verhaal
+
+**Een boek uit gesprekken**
+
+Het initiatief kwam niet van Jung zelf. Zijn medewerkers, onder wie Aniela
+Jaffé, drongen er in 1956 op aan dat hij zijn levensverhaal zou vastleggen.
+Vanaf de lente van 1957, Jung was toen eenentachtig, voerde hij op gezette
+tijden gesprekken met Jaffé, die daarvan de tekst opstelde. Een aantal
+hoofdstukken, vooral de vroegste herinneringen en de latere reisverslagen,
+schreef hij met eigen hand.
+
+Jung bleef tot kort voor zijn dood in juni 1961 aan het manuscript werken.
+Jaffé heeft het na zijn dood afgerond en van een nawoord voorzien; in latere
+Nederlandse edities is ook de tekst *Septem Sermones ad Mortuos*, een
+visionair geschrift uit 1916, als bijlage opgenomen.
+
+**Kindertijd en eenzaamheid**
+
+De eerste hoofdstukken gaan over zijn jeugd in een dominee-gezin in Bazel en
+omgeving, over een vroege droom die hem als kind al confronteerde met beelden
+die hij toen niet kon plaatsen, en over het gevoel dat hij twee
+persoonlijkheden in zich had: een schooljongen van zijn tijd en een oudere,
+negentiende-eeuwse figuur die hij later persoonlijkheid nummer twee noemt.
+
+Die tweedeling, en het isolement dat ermee gepaard ging, keert door het hele
+boek terug als sleutel tot zijn latere werk. Jung schrijft dat hij zich als
+kind al bewust was van een innerlijke werkelijkheid die zich niet liet
+verklaren door wat zijn ouders of zijn kerk hem leerden.
+
+**Studie, Freud en de breuk**
+
+Na zijn studie geneeskunde en zijn werk als psychiater aan de
+Burghölzli-kliniek in Zürich, onder Eugen Bleuler, beschrijft Jung zijn
+jarenlange samenwerking en vriendschap met Sigmund Freud, die hij als een van
+de belangrijkste ontmoetingen van zijn leven behandelt.
+
+De breuk rond 1912-1913, die in de vakliteratuur vaak wordt herleid tot
+theoretische verschillen over de rol van seksualiteit, beschrijft Jung zelf
+vooral als een persoonlijk verlies waarna hij, naar eigen zeggen, de grond
+onder zijn voeten kwijtraakte en een aantal jaren in onzekerheid over zijn
+eigen koers doorbracht.
+
+**De confrontatie met het onbewuste**
+
+Het middendeel van het boek beschrijft de jaren direct na de breuk met Freud
+als een periode waarin Jung zichzelf willens en wetens blootstelde aan beelden
+en fantasieën uit zijn eigen onbewuste, een methode die hij later actieve
+imaginatie noemde. Hij tekende, bouwde met stenen, en schreef de visioenen op
+die later de basis vormden voor het ongepubliceerde *Rode Boek*.
+
+Jung noemt deze jaren zelf de belangrijkste van zijn leven: alles wat hij
+daarna theoretisch heeft uitgewerkt, archetype, collectief onbewuste,
+individuatie, was volgens hem eerst persoonlijke ervaring en pas later begrip.
+
+**Werk, reizen en late jaren**
+
+Latere hoofdstukken beschrijven zijn kliniekwerk, zijn reizen naar
+Noord-Afrika, naar Pueblo-indianen in New Mexico en naar Oost-Afrika, telkens
+met de vraag hoe mensen buiten de westerse, rationele traditie met het
+onbewuste omgaan. Jung gebruikt die reizen niet als toeristisch verslag maar
+als vergelijkingsmateriaal voor zijn eigen theorie.
+
+Over de jaren dertig en veertig, waaronder zijn omstreden functie bij een
+Duitse psychiatrische vereniging tijdens het nationaalsocialisme, is het boek
+kort en terughoudend.
+
+**Dood en de laatste vraag**
+
+De slothoofdstukken gaan over ouderdom, over dromen die hem in die jaren
+bezighielden, en over zijn opvattingen over een leven na de dood, die hij
+uitdrukkelijk niet als geloof maar als mythe presenteert: een beeld dat de
+psyche nodig lijkt te hebben, zonder dat hij beweert te weten of het ook waar
+is.
+
+Het boek eindigt niet met een afgeronde levensbalans maar met de vaststelling
+dat er meer vragen open zijn gebleven dan beantwoord, wat aansluit bij de toon
+van het hele boek: een geleefd leven beschreven als een nog niet afgesloten
+proces.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Persoonlijkheid nummer twee | De naam die Jung als kind gaf aan een oudere, in zichzelf besloten kant van zijn karakter, tegenover de schooljongen van alledag, persoonlijkheid nummer een. |
+| Actieve imaginatie | De methode waarbij hij zich bewust openstelde voor innerlijke beelden en fantasieën en ze liet doorlopen in plaats van ze te sturen. |
+| Het Rode Boek | Het ongepubliceerde geschrift waarin Jung de visioenen uit zijn confrontatie met het onbewuste optekende en dat pas na zijn dood aan het licht kwam. |
+| Confrontatie met het onbewuste | Jungs eigen naam voor de jaren na de breuk met Freud, waarin hij zichzelf blootstelde aan zijn eigen fantasiemateriaal. |
+| Individuatie | Het proces van innerlijke rijping dat hij in dit boek als de rode draad van zijn eigen leven beschrijft. |
+| Synchroniciteit | Een betekenisvol samenvallen van een innerlijke toestand en een uiterlijke gebeurtenis, zonder dat het een de oorzaak van het ander is. |
+| Septem Sermones ad Mortuos | Een kort visionair geschrift uit 1916 dat in latere edities als bijlage bij dit boek is opgenomen. |
+
+#### Waar het argument op rust
+
+Het boek berust op Jungs eigen geheugen op hoge leeftijd, aangevuld en
+geordend door Aniela Jaffé, die zijn woorden optekende en tot een lopende
+tekst bewerkte. Jaffé heeft daarbij ook eigen onderzoek gedaan naar data en
+achtergronden, maar de gebeurtenissen en vooral de innerlijke ervaringen zijn
+niet extern te verifiëren; het gaat om Jungs eigen weergave van dromen en
+visioenen die hij decennia eerder had.
+
+Voor de latere hoofdstukken kon Jaffé putten uit Jungs dagboeken en uit het
+materiaal dat later als *Het Rode Boek* is gepubliceerd, wat de innerlijke
+gebeurtenissen van de jaren na de breuk met Freud steviger onderbouwt dan
+bijvoorbeeld de jeugdherinneringen, die op een geheugen van zeventig jaar oud
+berusten.
+
+#### Wat er tegen in te brengen valt
+
+Jungs werk is, ook in dit boek, klinisch en interpretatief van aard en niet
+experimenteel onderbouwd: het gaat om zijn eigen herinnering aan innerlijke
+ervaringen, niet om gegevens die door een ander zijn na te gaan. Een boek dat
+op tachtigjarige leeftijd wordt gedicteerd, is bovendien onderhevig aan de
+selectie die elk geheugen op die leeftijd al heeft aangebracht: wat niet meer
+in het zelfbeeld past, komt eenvoudig niet meer ter sprake.
+
+Dat is nadrukkelijk het geval bij zijn functie binnen een Duitse
+psychotherapeutische vereniging tijdens de jaren dertig en bij een aantal
+uitspraken over het onderscheid tussen joodse en Germaanse psychologie uit
+diezelfde periode, waarover historici sindsdien uitgebreid hebben
+gepubliceerd. Het boek gaat aan die episode grotendeels voorbij, wat de lezer
+met een onvolledig beeld van die jaren achterlaat.
+
+Ook de verhouding tot Freud wordt eenzijdig verteld, vanuit het perspectief
+van wie de breuk overleefde en er een eigen school aan overhield. Freuds eigen
+lezing van diezelfde jaren, zoals die uit zijn correspondentie blijkt, wijkt
+op punten af van wat Jung zich decennia later herinnert.
+
+#### Wat je hierna leest
+
+- 325. On the Move: A Life. Sacks schrijft eveneens als arts over zijn eigen
+innerlijke leven naast zijn vak, met een even grote nadruk op wat hem
+persoonlijk heeft gevormd.
+- 242. Autobiography of a Yogi. Yogananda beschrijft zijn leven net als Jung
+vooral aan de hand van visioenen en innerlijke ervaringen in plaats van
+uiterlijke gebeurtenissen.
+- 48. Man's Search for Meaning. Frankl schrijft over dezelfde vraag naar wat
+een leven van binnenuit draagt, maar dan onder omstandigheden die niets aan
+zelfgekozen introspectie overlieten.
+
+## 359. Het Rode Boek
+
+C.G. Jung, geschreven 1914-1930. Manuscript getiteld *Liber Novus*, met de
+hand geschreven en geïllustreerd door Jung tussen 1914 en ongeveer 1930,
+decennialang bewaard in een Zwitserse bankkluis en pas na toestemming van de
+familie in facsimile en Engelse vertaling uitgegeven als *The Red Book: Liber
+Novus*, onder redactie van Sonu Shamdasani, vertaald door Mark Kyburz, John
+Peck en Shamdasani (W.W. Norton, 2009; goedkopere *Reader's Edition* zonder
+facsimile in 2012). Nederlands als *Het Rode Boek*, vertaald door Hans Huisman
+op basis van de *Reader's Edition* met raadpleging van het Duitse origineel,
+met een nawoord van Tjeu van den Berk (Van Warven, 2019). Rubriek: brein en
+lichaam.
+Tags: `dromen`, `onbewuste`, `visioenen`, `individuatie`, `Jung`, `manuscript`
+
+Na zijn breuk met Freud in 1913 begon Jung aan een reeks fantasieën en
+visioenen die hij bewust opriep en vervolgens optekende, eerst in zwarte
+schriften en daarna, in een sierlijk kalligrafisch handschrift met eigen
+schilderingen, in een groot, in rood leer gebonden foliant. Dat handschrift
+bleef bij zijn leven ongepubliceerd en is pas in 2009, bijna vijftig jaar na
+zijn dood, in facsimile uitgegeven.
+
+Het boek bestaat uit dialogen met innerlijke figuren, onder wie Philemon, een
+oude man met vleugels die Jung als een soort innerlijke leraar beschrijft, en
+uit dromerige, mythische verhalen zonder de uitleg die zijn latere,
+theoretische werk kenmerkt. Jung zelf noemde het de bron waaruit al zijn
+latere werk is voortgekomen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het Rode Boek is geen verklaring van Jungs theorie maar het
+rauwe materiaal waaruit die theorie later is gedestilleerd: een verslag, in
+eigen hand geschreven en geschilderd, van een aantal jaren waarin Jung
+zichzelf bewust blootstelde aan visioenen en innerlijke figuren en weigerde ze
+meteen te duiden. De inzet van het boek is dat rechtstreekse omgang met het
+onbewuste, zonder de bescherming van theorie, nodig is om er iets van te
+begrijpen, en dat wie dat vermijdt hooguit over het onbewuste praat in plaats
+van het te kennen. Wie daar iets tegenover wil zetten, kan zich afvragen of
+een tekst die zelf weigert zich te verklaren, wel te onderscheiden is van een
+gecontroleerde psychose, een vraag die Jung zich in het boek ook zelf stelt.
+
+#### De gang van het boek
+
+**Het begin: een leegte na Freud**
+
+Na de breuk met Freud in 1913 verloor Jung, naar eigen zeggen in zijn latere
+autobiografie, houvast in zijn eigen werk. Hij besloot in plaats van ertegen
+te vechten zijn fantasieën bewust te laten komen en op te schrijven, een
+methode die hij later actieve imaginatie noemde. De eerste aantekeningen
+maakte hij in wat bekendstaat als de *Zwarte Boeken*, werkschriften waarin hij
+in korte tijd optekende wat er opkwam.
+
+Vanaf ongeveer 1915 werkte hij die aantekeningen uit tot een verzorgd
+manuscript: kalligrafisch handschrift in een gotische letter, met eigen
+schilderingen, gebonden in rood leer. Dat handschrift is wat bekendstaat als
+*Het Rode Boek*.
+
+**Philemon en de andere figuren**
+
+De tekst bestaat grotendeels uit dialogen met innerlijke gestalten die zich
+aan Jung voordeden alsof ze een eigen wil hadden. De belangrijkste is
+Philemon, een oude man met vleugels van een ijsvogel, die Jung beschrijft als
+een figuur die hem dingen vertelde die hij zelf niet had bedacht, en die hij
+daarom als een soort innerlijke leraar behandelde.
+
+Andere figuren, onder wie een blinde profeet genaamd Elia en een vrouw genaamd
+Salome, verschijnen in scènes die op mythologische en bijbelse verhalen lijken
+zonder er één op één mee samen te vallen. Jung schrijft de dialogen op zoals
+ze zich aan hem voordeden, met weinig commentaar erbij.
+
+**Weigering om te verklaren**
+
+Wat het boek onderscheidt van Jungs latere, theoretische geschriften is dat
+het bewust geen uitleg geeft. Waar hij in *Man and His Symbols* en elders zijn
+ervaringen achteraf in begrippen als archetype en individuatie vangt, laat hij
+ze hier in hun eigen, beeldende en soms onsamenhangende vorm staan.
+
+Jung was zich bewust van het risico dat dit materiaal met een psychose te
+verwarren was, en schrijft daar op een aantal plaatsen zelf over: het verschil
+tussen wie de beelden actief opzoekt en er weer uit kan stappen, en wie erdoor
+wordt overspoeld.
+
+**Waarom het decennia ongepubliceerd bleef**
+
+Jung heeft het manuscript nooit afgemaakt in de vorm die hij aanvankelijk voor
+ogen had en het bij zijn leven niet gepubliceerd. Na zijn dood in 1961 bleef
+het in een bankkluis van de familie, deels uit voorzichtigheid: de erfgenamen
+vreesden dat de tekst zijn reputatie als arts en wetenschapper zou schaden als
+die los van context werd gelezen.
+
+Pas na jarenlange onderhandelingen kreeg historicus Sonu Shamdasani
+toestemming voor een wetenschappelijke uitgave, die in 2009 verscheen als een
+facsimile met Engelse vertaling en een uitgebreid inleidend essay over de
+ontstaansgeschiedenis.
+
+**Verhouding tot Jungs latere werk**
+
+Shamdasani en latere onderzoekers hebben laten zien hoe direct Jungs latere
+begrippen uit dit materiaal voortkomen. Passages over de anima, over de
+schaduw en over wat Jung later het Zelf noemt, zijn in *Het Rode Boek* al als
+beeld aanwezig, jaren voordat ze in zijn wetenschappelijke publicaties als
+begrip verschijnen.
+
+Dat maakt het boek voor lezers van zijn latere werk een soort grondlaag: niet
+de theorie, maar het materiaal waaruit die theorie is gedestilleerd, met alle
+ruwheid die bij een dergelijk oorspronkelijk document hoort.
+
+**De Nederlandse uitgave**
+
+De vertaling van Hans Huisman volgt de Engelse *Reader's Edition* uit 2012,
+die de tekst zonder de volledige facsimile van Jungs schilderingen aanbiedt,
+en raadpleegt daarnaast het Duitse origineel waar de Engelse vertaling naar
+zijn oordeel afweek. Een nawoord van Tjeu van den Berk plaatst de tekst in de
+context van Jungs verdere werk.
+
+**Ontvangst**
+
+Na de publicatie in 2009 werd een deel van het originele manuscript enige tijd
+tentoongesteld, onder meer in het Rubin Museum of Art in New York, waar
+bezoekers voor het eerst de fysieke bladzijden met Jungs schilderingen te zien
+kregen. De uitgave veranderde het beeld van Jung binnen en buiten de
+jungiaanse gemeenschap: waar zijn werk eerder vooral via de latere,
+uitgewerkte theorie bekend was, kwam nu het beeldmateriaal beschikbaar waarop
+die theorie teruggaat.
+
+De facsimile-editie uit 2009 was met een prijs van enkele honderden dollars en
+een beperkte oplage aanvankelijk vooral toegankelijk voor gespecialiseerde
+bibliotheken en vermogende liefhebbers. Pas de goedkopere *Reader's Edition*
+uit 2012, waarop ook de Nederlandse vertaling is gebaseerd, maakte de tekst
+zonder de schilderingen breder beschikbaar.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Liber Novus | De Latijnse titel die Jung zelf aan het manuscript gaf, letterlijk nieuw boek. |
+| Zwarte Boeken | De werkschriften waarin Jung tussen 1913 en 1932 zijn eerste, ongepolijste aantekeningen van visioenen en fantasieën maakte. |
+| Actieve imaginatie | De methode waarbij Jung zich bewust openstelde voor innerlijke beelden en ze liet doorlopen zonder ze meteen te sturen of te duiden. |
+| Philemon | Een gevleugelde, oude gestalte die zich aan Jung voordeed als een innerlijke leraar met een eigen, van Jung onafhankelijke stem. |
+| Confrontatie met het onbewuste | Jungs eigen benaming voor de jaren waarin hij dit materiaal opzocht en optekende, later ook de titel van een hoofdstuk in zijn autobiografie. |
+| Het Zelf | Het ordenende midden van de persoonlijkheid dat in Het Rode Boek al in beeld verschijnt, jaren voordat Jung het als begrip uitwerkte. |
+| Facsimile-editie | De uitgave uit 2009 die het originele handschrift met schilderingen in fotografische reproductie weergeeft, naast de vertaalde tekst. |
+| Illuminatie | De met de hand geschilderde, aan middeleeuwse manuscripten ontleende beeldtaal waarin Jung de tekst van Het Rode Boek uitwerkte. |
+
+#### Waar het argument op rust
+
+Het boek is zelf het bewijsmateriaal en niet de weergave van bewijs: het is
+het eigenhandig geschreven en geschilderde document waarop Jung zijn latere
+theorie baseerde. De echtheid en datering van het manuscript zijn door
+Shamdasani uitvoerig gereconstrueerd aan de hand van Jungs correspondentie, de
+Zwarte Boeken en getuigenissen van tijdgenoten, en op dat punt is de
+wetenschappelijke onderbouwing van de uitgave zelf stevig.
+
+Voor de inhoud van de visioenen zelf bestaat geen andere toetsing dan Jungs
+eigen, gelijktijdige aantekeningen. Er is geen manier om na te gaan of de
+dialogen met Philemon of Elia gebeurtenissen weergeven die zich exact zo
+hebben voorgedaan in Jungs binnenwereld, en dat hoeft ook niet: het boek
+presenteert zichzelf niet als verslag van feiten maar als weergave van
+innerlijke ervaring. Dat de kalligrafie en de schilderingen over een reeks van
+jaren zijn aangebracht, laat wel zien dat het geen haastig neergeschreven
+materiaal is maar werk waarop Jung lang en zorgvuldig heeft teruggekomen.
+
+#### Wat er tegen in te brengen valt
+
+Jungs werk is klinisch en interpretatief van aard, en *Het Rode Boek* is
+daarvan de meest onverdunde vorm: er is geen extern criterium om vast te
+stellen of de gestalten die Jung tekent iets over een universele psyche zeggen
+of vooral iets over zijn eigen, zeer bijzondere geestesgesteldheid in die
+jaren. Jung stelde zichzelf de vraag of hij een psychose doormaakte en
+beantwoordde die zelf ontkennend, wat als eigen getuigenis moeilijk
+onafhankelijk te toetsen is.
+
+De keuze om het manuscript decennialang niet uit te geven, zegt ook iets. De
+familie en latere bewaarders vreesden reputatieschade, wat betekent dat de
+tekst nooit is blootgesteld aan het soort collegiale kritiek waarmee
+wetenschappelijk werk normaal gesproken tot stand komt. Toen de uitgave er
+kwam, gebeurde dat onder redactie van onderzoekers die al overtuigd waren van
+het belang van het document, wat de presentatie kleurt.
+
+Voor lezers zonder voorkennis van Jungs latere begrippenkader is de tekst
+bovendien nauwelijks op zichzelf te lezen: zonder Shamdasani's uitgebreide
+inleiding en voetnoten, en zonder kennis van *Herinneringen, dromen,
+gedachten*, blijven de meeste scènes ondoorzichtig.
+
+#### Wat er concreet mee te doen is
+
+- Lees eerst *Herinneringen, dromen, gedachten* of een inleiding over de
+ontstaansgeschiedenis, zodat de losse scènes een kader krijgen.
+- Behandel de dialogen als origineel materiaal en niet als uitleg; zoek de
+duiding pas achteraf, in Jungs latere werk.
+- Vergelijk een scène met Philemon met de latere beschrijving van de anima of
+het Zelf in Jungs eigen studies, om te zien hoe een beeld tot begrip wordt.
+
+#### Wat je hierna leest
+
+- 340. The Holographic Universe. Talbot citeert Jungs visioenen en archetypen
+als vroeg voorbeeld van wat hij later een holografische opvatting van de
+werkelijkheid noemt.
+- 242. Autobiography of a Yogi. Yogananda beschrijft net als Jung hier eigen
+visioenen zonder ze meteen in een theoretisch kader te vangen.
+- 63. The Demon-Haunted World. Sagan biedt het scherpste tegengeluid: een
+pleidooi om buitengewone ervaringen juist wel aan toetsing te onderwerpen.
+
+## 360. Archetypen
+
+C.G. Jung. Oorspronkelijk een reeks essays over archetypen en het collectieve
+onbewuste, geschreven en herzien tussen 1934 en 1955, gebundeld als *The
+Archetypes and the Collective Unconscious* (Collected Works deel 9-I,
+Bollingen Series XX), vertaald door R.F.C. Hull en uitgegeven door Princeton
+University Press (1959, herziene 2e druk 1968). Nederlands als *Archetypen*,
+vertaald door Pety de Vries-Ek (Lemniscaat, 2003, ISBN 9789056373542); eerder
+al opgenomen als *Archetype en onbewuste* in het Verzameld werk (Lemniscaat,
+1995). Rubriek: brein en lichaam.
+Tags: `psychoanalyse`, `archetype`, `collectief onbewuste`, `mythologie`,
+`dromen`, `individuatie`, `symboliek`
+
+Een bundel essays waarin Jung uitwerkt wat hij het collectieve onbewuste
+noemt: een laag van de psyche die niet uit het persoonlijke leven stamt maar
+bij alle mensen dezelfde structuur heeft. Die laag is opgebouwd uit
+archetypen, aangeboren vormen die zich telkens vullen met beelden uit de eigen
+cultuur zodra iemand droomt, een mythe naspeelt of een sprookje leest.
+
+Aan de hand van klinisch materiaal en vergelijkende mythologie werkt hij
+archetypen als de schaduw, de anima, de moeder, het kind, de trickster en de
+mandala uit, en plaatst hij ze in het proces dat hij individuatie noemt: de
+langzame weg waarop een mens onbewuste inhoud leert herkennen en in zijn
+persoonlijkheid opneemt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Jung stelt dat de psyche niet alleen een persoonlijk
+onbewuste bevat, gevuld met verdrongen ervaringen van het eigen leven, maar
+ook een dieper, collectief onbewuste dat alle mensen delen en dat is opgebouwd
+uit archetypen: aangeboren vormen die zich telkens vullen met nieuwe inhoud
+zodra een mens droomt, een mythe vertelt of een sprookje naspeelt. Een
+archetype is voor hem geen voorstelling maar een lege matrijs, vergelijkbaar
+met het bouwplan van een kristal, die pas zichtbaar wordt in het beeld dat de
+individuele verbeelding eromheen legt. De moeder, het kind, de schaduw en de
+held keren daarom in elke cultuur terug in een andere vorm maar met een
+herkenbare structuur, en die herhaling is voor Jung de aanwijzing dat er onder
+de persoonlijke geschiedenis een gedeelde laag ligt.
+
+#### De gang van het boek
+
+**Het onbewuste voorbij Freud**
+
+Voor Freud was het onbewuste vooral een opslagplaats van verdrongen
+persoonlijke ervaringen: wensen, herinneringen en driften die het bewustzijn
+niet kon verdragen en had weggeduwd. Jung nam dat persoonlijke onbewuste over,
+maar voegde er een tweede, dieper niveau aan toe dat niet uit het eigen leven
+stamt en dat hij het collectieve onbewuste noemde. Die laag is bij ieder mens
+identiek van opbouw, ook al is de inhoud die eruit opkomt telkens anders
+gekleurd door de cultuur en de tijd waarin iemand leeft.
+
+Zijn eerste aanwijzing kwam uit de kliniek. Jung beschrijft een patiënt in het
+Burghölzli-ziekenhuis die tijdens een psychose een visioen had van een buis
+die aan de zon hing en waarvan de beweging de wind veroorzaakte. Jaren later
+publiceerde de classicus Albrecht Dieterich een Griekse Mithras-liturgie met
+een vrijwel identiek beeld, een tekst die de patiënt onmogelijk kon hebben
+gekend. Voor Jung was dat geen bewijs in de strikte zin, maar wel de
+aanleiding om te veronderstellen dat sommige beelden niet uit de persoonlijke
+geschiedenis komen maar uit een laag die alle mensen delen.
+
+**Het archetype als vorm zonder inhoud**
+
+Jung onderscheidt nadrukkelijk het archetype op zich van het archetypische
+beeld. Het archetype zelf is niet waarneembaar en niet voorstelbaar; het is
+een lege vorm, te vergelijken met het kristalrooster dat pas zichtbaar wordt
+zodra er een concreet kristal in groeit. Wat een mens ziet in dromen, kunst of
+mythen is altijd al het gevormde beeld, gekleurd door zijn eigen tijd en
+cultuur, nooit het archetype zelf.
+
+Die onderscheiding beschermt het begrip tegen de meest simpele lezing, dat er
+ergens een voorraad kant-en-klare beelden in het brein zou zitten. Jung
+vergelijkt het archetype liever met een instinct: zoals een vogel zonder
+onderricht een nest bouwt in een herkenbaar patroon, produceert de menselijke
+psyche zonder onderricht bepaalde typen ervaringen, zoals de ontmoeting met
+een dreigende figuur of een wijze oude gestalte, in een herkenbare vorm.
+
+**Anima en schaduw**
+
+Twee archetypen werkt hij uitvoerig uit. De schaduw bevat de eigenschappen die
+iemand niet bij zichzelf wil erkennen en die hij daardoor bij anderen ziet en
+veroordeelt: wie een sterke afkeer voelt van een trek bij een ander, loopt
+volgens Jung een goede kans die trek zelf onbewust in zich te dragen. De anima
+is bij de man het onbewuste beeld van het vrouwelijke, gevormd door de eigen
+moeder en door elke latere vrouw die hij ontmoet, en zij verschijnt in dromen
+als een figuur die hem tegelijk aantrekt en verwart. Bij de vrouw beschrijft
+hij de spiegelfiguur, de animus, minder uitgebreid dan de anima.
+
+Beide archetypen werken volgens hetzelfde mechanisme van projectie: onbewuste
+inhoud wordt op een ander persoon gelegd, die daardoor groter of
+angstaanjagender lijkt dan hij is. Het herkennen van een projectie is voor
+Jung een van de eerste stappen in het proces dat hij individuatie noemt.
+
+**Het moeder- en kindarchetype**
+
+In het essay over het moederarchetype zet Jung een lange reeks beelden naast
+elkaar: de eigen moeder, maar ook de aarde, de kerk, de stad, de put en de
+heks, telkens als drager van hetzelfde archetype in een positieve gedaante
+(vruchtbaarheid, bescherming, groei) of een negatieve (verslinding,
+vergiftiging, de heks die opsluit). Geen van die beelden is het archetype
+zelf; ze zijn de vormen waarin het zich in verschillende culturen laat zien.
+
+Het kindarchetype werkt hij uit als het beeld van het goddelijke kind dat in
+mythen overal terugkeert, van Hermes tot de jonge held die in het geheim wordt
+grootgebracht. Voor Jung staat die figuur niet voor een letterlijk kind maar
+voor de toekomstige mogelijkheid in de psyche, het deel dat nog moet groeien,
+vaak juist zichtbaar op momenten waarop het bewustzijn zelf vastloopt.
+
+**De trickster en de Kore**
+
+Voor het trickster-essay leunt Jung op het werk van de antropoloog Paul Radin
+over de bedriegersfiguur in de mythologie van de Winnebago, aangevuld met een
+bijdrage van de classicus Karl Kerényi. De trickster is de figuur die regels
+breekt, zichzelf voor de gek houdt en tegenstellingen door elkaar haalt, en
+Jung leest hem als een archaïsche voorloper van de latere held: nog niet
+gevormd, nog grotendeels dier, maar al met de kiem van zelfbewustzijn.
+
+De Kore, de figuur van Persephone naast haar moeder Demeter, staat model voor
+de vrouwelijke tegenhanger: het meisje dat nog niet volgroeid is en de belofte
+van iets nieuws in zich draagt, tegenover de oude wijze vrouw die de andere
+pool van hetzelfde archetype vormt.
+
+**Sprookjes en mandala's**
+
+Voor het essay over de verschijning van archetypen in sprookjes gebruikt Jung
+Europese volksverhalen om te laten zien hoe eenzelfde motief, de geest die uit
+een fles ontsnapt, de dankbare dieren, de drie beproevingen, in telkens andere
+vorm dezelfde structuur laat zien.
+
+In het laatste deel van de bundel bespreekt hij de mandala, de cirkelvormige
+figuur met een vierledige symmetrie die spontaan opduikt in dromen en in de
+tekeningen van patiënten, vaak juist in periodes van innerlijke chaos. Hij
+legt die tekeningen naast Tibetaans-boeddhistische mandala's en
+Navajo-zandschilderingen, niet om een historisch verband te beweren maar om te
+laten zien dat de psyche kennelijk uit zichzelf naar dezelfde ordenende vorm
+grijpt.
+
+**Individuatie als richting**
+
+Individuatie is het proces waarin een mens de onbewuste inhoud die hij eerst
+op anderen projecteert, geleidelijk als eigen deel erkent en in zijn bewuste
+persoonlijkheid opneemt. Het doel daarvan noemt Jung het zelf: niet het ego,
+dat alleen het centrum van het bewustzijn is, maar de omvattende eenheid van
+bewuste en onbewuste psyche waar het ego deel van uitmaakt.
+
+Hij benadrukt dat dit geen genezing is die op een dag voltooid raakt, maar een
+levenslange beweging die zelden een eindpunt bereikt. De mandala is daarvan
+het symbool: een figuur van orde die telkens opnieuw ontstaat, zonder dat de
+cirkel ooit definitief gesloten wordt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Archetype | De aangeboren, zelf onzichtbare vorm die pas zichtbaar wordt in het archetypische beeld waarmee een cultuur haar invult. |
+| Collectief onbewuste | De laag van de psyche die niet uit het persoonlijke leven stamt en bij alle mensen dezelfde structuur heeft. |
+| Archetypisch beeld | De concrete, door tijd en cultuur gekleurde vorm waarin een archetype zich in droom, mythe of kunst laat zien. |
+| Schaduw | De eigenschappen die iemand niet bij zichzelf erkent en daardoor bij anderen ziet en afwijst. |
+| Anima/animus | Het onbewuste beeld van het andere geslacht in de eigen psyche, gevormd door vroege en latere ervaringen. |
+| Projectie | Het onbewust toeschrijven van eigen, nog niet erkende inhoud aan een ander persoon of figuur. |
+| Individuatie | Het levenslange proces waarin onbewuste inhoud wordt herkend en in de bewuste persoonlijkheid opgenomen. |
+| Het zelf | De omvattende eenheid van bewuste en onbewuste psyche, en het doel waar individuatie naartoe werkt. |
+| Mandala | De cirkelvormige, vierledig geordende figuur die spontaan als symbool van psychische heelheid opduikt. |
+
+#### Waar het argument op rust
+
+Jungs onderbouwing is klinisch en vergelijkend, niet experimenteel. Hij
+verzamelt dromen en tekeningen van patiënten en legt die naast mythen,
+sprookjes en religieuze beelden uit uiteenlopende culturen, een methode die
+hij amplificatie noemt: niet het ene beeld verklaren met een vaste sleutel,
+maar het omringen met verwante beelden totdat de betekenis zich aftekent.
+
+Voor de these dat sommige beelden niet uit de persoonlijke geschiedenis komen,
+steunt hij vooral op gevallen zoals de patiënt met het zonnebuis-visioen,
+waarin iemand een beeld produceerde dat hij niet uit boeken of gesprekken kon
+kennen en dat later bleek samen te vallen met een antieke tekst. Dat zijn stuk
+voor stuk overtuigende anekdotes voor wie ze leest zoals Jung ze presenteert,
+en geen gecontroleerde reeks waarnemingen die is getoetst tegen alternatieve
+verklaringen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het archetype-begrip zich moeilijk laat
+weerleggen. Elk motief dat in twee culturen terugkeert, kan als bevestiging
+worden gelezen, en elk motief dat niet terugkeert, kan worden verklaard
+doordat het archetype zich anders heeft gevuld. Een verklaring die vrijwel
+elke uitkomst kan absorberen, is wetenschappelijk moeilijk te toetsen, en Jung
+geeft zelf geen criterium waarmee zijn these zou kunnen sneuvelen.
+
+Zijn vergelijkende methode kent hetzelfde probleem als veel negentiende- en
+vroeg twintigste-eeuwse mythevergelijking: beelden uit sterk verschillende
+culturen en tijden worden naast elkaar gelegd zonder dat cultureel contact,
+toeval of de selectie van de onderzoeker zelf wordt uitgesloten. Latere
+godsdiensthistorici hebben Jungs gebruik van mythologisch materiaal om die
+reden losgemaakt bevonden van de historische context waarin die mythen
+functioneerden.
+
+Ook het mechanisme van overerving blijft onbepaald. Jung stelt uitdrukkelijk
+niet dat er kant-en-klare voorstellingen worden doorgegeven, alleen vormen,
+maar hoe een vorm zonder inhoud genetisch zou worden doorgegeven, werkt hij
+nergens biologisch uit. De aanname blijft daardoor filosofisch van aard, ook
+waar hij haar als klinische waarneming presenteert.
+
+#### Wat er concreet mee te doen is
+
+- Noteer een terugkerend droombeeld en zoek er eerst een vergelijkbaar motief
+uit een sprookje of mythe bij, zonder meteen een duiding vast te leggen.
+- Ga bij een sterke afkeer van iemand na of die eigenschap ook, in mindere
+mate, bij jezelf aanwezig is.
+- Houd het onderscheid tussen archetype en archetypisch beeld vast voordat je
+een symbool één vaste betekenis toekent.
+- Lees een mandala-achtige tekening of droom als signaal van de behoefte aan
+orde, niet als voorspelling of boodschap.
+
+#### Wat je hierna leest
+
+- 143. Maps of Meaning. Peterson bouwt zijn eigen leer van mythen en betekenis
+rechtstreeks op Jungs archetypen, met minder terughoudendheid over wat daaruit
+te bewijzen valt.
+- 213. Games People Play. Berne werkt met een ander, kleiner stel terugkerende
+patronen in gedrag, vanuit dezelfde psychoanalytische traditie maar met een
+klinisch overzichtelijker model.
+- 63. The Demon-Haunted World. Sagan biedt vanuit de andere hoek de vraag die
+dit boek oproept: wanneer is een overtuigende parallel bewijs en wanneer
+alleen een aantrekkelijk verhaal.
+
+## 361. Psychologische typen
+
+C.G. Jung, 1921. Oorspronkelijk *Psychologische Typen* (Rascher Verlag,
+Zürich, 1921), Engels als *Psychological Types* vertaald door H.G. Baynes
+(Kegan Paul/Harcourt, Brace, 1923), later herzien door R.F.C. Hull als deel 6
+van de Collected Works (Princeton University Press). Nederlands als
+*Psychologische typen*, vertaald door Rob van Limburg en Annelies Hazenberg,
+met inleiding van K.M. Hamaker-Zondag (Lemniscaat, 2003, 548 blz., ISBN
+9789056373535); eerder verschenen bij Servire (1949, herziene druk 1967).
+Rubriek: brein en lichaam.
+Tags: `persoonlijkheidstypen`, `extraversie`, `introversie`, `psychologische
+functies`, `psychoanalyse`, `typologie`, `zelfkennis`
+
+Jung onderscheidt twee grondhoudingen, extraversie en introversie, en vier
+functies waarmee de psyche ervaring verwerkt: denken, voelen, gewaarwording en
+intuïtie. De combinatie levert acht typen op, elk met een dominante functie
+die het bewustzijn stuurt en een tegenovergestelde functie die onderontwikkeld
+en grotendeels onbewust blijft.
+
+Het boek is ook een afrekening na zijn breuk met Freud en Adler: Jung leest in
+Freuds nadruk op de drift een extraverte, en in Adlers nadruk op de machtswil
+een introverte eenzijdigheid, allebei een deel van de waarheid die voor het
+geheel werd aangezien. Ruim de helft van het boek bestaat uit een omweg langs
+filosofie, theologie en literatuur waarin hij hetzelfde onderscheid bij oudere
+denkers terugleest.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Jung stelt dat mensen structureel verschillen in de richting
+waarin hun psychische energie stroomt, naar buiten toe gericht op de wereld
+(extraversie) of naar binnen gericht op de eigen gedachten en gevoelens
+(introversie), en dat die basishouding zich combineert met vier functies
+waarmee de psyche ervaring verwerkt: denken, voelen, gewaarwording en
+intuïtie. Uit de kruising van twee attitudes en vier functies ontstaan acht
+typen, elk met een dominante functie die het bewustzijn stuurt en een
+tegenovergestelde functie die onderontwikkeld en grotendeels onbewust blijft.
+Het boek is deels ook een afrekening: Jung schreef het na zijn breuk met Freud
+en las in Freuds nadruk op de seksuele drift een extraverte, en in Adlers
+nadruk op de wil tot macht een introverte eenzijdigheid, allebei een deel van
+de waarheid die voor het geheel werd aangezien.
+
+#### De gang van het boek
+
+**Aanleiding: de breuk met Freud en Adler**
+
+Jung schrijft in het voorwoord, gedateerd voorjaar 1920, dat het boek de
+neerslag is van bijna twintig jaar praktijkervaring en van zijn behoefte om
+zijn eigen positie af te bakenen tegenover Freud en Adler. Beide theorieën
+verklaarden dezelfde neurotische verschijnselen op tegengestelde manier, Freud
+vanuit het libido dat zich naar buiten richt, Adler vanuit de machtsdrang die
+zich keert tegen een gevoel van minderwaardigheid, en Jung concludeerde dat
+het verschil niet in de theorie zat maar in het temperament van de theoreticus
+zelf.
+
+Die observatie is het startpunt van het hele boek: als twee scherpzinnige
+artsen dezelfde patiënten zo verschillend duiden, moet er een onderliggend
+temperamentverschil zijn dat hun blik stuurt nog voordat de theorie begint.
+Van daaruit werkt Jung naar een algemener onderscheid dat volgens hem niet
+alleen artsen maar iedereen verdeelt.
+
+**Extraversie en introversie**
+
+De extraverte instelling richt de aandacht en de psychische energie primair op
+het object: de buitenwereld, andere mensen, de gebeurtenis van het moment. De
+introverte instelling richt diezelfde energie primair op het subject: de eigen
+indruk, de gedachte die de gebeurtenis oproept, meer dan de gebeurtenis zelf.
+Beide instellingen zijn voor Jung normale, evenwaardige varianten en geen van
+beide is gezonder dan de andere; wat hem interesseert is de eenzijdigheid die
+ontstaat wanneer iemand nooit de andere kant oefent.
+
+Hij benadrukt dat elk mens beide vermogens heeft, maar dat er meestal één
+overheerst als bewuste, gewaardeerde houding, terwijl de andere naar het
+onbewuste wordt verdrongen en zich daar minder rijp en minder gecontroleerd
+ophoudt. Onder spanning breekt die verdrongen kant soms door, en dan gedraagt
+een uitgesproken extravert zich plotseling grillig introvert, of andersom.
+
+**De vier functies**
+
+Naast de twee attitudes onderscheidt Jung vier functies waarmee de psyche
+informatie verwerkt. Denken en voelen zijn voor hem allebei oordelende
+functies: denken oordeelt op grond van logische samenhang, voelen op grond van
+waarde, van wat iets waard is los van de logica ervan. Gewaarwording en
+intuïtie zijn waarnemende functies: gewaarwording registreert wat er concreet
+is via de zintuigen, intuïtie registreert mogelijkheden en verbanden zonder
+dat te kunnen verklaren hoe.
+
+Elke functie kent net als de attitudes een extraverte en introverte variant,
+wat in totaal acht basistypen oplevert, van de extravert denkende tot de
+introvert intuïtieve. Bij ieder mens is één functie dominant en bewust
+ontwikkeld, terwijl de tegenovergestelde functie, denken tegenover voelen,
+gewaarwording tegenover intuïtie, het minst ontwikkeld en het meest onbewust
+blijft. Die zwakste functie noemt hij later de inferieure functie, de plek
+waar iemand het onhandigst en het kinderlijkst reageert.
+
+**De typenschets**
+
+Het grootste deel van het boek bestaat uit uitgewerkte portretten van elk van
+de acht typen, met hun sterke kanten en hun karakteristieke valkuil. De
+extravert denkende bouwt systemen en regels op grond van objectieve feiten,
+maar verwaarloost het gevoel van zichzelf en anderen. De introvert voelende
+houdt een intense, zelden getoonde innerlijke waardering, en oogt naar buiten
+toe koel of afstandelijk.
+
+Jung waarschuwt herhaaldelijk dat een typenschets een hulpmiddel is en geen
+etiket dat een mens volledig dekt: iedereen combineert de acht profielen in
+een eigen mengverhouding, en het is de eigen inferieure functie, niet de
+dominante, die het meeste over iemands ontwikkelingsopgave zegt.
+
+**Historisch materiaal: filosofie, theologie en literatuur**
+
+Meer dan de helft van het boek gaat niet over klinisch materiaal maar over een
+lange reis door de geschiedenis van het denken, waarin Jung zijn typenpaar
+terugleest in oudere teksten. Hij bespreekt de tegenstelling tussen
+nominalisme en realisme in de middeleeuwse filosofie, de Reformatie-twist
+tussen Luther en Zwingli over de eucharistie, Schillers onderscheid tussen
+naïeve en sentimentele dichters, en Nietzsches apollinische en dionysische
+principe.
+
+Dat materiaal dient niet als bewijs in de moderne zin, maar als illustratie
+dat het onderscheid dat hij bij zijn patiënten ziet, ook door eerdere denkers
+al in andere woorden werd benoemd. Het maakt het boek tegelijk breder van
+aanspraak en losser verbonden met de klinische praktijk waarmee het begon.
+
+**Persona en de latere uitwerking**
+
+In de definities aan het einde van het boek introduceert Jung ook de persona,
+het masker waarmee iemand zich naar de buitenwereld presenteert en dat kan
+afwijken van de innerlijke typologische aanleg: een introvert kan door
+opvoeding of beroep een extraverte persona ontwikkelen die zijn eigen aard
+grotendeels aan het zicht onttrekt. Die notie waarschuwt tegen het te snel
+typeren van iemand op grond van uiterlijk gedrag.
+
+Het boek zelf sluit niet af met een definitief systeem, maar met een lang
+hoofdstuk definities waarin Jung zijn eigen begrippen preciseert, iets wat
+later doorwerkt in zijn hele verdere werk. Het typenmodel keert bij hem daarna
+nauwelijks terug als hoofdonderwerp, maar de acht typen zijn wel de directe
+voorloper van instrumenten die decennia later populair werden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Extraversie | De instelling waarin psychische energie primair naar het object, de buitenwereld, wordt gericht. |
+| Introversie | De instelling waarin psychische energie primair naar het subject, de eigen indruk, wordt gericht. |
+| Denken (functie) | De oordelende functie die ervaring beoordeelt op logische samenhang. |
+| Voelen (functie) | De oordelende functie die ervaring beoordeelt op waarde, los van logische consistentie. |
+| Gewaarwording | De waarnemende functie die registreert wat er concreet, zintuiglijk aanwezig is. |
+| Intuïtie | De waarnemende functie die mogelijkheden en verbanden aanvoelt zonder de weg ernaartoe te kunnen verklaren. |
+| Inferieure functie | De tegenovergestelde functie van de dominante, het minst ontwikkeld en het meest onbewust. |
+| Persona | Het masker waarmee iemand zich naar buiten presenteert, dat kan afwijken van de eigen typologische aanleg. |
+
+#### Waar het argument op rust
+
+De empirische basis is klinisch: Jungs eigen praktijk en zijn waarneming dat
+collega's met evenveel scholing tot tegengestelde diagnoses kwamen. Dat is een
+consistente en herkenbare waarneming, maar geen systematisch verzamelde reeks
+gevallen met vastgelegde criteria; het boek levert geen tabel patiënten of
+vergelijkbare metingen.
+
+Voor het typenpaar zelf zoekt Jung aanvullende steun in de geschiedenis van
+filosofie, theologie en literatuur, waar hij vergelijkbare tegenstellingen
+terugvindt. Die parallellen maken het onderscheid herkenbaar en oud, maar
+bewijzen niet dat het om dezelfde, empirisch meetbare eigenschap gaat als de
+typen die hij bij zijn patiënten waarneemt.
+
+#### Wat er tegen in te brengen valt
+
+Het boek biedt geen instrument om een type vast te stellen, geen vragenlijst
+en geen criterium waarmee twee onderzoekers onafhankelijk tot dezelfde
+indeling zouden komen. Dat is pas later, in andere handen, gebouwd: de moeder
+en dochter Katharine Briggs en Isabel Briggs Myers ontwikkelden op basis van
+dit boek de Myers-Briggs Type Indicator, een vragenlijst die in de
+vakpsychologie op weinig gezag steunt vanwege een lage
+test-hertestbetrouwbaarheid en het ontbreken van bewijs dat mensen in acht of
+zestien scherp gescheiden categorieën vallen in plaats van op doorlopende
+schalen.
+
+Dat bezwaar raakt ook Jungs eigen tekst. Hij presenteert acht typen als min of
+meer afgebakende profielen, terwijl zijn eigen beschrijving van de persona en
+van de onbewuste tegenfunctie laat zien dat de werkelijke persoon zelden in
+één hokje past. De typenschetsen lezen daardoor makkelijker als herkenbare
+karikaturen dan als een indeling die scherp tussen mensen snijdt.
+
+Het historische deel van het boek, met zijn lange uitweidingen over
+scholastische filosofie en Reformatietheologie, wordt door veel lezers als de
+zwaarste hindernis van het boek ervaren en voegt voor wie alleen in de
+typologie is geïnteresseerd weinig toe aan de kernstelling uit de eerdere
+hoofdstukken.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een terugkerend meningsverschil na of het verschil in feiten zit of
+in de manier waarop ieder van jullie ervaring waardeert of ordent.
+- Herken je eigen dominante functie in de situaties waarin je het snelst en
+het zekerst oordeelt, en je inferieure functie in de situaties waarin je het
+onhandigst reageert.
+- Gebruik de acht typen als vraag, niet als antwoord: welke kant van een
+tegenstelling herken ik bij mezelf het minst, en waarom vermijd ik die.
+- Wees terughoudend met een MBTI-uitslag als vaste identiteit; het instrument
+steunt zwakker op onderzoek dan Jungs eigen voorzichtige toon suggereert.
+
+#### Wat je hierna leest
+
+- 33. Quiet. Cain herschrijft Jungs introversie voor een moderne, op onderzoek
+gebaseerde context en laat zien wat er sinds 1921 wel en niet houdbaar is
+gebleven.
+- 156. Surrounded by Idiots. Erikson bouwt een populaire viertypenindeling die
+net als de MBTI rechtstreeks uit Jungs functieleer is afgeleid, met dezelfde
+vereenvoudiging als risico.
+- 213. Games People Play. Berne beschrijft eveneens terugkerende, herkenbare
+persoonlijkheidspatronen, maar bouwt die op observeerbaar gedrag in plaats van
+op typologie.
+
+## 362. Synchroniciteit
+
+C.G. Jung, 1952. Oorspronkelijk *Synchronizität als ein Prinzip akausaler
+Zusammenhänge*, verschenen samen met een essay van natuurkundige Wolfgang
+Pauli in de bundel *Naturerklärung und Psyche* (Rascher Verlag, Zürich, 1952).
+Engels als *Synchronicity: An Acausal Connecting Principle*, vertaald door
+R.F.C. Hull, in *The Interpretation of Nature and the Psyche* (Routledge &
+Kegan Paul, 1955), later apart uitgegeven binnen de Collected Works, deel 8
+(Princeton University Press/Bollingen). Nederlands als *Synchroniciteit*,
+vertaald door H. Hamaker met een inleiding van K.M. Hamaker-Zondag
+(Lemniscaat, 2000, 159 blz., ISBN 9789056371005). Rubriek: positief denken en
+manifesteren.
+Tags: `synchroniciteit`, `toeval`, `acausaliteit`, `collectief onbewuste`,
+`paranormaal`, `Wolfgang Pauli`, `kwantummechanica`
+
+Jung beschrijft synchroniciteit als het zinvol samenvallen van een innerlijke
+toestand, zoals een droom of een voorgevoel, en een uiterlijke gebeurtenis die
+daarmee overeenkomt zonder dat de een de ander veroorzaakt. Het bekendste
+voorbeeld is een patiënte die tijdens haar sessie een droom over een gouden
+kever vertelde, op het moment dat een gouden kevertje tegen het raam van de
+spreekkamer tikte.
+
+Het essay verscheen samen met een bijdrage van natuurkundige Wolfgang Pauli en
+zoekt aansluiting bij de kwantummechanica, waar strikte causaliteit ook
+plaatsmaakt voor waarschijnlijkheid. Jung onderbouwt zijn these verder met een
+statistisch experiment met horoscoopgegevens, waarvan hij zelf meldt dat het
+effect bij herhaling wegvalt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Jung stelt dat naast oorzaak en gevolg een tweede
+ordeningsprincipe in de werkelijkheid werkzaam is, dat hij synchroniciteit
+noemt: het gelijktijdig optreden van een innerlijke toestand, zoals een droom
+of een voorgevoel, en een uitwendige gebeurtenis die daarmee inhoudelijk
+overeenkomt zonder dat de een de ander veroorzaakt. Het bekendste voorbeeld
+uit het boek is een patiënte die tijdens haar sessie een droom over een gouden
+kever vertelde, op het moment dat een gouden kevertje tegen het raam van de
+spreekkamer tikte. Jung presenteert zulke samenvallen niet als toeval en niet
+als bijgeloof, maar als aanwijzing dat psyche en materie dieper met elkaar
+verbonden zijn dan het gangbare oorzakelijke wereldbeeld toelaat, een stelling
+die hij nadrukkelijk buiten de grenzen van de heersende natuurwetenschap
+plaatst.
+
+#### De gang van het boek
+
+**Aanleiding en samenwerking met Pauli**
+
+Het essay verscheen in 1952 samen met een bijdrage van Nobelprijswinnaar
+natuurkunde Wolfgang Pauli, die al sinds 1932 met Jung correspondeerde en bij
+hem ook zelf analyse volgde. Pauli schreef in dezelfde bundel over de rol van
+archetypische voorstellingen in het werk van Johannes Kepler, en die
+samenwerking gaf Jung de moed om zijn eigen these publiekelijk te maken: hij
+had het idee van synchroniciteit al decennia in zijn aantekeningen laten
+rijpen voordat hij het uitgaf.
+
+De aanleiding was klinisch. Jung stuitte herhaaldelijk op momenten waarin een
+droom, een inval of een voorgevoel van een patiënt samenviel met een op dat
+moment onafhankelijk daarvan gebeurende, inhoudelijk verwante gebeurtenis in
+de buitenwereld. Het bekendste geval is de patiënte die tijdens haar
+behandeling vastzat in een te rationele houding: terwijl zij een droom over
+een gouden kever vertelde, tikte er op dat moment een gouden kevertje tegen
+het raam, wat Jung ving en haar aanreikte, en dat samenvallen doorbrak volgens
+hem haar weerstand op een manier die geen argument had kunnen bereiken.
+
+**Wat synchroniciteit wel en niet is**
+
+Jung onderscheidt zijn begrip nadrukkelijk van gewoon toeval. Een
+synchroniciteit vereist voor hem drie elementen: een innerlijke, onbewuste
+toestand die zich als beeld of voorgevoel aandient, een uiterlijke gebeurtenis
+die daar inhoudelijk mee overeenkomt, en de afwezigheid van een aanwijsbaar
+causaal verband tussen beide. Twee toevallige gebeurtenissen die niets met
+elkaars betekenis te maken hebben, vallen daarbuiten; het gaat hem
+uitdrukkelijk om zinvolle samenloop, niet om elke opmerkelijke samenloop.
+
+Hij plaatst het verschijnsel ook nadrukkelijk buiten het rijk van voorspelling
+of magie. Synchroniciteit voorspelt niets en is niet oproepbaar; het overkomt
+iemand, meestal op momenten van sterke emotionele spanning, wanneer het
+bewuste denken is vastgelopen en het onbewuste kennelijk via een omweg naar
+buiten dringt.
+
+**Het argument tegen strikte causaliteit**
+
+De kern van het betoog is dat het westerse wereldbeeld sinds de zeventiende
+eeuw oorzaak en gevolg tot het enige geldige verklaringsprincipe heeft
+gemaakt, en dat alles wat daar niet in past daardoor als toeval of inbeelding
+wordt weggezet. Jung stelt daar een tweede ordeningsprincipe tegenover, niet
+in plaats van causaliteit maar ernaast: gebeurtenissen kunnen ook samenhangen
+doordat ze op hetzelfde moment dezelfde betekenis dragen, zonder dat de een de
+ander teweegbrengt.
+
+Voor die aanname zoekt hij aansluiting bij de kwantummechanica, waarin op
+subatomair niveau geen strikte, voorspelbare causaliteit meer geldt maar
+alleen waarschijnlijkheid. Jung gebruikt die ontwikkeling in de natuurkunde
+als aanmoediging voor zijn eigen these, niet als bewijs; hij erkent zelf dat
+de overeenkomst tussen kwantumonzekerheid en zijn eigen begrip een analogie is
+en geen afgeleide.
+
+**Statistiek en het astrologie-experiment**
+
+Om zijn these een empirisch aanknopingspunt te geven, voert Jung een
+statistisch experiment op met horoscoopgegevens van gehuwde paren, waarin hij
+onderzoekt of bepaalde astrologische combinaties tussen partners vaker
+voorkomen dan toeval zou verklaren. Zijn eigen conclusie is voorzichtig: de
+uitkomst wijkt in de eerste steekproef af van wat toeval zou opleveren, maar
+herhaling met nieuwe steekproeven brengt de uitkomst dichter bij het
+toevalsniveau, en Jung erkent dat het effect zwak en instabiel is.
+
+Hij presenteert het experiment nadrukkelijk niet als bewijs voor astrologie
+als voorspellende leer, maar als illustratie van hoe moeilijk het is om een
+vermoed zinvol patroon statistisch hard te maken, en van hoezeer de
+verwachting van de onderzoeker de uitkomst kan kleuren. Het is het enige
+kwantitatieve deel van een verder overwegend anekdotisch betoog.
+
+**Voorbeelden uit de geschiedenis van het denken**
+
+Jung verzamelt daarnaast historische auteurs die volgens hem al met een
+vergelijkbaar idee worstelden: de Chinese I Ching, waarin het orakel niet
+werkt via oorzakelijkheid maar via het aflezen van het moment zelf, Leibniz'
+begrip van een vooraf ingestelde harmonie tussen lichaam en geest, en
+Schopenhauers essay over het toevallige samentreffen van gebeurtenissen die
+met elkaar samenhangen zonder oorzakelijk verband.
+
+Die bronnen dienen, net als in zijn andere werk, niet als bewijs maar als
+voorgeschiedenis: aanwijzing dat het ongenoegen met een zuiver causale wereld
+al veel ouder is dan zijn eigen theorie, en dat hij zich met zijn begrip in
+een herkenbare traditie van twijfel plaatst.
+
+**De grens die Jung zelf trekt**
+
+Opvallend is hoe vaak Jung in het essay zelf waarschuwt tegen
+overinterpretatie. Hij noemt zijn begrip een hypothese, geen bewezen wet, en
+hij benadrukt dat de meeste opmerkelijke samenlopen in het leven van mensen
+gewoon toeval zijn en geen synchroniciteit. Het verschijnsel is voor hem
+zeldzaam, niet oproepbaar op verzoek, en niet bruikbaar als verklaring
+achteraf voor elke opvallende samenloop die iemand meemaakt.
+
+Die terughoudendheid staat in schril contrast met hoe het begrip buiten zijn
+eigen tekst is gaan leven, als algemene term voor elk betekenisvol toeval en
+als steunpilaar voor uiteenlopende esoterische opvattingen die Jung zelf niet
+onderschreef.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Synchroniciteit | Het zinvol samenvallen van een innerlijke toestand en een uiterlijke gebeurtenis, zonder aanwijsbaar oorzakelijk verband. |
+| Acausaliteit | Het ontbreken van een oorzaak-gevolgrelatie tussen twee gebeurtenissen die toch inhoudelijk samenvallen. |
+| Zinvol toeval | Jungs eigen aanduiding voor een samenloop die betekenis draagt, in tegenstelling tot gewoon, betekenisloos toeval. |
+| Collectief onbewuste | De gedeelde onbewuste laag die volgens Jung ook bij synchronistische gebeurtenissen een rol speelt. |
+| Unus mundus | Het door Jung uit de alchemie geleende begrip van een onderliggende eenheid van psyche en materie. |
+| Kwantumonzekerheid | Het gegeven dat subatomaire processen alleen in waarschijnlijkheden te beschrijven zijn, door Jung als analogie voor zijn eigen these gebruikt. |
+| I Ching | Het Chinese orakelboek dat Jung aanhaalt als voorbeeld van een denksysteem dat op het moment zelf vertrouwt in plaats van op oorzakelijkheid. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat vrijwel geheel uit anekdotes: de kevercasus en een
+handvol vergelijkbare gevallen uit zijn eigen praktijk en die van collega's,
+aangevuld met verhalen die hij van anderen kreeg toegestuurd. Geen van die
+gevallen is onder gecontroleerde omstandigheden vastgelegd; ze steunen op het
+geheugen en de weergave van de betrokkenen.
+
+Het enige kwantitatieve onderdeel is het astrologie-experiment, en Jung zelf
+rapporteert dat het aanvankelijke effect bij herhaling wegvalt. Dat is
+ongewoon eerlijk voor een auteur die een eigen these wil onderbouwen, maar het
+betekent ook dat het boek geen herhaalbaar resultaat oplevert waarop latere
+onderzoekers hebben kunnen voortbouwen.
+
+#### Wat er tegen in te brengen valt
+
+Synchroniciteit staat buiten de gevestigde natuurwetenschap en is daar nooit
+in opgenomen. Er bestaat geen erkende meetmethode om een synchronistische
+gebeurtenis te onderscheiden van een toevallige, en zonder zo'n methode is elk
+voorbeeld afhankelijk van de subjectieve indruk van de betrokkene dat iets
+betekenisvol was.
+
+Statistici hebben Jungs astrologie-experiment na hem herhaald en vonden geen
+effect dat boven toeval uitkomt; zijn eigen herhalingen wezen al dezelfde kant
+op. Het sterkste kwantitatieve deel van het boek ondersteunt zijn these dus
+eigenlijk niet, ook al gebruikt Jung het als illustratie.
+
+Een breder bezwaar geldt de menselijke neiging om patronen te zien waar geen
+zijn: mensen onthouden de opvallende samenloop en vergeten de duizenden keren
+dat een droom niet uitkwam of een voorgevoel nergens op sloeg. Zonder een
+telling van al die niet-samenvallende gevallen is niet vast te stellen of de
+kevercasus zeldzamer is dan wat toeval alleen al zou opleveren.
+
+Jungs beroep op de kwantummechanica heeft weinig steun gekregen van
+natuurkundigen. Onzekerheid op subatomair niveau is iets anders dan een zinvol
+verband tussen een droom en een gebeurtenis op menselijke schaal, en de
+analogie tussen beide blijft, ook in Pauli's eigen latere terughoudendheid,
+losser dan Jungs tekst soms suggereert.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij een opvallende samenloop eerst of er een gewone verklaring
+is, voordat je haar als betekenisvol bestempelt.
+- Bedenk dat je opvallende samenlopen onthoudt en de niet-samenvallende
+momenten vergeet; dat vertekent de indruk van hoe vaak zoiets gebeurt.
+- Lees het begrip zoals Jung het zelf beperkt: als zeldzame gebeurtenis onder
+spanning, niet als algemene verklaring voor toeval in het dagelijks leven.
+
+#### Wat je hierna leest
+
+- 93. Toeval. Hopster onderzoekt vanuit statistiek en cognitiewetenschap
+waarom mensen toeval systematisch als patroon lezen, het spiegelbeeld van wat
+Jung hier beschrijft.
+- 63. The Demon-Haunted World. Sagan biedt de scherpste tegenstem: een
+pleidooi om buitengewone claims aan buitengewoon bewijs te toetsen, precies
+waar dit boek achterblijft.
+- 340. The Holographic Universe. Talbot bouwt op vergelijkbare aannames over
+een onderliggende eenheid van psyche en materie voort, met nog minder
+empirische terughoudendheid dan Jung zelf betrachtte.
+
+## 364. Extreme Ownership
+
+Jocko Willink en Leif Babin, 2015. Ondertitel *How U.S. Navy SEALs Lead and
+Win* (St. Martin's Press, 2015; herziene editie 2017, 384 blz., ISBN
+9781250183866). Nederlands als *Extreem eigenaarschap: hoe Navy SEALs leiden
+en winnen* (Business Contact, 2020, 344 blz., ISBN 9789047014294); geen
+vertaler vermeld. Rubriek: samenwerken en gesprek.
+Tags: `leiderschap`, `navy seals`, `teams`, `verantwoordelijkheid`, `oorlog`,
+`management`, `besluitvorming`
+
+Jocko Willink en Leif Babin waren officieren bij Task Unit Bruiser,
+samengesteld uit het Charlie- en Delta-peloton van SEAL Team Three, tijdens de
+Slag om Ramadi in 2006. Na hun diensttijd richtten zij het adviesbureau
+Echelon Front op en vertalen sindsdien wat zij in die stad leerden naar
+leiderschap in bedrijven. Elk hoofdstuk volgt hetzelfde stramien: een
+gevechtssituatie uit Ramadi, het principe dat eruit volgt, en een aflevering
+uit hun advieswerk waarin hetzelfde principe een bedrijf uit de problemen
+haalt.
+
+De kern is dat een leider alles in zijn omgeving als zijn eigen
+verantwoordelijkheid behandelt, ook wat een ondergeschikte fout deed, en dat
+hij lof juist naar beneden doorschuift. Het boek werkt dat uit in twaalf
+principes, verdeeld over drie delen: de innerlijke instelling van de leider,
+de wetten van de strijd die op elk team toepasbaar zijn, en het vasthouden van
+een overwinning op langere termijn.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Willink en Babin stellen dat er geen slechte teams bestaan,
+alleen slechte leiders, en dat een leider pas invloed krijgt op het moment dat
+hij volledige verantwoordelijkheid neemt voor elke uitkomst binnen zijn
+bevoegdheid, zonder verzachtende omstandigheden en zonder naar boven of naar
+opzij te wijzen. Die houding noemen zij Extreme Ownership. Wat daaronder ligt
+is een praktische aanname: een organisatie faalt zelden aan het front, zij
+faalt in de plannen, de communicatie en de training die het front had moeten
+voorbereiden, en dat is stuk voor stuk het werk van de leiding. Wie dat
+aanvaardt, kan volgens hen dezelfde discipline die in de straten van Ramadi
+levens redde, gebruiken om een team, een afdeling of een bedrijf te laten
+functioneren.
+
+#### De gang van het boek
+
+**Ramadi, 2006**
+
+Task Unit Bruiser bestond uit twee pelotons van SEAL Team Three en werd
+ingezet in Ramadi, destijds de gevaarlijkste stad van Irak en een bolwerk van
+de opstand. Willink voerde het bevel over de task unit, Babin leidde het
+Charlie-peloton. Vanuit voorgeschoven bases, combat outposts genoemd, werkten
+SEAL-scherpschutters en gevechtszwemmers samen met Amerikaanse leger- en
+mariniereenheden en met Iraakse legereenheden om wijk voor wijk te zuiveren en
+te bezetten.
+
+Drie namen keren terug in het boek: Marc Lee, op 2 augustus 2006 de eerste
+SEAL die sneuvelde in Irak, Ryan Job, die dezelfde dag door een afketsende
+kogel zijn gezichtsvermogen verloor en enkele jaren later aan de gevolgen
+overleed, en Michael Monsoor, die op 29 september 2006 op een granaat sprong
+om drie teamgenoten te beschermen en daarvoor postuum de Medal of Honor kreeg.
+Het boek is aan hen opgedragen en de verliezen lopen als een ondertoon door de
+gevechtsverhalen heen.
+
+**Extreme Ownership**
+
+Het openingshoofdstuk beschrijft een operatie waarbij Amerikaanse en Iraakse
+eenheden elkaar in de vroege ochtend voor vijand aanzagen. Een SEAL-element
+zat met een Iraakse partnereenheid vast in een gebouw onder vuur van
+Amerikaanse en Iraakse troepen die buiten stonden en de schutters binnen niet
+als bondgenoot herkenden. Er viel een dode Iraakse soldaat en een gewonde
+SEAL.
+
+Willink was op het moment van het incident niet zelf de schutter en kon de
+fout technisch bij een ondergeschikte leggen die de doelidentificatie verkeerd
+inschatte. In het debriefingsgesprek nam hij in plaats daarvan de volledige
+verantwoordelijkheid, omdat de taakverdeling en het commandoplan die hijzelf
+had opgesteld de verwarring mogelijk hadden gemaakt. Die opstelling wordt de
+basis van het boek: verantwoordelijkheid kan niet gedeeld worden naar de
+omvang van iemands eigen aandeel, zij hoort volledig bij degene die het geheel
+aanstuurde.
+
+**Het overige van de innerlijke instelling**
+
+De volgende drie hoofdstukken werken dezelfde houding verder uit. *No Bad
+Teams, Only Bad Leaders* steunt op Willinks eigen ervaring tijdens de
+BUD/S-training, waar een zwak presterende bootbemanning binnen enkele
+oefeningen verbeterde nadat alleen de leider werd vervangen, terwijl de
+bemanning zelf gelijk bleef. *Believe* beschrijft zijn aanvankelijke twijfel
+over de opdracht om met de Iraakse strijdkrachten samen te werken en hoe hij
+zich pas kon inzetten voor die missie nadat hij zelf overtuigd raakte van het
+nut ervan.
+
+*Check the Ego* gaat over de wrijving tussen SEAL-eenheden en de conventionele
+leger- en mariniereenheden in Ramadi, die eigen aanpak en status verdedigden
+ten koste van de gezamenlijke opdracht. Het hoofdstuk stelt dat ego, ook het
+soort dat zich voordoet als beroepstrots, de blik vertroebelt voor eigen
+fouten en samenwerking ondermijnt zodra het zwaarder weegt dan de missie.
+
+**Cover and Move**
+
+Deel twee, de wetten van de strijd, opent met een operatie waarbij Amerikaanse
+legereenheden van Team Bulldog, uitgezonden vanaf combat outpost Falcon, een
+groot doorzoekingsgebied in Zuid-Centraal-Ramadi afzetten terwijl twee
+SEAL-scherpschuttersposten, aangeduid als OP1 en OP2, dekking gaven vanaf de
+daken. Toen een van beide posten onder zwaar vuur kwam en zich moest
+terugtrekken, verliep de afstemming met de andere post gebrekkig doordat beide
+elementen zich eerder als aparte teams dan als onderdelen van dezelfde
+operatie gedroegen.
+
+Het principe dat daaruit volgt is dat elk onderdeel van een organisatie de
+andere onderdelen als bondgenoot in dezelfde missie moet zien, niet als
+concurrent om middelen of erkenning. Zoals het ene vuurteam dekking geeft
+zodat het andere kan opschuiven, moet een afdeling weten wat een naburige
+afdeling nodig heeft om vooruit te komen.
+
+**Simple, Prioritize and Execute, Decentralized Command**
+
+*Simple* stelt dat een plan dat op papier compleet is maar in de praktijk te
+veel schakels bevat, uiteenvalt zodra de eerste onvoorziene gebeurtenis zich
+voordoet, zeker wanneer Iraakse partnereenheden met een taalbarrière hun deel
+van het plan moeten uitvoeren. *Prioritize and Execute* beschrijft een
+operatie waarin tegelijk gewonden vielen, een geïmproviseerd explosief werd
+aangetroffen en een vijandelijke mitrailleurstelling het vuur opende, en
+formuleert de regel die daaruit volgt: rustig worden, de situatie overzien,
+het grootste risico benoemen, dat oplossen, en dan pas naar het volgende
+probleem.
+
+Het achtste hoofdstuk, *Decentralized Command*, geldt in het boek zelf als het
+zwaarste principe. Task Unit Bruiser werkte in kleine elementen van ongeveer
+vier tot vijf man, elk met een eigen leider die de bedoeling van de commandant
+kende en zelfstandig mocht handelen zodra het plan door de werkelijkheid werd
+ingehaald. Dat vereist dat de bedoeling, in het boek Commander's Intent
+genoemd, aan iedereen tot op het laagste niveau is uitgelegd, zodat
+beslissingen ook zonder toestemming van boven de missie blijven dienen.
+
+**Een overwinning vasthouden**
+
+Het derde deel gaat over wat na de actie komt. *Plan* beschrijft de vaste
+procedure van Task Unit Bruiser: de opdracht analyseren, meerdere
+uitvoeringsvarianten laten aandragen door het team zelf in plaats van alleen
+door de commandant, de risico's doorspreken, de hele groep briefen en na
+afloop altijd debriefen. *Leading Up and Down the Chain of Command* behandelt
+het besturen in twee richtingen tegelijk: de eigen meerderen op de hoogte
+houden en gefundeerd tegenspreken in plaats van klakkeloos gehoorzamen of
+zwijgend mopperen, en ondergeschikten het waarom van een order meegeven in
+plaats van alleen het wat.
+
+*Decisiveness amid Uncertainty* stelt dat een commandant met veertig tot
+zeventig procent van de benodigde informatie al een besluit moet nemen, omdat
+wachten op zekerheid in de strijd zelf een besluit is, namelijk het besluit om
+niets te doen. Het laatste hoofdstuk, *Discipline Equals Freedom*, sluit af
+met de dichotomie van leiderschap: zelfverzekerd zonder overmoedig te zijn,
+assertief zonder roekeloos te zijn, gedisciplineerd zonder star te zijn. Vaste
+persoonlijke discipline, zoals Willinks bekende gewoonte om ruim voor
+zonsopgang te trainen, is in die lezing niet het tegendeel van vrijheid maar
+de voorwaarde ervoor.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Extreme Ownership | Volledige, ongedeelde verantwoordelijkheid van de leider voor elke uitkomst binnen zijn bevoegdheid, zonder die af te wentelen op ondergeschikten of omstandigheden. |
+| No Bad Teams, Only Bad Leaders | De prestatie van een team is een directe afspiegeling van de leiding, niet van de kwaliteit van de teamleden zelf. |
+| Check the Ego | Persoonlijke trots en status ondergeschikt maken aan de missie en aan wat het team nodig heeft. |
+| Cover and Move | Onderdelen van een organisatie dekken en ondersteunen elkaar als bondgenoten in dezelfde opdracht, in plaats van als concurrenten om middelen. |
+| Prioritize and Execute | Bij meerdere gelijktijdige problemen eerst het grootste risico vaststellen en oplossen voordat het volgende probleem wordt aangepakt. |
+| Decentralized Command | Bevoegdheid neerleggen bij kleine eenheden met een eigen leider die de bedoeling van de commandant kent en zelfstandig mag handelen. |
+| Commander's Intent | De achterliggende bedoeling van een opdracht, zo helder uitgelegd dat ondergeschikten hun handelen erop kunnen aanpassen als het plan misloopt. |
+| Discipline Equals Freedom | Vaste, dagelijkse discipline schept de ruimte voor goed oordeel onder druk, in plaats van die ruimte te beperken. |
+
+#### Waar het argument op rust
+
+Het boek levert geen onderzoek, het levert getuigenis. De gevechtsverhalen
+komen uit de eigen diensttijd van Willink en Babin bij Task Unit Bruiser en
+zijn op geen enkel punt door een buitenstaander geverifieerd; de lezer moet op
+hun geheugen en hun weergave vertrouwen. De zakelijke voorbeelden komen uit
+hun adviesbureau Echelon Front en zijn opdrachten die zij zelf uitkozen om
+precies het principe te illustreren dat het hoofdstuk al had vastgesteld, wat
+de kans klein maakt dat er een voorbeeld tussen zit dat het principe
+tegenspreekt.
+
+De kracht van het boek zit in de herhaling van eenzelfde vorm: een concrete,
+invoelbare gevechtssituatie, gevolgd door een principe en een bedrijfscasus
+die laat zien hoe dat principe er in een kantoor uitziet. Dat maakt de stof
+onthoudbaar en toepasbaar, maar het is een didactische vorm, geen
+bewijsvoering. Nergens wordt een principe getoetst aan een geval waarin het
+niet werkte.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar richt zich op de reikwijdte van het begrip Extreme
+Ownership. Volledige verantwoordelijkheid nemen voor de uitvoering van een
+opdracht is iets anders dan verantwoordelijkheid voor de vraag of die opdracht
+de juiste was. In het leger is die vraag geen onderdeel van de taak van een
+uitvoerend officier, een order wordt uitgevoerd, niet ter discussie gesteld.
+Het boek neemt die aanname stilzwijgend over naar het bedrijfsleven, waar het
+kiezen van het juiste doel vaak de moeilijkere vraag is dan het halen ervan,
+en besteedt daar nauwelijks aandacht aan.
+
+Doorgevoerd tot een persoonlijke leefregel kan Extreme Ownership omslaan in
+een verklaring die alles bij het individu legt en systemische factoren,
+onvolledige informatie of andermans nalatigheid wegredeneert; het boek
+waarschuwt daar zelf niet expliciet voor, terwijl juist deze lezing bij lezers
+buiten een militaire hiërarchie voor de hand ligt.
+
+De vorm van het boek, telkens dezelfde opbouw van gevechtsverhaal naar
+principe naar bedrijfscasus, is door recensenten herhaaldelijk eenvormig en
+langdradig genoemd. Het maakt de stof gemakkelijk te volgen, maar laat weinig
+ruimte voor een principe dat conflicteert met een ander principe uit hetzelfde
+boek, terwijl juist die conflicten, bijvoorbeeld tussen decentraal beslissen
+en het strak vasthouden aan een plan, in de praktijk het moeilijkst zijn.
+
+Ten slotte draagt de emotionele lading van de verhalen, met de dood van Marc
+Lee en Michael Monsoor als zwaartepunt, het argument voor een deel op een
+manier die los staat van de logica van het principe zelf. Dat een les werd
+geleerd op een moment van groot verlies, maakt de les invoelbaar maar niet
+noodzakelijk juister dan een les die uit een rustiger voorval was gekomen.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een fout in je team eerst na welke eigen beslissing, briefing of
+aanname de fout mogelijk maakte, voordat je een ondergeschikte aanspreekt.
+- Splits een groot project op in kleine eenheden met een eigen
+verantwoordelijke die het einddoel kent, in plaats van alles zelf te blijven
+aansturen.
+- Leg bij elke opdracht het waarom uit naast het wat, zodat iemand zelf een
+goede beslissing kan nemen als de situatie afwijkt van het plan.
+- Benoem bij meerdere gelijktijdige problemen hardop welk probleem nu het
+grootste risico vormt, en begin daar.
+
+#### Wat je hierna leest
+
+- 273. Leaders Eat Last. Sinek beschrijft eveneens hoe militaire
+leiderschapservaring naar het bedrijfsleven wordt vertaald, met meer nadruk op
+biologie en vertrouwen dan op procedure.
+- 42. The Five Dysfunctions of a Team. Lencioni behandelt vanuit een fabelvorm
+dezelfde stelling dat een falend team vrijwel altijd een falende leiding als
+oorzaak heeft.
+- 229. Can't Hurt Me. Goggins komt uit dezelfde wereld van Amerikaanse special
+forces en laat zien hoe de nadruk op zelfdiscipline eruitziet zonder het
+commandoperspectief van dit boek.
+- 271. Never Split the Difference. Voss vertaalt eveneens ervaring uit een
+hoogrisico-beroep, gijzelingsonderhandelingen bij de FBI, naar toepasbare
+regels voor gesprekken onder druk.
+
+## 365. Build, Don't Talk
+
+Raj Shamani, 2022. Oorspronkelijk *Build, Don't Talk: Things You Wish You Were
+Taught in School* (Penguin Random House India, 25 november 2022, 226 blz.,
+ISBN 9780143459682), geschreven met een ghostwriter. Geen Nederlandse
+vertaling gevonden. Rubriek: geld en ondernemen.
+Tags: `ondernemerschap`, `persoonlijk merk`, `sociale media`,
+`zelfvertrouwen`, `India`, `content creatie`
+
+Shamani vertelt zijn eigen weg van een middelmatige scholier in Indore tot
+ondernemer en podcasthost, en gebruikt dat verhaal als kapstok voor lessen die
+volgens hem niet op school worden onderwezen: verkopen, onderhandelen, geld
+beheren en een merk bouwen. Hij begon op zijn zestiende, na een
+gezondheidscrisis van zijn vader, met een afwasmiddel dat hij na 86 mislukte
+pogingen zelf leerde produceren en goedkoper verkocht dan de twee bestaande
+merken.
+
+Het boek staat in 39 korte hoofdstukken, elk met een samenvatting van de
+belangrijkste punten, en werd in India een bestseller. Shamani bouwde na die
+eerste onderneming een podcast, *Figuring Out with Raj Shamani*, en een reeks
+inkomstenbronnen op rond dezelfde kern van contentcreatie en marketing.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Shamani stelt dat school iemand voorbereidt op een examen en
+niet op een leven, en dat de vaardigheden die daadwerkelijk geld en kansen
+opleveren, zoals verkopen, onderhandelen, een product prijzen en een publiek
+opbouwen, iemand zichzelf moet aanleren door te doen. Zijn advies is niet om
+te wachten tot een plan compleet is, maar om te beginnen met wat er is en de
+rest onderweg te leren. Wie dat doet, moet volgens hem eerst toegeven waar hij
+zwak in is, en dat gebrek ofwel wegwerken door te oefenen, ofwel uitbesteden
+aan iemand die het al kan.
+
+#### De gang van het boek
+
+**Van een scholier met 43 procent tot ondernemer**
+
+Shamani opent met zijn eigen middelbareschooltijd in Indore: hij haalde 43
+procent waar neven en nichten in de negentig scoorden, verzon verhalen over
+een reis naar Dubai om aanzien te krijgen en werd erop betrapt. Pas toen zijn
+vader ernstig ziek werd, veranderde die houding volgens hem in de wens om iets
+echts op te bouwen in plaats van indruk te maken.
+
+Dat kantelpunt is de rode draad van het boek: elk hoofdstuk koppelt een
+algemene les aan een moment uit zijn eigen leven, van de eerste onderneming
+tot zijn podcast.
+
+**Wat school niet leert**
+
+Shamani beschrijft het Indiase onderwijssysteem als gericht op onthouden in
+plaats van denken, en stelt daar een vraag tegenover die Israëlische ouders
+volgens hem aan hun kinderen stellen: welke vraag heb je vandaag gesteld, in
+plaats van welk cijfer heb je gehaald. Zijn punt is dat vaardigheden als
+verkopen, onderhandelen en geld beheren nergens op het lesrooster staan,
+terwijl ze bepalen of iemand na school zelfstandig kan functioneren.
+
+**Zwakte toegeven, taken uitbesteden**
+
+Een terugkerend advies is dat succes begint met erkennen waar iemand slecht in
+is. Shamani noemt zijn eigen angst om in het openbaar te spreken, die hij twee
+jaar lang wegwerkte bij Toastmasters, tegenover zijn onvermogen om goed te
+schrijven, waarvoor hij een ghostwriter inhuurde voor dit boek zelf. Zijn
+onderscheid: vaardigheden die de kern van je werk raken oefen je, taken
+daarbuiten besteed je uit.
+
+**Vragen als vaardigheid**
+
+Onder de titel 'bedelen' beschrijft Shamani hoe hij als student ongevraagd
+mensen benaderde die hij nodig had, zoals de chemicus die hij voor 2.000
+roepie via LinkedIn inhuurde om de afwasmiddelformule te ontwikkelen. Zijn
+punt is dat een student weinig te verliezen heeft bij een botte afwijzing, en
+dat die positie, die hij liever kans dan schaamte noemt, na de studietijd
+verdwijnt.
+
+**De angst om af te gaan**
+
+Een apart hoofdstuk gaat over de angst om dom over te komen, die Shamani na
+zijn jeugdervaring met het verzonnen Dubai-verhaal jarenlang parten speelde
+bij spreken in het openbaar. Hij zet daar historische voorbeelden tegenover,
+zoals Edison die honderden mislukte experimenten voor de gloeilamp deed en de
+gebroeders Wright die voor gestoord werden versleten, en citeert Michelle
+Obama's advies om door een deur van kansen te lopen in plaats van jezelf
+buiten te sluiten omdat je denkt het niet te verdienen. Zijn eigen aanpak is
+om zichzelf bewust aan kleine, ongevaarlijke momenten van gêne bloot te
+stellen, zodat het onbehagen bij grotere risico's kleiner wordt.
+
+**Het afwasmiddel: van marktinzicht naar product**
+
+De kernanekdote van het boek is zijn eerste onderneming. Shamani zag dat er in
+zijn regio maar twee merken vloeibaar afwasmiddel bestonden, testte thuis met
+zijn vader tot de 87e poging een bruikbare formule opleverde, en zette de
+kostprijs van 45 roepie tegenover de verkoopprijs van 110 roepie bij de
+gevestigde merken. Gratis proefflesjes onder studiegenoten leverden bij drie
+van elke vijf een herhaalaankoop op.
+
+Zijn regel voor prijzen volgt uit dezelfde ervaring: de prijs stijgt naarmate
+meer mensen bereid blijken te betalen, niet andersom. Een product eerst laten
+bewijzen dat er vraag naar is, is voor hem de voorwaarde om aan de prijs te
+mogen sleutelen.
+
+**Systemen in plaats van doelen**
+
+Shamani zet een dagelijks systeem tegenover een doel dat van externe factoren
+afhangt: een studiedoel haalde hij pas toen hij zijn manier van leren
+veranderde, niet door zijn cijferdoel te herhalen. Hij noemt James Clears werk
+over gewoontes als bron van dat idee, en past het toe op zijn eigen
+contentproductie: geen vast aantal volgers als doel, maar een vaste dagelijkse
+routine van opnemen en publiceren.
+
+**Zeven inkomstenbronnen uit één vaardigheid**
+
+Rond zijn vijfentwintigste had Shamani volgens eigen zeggen zeven
+inkomstenbronnen opgebouwd vanuit dezelfde kern van marketing en
+contentcreatie: consultancy voor een autodealer, betaalde lezingen na honderd
+gratis optredens, merkdeals vanaf 150.000 volgers, affiliate-inkomsten vanaf
+een miljoen volgers, een cursus van 500 roepie, een boekcontract met voorschot
+en royalty's, en een eigen contentbureau met redacteuren en analisten.
+
+Zijn les daarbij is dat één kernvaardigheid zich over meerdere verdienmodellen
+laat verspreiden, in plaats van dat elk inkomen een aparte vaardigheid
+vereist.
+
+**Authenticiteit en het vinden van een niche**
+
+Shamani schrijft zijn succes toe aan het feit dat hij zichzelf presenteert als
+een gemiddelde jonge Indiër met een middenklasse-achtergrond, en toetst
+content aan de vraag of die zijn eigen leven met minstens 1 procent verbeterd
+zou hebben op het moment dat hij zelf begon. Toen TikTok in India verboden
+werd, verschoof hij naar Instagram Reels met vereenvoudigd zakennieuws. Dat
+noemt hij zijn overlap van interesse, sterkte, platform en stijl: een niche
+vinden door die vier factoren te laten samenvallen, in plaats van concurrenten
+te ontwijken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Nutteloze knul | Het zelfbeeld waarmee Shamani als scholier werd weggezet en dat hij in het boek ombuigt tot uitgangspunt van zijn verhaal. |
+| Overlap van interesse, sterkte, platform en stijl | Zijn model om een niche te vinden door die vier factoren te laten samenvallen in plaats van concurrenten te ontwijken. |
+| Systemen boven doelen | Het idee dat een dagelijkse routine stuurbaarder is dan een doel dat van omstandigheden afhangt. |
+| De 1 procent-toets | Zijn filter voor content: zou dit zijn eigen leven met minstens 1 procent verbeterd hebben toen hij zelf begon. |
+| Zeven inkomstenbronnen | Zijn overzicht van verdienmodellen die uit dezelfde kernvaardigheid van marketing en contentcreatie voortkomen. |
+| Stop met innoveren, begin met kopiëren | Zijn advies om bestaande oplossingen te verbeteren in plaats van vanaf nul iets nieuws te bedenken. |
+| Prijs volgens vraag | Zijn regel dat de prijs van een product stijgt naarmate meer mensen bereid blijken te betalen, niet op basis van kostprijs alleen. |
+| Uitbesteden versus oefenen | Zijn onderscheid tussen kernvaardigheden die je zelf leert en taken daarbuiten die je beter aan een ander overlaat. |
+
+#### Waar het argument op rust
+
+Het boek rust vrijwel volledig op Shamani's eigen ervaring: de cijfers over
+zijn eerste onderneming, zijn volgersaantallen en zijn inkomstenbronnen zijn
+niet extern te verifiëren en komen uit dezelfde bron als het verhaal zelf.
+Waar hij zich op anderen beroept, zijn dat losse verwijzingen naar bekende
+auteurs als Napoleon Hill en James Clear, niet naar onderzoek.
+
+Shamani vermeldt zelf dat hij voor het schrijven een ghostwriter inschakelde,
+wat aansluit bij zijn eigen advies om te schrijven uit te besteden als je daar
+zwak in bent, maar het maakt de tekst ook een bewerkt verslag in plaats van
+een directe getuigenis.
+
+De historische voorbeelden die hij aanhaalt, zoals Edison en de gebroeders
+Wright, zijn algemeen bekende anekdotes uit de motivatieliteratuur en worden
+niet aan een bron gekoppeld; ze illustreren zijn punt zonder het te
+onderbouwen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de zeven inkomstenbronnen en de snelle groei op
+sociale media zich moeilijk laten herhalen: Shamani bouwde zijn bereik op in
+een periode waarin Instagram Reels en YouTube in India nog een relatief open
+speelveld waren, en het boek behandelt dat tijdgebonden voordeel niet als
+factor.
+
+Ook zijn startkapitaal wordt onderbelicht. Shamani kon als scholier
+experimenteren met een chemicus die hij via LinkedIn vond en met een vader die
+meehielp aan de productie, een andere uitgangspositie dan de boodschap 'begin
+met wat je hebt' suggereert.
+
+Recensenten op Goodreads noemen de inhoud generiek en wijzen erop dat losse
+hoofdstukken net zo goed een blogpost hadden kunnen zijn; het boek herhaalt
+bekende adviezen uit de zelfhulpliteratuur, zoals doelen die systemen worden
+en vraag die de prijs bepaalt, zonder ze verder te onderbouwen dan met eigen
+anekdotes.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op welke vaardigheid je zelf oefent en welke taak je beter
+uitbesteedt, en waarom.
+- Test een productidee eerst gratis bij een kleine groep voor je aan de prijs
+rekent.
+- Vervang een doel door een dagelijkse routine en meet die routine, niet de
+uitkomst.
+- Leg elk plan of stuk content naast de vraag of het je eigen situatie van een
+jaar geleden verder had geholpen.
+
+#### Wat je hierna leest
+
+- 76. Think and Grow Rich. Napoleon Hill is de auteur die Shamani zelf noemt
+als eerste ontdekking op zijn zoektocht naar rijkdom, met een veel ouder en
+breder programma achter dezelfde belofte.
+- 22. Atomic Habits. James Clear levert het gewoontemodel waarop Shamani's
+systemen boven doelen rechtstreeks teruggaat, uitgewerkt met het onderzoek dat
+hier ontbreekt.
+- 40. The $100 Startup. Guillebeau beschrijft ondernemingen die net als
+Shamani's afwasmiddel met weinig geld beginnen, maar bouwt dat op tientallen
+cases in plaats van één eigen verhaal.
+- 37. Rich Dad Poor Dad. Kiyosaki richt zich op dezelfde jonge lezer zonder
+financiële opvoeding, vanuit een ouder en even weinig onderbouwd persoonlijk
+verhaal.
+
+## 367. The Psychology of Selling
+
+Brian Tracy, 2004. Gebaseerd op Tracy's bestverkochte audioprogramma *The
+Psychology of Selling* uit de jaren tachtig, voor het eerst als boek
+uitgegeven onder de titel *The Psychology of Selling: Increase Your Sales
+Faster and Easier Than You Ever Thought Possible* (Thomas Nelson, 2004, 220
+blz., ISBN 9780785288060). Geen Nederlandse vertaling gevonden. Rubriek:
+samenwerken en gesprek.
+Tags: `verkoop`, `zelfbeeld`, `overtuigen`, `zakendoen`, `doelen stellen`,
+`klantpsychologie`
+
+Tracy herschreef zijn eigen bestverkochte audiotraining tot boek en houdt vast
+aan de kernstelling van dat programma: wie beter wil verkopen, moet niet zijn
+technieken maar zijn zelfbeeld veranderen. Hij verdeelt het verkoopvak in
+zeven vaste onderdelen, van prospecteren tot vragen om een vervolgaankoop, en
+koppelt elk onderdeel aan een psychologisch mechanisme zoals angst voor
+afwijzing of de wet van het indirecte effect.
+
+Het boek bevat weinig kant-en-klare scripts en veel herhaling van hetzelfde
+uitgangspunt: verkoopresultaten volgen het zelfbeeld van de verkoper, niet
+omgekeerd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tracy stelt dat niet de techniek een verkoper onderscheidt
+maar zijn zelfbeeld: wie zichzelf als een verkoper van vijftigduizend dollar
+per jaar ziet, blijft daaraan vasthouden ongeacht wat hij verder leert. Zijn
+boek behandelt verkopen daarom in de eerste plaats als een psychologisch
+proces waarin angst voor afwijzing en angst voor falen de grootste hindernis
+vormen, groter dan een gebrek aan kennis over het product. Vaardigheden als
+prospecteren, presenteren en afsluiten komen pas op de tweede plaats, als
+uitvoering van een innerlijke overtuiging die eerst op orde moet zijn.
+
+#### De gang van het boek
+
+**Het innerlijke spel van verkopen**
+
+Tracy opent met de stelling dat verkopers de belangrijkste mensen in een
+bedrijf zijn, omdat zonder verkoop niets anders in de organisatie kan
+doorgaan: geen productie, geen lonen, geen belasting die publieke
+voorzieningen financiert. Hij verwijst naar de 80/20-regel om te laten zien
+hoe kleine verschillen in aanpak tot grote verschillen in inkomen leiden, en
+legt dat verschil bij het zelfbeeld: wie zichzelf ziet als een verkoper van
+een bepaald inkomensniveau, blijft daar op koers, zowel naar boven als naar
+beneden.
+
+Hij verdeelt het vak in zeven kernonderdelen: prospecteren, een relatie
+opbouwen, de behoefte vaststellen, presenteren, bezwaren beantwoorden,
+afsluiten, en zorgen voor herhaalaankopen en verwijzingen. Elk van die
+onderdelen komt in latere hoofdstukken terug, gekoppeld aan een psychologisch
+obstakel.
+
+**Doelen als voorwaarde voor discipline**
+
+Het tweede deel werkt een doelensysteem uit in zes lagen, van een jaarlijks
+inkomensdoel tot een dagelijks activiteitendoel, met als vuistregel het vorige
+beste jaar met 25 tot 50 procent te verhogen. Elk hoger doel breekt hij af tot
+het aantal contacten, afspraken en gesprekken dat er dagelijks voor nodig is,
+zodat een jaardoel altijd terugvalt op een concrete actie voor die dag.
+
+Tracy raadt aan honderd doelen op te schrijven en zich voor elk klantgesprek
+een positieve afloop voor te stellen, eerst door de eigen ogen bekeken en dan
+van buitenaf, als toeschouwer van het eigen optreden.
+
+**Waarom mensen kopen**
+
+Tracy onderscheidt twee drijfveren, de wens om te winnen en de angst om te
+verliezen, en stelt dat de laatste twee tot twee en een half keer sterker
+werkt. Daaruit leidt hij elf menselijke behoeften af die aankoopgedrag sturen,
+met geld, zekerheid en erkenning bovenaan, en adviseert te verkopen op
+emotionele waarde en op de indruk die een aankoop op anderen maakt, in plaats
+van op prijs en kwaliteit.
+
+**Creatief verkopen en positionering**
+
+In het hoofdstuk over creativiteit koppelt Tracy scheppingsvermogen opnieuw
+aan zelfbeeld en stelt dat het te oefenen valt door jezelf doelen te stellen,
+concrete problemen aan te pakken en gerichte vragen te stellen. Als oefening
+stelt hij voor jaarlijks 250 ideeën op te schrijven voor het eigen vak, met de
+aanname dat het aantal ideeën vanzelf de kwaliteit ervan omhoog trekt. Voor
+wie tot de beste verkopers wil behoren noemt hij vier strategieën:
+specialiseren in een deel van de markt, je onderscheiden van 90 procent van de
+concurrentie, de juiste klantgroep kiezen en je aandacht op de beste
+vooruitzichten concentreren.
+
+**Afspraken maken en de macht van suggestie**
+
+Voor het maken van afspraken adviseert Tracy de aandacht van een prospect kort
+te doorbreken met een verzoek om twee minuten tijd, en om aan de telefoon geen
+prijs of productdetails te noemen: het gaat om de afspraak te verkopen, niet
+het product. Op weerstand als 'ik heb geen interesse' reageert hij met een
+vaste formule die de ander bij een grotere groep tevreden klanten plaatst.
+
+Het hoofdstuk over suggestie behandelt kleding, stemgebruik, een opgeruimde
+werkplek en lichaamstaal als factoren die een gesprek beïnvloeden voor er een
+woord over het product valt.
+
+**De verkoop sluiten**
+
+Tracy behandelt weerstand tegen kopen als een normaal verdedigingsmechanisme
+en beschrijft twee afsluittechnieken. De 'approach close' presenteert het
+gesprek als een verkenning zonder verkoopdruk: de prospect kijkt vrijblijvend
+mee en bepaalt zelf of het aanbod ergens op slaat. De 'demonstration close'
+stelt eerst vast of er budget is voor het bedrag dat hij gaat voorstellen,
+voor hij de rest van het gesprek daaraan besteedt. Hij onderscheidt zes
+koperstypen, van de onverschillige prospect die je beter kunt overslaan tot de
+directe koper die je kort en zakelijk benadert, en sluit af met
+luistervaardigheden: aandachtig luisteren, pauzeren voor je antwoordt, en
+samenvatten wat de ander zei.
+
+**Tien sleutels tot succes**
+
+Het laatste hoofdstuk bundelt tien gewoontes, van werk kiezen dat je
+aanspreekt tot je tijd goed gebruiken en volharden ondanks tegenslag, zonder
+dat die punten nog specifiek aan verkopen zijn gekoppeld. Tracy sluit af met
+de stelling dat ieder mens meer in zich heeft dan hij op dat moment laat zien.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zelfbeeld | Het geheel van overtuigingen dat iemand over zichzelf heeft en dat volgens Tracy bepaalt wat hij zegt, denkt, voelt en doet, ook in de verkoop. |
+| De zeven kernonderdelen van verkopen | Prospecteren, relatie opbouwen, behoefte vaststellen, presenteren, bezwaren beantwoorden, afsluiten, en herhaalaankoop en verwijzing. |
+| Angst voor afwijzing | De belangrijkste innerlijke hindernis die een verkoper er volgens Tracy van weerhoudt om te prospecteren. |
+| Angst voor falen | De verwachting van mislukking die volgens Tracy zowel verkoper als klant onder hun kunnen laat presteren, los van de werkelijke kans op mislukking. |
+| Wet van het indirecte effect | Het principe dat hoe harder een verkoper op de verkoop aanstuurt, hoe meer weerstand hij oproept. |
+| Verkoopweerstand | Een normaal verdedigingsmechanisme van de klant, dat volgens Tracy om begrip vraagt in plaats van om confrontatie. |
+| Elf menselijke behoeften | Zijn lijst van drijfveren achter aankoopgedrag, met geld, zekerheid en erkenning aan de top. |
+| Zes koperstypen | Zijn indeling van klanten naar gedrag, van de onverschillige tot de directe koper, elk met een eigen benadering. |
+| Approach close en demonstration close | Zijn twee afsluittechnieken, de eerste vrijblijvend en verkennend, de tweede gericht op het vooraf vaststellen van budget. |
+
+#### Waar het argument op rust
+
+Tracy onderbouwt zijn stellingen vrijwel nooit met herleidbaar onderzoek.
+Cijfers als de 2,5 keer sterkere werking van verliesaversie of de elf
+behoeften in volgorde van invloed worden als vaststaand gegeven gepresenteerd,
+zonder bron of methode. Het boek is een herschrijving van een audioprogramma
+uit de commerciële trainingswereld, bedoeld om te overtuigen en te motiveren,
+niet om te toetsen.
+
+De sterkste kant van het boek is de interne consistentie: elk onderdeel van
+het verkoopproces wordt teruggevoerd op hetzelfde zelfbeeld-mechanisme, en
+Tracy onderbouwt dat met tientallen jaren ervaring als trainer in meerdere
+landen. Dat is ervaring, geen bewijs in de wetenschappelijke zin.
+
+Het boek is zelf ook een product van dezelfde markt die het beschrijft: het
+audioprogramma waarop het is gebaseerd, is jarenlang verkocht via dezelfde
+overtuigingsmiddelen, zoals sociale bewijskracht en schaarste, die Tracy
+elders aan zijn lezers aanraadt te gebruiken.
+
+#### Wat er tegen in te brengen valt
+
+Het boek werkt met vaste scripts en vaste koperstypen die geen ruimte laten
+voor de vraag of ze per cultuur of branche verschillen; een aanpak die in de
+Amerikaanse zakelijke verkoop van de jaren tachtig werkte, hoeft dat elders
+niet te doen.
+
+De uitspraak dat angst voor verlies 2,5 keer sterker werkt dan de wens om te
+winnen doet denken aan onderzoek naar verliesaversie uit de gedragseconomie
+van Kahneman en Tversky. Tracy noemt die bron niet en presenteert het getal
+als eigen vaststelling, wat de herkomst en de precisie ervan onduidelijk laat.
+
+Het boek herhaalt het zelfbeeld-argument in bijna elk hoofdstuk, ook waar een
+onderwerp als afsluittechniek of lichaamstaal er weinig mee te maken heeft,
+wat de indruk wekt dat de these breder wordt toegepast dan hij draagt.
+
+Door tegenvallende resultaten steeds bij het zelfbeeld van de verkoper te
+leggen, laat het boek weinig ruimte voor verklaringen buiten de persoon, zoals
+een zwak product, een verzadigde markt of een economische neergang. Wie
+ondanks een goed zelfbeeld weinig verkoopt, krijgt in dit kader vooral het
+advies dat zelfbeeld verder te versterken.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf het inkomen dat je jezelf toeschrijft en ga na of je gedrag
+daarmee overeenkomt.
+- Stel voor een verkoopgesprek een doel per fase op: aantal contacten, aantal
+afspraken, aantal afsluitingen.
+- Vraag jezelf bij een aanbod af welke van de elf behoeften het raakt, en leg
+daar de nadruk op in plaats van op prijs.
+- Oefen bij een afwijzing met een vaste, voorbereide reactie in plaats van te
+improviseren.
+
+#### Wat je hierna leest
+
+- 182. Exactly What to Say. Jones werkt op zinsniveau uit wat Tracy op
+procesniveau beschrijft: kant-en-klare formuleringen voor het moment dat Tracy
+alleen als fase benoemt.
+- 271. Never Split the Difference. Voss behandelt onderhandelen vanuit
+gijzelingssituaties en biedt een grimmiger tegenwicht bij Tracy's aanname dat
+een goede relatie de verkoop al voor het grootste deel beslecht.
+- 280. Influence. Cialdini onderbouwt vergelijkbare overtuigingsprincipes met
+experimenteel onderzoek, waar Tracy bij ervaring en herhaling blijft.
+- 158. No Excuses!. Tracy's eigen latere boek werkt dezelfde nadruk op
+zelfdiscipline en persoonlijk gedrag uit, losgemaakt van de verkoopcontext.
+
+## 369. Content Inc.
+
+Joe Pulizzi, 2015. Volledige titel *Content Inc.: How Entrepreneurs Use
+Content to Build Massive Audiences and Create Radically Successful Businesses*
+(McGraw-Hill Education, 8 september 2015, 352 blz., ISBN 9781259589652). In
+2021 verscheen een herziene tweede editie met de ondertitel *Start a
+Content-First Business, Build a Massive Audience and Become Radically
+Successful*. Geen Nederlandse uitgave gevonden; de samenvatting hier is op de
+eerste Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `content marketing`, `ondernemerschap`, `publiek opbouwen`,
+`bootstrapping`, `abonnees`
+
+Pulizzi keert het gangbare startpad om: niet eerst een product bouwen en dan
+klanten zoeken, maar eerst een publiek opbouwen met regelmatige, nuttige
+content over één afgebakend onderwerp, en pas daarna bepalen wat je aan dat
+publiek verkoopt. Hij werkt dat uit in zes stappen, van het vinden van een
+niche tot het gestaag verbreden van inkomstenbronnen, en onderbouwt elke stap
+met de geschiedenis van ondernemers die zo begonnen, onder wie hijzelf.
+
+Het boek trekt zijn eigen loopbaan als voorbeeld: Pulizzi bouwde vanuit een
+B2B-uitgeverij het latere Content Marketing Institute op, dat hij in 2016 voor
+17,6 miljoen dollar verkocht aan UBM. Die ervaring vormt de ruggengraat van
+het boek, aangevuld met tientallen kortere portretten van andere
+content-ondernemers.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Pulizzi stelt dat een onderneming met weinig kapitaal het
+best begint met content in plaats van met een product: wie stelselmatig
+waardevolle informatie deelt met een nauw omschreven doelgroep, bouwt een
+publiek op dat zelf het onderpand wordt voor alles wat er later verkocht
+wordt, van cursussen tot evenementen tot fysieke producten. De omkering die
+hij bepleit is dat vertrouwen en bereik eerder moeten ontstaan dan het aanbod,
+terwijl de gangbare volgorde in bedrijfsplannen precies andersom is. Wie geen
+geduld heeft voor de jaren die dat kost, is bij deze methode aan het verkeerde
+adres.
+
+#### De gang van het boek
+
+**De omkering van het gewone startpad**
+
+Pulizzi opent met de klassieke volgorde van een startup: bedenk een product,
+zoek financiering, verkoop het aan klanten die je nog niet kent. Zijn model
+draait dat om. Eerst bouw je, vaak naast een baan of met een klein budget, een
+stroom content op rond één onderwerp voor één duidelijk afgebakende doelgroep.
+Pas als daar een publiek voor terugkomt, ontstaat de vraag wat je eraan kunt
+verkopen.
+
+Die omkering is volgens hem geen marketingtruc maar een andere volgorde van
+risico. Een product bouwen voor een markt die nog niet is getoetst, is duur
+als het misgaat. Een publiek opbouwen kost vooral tijd, en het levert onderweg
+al informatie op over wat die mensen willen kopen.
+
+**De sweet spot**
+
+De eerste stap is het vinden van wat Pulizzi de sweet spot noemt: het snijvlak
+van een kennisgebied waarin de ondernemer goed is en een onderwerp waar hij
+oprecht in geïnteresseerd is. Zonder die twee samen houdt niemand de productie
+van content jarenlang vol, want het rendement komt pas laat.
+
+Hij benadrukt dat de sweet spot smal moet zijn. Een te brede belofte, zoals
+algemeen zakelijk advies, verdrinkt in de concurrentie. Een precies afgebakend
+onderwerp geeft een nieuwe speler juist de ruimte om op te vallen bij een
+klein deel van een groter veld.
+
+**De content tilt**
+
+De tweede stap is het kantelen van dat onderwerp naar een hoek waar weinig of
+geen andere content over bestaat, wat hij de content tilt noemt. Het onderwerp
+zelf hoeft daarvoor zelden zeldzaam te zijn, de invalshoek moet dat wel zijn.
+Pulizzi geeft als eigen voorbeeld dat content marketing als vakgebied al
+langer bestond, maar dat een uitgave die zich in 2010 uitsluitend daarop
+richtte, er nog niet was toen hij begon.
+
+Zonder die kanteling loop je vast in een markt waar het grootste budget wint.
+Met een scherpe kanteling kan een kleine partij een deelgebied domineren, ook
+tegenover uitgevers met veel meer geld. Pulizzi noemt dat de reden waarom een
+nieuwkomer niet hoeft te concurreren met een gevestigde speler op diens eigen
+terrein: de kanteling verlegt het speelveld naar een hoek die de gevestigde
+partij nog niet bezet houdt.
+
+**Eén kanaal als basis**
+
+De derde stap is het kiezen van precies één primair kanaal, een blog, een
+podcast of een videokanaal, en daar consistent op te publiceren. Pulizzi raadt
+af om van meet af aan overal tegelijk aanwezig te zijn: dat versplintert de
+tijd van een beginnende ondernemer over te veel kanalen om ergens goed in te
+worden.
+
+Consistentie krijgt hier een letterlijke betekenis: een vast ritme, wekelijks
+of vaker, dat lang genoeg wordt volgehouden voordat er resultaat merkbaar is.
+Hij noemt vijftien tot zeventien maanden als de tijd die de ondernemers in
+zijn eigen praktijkvoorbeelden gemiddeld nodig hadden voordat er inkomsten uit
+ontstonden.
+
+**Publiek oogsten en verspreiden**
+
+De vierde stap is het omzetten van bezoekers in abonnees, via e-maillijsten of
+andere kanalen die de ondernemer zelf bezit in plaats van een sociaal platform
+dat elk moment zijn regels kan veranderen. Pas daarna, in de vijfde stap, komt
+diversificatie naar meer kanalen: als de basis staat, kan dezelfde content ook
+als podcast, nieuwsbrief of video verschijnen en zo nieuw publiek aantrekken.
+
+Pulizzi waarschuwt met klem tegen het omdraaien van deze volgorde. Wie eerst
+uitwaaiert over veel kanalen voordat er één basis staat, verliest focus en
+bouwt nergens een schaal op die groot genoeg is om iets aan te verdienen.
+
+**Monetariseren als laatste stap**
+
+Pas in de zesde stap komt het verdienmodel: producten, diensten, evenementen,
+lidmaatschappen of reclame, gebouwd op een publiek dat de ondernemer al
+vertrouwt. Pulizzi wijst erop dat de meeste ondernemers uit zijn voorbeelden
+uiteindelijk vijf tot zeven verschillende inkomstenbronnen combineerden in
+plaats van op één te leunen.
+
+Zijn eigen bedrijf illustreert dat: content marketing was gratis, en het geld
+kwam uit een jaarlijkse conferentie, uit onderzoeksrapporten en uit
+advertenties op de site, tot de verkoop van het geheel aan UBM in 2016.
+
+**Brian Clark als opening**
+
+Het boek opent met het voorwoord van Brian Clark, oprichter van Copyblogger,
+die zijn eigen verhaal vertelt als illustratie van het model: een advocaat die
+zonder product bijna twee jaar lang gestaag content over schrijven en
+marketing publiceerde voordat daar een verdienmodel uit groeide. Pulizzi
+gebruikt dat voorbeeld en tientallen vergelijkbare, kortere portretten om te
+laten zien dat het patroon niet aan zijn eigen branche gebonden is.
+
+Die keuze voor een voorwoord van iemand anders dan de auteur is functioneel:
+het boek moet aantonen dat het model overdraagbaar is, en een tweede stem die
+hetzelfde patroon uit een andere sector bevestigt, doet dat overtuigender dan
+de schrijver die alleen zijn eigen geschiedenis navertelt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Content Inc.-model | De zes stappen waarmee een ondernemer eerst een publiek opbouwt met content en pas daarna een verdienmodel eromheen bouwt. |
+| Sweet spot | Het snijvlak van eigen kennis en oprechte interesse waarbinnen een ondernemer een onderwerp kiest dat hij jarenlang kan volhouden. |
+| Content tilt | De specifieke invalshoek op een onderwerp waar nog weinig of geen andere content voor bestaat. |
+| Building the base | Het opbouwen van één primair kanaal met een vast publicatieritme, voordat er naar andere kanalen wordt uitgebreid. |
+| Harvesting audience | Het omzetten van eenmalige bezoekers in abonnees op een lijst die de ondernemer zelf bezit, los van een extern platform. |
+| Diversificatie | De uitbreiding van dezelfde content naar meerdere kanalen zodra de basis genoeg publiek trekt. |
+| Monetization | De laatste stap, waarin het opgebouwde publiek wordt omgezet in een of meer verdienmodellen. |
+
+#### Waar het argument op rust
+
+Het boek levert geen onderzoeksdata maar een verzameling praktijkgevallen:
+Pulizzi's eigen bedrijf, het voorwoord van Brian Clark over Copyblogger, en
+tientallen kortere portretten van andere content-ondernemers die hij
+interviewde. De cijfers die terugkeren, zoals de vijftien tot zeventien
+maanden tot de eerste inkomsten en de vijf tot zeven inkomstenbronnen per
+bedrijf, zijn gemiddelden uit die eigen selectie van gevallen en niet uit een
+onafhankelijke steekproef.
+
+De sterkste onderbouwing is dat Pulizzi het model zelf heeft toegepast en de
+uitkomst controleerbaar is: de verkoop van het Content Marketing Institute aan
+UBM voor 17,6 miljoen dollar in 2016 is publiek gedocumenteerd. Dat is één
+succesvol geval, aangevuld met andere die niet met dezelfde precisie zijn na
+te trekken.
+
+#### Wat er tegen in te brengen valt
+
+De praktijkgevallen zijn stuk voor stuk bedrijven die het gehaald hebben; er
+staat geen telling bij van ondernemers die dezelfde zes stappen volgden en
+toch niet doorbraken, terwijl uitvalcijfers bij dit soort trajecten hoog
+liggen. Dat maakt het boek een verzameling succesverhalen in plaats van een
+getoetste methode.
+
+De tijdshorizon die het model vraagt, meer dan een jaar zonder zeker
+verdienmodel, is voor wie geen spaargeld of ander inkomen heeft nauwelijks te
+overbruggen, en het boek gaat daar weinig op in. Ook de aanname dat
+contentmarkten met de tijd niet verzadigen, is sinds 2015 minder
+vanzelfsprekend geworden nu bijna elke niche al meerdere gevestigde makers
+kent.
+
+De rol van de platforms waarop het model leunt, blijft onderbelicht.
+Zoekmachines en sociale netwerken bepalen mede of een beginnende maker
+gevonden wordt, en de regels van die platforms zijn sinds 2015 herhaaldelijk
+veranderd op een manier die het bereik van kleine, onafhankelijke makers juist
+heeft ingeperkt. Het boek beschrijft het bouwen van een eigen lijst als
+beschermingsmiddel daartegen, maar erkent niet hoezeer zelfs die eerste
+opbouwfase van platforms afhankelijk is.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf in één zin het snijvlak van je eigen kennis en interesse, en toets
+of je daar wekelijks een jaar lang over zou kunnen schrijven of praten.
+- Zoek drie bestaande makers in hetzelfde onderwerp en formuleer de invalshoek
+waarmee je van hen verschilt.
+- Kies één kanaal als vaste basis en stel een vast, haalbaar publicatieritme
+in voordat je aan een tweede kanaal begint.
+- Bouw vanaf de eerste publicatie een eigen lijst van abonnees op, in plaats
+van alleen te vertrouwen op het bereik van een extern platform.
+- Reken vooraf uit hoeveel maanden zonder inkomsten uit dit werk haalbaar
+zijn, en leg dat naast de vijftien tot zeventien maanden die het boek als
+gemiddelde noemt.
+
+#### Wat je hierna leest
+
+- 279. All Marketers Are Liars. Godin beschrijft vanuit een ander perspectief
+waarom een verhaal en het vertrouwen van een publiek de kern van marketing
+vormen, wat de aanname onder Pulizzi's model verder uitwerkt.
+- 309. DotCom Secrets. Brunson bouwt vanuit dezelfde overtuiging dat een
+publiek eerst moet ontstaan, maar werkt vooral de technische verkooptrechter
+uit die na de contentfase komt.
+- 198. Crush It!. Vaynerchuk beschrijft dezelfde route van gratis content naar
+een merk, maar dan gericht op sociale kanalen in plaats van op één eigen
+basis.
+- 40. The $100 Startup. Guillebeau beschrijft ondernemingen die met weinig
+geld beginnen, het soort startsituatie waarvoor het Content Inc.-model bedoeld
+is.
+
+## 370. The Chanakya Playbook
+
+Abhiraj Gupta, 2026. Volledige titel *The Chanakya Playbook: Ancient Wisdom
+for the Modern Entrepreneur* (Rupa Publications, 9 april 2026, gebonden, 232
+blz., ISBN 9789376466627). Verschenen in India; geen Nederlandse uitgave. De
+samenvatting hier is op de Engelse editie gebaseerd en op besprekingen ervan,
+omdat de tekst zelf niet beschikbaar was; waar dat het geval is, staat dat
+aangegeven. Rubriek: geld en ondernemen.
+Tags: `Chanakya`, `Arthashastra`, `leiderschap`, `strategie`,
+`ondernemerschap`, `India`
+
+Gupta, directeur van het Indiase farmaceutische bedrijf IOL Chemicals and
+Pharmaceuticals, herschrijft de *Arthashastra*, het oude Indiase staatkundige
+traktaat dat aan de adviseur Chanakya wordt toegeschreven, tot een handleiding
+voor hedendaagse ondernemers. Het boek is opgebouwd rond drie thema's:
+persoonlijke discipline van de leider, de opbouw van een organisatie die op
+systemen draait in plaats van op één persoon, en het vermogen om snel te
+schakelen zonder de koers te verliezen.
+
+Elk van de zestien hoofdstukken volgt hetzelfde stramien: een klassiek begrip
+uit de *Arthashastra*, de uitleg ervan, en een hedendaags bedrijfsvoorbeeld
+waarin hetzelfde patroon zichtbaar wordt, met onder meer Enron, Nokia, Kodak
+en Reliance Jio. De terugkerende stelling is dat welvaart die zonder ethische
+grondslag is opgebouwd, zichzelf op termijn ondermijnt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gupta stelt dat de oudste systematische Indiase tekst over
+machtsuitoefening, de *Arthashastra* die aan de adviseur Chanakya (ook
+Kautilya genoemd, vierde eeuw voor Christus) wordt toegeschreven, een
+bruikbaarder kader voor hedendaags ondernemerschap biedt dan de gangbare
+westerse managementliteratuur, omdat de tekst leiderschap nooit los ziet van
+de instandhouding van het geheel op lange termijn. Zijn stelling is dat
+bedrijven die alleen op groeicijfers sturen, dezelfde fout maken als heersers
+die alleen op verovering sturen: beide verliezen het fundament onder het eigen
+succes uit het oog. Wie daar iets tegenover wil zetten, kan wijzen op het
+gemak waarmee tweeduizend jaar oude staatsraad wordt vertaald naar de
+kwartaalcijfers van een beursgenoteerd bedrijf.
+
+#### De gang van het boek
+
+**Een oude tekst voor een nieuw publiek**
+
+Gupta plaatst zijn boek uitdrukkelijk tegenover de dominantie van Amerikaanse
+managementliteratuur. De *Arthashastra*, een handboek voor bestuur, economie
+en oorlogvoering dat aan de staatsman en leermeester Chanakya wordt
+toegeschreven, bevat volgens hem een even doordacht stelsel van regels voor
+het opbouwen en behouden van macht, alleen dan toegepast op een koninkrijk in
+plaats van een onderneming.
+
+Het boek vertaalt dat stelsel naar drie thema's die de opbouw dragen: interne
+beheersing van de leider zelf, structurele bestendigheid van de organisatie,
+en strategische wendbaarheid in de uitvoering. Die driedeling keert in vrijwel
+elk hoofdstuk terug als raamwerk waarbinnen een klassiek begrip wordt
+geplaatst.
+
+**Interne beheersing van de leider**
+
+Het eerste deel richt zich op de leider als persoon. Centraal begrip is
+*rajadharma*, de plicht van wie regeert, die Gupta uitlegt als de eis dat een
+leider zijn eigen verlangens ondergeschikt maakt aan het belang van wie van
+hem afhankelijk zijn. Daarnaast bespreekt hij *prajnasakti*, het vermogen tot
+vooruitzien en beoordelen dat volgens de *Arthashastra* de eerste voorwaarde
+voor goed bestuur is.
+
+In dit deel keren discipline, zelfkennis en helderheid over het eigen doel
+terug als voorwaarden die aan elke andere stap voorafgaan. Wie zichzelf niet
+beheerst, kan volgens de klassieke tekst geen instelling beheersen, en Gupta
+past die volgorde toe op de hedendaagse ondernemer.
+
+**Structurele bestendigheid: de zeven ledematen van de staat**
+
+Het tweede deel bouwt op wat in de *Arthashastra* bekendstaat als de
+*saptanga*, de zeven onderdelen die samen een staat vormen: heerser,
+ministers, gebied, vesting, schatkist, leger en bondgenoten. Gupta vertaalt
+dat raamwerk naar de onderdelen van een onderneming, waarbij *kosha*
+(schatkist) voor financiële draagkracht staat, *durga* (vesting) voor de
+weerbaarheid van de organisatiestructuur, *danda* (leger, letterlijk de staf)
+voor het vermogen om besluiten daadwerkelijk uit te voeren, en *janapada*
+(gebied en bevolking) voor het menselijk kapitaal.
+
+De strekking van dit deel is dat een instelling die op sterke systemen rust
+een langer leven heeft dan een instelling die op de persoonlijke kwaliteiten
+van één leider drijft. Als voorbeelden van het tegendeel bespreekt het boek de
+val van Enron en het verlies van marktpositie bij Nokia en Kodak,
+ondernemingen die volgens Gupta hun eigen fundament verwaarloosden terwijl de
+resultaten op korte termijn nog goed oogden.
+
+**Strategische wendbaarheid: het zesvoudige beleid**
+
+Het derde deel behandelt wat in de *Arthashastra* de *shadgunya* heet, het
+zesvoudige buitenlandbeleid van een staat tegenover zijn buren: vrede sluiten,
+oorlog voeren, neutraal blijven, optrekken, een bondgenootschap zoeken, of een
+dubbele koers varen. Gupta zet dat raamwerk om in een instrument voor
+concurrentiestrategie, waarbij een onderneming per situatie moet kiezen tussen
+samenwerken, confronteren, afwachten of zich terugtrekken in plaats van vast
+te houden aan één vaste opstelling.
+
+Als hedendaags voorbeeld noemt het boek de omgang van verschillende bedrijven
+met de verstoring van de coronapandemie, waarin sommige ondernemingen hun
+positie aanpasten en andere vasthielden aan een koers die niet meer paste bij
+de omstandigheden. Reliance Jio en Apple worden aangehaald als voorbeelden van
+bedrijven die hun aanpak op het juiste moment bijstelden.
+
+**De opbouw per hoofdstuk**
+
+Volgens besprekingen van het boek volgt elk van de zestien hoofdstukken een
+vast stramien: een inleiding, een citaat of parafrase uit de *Arthashastra*,
+uitleg van het onderliggende begrip, een of meer hedendaagse bedrijfscasussen,
+en een afsluiting met puntsgewijze lessen. Een verklarende woordenlijst
+achterin helpt de lezer bij de Sanskriet-termen die door het boek heen
+terugkeren.
+
+Die opzet maakt het boek uitdrukkelijk tot een naslagwerk voor de praktijk en
+niet tot een historische of filologische studie van de *Arthashastra* zelf;
+besprekers van het boek noemen dat zelf als de bewuste keuze van de auteur.
+
+**Ethiek als voorwaarde voor duurzaam succes**
+
+Door alle delen heen keert de stelling terug dat winst zonder ethische
+grondslag zichzelf ondermijnt. Gupta gebruikt daarvoor herhaaldelijk de
+bedrijven die als waarschuwend voorbeeld dienen, Enron voorop, om te laten
+zien dat kortetermijnresultaten een verrotte structuur lang kunnen verbergen
+voordat die alsnog instort.
+
+Daarmee plaatst het boek zich in een traditie van bedrijfsethiek die winst
+niet als tegenpool van moraal ziet, maar als een grootheid die zonder moraal
+op termijn niet vol te houden is. Het onderscheid tussen *dharma*, de morele
+plicht, en *artha*, materiële welvaart, dat in de *Arthashastra* zelf al
+centraal staat, vormt daarvan het uitgangspunt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Arthashastra | Het oude Indiase traktaat over staatsbestuur, economie en oorlogvoering waarop het boek zijn hedendaagse lessen baseert. |
+| Rajadharma | De plicht van wie regeert of leiding geeft, waarbij het eigen belang ondergeschikt is aan het belang van wie ervan afhankelijk zijn. |
+| Prajnasakti | Het vermogen tot vooruitzien en beoordelen, in het boek voorgesteld als de eerste voorwaarde voor goed leiderschap. |
+| Saptanga | De zeven onderdelen die volgens de *Arthashastra* samen een staat vormen en die Gupta vertaalt naar de onderdelen van een onderneming. |
+| Kosha, durga, danda, janapada | Vier van de zeven onderdelen: schatkist, vesting, uitvoerend vermogen en gebied met bevolking, in het boek respectievelijk financiën, structuur, uitvoering en mensen. |
+| Shadgunya | Het zesvoudige buitenlandbeleid, in het boek omgezet naar een keuzemodel voor concurrentiestrategie. |
+| Dharma en artha | De morele plicht tegenover de materiële welvaart; de klassieke tekst en het boek stellen dat de tweede zonder de eerste niet standhoudt. |
+
+#### Waar het argument op rust
+
+Het boek werkt met een vaste combinatie per hoofdstuk: een klassiek begrip uit
+de *Arthashastra*, gevolgd door een of meer hedendaagse bedrijfscasussen die
+het moeten illustreren, onder meer Enron, Nokia, Kodak, Reliance Jio en Apple.
+Dat is een manier van beargumenteren met voorbeelden, niet met onderzoek: er
+worden geen aantallen bedrijven vergeleken en er wordt niet getoetst of het
+patroon ook opgaat bij bedrijven die met dezelfde beginselen wél doorgroeiden.
+
+De vertaling van staatkundige begrippen als saptanga en shadgunya naar
+bedrijfsvoering is de eigen constructie van de auteur; de *Arthashastra* zelf
+schreef die begrippen niet voor ondernemingen. Wat vaststaat, onafhankelijk
+van het boek, is dat deze begrippen daadwerkelijk in de klassieke tekst
+voorkomen en door Kautilya-onderzoekers al langer besproken worden; de
+toepassing op moderne bedrijven komt van Gupta.
+
+Deze samenvatting is gebaseerd op besprekingen, persberichten en de
+boekbeschrijving, niet op een eigen lezing van de volledige tekst, omdat die
+niet beschikbaar was. Voor de precieze bewoording van citaten en de exacte
+hoofdstuktitels is dat een beperking; de hier beschreven driedeling, de vier
+saptanga-begrippen en de genoemde bedrijfscasussen zijn wel in meerdere
+onafhankelijke besprekingen terug te vinden.
+
+#### Wat er tegen in te brengen valt
+
+Het boek verscheen in april 2026 en is daarmee te vers voor de kritische
+afstand die klassiekers in dit genre al hebben opgebouwd; vrijwel alle
+beschikbare besprekingen zijn welwillend en afkomstig van boekbloggers,
+persberichten of het eigen netwerk van de auteur, wat de onafhankelijke
+toetsing van de claims beperkt.
+
+Een bezwaar dat in ten minste één bespreking wordt genoemd, is dat de
+vertaling van de *Arthashastra* sterk gemoderniseerd is: wie op zoek is naar
+een precieze, historisch verantwoorde lezing van de brontekst, krijgt in
+plaats daarvan een praktijkgerichte parafrase. De koppeling van eeuwenoude
+staatsraad aan specifieke bedrijven als Enron of Nokia loopt bovendien het
+risico dat het patroon achteraf wordt ingelezen: bedrijven die faalden, hadden
+vaak tegelijk tientallen andere problemen die met dezelfde saptanga-begrippen
+evengoed te verklaren zouden zijn geweest.
+
+De auteur is zelf bedrijfsbestuurder en geen historicus of Sanskrit-geleerde;
+dat verklaart de praktische invalshoek, maar betekent ook dat het gezag van
+het boek op de klassieke tekst leunt zonder dat er filologisch tegenspel wordt
+geboden aan zijn interpretatie ervan.
+
+#### Wat er concreet mee te doen is
+
+- Breng de vier onderdelen kosha, durga, danda en janapada, financiën,
+structuur, uitvoering en mensen, in kaart voor je eigen organisatie en ga na
+welk onderdeel het zwakst is.
+- Kies bij een concurrentievraagstuk expliciet tussen de zes shadgunya-opties,
+samenwerken, confronteren, afwachten, aanvallen, een bondgenootschap zoeken of
+een dubbele koers varen, in plaats van standaard voor dezelfde opstelling te
+kiezen.
+- Toets een groeiplan aan de vraag of het resultaat standhoudt zonder de
+persoon die het nu drijft, als proef op structurele bestendigheid.
+
+#### Wat je hierna leest
+
+- 272. The Art of War. Sun Tzu levert het Chinese equivalent van vroege
+staatkundige strategie, eveneens vertaald naar hedendaagse toepassing, en
+biedt een vergelijkingspunt voor wat in beide tradities overeenkomt en
+verschilt.
+- 219. The Thirty-Six Stratagems. De Chinese strategemen bieden een tweede
+klassieke bron voor manoeuvreren tussen confrontatie en samenwerking, naast de
+shadgunya die dit boek bespreekt.
+- 270. Principles. Dalio werkt vanuit een geheel andere traditie een
+vergelijkbaar streven uit: vaste beginselen die persoonlijk gedrag en
+organisatiestructuur allebei moeten dragen.
+- 353. Good to Great. Collins onderzoekt met bedrijfsdata welke structurele
+eigenschappen bedrijven blijvend sterk maken, waar dit boek voor hetzelfde
+onderwerp op klassieke tekst en casussen leunt.
+
+## 372. Do Hard Things
+
+Steve Magness, 2022. Voluit *Do Hard Things: Why We Get Resilience Wrong and
+the Surprising Science of Real Toughness* (HarperOne, 2022, ISBN
+9780063098619). Geen Nederlandse uitgave. Rubriek: moed en karakter.
+Tags: `mentale weerbaarheid`, `sportpsychologie`, `stressregulatie`,
+`prestatie`, `zelfbeeld`
+
+Magness is hardloopcoach en werkte jarenlang met olympische atleten. Hij keert
+zich tegen het beeld van toughness als opgeklopte hardheid: een gezicht dat
+niets laat zien, een coach die schreeuwt, het idee dat pijn negeren bewijst
+dat je sterk bent. Dat noemt hij een gevel, en een gevel houdt niemand vol als
+het er echt op aankomt.
+
+Zijn boek is opgebouwd rond vier bewegingen: de gevel laten vallen en de
+werkelijkheid onder ogen zien, luisteren naar wat het lichaam meldt, reageren
+in plaats van terugslaan op een prikkel, en het ongemak doorstaan zonder het
+te ontkennen. Hij bouwt dat op met voorbeelden uit de sport, het leger en de
+klinische psychologie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Magness stelt dat het gangbare beeld van mentale kracht op
+een vergissing berust. Wat mensen toughness noemen, de opgeklopte hardheid van
+schreeuwende coaches en het wegslikken van elk teken van pijn, is volgens hem
+een gevel die onder echte druk het eerst instort. Ware zelfvertrouwen is stil
+en gebaseerd op zelfkennis, terwijl onzekerheid zich juist luid moet bewijzen.
+Wie zijn lichaam en zijn twijfel eerlijk onder ogen ziet in plaats van ze weg
+te duwen, houdt het langer vol dan wie zich groter voordoet dan hij is. Dat
+maakt van weerbaarheid geen kwestie van harder bijten, maar van beter
+waarnemen.
+
+#### De gang van het boek
+
+**De mythe van de harde schil**
+
+Magness opent met het beeld dat de meeste mensen van toughness hebben: het
+opperhoofd dat geen spier vertrekt, de coach die afzien beloont, het motto dat
+pijn de prijs is die je betaalt voor succes. Hij noemt dat een cultuur van de
+gevel, waarin het tonen van twijfel of vermoeidheid als zwakte geldt en waarin
+mensen daarom leren hun binnenkant weg te stoppen.
+
+Zijn tegenvoorbeeld is de stille zelfverzekerdheid die hij bij de beste
+atleten en militairen tegenkwam. Wie zeker is van zijn kunnen, hoeft dat niet
+te bewijzen. Wie onzeker is, compenseert met bravoure. Militaire
+selectietrainingen functioneren volgens hem eerder als zeef die dit
+onderscheid blootlegt dan als fabriek die harde mensen aflevert.
+
+**De gevel laten vallen**
+
+De eerste van zijn vier bewegingen is het onder ogen zien van de werkelijke
+toestand, in plaats van een prestatie van kalmte op te voeren. Magness
+beschrijft hoe het onderdrukken van angst of vermoeidheid het lichaam niet
+rustiger maakt maar juist meer energie kost, omdat er twee dingen tegelijk
+gebeuren: de belasting zelf en het verbergen ervan.
+
+Erkennen wat er speelt is bij hem geen zwaktebod maar de eerste voorwaarde om
+er iets aan te doen. Een hardloper die toegeeft dat zijn benen zwaar zijn, kan
+zijn tempo aanpassen; een hardloper die dat wegdrukt, loopt door tot het
+lichaam de beslissing zelf neemt.
+
+**Luisteren naar het lichaam**
+
+De tweede beweging gaat over interoceptie, het vermogen om lichamelijke
+signalen waar te nemen en te duiden. Magness stelt dat getrainde sporters niet
+minder voelen dan beginners, maar preciezer: zij onderscheiden vermoeidheid
+die om aanpassing vraagt van vermoeidheid die nog ruimte laat.
+
+Hij vergelijkt dat met een meetinstrument dat je moet leren aflezen. Wie zijn
+lichaam alleen als lastpost behandelt en het signaal overstemt met wilskracht,
+verliest juist de informatie die op het juiste moment tot een betere
+beslissing had geleid.
+
+**Reageren in plaats van terugslaan**
+
+De derde beweging onderscheidt een reactie van een respons. Een reactie is
+automatisch en voorgeprogrammeerd, een respons ontstaat uit een moment van
+ruimte tussen prikkel en handelen. Magness bespreekt hoe stress die ruimte
+inperkt en mensen terugvallen op ingesleten patronen, ook als die niet passen
+bij de situatie.
+
+Zijn advies is niet het onderdrukken van de eerste opwelling, maar het
+inbouwen van een korte pauze waarin iemand kan kiezen wat de situatie nodig
+heeft. Hij beschrijft ademhaling en korte checks als hulpmiddel om die pauze
+te creëren, niet als truc om kalm te lijken.
+
+**Het ongemak overstijgen**
+
+De vierde beweging gaat over vasthouden aan wat iemand belangrijk vindt, ook
+als de uitvoering ongemakkelijk is. Magness leunt hier op waardengerichte
+gedragstherapie: niet het ongemak wegnemen, maar handelen dat er verenigbaar
+mee is.
+
+Hij illustreert dat met sporters die een wedstrijd niet uitzitten door de pijn
+te ontkennen, maar door haar een plaats te geven naast het doel dat ze voor
+ogen houden. Dat overstijgen is bij hem geen overwinning op het lichaam,
+eerder een samenwerking ermee.
+
+**Uitdaging versus bedreiging**
+
+Magness bespreekt hoe hetzelfde lichamelijke signaal, een versnelde hartslag
+en gespannen spieren, twee heel verschillende kanten op kan gaan al naar
+gelang de inschatting die iemand ervan maakt. Wordt een situatie beoordeeld
+als een uitdaging waarvoor de eigen middelen net toereikend zijn, dan werkt
+diezelfde spanning verscherpend; wordt zij beoordeeld als een bedreiging die
+de eigen middelen te boven gaat, dan werkt zij verlammend.
+
+Die inschatting is volgens hem geen kwestie van jezelf voorhouden dat alles
+goed komt, maar van een realistische afweging tussen wat de situatie vraagt en
+wat iemand daadwerkelijk in huis heeft. Overdreven optimisme werkt daarbij
+averechts, omdat het de kloof tussen verwachting en werkelijkheid alleen maar
+vergroot op het moment dat het telt.
+
+**Toughness als gezamenlijke opgave**
+
+In de slothoofdstukken breidt Magness zijn onderwerp uit naar teams en
+organisaties. Een omgeving die kwetsbaarheid afstraft, produceert volgens hem
+mensen die zich beter voordoen dan ze zich voelen, en dat is precies de gevel
+waarmee het boek begint. Een omgeving die eerlijke signalen toelaat, maakt
+betere beslissingen mogelijk op het moment dat het telt.
+
+Hij trekt die lijn door naar coaches, leidinggevenden en ouders: wie afstraft
+dat iemand twijfel of vermoeidheid toegeeft, leert die persoon niet om
+steviger te worden maar om beter te verbergen wat er speelt. Op de langere
+termijn werkt dat averechts, juist op de momenten waarop een eerlijk signaal
+het verschil maakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De gevel | De opgeklopte hardheid die pijn en twijfel wegdrukt in plaats van ze te erkennen. |
+| Stille zelfverzekerdheid | Zekerheid die niet bewezen hoeft te worden, tegenover onzekerheid die zich luid moet uiten. |
+| Interoceptie | Het vermogen om lichamelijke signalen waar te nemen en correct te duiden. |
+| Reactie versus respons | Het verschil tussen automatisch terugslaan op een prikkel en bewust kiezen wat de situatie vraagt. |
+| De ruimte tussen prikkel en handelen | Het korte moment waarin een bewuste keuze nog mogelijk is voordat een automatisme het overneemt. |
+| Waardengericht handelen | Doorgaan in lijn met wat iemand belangrijk vindt, zonder het ongemak eerst te hoeven wegnemen. |
+| Zeef in plaats van fabriek | Zijn beeld van zware selectietrainingen: ze onderscheiden bestaande eigenschappen, ze kweken ze niet. |
+| Uitdaging versus bedreiging | Twee tegengestelde manieren om dezelfde lichamelijke spanning te beoordelen, met tegengestelde gevolgen voor de prestatie. |
+
+#### Waar het argument op rust
+
+Magness combineert zijn eigen ervaring als coach van olympische en
+universitaire hardlopers met onderzoek uit de sportpsychologie, de klinische
+psychologie rond stressregulatie en enkele militaire studies naar
+selectietrainingen. Veel van dat onderzoek gaat over kleine, specifieke
+groepen zoals topsporters of militairen in training, en de vertaling naar een
+breder publiek is zijn eigen interpretatie.
+
+Sterker onderbouwd zijn de fysiologische stukken over interoceptie,
+stressrespons en het onderscheid tussen uitdaging en bedreiging, die
+aansluiten bij breder gedragen onderzoek naar hoe het lichaam belasting
+signaleert en beoordeelt. Losser onderbouwd is de these dat schreeuwende
+coaches en harde selectie op zichzelf schadelijk zijn; daarvoor citeert hij
+vooral voorbeelden, geen vergelijkend onderzoek.
+
+#### Wat er tegen in te brengen valt
+
+Het boek trekt scherpe lijnen tussen echte en nagemaakte toughness, terwijl de
+praktijk minder netjes is: een gevel kan voor sommige mensen op sommige
+momenten wel degelijk helpen om door te zetten, ook als hij op termijn slijt.
+Magness benoemt die uitzonderingen nauwelijks.
+
+Zijn voorbeelden komen bijna allemaal uit de topsport en het leger, omgevingen
+met intensieve begeleiding en meetbare doelen. Hoeveel van zijn vier
+bewegingen standhoudt in een gewoon leven met een gewone baan en gewone
+tegenslagen, laat het boek grotendeels aan de lezer over.
+
+De these dat luide bravoure onzekerheid verraadt, is aantrekkelijk maar
+moeilijk te toetsen: het boek levert geen methode om dat onderscheid vooraf te
+maken, alleen de observatie achteraf.
+
+Het onderscheid tussen uitdaging en bedreiging klinkt eenvoudiger dan het in
+de praktijk te sturen is: iemand die zijn eigen kunnen structureel onderschat,
+kan een reële uitdaging blijven ervaren als bedreiging, ook na het lezen van
+dit boek, en daarvoor biedt Magness geen aanvullende weg.
+
+Het boek presenteert de tegenstelling tussen oude en nieuwe toughness soms
+scherper dan de werkelijkheid rechtvaardigt. Coaches die op afzien en
+volharding hameren, verwijzen zelf ook naar aandacht en zelfkennis zodra het
+gesprek dieper gaat, en Magness' eigen onderscheid tussen gevel en kern loopt
+op sommige plekken in het boek minder strak door dan de vier pijlers doen
+vermoeden.
+
+#### Wat er concreet mee te doen is
+
+- Benoem bij een zware taak eerst hardop wat je voelt, voordat je verder gaat.
+- Bouw een korte pauze in tussen een tegenslag en je reactie erop, ook als het
+maar een paar ademhalingen zijn.
+- Vraag je bij vermoeidheid af of het signaal om aanpassing vraagt of nog
+ruimte laat, in plaats van het te negeren.
+- Leg voor jezelf vast welk doel het ongemak van dat moment de moeite waard
+maakt.
+- Weeg voor een spannend moment bewust af wat de situatie precies vraagt
+tegenover wat je daadwerkelijk in huis hebt, in plaats van jezelf enkel gerust
+te stellen.
+
+#### Wat je hierna leest
+
+- 29. Grit. Duckworth beschrijft doorzettingsvermogen als volgehouden
+richting; Magness zet daar de vraag naast hoe je de druk onderweg verwerkt.
+- 75. Ego Is the Enemy. Holiday's stoïsche omgang met ego raakt aan dezelfde
+stille zelfverzekerdheid die Magness beschrijft.
+- 48. Man's Search for Meaning. Frankl laat zien wat er overblijft van de
+vraag naar houding onder omstandigheden die geen enkele training nabootst.
+
+## 373. 13 Things Mentally Strong People Don't Do
+
+Amy Morin, 2014. Voluit *13 Things Mentally Strong People Don't Do: Take Back
+Your Power, Embrace Change, Face Your Fears, and Train Your Brain for
+Happiness and Success* (William Morrow, 2014, ISBN 9780062358301). Ontstaan
+uit een lijst die Morin in 2013 voor Forbes.com schreef en die online veel
+gelezen werd. Geen Nederlandse uitgave. Rubriek: moed en karakter.
+Tags: `mentale weerbaarheid`, `cognitieve gedragstherapie`, `zelfhulp`,
+`verlies`, `gewoonten`
+
+Morin is psychotherapeut. Haar moeder overleed plotseling aan een
+hersenbloeding toen Morin drieëntwintig was, en op de derde jaardag van dat
+overlijden stierf ook haar man onverwacht aan een hartaanval. Jaren later, na
+een nieuw huwelijk, kreeg de vader van haar tweede man een agressieve vorm van
+kanker waarvoor geen behandeling meer aansloeg. Vanuit die opeenstapeling van
+verlies en haar werk als hulpverlener stelde zij een lijst op van dertien
+gewoonten die mentale kracht in de weg staan, van zelfmedelijden tot het
+najagen van onmiddellijk resultaat.
+
+Elk hoofdstuk behandelt één gewoonte volgens hetzelfde stramien: hoe die
+eruitziet, waarom mensen erin vervallen, en wat er volgens de cognitieve
+gedragstherapie tegenover te zetten is. Het boek werd een van de bestverkochte
+zelfhulptitels van zijn decennium en kreeg later vervolgdelen voor ouders,
+stellen en vrouwen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Morin beweert dat mentale kracht minder gaat over wat iemand
+doet dan over wat iemand laat: dertien gewoonten die op het eerste gezicht
+troost bieden, maar op termijn juist verzwakken. Zelfmedelijden, het steeds
+herkauwen van het verleden, het najagen van ieders goedkeuring of het uit de
+weg gaan van risico's voelen als bescherming, terwijl ze volgens haar de groei
+blokkeren die nodig is om met tegenslag te leren omgaan. Haar stelling is dat
+wie deze patronen herkent en actief doorbreekt, zijn gedachten net zo kan
+trainen als een spier, met dagelijkse herhaling in plaats van een eenmalig
+inzicht.
+
+#### De gang van het boek
+
+**Een lijst die uitgroeide tot een boek**
+
+Het boek begint bij een persoonlijk gegeven: Morins moeder overleed onverwacht
+aan een hersenbloeding, en op de derde jaardag van dat verlies stierf ook haar
+man plotseling aan een hartaanval. Jaren later, na een tweede huwelijk, kreeg
+de vader van haar nieuwe man een ongeneeslijke vorm van kanker. Uit die
+opeenvolging van verlies schreef zij in 2013 een lijst van dertien dingen die
+mentaal sterke mensen niet doen, die online een groot bereik kreeg. Het boek
+werkt die lijst hoofdstuk voor hoofdstuk uit.
+
+Morin benadrukt dat mentale kracht voor haar geen aangeboren eigenschap is
+maar een vaardigheid die je opbouwt, vergelijkbaar met een spier die aansterkt
+door gerichte oefening en verzwakt door misbruik.
+
+**Gedachten, gevoelens en gedrag als cirkel**
+
+De methode achter de dertien hoofdstukken komt uit de cognitieve
+gedragstherapie: gedachten, gevoelens en gedrag beïnvloeden elkaar
+voortdurend, en wie zijn gedachten bijstuurt, verandert daarmee ook wat hij
+voelt en doet. Morin gebruikt dat model om elk hoofdstuk dezelfde opbouw te
+geven: wat de gewoonte inhoudt, welke gedachte erachter zit, en welke oefening
+die gedachte vervangt.
+
+Ze werkt met concrete cliëntvoorbeelden, aangepast om herkenbaarheid te
+bewaren zonder de anonimiteit te schenden, en met korte lijstjes van wat wel
+en niet helpt.
+
+**Macht weggeven en verandering schuwen**
+
+Een cluster van gewoonten gaat over controle: het weggeven van je macht aan de
+mening van anderen, het bang zijn voor gecalculeerde risico's, en het schuwen
+van verandering. Morin beschrijft hoe mensen zekerheid zoeken door dezelfde
+koers aan te houden, ook als die koers niet meer werkt, en hoe angst voor
+afwijzing besluiten stuurt die niemand hardop zou verdedigen.
+
+Haar tegenwicht is niet roekeloosheid maar het bewust wegen van een risico:
+wat er te winnen en te verliezen valt, en of de angst in verhouding staat tot
+wat er werkelijk op het spel staat.
+
+**Het verleden en wat niet te veranderen valt**
+
+Een tweede cluster gaat over tijd: blijven hangen in het verleden, energie
+steken in dingen die niet te beïnvloeden zijn, en dezelfde fout blijven
+herhalen. Morin onderscheidt piekeren, dat rondjes draait zonder besluit, van
+nadenken, dat naar een actie toewerkt. Ze pleit voor het actief markeren van
+wat binnen en buiten iemands invloed ligt, een indeling die in vrijwel elk
+hoofdstuk terugkomt.
+
+Bij het herhalen van fouten wijst ze op het verschil tussen schuldgevoel, dat
+gericht is op een daad, en schaamte, die gericht is op de persoon; het eerste
+kan bijsturen, het tweede maakt vaak passief.
+
+**Anderen, jezelf en het resultaat**
+
+Het laatste cluster behandelt de omgang met anderen en met uitkomsten: wrok
+koesteren over andermans succes, opgeven na één mislukking, bang zijn voor
+alleen zijn, denken dat de wereld iets verschuldigd is, en onmiddellijk
+resultaat verwachten. Morin verbindt deze gewoonten aan een verstoorde
+vergelijking: de eigen route afmeten aan die van een ander in plaats van aan
+het eigen doel.
+
+Ze sluit elk van deze hoofdstukken af met een concrete oefening, zoals het
+opschrijven van drie dingen die goed gingen bij een mislukking, in plaats van
+een algemene aanmoediging.
+
+**De vaste opbouw van elk hoofdstuk**
+
+Elk van de dertien hoofdstukken volgt hetzelfde stramien: een herkenbare scène
+waarin de gewoonte zichtbaar wordt, een uitleg van de gedachte die eraan ten
+grondslag ligt, een lijst met wat wel en niet helpt, en een korte, uitvoerbare
+oefening. Morin herhaalt daarbij telkens dat de gewoonte zelf niet het
+probleem is, maar de mate waarin iemand erin blijft hangen.
+
+Die herhaalde structuur maakt het boek geschikt om willekeurig te doorbladeren
+en één hoofdstuk apart te lezen, in plaats van het van voor naar achter door
+te werken. Morin schrijft er zelf ook op aan: lezers hoeven niet bij hoofdstuk
+één te beginnen als een ander punt herkenbaarder is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Mentale kracht als spier | Haar centrale beeld: een vaardigheid die groeit door oefening en verzwakt door verwaarlozing, geen vaste eigenschap. |
+| Piekeren versus nadenken | Piekeren draait rond zonder besluit, nadenken werkt toe naar een actie. |
+| Cirkel van gedachten, gevoelens en gedrag | Het cognitief-gedragstherapeutische model waarop elk hoofdstuk is gebouwd. |
+| Schuld versus schaamte | Schuld richt zich op een daad en kan bijsturen, schaamte richt zich op de persoon en maakt vaak passief. |
+| Cirkel van invloed | Het onderscheid tussen wat binnen en buiten iemands eigen macht ligt, gebruikt om energie te richten. |
+| Gecalculeerd risico | Een besluit waarvan de winst en het verlies bewust zijn afgewogen, tegenover een besluit dat alleen uit angst wordt vermeden. |
+| Vervangende gedachte | De alternatieve gedachte die in elk hoofdstuk tegenover de belemmerende gewoonte wordt gezet. |
+| Verstoorde vergelijking | Het afmeten van de eigen route aan die van een ander, in plaats van aan het eigen doel. |
+
+#### Waar het argument op rust
+
+Morin schrijft als praktiserend psychotherapeut en bouwt haar hoofdstukken op
+de cognitieve gedragstherapie, ontwikkeld door onder anderen Aaron Beck, en
+een van de best onderzochte behandelvormen binnen de psychologie voor onder
+meer angst en depressie, met tientallen jaren aan gecontroleerd onderzoek
+erachter. Dat geeft de onderliggende methode gewicht, ook al gaat dat
+onderzoek over de methode in klinische behandeling en niet specifiek over de
+dertien gewoonten die Morin eruit heeft gedestilleerd.
+
+Het boek zelf is geen onderzoek en citeert nauwelijks studies; de voorbeelden
+zijn casuïstiek uit haar eigen praktijk, aangepast voor het boek, en de
+dertien punten zijn haar eigen indeling, geen vaste lijst uit de
+vakliteratuur. De kracht van het boek zit in de toegankelijke vertaling van
+een bewezen methode, niet in nieuw bewijsmateriaal.
+
+#### Wat er tegen in te brengen valt
+
+De vorm, dertien losse hoofdstukken met eenzelfde stramien, herhaalt zichzelf:
+wie er een paar leest, kent het patroon van de rest. Dat maakt het boek
+makkelijk om in te doseren, maar ook voorspelbaar bij aaneengesloten lezen.
+
+De lijst zelf is niet uit onderzoek afgeleid maar uit Morins eigen ervaring
+als hulpverlener en als weduwe; een andere therapeut zou tot een andere lijst
+van dertien kunnen komen. Dat maakt de indeling overtuigend als praktisch
+hulpmiddel en minder als wetenschappelijke categorie.
+
+Voor mensen met een zwaardere psychische aandoening is het boek nadrukkelijk
+geen vervanging van behandeling, iets wat Morin zelf ook aangeeft; het is
+geschreven voor wie met gewone tegenslagen worstelt, niet voor klinische
+problematiek.
+
+De oefeningen zijn kort en algemeen geformuleerd, waardoor ze makkelijk uit te
+voeren zijn maar ook makkelijk oppervlakkig blijven; het boek biedt weinig
+houvast voor wie na een eerste poging vastloopt en meer begeleiding nodig
+heeft dan een lijstje kan bieden.
+
+De succesformule van het boek, dertien punten in een lijst met een pakkende
+titel gebaseerd op wat mensen niet moeten doen, is nadien door Morin zelf
+herhaald in vervolgboeken voor ouders, stellen en vrouwen. Dat maakt de
+negatieve formulering, wat je juist niet moet doen in plaats van een positief
+te formuleren doel, meer een verkoopbare vorm dan een therapeutisch
+onderbouwde keuze.
+
+#### Wat er concreet mee te doen is
+
+- Kies één van de dertien gewoonten die je het meest herkent en werk alleen
+dat hoofdstuk uit voordat je verder leest.
+- Schrijf bij een terugkerende ergernis op of die binnen of buiten je eigen
+invloed ligt, en richt je energie naar wat binnen die cirkel valt.
+- Vervang bij zelfkritiek het woord dat de persoon veroordeelt door een woord
+dat de daad benoemt.
+- Noteer bij een mislukking drie dingen die wel werkten, voordat je verdergaat
+met wat niet werkte.
+- Lees niet het hele boek achter elkaar, maar kies telkens één hoofdstuk dat
+aansluit bij wat er die week speelt.
+- Vraag jezelf bij een besluit dat je uit angst vermijdt af wat je zou doen
+als je de uitkomst niet als een oordeel over jezelf zou lezen.
+- Leg naast een gewoonte die je wilt afleren de gedachte vast die eraan
+voorafgaat, zodat je die gedachte kunt herkennen voordat de gewoonte zich
+voltrekt.
+- Bespreek een terugkerend patroon met iemand die je goed kent, en vraag hem
+te benoemen wanneer hij het bij jou ziet terugkomen.
+
+#### Wat je hierna leest
+
+- 32. The Gifts of Imperfection. Brown onderzoekt vanuit onderzoek naar
+schaamte en kwetsbaarheid hetzelfde terrein dat Morin vanuit de praktijk
+beschrijft.
+- 44. Daring Greatly. Daring Greatly werkt het onderscheid tussen schuld en
+schaamte verder uit dat Morin in het kort aanstipt.
+- 22. Atomic Habits. Clear biedt een systematischer kader voor het ombuigen
+van gewoonten dan Morins losse hoofdstukken.
+
+## 374. Inner Excellence
+
+Jim Murphy, 2020. Voluit *Inner Excellence: Train Your Mind for Extraordinary
+Performance and the Best Possible Life*. Murphy publiceerde in 2009 bij
+McGraw-Hill al een zakelijk gericht boek onder dezelfde hoofdtitel, *Inner
+Excellence: Achieve Extraordinary Business Success through Mental Toughness*.
+De hier samengevatte, herschreven versie verscheen in 2020 in eigen beheer
+(Academy of Excellence, ISBN 9781734654806) en werd in 2025 door Grand Central
+Publishing (Hachette) opnieuw uitgebracht, zonder inhoudelijke koerswijziging.
+Geen Nederlandse uitgave. Rubriek: moed en karakter.
+Tags: `mentale weerbaarheid`, `sportpsychologie`, `identiteit`, `gratie`,
+`topprestatie`
+
+Murphy speelde professioneel honkbal in de organisatie van de Chicago Cubs tot
+een oogaandoening daar een einde aan maakte, en werkte daarna als mentaal
+coach voor topsporters, onder wie golfers op het hoogste niveau. Zijn boek
+herschrijft een eerder, zakelijk gericht werk tot een breder programma voor
+prestatie en levenshouding.
+
+De kern is dat prestatie op het scherpst van de snede vooral wordt bepaald
+door de relatie die iemand met zichzelf heeft: hoe hij omgaat met angst, ego
+en de behoefte aan een goed resultaat. Murphy bouwt zijn programma op rond
+drie begrippen die hij liefde, wijsheid en moed noemt, en onderbouwt dat met
+gesprekken die hij door de jaren heen voerde met topsporters en coaches.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Murphy stelt dat de grootste belemmering voor topprestatie
+niet techniek of talent is, maar de angst om te falen en de gewoonte om de
+eigen waarde af te meten aan het resultaat. Wie zijn identiteit loskoppelt van
+winst en verlies, oordeelt zijn tegenstander en zichzelf niet langer, en kan
+daardoor met minder ruis presteren. Zijn programma rust op drie begrippen die
+hij liefde, wijsheid en moed noemt: onvoorwaardelijke acceptatie van jezelf en
+anderen, helder onderscheid tussen wat wel en niet in je macht ligt, en de
+bereidheid om ondanks angst te handelen. Dat maakt van mentale training bij
+hem evenzeer een levenshouding als een prestatiemiddel.
+
+#### De gang van het boek
+
+**Van zakelijk boek naar levensprogramma**
+
+Murphy schreef in 2009 een eerste versie van dit boek, gericht op zakelijk
+succes via mentale weerbaarheid. Ruim tien jaar later herschreef hij het
+volledig tot een breder werk over prestatie en leven, gevoed door zijn eigen
+loopbaan als honkballer, coach van de Texas Rangers en later mentaal coach van
+topgolfers en olympiërs.
+
+Die herschreven versie is degene die dit boek tot een veelgelezen titel maakte
+binnen de golfwereld en daarbuiten, en is de editie waarop deze samenvatting
+is gebaseerd.
+
+**Identiteit loskoppelen van resultaat**
+
+De kern van het boek is dat sporters hun zelfbeeld vaak laten meebewegen met
+hun laatste slag, ronde of wedstrijd, waardoor elke tegenslag een aanval op de
+eigen waarde wordt. Murphy noemt dat de bron van de meeste onnodige spanning
+tijdens prestatie.
+
+Zijn voorstel is een identiteit die niet aan uitkomsten hangt, gebouwd op wie
+iemand is los van het scorebord. Wie dat bereikt, kan een slechte ronde spelen
+zonder daarmee ook zichzelf te verliezen, en dat maakt volgens hem juist
+herstel binnen een wedstrijd mogelijk.
+
+**Liefde, wijsheid en moed**
+
+Murphy bouwt zijn programma op rond drie begrippen. Liefde betekent bij hem
+onvoorwaardelijke acceptatie, van jezelf na een fout en van anderen zonder ze
+te veroordelen. Wijsheid is het onderscheid tussen wat binnen je macht ligt,
+zoals voorbereiding en inzet, en wat erbuiten ligt, zoals de uitslag of het
+oordeel van anderen. Moed is het vermogen om ondanks angst toch te handelen.
+
+Hij presenteert deze drie niet als losse technieken maar als een samenhangend
+geheel: wie zichzelf niet accepteert, kan de grens tussen wel en niet
+beïnvloedbaar niet helder trekken, en wie die grens niet trekt, blijft vechten
+tegen wat hij niet kan veranderen.
+
+**Angst en ego als tegenstanders**
+
+Een groot deel van het boek gaat over de twee krachten die Murphy als grootste
+belemmering ziet: angst voor een slecht resultaat en ego dat bevestiging zoekt
+via prestatie. Beide houden de aandacht af van de handeling zelf en richten
+haar op de uitkomst of op wat anderen ervan zullen vinden.
+
+Zijn oefeningen zijn erop gericht die aandacht terug te brengen naar het
+huidige moment: ademhaling, korte routines voor en tijdens een wedstrijd, en
+het bewust benoemen van angst in plaats van hem te verdringen.
+
+**Dankbaarheid als prestatiemiddel**
+
+Murphy behandelt dankbaarheid niet als een beleefdheidsformule maar als een
+werktuig: wie de aandacht bewust richt op wat er al is, blijft volgens hem
+kalmer en scherper dan wie de aandacht op een tekort richt. Hij koppelt dat
+aan concrete oefeningen, zoals het dagelijks benoemen van een paar dingen waar
+iemand dankbaar voor is, uit te voeren vlak voor of tijdens een belangrijke
+gebeurtenis.
+
+Aan diezelfde gedachte koppelt hij dienstbaarheid: een sporter die zijn
+optreden mede opdraagt aan iets buiten zichzelf, verlegt de aandacht van de
+eigen prestatie en het eigen ego naar iets groters. Murphy stelt dat die
+verlegging de druk vermindert die ontstaat wanneer alle betekenis van een
+moment op de uitkomst voor de sporter zelf rust.
+
+**Interviews met topsporters**
+
+Murphy onderbouwt zijn programma met gesprekken die hij in de loop van zijn
+coachcarrière voerde met golfers, honkballers en andere topsporters over hoe
+zij met druk omgaan. Die interviews functioneren als illustratie van zijn drie
+begrippen, niet als apart onderzoek.
+
+Het boek bevat daarnaast dagelijkse oefeningen en een soort werkboekstructuur,
+bedoeld om de lezer de principes te laten inoefenen in plaats van ze alleen te
+lezen: een dagelijks doel om het beste te geven, aanwezig te blijven,
+dankbaarheid te oefenen en de aandacht te richten op wat binnen bereik ligt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Liefde | Onvoorwaardelijke acceptatie van jezelf na een fout en van anderen zonder oordeel. |
+| Wijsheid | Het onderscheid tussen wat binnen je macht ligt, zoals voorbereiding, en wat erbuiten ligt, zoals de uitslag. |
+| Moed | Handelen ondanks angst, in plaats van wachten tot de angst verdwenen is. |
+| Identiteit los van resultaat | Een zelfbeeld dat niet meebeweegt met winst of verlies, waardoor tegenslag geen aanval op de eigen waarde wordt. |
+| Ego als tegenstander | De behoefte aan bevestiging via prestatie, die de aandacht van de handeling zelf afleidt. |
+| Aandacht op het huidige moment | Het terugbrengen van de focus naar de handeling zelf in plaats van naar de uitkomst of het oordeel van anderen. |
+| Dankbaarheid als werktuig | Het bewust richten van de aandacht op wat er al is, ingezet als middel om kalm en scherp te blijven. |
+| Dienstbaarheid | Het opdragen van een prestatie aan iets buiten jezelf, waardoor de druk van de eigen uitkomst vermindert. |
+| Werkboekstructuur | De opzet met dagelijkse oefeningen, bedoeld om de drie begrippen in te oefenen in plaats van ze alleen te lezen. |
+
+#### Waar het argument op rust
+
+Murphy's gezag komt uit zijn eigen loopbaan als prestatiecoach van topgolfers
+en andere topsporters, en uit interviews die hij in die rol met hen voerde.
+Dat maakt het boek rijk aan praktijkvoorbeelden uit een omgeving waar de druk
+reëel en meetbaar is.
+
+Het boek citeert nauwelijks gepubliceerd onderzoek en presenteert zijn drie
+begrippen niet als resultaat van een studie maar als destillaat van zijn eigen
+ervaring en gesprekken. De drieslag liefde, wijsheid en moed is zijn eigen
+indeling en heeft geen vaste plaats in de sportpsychologische vakliteratuur.
+Ook de nadruk op dankbaarheid en dienstbaarheid als prestatiemiddel steunt op
+zijn eigen praktijkervaring, niet op vergelijkend onderzoek naar het effect
+ervan op prestatie.
+
+Murphy schrijft vanuit een expliciet religieuze, christelijke overtuiging die
+zijn begrip van liefde en genade kleurt; lezers die dat kader niet delen,
+zullen delen van het boek als geloofsbelijdenis lezen in plaats van als
+methode.
+
+#### Wat er tegen in te brengen valt
+
+Het onderscheid tussen wat binnen en buiten iemands macht ligt, is filosofisch
+niet nieuw en wordt door Murphy nergens herleid tot zijn stoïcijnse oorsprong;
+het boek presenteert het als eigen inzicht zonder die traditie te noemen.
+
+De religieuze inkleuring van zijn begrip liefde maakt het boek minder
+toegankelijk voor lezers zonder christelijke achtergrond, ook al is de
+toepassing op prestatie op zichzelf niet aan een geloof gebonden.
+
+Doordat het boek vooral put uit gesprekken met topsporters in een omgeving met
+intensieve begeleiding, blijft onduidelijk hoe zijn drieslag standhoudt buiten
+de topsport, in een gewoon leven zonder coach die de oefeningen begeleidt.
+
+De belofte dat dankbaarheid en dienstbaarheid de druk van een prestatiemoment
+verminderen, wordt met anekdotes onderbouwd en niet met een vergelijking
+tussen sporters die dat wel en niet toepassen; het is aannemelijk gemaakt,
+niet aangetoond.
+
+Dat het boek eerst als zakelijk werk verscheen en jaren later grondig werd
+herschreven tot een breder, deels religieus geïnspireerd boek over prestatie
+en leven, wordt in het boek zelf niet toegelicht. Wie alleen de huidige editie
+leest, mist die voorgeschiedenis en de vraag welke stukken van het programma
+zijn blijven staan en welke zijn toegevoegd.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf voor jezelf wie je bent los van je laatste resultaat, en lees dat
+terug na een tegenslag.
+- Maak voor een lastige taak een lijst van wat binnen je macht ligt en wat
+niet, en richt je voorbereiding op het eerste.
+- Benoem angst voor een belangrijk moment hardop in plaats van hem weg te
+drukken, en handel daarna toch.
+- Bouw een korte vaste routine voor het begin van een taak, gericht op het
+huidige moment in plaats van op de uitkomst.
+- Noteer voor een belangrijk moment kort waar je dankbaar voor bent, om de
+aandacht van het tekort naar wat er al is te verleggen.
+- Draag een lastige taak op aan iets buiten jezelf, een team, een naaste, een
+doel dat groter is dan de uitkomst voor jou alleen.
+- Kijk aan het eind van een dag waarop iets mislukte terug of je erin geslaagd
+bent dat te erkennen zonder jezelf erop af te rekenen.
+
+#### Wat je hierna leest
+
+- 30. The Obstacle Is the Way. Holiday werkt hetzelfde onderscheid tussen
+beïnvloedbaar en onbeïnvloedbaar uit vanuit de stoïcijnse traditie die Murphy
+niet noemt.
+- 149. The Power of Now. Tolle's nadruk op het huidige moment raakt aan
+Murphys pleidooi om de aandacht van de uitkomst naar de handeling te
+verplaatsen.
+- 320. Mastery. Greene beschrijft meesterschap als langdurig proces waarin ego
+eveneens als grootste hindernis geldt.
+
+## 375. Master of Change
+
+Brad Stulberg, 2023. Voluit *Master of Change: How to Excel When Everything Is
+Changing, Including You* (Harper Wave, 2023, ISBN 9780063253162). Geen
+Nederlandse uitgave. Rubriek: moed en karakter.
+Tags: `verandering`, `veerkracht`, `identiteit`, `onzekerheid`, `psychologie`
+
+Stulberg schrijft eerder over prestatie en welzijn, onder meer als coauteur
+van *Peak Performance*. In dit boek richt hij zich op de vraag hoe mensen
+overeind blijven als hun leven ingrijpend verandert, van ziekte tot verlies
+van werk tot ouderschap.
+
+Zijn antwoord is een houding die hij rugged flexibility noemt: stevig
+verankerd in wie je bent en wat je waardeert, en tegelijk flexibel in hoe je
+dat vormgeeft. Hij bouwt dat uit met een cyclus van orde, ontwrichting,
+verkenning en nieuwe orde, onderbouwd met gesprekken met mensen die grote
+omslagen doormaakten en met onderzoek naar stress en veerkracht.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Stulberg stelt dat de gangbare omgang met verandering faalt
+omdat mensen kiezen tussen twee uitersten: krampachtig vasthouden aan hoe het
+was, of zich volledig laten meeslepen door de nieuwe situatie. Beide
+strategieën breken volgens hem op den duur. Zijn alternatief noemt hij rugged
+flexibility: een kern van identiteit en waarden die stevig blijft staan,
+gecombineerd met een losse, aanpasbare houding tegenover de manier waarop die
+kern wordt geleefd. Verandering doorloopt daarbij een terugkerende cyclus van
+orde, ontwrichting, verkenning en een nieuwe orde, en wie die cyclus herkent,
+hoeft niet elke keer bij nul te beginnen.
+
+#### De gang van het boek
+
+**Twee mislukte strategieën**
+
+Stulberg opent met de twee manieren waarop mensen doorgaans op grote
+verandering reageren. De eerste is vasthouden: het oude leven, de oude rol of
+het oude lichaam koste wat kost proberen te behouden, ook als de
+omstandigheden dat niet meer toelaten. De tweede is meegaan zonder anker: zich
+volledig laten meeslepen door de nieuwe situatie, zonder houvast aan wie je
+daarvoor was.
+
+Beide strategieën falen volgens hem op termijn, de eerste omdat de
+werkelijkheid uiteindelijk wint, de tweede omdat er niets overblijft om op
+terug te vallen. Zijn boek zoekt een derde weg tussen verstarring en oplossing
+in de storm.
+
+**Rugged flexibility**
+
+De kern van het boek is een houding die Stulberg rugged flexibility noemt: een
+stevige, herkenbare kern van identiteit en waarden, gecombineerd met
+soepelheid in de manier waarop die kern in de praktijk vorm krijgt. Wie zich
+bijvoorbeeld identificeert als hardloper kan die identiteit verliezen bij een
+blessure, terwijl wie zich identificeert als iemand die van beweging houdt,
+een nieuwe vorm kan vinden.
+
+Dat onderscheid tussen een te smalle en een bredere identiteit loopt door het
+hele boek. Een te smal gedefinieerde identiteit breekt bij de eerste
+tegenslag, een identiteit die om waarden is gebouwd, biedt ruimte om van vorm
+te veranderen zonder zichzelf kwijt te raken.
+
+**De cyclus van orde en ontwrichting**
+
+Stulberg beschrijft verandering als een terugkerende cyclus in vier fasen:
+orde, waarin het leven stabiel voelt, ontwrichting, waarin een gebeurtenis die
+orde breekt, verkenning, waarin iemand zoekt naar een nieuwe manier van zijn,
+en een nieuwe orde, die op zijn beurt weer verstoord zal worden. Hij leent dit
+patroon uit onderzoek naar veerkracht en uit zijn eigen eerdere werk over de
+wisselwerking tussen belasting en herstel.
+
+Zijn punt is dat mensen de ontwrichtings- en verkenningsfase vaak als
+mislukking ervaren, terwijl het juist een normaal en herhaald onderdeel van
+een levensloop is. Wie de cyclus herkent, hoeft de verwarring van de
+verkenningsfase niet als teken van falen te lezen.
+
+**Zes vaardigheden voor de verkenningsfase**
+
+Voor de fase waarin de oude orde is weggevallen en de nieuwe nog niet is
+gevonden, beschrijft Stulberg een reeks vaardigheden: het accepteren van wat
+is gebeurd zonder het meteen te willen oplossen, aanwezig blijven in het
+huidige moment, jezelf zien als in ontwikkeling in plaats van afgerond,
+controle houden over wat wel te beïnvloeden is, verbinding zoeken met anderen,
+en betekenis vinden in de ervaring zelf.
+
+Hij werkt deze vaardigheden uit met portretten van mensen die een ingrijpende
+verandering doormaakten, van een ernstige diagnose tot het verlies van een
+carrière, en laat zien hoe zij, vaak zonder dat woord te gebruiken, stukken
+van deze vaardigheden toepasten.
+
+**Een nieuwe orde die weer zal breken**
+
+Het slot van het boek waarschuwt tegen het idee dat een nieuwe orde definitief
+is. Stulberg benadrukt dat elke nieuwe stabiliteit op termijn weer verstoord
+zal worden, en dat het doel niet is om verandering voorgoed achter je te
+laten, maar om er telkens beter mee om te leren gaan.
+
+Die boodschap sluit aan bij zijn eerdere werk over groei door belasting en
+herstel: niet de afwezigheid van verstoring is het doel, maar het vermogen om
+er telkens weer doorheen te bewegen.
+
+**Verwante tradities**
+
+Stulberg plaatst zijn cyclus uitdrukkelijk naast oudere denklijnen die met
+hetzelfde probleem worstelden: het boeddhistische uitgangspunt dat vasthouden
+aan een vaste toestand lijden veroorzaakt, en de stoïcijnse nadruk op het
+onderscheid tussen wat wel en niet te sturen is. Hij presenteert rugged
+flexibility niet als een geheel nieuwe uitvinding, maar als een hedendaagse,
+op onderzoek gebaseerde vertaling van die oudere inzichten naar de praktijk
+van verlies, ziekte en verandering van rol.
+
+Die verwijzing geeft het boek een breder kader, al blijft de uitwerking
+daarvan beperkt tot enkele alinea's; wie de oorspronkelijke tradities wil
+doorgronden, moet daarvoor elders terecht.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Rugged flexibility | Een stevige kern van identiteit en waarden, gecombineerd met soepelheid in de manier waarop die kern vorm krijgt. |
+| Orde, ontwrichting, verkenning, nieuwe orde | De vierfasencyclus waarmee Stulberg verandering beschrijft als terugkerend patroon in plaats van eenmalige gebeurtenis. |
+| Smalle versus brede identiteit | Een identiteit gebonden aan één rol breekt bij tegenslag, een identiteit gebouwd op waarden biedt ruimte om van vorm te veranderen. |
+| Verkenningsfase | De periode tussen het wegvallen van de oude orde en het vinden van een nieuwe, vaak ten onrechte ervaren als falen. |
+| Acceptatie zonder oplossing | Erkennen wat is gebeurd zonder meteen te eisen dat het probleem al is opgelost. |
+| Betekenis in de ervaring | Zin vinden in de verandering zelf, niet pas achteraf als de nieuwe orde is bereikt. |
+| Vasthouden als bron van lijden | De boeddhistische gedachte dat het krampachtig willen behouden van een toestand het eigenlijke lijden veroorzaakt, niet de verandering zelf. |
+
+#### Waar het argument op rust
+
+Stulberg bouwt zijn cyclus op onderzoek naar veerkracht en op zijn eigen
+eerdere werk, samen met Steve Magness, over de relatie tussen stress en
+herstel. Hij combineert dat met interviews die hij zelf voerde met mensen die
+grote persoonlijke omslagen doormaakten, van ziekte tot verlies van werk.
+
+Zijn zes vaardigheden voor de verkenningsfase zijn een eigen synthese van
+bredere psychologische literatuur over acceptatie, aandacht en sociale steun,
+niet het resultaat van één onderliggende studie. De kracht van het boek zit in
+de heldere ordening van bestaand onderzoek en ervaring, niet in nieuw
+experimenteel bewijs.
+
+De verwijzingen naar boeddhistische en stoïcijnse tradities dienen ter
+ondersteuning van zijn model, niet als aparte onderbouwing; Stulberg toetst
+niet of zijn vierfasencyclus zich ook laat terugvinden in die oudere teksten,
+hij constateert alleen een overeenkomst in strekking.
+
+#### Wat er tegen in te brengen valt
+
+De vierfasencyclus is aantrekkelijk als beeld, maar het boek laat weinig
+ruimte voor situaties die zich niet netjes in vier fasen laten verdelen, zoals
+langdurige, aanhoudende onzekerheid zonder duidelijk begin- of eindpunt.
+
+De portretten van mensen die een ingrijpende verandering doormaakten, zijn
+gekozen omdat ze zijn kader illustreren; hoeveel mensen in vergelijkbare
+omstandigheden vastlopen zonder ooit bij een nieuwe orde uit te komen, komt
+niet aan bod.
+
+Het onderscheid tussen een smalle en een brede identiteit klinkt eenvoudiger
+dan het in de praktijk is: voor veel mensen is een rol als ouder, partner of
+vakman niet zomaar te verruimen tot een waarde zonder veel van de betekenis te
+verliezen die de rol juist had.
+
+De term rugged flexibility zelf blijft enigszins vaag: het boek beschrijft
+uitvoerig wat een stevige kern en een soepele uitvoering opleveren, maar geeft
+weinig houvast voor het moment waarop iemand niet meer weet of hij aan zijn
+kern vasthoudt uit overtuiging of uit angst voor de volgende verandering.
+
+Stulberg schrijft vanuit een positie van relatieve stabiliteit, als coach en
+auteur met een lopende praktijk; zijn portretten van andere mensen in crisis
+krijgen daardoor de vorm van een geordend verhaal achteraf, terwijl de chaos
+van een verkenningsfase zelf, op het moment dat iemand er middenin zit, zich
+veel minder laat samenvatten in vier stappen dan het boek suggereert.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf je eigen identiteit in termen van waarden in plaats van in één rol
+of functie.
+- Herken een periode van verwarring na een verlies als een fase in een cyclus,
+niet als bewijs dat je faalt.
+- Maak bij een ingrijpende verandering onderscheid tussen wat je kunt
+beïnvloeden en wat je alleen kunt doorstaan.
+- Zoek tijdens een onzekere periode bewust contact met anderen in plaats van
+het alleen uit te zitten.
+- Vraag jezelf bij het vasthouden aan een gewoonte of rol af of dat uit
+overtuiging is of uit angst voor wat er verandert.
+- Beschrijf een eerdere ingrijpende verandering in je leven aan de hand van de
+vier fasen, en kijk wat je destijds hielp om verder te komen.
+- Noem tijdens een onzekere periode hardop welk deel van je identiteit
+onveranderd blijft, ook als de rol eromheen verdwijnt.
+
+#### Wat je hierna leest
+
+- 71. Four Thousand Weeks. Burkeman plaatst dezelfde eindigheid en onzekerheid
+van het leven in een breder kader zonder Stulbergs stappenplan.
+- 323. The Comfort Crisis. Easter onderzoekt hoe mensen aanpassingsvermogen
+juist opbouwen door zich bewust aan ongemak bloot te stellen.
+- 32. The Gifts of Imperfection. Brown behandelt de kwetsbaarheid die nodig is
+om een identiteit los te laten die niet meer past.
+
+## 376. Talent Is Overrated
+
+Geoff Colvin, 2008. Voluit *Talent Is Overrated: What Really Separates
+World-Class Performers from Everybody Else* (Portfolio, 2008, ISBN
+9781591842248). Geen Nederlandse uitgave. Rubriek: vakmanschap en aandacht.
+Tags: `deliberate practice`, `vakmanschap`, `prestatieonderzoek`, `expertise`,
+`training`
+
+Colvin, journalist bij *Fortune*, onderzoekt waarom sommige mensen op hun
+vakgebied ver boven het gemiddelde uitstijgen. Zijn antwoord bouwt op het werk
+van psycholoog K. Anders Ericsson naar deliberate practice: een specifieke,
+veeleisende vorm van oefenen die zich onderscheidt van gewone herhaling of
+ervaring.
+
+Colvin ontkracht daarbij het beeld van het wonderkind aan de hand van onder
+meer Mozart en Tiger Woods, die beiden al op zeer jonge leeftijd onder
+intensieve begeleiding stonden. Hij benadrukt dat jaren ervaring op zich
+weinig zeggen, zoals onderzoek onder artsen laat zien: routine alleen leidt
+niet automatisch tot betere prestaties.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Colvin beweert dat wat mensen talent noemen bij nader
+onderzoek zelden standhoudt: de mensen die aan de top van hun vak staan,
+onderscheiden zich niet door een aangeboren gave maar door de hoeveelheid en
+de kwaliteit van hun oefening. Hij bouwt dat op rond het begrip deliberate
+practice van psycholoog Anders Ericsson: oefening die specifiek is ontworpen
+om een zwakte te verbeteren, vaak onder begeleiding, met directe
+terugkoppeling, herhaald tot vervelens toe en zelden op zichzelf plezierig.
+Zijn stelling is dat dit soort oefenen zeldzaam is, precies omdat het
+onaangenaam is, en dat het verschil tussen goed en uitzonderlijk vooral daarin
+zit.
+
+#### De gang van het boek
+
+**Het wonderkind ontleed**
+
+Colvin opent met het beeld van het natuurtalent en breekt dat af aan de hand
+van Mozart, wiens vroegste composities vandaag als weinig bijzonder gelden en
+die vanaf zijn derde jaar door zijn vader, zelf een gerespecteerd
+muziekpedagoog, intensief werd getraind. Wat aanvankelijk als aangeboren genie
+oogt, blijkt bij nadere blik het resultaat van duizenden uren gerichte
+training vanaf zeer jonge leeftijd.
+
+Hetzelfde patroon vindt hij bij Tiger Woods, die al voor zijn tweede
+levensjaar onder begeleiding van zijn vader met golf begon. Colvin gebruikt
+beide voorbeelden niet om de inspanning van deze mensen te bagatelliseren,
+maar om te laten zien dat vroege training vaak wordt verward met een gave die
+er vanaf de geboorte al zou zijn.
+
+**Waarom ervaring niet vanzelf beter maakt**
+
+Een kernpunt van het boek is dat jarenlange ervaring op zichzelf weinig
+oplevert. Colvin bespreekt onderzoek onder artsen waaruit blijkt dat hun
+diagnostische nauwkeurigheid niet vanzelfsprekend toeneemt met de jaren, en in
+sommige metingen zelfs afneemt, omdat routinematig werk zonder gerichte
+terugkoppeling geen nieuwe vaardigheid oplevert.
+
+Hij trekt daaruit de conclusie dat het aantal jaren in een vak weinig zegt;
+wat telt is hoeveel van die tijd is besteed aan oefening die specifiek op
+verbetering gericht was, met terugkoppeling die aangeeft wat er nog niet
+klopt.
+
+**Wat deliberate practice precies is**
+
+Colvin werkt het begrip van Ericsson uit in een reeks kenmerken: de oefening
+is ontworpen om een specifieke zwakte te verbeteren, vaak door een leraar of
+coach; ze kan vele malen herhaald worden; er is voortdurend terugkoppeling
+over de uitkomst beschikbaar; ze is mentaal veeleisend; en ze is doorgaans
+niet plezierig om te doen.
+
+Hij onderscheidt dat scherp van gewoon spelen of gewoon werken in een vak: wie
+een instrument bespeelt voor het plezier of een taak uitvoert zoals altijd,
+oefent niet gericht op de eigen zwakke plekken en groeit daardoor nauwelijks.
+
+**Waarom zo weinig mensen het doen**
+
+Colvin besteedt een deel van het boek aan de vraag waarom deliberate practice
+zo zeldzaam is, ondanks het bewijs voor haar effect. Zijn antwoord is dat het
+onaangenaam is: het richt de aandacht voortdurend op wat nog niet lukt, in
+plaats van op wat al goed gaat, en dat vraagt om motivatie die verder reikt
+dan het plezier van de activiteit zelf.
+
+Hij bespreekt daarbij ook de rol van vroege begeleiding en
+gezinsomstandigheden: kinderen die op jonge leeftijd toegang hebben tot goede
+coaching en tot ouders die hen aanmoedigen om door te zetten, krijgen een
+voorsprong die niet uit aanleg voortkomt maar uit gelegenheid.
+
+**Domeinspecifieke expertise**
+
+Colvin bespreekt onderzoek waaruit blijkt dat expertise zelden overdraagbaar
+is van het ene domein naar het andere. Een schaakgrootmeester heeft geen
+algemeen superieur geheugen; zijn geheugenprestatie geldt specifiek voor
+schaakposities en valt terug naar gemiddeld zodra de stukken willekeurig
+worden neergezet.
+
+Dat pleit volgens hem tegen het idee van een algemeen talent dat zich in elk
+vak zou uiten, en voor de opvatting dat vaardigheid zich opbouwt in het
+specifieke domein waarin ze geoefend wordt, niet daarbuiten.
+
+**Toepassing in organisaties**
+
+In de slothoofdstukken vertaalt Colvin zijn bevindingen naar bedrijven: het
+aanbieden van gerichte, veeleisende oefening met snelle terugkoppeling, in
+plaats van het zoeken naar aangeboren talent bij werving. Hij pleit voor het
+inbouwen van reflectiemomenten en het bewust opzoeken van de eigen zwakke
+plekken in plaats van het werk te laten bij wat al goed gaat.
+
+Hij bespreekt daarbij ook waarom veel beroepen, van management tot
+journalistiek, weinig ingebouwde deliberate practice kennen: er is zelden een
+vaste coach, zelden directe terugkoppeling op een specifieke deelvaardigheid,
+en het dagelijkse werk zelf levert de druk om te presteren eerder dan de
+ruimte om gericht te oefenen.
+
+**Voorbeelden van extreme oefening**
+
+Colvin onderbouwt zijn these met voorbeelden van sporters die opvallen door de
+hoeveelheid gerichte oefening buiten de wedstrijd zelf, zoals de Amerikaanse
+American-footballspeler Jerry Rice, wiens trainingsroutine buiten het
+reguliere teamprogramma bekendstond als uitzonderlijk zwaar en specifiek
+gericht op onderdelen van zijn spel die nog niet perfect waren.
+
+Dat soort voorbeelden gebruikt hij niet om te suggereren dat oefening alleen
+om kwantiteit gaat; zijn punt is dat de oefening steeds gericht moest zijn op
+een concrete zwakte, en niet louter op het herhalen van wat al goed ging.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Deliberate practice | Oefening die specifiek is ontworpen om een zwakte te verbeteren, met directe terugkoppeling, herhaald en mentaal veeleisend. |
+| Domeinspecifieke expertise | Vaardigheid die is opgebouwd binnen één specifiek vakgebied en zich niet vanzelf naar andere gebieden vertaalt. |
+| Het wonderkindbeeld | De aanname dat uitzonderlijke prestatie op jonge leeftijd op aangeboren gave wijst, tegenover vroege, intensieve training. |
+| Routine zonder terugkoppeling | Jaren ervaring die geen vaardigheid oplevert omdat er geen gerichte terugkoppeling op fouten plaatsvindt. |
+| Terugkoppeling | Directe informatie over wat er wel en niet lukte, een van de vaste kenmerken van deliberate practice. |
+| Vroege gelegenheid | Toegang tot goede begeleiding en aanmoediging op jonge leeftijd, die een voorsprong geeft die niet uit aanleg voortkomt. |
+
+#### Waar het argument op rust
+
+Colvin bouwt zijn boek vrijwel volledig op het onderzoek van K. Anders
+Ericsson, met name diens studie naar violisten aan een Berlijnse
+muziekacademie uit 1993, die een sterk verband vond tussen opgebouwde uren
+gerichte oefening en het bereikte niveau. Dat onderzoek gold decennialang als
+een van de stevigste fundamenten voor het idee dat oefening talent overstijgt.
+
+In 2019 herhaalden onderzoekers Brooke Macnamara en Megha Maitra die studie
+met een strenger opgezette, dubbelblinde methode. Zij vonden nog altijd een
+verband tussen oefening en niveau, maar aanzienlijk zwakker dan in het
+origineel: deliberate practice verklaarde in hun heranalyse ongeveer een kwart
+van het verschil tussen violisten in plaats van bijna de helft, en de beste
+violisten hadden niet consequent meer alleen geoefend dan de goede. Dat
+betekent niet dat oefening er niet toe doet, maar wel dat de sterke claim uit
+Colvins boek, dat oefening bijna het hele verschil verklaart, breder onderzoek
+niet volledig heeft doorstaan.
+
+Colvins boek verscheen voordat deze heranalyse bekend werd, en moet dus
+gelezen worden als een weergave van de stand van het onderzoek in 2008, niet
+als de huidige consensus.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de wetenschappelijke basis onder het boek
+sindsdien is verzwakt. De heranalyse van Ericssons violistenstudie in 2019
+laat zien dat individuele verschillen in prestatie minder volledig door
+geoefende uren worden verklaard dan het boek suggereert, en dat andere
+factoren, waaronder mogelijk aanleg, een rol blijven spelen die Colvin
+grotendeels wegredeneert.
+
+Colvin neemt het begrip deliberate practice over zonder de latere discussie
+daarover te kunnen kennen, en formuleert zijn conclusies daardoor stelliger
+dan het onderliggende onderzoek achteraf bezien toelaat.
+
+Het boek besteedt weinig aandacht aan mensen die wel duizenden uren gericht
+oefenden zonder ooit tot de top door te breken; door vooral uitzonderlijke
+prestaties te bestuderen, blijft onduidelijk hoeveel van het verschil tussen
+goed en uitzonderlijk werkelijk door oefening wordt verklaard en hoeveel door
+andere, minder goed gemeten factoren.
+
+Colvin schreef zijn boek met de stelligheid van een journalist die net een
+overtuigend nieuw onderzoeksveld heeft ontdekt; die toon maakt het boek
+prettig leesbaar, maar ook minder terughoudend dan de latere, genuanceerdere
+stand van het onderzoek achteraf rechtvaardigt.
+
+#### Wat er concreet mee te doen is
+
+- Kies bij het oefenen van een vaardigheid steeds het onderdeel waar je het
+zwakst in bent, niet het onderdeel waar je al goed in bent.
+- Zoek terugkoppeling die direct aangeeft wat er niet klopte, in plaats van te
+vertrouwen op eigen inschatting.
+- Bouw herhaling in die mentaal inspannend blijft; zodra een oefening routine
+wordt, verleg dan de moeilijkheidsgraad.
+- Verwacht niet dat jaren ervaring op zich tot verbetering leidt zonder dat je
+gericht op je zwakke plekken hebt geoefend.
+- Zoek voor een vaardigheid die je wilt verbeteren iemand die je kan zien
+werken en die specifiek kan aangeven wat er nog niet klopt, in plaats van in
+je eentje te herhalen.
+
+#### Wat je hierna leest
+
+- 274. Outliers. Gladwell's Outliers verscheen in hetzelfde jaar en trekt uit
+hetzelfde onderzoek de bekendere, stelliger claim van tienduizend uur.
+- 296. Get Better at Anything. Young actualiseert het begrip deliberate
+practice met recenter onderzoek naar hoe vaardigheden precies worden
+opgebouwd.
+- 320. Mastery. Greene beschrijft meesterschap als langdurig leerproces dat op
+vergelijkbare wijze draait om gerichte, ongemakkelijke oefening.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -69939,30 +73441,32 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `1906` 127 · `1937` 76 · `1938` 58 · `1952` 83 · `aanbod` 307 · `aandacht` 17,
 34, 54, 70, 71, 78, 141, 205, 209, 248, 288, 326, 333, 341 · `aannames` 27 ·
 `aanpassingsvermogen` 157, 252 · `aantekeningen` 81 · `aanwezigheid` 149 ·
-`aarde` 92 · `absurdisme` 173 · `academisch` 143 · `achttiende eeuw` 321 ·
-`actualiteit` 237 · `actueel` 67 · `adel` 235 · `ademhaling` 87, 118, 318, 332
-· `adleriaanse-psychologie` 335 · `adverteren` 308 · `adviespraktijk` 151 ·
-`affirmaties` 117, 184, 188, 190 · `afhankelijkheid` 167 · `afleiding` 290 ·
-`aforismen` 2, 17, 179, 216, 218, 228 · `afscheid nemen` 285 · `afschrikking`
-217 · `afwezige-vader` 4 · `agressie` 223, 339 · `alcohol` 4 · `alledaags` 89
-· `allegorie` 222 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75
-· `amerika` 114 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 ·
-`amerikaanse droom` 284 · `amerikaanse revolutie` 243 · `Amsterdam` 295 ·
-`anatomie` 241 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140, 181,
-214, 252, 341 · `animatie` 41 · `Antarctica` 36 · `anthologie` 189 ·
-`antropologie` 223 · `antwerpen` 113 · `apartheid` 26 · `apple` 231 · `Apple`
-46 · `apps` 294 · `arbeid` 6, 173, 297 · `arbeidsethos` 266 · `argumenten` 63
-· `armoede` 26, 234, 254 · `assertiviteit` 162 · `asymmetrie` 282 · `atletiek`
-31 · `atomisme` 281 · `Auschwitz` 48 · `automatisering` 297 · `autonomie` 6,
-50 · `autoriteit` 215 · `autotelie` 200 · `barok` 216 · `basisbehoeften` 107 ·
-`bbc` 82 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 ·
-`bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 ·
-`beginners` 112 · `behoeften` 35 · `beinvloeding` 123, 126 · `bekentenis` 60 ·
+`aarde` 92 · `abonnees` 369 · `absurdisme` 173 · `academisch` 143 ·
+`acausaliteit` 362 · `achttiende eeuw` 321 · `actualiteit` 237 · `actueel` 67
+· `adel` 235 · `ademhaling` 87, 118, 318, 332 · `adleriaanse-psychologie` 335
+· `adverteren` 308 · `adviespraktijk` 151 · `affirmaties` 117, 184, 188, 190 ·
+`afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218,
+228 · `afscheid nemen` 285 · `afschrikking` 217 · `afwezige-vader` 4 ·
+`agressie` 223, 339 · `alcohol` 4 · `alledaags` 89 · `allegorie` 222 ·
+`amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 · `amerika` 114 ·
+`amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 · `amerikaanse droom` 284
+· `amerikaanse revolutie` 243 · `Amsterdam` 295 · `anatomie` 241 · `Andalusië`
+8 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341 · `animatie`
+41 · `Antarctica` 36 · `anthologie` 189 · `antropologie` 223 · `antwerpen` 113
+· `apartheid` 26 · `apple` 231 · `Apple` 46 · `apps` 294 · `arbeid` 6, 173,
+297 · `arbeidsethos` 266 · `archetype` 360 · `archetypen` 357 · `argumenten`
+63 · `armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
+`asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 ·
+`autobiografie` 358 · `automatisering` 297 · `autonomie` 6, 50 · `autoriteit`
+215 · `autotelie` 200 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
+`bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209,
+293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beginners` 112 ·
+`behoeften` 35 · `beinvloeding` 123, 126 · `bekentenis` 60 ·
 `belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351 ·
 `beleid` 65 · `bemiddeling` 35 · `beroemdheden` 128 · `beschadigd-bestand`
 115, 130 · `beschaving` 57 · `beslissen` 55 · `beslissingen` 197 · `besluiten`
 47, 59, 69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283,
-293, 299 · `bestseller` 8, 37, 250 · `betekenis` 143 · `beurs` 80 ·
+293, 299, 364 · `bestseller` 8, 37, 250 · `betekenis` 143 · `beurs` 80 ·
 `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 ·
 `bewustzijn` 148, 169, 200, 275, 340 · `bezit` 37 · `bias` 209 ·
 `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie` 31, 46, 189, 231, 240, 241,
@@ -69970,64 +73474,68 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 90, 91, 322 · `biologie van gedrag` 273 · `biologische klok` 329 ·
 `biologische-klok` 326 · `biotechnologie` 236 · `bloedvaten` 86 ·
 `bloedwaarden` 313 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341 ·
-`brainstormen` 33 · `brieven` 292 · `broers` 10 · `budgetteren` 159, 233 ·
-`buitenlandse hulp` 221 · `burgerschap` 243 · `burn-out` 135, 207 · `cafeïne`
-52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158 · `cases` 40 ·
-`cashflow` 37 · `challenger` 62 · `chaos` 74, 347 · `chapbook` 100 · `China`
-348 · `Chinese geschiedenis` 219 · `christendom` 162, 201 · `chronobiologie`
-326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298 · `coaching` 161, 291 ·
-`cognitieve gedragstherapie` 147, 153 · `cognitieve herstructurering` 177 ·
-`cognitieve vertekening` 234 · `cognitieve-bias` 59 · `columns` 89, 90 ·
-`comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156,
-162, 164, 183, 186, 193, 213, 305, 338 · `complexiteit` 170, 268, 300, 347 ·
+`bootstrapping` 369 · `brainstormen` 33 · `brieven` 292 · `broers` 10 ·
+`budgetteren` 159, 233 · `buitenlandse hulp` 221 · `burgerschap` 243 ·
+`burn-out` 135, 207 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
+`carrière` 146, 158 · `cases` 40 · `cashflow` 37 · `challenger` 62 ·
+`Chanakya` 370 · `chaos` 74, 347 · `chapbook` 100 · `China` 348 · `Chinese
+geschiedenis` 219 · `christendom` 162, 201 · `chronobiologie` 326, 329 ·
+`cijfers` 39, 65 · `civilisatiekritiek` 298 · `coaching` 161, 291 ·
+`cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
+· `cognitieve vertekening` 234 · `cognitieve-bias` 59 · `collectief onbewuste`
+357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 · `commando` 97 ·
+`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
+338, 356 · `complexiteit` 170, 268, 300, 347 · `complimenten geven` 356 ·
 `concentratie` 70 · `concurrentie` 293 · `conditionering` 61 · `conflict` 35,
 42, 43, 212, 305 · `conflictbemiddeling` 304 · `conflicthantering` 271 ·
-`conformisme` 211 · `consumptiekeuzes` 299 · `content` 308 · `corruptie` 221 ·
-`creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349 · `cricket` 174 ·
-`crisis` 47 · `cultuur` 68, 274 · `cultuurkritiek` 54 · `cursus` 108, 130, 201
-· `cursus-in-wonderen` 102, 131 · `cynisme` 250, 319 · `dagboek` 2, 109, 224,
-286 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagelijkse
-gewoontes` 205 · `dankbaarheid` 129 · `dataïsme` 236 · `daten` 166 · `debat`
-28 · `debuutboek` 226 · `degrowth` 298 · `dementie` 84, 85, 225 · `democratie`
-98 · `denken` 310 · `denkfouten` 55, 59, 142 · `design thinking` 150 ·
-`destructiviteit` 223 · `deugd` 247 · `diagnose` 104 · `dialoog` 335 ·
-`dichotomie van controle` 194 · `dictatuur` 221 · `dienstbaarheid` 230, 245 ·
-`diepe-tijd` 239 · `dierenzintuigen` 322 · `dierproeven` 330 ·
-`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
-350 · `DISC` 156 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146 ·
-`disruptie` 293 · `docenten` 116 · `doelen` 58, 136, 158 ·
-`doelgericht-oefenen` 50 · `doelstellingen` 256 · `donkere-triade` 124 ·
-`dood` 98, 169, 292 · `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289,
-324 · `dopamine` 314 · `dromen` 52 · `dummies` 112 · `durfkapitaal` 47 ·
-`duurzaamheid` 92 · `dystopie` 61 · `e-commerce` 257 · `e-mail` 70 ·
-`e-mailmarketing` 309 · `ecologie` 298 · `economie` 65, 98, 217, 251, 297, 347
-· `economische geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205 ·
-`eenzaamheid` 7, 96, 98, 111, 288, 302 · `eerlijk` 47 · `eerlijkheid` 62 ·
-`eerste-versie` 19 · `ego` 75, 102, 149 · `eigen bedrijf` 210 · `eigen-beheer`
-107, 140, 142 · `eigen-oordeel` 58 · `eigenaarschap` 97 · `einstein` 94 ·
-`elektriciteit` 267 · `elektrische auto's` 266 · `emigratie` 240 · `emotie`
-137 · `emoties` 3, 43, 142, 147, 153, 177, 330, 331 · `empathie` 35, 67, 303 ·
-`energie` 92, 195, 291 · `epigenetica` 208 · `epos` 5 · `erfenis` 39 ·
-`erotiek` 113, 164 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 232 · `essays`
-197 · `eten` 103 · `ethiek` 282, 299 · `evangelisatie` 201 · `evolutie` 56,
-66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347 ·
-`evolutionaire-psychologie` 67 · `executives` 344 · `expeditie` 36 ·
-`experiment` 79, 215 · `experimenten` 280 · `experimenteren` 265 · `expertise`
-283, 320 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72,
-75, 312 · `familie` 45, 325 · `familieconflict` 178 · `familiegeschiedenis`
-114, 235 · `familieroman` 10 · `fantasy` 192, 203 · `fbi` 271 · `FBI` 154 ·
-`feedback` 41, 296 · `feiten` 43 · `feminisme` 3 · `fictie` 100, 115 · `film`
-41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299 ·
-`filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 · `financiële
-markten` 268, 351 · `financiële onafhankelijkheid` 264 · `financiele vrijheid`
-277 · `financiën` 334 · `financiering` 172 · `fitnessbranche` 307 · `flow` 78,
-187, 200 · `focus` 175, 197 · `fotoboek` 189 · `frankrijk` 115 · `fysieke
-uitdaging` 323 · `fysiologie` 318 · `Galenus` 328 · `gaslighting` 123 ·
-`gastheerschap` 304 · `gebed` 83, 259 · `gebruikersgedrag` 294 · `gedachten`
-148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280,
-330 · `gedragsbiologie` 322, 339 · `gedragsonderzoek` 302 · `gedragspatronen`
-161 · `gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering`
-238, 290 · `gedragswetenschap` 166, 209, 305 · `geduld` 21, 351 · `geestelijke
+`conformisme` 211 · `consumptiekeuzes` 299 · `content` 308 · `content creatie`
+365 · `content marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13,
+14, 15, 16, 17, 74, 206, 312, 349 · `cricket` 174 · `crisis` 47 · `cultuur`
+68, 274 · `cultuurkritiek` 54 · `cursus` 108, 130, 201 · `cursus-in-wonderen`
+102, 131 · `cynisme` 250, 319 · `dagboek` 2, 109, 224, 286 ·
+`dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagelijkse gewoontes` 205
+· `dankbaarheid` 129 · `dataïsme` 236 · `daten` 166 · `debat` 28 ·
+`debuutboek` 226 · `degrowth` 298 · `deliberate practice` 376 · `dementie` 84,
+85, 225 · `democratie` 98 · `denken` 310 · `denkfouten` 55, 59, 142 · `design
+thinking` 150 · `destructiviteit` 223 · `deugd` 247 · `diagnose` 104 ·
+`dialoog` 335 · `dichotomie van controle` 194 · `dictatuur` 221 ·
+`dienstbaarheid` 230, 245 · `diepe-tijd` 239 · `dierenzintuigen` 322 ·
+`dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 ·
+`direct response` 350 · `DISC` 156 · `discipline` 12, 13, 22, 30, 106, 133,
+137, 146 · `disruptie` 293 · `docenten` 116 · `doelen` 58, 136, 158 · `doelen
+stellen` 367 · `doelgericht-oefenen` 50 · `doelstellingen` 256 ·
+`donkere-triade` 124 · `dood` 98, 169, 292 · `doorzetten` 20 ·
+`doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314 · `dromen` 52, 357,
+358, 359, 360 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 ·
+`dystopie` 61 · `e-commerce` 257 · `e-mail` 70 · `e-mailmarketing` 309 ·
+`ecologie` 298 · `economie` 65, 98, 217, 251, 297, 347 · `economische
+geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205 · `eenzaamheid` 7,
+96, 98, 111, 288, 302 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 ·
+`ego` 75, 102, 149 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
+`eigen-oordeel` 58 · `eigenaarschap` 97 · `einstein` 94 · `elektriciteit` 267
+· `elektrische auto's` 266 · `emigratie` 240 · `emotie` 137 · `emoties` 3, 43,
+142, 147, 153, 177, 330, 331 · `empathie` 35, 67, 303 · `energie` 92, 195, 291
+· `epigenetica` 208 · `epos` 5 · `erfenis` 39 · `erotiek` 113, 164 · `essay`
+3, 9, 21, 57, 59, 63, 64, 68, 96, 232 · `essays` 197 · `eten` 103 · `ethiek`
+282, 299 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322,
+323, 332, 339, 347 · `evolutionaire-psychologie` 67 · `executives` 344 ·
+`expeditie` 36 · `experiment` 79, 215 · `experimenten` 280 · `experimenteren`
+265 · `expertise` 283, 320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167,
+252 · `facilitatie` 304 · `falen` 23, 72, 75, 312 · `familie` 45, 325 ·
+`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
+`fantasy` 192, 203 · `fbi` 271 · `FBI` 154 · `feedback` 41, 296 · `feiten` 43
+· `feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93,
+199, 211, 216, 224, 247, 255, 263, 292, 299 · `filosofiegeschiedenis` 269 ·
+`financiële geletterdheid` 163 · `financiële markten` 268, 351 · `financiële
+onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiën` 334 ·
+`financiering` 172 · `fitnessbranche` 307 · `flow` 78, 187, 200 · `focus` 175,
+197 · `fotoboek` 189 · `frankrijk` 115 · `fysieke uitdaging` 323 ·
+`fysiologie` 318 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
+`gebed` 83, 259 · `gebruikersgedrag` 294 · `gedachten` 148, 177 ·
+`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330 ·
+`gedragsbiologie` 322, 339 · `gedragsonderzoek` 302 · `gedragspatronen` 161 ·
+`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290
+· `gedragswetenschap` 166, 209, 305 · `geduld` 21, 351 · `geestelijke
 gezondheid` 193 · `gehechtheid` 166 · `geheim genootschap` 202 · `geheugen`
 66, 85, 175 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176 · `geld` 21, 37,
 38, 56, 76, 121, 132, 133, 158, 159 · `geldpsychologie` 233, 264 · `geloof`
@@ -70037,61 +73545,63 @@ gezondheid` 193 · `gehechtheid` 166 · `geheim genootschap` 202 · `geheugen`
 `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328 ·
 `geschiedfilosofie` 235 · `gesprek` 43, 95, 302 · `gesprekstechniek` 182, 186
 · `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht` 138 · `gewoonte` 58, 70,
-76, 77, 79, 88, 97, 103, 133, 138 · `gewoontelus` 238 · `gewoonten` 187 ·
+76, 77, 79, 88, 97, 103, 133, 138 · `gewoontelus` 238 · `gewoonten` 187, 373 ·
 `gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158, 181, 207, 208, 224,
 230, 290, 334 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294 · `gezag`
 62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332 ·
 `gezondheidszorg` 313, 317 · `ggz` 104 · `gijzelingsonderhandelaar` 271 ·
-`godsdienstkritiek` 341 · `goeroe` 242 · `grenzen` 72, 105, 109, 120, 122, 187
-· `grenzen stellen` 151, 204 · `griekse mythologie` 261 · `groei` 222 ·
-`groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
-`grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80, 251 ·
-`handelen` 30 · `handleiding` 112 · `hart` 86, 128 · `hechting` 145, 152, 317
-· `hedendaags India` 202 · `heelal` 99, 262 · `helderheid` 82 · `herhaling`
-125, 134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327
-· `hersenonderzoek` 330, 333 · `herstel` 87 · `Himalaya` 191 · `hindoeïsme`
-169, 199 · `hindoeïstische mythologie` 192 · `Hindoeïstische mythologie` 202 ·
-`hindoemythologie` 203 · `Hinge` 166 · `historische portretten` 248 ·
-`hofcultuur` 216 · `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 ·
-`homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80, 339 · `houding` 117
-· `huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105, 227 ·
-`huwelijk` 9, 34, 165 · `Huxley` 54 · `hypnose` 123, 124, 125 · `Idaho` 45 ·
-`ideeën` 206 · `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261 ·
-`identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185 · `ik-vorm` 113 ·
-`illustraties` 109, 327 · `imitatie` 11 · `import` 20 · `india` 172, 196, 199,
-242 · `India` 163, 171, 180, 189, 191, 203, 226 · `individualisme` 9, 96 ·
-`individualiteit` 263 · `individuele-verantwoordelijkheid` 299 · `industrie`
-348 · `innerlijk-kind` 109 · `innovatie` 206, 251, 293, 306 · `instagram` 129
-· `internet` 60, 198 · `interview` 58 · `interviews` 277, 289 · `intimiteit`
-122, 145, 164, 165 · `introversie` 33 · `intuitie` 128 · `intuïtie` 214, 283,
-320 · `investeren` 270, 348 · `invloed` 11 · `Italiaanse non-fictie` 211 ·
-`Italië` 155 · `jaloezie` 19 · `japan` 77, 261, 346 · `Japan` 205, 335 ·
-`jaren negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig` 94 ·
-`jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison`
-321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
-`jongvolwassenenroman` 295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82,
-238, 257, 285 · `jung` 143 · `kaakontwikkeling` 332 · `Kabul` 184 ·
-`Kaïn-en-Abel` 10 · `kalmte` 248 · `kans` 64 · `kansen` 137 · `kansrekening`
-282 · `kapitalisme` 298 · `karakter` 97 · `karma` 184 · `Kasjmir` 180 ·
-`keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50 · `kernwaarden` 245 · `keuzes`
-51, 71, 72 · `kinderboek` 167 · `kinderjaren` 152 · `klantcontact` 182, 186 ·
-`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
-`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219 ·
-`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351 ·
-`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
-`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 ·
-`klokkenmakerij` 321 · `kolonialisme` 298 · `korea` 111 · `kort` 59, 99, 100,
-101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 ·
-`korte-teksten` 111 · `kosmologie` 239, 262, 281 · `koude oorlog` 217, 220 ·
-`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
-346 · `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 · `kunstenaars` 312 ·
-`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
-intelligentie` 297 · `kunstmatige-intelligentie` 236, 237 · `kwaliteit` 1 ·
-`kwantumfysica` 208, 340 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44
-· `landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean
-manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
-106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218,
-222, 231, 260, 273, 344, 353 · `leidinggeven` 156 · `leren` 175, 296, 349 ·
+`godsdienstkritiek` 341 · `goeroe` 242 · `gratie` 374 · `grenzen` 72, 105,
+109, 120, 122, 187 · `grenzen stellen` 151, 204 · `griekse mythologie` 261 ·
+`groei` 222 · `groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303
+· `grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80, 251
+· `handelen` 30 · `handleiding` 112 · `hart` 86, 128 · `hechting` 145, 152,
+317 · `hedendaags India` 202 · `heelal` 99, 262 · `helderheid` 82 ·
+`herhaling` 125, 134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84,
+85, 86, 327 · `hersenonderzoek` 330, 333 · `herstel` 87 · `Himalaya` 191 ·
+`hindoeïsme` 169, 199 · `hindoeïstische mythologie` 192 · `Hindoeïstische
+mythologie` 202 · `hindoemythologie` 203 · `Hinge` 166 · `historische
+portretten` 248 · `hofcultuur` 216 · `Hollywood` 178 · `Holocaust` 48 ·
+`holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80,
+339 · `houding` 117 · `huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26,
+105, 227 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hypnose` 123, 124, 125 ·
+`Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269 · `identiteit` 22, 115,
+192, 261, 374, 375 · `identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185
+· `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 · `import` 20 ·
+`india` 172, 196, 199, 242 · `India` 163, 171, 180, 189, 191, 203, 226, 365,
+370 · `individualisme` 9, 96 · `individualiteit` 263 · `individuatie` 359, 360
+· `individuele-verantwoordelijkheid` 299 · `industrie` 348 · `innerlijk-kind`
+109 · `innovatie` 206, 251, 293, 306 · `instagram` 129 · `internet` 60, 198 ·
+`interview` 58 · `interviews` 277, 289 · `intimiteit` 122, 145, 164, 165 ·
+`introversie` 33, 361 · `intuitie` 128 · `intuïtie` 214, 283, 320 ·
+`investeren` 270, 348 · `invloed` 11 · `Italiaanse non-fictie` 211 · `Italië`
+155 · `jaloezie` 19 · `japan` 77, 261, 346 · `Japan` 205, 335 · `jaren
+negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284
+· `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint
+ventures` 348 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman`
+295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285 · `jung`
+143 · `Jung` 358, 359 · `kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel`
+10 · `kalmte` 248 · `kans` 64 · `kansen` 137 · `kansrekening` 282 ·
+`kapitalisme` 298 · `karakter` 97 · `karma` 184 · `Kasjmir` 180 · `keegan` 110
+· `kennis` 81 · `kenniswerk` 6, 50 · `kernwaarden` 245 · `keuzes` 51, 71, 72 ·
+`kinderboek` 167 · `kinderjaren` 152 · `klantcontact` 182, 186 ·
+`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
+`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
+`klassieke tekst` 219 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144,
+173, 213, 254, 351 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
+`kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
+`klimaatverandering` 299 · `klokkenmakerij` 321 · `kolonialisme` 298 · `korea`
+111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
+`kort-stuk` 19, 30 · `korte-teksten` 111 · `kosmologie` 239, 262, 281 · `koude
+oorlog` 217, 220 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272
+· `krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kroeg` 4 ·
+`kunst` 11 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312 · `kunstmatig
+leven` 347 · `kunstmatige intelligentie` 297 · `kunstmatige-intelligentie`
+236, 237 · `kwaliteit` 1 · `kwantumfysica` 208, 340 · `kwantummechanica` 362 ·
+`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44 · `landbouw` 56, 98 ·
+`landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265 ·
+`leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
+`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
+344, 353, 364, 370 · `leidinggeven` 156 · `leren` 175, 296, 349 ·
 `lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
 `levenskeuzes` 150 · `levenskunst` 27, 199, 216, 227 · `levenslessen` 285 ·
 `levensloop` 91 · `lezen` 18 · `lezingen` 169 · `lichaam` 80 · `lichaamstaal`
@@ -70100,194 +73610,201 @@ manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
 · `logotherapie` 48 · `Long-Island` 4 · `loopbaan` 50, 51, 150, 349 ·
 `losmaken` 45 · `lotsbestemming` 261 · `luisteren` 24, 35, 305 · `macht` 212,
 250, 263 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen`
-155 · `magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353 ·
-`manifesteren` 128, 129, 130, 131, 132, 190, 196 · `manipulatie` 123, 124,
-125, 126, 212, 213 · `mannelijkheid` 3 · `mannen` 7 · `mantelzorg` 225 ·
-`marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309, 350 · `media` 54,
-60, 100 · `meditatie` 111, 141, 149, 169, 205, 208, 228, 230, 237, 242, 333 ·
-`meesterschap` 296, 320 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
-49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348 · `menselijk
-gedrag` 155 · `mensenkennis` 126 · `mentale gezondheid` 315 · `mentale
-helderheid` 148 · `mentale weerbaarheid` 229, 323 · `mentorschap` 4, 285, 289,
-320 · `merken` 279 · `metabolisme` 313 · `metafysica` 102 · `meten` 69, 133 ·
-`methode` 81 · `microbedrijf` 40, 172 · `middelbare-leeftijd` 7 · `midlife`
-324 · `militaire strategie` 220 · `millennials` 159 · `minderheden` 68 ·
-`mindful` 103 · `mindfulness` 141, 147, 149, 177, 333 · `mindset` 146, 181,
-188 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 ·
-`mitochondriën` 313 · `modellen` 300 · `modelleren` 139 · `moed` 44 ·
-`moeder-en-zoon` 26 · `monniksleven` 230 · `monopolie` 306 · `Monty-Python` 16
-· `moraal` 9, 57, 67, 263 · `moreel` 36 · `motivatie` 117, 139, 146, 183, 200,
-207, 315 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek` 340
-· `mythologie` 73, 143 · `mythologische fantasy` 202 · `mythologische fictie`
-203 · `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258 ·
-`naslag` 99, 112 · `naslagwerk` 59, 225 · `nationalisme` 237 · `natuur` 191,
-323 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 · `navigatie` 321 · `navy
-seals` 229 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 · `nederlands`
-93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
-`nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
-`negentig dagen` 188 · `nepnieuws` 237 · `netwerken` 24, 246, 300 ·
-`neurobiologie` 119 · `neurochirurgie` 49 · `neurologie` 325 ·
-`neuroplasticiteit` 175, 208 · `neurowetenschap` 52, 208, 238, 275, 314, 326,
-330, 331, 333, 339, 340 · `neurowetenschap-voor-kinderen` 327 · `neusademing`
-318 · `new age` 149 · `new thought` 259 · `NeXT` 46 · `nieuwe-gedachte` 127 ·
-`nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241 · `Nike` 20 · `nlp` 123,
-125, 139 · `Nobelprijs` 55 · `non-verbale communicatie` 154 · `notitieboeken`
-241 · `novelle` 173 · `observeren` 15 · `obsessieve liefde` 284 ·
-`ochtendroutine` 14, 134, 244 · `oefenen` 29 · `oefening` 141, 296 ·
-`oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 · `okinawa` 77 · `okr`
-256 · `omgangsvormen` 24 · `omkering` 105 · `omstreden` 37, 73, 76, 83 ·
-`onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
-`onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131, 132, 139
-· `onbewuste` 16, 283 · `onderbewuste` 124 · `onderbewustzijn` 259 ·
-`onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
-260, 271, 272, 305 · `ondernemen` 20, 39, 40, 47, 172 · `ondernemers` 174 ·
-`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
-278, 289, 306, 307, 308, 312, 350 · `onderwijs` 6, 23, 33, 45, 63, 65, 68,
-116, 237, 349 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39,
-44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 ·
+155 · `magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353,
+364 · `manifesteren` 128, 129, 130, 131, 132, 190, 196 · `manipulatie` 123,
+124, 125, 126, 212, 213 · `mannelijkheid` 3 · `mannen` 7 · `mantelzorg` 225 ·
+`manuscript` 359 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309,
+350 · `media` 54, 60, 100 · `meditatie` 111, 141, 149, 169, 205, 208, 228,
+230, 237, 242, 333 · `meesterschap` 296, 320 · `memento mori` 286 · `memoir`
+4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324,
+325, 348 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 · `mentale
+gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323,
+372, 373, 374 · `mentorschap` 4, 285, 289, 320 · `merken` 279 · `metabolisme`
+313 · `metafysica` 102 · `meten` 69, 133 · `methode` 81 · `microbedrijf` 40,
+172 · `middelbare-leeftijd` 7 · `midlife` 324 · `militaire strategie` 220 ·
+`millennials` 159 · `minderheden` 68 · `mindful` 103 · `mindfulness` 141, 147,
+149, 177, 333 · `mindset` 146, 181, 188 · `minimalisme` 181 · `misdaad` 254 ·
+`misleiding` 219, 272 · `mitochondriën` 313 · `modellen` 300 · `modelleren`
+139 · `moed` 44 · `moeder-en-zoon` 26 · `monniksleven` 230 · `monopolie` 306 ·
+`Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moreel` 36 · `motivatie` 117,
+139, 146, 183, 200, 207, 315 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17,
+85 · `mystiek` 340 · `mythologie` 73, 143, 357, 360 · `mythologische fantasy`
+202 · `mythologische fictie` 203 · `nalatenschap` 178 · `napoleontische
+oorlogen` 235 · `narcisme` 258 · `naslag` 99, 112 · `naslagwerk` 59, 225 ·
+`nationalisme` 237 · `natuur` 191, 323 · `natuurkunde` 62, 94, 240, 262, 281,
+300, 326 · `navigatie` 321 · `navy seals` 229, 364 · `nazisme` 223 ·
+`necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103,
+104, 105, 106, 107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 ·
+`nederlandstalig` 113 · `negatieve emoties` 176 · `negentig dagen` 188 ·
+`nepnieuws` 237 · `netwerken` 24, 246, 300 · `neurobiologie` 119 ·
+`neurochirurgie` 49 · `neurologie` 325 · `neuroplasticiteit` 175, 208 ·
+`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340 ·
+`neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age` 149 · `new
+thought` 259 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 ·
+`nieuwsgierigheid` 15, 28, 62, 241 · `Nike` 20 · `nlp` 123, 125, 139 ·
+`Nobelprijs` 55 · `non-verbale communicatie` 154 · `notitieboeken` 241 ·
+`novelle` 173 · `observeren` 15 · `obsessieve liefde` 284 · `ochtendroutine`
+14, 134, 244 · `oefenen` 29 · `oefening` 141, 296 · `oefeningen` 15, 35, 87,
+103, 109, 118, 120, 122, 130 · `okinawa` 77 · `okr` 256 · `omgangsvormen` 24 ·
+`omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 ·
+`onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
+`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359
+· `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117,
+134, 135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305 ·
+`ondernemen` 20, 39, 40, 47, 172 · `ondernemers` 174 · `ondernemerschap` 157,
+163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276, 278, 289, 306, 307,
+308, 312, 350, 365, 369, 370 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116,
+237, 349 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55,
+62, 78, 79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 ·
 `onderzoeksethiek` 215 · `onderzoekskritiek` 52 · `ongemak` 323 ·
 `ongeneeslijke ziekte` 285 · `online ondernemen` 309 · `onsterfelijkheid` 236
 · `ontmoeten` 304 · `ontologie` 344 · `ontslagen` 47 · `ontwikkeling` 46, 85 ·
-`ontwikkelingslanden` 234 · `onzekerheid` 268, 341 · `oordeel` 59, 69 ·
-`oorlog` 31, 57, 66 · `oorlogvoering` 218 · `opdrachten` 116 · `opgetekend` 97
-· `opgeven` 249 · `opgroeien` 4, 295 · `optimisme` 251 · `optogenetica` 331 ·
-`opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `orde` 73, 74 ·
-`organisatie` 28, 41, 69 · `organisatiecultuur` 183, 273, 353 · `organisaties`
-238 · `orthodontie` 332 · `Orwell` 54 · `oud china` 272 · `Oude Rome` 328 ·
-`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191 · `oudheid` 2, 247, 292 ·
-`outsourcen` 278 · `overdenken` 148 · `overleven` 31, 36 ·
-`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253 · `overtuiging` 280 ·
-`overtuigingen` 28, 132, 139, 143 · `overvloed` 17 · `Pacific` 31 ·
-`pacifisme` 240 · `Padma-onderscheiding` 189 · `para` 81 · `parabel` 38, 244,
-246 · `paranormaal` 340 · `passie` 50, 198 · `pastoraat` 34 ·
-`patiëntenverhalen` 331 · `patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 ·
-`perceptie` 30 · `perfectionisme` 19, 32, 44 · `persoonlijk merk` 198 ·
-`persoonlijke financiën` 163, 233 · `persoonlijke ontwikkeling` 161 ·
-`persoonlijkheid` 33, 338 · `piekeren` 105, 176 · `pijn` 85, 255 · `Pixar` 41,
-46 · `planeten` 99 · `planning` 70, 276 · `plantaardig-dieet` 324 · `plicht` 2
-· `podcast` 136 · `poëzie` 204 · `poker` 137 · `polarisatie` 305 · `polemiek`
-67 · `politicologie` 220, 221 · `politiek` 54, 219 · `populair` 77, 129, 133 ·
+`ontwikkelingslanden` 234 · `onzekerheid` 268, 341, 375 · `oordeel` 59, 69 ·
+`oorlog` 31, 57, 66, 364 · `oorlogvoering` 218 · `opdrachten` 116 ·
+`opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 · `optimisme` 251 ·
+`optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `orde`
+73, 74 · `organisatie` 28, 41, 69 · `organisatiecultuur` 183, 273, 353 ·
+`organisaties` 238 · `orthodontie` 332 · `Orwell` 54 · `oud china` 272 · `Oude
+Rome` 328 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191 · `oudheid` 2,
+247, 292 · `outsourcen` 278 · `overdenken` 148 · `overleven` 31, 36 ·
+`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253, 356, 367 ·
+`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143 · `overvloed` 17 ·
+`Pacific` 31 · `pacifisme` 240 · `Padma-onderscheiding` 189 · `para` 81 ·
+`parabel` 38, 244, 246 · `paranormaal` 340, 362 · `passie` 50, 198 ·
+`pastoraat` 34 · `patiëntenverhalen` 331 · `patriarchaat` 3 · `pelgrimage` 8 ·
+`pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32, 44 · `persoonlijk
+merk` 198, 365 · `persoonlijke financiën` 163, 233 · `persoonlijke
+ontwikkeling` 161 · `persoonlijkheid` 33, 338 · `persoonlijkheidstypen` 361 ·
+`piekeren` 105, 176 · `pijn` 85, 255 · `Pixar` 41, 46 · `planeten` 99 ·
+`planning` 70, 276 · `plantaardig-dieet` 324 · `plicht` 2 · `podcast` 136 ·
+`poëzie` 204 · `poker` 137 · `polarisatie` 305 · `polemiek` 67 ·
+`politicologie` 220, 221 · `politiek` 54, 219 · `populair` 77, 129, 133 ·
 `populair-wetenschappelijk` 88, 239, 326 · `populaire filosofie` 194 ·
 `populaire psychologie` 156 · `portretten` 75, 94 · `positief denken` 179 ·
 `positief-denken` 83 · `positieve-psychologie` 207 · `postuum` 49 · `Praag`
 173 · `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren`
-82, 253 · `prestatie` 168, 291 · `prestatiebeoordeling` 256 · `preventie` 86,
-313 · `prijsstelling` 307 · `prijzen` 23 · `prikkels` 60, 65 · `prioriteiten`
-25, 196 · `prioriteren` 151, 311 · `proactief` 25 · `producer` 17 ·
-`productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311 ·
-`productontwerp` 231, 294 · `productontwikkeling` 265 · `proeven` 112 ·
-`projecten` 81 · `projectie` 107, 108 · `propaganda` 60 · `protocol` 69 ·
-`pseudokennis` 126 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104,
-213, 314, 315, 317, 331 · `psychoanalyse` 223 · `psychologie` 23, 28, 29, 55,
-73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254,
-258, 296, 310, 338 · `psychotherapie` 164, 227 · `publiceren` 13 ·
-`publieksfilosofie` 269 · `Pulitzer` 5 · `quantum` 94 · `quilten` 114 ·
-`quotes` 179 · `radicale transparantie` 270 · `Rat-Pack` 178 · `rechtspraak`
-69 · `reclame` 206, 279 · `reeks` 114, 192 · `regimeverandering` 220 ·
-`reïncarnatie` 202 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 ·
-`relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334,
-335 · `relatietherapie` 165 · `relativiteitstheorie` 240, 281 · `religie` 56 ·
-`REM` 52 · `renaissance` 241 · `Renaissance` 15 · `rente` 38 · `replicatie` 79
-· `retorica` 253 · `revisie` 18 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
-268, 282, 351 · `rituelen` 304 · `rivier als symbool` 287 ·
-`roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114,
-115, 254 · `romeinse oudheid` 232 · `rouw` 95 · `rouwverwerking` 204 · `ruimte
-en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
-`sadisme` 223 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
-`samoerai` 346 · `Santa Fe Institute` 347 · `satire` 155 · `scepsis` 63 ·
-`schaalvergroting` 350 · `schaamte` 32, 44, 317 · `schaarste` 92, 249 ·
-`scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81 ·
-`schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159 ·
-`seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie` 221 · `seminar`
-139 · `Silicon Valley` 306 · `slaap` 52, 87, 88, 171, 181, 316, 329 ·
-`slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
-besmetting` 303 · `sociale media` 194, 198, 204, 288 · `sociale psychologie`
-215, 280, 302 · `sociale-media` 53, 70 · `sociale-psychologie` 319 ·
-`sociologie` 300 · `software` 276 · `somberheid` 119 · `spanning` 101 ·
+82, 253 · `prestatie` 168, 291, 372 · `prestatiebeoordeling` 256 ·
+`prestatieonderzoek` 376 · `preventie` 86, 313 · `prijsstelling` 307 ·
+`prijzen` 23 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151,
+311 · `proactief` 25 · `producer` 17 · `productiviteit` 151, 175, 197, 207,
+244, 276, 278, 290, 311 · `productontwerp` 231, 294 · `productontwikkeling`
+265 · `proeven` 112 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60
+· `protocol` 69 · `pseudokennis` 126 · `psychedelica` 275 · `psychiatrie` 1,
+48, 95, 96, 104, 213, 314, 315, 317, 331 · `psychoanalyse` 223, 360, 361 ·
+`psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162,
+200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375 ·
+`psychologische functies` 361 · `psychotherapie` 164, 227 · `publiceren` 13 ·
+`publiek opbouwen` 369 · `publieksfilosofie` 269 · `Pulitzer` 5 · `quantum` 94
+· `quilten` 114 · `quotes` 179 · `radicale transparantie` 270 · `Rat-Pack` 178
+· `rechtspraak` 69 · `reclame` 206, 279 · `reeks` 114, 192 ·
+`regimeverandering` 220 · `reïncarnatie` 202 · `reïnventie` 344 ·
+`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
+162, 164, 166, 167, 195, 213, 334, 335 · `relatietherapie` 165 ·
+`relativiteitstheorie` 240, 281 · `religie` 56 · `REM` 52 · `renaissance` 241
+· `Renaissance` 15 · `rente` 38 · `replicatie` 79 · `retorica` 253 · `revisie`
+18 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351 · `rituelen` 304
+· `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12,
+160 · `roman` 61, 113, 114, 115, 254 · `romeinse oudheid` 232 · `rouw` 95 ·
+`rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart` 266 · `russische
+literatuur` 235 · `rust` 32 · `sadisme` 223 · `Salinas` 10 · `samenleving` 90,
+98, 319 · `samenwerken` 25 · `samoerai` 346 · `Santa Fe Institute` 347 ·
+`satire` 155 · `scepsis` 63 · `schaalvergroting` 350 · `schaamte` 32, 44, 317
+· `schaarste` 92, 249 · `scheikunde` 92 · `school` 53, 84 · `schrijven` 11,
+12, 14, 18, 19, 81 · `schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20,
+38, 121, 159 · `seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie`
+221 · `seminar` 139 · `Silicon Valley` 306 · `slaap` 52, 87, 88, 171, 181,
+316, 329 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
+besmetting` 303 · `sociale media` 194, 198, 204, 288, 365 · `sociale
+psychologie` 215, 280, 302 · `sociale-media` 53, 70 · `sociale-psychologie`
+319 · `sociologie` 300 · `software` 276 · `somberheid` 119 · `spanning` 101 ·
 `sparen` 21, 38, 159, 233 · `specialisatie` 349 · `speedreading` 175 ·
 `spelen` 32 · `speltheorie` 217, 221 · `spiegelneuronen` 303 · `spiegelogie`
 108 · `spieropbouw` 316 · `spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160,
-169, 184, 190, 195, 196, 199, 242, 310 · `spirituele zoektocht` 287 · `sport`
-20, 349 · `spreekangst` 253 · `spreker` 117, 134 · `staatsgreep` 220 ·
-`stalking` 214 · `Stanford` 150 · `start-ups` 306 · `startups` 265 ·
-`statistiek` 55, 65, 69, 234, 268, 300 · `statistiek van uitzonderingen` 274 ·
-`status` 39, 66 · `sterfelijkheid` 2, 71, 232, 295 · `sterrenkunde` 99 ·
-`sterven` 49, 95, 275 · `stijl` 18 · `stoicijns` 75, 140, 142 · `stoïcijnse
-filosofie` 153, 228, 232, 286 · `stoïcisme` 2, 30, 194, 247, 248, 292 ·
-`stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
-249, 250, 260, 272, 293, 306, 346, 353 · `streken` 112 · `stress` 80, 87, 106,
-118, 187 · `stressmanagement` 153 · `structuur` 82 · `succes` 75, 76, 274 ·
-`superkrachten` 203 · `supplementen` 171, 316 · `synchronisatie` 303 ·
-`systeem` 22, 142 · `systeemtheorie` 165 · `taal` 26, 27 · `taal en macht` 344
-· `tactische empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341 · `tarieven`
-121 · `team` 42 · `teams` 273 · `teamvorming` 260 · `teamwork` 156, 256 ·
-`techniek` 1, 6, 43, 61, 92 · `technologie` 160, 288, 294, 306 ·
-`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
-`technologiekritiek` 297 · `tegen-productiviteit` 71 · `tegenslag` 30, 111,
-174 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33
-· `Texas` 5 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145 · `thriller`
-101, 202 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334 ·
-`tijdsbeleving` 326 · `timemanagement` 311 · `toekomst` 236 · `toeval` 21, 64,
-93, 137, 274 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `trauma`
-104, 119, 195, 229, 317 · `trilling` 127 · `trilogie` 202, 203, 248 ·
-`tuinontwerp` 205 · `twaalf-weken` 14 · `tweede-wereldoorlog` 115 ·
-`twintigers` 51 · `uitdaging-vaardigheid` 200 · `uitleg` 99, 102 · `uitleggen`
-82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311 · `uitstellen` 16 ·
-`uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
-`Upanishaden` 169 · `vaardigheden` 40, 50, 349 · `vaardigheid` 64, 296 ·
-`vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49,
-226, 324 · `vakbonden` 297 · `vakmanschap` 1, 206, 320, 346 · `variantie` 137
-· `vastgoed` 37 · `vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106,
-153, 174, 177, 189, 317 · `veiligheid` 43, 214 · `veiligheidsmarge` 144 ·
-`verandering` 170, 252 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282,
-335 · `verbinding` 302 · `verdriet` 111, 227 · `vergaderen` 42 ·
+169, 184, 190, 195, 196, 199, 242, 310, 358 · `spirituele zoektocht` 287 ·
+`sport` 20, 349 · `sportpsychologie` 372, 374 · `spreekangst` 253 · `spreker`
+117, 134 · `staatsgreep` 220 · `stalking` 214 · `Stanford` 150 · `start-ups`
+306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300 · `statistiek
+van uitzonderingen` 274 · `status` 39, 66 · `sterfelijkheid` 2, 71, 232, 295 ·
+`sterrenkunde` 99 · `sterven` 49, 95, 275 · `stijl` 18 · `stoicijns` 75, 140,
+142 · `stoïcijnse filosofie` 153, 228, 232, 286 · `stoïcisme` 2, 30, 194, 247,
+248, 292 · `stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217,
+218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370 · `streken` 112 ·
+`stress` 80, 87, 106, 118, 187 · `stressmanagement` 153 · `stressregulatie`
+372 · `structuur` 82 · `succes` 75, 76, 274 · `superkrachten` 203 ·
+`supplementen` 171, 316 · `symboliek` 357, 360 · `synchroniciteit` 362 ·
+`synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 · `taal` 26,
+27 · `taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29, 274 ·
+`taoïsme` 341 · `tarieven` 121 · `team` 42 · `teams` 273, 364 · `teamvorming`
+260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 · `technologie` 160,
+288, 294, 306 · `technologiebedrijven` 293 · `technologiegeschiedenis` 231,
+267 · `technologiekritiek` 297 · `tegen-productiviteit` 71 · `tegenslag` 30,
+111, 174 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
+`temperament` 33 · `Texas` 5 · `therapie` 51, 107, 118, 119, 120, 121, 122,
+145 · `thriller` 101, 202 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232,
+262, 292, 334 · `tijdsbeleving` 326 · `timemanagement` 311 · `toekomst` 236 ·
+`toeval` 21, 64, 93, 137, 274, 362 · `Tolteeks` 27 · `toon` 72, 118, 119, 121,
+132, 145 · `topprestatie` 374 · `training` 376 · `trauma` 104, 119, 195, 229,
+317 · `trilling` 127 · `trilogie` 202, 203, 248 · `tuinontwerp` 205 ·
+`twaalf-weken` 14 · `tweede-wereldoorlog` 115 · `twintigers` 51 · `typologie`
+361 · `uitdaging-vaardigheid` 200 · `uitleg` 99, 102 · `uitleggen` 82 ·
+`uitstel` 71, 140 · `uitstelgedrag` 12, 311 · `uitstellen` 16 · `uitvinding`
+267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 · `Upanishaden`
+169 · `vaardigheden` 40, 50, 349 · `vaardigheid` 64, 296 · `vader-en-dochter`
+178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324 ·
+`vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376 · `variantie` 137 ·
+`vastgoed` 37 · `vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106,
+153, 174, 177, 189, 317, 375 · `veiligheid` 43, 214 · `veiligheidsmarge` 144 ·
+`verandering` 170, 252, 375 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184,
+282, 335, 364 · `verbinding` 302 · `verdriet` 111, 227 · `vergaderen` 42 ·
 `vergaderingen` 276 · `vergeving` 31, 102, 120 · `verhaal` 74 · `verhaalvorm`
 135 · `verhalen` 56, 101, 110, 136, 196 · `verhalenbundel` 206 · `verhouding`
 113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132,
-182, 185, 186, 188, 246, 280, 307, 308, 350 · `verkooptrechters` 309 ·
+182, 185, 186, 188, 246, 280, 307, 308, 350, 367 · `verkooptrechters` 309 ·
 `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164 · `verlichting` 243, 287 ·
-`verlies` 95 · `vermaak` 61 · `vermogen` 39 · `vermogensopbouw` 163, 264, 277
-· `veroudering` 171 · `verpleegkunde` 225 · `verplichting` 9 · `verslaving`
-18, 238, 275, 294, 314, 324, 325 · `vertrouwen` 42, 273, 279, 319 · `vervolg`
-74, 131 · `vervreemding` 173 · `verwondering` 227 · `vier deugden` 194 ·
-`visualisatie` 259 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding`
-86, 88, 171, 313, 316, 329, 332 · `volharding` 29 · `volledigheid` 167 ·
-`voorbeelden` 128 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55,
-283 · `voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
-`voorzichtigheid` 216 · `vorming` 224 · `vreemden` 302 · `vriendschap` 5, 7,
-114, 292, 295, 319 · `vrije tijd` 288 · `vrije wil` 339 · `vrije-tijd` 78 ·
-`vrije-wil` 10, 236 · `vrijheid` 61 · `vroeg pensioen` 264 · `vrouwenhaat` 110
-· `waardebeleggen` 144, 351 · `waardecreatie` 246 · `waarden` 72, 142 ·
-`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322 · `Wall
-Street` 351 · `wall-street` 144 · `weerbaarheid` 194 · `weerstand` 12 ·
-`welvaart` 251, 334 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70, 78,
-151, 252 · `werkboek` 14, 122, 150 · `werkplek` 33, 43 · `werkwijze` 16 ·
-`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
-`wet van aantrekking` 190 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66,
-93, 94, 328 · `wetenschappers` 239 · `wetenschapsgeschiedenis` 239, 240, 321,
-347 · `wijn` 112 · `wilskracht` 238 · `wiskunde` 116 · `wisselstroom` 267 ·
-`woede` 119, 120 · `woestijn` 8 · `wraak` 101 · `Yale` 215 · `yoga` 195, 242 ·
-`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
-182 · `zakendoen` 348 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
+`verlies` 95, 373 · `vermaak` 61 · `vermogen` 39 · `vermogensopbouw` 163, 264,
+277 · `veroudering` 171 · `verpleegkunde` 225 · `verplichting` 9 ·
+`verslaving` 18, 238, 275, 294, 314, 324, 325 · `vertrouwen` 42, 273, 279, 319
+· `vervolg` 74, 131 · `vervreemding` 173 · `verwondering` 227 · `vier deugden`
+194 · `visioenen` 359 · `visualisatie` 259 · `visualiseren` 116 · `vlaams` 89,
+91, 98, 109 · `voeding` 86, 88, 171, 313, 316, 329, 332 · `volharding` 29 ·
+`volledigheid` 167 · `voorbeelden` 128 · `voorbereiding` 82 · `voorkeuren` 89
+· `vooroordelen` 55, 283 · `voorspellingen` 268 · `vooruitgang` 251 ·
+`vooruitgangsdenken` 298 · `voorzichtigheid` 216 · `vorming` 224 · `vreemden`
+302 · `vriendschap` 5, 7, 114, 292, 295, 319 · `vrije tijd` 288 · `vrije wil`
+339 · `vrije-tijd` 78 · `vrije-wil` 10, 236 · `vrijheid` 61 · `vroeg pensioen`
+264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 · `waardecreatie` 246 ·
+`waarden` 72, 142 · `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154,
+283, 322 · `Wall Street` 351 · `wall-street` 144 · `weerbaarheid` 194 ·
+`weerstand` 12 · `welvaart` 251, 334 · `wereldbeeld` 234 · `wereldbouw` 192 ·
+`werk` 70, 78, 151, 252 · `werkboek` 14, 122, 150 · `werkplek` 33, 43 ·
+`werkwijze` 16 · `West-Point` 29 · `westen` 67 · `western` 5 · `westerse
+filosofie` 269, 341 · `wet van aantrekking` 190 · `wet-van-aantrekking` 127 ·
+`wetenschap` 63, 66, 93, 94, 328 · `wetenschappers` 239 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347 · `wijn` 112 · `wilskracht` 238 ·
+`wiskunde` 116 · `wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 ·
+`Wolfgang Pauli` 362 · `wraak` 101 · `Yale` 215 · `yoga` 195, 242 · `young
+adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie` 182 ·
+`zakendoen` 348, 367 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
 `zelfacceptatie` 176, 335 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107,
-108, 129, 138, 197 · `zelfbeheersing` 75, 148, 212, 248, 286, 314 ·
+108, 129, 138, 197, 367, 372 · `zelfbeheersing` 75, 148, 212, 248, 286, 314 ·
 `zelfbescherming` 214 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158, 229,
 244, 311 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318 · `zelfhulp` 15,
 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150,
 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179,
 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210,
-211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338 · `zelfkennis` 258, 260
-· `zelfliefde` 190, 195, 204 · `zelfonderzoek` 315 · `zelfontwikkeling` 179 ·
-`zelfpraat` 161 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177 ·
-`zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfstandig` 40 · `zelfstandig
-denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig starten` 210 ·
-`zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
-`zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312 · `zelfwaarde` 168 ·
-`zelfwaardering` 121 · `zelfzorg` 109, 225 · `zen` 141, 346 · `zenboeddhisme`
-205 · `zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 ·
-`zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255 · `zitten` 84 ·
-`zorg` 96 · `zuid-afrika` 266 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar`
-143 · `zwaardvechten` 346 · `zwarte gaten` 262 · `zwarte-gaten` 99
+211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373 · `zelfkennis`
+258, 260, 361 · `zelfliefde` 190, 195, 204 · `zelfonderzoek` 315 ·
+`zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpublicatie` 174 ·
+`zelfregulatie` 153, 165, 177 · `zelfsabotage` 161, 344 · `zelfspot` 19 ·
+`zelfstandig` 40 · `zelfstandig denken` 211 · `zelfstandig ondernemen` 198 ·
+`zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven` 123,
+124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312, 365 ·
+`zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225 · `zen` 141, 346
+· `zenboeddhisme` 205 · `zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74,
+180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255 ·
+`zitten` 84 · `zorg` 96 · `zuid-afrika` 266 · `Zuid-Afrika` 26 · `zuinigheid`
+39 · `zwaar` 143 · `zwaardvechten` 346 · `zwarte gaten` 262 · `zwarte-gaten`
+99
 
 ## Leesroutes
 

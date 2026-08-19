@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Master of Change &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Stulberg stelt dat de gangbare omgang met verandering faalt omdat mensen kiezen tussen twee uitersten: krampachtig vasthouden aan hoe het was, of zich…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-375">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">375 &middot; Moed en karakter</p>
+    <h1>Master of Change</h1>
+    <p class="lede">Brad Stulberg, 2023</p>
+    <p class="stats">
+      <span><b>1406</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="375"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Stulberg stelt dat de gangbare omgang met verandering faalt omdat mensen kiezen tussen twee uitersten: krampachtig vasthouden aan hoe het was, of zich volledig laten meeslepen door de nieuwe situatie. Beide strategieën breken volgens hem op den duur. Zijn alternatief noemt hij rugged flexibility: een kern van identiteit en waarden die stevig blijft staan, gecombineerd met een losse, aanpasbare houding tegenover de manier waarop die kern wordt geleefd. Verandering doorloopt daarbij een terugkerende cyclus van orde, ontwrichting, verkenning en een nieuwe orde, en wie die cyclus herkent, hoeft niet elke keer bij nul te beginnen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee mislukte strategieën</h3>
+      <p>Stulberg opent met de twee manieren waarop mensen doorgaans op grote verandering reageren. De eerste is vasthouden: het oude leven, de oude rol of het oude lichaam koste wat kost proberen te behouden, ook als de omstandigheden dat niet meer toelaten. De tweede is meegaan zonder anker: zich volledig laten meeslepen door de nieuwe situatie, zonder houvast aan wie je daarvoor was.</p>
+      <p>Beide strategieën falen volgens hem op termijn, de eerste omdat de werkelijkheid uiteindelijk wint, de tweede omdat er niets overblijft om op terug te vallen. Zijn boek zoekt een derde weg tussen verstarring en oplossing in de storm.</p>
+      <h3>Rugged flexibility</h3>
+      <p>De kern van het boek is een houding die Stulberg rugged flexibility noemt: een stevige, herkenbare kern van identiteit en waarden, gecombineerd met soepelheid in de manier waarop die kern in de praktijk vorm krijgt. Wie zich bijvoorbeeld identificeert als hardloper kan die identiteit verliezen bij een blessure, terwijl wie zich identificeert als iemand die van beweging houdt, een nieuwe vorm kan vinden.</p>
+      <p>Dat onderscheid tussen een te smalle en een bredere identiteit loopt door het hele boek. Een te smal gedefinieerde identiteit breekt bij de eerste tegenslag, een identiteit die om waarden is gebouwd, biedt ruimte om van vorm te veranderen zonder zichzelf kwijt te raken.</p>
+      <h3>De cyclus van orde en ontwrichting</h3>
+      <p>Stulberg beschrijft verandering als een terugkerende cyclus in vier fasen: orde, waarin het leven stabiel voelt, ontwrichting, waarin een gebeurtenis die orde breekt, verkenning, waarin iemand zoekt naar een nieuwe manier van zijn, en een nieuwe orde, die op zijn beurt weer verstoord zal worden. Hij leent dit patroon uit onderzoek naar veerkracht en uit zijn eigen eerdere werk over de wisselwerking tussen belasting en herstel.</p>
+      <p>Zijn punt is dat mensen de ontwrichtings- en verkenningsfase vaak als mislukking ervaren, terwijl het juist een normaal en herhaald onderdeel van een levensloop is. Wie de cyclus herkent, hoeft de verwarring van de verkenningsfase niet als teken van falen te lezen.</p>
+      <h3>Zes vaardigheden voor de verkenningsfase</h3>
+      <p>Voor de fase waarin de oude orde is weggevallen en de nieuwe nog niet is gevonden, beschrijft Stulberg een reeks vaardigheden: het accepteren van wat is gebeurd zonder het meteen te willen oplossen, aanwezig blijven in het huidige moment, jezelf zien als in ontwikkeling in plaats van afgerond, controle houden over wat wel te beïnvloeden is, verbinding zoeken met anderen, en betekenis vinden in de ervaring zelf.</p>
+      <p>Hij werkt deze vaardigheden uit met portretten van mensen die een ingrijpende verandering doormaakten, van een ernstige diagnose tot het verlies van een carrière, en laat zien hoe zij, vaak zonder dat woord te gebruiken, stukken van deze vaardigheden toepasten.</p>
+      <h3>Een nieuwe orde die weer zal breken</h3>
+      <p>Het slot van het boek waarschuwt tegen het idee dat een nieuwe orde definitief is. Stulberg benadrukt dat elke nieuwe stabiliteit op termijn weer verstoord zal worden, en dat het doel niet is om verandering voorgoed achter je te laten, maar om er telkens beter mee om te leren gaan.</p>
+      <p>Die boodschap sluit aan bij zijn eerdere werk over groei door belasting en herstel: niet de afwezigheid van verstoring is het doel, maar het vermogen om er telkens weer doorheen te bewegen.</p>
+      <h3>Verwante tradities</h3>
+      <p>Stulberg plaatst zijn cyclus uitdrukkelijk naast oudere denklijnen die met hetzelfde probleem worstelden: het boeddhistische uitgangspunt dat vasthouden aan een vaste toestand lijden veroorzaakt, en de stoïcijnse nadruk op het onderscheid tussen wat wel en niet te sturen is. Hij presenteert rugged flexibility niet als een geheel nieuwe uitvinding, maar als een hedendaagse, op onderzoek gebaseerde vertaling van die oudere inzichten naar de praktijk van verlies, ziekte en verandering van rol.</p>
+      <p>Die verwijzing geeft het boek een breder kader, al blijft de uitwerking daarvan beperkt tot enkele alinea's; wie de oorspronkelijke tradities wil doorgronden, moet daarvoor elders terecht.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Rugged flexibility</td><td>Een stevige kern van identiteit en waarden, gecombineerd met soepelheid in de manier waarop die kern vorm krijgt.</td></tr>
+          <tr><td class="term">Orde, ontwrichting, verkenning, nieuwe orde</td><td>De vierfasencyclus waarmee Stulberg verandering beschrijft als terugkerend patroon in plaats van eenmalige gebeurtenis.</td></tr>
+          <tr><td class="term">Smalle versus brede identiteit</td><td>Een identiteit gebonden aan één rol breekt bij tegenslag, een identiteit gebouwd op waarden biedt ruimte om van vorm te veranderen.</td></tr>
+          <tr><td class="term">Verkenningsfase</td><td>De periode tussen het wegvallen van de oude orde en het vinden van een nieuwe, vaak ten onrechte ervaren als falen.</td></tr>
+          <tr><td class="term">Acceptatie zonder oplossing</td><td>Erkennen wat is gebeurd zonder meteen te eisen dat het probleem al is opgelost.</td></tr>
+          <tr><td class="term">Betekenis in de ervaring</td><td>Zin vinden in de verandering zelf, niet pas achteraf als de nieuwe orde is bereikt.</td></tr>
+          <tr><td class="term">Vasthouden als bron van lijden</td><td>De boeddhistische gedachte dat het krampachtig willen behouden van een toestand het eigenlijke lijden veroorzaakt, niet de verandering zelf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Stulberg bouwt zijn cyclus op onderzoek naar veerkracht en op zijn eigen eerdere werk, samen met Steve Magness, over de relatie tussen stress en herstel. Hij combineert dat met interviews die hij zelf voerde met mensen die grote persoonlijke omslagen doormaakten, van ziekte tot verlies van werk.</p>
+      <p>Zijn zes vaardigheden voor de verkenningsfase zijn een eigen synthese van bredere psychologische literatuur over acceptatie, aandacht en sociale steun, niet het resultaat van één onderliggende studie. De kracht van het boek zit in de heldere ordening van bestaand onderzoek en ervaring, niet in nieuw experimenteel bewijs.</p>
+      <p>De verwijzingen naar boeddhistische en stoïcijnse tradities dienen ter ondersteuning van zijn model, niet als aparte onderbouwing; Stulberg toetst niet of zijn vierfasencyclus zich ook laat terugvinden in die oudere teksten, hij constateert alleen een overeenkomst in strekking.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vierfasencyclus is aantrekkelijk als beeld, maar het boek laat weinig ruimte voor situaties die zich niet netjes in vier fasen laten verdelen, zoals langdurige, aanhoudende onzekerheid zonder duidelijk begin- of eindpunt.</p>
+      <p>De portretten van mensen die een ingrijpende verandering doormaakten, zijn gekozen omdat ze zijn kader illustreren; hoeveel mensen in vergelijkbare omstandigheden vastlopen zonder ooit bij een nieuwe orde uit te komen, komt niet aan bod.</p>
+      <p>Het onderscheid tussen een smalle en een brede identiteit klinkt eenvoudiger dan het in de praktijk is: voor veel mensen is een rol als ouder, partner of vakman niet zomaar te verruimen tot een waarde zonder veel van de betekenis te verliezen die de rol juist had.</p>
+      <p>De term rugged flexibility zelf blijft enigszins vaag: het boek beschrijft uitvoerig wat een stevige kern en een soepele uitvoering opleveren, maar geeft weinig houvast voor het moment waarop iemand niet meer weet of hij aan zijn kern vasthoudt uit overtuiging of uit angst voor de volgende verandering.</p>
+      <p>Stulberg schrijft vanuit een positie van relatieve stabiliteit, als coach en auteur met een lopende praktijk; zijn portretten van andere mensen in crisis krijgen daardoor de vorm van een geordend verhaal achteraf, terwijl de chaos van een verkenningsfase zelf, op het moment dat iemand er middenin zit, zich veel minder laat samenvatten in vier stappen dan het boek suggereert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf je eigen identiteit in termen van waarden in plaats van in één rol of functie.</li>
+        <li>Herken een periode van verwarring na een verlies als een fase in een cyclus, niet als bewijs dat je faalt.</li>
+        <li>Maak bij een ingrijpende verandering onderscheid tussen wat je kunt beïnvloeden en wat je alleen kunt doorstaan.</li>
+        <li>Zoek tijdens een onzekere periode bewust contact met anderen in plaats van het alleen uit te zitten.</li>
+        <li>Vraag jezelf bij het vasthouden aan een gewoonte of rol af of dat uit overtuiging is of uit angst voor wat er verandert.</li>
+        <li>Beschrijf een eerdere ingrijpende verandering in je leven aan de hand van de vier fasen, en kijk wat je destijds hielp om verder te komen.</li>
+        <li>Noem tijdens een onzekere periode hardop welk deel van je identiteit onveranderd blijft, ook als de rol eromheen verdwijnt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Voluit <i>Master of Change: How to Excel When Everything Is Changing, Including You</i> (Harper Wave, 2023, ISBN 9780063253162). Geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Stulberg schrijft eerder over prestatie en welzijn, onder meer als coauteur van <i>Peak Performance</i>. In dit boek richt hij zich op de vraag hoe mensen overeind blijven als hun leven ingrijpend verandert, van ziekte tot verlies van werk tot ouderschap.</p><p>Zijn antwoord is een houding die hij rugged flexibility noemt: stevig verankerd in wie je bent en wat je waardeert, en tegelijk flexibel in hoe je dat vormgeeft. Hij bouwt dat uit met een cyclus van orde, ontwrichting, verkenning en nieuwe orde, onderbouwd met gesprekken met mensen die grote omslagen doormaakten en met onderzoek naar stress en veerkracht.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>verandering</li><li>veerkracht</li><li>identiteit</li><li>onzekerheid</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman plaatst dezelfde eindigheid en onzekerheid van het leven in een breder kader zonder Stulbergs stappenplan.</li>
+          <li value="323"><a href="323.html">The Comfort Crisis</a>. Easter onderzoekt hoe mensen aanpassingsvermogen juist opbouwen door zich bewust aan ongemak bloot te stellen.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown behandelt de kwetsbaarheid die nodig is om een identiteit los te laten die niet meer past.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

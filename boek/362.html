@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synchroniciteit &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Jung stelt dat naast oorzaak en gevolg een tweede ordeningsprincipe in de werkelijkheid werkzaam is, dat hij synchroniciteit noemt: het gelijktijdig…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-362">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">362 &middot; Positief denken en manifesteren</p>
+    <h1>Synchroniciteit</h1>
+    <p class="lede">C.G. Jung, 1952</p>
+    <p class="stats">
+      <span><b>1447</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="362"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Jung stelt dat naast oorzaak en gevolg een tweede ordeningsprincipe in de werkelijkheid werkzaam is, dat hij synchroniciteit noemt: het gelijktijdig optreden van een innerlijke toestand, zoals een droom of een voorgevoel, en een uitwendige gebeurtenis die daarmee inhoudelijk overeenkomt zonder dat de een de ander veroorzaakt. Het bekendste voorbeeld uit het boek is een patiënte die tijdens haar sessie een droom over een gouden kever vertelde, op het moment dat een gouden kevertje tegen het raam van de spreekkamer tikte. Jung presenteert zulke samenvallen niet als toeval en niet als bijgeloof, maar als aanwijzing dat psyche en materie dieper met elkaar verbonden zijn dan het gangbare oorzakelijke wereldbeeld toelaat, een stelling die hij nadrukkelijk buiten de grenzen van de heersende natuurwetenschap plaatst.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Aanleiding en samenwerking met Pauli</h3>
+      <p>Het essay verscheen in 1952 samen met een bijdrage van Nobelprijswinnaar natuurkunde Wolfgang Pauli, die al sinds 1932 met Jung correspondeerde en bij hem ook zelf analyse volgde. Pauli schreef in dezelfde bundel over de rol van archetypische voorstellingen in het werk van Johannes Kepler, en die samenwerking gaf Jung de moed om zijn eigen these publiekelijk te maken: hij had het idee van synchroniciteit al decennia in zijn aantekeningen laten rijpen voordat hij het uitgaf.</p>
+      <p>De aanleiding was klinisch. Jung stuitte herhaaldelijk op momenten waarin een droom, een inval of een voorgevoel van een patiënt samenviel met een op dat moment onafhankelijk daarvan gebeurende, inhoudelijk verwante gebeurtenis in de buitenwereld. Het bekendste geval is de patiënte die tijdens haar behandeling vastzat in een te rationele houding: terwijl zij een droom over een gouden kever vertelde, tikte er op dat moment een gouden kevertje tegen het raam, wat Jung ving en haar aanreikte, en dat samenvallen doorbrak volgens hem haar weerstand op een manier die geen argument had kunnen bereiken.</p>
+      <h3>Wat synchroniciteit wel en niet is</h3>
+      <p>Jung onderscheidt zijn begrip nadrukkelijk van gewoon toeval. Een synchroniciteit vereist voor hem drie elementen: een innerlijke, onbewuste toestand die zich als beeld of voorgevoel aandient, een uiterlijke gebeurtenis die daar inhoudelijk mee overeenkomt, en de afwezigheid van een aanwijsbaar causaal verband tussen beide. Twee toevallige gebeurtenissen die niets met elkaars betekenis te maken hebben, vallen daarbuiten; het gaat hem uitdrukkelijk om zinvolle samenloop, niet om elke opmerkelijke samenloop.</p>
+      <p>Hij plaatst het verschijnsel ook nadrukkelijk buiten het rijk van voorspelling of magie. Synchroniciteit voorspelt niets en is niet oproepbaar; het overkomt iemand, meestal op momenten van sterke emotionele spanning, wanneer het bewuste denken is vastgelopen en het onbewuste kennelijk via een omweg naar buiten dringt.</p>
+      <h3>Het argument tegen strikte causaliteit</h3>
+      <p>De kern van het betoog is dat het westerse wereldbeeld sinds de zeventiende eeuw oorzaak en gevolg tot het enige geldige verklaringsprincipe heeft gemaakt, en dat alles wat daar niet in past daardoor als toeval of inbeelding wordt weggezet. Jung stelt daar een tweede ordeningsprincipe tegenover, niet in plaats van causaliteit maar ernaast: gebeurtenissen kunnen ook samenhangen doordat ze op hetzelfde moment dezelfde betekenis dragen, zonder dat de een de ander teweegbrengt.</p>
+      <p>Voor die aanname zoekt hij aansluiting bij de kwantummechanica, waarin op subatomair niveau geen strikte, voorspelbare causaliteit meer geldt maar alleen waarschijnlijkheid. Jung gebruikt die ontwikkeling in de natuurkunde als aanmoediging voor zijn eigen these, niet als bewijs; hij erkent zelf dat de overeenkomst tussen kwantumonzekerheid en zijn eigen begrip een analogie is en geen afgeleide.</p>
+      <h3>Statistiek en het astrologie-experiment</h3>
+      <p>Om zijn these een empirisch aanknopingspunt te geven, voert Jung een statistisch experiment op met horoscoopgegevens van gehuwde paren, waarin hij onderzoekt of bepaalde astrologische combinaties tussen partners vaker voorkomen dan toeval zou verklaren. Zijn eigen conclusie is voorzichtig: de uitkomst wijkt in de eerste steekproef af van wat toeval zou opleveren, maar herhaling met nieuwe steekproeven brengt de uitkomst dichter bij het toevalsniveau, en Jung erkent dat het effect zwak en instabiel is.</p>
+      <p>Hij presenteert het experiment nadrukkelijk niet als bewijs voor astrologie als voorspellende leer, maar als illustratie van hoe moeilijk het is om een vermoed zinvol patroon statistisch hard te maken, en van hoezeer de verwachting van de onderzoeker de uitkomst kan kleuren. Het is het enige kwantitatieve deel van een verder overwegend anekdotisch betoog.</p>
+      <h3>Voorbeelden uit de geschiedenis van het denken</h3>
+      <p>Jung verzamelt daarnaast historische auteurs die volgens hem al met een vergelijkbaar idee worstelden: de Chinese I Ching, waarin het orakel niet werkt via oorzakelijkheid maar via het aflezen van het moment zelf, Leibniz' begrip van een vooraf ingestelde harmonie tussen lichaam en geest, en Schopenhauers essay over het toevallige samentreffen van gebeurtenissen die met elkaar samenhangen zonder oorzakelijk verband.</p>
+      <p>Die bronnen dienen, net als in zijn andere werk, niet als bewijs maar als voorgeschiedenis: aanwijzing dat het ongenoegen met een zuiver causale wereld al veel ouder is dan zijn eigen theorie, en dat hij zich met zijn begrip in een herkenbare traditie van twijfel plaatst.</p>
+      <h3>De grens die Jung zelf trekt</h3>
+      <p>Opvallend is hoe vaak Jung in het essay zelf waarschuwt tegen overinterpretatie. Hij noemt zijn begrip een hypothese, geen bewezen wet, en hij benadrukt dat de meeste opmerkelijke samenlopen in het leven van mensen gewoon toeval zijn en geen synchroniciteit. Het verschijnsel is voor hem zeldzaam, niet oproepbaar op verzoek, en niet bruikbaar als verklaring achteraf voor elke opvallende samenloop die iemand meemaakt.</p>
+      <p>Die terughoudendheid staat in schril contrast met hoe het begrip buiten zijn eigen tekst is gaan leven, als algemene term voor elk betekenisvol toeval en als steunpilaar voor uiteenlopende esoterische opvattingen die Jung zelf niet onderschreef.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Synchroniciteit</td><td>Het zinvol samenvallen van een innerlijke toestand en een uiterlijke gebeurtenis, zonder aanwijsbaar oorzakelijk verband.</td></tr>
+          <tr><td class="term">Acausaliteit</td><td>Het ontbreken van een oorzaak-gevolgrelatie tussen twee gebeurtenissen die toch inhoudelijk samenvallen.</td></tr>
+          <tr><td class="term">Zinvol toeval</td><td>Jungs eigen aanduiding voor een samenloop die betekenis draagt, in tegenstelling tot gewoon, betekenisloos toeval.</td></tr>
+          <tr><td class="term">Collectief onbewuste</td><td>De gedeelde onbewuste laag die volgens Jung ook bij synchronistische gebeurtenissen een rol speelt.</td></tr>
+          <tr><td class="term">Unus mundus</td><td>Het door Jung uit de alchemie geleende begrip van een onderliggende eenheid van psyche en materie.</td></tr>
+          <tr><td class="term">Kwantumonzekerheid</td><td>Het gegeven dat subatomaire processen alleen in waarschijnlijkheden te beschrijven zijn, door Jung als analogie voor zijn eigen these gebruikt.</td></tr>
+          <tr><td class="term">I Ching</td><td>Het Chinese orakelboek dat Jung aanhaalt als voorbeeld van een denksysteem dat op het moment zelf vertrouwt in plaats van op oorzakelijkheid.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat vrijwel geheel uit anekdotes: de kevercasus en een handvol vergelijkbare gevallen uit zijn eigen praktijk en die van collega's, aangevuld met verhalen die hij van anderen kreeg toegestuurd. Geen van die gevallen is onder gecontroleerde omstandigheden vastgelegd; ze steunen op het geheugen en de weergave van de betrokkenen.</p>
+      <p>Het enige kwantitatieve onderdeel is het astrologie-experiment, en Jung zelf rapporteert dat het aanvankelijke effect bij herhaling wegvalt. Dat is ongewoon eerlijk voor een auteur die een eigen these wil onderbouwen, maar het betekent ook dat het boek geen herhaalbaar resultaat oplevert waarop latere onderzoekers hebben kunnen voortbouwen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Synchroniciteit staat buiten de gevestigde natuurwetenschap en is daar nooit in opgenomen. Er bestaat geen erkende meetmethode om een synchronistische gebeurtenis te onderscheiden van een toevallige, en zonder zo'n methode is elk voorbeeld afhankelijk van de subjectieve indruk van de betrokkene dat iets betekenisvol was.</p>
+      <p>Statistici hebben Jungs astrologie-experiment na hem herhaald en vonden geen effect dat boven toeval uitkomt; zijn eigen herhalingen wezen al dezelfde kant op. Het sterkste kwantitatieve deel van het boek ondersteunt zijn these dus eigenlijk niet, ook al gebruikt Jung het als illustratie.</p>
+      <p>Een breder bezwaar geldt de menselijke neiging om patronen te zien waar geen zijn: mensen onthouden de opvallende samenloop en vergeten de duizenden keren dat een droom niet uitkwam of een voorgevoel nergens op sloeg. Zonder een telling van al die niet-samenvallende gevallen is niet vast te stellen of de kevercasus zeldzamer is dan wat toeval alleen al zou opleveren.</p>
+      <p>Jungs beroep op de kwantummechanica heeft weinig steun gekregen van natuurkundigen. Onzekerheid op subatomair niveau is iets anders dan een zinvol verband tussen een droom en een gebeurtenis op menselijke schaal, en de analogie tussen beide blijft, ook in Pauli's eigen latere terughoudendheid, losser dan Jungs tekst soms suggereert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij een opvallende samenloop eerst of er een gewone verklaring is, voordat je haar als betekenisvol bestempelt.</li>
+        <li>Bedenk dat je opvallende samenlopen onthoudt en de niet-samenvallende momenten vergeet; dat vertekent de indruk van hoe vaak zoiets gebeurt.</li>
+        <li>Lees het begrip zoals Jung het zelf beperkt: als zeldzame gebeurtenis onder spanning, niet als algemene verklaring voor toeval in het dagelijks leven.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Synchronizität als ein Prinzip akausaler Zusammenhänge</i>, verschenen samen met een essay van natuurkundige Wolfgang Pauli in de bundel <i>Naturerklärung und Psyche</i> (Rascher Verlag, Zürich, 1952). Engels als <i>Synchronicity: An Acausal Connecting Principle</i>, vertaald door R.F.C. Hull, in <i>The Interpretation of Nature and the Psyche</i> (Routledge &amp; Kegan Paul, 1955), later apart uitgegeven binnen de Collected Works, deel 8 (Princeton University Press/Bollingen). Nederlands als <i>Synchroniciteit</i>, vertaald door H. Hamaker met een inleiding van K.M. Hamaker-Zondag (Lemniscaat, 2000, 159 blz., ISBN 9789056371005).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jung beschrijft synchroniciteit als het zinvol samenvallen van een innerlijke toestand, zoals een droom of een voorgevoel, en een uiterlijke gebeurtenis die daarmee overeenkomt zonder dat de een de ander veroorzaakt. Het bekendste voorbeeld is een patiënte die tijdens haar sessie een droom over een gouden kever vertelde, op het moment dat een gouden kevertje tegen het raam van de spreekkamer tikte.</p><p>Het essay verscheen samen met een bijdrage van natuurkundige Wolfgang Pauli en zoekt aansluiting bij de kwantummechanica, waar strikte causaliteit ook plaatsmaakt voor waarschijnlijkheid. Jung onderbouwt zijn these verder met een statistisch experiment met horoscoopgegevens, waarvan hij zelf meldt dat het effect bij herhaling wegvalt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>synchroniciteit</li><li>toeval</li><li>acausaliteit</li><li>collectief onbewuste</li><li>paranormaal</li><li>Wolfgang Pauli</li><li>kwantummechanica</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="93"><a href="93.html">Toeval</a>. Hopster onderzoekt vanuit statistiek en cognitiewetenschap waarom mensen toeval systematisch als patroon lezen, het spiegelbeeld van wat Jung hier beschrijft.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan biedt de scherpste tegenstem: een pleidooi om buitengewone claims aan buitengewoon bewijs te toetsen, precies waar dit boek achterblijft.</li>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. Talbot bouwt op vergelijkbare aannames over een onderliggende eenheid van psyche en materie voort, met nog minder empirische terughoudendheid dan Jung zelf betrachtte.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

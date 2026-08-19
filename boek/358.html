@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herinneringen, dromen, gedachten &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Jung stelt zijn levensverhaal voor als het verslag van een innerlijk proces en niet van uiterlijke gebeurtenissen: wat er in zijn droomleven, zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-358">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">358 &middot; Roman en memoir</p>
+    <h1>Herinneringen, dromen, gedachten</h1>
+    <p class="lede">C.G. Jung, opgetekend door Aniela Jaffé, 1962</p>
+    <p class="stats">
+      <span><b>1227</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="358"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Jung stelt zijn levensverhaal voor als het verslag van een innerlijk proces en niet van uiterlijke gebeurtenissen: wat er in zijn droomleven, zijn visioenen en zijn omgang met het onbewuste gebeurde, was voor hem belangrijker dan wat er in de buitenwereld met hem gebeurde, en dat is precies wat dit boek anders maakt dan de meeste autobiografieën. Hij beschrijft zichzelf als iemand wiens hele werk voortkwam uit persoonlijke ervaringen met het onbewuste die hij vervolgens theoretisch heeft proberen te verantwoorden, in plaats van andersom. Wie dat verslag leest als betrouwbare geschiedschrijving in plaats van als het zelfbeeld van een oude man aan het einde van zijn leven, loopt het risico feit en constructie door elkaar te halen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een boek uit gesprekken</h3>
+      <p>Het initiatief kwam niet van Jung zelf. Zijn medewerkers, onder wie Aniela Jaffé, drongen er in 1956 op aan dat hij zijn levensverhaal zou vastleggen. Vanaf de lente van 1957, Jung was toen eenentachtig, voerde hij op gezette tijden gesprekken met Jaffé, die daarvan de tekst opstelde. Een aantal hoofdstukken, vooral de vroegste herinneringen en de latere reisverslagen, schreef hij met eigen hand.</p>
+      <p>Jung bleef tot kort voor zijn dood in juni 1961 aan het manuscript werken. Jaffé heeft het na zijn dood afgerond en van een nawoord voorzien; in latere Nederlandse edities is ook de tekst <i>Septem Sermones ad Mortuos</i>, een visionair geschrift uit 1916, als bijlage opgenomen.</p>
+      <h3>Kindertijd en eenzaamheid</h3>
+      <p>De eerste hoofdstukken gaan over zijn jeugd in een dominee-gezin in Bazel en omgeving, over een vroege droom die hem als kind al confronteerde met beelden die hij toen niet kon plaatsen, en over het gevoel dat hij twee persoonlijkheden in zich had: een schooljongen van zijn tijd en een oudere, negentiende-eeuwse figuur die hij later persoonlijkheid nummer twee noemt.</p>
+      <p>Die tweedeling, en het isolement dat ermee gepaard ging, keert door het hele boek terug als sleutel tot zijn latere werk. Jung schrijft dat hij zich als kind al bewust was van een innerlijke werkelijkheid die zich niet liet verklaren door wat zijn ouders of zijn kerk hem leerden.</p>
+      <h3>Studie, Freud en de breuk</h3>
+      <p>Na zijn studie geneeskunde en zijn werk als psychiater aan de Burghölzli-kliniek in Zürich, onder Eugen Bleuler, beschrijft Jung zijn jarenlange samenwerking en vriendschap met Sigmund Freud, die hij als een van de belangrijkste ontmoetingen van zijn leven behandelt.</p>
+      <p>De breuk rond 1912-1913, die in de vakliteratuur vaak wordt herleid tot theoretische verschillen over de rol van seksualiteit, beschrijft Jung zelf vooral als een persoonlijk verlies waarna hij, naar eigen zeggen, de grond onder zijn voeten kwijtraakte en een aantal jaren in onzekerheid over zijn eigen koers doorbracht.</p>
+      <h3>De confrontatie met het onbewuste</h3>
+      <p>Het middendeel van het boek beschrijft de jaren direct na de breuk met Freud als een periode waarin Jung zichzelf willens en wetens blootstelde aan beelden en fantasieën uit zijn eigen onbewuste, een methode die hij later actieve imaginatie noemde. Hij tekende, bouwde met stenen, en schreef de visioenen op die later de basis vormden voor het ongepubliceerde <i>Rode Boek</i>.</p>
+      <p>Jung noemt deze jaren zelf de belangrijkste van zijn leven: alles wat hij daarna theoretisch heeft uitgewerkt, archetype, collectief onbewuste, individuatie, was volgens hem eerst persoonlijke ervaring en pas later begrip.</p>
+      <h3>Werk, reizen en late jaren</h3>
+      <p>Latere hoofdstukken beschrijven zijn kliniekwerk, zijn reizen naar Noord-Afrika, naar Pueblo-indianen in New Mexico en naar Oost-Afrika, telkens met de vraag hoe mensen buiten de westerse, rationele traditie met het onbewuste omgaan. Jung gebruikt die reizen niet als toeristisch verslag maar als vergelijkingsmateriaal voor zijn eigen theorie.</p>
+      <p>Over de jaren dertig en veertig, waaronder zijn omstreden functie bij een Duitse psychiatrische vereniging tijdens het nationaalsocialisme, is het boek kort en terughoudend.</p>
+      <h3>Dood en de laatste vraag</h3>
+      <p>De slothoofdstukken gaan over ouderdom, over dromen die hem in die jaren bezighielden, en over zijn opvattingen over een leven na de dood, die hij uitdrukkelijk niet als geloof maar als mythe presenteert: een beeld dat de psyche nodig lijkt te hebben, zonder dat hij beweert te weten of het ook waar is.</p>
+      <p>Het boek eindigt niet met een afgeronde levensbalans maar met de vaststelling dat er meer vragen open zijn gebleven dan beantwoord, wat aansluit bij de toon van het hele boek: een geleefd leven beschreven als een nog niet afgesloten proces.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Persoonlijkheid nummer twee</td><td>De naam die Jung als kind gaf aan een oudere, in zichzelf besloten kant van zijn karakter, tegenover de schooljongen van alledag, persoonlijkheid nummer een.</td></tr>
+          <tr><td class="term">Actieve imaginatie</td><td>De methode waarbij hij zich bewust openstelde voor innerlijke beelden en fantasieën en ze liet doorlopen in plaats van ze te sturen.</td></tr>
+          <tr><td class="term">Het Rode Boek</td><td>Het ongepubliceerde geschrift waarin Jung de visioenen uit zijn confrontatie met het onbewuste optekende en dat pas na zijn dood aan het licht kwam.</td></tr>
+          <tr><td class="term">Confrontatie met het onbewuste</td><td>Jungs eigen naam voor de jaren na de breuk met Freud, waarin hij zichzelf blootstelde aan zijn eigen fantasiemateriaal.</td></tr>
+          <tr><td class="term">Individuatie</td><td>Het proces van innerlijke rijping dat hij in dit boek als de rode draad van zijn eigen leven beschrijft.</td></tr>
+          <tr><td class="term">Synchroniciteit</td><td>Een betekenisvol samenvallen van een innerlijke toestand en een uiterlijke gebeurtenis, zonder dat het een de oorzaak van het ander is.</td></tr>
+          <tr><td class="term">Septem Sermones ad Mortuos</td><td>Een kort visionair geschrift uit 1916 dat in latere edities als bijlage bij dit boek is opgenomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op Jungs eigen geheugen op hoge leeftijd, aangevuld en geordend door Aniela Jaffé, die zijn woorden optekende en tot een lopende tekst bewerkte. Jaffé heeft daarbij ook eigen onderzoek gedaan naar data en achtergronden, maar de gebeurtenissen en vooral de innerlijke ervaringen zijn niet extern te verifiëren; het gaat om Jungs eigen weergave van dromen en visioenen die hij decennia eerder had.</p>
+      <p>Voor de latere hoofdstukken kon Jaffé putten uit Jungs dagboeken en uit het materiaal dat later als <i>Het Rode Boek</i> is gepubliceerd, wat de innerlijke gebeurtenissen van de jaren na de breuk met Freud steviger onderbouwt dan bijvoorbeeld de jeugdherinneringen, die op een geheugen van zeventig jaar oud berusten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Jungs werk is, ook in dit boek, klinisch en interpretatief van aard en niet experimenteel onderbouwd: het gaat om zijn eigen herinnering aan innerlijke ervaringen, niet om gegevens die door een ander zijn na te gaan. Een boek dat op tachtigjarige leeftijd wordt gedicteerd, is bovendien onderhevig aan de selectie die elk geheugen op die leeftijd al heeft aangebracht: wat niet meer in het zelfbeeld past, komt eenvoudig niet meer ter sprake.</p>
+      <p>Dat is nadrukkelijk het geval bij zijn functie binnen een Duitse psychotherapeutische vereniging tijdens de jaren dertig en bij een aantal uitspraken over het onderscheid tussen joodse en Germaanse psychologie uit diezelfde periode, waarover historici sindsdien uitgebreid hebben gepubliceerd. Het boek gaat aan die episode grotendeels voorbij, wat de lezer met een onvolledig beeld van die jaren achterlaat.</p>
+      <p>Ook de verhouding tot Freud wordt eenzijdig verteld, vanuit het perspectief van wie de breuk overleefde en er een eigen school aan overhield. Freuds eigen lezing van diezelfde jaren, zoals die uit zijn correspondentie blijkt, wijkt op punten af van wat Jung zich decennia later herinnert.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Duits als <i>Erinnerungen, Träume, Gedanken</i> (Rascher Verlag, Zürich, 1962), opgetekend en uitgegeven door Aniela Jaffé op basis van gesprekken die zij vanaf 1957 met Jung voerde; enkele hoofdstukken schreef hij zelf. Engels als <i>Memories, Dreams, Reflections</i>, vertaald door Richard en Clara Winston (Pantheon Books, 1963). Nederlands als <i>Herinneringen, dromen, gedachten</i>, vertaald door Pety de Vries-Ek (Lemniscaat, tiende druk 2018, 398 blz., ISBN 9789060698068).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Op zijn eenentachtigste begon Jung, na aandringen van zijn medewerkers, aan zijn levensverhaal. Hij deed dat niet alleen: vanaf 1957 voerde hij regelmatig gesprekken met Aniela Jaffé, die de aantekeningen tot een doorlopende tekst verwerkte, terwijl Jung zelf een aantal hoofdstukken eigenhandig schreef en tot kort voor zijn dood in 1961 aan het manuscript bleef werken.</p><p>Het boek is uitdrukkelijk geen kroniek van uiterlijke gebeurtenissen. Jung vertelt weinig over zijn huwelijk, zijn kinderen of zijn beroepsleven, en veel over dromen, visioenen en de innerlijke ervaringen die zijn denken hebben gevormd, van een jeugdherinnering aan een steen tot de vraag hoe zijn breuk met Freud rond 1913 tot een periode van innerlijke desoriëntatie leidde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>autobiografie</li><li>psychologie</li><li>dromen</li><li>onbewuste</li><li>Jung</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="325"><a href="325.html">On the Move: A Life</a>. Sacks schrijft eveneens als arts over zijn eigen innerlijke leven naast zijn vak, met een even grote nadruk op wat hem persoonlijk heeft gevormd.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Yogananda beschrijft zijn leven net als Jung vooral aan de hand van visioenen en innerlijke ervaringen in plaats van uiterlijke gebeurtenissen.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl schrijft over dezelfde vraag naar wat een leven van binnenuit draagt, maar dan onder omstandigheden die niets aan zelfgekozen introspectie overlieten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

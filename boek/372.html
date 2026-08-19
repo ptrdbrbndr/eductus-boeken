@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do Hard Things &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Magness stelt dat het gangbare beeld van mentale kracht op een vergissing berust. Wat mensen toughness noemen, de opgeklopte hardheid van schreeuwende…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-372">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">372 &middot; Moed en karakter</p>
+    <h1>Do Hard Things</h1>
+    <p class="lede">Steve Magness, 2022</p>
+    <p class="stats">
+      <span><b>1431</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="372"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Magness stelt dat het gangbare beeld van mentale kracht op een vergissing berust. Wat mensen toughness noemen, de opgeklopte hardheid van schreeuwende coaches en het wegslikken van elk teken van pijn, is volgens hem een gevel die onder echte druk het eerst instort. Ware zelfvertrouwen is stil en gebaseerd op zelfkennis, terwijl onzekerheid zich juist luid moet bewijzen. Wie zijn lichaam en zijn twijfel eerlijk onder ogen ziet in plaats van ze weg te duwen, houdt het langer vol dan wie zich groter voordoet dan hij is. Dat maakt van weerbaarheid geen kwestie van harder bijten, maar van beter waarnemen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De mythe van de harde schil</h3>
+      <p>Magness opent met het beeld dat de meeste mensen van toughness hebben: het opperhoofd dat geen spier vertrekt, de coach die afzien beloont, het motto dat pijn de prijs is die je betaalt voor succes. Hij noemt dat een cultuur van de gevel, waarin het tonen van twijfel of vermoeidheid als zwakte geldt en waarin mensen daarom leren hun binnenkant weg te stoppen.</p>
+      <p>Zijn tegenvoorbeeld is de stille zelfverzekerdheid die hij bij de beste atleten en militairen tegenkwam. Wie zeker is van zijn kunnen, hoeft dat niet te bewijzen. Wie onzeker is, compenseert met bravoure. Militaire selectietrainingen functioneren volgens hem eerder als zeef die dit onderscheid blootlegt dan als fabriek die harde mensen aflevert.</p>
+      <h3>De gevel laten vallen</h3>
+      <p>De eerste van zijn vier bewegingen is het onder ogen zien van de werkelijke toestand, in plaats van een prestatie van kalmte op te voeren. Magness beschrijft hoe het onderdrukken van angst of vermoeidheid het lichaam niet rustiger maakt maar juist meer energie kost, omdat er twee dingen tegelijk gebeuren: de belasting zelf en het verbergen ervan.</p>
+      <p>Erkennen wat er speelt is bij hem geen zwaktebod maar de eerste voorwaarde om er iets aan te doen. Een hardloper die toegeeft dat zijn benen zwaar zijn, kan zijn tempo aanpassen; een hardloper die dat wegdrukt, loopt door tot het lichaam de beslissing zelf neemt.</p>
+      <h3>Luisteren naar het lichaam</h3>
+      <p>De tweede beweging gaat over interoceptie, het vermogen om lichamelijke signalen waar te nemen en te duiden. Magness stelt dat getrainde sporters niet minder voelen dan beginners, maar preciezer: zij onderscheiden vermoeidheid die om aanpassing vraagt van vermoeidheid die nog ruimte laat.</p>
+      <p>Hij vergelijkt dat met een meetinstrument dat je moet leren aflezen. Wie zijn lichaam alleen als lastpost behandelt en het signaal overstemt met wilskracht, verliest juist de informatie die op het juiste moment tot een betere beslissing had geleid.</p>
+      <h3>Reageren in plaats van terugslaan</h3>
+      <p>De derde beweging onderscheidt een reactie van een respons. Een reactie is automatisch en voorgeprogrammeerd, een respons ontstaat uit een moment van ruimte tussen prikkel en handelen. Magness bespreekt hoe stress die ruimte inperkt en mensen terugvallen op ingesleten patronen, ook als die niet passen bij de situatie.</p>
+      <p>Zijn advies is niet het onderdrukken van de eerste opwelling, maar het inbouwen van een korte pauze waarin iemand kan kiezen wat de situatie nodig heeft. Hij beschrijft ademhaling en korte checks als hulpmiddel om die pauze te creëren, niet als truc om kalm te lijken.</p>
+      <h3>Het ongemak overstijgen</h3>
+      <p>De vierde beweging gaat over vasthouden aan wat iemand belangrijk vindt, ook als de uitvoering ongemakkelijk is. Magness leunt hier op waardengerichte gedragstherapie: niet het ongemak wegnemen, maar handelen dat er verenigbaar mee is.</p>
+      <p>Hij illustreert dat met sporters die een wedstrijd niet uitzitten door de pijn te ontkennen, maar door haar een plaats te geven naast het doel dat ze voor ogen houden. Dat overstijgen is bij hem geen overwinning op het lichaam, eerder een samenwerking ermee.</p>
+      <h3>Uitdaging versus bedreiging</h3>
+      <p>Magness bespreekt hoe hetzelfde lichamelijke signaal, een versnelde hartslag en gespannen spieren, twee heel verschillende kanten op kan gaan al naar gelang de inschatting die iemand ervan maakt. Wordt een situatie beoordeeld als een uitdaging waarvoor de eigen middelen net toereikend zijn, dan werkt diezelfde spanning verscherpend; wordt zij beoordeeld als een bedreiging die de eigen middelen te boven gaat, dan werkt zij verlammend.</p>
+      <p>Die inschatting is volgens hem geen kwestie van jezelf voorhouden dat alles goed komt, maar van een realistische afweging tussen wat de situatie vraagt en wat iemand daadwerkelijk in huis heeft. Overdreven optimisme werkt daarbij averechts, omdat het de kloof tussen verwachting en werkelijkheid alleen maar vergroot op het moment dat het telt.</p>
+      <h3>Toughness als gezamenlijke opgave</h3>
+      <p>In de slothoofdstukken breidt Magness zijn onderwerp uit naar teams en organisaties. Een omgeving die kwetsbaarheid afstraft, produceert volgens hem mensen die zich beter voordoen dan ze zich voelen, en dat is precies de gevel waarmee het boek begint. Een omgeving die eerlijke signalen toelaat, maakt betere beslissingen mogelijk op het moment dat het telt.</p>
+      <p>Hij trekt die lijn door naar coaches, leidinggevenden en ouders: wie afstraft dat iemand twijfel of vermoeidheid toegeeft, leert die persoon niet om steviger te worden maar om beter te verbergen wat er speelt. Op de langere termijn werkt dat averechts, juist op de momenten waarop een eerlijk signaal het verschil maakt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De gevel</td><td>De opgeklopte hardheid die pijn en twijfel wegdrukt in plaats van ze te erkennen.</td></tr>
+          <tr><td class="term">Stille zelfverzekerdheid</td><td>Zekerheid die niet bewezen hoeft te worden, tegenover onzekerheid die zich luid moet uiten.</td></tr>
+          <tr><td class="term">Interoceptie</td><td>Het vermogen om lichamelijke signalen waar te nemen en correct te duiden.</td></tr>
+          <tr><td class="term">Reactie versus respons</td><td>Het verschil tussen automatisch terugslaan op een prikkel en bewust kiezen wat de situatie vraagt.</td></tr>
+          <tr><td class="term">De ruimte tussen prikkel en handelen</td><td>Het korte moment waarin een bewuste keuze nog mogelijk is voordat een automatisme het overneemt.</td></tr>
+          <tr><td class="term">Waardengericht handelen</td><td>Doorgaan in lijn met wat iemand belangrijk vindt, zonder het ongemak eerst te hoeven wegnemen.</td></tr>
+          <tr><td class="term">Zeef in plaats van fabriek</td><td>Zijn beeld van zware selectietrainingen: ze onderscheiden bestaande eigenschappen, ze kweken ze niet.</td></tr>
+          <tr><td class="term">Uitdaging versus bedreiging</td><td>Twee tegengestelde manieren om dezelfde lichamelijke spanning te beoordelen, met tegengestelde gevolgen voor de prestatie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Magness combineert zijn eigen ervaring als coach van olympische en universitaire hardlopers met onderzoek uit de sportpsychologie, de klinische psychologie rond stressregulatie en enkele militaire studies naar selectietrainingen. Veel van dat onderzoek gaat over kleine, specifieke groepen zoals topsporters of militairen in training, en de vertaling naar een breder publiek is zijn eigen interpretatie.</p>
+      <p>Sterker onderbouwd zijn de fysiologische stukken over interoceptie, stressrespons en het onderscheid tussen uitdaging en bedreiging, die aansluiten bij breder gedragen onderzoek naar hoe het lichaam belasting signaleert en beoordeelt. Losser onderbouwd is de these dat schreeuwende coaches en harde selectie op zichzelf schadelijk zijn; daarvoor citeert hij vooral voorbeelden, geen vergelijkend onderzoek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek trekt scherpe lijnen tussen echte en nagemaakte toughness, terwijl de praktijk minder netjes is: een gevel kan voor sommige mensen op sommige momenten wel degelijk helpen om door te zetten, ook als hij op termijn slijt. Magness benoemt die uitzonderingen nauwelijks.</p>
+      <p>Zijn voorbeelden komen bijna allemaal uit de topsport en het leger, omgevingen met intensieve begeleiding en meetbare doelen. Hoeveel van zijn vier bewegingen standhoudt in een gewoon leven met een gewone baan en gewone tegenslagen, laat het boek grotendeels aan de lezer over.</p>
+      <p>De these dat luide bravoure onzekerheid verraadt, is aantrekkelijk maar moeilijk te toetsen: het boek levert geen methode om dat onderscheid vooraf te maken, alleen de observatie achteraf.</p>
+      <p>Het onderscheid tussen uitdaging en bedreiging klinkt eenvoudiger dan het in de praktijk te sturen is: iemand die zijn eigen kunnen structureel onderschat, kan een reële uitdaging blijven ervaren als bedreiging, ook na het lezen van dit boek, en daarvoor biedt Magness geen aanvullende weg.</p>
+      <p>Het boek presenteert de tegenstelling tussen oude en nieuwe toughness soms scherper dan de werkelijkheid rechtvaardigt. Coaches die op afzien en volharding hameren, verwijzen zelf ook naar aandacht en zelfkennis zodra het gesprek dieper gaat, en Magness' eigen onderscheid tussen gevel en kern loopt op sommige plekken in het boek minder strak door dan de vier pijlers doen vermoeden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Benoem bij een zware taak eerst hardop wat je voelt, voordat je verder gaat.</li>
+        <li>Bouw een korte pauze in tussen een tegenslag en je reactie erop, ook als het maar een paar ademhalingen zijn.</li>
+        <li>Vraag je bij vermoeidheid af of het signaal om aanpassing vraagt of nog ruimte laat, in plaats van het te negeren.</li>
+        <li>Leg voor jezelf vast welk doel het ongemak van dat moment de moeite waard maakt.</li>
+        <li>Weeg voor een spannend moment bewust af wat de situatie precies vraagt tegenover wat je daadwerkelijk in huis hebt, in plaats van jezelf enkel gerust te stellen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Voluit <i>Do Hard Things: Why We Get Resilience Wrong and the Surprising Science of Real Toughness</i> (HarperOne, 2022, ISBN 9780063098619). Geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Magness is hardloopcoach en werkte jarenlang met olympische atleten. Hij keert zich tegen het beeld van toughness als opgeklopte hardheid: een gezicht dat niets laat zien, een coach die schreeuwt, het idee dat pijn negeren bewijst dat je sterk bent. Dat noemt hij een gevel, en een gevel houdt niemand vol als het er echt op aankomt.</p><p>Zijn boek is opgebouwd rond vier bewegingen: de gevel laten vallen en de werkelijkheid onder ogen zien, luisteren naar wat het lichaam meldt, reageren in plaats van terugslaan op een prikkel, en het ongemak doorstaan zonder het te ontkennen. Hij bouwt dat op met voorbeelden uit de sport, het leger en de klinische psychologie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mentale weerbaarheid</li><li>sportpsychologie</li><li>stressregulatie</li><li>prestatie</li><li>zelfbeeld</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth beschrijft doorzettingsvermogen als volgehouden richting; Magness zet daar de vraag naast hoe je de druk onderweg verwerkt.</li>
+          <li value="75"><a href="75.html">Ego Is the Enemy</a>. Holiday's stoïsche omgang met ego raakt aan dezelfde stille zelfverzekerdheid die Magness beschrijft.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl laat zien wat er overblijft van de vraag naar houding onder omstandigheden die geen enkele training nabootst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

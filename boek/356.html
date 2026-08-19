@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Dealing with People &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Giblin stelt dat succes in werk en het grootste deel van persoonlijk geluk niet voortkomt uit vakkennis of intelligentie, maar uit de omgang met andere…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-356">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">356 &middot; Samenwerken en gesprek</p>
+    <h1>The Art of Dealing with People</h1>
+    <p class="lede">Les Giblin</p>
+    <p class="stats">
+      <span><b>1195</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="356"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Giblin stelt dat succes in werk en het grootste deel van persoonlijk geluk niet voortkomt uit vakkennis of intelligentie, maar uit de omgang met andere mensen. Wie het ego van de ander respecteert, zijn behoefte aan erkenning en waardering, krijgt vanzelf medewerking; wie daaraan voorbijgaat, roept weerstand op ook wanneer de zaak zelf juist is. Daarvoor geeft hij een vaste reeks omgangsregels: mensen accepteren zoals ze zijn, oprecht luisteren, prijzen met naam en toenaam, en kritiek zo leveren dat de ander zijn gezicht kan redden. Wie dat betwist, kan wijzen op mensen die zonder die regels toch ver komen op puur vakmanschap of op macht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom mensenkennis volgens Giblin alles bepaalt</h3>
+      <p>Giblin was reizend verkoper voor de Sheaffer Pen Company en werd tweemaal tot beste verkoper van het land verkozen. Daaruit trok hij de les dat vakkennis zelden de doorslag geeft en dat de meeste mislukkingen in werk niet aan gebrek aan kennis liggen, maar aan onhandigheid in het contact met anderen.</p>
+      <p>Het boekje is daarom geen theorie over persoonlijkheid, maar een reeks concrete regels, gericht op een lezer die ze de volgende ochtend al kan toepassen.</p>
+      <h3>Het ego als uitgangspunt</h3>
+      <p>Het tweede hoofdstuk zet de toon voor de rest van het boek: ieder mens draagt een ego dat vraagt om respect, goedkeuring en het gevoel iets te betekenen. Wie zich gewaardeerd voelt, wordt volgens Giblin toeschietelijker en vrijgeviger; wie zich miskend voelt, sluit zich af of gaat in de verdediging.</p>
+      <p>Zijn advies is dan ook simpel en herhaald: geef mensen dagelijks reden om zichzelf iets waard te vinden, met een handvol oprechte complimenten die niet overdreven zijn.</p>
+      <h3>Mensen het gevoel geven dat ze ertoe doen</h3>
+      <p>In de hoofdstukken daarna werkt hij dat uit in gedrag: mensen accepteren zoals ze zijn, ze daadwerkelijk opmerken in plaats van negeren, niet met ze in wedijver gaan, en kleine fouten laten rusten in plaats van ze steeds te corrigeren.</p>
+      <p>Ook het eigen optreden werkt door op de ander. Een rechte houding, een stevige handdruk, een duidelijke stem en een oprechte glimlach roepen bij de ander hetzelfde gedrag op, omdat mensen volgens Giblin vooral de houding weerkaatsen die ze aantreffen. Wie een gesprek met een instemmende toon begint, houdt zo ruimte open voor de ander om er zelf ook zo doorheen te bewegen.</p>
+      <h3>De Triple-A-formule</h3>
+      <p>Een van de hoofdstukken vat de methode samen in wat Giblin de Triple-A-formule noemt: acceptance, approval, appreciation. Iemand accepteren zoals hij is, iets aan hem prijzenswaardig vinden en dat laten blijken, en waardering tonen voor wat hij doet.</p>
+      <p>Hij presenteert dit niet als truc voor de korte termijn, maar als vaste omgangsvorm, en herhaalt door het hele boek dat de waardering oprecht moet zijn: gespeelde vleierij wordt volgens hem sneller doorzien dan mensen denken.</p>
+      <h3>Praten, luisteren en overtuigen</h3>
+      <p>De hoofdstukken over communicatie werken dezelfde regel uit voor het gesprek zelf. Een gesprek begint met vragen naar de ander in plaats van met een verhaal over jezelf; zelfbeklag en sarcasme werken averechts. Luisteren met oogcontact, een knik en een vraag ertussendoor is volgens Giblin doeltreffender voor vriendschap dan goed praten.</p>
+      <p>Bij het overtuigen van een ander raadt hij aan de ander eerst zijn zaak volledig te laten uitspreken, gelijk te geven waar dat kan, feiten rustig te noemen in plaats van te overtuigen met stemverheffing, en de ander een uitweg te bieden om van standpunt te veranderen zonder gezichtsverlies.</p>
+      <h3>Prijzen en corrigeren</h3>
+      <p>De laatste twee hoofdstukken behandelen de twee kanten van erkenning: lof geven en kritiek leveren. Lof werkt volgens Giblin het best als hij iemand bij naam noemt, gericht is op een concrete daad in plaats van op het karakter, en komt op een moment dat de ander het niet verwacht.</p>
+      <p>Kritiek hoort onder vier ogen, begint met iets waarderends, richt zich op de daad en niet op de persoon, bevat een voorstel voor verbetering, en eindigt vriendelijk zodat de relatie overeind blijft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ego</td><td>Het gevoel van eigenwaarde dat om erkenning vraagt en bepaalt of iemand meewerkt of zich afsluit.</td></tr>
+          <tr><td class="term">Triple-A-formule</td><td>De drie stappen om iemand aan zich te binden: acceptance, approval, appreciation, accepteren, prijzen en waarderen.</td></tr>
+          <tr><td class="term">Gezicht redden</td><td>De ander de kans geven om van mening of gedrag te veranderen zonder aan waardigheid in te boeten.</td></tr>
+          <tr><td class="term">Weerkaatste houding</td><td>Het idee dat de houding die iemand toont in een gesprek, in de ander wordt teruggekaatst.</td></tr>
+          <tr><td class="term">Face value</td><td>Het beginsel dat mensen elkaar aanvankelijk beoordelen op het eerste optreden, niet op wat ze werkelijk zijn.</td></tr>
+          <tr><td class="term">Oprechte complimenten</td><td>Erkenning die volgens Giblin dagelijks en gemeend gegeven moet worden, in tegenstelling tot vleierij.</td></tr>
+          <tr><td class="term">Actief luisteren</td><td>Aandacht tonen via oogcontact, knikken en doorvragen; door Giblin belangrijker genoemd dan goed spreken.</td></tr>
+          <tr><td class="term">Kritiek zonder te kwetsen</td><td>Het regelblok voor corrigeren: onder vier ogen, met een waarderende inleiding, gericht op de daad, met een voorstel en een vriendelijk slot.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Giblin onderbouwt zijn regels niet met onderzoek, maar met eigen ervaring als verkoper en met anekdotes uit lezingen die hij decennialang gaf. Hij citeert geen studies en geen bronnen; de claim dat mensenomgang voor het grootste deel het succes in zaken bepaalt, is een cijfer dat al decennia rondgaat in de Amerikaanse verkoopliteratuur, ook bij Dale Carnegie, zonder dat een oorspronkelijk onderzoek ervoor terug te vinden is.</p>
+      <p>Wat het boekje wel heeft is consistentie: dezelfde regel, mensen erkennen in hun eigenwaarde, komt in elk hoofdstuk in een andere vorm terug. Dat maakt het gemakkelijk te onthouden en toe te passen, wat voor een boekje van deze omvang het eigenlijke doel lijkt te zijn geweest.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boekje behandelt mensen vooral als doel: de regels zijn erop gericht om medewerking, instemming of een verkoop te krijgen, zelden om de ander zelf beter te leren kennen. Dat brengt het dicht bij manipulatie, ook al waarschuwt Giblin zelf tegen gespeelde vleierij en benadrukt hij oprechtheid; het verschil tussen een oprecht compliment en een compliment met een verkoopdoel blijft in de tekst zelf onbesproken.</p>
+      <p>Het boek generaliseert sterk: adviezen die voor een verkoper in het Amerika van de jaren zestig werkten, worden zonder onderscheid naar cultuur, machtsverhouding of context toegepast op elk gesprek. En het boekje van veertig bladzijden herhaalt zijn kernregel zo vaak dat er weinig nieuwe inhoud overblijft na het eerste hoofdstuk; wie Dale Carnegies <i>How to Win Friends and Influence People</i> al kent, leest hier grotendeels dezelfde adviezen in kortere vorm.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Geef dagelijks een handvol oprechte complimenten, gericht op een concrete daad in plaats van op de persoon in het algemeen.</li>
+        <li>Laat de ander bij een meningsverschil eerst zijn hele verhaal doen voordat je reageert.</li>
+        <li>Bewaar kritiek voor een gesprek onder vier ogen en begin met iets waarderends.</li>
+        <li>Let op de eigen houding in een gesprek: een rechte rug en een duidelijke stem roepen ander gedrag op dan een onzekere houding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Kort boekje van ongeveer 40 tot 48 bladzijden, uitgegeven door Executive Books (Mechanicsburg, Pennsylvania), met een editie uit 2001; drukjaar en oorspronkelijke uitgever van de eerste druk zijn niet met zekerheid vast te stellen. Het boekje bouwt op hetzelfde materiaal als Giblins bekendere boeken <i>How to Have Confidence and Power in Dealing with People</i> (1956) en <i>Skill With People</i> (1968), maar staat als eigen titel apart in de handel. Geen Nederlandse vertaling gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Les Giblin was jarenlang reizend verkoper voor een pennenfabrikant en werd tweemaal tot beste verkoper van de Verenigde Staten gekozen, voordat hij zich toelegde op lezingen en boekjes over de omgang met mensen. In <i>The Art of Dealing with People</i> zet hij zijn regels op een rij in elf korte hoofdstukken: mensen accepteren zoals ze zijn, hun ego respecteren, oprecht luisteren, prijzen met naam en toenaam, en kritiek zo brengen dat de ander zijn waardigheid behoudt.</p><p>Het boekje bevat geen theorie over persoonlijkheid en geen onderzoek, maar een reeks vaste vuistregels die de lezer de volgende dag al kan toepassen. De kern keert in elk hoofdstuk in een andere vorm terug: wie iemand het gevoel geeft dat hij ertoe doet, krijgt medewerking terug.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>mensenkennis</li><li>communicatie</li><li>overtuigen</li><li>complimenten geven</li><li>kritiek geven</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="24"><a href="24.html">How to Win Friends and Influence People</a>. Carnegies boek uit 1936 behandelt dezelfde regels uitvoeriger en met meer voorbeelden; Giblins boekje leest als een korte, latere versie ervan.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Voss werkt het luisteren en het laten uitspreken van de ander uit tot een methode voor onderhandelen onder hogere druk dan Giblins verkoopgesprek.</li>
+          <li value="154"><a href="154.html">What Every BODY Is Saying</a>. Navarro en Karlins behandelen de lichaamstaal die bij Giblin terloops voorkomt, houding, handdruk, gezicht, veel uitgebreider en met een FBI-achtergrond.</li>
+          <li value="213"><a href="213.html">Games People Play</a>. Berne beschrijft dezelfde behoefte aan erkenning die Giblin ego noemt, maar dan als terugkerend patroon in vaste sociale spelletjes.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
