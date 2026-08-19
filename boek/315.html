@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's Going Right &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Conti stelt dat de gangbare benadering van mentale gezondheid, die begint bij wat er mis is, mensen vastzet in het probleem in plaats van ze verder te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-315">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">315 &middot; Brein en lichaam</p>
+    <h1>What's Going Right</h1>
+    <p class="lede">Paul Conti, 2026</p>
+    <p class="stats">
+      <span><b>1424</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="315"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Conti stelt dat de gangbare benadering van mentale gezondheid, die begint bij wat er mis is, mensen vastzet in het probleem in plaats van ze verder te helpen, en dat een omgekeerde vraag, namelijk wat er al goed gaat, toegang geeft tot wat hij de generatieve drift noemt: het vermogen om te bouwen, te verbinden en bij te dragen dat volgens hem bij iedereen aanwezig is, ook bij wie zwaar depressief, angstig of getraumatiseerd is. Zijn claim is dat het versterken van die drift, met dezelfde systematiek waarmee een arts bloeddruk of cholesterol bijhoudt, tot blijvende verandering leidt waar symptoombestrijding dat niet doet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag omdraaien</h3>
+      <p>Conti opent met de constatering dat mentale gezondheidszorg vrijwel altijd begint bij de klacht: wat is er mis, wat doet pijn, wat moet weg. Hij stelt daar een tweede, volgens hem verwaarloosde vraag tegenover, namelijk wat er al goed functioneert, en betoogt dat het antwoord op die vraag een aangrijpingspunt biedt dat symptoombestrijding niet heeft.</p>
+      <p>Als uitgangspunt introduceert hij de generatieve drift, die hij naast twee andere aangeboren driften plaatst: de agressieve drift, die met grenzen stellen en assertiviteit te maken heeft, en de genotsdrift, die met beloning en plezier te maken heeft. Zijn stelling is dat een gezond leven ontstaat wanneer de generatieve drift de andere twee aanstuurt.</p>
+      <h3>De vijfdelige functie van het zelf</h3>
+      <p>Centraal instrument is wat Conti de vijfdelige functie van het zelf noemt: zelfbewustzijn, aandacht, gedrag, streven en, als vijfde onderdeel, de manier waarop iemand met de andere vier omgaat. Hij vergelijkt dit met een medisch functieonderzoek: zoals een arts hartslag, bloeddruk en ademhaling los van elkaar meet om iets over de algehele conditie te zeggen, wil hij dat mensen deze vijf onderdelen apart leren observeren.</p>
+      <p>De methode vraagt niet om structuur te veranderen, dat wil zeggen wat iemand over zichzelf denkt of gelooft, maar om functie: wat iemand daadwerkelijk doet. Conti's stelling is dat verandering in functie sneller doorwerkt in iemands leven dan pogingen om eerst overtuigingen bij te stellen.</p>
+      <h3>Compassievolle nieuwsgierigheid</h3>
+      <p>Als houding bij het zelfonderzoek introduceert Conti compassievolle nieuwsgierigheid: naar eigen gedachten, gevoelens en gedrag kijken zoals een arts naar een patiënt kijkt, met aandacht maar zonder oordeel. Hij zet dat af tegen de gewoonte om onprettige gedachten meteen te beoordelen of weg te duwen, wat volgens hem het zicht op wat er werkelijk speelt blokkeert.</p>
+      <p>Dagelijkse oefeningen in het boek vragen om kort, op vaste momenten, deze vier functies te registreren zonder ze meteen te willen bijsturen, met als doel een basislijn te krijgen voordat er iets verandert.</p>
+      <h3>Levensverhalen herschrijven</h3>
+      <p>Een deel van het boek gaat over de verhalen die mensen over zichzelf vertellen, bijvoorbeeld dat ze altijd tekortschieten of dat niets ooit goed genoeg is, en hoe die verhalen de generatieve drift ondermijnen doordat ze bevestigend bewijs blijven zoeken voor wat al vaststaat. Conti geeft aanwijzingen om zulke verhalen expliciet te maken en te toetsen aan wat er in de praktijk van de laatste weken werkelijk is gebeurd.</p>
+      <p>Hij onderscheidt daarbij een verhaal dat iemand zichzelf vertelt van de feiten waarop dat verhaal steunt. Iemand die zegt nooit iets af te maken, wordt gevraagd de afgelopen maand na te gaan op hoeveel taken dat werkelijk van toepassing was, en op hoeveel niet. Het punt is niet het verhaal te ontkennen maar het te laten meten aan wat er daadwerkelijk gebeurd is, in plaats van aan het gevoel dat achteraf overblijft.</p>
+      <h3>Lichamelijke technieken als ingang</h3>
+      <p>Naast de mentale oefeningen bevat het boek lichaamsgerichte technieken, waaronder progressieve spierontspanning, als manier om het zenuwstelsel tot rust te brengen voordat het zelfonderzoek begint. Conti's redenering is dat zelfonderzoek in een staat van fysieke overprikkeling weinig oplevert, en dat de lichamelijke stap daarom voorafgaat aan de mentale.</p>
+      <h3>Dankbaarheid en handelingsbekwaamheid</h3>
+      <p>Conti wijst dankbaarheid en handelingsbekwaamheid, het gevoel invloed te hebben op de eigen situatie, aan als de twee factoren die de generatieve drift het meest direct voeden. Dankbaarheid werkt volgens hem alleen als oefening wanneer hij specifiek is: niet 'dankbaar zijn voor het leven' maar drie concrete dingen van die dag benoemen die zonder toeval of andermans inzet niet gebeurd waren.</p>
+      <p>Handelingsbekwaamheid oefent hij door mensen bij een probleem eerst te laten opschrijven welk deel daarvan wel binnen hun eigen invloed ligt, voordat ze nadenken over wat er allemaal buiten hun macht ligt. Die volgorde is bewust gekozen: wie eerst bij de onmacht stilstaat, komt volgens Conti minder makkelijk terug bij wat er nog wel te doen valt.</p>
+      <h3>Van methode naar levensloop</h3>
+      <p>Het boek sluit af met de vraag hoe iemand de vijfdelige functie van het zelf blijvend bijhoudt, niet als eenmalige oefening maar als terugkerende gewoonte, vergelijkbaar met een jaarlijkse medische controle. Conti trekt daarbij een lijn naar zijn eerdere boek over trauma: waar dat boek beschrijft hoe verstoringen ontstaan en doorwerken, beschrijft dit boek wat er volgens hem al aanwezig is om daarmee te werken, ook als de verstoring zelf niet is opgelost.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Generatieve drift</td><td>Het aangeboren vermogen om te bouwen, te verbinden en bij te dragen, dat volgens Conti bij iedereen aanwezig maar vaak onderbenut is.</td></tr>
+          <tr><td class="term">Agressieve drift</td><td>De aangeboren drift die met grenzen stellen en assertiviteit te maken heeft.</td></tr>
+          <tr><td class="term">Genotsdrift</td><td>De aangeboren drift die met beloning en plezier te maken heeft.</td></tr>
+          <tr><td class="term">De vijfdelige functie van het zelf</td><td>Conti's indeling van zelfbewustzijn, aandacht, gedrag, streven en de omgang daartussen, als aanknopingspunt voor zelfonderzoek.</td></tr>
+          <tr><td class="term">Compassievolle nieuwsgierigheid</td><td>Naar eigen gedachten en gedrag kijken met aandacht en zonder oordeel, in plaats van meteen te beoordelen.</td></tr>
+          <tr><td class="term">Structuur versus functie</td><td>Het onderscheid tussen wat iemand over zichzelf gelooft en wat iemand daadwerkelijk doet.</td></tr>
+          <tr><td class="term">Progressieve spierontspanning</td><td>Een lichaamsgerichte techniek om het zenuwstelsel tot rust te brengen voor het zelfonderzoek begint.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Conti is praktiserend psychiater, opgeleid aan Stanford en Harvard, en bouwt in dit boek voort op zijn eerdere boek <i>Trauma: The Invisible Epidemic</i> (2021) en op een podcastreeks bij Andrew Huberman die volgens de uitgever tientallen miljoenen keren is beluisterd. Het boek verscheen kort voor deze samenvatting werd geschreven, in mei 2026, waardoor er nog geen onafhankelijke klinische studies bestaan die de methode als geheel hebben getoetst.</p>
+      <p>De onderbouwing bestaat uit twee lagen die niet even sterk zijn: de onderliggende psychiatrische kennis over drift, motivatie en zelfregulatie is gangbaar academisch materiaal waar Conti als praktiserend arts vertrouwd mee is, terwijl de specifieke indeling in drie driften en een vijfdelige zelffunctie zijn eigen klinische kader is, opgebouwd uit jaren praktijkervaring en niet uit gepubliceerd, extern getoetst onderzoek.</p>
+      <p>Het boek presenteert dat kader zonder cijfers over hoeveel patiënten ermee zijn behandeld of hoe hun toestand voor en na is gemeten. De aanbevelingen in het boek, zoals het opschrijven van drie concrete dankbaarheidspunten of het voorrang geven aan de eigen invloedssfeer boven de onmacht, sluiten aan bij bredere technieken uit de cognitieve gedragstherapie waarvan de werking wel is onderzocht, ook al presenteert Conti ze als onderdeel van zijn eigen, nieuwe kader.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is te recent om al op onafhankelijke recensies van vakgenoten te kunnen bogen, en dat is zelf al een kanttekening: de driedeling in driften en de vijfdelige zelffunctie zijn Conti's eigen terminologie, die buiten zijn eigen praktijk en podcastoptredens nog niet is getoetst of overgenomen.</p>
+      <p>Een tweede punt is de herkomst van het kader. Conti bouwt zijn methode op klinische ervaring met patiënten in zijn eigen praktijk, een groep die zich al bewust tot psychiatrische hulp heeft gewend, en niet op vergelijkend onderzoek tussen mensen die de methode wel en niet volgen.</p>
+      <p>Verder is de belofte in de ondertitel, die spreekt van een sterke nieuwe methode, stelliger dan wat het boek zelf onderbouwt: het beschrijft een raamwerk voor zelfonderzoek, geen bewezen behandeling voor specifieke stoornissen, en lezers met een ernstige psychiatrische aandoening kunnen aan dit boek geen vervanging van behandeling ontlenen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf aan het eind van de dag kort wat er die dag wél liep, los van wat er misging.</li>
+        <li>Noteer bij een terugkerende negatieve gedachte over jezelf of over de afgelopen weken of die gedachte werkelijk klopt.</li>
+        <li>Doe een korte ontspanningsoefening voor je een lastig gesprek of een moment van zelfreflectie ingaat.</li>
+        <li>Vraag jezelf aan het eind van de week af waar je invloed op had en waar niet, en scheid die twee expliciet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>What's Going Right: A Powerful New Method for Optimizing Your Mental Health</i> (Balance/Hachette, New York, 5 mei 2026, 272 blz., ISBN 9781538776049). Geen Nederlandse vertaling bekend op het moment van schrijven; deze samenvatting is op de Engelse uitgave gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Conti, psychiater en auteur van <i>Trauma: The Invisible Epidemic</i> (2021), bouwt in dit boek voort op wat hij de generatieve drift noemt: een aangeboren neiging om problemen op te lossen, iets bij te dragen en verbonden te voelen met iets groters dan jezelf, die volgens hem bij de meeste mensen wel aanwezig maar onderbenut is. In plaats van bij een klacht te beginnen, zoals de gangbare psychiatrie doet, wil hij dat mensen eerst vaststellen wat er al werkt, om van daaruit verder te bouwen.</p><p>Het boek is voortgekomen uit een reeks afleveringen die Conti maakte voor de podcast van neurowetenschapper Andrew Huberman, en bevat een stapsgewijze methode met dagelijkse zelfonderzoeksoefeningen, geënt op de manier waarop artsen fysieke gezondheid in kaart brengen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychiatrie</li><li>mentale gezondheid</li><li>zelfonderzoek</li><li>motivatie</li><li>generatieve drift</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="96"><a href="96.html">Het verlaten individu</a>. Van Fenema beschrijft vanuit de Nederlandse psychiatrie een vergelijkbare zorg over verlies van verbinding, met een somberder inschatting van wat individuele oefening daaraan kan verhelpen.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl plaatst het zoeken van zin en drijfveer al in 1946 centraal, vanuit een uiterste waarin Conti's vraag naar wat er goed gaat letterlijk op de proef werd gesteld.</li>
+          <li value="79"><a href="79.html">59 Seconds</a>. Wiseman toetst kleine gedragsoefeningen expliciet aan gecontroleerd onderzoek, wat een scherp contrast oplevert met Conti's overwegend klinische onderbouwing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

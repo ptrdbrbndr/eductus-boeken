@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Critical Mass: How One Thing Leads to Another &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ball stelt dat massagedrag van mensen, in verkeer, steden, markten en menigten, patronen vertoont die dezelfde wiskunde volgen als de overgangen tussen de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-300">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">300 &middot; Natuur en wetenschap</p>
+    <h1>Critical Mass: How One Thing Leads to Another</h1>
+    <p class="lede">Philip Ball, 2004</p>
+    <p class="stats">
+      <span><b>1479</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="300"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ball stelt dat massagedrag van mensen, in verkeer, steden, markten en menigten, patronen vertoont die dezelfde wiskunde volgen als de overgangen tussen de toestanden van materie in de natuurkunde. Niet de bedoeling van de enkeling verklaart die patronen, maar de manier waarop grote aantallen individuen op elkaar reageren: een file, een beurskrach of een gesegregeerde wijk ontstaat vaak zonder dat iemand dat wilde, als optelsom van eenvoudige, lokale keuzes. Hij noemt dat sociofysica en stelt dat de gereedschappen van de statistische natuurkunde, gebouwd voor deeltjes, ook iets zeggen over mensen zodra er genoeg van hen bij elkaar staan. Wie daartegenover wil zetten dat mensen redeneren, herinneren en kiezen op een manier die een gasmolecuul niet kan, vindt in het boek zelf al de eerste aanzet tot dat bezwaar.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van Hobbes tot de sociale natuurkunde</h3>
+      <p>Ball opent met Thomas Hobbes, die in de zeventiende eeuw de samenleving als een mechaniek beschreef, en met de negentiende-eeuwse Belgische statisticus Adolphe Quetelet, die ontdekte dat aantallen misdrijven, huwelijken en zelfdodingen jaar na jaar griezelig stabiel bleven, ook al kon niemand het gedrag van één persoon voorspellen. Quetelet noemde dat de <i>homme moyen</i>, de gemiddelde mens, en zag daarin het begin van een sociale natuurkunde.</p>
+      <p>Die lijn loopt volgens Ball door naar de negentiende-eeuwse ontwikkeling van de statistische mechanica door James Clerk Maxwell en Ludwig Boltzmann, die het gedrag van miljarden botsende gasmoleculen beschreven zonder ook maar één molecuul te volgen. Zijn boek onderzoekt of diezelfde overstap, van het individu naar de verdeling, ook bij mensen werkt.</p>
+      <h3>Fasovergangen als model voor drempelmomenten</h3>
+      <p>De kern van het boek is de fasovergang: het punt waarop een systeem abrupt van de ene naar de andere toestand omslaat, zoals ijs dat smelt. Ball past dat toe op verkeer, dat drie herkenbare toestanden kent, vrije doorstroming, opstopping en volledige stilstand, die zich net zo abrupt in elkaar laten omslaan als gas, vloeistof en vaste stof.</p>
+      <p>Hij bespreekt het celluaire-automatenmodel van Kai Nagel en Michael Schreckenberg, waarin elke auto een simpele regel volgt, afstand houden en soms afremmen, en waaruit toch spontane files ontstaan zonder ongeval of wegwerkzaamheden. Van alle toepassingen in het boek is dit de toepassing die het dichtst bij daadwerkelijk getoetste verkeersdata blijft.</p>
+      <h3>Menigten en het minderheidsspel</h3>
+      <p>Bij paniek in menigten, bijvoorbeeld bij een nooduitgang, laat Ball zien dat een lichte aanpassing in het model, mensen die net iets meer op elkaar letten of net iets meer haast maken, de stroom door een deur kan omslaan van gestaag naar vastgelopen. Simulaties van Robert Axtell en Joshua Epstein met kunstmatige, elk voor zich handelende inwoners van een gemodelleerde stad laten zien hoe migratie, ziekte en handel patronen opleveren die met geen van de afzonderlijke regels rechtstreeks zijn af te lezen.</p>
+      <p>Van markten behandelt hij Brian Arthurs minderheidsspel, ontstaan uit de vraag wanneer een bar in Santa Fe te vol is om naartoe te gaan: iedereen probeert te voorspellen wat de minderheid zal doen, en juist die wederzijdse poging om elkaar te slim af te zijn houdt de markt in beweging zonder dat er ooit een stabiel evenwicht ontstaat.</p>
+      <h3>Wijken die zichzelf scheiden</h3>
+      <p>Ball wijdt een hoofdstuk aan het segregatiemodel van Thomas Schelling uit 1971. Op een schaakbord verplaatsen fictieve bewoners zich alleen als minder dan een derde van hun buren op hen lijkt, een voorkeur die niemand van hen extreem zou noemen. Toch levert de simulatie na een paar ronden bijna volledig gescheiden buurten op.</p>
+      <p>De les die Ball eruit trekt is dat een sterk maatschappelijk verschijnsel niet hoeft te wijzen op een sterke individuele wens. Een zwakke voorkeur, herhaald over duizenden verplaatsingen, is voldoende.</p>
+      <h3>Kleine werelden en machtswetten</h3>
+      <p>In het netwerkgedeelte bespreekt Ball het kleine-wereldmodel van Duncan Watts en Steven Strogatz, dat verklaart waarom de meeste mensen via een handvol tussenpersonen met bijna iedereen verbonden zijn, en het voorkeurshechtingsmodel van Albert-László Barabási, waarin nieuwe knooppunten in een netwerk zich bij voorkeur aansluiten bij knooppunten die al veel verbindingen hebben.</p>
+      <p>Datzelfde patroon, een paar grote knooppunten temidden van veel kleine, duikt op in Zipfs wet voor de omvang van steden en in Per Baks model van zelfgeorganiseerde kriticaliteit, dat aan de hand van een zandhoop laat zien waarom extreme gebeurtenissen, van aardbevingen tot beurskrachs, vaker voorkomen dan een gewone klokvormige verdeling zou voorspellen.</p>
+      <h3>Samenwerken onder eigenbelang</h3>
+      <p>Het laatste inhoudelijke deel gaat over Robert Axelrods toernooien met het herhaalde gevangenendilemma uit de vroege jaren tachtig, waarin de simpele strategie <i>tit for tat</i>, beginnen met samenwerken en daarna het gedrag van de ander spiegelen, keer op keer won van ingewikkelder en agressievere strategieën.</p>
+      <p>Ball gebruikt dat om te laten zien hoe vertrouwen tussen vreemden kan ontstaan zonder afspraak of toezicht, puur uit herhaalde interactie en het vooruitzicht van een volgende ronde.</p>
+      <h3>Wat het model wel en niet laat zien</h3>
+      <p>In zijn slothoofdstuk relativeert Ball zijn eigen onderneming: hij waarschuwt dat een model dat mooi bij de data past nog geen verklaring is, en dat sociofysica dezelfde valkuil loopt als de neoklassieke economie die hij eerder in het boek bekritiseert, namelijk rekenen met mensen die zich gedragen als voorspelbare deeltjes.</p>
+      <p>Die relativering komt laat en weegt niet op tegen de stelligheid van de eerdere hoofdstukken, waarin modellen vaak als verklaring worden gepresenteerd voordat de beperkingen ervan aan bod komen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sociofysica</td><td>Ball's term voor de toepassing van natuurkundige modellen, gebouwd voor deeltjes, op het gedrag van grote groepen mensen.</td></tr>
+          <tr><td class="term">Fasovergang</td><td>Het punt waarop een systeem abrupt van de ene toestand naar de andere omslaat, zoals water dat bevriest of verkeer dat vaststaat.</td></tr>
+          <tr><td class="term">Kritieke massa</td><td>De drempelwaarde waarboven een klein verschil in omstandigheden een systeem naar een heel andere toestand kantelt.</td></tr>
+          <tr><td class="term">Zelfgeorganiseerde kriticaliteit</td><td>Per Baks model, met een zandhoop als beeld, voor systemen die zichzelf naar een instabiel evenwicht toe bewegen waarin kleine aanleidingen soms enorme gevolgen hebben.</td></tr>
+          <tr><td class="term">Machtswet</td><td>Een verdeling waarin extreme uitkomsten veel vaker voorkomen dan bij een normale, klokvormige verdeling, zoals bij Zipfs wet voor stadsgrootte.</td></tr>
+          <tr><td class="term">Kleine-wereldnetwerk</td><td>Een netwerk waarin de meeste knooppunten via een klein aantal tussenstappen met elkaar verbonden zijn, ondanks weinig directe verbindingen.</td></tr>
+          <tr><td class="term">Segregatiemodel</td><td>Thomas Schellings simulatie waarin een milde voorkeur voor gelijksoortige buren, herhaald over veel verhuizingen, tot sterke scheiding leidt.</td></tr>
+          <tr><td class="term">Minderheidsspel</td><td>Een marktmodel waarin spelers proberen te voorspellen wat de minderheid zal doen, ontstaan uit Brian Arthurs vraagstuk over een te volle bar.</td></tr>
+          <tr><td class="term">Herhaald gevangenendilemma</td><td>Een spel waarin twee spelers herhaaldelijk kiezen tussen samenwerken en verraden, gebruikt om te verklaren hoe vertrouwen tussen vreemden ontstaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Ball bouwt zijn boek op agentmodellen en simulaties: kleine, computerprogrammeerbare regels die worden losgelaten op duizenden virtuele spelers, waarna wordt gekeken of het resultaat op een reëel patroon lijkt. Voor het verkeershoofdstuk is die vergelijking het stevigst: het model van Nagel en Schreckenberg is getoetst aan werkelijke tellingen van verkeersstromen en voorspelt onder meer de spontane file zonder aanwijsbare oorzaak.</p>
+      <p>Voor segregatie, netwerken en marktgedrag is de onderbouwing losser. Schellings model, Baks zandhoop en Barabási's netwerken zijn wiskundig elegant en leveren patronen op die op het oog lijken op wat er in steden, aardbevingen of het internet gebeurt, maar Ball toetst zelden of het model ook andere, onafhankelijke gegevens correct voorspelt. Een recensie in het <i>Journal of Artificial Societies and Social Simulation</i> noemt dit het terugkerende zwakke punt van het boek: gelijkenis met de werkelijkheid wordt gepresenteerd alsof het verklaring is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Diezelfde recensent, Bruce Edmonds, wijst erop dat Ball modeluitkomsten regelmatig beschrijft als algemene en ware theorieën, terwijl het bewijs daarvoor beperkt blijft tot het ene voorbeeld waarop het model is gebouwd. Een model dat een patroon reproduceert, heeft dat patroon nog niet verklaard, zeker niet als hetzelfde patroon ook uit heel andere aannames zou kunnen ontstaan.</p>
+      <p>Het boek behandelt onderwerpen als oorlog, revolutie en politieke stemming met dezelfde toon van natuurkundige zekerheid als de verkeershoofdstukken, terwijl daarvoor geen vergelijkbare toetsing bestaat. Wie de geschiedenis van een oorlog kent, ziet in die hoofdstukken vooral een analogie, geen verklaring. Ball erkent die grens uiteindelijk zelf, maar pas in het laatste hoofdstuk, na honderden bladzijden waarin de analogie ongehinderd het woord voert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een model dat massagedrag verklaart of het getoetst is aan gegevens die niet zijn gebruikt om het model te bouwen.</li>
+        <li>Onderscheid een fasovergang, een abrupte omslag met een duidelijke drempel, van een geleidelijke trend voor je een gebeurtenis als plotseling instortend bestempelt.</li>
+        <li>Ga bij een segregatie- of crashverschijnsel na of het kan ontstaan uit lokale, milde voorkeuren zonder centrale sturing, voor je naar opzet of samenzwering wijst.</li>
+        <li>Wees voorzichtig met natuurkundige taal, zoals kritieke massa of fasovergang, als metafoor voor menselijke gebeurtenissen waarvoor geen getoetst model bestaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk bij Heinemann (Verenigd Koninkrijk, 2004) en Farrar, Straus and Giroux (Verenigde Staten, 2006, 528 blz.). Won in 2005 de Aventis Prize for Science Books. Geen Nederlandse vertaling verschenen; deze samenvatting volgt de Engelse editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ball, opgeleid als natuurkundige en jarenlang redacteur bij <i>Nature</i>, onderzoekt of het gedrag van grote groepen mensen zich laat beschrijven met dezelfde wiskunde die natuurkundigen gebruiken voor gassen, vloeistoffen en magneten. Hij doorloopt files, menigten, wijksegregatie, beurskoersen, netwerken en samenwerking, en laat telkens zien hoe een eenvoudige lokale regel, opgeschaald naar duizenden of miljoenen spelers, een patroon oplevert dat niemand van hen bedoelde.</p><p>De titel verwijst naar het natuurkundige begrip voor het punt waarop een systeem plotseling van gedrag verandert, zoals water dat bij honderd graden overkookt. Ball beweert dat menselijke samenlevingen zulke omslagpunten ook kennen, van een file die ineens vaststaat tot een beurs die in paniek raakt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuurkunde</li><li>complexiteit</li><li>netwerken</li><li>statistiek</li><li>sociologie</li><li>modellen</li><li>verkeer</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="268"><a href="268.html">The Black Swan</a>. Taleb behandelt dezelfde machtswetten en extreme gebeurtenissen, maar vanuit wantrouwen tegen elk model dat doet alsof het de toekomst kan vatten.</li>
+          <li value="93"><a href="93.html">Toeval</a>. Hopster onderzoekt toeval en voorspelbaarheid vanuit de filosofie, een aanvulling op Balls natuurkundige invalshoek.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman laat zien hoe individueel oordeel afwijkt van het rationele model, het spiegelbeeld van Balls vraag wat er op groepsniveau gebeurt.</li>
+          <li value="94"><a href="94.html">Het tijdperk van onzekerheid</a>. Hürter beschrijft hoe onzekerheid de twintigste-eeuwse natuurkunde binnendrong, de achtergrond waartegen Ball zijn sociofysica plaatst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

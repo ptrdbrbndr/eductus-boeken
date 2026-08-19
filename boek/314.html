@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dopamine Nation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lembke stelt dat het brein genot en pijn verwerkt als een wip die naar balans zoekt: elke opleving van genot wordt gevolgd door een even grote…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-314">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">314 &middot; Brein en lichaam</p>
+    <h1>Dopamine Nation</h1>
+    <p class="lede">Anna Lembke, 2021</p>
+    <p class="stats">
+      <span><b>1406</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="314"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lembke stelt dat het brein genot en pijn verwerkt als een wip die naar balans zoekt: elke opleving van genot wordt gevolgd door een even grote tegenreactie van onbehagen, en bij herhaald gebruik van sterk stimulerende prikkels verschuift het rustpunt van die wip steeds verder naar de kant van de pijn, waardoor er meer prikkel nodig is om hetzelfde genot te voelen en gewoon leven zonder die prikkel onaangenaam gaat aanvoelen. Haar stelling is dat dit mechanisme niet voorbehouden is aan wie een erkende verslaving heeft, maar in een omgeving met permanente, sterke en makkelijk verkrijgbare prikkels bij vrijwel iedereen meespeelt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Jacob en het masturbatieapparaat</h3>
+      <p>Het boek opent met Jacob, een patiënt die als elektrotechnicus letterlijk apparaten bouwde die elektrische stimulatie synchroniseerden met pornografie, op zoek naar steeds sterkere en nieuwere prikkels om dezelfde opwinding te voelen. Lembke gebruikt zijn verhaal, uitvoerig beschreven in het hoofdstuk <i>Our Masturbation Machines</i>, om drie factoren te introduceren die volgens haar verslavingspotentieel bepalen: toegang, sterkte van de prikkel en nieuwheid.</p>
+      <p>Jacobs verhaal is extreem, maar Lembke herhaalt de titel van het hoofdstuk bewust met het bezittelijk voornaamwoord 'onze': de mechanismen die bij hem tot een op maat gebouwd apparaat leidden, spelen volgens haar ook bij een smartphone, een streamingdienst of fastfood, alleen minder zichtbaar.</p>
+      <h3>De genot-pijnbalans</h3>
+      <p>Kernbegrip is de balans tussen genot en pijn, die zij als een wip in het brein beschrijft die na elke uitslag naar één kant vanzelf terugveert naar de andere kant, om het evenwicht te herstellen. Bij eenmalig gebruik van een stimulerende prikkel is die terugveer klein en kortstondig; bij herhaald gebruik raakt het systeem gewend en verschuift het rustpunt zelf, zodat er meer prikkel nodig is om hetzelfde effect te voelen en de afwezigheid van de prikkel als een tekort aanvoelt.</p>
+      <p>Dat proces, in de verslavingsliteratuur bekend als tolerantie, is bij Lembke geen uitzonderingsverschijnsel van drugsverslaving maar de basisregel achter overmatig gebruik van vrijwel alles wat snel en sterk dopamine vrijmaakt: suiker, sociale media, gokken, en in haar eigen geval een periode waarin zij avond na avond vampierromans als <i>Twilight</i> en erotische romans als <i>Fifty Shades of Grey</i> las, tot diep in de nacht en tussen patiëntafspraken door, en de reeksen meerdere keren herlas tot het effect wegebde en zij zelf de onttrekkingsverschijnselen voelde toen ze ermee stopte.</p>
+      <h3>Zelfbinding</h3>
+      <p>Het middendeel introduceert zelfbinding als tegenwicht: bewust afstand scheppen tussen de wens en de consumptie, op drie manieren. Fysieke zelfbinding verwijdert de toegang, zoals een slot op de drankkast; chronologische zelfbinding beperkt het moment, zoals alleen in het weekend drinken; categorische zelfbinding beperkt het type, zoals helemaal geen alcohol in plaats van proberen met mate te drinken.</p>
+      <p>Lembke werkt daarnaast een dertigdaagse dopaminevasten uit als praktische opstap: een periode van volledige onthouding van het middel in kwestie, gevolgd door bewuste herintroductie, om iemand te laten voelen hoe groot het verschil is tussen de uitgangssituatie en het gewenningsniveau waaraan hij gewend was geraakt.</p>
+      <h3>Radicale eerlijkheid</h3>
+      <p>Een apart hoofdstuk behandelt eerlijkheid als onderdeel van herstel, niet uit moraal maar omdat liegen volgens Lembke zelf een kleine dopamine-opleving geeft en het schuldgevoel daarna weer een duw richting het middel oplevert. Patiënten die volledig open zijn over hun gebruik, inclusief de kleine leugens eromheen, doorbreken volgens haar klinische ervaring die cyclus sneller dan patiënten die alleen het gebruik zelf aanpakken.</p>
+      <p>Zij onderscheidt daarbij drie niveaus: eerlijkheid tegenover jezelf over wat je werkelijk gebruikt en hoeveel, eerlijkheid tegenover mensen die je vertrouwt, en eerlijkheid over de gevolgen van je gedrag voor anderen. Elk niveau vraagt volgens haar meer moed dan het vorige, en overslaan van het eerste niveau maakt de twee volgende volgens haar klinisch weinig waard.</p>
+      <p>Zij plaatst hier ook de rol van schaamte, die zij niet wil laten verdwijnen maar wil ombuigen van een geheime, isolerende schaamte naar een uitgesproken, sociale schaamte die tot verbinding in plaats van verberging leidt.</p>
+      <h3>Pijn opzoeken als tegenwicht</h3>
+      <p>In het derde deel keert Lembke het perspectief om: waar het eerste deel over te veel genot gaat, gaat dit deel over het opzoeken van ongemak, zoals koud water, vasten of intensieve inspanning, als manier om het rustpunt van de genot-pijnbalans terug te verschuiven. Fysiek oncomfortabele prikkels activeren dezelfde dopaminesystemen als genot, maar dan via de weg van de pijn, wat volgens haar op termijn tot een stabielere basisstemming leidt dan voortdurend genot najagen.</p>
+      <h3>Van klinische praktijk naar maatschappelijk verschijnsel</h3>
+      <p>Lembke sluit af met de vraag hoe deze individuele mechanismen zich verhouden tot een samenleving die producten steeds sterker, toegankelijker en persoonlijker maakt, van variabele beloning in apps tot voedsel dat industrieel zo wordt samengesteld dat het zo sterk mogelijk smaakt. Haar conclusie is dat zelfbinding op individueel niveau nodig blijft zolang de industrieën die deze producten maken, geen reden hebben om de sterkte van de prikkel te beperken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Genot-pijnbalans</td><td>Het beeld van een wip in het brein die na elke opleving van genot terugveert naar een even grote tegenreactie van onbehagen.</td></tr>
+          <tr><td class="term">Dopamine</td><td>De neurotransmitter die aan beloning en verlangen gekoppeld is en die Lembke als maat voor verslavingspotentieel gebruikt.</td></tr>
+          <tr><td class="term">Tolerantie</td><td>Het verschijnsel dat bij herhaald gebruik meer prikkel nodig is om hetzelfde effect te voelen, doordat het rustpunt zelf verschuift.</td></tr>
+          <tr><td class="term">Zelfbinding</td><td>Bewust afstand scheppen tussen wens en consumptie, fysiek, qua tijdstip of qua categorie.</td></tr>
+          <tr><td class="term">Dopaminevasten</td><td>Een periode van volledige onthouding van een middel of gedrag, gevolgd door bewuste herintroductie.</td></tr>
+          <tr><td class="term">Radicale eerlijkheid</td><td>Volledige openheid over gebruik en de leugens eromheen, als onderdeel van herstel.</td></tr>
+          <tr><td class="term">Prosociale schaamte</td><td>Uitgesproken, gedeelde schaamte die tot verbinding leidt, tegenover geheime schaamte die isoleert.</td></tr>
+          <tr><td class="term">Toegang, sterkte, nieuwheid</td><td>De drie factoren die Lembke gebruikt om te verklaren hoe sterk iets verslavend werkt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Lembke is praktiserend psychiater en hoofd van een verslavingskliniek, en het boek steunt op twee soorten materiaal: neurobiologisch onderzoek naar dopamine en het beloningssysteem, dat breed geaccepteerd is binnen de verslavingswetenschap, en haar eigen klinische casuïstiek, waaronder Jacob en verscheidene andere patiënten die onder een veranderde naam worden opgevoerd.</p>
+      <p>De neurobiologische basis, de genot-pijnbalans en het principe van tolerantie bij herhaalde blootstelling aan dopaminerge prikkels, is stevig onderbouwd in dierstudies en beeldvormend onderzoek bij mensen. Minder stevig is de vertaalslag naar alledaagse activiteiten als telefoongebruik of romans lezen: voor die toepassingen citeert Lembke vooral haar eigen klinische indruk en geen gecontroleerde vergelijkingen tussen gebruikers en niet-gebruikers.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de reikwijdte van de diagnose. Door vrijwel elke vorm van herhaald genot, van hardlopen tot een boek lezen, langs dezelfde genot-pijnbalans te leggen, dreigt het onderscheid tussen een klinische verslaving en gewoon menselijk gedrag te vervagen. Lembke erkent dat gevaar deels zelf, maar het boek biedt geen scherp criterium om aan te geven waar gewoon gedrag overgaat in problematisch gebruik.</p>
+      <p>Een tweede bezwaar is dat de dertigdaagse dopaminevasten en de zelfbindingstechnieken vooral op klinische ervaring rusten en niet op onderzoek dat deze specifieke interventies, in deze vorm en duur, met een controlegroep heeft getoetst. Onduidelijk blijft hoeveel van het effect dat patiënten rapporteren aan het protocol zelf ligt en hoeveel aan de aandacht en begeleiding die eromheen wordt geboden.</p>
+      <p>Ten derde blijft het maatschappelijke deel van het boek, over apps en voedingsindustrie die prikkels bewust versterken, grotendeels beschrijvend. Lembke benoemt het probleem helder maar laat concrete regulering of een ander systemisch antwoord dan individuele zelfbinding grotendeels liggen.</p>
+      <p>Ten slotte plaatst Lembke haar eigen verhaal, een leeshobby die zij pas laat als problematisch herkende, naast Jacobs zware seksverslaving zonder het verschil in ernst steeds scherp te markeren. Dat maakt het boek toegankelijker voor wie zichzelf niet als verslaafd ziet, maar het risico is dat het onderscheid tussen een vervelende gewoonte en een klinische verslaving voor de lezer vervaagt op precies het punt waar het boek zelf zegt dat onderscheid belangrijk te vinden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies bij een gewoonte die je wilt afbouwen één vorm van zelfbinding, fysiek, qua tijdstip of qua categorie, in plaats van een vaag voornemen.</li>
+        <li>Probeer een periode van volledige onthouding van het middel in kwestie voor je een gematigde vorm probeert.</li>
+        <li>Noteer bij een terugval de kleine leugens eromheen net zo goed als de terugval zelf.</li>
+        <li>Zoek bewust een oncomfortabele fysieke prikkel op, zoals koud water of stevige inspanning, als tegenwicht tegen een dag met veel schermgebruik en de kortstondige opleving die dat geeft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Dopamine Nation: Finding Balance in the Age of Indulgence</i> (Dutton, New York, 2021, ISBN 9781524746728). Nederlands als <i>De dopaminefactor</i>, vertaald door Jörgen van Drunen (AnkhHermes, 2024, ISBN 9789020221534).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lembke, hoofd van de verslavingskliniek van Stanford University, betoogt dat verslaving geen uitzonderingstoestand is maar een uitvergroting van een mechanisme dat bij iedereen werkt: het najagen van dopamine, de neurotransmitter die aan beloning gekoppeld is. Zij opent met Jacob, een patiënt van in de zestig die kwam voor een verslaving aan masturbatie en die zelf apparaten bouwde om elektrische stimulatie te synchroniseren met pornografie, wat voor haar de aanleiding werd om het boek te schrijven.</p><p>Vanuit die casus bouwt zij een breder kader op rond het idee dat het brein genot en pijn in balans probeert te houden, en dat de constante beschikbaarheid van sterk stimulerende producten, van sociale media tot suiker tot drugs, die balans in de meeste westerse levens permanent naar de kant van het genot heeft doorgeslagen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>verslaving</li><li>dopamine</li><li>neurowetenschap</li><li>zelfbeheersing</li><li>psychiatrie</li><li>genot en pijn</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="290"><a href="290.html">Indistractable</a>. Eyal behandelt dezelfde variabele beloning vanuit het ontwerp van apps, waar Lembke vanuit de kliniek naar het gebruik zelf kijkt.</li>
+          <li value="288"><a href="288.html">Digital Minimalism</a>. Newport werkt een vergelijkbaar advies tot onthouding uit voor digitale technologie specifiek, met een praktischer stappenplan.</li>
+          <li value="238"><a href="238.html">The Power of Habit</a>. Duhigg beschrijft het gewoontesysteem waarin dezelfde dopaminemechanismen operationeel worden gemaakt tot een cyclus van aanleiding, routine en beloning.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

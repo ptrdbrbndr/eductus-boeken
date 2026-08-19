@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$100M Offers &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hormozi stelt dat de meeste bedrijven verkopen op prijs omdat hun aanbod, niet hun product, zwak in elkaar zit: klanten kunnen het aanbod niet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-307">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">307 &middot; Geld en ondernemen</p>
+    <h1>$100M Offers</h1>
+    <p class="lede">Alex Hormozi, 2021</p>
+    <p class="stats">
+      <span><b>1252</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="307"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hormozi stelt dat de meeste bedrijven verkopen op prijs omdat hun aanbod, niet hun product, zwak in elkaar zit: klanten kunnen het aanbod niet onderscheiden van dat van de concurrent, en gaan daardoor automatisch voor de laagste prijs. Zijn remedie is wat hij een grand slam offer noemt, een aanbod waarin de beloofde uitkomst zo groot en het risico voor de klant zo klein is gemaakt, met garanties, bonussen en een scherp afgebakende doelgroep, dat prijs geen onderwerp van gesprek meer is. Dat is volgens hem geen kwestie van een beter product bouwen maar van hetzelfde product beter verpakken en beter beloven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het probleem: verkopen op prijs</h3>
+      <p>Hormozi begint bij zijn eigen sportschool, waar hij inzag dat klanten pas naar de prijs vragen zodra zij het aanbod niet als bijzonder genoeg herkennen. Een lidmaatschap dat hetzelfde belooft als elke andere sportschool, nodigt vanzelf uit tot vergelijken op de goedkoopste maandprijs.</p>
+      <p>Zijn stelling is dat de oplossing niet in een lagere prijs of een beter product zit, maar in een aanbod dat zo specifiek en zo overtuigend is geformuleerd dat het niet meer te vergelijken valt met dat van de concurrent. Dat aanbod noemt hij door het hele boek een grand slam offer.</p>
+      <h3>De waarde-vergelijking</h3>
+      <p>Om zo'n aanbod te bouwen introduceert Hormozi een formule: de ervaren waarde stijgt met de gedroomde uitkomst en de kans dat die uitkomst wordt gehaald, en daalt met de tijd die het kost en de moeite die het van de klant vraagt. Omdat tijd en moeite in de noemer staan, stelt hij dat elk aanbod sterker wordt door die twee zo dicht mogelijk naar nul te brengen, ook als de uitkomst zelf hetzelfde blijft.</p>
+      <p>Die formule is niet met cijfers gemeten maar bedoeld als denkkader: voor elk kenmerk van een aanbod, van een garantie tot een levertermijn, laat zij zien of het de waarde optilt of juist afbreekt.</p>
+      <h3>De gedroomde uitkomst en de obstakels</h3>
+      <p>Het volgende deel is een stappenplan. Eerst brengt de ondernemer de eigenlijke wens van de klant in kaart, niet het product maar de uitkomst waar het product een middel toe is: geen sportschoolabonnement maar gewichtsverlies, geen software maar tijdwinst. Daarna somt hij alle obstakels op die een klant voor, tijdens en na de aankoop tegenkomt, van twijfel vooraf tot een gebrek aan discipline achteraf.</p>
+      <p>Elk obstakel wordt vervolgens omgezet in een concreet onderdeel van het aanbod: een garantie tegen het obstakel van twijfel, begeleiding tegen het obstakel van een gebrek aan discipline. Het resultaat is een aanbod dat is opgebouwd uit oplossingen voor specifieke, benoemde bezwaren in plaats van uit algemene productkenmerken.</p>
+      <h3>Prijs zetten</h3>
+      <p>Hormozi behandelt daarna prijsstelling als een aparte beslissing, los van kostprijs. Zijn advies is om hoger te prijzen dan intuïtief voelt, mits het aanbod die prijs met garanties en bonussen rechtvaardigt, omdat een hogere prijs volgens hem ook de kwaliteit van de klant beïnvloedt: wie meer betaalt, is doorgaans gemotiveerder om het resultaat te halen.</p>
+      <p>Hij waarschuwt tegelijk voor markten die weinig ruimte voor hoge prijzen bieden, en raadt aan om eerst een markt te kiezen met voldoende koopkracht en voldoende pijn bij het probleem, voordat er aan het aanbod zelf wordt gesleuteld.</p>
+      <h3>Garanties en bonussen stapelen</h3>
+      <p>Een terugkerend onderdeel is het stapelen: meerdere kleinere garanties en bonussen in plaats van één grote belofte. Hormozi onderscheidt garantietypes, van geld-terug tot een herhaalde poging zonder extra kosten, en stelt dat een combinatie van kleinere, specifieke garanties overtuigender werkt dan één brede.</p>
+      <p>Bonussen krijgen dezelfde behandeling: niet toegevoegd om het aanbod voller te laten lijken, maar gekozen om precies de obstakels weg te nemen die eerder in het proces zijn benoemd. Een bonus die niet aan een specifiek obstakel is gekoppeld, beschouwt hij als opvulling zonder waarde.</p>
+      <h3>Naamgeving en presentatie</h3>
+      <p>Het laatste onderdeel van het stappenplan gaat over de naam en de presentatie van het aanbod. Hormozi stelt dat een aanbod met een herkenbare, specifieke naam, zoals een programmanaam in plaats van 'coaching', geloofwaardiger overkomt en makkelijker wordt doorverteld dan een aanbod zonder eigen identiteit.</p>
+      <p>Hij sluit af met het advies om het hele aanbod regelmatig te herzien: onderdelen die niet bijdragen aan de ervaren waarde eruit te halen, en onderdelen die wel werken te versterken, in plaats van het aanbod na lancering ongewijzigd te laten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Grand slam offer</td><td>Een aanbod met zo veel beloofde waarde en zo weinig risico dat een klant het als een vergissing ervaart om nee te zeggen.</td></tr>
+          <tr><td class="term">Waarde-vergelijking</td><td>Zijn formule waarin ervaren waarde stijgt met de gedroomde uitkomst en de kans daarop, en daalt met tijd en moeite.</td></tr>
+          <tr><td class="term">Gedroomde uitkomst</td><td>De onderliggende wens van de klant, los van het product dat die wens moet vervullen.</td></tr>
+          <tr><td class="term">Delivery cube</td><td>Zijn denkkader om de leveringsvorm van een aanbod te kiezen, van groep tot individueel en van hoge tot lage begeleiding.</td></tr>
+          <tr><td class="term">Stapelen van garanties</td><td>Meerdere kleinere, specifieke garanties combineren in plaats van te vertrouwen op één brede belofte.</td></tr>
+          <tr><td class="term">Obstakel-oplossing-paar</td><td>Elk bezwaar van de klant expliciet koppelen aan een onderdeel van het aanbod dat dat bezwaar wegneemt.</td></tr>
+          <tr><td class="term">Prijsanker</td><td>Een hogere prijs zetten dan intuïtief voelt, om zowel de waargenomen waarde als de motivatie van de klant te verhogen.</td></tr>
+          <tr><td class="term">Naamgeving van het aanbod</td><td>Het aanbod een herkenbare, eigen naam geven in plaats van een algemene productcategorie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Hormozi onderbouwt zijn stellingen met zijn eigen loopbaan: de sportschool die hij op zijn drieëntwintigste opende, het faillissement van een vroeg partnerschap, en de licentieformule Gym Launch die hij daarna opbouwde en verkocht. Het boek verwijst niet naar extern onderzoek naar prijsstelling of consumentengedrag en citeert geen wetenschappelijke bronnen.</p>
+      <p>Zijn bewijs is dus praktijkervaring van één ondernemer in een specifieke sector, fitness- en coachingdiensten met een sterk verkoopgedreven verdienmodel, aangevuld met wat hij later bij klanten van zijn eigen bedrijf Acquisition.com zag. Dat is een andere onderbouwing dan onderzoek naar een grote, uiteenlopende groep bedrijven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek generaliseert vanuit één, nogal specifieke praktijk: verkoopgedreven diensten met hoge marges, waarin garanties en bonussen relatief goedkoop aan te bieden zijn. Voor bedrijven met lage marges, fysieke voorraad of lange productiecycli is het niet vanzelfsprekend dat dezelfde stapelmethode werkt.</p>
+      <p>Er is geen aandacht voor wat er gebeurt als veel bedrijven in dezelfde markt de methode tegelijk toepassen: als garanties en bonussen de norm worden, verdwijnt het onderscheidende voordeel dat het boek belooft, en blijft alleen de hogere prijs over.</p>
+      <p>Verder behandelt het boek het aanbod los van de vraag of het onderliggende product de belofte waarmaakt. Een aanbod dat volgens de formule van het boek zo overtuigend is opgebouwd dat een nee onlogisch voelt, kan evengoed horen bij een product dat de gedroomde uitkomst niet levert; het boek gaat ervan uit dat de ondernemer die kant al op orde heeft en richt zich uitsluitend op de verpakking eromheen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf voor je eigen aanbod de gedroomde uitkomst van de klant in plaats van de kenmerken van het product.</li>
+        <li>Maak een lijst van obstakels die een klant voor, tijdens en na de aankoop tegenkomt, en koppel aan elk obstakel een concreet onderdeel van het aanbod.</li>
+        <li>Herzie de prijs los van de kostprijs: vraag wat het aanbod waard zou zijn als alle twijfel bij de klant is weggenomen.</li>
+        <li>Verwijder onderdelen van het aanbod die niet aan een benoemd obstakel zijn gekoppeld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>$100M Offers: How To Make Offers So Good People Feel Stupid Saying No</i> (Acquisition.com, 13 juli 2021, ca. 166 blz., ISBN 9781737475736). Geen Nederlandse vertaling verschenen; deze samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hormozi opende op zijn drieëntwintigste zijn eerste sportschool, sliep na een mislukt partnerschap een tijd op de vloer van die sportschool, en bouwde vandaaruit Gym Launch op, een licentieformule voor sportschoolketens die hij binnen enkele jaren met winst verkocht. Uit die verkoopervaring destilleert hij één stelling: bedrijven verkopen niet te weinig omdat hun product slecht is, maar omdat hun aanbod zo onaantrekkelijk is geformuleerd dat een prijsvergelijking de enige overweging wordt.</p><p>Zijn oplossing is wat hij een grand slam offer noemt, een aanbod dat zo veel waarde belooft tegen zo weinig risico dat nee zeggen als een vergissing voelt. Het boek werkt dat uit in een stappenplan en een formule.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>verkoop</li><li>marketing</li><li>prijsstelling</li><li>aanbod</li><li>fitnessbranche</li><li>zakelijk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Guillebeau beschrijft vanuit honderden kleine ondernemingen dezelfde nadruk op een scherp aanbod, met meer variatie aan voorbeelden dan Hormozi's ene sector.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Voss behandelt onderhandelen vanuit gijzelingsonderhandelingen en biedt een tegenwicht tegen Hormozi's aanname dat een goed aanbod de onderhandeling al beslecht.</li>
+          <li value="279"><a href="279.html">All Marketers Are Liars</a>. Godin waarschuwt voor de andere kant van sterke beloften: wat er gebeurt als de marketing meer belooft dan het product waarmaakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mastery &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Robert Greene betoogt dat meesterschap de voorspelbare uitkomst is van een traject dat bij iedereen dezelfde vorm heeft: iemand vindt zijn Life's Task, de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-320">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">320 &middot; Vakmanschap en aandacht</p>
+    <h1>Mastery</h1>
+    <p class="lede">Robert Greene, 2012</p>
+    <p class="stats">
+      <span><b>1430</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="320"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Robert Greene betoogt dat meesterschap de voorspelbare uitkomst is van een traject dat bij iedereen dezelfde vorm heeft: iemand vindt zijn Life's Task, de roeping die aansluit bij een vroege neiging, en onderwerpt die neiging vervolgens jarenlang aan een leertijd van observeren, oefenen en experimenteren. Aan het einde van dat traject gaat kennis over in intuïtie, en wat van buitenaf op genialiteit lijkt is volgens Greene het resultaat van duizenden uren geconcentreerde aandacht die het brein in staat stellen patronen te zien die een beginner niet ziet. Talent is in deze lezing minder aangeboren dan de gangbare opvatting veronderstelt, en meer een kwestie van bereidheid de moeizame jaren van onderwerping aan de werkelijkheid te doorstaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het Life's Task</h3>
+      <p>Greene begint bij de vraag waar een meester zich in onderscheidt van een gewone beoefenaar, en zijn antwoord ligt in een vroege verbondenheid met een onderwerp, eerder dan in talent. Charles Darwin verzamelde als kind kevers en verzette zich tegen de wens van zijn vader om medicijnen te studeren; die vroege neiging kreeg pas vorm toen hij als scheepsnaturalist meevoer op de Beagle. Bij Temple Grandin, die als kind de diagnose autisme kreeg en van artsen te horen kreeg dat ze mogelijk nooit zelfstandig zou functioneren, lag de aanleiding in een intense gevoeligheid voor zintuiglijke prikkels waarmee ze kon aanvoelen hoe vee de wereld ervaart. Die gevoeligheid werd de basis van haar latere werk aan diervriendelijker ontwerpen voor verwerkingsinstallaties.</p>
+      <p>Greene noemt deze vroege neiging het Life's Task en stelt dat de meeste mensen dat spoor kwijtraken onder druk van ouders, school of een baan die veiligheid belooft. Het eerste werk op weg naar meesterschap is dan ook het opnieuw vinden van een richting die er al was, eerder dan het aanleren van een geheel nieuwe vaardigheid.</p>
+      <h3>De leertijd: observeren, oefenen, experimenteren</h3>
+      <p>De kern van het boek is de leertijd die Greene bij elke master aantreft, ingedeeld in drie stappen. In de eerste, diepe observatie, kijkt en luistert de leerling zonder zelf te handelen, om de ongeschreven regels van een vak te leren kennen voordat hij ze doorbreekt. In de tweede stap worden de basisvormen van het vak herhaald geoefend tot ze zonder nadenken uitgevoerd kunnen worden. In de derde stap, experimenteren, laat de leerling de aangeleerde vormen los en zoekt hij een eigen weg, met het risico van mislukking dat daarbij hoort.</p>
+      <p>Benjamin Franklin illustreert dat traject als drukkersleerling in Boston en Philadelphia: hij kopieerde essays uit The Spectator zin voor zin om de stijl van goede schrijvers over te nemen, voordat hij zijn eigen toon ontwikkelde. Greene benadrukt dat deze leertijd vijf tot tien jaar in beslag neemt en dat de verleiding om die fase over te slaan, op zoek naar snel resultaat, de belangrijkste reden is waarom mensen nooit meesterschap bereiken.</p>
+      <h3>De mentor</h3>
+      <p>Een leertijd verloopt volgens Greene sneller met een mentor, iemand die al heeft doorgemaakt wat de leerling nog moet doormaken en zijn kennis rechtstreeks kan overdragen. De relatie werkt twee kanten op: de mentor test en daagt uit, de leerling absorbeert en past zich aan zonder zijn eigen richting te verliezen. Greene beschrijft de mentor niet als eindpunt maar als opstap, iemand die op een gegeven moment verlaten moet worden zodra de leerling zelfstandig verder kan.</p>
+      <h3>Sociale intelligentie</h3>
+      <p>Een tussenliggend hoofdstuk gaat over de mensen rond een vak in plaats van over het vak zelf. Greene stelt dat veel getalenteerde mensen vastlopen omdat ze anderen zien zoals ze die zich voorstellen in plaats van zoals die werkelijk zijn, en dat ze te veel met zichzelf bezig zijn om afwijkend gedrag bij collega's of concurrenten tijdig te herkennen. Hij beschrijft een aantal terugkerende karaktertypes die een carrière kunnen ontsporen, van de charmeur die aandacht afleidt van zijn onbetrouwbaarheid tot de rigide perfectionist die geen fout kan toegeven, en betoogt dat het lezen van dat gedrag een vaardigheid is die apart geoefend moet worden naast de vakinhoudelijke leertijd.</p>
+      <h3>De dimensionale geest</h3>
+      <p>In de creatief-actieve fase komt de opgebouwde kennis in beweging. Greene noemt dit de dimensionale geest: het vermogen om kennis uit een vakgebied te combineren met ideeën van elders, zoals Leonardo da Vinci deed toen hij anatomische studies, waterloop en schilderkunst in elkaar liet overvloeien. Een sleutelbegrip hier is negative capability, een term die Greene ontleent aan de dichter John Keats: het vermogen onzekerheid, twijfel en het ontbreken van een directe verklaring te verdragen zonder naar een voorbarige conclusie te grijpen. Wie die onzekerheid te vroeg wegneemt, sluit volgens Greene de deur naar de onverwachte verbindingen die nieuw werk opleveren.</p>
+      <h3>Fusie van intuïtie en rede</h3>
+      <p>Het laatste stadium is waar het woord meesterschap zijn volle betekenis krijgt: een fusie van intuïtie en rationeel denken, waarbij de master een probleem in een oogopslag doorziet op een manier die van buitenaf op een zesde zintuig lijkt. Greene benadrukt dat deze intuïtie de opbrengst is van de duizenden uren die eraan voorafgingen, en geen mystieke gave; het brein heeft zo veel patronen verwerkt dat het nieuwe situaties razendsnel kan koppelen aan wat het al kent. Die snelheid wordt vaak verward met een aangeboren gave, terwijl ze in Greenes lezing het sluitstuk is van een traject dat bij elke master hetzelfde begin had.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Life's Task</td><td>De vroege, vaak persoonlijke neiging waarin Greene de kern van iemands toekomstige vak herkent.</td></tr>
+          <tr><td class="term">Diepe observatie</td><td>De eerste stap van de leertijd: kijken en luisteren voordat je zelf ingrijpt, om de ongeschreven regels van een vak te leren kennen.</td></tr>
+          <tr><td class="term">Vaardigheden opbouwen</td><td>De tweede stap: de basisvormen van het vak zo vaak herhalen dat ze zonder nadenken uitgevoerd worden.</td></tr>
+          <tr><td class="term">Experimenteren</td><td>De derde stap: de aangeleerde vormen loslaten en met het risico van mislukking een eigen weg zoeken.</td></tr>
+          <tr><td class="term">Mentor Dynamic</td><td>De relatie met een leermeester die kennis rechtstreeks overdraagt en die op enig moment verlaten moet worden.</td></tr>
+          <tr><td class="term">Sociale intelligentie</td><td>Het vermogen mensen te zien zoals ze zijn in plaats van zoals je ze je voorstelt, en hun gedrag tijdig te herkennen.</td></tr>
+          <tr><td class="term">Dimensionale geest</td><td>Het stadium waarin kennis uit een vakgebied gecombineerd wordt met ideeën van elders.</td></tr>
+          <tr><td class="term">Negative capability</td><td>Het vermogen onzekerheid en het ontbreken van een verklaring te verdragen zonder naar een voorbarige conclusie te grijpen.</td></tr>
+          <tr><td class="term">Fusie</td><td>De eindfase waarin geoefende kennis en intuïtie niet meer van elkaar te onderscheiden zijn.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Greene onderbouwt zijn these niet met herhaalbaar onderzoek maar met parallelle levensverhalen: hij leest historische bronnen over Darwin, Franklin, da Vinci en Einstein terug naar hetzelfde driefasenpatroon, en vult dat aan met eigen interviews die hij hield met hedendaagse masters als Grandin. Dat de figuren steeds dezelfde vorm van leertijd, mentorschap en creatieve doorbraak vertonen, is voor Greene het bewijs dat het patroon universeel is.</p>
+      <p>Naar deliberate practice, het onderzoek van psycholoog Anders Ericsson naar geoefend, doelgericht oefenen als motor achter expertise, verwijst Greene niet expliciet, maar zijn nadruk op jarenlange, herhaalde en steeds moeilijker gemaakte oefening ligt in dezelfde lijn. Het boek biedt geen cijfers, geen vergelijkingsgroep en geen falsifieerbare voorspelling: het patroon wordt aannemelijk gemaakt door de stapeling van voorbeelden, niet getoetst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is selectie: Greene kiest levens die zijn theorie bevestigen en vermeldt niet hoeveel mensen exact dezelfde leertijd, dezelfde mentoren en dezelfde jaren van doorzettingsvermogen doormaakten zonder ooit een master te worden. Zonder die tegenvoorbeelden is niet vast te stellen of het driefasenpatroon de oorzaak van meesterschap is, of pas achteraf in elk succesvol leven terug te lezen valt.</p>
+      <p>Het begrip Life's Task is in dat opzicht lastig te toetsen: het wordt pas zichtbaar nadat iemand succesvol is geworden, en dat maakt de claim dat iedereen zo'n roeping in zich draagt moeilijk te weerleggen. Ook de tijdspanne van vijf tot twintig jaar die Greene noemt, wordt nergens vergeleken met omstandigheden die dat traject waarschijnlijk versnellen of vertragen, zoals toegang tot goede mentoren, financiële ruimte om jarenlang te oefenen zonder inkomen, of eenvoudigweg geluk.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op welke activiteiten je als kind uit jezelf deed, zonder dat iemand erom vroeg, als aanknopingspunt voor een Life's Task.</li>
+        <li>Begin een nieuwe vaardigheid met een periode van alleen observeren voordat je zelf gaat handelen.</li>
+        <li>Zoek in de eerste jaren van een vak een mentor op wiens kennis je kunt overnemen, en bepaal vooraf het moment waarop je zelfstandig verdergaat.</li>
+        <li>Laat een onopgelost probleem langer openstaan dan comfortabel voelt voordat je naar de eerste de beste oplossing grijpt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Mastery</i> (Viking, 13 november 2012, 352 blz., ISBN 9780670024964); Britse editie bij Profile Books (ISBN 9781781250914). Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Greene betoogt dat meesterschap geen gave is voor uitzonderlijke mensen, maar een traject met een vaste vorm dat iedereen kan doorlopen. Hij bouwt het boek op rond de levens van masters uit uiteenlopende vakgebieden: natuuronderzoeker Charles Darwin, staatsman en drukker Benjamin Franklin, kunstenaar en ingenieur Leonardo da Vinci, natuurkundige Albert Einstein, en de hedendaagse gedragswetenschapper Temple Grandin, die ondanks een autismediagnose de belangrijkste ontwerper werd van diervriendelijker verwerkingsinstallaties voor vee in de Verenigde Staten. Daarnaast interviewde Greene tientallen levende masters voor het boek.</p><p>De opbouw volgt drie fasen die Greene bij elk van deze levens terugvindt: een leertijd van observeren, oefenen en experimenteren, een creatief-actieve fase waarin kennis uit verschillende bronnen wordt gecombineerd, en een laatste fase waarin geoefende kennis overgaat in intuïtie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>meesterschap</li><li>vakmanschap</li><li>leertijd</li><li>mentorschap</li><li>intuïtie</li><li>expertise</li><li>biografie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="250"><a href="250.html">The 48 Laws of Power</a>. Van dezelfde auteur; hier gaat het om macht over een vak in plaats van macht over anderen.</li>
+          <li value="258"><a href="258.html">The Laws of Human Nature</a>. Ook van Greene, en overlapt met het hoofdstuk over sociale intelligentie in dit boek.</li>
+          <li value="274"><a href="274.html">Outliers</a>. Gladwells tienduizend-urenregel raakt aan dezelfde vraag naar de herkomst van expertise, met een andere onderbouwing.</li>
+          <li value="6"><a href="06.html">Shop Class as Soulcraft</a>. Een ander boek over vakmanschap, dichter bij de werkbank en minder bij de biografie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

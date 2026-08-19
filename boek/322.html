@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An Immense World &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Yong betoogt dat mensen de wereld voortdurend beoordelen alsof hun eigen zintuigen de volledige werkelijkheid tonen, terwijl elk dier maar toegang heeft…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-322">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">322 &middot; Natuur en wetenschap</p>
+    <h1>An Immense World</h1>
+    <p class="lede">Ed Yong, 2022</p>
+    <p class="stats">
+      <span><b>1424</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="322"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Yong betoogt dat mensen de wereld voortdurend beoordelen alsof hun eigen zintuigen de volledige werkelijkheid tonen, terwijl elk dier maar toegang heeft tot een smal, soortgebonden segment daarvan, de umwelt. Die aanname leidt volgens hem tot een onderschatting van wat andere dieren waarnemen, en tot verkeerd natuurbeleid: geluidsvervuiling, kunstlicht en trillingen die voor mensen onschadelijk lijken, kunnen dieren die op geluid, licht of trillingen navigeren volledig ontregelen. Het boek is een pleidooi om dierlijke waarneming te beoordelen op de eigen voorwaarden van het dier, in plaats van te vragen hoe goed het dier onze wereld benadert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Umwelt: de wereld volgens het dier</h3>
+      <p>Yong opent met het begrip dat het boek structureert: elk dier bewoont zijn eigen umwelt, de selectie van de werkelijkheid die zijn zintuigen kunnen registreren. Von Uexküll illustreerde dat in 1909 met de teek, die maandenlang kan wachten op de geur van boterzuur die aangeeft dat er een gastheer voorbijkomt, en verder vrijwel niets van haar omgeving waarneemt. Voor Yong is de umwelt geen beperking om te betreuren maar het uitgangspunt: geen dier kan alles waarnemen, en de vraag is niet welk dier het rijkst waarneemt, maar wat elk dier waarneemt dat een mens mist.</p>
+      <h3>Geur en smaak</h3>
+      <p>In het hoofdstuk over reuk staat de olifant centraal, die met een reukorgaan vol receptoren water op grote afstand kan opsporen en individuele soortgenoten aan hun geur herkent. Yong beschrijft ook hoe smaakreceptoren zich bij sommige dieren over het hele lichaam verspreiden: een meerval proeft met de huid van zijn hele lijf en kan zo voedsel opsporen zonder het te zien.</p>
+      <h3>Licht, kleur en pijn</h3>
+      <p>Het hoofdstuk over kleur ontkracht een populaire claim over de bidsprinkhaankreeft, die met twaalf tot zestien typen kleurreceptoren vaak wordt afgeschilderd als het dier met het rijkste kleurenzicht ter wereld. Yong laat aan de hand van gedragsonderzoek zien dat het dier ondanks dat grote aantal receptoren juist minder kleuren lijkt te onderscheiden dan een mens, doordat het brein de signalen anders verwerkt dan het aantal receptoren zou doen vermoeden.</p>
+      <p>Ook de sint-jakobsschelp krijgt een plek: met tot wel tweehonderd ogen langs de rand van haar schelp registreert ze beweging en licht, zonder dat duidelijk is of ze dat ervaart als beeld in de zin die mensen aan zien geven. Het hoofdstuk over pijn, dat Yong <i>The Unwanted Sense</i> noemt, behandelt de vraag of vissen en ongewervelden pijn ervaren zoals gewervelde dieren. Als voorbeeld beschrijft hij het werk van bioloog Robert Elwood, die heremietkreeften een lichte elektrische schok gaf in hun geleende schelp: geschokte dieren verlieten hun schelp vaker dan ongeschokte dieren, maar deden dat minder snel als de enige beschikbare vervangende schelp van mindere kwaliteit was. Die afweging tussen pijn en de waarde van een goed onderkomen wijst er volgens Elwood en Yong op dat er meer gebeurt dan een simpele reflex.</p>
+      <h3>Tastzin, trillingen en geluid</h3>
+      <p>De sterneusmol identificeert met tweeëntwintig vleeziene aanhangsels rond haar neus, samen voorzien van tienduizenden tastreceptoren, een prooi en beslist binnen een fractie van een seconde of die eetbaar is, sneller dan het menselijk brein een enkele aanraking kan verwerken. Spinnen lezen trillingen in hun web als een uitgebreid signaalnetwerk, waarmee ze de plaats, grootte en soort van een gevangen prooi kunnen inschatten voordat ze een stap zetten.</p>
+      <p>In het hoofdstuk over geluid keert Yong terug naar de olifant, die met infrasone roepen ver onder de menselijke gehoorgrens over kilometers afstand met andere kuddes communiceert.</p>
+      <h3>Echolocatie</h3>
+      <p>Vleermuizen en tandwalvissen bouwen met uitgezonden geluidsgolven en de weerkaatsing daarvan een driedimensionaal beeld van hun omgeving op, nauwkeurig genoeg om een insect in volle vlucht te onderscheiden van een tak. Yong beschrijft hoe verschillende vleermuissoorten hun roep aanpassen aan de omgeving, van open lucht tot dicht bladerdak, en hoe motten op hun beurt ultrasone signalen hebben ontwikkeld om aan die jacht te ontsnappen.</p>
+      <h3>Elektrische en magnetische velden</h3>
+      <p>Het laatste stel hoofdstukken behandelt zintuigen die mensen volledig missen. Sommige vissen, zoals de olifantsnoutvis, zenden zwakke elektrische velden uit en lezen verstoringen daarin om in troebel water te navigeren en te communiceren, terwijl haaien met gespecialiseerde poriën in hun snuit de zwakke elektrische velden van verborgen prooien opsporen. Trekvogels en andere dieren blijken het magnetisch veld van de aarde te kunnen waarnemen, al is het onderliggende mechanisme volgens Yong nog altijd niet volledig opgehelderd, ondanks decennia onderzoek naar mogelijke magnetische deeltjes of lichtgevoelige eiwitten in het oog.</p>
+      <p>Loggerhead-zeeschildpadden krijgen een eigen plek in dit hoofdstuk: jonge dieren die pas uit het ei zijn gekropen en nooit eerder gezwommen hebben, kiezen bij blootstelling aan kunstmatig opgewekte magneetvelden meteen de zwemrichting die bij dat deel van de oceaan hoort. Dat wijst erop dat ze een aangeboren magnetische kaart gebruiken om de trektocht van duizenden kilometers naar het geboortestrand te maken, jaren later, zonder die route ooit bewust geleerd te hebben.</p>
+      <h3>Wat verdwijnt met de umwelt van een ander</h3>
+      <p>Yong sluit af met de vraag wat er verloren gaat wanneer een dier zijn zintuiglijke wereld niet meer kan gebruiken. Straatverlichting die voor mensen geen enkel probleem vormt, verstoort de navigatie van trekvogels en de voortplanting van insecten die op maanlicht sturen; scheepvaartlawaai dat mensen nauwelijks opvalt onder water, overstemt de roepen waarmee walvissen elkaar over honderden kilometers vinden. Omdat die vormen van vervuiling buiten de menselijke umwelt vallen, blijven ze volgens Yong lang onopgemerkt en dus onbestreden, terwijl ze voor de dieren die er wel gevoelig voor zijn net zo ontwrichtend zijn als zichtbare vervuiling dat voor mensen zou zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Umwelt</td><td>De afgebakende sensorische wereld die een dier met zijn eigen zintuigen kan waarnemen, geïntroduceerd door Von Uexküll.</td></tr>
+          <tr><td class="term">Sensorische bubbel</td><td>Yongs beeldspraak voor de umwelt: het deel van de werkelijkheid dat binnen het bereik van de zintuigen van een dier valt.</td></tr>
+          <tr><td class="term">Echolocatie</td><td>Het opbouwen van een ruimtelijk beeld van de omgeving door uitgezonden geluid en de weerkaatsing daarvan te analyseren, zoals bij vleermuizen en tandwalvissen.</td></tr>
+          <tr><td class="term">Elektroreceptie</td><td>Het waarnemen van elektrische velden, gebruikt door vissen als de olifantsnoutvis om te navigeren en door haaien om verborgen prooien op te sporen.</td></tr>
+          <tr><td class="term">Infrasoon geluid</td><td>Geluid onder de menselijke gehoorgrens, waarmee olifanten over grote afstand communiceren.</td></tr>
+          <tr><td class="term">Magnetoreceptie</td><td>Het vermogen het magnetisch veld van de aarde waar te nemen, aangetroffen bij trekvogels, waarvan het achterliggende mechanisme nog niet vaststaat.</td></tr>
+          <tr><td class="term">Antropocentrische aanname</td><td>De onuitgesproken veronderstelling dat menselijke zintuigen de maatstaf zijn waarmee dierlijke waarneming beoordeeld wordt.</td></tr>
+          <tr><td class="term">Sensorische vervuiling</td><td>Kunstlicht, geluid en trillingen die voor mensen onschadelijk lijken maar dieren verstoren die op die signalen navigeren of jagen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Yong bouwt het boek op honderden interviews met zintuigonderzoekers en op eigen bezoeken aan hun laboratoria en veldwerk, van een sterneusmolonderzoeker in Amerika tot een olifantsnoutvisonderzoeker in Duitsland. Voor elk hoofdstuk verwijst hij naar gepubliceerd, vaak recent onderzoek, en hij is expliciet over waar de wetenschap nog geen uitsluitsel geeft, zoals bij het mechanisme achter magnetoreceptie.</p>
+      <p>Zijn journalistieke methode, mensen citeren in plaats van alleen resultaten samenvatten, maakt zichtbaar hoe onzeker sommige claims nog zijn: de bidsprinkhaankreeft-kleurenmythe krijgt evenveel ruimte als de correctie erop, wat het boek als geheel voorzichtiger maakt dan de losse, virale weetjes waarmee dat dier normaal wordt aangeprezen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Doordat het boek dertien zintuigen in evenzoveel hoofdstukken behandelt, elk met meerdere diersoorten, blijft de diepgang per voorbeeld beperkt: waar een gespecialiseerd boek over echolocatie of elektroreceptie een mechanisme tot in detail zou kunnen uitwerken, moet Yong na een paar bladzijden verder naar het volgende dier. Lezers die op zoek zijn naar een doorlopend argument in plaats van een opeenvolging van zintuigen zullen het boek eerder als naslagwerk dan als betoog ervaren.</p>
+      <p>Yong is voorzichtig met claims over dierlijke beleving, maar het boek balanceert voortdurend op de grens tussen wat meetbaar is, zoals receptoren en zenuwbanen, en wat daaruit over subjectieve ervaring te concluderen valt. Bij vragen als pijnbeleving bij inktvissen blijft die grens onvermijdelijk vaag, en het boek geeft dat zelf ook toe zonder het probleem op te lossen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een dier niet hoe goed het de menselijke wereld benadert, maar welk deel van de werkelijkheid het waarneemt dat een mens mist.</li>
+        <li>Let bij het beoordelen van geluid, licht of trillingen in de omgeving op het effect voor dieren die op die signalen navigeren, niet alleen op wat voor mensen hinderlijk is.</li>
+        <li>Wees terughoudend met claims over welk dier het beste of meest geavanceerde zintuig heeft; het aantal receptoren zegt niet automatisch iets over wat het brein ermee doet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>An Immense World: How Animal Senses Reveal the Hidden Realms Around Us</i> (Random House, 21 juni 2022, 464 blz., ISBN 9780593133231). Nederlands als <i>Een immense wereld</i>, sinds 2022 bij Atlas Contact (ISBN 9789045044200, paperback 9789045052229), vertaald door Menno Grootveld. Bekroond met de Andrew Carnegie Medal for Excellence in Nonfiction en de Royal Society Science Book Prize, beide in 2023.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ed Yong, wetenschapsjournalist en Pulitzer-prijswinnaar voor zijn verslaggeving over de coronapandemie, doorloopt in dertien hoofdstukken de zintuigen van het dierenrijk: geur en smaak, licht en kleur, pijn, warmte, tastzin en stromingen, trillingen, geluid, echolocatie, elektrische velden en magnetische velden. Voor elk zintuig zoekt hij het dier op dat er het meest van laat zien, van de olifant die water op kilometers afstand ruikt tot de sterneusmol die met tweeëntwintig tastaanhangsels sneller beslist wat eetbaar is dan een mens kan knipperen.</p><p>De rode draad is het begrip umwelt, geïntroduceerd in 1909 door de Duits-Estse zoöloog Jakob von Uexküll: de afgebakende sensorische wereld die elk dier ervaart, die voor een teek bestaat uit warmte en een enkele geursoort en voor een mens uit een heel andere selectie van diezelfde werkelijkheid.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dierenzintuigen</li><li>biologie</li><li>evolutie</li><li>waarneming</li><li>umwelt</li><li>gedragsbiologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="239"><a href="239.html">A Short History of Nearly Everything</a>. Zelfde toon van feitelijke verwondering, dit keer gericht op het universum in plaats van het dierenrijk.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Een ander boek dat een technisch onderwerp toegankelijk maakt zonder de complexiteit te verdoezelen.</li>
+          <li value="99"><a href="99.html">Sterrenkunde voor in bed, op het toilet of in bad</a>. Een dunner, luchtiger boek met dezelfde strekking: de werkelijkheid is groter dan wat we er dagelijks van opmerken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

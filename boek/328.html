@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Prince of Medicine &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Susan Mattern betoogt dat de faam van Galenus niet alleen op medische kennis rustte, maar minstens zo veel op zijn vermogen om die kennis in het openbaar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-328">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">328 &middot; Geschiedenis en samenleving</p>
+    <h1>The Prince of Medicine</h1>
+    <p class="lede">Susan P. Mattern, 2013</p>
+    <p class="stats">
+      <span><b>1245</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="328"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Susan Mattern betoogt dat de faam van Galenus niet alleen op medische kennis rustte, maar minstens zo veel op zijn vermogen om die kennis in het openbaar te bewijzen. In een tijd zonder diploma's of licenties kon een arts zijn gezag alleen ontlenen aan wat hij ter plekke kon laten zien: een juiste voorspelling, een geslaagde ingreep, een rivaal die in het ongelijk werd gesteld. Mattern schetst Galenus als een scherp waarnemer die dat spel beheerste als weinig anderen, en als een man die zijn eigen verdiensten voortdurend en luid onder de aandacht bracht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een vader, een droom en een dubbele opleiding</h3>
+      <p>Galenus werd in 129 geboren in Pergamon, een welvarende stad in het huidige West-Turkije, als zoon van de architect en landeigenaar Nicon. Volgens Galenus' eigen relaas kreeg zijn vader een droom die hem opdroeg zijn zoon naast filosofie ook geneeskunde te laten studeren. Die opleiding voerde hem langs de belangrijkste medische centra van zijn tijd: Smyrna, waar hij bij de anatoom Pelops studeerde, Korinthe, en ten slotte Alexandrië, de stad met de beste anatomische verzamelingen van de oudheid.</p>
+      <p>Die brede vorming, filosofisch en praktisch tegelijk, bleef zijn latere werk kenmerken. Galenus schreef even gemakkelijk over ethiek en grammatica als over eczeem en jicht, en behandelde die onderwerpen als één samenhangend gebied.</p>
+      <h3>Wondarts voor gladiatoren</h3>
+      <p>Op zijn achtentwintigste keerde Galenus terug naar Pergamon, waar hij werd aangesteld als arts van de gladiatoren in dienst van de hogepriester van de provincie Asia. Vier jaar lang behandelde hij verwondingen die geen andere praktijk hem kon leren: opengereten buikwanden, doorgesneden pezen, gebroken schedels. Mattern laat zien hoe die ervaring zijn latere anatomische kennis onderbouwde. Waar andere artsen alleen dieren mochten ontleden, had Galenus door het gladiatorenwerk al gezien hoe organen, spieren en zenuwen bij een levend mens samenhingen.</p>
+      <h3>Rome: het schouwspel van de ontleding</h3>
+      <p>Rond 162 vestigde Galenus zich in Rome, waar hij zijn naam maakte met publieke demonstraties tegen de Erasistrateeërs, een medische school die anatomische kennis als overbodig beschouwde. In een bekend voorval ontleedde hij voor publiek een varken en doorsneed de terugkerende keelzenuw, waarna het dier stil viel: het bewijs dat spraak uit de hersenen komt en niet uit het hart, zoals rivalen beweerden. Zulke demonstraties waren geen neutrale wetenschap maar openbaar vertoon, in een stad waar aanzien voor een groot deel werd verdiend in het publieke debat.</p>
+      <p>Zijn diagnostische staaltjes wonnen hem invloedrijke patiënten. Bekend is het geval van een vrouw met slapeloosheid zonder koorts of andere ziekteverschijnselen. Galenus merkte dat haar pols op hol sloeg zodra in het gesprek de naam viel van een danser uit het theater, en concludeerde dat ze verliefd was, niet ziek.</p>
+      <h3>Vlucht, terugkeer en het hof van Marcus Aurelius</h3>
+      <p>Rond 166 verliet Galenus Rome, om redenen die hij zelf tegenstrijdig beschrijft: soms wijt hij het aan jaloerse collega's, soms aan een dreigende epidemie. Twee jaar later riep keizer Marcus Aurelius hem terug voor de oorlog tegen de Marcomannen. Galenus vergezelde het leger tot Aquileia, maar wist zich, naar eigen zeggen op grond van een droom, aan het front te onttrekken en terug te keren naar Rome, waar de zogeheten Antonijnse pest inmiddels ook woedde. Hij bleef als lijfarts verbonden aan het hof, eerst van Marcus Aurelius, later van diens zoon Commodus en van Septimius Severus.</p>
+      <h3>De brand van 192</h3>
+      <p>In 192 verwoestte een grote brand de Tempel van de Vrede in Rome, waar Galenus een groot deel van zijn manuscripten, medicijnen, instrumenten en persoonlijke bezittingen had opgeslagen. Het verlies trof hem zwaar genoeg om er een apart traktaat aan te wijden, <i>Over het vermijden van verdriet</i>, dat pas in 2005 in een klooster in Griekenland werd teruggevonden en veel toevoegt aan wat er over zijn latere leven bekend is. Mattern gebruikt die tekst om te laten zien hoe Galenus zelf terugkeek op wat hij had opgebouwd en verloren.</p>
+      <h3>Een oeuvre dat de oudheid overleefde</h3>
+      <p>Galenus schreef naar schatting tussen de vijfhonderd en zeshonderd werken, waarvan er ongeveer honderdvijftig in het Grieks bewaard zijn gebleven, meer bladzijden dan van enige andere auteur uit de oudheid. Zijn systeem, gebouwd op de vier lichaamssappen van Hippocrates en op Plato's opvatting van de ziel, bleef via Byzantijnse en Arabische vertalingen tot diep in de zestiende eeuw de basis van de westerse geneeskunde, tot de anatoom Andreas Vesalius aantoonde dat delen van zijn anatomie op ontledingen van apen en varkens berustten in plaats van op mensen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Humorenleer</td><td>De opvatting, ontleend aan Hippocrates, dat gezondheid afhangt van de balans tussen bloed, slijm, gele gal en zwarte gal.</td></tr>
+          <tr><td class="term">Pneuma</td><td>De levensadem die volgens Galenus door aders, hart en hersenen stroomt en beweging, gevoel en denken mogelijk maakt.</td></tr>
+          <tr><td class="term">Vivisectie</td><td>Het openbaar ontleden van levende dieren, door Galenus gebruikt om anatomische claims direct voor publiek te bewijzen.</td></tr>
+          <tr><td class="term">Polsleer</td><td>Zijn methode om uit het ritme, de kracht en de regelmaat van de pols de toestand van een patiënt af te lezen.</td></tr>
+          <tr><td class="term">Erasistrateeërs</td><td>Aanhangers van de arts Erasistratus, Galenus' voornaamste tegenstanders, die minder waarde hechtten aan ontleding.</td></tr>
+          <tr><td class="term">Methodisten</td><td>Een tweede rivaliserende school, die ziekte terugbracht tot enkele algemene toestanden en gedetailleerde anatomie overbodig vond.</td></tr>
+          <tr><td class="term">Tweede Sofistiek</td><td>De cultuur van openbare redenaarswedstrijden in het tweede-eeuwse Rome, waarin ook artsen als Galenus hun gezag in het publiek moesten bevechten.</td></tr>
+          <tr><td class="term">Over het vermijden van verdriet</td><td>Het traktaat dat Galenus schreef na de brand van 192, in 2005 herontdekt, en een belangrijke bron voor zijn latere leven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Mattern werkt vrijwel uitsluitend met Galenus' eigen geschriften, en dat is meteen de kern van het probleem. Van geen andere arts uit de oudheid is zoveel eigen werk bewaard gebleven, inclusief passages waarin hij expliciet over zijn eigen leven, zijn diagnoses en zijn ruzies schrijft. Die rijkdom aan bronnen is uitzonderlijk voor de oudheid en levert Mattern een gedetailleerdheid op die voor vrijwel geen andere Romeinse arts mogelijk is.</p>
+      <p>Tegelijk komt vrijwel alles wat we over Galenus weten, van Galenus zelf. Rivalen en tegenstanders komen alleen aan het woord via zijn eigen, vaak spottende beschrijving van hen. Mattern erkent dat probleem en wijst er expliciet op waar Galenus' zelfbeeld waarschijnlijk kleurt wat hij vertelt, bijvoorbeeld rond zijn vertrek uit Rome in 166 en zijn rol tijdens de pestepidemie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De Bryn Mawr Classical Review wijst erop dat Mattern soms verder gaat dan de bronnen toestaan. Zij beschrijft de anatomische demonstratie tegen de Erasistrateeërs als spontaan straattheater, met studenten die door Rome zwerven op zoek naar een geschikt varken, terwijl niets in de tekst van Galenus die lezing dwingend maakt; het kan net zo goed een geplande, besloten bijeenkomst zijn geweest. Dat past bij een breder patroon: waar de bronnen zwijgen, vult Mattern in met een aannemelijk scenario, wat de leesbaarheid dient maar de zekerheid van het verhaal soms laat groter lijken dan die is.</p>
+      <p>Verder blijft onderbelicht waarom Galenus' systeem meer dan duizend jaar lang autoritatief bleef: het boek verklaart goed hoe hij in zijn eigen tijd gezag verwierf, minder goed waarom latere generaties artsen dat gezag pas met Vesalius in de zestiende eeuw serieus in twijfel trokken. De hoofdstukken over zijn vivisecties bevatten bovendien uitgebreide beschrijvingen van dierproeven die door sommige lezers als onaangenaam expliciet worden ervaren.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The Prince of Medicine: Galen in the Roman Empire</i>, bij Oxford University Press (2013, 368 blz., ISBN 9780199767670). Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Susan Mattern reconstrueert het leven van Galenus (129, gestorven na 216), een Griekse arts uit Pergamon die opklom van wondarts voor gladiatoren tot lijfarts van drie Romeinse keizers: Marcus Aurelius, Commodus en Septimius Severus. Mattern gebruikt vrijwel uitsluitend Galenus' eigen, omvangrijke oeuvre als bron, want hij schreef als een van de weinige mensen uit de oudheid uitgebreid over zichzelf, over zijn diagnoses en over zijn ruzies met collega's.</p><p>Het boek volgt hem van zijn jeugd in Pergamon, via zijn opleiding in Smyrna, Korinthe en Alexandrië, naar het Rome van de tweede eeuw, waar hij zijn naam vestigde met publieke ontledingen en gewaagde diagnoses, en waar hij in 192 bij een grote brand vrijwel al zijn geschriften en instrumenten kwijtraakte.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geschiedenis</li><li>biografie</li><li>geneeskunde</li><li>Oude Rome</li><li>Galenus</li><li>wetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Seneca schreef vanuit hetzelfde Romeinse hofmilieu, een generatie eerder, over hoe een openbaar leven te combineren is met een eigen blik op sterfelijkheid.</li>
+          <li value="57"><a href="57.html">The Lessons of History</a>. Voor de lange lijn waarin Galenus past: hoe autoriteit en kennis zich door eeuwen heen verplaatsen en waarom sommige systemen zo lang stand houden.</li>
+          <li value="240"><a href="240.html">Einstein: His Life and Universe</a>. Isaacsons biografie van Einstein laat een vergelijkbare combinatie zien van werkelijk talent en een scherp ontwikkeld gevoel voor de eigen reputatie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

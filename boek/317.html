@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trauma: The Invisible Epidemic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Conti stelt dat trauma geen zeldzame uitzonderingstoestand is die voorbehouden blijft aan slachtoffers van oorlog of geweld, maar een wijdverbreide, vaak…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-317">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">317 &middot; Brein en lichaam</p>
+    <h1>Trauma: The Invisible Epidemic</h1>
+    <p class="lede">Paul Conti, 2021</p>
+    <p class="stats">
+      <span><b>1417</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="317"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Conti stelt dat trauma geen zeldzame uitzonderingstoestand is die voorbehouden blijft aan slachtoffers van oorlog of geweld, maar een wijdverbreide, vaak onopgemerkte verstoring van hoe mensen zichzelf, anderen en gevaar inschatten. Onverwerkt trauma werkt volgens hem als een sluipend proces: het buigt het zelfbeeld, voedt schaamte en zelfhaat, en maakt mensen vatbaarder voor nieuwe schade in plaats van weerbaarder. Zijn stelling is dat deze schade net zo herkenbaar en behandelbaar is als een lichamelijke ziekte, mits zorgverleners, gezinnen en instellingen haar zo gaan behandelen in plaats van als karakterzwakte.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Trauma breder dan PTSS</h3>
+      <p>Conti begint met een verruiming van het begrip trauma. Posttraumatische stressstoornis is de diagnose die de meeste aandacht krijgt, maar volgens hem is zij slechts het zichtbare topje van een veel grotere groep aandoeningen die door onverwerkte ervaringen ontstaan: depressie, verslaving, chronische woede, en patronen van zelfsabotage die geen van allen als trauma worden herkend.</p>
+      <p>Hij onderscheidt daarbij gebeurtenissen die iemand overkomen, zoals mishandeling of een ongeluk, van de blijvende sporen die zulke gebeurtenissen achterlaten in hoe iemand zichzelf en de wereld waarneemt. Dat onderscheid, tussen de gebeurtenis en het spoor dat zij trekt, keert in het hele boek terug.</p>
+      <h3>Trauma als parasiet</h3>
+      <p>Om te verklaren waarom trauma zichzelf in stand houdt, gebruikt Conti de vergelijking met de parasiet <i>Toxoplasma gondii</i>, die de angst van een besmet knaagdier voor de geur van een kat wegneemt en het dier zo juist kwetsbaarder maakt voor de volgende aanval. Onverwerkt trauma doet volgens hem iets vergelijkbaars met de waakzaamheid van een mens: het verstoort precies het systeem dat voor bescherming zou moeten zorgen.</p>
+      <p>Daaruit volgt zijn stelling dat mensen met onverwerkt trauma disproportioneel vaak in nieuwe schadelijke situaties terechtkomen, niet uit onachtzaamheid maar omdat hun risico-inschatting al door eerdere schade is vervormd.</p>
+      <h3>Schaamte als drijvende kracht</h3>
+      <p>Een terugkerend begrip is schaamte, die Conti de belangrijkste handlanger van trauma noemt. Schaamte overtuigt iemand ervan dat wat hem is overkomen iets over hemzelf zegt in plaats van over de gebeurtenis, en die overtuiging voedt op haar beurt zelfhaat en het geloof geen goede uitkomsten te verdienen.</p>
+      <p>Hij beschrijft hoe die zelfhaat zich vertaalt in gedrag dat van buitenaf zelfdestructief lijkt: het afwijzen van hulp, het opzoeken van relaties die dezelfde schade herhalen, of succes actief ondermijnen zodra het zich aandient.</p>
+      <h3>De vervormde levenskaart</h3>
+      <p>Conti gebruikt het beeld van een innerlijke kaart waarmee mensen beslissingen nemen. Trauma tekent op die kaart valse grenzen en gevaren die er niet meer zijn, waardoor iemand routes blijft mijden, of juist blijft opzoeken, die niet meer bij de werkelijke situatie passen.</p>
+      <p>Herstel bestaat er in zijn beschrijving voor een groot deel uit die kaart te herzien: het valse verhaal dat iemand over zichzelf vertelt, vervangen door een waarheidsgetrouwer verhaal, met hulp van een therapeut of, bij mildere vormen, met gestructureerde zelfreflectie.</p>
+      <h3>Waarom de zorg tekortschiet</h3>
+      <p>Een deel van het boek is maatschappijkritiek. Conti beschrijft hoe de Amerikaanse verzekeringsstructuur behandelaars dwingt tot korte, symptoomgerichte trajecten, terwijl trauma volgens hem tijd en continuïteit vraagt. Diagnosesystemen die op afzonderlijke klachten zijn gebouwd, missen daardoor vaak het onderliggende trauma dat de klachten verklaart.</p>
+      <p>Hij bespreekt ook hoe trauma zich via gezinnen verspreidt: een ouder die zelf onverwerkte schade meedraagt, geeft patronen van angst of afwijzing door aan een kind, ook zonder dat er sprake is van directe mishandeling.</p>
+      <p>Contis eigen patiëntenpopulatie bestaat vooral uit verzekerde Amerikanen die zich een langdurig traject bij een particuliere praktijk in Portland kunnen veroorloven. Dat maakt zijn klinische observaties gedetailleerd, maar ook smal: hoe zijn model standhoudt bij mensen zonder toegang tot langdurige zorg, blijft in het boek onbeantwoord.</p>
+      <h3>Trauma op groepsniveau</h3>
+      <p>In de latere hoofdstukken breidt Conti zijn model uit naar groepen en samenlevingen. Politieke polarisatie, verharding tussen bevolkingsgroepen en de neiging om vreemdelingen als bedreiging te zien, verklaart hij mede vanuit collectief onverwerkt trauma dat zich via cultuur en verhalen voortplant.</p>
+      <p>Dat is het minst uitgewerkte deel van het boek: waar de klinische hoofdstukken bouwen op zijn eigen praktijkervaring, steunt dit deel vooral op analogie.</p>
+      <h3>Een weg naar herstel</h3>
+      <p>Het slot biedt geen protocol maar een richting: erkennen dat een klacht in trauma geworteld kan zijn, het eigen verhaal herzien, en het herstel behalve als individuele opgave ook als taak voor gezinnen, werkgevers en de gezondheidszorg zien. Conti dringt aan op wat hij een humanistisch maatschappelijk commitment noemt: structurele investering in vroege herkenning in plaats van alleen crisisbehandeling.</p>
+      <p>Voor angst die los van een herkenbaar traumaverhaal opspeelt, zoals een paniekmoment voor een telefoontje of een woede-uitbarsting die buiten proportie voelt, adviseert Conti niet de aanleiding weg te redeneren maar de reactie eerst als lichaamssignaal te herkennen, voordat er naar een verklaring wordt gezocht. Dat advies staat dichter bij een praktische aanwijzing dan de rest van een boek dat overwegend beschrijvend blijft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Trauma</td><td>Elke ervaring die het vermogen van iemand om zichzelf en de wereld in te schatten blijvend verstoort, breder dan de diagnose PTSS.</td></tr>
+          <tr><td class="term">Onverwerkt trauma</td><td>Schade die niet is geïntegreerd in het levensverhaal en daardoor blijft doorwerken in waarneming en gedrag.</td></tr>
+          <tr><td class="term">Trauma als parasiet</td><td>Contis beeld voor hoe onverwerkt trauma de waakzaamheid verstoort en zo nieuwe schade waarschijnlijker maakt.</td></tr>
+          <tr><td class="term">Schaamte</td><td>De overtuiging dat een gebeurtenis iets over de eigen waarde zegt; door Conti trauma's belangrijkste handlanger genoemd.</td></tr>
+          <tr><td class="term">Levenskaart</td><td>Het innerlijke beeld waarmee iemand beslissingen neemt, en dat trauma vervormt met valse grenzen en gevaren.</td></tr>
+          <tr><td class="term">Zelfhaat</td><td>Het geloof geen goede uitkomsten te verdienen, dat volgens Conti direct uit onverwerkte schaamte voortkomt.</td></tr>
+          <tr><td class="term">Collectief trauma</td><td>Onverwerkte schade die zich via cultuur, verhalen en gezinnen door een groep of samenleving verspreidt.</td></tr>
+          <tr><td class="term">Humanistisch maatschappelijk commitment</td><td>Contis term voor structurele, gedeelde investering in vroege herkenning van trauma in plaats van alleen crisiszorg.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Conti bouwt zijn boek op dertig jaar klinische praktijk als psychiater en op tientallen geanonimiseerde patiëntcasussen die hij gebruikt om zijn begrippen te illustreren. Dat is ervaring, geen gecontroleerde studie: er staat geen vergelijking in met patiënten die een andere behandeling kregen, en de casussen zijn door hemzelf geselecteerd om zijn model te ondersteunen.</p>
+      <p>Waar het boek dichter bij gepubliceerd onderzoek komt, is bij onderwerpen die in de traumaliteratuur breed zijn onderbouwd, zoals de invloed van vroege kindertijd op stressregulatie en de doorwerking van trauma binnen gezinnen. Voor de specifieke begrippen die Conti zelf muntte, zoals de vergelijking met de parasiet en de levenskaart, geeft hij geen verwijzing naar getoetst onderzoek; het zijn klinische metaforen, geen empirische bevindingen.</p>
+      <p>Het hoofdstuk over collectief en maatschappelijk trauma steunt het zwakst op bewijs. Conti trekt daar een parallel tussen individuele traumamechanismen en groepsgedrag zoals polarisatie, zonder onderzoek te noemen dat die overdracht op groepsniveau bevestigt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek werkt met een begrip van trauma dat zo breed is dat het bijna elk psychisch probleem kan verklaren, van verslaving tot werkstress tot politieke verharding. Een verklaring die vrijwel alles omvat, is voor een lezer moeilijk te toetsen en moeilijk te weerleggen.</p>
+      <p>Conti geeft weinig concreet handelingsperspectief. Hij beschrijft uitvoerig wat er misgaat en waarom herkenning belangrijk is, maar laat specifieke therapeutische technieken, op algemene aanraders als journaling en gestructureerde reflectie na, grotendeels aan de lezer of aan de behandelaar over.</p>
+      <p>De casussen in het boek zijn door de auteur zelf gekozen en herschreven, wat betekent dat ze zijn model eerder bevestigen dan toetsen. Een boek dat zo dicht bij de eigen praktijk van de schrijver blijft, mist het perspectief van patiënten voor wie zijn aanpak niet werkte.</p>
+      <p>Doordat Conti vrijwel uitsluitend uit zijn eigen praktijk put, is onduidelijk hoe zijn model zich verhoudt tot trauma bij mensen in heel andere omstandigheden, zoals vluchtelingen of mensen zonder toegang tot langdurige zorg. Het boek generaliseert vanuit een relatief bevoorrechte groep patiënten naar een claim die voor iedereen zou moeten gelden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij terugkerende zelfkritiek na of die reactie in verhouding staat tot wat er feitelijk is gebeurd, of dat zij ouder is dan de aanleiding.</li>
+        <li>Leg een terugkerend gedragspatroon, zoals vermijden of het aantrekken van dezelfde soort relaties, naast de vraag welke vroegere ervaring het zou kunnen verklaren, zonder daarmee meteen een diagnose te stellen.</li>
+        <li>Zoek bij aanhoudende klachten een behandelaar die naar de geschiedenis achter een symptoom vraagt, niet alleen naar het symptoom zelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Trauma: The Invisible Epidemic: How Trauma Works and How We Can Heal From It</i> (Sounds True / St. Martin's Essentials, 2021). Geen Nederlandse vertaling verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Conti, psychiater, betoogt dat trauma niet beperkt blijft tot mensen die een oorlog, geweld of ramp hebben meegemaakt. Volgens hem ontstaat trauma overal waar een ervaring het vermogen van iemand om met de wereld om te gaan blijvend verstoort, en dat gebeurt volgens hem vaker dan de diagnose PTSS laat vermoeden. Hij vergelijkt onverwerkt trauma met een parasiet die de waakzaamheid van de gastheer verstoort en zo de kans op nieuw trauma vergroot.</p><p>Het boek combineert klinisch werk met beschouwingen over gezondheidszorg en samenleving: waarom verzekeringsstelsels trauma onderbehandelen, hoe trauma zich via gezinnen en gemeenschappen verspreidt, en wat er nodig is om het, individueel en collectief, te helen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>trauma</li><li>psychiatrie</li><li>schaamte</li><li>hechting</li><li>gezondheidszorg</li><li>veerkracht</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Brown onderzoekt dezelfde schaamte die Conti trauma's handlanger noemt, op basis van jarenlang interviewonderzoek in plaats van klinische praktijk.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl beschrijft van binnenuit wat Conti klinisch beschrijft: hoe een vervormd zelfbeeld onder extreme druk toch te herzien is.</li>
+          <li value="96"><a href="96.html">Het verlaten individu</a>. Van Fenema plaatst dezelfde toename aan psychisch lijden in een bredere ontwikkeling van individualisering en verlies aan gemeenschap.</li>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt beschrijft een vergelijkbare epidemie-retoriek voor een andere groep en een ander mechanisme: de smartphone in plaats van onverwerkt trauma.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

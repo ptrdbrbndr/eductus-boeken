@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Good Energy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Means stelt dat vrijwel alle veelvoorkomende chronische aandoeningen, van diabetes en obesitas tot depressie, onvruchtbaarheid, dementie en verschillende…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-313">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">313 &middot; Brein en lichaam</p>
+    <h1>Good Energy</h1>
+    <p class="lede">Casey Means met Calley Means, 2024</p>
+    <p class="stats">
+      <span><b>1407</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="313"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Means stelt dat vrijwel alle veelvoorkomende chronische aandoeningen, van diabetes en obesitas tot depressie, onvruchtbaarheid, dementie en verschillende soorten kanker, een gemeenschappelijke oorzaak delen: een verstoorde energiehuishouding op celniveau, veroorzaakt door mitochondriën die minder goed functioneren dan zij zouden kunnen. Waar de gangbare geneeskunde volgens haar per orgaan en per diagnose apart behandelt, wil zij de vraag omdraaien naar wat er op celniveau misgaat en die oorzaak aanpakken met voeding, beweging, slaap, temperatuur en stressregulatie, voordat losse symptomen zich aandienen. De inzet van het boek is dat het grootste deel van de chronische ziektelast te voorkomen is als mensen deze cellulaire toestand, die zij meetbaar acht, op orde krijgen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De diagnose: cellen die niet goed werken</h3>
+      <p>Means opent met cijfers over de Amerikaanse gezondheidstoestand en verwijst daarbij naar een veelgeciteerde Amerikaanse studie op basis van nationale gezondheidsdata, die concludeerde dat destijds slechts ongeveer twaalf procent van de volwassenen metabool gezond was, gemeten aan bloeddruk, tailleomvang, bloedsuiker, cholesterol en triglyceriden samen. Zij vertaalt dat cijfer naar de stelling dat de gezondheidszorg losse diagnoses als diabetes, hart- en vaatziekten, obesitas, onvruchtbaarheid, depressie en sommige kankers behandelt zonder de onderliggende schakel te benoemen: mitochondriën die onvoldoende bruikbare energie, ATP, produceren uit voedsel en zuurstof.</p>
+      <p>Zij trekt die diagnose door naar haar eigen ervaring als arts-assistent KNO: ze zag patiënten met chronische ontstekingen terugkomen voor operaties zonder dat iemand vroeg waarom hun lichaam bleef ontsteken, en dat bracht haar ertoe haar opleiding in het laatste jaar af te breken.</p>
+      <h3>Wat Good Energy is en hoe je haar meet</h3>
+      <p>Het middendeel introduceert twaalf biomarkers die Means als meetbare aanwijzingen voor Good Energy beschouwt, waaronder nuchtere glucose, insuline, triglyceriden, HDL-cholesterol, bloeddruk en tailleomvang, en zij pleit ervoor deze waarden zelf te laten meten in plaats van te wachten tot een arts ze bij een klacht aanvraagt. Een continue glucosemeter, zoals haar eigen bedrijf Levels verkoopt, gebruikt zij als voorbeeld van een instrument waarmee iemand direct ziet hoe een maaltijd of een nacht slecht slapen de bloedsuiker beïnvloedt.</p>
+      <p>Dat commerciële belang benoemt zij zelf niet expliciet in de hoofdtekst, iets waar latere besprekingen van het boek op hebben gewezen. Het boek is in vier delen opgebouwd: eerst het begrip Good Energy zelf, dan de onderliggende wetenschap per orgaansysteem, vervolgens het praktische plan, en ten slotte een receptenkatern dat de eerdere adviezen naar concrete maaltijden vertaalt.</p>
+      <h3>Voeding als eerste hefboom</h3>
+      <p>Het voedingsdeel keert zich tegen bewerkt voedsel, toegevoegde suikers en zaadoliën, en pleit voor onbewerkte producten, voldoende eiwit en vezels, en het beperken van hoe vaak iemand eet. Means werkt dit uit in zes principes voor wat zij Good Energy eten noemt en in een aanpak voor het samenstellen van een maaltijd rond bloedsuikerstabiliteit.</p>
+      <p>Daarnaast bepleit zij te eten binnen een venster dat aansluit bij de biologische klok van het lichaam: overdag eten en 's avonds een langere periode zonder voedsel, omdat mitochondriën volgens haar 's ochtends en overdag efficiënter met glucose omgaan dan laat op de avond.</p>
+      <p>Blootstelling aan kou en warmte, zoals een koude douche of een sauna, en regelmatige tijd buiten in daglicht volgen als aanvullende hefbomen, telkens met de these dat deze prikkels rechtstreeks op de mitochondriën inwerken en het lichaam oefenen in het aanpassen aan wisselende omstandigheden, iets waar de moderne, klimaatbeheerste leefomgeving volgens haar weinig gelegenheid meer toe biedt.</p>
+      <h3>Kritiek op de gezondheidszorg als systeem</h3>
+      <p>Een deel van het boek is een aanklacht tegen wat Means de gezondheidsindustrie noemt: artsenopleidingen die weinig aandacht besteden aan voeding, een vergoedingsstelsel dat ingrepen en medicatie beloont boven preventie, en voedingsmiddelenbedrijven en de farmaceutische industrie die volgens haar belang hebben bij het in stand houden van chronische ziekte.</p>
+      <p>Zij pleit voor een cultuuromslag waarin patiënten zelf hun bloedwaarden bijhouden en artsen minder als enige poortwachter fungeren, een positie die aansluit bij haar latere publieke rol in de Amerikaanse Make America Healthy Again-beweging, waarvoor zij in 2026 door president Trump werd voorgedragen als Surgeon General.</p>
+      <h3>Het vierwekenplan</h3>
+      <p>Het laatste deel vertaalt de principes naar een stapsgewijs programma van vier weken, met wekelijkse gewoontes rond eten, bewegen, slaap en stress, aangevuld met recepten. De opbouw is bewust laagdrempelig: elke week voegt één gewoonte toe in plaats van het hele programma tegelijk te vragen.</p>
+      <h3>Waar het boek zijn eigen bewijs overschrijdt</h3>
+      <p>Op meerdere plekken loopt Means vooruit op wat het aangehaalde onderzoek kan dragen. Verbanden tussen metabole markers en aandoeningen als depressie of onvruchtbaarheid worden behandeld als vaststaande oorzakelijke ketens, terwijl het onderliggende onderzoek vaak observationeel is en oorzaak en gevolg niet uit elkaar houdt. Artsen die het boek hebben besproken, waarderen het voedings- en leefstijldeel over het algemeen als degelijk en wijzen tegelijk op de stelligheid waarmee vrijwel elke chronische ziekte tot dezelfde oorzaak wordt herleid.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Good Energy en Bad Energy</td><td>Means' termen voor een cel die energie goed respectievelijk slecht aanmaakt en gebruikt.</td></tr>
+          <tr><td class="term">Mitochondriën</td><td>De celonderdelen die voedsel en zuurstof omzetten in bruikbare energie, en die volgens Means bij chronische ziekte minder goed functioneren.</td></tr>
+          <tr><td class="term">ATP</td><td>De energiedrager die mitochondriën produceren en die cellen direct kunnen gebruiken.</td></tr>
+          <tr><td class="term">Metabole flexibiliteit</td><td>Het vermogen van cellen om zonder problemen te wisselen tussen glucose en vet als brandstof.</td></tr>
+          <tr><td class="term">Continue glucosemeter</td><td>Een sensor die voortdurend de bloedsuikerspiegel meet, door Means aangeraden als zelfmeetinstrument.</td></tr>
+          <tr><td class="term">De twaalf biomarkers</td><td>Een reeks bloed- en lichaamswaarden die Means als meetbare indicatie voor Good Energy voorstelt.</td></tr>
+          <tr><td class="term">Good Energy eten</td><td>Haar zes voedingsprincipes gericht op onbewerkt voedsel, eiwit, vezels en stabiele bloedsuiker.</td></tr>
+          <tr><td class="term">Het vierwekenplan</td><td>Het stapsgewijze programma waarmee het boek afsluit, met per week één nieuwe gewoonte.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste deel van het boek rust op gepubliceerd onderzoek naar mitochondriale functie, insulineresistentie en de rol van voeding en beweging daarin; dat onderzoeksveld bestaat en de basismechanismen die Means beschrijft worden breed erkend. Voor losse leefstijladviezen, zoals minder bewerkt voedsel en meer beweging, is de onderbouwing ruim en overlapt met wat ook in reguliere richtlijnen staat.</p>
+      <p>Zwakker is de stap van dat mechanisme naar de brede claim dat vrijwel alle chronische ziekte dezelfde oorsprong heeft. Voor aandoeningen als depressie, onvruchtbaarheid en verschillende kankersoorten citeert Means vooral observationele studies en eigen klinische indrukken, en die laten geen oorzakelijk verband zien in de mate waarin het boek suggereert.</p>
+      <p>Ook de twaalf biomarkers zelf zijn ongelijk onderbouwd. Voor nuchtere glucose, bloeddruk en tailleomvang bestaat brede consensus dat ze iets zeggen over metabole gezondheid; voor een aantal van de overige waarden die zij noemt is de klinische waarde bij mensen zonder klachten onder specialisten minder eenduidig, en het boek behandelt die spreiding in zekerheid niet als zodanig.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Amerikaanse artsenverenigingen en meerdere recensenten in medische tijdschriften wijzen erop dat de titel meer belooft dan het boek waarmaakt: sommige hoofdstukken redeneren voorbij het bewijs, terwijl juist de hoofdstukken met concrete leefstijladviezen het sterkst staan.</p>
+      <p>Een tweede bezwaar betreft het belangenconflict. Means is medeoprichter en voormalig medisch directeur van Levels, het bedrijf dat de continue glucosemeters verkoopt die het boek aanraadt, en dat belang wordt in de hoofdtekst niet aan de lezer uitgelegd.</p>
+      <p>Een derde bezwaar is toegankelijkheid: het programma veronderstelt tijd en geld voor onbewerkte voeding, dure meetapparatuur en regelmatige bloedtests, waardoor het advies vooral haalbaar is voor wie dat al kan betalen, terwijl het boek zich richt tot iedereen met een chronische aandoening.</p>
+      <p>Het boek raadt daarnaast op meerdere plekken terughoudendheid met reguliere medische adviezen en medicatie aan, wat bij aandoeningen die directe behandeling vergen tot vermijdbare schade kan leiden.</p>
+      <p>Means' publieke rol versterkt de twijfel over de scheiding tussen wetenschap en belang: in 2026 werd zij door president Trump voorgedragen als Surgeon General, een functie waarvoor zij als eerste kandidaat ooit geen actieve medische licentie of specialistenregistratie zou hebben, wat critici aangrijpen om haar autoriteit als arts in het boek zelf ter discussie te stellen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Laat de twaalf biomarkers die Means noemt één keer meten en vergelijk ze met de referentiewaarden, in plaats van te wachten op een klacht.</li>
+        <li>Vervang in een week één bewerkte maaltijd per dag door een onbewerkte met voldoende eiwit en vezels.</li>
+        <li>Houd een week bij hoe laat je gaat slapen en opstaat, los van wat je verder verandert.</li>
+        <li>Bespreek een advies om medicatie af te bouwen altijd eerst met de behandelend arts, ook als het boek zelf terughoudender klinkt over die stap.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Good Energy: The Surprising Connection Between Metabolism and Limitless Health</i> (Avery, New York, 2024, ISBN 9780593712641); Britse editie bij HarperCollins/Thorsons, 400 blz., ISBN 9780008604257. Geen Nederlandse vertaling; deze samenvatting is op de Engelse uitgave gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Means, arts en medeoprichter van het bedrijf Levels dat draagbare glucosemeters verkoopt, stelt dat een groot deel van de chronische ziekten in de Verenigde Staten, van depressie tot hartziekte en sommige vormen van kanker, terug te voeren is op hetzelfde onderliggende probleem: cellen die niet goed genoeg energie aanmaken en gebruiken. Zij noemt die staat Good Energy en de tegenhanger Bad Energy, en koppelt beide aan de werking van de mitochondriën in de cel.</p><p>Het boek combineert kritiek op de Amerikaanse gezondheidszorg met een programma van bloedwaarden om te meten, voeding, beweging, slaap en stressregulatie om zelf aan te passen. Means schrijft mede vanuit haar eigen breuk met de reguliere artsenopleiding, die zij in het laatste jaar afbrak.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>metabolisme</li><li>mitochondriën</li><li>voeding</li><li>bloedwaarden</li><li>gezondheidszorg</li><li>preventie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker onderbouwt met vergelijkbaar bewijs waarom slaap direct op het metabolisme ingrijpt, met een striktere scheiding tussen wat vaststaat en wat een hypothese is.</li>
+          <li value="84"><a href="84.html">Laat je hersenen niet zitten</a>. Scherder bespreekt hetzelfde terrein van leefstijl en herstel vanuit de neurologie in plaats van de celbiologie.</li>
+          <li value="87"><a href="87.html">Activeer je nervus vagus</a>. Swinnen behandelt een andere hefboom op hetzelfde stresssysteem waar Means de voedings- en bewegingskant van bespreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

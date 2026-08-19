@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Circadian Code &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Panda betoogt dat vrijwel elk orgaan een eigen 24-uursklok heeft, aangestuurd door een centrale klok in de hersenen, en dat onregelmatige tijden voor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-329">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">329 &middot; Brein en lichaam</p>
+    <h1>The Circadian Code</h1>
+    <p class="lede">Satchin Panda, 2018</p>
+    <p class="stats">
+      <span><b>1428</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="329"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Panda betoogt dat vrijwel elk orgaan een eigen 24-uursklok heeft, aangestuurd door een centrale klok in de hersenen, en dat onregelmatige tijden voor eten, slapen, bewegen en licht die klokken net zo hard kunnen ontregelen als een slecht dieet. Zijn kernclaim is dat het beperken van eten tot een venster van acht tot twaalf uur per dag, zonder de hoeveelheid of samenstelling van het eten te veranderen, al meetbare gezondheidswinst oplevert: aangetoond bij muizen, en volgens hem ook waarneembaar bij mensen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Panda's eigen ontdekking: een derde lichtsensor</h3>
+      <p>Voordat het boek bij voeding uitkomt, beschrijft Panda het onderzoek waarmee hij zijn naam vestigde. In 2002 publiceerde hij, destijds postdoc in het laboratorium van Steve Kay, samen met collega's in <i>Science</i> een studie naar muizen zonder het eiwit melanopsine. Die muizen zagen nog gewoon met hun staafjes en kegeltjes, maar hun centrale klok reageerde nauwelijks meer op een lichtpuls: het bewijs dat een derde, apart type lichtcel in het netvlies bestaat, uitsluitend bedoeld om de hersenklok op de dag-nachtcyclus af te stemmen, los van het zien zelf.</p>
+      <p>Die vondst is de basis onder de rest van het boek: als het lichaam een apart systeem heeft om alleen de klok te voeden met tijdsinformatie, dan ligt het voor de hand dat er ook aparte systemen zijn die de klok voeden met informatie over eten en beweging, en dat is precies het spoor dat Panda vervolgens verder volgt.</p>
+      <h3>Een klok in bijna elke cel</h3>
+      <p>Panda's onderzoek begon met de ontdekking dat niet alleen de suprachiasmatische kern in de hersenen, de centrale klok, een dagritme aanhoudt, maar dat vrijwel elk orgaan, van lever tot vetweefsel, een eigen klok heeft die op moleculair niveau wordt aangedreven door dezelfde familie van klokgenen. Die perifere klokken luisteren voor een deel naar de centrale klok, die op licht reageert, maar worden minstens zo sterk gestuurd door het tijdstip waarop er gegeten wordt.</p>
+      <h3>Wat de app liet zien</h3>
+      <p>Via de app myCircadianClock lieten duizenden deelnemers een week lang zien wanneer ze aten, door bij elke hap een foto te maken. Panda concludeert dat de meeste mensen verspreid over vijftien uur of meer eten, van het eerste kopje koffie tot het laatste avondsnack, terwijl het spijsverteringssysteem daar volgens hem niet op is gebouwd. Zijn diagnose richt zich op de lengte van dat etensvenster, los van wat er precies wordt gegeten.</p>
+      <h3>Tijdgebonden eten bij muizen</h3>
+      <p>In zijn laboratoriumexperimenten kregen twee groepen muizen hetzelfde vet- en suikerrijke dieet. De ene groep mocht de hele dag vrij eten, de andere alleen binnen een venster van acht tot twaalf uur. Ondanks een gelijk aantal calorieën bleven de muizen met het beperkte eetvenster slanker en hielden ze een gezonder cholesterol- en bloedsuikerniveau dan de muizen die vrij konden eten. Panda gebruikt dit resultaat als het sterkste argument van het boek: timing kan blijkbaar iets doen wat losstaat van hoeveel of wat er wordt gegeten.</p>
+      <h3>Slaap en licht</h3>
+      <p>De centrale klok in de hersenen wordt vooral bijgesteld door licht, en Panda besteedt een deel van het boek aan hoe kunstlicht in de avond, vooral het blauwe licht van schermen, die klok vertraagt. Hij adviseert 's ochtends daglicht op te zoeken, licht in de avond te dimmen, en op vaste tijden te gaan slapen, ook in het weekend, om wat hij "sociale jetlag" noemt te vermijden: het verschil tussen het ritme doordeweeks en in het weekend.</p>
+      <h3>Metabole omschakeling tijdens het vasten</h3>
+      <p>Panda besteedt een hoofdstuk aan wat er in het lichaam gebeurt tijdens het langere etensvrije venster zelf. Na ongeveer acht tot twaalf uur raken de glycogeenvoorraden in de lever grotendeels uitgeput en schakelt het lichaam geleidelijk over op het verbranden van vetzuren en het aanmaken van ketonen. Panda noemt die omschakeling het eigenlijke doel van tijdgebonden eten: niet het vasten zelf, maar de dagelijkse herhaling van een periode waarin het lichaam op een andere brandstof draait dan tijdens het eten.</p>
+      <h3>Bewegen op het juiste moment</h3>
+      <p>Ook beweging krijgt volgens Panda een ander effect afhankelijk van het tijdstip: 's ochtends bewegen zou vooral de alertheid verhogen, laat in de middag getrainde spieren zouden beter herstellen. Dit deel van het boek steunt op minder eigen onderzoek dan de hoofdstukken over eten en licht, en blijft dichter bij algemene aanbevelingen uit de sportwetenschap dan bij Panda's eigen laboratoriumwerk.</p>
+      <h3>Voor wie het niet vanzelf gaat</h3>
+      <p>Panda wijdt een hoofdstuk aan ploegendienst en nachtwerk, groepen bij wie het lichaam structureel tegen de klok in moet werken. Voor hen biedt hij geen oplossing die het probleem opheft, alleen manieren om de schade te beperken: een vast eetvenster aanhouden ook tijdens nachtdiensten, en fel licht en donker gericht inzetten om de klok zo veel mogelijk bij het werkschema te houden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Melanopsine</td><td>Het lichtgevoelige eiwit dat Panda mede identificeerde als de sensor waarmee het netvlies de hersenklok op licht afstelt, los van het gewone zien.</td></tr>
+          <tr><td class="term">Circadiaans ritme</td><td>Het interne ritme van ongeveer vierentwintig uur waarmee lichaamsprocessen zich aan dag en nacht aanpassen.</td></tr>
+          <tr><td class="term">Suprachiasmatische kern (SCN)</td><td>De centrale klok in de hersenen, die vooral op licht reageert en de perifere klokken in de rest van het lichaam meestuurt.</td></tr>
+          <tr><td class="term">Perifere klok</td><td>Het eigen dagritme van een orgaan, zoals de lever of het vetweefsel, dat deels los van de hersenklok kan lopen.</td></tr>
+          <tr><td class="term">Tijdgebonden eten (TRE)</td><td>Het beperken van alle voedselinname tot een venster van acht tot twaalf uur per dag.</td></tr>
+          <tr><td class="term">myCircadianClock</td><td>De app waarmee Panda het eetgedrag van duizenden deelnemers in kaart bracht door foto's van elke maaltijd.</td></tr>
+          <tr><td class="term">Sociale jetlag</td><td>Het verschil tussen slaap- en eetritme doordeweeks en in het weekend, dat volgens Panda dezelfde ontregeling geeft als tijdzones overvliegen.</td></tr>
+          <tr><td class="term">Chronotype</td><td>De individuele aanleg om vroeg of laat actief te zijn, die volgens Panda meespeelt in hoe streng een eetvenster haalbaar is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste bewijs in het boek komt uit Panda's eigen dierexperimenten: muizen op een gelijk dieet, maar met een beperkt eetvenster, die aantoonbaar gezonder bleven dan muizen die vrij konden eten. Dat is gecontroleerd onderzoek met een duidelijke uitkomstmaat, gepubliceerd in vaktijdschriften voordat het boek verscheen.</p>
+      <p>Het bewijs bij mensen is zwakker. De myCircadianClock-data zijn zelf gerapporteerd, niet gecontroleerd, en tonen vooral een samenhang tussen een lang eetvenster en een minder gezond patroon, zonder dat vaststaat wat oorzaak en wat gevolg is. Panda benoemt dit onderscheid in het boek, maar de stelligheid van zijn adviezen suggereert een zekerheid die de menselijke data op het moment van schrijven nog niet boden.</p>
+      <p>Na het verschijnen van het boek publiceerde Panda's eigen groep, samen met de University of California San Diego, in 2019 in <i>Cell Metabolism</i> een kleine pilotstudie onder negentien deelnemers met metabool syndroom: een tien uur durend eetvenster gedurende twaalf weken ging samen met minder gewicht, een lagere bloeddruk en een gunstiger cholesterolprofiel. Het ging om een studie zonder controlegroep, waarin elke deelnemer alleen met zichzelf vooraf werd vergeleken, wat de uitkomst suggestief maakt maar niet doorslaggevend.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Latere, gecontroleerde studies bij mensen laten een gemengder beeld zien dan het boek doet vermoeden. Verschillende onderzoeken vinden dat een beperkt eetvenster vooral werkt omdat mensen er vanzelf minder door gaan eten, en dat het effect grotendeels verdwijnt zodra de calorie-inname tussen de groepen gelijk wordt gehouden. Bij mensen met diabetes type 2 bleek tijdgebonden eten in een latere studie niet beter te werken dan een gewoon mediterraan dieet.</p>
+      <p>Het boek draagt bovendien een ondertitel die gewichtsverlies belooft, wat de indruk wekt van een afslankmethode terwijl het onderliggende onderzoek vooral over stofwisseling gaat en niet over blijvend gewichtsverlies op de lange termijn. Latere overzichtsstudies naar het onderzoeksveld wijzen erop dat de effecten op lichaamsgewicht bij mensen klein zijn en niet altijd standhouden.</p>
+      <p>Het boek behandelt shift work en jetlag als bijzondere gevallen van hetzelfde probleem, maar juist voor die groepen is het advies het dunst onderbouwd: de mensen bij wie het meeste gezondheidsrisico ligt, ploegendienstwerkers, kunnen het geadviseerde vaste eetvenster het minst gemakkelijk aanhouden, en het boek biedt daar geen onderzoek naar oplossingen voor, alleen een aanbeveling om te doen wat mogelijk is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer een week lang op welke tijden er wordt gegeten, voordat er iets aan verandert.</li>
+        <li>Bouw het eetvenster geleidelijk terug naar tien tot twaalf uur, in plaats van in één stap naar acht uur te gaan.</li>
+        <li>Zoek 's ochtends daglicht op en dim schermen en lampen twee uur voor het slapengaan.</li>
+        <li>Houd bij ploegendienst het eetvenster vast, ook als het slaapritme wisselt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The Circadian Code: Lose Weight, Supercharge Your Energy, and Transform Your Health from Morning to Midnight</i>, bij Rodale Books (12 juni 2018, 288 blz., ISBN 9781635652437). Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Satchin Panda, moleculair bioloog aan het Salk Institute, onderzoekt al twintig jaar de biologische klokken die vrijwel elke cel in het lichaam aansturen. In <i>The Circadian Code</i> vertaalt hij dat laboratoriumwerk naar een praktisch boek: niet alleen wat iemand eet, ook wanneer iemand eet, slaapt, beweegt en licht ziet, bepaalt volgens hem hoe gezond diegene is.</p><p>Panda bouwt zijn betoog op twee soorten onderzoek: experimenten met muizen waarbij hij het tijdstip van voeren varieerde, en een grootschalig experiment via de app myCircadianClock, waarmee duizenden mensen zelf hun eet- en slaappatroon bijhielden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gezondheid</li><li>slaap</li><li>voeding</li><li>biologische klok</li><li>chronobiologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walkers boek over slaap raakt aan dezelfde biologische klok, met meer nadruk op de gevolgen van slaaptekort zelf.</li>
+          <li value="80"><a href="80.html">The Hour Between Dog and Wolf</a>. Coates beschrijft hoe hormonen als cortisol het lichaam op andere momenten van de dag anders laten reageren, een aanvulling op Panda's ritmes.</li>
+          <li value="88"><a href="88.html">Gewoontedieren</a>. Brendborg bekijkt levensduur en biologische processen bij dieren breder dan Panda's dagritme alleen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

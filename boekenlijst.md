@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 19
-augustus 2026: 299 titels in 18 rubrieken.
+augustus 2026: 330 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -12,24 +12,24 @@ bij de volgende build verloren.
 
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
-| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6 |
+| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295 |
-| Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241 |
-| Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325 |
+| Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312 |
+| Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273 |
-| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305 |
+| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259 |
-| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122 |
+| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -60533,16 +60533,6125 @@ probleem opnieuw stelt.
 problemen op wereldschaal; waar hij vooral analyseert, zoekt Rieder een
 handelingsperspectief voor het individu.
 
+## 300. Critical Mass: How One Thing Leads to Another
+
+Philip Ball, 2004. Oorspronkelijk bij Heinemann (Verenigd Koninkrijk, 2004) en
+Farrar, Straus and Giroux (Verenigde Staten, 2006, 528 blz.). Won in 2005 de
+Aventis Prize for Science Books. Geen Nederlandse vertaling verschenen; deze
+samenvatting volgt de Engelse editie. Rubriek: natuur en wetenschap.
+Tags: `natuurkunde`, `complexiteit`, `netwerken`, `statistiek`, `sociologie`,
+`modellen`, `verkeer`
+
+Ball, opgeleid als natuurkundige en jarenlang redacteur bij *Nature*,
+onderzoekt of het gedrag van grote groepen mensen zich laat beschrijven met
+dezelfde wiskunde die natuurkundigen gebruiken voor gassen, vloeistoffen en
+magneten. Hij doorloopt files, menigten, wijksegregatie, beurskoersen,
+netwerken en samenwerking, en laat telkens zien hoe een eenvoudige lokale
+regel, opgeschaald naar duizenden of miljoenen spelers, een patroon oplevert
+dat niemand van hen bedoelde.
+
+De titel verwijst naar het natuurkundige begrip voor het punt waarop een
+systeem plotseling van gedrag verandert, zoals water dat bij honderd graden
+overkookt. Ball beweert dat menselijke samenlevingen zulke omslagpunten ook
+kennen, van een file die ineens vaststaat tot een beurs die in paniek raakt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ball stelt dat massagedrag van mensen, in verkeer, steden,
+markten en menigten, patronen vertoont die dezelfde wiskunde volgen als de
+overgangen tussen de toestanden van materie in de natuurkunde. Niet de
+bedoeling van de enkeling verklaart die patronen, maar de manier waarop grote
+aantallen individuen op elkaar reageren: een file, een beurskrach of een
+gesegregeerde wijk ontstaat vaak zonder dat iemand dat wilde, als optelsom van
+eenvoudige, lokale keuzes. Hij noemt dat sociofysica en stelt dat de
+gereedschappen van de statistische natuurkunde, gebouwd voor deeltjes, ook
+iets zeggen over mensen zodra er genoeg van hen bij elkaar staan. Wie
+daartegenover wil zetten dat mensen redeneren, herinneren en kiezen op een
+manier die een gasmolecuul niet kan, vindt in het boek zelf al de eerste
+aanzet tot dat bezwaar.
+
+#### De gang van het boek
+
+**Van Hobbes tot de sociale natuurkunde**
+
+Ball opent met Thomas Hobbes, die in de zeventiende eeuw de samenleving als
+een mechaniek beschreef, en met de negentiende-eeuwse Belgische statisticus
+Adolphe Quetelet, die ontdekte dat aantallen misdrijven, huwelijken en
+zelfdodingen jaar na jaar griezelig stabiel bleven, ook al kon niemand het
+gedrag van één persoon voorspellen. Quetelet noemde dat de *homme moyen*, de
+gemiddelde mens, en zag daarin het begin van een sociale natuurkunde.
+
+Die lijn loopt volgens Ball door naar de negentiende-eeuwse ontwikkeling van
+de statistische mechanica door James Clerk Maxwell en Ludwig Boltzmann, die
+het gedrag van miljarden botsende gasmoleculen beschreven zonder ook maar één
+molecuul te volgen. Zijn boek onderzoekt of diezelfde overstap, van het
+individu naar de verdeling, ook bij mensen werkt.
+
+**Fasovergangen als model voor drempelmomenten**
+
+De kern van het boek is de fasovergang: het punt waarop een systeem abrupt van
+de ene naar de andere toestand omslaat, zoals ijs dat smelt. Ball past dat toe
+op verkeer, dat drie herkenbare toestanden kent, vrije doorstroming,
+opstopping en volledige stilstand, die zich net zo abrupt in elkaar laten
+omslaan als gas, vloeistof en vaste stof.
+
+Hij bespreekt het celluaire-automatenmodel van Kai Nagel en Michael
+Schreckenberg, waarin elke auto een simpele regel volgt, afstand houden en
+soms afremmen, en waaruit toch spontane files ontstaan zonder ongeval of
+wegwerkzaamheden. Van alle toepassingen in het boek is dit de toepassing die
+het dichtst bij daadwerkelijk getoetste verkeersdata blijft.
+
+**Menigten en het minderheidsspel**
+
+Bij paniek in menigten, bijvoorbeeld bij een nooduitgang, laat Ball zien dat
+een lichte aanpassing in het model, mensen die net iets meer op elkaar letten
+of net iets meer haast maken, de stroom door een deur kan omslaan van gestaag
+naar vastgelopen. Simulaties van Robert Axtell en Joshua Epstein met
+kunstmatige, elk voor zich handelende inwoners van een gemodelleerde stad
+laten zien hoe migratie, ziekte en handel patronen opleveren die met geen van
+de afzonderlijke regels rechtstreeks zijn af te lezen.
+
+Van markten behandelt hij Brian Arthurs minderheidsspel, ontstaan uit de vraag
+wanneer een bar in Santa Fe te vol is om naartoe te gaan: iedereen probeert te
+voorspellen wat de minderheid zal doen, en juist die wederzijdse poging om
+elkaar te slim af te zijn houdt de markt in beweging zonder dat er ooit een
+stabiel evenwicht ontstaat.
+
+**Wijken die zichzelf scheiden**
+
+Ball wijdt een hoofdstuk aan het segregatiemodel van Thomas Schelling uit
+1971. Op een schaakbord verplaatsen fictieve bewoners zich alleen als minder
+dan een derde van hun buren op hen lijkt, een voorkeur die niemand van hen
+extreem zou noemen. Toch levert de simulatie na een paar ronden bijna volledig
+gescheiden buurten op.
+
+De les die Ball eruit trekt is dat een sterk maatschappelijk verschijnsel niet
+hoeft te wijzen op een sterke individuele wens. Een zwakke voorkeur, herhaald
+over duizenden verplaatsingen, is voldoende.
+
+**Kleine werelden en machtswetten**
+
+In het netwerkgedeelte bespreekt Ball het kleine-wereldmodel van Duncan Watts
+en Steven Strogatz, dat verklaart waarom de meeste mensen via een handvol
+tussenpersonen met bijna iedereen verbonden zijn, en het
+voorkeurshechtingsmodel van Albert-László Barabási, waarin nieuwe knooppunten
+in een netwerk zich bij voorkeur aansluiten bij knooppunten die al veel
+verbindingen hebben.
+
+Datzelfde patroon, een paar grote knooppunten temidden van veel kleine, duikt
+op in Zipfs wet voor de omvang van steden en in Per Baks model van
+zelfgeorganiseerde kriticaliteit, dat aan de hand van een zandhoop laat zien
+waarom extreme gebeurtenissen, van aardbevingen tot beurskrachs, vaker
+voorkomen dan een gewone klokvormige verdeling zou voorspellen.
+
+**Samenwerken onder eigenbelang**
+
+Het laatste inhoudelijke deel gaat over Robert Axelrods toernooien met het
+herhaalde gevangenendilemma uit de vroege jaren tachtig, waarin de simpele
+strategie *tit for tat*, beginnen met samenwerken en daarna het gedrag van de
+ander spiegelen, keer op keer won van ingewikkelder en agressievere
+strategieën.
+
+Ball gebruikt dat om te laten zien hoe vertrouwen tussen vreemden kan ontstaan
+zonder afspraak of toezicht, puur uit herhaalde interactie en het vooruitzicht
+van een volgende ronde.
+
+**Wat het model wel en niet laat zien**
+
+In zijn slothoofdstuk relativeert Ball zijn eigen onderneming: hij waarschuwt
+dat een model dat mooi bij de data past nog geen verklaring is, en dat
+sociofysica dezelfde valkuil loopt als de neoklassieke economie die hij eerder
+in het boek bekritiseert, namelijk rekenen met mensen die zich gedragen als
+voorspelbare deeltjes.
+
+Die relativering komt laat en weegt niet op tegen de stelligheid van de
+eerdere hoofdstukken, waarin modellen vaak als verklaring worden gepresenteerd
+voordat de beperkingen ervan aan bod komen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Sociofysica | Ball's term voor de toepassing van natuurkundige modellen, gebouwd voor deeltjes, op het gedrag van grote groepen mensen. |
+| Fasovergang | Het punt waarop een systeem abrupt van de ene toestand naar de andere omslaat, zoals water dat bevriest of verkeer dat vaststaat. |
+| Kritieke massa | De drempelwaarde waarboven een klein verschil in omstandigheden een systeem naar een heel andere toestand kantelt. |
+| Zelfgeorganiseerde kriticaliteit | Per Baks model, met een zandhoop als beeld, voor systemen die zichzelf naar een instabiel evenwicht toe bewegen waarin kleine aanleidingen soms enorme gevolgen hebben. |
+| Machtswet | Een verdeling waarin extreme uitkomsten veel vaker voorkomen dan bij een normale, klokvormige verdeling, zoals bij Zipfs wet voor stadsgrootte. |
+| Kleine-wereldnetwerk | Een netwerk waarin de meeste knooppunten via een klein aantal tussenstappen met elkaar verbonden zijn, ondanks weinig directe verbindingen. |
+| Segregatiemodel | Thomas Schellings simulatie waarin een milde voorkeur voor gelijksoortige buren, herhaald over veel verhuizingen, tot sterke scheiding leidt. |
+| Minderheidsspel | Een marktmodel waarin spelers proberen te voorspellen wat de minderheid zal doen, ontstaan uit Brian Arthurs vraagstuk over een te volle bar. |
+| Herhaald gevangenendilemma | Een spel waarin twee spelers herhaaldelijk kiezen tussen samenwerken en verraden, gebruikt om te verklaren hoe vertrouwen tussen vreemden ontstaat. |
+
+#### Waar het argument op rust
+
+Ball bouwt zijn boek op agentmodellen en simulaties: kleine,
+computerprogrammeerbare regels die worden losgelaten op duizenden virtuele
+spelers, waarna wordt gekeken of het resultaat op een reëel patroon lijkt.
+Voor het verkeershoofdstuk is die vergelijking het stevigst: het model van
+Nagel en Schreckenberg is getoetst aan werkelijke tellingen van
+verkeersstromen en voorspelt onder meer de spontane file zonder aanwijsbare
+oorzaak.
+
+Voor segregatie, netwerken en marktgedrag is de onderbouwing losser.
+Schellings model, Baks zandhoop en Barabási's netwerken zijn wiskundig elegant
+en leveren patronen op die op het oog lijken op wat er in steden, aardbevingen
+of het internet gebeurt, maar Ball toetst zelden of het model ook andere,
+onafhankelijke gegevens correct voorspelt. Een recensie in het *Journal of
+Artificial Societies and Social Simulation* noemt dit het terugkerende zwakke
+punt van het boek: gelijkenis met de werkelijkheid wordt gepresenteerd alsof
+het verklaring is.
+
+#### Wat er tegen in te brengen valt
+
+Diezelfde recensent, Bruce Edmonds, wijst erop dat Ball modeluitkomsten
+regelmatig beschrijft als algemene en ware theorieën, terwijl het bewijs
+daarvoor beperkt blijft tot het ene voorbeeld waarop het model is gebouwd. Een
+model dat een patroon reproduceert, heeft dat patroon nog niet verklaard,
+zeker niet als hetzelfde patroon ook uit heel andere aannames zou kunnen
+ontstaan.
+
+Het boek behandelt onderwerpen als oorlog, revolutie en politieke stemming met
+dezelfde toon van natuurkundige zekerheid als de verkeershoofdstukken, terwijl
+daarvoor geen vergelijkbare toetsing bestaat. Wie de geschiedenis van een
+oorlog kent, ziet in die hoofdstukken vooral een analogie, geen verklaring.
+Ball erkent die grens uiteindelijk zelf, maar pas in het laatste hoofdstuk, na
+honderden bladzijden waarin de analogie ongehinderd het woord voert.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een model dat massagedrag verklaart of het getoetst is aan
+gegevens die niet zijn gebruikt om het model te bouwen.
+- Onderscheid een fasovergang, een abrupte omslag met een duidelijke drempel,
+van een geleidelijke trend voor je een gebeurtenis als plotseling instortend
+bestempelt.
+- Ga bij een segregatie- of crashverschijnsel na of het kan ontstaan uit
+lokale, milde voorkeuren zonder centrale sturing, voor je naar opzet of
+samenzwering wijst.
+- Wees voorzichtig met natuurkundige taal, zoals kritieke massa of
+fasovergang, als metafoor voor menselijke gebeurtenissen waarvoor geen
+getoetst model bestaat.
+
+#### Wat je hierna leest
+
+- 268. The Black Swan. Taleb behandelt dezelfde machtswetten en extreme
+gebeurtenissen, maar vanuit wantrouwen tegen elk model dat doet alsof het de
+toekomst kan vatten.
+- 93. Toeval. Hopster onderzoekt toeval en voorspelbaarheid vanuit de
+filosofie, een aanvulling op Balls natuurkundige invalshoek.
+- 55. Thinking, Fast and Slow. Kahneman laat zien hoe individueel oordeel
+afwijkt van het rationele model, het spiegelbeeld van Balls vraag wat er op
+groepsniveau gebeurt.
+- 94. Het tijdperk van onzekerheid. Hürter beschrijft hoe onzekerheid de
+twintigste-eeuwse natuurkunde binnendrong, de achtergrond waartegen Ball zijn
+sociofysica plaatst.
+
+## 302. Hello: The Unexpected Power of Choosing To Connect
+
+Nicholas Epley, 2026. Verschenen in de Verenigde Staten als *A Little More
+Social: How Small Choices Create Unexpected Happiness, Health, and Connection*
+(Alfred A. Knopf, 2026) en in het Verenigd Koninkrijk als *Hello: The
+Unexpected Power of Choosing To Connect* (Penguin, 2026), dezelfde tekst onder
+twee titels. Geen Nederlandse vertaling verschenen; deze samenvatting volgt de
+Engelse editie. Epley is hoogleraar gedragswetenschappen aan de University of
+Chicago Booth School of Business en schreef eerder *Mindwise* (2014). Rubriek:
+samenwerken en gesprek.
+Tags: `verbinding`, `eenzaamheid`, `gesprek`, `sociale psychologie`,
+`vreemden`, `gedragsonderzoek`
+
+Epley vertrekt vanuit een terugkerend resultaat uit zijn eigen laboratorium:
+mensen die in een experiment gedwongen worden een vreemde aan te spreken, in
+de trein, de bus of de wachtrij, blijken dat gesprek achteraf prettiger te
+vinden dan wie in stilte reisde, terwijl zij vooraf juist voorspelden dat
+stilte prettiger zou zijn. Die omgekeerde voorspelling vormt de rode draad van
+het boek.
+
+Zijn verklaring is dat mensen zichzelf beoordelen op hun sociale onhandigheid,
+terwijl de ander vooral let op vriendelijkheid en oprechte belangstelling. Die
+mismatch, tussen wat je vreest te laten zien en waar de ander op let, houdt
+volgens Epley contact tegen dat voor beide partijen goed zou uitpakken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Epley stelt dat mensen structureel te weinig contact zoeken
+met anderen, van vreemden in het openbaar vervoer tot collega's en oude
+bekenden, omdat zij hun eigen sociale vaardigheid onderschatten en de
+bereidwilligheid van de ander verkeerd inschatten. Niet de omstandigheden
+houden mensen op afstand, maar een stelselmatig verkeerde voorspelling van hoe
+een gesprek zal verlopen en hoe graag de ander eigenlijk meedoet. Wie dat wil
+weerleggen, kan wijzen op reële risico's van afwijzing en op culturen en
+situaties waarin terughoudendheid wel degelijk verstandig is, iets wat het
+boek nauwelijks onderzoekt.
+
+#### De gang van het boek
+
+**De trein en de vreemdeling**
+
+Het boek opent met het experiment dat Epley met Juliana Schroeder publiceerde
+onder de titel *Mistakenly Seeking Solitude*. Forensen in Chicago kregen de
+opdracht om tijdens hun rit een vreemde aan te spreken, in stilte te blijven
+zitten, of te doen wat ze anders ook zouden doen. Vooraf voorspelden bijna
+alle deelnemers dat stilte de prettigste rit zou opleveren.
+
+Achteraf bleek het tegendeel: wie een gesprek voerde, rapporteerde een
+positievere rit dan wie zweeg, en dat gold voor zowel de treinreiziger die het
+gesprek begon als degene die werd aangesproken. Epley en Schroeder herhaalden
+het experiment in verschillende steden en vervoerssystemen en vonden telkens
+hetzelfde patroon.
+
+**De onderschatte klik**
+
+Een tweede pijler is wat Epley, samen met Erica Boothby en Gus Cooney, de
+*liking gap* noemt: na een gesprek onderschatten mensen stelselmatig hoe leuk
+de ander hen vond. Dat effect is aangetoond bij kortstondige kennismakingen,
+maar ook bij kamergenoten die het hele studiejaar samen woonden en elkaar aan
+het eind nog steeds onderschatten.
+
+Epley koppelt dat aan zijn treinbevinding: als je vooraf denkt dat een gesprek
+matig zal verlopen en achteraf denkt dat je matig overkwam, is de kans klein
+dat je het nog een keer probeert, ook al is die inschatting op beide momenten
+verkeerd.
+
+**Warmte tegenover eigen onhandigheid**
+
+Epley legt de asymmetrie uit met een verschil in aandacht: wie een gesprek
+begint, is vooral gericht op zijn eigen vaardigheid, of hij de juiste woorden
+vindt, niet stottert of onbeholpen overkomt. De ander let veel minder op die
+competentie en veel meer op warmte, op de vraag of er oprechte belangstelling
+achter de opmerking zit.
+
+Omdat die twee schalen, competentie en warmte, niet hetzelfde meten, overschat
+de spreker het gewicht van zijn eigen missers en onderschat hij hoezeer een
+simpele, oprechte poging al gewaardeerd wordt.
+
+**Stem laat meer horen dan tekst**
+
+In een reeks experimenten met Amit Kumar laat Epley mensen kiezen tussen een
+tekstbericht en een telefoontje om iemand te bedanken of opnieuw contact te
+zoeken met een oud contact. Vrijwel iedereen verwacht dat bellen
+ongemakkelijker aanvoelt dan schrijven en kiest daarom voor tekst.
+
+Achteraf voelden zowel de bellers als de gebelden zich verbondener na een
+telefoongesprek dan na een tekstbericht met dezelfde inhoud. Epley wijt dat
+aan de stem, die aarzeling, warmte en oprechtheid laat horen op een manier die
+geschreven tekst niet kan overbrengen.
+
+**Verder dan het weer**
+
+Epley bespreekt onderzoek waarin gesprekspartners gevraagd worden elkaar
+diepere vragen te stellen in plaats van oppervlakkige beleefdheden, en waarin
+een gesprek dat verder gaat dan het weer of het verkeer een sterker gevoel van
+verbondenheid oplevert dan voorspeld.
+
+Zijn punt is niet dat oppervlakkige gesprekken zinloos zijn, maar dat mensen
+vaak stoppen bij het eerste ongemakkelijke moment, terwijl net dat moment de
+opening is naar een gesprek dat wel iets oplevert.
+
+**Gesprekken over verschil**
+
+Een hoofdstuk gaat over gesprekken tussen mensen met een ander politiek,
+religieus of etnisch profiel. Epley beschrijft experimenten waarin een direct
+gesprek, ook een gesprek waarin partijen het oneens blijven, tot minder
+vooroordeel leidt dan het lezen van een tekst van de ander, doordat een
+gesprek de ander lastiger tot karikatuur laat verworden.
+
+Hij erkent dat zulke gesprekken spanning kunnen oproepen, maar stelt dat
+vermijding van het gesprek de karikatuur juist in stand houdt. Wie nooit met
+iemand van de andere kant spreekt, blijft aangewezen op de meest opvallende,
+vaak meest extreme vertegenwoordigers van die groep die in het nieuws of op
+sociale media verschijnen, en dat beeld is volgens Epley zelden
+representatief.
+
+**Van hallo tot vriendschap**
+
+Het laatste deel bouwt op onderzoek naar wat elders *minimale sociale
+interacties* heet: het korte praatje met een barista of buschauffeur dat
+weinig kost en toch de stemming van dat moment verbetert. Epley stelt dat
+zulke kleine, lage-risico contacten oefening zijn voor grotere stappen, een
+compliment, een telefoontje, een dieper gesprek.
+
+Hij besluit dat de meeste mensen niet meer moed nodig hebben om te verbinden,
+maar een preciezere voorspelling van wat er zal gebeuren als ze het proberen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Liking gap | Het verschil tussen hoe graag mensen denken dat een gesprekspartner hen mocht en hoe graag die ander hen werkelijk mocht, waarbij mensen zichzelf stelselmatig onderschatten. |
+| Verkeerd voorspeld ongemak | Het patroon waarbij mensen vooraf denken dat een gesprek met een vreemde onaangenaam zal zijn, terwijl het achteraf vaker prettig blijkt. |
+| Warmte versus competentie | Twee aparte manieren waarop mensen elkaar beoordelen; sprekers letten vooral op hun eigen competentie, luisteraars vooral op warmte. |
+| Stem-tekst-verschil | Het effect waarbij een telefoongesprek meer verbondenheid oproept dan een tekstbericht met dezelfde boodschap, ook al verwachten mensen het omgekeerde. |
+| Minimale sociale interacties | Korte, laagdrempelige contacten met bekenden van veraf, zoals een barista, die de stemming verbeteren zonder verplichting. |
+| Diepte-gesprek | Een gesprek dat verder gaat dan beleefde oppervlakte-onderwerpen en daardoor een sterker gevoel van verbondenheid oplevert. |
+| Wederkerigheid van vriendelijkheid | De aanname dat wie een ander als vriend benadert, doorgaans vriendelijkheid terugkrijgt. |
+| Zelfvervullende vermijding | Het mechanisme waarbij het vermijden van contact voorkomt dat iemand ooit het bewijs verzamelt dat zijn angst voor dat contact overdreven was. |
+
+#### Waar het argument op rust
+
+Epley is zelf de onderzoeker achter een deel van de experimenten die hij
+bespreekt, gepubliceerd in vaktijdschriften als *Journal of Experimental
+Psychology: General* en *Psychological Science*. De kern van het boek, dat
+mensen het plezier van een gesprek met een vreemde onderschatten, is herhaald
+in verschillende steden, vervoersvormen en, volgens Epley, ook buiten de
+Verenigde Staten, wat het resultaat steviger maakt dan een eenmalige
+labuitkomst.
+
+De studies meten vooral het effect op de stemming direct na het gesprek,
+gerapporteerd door de deelnemers zelf. Het boek trekt daaruit een lijn naar
+gezondheid en levensduur, maar die stap onderbouwt Epley met verwijzingen naar
+bevolkingsonderzoek van andere auteurs over sociale isolatie, niet met eigen
+experimenten die aantonen dat een extra praatje met een vreemde iemands
+gezondheid verandert.
+
+Waar het boek wel sterk staat, is in de herhaling: dezelfde treinbevinding is
+meermaals gerepliceerd door verschillende onderzoeksgroepen, met bussen,
+wachtruimtes en taxi's als variatie op de opzet, en telkens met dezelfde
+uitkomst. Die herhaalbaarheid is precies wat veel populaire gedragswetenschap
+mist, en Epley besteedt er in het boek zelf ook aandacht aan.
+
+#### Wat er tegen in te brengen valt
+
+De ondertitel belooft gezondheid en een langer leven, terwijl het
+experimentele bewijs in het boek vooral gaat over een prettiger gevoel
+gedurende een half uur in de trein. Tussen die twee ligt een aanname die het
+boek zelf niet toetst.
+
+De experimenten spelen zich grotendeels af in Amerikaanse steden, vaak met
+studenten of forensen als deelnemers, in een cultuur waarin een praatje met
+een vreemde al betrekkelijk gewoon is. Of hetzelfde effect optreedt in
+samenlevingen met andere omgangsvormen, laat het boek in het midden.
+
+Epley bespreekt zijn eigen onderzoek uitgebreider en met meer welwillendheid
+dan onderzoek dat er tegenin zou kunnen gaan, zoals werk over de reële kosten
+van afwijzing of over situaties waarin terughoudendheid een verstandige,
+cultureel ingegeven reactie is.
+
+Het boek gaat nauwelijks in op mensen voor wie een gesprek met een vreemde
+geen kwestie van verkeerde voorspelling is maar van reëel verhoogd risico,
+bijvoorbeeld door eerdere ervaringen met intimidatie. Voor die lezers is het
+advies om vaker het gesprek aan te gaan minder eenvoudig toe te passen dan het
+boek suggereert.
+
+#### Wat er concreet mee te doen is
+
+- Spreek een vreemde aan in een wachtrij of tijdens een rit, ook als je
+verwacht dat het ongemakkelijk zal zijn.
+- Kies bij een moeilijk bericht voor een telefoontje in plaats van een
+tekstbericht als je echt contact wilt.
+- Stel in een gesprek één vraag die verder gaat dan het eerste, veilige
+onderwerp.
+- Onthoud bij twijfel dat de ander waarschijnlijk meer op je gesteld is dan je
+zelf denkt, en laat dat de doorslag geven om toch iets te zeggen.
+- Begin bij een lage-risicocontact, zoals een winkelmedewerker, voor je de
+stap naar een gesprek met meer inzet neemt.
+
+#### Wat je hierna leest
+
+- 7. We Need to Hang Out. Baker onderzoekt vanuit eigen ervaring waarom mannen
+minder vriendschap onderhouden, een van de contactvormen die Epley met
+onderzoek onderbouwt.
+- 96. Het verlaten individu. Van Fenema plaatst hetzelfde verlies aan contact
+in een bredere maatschappelijke ontwikkeling van individualisering.
+- 24. How to Win Friends and Influence People. Carnegie geeft praktische
+regels voor hetzelfde probleem, contact leggen, zonder de onderzoeksbasis die
+Epley aandraagt.
+- 33. Quiet. Cain beschrijft vanuit het perspectief van introverten waarom het
+advies om vaker het gesprek te zoeken niet voor iedereen even vanzelfsprekend
+is.
+
+## 303. Why We Click: The Emerging Science of Interpersonal Synchrony
+
+Kate Murphy, 2026. Celadon Books, New York, 2026, 320 blz. Geen Nederlandse
+vertaling verschenen; deze samenvatting volgt de Engelse editie. Murphy is
+journalist en schreef eerder *You're Not Listening* (2019). Rubriek: brein en
+lichaam.
+Tags: `synchronisatie`, `lichaamstaal`, `spiegelneuronen`, `groepsgedrag`,
+`empathie`, `sociale besmetting`
+
+Murphy beschrijft interpersoonlijke synchronisatie: de manier waarop mensen
+zonder erbij na te denken elkaars houding, gebaren, ademhaling en zelfs
+hartslag gaan spiegelen zodra ze met elkaar in gesprek zijn. Wat begint bij
+het overnemen van een pose in een café loopt volgens haar door tot
+gesynchroniseerde hartslagen bij stellen en gedeelde stemmingen in een
+voetbalstadion.
+
+Zij laat die synchronisatie twee kanten op werken: gedeeld ritme bouwt
+vertrouwen en verbondenheid op, maar hetzelfde mechanisme verspreidt ook een
+slecht humeur door een team of angst door een menigte. Het boek eindigt met de
+vraag wat iemand daar zelf aan kan doen, in plaats van de aanname dat
+synchronisatie alleen een prettig bijverschijnsel van nabijheid is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Murphy stelt dat mensen voortdurend en grotendeels onbewust
+hun lichaam en hun gemoedstoestand afstemmen op wie in hun buurt is, van een
+spiegelend gebaar in een gesprek tot een gesynchroniseerde hartslag bij een
+partner, en dat die afstemming een groter deel van sympathie, vertrouwen en
+groepsgedrag verklaart dan meestal wordt aangenomen. Dezelfde synchronisatie
+die twee mensen dichter bij elkaar brengt, is volgens haar ook de weg
+waarlangs paniek, woede of somberheid zich door een groep verspreidt. Wie daar
+tegenover wil zetten dat sympathie en groepsgedrag evengoed uit gedeelde
+overtuigingen of belangen kunnen ontstaan, zonder dat lichamen hoeven te
+synchroniseren, vindt in het boek weinig weerwoord.
+
+#### De gang van het boek
+
+**Het kameleoneffect**
+
+Murphy opent met het experiment van Tanya Chartrand en John Bargh uit 1999,
+waarin proefpersonen onbewust de gebaren overnamen van iemand met wie ze een
+korte taak deelden, wrijven over het gezicht of wiebelen met een voet, zonder
+dat ze zich daarvan bewust waren. Wie meer werd nagedaan, beoordeelde het
+gesprek achteraf als prettiger.
+
+Dat kameleoneffect, zoals het in de literatuur bekend staat, vormt voor Murphy
+het uitgangspunt: synchronisatie gaat aan bewuste sympathie vooraf en lijkt
+die zelfs op te wekken, niet alleen andersom.
+
+**Klikken in een halve minuut**
+
+In het hoofdstuk over aantrekkingskracht bespreekt Murphy onderzoek naar
+speeddates waarbij camera's de lichaamsbewegingen van beide deelnemers
+vastlegden. Paren die achteraf aangaven een klik te voelen, bleken al na
+enkele tientallen seconden hun bewegingen op elkaar te hebben afgestemd, vaak
+nog voordat het gesprek inhoudelijk op gang kwam.
+
+Die afstemming voorspelde de wederzijdse aantrekkingskracht beter dan de
+kenmerken die de deelnemers vooraf op papier als voorkeur hadden opgegeven.
+Murphy trekt daaruit de conclusie dat het gevoel van een klik minder in de
+woorden zit dan in het tempo waarin twee lichamen zich naar elkaar toe voegen,
+iets waar geen van beide deelnemers bewust over nadenkt.
+
+**Het lichaam volgt mee**
+
+Murphy bespreekt onderzoek van John en Julie Gottman naar getrouwde stellen,
+waarbij hartslag en huidgeleiding van beide partners tijdens een ruzie gelijk
+opliepen, en waarbij paren met een grotere gedeelde fysiologische onrust vaker
+uit elkaar bleken te gaan. Bij therapiesessies is soortgelijke synchronisatie
+tussen therapeut en cliënt gemeten, sterker naarmate de sessie door beide
+partijen als geslaagder werd ervaren.
+
+Die bevindingen verplaatsen synchronisatie van een aardigheidje in
+lichaamstaal naar een meetbaar signaal in het lichaam zelf, dat volgens Murphy
+iets zegt over hoe een relatie ervoor staat.
+
+**Samen zingen, roeien, marcheren**
+
+Een hoofdstuk behandelt het experiment van Scott Wiltermuth en Chip Heath uit
+2009, waarin proefpersonen die samen in de pas liepen of samen zongen na
+afloop meer bereid waren elkaar te vertrouwen in een economisch spel dan
+proefpersonen die dezelfde handeling ieder in hun eigen tempo uitvoerden.
+
+Murphy trekt de lijn door naar leger, kerk en sportteam, instellingen die stuk
+voor stuk op gedeeld ritme bouwen, en stelt dat de werking van die rituelen
+minder te maken heeft met de inhoud van het lied of de mars dan met het
+simpele feit van het gelijk bewegen.
+
+**De rotte appel**
+
+Tegenover de opbouwende kant zet Murphy het zogeheten bad-apple-effect,
+onderzoek waarin één teamlid met chronisch negatief gedrag de prestaties en de
+stemming van een heel team omlaag trekt, sterker dan één goedwillend lid de
+stemming omhoog krijgt.
+
+Van daaruit trekt zij de vergelijking door naar grotere schaal, oproer,
+massahysterie en vervolging, als voorbeelden van hoe eenzelfde besmettelijke
+stemming zich door een menigte kan verspreiden. Voor die laatste stap levert
+het boek zelf geen vergelijkbaar gecontroleerd onderzoek als voor het
+teamvoorbeeld.
+
+**Mens en dier**
+
+Murphy bespreekt onderzoek waarin de hartslag van honden meebeweegt met die
+van hun eigenaar tijdens gedeelde momenten van spanning of rust, en waarin het
+stresshormoon cortisol van hond en baasje na verloop van tijd samen op en neer
+gaat.
+
+Voor haar is dat een aanwijzing dat synchronisatie niet aan taal gebonden is,
+en dat het zoeken van geruststelling bij een dier deels op hetzelfde
+mechanisme leunt als het zoeken van geruststelling bij een mens. Zij plaatst
+daar meteen een kanttekening bij: het onderzoek naar honden is uitgebreider
+dan dat naar andere soorten, en het is onduidelijk of hetzelfde patroon in
+dezelfde mate geldt voor dieren met een andere evolutionaire geschiedenis met
+de mens.
+
+**Spiegelneuronen en eigen verantwoordelijkheid**
+
+In het slothoofdstuk gaat Murphy terug naar de ontdekking van spiegelneuronen
+door Giacomo Rizzolatti en collega's, die in de vroege jaren negentig bij
+makaken hersencellen vonden die zowel afgingen bij het zelf uitvoeren als bij
+het zien uitvoeren van een handeling. Bij mensen is vergelijkbare
+hersenactiviteit gevonden met hersenscans, al is nooit op dezelfde manier in
+losse cellen gemeten als bij de makaken.
+
+Murphy besluit dat wie voortdurend het ritme van zijn omgeving overneemt, ook
+zelf ritme aan die omgeving doorgeeft, en dat de enige hefboom die iemand
+daarin heeft, de keuze is met wie en waar hij zijn tijd doorbrengt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Interpersoonlijke synchronisatie | Het onbewust afstemmen van houding, beweging en fysiologie op iemand anders, het centrale verschijnsel van het boek. |
+| Kameleoneffect | De neiging om onbewust de gebaren en houding van een gesprekspartner over te nemen, ontdekt door Chartrand en Bargh. |
+| Fysiologische synchronisatie | Het gelijk oplopen van meetbare lichaamssignalen, zoals hartslag of huidgeleiding, tussen twee mensen die met elkaar interacteren. |
+| Bad-apple-effect | Het verschijnsel waarbij één chronisch negatief teamlid de stemming en de prestatie van een heel team omlaag trekt. |
+| Sociale besmetting | De verspreiding van een stemming of gedrag door een groep, via hetzelfde synchronisatiemechanisme dat ook nabijheid tussen twee mensen opbouwt. |
+| Spiegelneuron | Een hersencel die zowel actief wordt bij het zelf uitvoeren als bij het waarnemen van een handeling, voor het eerst aangetoond bij makaken. |
+| Interoceptie | Het waarnemen van signalen uit het eigen lichaam, die volgens Murphy mede bepalen hoe gevoelig iemand is voor de stemming van een ander. |
+| Rapport | De ervaren klik tussen twee mensen, die Murphy grotendeels herleidt tot meetbare lichamelijke synchronisatie. |
+
+#### Waar het argument op rust
+
+Murphy is journalist, geen onderzoeker, en bouwt het boek op uit gepubliceerd
+werk van anderen: het kameleoneffect, de synchronisatie bij getrouwde stellen
+en het effect van gezamenlijk bewegen op vertrouwen zijn elk in
+vaktijdschriften verschenen en herhaaldelijk gerepliceerd, wat ze tot het
+steviger deel van het boek maakt.
+
+Zwakker onderbouwd is de menselijke tegenhanger van spiegelneuronen: bij
+makaken is het bewijs afkomstig uit metingen in losse hersencellen, bij mensen
+vrijwel altijd uit bredere hersenscans die alleen een gebied aanwijzen, geen
+individuele cel. Onderzoekers zijn het oneens over hoeveel van het menselijk
+empathisch vermogen daadwerkelijk aan zulke cellen valt toe te schrijven, een
+discussie die het boek niet uitvoerig weergeeft.
+
+Voor de speeddatestudie en het onderzoek naar de Gottmans geldt dat de
+steekproeven doorgaans klein zijn, vaak enkele tientallen tot een paar honderd
+paren, wat de precisie van de gevonden verbanden beperkt. Murphy vermeldt de
+omvang van die steekproeven niet consequent, waardoor de lezer zelf moeilijk
+kan inschatten hoe stevig een claim werkelijk is.
+
+#### Wat er tegen in te brengen valt
+
+De stap van synchronisatie in een laboratoriumopstelling met twee of een
+handvol proefpersonen naar verschijnselen als oproer, massahysterie en
+vervolging is de zwakste schakel in het boek. Voor die laatste voorbeelden
+levert Murphy geen onderzoek van vergelijkbare aard als voor de kleinschalige
+experimenten, en de vergelijking blijft grotendeels beeldspraak.
+
+Bij verschillende synchronisatiestudies is niet uit te sluiten dat de
+oorzaak-gevolgrelatie andersom loopt: mensen die elkaar al aardig vinden, gaan
+mogelijk juist daarom meer synchroniseren, in plaats van dat synchronisatie de
+sympathie veroorzaakt. Murphy behandelt die mogelijkheid terzijde, niet als
+een probleem voor haar hoofdlijn.
+
+Als populairwetenschappelijk boek zonder notenapparaat voor de algemene lezer
+zijn losse claims lastig te herleiden naar het onderliggende onderzoek, wat
+het navolgbaar checken van individuele beweringen bemoeilijkt.
+
+Het hoofdstuk over huisdieren leunt op een klein aantal studies met honden en
+generaliseert van daaruit naar dieren in het algemeen, terwijl vergelijkbaar
+onderzoek bij andere veelgehouden huisdieren, zoals katten, in het boek
+ontbreekt.
+
+#### Wat er concreet mee te doen is
+
+- Let er in een lastig gesprek op of je de houding van de ander onbewust
+overneemt, en gebruik dat als signaal voor hoe het gesprek verloopt.
+- Zet een gezamenlijke, ritmische activiteit in als je in een nieuw team
+vertrouwen wilt opbouwen, in plaats van alleen te praten over doelen.
+- Beperk de tijd die je doorbrengt met iemand die stelselmatig een negatieve
+stemming meebrengt, ook als die persoon verder geen conflict veroorzaakt.
+- Ga bij een eigen slecht humeur na of je dat ongemerkt aan anderen doorgeeft
+voor je het aan hen toeschrijft.
+- Gebruik bij een eerste ontmoeting de lichaamstaal van de ander als extra
+signaal naast wat er gezegd wordt, niet als vervanging daarvan.
+
+#### Wat je hierna leest
+
+- 152. Attached. Levine en Heller beschrijven gehechtheidspatronen die deels
+dezelfde lichamelijke afstemming tussen partners raken als Murphy's hoofdstuk
+over stellen.
+- 166. How to Not Die Alone. Ury onderzoekt vanuit datingonderzoek wanneer een
+eerste ontmoeting wel of niet aanslaat, een vraag die Murphy's
+speeddatehoofdstuk van de lichamelijke kant benadert.
+- 34. The 5 Love Languages. Chapman beschrijft hoe partners elkaar bereiken
+via andere talen van genegenheid, een aanvulling op Murphy's nadruk op
+onbewuste lichamelijke afstemming.
+- 42. The Five Dysfunctions of a Team. Lencioni beschrijft teamfalen vanuit
+vertrouwen en conflict, een organisatorische tegenhanger van Murphy's
+bad-apple-effect.
+
+## 304. The Art of Gathering
+
+Priya Parker, 2018. Oorspronkelijk *The Art of Gathering: How We Meet and Why
+It Matters* (Riverhead Books, 15 mei 2018, ca. 320 blz., ISBN 9781594634925).
+Geen Nederlandse vertaling verschenen; deze samenvatting is op de Engelse
+editie gebaseerd. Rubriek: samenwerken en gesprek.
+Tags: `bijeenkomsten`, `gastheerschap`, `gemeenschap`, `facilitatie`,
+`rituelen`, `conflictbemiddeling`, `ontmoeten`
+
+Priya Parker, opgeleid in conflictbemiddeling aan Harvard en MIT, werkte
+jarenlang als facilitator bij verzoeningsprocessen in Zuid-Afrika, de
+Arabische wereld en India voordat zij dit boek schreef. Haar stelling is dat
+de meeste bijeenkomsten, van vergaderingen tot bruiloften, mislukken omdat
+niemand zich afvraagt waarom ze eigenlijk plaatsvinden; de vorm van de vorige
+keer wordt gewoon gekopieerd.
+
+Ze werkt dat uit in acht hoofdstukken die van het kiezen van een doel via het
+samenstellen van de gastenlijst naar het sluiten van de bijeenkomst lopen.
+Kernbegrip is de gulle autoriteit: een gastheer die stuurt en grenzen bewaakt,
+niet uit eigenbelang maar ten dienste van de groep.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Priya Parker betoogt dat de meeste bijeenkomsten falen
+doordat niemand zich afvraagt waarom ze plaatsvinden: de vorm van de vorige
+vergadering, de vorige verjaardag of de vorige bruiloft wordt zonder nadenken
+gekopieerd, en dat maakt de bijeenkomst leeg. Haar remedie is een specifiek,
+betwistbaar doel dat een deel van de mogelijke keuzes uitsluit, gevolgd door
+een gastheer die dat doel actief bewaakt in plaats van zich te
+verontschuldigen voor elke regel. Gasten ervaren die sturing volgens haar niet
+als dwang maar als verzorging, want een bijeenkomst zonder duidelijke leiding
+laat iedereen aan zichzelf over. Wie dat betwist, kan wijzen op de vrijheid
+die juist verloren gaat zodra een gastheer zo veel bepaalt.
+
+#### De gang van het boek
+
+**Het probleem: de categorie regeert**
+
+Parker opent met de waarneming dat gastheren zelden nadenken over waarom zij
+iets organiseren. Een personeelsvergadering krijgt de vorm van de vorige
+personeelsvergadering, een afscheidsdiner de vorm van het vorige
+afscheidsdiner. Zij noemt dat het automatisme van de categorie: de naam van de
+bijeenkomst, vergadering, verjaardag, bruiloft, bepaalt de invulling in plaats
+van andersom.
+
+Dat automatisme is volgens haar de belangrijkste reden dat bijeenkomsten leeg
+aanvoelen. Er is een agenda maar geen doel, een gastenlijst maar geen reden
+waarom juist deze mensen er moeten zijn. Haar advies begint daarom niet bij de
+vraag wat er moet gebeuren, maar bij de vraag waarom er samengekomen wordt.
+
+Een voorbeeld dat zij vaak aanhaalt is de opening van een bijeenkomst. De
+meeste gastheren beginnen met logistiek, waar de jassen heen moeten, hoe laat
+het eten komt, terwijl juist de eerste minuten bepalen hoe de rest van de
+avond aanvoelt. Bij een uitvaart is dat volgens haar het duidelijkst
+zichtbaar: beginnen met het programma van de dienst in plaats van met de
+mensen om wie het gaat, zet de toon meteen verkeerd.
+
+**Een specifiek, betwistbaar doel**
+
+Het antwoord dat zij aandraagt is een doel dat specifiek en betwistbaar is:
+specifiek omdat een algemeen doel als 'elkaar beter leren kennen' niets
+uitsluit, betwistbaar omdat een goed doel een kant kiest die niet iedereen zal
+delen. Een teamdiner met als doel 'nieuwe medewerkers helder maken wat hier
+wel en niet werkt' leidt tot een andere gastenlijst, een andere locatie en een
+andere duur dan een teamdiner met als doel 'het jaar afsluiten'.
+
+Dat doel bepaalt vervolgens elke andere beslissing: wie wordt uitgenodigd, wie
+niet, hoe lang de bijeenkomst duurt en wat er aan het begin gebeurt. Zonder
+dat doel valt een bijeenkomst terug op de categorie, en daarmee op de sleur
+die Parker juist wil doorbreken.
+
+**Deuren dicht**
+
+Uit het doel volgt volgens Parker een onaangename plicht: uitsluiten. Wie
+iedereen uitnodigt om niemand te kwetsen, verdunt de bijeenkomst tot het
+kleinste gemene deel van de groep. Zij pleit voor een gastenlijst die scherp
+aansluit bij het doel, ook als dat betekent dat een collega, een familielid of
+een oude vriend niet wordt gevraagd.
+
+Die keuze hoeft niet zwijgend te gebeuren. Een gastheer die uitlegt waarom de
+lijst is zoals zij is, geeft de bijeenkomst een reden van bestaan die de
+aanwezigen voelen zodra zij binnenkomen.
+
+**Gulle autoriteit in plaats van chill hostmanschap**
+
+Parker verzet zich tegen de gastheer die zegt: doe maar wat je wilt, voel je
+vrij. Die houding, die zij chill noemt, laat gasten alleen met de vraag wat er
+van hen verwacht wordt en werkt averechts: mensen ontspannen juist wanneer
+iemand anders de touwtjes zichtbaar in handen heeft. Zij noemt dat gulle
+autoriteit, een sturing die niet uit eigenbelang komt maar ten dienste staat
+van de groep.
+
+Een portier bij een club is haar voorbeeld: hij weert mensen niet om macht te
+tonen maar om de sfeer binnen te beschermen. Een gastheer die op dezelfde
+manier ingrijpt, een telefoon laat wegleggen of een gesprek bijstuurt, wordt
+volgens haar niet als bemoeizuchtig ervaren maar als iemand die de avond
+serieus neemt.
+
+**Een tijdelijke andere wereld**
+
+Een geslaagde bijeenkomst heeft volgens Parker een eigen, tijdelijke wereld
+met eigen regels, gemarkeerd door een duidelijke drempel tussen buiten en
+binnen. Die drempel kan een fysieke handeling zijn, zoals het inleveren van
+een telefoon, of een korte openingszin die vertelt wat hier wel en niet de
+bedoeling is.
+
+Zonder die markering, schrijft zij, loopt de gewone wereld gewoon door naar
+binnen: mensen kijken op hun telefoon, houden zich aan de omgangsvormen van
+het kantoor, en de bijeenkomst krijgt nooit een eigen karakter.
+
+**Je beste zelf buiten de deur laten**
+
+Parker verzet zich ook tegen de norm dat gasten hun beste versie van zichzelf
+meenemen: opgeruimd, positief, geen gedoe. Die norm houdt een bijeenkomst
+volgens haar oppervlakkig, omdat niemand zich kwetsbaar durft op te stellen
+zolang iedereen alleen de gepolijste kant laat zien.
+
+Zij pleit ervoor dat een gastheer expliciet uitnodigt tot iets anders dan die
+gepolijste kant, bijvoorbeeld door zelf een minder glanzend verhaal te delen
+voordat van gasten hetzelfde wordt gevraagd. Dat werkt volgens haar alleen als
+de gastheer het voorbeeld geeft en niet alleen de vraag stelt.
+
+**Goede controverse**
+
+Tegen de reflex om spanning glad te strijken zet Parker het idee van goede
+controverse: een gastheer die het gesprek bewust naar een onderwerp stuurt
+waarover de aanwezigen het oneens zijn, in plaats van bij veilige onderwerpen
+te blijven. Haar ervaring als bemiddelaar bij verzoeningsgesprekken in
+Zuid-Afrika en India werkt hier door: onenigheid die met een duidelijke vorm
+wordt begeleid, brengt een groep dichter bij elkaar dan een avond zonder
+wrijving.
+
+Dat vraagt wel om voorbereiding. Een gastheer die controverse aanwakkert
+zonder een vorm te bieden om hem ook weer te sluiten, laat de groep met open
+wonden achter.
+
+**Het einde plannen**
+
+Het laatste hoofdstuk gaat over afsluiten. Parker constateert dat de meeste
+bijeenkomsten uitdoven in plaats van eindigen: mensen druppelen weg, de
+gastheer ruimt op terwijl er nog gasten zijn, en niemand markeert het slot.
+Zij pleit voor een bewust einde, een laatste ronde, een korte terugblik, een
+gebaar dat het moment sluit voordat de energie wegzakt.
+
+Een goed einde geeft de bijeenkomst een vorm die mensen zich herinneren,
+terwijl een einde dat vanzelf gebeurt de indruk van de hele avond kan
+verzwakken, ook als de rest geslaagd was.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Specifiek betwistbaar doel | Een doel dat scherp genoeg is om keuzes uit te sluiten en een kant te kiezen waar niet iedereen het mee eens zal zijn. |
+| De categorie | Het automatisme waarmee een gastheer de vorm van een eerdere, soortgelijke bijeenkomst kopieert zonder de vraag naar het doel te stellen. |
+| Gulle autoriteit | De houding van een gastheer die actief stuurt en grenzen bewaakt, ten dienste van de groep en niet uit eigenbelang. |
+| Chill hostmanschap | De schijnbaar vriendelijke houding waarbij een gastheer niets voorschrijft en gasten daardoor aan zichzelf overlaat. |
+| Deuren dicht | Het bewust uitsluiten van wie niet bij het doel van de bijeenkomst past, ook als dat sociaal ongemakkelijk is. |
+| Drempel | Het gemarkeerde overgangsmoment waarop gasten de gewone wereld achter zich laten en de regels van de bijeenkomst ingaan. |
+| Tijdelijke andere wereld | De eigen, aparte regels die een bijeenkomst voor de duur ervan instelt en die haar onderscheiden van het gewone leven. |
+| Goede controverse | Het bewust ter sprake brengen van een onderwerp waarover de aanwezigen het oneens zijn, begeleid met een vorm die het gesprek ook weer sluit. |
+
+#### Waar het argument op rust
+
+Het boek rust niet op vragenlijstonderzoek of experimenten maar op twintig
+jaar werk als facilitator. Parker begon in conflictbemiddeling op Amerikaanse
+campussen en werkte daarna aan verzoeningsprocessen in Zuid-Afrika, de
+Arabische wereld en India, voordat zij als adviseur ging werken voor
+bedrijven, filantropen en bestuurders die hun bijeenkomsten wilden herzien.
+
+Haar bewijsvoering bestaat uit voorbeelden uit die praktijk: vergaderingen die
+vastliepen totdat het doel werd herzien, diners die pas werkten nadat de
+gastenlijst werd ingekort. Dat is ervaring van één persoon met een specifieke,
+veelal welgestelde en professionele kring van opdrachtgevers, geen
+systematisch onderzoek naar wat bij bredere groepen bijeenkomsten werkt.
+
+Waar zij zich wel op iets buiten haar eigen praktijk beroept, blijft dat
+beperkt tot losse verwijzingen naar gedragswetenschap over groepsdynamiek en
+drempelrituelen, zonder uitgewerkte bronvermelding. De overtuigingskracht van
+het boek zit dan ook niet in cijfers maar in de herkenbaarheid van de
+voorbeelden en in de consistentie van het onderliggende principe door alle
+hoofdstukken heen.
+
+#### Wat er tegen in te brengen valt
+
+Het boek noemt geen bronnen buiten de eigen praktijk en toetst zijn
+aanbevelingen niet aan een controlegroep of aan bijeenkomsten die zonder haar
+methode plaatsvonden. Wat werkte bij haar opdrachtgevers, hoeft niet te werken
+bij een buurtbarbecue of een klein gezinsfeest met een beperkt budget.
+
+De nadruk op sturing kan tegen zichzelf keren. Een gastheer die voortdurend
+regels stelt en mensen actief uitsluit, loopt het risico dat gasten zich
+gecontroleerd voelen in plaats van verzorgd, vooral als de sturende hand
+minder ervaren is dan Parker zelf. Het boek besteedt weinig aandacht aan die
+kans op mislukking en gaat er stilzwijgend van uit dat de lezer haar aanpak
+met evenveel gevoel voor de groep zal toepassen als zijzelf.
+
+Ten slotte behandelt het boek vooral bijeenkomsten die van tevoren gepland
+kunnen worden. Voor spontane samenkomsten, een toevallige borrel, een
+informeel buurtoverleg, is minder duidelijk hoe de aanbevelingen, die uitgaan
+van een gastheer met tijd om vooraf na te denken, zich laten toepassen.
+
+#### Wat er concreet mee te doen is
+
+- Formuleer voor de volgende bijeenkomst een doel in één zin, specifiek genoeg
+om er ook mensen op af te wijzen.
+- Stel de gastenlijst pas samen nadat het doel vaststaat, niet andersom.
+- Bedenk een korte, expliciete opening die de bijeenkomst markeert als iets
+anders dan de gewone werkdag.
+- Plan het einde net zo bewust als het begin, met een laatste moment dat de
+bijeenkomst zichtbaar afsluit.
+
+#### Wat je hierna leest
+
+- 42. The Five Dysfunctions of a Team. Lencioni's boek over teams laat zien
+wat er misgaat als een groep bijeenkomsten heeft zonder het soort scherpte dat
+Parker eist.
+- 43. Crucial Conversations. Behandelt hetzelfde probleem van een gesprek dat
+vastloopt, toegespitst op het gesprek zelf in plaats van op de bijeenkomst
+eromheen.
+- 273. Leaders Eat Last. Sinek beschrijft vanuit leiderschap dezelfde gedachte
+dat een groep gedijt bij iemand die zichtbaar de kring bewaakt.
+
+## 305. How to Disagree Better
+
+Julia Minson, 2026. Oorspronkelijk *How to Disagree Better* (Avery/Penguin
+Random House, 24 maart 2026, 304 blz., ISBN 9780593855003). Geen Nederlandse
+vertaling verschenen; deze samenvatting is op de Engelse editie gebaseerd.
+Rubriek: samenwerken en gesprek.
+Tags: `gedragswetenschap`, `conflict`, `luisteren`, `onderhandelen`,
+`polarisatie`, `communicatie`, `onderzoek`
+
+Minson, gedragswetenschapper aan Harvard, onderzoekt al ruim tien jaar waarom
+mensen in een meningsverschil zo zelden naar elkaar luisteren en wat daaraan
+te doen is. Met collega's ontwikkelde zij conversational receptiveness, een
+meetbare taalvorm van ontvankelijkheid die is afgeleid uit duizenden
+transcripten van echte gesprekken.
+
+Het boek vertaalt die bevindingen naar het ezelsbruggetje HEAR: nuanceren,
+gedeeld belang benoemen, het standpunt van de ander erkennen en herformuleren
+naar het positieve. Haar these is dat mensen die dat doen niet zwakker
+overkomen, maar juist meer invloed krijgen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Minson stelt dat de gangbare aanpak van een meningsverschil,
+zo overtuigend mogelijk overkomen en zo veel mogelijk feiten aandragen,
+averechts werkt: wie zich niet gehoord voelt, graaft zich in, ongeacht hoe
+sterk het tegenargument is. Haar onderzoek naar wat zij conversational
+receptiveness noemt laat zien dat een klein aantal taalkeuzes, samengevat in
+het ezelsbruggetje HEAR, bepaalt of een gesprekspartner zich openstelt of
+dichtklapt. Ontvankelijkheid is bij haar geen kwestie van toegeven aan de
+ander, maar een aparte vaardigheid die losstaat van wie er gelijk heeft, en
+die net als elke andere vaardigheid te leren en te meten is.
+
+#### De gang van het boek
+
+**De crisis van het gesprek**
+
+Minson opent met de vaststelling dat het aantal onderwerpen waarover mensen
+elkaar niet meer durven tegenspreken, groeit: aan de eettafel, op het werk en
+online wordt onenigheid vaker vermeden dan uitgesproken. Waar mensen wel in
+discussie gaan, verloopt dat volgens haar meestal als een wedstrijd om gelijk
+te krijgen, niet als een poging om elkaar te begrijpen.
+
+Dat patroon noemt zij de disagreement crisis: niet te veel meningsverschil,
+maar te weinig vaardigheid om het productief te voeren. Haar boek presenteert
+zich uitdrukkelijk niet als een pleidooi voor meer harmonie, maar als
+gereedschap om onenigheid te laten bestaan zonder dat het gesprek eraan
+kapotgaat.
+
+**Wat conversational receptiveness is**
+
+De kern van haar onderzoek is een taalvariabele die zij met collega's
+ontwikkelde: conversational receptiveness, het gebruik van taal die laat zien
+dat iemand het standpunt van de ander serieus overweegt. Voor een publicatie
+uit 2020 trainden zij en haar mede-onderzoekers een computermodel op duizenden
+transcripten van onenigheden om de taalkenmerken van ontvankelijkheid te
+isoleren.
+
+Uit die analyse bleek dat receptiviteit niet samenvalt met inhoudelijk
+toegeven, en evenmin met vage beleefdheid. Het gaat om herkenbare taalpatronen
+die los staan van de inhoud van het standpunt zelf, en die zij vervolgens
+omzette in een ezelsbruggetje dat ook zonder training toe te passen is.
+
+**HEAR: de vier bewegingen**
+
+Dat ezelsbruggetje is HEAR. Hedge betekent nuanceren: een claim afzwakken met
+'meestal' of 'in dit geval', wat laat zien dat er ruimte is voor
+uitzonderingen zonder de eigen positie op te geven. Emphasize agreement
+betekent het gedeelde belang benoemen voordat het verschil aan bod komt, zodat
+het gesprek niet meteen als een tweestrijd voelt.
+
+Acknowledge betekent het standpunt van de ander eerst in eigen woorden
+samenvatten, zodat de tegenpartij hoort dat er geluisterd is voordat het eigen
+argument volgt. Reframe betekent het wegwerken van ontkennende taal, minder
+'nooit' en 'kan niet', meer 'ik zou het waarderen als' en 'wat zou helpen'.
+Elk van de vier is op zichzelf klein, maar samen bepalen zij volgens haar
+onderzoek of een gesprekspartner zich opent of afsluit.
+
+**Waarom feiten alleen niet werken**
+
+Minson besteedt een deel van het boek aan de reflex om een meningsverschil te
+winnen met meer argumenten en sterkere feiten. Uit haar onderzoek blijkt dat
+die aanpak vooral werkt op mensen die het al met je eens zijn. Wie het oneens
+is, hoort feiten pas als hij zich niet bedreigd voelt, en dat gevoel van
+bedreiging wordt bepaald door de toon van het gesprek, niet door de kwaliteit
+van het argument.
+
+Daaruit volgt haar advies om eerst aan de ontvankelijkheid te werken en pas
+daarna aan de inhoud. Een technisch goed argument dat receptief wordt
+gebracht, landt volgens haar onderzoek beter dan hetzelfde argument zonder die
+zorg voor de vorm.
+
+**Ontvankelijkheid is geen toegeven**
+
+Een terugkerend punt is het onderscheid tussen ontvankelijk zijn en gelijk
+geven. Minson benadrukt dat de vier HEAR-bewegingen niets zeggen over de
+inhoud van het standpunt: iemand kan het standpunt van de ander volledig
+samenvatten, erkennen waar het overlapt met het eigen standpunt, en vervolgens
+alsnog volhouden dat de ander ongelijk heeft.
+
+Voor onderhandelaars en bemiddelaars, van wie zij er een aantal in haar
+onderzoek betrok, is dat onderscheid de kern van hun vak: wie ontvankelijk
+overkomt zonder inhoudelijk te buigen, wordt eerder vertrouwd en krijgt
+daardoor meer ruimte om het eigen standpunt te verdedigen.
+
+**Grenzen: wanneer het niet werkt**
+
+Minson is expliciet over wat haar aanpak niet oplost. Bij een grote
+machtsongelijkheid, of wanneer een van beide partijen niet in goed vertrouwen
+deelneemt, verandert taal alleen het gesprek niet. HEAR is bedoeld voor mensen
+die allebei iets willen bereiken met het gesprek, niet voor situaties waarin
+een van beiden alleen wil winnen.
+
+Zij waarschuwt ook voor het mechanisch toepassen van het ezelsbruggetje. Een
+'ik snap wat je bedoelt' dat er zonder overtuiging wordt uitgegooid, wordt
+door luisteraars volgens de taalanalyse waarop het boek is gebaseerd, net zo
+herkend als een niet gemeend excuus.
+
+**Van keukentafel tot polarisatie**
+
+Minson werkt de HEAR-technieken uit voor uiteenlopende situaties: een
+familiediscussie aan tafel, een onderhandeling op het werk, en het bredere
+probleem van politieke polarisatie. In elk van die contexten is het mechanisme
+volgens haar hetzelfde: mensen luisteren pas naar een tegenargument zodra zij
+merken dat de ander hun kant al heeft gehoord.
+
+Voor politieke onderwerpen voegt zij een extra observatie toe: mensen schatten
+het standpunt van de tegenpartij vaak extremer in dan het in werkelijkheid is.
+Een gesprek waarin beide partijen HEAR toepassen, legt volgens haar onderzoek
+dat verschil tussen verwachting en werkelijkheid vaak al binnen enkele zinnen
+bloot.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Conversational receptiveness | De taalvorm van ontvankelijkheid, ontwikkeld door Minson en collega's met een op transcripten getraind computermodel. |
+| Disagreement crisis | Haar term voor een samenleving waarin mensen onenigheid eerder vermijden dan er goed mee omgaan. |
+| HEAR | Het ezelsbruggetje voor de vier taalbewegingen: hedge, emphasize agreement, acknowledge, reframe. |
+| Hedge | Een claim nuanceren zodat er ruimte blijft voor uitzonderingen, zonder de eigen positie los te laten. |
+| Emphasize agreement | Het gedeelde belang of doel benoemen voordat het verschil van mening aan bod komt. |
+| Acknowledge | Het standpunt van de ander in eigen woorden samenvatten voordat het eigen argument volgt. |
+| Reframe | Ontkennende taal vervangen door taal die aangeeft wat wel gewenst is, in plaats van wat niet mag. |
+| Ontvankelijkheid zonder toegeven | Het onderscheid tussen laten zien dat je luistert en het inhoudelijk eens worden met de ander. |
+
+#### Waar het argument op rust
+
+Het boek steunt op onderzoek dat Minson met collega's publiceerde in
+vaktijdschriften, onder meer een studie uit 2020 in Organizational Behavior
+and Human Decision Processes waarin een computermodel werd getraind om de
+taalkenmerken van receptiviteit te isoleren uit duizenden transcripten, en een
+overzichtsartikel uit 2022 in Personality and Social Psychology Review dat het
+onderzoeksveld samenbrengt.
+
+Dat maakt de onderbouwing steviger dan bij de meeste boeken in dit genre: de
+claims zijn getoetst in gecontroleerde experimenten en niet alleen afgeleid
+uit anekdotes. Tegelijk komt een groot deel van dat onderzoek uit
+laboratoriumopstellingen met korte, geschreven of kort gevoerde gesprekken,
+wat iets anders is dan een jarenlang familieconflict of een politieke
+breuklijn.
+
+Het boek bouwt ook voort op eerder werk van andere onderzoekers naar actief
+luisteren, en op experimenten waarin proefpersonen elkaars standpunt eerst
+moesten samenvatten voordat zij mochten reageren. Minson heeft die losse
+bevindingen omgezet in een meetbare taalvariabele en in een instructie die
+zonder training is toe te passen, wat de eigen bijdrage van het boek vormt.
+
+#### Wat er tegen in te brengen valt
+
+De overstap van laboratoriumexperiment naar het dagelijks leven is groter dan
+het boek soms suggereert. Een taalpatroon dat in een tien minuten durend,
+gecontroleerd gesprek meetbaar effect heeft op de perceptie van een
+luisteraar, hoeft niet in dezelfde mate te werken in een gesprek waarin
+jarenlange irritatie meespeelt.
+
+Verder ligt er een risico in de eenvoud van het ezelsbruggetje. Vier letters
+die aanzetten tot nuanceren, erkennen en herformuleren zijn makkelijk aan te
+leren als truc, terwijl de werking ervan volgens het onderzoek zelf juist zit
+in oprechte betrokkenheid bij het standpunt van de ander. Het boek waarschuwt
+daar zelf voor, maar een lezer die alleen de vier stappen onthoudt, kan het
+risico op mechanisch gebruik moeilijk vermijden.
+
+Ook is niet duidelijk hoe lang het effect van een receptief gesprek aanhoudt.
+De experimenten meten vooral de reactie direct na het gesprek, niet of de
+opgebouwde ontvankelijkheid een week of een maand later nog standhoudt,
+terwijl juist bij terugkerende conflicten, met familie of collega's, die
+duurzaamheid het meest telt.
+
+#### Wat er concreet mee te doen is
+
+- Vat bij het volgende meningsverschil eerst het standpunt van de ander samen
+voordat je het eigen argument geeft.
+- Vervang een absolute uitspraak door een genuanceerde: 'meestal' of 'in dit
+geval' in plaats van 'altijd' of 'nooit'.
+- Noem het gedeelde doel of belang voordat het verschil van mening ter sprake
+komt.
+- Herformuleer een verbod of afwijzing als een wens: niet 'dat kan niet', maar
+'wat zou helpen is'.
+
+#### Wat je hierna leest
+
+- 43. Crucial Conversations. Behandelt hetzelfde terrein van het lastige
+gesprek, met een praktischer, minder onderzoeksmatig raamwerk.
+- 28. Think Again. Grant onderzoekt vanuit een verwante hoek waarom mensen
+liever gelijk krijgen dan bijleren, en wat receptiviteit daaraan verandert.
+- 280. Influence. Cialdini beschrijft de overtuigingstechnieken die Minsons
+receptiviteit juist wil aanvullen met echte betrokkenheid bij de ander.
+
+## 306. Zero to One
+
+Peter Thiel met Blake Masters, 2014. Oorspronkelijk *Zero to One: Notes on
+Startups, or How to Build the Future* (Crown Business, 16 september 2014, 224
+blz., ISBN 9780804139298), gebaseerd op collegeaantekeningen van Blake Masters
+bij Thiels vak aan Stanford (voorjaar 2012). Nederlands als *Zero to one:
+creëer de toekomst* (Business Contact, vertaling Jan Willem Reitsma, 235 blz.,
+ISBN 9789047007265). Rubriek: geld en ondernemen.
+Tags: `ondernemerschap`, `start-ups`, `innovatie`, `monopolie`, `Silicon
+Valley`, `strategie`, `technologie`
+
+Thiel, medeoprichter van PayPal en vroege investeerder in Facebook, dicteerde
+dit boek op basis van collegeaantekeningen van zijn student Blake Masters bij
+het vak dat hij in 2012 aan Stanford gaf. Zijn stelling is dat vooruitgang
+niet komt van het kopiëren en verbeteren van wat al bestaat, wat het boek 1
+naar n noemt, maar van het maken van iets dat nog niet bestond, van 0 naar 1.
+
+Bedrijven die daarin slagen, bouwen volgens hem een tijdelijk monopolie, en
+dat monopolie is volgens Thiel geen probleem maar het doel: alleen een
+monopolist heeft de winst en de rust om verder te bouwen aan de toekomst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Thiel stelt dat economische vooruitgang niet komt van
+concurrentie maar van het vermijden ervan: bedrijven die een markt kopiëren en
+er iets beter in zijn, groeien de concurrentie in en verliezen daardoor het
+geld en de tijd om nieuwe dingen te bouwen; bedrijven die iets maken dat nog
+niet bestond, hoeven niet te concurreren en kunnen het monopolie dat daaruit
+volgt gebruiken om verder te investeren. Concurrentie is voor Thiel een
+ideologie die bedrijven arm maakt terwijl zij pretendeert hen scherp te
+houden, en een gezond monopolie is voor hem geen gevaar voor de vooruitgang
+maar de voorwaarde ervoor. Wie dat betwist, kan wijzen op wat monopolies doen
+met de klanten die geen alternatief meer hebben.
+
+#### De gang van het boek
+
+**Van 0 naar 1 tegenover 1 naar n**
+
+Thiel opent met het onderscheid dat het boek zijn titel geeft. Horizontale
+vooruitgang, 1 naar n, is het kopiëren van iets wat al werkt: een tweede
+fabriek naast de eerste, een tweede webwinkel naast de eerste. Verticale
+vooruitgang, 0 naar 1, is het maken van iets nieuws waar nog niets van
+bestond.
+
+Zijn stelling is dat de twintigste eeuw vooral horizontale vooruitgang kende,
+uitbreiding van wat al werkte over de hele wereld, en dat technologische
+vooruitgang in enge zin, dus 0 naar 1, zeldzamer is en meer aandacht verdient
+dan zij krijgt.
+
+**Waarom concurrentie een mythe is**
+
+Het middendeel van het boek keert de gangbare wijsheid om. Waar economieboeken
+concurrentie als de motor van vooruitgang beschrijven, stelt Thiel dat
+concurrentie vooral energie verspilt: bedrijven in een concurrerende markt
+besteden hun tijd aan het verslaan van elkaar in plaats van aan het bouwen van
+iets nieuws, en de winstmarges worden daardoor tot bijna niets teruggebracht.
+
+Zijn tegenvoorbeeld is het monopolie: een bedrijf zonder directe concurrenten
+kan zich veroorloven om aan de lange termijn te denken, aan werknemers, aan
+producten die nog niet af zijn. Thiel noemt dat een creatief monopolie, in
+tegenstelling tot een monopolie dat ontstaat door het kapotconcurreren van
+anderen of door overheidsbescherming.
+
+**Zeven vragen voor een start-up**
+
+Om te bepalen of een bedrijf kans maakt op zo'n monopolie, geeft Thiel zeven
+vragen die het volgens hem allemaal goed moet beantwoorden: heeft het een
+technische doorbraak, is het moment juist, begint het klein genoeg om een
+niche te domineren, heeft het het juiste team, heeft het een plan om klanten
+te bereiken, houdt het positie tien of twintig jaar stand, en heeft het een
+geheim dat anderen niet zien.
+
+Die laatste vraag, het geheim, komt het vaakst terug in het boek. Volgens
+Thiel geloven te weinig ondernemers nog dat er onontdekte waarheden bestaan,
+en dat gebrek aan geloof is voor hem een groter obstakel voor vooruitgang dan
+gebrek aan kapitaal.
+
+**Definitief optimisme**
+
+Thiel onderscheidt vier houdingen tegenover de toekomst: definitief of vaag,
+optimistisch of pessimistisch. Een definitief optimist gelooft dat de toekomst
+beter wordt en dat mensen die toekomst kunnen plannen en bouwen. Een vaag
+optimist gelooft ook dat het beter wordt, maar zonder een plan, in het
+vertrouwen dat het vanzelf goed komt.
+
+Zijn kritiek richt zich vooral op de Verenigde Staten van na de jaren
+zeventig, die hij vaag optimistisch noemt: een cultuur die wel in vooruitgang
+gelooft maar nauwelijks nog grote, geplande projecten onderneemt en in plaats
+daarvan optimalisatie en financiële constructies verkiest boven het bouwen van
+iets nieuws.
+
+**Mensen en teams**
+
+Een deel van het boek gaat over hoe zo'n bedrijf wordt opgebouwd. Thiel raadt
+af om met te veel losse partijen te beginnen: te veel adviseurs, te veel
+deeltijdmedewerkers, te veel externe investeerders zonder betrokkenheid, want
+een start-up heeft volgens hem een klein aantal mensen nodig die zich volledig
+en op dezelfde manier binden.
+
+Hij bespreekt ook de PayPal-mafia, de groep vroege medewerkers van PayPal die
+na de verkoop van het bedrijf onder meer Tesla, LinkedIn en YouTube
+oprichtten, als voorbeeld van wat een hecht, klein oprichtersteam later kan
+opleveren.
+
+**Verkopen wordt onderschat**
+
+Thiel besteedt aandacht aan distributie en verkoop, een onderwerp dat volgens
+hem door technische oprichters wordt onderschat. Een goed product verkoopt
+zichzelf niet, schrijft hij, en de overtuiging dat het dat wel doet is zelf
+een verkooppraatje dat technische mensen elkaar vertellen om distributie te
+kunnen negeren.
+
+Hij onderscheidt verschillende verkoopmodellen naar de prijs en de
+complexiteit van het product, van reclame voor goedkope consumentenproducten
+tot persoonlijke verkoop voor grote, complexe contracten, en stelt dat elk
+bedrijf minstens één van die kanalen goed moet beheersen om te overleven.
+
+**Mensen tegenover machines**
+
+In het laatste deel plaatst Thiel technologie tegenover globalisering als de
+twee manieren waarop de wereld vooruit kan. Globalisering, het overal ter
+wereld invoeren van wat al werkt, botst volgens hem op de grenzen van
+grondstoffen als de wereld niet ook technisch vooruitgaat. Hij verwerpt het
+idee dat computers mensen zullen vervangen en pleit voor bedrijven die mens en
+machine samen sterker maken, met zijn eigen bedrijf Palantir als voorbeeld.
+
+**Ontvangst**
+
+Het boek werd na verschijnen een standaardwerk in startup-opleidingen en wordt
+sindsdien breed gebruikt als inleiding tot durfkapitaaldenken. De herkomst als
+collegeaantekeningen is in de tekst nog te herkennen: elk hoofdstuk behandelt
+één afgebakende stelling, zonder de bredere literatuurverwijzingen die een
+economisch handboek zou bevatten.
+
+Diezelfde herkomst verklaart ook de toon: Thiel spreekt de lezer aan als een
+groep aankomende oprichters die hij ervan wil overtuigen anders te denken dan
+de gangbare wijsheid in durfkapitaalkringen, niet als een algemeen publiek dat
+een uitgebalanceerd overzicht van ondernemerschap zoekt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| 0 naar 1 | Het maken van iets nieuws dat nog niet bestond, tegenover het kopiëren van wat al werkt. |
+| 1 naar n | Horizontale vooruitgang: iets wat al bestaat, uitbreiden of verbeteren zonder het wezenlijk te veranderen. |
+| Creatief monopolie | Een monopolie dat ontstaat doordat een bedrijf iets bijzonders maakt, tegenover een monopolie door concurrentievervalsing. |
+| Definitief optimisme | Het geloof dat de toekomst beter wordt én dat die toekomst gepland en gebouwd kan worden. |
+| Vaag optimisme | Het geloof dat het beter wordt, zonder een plan voor hoe dat gebeurt. |
+| Het geheim | Een waarheid over de wereld die weinig mensen zien en waarop een start-up haar voorsprong kan bouwen. |
+| PayPal-mafia | De groep vroege PayPal-medewerkers die na de verkoop van het bedrijf onder meer Tesla, LinkedIn en YouTube oprichtten. |
+| Zeven vragen | De toets waarmee Thiel een start-up beoordeelt, van technische doorbraak tot een geheim dat anderen niet zien. |
+
+#### Waar het argument op rust
+
+Thiels bewijsvoering bestaat vrijwel volledig uit zijn eigen ervaring als
+medeoprichter van PayPal, vroeg investeerder in Facebook en oprichter van
+Palantir, aangevuld met de bedrijven die hij als investeerder van dichtbij
+zag. Het boek bevat geen dataset, geen vergelijkend onderzoek naar bedrijven
+die wel en niet volgens zijn principes werkten, en geen poging om zijn
+stelling te toetsen aan bedrijven die faalden ondanks een schijnbaar
+monopolie.
+
+De kracht van het boek zit in de scherpte van de stellingen en in de weinige,
+goed gekozen voorbeelden, waaronder PayPal zelf. Dat is overtuigend als betoog
+en zwak als bewijs: een handvol geslaagde voorbeelden van iemand die zelf in
+die bedrijven zat, zegt weinig over hoeveel bedrijven met dezelfde aanpak
+faalden.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat Thiel terugredeneert vanuit bedrijven die een
+monopolie bereikten, zonder de veel grotere groep bedrijven te bespreken die
+precies dezelfde principes volgden, een geheim claimden, klein begonnen, en
+toch verdwenen. Zonder die vergelijking is niet vast te stellen of zijn
+adviezen de oorzaak van succes waren of alleen achteraf bij geslaagde
+bedrijven passen.
+
+Zijn pleidooi voor monopolies gaat bovendien voorbij aan wat een monopolie met
+klanten doet zodra de concurrentie eenmaal weg is: prijzen die stijgen,
+keuzevrijheid die verdwijnt, macht die zich ophoopt. Thiel bespreekt vooral
+wat een monopolie voor het bedrijf zelf oplevert, en nauwelijks wat het de
+rest van de markt kost.
+
+Het boek is verder sterk gekleurd door de wereld van Silicon
+Valley-technologiebedrijven met investeerderskapitaal, en de adviezen over
+klein beginnen, een hecht team en een technisch geheim vertalen zich lastig
+naar bedrijven buiten die specifieke wereld, iets wat Thiel zelf ook
+nauwelijks probeert.
+
+Zijn positie als investeerder maakt hem bovendien een belanghebbende partij:
+dezelfde overtuigingen die het boek verdedigt, bepalen ook welke bedrijven
+zijn fondsen financieren, wat de scheiding tussen analyse en eigenbelang niet
+vanzelfsprekend maakt.
+
+#### Wat er concreet mee te doen is
+
+- Stel bij een nieuw plan de vraag welke waarheid je gelooft die de meeste
+mensen om je heen niet delen.
+- Ga na of je begint in een markt klein genoeg om te domineren, in plaats van
+meteen breed te concurreren.
+- Kijk kritisch naar hoeveel losse partijen, adviseurs en deeltijdbetrokkenen
+bij je plan horen, en overweeg dat aantal te beperken.
+- Bedenk minstens één kanaal waarlangs klanten je product actief te weten
+komen, in plaats van te rekenen op vanzelf verspreiden.
+
+#### Wat je hierna leest
+
+- 47. The Hard Thing About Hard Things. Horowitz beschrijft vanuit dezelfde
+Silicon Valley-wereld wat er gebeurt zodra een bedrijf, monopolie of niet, in
+de problemen komt.
+- 265. The Lean Startup. Ries zet tegenover Thiels grote visie een methode om
+snel te toetsen of een idee klopt voordat er groot op wordt ingezet.
+- 293. The Innovator's Dilemma. Christensen verklaart vanuit onderzoek waarom
+gevestigde monopolisten juist kwetsbaar zijn voor nieuwe 0-naar-1-bedrijven.
+
+## 307. $100M Offers
+
+Alex Hormozi, 2021. Oorspronkelijk *$100M Offers: How To Make Offers So Good
+People Feel Stupid Saying No* (Acquisition.com, 13 juli 2021, ca. 166 blz.,
+ISBN 9781737475736). Geen Nederlandse vertaling verschenen; deze samenvatting
+is op de Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `ondernemerschap`, `verkoop`, `marketing`, `prijsstelling`, `aanbod`,
+`fitnessbranche`, `zakelijk`
+
+Hormozi opende op zijn drieëntwintigste zijn eerste sportschool, sliep na een
+mislukt partnerschap een tijd op de vloer van die sportschool, en bouwde
+vandaaruit Gym Launch op, een licentieformule voor sportschoolketens die hij
+binnen enkele jaren met winst verkocht. Uit die verkoopervaring destilleert
+hij één stelling: bedrijven verkopen niet te weinig omdat hun product slecht
+is, maar omdat hun aanbod zo onaantrekkelijk is geformuleerd dat een
+prijsvergelijking de enige overweging wordt.
+
+Zijn oplossing is wat hij een grand slam offer noemt, een aanbod dat zo veel
+waarde belooft tegen zo weinig risico dat nee zeggen als een vergissing voelt.
+Het boek werkt dat uit in een stappenplan en een formule.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hormozi stelt dat de meeste bedrijven verkopen op prijs omdat
+hun aanbod, niet hun product, zwak in elkaar zit: klanten kunnen het aanbod
+niet onderscheiden van dat van de concurrent, en gaan daardoor automatisch
+voor de laagste prijs. Zijn remedie is wat hij een grand slam offer noemt, een
+aanbod waarin de beloofde uitkomst zo groot en het risico voor de klant zo
+klein is gemaakt, met garanties, bonussen en een scherp afgebakende doelgroep,
+dat prijs geen onderwerp van gesprek meer is. Dat is volgens hem geen kwestie
+van een beter product bouwen maar van hetzelfde product beter verpakken en
+beter beloven.
+
+#### De gang van het boek
+
+**Het probleem: verkopen op prijs**
+
+Hormozi begint bij zijn eigen sportschool, waar hij inzag dat klanten pas naar
+de prijs vragen zodra zij het aanbod niet als bijzonder genoeg herkennen. Een
+lidmaatschap dat hetzelfde belooft als elke andere sportschool, nodigt vanzelf
+uit tot vergelijken op de goedkoopste maandprijs.
+
+Zijn stelling is dat de oplossing niet in een lagere prijs of een beter
+product zit, maar in een aanbod dat zo specifiek en zo overtuigend is
+geformuleerd dat het niet meer te vergelijken valt met dat van de concurrent.
+Dat aanbod noemt hij door het hele boek een grand slam offer.
+
+**De waarde-vergelijking**
+
+Om zo'n aanbod te bouwen introduceert Hormozi een formule: de ervaren waarde
+stijgt met de gedroomde uitkomst en de kans dat die uitkomst wordt gehaald, en
+daalt met de tijd die het kost en de moeite die het van de klant vraagt. Omdat
+tijd en moeite in de noemer staan, stelt hij dat elk aanbod sterker wordt door
+die twee zo dicht mogelijk naar nul te brengen, ook als de uitkomst zelf
+hetzelfde blijft.
+
+Die formule is niet met cijfers gemeten maar bedoeld als denkkader: voor elk
+kenmerk van een aanbod, van een garantie tot een levertermijn, laat zij zien
+of het de waarde optilt of juist afbreekt.
+
+**De gedroomde uitkomst en de obstakels**
+
+Het volgende deel is een stappenplan. Eerst brengt de ondernemer de eigenlijke
+wens van de klant in kaart, niet het product maar de uitkomst waar het product
+een middel toe is: geen sportschoolabonnement maar gewichtsverlies, geen
+software maar tijdwinst. Daarna somt hij alle obstakels op die een klant voor,
+tijdens en na de aankoop tegenkomt, van twijfel vooraf tot een gebrek aan
+discipline achteraf.
+
+Elk obstakel wordt vervolgens omgezet in een concreet onderdeel van het
+aanbod: een garantie tegen het obstakel van twijfel, begeleiding tegen het
+obstakel van een gebrek aan discipline. Het resultaat is een aanbod dat is
+opgebouwd uit oplossingen voor specifieke, benoemde bezwaren in plaats van uit
+algemene productkenmerken.
+
+**Prijs zetten**
+
+Hormozi behandelt daarna prijsstelling als een aparte beslissing, los van
+kostprijs. Zijn advies is om hoger te prijzen dan intuïtief voelt, mits het
+aanbod die prijs met garanties en bonussen rechtvaardigt, omdat een hogere
+prijs volgens hem ook de kwaliteit van de klant beïnvloedt: wie meer betaalt,
+is doorgaans gemotiveerder om het resultaat te halen.
+
+Hij waarschuwt tegelijk voor markten die weinig ruimte voor hoge prijzen
+bieden, en raadt aan om eerst een markt te kiezen met voldoende koopkracht en
+voldoende pijn bij het probleem, voordat er aan het aanbod zelf wordt
+gesleuteld.
+
+**Garanties en bonussen stapelen**
+
+Een terugkerend onderdeel is het stapelen: meerdere kleinere garanties en
+bonussen in plaats van één grote belofte. Hormozi onderscheidt garantietypes,
+van geld-terug tot een herhaalde poging zonder extra kosten, en stelt dat een
+combinatie van kleinere, specifieke garanties overtuigender werkt dan één
+brede.
+
+Bonussen krijgen dezelfde behandeling: niet toegevoegd om het aanbod voller te
+laten lijken, maar gekozen om precies de obstakels weg te nemen die eerder in
+het proces zijn benoemd. Een bonus die niet aan een specifiek obstakel is
+gekoppeld, beschouwt hij als opvulling zonder waarde.
+
+**Naamgeving en presentatie**
+
+Het laatste onderdeel van het stappenplan gaat over de naam en de presentatie
+van het aanbod. Hormozi stelt dat een aanbod met een herkenbare, specifieke
+naam, zoals een programmanaam in plaats van 'coaching', geloofwaardiger
+overkomt en makkelijker wordt doorverteld dan een aanbod zonder eigen
+identiteit.
+
+Hij sluit af met het advies om het hele aanbod regelmatig te herzien:
+onderdelen die niet bijdragen aan de ervaren waarde eruit te halen, en
+onderdelen die wel werken te versterken, in plaats van het aanbod na lancering
+ongewijzigd te laten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Grand slam offer | Een aanbod met zo veel beloofde waarde en zo weinig risico dat een klant het als een vergissing ervaart om nee te zeggen. |
+| Waarde-vergelijking | Zijn formule waarin ervaren waarde stijgt met de gedroomde uitkomst en de kans daarop, en daalt met tijd en moeite. |
+| Gedroomde uitkomst | De onderliggende wens van de klant, los van het product dat die wens moet vervullen. |
+| Delivery cube | Zijn denkkader om de leveringsvorm van een aanbod te kiezen, van groep tot individueel en van hoge tot lage begeleiding. |
+| Stapelen van garanties | Meerdere kleinere, specifieke garanties combineren in plaats van te vertrouwen op één brede belofte. |
+| Obstakel-oplossing-paar | Elk bezwaar van de klant expliciet koppelen aan een onderdeel van het aanbod dat dat bezwaar wegneemt. |
+| Prijsanker | Een hogere prijs zetten dan intuïtief voelt, om zowel de waargenomen waarde als de motivatie van de klant te verhogen. |
+| Naamgeving van het aanbod | Het aanbod een herkenbare, eigen naam geven in plaats van een algemene productcategorie. |
+
+#### Waar het argument op rust
+
+Hormozi onderbouwt zijn stellingen met zijn eigen loopbaan: de sportschool die
+hij op zijn drieëntwintigste opende, het faillissement van een vroeg
+partnerschap, en de licentieformule Gym Launch die hij daarna opbouwde en
+verkocht. Het boek verwijst niet naar extern onderzoek naar prijsstelling of
+consumentengedrag en citeert geen wetenschappelijke bronnen.
+
+Zijn bewijs is dus praktijkervaring van één ondernemer in een specifieke
+sector, fitness- en coachingdiensten met een sterk verkoopgedreven
+verdienmodel, aangevuld met wat hij later bij klanten van zijn eigen bedrijf
+Acquisition.com zag. Dat is een andere onderbouwing dan onderzoek naar een
+grote, uiteenlopende groep bedrijven.
+
+#### Wat er tegen in te brengen valt
+
+Het boek generaliseert vanuit één, nogal specifieke praktijk: verkoopgedreven
+diensten met hoge marges, waarin garanties en bonussen relatief goedkoop aan
+te bieden zijn. Voor bedrijven met lage marges, fysieke voorraad of lange
+productiecycli is het niet vanzelfsprekend dat dezelfde stapelmethode werkt.
+
+Er is geen aandacht voor wat er gebeurt als veel bedrijven in dezelfde markt
+de methode tegelijk toepassen: als garanties en bonussen de norm worden,
+verdwijnt het onderscheidende voordeel dat het boek belooft, en blijft alleen
+de hogere prijs over.
+
+Verder behandelt het boek het aanbod los van de vraag of het onderliggende
+product de belofte waarmaakt. Een aanbod dat volgens de formule van het boek
+zo overtuigend is opgebouwd dat een nee onlogisch voelt, kan evengoed horen
+bij een product dat de gedroomde uitkomst niet levert; het boek gaat ervan uit
+dat de ondernemer die kant al op orde heeft en richt zich uitsluitend op de
+verpakking eromheen.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf voor je eigen aanbod de gedroomde uitkomst van de klant in plaats
+van de kenmerken van het product.
+- Maak een lijst van obstakels die een klant voor, tijdens en na de aankoop
+tegenkomt, en koppel aan elk obstakel een concreet onderdeel van het aanbod.
+- Herzie de prijs los van de kostprijs: vraag wat het aanbod waard zou zijn
+als alle twijfel bij de klant is weggenomen.
+- Verwijder onderdelen van het aanbod die niet aan een benoemd obstakel zijn
+gekoppeld.
+
+#### Wat je hierna leest
+
+- 40. The $100 Startup. Guillebeau beschrijft vanuit honderden kleine
+ondernemingen dezelfde nadruk op een scherp aanbod, met meer variatie aan
+voorbeelden dan Hormozi's ene sector.
+- 271. Never Split the Difference. Voss behandelt onderhandelen vanuit
+gijzelingsonderhandelingen en biedt een tegenwicht tegen Hormozi's aanname dat
+een goed aanbod de onderhandeling al beslecht.
+- 279. All Marketers Are Liars. Godin waarschuwt voor de andere kant van
+sterke beloften: wat er gebeurt als de marketing meer belooft dan het product
+waarmaakt.
+
+## 308. $100M Leads
+
+Alex Hormozi, 2023. Oorspronkelijk *$100M Leads: How to Get Strangers To Want
+To Buy Your Stuff* (Acquisition.com Publishing, 30 augustus 2023, 278 blz.,
+ISBN 9781737475774), het tweede boek in de Acquisition.com $100M-reeks na
+*$100M Offers* (2021). Geen Nederlandse uitgave gevonden; de samenvatting hier
+is op de Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `marketing`, `leadgeneratie`, `verkoop`, `ondernemerschap`,
+`adverteren`, `content`
+
+Hormozi behandelt de vraag die volgt op zijn eerste boek *$100M Offers*: er is
+een aanbod, maar wie krijgt het te zien? Hij verdeelt alle manieren om aan
+potentiële klanten te komen in wat hij de Core Four noemt, vier categorieën
+die ontstaan uit twee assen: een warm publiek dat een bedrijf al kent
+tegenover een koud publiek van vreemden, en persoonlijk contact tegenover
+content die mensen zelf vinden. Warme outreach, content, koude outreach en
+betaalde advertenties zijn in die indeling de enige vier wegen waarlangs een
+bedrijf ooit leads heeft geworven.
+
+Het boek is per methode opgebouwd als een naslagwerk met scripts, volgordes en
+vuistregels, doorspekt met voorbeelden uit de fitnessbedrijven en
+softwarebedrijven die Hormozi zelf opbouwde en verkocht voordat hij
+investeringsmaatschappij Acquisition.com begon.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hormozi's stelling is dat leadgeneratie geen mysterie is,
+maar te herleiden valt tot vier vaste wegen die samen alles dekken wat een
+bedrijf ooit heeft gedaan om aan klanten te komen: bekenden persoonlijk
+benaderen, vreemden persoonlijk benaderen, content maken voor wie een bedrijf
+al volgt en betalen voor bereik bij wie het nog niet kent. Wie genoeg van deze
+vier methoden met genoeg volharding uitvoert, krijgt volgens hem leads,
+ongeacht de markt. Daar valt tegenover te zetten dat een indeling die per
+definitie alles omvat weinig zegt over welke van de vier voor een gegeven
+bedrijf de moeite waard is, alleen dat er geen vijfde weg bestaat.
+
+#### De gang van het boek
+
+**De Core Four**
+
+Het uitgangspunt van het boek is een rooster van twee bij twee. Op de ene as
+staat het publiek: warm, mensen die het bedrijf al kennen, tegenover koud,
+vreemden die nog nooit van het bedrijf gehoord hebben. Op de andere as staat
+de vorm: persoonlijk contact tegenover content die het publiek zelf tegenkomt.
+Dat levert vier vakjes op: warme outreach, koude outreach, content en betaalde
+advertenties.
+
+Hormozi's claim is dat elke leadgeneratietactiek die ooit is bedacht in een
+van deze vier vakjes valt. Een aanbeveling van een klant is warme outreach met
+een omweg, een virale video is content, een koude e-mail is koude outreach. De
+indeling dient niet om nieuwe tactieken te bedenken, maar om te herkennen
+welke van de vier een bedrijf verwaarloost.
+
+**Warme outreach**
+
+De eerste methode is het benaderen van mensen die het bedrijf al kennen:
+oud-klanten, contacten, mensen in het eigen netwerk. Hormozi geeft er een
+vaste volgorde voor: eerst iets van waarde geven zonder iets terug te vragen,
+dat nog twee keer herhalen, en pas daarna vragen of de ander open staat voor
+het aanbod. Hij noemt dat de Give-Give-Give-Ask-volgorde.
+
+Zijn argument voor deze methode is dat ze de goedkoopste en snelste manier is
+om de eerste leads te krijgen, juist omdat er al vertrouwen ligt. De keerzijde
+die hij zelf noemt is dat het netwerk van bekenden een keer op is: warme
+outreach is een goede start, geen groeimotor.
+
+**Content**
+
+De tweede methode is het maken van content voor het publiek dat een bedrijf al
+volgt, met als doel dat volgers zelf potentiële klanten aandragen of overgaan
+tot kopen. Hormozi onderscheidt content die puur waarde geeft van content die
+naar een aanbod toewerkt, en stelt dat de meeste bedrijven te snel naar het
+tweede type springen voordat er een publiek is opgebouwd.
+
+Hij raadt een vast ritme aan waarin één stuk content telkens één idee
+overbrengt, en bouwt op herhaling: hetzelfde onderwerp in verschillende vormen
+tot het aanslaat.
+
+**Koude outreach**
+
+De derde methode is het rechtstreeks benaderen van vreemden, via telefoon,
+e-mail of berichten. Hormozi behandelt dit als een cijfermatig proces: hij
+geeft vuistregels voor hoeveel pogingen nodig zijn voor een reactie, en
+scripts die kort genoeg zijn om niet als spam te worden weggezet.
+
+Kern van zijn advies is de Rule of 100: elke dag honderd primaire acties
+uitvoeren, zoals honderd telefoontjes of honderd berichten, en dat honderd
+dagen achter elkaar volhouden. Niet de kwaliteit van één los bericht bepaalt
+volgens hem het resultaat, maar het volume dat wordt volgehouden.
+
+**Betaalde advertenties**
+
+De vierde methode is betalen voor bereik bij een koud publiek. Hormozi
+behandelt advertenties als rekensom: wat een klant oplevert moet hoger zijn
+dan wat een advertentie kost om die klant te werven, en zolang dat klopt is
+meer adverteren beter.
+
+Hij werkt dat verder uit met wat hij het More-Better-New-kader noemt: eerst
+meer doen van wat al werkt, dan optimaliseren waar leads in de trechter
+afhaken, en pas als laatste nieuwe platforms of vormen toevoegen.
+
+**Het lokmiddel vooraf**
+
+Los van de vier methoden besteedt Hormozi een apart deel aan het lokmiddel dat
+mensen over de streep trekt om hun gegevens achter te laten. Zijn stelling is
+dat een lokmiddel meer waarde moet lijken te bieden dan het uiteindelijke
+betaalde aanbod, ook al kost het de aanbieder zelf weinig. De meeste mensen
+die het lokmiddel afnemen kopen nooit iets, maar ze vormen zich wel een beeld
+van het bedrijf aan de hand van wat ze gratis kregen.
+
+**Opvolgen tot de klant beslist**
+
+Een apart deel gaat over wat er gebeurt nadat er contact is gelegd. Hormozi's
+vuistregel is dat een lead pas is opgegeven na vijf tot zeven pogingen: de
+eerste boodschap krijgt zelden een reactie, en wie na twee of drie keer stopt,
+laat volgens hem het grootste deel van de leads liggen die uiteindelijk wel
+hadden gekocht. Hij noemt opvolgen daarom niet als bijzaak maar als de plek
+waar het geld feitelijk wordt verdiend.
+
+Bezwaren van een potentiële klant behandelt hij niet als een teken om af te
+haken, maar als een ontbrekend stukje informatie: elk bezwaar dat wordt
+weggenomen, verwijdert een reden om nee te zeggen en maakt het aanbod voor de
+volgende twijfelaar sterker. Scripts voor veelgehoorde bezwaren, over prijs,
+timing of twijfel of het product wel werkt, krijgen daarom evenveel aandacht
+als de eerste benadering.
+
+**Volume boven precisie**
+
+Door het hele boek heen keert dezelfde boodschap terug: er bestaat geen truc
+die leadgeneratie makkelijk maakt, alleen het lang genoeg volhouden van een
+van de vier methoden. Hormozi presenteert zichzelf daarbij als iemand die
+faalde voordat het lukte, met cijfers uit zijn eigen fitnessbedrijven over
+hoeveel outreach-pogingen nodig waren voordat er een klant uitkwam.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Core Four | De vier basisvormen van leadgeneratie, ontstaan uit de assen warm/koud publiek en persoonlijk contact/content. |
+| Warme outreach | Persoonlijk contact zoeken met mensen die het bedrijf al kennen. |
+| Koude outreach | Persoonlijk contact zoeken met vreemden die het bedrijf nog niet kennen. |
+| Lokmiddel | Iets gratis of goedkoop aanbieden om contactgegevens van een potentiële klant te krijgen. |
+| Give-Give-Give-Ask | De volgorde waarin drie keer waarde wordt gegeven voordat er iets wordt gevraagd. |
+| Rule of 100 | Honderd primaire leadgeneratie-acties per dag, honderd dagen achtereen. |
+| More-Better-New | Het kader om leads te vermeerderen: eerst meer van wat werkt, dan de trechter verbeteren, dan pas nieuwe kanalen. |
+| Lead | Iemand die zijn contactgegevens heeft achtergelaten en daarmee interesse heeft getoond. |
+| Bezwaar als ontbrekende oplossing | De gedachte dat een bezwaar geen afwijzing is maar een stukje informatie dat het aanbod, eenmaal weggenomen, sterker maakt. |
+
+#### Waar het argument op rust
+
+Het boek rust vrijwel volledig op de eigen praktijk van de auteur. Hormozi
+bouwde en verkocht fitnessbedrijven en software, en de cijfers en scripts die
+hij aanhaalt komen uit die ondernemingen en uit de bedrijven die hij via
+Acquisition.com adviseert. Onafhankelijk onderzoek naar de Core Four-indeling
+of naar de Rule of 100 wordt niet aangehaald en lijkt niet te bestaan; het
+zijn vuistregels uit ervaring, geen uitkomsten van een studie.
+
+Wat het betoog wel sterk maakt, is de interne consistentie: elke methode wordt
+met scripts en getallen onderbouwd in plaats van met alleen intenties, en
+Hormozi noemt ook methoden die bij hemzelf niet werkten. Dat is meer openheid
+dan in het genre gebruikelijk is, maar het blijft de ervaring van één
+ondernemer in een specifieke niche, fitnessbedrijven en softwarebedrijven met
+een duidelijk prijskaartje, die niet zonder meer naar elke markt is te
+vertalen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de Core Four als indeling niet te weerleggen is:
+elke denkbare tactiek past in een van de vier vakjes, wat de indeling nuttig
+maakt om te sorteren maar niet om te kiezen. Het boek zegt weinig over welke
+van de vier voor een bepaald bedrijf of budget het meest oplevert, en laat dat
+aan de lezer over.
+
+Verder is het advies sterk gericht op volume en herhaling, wat aansluit bij
+bedrijven met een team dat honderd acties per dag kan uitvoeren, en minder
+aansluit bij een eenpersoonsbedrijf zonder personeel. Hormozi's eigen
+voorbeelden komen bovendien vrijwel allemaal uit bedrijven met een hoog
+geprijsd aanbod, wat de vraag openlaat hoe de methoden werken bij een laag
+geprijsd product met dunne marges.
+
+#### Wat er concreet mee te doen is
+
+- Breng in kaart welke van de vier methoden het bedrijf al gebruikt en welke
+volledig ontbreken.
+- Stel voor warme outreach een vaste tekst op die eerst iets geeft voordat er
+iets wordt gevraagd.
+- Tel een week lang het aantal outreach-pogingen en vergelijk dat met de
+honderd per dag uit de Rule of 100.
+- Reken uit wat een klant oplevert voordat een advertentiebudget wordt
+vastgesteld.
+
+#### Wat je hierna leest
+
+- 279. All Marketers Are Liars. Godin behandelt vanuit een ander perspectief
+wat een verhaal rond een product overtuigend maakt, waar Hormozi vooral het
+bereik zelf regelt.
+- 280. Influence. Cialdini's beginselen van overtuiging liggen onder scripts
+als Give-Give-Give-Ask, maar dan uitgewerkt vanuit onderzoek in plaats van
+praktijk.
+- 40. The $100 Startup. Guillebeau beschrijft ondernemingen die met weinig
+budget starten, het soort bedrijf waarvoor warme en koude outreach vaak de
+enige haalbare eerste stap is.
+
+## 309. DotCom Secrets
+
+Russell Brunson, 2015. Oorspronkelijk *DotCom Secrets: The Underground
+Playbook for Growing Your Company Online with Sales Funnels* (Morgan James
+Publishing, 28 april 2015, 236 blz., ISBN 9781630474775), het eerste boek van
+Brunson en de basis onder zijn softwarebedrijf ClickFunnels. Geen Nederlandse
+uitgave gevonden; de samenvatting hier is op de Engelse editie gebaseerd.
+Rubriek: geld en ondernemen.
+Tags: `marketing`, `verkooptrechters`, `online ondernemen`, `e-mailmarketing`,
+`klantwaarde`
+
+Brunson beschrijft hoe een online bedrijf klanten zou moeten leiden langs een
+reeks aanbiedingen met oplopende prijs en oplopende toewijding, van een gratis
+of zeer goedkoop eerste aanbod tot de duurste dienst die het bedrijf voert.
+Hij noemt die reeks de Value Ladder en bouwt het boek op rond het idee dat een
+bedrijf zonder zo'n ladder klanten verliest aan concurrenten die er wel een
+hebben.
+
+Het boek is in drie delen opgebouwd: eerst de basisformule en de Value Ladder,
+dan de communicatie met klanten via e-mail, en ten slotte een reeks
+kant-en-klare verkooptrechters voor verschillende situaties, van een eerste
+kennismaking tot een terugkerend abonnement. Brunson schreef het als
+voorportaal voor zijn softwarebedrijf ClickFunnels, dat de besproken trechters
+bouwt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Brunsons stelling is dat een online bedrijf niet één product
+verkoopt maar een klant door een reeks aanbiedingen leidt die in prijs en
+toewijding oplopen, van gratis naar duur, en dat wie die reeks niet bewust
+inricht klanten misloopt aan concurrenten die dat wel doen. Hij noemt die
+reeks de Value Ladder en stelt dat bedrijven vaker mislukken doordat ze een
+klant maar één aanbod voorleggen dan doordat hun product slecht is. Daar valt
+tegenover te zetten dat een oplopende reeks aanbiedingen evengoed kan
+neerkomen op een klant steeds verder een trechter injagen in plaats van hem
+daadwerkelijk beter bedienen.
+
+#### De gang van het boek
+
+**De basisformule**
+
+Brunson opent met wat hij de Secret Formula noemt: vier vragen die aan elke
+marketinginspanning voorafgaan. Wie is de droomklant, waar komt die groep
+samen, welk lokmiddel trekt hun aandacht, en welk resultaat krijgen ze
+uiteindelijk aangeboden. Die volgorde dwingt om eerst het publiek te bepalen
+voordat er over het product wordt nagedacht.
+
+Het idee achter deze volgorde is dat de meeste ondernemers omgekeerd te werk
+gaan: ze bedenken een product en zoeken daarna een publiek erbij. Brunson
+draait dat om en stelt het publiek voorop.
+
+**De Value Ladder**
+
+Het middelpunt van het boek is een ladder van aanbiedingen die in prijs en
+toewijding oplopen: onderaan een gratis of zeer goedkoop aanbod om iemand voor
+het eerst klant te maken, daarboven een reeks producten en diensten die
+duurder worden naarmate het vertrouwen groeit. Brunson stelt dat een bedrijf
+zonder deze ladder klanten na de eerste aankoop kwijtraakt aan wie wel een
+vervolgaanbod klaar heeft staan.
+
+Hij onderscheidt daarbij front-end aanbiedingen, die klanten binnenhalen, van
+back-end aanbiedingen, die de winst opleveren, en stelt dat de meeste
+bedrijven al hun aandacht op het front-end besteden terwijl het geld verderop
+in de ladder zit.
+
+**De Attractive Character**
+
+In het tweede deel introduceert Brunson wat hij de Attractive Character noemt:
+een persoonlijk, herkenbaar personage rond wie de communicatie van een bedrijf
+draait, meestal de oprichter zelf. Hij onderscheidt daarbinnen vaste rollen,
+zoals de aanvoerder die de weg wijst en de verloren ziel die net als de lezer
+nog zoekende is.
+
+Het argument is dat mensen kopen van mensen en niet van bedrijven, en dat een
+anoniem logo minder vertrouwen wekt dan een herkenbaar gezicht met een eigen
+verhaal.
+
+**Soap Opera Sequence en Seinfeld-mails**
+
+Voor e-mailmarketing werkt Brunson twee vaste volgordes uit. De Soap Opera
+Sequence is een reeks van vijf tot zeven e-mails na aanmelding, opgebouwd als
+een feuilleton, met een cliffhanger aan het eind van elke mail om de volgende
+geopend te krijgen. Daarna volgen de Seinfeld-mails, dagelijkse berichten
+zonder vaste opbouw die losse verhalen uit het dagelijks leven verbinden aan
+het aanbod.
+
+Beide volgordes zijn bedoeld om een lijst met e-mailadressen te veranderen in
+een groep die het bedrijf blijft volgen in plaats van na één mail af te haken.
+
+**Trechters voor elke situatie**
+
+Het derde deel van het boek is een verzameling kant-en-klare trechters: een
+squeeze-pagetrechter om e-mailadressen te verzamelen, een
+productlanceringstrechter voor een nieuw aanbod, een webinartrechter om een
+groep tegelijk naar een verkoopmoment te leiden en een doorlopende trechter
+voor abonnementen.
+
+Voor elke trechter geeft Brunson de volgorde van pagina's en de boodschap per
+stap, met als terugkerend idee dat een trechter geen losse verkooppagina is
+maar een reeks stappen die elkaar opvolgen.
+
+**Meer verkopen na het eerste ja**
+
+Een terugkerend onderdeel van de trechters is wat er gebeurt zodra iemand al
+heeft besloten te kopen. Brunson beschrijft de order bump, een aankruisvakje
+bij het betaalformulier waarmee een klant tegen een kleine meerprijs een
+aanvullend product toevoegt, en stelt dat zulke toevoegingen een groot deel
+van de winst van een trechter opleveren omdat iemand die al koopt eerder nog
+iets extra's aanschaft.
+
+Na de betaling volgt vaak een eenmalig vervolgaanbod, een duurder product dat
+rechtstreeks aansluit op de eerste aankoop. Wijst de klant dat af, dan komt er
+een downsell: hetzelfde aanbod in een goedkopere vorm of met een gespreide
+betaling. Brunson illustreert dat met een eigen proef waarin een gratis
+verzendaanbod veertien procent van de bezoekers liet kopen, tegenover
+achtentwintig procent zodra daar een luisterboek met een onuitgegeven
+hoofdstuk voor 37 dollar tegenover stond.
+
+**Funnel hacking**
+
+Brunson raadt aan om de trechters van succesvolle concurrenten als klant te
+doorlopen, de pagina's, e-mails en aanbiedingen te noteren, en de eigen
+trechter daarop te baseren in plaats van bij een leeg scherm te beginnen. Hij
+noemt dat funnel hacking en presenteert het als de snelste manier om te weten
+wat in een markt al werkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Value Ladder | De reeks aanbiedingen van een bedrijf, oplopend in prijs en toewijding, van gratis tot het duurste product. |
+| Secret Formula | De vier vragen die aan elke marketinginspanning voorafgaan: droomklant, verzamelplek, lokmiddel, resultaat. |
+| Front-end en back-end | Front-end is het aanbod dat klanten binnenhaalt, back-end het duurdere vervolgaanbod dat de winst oplevert. |
+| Attractive Character | Het persoonlijke personage, meestal de oprichter, rond wie de communicatie van het bedrijf draait. |
+| Soap Opera Sequence | De reeks e-mails na aanmelding, opgebouwd als een feuilleton met een cliffhanger per aflevering. |
+| Seinfeld-mails | Dagelijkse e-mails zonder vaste opbouw die alledaagse verhalen aan het aanbod koppelen. |
+| Funnel hacking | De trechter van een concurrent doorlopen en naspelen om snel te weten wat in een markt werkt. |
+| Trechter | De vaste reeks pagina's die een bezoeker doorloopt van eerste contact tot aankoop. |
+| Order bump | Een aankruisvakje bij het betaalformulier waarmee een klant tegen een meerprijs een extra product toevoegt. |
+| Downsell | Een goedkoper alternatief dat wordt aangeboden zodra een klant een duurder vervolgaanbod afwijst. |
+
+#### Waar het argument op rust
+
+Het boek rust op Brunsons eigen ervaring als oprichter van meerdere online
+bedrijven van voor zijn ClickFunnels-tijd, en op wat hij bij klanten van zijn
+softwarebedrijf zag werken. Er worden geen onafhankelijke cijfers,
+steekproeven of vergelijkende testen aangehaald; de voorbeelden zijn casussen
+uit zijn eigen netwerk, zonder bronvermelding die een lezer zelf kan
+natrekken.
+
+Het boek is bovendien geschreven als opstap naar een product: ClickFunnels
+bouwt de trechters die Brunson beschrijft, en het boek functioneert zelf als
+voorbeeld van de front-end/back-end-ladder die het uitlegt. Dat betekent niet
+dat de beschreven technieken niet werken, maar wel dat de auteur belang heeft
+bij de conclusie dat elk bedrijf zo'n trechter nodig heeft.
+
+De cijfers die Brunson wel geeft, zoals de vergelijking tussen een gratis
+verzendaanbod en een luisterboek met een onuitgegeven hoofdstuk, zijn
+resultaten uit zijn eigen tests, gemeld zonder steekproefgrootte of nadere
+toelichting over hoe lang de test liep. Dat maakt zulke cijfers illustratief
+voor het idee erachter en niet toetsbaar als op zichzelf staand bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is het belangenconflict uit de vorige alinea: een boek
+dat pleit voor trechters, geschreven door iemand die een trechterbouwer
+verkoopt, heeft weinig reden om de grenzen van die aanpak te bespreken.
+Situaties waarin een simpele verkooppagina beter werkt dan een uitgebreide
+trechter komen niet aan bod.
+
+Verder is de toon doorgaans die van stelligheid: bijna elke techniek wordt
+gepresenteerd als iets wat werkt, zonder cijfers over hoe vaak het misgaat of
+voor welk type product het niet past. De Attractive Character-rollen en de
+Soap Opera Sequence zijn bovendien sjablonen die inmiddels door duizenden
+bedrijven zijn overgenomen, wat de herkenbaarheid ervan bij lezers van al die
+bedrijven eerder heeft doen toenemen dan afnemen.
+
+Het boek is verder gedateerd op punten waar Brunson dat zelf niet kon
+voorzien. Het verscheen in 2015, toen e-mail nog de belangrijkste manier was
+om een publiek vast te houden en advertentieplatforms minder verzadigd waren;
+sindsdien is e-maildeliverability strenger geworden en is een groot deel van
+het bereik verschoven naar kort videomateriaal, waar het boek niets over zegt.
+De onderliggende ladder-gedachte blijft overeind, maar de technische
+uitwerking van sommige trechters is aan een update toe.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf de eigen Value Ladder: welk gratis of goedkoop aanbod haalt
+klanten binnen, en welk duurder aanbod volgt daarna.
+- Doorloop de trechter van een concurrent als klant en noteer elke pagina en
+elke e-mail die daarop volgt.
+- Schrijf een reeks van vijf e-mails na aanmelding die elk eindigen op een
+vraag die de volgende mail beantwoordt.
+- Ga na of het huidige aanbod een front-end of een back-end product is, en
+welk aanbod aan de andere kant ontbreekt.
+
+#### Wat je hierna leest
+
+- 279. All Marketers Are Liars. Godin schreef eerder al over marketing als
+verhaal vertellen, met minder nadruk op de technische opbouw van pagina's en
+e-mails.
+- 280. Influence. Cialdini's onderzoek naar overtuiging ligt onder technieken
+als de cliffhanger in de Soap Opera Sequence, dan wetenschappelijk in plaats
+van praktisch onderbouwd.
+- 265. The Lean Startup. Ries beschrijft vanuit een andere invalshoek hoe een
+bedrijf zijn aanbod aan een markt aanpast, met meetbare experimenten in plaats
+van vaste sjablonen.
+
+## 310. Don't Believe Everything You Think
+
+Joseph Nguyen, 2022. Oorspronkelijk *Don't Believe Everything You Think: Why
+Your Thinking Is The Beginning & End Of Suffering* (Beyond Suffering-reeks, in
+eigen beheer uitgegeven, 2022, ca. 100 blz., ISBN 979-8-428-60490-0). In 2024
+verscheen een uitgebreide editie van circa 175 blz. Geen Nederlandse uitgave
+gevonden; de samenvatting hier is op de oorspronkelijke Engelse editie
+gebaseerd. Rubriek: gewoontes en denken.
+Tags: `psychologie`, `spiritualiteit`, `denken`, `lijden`, `zelfhulp`
+
+Nguyen betoogt dat lijden niet ontstaat door wat er gebeurt, maar door het
+denken over wat er gebeurt: de gedachten over een gebeurtenis, en de gedachten
+over die gedachten. Hij bouwt voort op het gedachtegoed van Sydney Banks, de
+grondlegger van de zogeheten Three Principles, die stelde dat mensen hun
+ervaring van de werkelijkheid zelf voortbrengen via gedachte, bewustzijn en
+geest.
+
+Het boek onderscheidt actief nadenken, iets waar een mens voor kiest en dat
+nuttig kan zijn, van gedachten die vanzelf opkomen en die de meeste mensen
+zonder nadenken voor waar aannemen. Nguyens voorstel is niet om gedachten te
+onderdrukken of te vervangen, maar om de gewoonte los te laten om elke
+opkomende gedachte automatisch te geloven.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Nguyens stelling is dat vrijwel al het psychisch lijden niet
+wordt veroorzaakt door omstandigheden, maar door het denken over die
+omstandigheden, en specifieker door het geloven van gedachten die vanzelf
+opkomen alsof ze de waarheid zijn. Onder een rustige, heldere staat van geest
+ligt volgens hem een aangeboren welbevinden dat niet hoeft te worden
+opgebouwd, alleen niet langer toegedekt te worden door doorlopend denken. Wie
+ophoudt elke gedachte automatisch te geloven, ervaart die rust vanzelf. Daar
+valt tegenover te zetten dat sommige gedachten wel degelijk over reële,
+oplosbare problemen gaan, en dat ze negeren geen probleem oplost maar het
+uitstelt.
+
+#### De gang van het boek
+
+**Het onderscheid tussen denken en gedachte**
+
+Nguyen opent met een onderscheid dat door het hele boek terugkeert: denken is
+een actieve, vrijwillige bezigheid, terwijl gedachte het vermogen is waaruit
+alle gedachten vanzelf ontstaan, zonder dat iemand daarvoor kiest. De inhoud
+van wat er in iemands hoofd opkomt is persoonlijk en wisselend, maar het
+vermogen om te denken zelf is er ongevraagd en onophoudelijk.
+
+Dat onderscheid ontleent hij aan Sydney Banks en de Three Principles, een
+stroming die uitgaat van drie krachten, geest, bewustzijn en gedachte, die
+samen iemands ervaring van de wereld vormgeven. Nguyen citeert Banks
+rechtstreeks: gedachte is niet de werkelijkheid, maar via gedachte wordt onze
+werkelijkheid gemaakt.
+
+**Waar lijden vandaan komt**
+
+Uit dat onderscheid leidt Nguyen zijn verklaring voor lijden af. Niet de
+gebeurtenis veroorzaakt de pijn, maar de gedachten die iemand erover heeft en,
+een stap verder, de gedachten over die gedachten: piekeren over piekeren,
+angst voor de eigen angst. Overdenken is bij hem de handeling die rust
+wegneemt, terwijl gedachten die simpelweg opkomen en weer voorbijgaan dat niet
+doen.
+
+Zijn voorbeeld is een moeilijk gesprek dat al voorbij is, maar dat iemand in
+gedachten blijft herhalen en daarmee telkens opnieuw pijn laat aankomen. Het
+blijven denken erover houdt het lijden in stand, niet het gesprek zelf.
+
+**Het aangeboren welbevinden**
+
+Tegenover het beeld van lijden zet Nguyen wat hij een fundamenteel gevoel van
+welzijn noemt: een rust die er volgens hem al is voordat er gedacht wordt, en
+die zichtbaar wordt zodra het denken tot rust komt. Hij vergelijkt het met een
+vijver waarvan het water troebel wordt door beweging en vanzelf helder wordt
+zodra de beweging stopt, zonder dat er iets aan het water hoeft te worden
+gedaan.
+
+Daaruit volgt zijn advies: niet proberen negatieve gedachten te vervangen door
+positieve, want dat blijft denken, maar minder denken en de opkomende
+gedachten laten voorbijgaan zonder ze te geloven of te bestrijden.
+
+**Leven van binnenuit**
+
+Nguyen onderscheidt twee manieren om het leven te ervaren: van buitenaf naar
+binnen, waarin geluk afhangt van omstandigheden die geregeld moeten worden, en
+van binnenuit naar buiten, waarin het gemoed de bron is en omstandigheden er
+minder toe doen. Bij de eerste manier is er altijd een volgend probleem op te
+lossen voordat er rust komt, bij de tweede ligt rust al klaar zodra het denken
+erover wegvalt.
+
+Hij past dat toe op verlangens en doelen: niet het bereiken van een doel geeft
+voldoening, stelt hij, maar de staat van geest waarin iemand het doel
+nastreeft.
+
+**Het ego als opgebouwd verhaal**
+
+In het laatste deel bespreekt Nguyen het ego als een verzameling gedachten
+over wie iemand is, opgebouwd uit herinneringen, oordelen en vergelijkingen
+met anderen. Omdat dat zelfbeeld uit gedachte bestaat, is het volgens hem net
+zo veranderlijk als elke andere gedachte, en net zo min de werkelijkheid.
+
+Zijn slotpunt is dat het loslaten van het automatisch geloven in gedachten
+niet alleen minder lijden oplevert, maar ook toegang geeft tot wat hij
+intuïtie en creativiteit noemt: ideeën die opkomen wanneer het denken even
+stil ligt in plaats van wanneer het wordt afgedwongen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Denken | De actieve, vrijwillige bezigheid van nadenken over iets. |
+| Gedachte | Het onderliggende vermogen waaruit alle gedachten ongevraagd ontstaan, los van de inhoud ervan. |
+| Three Principles | De stroming van Sydney Banks die geest, bewustzijn en gedachte als de drie krachten achter iedere ervaring beschrijft. |
+| Fundamenteel welbevinden | De rust die er volgens Nguyen al is voordat er gedacht wordt, en die zichtbaar wordt zodra het denken tot rust komt. |
+| Van buitenaf naar binnen | De manier van leven waarin geluk wordt gezocht in het regelen van omstandigheden. |
+| Van binnenuit naar buiten | De manier van leven waarin het gemoed de bron van rust is, ongeacht de omstandigheden. |
+| Ego | Het opgebouwde zelfbeeld dat volgens Nguyen uit gedachte bestaat en daarom even veranderlijk is als elke andere gedachte. |
+
+#### Waar het argument op rust
+
+Het boek levert geen onderzoek. Nguyen citeert Sydney Banks en enkele andere
+auteurs uit de Three Principles-traditie, en verder bestaat de onderbouwing
+uit metaforen, zoals de troebele vijver, en uit een enkel persoonlijk
+voorbeeld. Er worden geen studies, cijfers of klinische bevindingen aangehaald
+die de kernclaim, dat lijden ontstaat uit het geloven van gedachten en niet
+uit de gedachten of de omstandigheden zelf, toetsbaar maken.
+
+De Three Principles-stroming waarop het boek leunt, ontstond in de jaren
+zeventig bij Sydney Banks, die zelf geen achtergrond in psychologie of
+filosofie had en de inzichten beschreef als een persoonlijke, plotselinge
+ervaring. De stroming wordt in delen van de coachingswereld toegepast, maar
+staat los van experimentele psychologie en heeft geen peer-reviewed
+onderzoeksbasis die de claims van het boek onderbouwt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de kernstelling, dat vrijwel al het lijden
+voortkomt uit het denken en niet uit de omstandigheden zelf, in het boek als
+vaststaand gegeven wordt gepresenteerd en niet als hypothese. Voor situaties
+met een reële, oplosbare oorzaak, een onveilige relatie, een financieel
+probleem, geeft die stelling weinig houvast: het risico is dat iemand het
+probleem toeschrijft aan te veel denken erover in plaats van het probleem zelf
+aan te pakken.
+
+Ook het advies zelf is moeilijk te volgen. Nguyen raadt aan minder te denken
+en gedachten niet te geloven, maar geeft nauwelijks een methode om dat te doen
+buiten het inzicht zelf: het besef dat gedachte niet de werkelijkheid is, zou
+volgens hem al voldoende zijn om anders te gaan leven. Lezers die dat inzicht
+niet als een omslag ervaren, houden weinig concreets over.
+
+Het boek herhaalt bovendien dezelfde kernideeën in steeds nieuwe bewoordingen
+over een groot deel van de tekst, wat past bij het korte formaat maar de
+indruk wekt dat de inhoud ook in een kwart van de omvang had gepast.
+
+#### Wat er concreet mee te doen is
+
+- Merk op wanneer een gedachte simpelweg opkomt en voorbijgaat, zonder die
+actief te bestrijden of te bevestigen.
+- Vraag bij een terugkerende zorg na of de situatie zelf om een besluit
+vraagt, of dat er alleen over wordt nagedacht.
+- Let op het verschil tussen een probleem oplossen en een probleem herhalen in
+gedachten nadat het al voorbij is.
+
+#### Wat je hierna leest
+
+- 149. The Power of Now. Tolle beschrijft een vergelijkbare afstand tussen het
+zelf en het denken, vanuit een andere traditie en met meer nadruk op het
+huidige moment.
+- 55. Thinking, Fast and Slow. Kahneman onderzoekt hoe gedachten en oordelen
+daadwerkelijk tot stand komen, met experimenteel onderzoek waar Nguyens boek
+introspectie biedt.
+- 71. Four Thousand Weeks. Burkeman zoekt eveneens rust tegenover een onrustig
+hoofd, maar vertrekt vanuit de eindigheid van de tijd in plaats van vanuit de
+aard van gedachte.
+
+## 311. Eat That Frog!
+
+Brian Tracy, 2001. Oorspronkelijk *Eat That Frog!: 21 Great Ways to Stop
+Procrastinating and Get More Done in Less Time* (Berrett-Koehler Publishers,
+2001, 131 blz., ISBN 978-1-57675-198-5), sindsdien meerdere malen herzien en
+uitgebreid. Nederlands als *Eat that frog*, vertaald door Henny Corver (Maven
+Publishing, eerste druk 2017, ISBN 9789492493071; herziene editie 2025, ISBN
+9789493434097); eerder verscheen ook een vertaling onder de titel *Slik die
+kikker!* (ISBN 9789059440302). Rubriek: werk en aandacht.
+Tags: `productiviteit`, `timemanagement`, `uitstelgedrag`, `prioriteren`,
+`zelfdiscipline`
+
+Tracy vertrekt van een uitspraak die aan Mark Twain wordt toegeschreven: wie
+'s ochtends als eerste een levende kikker opeet, heeft de rest van de dag
+niets ergers meer te verwachten. De kikker staat bij Tracy voor de
+belangrijkste en lastigste taak van de dag, degene die het meest wordt
+uitgesteld en tegelijk het meest oplevert. Zijn advies is die taak als eerste
+te doen, voordat er tijd verloren gaat aan makkelijkere zaken.
+
+Het boek bestaat uit 21 korte hoofdstukken, elk met één methode om
+prioriteiten te stellen of uitstelgedrag te doorbreken, van het vooraf plannen
+van elke dag tot het opknippen van een groot project in behapbare stukken.
+Tracy schreef het vanuit zijn werk als spreker en trainer in verkoop en
+persoonlijke effectiviteit, en het boek staat in de praktische, opsommende
+stijl van dat vak.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tracy's stelling is dat productiviteit niet draait om harder
+werken maar om de juiste volgorde: wie eerst de belangrijkste en lastigste
+taak van de dag aanpakt, de kikker, wint meer tijd en gemoedsrust dan wie
+eerst de makkelijke klusjes wegwerkt. Uitstelgedrag is bij hem geen
+karaktertrek maar een gewoonte die met vaste methoden te doorbreken is, zoals
+vooraf plannen, prioriteren en een taak in kleinere stukken opdelen. Daar valt
+tegenover te zetten dat niet elke lastige taak ook de belangrijkste is, en dat
+een dag die alleen om de zwaarste klus draait de kleinere, dringende zaken kan
+laten liggen die evengoed om aandacht vragen.
+
+#### De gang van het boek
+
+**De kikker en de volgorde van de dag**
+
+Tracy opent met het beeld waaraan het boek zijn titel ontleent: eerst de
+belangrijkste, lastigste taak van de dag doen, de kikker, in plaats van hem
+uit te stellen tot na de makkelijke klusjes. Zijn argument is dat die taak
+toch gedaan moet worden, en dat uitstel alleen energie kost aan het erover
+blijven piekeren.
+
+Als er meer dan één kikker op tafel ligt, is het advies simpel: begin met de
+lelijkste. Wat het meest weerstand oproept, levert bij afronding ook het
+meeste op.
+
+**Van tevoren plannen en prioriteren**
+
+Verschillende vroege hoofdstukken gaan over structuur vooraf: elke dag van
+tevoren plannen, liefst de avond ervoor, en de 80/20-regel toepassen op de
+takenlijst. Van alle taken levert twintig procent tachtig procent van het
+resultaat op, en het advies is die twintig procent eerst te herkennen voordat
+er begonnen wordt.
+
+Daarvoor gebruikt Tracy de ABCDE-methode: elke taak krijgt een letter naar
+belang, van A voor taken met serieuze gevolgen als ze niet gebeuren tot E voor
+taken die net zo goed kunnen vervallen. Binnen de A-taken wordt vervolgens
+genummerd welke als eerste komt.
+
+**Kiezen wat je laat liggen**
+
+Een ander hoofdstuk draait de gebruikelijke opvatting van uitstelgedrag om:
+uitstellen is volgens Tracy niet het probleem, want iedereen stelt voortdurend
+iets uit. De vraag is wat er bewust wordt uitgesteld. Hij noemt dat creatief
+uitstellen: de laagwaardige taken bewust laten liggen om ruimte te maken voor
+de taken die er echt toe doen.
+
+Daarbij hoort ook het onderkennen van de eigen belangrijkste beperking, de ene
+factor die het meest in de weg zit om sneller resultaat te boeken, en die
+factor als eerste aan te pakken in plaats van overal tegelijk aan te
+sleutelen.
+
+**Grote taken behapbaar maken**
+
+Voor taken die te groot aanvoelen om aan te beginnen, geeft Tracy twee
+verwante technieken. Bij de salamimethode wordt een project in dunne plakken
+gesneden en wordt er slechts aan één plak tegelijk gewerkt. Bij de andere
+techniek wordt een vaste hoeveelheid tijd gereserveerd om onafgebroken aan één
+taak te werken, ongeacht hoever die daarna nog van af is.
+
+Beide technieken zijn bedoeld om de omvang van een taak geen reden te laten
+zijn om niet te beginnen: de eerste stap hoeft nooit meer te zijn dan een
+klein, afgebakend stuk.
+
+**Jezelf op scherp zetten**
+
+De laatste hoofdstukken gaan over vasthouden in plaats van beginnen: druk op
+jezelf zetten met deadlines, een gevoel van urgentie kweken alsof elke taak
+haast heeft, en single handling, een taak eenmaal opstarten en niet meer
+neerleggen voordat hij af is. Tracy noemt afleiding en herhaaldelijk wisselen
+tussen taken de grootste sluipmoordenaar van productiviteit, meer dan luiheid
+zelf.
+
+Techniek krijgt in dit deel ook aandacht, met een waarschuwing dat e-mail en
+andere schermen een goede dienaar zijn zolang ze bewust worden ingezet, en een
+slechte meester zodra ze de dag ongemerkt overnemen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kikker | De belangrijkste, lastigste taak van de dag, degene die het meest wordt uitgesteld en het meest oplevert. |
+| 80/20-regel | Het idee dat twintig procent van de taken tachtig procent van het resultaat oplevert. |
+| ABCDE-methode | Prioriteiten stellen door elke taak een letter te geven naar de ernst van de gevolgen als hij niet gebeurt. |
+| Creatief uitstellen | Bewust laagwaardige taken laten liggen om ruimte te maken voor de taken die er echt toe doen. |
+| Salamimethode | Een groot project in dunne plakken snijden en per keer aan één plak werken. |
+| Single handling | Een taak eenmaal oppakken en niet neerleggen voordat hij af is. |
+| Belangrijkste beperking | De ene factor die het meest in de weg zit om sneller resultaat te boeken. |
+
+#### Waar het argument op rust
+
+Het boek levert geen onderzoek en verwijst nauwelijks naar bronnen buiten
+Tracy's eigen ervaring als spreker, trainer en, naar eigen zeggen, adviseur
+van veel professionals in verkoop en management. De 80/20-regel wordt
+aangehaald als algemeen principe, ontleend aan de econoom Vilfredo Pareto,
+maar zonder dat Tracy die toepassing op takenlijsten met gegevens onderbouwt.
+
+De kracht van het boek zit in de herkenbaarheid van de technieken en in het
+gemak waarmee ze zijn te proberen: een lezer kan de ABCDE-methode dezelfde dag
+nog toepassen en zelf zien of het iets oplevert. Dat is iets anders dan bewijs
+dat de methode breder werkt dan de anekdotes die Tracy aanhaalt.
+
+#### Wat er tegen in te brengen valt
+
+Het belangrijkste bezwaar is dat de 21 technieken elkaar deels overlappen en
+dat het boek niet uitlegt hoe ze zich tot elkaar verhouden: de ABCDE-methode,
+de 80/20-regel en creatief uitstellen komen allemaal neer op hetzelfde advies
+om prioriteiten te stellen, in net iets andere bewoordingen. Wie één hoofdstuk
+goed leest, heeft de kern van de andere al gezien.
+
+Verder veronderstelt het boek dat uitstelgedrag vooral een kwestie van
+planning en discipline is, en besteedt het weinig aandacht aan uitstel dat
+voortkomt uit angst, perfectionisme of overbelasting, factoren die in later
+onderzoek naar procrastinatie juist centraal staan. Wie vastloopt om een
+andere reden dan een gebrek aan structuur, vindt in dit boek weinig
+aanknopingspunten.
+
+#### Wat er concreet mee te doen is
+
+- Bepaal aan het begin van de dag welke taak de kikker is en doe die als
+eerste, voordat e-mail of andere kleinere klussen aan de beurt komen.
+- Geef aan het eind van elke dag de taken voor morgen een letter van A tot E
+naar belang.
+- Splits een project dat te groot aanvoelt in een eerste, kleine plak waaraan
+vandaag nog te beginnen is.
+- Zet een timer voor een vaste periode en werk in die tijd aan niets anders
+dan de gekozen taak.
+
+#### Wat je hierna leest
+
+- 70. Deep Work. Newport werkt uit wat er nodig is om aan een taak vast te
+houden zodra die eenmaal is gekozen, met meer aandacht voor de omgeving dan
+Tracy.
+- 151. Essentialism. McKeown stelt een vergelijkbare vraag over prioriteren,
+maar dan op het niveau van welke verplichtingen iemand aangaat en niet van de
+dagplanning.
+- 278. The 4-Hour Workweek. Ferriss werkt de 80/20-regel verder uit tot een
+radicalere vraag: welke taken helemaal kunnen vervallen in plaats van alleen
+later aan de beurt komen.
+
+## 312. Think Like an Artist
+
+Will Gompertz, 2015. Oorspronkelijk *Think Like an Artist: ...and Lead a More
+Creative, Productive Life* (Viking/Particular Books, Londen, 2015; Amerikaanse
+editie bij Abrams Image, ISBN 9781419721830). Nederlands als *Denk als een
+kunstenaar*, vertaald door Jacques Meerman (Meulenhoff, 2016, 240 blz., ISBN
+9789029090568). Rubriek: maken en scheppen.
+Tags: `creativiteit`, `kunstgeschiedenis`, `zelfvertrouwen`, `falen`,
+`ondernemerschap`, `kunstenaars`
+
+Gompertz, jarenlang directeur bij Tate en daarna arts editor van de BBC,
+destilleert uit gesprekken met en biografieën van kunstenaars tien
+eigenschappen die volgens hem telkens terugkeren, van Caravaggio tot Warhol,
+van Da Vinci tot Ai Weiwei. Elk hoofdstuk behandelt één eigenschap: een
+citaat, een toelichting, voorbeelden uit de kunstgeschiedenis en een portret
+van een hedendaagse maker.
+
+Het boek richt zich nadrukkelijk niet alleen op kunstenaars zelf, maar op
+iedereen die in eigen werk vastloopt en denkt dat creativiteit een gave is die
+iemand wel of niet heeft.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gompertz beweert dat de eigenschappen die kunstenaars
+succesvol maken, aan te leren zijn en niet aangeboren: kunstenaars stelen
+ideeën in plaats van blanco te beginnen, ontwikkelen een eigen standpunt,
+behandelen mislukking als grondstof voor het volgende werk, tonen moed op het
+moment dat het ongemakkelijk wordt, bouwen bewust pauzes in hun proces in en
+gedragen zich ondernemend in plaats van te wachten tot iemand hen ontdekt. Wie
+deze gewoontes overneemt, wordt volgens hem net zo creatief en productief als
+de kunstenaars die hij als voorbeeld gebruikt. De inzet is dat creativiteit
+een vaardigheid is die te oefenen valt, geen gave die iemand wel of niet
+heeft.
+
+#### De gang van het boek
+
+**Tien eigenschappen uit een leven tussen kunstenaars**
+
+Gompertz was zeven jaar directeur bij Tate en daarna elf jaar arts editor van
+de BBC, en dat werk bracht hem in gesprek met een groot deel van de gevestigde
+kunstwereld. Uit die gesprekken en uit de biografieën van kunstenaars van
+Caravaggio tot Ai Weiwei destilleert hij tien eigenschappen die volgens hem
+telkens terugkeren, elk met een eigen hoofdstuk: een citaat over een
+zwart-witfoto, een toelichting, voorbeelden uit de kunstgeschiedenis en een
+portret van een hedendaagse maker die de eigenschap volgens hem beoefent.
+
+De opzet is nadrukkelijk niet beperkt tot beeldende kunst. Gompertz schrijft
+voor wie op kantoor, in de zorg of in een eigen bedrijf vastloopt in het eigen
+werk, en gebruikt de kunstenaar als voorbeeld omdat die volgens hem het
+duidelijkst laat zien hoe een gewoonte tot resultaat leidt.
+
+**Stelen in plaats van blanco beginnen**
+
+In het hoofdstuk *Artists Steal* keert het aan Picasso toegeschreven citaat
+terug dat goede kunstenaars lenen en grote kunstenaars stelen, een uitspraak
+waarvan de herkomst omstreden is maar die Gompertz gebruikt om een punt te
+maken: niemand begint bij niets. Kunstenaars nemen een vorm, een compositie of
+een idee van een voorganger over en buigen die om tot iets van zichzelf, en
+dat overnemen is volgens hem geen tekortkoming maar het begin van het werk.
+
+Hij zet dat af tegen het beeld van de kunstenaar die in een vlaag van
+inspiratie iets nieuws uit het niets schept. Wie op dat gevoel wacht, wacht
+volgens hem vaak vergeefs; wie een bestaand werk als uitgangspunt neemt, heeft
+meteen iets om op te reageren.
+
+**Mislukking als grondstof**
+
+Het hoofdstuk *Artists Don't Fail* behandelt Bridget Riley en Roy Lichtenstein
+als kunstenaars die een richting die niet voldeed, niet als eindpunt namen
+maar als aanwijzing voor de volgende stap. Riley's vroege figuratieve werk
+voldeed haar niet, en de zoektocht daarna leidde tot de optische abstracte
+schilderijen waarmee ze bekend werd; Lichtenstein werkte jaren in een stijl
+die geen aandacht trok voor hij bij de stripbeelden uitkwam die zijn naam
+maakten.
+
+Gompertz' punt is dat wat achteraf een mislukking heet, op het moment zelf
+vaak gewoon een resultaat is dat niet voldoet, en dat het verschil tussen
+kunstenaars die doorzetten en kunstenaars die stoppen zit in hoe zij die
+uitkomst lezen.
+
+**Een standpunt hebben**
+
+Het hoofdstuk *Artists Have a Point of View* gebruikt de Schotse schilder
+Peter Doig als voorbeeld: pas nadat hij zijn geboorteland had verlaten, kon
+hij het landschap ervan zien in plaats van er middenin te staan, en die
+afstand leverde de herinneringsbeelden op die zijn werk kenmerken. Gompertz
+leidt daaruit af dat een eigen standpunt vaak ontstaat door bewust afstand te
+nemen van wat vertrouwd is, niet door dichter op het onderwerp te gaan zitten.
+
+**Moed**
+
+Bij moed gebruikt Gompertz Caravaggio, die heiligen schilderde met de vuile
+voeten en de rimpels van de straatarmen die model stonden, tegen de gangbare,
+geïdealiseerde manier van religieuze schilderkunst in, en Ai Weiwei, wiens
+werk rechtstreeks het Chinese staatsapparaat aanspreekt en die daarvoor is
+gearresteerd.
+
+In beide gevallen gaat het niet alleen om esthetische keuzes. Het gaat om de
+bereidheid een werk te maken dat opdrachtgevers, publiek of overheid tegen de
+haren instrijkt, en om vast te houden aan een standpunt zodra dat weerstand
+oproept.
+
+**Zelfvertrouwen als ondernemersinstinct**
+
+In het hoofdstuk over zelfvertrouwen staan Andy Warhol en Theaster Gates naast
+Vincent van Gogh. Warhol en Gates bouwden ieder een eigen infrastructuur om
+hun werk aan de man te brengen, van The Factory tot Gates' herontwikkeling van
+verlaten gebouwen in Chicago tot kunst- en gemeenschapsruimte. Van Gogh
+verkocht bij leven vrijwel niets en gold naar de maatstaf van zijn tijd als
+mislukt, en Gompertz gebruikt hem toch als voorbeeld van zelfvertrouwen omdat
+hij bleef schilderen op een overtuiging die pas na zijn dood werd bevestigd.
+
+Die combinatie laat zien waar het boek kwetsbaar is: zelfvertrouwen wordt hier
+gemeten aan wat er later van iemand geworden is, en van de kunstenaars die met
+evenveel overtuiging doorwerkten zonder ooit ontdekt te worden, komt niemand
+aan het woord.
+
+**Pauzeren, en van eigenschap naar gewoonte**
+
+Het hoofdstuk *Artists Pause for Thought* pleit voor onderbreking als
+onderdeel van het werk zelf: tijd tussen het verzamelen van materiaal en het
+maken van een keuze, in plaats van rechtstreeks doorwerken tot een resultaat.
+Gompertz sluit af met de stelling dat de tien eigenschappen samen een gewoonte
+vormen die te trainen is, en dat het verschil tussen een kunstenaar en ieder
+ander vooral in de herhaling van die gewoonte zit, niet in een aanleg die de
+een wel en de ander niet heeft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Stelen | Een bestaand werk of idee overnemen en ombuigen tot iets eigens, in plaats van bij niets te beginnen. |
+| Mislukking als aanwijzing | Een resultaat dat niet voldoet lezen als richtingaanwijzer voor de volgende stap, niet als eindpunt. |
+| Een punt van zicht hebben | Een herkenbaar, eigen standpunt in het werk leggen in plaats van neutraal te blijven. |
+| Moed | Vasthouden aan een werk of standpunt zodra dat weerstand oproept bij opdrachtgevers, publiek of overheid. |
+| Pauzeren om na te denken | Bewust tijd laten zitten tussen het verzamelen van materiaal en de keuze die je ermee maakt. |
+| Ondernemerschap | Een eigen infrastructuur bouwen om werk bij een publiek te krijgen in plaats van op ontdekking te wachten. |
+| Zelfvertrouwen | Vasthouden aan een overtuiging over het eigen werk voordat er enige bevestiging van buiten is. |
+
+#### Waar het argument op rust
+
+Het boek rust op twee soorten bronnen die niet van elkaar gescheiden worden:
+Gompertz' eigen gesprekken met hedendaagse kunstenaars uit zijn jaren bij Tate
+en de BBC, en de gangbare biografische overlevering van historische
+kunstenaars als Caravaggio en Van Gogh. Er wordt geen onderzoek aangehaald
+naar hoe vaak deze eigenschappen bij kunstenaars voorkomen, en er is geen
+vergelijking met kunstenaars bij wie dezelfde eigenschappen niet tot succes
+leidden.
+
+De selectie bestaat uit bekende namen wier werk achteraf bevestigd is, wat de
+redenering gevoelig maakt voor omgekeerde causaliteit: iemand krijgt de
+eigenschap moed of doorzettingsvermogen toegeschreven omdat hij beroemd werd,
+terwijl datzelfde gedrag bij een onbekend gebleven kunstenaar nooit als
+eigenschap wordt opgemerkt.
+
+#### Wat er tegen in te brengen valt
+
+John Kampfner noemde in The Guardian als bezwaar dat het boek geen groter
+geheel oplevert: de losse hoofdstukken over aparte eigenschappen tellen niet
+op tot een samenhangend beeld van wat creativiteit is. Lezers op Goodreads
+herhalen dat bezwaar in andere woorden en noemen het boek voorspelbaar, met
+adviezen die in vergelijkbare vorm al vaker zijn opgeschreven.
+
+Het zwaarste bezwaar blijft de steekproef. Elk hoofdstuk illustreert een
+eigenschap met kunstenaars van wie het werk inmiddels tot de kunstgeschiedenis
+behoort, en dat is precies de groep bij wie de eigenschap achteraf wel moest
+kloppen. Hoeveel kunstenaars even moedig, ondernemend of standvastig waren en
+nooit een publiek vonden, komt niet ter sprake, waardoor de claim dat deze
+gewoontes tot succes leiden nooit wordt getoetst.
+
+Verder blijft de reikwijdte ondanks de belofte beperkt tot beeldende kunst:
+vrijwel alle voorbeelden komen uit de schilder- en beeldhouwkunst, en de
+vertaalslag naar een kantoor of een zorgpraktijk waar het boek zich ook op
+richt, moet de lezer zelf maken.
+
+#### Wat er concreet mee te doen is
+
+- Neem bij een nieuw project een bestaand werk als uitgangspunt en beschrijf
+wat je eraan verandert, in plaats van blanco te beginnen.
+- Schrijf bij een mislukt resultaat op wat het je leert voor de volgende
+poging, voor je verdergaat.
+- Bouw een pauze in tussen het verzamelen van materiaal en de keuze die je
+ermee maakt.
+- Formuleer voor jezelf in één zin het standpunt van het werk dat je maakt,
+voor je begint.
+
+#### Wat je hierna leest
+
+- 11. Steal Like an Artist. Kleon werkt precies het hoofdstuk over stelen uit
+dit boek verder uit tot een boek op zich, met dezelfde these dat niets uit het
+niets ontstaat.
+- 17. The Creative Act. Rubin legt eenzelfde nadruk op aandacht en het
+verzamelen van materiaal, maar dan vanuit een muzikant en producer in plaats
+van een kunstcriticus.
+- 15. How to Think Like Leonardo da Vinci. Gelb behandelt met Leonardo één
+kunstenaar in de diepte, waar Gompertz tien eigenschappen over veel
+kunstenaars uitspreidt.
+
+## 313. Good Energy
+
+Casey Means met Calley Means, 2024. Oorspronkelijk *Good Energy: The
+Surprising Connection Between Metabolism and Limitless Health* (Avery, New
+York, 2024, ISBN 9780593712641); Britse editie bij HarperCollins/Thorsons, 400
+blz., ISBN 9780008604257. Geen Nederlandse vertaling; deze samenvatting is op
+de Engelse uitgave gebaseerd. Rubriek: brein en lichaam.
+Tags: `metabolisme`, `mitochondriën`, `voeding`, `bloedwaarden`,
+`gezondheidszorg`, `preventie`
+
+Means, arts en medeoprichter van het bedrijf Levels dat draagbare
+glucosemeters verkoopt, stelt dat een groot deel van de chronische ziekten in
+de Verenigde Staten, van depressie tot hartziekte en sommige vormen van
+kanker, terug te voeren is op hetzelfde onderliggende probleem: cellen die
+niet goed genoeg energie aanmaken en gebruiken. Zij noemt die staat Good
+Energy en de tegenhanger Bad Energy, en koppelt beide aan de werking van de
+mitochondriën in de cel.
+
+Het boek combineert kritiek op de Amerikaanse gezondheidszorg met een
+programma van bloedwaarden om te meten, voeding, beweging, slaap en
+stressregulatie om zelf aan te passen. Means schrijft mede vanuit haar eigen
+breuk met de reguliere artsenopleiding, die zij in het laatste jaar afbrak.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Means stelt dat vrijwel alle veelvoorkomende chronische
+aandoeningen, van diabetes en obesitas tot depressie, onvruchtbaarheid,
+dementie en verschillende soorten kanker, een gemeenschappelijke oorzaak
+delen: een verstoorde energiehuishouding op celniveau, veroorzaakt door
+mitochondriën die minder goed functioneren dan zij zouden kunnen. Waar de
+gangbare geneeskunde volgens haar per orgaan en per diagnose apart behandelt,
+wil zij de vraag omdraaien naar wat er op celniveau misgaat en die oorzaak
+aanpakken met voeding, beweging, slaap, temperatuur en stressregulatie,
+voordat losse symptomen zich aandienen. De inzet van het boek is dat het
+grootste deel van de chronische ziektelast te voorkomen is als mensen deze
+cellulaire toestand, die zij meetbaar acht, op orde krijgen.
+
+#### De gang van het boek
+
+**De diagnose: cellen die niet goed werken**
+
+Means opent met cijfers over de Amerikaanse gezondheidstoestand en verwijst
+daarbij naar een veelgeciteerde Amerikaanse studie op basis van nationale
+gezondheidsdata, die concludeerde dat destijds slechts ongeveer twaalf procent
+van de volwassenen metabool gezond was, gemeten aan bloeddruk, tailleomvang,
+bloedsuiker, cholesterol en triglyceriden samen. Zij vertaalt dat cijfer naar
+de stelling dat de gezondheidszorg losse diagnoses als diabetes, hart- en
+vaatziekten, obesitas, onvruchtbaarheid, depressie en sommige kankers
+behandelt zonder de onderliggende schakel te benoemen: mitochondriën die
+onvoldoende bruikbare energie, ATP, produceren uit voedsel en zuurstof.
+
+Zij trekt die diagnose door naar haar eigen ervaring als arts-assistent KNO:
+ze zag patiënten met chronische ontstekingen terugkomen voor operaties zonder
+dat iemand vroeg waarom hun lichaam bleef ontsteken, en dat bracht haar ertoe
+haar opleiding in het laatste jaar af te breken.
+
+**Wat Good Energy is en hoe je haar meet**
+
+Het middendeel introduceert twaalf biomarkers die Means als meetbare
+aanwijzingen voor Good Energy beschouwt, waaronder nuchtere glucose, insuline,
+triglyceriden, HDL-cholesterol, bloeddruk en tailleomvang, en zij pleit ervoor
+deze waarden zelf te laten meten in plaats van te wachten tot een arts ze bij
+een klacht aanvraagt. Een continue glucosemeter, zoals haar eigen bedrijf
+Levels verkoopt, gebruikt zij als voorbeeld van een instrument waarmee iemand
+direct ziet hoe een maaltijd of een nacht slecht slapen de bloedsuiker
+beïnvloedt.
+
+Dat commerciële belang benoemt zij zelf niet expliciet in de hoofdtekst, iets
+waar latere besprekingen van het boek op hebben gewezen. Het boek is in vier
+delen opgebouwd: eerst het begrip Good Energy zelf, dan de onderliggende
+wetenschap per orgaansysteem, vervolgens het praktische plan, en ten slotte
+een receptenkatern dat de eerdere adviezen naar concrete maaltijden vertaalt.
+
+**Voeding als eerste hefboom**
+
+Het voedingsdeel keert zich tegen bewerkt voedsel, toegevoegde suikers en
+zaadoliën, en pleit voor onbewerkte producten, voldoende eiwit en vezels, en
+het beperken van hoe vaak iemand eet. Means werkt dit uit in zes principes
+voor wat zij Good Energy eten noemt en in een aanpak voor het samenstellen van
+een maaltijd rond bloedsuikerstabiliteit.
+
+Daarnaast bepleit zij te eten binnen een venster dat aansluit bij de
+biologische klok van het lichaam: overdag eten en 's avonds een langere
+periode zonder voedsel, omdat mitochondriën volgens haar 's ochtends en
+overdag efficiënter met glucose omgaan dan laat op de avond.
+
+Blootstelling aan kou en warmte, zoals een koude douche of een sauna, en
+regelmatige tijd buiten in daglicht volgen als aanvullende hefbomen, telkens
+met de these dat deze prikkels rechtstreeks op de mitochondriën inwerken en
+het lichaam oefenen in het aanpassen aan wisselende omstandigheden, iets waar
+de moderne, klimaatbeheerste leefomgeving volgens haar weinig gelegenheid meer
+toe biedt.
+
+**Kritiek op de gezondheidszorg als systeem**
+
+Een deel van het boek is een aanklacht tegen wat Means de gezondheidsindustrie
+noemt: artsenopleidingen die weinig aandacht besteden aan voeding, een
+vergoedingsstelsel dat ingrepen en medicatie beloont boven preventie, en
+voedingsmiddelenbedrijven en de farmaceutische industrie die volgens haar
+belang hebben bij het in stand houden van chronische ziekte.
+
+Zij pleit voor een cultuuromslag waarin patiënten zelf hun bloedwaarden
+bijhouden en artsen minder als enige poortwachter fungeren, een positie die
+aansluit bij haar latere publieke rol in de Amerikaanse Make America Healthy
+Again-beweging, waarvoor zij in 2026 door president Trump werd voorgedragen
+als Surgeon General.
+
+**Het vierwekenplan**
+
+Het laatste deel vertaalt de principes naar een stapsgewijs programma van vier
+weken, met wekelijkse gewoontes rond eten, bewegen, slaap en stress, aangevuld
+met recepten. De opbouw is bewust laagdrempelig: elke week voegt één gewoonte
+toe in plaats van het hele programma tegelijk te vragen.
+
+**Waar het boek zijn eigen bewijs overschrijdt**
+
+Op meerdere plekken loopt Means vooruit op wat het aangehaalde onderzoek kan
+dragen. Verbanden tussen metabole markers en aandoeningen als depressie of
+onvruchtbaarheid worden behandeld als vaststaande oorzakelijke ketens, terwijl
+het onderliggende onderzoek vaak observationeel is en oorzaak en gevolg niet
+uit elkaar houdt. Artsen die het boek hebben besproken, waarderen het
+voedings- en leefstijldeel over het algemeen als degelijk en wijzen tegelijk
+op de stelligheid waarmee vrijwel elke chronische ziekte tot dezelfde oorzaak
+wordt herleid.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Good Energy en Bad Energy | Means' termen voor een cel die energie goed respectievelijk slecht aanmaakt en gebruikt. |
+| Mitochondriën | De celonderdelen die voedsel en zuurstof omzetten in bruikbare energie, en die volgens Means bij chronische ziekte minder goed functioneren. |
+| ATP | De energiedrager die mitochondriën produceren en die cellen direct kunnen gebruiken. |
+| Metabole flexibiliteit | Het vermogen van cellen om zonder problemen te wisselen tussen glucose en vet als brandstof. |
+| Continue glucosemeter | Een sensor die voortdurend de bloedsuikerspiegel meet, door Means aangeraden als zelfmeetinstrument. |
+| De twaalf biomarkers | Een reeks bloed- en lichaamswaarden die Means als meetbare indicatie voor Good Energy voorstelt. |
+| Good Energy eten | Haar zes voedingsprincipes gericht op onbewerkt voedsel, eiwit, vezels en stabiele bloedsuiker. |
+| Het vierwekenplan | Het stapsgewijze programma waarmee het boek afsluit, met per week één nieuwe gewoonte. |
+
+#### Waar het argument op rust
+
+Het sterkste deel van het boek rust op gepubliceerd onderzoek naar
+mitochondriale functie, insulineresistentie en de rol van voeding en beweging
+daarin; dat onderzoeksveld bestaat en de basismechanismen die Means beschrijft
+worden breed erkend. Voor losse leefstijladviezen, zoals minder bewerkt
+voedsel en meer beweging, is de onderbouwing ruim en overlapt met wat ook in
+reguliere richtlijnen staat.
+
+Zwakker is de stap van dat mechanisme naar de brede claim dat vrijwel alle
+chronische ziekte dezelfde oorsprong heeft. Voor aandoeningen als depressie,
+onvruchtbaarheid en verschillende kankersoorten citeert Means vooral
+observationele studies en eigen klinische indrukken, en die laten geen
+oorzakelijk verband zien in de mate waarin het boek suggereert.
+
+Ook de twaalf biomarkers zelf zijn ongelijk onderbouwd. Voor nuchtere glucose,
+bloeddruk en tailleomvang bestaat brede consensus dat ze iets zeggen over
+metabole gezondheid; voor een aantal van de overige waarden die zij noemt is
+de klinische waarde bij mensen zonder klachten onder specialisten minder
+eenduidig, en het boek behandelt die spreiding in zekerheid niet als zodanig.
+
+#### Wat er tegen in te brengen valt
+
+Amerikaanse artsenverenigingen en meerdere recensenten in medische
+tijdschriften wijzen erop dat de titel meer belooft dan het boek waarmaakt:
+sommige hoofdstukken redeneren voorbij het bewijs, terwijl juist de
+hoofdstukken met concrete leefstijladviezen het sterkst staan.
+
+Een tweede bezwaar betreft het belangenconflict. Means is medeoprichter en
+voormalig medisch directeur van Levels, het bedrijf dat de continue
+glucosemeters verkoopt die het boek aanraadt, en dat belang wordt in de
+hoofdtekst niet aan de lezer uitgelegd.
+
+Een derde bezwaar is toegankelijkheid: het programma veronderstelt tijd en
+geld voor onbewerkte voeding, dure meetapparatuur en regelmatige bloedtests,
+waardoor het advies vooral haalbaar is voor wie dat al kan betalen, terwijl
+het boek zich richt tot iedereen met een chronische aandoening.
+
+Het boek raadt daarnaast op meerdere plekken terughoudendheid met reguliere
+medische adviezen en medicatie aan, wat bij aandoeningen die directe
+behandeling vergen tot vermijdbare schade kan leiden.
+
+Means' publieke rol versterkt de twijfel over de scheiding tussen wetenschap
+en belang: in 2026 werd zij door president Trump voorgedragen als Surgeon
+General, een functie waarvoor zij als eerste kandidaat ooit geen actieve
+medische licentie of specialistenregistratie zou hebben, wat critici
+aangrijpen om haar autoriteit als arts in het boek zelf ter discussie te
+stellen.
+
+#### Wat er concreet mee te doen is
+
+- Laat de twaalf biomarkers die Means noemt één keer meten en vergelijk ze met
+de referentiewaarden, in plaats van te wachten op een klacht.
+- Vervang in een week één bewerkte maaltijd per dag door een onbewerkte met
+voldoende eiwit en vezels.
+- Houd een week bij hoe laat je gaat slapen en opstaat, los van wat je verder
+verandert.
+- Bespreek een advies om medicatie af te bouwen altijd eerst met de
+behandelend arts, ook als het boek zelf terughoudender klinkt over die stap.
+
+#### Wat je hierna leest
+
+- 52. Why We Sleep. Walker onderbouwt met vergelijkbaar bewijs waarom slaap
+direct op het metabolisme ingrijpt, met een striktere scheiding tussen wat
+vaststaat en wat een hypothese is.
+- 84. Laat je hersenen niet zitten. Scherder bespreekt hetzelfde terrein van
+leefstijl en herstel vanuit de neurologie in plaats van de celbiologie.
+- 87. Activeer je nervus vagus. Swinnen behandelt een andere hefboom op
+hetzelfde stresssysteem waar Means de voedings- en bewegingskant van
+bespreekt.
+
+## 314. Dopamine Nation
+
+Anna Lembke, 2021. Oorspronkelijk *Dopamine Nation: Finding Balance in the Age
+of Indulgence* (Dutton, New York, 2021, ISBN 9781524746728). Nederlands als
+*De dopaminefactor*, vertaald door Jörgen van Drunen (AnkhHermes, 2024, ISBN
+9789020221534). Rubriek: brein en lichaam.
+Tags: `verslaving`, `dopamine`, `neurowetenschap`, `zelfbeheersing`,
+`psychiatrie`, `genot en pijn`
+
+Lembke, hoofd van de verslavingskliniek van Stanford University, betoogt dat
+verslaving geen uitzonderingstoestand is maar een uitvergroting van een
+mechanisme dat bij iedereen werkt: het najagen van dopamine, de
+neurotransmitter die aan beloning gekoppeld is. Zij opent met Jacob, een
+patiënt van in de zestig die kwam voor een verslaving aan masturbatie en die
+zelf apparaten bouwde om elektrische stimulatie te synchroniseren met
+pornografie, wat voor haar de aanleiding werd om het boek te schrijven.
+
+Vanuit die casus bouwt zij een breder kader op rond het idee dat het brein
+genot en pijn in balans probeert te houden, en dat de constante
+beschikbaarheid van sterk stimulerende producten, van sociale media tot suiker
+tot drugs, die balans in de meeste westerse levens permanent naar de kant van
+het genot heeft doorgeslagen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lembke stelt dat het brein genot en pijn verwerkt als een wip
+die naar balans zoekt: elke opleving van genot wordt gevolgd door een even
+grote tegenreactie van onbehagen, en bij herhaald gebruik van sterk
+stimulerende prikkels verschuift het rustpunt van die wip steeds verder naar
+de kant van de pijn, waardoor er meer prikkel nodig is om hetzelfde genot te
+voelen en gewoon leven zonder die prikkel onaangenaam gaat aanvoelen. Haar
+stelling is dat dit mechanisme niet voorbehouden is aan wie een erkende
+verslaving heeft, maar in een omgeving met permanente, sterke en makkelijk
+verkrijgbare prikkels bij vrijwel iedereen meespeelt.
+
+#### De gang van het boek
+
+**Jacob en het masturbatieapparaat**
+
+Het boek opent met Jacob, een patiënt die als elektrotechnicus letterlijk
+apparaten bouwde die elektrische stimulatie synchroniseerden met pornografie,
+op zoek naar steeds sterkere en nieuwere prikkels om dezelfde opwinding te
+voelen. Lembke gebruikt zijn verhaal, uitvoerig beschreven in het hoofdstuk
+*Our Masturbation Machines*, om drie factoren te introduceren die volgens haar
+verslavingspotentieel bepalen: toegang, sterkte van de prikkel en nieuwheid.
+
+Jacobs verhaal is extreem, maar Lembke herhaalt de titel van het hoofdstuk
+bewust met het bezittelijk voornaamwoord 'onze': de mechanismen die bij hem
+tot een op maat gebouwd apparaat leidden, spelen volgens haar ook bij een
+smartphone, een streamingdienst of fastfood, alleen minder zichtbaar.
+
+**De genot-pijnbalans**
+
+Kernbegrip is de balans tussen genot en pijn, die zij als een wip in het brein
+beschrijft die na elke uitslag naar één kant vanzelf terugveert naar de andere
+kant, om het evenwicht te herstellen. Bij eenmalig gebruik van een
+stimulerende prikkel is die terugveer klein en kortstondig; bij herhaald
+gebruik raakt het systeem gewend en verschuift het rustpunt zelf, zodat er
+meer prikkel nodig is om hetzelfde effect te voelen en de afwezigheid van de
+prikkel als een tekort aanvoelt.
+
+Dat proces, in de verslavingsliteratuur bekend als tolerantie, is bij Lembke
+geen uitzonderingsverschijnsel van drugsverslaving maar de basisregel achter
+overmatig gebruik van vrijwel alles wat snel en sterk dopamine vrijmaakt:
+suiker, sociale media, gokken, en in haar eigen geval een periode waarin zij
+avond na avond vampierromans als *Twilight* en erotische romans als *Fifty
+Shades of Grey* las, tot diep in de nacht en tussen patiëntafspraken door, en
+de reeksen meerdere keren herlas tot het effect wegebde en zij zelf de
+onttrekkingsverschijnselen voelde toen ze ermee stopte.
+
+**Zelfbinding**
+
+Het middendeel introduceert zelfbinding als tegenwicht: bewust afstand
+scheppen tussen de wens en de consumptie, op drie manieren. Fysieke
+zelfbinding verwijdert de toegang, zoals een slot op de drankkast;
+chronologische zelfbinding beperkt het moment, zoals alleen in het weekend
+drinken; categorische zelfbinding beperkt het type, zoals helemaal geen
+alcohol in plaats van proberen met mate te drinken.
+
+Lembke werkt daarnaast een dertigdaagse dopaminevasten uit als praktische
+opstap: een periode van volledige onthouding van het middel in kwestie,
+gevolgd door bewuste herintroductie, om iemand te laten voelen hoe groot het
+verschil is tussen de uitgangssituatie en het gewenningsniveau waaraan hij
+gewend was geraakt.
+
+**Radicale eerlijkheid**
+
+Een apart hoofdstuk behandelt eerlijkheid als onderdeel van herstel, niet uit
+moraal maar omdat liegen volgens Lembke zelf een kleine dopamine-opleving
+geeft en het schuldgevoel daarna weer een duw richting het middel oplevert.
+Patiënten die volledig open zijn over hun gebruik, inclusief de kleine leugens
+eromheen, doorbreken volgens haar klinische ervaring die cyclus sneller dan
+patiënten die alleen het gebruik zelf aanpakken.
+
+Zij onderscheidt daarbij drie niveaus: eerlijkheid tegenover jezelf over wat
+je werkelijk gebruikt en hoeveel, eerlijkheid tegenover mensen die je
+vertrouwt, en eerlijkheid over de gevolgen van je gedrag voor anderen. Elk
+niveau vraagt volgens haar meer moed dan het vorige, en overslaan van het
+eerste niveau maakt de twee volgende volgens haar klinisch weinig waard.
+
+Zij plaatst hier ook de rol van schaamte, die zij niet wil laten verdwijnen
+maar wil ombuigen van een geheime, isolerende schaamte naar een uitgesproken,
+sociale schaamte die tot verbinding in plaats van verberging leidt.
+
+**Pijn opzoeken als tegenwicht**
+
+In het derde deel keert Lembke het perspectief om: waar het eerste deel over
+te veel genot gaat, gaat dit deel over het opzoeken van ongemak, zoals koud
+water, vasten of intensieve inspanning, als manier om het rustpunt van de
+genot-pijnbalans terug te verschuiven. Fysiek oncomfortabele prikkels
+activeren dezelfde dopaminesystemen als genot, maar dan via de weg van de
+pijn, wat volgens haar op termijn tot een stabielere basisstemming leidt dan
+voortdurend genot najagen.
+
+**Van klinische praktijk naar maatschappelijk verschijnsel**
+
+Lembke sluit af met de vraag hoe deze individuele mechanismen zich verhouden
+tot een samenleving die producten steeds sterker, toegankelijker en
+persoonlijker maakt, van variabele beloning in apps tot voedsel dat
+industrieel zo wordt samengesteld dat het zo sterk mogelijk smaakt. Haar
+conclusie is dat zelfbinding op individueel niveau nodig blijft zolang de
+industrieën die deze producten maken, geen reden hebben om de sterkte van de
+prikkel te beperken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Genot-pijnbalans | Het beeld van een wip in het brein die na elke opleving van genot terugveert naar een even grote tegenreactie van onbehagen. |
+| Dopamine | De neurotransmitter die aan beloning en verlangen gekoppeld is en die Lembke als maat voor verslavingspotentieel gebruikt. |
+| Tolerantie | Het verschijnsel dat bij herhaald gebruik meer prikkel nodig is om hetzelfde effect te voelen, doordat het rustpunt zelf verschuift. |
+| Zelfbinding | Bewust afstand scheppen tussen wens en consumptie, fysiek, qua tijdstip of qua categorie. |
+| Dopaminevasten | Een periode van volledige onthouding van een middel of gedrag, gevolgd door bewuste herintroductie. |
+| Radicale eerlijkheid | Volledige openheid over gebruik en de leugens eromheen, als onderdeel van herstel. |
+| Prosociale schaamte | Uitgesproken, gedeelde schaamte die tot verbinding leidt, tegenover geheime schaamte die isoleert. |
+| Toegang, sterkte, nieuwheid | De drie factoren die Lembke gebruikt om te verklaren hoe sterk iets verslavend werkt. |
+
+#### Waar het argument op rust
+
+Lembke is praktiserend psychiater en hoofd van een verslavingskliniek, en het
+boek steunt op twee soorten materiaal: neurobiologisch onderzoek naar dopamine
+en het beloningssysteem, dat breed geaccepteerd is binnen de
+verslavingswetenschap, en haar eigen klinische casuïstiek, waaronder Jacob en
+verscheidene andere patiënten die onder een veranderde naam worden opgevoerd.
+
+De neurobiologische basis, de genot-pijnbalans en het principe van tolerantie
+bij herhaalde blootstelling aan dopaminerge prikkels, is stevig onderbouwd in
+dierstudies en beeldvormend onderzoek bij mensen. Minder stevig is de
+vertaalslag naar alledaagse activiteiten als telefoongebruik of romans lezen:
+voor die toepassingen citeert Lembke vooral haar eigen klinische indruk en
+geen gecontroleerde vergelijkingen tussen gebruikers en niet-gebruikers.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de reikwijdte van de diagnose. Door vrijwel elke vorm
+van herhaald genot, van hardlopen tot een boek lezen, langs dezelfde
+genot-pijnbalans te leggen, dreigt het onderscheid tussen een klinische
+verslaving en gewoon menselijk gedrag te vervagen. Lembke erkent dat gevaar
+deels zelf, maar het boek biedt geen scherp criterium om aan te geven waar
+gewoon gedrag overgaat in problematisch gebruik.
+
+Een tweede bezwaar is dat de dertigdaagse dopaminevasten en de
+zelfbindingstechnieken vooral op klinische ervaring rusten en niet op
+onderzoek dat deze specifieke interventies, in deze vorm en duur, met een
+controlegroep heeft getoetst. Onduidelijk blijft hoeveel van het effect dat
+patiënten rapporteren aan het protocol zelf ligt en hoeveel aan de aandacht en
+begeleiding die eromheen wordt geboden.
+
+Ten derde blijft het maatschappelijke deel van het boek, over apps en
+voedingsindustrie die prikkels bewust versterken, grotendeels beschrijvend.
+Lembke benoemt het probleem helder maar laat concrete regulering of een ander
+systemisch antwoord dan individuele zelfbinding grotendeels liggen.
+
+Ten slotte plaatst Lembke haar eigen verhaal, een leeshobby die zij pas laat
+als problematisch herkende, naast Jacobs zware seksverslaving zonder het
+verschil in ernst steeds scherp te markeren. Dat maakt het boek toegankelijker
+voor wie zichzelf niet als verslaafd ziet, maar het risico is dat het
+onderscheid tussen een vervelende gewoonte en een klinische verslaving voor de
+lezer vervaagt op precies het punt waar het boek zelf zegt dat onderscheid
+belangrijk te vinden.
+
+#### Wat er concreet mee te doen is
+
+- Kies bij een gewoonte die je wilt afbouwen één vorm van zelfbinding, fysiek,
+qua tijdstip of qua categorie, in plaats van een vaag voornemen.
+- Probeer een periode van volledige onthouding van het middel in kwestie voor
+je een gematigde vorm probeert.
+- Noteer bij een terugval de kleine leugens eromheen net zo goed als de
+terugval zelf.
+- Zoek bewust een oncomfortabele fysieke prikkel op, zoals koud water of
+stevige inspanning, als tegenwicht tegen een dag met veel schermgebruik en de
+kortstondige opleving die dat geeft.
+
+#### Wat je hierna leest
+
+- 290. Indistractable. Eyal behandelt dezelfde variabele beloning vanuit het
+ontwerp van apps, waar Lembke vanuit de kliniek naar het gebruik zelf kijkt.
+- 288. Digital Minimalism. Newport werkt een vergelijkbaar advies tot
+onthouding uit voor digitale technologie specifiek, met een praktischer
+stappenplan.
+- 238. The Power of Habit. Duhigg beschrijft het gewoontesysteem waarin
+dezelfde dopaminemechanismen operationeel worden gemaakt tot een cyclus van
+aanleiding, routine en beloning.
+
+## 315. What's Going Right
+
+Paul Conti, 2026. Oorspronkelijk *What's Going Right: A Powerful New Method
+for Optimizing Your Mental Health* (Balance/Hachette, New York, 5 mei 2026,
+272 blz., ISBN 9781538776049). Geen Nederlandse vertaling bekend op het moment
+van schrijven; deze samenvatting is op de Engelse uitgave gebaseerd. Rubriek:
+brein en lichaam.
+Tags: `psychiatrie`, `mentale gezondheid`, `zelfonderzoek`, `motivatie`,
+`generatieve drift`
+
+Conti, psychiater en auteur van *Trauma: The Invisible Epidemic* (2021), bouwt
+in dit boek voort op wat hij de generatieve drift noemt: een aangeboren
+neiging om problemen op te lossen, iets bij te dragen en verbonden te voelen
+met iets groters dan jezelf, die volgens hem bij de meeste mensen wel aanwezig
+maar onderbenut is. In plaats van bij een klacht te beginnen, zoals de
+gangbare psychiatrie doet, wil hij dat mensen eerst vaststellen wat er al
+werkt, om van daaruit verder te bouwen.
+
+Het boek is voortgekomen uit een reeks afleveringen die Conti maakte voor de
+podcast van neurowetenschapper Andrew Huberman, en bevat een stapsgewijze
+methode met dagelijkse zelfonderzoeksoefeningen, geënt op de manier waarop
+artsen fysieke gezondheid in kaart brengen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Conti stelt dat de gangbare benadering van mentale
+gezondheid, die begint bij wat er mis is, mensen vastzet in het probleem in
+plaats van ze verder te helpen, en dat een omgekeerde vraag, namelijk wat er
+al goed gaat, toegang geeft tot wat hij de generatieve drift noemt: het
+vermogen om te bouwen, te verbinden en bij te dragen dat volgens hem bij
+iedereen aanwezig is, ook bij wie zwaar depressief, angstig of getraumatiseerd
+is. Zijn claim is dat het versterken van die drift, met dezelfde systematiek
+waarmee een arts bloeddruk of cholesterol bijhoudt, tot blijvende verandering
+leidt waar symptoombestrijding dat niet doet.
+
+#### De gang van het boek
+
+**De vraag omdraaien**
+
+Conti opent met de constatering dat mentale gezondheidszorg vrijwel altijd
+begint bij de klacht: wat is er mis, wat doet pijn, wat moet weg. Hij stelt
+daar een tweede, volgens hem verwaarloosde vraag tegenover, namelijk wat er al
+goed functioneert, en betoogt dat het antwoord op die vraag een
+aangrijpingspunt biedt dat symptoombestrijding niet heeft.
+
+Als uitgangspunt introduceert hij de generatieve drift, die hij naast twee
+andere aangeboren driften plaatst: de agressieve drift, die met grenzen
+stellen en assertiviteit te maken heeft, en de genotsdrift, die met beloning
+en plezier te maken heeft. Zijn stelling is dat een gezond leven ontstaat
+wanneer de generatieve drift de andere twee aanstuurt.
+
+**De vijfdelige functie van het zelf**
+
+Centraal instrument is wat Conti de vijfdelige functie van het zelf noemt:
+zelfbewustzijn, aandacht, gedrag, streven en, als vijfde onderdeel, de manier
+waarop iemand met de andere vier omgaat. Hij vergelijkt dit met een medisch
+functieonderzoek: zoals een arts hartslag, bloeddruk en ademhaling los van
+elkaar meet om iets over de algehele conditie te zeggen, wil hij dat mensen
+deze vijf onderdelen apart leren observeren.
+
+De methode vraagt niet om structuur te veranderen, dat wil zeggen wat iemand
+over zichzelf denkt of gelooft, maar om functie: wat iemand daadwerkelijk
+doet. Conti's stelling is dat verandering in functie sneller doorwerkt in
+iemands leven dan pogingen om eerst overtuigingen bij te stellen.
+
+**Compassievolle nieuwsgierigheid**
+
+Als houding bij het zelfonderzoek introduceert Conti compassievolle
+nieuwsgierigheid: naar eigen gedachten, gevoelens en gedrag kijken zoals een
+arts naar een patiënt kijkt, met aandacht maar zonder oordeel. Hij zet dat af
+tegen de gewoonte om onprettige gedachten meteen te beoordelen of weg te
+duwen, wat volgens hem het zicht op wat er werkelijk speelt blokkeert.
+
+Dagelijkse oefeningen in het boek vragen om kort, op vaste momenten, deze vier
+functies te registreren zonder ze meteen te willen bijsturen, met als doel een
+basislijn te krijgen voordat er iets verandert.
+
+**Levensverhalen herschrijven**
+
+Een deel van het boek gaat over de verhalen die mensen over zichzelf
+vertellen, bijvoorbeeld dat ze altijd tekortschieten of dat niets ooit goed
+genoeg is, en hoe die verhalen de generatieve drift ondermijnen doordat ze
+bevestigend bewijs blijven zoeken voor wat al vaststaat. Conti geeft
+aanwijzingen om zulke verhalen expliciet te maken en te toetsen aan wat er in
+de praktijk van de laatste weken werkelijk is gebeurd.
+
+Hij onderscheidt daarbij een verhaal dat iemand zichzelf vertelt van de feiten
+waarop dat verhaal steunt. Iemand die zegt nooit iets af te maken, wordt
+gevraagd de afgelopen maand na te gaan op hoeveel taken dat werkelijk van
+toepassing was, en op hoeveel niet. Het punt is niet het verhaal te ontkennen
+maar het te laten meten aan wat er daadwerkelijk gebeurd is, in plaats van aan
+het gevoel dat achteraf overblijft.
+
+**Lichamelijke technieken als ingang**
+
+Naast de mentale oefeningen bevat het boek lichaamsgerichte technieken,
+waaronder progressieve spierontspanning, als manier om het zenuwstelsel tot
+rust te brengen voordat het zelfonderzoek begint. Conti's redenering is dat
+zelfonderzoek in een staat van fysieke overprikkeling weinig oplevert, en dat
+de lichamelijke stap daarom voorafgaat aan de mentale.
+
+**Dankbaarheid en handelingsbekwaamheid**
+
+Conti wijst dankbaarheid en handelingsbekwaamheid, het gevoel invloed te
+hebben op de eigen situatie, aan als de twee factoren die de generatieve drift
+het meest direct voeden. Dankbaarheid werkt volgens hem alleen als oefening
+wanneer hij specifiek is: niet 'dankbaar zijn voor het leven' maar drie
+concrete dingen van die dag benoemen die zonder toeval of andermans inzet niet
+gebeurd waren.
+
+Handelingsbekwaamheid oefent hij door mensen bij een probleem eerst te laten
+opschrijven welk deel daarvan wel binnen hun eigen invloed ligt, voordat ze
+nadenken over wat er allemaal buiten hun macht ligt. Die volgorde is bewust
+gekozen: wie eerst bij de onmacht stilstaat, komt volgens Conti minder
+makkelijk terug bij wat er nog wel te doen valt.
+
+**Van methode naar levensloop**
+
+Het boek sluit af met de vraag hoe iemand de vijfdelige functie van het zelf
+blijvend bijhoudt, niet als eenmalige oefening maar als terugkerende gewoonte,
+vergelijkbaar met een jaarlijkse medische controle. Conti trekt daarbij een
+lijn naar zijn eerdere boek over trauma: waar dat boek beschrijft hoe
+verstoringen ontstaan en doorwerken, beschrijft dit boek wat er volgens hem al
+aanwezig is om daarmee te werken, ook als de verstoring zelf niet is opgelost.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Generatieve drift | Het aangeboren vermogen om te bouwen, te verbinden en bij te dragen, dat volgens Conti bij iedereen aanwezig maar vaak onderbenut is. |
+| Agressieve drift | De aangeboren drift die met grenzen stellen en assertiviteit te maken heeft. |
+| Genotsdrift | De aangeboren drift die met beloning en plezier te maken heeft. |
+| De vijfdelige functie van het zelf | Conti's indeling van zelfbewustzijn, aandacht, gedrag, streven en de omgang daartussen, als aanknopingspunt voor zelfonderzoek. |
+| Compassievolle nieuwsgierigheid | Naar eigen gedachten en gedrag kijken met aandacht en zonder oordeel, in plaats van meteen te beoordelen. |
+| Structuur versus functie | Het onderscheid tussen wat iemand over zichzelf gelooft en wat iemand daadwerkelijk doet. |
+| Progressieve spierontspanning | Een lichaamsgerichte techniek om het zenuwstelsel tot rust te brengen voor het zelfonderzoek begint. |
+
+#### Waar het argument op rust
+
+Conti is praktiserend psychiater, opgeleid aan Stanford en Harvard, en bouwt
+in dit boek voort op zijn eerdere boek *Trauma: The Invisible Epidemic* (2021)
+en op een podcastreeks bij Andrew Huberman die volgens de uitgever tientallen
+miljoenen keren is beluisterd. Het boek verscheen kort voor deze samenvatting
+werd geschreven, in mei 2026, waardoor er nog geen onafhankelijke klinische
+studies bestaan die de methode als geheel hebben getoetst.
+
+De onderbouwing bestaat uit twee lagen die niet even sterk zijn: de
+onderliggende psychiatrische kennis over drift, motivatie en zelfregulatie is
+gangbaar academisch materiaal waar Conti als praktiserend arts vertrouwd mee
+is, terwijl de specifieke indeling in drie driften en een vijfdelige
+zelffunctie zijn eigen klinische kader is, opgebouwd uit jaren
+praktijkervaring en niet uit gepubliceerd, extern getoetst onderzoek.
+
+Het boek presenteert dat kader zonder cijfers over hoeveel patiënten ermee
+zijn behandeld of hoe hun toestand voor en na is gemeten. De aanbevelingen in
+het boek, zoals het opschrijven van drie concrete dankbaarheidspunten of het
+voorrang geven aan de eigen invloedssfeer boven de onmacht, sluiten aan bij
+bredere technieken uit de cognitieve gedragstherapie waarvan de werking wel is
+onderzocht, ook al presenteert Conti ze als onderdeel van zijn eigen, nieuwe
+kader.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is te recent om al op onafhankelijke recensies van vakgenoten te
+kunnen bogen, en dat is zelf al een kanttekening: de driedeling in driften en
+de vijfdelige zelffunctie zijn Conti's eigen terminologie, die buiten zijn
+eigen praktijk en podcastoptredens nog niet is getoetst of overgenomen.
+
+Een tweede punt is de herkomst van het kader. Conti bouwt zijn methode op
+klinische ervaring met patiënten in zijn eigen praktijk, een groep die zich al
+bewust tot psychiatrische hulp heeft gewend, en niet op vergelijkend onderzoek
+tussen mensen die de methode wel en niet volgen.
+
+Verder is de belofte in de ondertitel, die spreekt van een sterke nieuwe
+methode, stelliger dan wat het boek zelf onderbouwt: het beschrijft een
+raamwerk voor zelfonderzoek, geen bewezen behandeling voor specifieke
+stoornissen, en lezers met een ernstige psychiatrische aandoening kunnen aan
+dit boek geen vervanging van behandeling ontlenen.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf aan het eind van de dag kort wat er die dag wél liep, los van wat
+er misging.
+- Noteer bij een terugkerende negatieve gedachte over jezelf of over de
+afgelopen weken of die gedachte werkelijk klopt.
+- Doe een korte ontspanningsoefening voor je een lastig gesprek of een moment
+van zelfreflectie ingaat.
+- Vraag jezelf aan het eind van de week af waar je invloed op had en waar
+niet, en scheid die twee expliciet.
+
+#### Wat je hierna leest
+
+- 96. Het verlaten individu. Van Fenema beschrijft vanuit de Nederlandse
+psychiatrie een vergelijkbare zorg over verlies van verbinding, met een
+somberder inschatting van wat individuele oefening daaraan kan verhelpen.
+- 48. Man's Search for Meaning. Frankl plaatst het zoeken van zin en drijfveer
+al in 1946 centraal, vanuit een uiterste waarin Conti's vraag naar wat er goed
+gaat letterlijk op de proef werd gesteld.
+- 79. 59 Seconds. Wiseman toetst kleine gedragsoefeningen expliciet aan
+gecontroleerd onderzoek, wat een scherp contrast oplevert met Conti's
+overwegend klinische onderbouwing.
+
+## 316. The 4-Hour Body
+
+Timothy Ferriss, 2010. Oorspronkelijk *The 4-Hour Body: An Uncommon Guide to
+Rapid Fat-Loss, Incredible Sex, and Becoming Superhuman* (Crown Archetype,
+2010, 592 blz.). Geen Nederlandse vertaling van dit boek verschenen; alleen
+zijn eerdere *The 4-Hour Workweek* (nr. 278) is als *Een werkweek van 4 uur*
+vertaald. Rubriek: brein en lichaam.
+Tags: `zelfexperiment`, `voeding`, `spieropbouw`, `biohacking`, `slaap`,
+`seksualiteit`, `supplementen`
+
+Ferriss behandelt zijn eigen lichaam als een systeem dat met de juiste
+metingen snel is bij te sturen. Aan de hand van bloedwaarden, weegschaal en
+stopwatch test hij diëten, krachttraining, koudeprikkels en slaaptechnieken op
+zichzelf en op vrijwilligers, en schrijft op wat binnen de kortst mogelijke
+tijd werkte. Het bekendste resultaat is het langzame-koolhydratendieet, met
+vijf simpele regels en één vaste vrije dag per week.
+
+Het boek gaat verder dan voeding: spieropbouw met twee oefeningen per
+spiergroep, herstel met koude baden, en een apart hoofdstuk over vrouwelijk
+orgasme dat voor evenveel ophef zorgde als de rest van het boek bij elkaar.
+Ferriss noemt zichzelf nadrukkelijk geen wetenschapper maar een "human guinea
+pig".
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ferriss beweert dat het lichaam zich laat optimaliseren als
+een systeem: meet nauwkeurig, verander één variabele tegelijk, en gebruik
+jezelf als proefpersoon om in weken te bereiken waar de gangbare
+fitnessindustrie jaren voor rekent. Het boek presenteert die belofte als een
+reeks afgeronde experimenten, met hemzelf en een handvol vrijwilligers als
+bewijsmateriaal. Wie de cijfers aanvaardt, aanvaardt daarmee ook dat wat bij
+één man en een paar bekenden werkte, voor de lezer met dezelfde zekerheid zal
+gelden.
+
+#### De gang van het boek
+
+**Het lichaam als proefopstelling**
+
+Ferriss opent met de belofte die de ondertitel al maakt: snel vetverlies,
+betere seks en een lichaam dat aankan wat de meeste mensen voor onmogelijk
+houden, allemaal binnen weken in plaats van jaren. Zijn methode noemt hij
+zelfexperiment: één variabele veranderen, nauwkeurig meten, en het resultaat
+opschrijven voordat de volgende variabele aan de beurt is. Hij noemt zichzelf
+daarbij een "human guinea pig", geen arts of onderzoeker.
+
+Terugkerend is het begrip minimum-effectieve dosis: de kleinste inspanning die
+nog een meetbaar resultaat oplevert. Wie meer doet dan nodig, verspilt volgens
+hem tijd zonder er iets extra's voor terug te krijgen. Dat uitgangspunt
+bepaalt de toon van het hele boek: elk hoofdstuk zoekt de kortste weg naar een
+vooraf gedefinieerd doel.
+
+**Het langzame-koolhydratendieet**
+
+Het bekendste onderdeel is het dieet dat hij slow-carb noemt, met vijf vaste
+regels: vermijd witte koolhydraten, eet steeds dezelfde paar maaltijden, tel
+geen calorieën maar eet tot je verzadigd bent, drink geen calorieën, en eet
+geen fruit. Eén vaste dag per week, meestal zaterdag, mag alles op tafel
+komen, inclusief gebak en snoep; Ferriss noemt dat de cheat day en beschrijft
+hem als noodzakelijk voor de stofwisseling en voor het volhouden van de andere
+zes dagen.
+
+Het dieet is smal: een handvol eiwitbronnen en peulvruchten, herhaald in bijna
+elke maaltijd. Dat maakt het volgens Ferriss gemakkelijk vol te houden, en
+volgens critici eenzijdig, omdat fruit en de meeste groenten uit de gangbare
+voedingsrichtlijnen ontbreken.
+
+**Spieropbouw in twintig minuten**
+
+Voor krachttraining introduceert hij Occam's Protocol, genoemd naar het
+beginsel dat de eenvoudigste verklaring de voorkeur verdient: twee oefeningen
+per spiergroep, één set tot spierfalen, vijf seconden op en vijf seconden
+neer, twee trainingen van twintig minuten per week. Als bewijs voert hij
+journalist Neil Strauss op, die naar eigen zeggen in vier weken tien pond
+spiermassa aanzette bij een startgewicht van 124 pond.
+
+Ferriss beschrijft ook zijn eigen experiment Geek to Freak, waarin hij zegt in
+28 dagen 34 pond spiermassa te hebben gewonnen. Dat cijfer ligt ver boven wat
+spierweefsel in die tijdspanne natuurlijk kan aanmaken, en het boek maakt niet
+duidelijk hoeveel van die toename vocht en glycogeen was in plaats van spier.
+
+**Kou, herstel en slaap**
+
+Een reeks hoofdstukken gaat over herstel: ijsbaden om ontstekingen te remmen,
+koude douches om de stofwisseling te verhogen, en een hoofdstuk over slaap dat
+draait om korte, geplande dutjes in plaats van één lange nachtrust. Ferriss
+verwijst hier naar onderzoek naar bruin vetweefsel, dat door blootstelling aan
+kou actiever zou worden en meer energie zou verbranden.
+
+De koudehoofdstukken staan dichter bij gepubliceerd onderzoek dan de meeste
+andere delen van het boek, al vertaalt Ferriss resultaten uit
+laboratoriumstudies naar een dagelijkse routine op een manier die de
+oorspronkelijke onderzoekers zelf niet hebben getoetst.
+
+**Van vijf naar vijftig kilometer**
+
+Een apart deel gaat over duursport: een schema waarmee lopers die een 5
+kilometer aankunnen, in twaalf weken een ultraloop van 50 kilometer zouden
+moeten kunnen afleggen, en een hoofdstuk waarin Ferriss claimt in tien dagen
+efficiënt te hebben leren zwemmen met een techniek die leunt op de Total
+Immersion-methode. Beide hoofdstukken volgen dezelfde opzet als de rest van
+het boek: een klein aantal regels over vorm, ademhaling en cadans, in plaats
+van een lang opbouwschema met wekelijkse kilometertoenames.
+
+Ook hier ontbreekt een vergelijking met sporters die een gangbaar
+trainingsschema volgen. Het 50-kilometerprogramma steunt op de ervaring van
+Ferriss zelf en van ultraloopcoach Brian Mackenzie, niet op een gepubliceerde
+trainingsstudie met een controlegroep.
+
+**De pil-stapel en het hoofdstuk over seks**
+
+Voor wie liever een supplement neemt dan een dieet volgt, beschrijft Ferriss
+de PAGG-stack: policosanol, alfaliponzuur, groene-theeflavonolen en
+knoflookextract, in vaste doseringen rond de maaltijd. Hij noemt de combinatie
+zijn vervanging voor een eerdere stack met efedrine, die hij zelf had verlaten
+na bijwerkingen.
+
+Het hoofdstuk over vrouwelijk orgasme binnen vijftien minuten bouwt op de
+Doing-methode uit een boek van Steve en Vera Bodansky en op gesprekken met
+onder anderen pornoactrice Nina Hartley. Ferriss beschrijft een vaste
+handbeweging en een vaste tijdsduur, zonder de fysiologische onderbouwing die
+de rest van het boek wel claimt te geven.
+
+**Wat het boek niet doet**
+
+Nergens in *The 4-Hour Body* staat een gecontroleerde studie met een
+controlegroep. Ferriss verzamelt uitkomsten bij zichzelf en bij een beperkt
+aantal vrijwilligers, en generaliseert die naar de lezer zonder te vermelden
+hoe representatief die groep is voor wie het boek koopt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Minimum-effectieve dosis | De kleinste inspanning die nog net het gewenste resultaat oplevert; meer doen is voor Ferriss verspilling. |
+| Zelfexperiment (n=1) | Onderzoek met jezelf als enige proefpersoon, zonder controlegroep of blindering. |
+| Slow-carb dieet | Het dieet met vijf regels rond eiwitten en peulvruchten en één vrije dag per week. |
+| Cheat day | De ene dag per week waarop alle voedsel is toegestaan, door Ferriss verdedigd als noodzakelijk voor vol te houden vetverlies. |
+| Occam's Protocol | Het krachttrainingsschema met twee oefeningen per spiergroep en één set tot spierfalen. |
+| Geek to Freak | Ferriss' eigen experiment waarin hij claimt in 28 dagen 34 pond spiermassa te hebben gewonnen. |
+| PAGG-stack | De supplementcombinatie van policosanol, alfaliponzuur, groene-theeflavonolen en knoflookextract. |
+| Bruin vetweefsel | Vetweefsel dat door koude actiever wordt en energie verbrandt, de basis onder de koudehoofdstukken. |
+| Human guinea pig | Ferriss' eigen omschrijving van zijn rol: proefpersoon, geen onderzoeker. |
+| Ultraendurance-programma | Het twaalfwekenschema waarmee Ferriss claimt lopers van 5 naar 50 kilometer te brengen. |
+
+#### Waar het argument op rust
+
+Het boek levert vrijwel nergens gepubliceerd, onafhankelijk onderzoek. Ferriss
+beschrijft uitkomsten bij zichzelf en bij een klein aantal vrijwilligers zoals
+Neil Strauss, en laat zien wat er met hen gebeurde, niet wat er bij een
+grotere, willekeurig samengestelde groep zou gebeuren. Waar hij wel naar
+onderzoek verwijst, zoals bij bruin vetweefsel en koude, gaat het om
+laboratoriumstudies die iets anders maten dan de dagelijkse routine die hij
+eruit afleidt. Hetzelfde patroon geldt voor de duursporthoofdstukken: het
+ultraloopschema en de zwemtechniek worden gestaafd met de ervaring van hemzelf
+en een handvol testpersonen, niet met een vergelijkende trainingsstudie.
+
+De sterkste kant van het boek is de nauwkeurigheid waarmee Ferriss zijn eigen
+metingen bijhoudt: gewicht, vetpercentage, bloedwaarden, herhaald over weken.
+Dat maakt zijn eigen resultaten navolgbaar. Navolgbaar is iets anders dan
+generaliseerbaar: een uitkomst bij één man van in de dertig met toegang tot
+dure bloedtests zegt weinig over wat een lezer met een ander lichaam, een
+andere leeftijd of minder tijd mag verwachten.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek claims uit een steekproef van één of
+enkele personen presenteert als algemene regel. Het cijfer van 34 pond
+spiermassa in 28 dagen wordt nergens gerelativeerd, terwijl het ver boven
+bekende grenzen aan natuurlijke spiergroei ligt.
+
+Het hoofdstuk over vrouwelijk orgasme mist juist de precisie die de rest van
+het boek claimt: één vaste techniek wordt als universeel voorgesteld,
+gebaseerd op de ervaring van een klein aantal bronnen in plaats van op
+onderzoek bij een bredere groep vrouwen.
+
+Het dieet en de supplementen zijn niet zonder risico. Ferriss vermeldt zelf
+dat hij een eerdere efedrinestack verliet na bijwerkingen, en de dosering
+alfaliponzuur die hij aanbeveelt ligt dicht bij de hoeveelheid waarbij hij
+zelf maagklachten noemt. Wie het boek als medisch advies leest in plaats van
+als verslag van de experimenten van één man, loopt het risico dat verschil te
+missen.
+
+De koudehoofdstukken bevatten weinig waarschuwing voor lezers met een
+hartaandoening. Plotselinge onderdompeling in ijswater kan bij kwetsbare
+mensen een schok voor het hart veroorzaken, een voorzichtigheidsmaatregel die
+in de reguliere sportgeneeskunde wel als voorwaarde geldt en in het boek
+nauwelijks aan bod komt.
+
+#### Wat er concreet mee te doen is
+
+- Meet voor je begint een paar weken je eigen basiswaarden (gewicht, omvang,
+energie) voordat je een van de protocollen overneemt.
+- Vervang een dieetregel door een studie: zoek naar herhaling bij anderen
+voordat je een resultaat als algemeen geldig aanneemt.
+- Bekijk de supplementhoofdstukken met de bijsluiter ernaast, niet als
+vervanging ervan.
+
+#### Wat je hierna leest
+
+- 278. The 4-Hour Workweek. Ferriss' eerdere boek over tijd in plaats van
+lichaam, met dezelfde methode van meten en minimaliseren.
+- 52. Why We Sleep. Walker onderbouwt zijn claims over slaap met gepubliceerd
+onderzoek en laat zien hoe die onderbouwing eruitziet wanneer ze wel compleet
+is.
+- 64. Fooled by Randomness. Taleb waarschuwt voor precies de denkfout die dit
+boek maakt: een kleine steekproef voor een algemene wet aanzien.
+
+## 317. Trauma: The Invisible Epidemic
+
+Paul Conti, 2021. Volledige titel *Trauma: The Invisible Epidemic: How Trauma
+Works and How We Can Heal From It* (Sounds True / St. Martin's Essentials,
+2021). Geen Nederlandse vertaling verschenen. Rubriek: brein en lichaam.
+Tags: `trauma`, `psychiatrie`, `schaamte`, `hechting`, `gezondheidszorg`,
+`veerkracht`
+
+Conti, psychiater, betoogt dat trauma niet beperkt blijft tot mensen die een
+oorlog, geweld of ramp hebben meegemaakt. Volgens hem ontstaat trauma overal
+waar een ervaring het vermogen van iemand om met de wereld om te gaan blijvend
+verstoort, en dat gebeurt volgens hem vaker dan de diagnose PTSS laat
+vermoeden. Hij vergelijkt onverwerkt trauma met een parasiet die de
+waakzaamheid van de gastheer verstoort en zo de kans op nieuw trauma vergroot.
+
+Het boek combineert klinisch werk met beschouwingen over gezondheidszorg en
+samenleving: waarom verzekeringsstelsels trauma onderbehandelen, hoe trauma
+zich via gezinnen en gemeenschappen verspreidt, en wat er nodig is om het,
+individueel en collectief, te helen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Conti stelt dat trauma geen zeldzame uitzonderingstoestand is
+die voorbehouden blijft aan slachtoffers van oorlog of geweld, maar een
+wijdverbreide, vaak onopgemerkte verstoring van hoe mensen zichzelf, anderen
+en gevaar inschatten. Onverwerkt trauma werkt volgens hem als een sluipend
+proces: het buigt het zelfbeeld, voedt schaamte en zelfhaat, en maakt mensen
+vatbaarder voor nieuwe schade in plaats van weerbaarder. Zijn stelling is dat
+deze schade net zo herkenbaar en behandelbaar is als een lichamelijke ziekte,
+mits zorgverleners, gezinnen en instellingen haar zo gaan behandelen in plaats
+van als karakterzwakte.
+
+#### De gang van het boek
+
+**Trauma breder dan PTSS**
+
+Conti begint met een verruiming van het begrip trauma. Posttraumatische
+stressstoornis is de diagnose die de meeste aandacht krijgt, maar volgens hem
+is zij slechts het zichtbare topje van een veel grotere groep aandoeningen die
+door onverwerkte ervaringen ontstaan: depressie, verslaving, chronische woede,
+en patronen van zelfsabotage die geen van allen als trauma worden herkend.
+
+Hij onderscheidt daarbij gebeurtenissen die iemand overkomen, zoals
+mishandeling of een ongeluk, van de blijvende sporen die zulke gebeurtenissen
+achterlaten in hoe iemand zichzelf en de wereld waarneemt. Dat onderscheid,
+tussen de gebeurtenis en het spoor dat zij trekt, keert in het hele boek
+terug.
+
+**Trauma als parasiet**
+
+Om te verklaren waarom trauma zichzelf in stand houdt, gebruikt Conti de
+vergelijking met de parasiet *Toxoplasma gondii*, die de angst van een besmet
+knaagdier voor de geur van een kat wegneemt en het dier zo juist kwetsbaarder
+maakt voor de volgende aanval. Onverwerkt trauma doet volgens hem iets
+vergelijkbaars met de waakzaamheid van een mens: het verstoort precies het
+systeem dat voor bescherming zou moeten zorgen.
+
+Daaruit volgt zijn stelling dat mensen met onverwerkt trauma disproportioneel
+vaak in nieuwe schadelijke situaties terechtkomen, niet uit onachtzaamheid
+maar omdat hun risico-inschatting al door eerdere schade is vervormd.
+
+**Schaamte als drijvende kracht**
+
+Een terugkerend begrip is schaamte, die Conti de belangrijkste handlanger van
+trauma noemt. Schaamte overtuigt iemand ervan dat wat hem is overkomen iets
+over hemzelf zegt in plaats van over de gebeurtenis, en die overtuiging voedt
+op haar beurt zelfhaat en het geloof geen goede uitkomsten te verdienen.
+
+Hij beschrijft hoe die zelfhaat zich vertaalt in gedrag dat van buitenaf
+zelfdestructief lijkt: het afwijzen van hulp, het opzoeken van relaties die
+dezelfde schade herhalen, of succes actief ondermijnen zodra het zich
+aandient.
+
+**De vervormde levenskaart**
+
+Conti gebruikt het beeld van een innerlijke kaart waarmee mensen beslissingen
+nemen. Trauma tekent op die kaart valse grenzen en gevaren die er niet meer
+zijn, waardoor iemand routes blijft mijden, of juist blijft opzoeken, die niet
+meer bij de werkelijke situatie passen.
+
+Herstel bestaat er in zijn beschrijving voor een groot deel uit die kaart te
+herzien: het valse verhaal dat iemand over zichzelf vertelt, vervangen door
+een waarheidsgetrouwer verhaal, met hulp van een therapeut of, bij mildere
+vormen, met gestructureerde zelfreflectie.
+
+**Waarom de zorg tekortschiet**
+
+Een deel van het boek is maatschappijkritiek. Conti beschrijft hoe de
+Amerikaanse verzekeringsstructuur behandelaars dwingt tot korte,
+symptoomgerichte trajecten, terwijl trauma volgens hem tijd en continuïteit
+vraagt. Diagnosesystemen die op afzonderlijke klachten zijn gebouwd, missen
+daardoor vaak het onderliggende trauma dat de klachten verklaart.
+
+Hij bespreekt ook hoe trauma zich via gezinnen verspreidt: een ouder die zelf
+onverwerkte schade meedraagt, geeft patronen van angst of afwijzing door aan
+een kind, ook zonder dat er sprake is van directe mishandeling.
+
+Contis eigen patiëntenpopulatie bestaat vooral uit verzekerde Amerikanen die
+zich een langdurig traject bij een particuliere praktijk in Portland kunnen
+veroorloven. Dat maakt zijn klinische observaties gedetailleerd, maar ook
+smal: hoe zijn model standhoudt bij mensen zonder toegang tot langdurige zorg,
+blijft in het boek onbeantwoord.
+
+**Trauma op groepsniveau**
+
+In de latere hoofdstukken breidt Conti zijn model uit naar groepen en
+samenlevingen. Politieke polarisatie, verharding tussen bevolkingsgroepen en
+de neiging om vreemdelingen als bedreiging te zien, verklaart hij mede vanuit
+collectief onverwerkt trauma dat zich via cultuur en verhalen voortplant.
+
+Dat is het minst uitgewerkte deel van het boek: waar de klinische hoofdstukken
+bouwen op zijn eigen praktijkervaring, steunt dit deel vooral op analogie.
+
+**Een weg naar herstel**
+
+Het slot biedt geen protocol maar een richting: erkennen dat een klacht in
+trauma geworteld kan zijn, het eigen verhaal herzien, en het herstel behalve
+als individuele opgave ook als taak voor gezinnen, werkgevers en de
+gezondheidszorg zien. Conti dringt aan op wat hij een humanistisch
+maatschappelijk commitment noemt: structurele investering in vroege herkenning
+in plaats van alleen crisisbehandeling.
+
+Voor angst die los van een herkenbaar traumaverhaal opspeelt, zoals een
+paniekmoment voor een telefoontje of een woede-uitbarsting die buiten
+proportie voelt, adviseert Conti niet de aanleiding weg te redeneren maar de
+reactie eerst als lichaamssignaal te herkennen, voordat er naar een verklaring
+wordt gezocht. Dat advies staat dichter bij een praktische aanwijzing dan de
+rest van een boek dat overwegend beschrijvend blijft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Trauma | Elke ervaring die het vermogen van iemand om zichzelf en de wereld in te schatten blijvend verstoort, breder dan de diagnose PTSS. |
+| Onverwerkt trauma | Schade die niet is geïntegreerd in het levensverhaal en daardoor blijft doorwerken in waarneming en gedrag. |
+| Trauma als parasiet | Contis beeld voor hoe onverwerkt trauma de waakzaamheid verstoort en zo nieuwe schade waarschijnlijker maakt. |
+| Schaamte | De overtuiging dat een gebeurtenis iets over de eigen waarde zegt; door Conti trauma's belangrijkste handlanger genoemd. |
+| Levenskaart | Het innerlijke beeld waarmee iemand beslissingen neemt, en dat trauma vervormt met valse grenzen en gevaren. |
+| Zelfhaat | Het geloof geen goede uitkomsten te verdienen, dat volgens Conti direct uit onverwerkte schaamte voortkomt. |
+| Collectief trauma | Onverwerkte schade die zich via cultuur, verhalen en gezinnen door een groep of samenleving verspreidt. |
+| Humanistisch maatschappelijk commitment | Contis term voor structurele, gedeelde investering in vroege herkenning van trauma in plaats van alleen crisiszorg. |
+
+#### Waar het argument op rust
+
+Conti bouwt zijn boek op dertig jaar klinische praktijk als psychiater en op
+tientallen geanonimiseerde patiëntcasussen die hij gebruikt om zijn begrippen
+te illustreren. Dat is ervaring, geen gecontroleerde studie: er staat geen
+vergelijking in met patiënten die een andere behandeling kregen, en de
+casussen zijn door hemzelf geselecteerd om zijn model te ondersteunen.
+
+Waar het boek dichter bij gepubliceerd onderzoek komt, is bij onderwerpen die
+in de traumaliteratuur breed zijn onderbouwd, zoals de invloed van vroege
+kindertijd op stressregulatie en de doorwerking van trauma binnen gezinnen.
+Voor de specifieke begrippen die Conti zelf muntte, zoals de vergelijking met
+de parasiet en de levenskaart, geeft hij geen verwijzing naar getoetst
+onderzoek; het zijn klinische metaforen, geen empirische bevindingen.
+
+Het hoofdstuk over collectief en maatschappelijk trauma steunt het zwakst op
+bewijs. Conti trekt daar een parallel tussen individuele traumamechanismen en
+groepsgedrag zoals polarisatie, zonder onderzoek te noemen dat die overdracht
+op groepsniveau bevestigt.
+
+#### Wat er tegen in te brengen valt
+
+Het boek werkt met een begrip van trauma dat zo breed is dat het bijna elk
+psychisch probleem kan verklaren, van verslaving tot werkstress tot politieke
+verharding. Een verklaring die vrijwel alles omvat, is voor een lezer moeilijk
+te toetsen en moeilijk te weerleggen.
+
+Conti geeft weinig concreet handelingsperspectief. Hij beschrijft uitvoerig
+wat er misgaat en waarom herkenning belangrijk is, maar laat specifieke
+therapeutische technieken, op algemene aanraders als journaling en
+gestructureerde reflectie na, grotendeels aan de lezer of aan de behandelaar
+over.
+
+De casussen in het boek zijn door de auteur zelf gekozen en herschreven, wat
+betekent dat ze zijn model eerder bevestigen dan toetsen. Een boek dat zo
+dicht bij de eigen praktijk van de schrijver blijft, mist het perspectief van
+patiënten voor wie zijn aanpak niet werkte.
+
+Doordat Conti vrijwel uitsluitend uit zijn eigen praktijk put, is onduidelijk
+hoe zijn model zich verhoudt tot trauma bij mensen in heel andere
+omstandigheden, zoals vluchtelingen of mensen zonder toegang tot langdurige
+zorg. Het boek generaliseert vanuit een relatief bevoorrechte groep patiënten
+naar een claim die voor iedereen zou moeten gelden.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij terugkerende zelfkritiek na of die reactie in verhouding staat tot
+wat er feitelijk is gebeurd, of dat zij ouder is dan de aanleiding.
+- Leg een terugkerend gedragspatroon, zoals vermijden of het aantrekken van
+dezelfde soort relaties, naast de vraag welke vroegere ervaring het zou kunnen
+verklaren, zonder daarmee meteen een diagnose te stellen.
+- Zoek bij aanhoudende klachten een behandelaar die naar de geschiedenis
+achter een symptoom vraagt, niet alleen naar het symptoom zelf.
+
+#### Wat je hierna leest
+
+- 44. Daring Greatly. Brown onderzoekt dezelfde schaamte die Conti trauma's
+handlanger noemt, op basis van jarenlang interviewonderzoek in plaats van
+klinische praktijk.
+- 48. Man's Search for Meaning. Frankl beschrijft van binnenuit wat Conti
+klinisch beschrijft: hoe een vervormd zelfbeeld onder extreme druk toch te
+herzien is.
+- 96. Het verlaten individu. Van Fenema plaatst dezelfde toename aan psychisch
+lijden in een bredere ontwikkeling van individualisering en verlies aan
+gemeenschap.
+- 53. The Anxious Generation. Haidt beschrijft een vergelijkbare
+epidemie-retoriek voor een andere groep en een ander mechanisme: de smartphone
+in plaats van onverwerkt trauma.
+
+## 318. Breath: The New Science of a Lost Art
+
+James Nestor, 2020. Oorspronkelijk *Breath: The New Science of a Lost Art*
+(Riverhead Books, 2020, 304 blz.). Nederlands als *Het nieuwe ademen*,
+vertaald door Ruud van de Plassche (HarperCollins Holland, 1e druk 2021, ISBN
+9789402706291). Rubriek: brein en lichaam.
+Tags: `ademhaling`, `fysiologie`, `neusademing`, `zelfexperiment`,
+`gezondheid`, `evolutie`
+
+Nestor, wetenschapsjournalist, doet tien jaar onderzoek naar ademhaling nadat
+hij zelf met chronische luchtwegklachten kampt. De kern van het boek is het
+contrast tussen ademen door de neus en ademen door de mond: dat laatste is
+volgens hem de norm geworden en ligt aan de basis van klachten als snurken,
+slaapapneu, allergieën en een vernauwde kaak.
+
+Naast een reeks eigen experimenten, waaronder tien dagen met dichtgeplakte
+neus onder begeleiding van Stanford-onderzoeker Jayakar Nayak, put Nestor uit
+eeuwenoude ademtechnieken en uit antropologisch onderzoek naar schedels en
+kaken van voor de landbouw.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Nestor stelt dat de manier waarop de moderne mens ademt,
+overwegend door de mond en te snel, een verworven storing is en geen
+natuurlijke toestand, en dat die storing meespeelt bij klachten van snurken en
+slaapapneu tot astma en een vernauwde kaak. Zijn stelling is dat een terugkeer
+naar langzaam, diep ademen door de neus veel van die klachten kan verminderen
+zonder medicatie of ingreep. Het boek presenteert dat als een verloren
+vaardigheid die eeuwenlang bekend was in ademtradities en die de moderne
+geneeskunde lang heeft genegeerd.
+
+#### De gang van het boek
+
+**Een persoonlijk vertrekpunt**
+
+Nestor begint bij zijn eigen ervaring: chronische ademhalingsklachten die
+artsen niet konden verklaren, en een ademcursus die zijn klachten wel
+verlichtte. Die persoonlijke ervaring vormt de aanleiding voor tien jaar
+research, waarin hij longartsen, orthodontisten, antropologen en ademtrainers
+opzoekt.
+
+Het boek wisselt daarbij twee registers af: verslaggeving van wetenschappelijk
+onderzoek, en eigen zelfexperimenten waarin Nestor de bevindingen op zichzelf
+test.
+
+**Het experiment met de dichtgeplakte neus**
+
+Het centrale experiment vindt plaats onder begeleiding van kno-arts en
+Stanford-onderzoeker Jayakar Nayak. Nestor en ademtrainer Anders Olsson
+brengen tien dagen door met de neus volledig afgeplakt, waardoor ze alleen
+door de mond kunnen ademen, gevolgd door tien dagen bewust langzaam ademen
+door de neus.
+
+Tijdens de mondademperiode, waarbij Nestor ook 's nachts een mondkapje draagt
+dat mondademen tegengaat, meet Nayak bij beide proefpersonen frequente
+episodes van obstructieve slaapapneu, gefragmenteerde slaap en luid snurken,
+samen met een hogere systolische bloeddruk overdag. In de neusademperiode
+verdwijnen apneu en snurken, en verbeteren bloeddruk en hartritmevariabiliteit
+weer. Het gaat om een studie met twee deelnemers, wat de bevindingen
+persoonlijk relevant maakt voor Nestor zelf, maar niet generaliseerbaar in
+statistische zin.
+
+In hetzelfde deel bespreekt Nestor onderzoek naar stikstofmonoxide, een gas
+dat in de neusholte wordt aangemaakt en dat bloedvaten verwijdt en de
+zuurstofopname in de longen verbetert. Neuriën verhoogt volgens het
+aangehaalde onderzoek de aanmaak van dat gas tot ongeveer vijftien keer het
+niveau van rustig ademen, wat Nestor aanvoert als extra argument voor ademen
+door de neus in plaats van door de mond.
+
+**Vorm van de kaak en de mens vóór landbouw**
+
+Nestor bespreekt onderzoek naar schedels van jagers-verzamelaars, die een
+bredere kaak en rechtere tanden vertonen dan schedels van na de introductie
+van bewerkt voedsel. Zijn verklaring is dat zacht, bewerkt voedsel minder
+kauwkracht vraagt, waardoor de kaak zich minder ontwikkelt en er te weinig
+ruimte overblijft voor alle tanden en voor een ruime luchtweg.
+
+Die kleinere kaak zou volgens hem bijdragen aan de toename van scheve tanden,
+snurken en slaapapneu in de moderne bevolking, een stelling die hij ontleent
+aan werk van onderzoekers naar evolutionaire tandheelkunde. Hij bouwt daarbij
+voort op het vroege werk van de Amerikaanse tandarts Weston Price, die in de
+jaren dertig tanden en kaken van tientallen traditionele gemeenschappen
+wereldwijd documenteerde en daar consequent brede kaken en vrijwel gave
+gebitten aantrof, tegenover meer cariës en scheve tanden zodra dezelfde
+gemeenschappen op bewerkt voedsel overstapten.
+
+Nestor corrigeert Price wel op één punt: waar Price het verschil vooral aan
+voedingsstoffen toeschreef, wijst Nestor erop dat vooral het ontbreken van
+uren kauwen per dag de kaakontwikkeling afremt, niet het gebrek aan vitaminen
+op zich. Dat onderscheid, tussen wat Price zelf mat en hoe hij het verklaarde,
+laat zien dat Nestor het aangehaalde onderzoek niet klakkeloos overneemt.
+
+**Langzaam ademen en koolstofdioxide**
+
+Een groot deel van het boek gaat over de rol van kooldioxide. Nestor
+beschrijft dat de gangbare aanname, dat meer zuurstof binnenkrijgen altijd
+beter is, misleidend is: cellen hebben ook koolstofdioxide nodig om de
+zuurstof uit het bloed los te laten, en wie te snel en te diep ademt, kan
+daardoor juist minder zuurstof in de weefsels krijgen ondanks een hoger
+zuurstofgehalte in het bloed.
+
+Daaruit leidt hij het advies af om trager te ademen dan de meeste mensen
+gewend zijn, rond de zes ademhalingen per minuut, een tempo dat in
+verschillende ademtradities en in modern onderzoek naar hartritmevariabiliteit
+terugkomt.
+
+**Intensieve technieken: Tummo en Wim Hof**
+
+Nestor beschrijft ook intensievere technieken, zoals de Tibetaanse
+Tummo-meditatie en de methode van Wim Hof, waarbij bewust hyperventileren
+wordt gecombineerd met kou. Hij woont een test bij waarin deelnemers na deze
+technieken hun lichaamstemperatuur en immuunreactie beïnvloeden op manieren
+die buiten wat de fysiologie tot dan toe voor mogelijk hield.
+
+Hij plaatst daar meteen een waarschuwing bij: bewust hyperventileren
+voorafgaand aan onderdompeling in koud water heeft bij oefenaars tot
+verdrinking geleid, omdat het duizeligheid en bewustzijnsverlies kan
+veroorzaken.
+
+**Wat oude tradities gemeen hebben**
+
+In de slothoofdstukken zet Nestor ademtechnieken uit uiteenlopende tradities
+naast elkaar, van pranayama uit de yoga tot Buteyko-oefeningen en Gregoriaanse
+gezangen, en signaleert een gemeenschappelijk patroon: langzaam, ritmisch
+ademen door de neus, vaak rond dezelfde zes tellen in en zes tellen uit.
+
+Zijn conclusie is dat deze tradities onafhankelijk van elkaar op eenzelfde
+fysiologisch optimum zijn uitgekomen, lang voordat de wetenschap kon meten
+waarom het werkte.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Mondademen | Chronisch door de mond in plaats van door de neus ademen, door Nestor aangewezen als aangeleerde afwijking met gezondheidsgevolgen. |
+| Neusademing | Ademen door de neus, dat de lucht filtert, bevochtigt en stikstofmonoxide toevoegt voordat zij de longen bereikt. |
+| Kaakvernauwing | De kleinere kaakomvang bij moderne mensen ten opzichte van jagers-verzamelaars, die Nestor koppelt aan zacht bewerkt voedsel. |
+| Ademfrequentie | Het aantal ademhalingen per minuut; Nestor bepleit een lager tempo dan de gangbare praktijk. |
+| Koolstofdioxidetolerantie | Het vermogen van het lichaam om een hogere CO2-waarde te verdragen, wat volgens het boek de zuurstofafgifte aan weefsel verbetert. |
+| Tummo | Tibetaanse meditatietechniek die ademhaling gebruikt om lichaamswarmte op te wekken. |
+| Wim Hof-methode | Combinatie van bewuste hyperventilatie en koudeblootstelling, in het boek getest op invloed op het immuunsysteem. |
+| Buteyko-methode | Ademtechniek gericht op vertraging en vermindering van ademvolume, ontwikkeld door de Oekraïense arts Konstantin Buteyko. |
+| Stikstofmonoxide (NO) | Gas dat in de neusholte ontstaat en bloedvaten verwijdt; volgens het boek sterk verhoogd door neuriën en door ademen door de neus. |
+| Weston Price | Amerikaanse tandarts wiens veldonderzoek uit de jaren dertig naar tanden en kaken bij traditionele gemeenschappen de basis vormt onder Nestors kaakhoofdstuk. |
+
+#### Waar het argument op rust
+
+Nestors sterkste bewijs is het experiment met Jayakar Nayak aan Stanford,
+waarin gemeten waarden voor bloeddruk en slaap tijdens mondademen
+verslechteren en tijdens neusademen herstellen. Het gaat wel om een studie met
+twee deelnemers, onder wie Nestor zelf, wat de uitkomst persoonlijk
+overtuigend maakt maar statistisch weinig zeggingskracht geeft.
+
+Voor de stelling over kaakvernauwing put hij uit antropologisch en
+tandheelkundig onderzoek naar schedels, dat breder is gepubliceerd en minder
+afhankelijk is van zijn eigen experimenten. Voor de koolstofdioxidetolerantie
+verwijst hij naar bestaand fysiologisch onderzoek naar ademhaling bij
+topsporters en bij mensen met paniekstoornissen.
+
+Bij de meest opvallende claims, zoals de invloed van Tummo en de Wim
+Hof-methode op het immuunsysteem, steunt hij op een beperkt aantal
+gepubliceerde studies met kleine groepen deelnemers. Dat onderzoek bestaat,
+maar is qua omvang en herhaalbaarheid niet onomstreden, en het boek vermeldt
+dat beperkte bereik niet altijd even nadrukkelijk als de uitkomst zelf.
+
+#### Wat er tegen in te brengen valt
+
+Recensenten uit de wetenschapsjournalistiek, onder wie Sam Kean in *The Wall
+Street Journal*, wezen erop dat Nestor onvoldoende rekening houdt met het
+placebo-effect in zijn eigen experimenten en dat sommige claims over
+stikstofmonoxide en koolstofdioxide verder gaan dan het onderliggende
+onderzoek dekt.
+
+Het boek herhaalt een klein aantal experimenten, waaronder zijn eigen
+ervaring, als bewijs voor uitspraken die voor de hele mensheid zouden gelden.
+Dat is een vorm van overgeneralisatie die inherent is aan verhalende
+wetenschapsjournalistiek, maar die de lezer makkelijk kan aanzien voor een
+breder bevestigde wetenschappelijke consensus dan er daadwerkelijk is.
+
+De meest risicovolle passages, over bewust hyperventileren voor
+koudeblootstelling, komen met een waarschuwing, maar het boek presenteert de
+onderliggende Wim Hof-methode over het geheel genomen positiever dan de stand
+van het gepubliceerde onderzoek op dat gebied rechtvaardigt.
+
+Prices veldwerk dateert uit de jaren dertig en voldoet niet aan de standaarden
+van hedendaags antropologisch onderzoek: hij werkte zonder gerandomiseerde
+steekproef en beschreef de bezochte gemeenschappen in een taal die inmiddels
+als gedateerd geldt. Nestor neemt Prices tandheelkundige waarnemingen wel
+kritisch over op het punt van de verklaring, maar bespreekt die
+methodologische kanttekening zelf niet uitgebreid.
+
+#### Wat er concreet mee te doen is
+
+- Let een dag lang op of je door de neus of door de mond ademt, vooral tijdens
+inspanning en tijdens slaap.
+- Oefen ademen in een lager tempo, met een langere uitademing dan inademing,
+zonder daarbij naar adem te happen.
+- Wees terughoudend met hyperventilatietechnieken in combinatie met koud
+water; doe dat nooit alleen.
+
+#### Wat je hierna leest
+
+- 52. Why We Sleep. Walker behandelt slaap met dezelfde combinatie van
+wetenschapsjournalistiek en praktisch advies, en onderbouwt zijn claims
+uitgebreider met gepubliceerd onderzoek.
+- 87. Activeer je nervus vagus. Swinnen werkt een verwant fysiologisch
+mechanisme uit, de nervus vagus, dat net als ademhaling de balans tussen
+spanning en ontspanning regelt.
+- 88. Gewoontedieren. Brendborg bespreekt vergelijkbare biologische
+aanpassingen van het lichaam vanuit evolutionair perspectief, met dezelfde
+spanning tussen populaire claim en onderliggend onderzoek.
+
+## 319. Hope for Cynics
+
+Jamil Zaki, 2024. Volledige titel *Hope for Cynics: The Surprising Science of
+Human Goodness* (Grand Central Publishing, 2024). Geen Nederlandse vertaling
+verschenen. Rubriek: geschiedenis en samenleving.
+Tags: `cynisme`, `vertrouwen`, `sociale-psychologie`, `hoop`, `vriendschap`,
+`samenleving`
+
+Zaki, hoogleraar psychologie aan Stanford en directeur van het Stanford Social
+Neuroscience Lab, beschrijft zichzelf als een cynicus die zijn eigen cynisme
+onderzoekt met de instrumenten van zijn vakgebied. Zijn onderzoek laat zien
+dat mensen structureel te somber zijn over hoe eerlijk, aardig en behulpzaam
+anderen werkelijk zijn, en dat die onderschatting op zichzelf al schade
+aanricht: aan relaties, aan gezondheid en aan het vertrouwen dat samenlevingen
+nodig hebben om samen te werken.
+
+Het boek is deels wetenschappelijke synthese en deels eerbetoon aan zijn
+vriend en collega, de neurowetenschapper Emile Bruneau, die ondanks een
+dodelijke hersentumor tot zijn dood in 2020 hoopvol bleef en Zaki daarmee tot
+zijn onderwerp bracht.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Zaki stelt dat cynisme, het geloof dat mensen in de kern
+zelfzuchtig, oneerlijk en onbetrouwbaar zijn, geen realistische kijk op de
+wereld is maar een systematische onderschatting die zich met onderzoek laat
+weerleggen. Zijn stelling is dat mensen structureel somberder over elkaar
+denken dan de feiten rechtvaardigen, en dat deze vertekening zichzelf in stand
+houdt: wie anderen wantrouwt, gedraagt zich wantrouwig, en roept daarmee het
+gedrag op dat het wantrouwen leek te bevestigen. Als alternatief bepleit hij
+wat hij hoopvol scepticisme noemt: bereid zijn overtuigd te worden door
+bewijs, in plaats van bij voorbaat het slechtste aan te nemen, zonder daarbij
+in naïef optimisme te vervallen.
+
+#### De gang van het boek
+
+**Een cynicus onderzoekt zichzelf**
+
+Zaki opent met een persoonlijke bekentenis: ondanks twintig jaar onderzoek
+naar empathie en menselijke vriendelijkheid, betrapte hij zichzelf op een
+groeiend wantrouwen tegenover mensen in het algemeen. Die spanning tussen wat
+zijn onderzoek liet zien en wat hij voelde, vormt het uitgangspunt van het
+boek.
+
+Tegenover zijn eigen cynisme zet hij zijn vriend en collega Emile Bruneau, een
+neurowetenschapper die vredesonderzoek deed naar conflicten tussen groepen en
+die, ook nadat hij in 2019 de diagnose hersentumor kreeg, opvallend hoopvol
+bleef tot aan zijn dood in 2020. Bruneaus houding werkt als tegenvoorbeeld
+door het hele boek heen.
+
+**Wat cynisme is, en wat het niet is**
+
+Zaki maakt een scherp onderscheid tussen cynisme en scepsis. Scepsis is een
+houding die vraagt om bewijs en die openstaat om van mening te veranderen.
+Cynisme is volgens hem een vooraf getrokken conclusie, het geloof dat mensen
+sowieso zelfzuchtig en oneerlijk zijn, waarna nieuw bewijs wordt genegeerd of
+weggeredeneerd.
+
+Dat onderscheid is belangrijk omdat cynisme in het publieke debat vaak wordt
+aangezien voor scherpzinnigheid. Zaki wijst erop dat cynische mensen in
+onderzoek juist slechter scoren op taken die vragen om anderen correct in te
+schatten, wat erop wijst dat cynisme eerder een denkfout is dan een vorm van
+doorzicht.
+
+**De vertrouwenskloof**
+
+Centraal staat onderzoek uit Zaki's eigen laboratorium en dat van anderen naar
+wat hij de vertrouwenskloof noemt: het verschil tussen hoe eerlijk, aardig en
+behulpzaam mensen daadwerkelijk zijn in experimenten, en hoe eerlijk, aardig
+en behulpzaam mensen denken dat vreemden zijn. In herhaalde studies
+onderschatten proefpersonen de bereidheid van anderen om verloren voorwerpen
+terug te geven, om oneerlijk verkregen geld te melden en om een vreemde te
+helpen.
+
+Hij koppelt dat aan een langlopende Amerikaanse enquête, de General Social
+Survey, waarin het aandeel mensen dat zegt de meeste mensen te vertrouwen
+daalde van ongeveer de helft in 1972 tot ongeveer een derde rond 2018. Die
+daling loopt volgens Zaki niet gelijk op met een daling van daadwerkelijk
+vertrouwenswaardig gedrag, wat de kloof tussen perceptie en werkelijkheid
+alleen maar groter maakt.
+
+**Waarom cynisme zichzelf bevestigt**
+
+Zaki beschrijft hoe wantrouwen gedrag verandert op een manier die het eigen
+wantrouwen bevestigt. Wie een onderhandelingspartner als oneerlijk behandelt,
+roept eerder verdedigend of ontwijkend gedrag op, wat vervolgens als bewijs
+van oneerlijkheid wordt gelezen. Hij noemt dat mechanisme, waarin een
+verwachting haar eigen bevestiging produceert, een zichzelf vervullende
+voorspelling.
+
+Op maatschappelijk niveau ziet hij hetzelfde patroon terug in de samenhang
+tussen cynisme en steun voor populistische en polariserende bewegingen: waar
+vertrouwen in instituties en medeburgers afneemt, groeit de aantrekkingskracht
+van politiek die van dat wantrouwen uitgaat.
+
+**Gezondheid en cynisme**
+
+Zaki bespreekt longitudinaal onderzoek dat cynische scores koppelt aan
+slechtere lichamelijke en geestelijke gezondheid, een hoger risico op
+depressie, en een oververtegenwoordiging in cardiovasculaire sterfte. Hij
+benadrukt dat deze bevindingen correlaties zijn: cynische mensen leven ook
+vaker in omstandigheden, zoals eenzaamheid en chronische stress, die zelf al
+met slechtere gezondheid samenhangen, en het onderzoek scheidt oorzaak en
+gevolg niet altijd overtuigend.
+
+Zijn interpretatie is voorzichtiger dan de samenvatting die er vaak van
+rondgaat: cynisme maakt niet rechtstreeks ziek, het neemt volgens hem de
+sociale steun en verbondenheid weg die tegen stress beschermen.
+
+**Hoopvol scepticisme als alternatief**
+
+In het laatste deel werkt Zaki zijn alternatief uit: hoopvol scepticisme, de
+combinatie van kritisch nadenken over mensen en problemen met een basishouding
+die ruimte laat voor het goede. Hij beschrijft oefeningen die uit zijn eigen
+onderzoek voortkomen, zoals gericht opzoeken van voorbeelden van onverwachte
+vriendelijkheid en het bewust herzien van een eerste, negatieve inschatting
+van een vreemde.
+
+Hij besluit met Bruneaus werk als voorbeeld: vredesonderzoek dat aantoont dat
+vooroordelen tussen groepen met gerichte interventies meetbaar afnemen, wat
+voor Zaki het bewijs is dat hoop hier geen sentiment is maar een uitkomst die
+met onderzoek te onderbouwen valt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Cynisme | De vooraf getrokken overtuiging dat mensen in de kern zelfzuchtig, oneerlijk en onbetrouwbaar zijn. |
+| Scepsis | Een houding die bewijs vraagt en bereid is van mening te veranderen, door Zaki tegenover cynisme geplaatst. |
+| Hoopvol scepticisme | Zaki's voorgestelde alternatief: kritisch blijven denken over mensen, met een basishouding die ruimte laat voor het goede. |
+| Vertrouwenskloof | Het verschil tussen hoe betrouwbaar mensen daadwerkelijk zijn in onderzoek en hoe betrouwbaar anderen denken dat zij zijn. |
+| Zichzelf vervullende voorspelling | Het mechanisme waarin wantrouwend gedrag de reactie oproept die het wantrouwen leek te bevestigen. |
+| General Social Survey | De langlopende Amerikaanse enquête waarop Zaki's cijfers over dalend vertrouwen sinds 1972 zijn gebaseerd. |
+| Lost-wallet-onderzoek | Internationaal experiment waarin verloren portefeuilles werden achtergelaten om te meten hoe vaak mensen ze daadwerkelijk teruggeven, vaker dan vooraf verwacht. |
+| Negativiteitsbias | De psychologische neiging om negatieve informatie zwaarder te wegen dan positieve, die volgens Zaki cynisme voedt. |
+
+#### Waar het argument op rust
+
+Zaki's sterkste bewijs komt uit herhaalde experimenten naar de
+vertrouwenskloof, waaronder het internationale lost-wallet-onderzoek waarin
+verloren portefeuilles met geld werden achtergelaten in tientallen landen:
+mensen gaven ze vaker terug dan voorspeld, en zelfs vaker terug wanneer er
+meer geld in zat, tegen de intuïtie van de meeste proefpersonen in. Dat
+onderzoek is onafhankelijk gepubliceerd en herhaald, en behoort tot het
+steviger onderbouwde deel van het boek.
+
+De cijfers over dalend vertrouwen zijn afkomstig van de General Social Survey,
+een langlopende, methodologisch stabiele enquête. Wat die cijfers niet laten
+zien, is een sluitende verklaring voor de daling; Zaki noemt onder meer
+sociale media en toenemende ongelijkheid als factoren, maar dat blijft
+aannemelijke duiding, geen bewezen oorzaak.
+
+Voor de koppeling tussen cynisme en gezondheid steunt Zaki op longitudinaal
+onderzoek dat een samenhang laat zien, en hij benoemt zelf dat samenhang geen
+oorzakelijk verband bewijst. Voor zijn eigen interventies, zoals gericht
+zoeken naar vriendelijkheid, verwijst hij naar kleinschalige studies uit zijn
+eigen laboratorium, die veelbelovend zijn maar nog niet op grote schaal
+herhaald.
+
+#### Wat er tegen in te brengen valt
+
+Het boek trekt de samenhang tussen cynisme en slechtere gezondheid soms
+strakker aan dan de onderliggende, overwegend correlationele data toelaten.
+Wie eenzaam of chronisch gestrest is, scoort op beide variabelen hoger, en het
+boek maakt niet altijd voldoende duidelijk hoeveel van het verband via die
+derde factor loopt.
+
+Zaki's eigen positie als onderzoeker naar empathie en menselijke
+vriendelijkheid maakt hem geen onafhankelijke waarnemer van zijn eigen
+vakgebied; de studies die hij aanhaalt, zijn voor een deel afkomstig uit zijn
+eigen laboratorium en bevestigen een stelling die hij al aanhing voordat hij
+het boek schreef. Dat maakt de argumentatie op zichzelf eenzijdiger dan een
+overzicht zou zijn dat ook onderzoek van buiten zijn eigen school meeweegt.
+
+De maatschappelijke diagnose, dat afnemend vertrouwen samenhangt met populisme
+en polarisatie, wordt overtuigend geïllustreerd maar niet hard onderbouwd met
+een verklarend mechanisme op dat niveau; individueel psychologisch onderzoek
+naar vertrouwen tussen personen is iets anders dan een verklaring voor
+politieke stromingen.
+
+Het boek is geschreven voor lezers die al openstaan voor de boodschap. Een
+cynicus die het woord cynisme in de titel wantrouwt, is precies de lezer die
+het boek zegt te willen bereiken en die het minst snel zal openslaan.
+
+De cijfers over dalend vertrouwen zijn vrijwel allemaal afkomstig uit
+Amerikaanse enquêtes. Zaki trekt daaruit conclusies over cynisme als bredere,
+structurele trend zonder vergelijkbare cijfers uit andere landen te bespreken,
+wat de vraag openlaat of dezelfde daling zich elders in hetzelfde tempo
+voordoet.
+
+#### Wat er concreet mee te doen is
+
+- Test bij een eerste negatieve inschatting van een onbekende of collega of
+die inschatting op feiten berust of op een automatische aanname.
+- Zoek een week lang gericht naar een voorbeeld van onverwachte
+vriendelijkheid of eerlijkheid bij een vreemde, en schrijf het op.
+- Onderscheid bij eigen wantrouwen of het gaat om scepsis, die bewijs vraagt,
+of om een vooraf vaststaande conclusie die geen bewijs meer toelaat.
+
+#### Wat je hierna leest
+
+- 234. Factfulness. Rosling bepleit dezelfde beweging van somber vooroordeel
+naar feitelijke inschatting, toegepast op de wereld in cijfers in plaats van
+op individuele mensen.
+- 66. The Folly of Fools. Trivers beschrijft zelfbedrog en de evolutie van
+bedrog tussen mensen, en biedt daarmee het somberdere tegenwicht dat Zaki's
+optimisme over menselijke eerlijkheid moet weerleggen.
+- 53. The Anxious Generation. Haidt beschrijft een ander mechanisme achter
+hetzelfde verlies aan onderling vertrouwen bij een jongere generatie.
+
+## 320. Mastery
+
+Robert Greene, 2012. Oorspronkelijk *Mastery* (Viking, 13 november 2012, 352
+blz., ISBN 9780670024964); Britse editie bij Profile Books (ISBN
+9781781250914). Geen Nederlandse vertaling bekend. Rubriek: vakmanschap en
+aandacht.
+Tags: `meesterschap`, `vakmanschap`, `leertijd`, `mentorschap`, `intuïtie`,
+`expertise`, `biografie`
+
+Greene betoogt dat meesterschap geen gave is voor uitzonderlijke mensen, maar
+een traject met een vaste vorm dat iedereen kan doorlopen. Hij bouwt het boek
+op rond de levens van masters uit uiteenlopende vakgebieden: natuuronderzoeker
+Charles Darwin, staatsman en drukker Benjamin Franklin, kunstenaar en
+ingenieur Leonardo da Vinci, natuurkundige Albert Einstein, en de hedendaagse
+gedragswetenschapper Temple Grandin, die ondanks een autismediagnose de
+belangrijkste ontwerper werd van diervriendelijker verwerkingsinstallaties
+voor vee in de Verenigde Staten. Daarnaast interviewde Greene tientallen
+levende masters voor het boek.
+
+De opbouw volgt drie fasen die Greene bij elk van deze levens terugvindt: een
+leertijd van observeren, oefenen en experimenteren, een creatief-actieve fase
+waarin kennis uit verschillende bronnen wordt gecombineerd, en een laatste
+fase waarin geoefende kennis overgaat in intuïtie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Robert Greene betoogt dat meesterschap de voorspelbare
+uitkomst is van een traject dat bij iedereen dezelfde vorm heeft: iemand vindt
+zijn Life's Task, de roeping die aansluit bij een vroege neiging, en
+onderwerpt die neiging vervolgens jarenlang aan een leertijd van observeren,
+oefenen en experimenteren. Aan het einde van dat traject gaat kennis over in
+intuïtie, en wat van buitenaf op genialiteit lijkt is volgens Greene het
+resultaat van duizenden uren geconcentreerde aandacht die het brein in staat
+stellen patronen te zien die een beginner niet ziet. Talent is in deze lezing
+minder aangeboren dan de gangbare opvatting veronderstelt, en meer een kwestie
+van bereidheid de moeizame jaren van onderwerping aan de werkelijkheid te
+doorstaan.
+
+#### De gang van het boek
+
+**Het Life's Task**
+
+Greene begint bij de vraag waar een meester zich in onderscheidt van een
+gewone beoefenaar, en zijn antwoord ligt in een vroege verbondenheid met een
+onderwerp, eerder dan in talent. Charles Darwin verzamelde als kind kevers en
+verzette zich tegen de wens van zijn vader om medicijnen te studeren; die
+vroege neiging kreeg pas vorm toen hij als scheepsnaturalist meevoer op de
+Beagle. Bij Temple Grandin, die als kind de diagnose autisme kreeg en van
+artsen te horen kreeg dat ze mogelijk nooit zelfstandig zou functioneren, lag
+de aanleiding in een intense gevoeligheid voor zintuiglijke prikkels waarmee
+ze kon aanvoelen hoe vee de wereld ervaart. Die gevoeligheid werd de basis van
+haar latere werk aan diervriendelijker ontwerpen voor verwerkingsinstallaties.
+
+Greene noemt deze vroege neiging het Life's Task en stelt dat de meeste mensen
+dat spoor kwijtraken onder druk van ouders, school of een baan die veiligheid
+belooft. Het eerste werk op weg naar meesterschap is dan ook het opnieuw
+vinden van een richting die er al was, eerder dan het aanleren van een geheel
+nieuwe vaardigheid.
+
+**De leertijd: observeren, oefenen, experimenteren**
+
+De kern van het boek is de leertijd die Greene bij elke master aantreft,
+ingedeeld in drie stappen. In de eerste, diepe observatie, kijkt en luistert
+de leerling zonder zelf te handelen, om de ongeschreven regels van een vak te
+leren kennen voordat hij ze doorbreekt. In de tweede stap worden de
+basisvormen van het vak herhaald geoefend tot ze zonder nadenken uitgevoerd
+kunnen worden. In de derde stap, experimenteren, laat de leerling de
+aangeleerde vormen los en zoekt hij een eigen weg, met het risico van
+mislukking dat daarbij hoort.
+
+Benjamin Franklin illustreert dat traject als drukkersleerling in Boston en
+Philadelphia: hij kopieerde essays uit The Spectator zin voor zin om de stijl
+van goede schrijvers over te nemen, voordat hij zijn eigen toon ontwikkelde.
+Greene benadrukt dat deze leertijd vijf tot tien jaar in beslag neemt en dat
+de verleiding om die fase over te slaan, op zoek naar snel resultaat, de
+belangrijkste reden is waarom mensen nooit meesterschap bereiken.
+
+**De mentor**
+
+Een leertijd verloopt volgens Greene sneller met een mentor, iemand die al
+heeft doorgemaakt wat de leerling nog moet doormaken en zijn kennis
+rechtstreeks kan overdragen. De relatie werkt twee kanten op: de mentor test
+en daagt uit, de leerling absorbeert en past zich aan zonder zijn eigen
+richting te verliezen. Greene beschrijft de mentor niet als eindpunt maar als
+opstap, iemand die op een gegeven moment verlaten moet worden zodra de
+leerling zelfstandig verder kan.
+
+**Sociale intelligentie**
+
+Een tussenliggend hoofdstuk gaat over de mensen rond een vak in plaats van
+over het vak zelf. Greene stelt dat veel getalenteerde mensen vastlopen omdat
+ze anderen zien zoals ze die zich voorstellen in plaats van zoals die
+werkelijk zijn, en dat ze te veel met zichzelf bezig zijn om afwijkend gedrag
+bij collega's of concurrenten tijdig te herkennen. Hij beschrijft een aantal
+terugkerende karaktertypes die een carrière kunnen ontsporen, van de charmeur
+die aandacht afleidt van zijn onbetrouwbaarheid tot de rigide perfectionist
+die geen fout kan toegeven, en betoogt dat het lezen van dat gedrag een
+vaardigheid is die apart geoefend moet worden naast de vakinhoudelijke
+leertijd.
+
+**De dimensionale geest**
+
+In de creatief-actieve fase komt de opgebouwde kennis in beweging. Greene
+noemt dit de dimensionale geest: het vermogen om kennis uit een vakgebied te
+combineren met ideeën van elders, zoals Leonardo da Vinci deed toen hij
+anatomische studies, waterloop en schilderkunst in elkaar liet overvloeien.
+Een sleutelbegrip hier is negative capability, een term die Greene ontleent
+aan de dichter John Keats: het vermogen onzekerheid, twijfel en het ontbreken
+van een directe verklaring te verdragen zonder naar een voorbarige conclusie
+te grijpen. Wie die onzekerheid te vroeg wegneemt, sluit volgens Greene de
+deur naar de onverwachte verbindingen die nieuw werk opleveren.
+
+**Fusie van intuïtie en rede**
+
+Het laatste stadium is waar het woord meesterschap zijn volle betekenis
+krijgt: een fusie van intuïtie en rationeel denken, waarbij de master een
+probleem in een oogopslag doorziet op een manier die van buitenaf op een zesde
+zintuig lijkt. Greene benadrukt dat deze intuïtie de opbrengst is van de
+duizenden uren die eraan voorafgingen, en geen mystieke gave; het brein heeft
+zo veel patronen verwerkt dat het nieuwe situaties razendsnel kan koppelen aan
+wat het al kent. Die snelheid wordt vaak verward met een aangeboren gave,
+terwijl ze in Greenes lezing het sluitstuk is van een traject dat bij elke
+master hetzelfde begin had.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Life's Task | De vroege, vaak persoonlijke neiging waarin Greene de kern van iemands toekomstige vak herkent. |
+| Diepe observatie | De eerste stap van de leertijd: kijken en luisteren voordat je zelf ingrijpt, om de ongeschreven regels van een vak te leren kennen. |
+| Vaardigheden opbouwen | De tweede stap: de basisvormen van het vak zo vaak herhalen dat ze zonder nadenken uitgevoerd worden. |
+| Experimenteren | De derde stap: de aangeleerde vormen loslaten en met het risico van mislukking een eigen weg zoeken. |
+| Mentor Dynamic | De relatie met een leermeester die kennis rechtstreeks overdraagt en die op enig moment verlaten moet worden. |
+| Sociale intelligentie | Het vermogen mensen te zien zoals ze zijn in plaats van zoals je ze je voorstelt, en hun gedrag tijdig te herkennen. |
+| Dimensionale geest | Het stadium waarin kennis uit een vakgebied gecombineerd wordt met ideeën van elders. |
+| Negative capability | Het vermogen onzekerheid en het ontbreken van een verklaring te verdragen zonder naar een voorbarige conclusie te grijpen. |
+| Fusie | De eindfase waarin geoefende kennis en intuïtie niet meer van elkaar te onderscheiden zijn. |
+
+#### Waar het argument op rust
+
+Greene onderbouwt zijn these niet met herhaalbaar onderzoek maar met
+parallelle levensverhalen: hij leest historische bronnen over Darwin,
+Franklin, da Vinci en Einstein terug naar hetzelfde driefasenpatroon, en vult
+dat aan met eigen interviews die hij hield met hedendaagse masters als
+Grandin. Dat de figuren steeds dezelfde vorm van leertijd, mentorschap en
+creatieve doorbraak vertonen, is voor Greene het bewijs dat het patroon
+universeel is.
+
+Naar deliberate practice, het onderzoek van psycholoog Anders Ericsson naar
+geoefend, doelgericht oefenen als motor achter expertise, verwijst Greene niet
+expliciet, maar zijn nadruk op jarenlange, herhaalde en steeds moeilijker
+gemaakte oefening ligt in dezelfde lijn. Het boek biedt geen cijfers, geen
+vergelijkingsgroep en geen falsifieerbare voorspelling: het patroon wordt
+aannemelijk gemaakt door de stapeling van voorbeelden, niet getoetst.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar is selectie: Greene kiest levens die zijn theorie
+bevestigen en vermeldt niet hoeveel mensen exact dezelfde leertijd, dezelfde
+mentoren en dezelfde jaren van doorzettingsvermogen doormaakten zonder ooit
+een master te worden. Zonder die tegenvoorbeelden is niet vast te stellen of
+het driefasenpatroon de oorzaak van meesterschap is, of pas achteraf in elk
+succesvol leven terug te lezen valt.
+
+Het begrip Life's Task is in dat opzicht lastig te toetsen: het wordt pas
+zichtbaar nadat iemand succesvol is geworden, en dat maakt de claim dat
+iedereen zo'n roeping in zich draagt moeilijk te weerleggen. Ook de tijdspanne
+van vijf tot twintig jaar die Greene noemt, wordt nergens vergeleken met
+omstandigheden die dat traject waarschijnlijk versnellen of vertragen, zoals
+toegang tot goede mentoren, financiële ruimte om jarenlang te oefenen zonder
+inkomen, of eenvoudigweg geluk.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op welke activiteiten je als kind uit jezelf deed, zonder dat iemand
+erom vroeg, als aanknopingspunt voor een Life's Task.
+- Begin een nieuwe vaardigheid met een periode van alleen observeren voordat
+je zelf gaat handelen.
+- Zoek in de eerste jaren van een vak een mentor op wiens kennis je kunt
+overnemen, en bepaal vooraf het moment waarop je zelfstandig verdergaat.
+- Laat een onopgelost probleem langer openstaan dan comfortabel voelt voordat
+je naar de eerste de beste oplossing grijpt.
+
+#### Wat je hierna leest
+
+- 250. The 48 Laws of Power. Van dezelfde auteur; hier gaat het om macht over
+een vak in plaats van macht over anderen.
+- 258. The Laws of Human Nature. Ook van Greene, en overlapt met het hoofdstuk
+over sociale intelligentie in dit boek.
+- 274. Outliers. Gladwells tienduizend-urenregel raakt aan dezelfde vraag naar
+de herkomst van expertise, met een andere onderbouwing.
+- 6. Shop Class as Soulcraft. Een ander boek over vakmanschap, dichter bij de
+werkbank en minder bij de biografie.
+
+## 321. Longitude: The True Story of a Lone Genius Who Solved the Greatest Scientific Problem of His Time
+
+Dava Sobel, 1995. Oorspronkelijk *Longitude: The True Story of a Lone Genius
+Who Solved the Greatest Scientific Problem of His Time* (Walker & Company,
+1995, 184 blz.). Nederlands als *Lengtegraad*, sinds 1996 bij Ambo (ISBN
+9789026314506) en later bij Flamingo (1999, ISBN 9789041403988), vertaald door
+Ernst van Altena. Rubriek: natuur en wetenschap.
+Tags: `navigatie`, `klokkenmakerij`, `zeevaart`, `achttiende eeuw`,
+`wetenschapsgeschiedenis`, `John Harrison`
+
+Voor de achttiende eeuw kon een schip op open zee zijn breedtegraad bepalen
+aan de stand van de zon of de poolster, maar niet zijn lengtegraad, en dat
+kostte schepen, ladingen en levens. Na de ramp bij de Scilly-eilanden in 1707,
+waarin een vloot onder admiraal Cloudesley Shovell op de rotsen liep en
+duizenden zeelieden omkwamen, stelde het Britse parlement in 1714 een prijs
+van twintigduizend pond in voor wie een betrouwbare methode zou vinden. Sobel
+vertelt hoe de klokkenmaker John Harrison, een timmerman zonder universitaire
+opleiding, veertig jaar aan dat probleem werkte en het won van de gevestigde
+sterrenkundigen die een oplossing aan de hemel zochten.
+
+Het boek werd een internationale bestseller en bracht Harrison, die buiten
+vakkringen nauwelijks bekend was, alsnog de erkenning die hem tijdens zijn
+leven grotendeels onthouden bleef.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sobel stelt dat het lengtegraadprobleem, dat ze het grootste
+wetenschappelijke vraagstuk van zijn tijd noemt, uiteindelijk werd opgelost
+door een ambachtsman die vier precisie-uurwerken bouwde, en niet door de
+sterrenkunde die de wetenschappelijke elite als voor de hand liggende
+oplossing aanwees. Haar boek is zowel een verhaal over een technisch probleem
+als over een instituut, het Board of Longitude, dat een timmerman zonder de
+juiste connecties jarenlang op de proef stelde terwijl het zijn eigen
+astronomische kandidaat bevoordeelde. Sobel schetst Harrison als een
+buitenstaander die zijn gelijk kreeg dankzij koppigheid en vakmanschap,
+tegenover een gevestigde orde die een oplossing van buiten haar eigen kring
+slechts met tegenzin erkende.
+
+#### De gang van het verhaal
+
+**Het probleem en de prijs**
+
+Lengtegraad meten vraagt om het tijdsverschil tussen de plek van het schip en
+een vaste referentietijd, want elk uur verschil staat gelijk aan vijftien
+graden. Aan boord van een schip was geen enkele klok in staat die tijd
+nauwkeurig genoeg vast te houden: temperatuurschommelingen, vocht en de
+beweging van het schip lieten een slinger- of veeruurwerk binnen een paar
+dagen te veel afwijken. Zonder een betrouwbare lengtegraad voer een schip op
+gis, met alle averij, strandingen en verdwenen bemanningen die daarbij
+hoorden.
+
+De ramp bij de Scilly-eilanden in oktober 1707 maakte dat probleem tastbaar:
+vier oorlogsschepen van een thuiskerende vloot liepen bij mist op de rotsen,
+met het verlies van duizenden zeelieden, onder wie admiraal Cloudesley Shovell
+zelf. Zeven jaar later stelde het parlement met de Longitude Act een beloning
+van twintigduizend pond in het vooruitzicht voor wie een methode kon leveren
+die nauwkeurig genoeg was, en richtte het een Board of Longitude op om
+inzendingen te beoordelen.
+
+**Harrisons eerste uurwerken**
+
+John Harrison, een timmerman uit Lincolnshire zonder opleiding in de
+klokkenmakerij, bouwde zijn eerste zeewaardige uurwerk, de H1, in 1735: een
+machine van ruim vijfendertig kilo in een kast van meer dan een meter in het
+vierkant, met eigen oplossingen tegen wrijving en temperatuurinvloeden. Het
+werk werd door de Board met voorzichtige belangstelling ontvangen, maar
+Harrison was zelf niet tevreden en begon direct aan een opvolger.
+
+De H2 en H3 volgden in de decennia daarna, elk zwaarder en gecompliceerder dan
+de vorige, terwijl Harrison bleef zoeken naar een kleinere, robuustere
+constructie. Pas met de H4 uit 1759, niet groter dan een forse zakhorloge,
+vond hij de vorm die daadwerkelijk aan boord bruikbaar was.
+
+**De proef naar Jamaica**
+
+In 1761 stuurde de Board de H4, meegenomen door Harrisons zoon William, aan
+boord van de Deptford naar Jamaica om de nauwkeurigheid op zee te toetsen. Bij
+aankomst bleek het uurwerk slechts enkele seconden te zijn afgeweken van de
+tijd in Portsmouth, ruim binnen de marge die voor de volledige prijs vereist
+was. Een tweede proefvaart in 1764 bevestigde die nauwkeurigheid, maar de
+Board bleef aanvullende eisen stellen over de reproduceerbaarheid van
+Harrisons methode, zolang er nog maar één werkend exemplaar bestond.
+
+**De rivaal aan de hemel**
+
+Tegenover Harrisons mechanische oplossing stond de methode van de
+maansafstanden, verdedigd door de sterrenkundige Nevil Maskelyne, die in 1765
+tot Astronomer Royal werd benoemd en zitting kreeg in de Board die over
+Harrisons prijs moest oordelen. Die methode berekende de tijd uit de stand van
+de maan ten opzichte van vaste sterren, met tabellen die Maskelyne zelf liet
+publiceren in de Nautical Almanac, en had als voordeel dat ze geen kostbaar
+precisie-instrument vereiste, maar wel urenlange berekeningen aan boord.
+
+Sobel beschrijft Maskelyne als de belichaming van een wetenschappelijk
+establishment dat een technisch antwoord van een ambachtsman zonder titel niet
+zonder slag of stoot wilde erkennen, en laat zien hoe de Board Harrison
+telkens nieuwe voorwaarden oplegde nadat de vorige waren vervuld.
+
+**Erkenning op hoge leeftijd**
+
+Pas nadat William Harrison zich in 1772 rechtstreeks tot koning George III
+wendde, kwam er beweging in de zaak. De koning liet de H4 op zijn eigen
+landgoed testen en drong bij het parlement aan op een billijke behandeling van
+de klokkenmaker. In 1773, Harrison was toen tachtig, kende het parlement hem
+via een aparte wet een bedrag toe dat overeenkwam met de volledige prijs,
+zonder dat de Board hem die ooit officieel had toegekend.
+
+Sobel besluit haar boek met wat er na Harrisons dood in 1776 met zijn
+uurwerken gebeurde: ze raakten decennia in onbruik en verwaarlozing, tot een
+Britse marine-officier ze in de twintigste eeuw restaureerde. De methode van
+de maansafstanden verdween binnen enkele decennia na Harrisons overwinning uit
+de praktijk van de zeevaart, terwijl uurwerken naar het model van de H4 de
+standaard werden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Lengtegraadprobleem | Het onvermogen om op zee de positie oost-west vast te stellen, in tegenstelling tot de breedtegraad die met de zon of de poolster te bepalen was. |
+| Longitude Act | De wet uit 1714 die een geldprijs uitloofde voor een methode om de lengtegraad op zee nauwkeurig genoeg vast te stellen. |
+| Board of Longitude | Het parlementaire orgaan dat inzendingen voor de prijs beoordeelde, en waarin Harrisons latere rivaal Maskelyne uiteindelijk zelf zitting kreeg. |
+| Marine chronometer | Een uurwerk dat nauwkeurig genoeg blijft lopen onder de temperatuur- en bewegingsinvloeden van een schip op zee, zoals Harrisons H4. |
+| Methode van de maansafstanden | De astronomische methode die de tijd berekent uit de stand van de maan ten opzichte van vaste sterren, verdedigd door Maskelyne. |
+| Nautical Almanac | De jaarlijkse tabellenbundel die Maskelyne liet publiceren om de maansafstandenmethode bruikbaar te maken voor zeevarenden. |
+| H1 tot H4 | De opeenvolgende uurwerken waarmee Harrison zijn ontwerp verkleinde en vereenvoudigde, van een kist van meer dan dertig kilo tot een groot zakhorloge. |
+
+#### Waar het argument op rust
+
+Sobel bouwt op gepubliceerde geschiedschrijving over Harrison en de Board of
+Longitude, met name werk van historici die de notulen en correspondentie van
+de Board hebben doorzocht, en op de overgeleverde uurwerken zelf, die tot op
+heden in het Royal Observatory in Greenwich te bezichtigen zijn en nog steeds
+lopen. De kernfeiten, de bouwdata van H1 tot H4, de proefvaart naar Jamaica en
+de late toekenning door het parlement, zijn goed gedocumenteerd.
+
+#### Wat er tegen in te brengen valt
+
+Historici hebben Sobel verweten dat ze het verhaal versimpelt tot een
+tegenstelling tussen een miskende ambachtsman en een bekrompen
+wetenschappelijke elite. Maskelynes maansafstandenmethode was in de praktijk
+geen dwaalspoor: ze werkte, werd decennia naast de chronometer gebruikt, en
+Maskelyne zelf heeft volgens latere archiefstudies niet doelbewust
+dwarsgelegen, maar hield vast aan de eisen van reproduceerbaarheid die de
+Board voor elke inzending stelde.
+
+Het boek citeert nauwelijks primaire bronnen in de lopende tekst en
+verantwoordt zijn beweringen niet met noten, wat het leesbaar maakt maar ook
+moeilijk natrekbaar. Voor wie de nuances van de rivaliteit tussen Harrison en
+de Board wil wegen, is Sobels held-en-schurkvertelling eerder een aanleiding
+om verder te lezen dan een sluitend oordeel.
+
+#### Wat je hierna leest
+
+- 267. Tesla: Inventor of the Electrical Age. Een andere geschiedenis van een
+uitvinder die tegen een gevestigd instituut in zijn gelijk moest halen.
+- 240. Einstein: His Life and Universe. Weer een wetenschapsbiografie, dit
+keer van een figuur wiens werk wel meteen erkenning kreeg.
+- 239. A Short History of Nearly Everything. Voor wie na dit smalle, precieze
+verhaal een breder overzicht van de wetenschapsgeschiedenis zoekt.
+
+## 322. An Immense World
+
+Ed Yong, 2022. Oorspronkelijk *An Immense World: How Animal Senses Reveal the
+Hidden Realms Around Us* (Random House, 21 juni 2022, 464 blz., ISBN
+9780593133231). Nederlands als *Een immense wereld*, sinds 2022 bij Atlas
+Contact (ISBN 9789045044200, paperback 9789045052229), vertaald door Menno
+Grootveld. Bekroond met de Andrew Carnegie Medal for Excellence in Nonfiction
+en de Royal Society Science Book Prize, beide in 2023. Rubriek: natuur en
+wetenschap.
+Tags: `dierenzintuigen`, `biologie`, `evolutie`, `waarneming`, `umwelt`,
+`gedragsbiologie`
+
+Ed Yong, wetenschapsjournalist en Pulitzer-prijswinnaar voor zijn
+verslaggeving over de coronapandemie, doorloopt in dertien hoofdstukken de
+zintuigen van het dierenrijk: geur en smaak, licht en kleur, pijn, warmte,
+tastzin en stromingen, trillingen, geluid, echolocatie, elektrische velden en
+magnetische velden. Voor elk zintuig zoekt hij het dier op dat er het meest
+van laat zien, van de olifant die water op kilometers afstand ruikt tot de
+sterneusmol die met tweeëntwintig tastaanhangsels sneller beslist wat eetbaar
+is dan een mens kan knipperen.
+
+De rode draad is het begrip umwelt, geïntroduceerd in 1909 door de Duits-Estse
+zoöloog Jakob von Uexküll: de afgebakende sensorische wereld die elk dier
+ervaart, die voor een teek bestaat uit warmte en een enkele geursoort en voor
+een mens uit een heel andere selectie van diezelfde werkelijkheid.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Yong betoogt dat mensen de wereld voortdurend beoordelen
+alsof hun eigen zintuigen de volledige werkelijkheid tonen, terwijl elk dier
+maar toegang heeft tot een smal, soortgebonden segment daarvan, de umwelt. Die
+aanname leidt volgens hem tot een onderschatting van wat andere dieren
+waarnemen, en tot verkeerd natuurbeleid: geluidsvervuiling, kunstlicht en
+trillingen die voor mensen onschadelijk lijken, kunnen dieren die op geluid,
+licht of trillingen navigeren volledig ontregelen. Het boek is een pleidooi om
+dierlijke waarneming te beoordelen op de eigen voorwaarden van het dier, in
+plaats van te vragen hoe goed het dier onze wereld benadert.
+
+#### De gang van het boek
+
+**Umwelt: de wereld volgens het dier**
+
+Yong opent met het begrip dat het boek structureert: elk dier bewoont zijn
+eigen umwelt, de selectie van de werkelijkheid die zijn zintuigen kunnen
+registreren. Von Uexküll illustreerde dat in 1909 met de teek, die maandenlang
+kan wachten op de geur van boterzuur die aangeeft dat er een gastheer
+voorbijkomt, en verder vrijwel niets van haar omgeving waarneemt. Voor Yong is
+de umwelt geen beperking om te betreuren maar het uitgangspunt: geen dier kan
+alles waarnemen, en de vraag is niet welk dier het rijkst waarneemt, maar wat
+elk dier waarneemt dat een mens mist.
+
+**Geur en smaak**
+
+In het hoofdstuk over reuk staat de olifant centraal, die met een reukorgaan
+vol receptoren water op grote afstand kan opsporen en individuele soortgenoten
+aan hun geur herkent. Yong beschrijft ook hoe smaakreceptoren zich bij sommige
+dieren over het hele lichaam verspreiden: een meerval proeft met de huid van
+zijn hele lijf en kan zo voedsel opsporen zonder het te zien.
+
+**Licht, kleur en pijn**
+
+Het hoofdstuk over kleur ontkracht een populaire claim over de
+bidsprinkhaankreeft, die met twaalf tot zestien typen kleurreceptoren vaak
+wordt afgeschilderd als het dier met het rijkste kleurenzicht ter wereld. Yong
+laat aan de hand van gedragsonderzoek zien dat het dier ondanks dat grote
+aantal receptoren juist minder kleuren lijkt te onderscheiden dan een mens,
+doordat het brein de signalen anders verwerkt dan het aantal receptoren zou
+doen vermoeden.
+
+Ook de sint-jakobsschelp krijgt een plek: met tot wel tweehonderd ogen langs
+de rand van haar schelp registreert ze beweging en licht, zonder dat duidelijk
+is of ze dat ervaart als beeld in de zin die mensen aan zien geven. Het
+hoofdstuk over pijn, dat Yong *The Unwanted Sense* noemt, behandelt de vraag
+of vissen en ongewervelden pijn ervaren zoals gewervelde dieren. Als voorbeeld
+beschrijft hij het werk van bioloog Robert Elwood, die heremietkreeften een
+lichte elektrische schok gaf in hun geleende schelp: geschokte dieren
+verlieten hun schelp vaker dan ongeschokte dieren, maar deden dat minder snel
+als de enige beschikbare vervangende schelp van mindere kwaliteit was. Die
+afweging tussen pijn en de waarde van een goed onderkomen wijst er volgens
+Elwood en Yong op dat er meer gebeurt dan een simpele reflex.
+
+**Tastzin, trillingen en geluid**
+
+De sterneusmol identificeert met tweeëntwintig vleeziene aanhangsels rond haar
+neus, samen voorzien van tienduizenden tastreceptoren, een prooi en beslist
+binnen een fractie van een seconde of die eetbaar is, sneller dan het
+menselijk brein een enkele aanraking kan verwerken. Spinnen lezen trillingen
+in hun web als een uitgebreid signaalnetwerk, waarmee ze de plaats, grootte en
+soort van een gevangen prooi kunnen inschatten voordat ze een stap zetten.
+
+In het hoofdstuk over geluid keert Yong terug naar de olifant, die met
+infrasone roepen ver onder de menselijke gehoorgrens over kilometers afstand
+met andere kuddes communiceert.
+
+**Echolocatie**
+
+Vleermuizen en tandwalvissen bouwen met uitgezonden geluidsgolven en de
+weerkaatsing daarvan een driedimensionaal beeld van hun omgeving op,
+nauwkeurig genoeg om een insect in volle vlucht te onderscheiden van een tak.
+Yong beschrijft hoe verschillende vleermuissoorten hun roep aanpassen aan de
+omgeving, van open lucht tot dicht bladerdak, en hoe motten op hun beurt
+ultrasone signalen hebben ontwikkeld om aan die jacht te ontsnappen.
+
+**Elektrische en magnetische velden**
+
+Het laatste stel hoofdstukken behandelt zintuigen die mensen volledig missen.
+Sommige vissen, zoals de olifantsnoutvis, zenden zwakke elektrische velden uit
+en lezen verstoringen daarin om in troebel water te navigeren en te
+communiceren, terwijl haaien met gespecialiseerde poriën in hun snuit de
+zwakke elektrische velden van verborgen prooien opsporen. Trekvogels en andere
+dieren blijken het magnetisch veld van de aarde te kunnen waarnemen, al is het
+onderliggende mechanisme volgens Yong nog altijd niet volledig opgehelderd,
+ondanks decennia onderzoek naar mogelijke magnetische deeltjes of
+lichtgevoelige eiwitten in het oog.
+
+Loggerhead-zeeschildpadden krijgen een eigen plek in dit hoofdstuk: jonge
+dieren die pas uit het ei zijn gekropen en nooit eerder gezwommen hebben,
+kiezen bij blootstelling aan kunstmatig opgewekte magneetvelden meteen de
+zwemrichting die bij dat deel van de oceaan hoort. Dat wijst erop dat ze een
+aangeboren magnetische kaart gebruiken om de trektocht van duizenden
+kilometers naar het geboortestrand te maken, jaren later, zonder die route
+ooit bewust geleerd te hebben.
+
+**Wat verdwijnt met de umwelt van een ander**
+
+Yong sluit af met de vraag wat er verloren gaat wanneer een dier zijn
+zintuiglijke wereld niet meer kan gebruiken. Straatverlichting die voor mensen
+geen enkel probleem vormt, verstoort de navigatie van trekvogels en de
+voortplanting van insecten die op maanlicht sturen; scheepvaartlawaai dat
+mensen nauwelijks opvalt onder water, overstemt de roepen waarmee walvissen
+elkaar over honderden kilometers vinden. Omdat die vormen van vervuiling
+buiten de menselijke umwelt vallen, blijven ze volgens Yong lang onopgemerkt
+en dus onbestreden, terwijl ze voor de dieren die er wel gevoelig voor zijn
+net zo ontwrichtend zijn als zichtbare vervuiling dat voor mensen zou zijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Umwelt | De afgebakende sensorische wereld die een dier met zijn eigen zintuigen kan waarnemen, geïntroduceerd door Von Uexküll. |
+| Sensorische bubbel | Yongs beeldspraak voor de umwelt: het deel van de werkelijkheid dat binnen het bereik van de zintuigen van een dier valt. |
+| Echolocatie | Het opbouwen van een ruimtelijk beeld van de omgeving door uitgezonden geluid en de weerkaatsing daarvan te analyseren, zoals bij vleermuizen en tandwalvissen. |
+| Elektroreceptie | Het waarnemen van elektrische velden, gebruikt door vissen als de olifantsnoutvis om te navigeren en door haaien om verborgen prooien op te sporen. |
+| Infrasoon geluid | Geluid onder de menselijke gehoorgrens, waarmee olifanten over grote afstand communiceren. |
+| Magnetoreceptie | Het vermogen het magnetisch veld van de aarde waar te nemen, aangetroffen bij trekvogels, waarvan het achterliggende mechanisme nog niet vaststaat. |
+| Antropocentrische aanname | De onuitgesproken veronderstelling dat menselijke zintuigen de maatstaf zijn waarmee dierlijke waarneming beoordeeld wordt. |
+| Sensorische vervuiling | Kunstlicht, geluid en trillingen die voor mensen onschadelijk lijken maar dieren verstoren die op die signalen navigeren of jagen. |
+
+#### Waar het argument op rust
+
+Yong bouwt het boek op honderden interviews met zintuigonderzoekers en op
+eigen bezoeken aan hun laboratoria en veldwerk, van een sterneusmolonderzoeker
+in Amerika tot een olifantsnoutvisonderzoeker in Duitsland. Voor elk hoofdstuk
+verwijst hij naar gepubliceerd, vaak recent onderzoek, en hij is expliciet
+over waar de wetenschap nog geen uitsluitsel geeft, zoals bij het mechanisme
+achter magnetoreceptie.
+
+Zijn journalistieke methode, mensen citeren in plaats van alleen resultaten
+samenvatten, maakt zichtbaar hoe onzeker sommige claims nog zijn: de
+bidsprinkhaankreeft-kleurenmythe krijgt evenveel ruimte als de correctie erop,
+wat het boek als geheel voorzichtiger maakt dan de losse, virale weetjes
+waarmee dat dier normaal wordt aangeprezen.
+
+#### Wat er tegen in te brengen valt
+
+Doordat het boek dertien zintuigen in evenzoveel hoofdstukken behandelt, elk
+met meerdere diersoorten, blijft de diepgang per voorbeeld beperkt: waar een
+gespecialiseerd boek over echolocatie of elektroreceptie een mechanisme tot in
+detail zou kunnen uitwerken, moet Yong na een paar bladzijden verder naar het
+volgende dier. Lezers die op zoek zijn naar een doorlopend argument in plaats
+van een opeenvolging van zintuigen zullen het boek eerder als naslagwerk dan
+als betoog ervaren.
+
+Yong is voorzichtig met claims over dierlijke beleving, maar het boek
+balanceert voortdurend op de grens tussen wat meetbaar is, zoals receptoren en
+zenuwbanen, en wat daaruit over subjectieve ervaring te concluderen valt. Bij
+vragen als pijnbeleving bij inktvissen blijft die grens onvermijdelijk vaag,
+en het boek geeft dat zelf ook toe zonder het probleem op te lossen.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een dier niet hoe goed het de menselijke wereld benadert, maar
+welk deel van de werkelijkheid het waarneemt dat een mens mist.
+- Let bij het beoordelen van geluid, licht of trillingen in de omgeving op het
+effect voor dieren die op die signalen navigeren, niet alleen op wat voor
+mensen hinderlijk is.
+- Wees terughoudend met claims over welk dier het beste of meest geavanceerde
+zintuig heeft; het aantal receptoren zegt niet automatisch iets over wat het
+brein ermee doet.
+
+#### Wat je hierna leest
+
+- 239. A Short History of Nearly Everything. Zelfde toon van feitelijke
+verwondering, dit keer gericht op het universum in plaats van het dierenrijk.
+- 262. A Brief History of Time. Een ander boek dat een technisch onderwerp
+toegankelijk maakt zonder de complexiteit te verdoezelen.
+- 99. Sterrenkunde voor in bed, op het toilet of in bad. Een dunner, luchtiger
+boek met dezelfde strekking: de werkelijkheid is groter dan wat we er
+dagelijks van opmerken.
+
+## 323. The Comfort Crisis
+
+Michael Easter, 2021. Oorspronkelijk *The Comfort Crisis: Embrace Discomfort
+to Reclaim Your Wild, Happy, Healthy Self* (Rodale Books, 11 mei 2021, 320
+blz., ISBN 9780593138762). Geen Nederlandse vertaling bekend. Rubriek: moed en
+karakter.
+Tags: `ongemak`, `fysieke uitdaging`, `evolutie`, `gezondheid`, `mentale
+weerbaarheid`, `natuur`
+
+Michael Easter, journalist en verbonden aan de universiteit van Nevada in Las
+Vegas, vertrekt van de waarneming dat het moderne leven vrijwel elke vorm van
+fysiek en mentaal ongemak heeft weggenomen, van honger en kou tot verveling en
+lichamelijke inspanning, en dat die verdwenen belasting samenvalt met een
+toename van obesitas, angst en depressie. Om te onderzoeken wat lichaam en
+geest verliezen zonder die belasting, sluit hij zich aan bij een drieëndertig
+dagen durende karibiejacht met gids Donnie Vincent in de afgelegen Brooks
+Range in Alaska, zonder telefoon, stromend water of vast dagritme.
+
+Rond dat eigen experiment weeft Easter interviews met onderzoekers naar
+evolutie, fysiologie en gedrag, en bouwt hij een praktisch betoog op voor het
+opzoeken van ongemak in een leven dat daar geen aanleiding meer toe geeft.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Easter betoogt dat het menselijk lichaam en brein zich hebben
+ontwikkeld onder omstandigheden van fysieke inspanning, onzekerheid, verveling
+en schaarste, en dat het wegnemen van die belasting door moderne comfort geen
+neutrale vooruitgang is maar een nieuwe bron van ziekte. Hij noemt dat de
+comfortcrisis: een samenleving die honger, kou, lichamelijke arbeid en
+verveling zo grondig heeft weggeorganiseerd dat de systemen die daarop
+reageerden, spieren, immuunsysteem, aandacht, ongebruikt raken en zich in de
+vorm van welvaartsziekten en psychische klachten tegen de mens lijken te
+keren. Zijn remedie is geen terugkeer naar een primitief bestaan, maar het
+doelbewust opzoeken van ongemak in gecontroleerde vorm.
+
+#### De gang van het boek
+
+**De verdwenen belasting**
+
+Easter opent met een overzicht van wat er in twee eeuwen uit het dagelijks
+leven is verdwenen: fysieke arbeid, blootstelling aan kou en hitte, periodes
+zonder voedsel, lange perioden van verveling zonder prikkels, en het soort
+onzekerheid dat vroeger bij overleven hoorde. Hij koppelt die verdwijning aan
+cijfers over de toename van obesitas, diabetes type 2, angststoornissen en
+depressie in dezelfde periode, en stelt dat het lichaam systemen heeft die
+zonder belasting zwakker worden in plaats van efficiënter, van spiermassa tot
+het immuunsysteem.
+
+**Drieëndertig dagen in Alaska**
+
+De verhaallijn van het boek is Easters eigen deelname aan een karibiejacht in
+de Brooks Range, georganiseerd door jager en filmmaker Donnie Vincent. Zonder
+telefoon, met een rugzak van tientallen kilo's en dagenlang wachten op een
+kans, ondervindt Easter honger, kou, vermoeidheid en verveling aan den lijve.
+Hij gebruikt die ervaring als kapstok om telkens terug te keren naar
+onderzoekers die uitleggen wat er fysiologisch gebeurt tijdens honger,
+kou-adaptatie of langdurige inspanning, eerder dan als anekdote op zich.
+
+**Misogi: de 50/50-uitdaging**
+
+Easter introduceert het begrip misogi, een Japans ritueel van reiniging door
+een fysiek zware beproeving, dat hij overneemt van sportwetenschapper Marcus
+Elliott en toepast op een uitdaging met een geschatte kans van vijftig procent
+op slagen. Als voorbeelden van misogi's die Elliotts groep organiseerde noemt
+hij een tocht van vijf kilometer waarbij deelnemers onder water een steen van
+ongeveer achtendertig kilo meedragen, en een tocht van veertig kilometer op
+een sup-board over het Santa Barbara Channel voor de Californische kust.
+Easter plaatst dat naast de rites-de-passage die antropoloog Arnold van Gennep
+beschreef bij uiteenlopende culturen, met een vaste opbouw van afscheiding,
+beproeving en terugkeer, en stelt dat de meeste moderne levens die
+overgangsrites zijn kwijtgeraakt.
+
+**Rucken en de zittende mens**
+
+In een praktischer hoofdstuk beschrijft Easter rucken, het lopen met een
+verzwaarde rugzak, als militaire training die inmiddels ook buiten het leger
+navolging krijgt. Hij verbindt dat aan onderzoek naar de gezondheidsschade van
+langdurig zitten en de rol van dragen en tillen in de menselijke evolutie, en
+beschrijft rucken als een manier om die belasting terug te brengen zonder een
+sportschool nodig te hebben.
+
+**Verveling en aandacht**
+
+Easter behandelt verveling niet als iets om te vermijden maar als een toestand
+die het brein nodig heeft om tot nieuwe ideeën te komen, en verwijst naar
+onderzoek waarin proefpersonen die zich moesten vervelen achteraf creatiever
+bleken dan een controlegroep die intussen een prikkel kreeg. Voortdurende
+afleiding door een telefoon houdt volgens hem die staat van verveling, en
+daarmee een deel van het denkvermogen, permanent buiten bereik.
+
+**Natuur, uithoudingsvermogen en de terugkeer**
+
+In de slothoofdstukken bespreekt Easter onderzoek naar tijd in de natuur als
+herstel van aandacht en stemming, en vat hij dat samen in wat hij de
+20-5-3-regel noemt: twintig minuten natuur drie keer per week, vijf uur per
+maand in een ruigere omgeving, en drie aaneengesloten dagen zo ver van
+bebouwing dat er geen kunstlicht meer zichtbaar is. Aan die laatste, langste
+vorm koppelt hij onderzoek waarin deelnemers na verloop van meerdere dagen in
+de wildernis een merkbare daling van stresshormonen en een toename van
+alertheid en stemming lieten zien, een effect dat pas na het eerste etmaal
+goed op gang komt.
+
+Daarnaast bespreekt Easter VO2max, de maat voor het maximale zuurstofverbruik
+tijdens inspanning, als een van de sterkste voorspellers van levensduur die de
+sportgeneeskunde kent, sterker volgens de onderzoeken die hij aanhaalt dan
+roken of hoge bloeddruk. Het boek eindigt met Easters terugkeer uit Alaska en
+de vraag hoe die opgezochte belasting zich laat vertalen naar een leven dat
+niet uit een maandenlange jacht bestaat, maar uit gewone weken met werk en
+verplichtingen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Comfortcrisis | Easters term voor de gezondheidsschade die ontstaat doordat honger, kou, inspanning en verveling grotendeels uit het moderne leven zijn weggeorganiseerd. |
+| Misogi | Een Japans ritueel van reiniging door een zware beproeving, door Easter toegepast op een fysieke uitdaging met een geschatte kans van vijftig procent op slagen. |
+| Rites de passage | Het driedelige model van afscheiding, beproeving en terugkeer waarmee antropoloog Arnold van Gennep overgangsrituelen in uiteenlopende culturen beschreef. |
+| Rucken | Lopen met een verzwaarde rugzak, overgenomen uit militaire training, als manier om fysieke belasting terug te brengen in een zittend leven. |
+| VO2max | De maat voor het maximale zuurstofverbruik tijdens inspanning, door Easter aangehaald als sterke voorspeller van levensduur. |
+| Onderprikkeling | De toestand van verveling die het brein volgens aangehaald onderzoek nodig heeft om tot nieuwe verbindingen en ideeën te komen. |
+| 50/50-uitdaging | Een beproeving die doelbewust wordt gekozen met een geschatte slaagkans van ongeveer vijftig procent, niet te makkelijk en niet onhaalbaar. |
+| Evolutionaire mismatch | De onenigheid tussen de omstandigheden waaronder het menselijk lichaam evolueerde en de comfortabele, prikkelarme omgeving van het moderne leven. |
+| 20-5-3-regel | Easters eigen vuistregel voor natuurblootstelling: twintig minuten drie keer per week, vijf uur per maand, en drie aaneengesloten dagen zonder kunstlicht. |
+
+#### Waar het argument op rust
+
+Easter onderbouwt zijn betoog met interviews met tientallen wetenschappers uit
+de evolutionaire biologie, fysiologie en psychologie, en citeert gepubliceerd
+onderzoek naar onder meer de effecten van verveling op creativiteit, van
+kou-adaptatie op het immuunsysteem en van VO2max op levensduur. Zijn eigen
+jachttocht dient als raamvertelling waarbinnen hij die onderzoekers aan het
+woord laat, en niet als bewijs op zich.
+
+Het boek combineert daarmee journalistieke bronvermelding met persoonlijke
+ervaring, wat de leesbaarheid ten goede komt maar ook betekent dat de
+wetenschappelijke claims per hoofdstuk wisselen in gewicht: sommige, zoals de
+relatie tussen VO2max en sterfte, rusten op grote, herhaalde cohortstudies,
+terwijl andere, zoals de misogi-praktijk zelf, vooral op ervaring en een klein
+aantal beoefenaars steunen. De 20-5-3-regel is Easters eigen samenvatting van
+uiteenlopend natuuronderzoek, geen uitkomst van één studie, en moet ook als
+zodanig gelezen worden: een praktische vuistregel, niet een gemeten
+drempelwaarde.
+
+#### Wat er tegen in te brengen valt
+
+De belangrijkste zwakte is dat Easters eigen belangrijkste bewijsstuk, de
+tocht naar Alaska, een case study van één persoon is die toegang had tot een
+ervaren gids, weken vrije tijd en de middelen om die te nemen. Dat maakt het
+aantrekkelijk als verhaal, maar zegt weinig over wat haalbaar of nuttig is
+voor wie die tijd en dat geld niet heeft.
+
+Ook het misogi-concept, hoewel gepresenteerd als eeuwenoud Japans ritueel, is
+in de vorm die Easter beschrijft vooral recent en westers herontworpen; de
+precieze historische herkomst en de vraag of het in Japan zelf ooit deze
+invulling had, komt in het boek nauwelijks aan bod. Het boek loopt daarnaast
+het risico dat het onbedoeld gehoor vindt bij lezers die toch al gezond en fit
+zijn, terwijl de mensen voor wie de comfortcrisis het grootste
+gezondheidsrisico vormt minder vaak de tijd of energie hebben voor een
+uitdaging met opzet.
+
+Het boek springt bovendien nogal makkelijk tussen registers: cijfers over
+chronische ziekte, een persoonlijk jachtavontuur en losse laboratoriumstudies
+staan naast elkaar zonder dat steeds duidelijk wordt hoe zwaar elk onderdeel
+meeweegt in het geheel. Wie liever eerst de wetenschappelijke stand van zaken
+leest en pas daarna de praktische vertaling, zal het verhalende jachtdeel
+eerder als vertraging dan als onderbouwing ervaren.
+
+#### Wat er concreet mee te doen is
+
+- Bouw een terugkerende vorm van fysiek ongemak in, zoals rucken of een lange
+wandeltocht, in plaats van te wachten tot het leven het ongevraagd oplegt.
+- Kies af en toe een uitdaging met een reële kans op mislukken in plaats van
+alleen taken die je zeker aankunt.
+- Laat verveling af en toe toe zonder direct naar een telefoon te grijpen.
+- Neem VO2max serieus als gezondheidsmaat en bouw duurtraining op die er
+specifiek aan bijdraagt.
+- Plan af en toe drie aaneengesloten dagen zonder kunstlicht en zonder de
+gebruikelijke digitale prikkels, in plaats van alleen korte wandelingen.
+
+#### Wat je hierna leest
+
+- 229. Can't Hurt Me. Een ander boek dat het opzoeken van fysiek ongemak als
+vormingsmiddel beschrijft, ditmaal vanuit een individuele extreme casus.
+- 30. The Obstacle Is the Way. Voor de stoïcijnse kant van hetzelfde idee:
+tegenslag niet vermijden maar gebruiken.
+- 71. Four Thousand Weeks. Benadert dezelfde moderne comfortcultuur vanuit
+tijdsbesteding en aandacht in plaats van fysieke belasting.
+- 52. Why We Sleep. Een ander boek dat een verdwenen, ongemakkelijke gewoonte,
+in dit geval slaap, terugbrengt als gezondheidsvoorwaarde.
+
+## 324. Finding Ultra
+
+Rich Roll, 2012. Oorspronkelijk *Finding Ultra: Rejecting Middle Age, Becoming
+One of the World's Fittest Men, and Discovering Myself* (Crown Archetype,
+2012); een herziene en uitgebreide editie met een hoofdstuk voedingsadvies
+verscheen in 2018 bij Harmony Books. Nederlands als *Verborgen kracht* bij
+Lannoo (2019, 416 blz., ISBN 9789000368891). Rubriek: moed en karakter.
+Tags: `memoir`, `verslaving`, `ultra-triatlon`, `plantaardig-dieet`,
+`midlife`, `doorzettingsvermogen`, `vaderschap`
+
+Op de avond voor zijn veertigste verjaardag moet de advocaat Rich Roll
+halverwege de trap van zijn huis in Malibu Canyon stoppen om op adem te komen.
+Ruim tien jaar nuchter maar twintig kilo te zwaar, ziet hij een hartaanval op
+zich afkomen. Zijn vrouw Julie Piatt zet hem op een meerdaagse sapkuur, en uit
+die kuur groeit een volledig plantaardig dieet en, binnen enkele jaren, een
+tweede leven als ultra-triatleet.
+
+*Finding Ultra* volgt Roll van het Ultraman-wereldkampioenschap op Hawaï tot
+de EPIC5 van 2010, vijf triatlons op Ironman-afstand op vijf eilanden binnen
+een week, en terug naar de zwemcarrière en de verslaving die eraan
+voorafgingen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Roll stelt dat een lichaam dat op instorten staat op elke
+leeftijd nog om te keren is, mits iemand bereid is de eigen gewoonten in hun
+geheel op te geven in plaats van ze bij te schaven. Zijn eigen omslag, van een
+man van bijna veertig die buiten adem raakte op een trap tot een deelnemer aan
+de zwaarste triatlons ter wereld, voert hij terug op twee stappen die hij
+allebei ingrijpend noemt: het schrappen van alle dierlijke producten uit zijn
+eten en het aanvaarden dat herstel van verslaving nooit voltooid raakt. Hij
+zegt dat zelf niet met zoveel woorden, maar het boek laat wel zien hoeveel een
+advocaat met spaargeld, een ondersteunend gezin en veel vrije tijd kan
+volhouden dat voor een ander binnen dezelfde jaren onbereikbaar blijft.
+
+#### De gang van het boek
+
+**Een kantelmoment op de trap**
+
+In oktober 2006, de avond voor zijn veertigste verjaardag, moet Rich Roll
+halverwege de trap van zijn huis in Malibu Canyon stoppen om op adem te komen.
+Hij is op dat moment ruim tien jaar nuchter, na een verslaving aan drank en
+drugs die hem als jonge advocaat in de problemen had gebracht, maar van zijn
+sportieve verleden als zwemmer is niets over. Hij weegt ruim twintig kilo te
+veel en durft niet naar de dokter uit angst voor wat die zal zeggen.
+
+Zijn vrouw Julie Piatt, die zelf eerder een eigen ziekte met een overwegend
+plantaardig dieet had bestreden, zet hem op een meerdaagse sapkuur volgens het
+programma van natuurgenezer Richard Schulze. De eerste dagen zijn zwaar, met
+hoofdpijn en prikkelbaarheid, maar tegen het einde van de kuur meldt Roll een
+energie die hij sinds zijn jeugd niet meer had gevoeld.
+
+**Zwemmen, verslaving en het recht**
+
+Voor die kuur ligt een heel ander leven. Roll zwom op Stanford University
+vlinderslag op nationaal niveau, tot drank en drugs zijn sportcarrière en
+daarna zijn leven ondermijnden. Hij belandde in de problemen met justitie en
+ging op zijn eenendertigste naar een afkickkliniek, waarna hij nuchter bleef
+maar zijn lichaam verwaarloosde: geen training meer, wel een veeleisende baan
+als entertainmentadvocaat in Los Angeles.
+
+Het boek behandelt die jaren kort en zonder ze te verheerlijken. Roll maakt
+duidelijk dat nuchterheid op zichzelf geen gezondheid garandeert, en dat de
+jaren tussen zijn eenendertigste en veertigste een stilstand waren die hij pas
+na de paniek op de trap onder ogen zag.
+
+**Van sapkuur naar een bord zonder dier**
+
+Uit de ontgiftingskuur groeit een blijvende verandering in wat hij eet. Roll
+gaat eerst vegetarisch, en binnen enkele maanden volledig plantaardig, een
+eetpatroon dat hij later PlantPower noemt en waarmee hij ook buiten het boek
+een merk opbouwt met voeding, een receptenboek en een podcast.
+
+Wat het boek niet doet, is het dieet apart zetten van de andere veranderingen
+die tegelijk plaatsvinden: meer slaap, een trainingsschema, en het wegvallen
+van de stress van een advocatenbestaan dat hij korte tijd later opgeeft. Roll
+schrijft de winst grotendeels aan de voeding toe, zonder dat te kunnen
+onderscheiden van de rest.
+
+**De eerste triatlons**
+
+Roll begint met hardlopen zonder ervaring: zijn eerste marathon voltooit hij
+deels lopend en deels wandelend, en zijn eerste halve triatlon op
+Ironman-afstand eindigt in een DNF, een race die hij niet uitrijdt. Het boek
+beschrijft die mislukkingen met evenveel aandacht als de latere successen.
+
+Binnen twee jaar staat hij toch aan de start van het
+Ultraman-wereldkampioenschap op Hawaï, een wedstrijd over drie dagen van in
+totaal ongeveer 515 kilometer: een zwemtocht van 10 kilometer gevolgd door 145
+kilometer fietsen op de eerste dag, 276 kilometer fietsen op de tweede, en een
+dubbele marathon van 84,4 kilometer op de derde. In 2008 en 2009 eindigt Roll
+daarbij bij de beste deelnemers.
+
+**EPIC5**
+
+In mei 2010 voltooit Roll samen met de eenarmige triatleet Jason Lester de
+EPIC5: vijf triatlons op volledige Ironman-afstand, op vijf verschillende
+Hawaiiaanse eilanden, binnen minder dan een week. Het boek noemt dit de
+zwaarste week van zijn leven en besteedt relatief veel ruimte aan het
+slaaptekort en de mentale uitputting die de opeenvolgende dagen met zich
+meebrengen.
+
+Roll plaatst deze prestatie niet als eindpunt maar als bewijs dat een lichaam
+dat vier jaar eerder amper een trap opkwam, tot iets anders in staat blijkt te
+zijn dan hij zelf voor mogelijk hield.
+
+**Wat het gezin ervoor betaalt**
+
+Een terugkerend, maar niet uitgewerkt thema is de prijs die zijn vrouw en vier
+kinderen betalen voor de uren training en de financiële onzekerheid van een
+gezin dat leeft zonder het advocatensalaris dat wegvalt. Roll noemt de
+spanningen die dat oplevert, maar behandelt ze vanuit zijn eigen ervaring en
+laat weinig ruimte voor het perspectief van zijn gezin zelf.
+
+Het boek eindigt met het begin van wat later The Rich Roll Podcast wordt, en
+de herziene editie uit 2018 voegt daar een hoofdstuk met voedingsadvies en
+recepten aan toe.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| PlantPower | Rolls naam voor zijn volledig plantaardige eetpatroon, later ook de merknaam waaronder hij voeding en programma's verkoopt. |
+| Ultraman | De drie dagen durende triatlon van ongeveer 515 kilometer waarin Roll in 2008 en 2009 bij de top eindigt. |
+| EPIC5 | De uitdaging die Roll in mei 2010 met Jason Lester volbrengt: vijf triatlons op Ironman-afstand op vijf Hawaiiaanse eilanden binnen een week. |
+| Sapkuur | De meerdaagse ontgiftingskuur van natuurgenezer Richard Schulze waarmee Julie Piatt de omslag van Roll in gang zet. |
+| DNF | Did Not Finish, de uitslag van zijn eerste halve triatlon op Ironman-afstand, die hij in het boek niet verzwijgt. |
+| Kantelmoment | Rolls eigen aanduiding voor de avond op de trap die aan alle volgende veranderingen voorafgaat. |
+| Nuchterheid | De aanhoudende, in het boek nooit als afgerond beschreven staat van herstel van verslaving, los van zijn latere sportieve omslag. |
+
+#### Waar het argument op rust
+
+Het boek is een memoir en steunt op Rolls eigen herinnering, aangevuld met de
+reeks interviews en de podcast die hij er later omheen bouwt. De harde feiten,
+zijn studietijd op Stanford, de afkickkliniek op zijn eenendertigste, de
+uitslagen op het Ultraman-wereldkampioenschap in 2008 en 2009, de EPIC5 in mei
+2010, zijn extern na te gaan via wedstrijduitslagen en berichtgeving buiten
+het boek om.
+
+De claim die het boek het minst onderbouwt, is de causale: dat het
+plantaardige dieet de sleutel tot zijn herstel was. Roll levert daarvoor geen
+onderzoek en geen vergelijking met andere mogelijke verklaringen; hij levert
+één geval, zichzelf, waarin voeding, training, slaap en het wegvallen van
+werkstress tegelijk veranderden.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek één succesvol geval veralgemeniseert naar
+een aanpak voor anderen, zonder de omstandigheden te verrekenen die dat succes
+mede mogelijk maakten: een advocatensalaris met spaargeld, een vrouw die zelf
+ervaring had met een plantaardig dieet, en een flexibiliteit in werktijden die
+niet voor iedere lezer geldt.
+
+Recensenten wijzen er daarnaast op dat het praktische deel van het boek, met
+voedingsadvies en trainingstips, moeilijk te scheiden is van reclame voor
+Rolls eigen merk PlantPower en de producten die daaronder verkocht worden. Dat
+maakt het onderscheid tussen persoonlijk verslag en verkooppraat op sommige
+plekken onduidelijk.
+
+Het gezin krijgt weinig eigen stem. Roll erkent wat zijn ambities van zijn
+vrouw en kinderen vragen, maar het boek blijft een verslag van één man, en wat
+de EPIC5-week voor zijn vier kinderen thuis betekende, komt niet uit hun eigen
+mond.
+
+#### Wat er concreet mee te doen is
+
+- Splits een grote verandering op in een eerste, afgebakende stap, zoals Roll
+deed met een sapkuur van enkele dagen in plaats van een compleet nieuw leven
+ineens.
+- Ga na welk deel van een resultaat aan één factor is toe te schrijven en welk
+deel aan andere, gelijktijdige veranderingen, voordat er één verklaring aan
+wordt opgehangen.
+- Reken de tijd en het geld van een veeleisend doel na bij de mensen die het
+thuis meedragen, niet alleen bij wie het doel zelf nastreeft.
+- Lees de uitslag van een mislukte poging als informatie voor de volgende
+poging, niet als een oordeel dat de poging zelf afkeurt.
+
+#### Wat je hierna leest
+
+- 22. Atomic Habits. Clear beschrijft hoe kleine, herhaalde veranderingen
+optellen tot een andere identiteit, het mechanisme dat achter Rolls sapkuur en
+trainingsschema schuilgaat.
+- 29. Grit. Duckworth onderzoekt het doorzettingsvermogen dat Roll in de
+EPIC5-week nodig heeft, met onderzoek dat zijn eigen verhaal ontbeert.
+- 30. The Obstacle Is the Way. Holiday plaatst tegenslag als aanleiding tot
+groei in een stoïcijns kader, waar Roll dezelfde beweging maakt vanuit een
+persoonlijke gezondheidscrisis.
+- 78. Finding Flow. Csikszentmihalyi beschrijft de flow-toestand die Roll
+tijdens lange triatlons noemt, maar dan onderbouwd met eigen onderzoek naar
+wanneer die toestand ontstaat.
+
+## 325. On the Move: A Life
+
+Oliver Sacks, 2015. Oorspronkelijk *On the Move: A Life* (Knopf, 2015), zijn
+tweede autobiografie na *Uncle Tungsten: Memories of a Chemical Boyhood*
+(2001). Nederlands als *Onderweg* bij De Bezige Bij (2015, vertaald door Otto
+Biersma en Luud Dorresteijn, ca. 427 blz., ISBN 9789023496458). Rubriek: roman
+en memoir.
+Tags: `memoir`, `neurologie`, `homoseksualiteit`, `verslaving`,
+`motorfietsen`, `familie`, `schrijverschap`
+
+De neuroloog en schrijver Oliver Sacks publiceerde *On the Move* kort voordat
+bekend werd dat hij ongeneeslijk ziek was, als zijn tweede en persoonlijkste
+autobiografie. Het boek volgt hem van een jeugd in Londen en de kostschool
+waar hij tijdens de oorlog naartoe werd gestuurd, via een
+gewichtheffersbestaan op Muscle Beach en een verslaving aan amfetamine in
+Californië, naar de New Yorkse ziekenhuisafdelingen waar hij de patiënten
+ontmoette over wie hij later schreef.
+
+Sacks vertelde zijn vader op zijn achttiende al over zijn homoseksualiteit;
+zijn moeder reageerde met woorden die hem decennialang zouden bijblijven. Pas
+na zijn vijfenzeventigste vond hij, na vijfendertig jaar onthouding, een
+partner. *On the Move* zet die geschiedenis naast zijn werk als arts, en naast
+zijn broer Michael, bij wie op jonge leeftijd schizofrenie werd vastgesteld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sacks stelt dat een leven zich niet laat samenvatten in het
+werk waarmee iemand bekend wordt, en zet in deze autobiografie zijn eigen
+roekeloosheid, zijn verslaving en zijn decennialange seksuele onthouding naast
+de neuroloog die patiënten met de grootste zorgvuldigheid beschreef. De vraag
+die het boek openhoudt, is hoe die twee figuren, de man die op de motor de
+Californische snelwegen afraasde en de arts die dagen aan één enkele patiënt
+kon besteden, één en dezelfde persoon zijn. Sacks beantwoordt die vraag niet
+met een verklaring maar met een opsomming van wat er allemaal tegelijk in hem
+omging.
+
+#### De gang van het verhaal
+
+**Een motor in Greenwich Village**
+
+*On the Move* opent met een foto op het omslag: Sacks als jonge man in een
+leren jack op zijn motor, Greenwich Village, 1961. Die openingsbeweging zet de
+toon voor het hele boek, dat zijn leven voorstelt als een aaneenschakeling van
+uitersten, van zwemmen tot gewichtheffen tot drugsgebruik tot het schrijven
+van boeken in koortsachtige periodes.
+
+Sacks schreef het boek kort voordat bekend werd dat hij ongeneeslijk ziek was;
+hij maakte dat nieuws zelf bekend in een essay in The New York Times begin
+2015, hetzelfde jaar waarin *On the Move* verscheen. Dat gegeven hangt niet
+expliciet boven de tekst, maar geeft het boek achteraf het karakter van een
+afronding.
+
+**Oxford en de eerste openheid**
+
+Sacks studeerde geneeskunde in Oxford. Op zijn achttiende vertelde hij zijn
+vader over zijn aantrekking tot mannen; zijn vader gaf dat door aan zijn
+moeder, die er volgens Sacks aan toevoegde: 'Je bent een gruwel. Ik wou dat je
+nooit geboren was.' Sacks schrijft dat die zin decennialang is blijven
+doorwerken in schuldgevoel en seksuele terughoudendheid.
+
+Het boek behandelt dit moment kort, in enkele zinnen, ondanks het gewicht dat
+het in de rest van zijn leven blijkt te hebben gehad. Recensenten hebben dat
+contrast tussen de impact en de beknoptheid van de beschrijving opgemerkt als
+kenmerkend voor zijn manier van schrijven over zichzelf.
+
+**Muscle Beach en amfetamine**
+
+In Californië combineert Sacks gewichtheffen op Muscle Beach, waar hij een
+squat-record van 272 kilo (600 pond) zet, met een jarenlange verslaving aan
+amfetamine. Hij beschrijft periodes van roekeloos motorrijden en manische
+werklust naast periodes van instorting, waaronder een crisis waarin een
+vriendin die hij Carol noemt hem met gerichte vragen terugbrengt naar de
+werkelijkheid.
+
+Rond 1966 stopt hij met de drugs, geholpen door psychotherapie die hij daarna
+decennialang voortzet. Het boek maakt niet duidelijk wat in die behandeling
+precies de doorslag gaf; Sacks noemt vooral dat hij bleef gaan.
+
+**New York en de vergeten patiënten**
+
+Als neuroloog in New York gaat Sacks werken met patiënten die na de
+encefalitis-epidemie van de jaren twintig decennialang in een roerloze
+toestand op een verpleegafdeling hadden geleefd. Zijn behandeling van die
+postencefalitische patiënten met het middel L-dopa levert de stof voor zijn
+boek *Awakenings* (1973).
+
+Voor dat succes wordt hij herhaaldelijk ontslagen ondanks, of volgens
+collega's soms juist vanwege, het ongebruikelijke werk dat hij doet. Zichzelf
+noemt hij in die jaren zowel een gêne als een sieraad voor zijn afdeling
+neurologie.
+
+**Een boek in negen dagen**
+
+Zijn eerste boek, over migraine, schrijft Sacks in 1970 in een aaneengesloten,
+koortsachtige periode van negen dagen. Dat patroon van gedreven,
+geconcentreerd schrijven in korte, intense periodes keert in het boek meerdere
+keren terug, en Sacks verbindt het zelf aan dezelfde energie die hem als
+jongeman naar gewichtheffen en motorrijden dreef.
+
+*Awakenings* brengt hem in 1973 uiteindelijk de erkenning die eerder uitbleef.
+Zijn moeder, met wie de verhouding na haar reactie op zijn geaardheid nooit
+meer hetzelfde was, overlijdt voordat ze dat succes meemaakt.
+
+**Zijn broer Michael**
+
+Tijdens de Tweede Wereldoorlog wordt Sacks als kind geëvacueerd naar een
+kostschool waar hij naar eigen zeggen is mishandeld, een episode die hij kort
+behandelt. Zijn broer Michael krijgt op jonge leeftijd de diagnose
+schizofrenie, en Sacks beschrijft die band als een van de weinige constanten
+in een verder onrustig gezinsleven.
+
+Het boek geeft aan de rest van het gezin, buiten zijn ouders en Michael,
+weinig ruimte. Wie op zoek is naar een volledig portret van de familie, vindt
+dat hier niet.
+
+**Vijfendertig jaar en Billy Hayes**
+
+Na Carol volgen decennia waarin Sacks naar eigen zeggen vrijwel geen seksuele
+relaties heeft, deels als nawerking van de reactie van zijn moeder. Pas na
+zijn vijfenzeventigste vindt hij een partner, de schrijver Billy Hayes, van
+wie hij het samenleven beschrijft als een rustige, veelzijdige verbinding van
+twee levens.
+
+Het boek sluit daarmee dicht bij het heden van het schrijven zelf, en laat
+zien hoe laat in een lang leven iets nog kan veranderen wat decennialang
+vaststond.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Muscle Beach-record | De 272 kilo (600 pond) die Sacks op de squat tilde, voordat een spierscheuring aan zijn dijbenen een einde maakte aan het gewichtheffen. |
+| Postencefalitische patiënten | De patiënten met de nasleep van de encefalitis-epidemie van de jaren twintig, wier behandeling met L-dopa de stof voor *Awakenings* leverde. |
+| Prosopagnosie | Het onvermogen gezichten te herkennen waaraan Sacks zelf leed, en dat hij zonder zelfmedelijden beschrijft. |
+| 'Physician, teacher and storyteller' | De omschrijving die Sacks zelf van zijn beroep gaf. |
+| Dagboeken | De notities die hij vanaf zijn veertiende bijhield en die het materiaal voor dit boek leverden. |
+| Kostschoolperiode | De oorlogsevacuatie naar een school waar hij naar eigen zeggen mishandeld werd. |
+| Vijfendertig jaar onthouding | De periode tussen zijn crisis in Californië en zijn latere partnerschap met Billy Hayes. |
+
+#### Waar het argument op rust
+
+Sacks bouwt het boek op uit dagboeken die hij vanaf zijn veertiende bijhield,
+familiebrieven en ongepubliceerde essays. Dat levert een gedetailleerd verslag
+op, vooral over zijn studietijd in Oxford en zijn eerste jaren als arts,
+periodes waarover hij explicieter schrijft dan over zijn jeugd.
+
+Recensent Helen Epstein wijst erop dat Sacks' geanalyseerde, klinische
+schrijfstijl, die in zijn patiëntenboeken zo goed werkt, in een memoir minder
+oplevert: emotioneel zware momenten, zoals de reactie van zijn moeder of de
+mishandeling op kostschool, worden kort en feitelijk beschreven. Hij onderging
+vijftig jaar psychoanalyse, maar het boek legt weinig van de psychologische
+verklaring bloot die dat zou kunnen opleveren.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de verhouding tussen wat er gebeurde en hoe kort
+dat wordt beschreven. De woorden van zijn moeder en de kostschoolmishandeling
+worden genoemd, niet uitgewerkt, terwijl ze in de rest van het boek als
+verklaring voor latere terughoudendheid blijven terugkeren.
+
+Het gezin blijft schetsmatig: zijn vader krijgt meer aandacht dan zijn moeder,
+en over zijn andere broers dan Michael staat vrijwel niets. Wie de familie
+achter Sacks wil begrijpen, moet het met fragmenten doen.
+
+Dat Sacks het boek schreef wetend dat hij ongeneeslijk ziek was, is niet met
+zekerheid vast te stellen als reden voor de nadruk op verzoening en
+nalatenschap in plaats van op onopgeloste spanning, maar de timing maakt die
+lezing aannemelijk.
+
+Ten slotte blijft, ondanks vijftig jaar therapie, de vraag waarom juist
+gewichtheffen, motorrijden en drugsgebruik de vorm werden waarin zijn onrust
+zich uitte, grotendeels onbeantwoord. Het boek beschrijft het patroon
+uitvoerig zonder het te verklaren.
+
+#### Wat je hierna leest
+
+- 49. When Breath Becomes Air. Kalanithi schrijft eveneens als arts over het
+eigen leven, maar dan wetend dat hij op korte termijn zal sterven, wat de toon
+nog directer maakt.
+- 4. The Tender Bar. Moehringer bouwt zijn memoir op rond mannen die een
+vaderrol overnemen, waar Sacks juist worstelt met de aanwezige vader en de
+afwijzende moeder.
+- 45. Educated. Westover beschrijft eveneens een breuk met het gezin van
+herkomst en een identiteit die pas laat en via een omweg tot stand komt.
+
+## 326. The Secret Pulse of Time
+
+Stefan Klein, 2006. Oorspronkelijk Duits als *Zeit: Der Stoff, aus dem das
+Leben ist* (S. Fischer Verlag, 2006, 320 blz.). Engels als *The Secret Pulse
+of Time: Making Sense of Life's Scarcest Commodity* (Da Capo Press, 2007) in
+de Verenigde Staten en als *Time: A User's Guide* in het Verenigd Koninkrijk,
+beide vertaald door Shelley Frisch. Nederlands als *Tijd* bij Ambo (2007,
+vertaald door C. van Bree, 292 blz., ISBN 9789026319983). Rubriek: brein en
+lichaam.
+Tags: `tijdsbeleving`, `chronobiologie`, `biologische-klok`,
+`populair-wetenschappelijk`, `neurowetenschap`, `natuurkunde`, `aandacht`
+
+De natuurkundige en wetenschapsjournalist Stefan Klein onderzoekt waarom de
+klok aan de muur en de tijd die iemand voelt zelden hetzelfde ritme houden.
+Hij bouwt het boek op rond drie delen: hoe tijd in het lichaam wordt ervaren,
+hoe mensen er in het dagelijks leven mee omgaan, en wat de natuurkunde, met
+Einsteins relativiteitstheorie voorop, over tijd zelf te zeggen heeft.
+
+Klein bespreekt onder meer het maandenlange experiment waarin de Franse
+onderzoeker Michel Siffre zichzelf in een grot zonder licht opsloot, en het
+gedrag van het eencellige organisme euglena, dat al op licht reageert zonder
+een zenuwstelsel te bezitten. Het boek sluit af met een reeks praktische
+aanwijzingen om greep te krijgen op de eigen tijdsbeleving.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Klein stelt dat de tijd die een klok meet en de tijd die
+iemand beleeft twee verschillende grootheden zijn, en dat veel onvrede met
+tijd voortkomt uit het verwarren van de twee. Het lichaam draagt volgens hem
+een veelvoud aan eigen klokken, van een cel tot het zenuwstelsel, en de manier
+waarop een leven wordt ervaren hangt minder af van het aantal beschikbare uren
+dan van hoe die klokken worden gebruikt. Waar het boek geen uitspraak over
+doet, is of die kennis het gevoel van tijdgebrek in een samenleving met steeds
+meer keuzemogelijkheden werkelijk kan verminderen.
+
+#### De gang van het boek
+
+**Drie delen, één vraag**
+
+Klein bouwt het boek op in drie delen: hoe tijd in het lichaam wordt ervaren,
+hoe mensen in het dagelijks leven met tijd omgaan, en wat natuurkundigen, met
+Einstein voorop, over tijd zelf hebben vastgesteld. De opbouw beweegt zo van
+de cel naar het dagelijks leven naar het heelal, en Klein legt telkens
+verbindingen terug naar de vraag waarom klok-tijd en beleefde tijd zo weinig
+met elkaar te maken hebben.
+
+Als natuurkundige van opleiding, gepromoveerd op theoretische biofysica in
+Freiburg, en later wetenschapsjournalist bij Der Spiegel en Geo, schrijft
+Klein vanuit beide invalshoeken: de natuurkunde van tijd en de biologische en
+psychologische kant ervan.
+
+**De klokken in het lichaam**
+
+Het eerste deel behandelt de inwendige klokken die vrijwel elk levend
+organisme blijkt te bezitten, van een enkele cel tot het menselijk
+zenuwstelsel. Klein beschrijft onder meer het eencellige organisme euglena,
+dat op licht reageert en een dag-en-nachtritme volgt zonder ook maar een
+zenuwcel te bezitten, als voorbeeld dat een innerlijke klok geen brein
+vereist.
+
+Bij mensen werkt dat ritme via wat inmiddels de circadiane klok heet, gestuurd
+vanuit een gebied in de hersenen dat op licht reageert. Klein bespreekt ook
+het onderscheid tussen ochtend- en avondmensen: chronotypen die volgens hem
+vooral voortkomen uit de eigen biologische klok en nauwelijks uit wilskracht.
+
+**Een maand zonder daglicht**
+
+Als centraal voorbeeld gebruikt Klein het experiment van de Franse onderzoeker
+Michel Siffre, die zichzelf voor langere periodes in een grot zonder licht of
+klok opsloot om te zien hoe zijn lichaam zich zonder externe tijdsignalen zou
+gedragen. Siffres innerlijke dag-en-nachtritme bleek langzaam af te wijken van
+de kalender, wat volgens Klein laat zien dat de innerlijke klok een eigen,
+niet volledig op vierentwintig uur afgestemde cyclus volgt.
+
+Het experiment dient in het boek als illustratie van een breder punt: zonder
+de aanwijzingen van zonlicht en klokken verliest een mens langzaam het contact
+met de gedeelde tijd, ook al blijft er wel een eigen ritme bestaan.
+
+**Waarom plezier de tijd doet verdwijnen**
+
+Het tweede deel gaat over de beleving van tijd in het dagelijks leven: waarom
+een uur bij een deadline eindeloos kan aanvoelen en een avond in goed
+gezelschap voorbij lijkt te vliegen. Klein legt dat terug op de mate van
+aandacht die een activiteit vraagt en op de hoeveelheid nieuwe indrukken die
+het brein moet verwerken, waarbij meer nieuwe indrukken achteraf tot een
+langer beleefde tijdsduur leiden.
+
+Verveling krijgt in dit deel een eigen behandeling, als een vertraagde
+tijdsbeleving die ontstaat wanneer er te weinig te verwerken valt.
+
+**Het heden bestaat niet**
+
+Klein beschrijft hoe het brein het gevoel van een 'nu' opbouwt uit signalen
+die met een vertraging van soms een halve seconde binnenkomen: wat een mens
+als het huidige moment ervaart, is al een constructie achteraf. Zodra dat
+moment is samengesteld, wordt het meteen weer geheugen.
+
+Die vertraging verklaart volgens Klein ook waarom het heden zich nooit laat
+vasthouden: tegen de tijd dat iemand zich van een moment bewust wordt, is het
+al voorbij en vervangen door het volgende. Het boek verbindt dat aan de manier
+waarop herinneringen achteraf worden geordend, vaak anders dan de
+gebeurtenissen zich werkelijk voordeden.
+
+**Einstein en het einde van de universele tijd**
+
+Het derde deel verlaat het lichaam en gaat over in de natuurkunde. Klein legt
+uit hoe Einsteins relativiteitstheorie het idee van één universele tijd, die
+overal in het heelal gelijk zou lopen, ondermijnde: tijd verloopt afhankelijk
+van snelheid en zwaartekracht verschillend voor verschillende waarnemers,
+zodat er geen enkel 'nu' bestaat dat voor het hele heelal geldt.
+
+Voor een boek dat begint bij een cel zonder brein en eindigt bij de
+natuurkunde van het heelal, is dit de grootste sprong in schaal, en Klein
+besteedt aandacht aan waarom die natuurkundige tijd zo weinig aansluit bij wat
+een mens er in het dagelijks leven onder verstaat.
+
+**Zes stappen**
+
+De slotepiloog draagt de titel 'A New Culture of Time: Six Steps to a More
+Relaxed Life' en vat de eerdere hoofdstukken samen in zes punten: heerschappij
+over de eigen tijd nemen, in overeenstemming met de biologische klok leven,
+ruimte voor vrije tijd inbouwen, de losse momenten bewust beleven, het
+vermogen tot concentratie oefenen, en prioriteiten stellen.
+
+Die overgang van beschrijving naar advies is de plek waar het boek het dichtst
+bij een zelfhulpboek komt, na twee delen die vooral uitleggen en illustreren.
+Het tweede deel van het boek gaat overigens al over tijdverspillers, stress en
+tijdmanagement in het dagelijks leven, zodat de epiloog eerder een
+samenvatting is dan een nieuwe wending.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Innerlijke tijd en klok-tijd | Het onderscheid tussen de tijd die het lichaam beleeft en de tijd die een klok meet, de kern van het hele boek. |
+| Circadiane klok | Het ritme van ongeveer vierentwintig uur dat vrijwel elk levend organisme aanstuurt. |
+| Chronotype | De aanleg om ochtend- of avondmens te zijn, volgens Klein grotendeels biologisch bepaald. |
+| Euglena | Het eencellige organisme zonder zenuwstelsel dat toch een eigen dag-en-nachtritme volgt. |
+| Het nu als constructie | Het inzicht dat het brein het huidige moment met vertraging samenstelt uit binnenkomende signalen. |
+| Verveling als vertraagde tijd | Kleins behandeling van verveling als een langzamere vorm van tijdsbeleving, niet als de afwezigheid ervan. |
+| Relativiteit van de tijd | Einsteins bevinding dat er geen tijd bestaat die voor het hele heelal gelijk loopt. |
+| Michel Siffres grotexperiment | De langdurige zelfopsluiting zonder daglicht waarmee onderzoek werd gedaan naar het innerlijke ritme zonder externe tijdsignalen. |
+
+#### Waar het argument op rust
+
+Klein bouwt het boek op uit onderzoek dat niet van hemzelf is:
+chronobiologisch werk over inwendige klokken, neurowetenschappelijk onderzoek
+naar de opbouw van het 'nu', sociaalpsychologisch werk over tijdsdruk, en de
+natuurkunde van Einstein. Het boek is voorzien van noten en een
+literatuurlijst, en recensenten prijzen de zorgvuldigheid waarmee die bronnen
+zijn verwerkt.
+
+Klein zelf is fysicus van opleiding, gepromoveerd op theoretische biofysica,
+en jarenlang wetenschapsredacteur geweest bij Der Spiegel en Geo. Dat maakt
+hem een geschoolde verslaggever van andermans onderzoek, niet iemand die in
+dit boek eigen experimenten uitvoert of nieuwe bevindingen presenteert.
+
+De kracht van het boek zit in de synthese over vakgebieden heen die elkaar
+normaal nauwelijks tegenkomen. De keerzijde is dat een lezer, om te beoordelen
+of een aangehaald onderzoek stand heeft gehouden, buiten het boek om moet
+zoeken; Klein presenteert bevindingen niet met een aparte weging van hoe
+stevig elk ervan staat.
+
+#### Wat er tegen in te brengen valt
+
+Het boek loopt het risico de tijdsbeleving te herleiden tot biologische
+mechanismen die voor iedereen ongeveer gelijk zouden werken, terwijl geheugen,
+cultuur en persoonlijke omstandigheden minstens zo veel invloed hebben op hoe
+iemand tijd ervaart. Klein noemt die factoren wel, maar ze krijgen minder
+gewicht dan de chronobiologie.
+
+De aansprekende voorbeelden, Siffre in zijn grot, euglena die op licht
+reageert, werken retorisch sterk maar functioneren ook als bewijs: een lezer
+die alleen dit boek leest, kan niet nagaan of latere onderzoekers deze
+bevindingen hebben herhaald of juist genuanceerd.
+
+Het slothoofdstuk verschuift van beschrijven naar voorschrijven zonder dat
+daar nieuw bewijs bij komt: dat de zes stappen aan het einde werken, wordt
+verondersteld op grond van wat eraan voorafging, niet apart onderbouwd.
+
+Het boek verscheen in 2006 en verwerkt onderzoek van voor dat jaar; voor
+recentere inzichten in chronobiologie en tijdswaarneming moet een lezer elders
+zoeken.
+
+#### Wat er concreet mee te doen is
+
+- Let op het onderscheid tussen klok-tijd en beleefde tijd voordat een dag als
+te kort of te lang wordt beoordeeld.
+- Ga na of je een ochtend- of avondtype bent, en leg veeleisende taken in het
+deel van de dag waarin je eigen klok daarvoor openstaat.
+- Onderbreek verveling niet meteen met afleiding; de vertraagde tijdsbeleving
+die erbij hoort, is zelf al informatie.
+- Bouw bewust vrije tijd en momenten van concentratie in, in plaats van te
+wachten tot ze vanzelf ontstaan, en stel daarbij prioriteiten in plaats van
+alles gelijk te behandelen.
+- Wees terughoudend met het idee dat een enkele gewoonte de tijdsdruk van een
+overvol leven wegneemt.
+
+#### Wat je hierna leest
+
+- 71. Four Thousand Weeks. Burkeman werkt de eindigheid van tijd uit tot een
+levenshouding, waar Klein vooral de mechaniek van tijdsbeleving beschrijft.
+- 52. Why We Sleep. Walker gaat dieper in op de biologische klok die Klein
+hier kort behandelt, met een eigen laag aan slaaponderzoek.
+- 55. Thinking, Fast and Slow. Kahneman onderzoekt hoe het brein oordelen
+vormt met vertraging en vertekening, een mechanisme dat raakt aan Kleins
+constructie van het 'nu'.
+
+## 327. The Brain Colouring and Learning Book: Volume 1
+
+Maria Zamfir en Marion Van Horn, 2023. *The Brain Colouring and Learning Book:
+Volume 1*, in eigen beheer uitgegeven via Broken Keys Publishing (2023, 91
+blz., ISBN 9798388835444), ook verschenen in het Frans. Eerste deel van een
+reeks; deel twee, *How We Feel*, verscheen in 2024 en behandelt aanraking en
+pijn, deel drie behandelt het zien. Rubriek: naslag en praktijk.
+Tags: `kleurboek`, `hersenen`, `neurowetenschap-voor-kinderen`, `educatief`,
+`gezinnen`, `illustraties`
+
+Twee neurowetenschappers met een doctoraat van McGill University, Maria Zamfir
+en Marion Van Horn, zetten hersenonderdelen om in figuurtjes die kleuren en
+leren combineren. Zamfir bedacht tijdens haar promotieonderzoek De
+Neuronenfamilie: neuronen en gliacellen met een gezicht en een
+persoonlijkheid, van een Denk-neuron tot een slaperig neuron en Koningin
+Amygdala.
+
+Het boek wisselt kleurplaten af met woordzoekers, doolhoven,
+zoek-de-verschillen en korte uitleg over wat een hersendeel doet, gericht op
+kinderen en hun ouders samen. Het is het eerste deel van een reeks die
+inmiddels ook delen over aanraking en pijn en over het zien omvat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dit boek draagt geen betoog in de gebruikelijke zin; het is
+een kleur- en activiteitenboek en geen redenering die naar een conclusie
+toewerkt. De impliciete gedachte van Zamfir en Van Horn is dat kinderen, en
+hun ouders, iets over de werking van hersenen kunnen leren door onderdelen
+ervan te kleuren, te benoemen en er korte feiten omheen te lezen, zonder dat
+de anatomische juistheid daaronder lijdt. Waar een leerboek uitlegt en toetst,
+wil dit boek vooral laten zien en laten doen, in het vertrouwen dat een kind
+dat een amygdala heeft ingekleurd er ook iets van onthoudt.
+
+#### De gang van het boek
+
+**Twee neurowetenschappers, één figurenfamilie**
+
+Maria Zamfir en Marion Van Horn promoveerden allebei aan McGill University,
+Zamfir in de neurowetenschappen, Van Horn in de neurofysiologie, en werken
+sindsdien allebei in het onderzoek: Van Horn als research associate bij het
+Montreal Neurological Institute, waar ze de ontwikkeling van neuroplasticiteit
+bestudeert. Tijdens haar promotieonderzoek bedacht Zamfir De Neuronenfamilie,
+een reeks vermenselijkte neuronen en gliacellen die ze ook zelf tekent.
+
+Beide auteurs zijn daarnaast actief in wetenschapscommunicatie voor kinderen,
+onder meer via het programma BrainReach en de jaarlijkse Brain Awareness Week,
+waarin onderzoekers op scholen over het brein vertellen. Dit boek is daarvan
+een uitwerking op papier.
+
+**Wat er in het boek staat**
+
+Het boek van eenennegentig bladzijden bestaat uit kleurplaten van
+hersenonderdelen, afgewisseld met puzzels als woordzoekers, doolhoven en
+zoek-de-verschillen, en korte, feitelijke uitleg bij elk onderdeel. De
+personages, onder wie een Denk-neuron, een Yoga-neuron, een slaperig neuron,
+een astrocyt en Koningin Amygdala, geven elk hersendeel een gezicht en een
+functie om te onthouden.
+
+De uitgever richt het boek op gezinnen, met de kanttekening dat de makers het
+geschikt noemen voor een breed leeftijdsbereik, van kleuters tot volwassenen
+die met een kind meekleuren. Het is daarmee eerder een gezamenlijke activiteit
+dan een boek dat een kind alleen doorwerkt.
+
+**Een reeks die groeit**
+
+Volume 1 introduceert het brein in algemene zin; het tweede deel, *How We
+Feel* (2024), behandelt aanraking en pijn, en een derde deel gaat over het
+zien. De reeks verschijnt bij Broken Keys Publishing, een kleine uitgeverij,
+en is behalve in het Engels ook in het Frans beschikbaar.
+
+Op de eigen website van het project noemt kinderpsycholoog Christine Chambers
+als aanbeveling dat het boek zich onderscheidt door zijn nauwkeurigheid, een
+kwalificatie die van de makers zelf komt en niet van een onafhankelijke
+recensie.
+
+**Wat voor soort boek dit is**
+
+Dit is geen betoog maar een naslag- en activiteitenwerk, en de gebruikelijke
+vragen naar stelling en tegenargument zijn er dan ook maar beperkt op toe te
+passen. Voor lezers die de titel associëren met een ouder en bekender boek:
+*The Human Brain Coloring Book* van Marian C. Diamond en Arnold B. Scheibel
+uit 1985 is een ander, klinischer kleurboek, gericht op studenten geneeskunde,
+verpleegkunde en psychologie, met gedetailleerde neuroanatomie als doel. Dit
+boek van Zamfir en Van Horn staat daar los van en richt zich uitdrukkelijk op
+kinderen en gezinnen, met een lossere, verhalende benadering van dezelfde
+hersenonderdelen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De Neuronenfamilie | De reeks vermenselijkte neuronen en gliacellen die Zamfir tijdens haar promotieonderzoek bedacht en zelf tekent. |
+| Koningin Amygdala | Het personage dat de amygdala voorstelt, het hersendeel dat een rol speelt bij angst en emotie. |
+| Lady GABA | Het personage dat de remmende neurotransmitter GABA voorstelt. |
+| Astrocyt | Het personage voor een type gliacel, de ondersteunende cellen naast de neuronen zelf. |
+| BrainReach | Het vrijwilligersprogramma waarmee onderzoekers, onder wie Zamfir, op scholen over het brein lesgeven. |
+| The Montreal Neuro | Het Montreal Neurological Institute, waar Van Horn als research associate aan de ontwikkeling van neuroplasticiteit werkt. |
+| Brain Awareness Week | De jaarlijkse internationale week waarin neurowetenschappers wetenschapscommunicatie voor een breed publiek verzorgen. |
+
+#### Waar het argument op rust
+
+Voor de feitelijke juistheid van het boek pleiten de papieren van de auteurs:
+beide promoveerden in de neurowetenschappen aan McGill University en werken al
+jaren in het vakgebied. Op de website van het project wordt de nauwkeurigheid
+van het boek genoemd door een kinderpsycholoog, maar dat is een aanbeveling op
+de eigen uitgeverspagina en geen onafhankelijke recensie.
+
+Het boek verscheen in eigen beheer via een kleine uitgeverij, zonder de
+redactionele toetsing van een gevestigde wetenschapsuitgever. Onafhankelijke,
+kritische besprekingen van de inhoud waren bij het schrijven van deze
+samenvatting niet te vinden; wat er is, zijn productbeschrijvingen, een lokaal
+nieuwsbericht over de lancering en een klein aantal lezersbeoordelingen.
+
+#### Wat er tegen in te brengen valt
+
+Dit boek voert geen argument, en de vraag wat er tegenin te brengen valt gaat
+er dan ook maar ten dele op. Wat wel te beoordelen is, is de onderbouwing van
+de claims eromheen: de aanprijzing dat het boek zich onderscheidt door
+nauwkeurigheid steunt op één genoemde naam en niet op een bredere,
+onafhankelijke beoordeling.
+
+Als naslagwerk is de reikwijdte klein: eenennegentig bladzijden, verdeeld over
+kleurplaten, puzzels en korte teksten, geven noodzakelijkerwijs een
+oppervlakkig beeld van hersenwerking. Voor wie meer wil dan losse feiten over
+neuronen en gliacellen, is dit geen vervanging voor een doorlopend boek over
+het brein.
+
+Het boek is nieuw genoeg, 2023, dat er nog weinig gevestigde kritiek op
+bestaat, en het is klein genoeg uitgegeven dat het waarschijnlijk buiten de
+gangbare recensiecircuits blijft. Daarmee is dit een van de minst extern
+getoetste titels in deze lijst.
+
+#### Wat er concreet mee te doen is
+
+- Kleur samen met het kind en laat het de naam van een hersendeel hardop
+herhalen voordat er verdergegaan wordt.
+- Gebruik het boek als aanvulling naast een gewoon jeugdboek over het lichaam,
+niet als vervanging ervan.
+- Lees als volwassene vooraf zelf na wat een amygdala of een astrocyt doet,
+voordat die uitleg aan een kind wordt doorgegeven.
+
+#### Wat je hierna leest
+
+- 84. Laat je hersenen niet zitten. Scherder schrijft voor volwassenen over
+hetzelfde onderwerp, het brein en wat ermee te doen valt, met
+wetenschappelijke onderbouwing in plaats van kleurplaten.
+- 85. Singing in the brain. Ook Scherders boek over muziek en het brein
+combineert wetenschap met een toegankelijke vorm, al is de doelgroep ouder.
+- 116. Mindset Mathematics, Grade 7. Boaler laat zien hoe een ander vakgebied,
+wiskunde, eenzelfde soort activiteitenboek voor leren gebruikt als hier voor
+het brein gebeurt.
+
+## 328. The Prince of Medicine
+
+Susan P. Mattern, 2013. Volledige titel *The Prince of Medicine: Galen in the
+Roman Empire*, bij Oxford University Press (2013, 368 blz., ISBN
+9780199767670). Geen Nederlandse vertaling bekend. Rubriek: geschiedenis en
+samenleving.
+Tags: `geschiedenis`, `biografie`, `geneeskunde`, `Oude Rome`, `Galenus`,
+`wetenschap`
+
+Susan Mattern reconstrueert het leven van Galenus (129, gestorven na 216), een
+Griekse arts uit Pergamon die opklom van wondarts voor gladiatoren tot
+lijfarts van drie Romeinse keizers: Marcus Aurelius, Commodus en Septimius
+Severus. Mattern gebruikt vrijwel uitsluitend Galenus' eigen, omvangrijke
+oeuvre als bron, want hij schreef als een van de weinige mensen uit de oudheid
+uitgebreid over zichzelf, over zijn diagnoses en over zijn ruzies met
+collega's.
+
+Het boek volgt hem van zijn jeugd in Pergamon, via zijn opleiding in Smyrna,
+Korinthe en Alexandrië, naar het Rome van de tweede eeuw, waar hij zijn naam
+vestigde met publieke ontledingen en gewaagde diagnoses, en waar hij in 192
+bij een grote brand vrijwel al zijn geschriften en instrumenten kwijtraakte.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Susan Mattern betoogt dat de faam van Galenus niet alleen op
+medische kennis rustte, maar minstens zo veel op zijn vermogen om die kennis
+in het openbaar te bewijzen. In een tijd zonder diploma's of licenties kon een
+arts zijn gezag alleen ontlenen aan wat hij ter plekke kon laten zien: een
+juiste voorspelling, een geslaagde ingreep, een rivaal die in het ongelijk
+werd gesteld. Mattern schetst Galenus als een scherp waarnemer die dat spel
+beheerste als weinig anderen, en als een man die zijn eigen verdiensten
+voortdurend en luid onder de aandacht bracht.
+
+#### De gang van het boek
+
+**Een vader, een droom en een dubbele opleiding**
+
+Galenus werd in 129 geboren in Pergamon, een welvarende stad in het huidige
+West-Turkije, als zoon van de architect en landeigenaar Nicon. Volgens
+Galenus' eigen relaas kreeg zijn vader een droom die hem opdroeg zijn zoon
+naast filosofie ook geneeskunde te laten studeren. Die opleiding voerde hem
+langs de belangrijkste medische centra van zijn tijd: Smyrna, waar hij bij de
+anatoom Pelops studeerde, Korinthe, en ten slotte Alexandrië, de stad met de
+beste anatomische verzamelingen van de oudheid.
+
+Die brede vorming, filosofisch en praktisch tegelijk, bleef zijn latere werk
+kenmerken. Galenus schreef even gemakkelijk over ethiek en grammatica als over
+eczeem en jicht, en behandelde die onderwerpen als één samenhangend gebied.
+
+**Wondarts voor gladiatoren**
+
+Op zijn achtentwintigste keerde Galenus terug naar Pergamon, waar hij werd
+aangesteld als arts van de gladiatoren in dienst van de hogepriester van de
+provincie Asia. Vier jaar lang behandelde hij verwondingen die geen andere
+praktijk hem kon leren: opengereten buikwanden, doorgesneden pezen, gebroken
+schedels. Mattern laat zien hoe die ervaring zijn latere anatomische kennis
+onderbouwde. Waar andere artsen alleen dieren mochten ontleden, had Galenus
+door het gladiatorenwerk al gezien hoe organen, spieren en zenuwen bij een
+levend mens samenhingen.
+
+**Rome: het schouwspel van de ontleding**
+
+Rond 162 vestigde Galenus zich in Rome, waar hij zijn naam maakte met publieke
+demonstraties tegen de Erasistrateeërs, een medische school die anatomische
+kennis als overbodig beschouwde. In een bekend voorval ontleedde hij voor
+publiek een varken en doorsneed de terugkerende keelzenuw, waarna het dier
+stil viel: het bewijs dat spraak uit de hersenen komt en niet uit het hart,
+zoals rivalen beweerden. Zulke demonstraties waren geen neutrale wetenschap
+maar openbaar vertoon, in een stad waar aanzien voor een groot deel werd
+verdiend in het publieke debat.
+
+Zijn diagnostische staaltjes wonnen hem invloedrijke patiënten. Bekend is het
+geval van een vrouw met slapeloosheid zonder koorts of andere
+ziekteverschijnselen. Galenus merkte dat haar pols op hol sloeg zodra in het
+gesprek de naam viel van een danser uit het theater, en concludeerde dat ze
+verliefd was, niet ziek.
+
+**Vlucht, terugkeer en het hof van Marcus Aurelius**
+
+Rond 166 verliet Galenus Rome, om redenen die hij zelf tegenstrijdig
+beschrijft: soms wijt hij het aan jaloerse collega's, soms aan een dreigende
+epidemie. Twee jaar later riep keizer Marcus Aurelius hem terug voor de oorlog
+tegen de Marcomannen. Galenus vergezelde het leger tot Aquileia, maar wist
+zich, naar eigen zeggen op grond van een droom, aan het front te onttrekken en
+terug te keren naar Rome, waar de zogeheten Antonijnse pest inmiddels ook
+woedde. Hij bleef als lijfarts verbonden aan het hof, eerst van Marcus
+Aurelius, later van diens zoon Commodus en van Septimius Severus.
+
+**De brand van 192**
+
+In 192 verwoestte een grote brand de Tempel van de Vrede in Rome, waar Galenus
+een groot deel van zijn manuscripten, medicijnen, instrumenten en persoonlijke
+bezittingen had opgeslagen. Het verlies trof hem zwaar genoeg om er een apart
+traktaat aan te wijden, *Over het vermijden van verdriet*, dat pas in 2005 in
+een klooster in Griekenland werd teruggevonden en veel toevoegt aan wat er
+over zijn latere leven bekend is. Mattern gebruikt die tekst om te laten zien
+hoe Galenus zelf terugkeek op wat hij had opgebouwd en verloren.
+
+**Een oeuvre dat de oudheid overleefde**
+
+Galenus schreef naar schatting tussen de vijfhonderd en zeshonderd werken,
+waarvan er ongeveer honderdvijftig in het Grieks bewaard zijn gebleven, meer
+bladzijden dan van enige andere auteur uit de oudheid. Zijn systeem, gebouwd
+op de vier lichaamssappen van Hippocrates en op Plato's opvatting van de ziel,
+bleef via Byzantijnse en Arabische vertalingen tot diep in de zestiende eeuw
+de basis van de westerse geneeskunde, tot de anatoom Andreas Vesalius
+aantoonde dat delen van zijn anatomie op ontledingen van apen en varkens
+berustten in plaats van op mensen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Humorenleer | De opvatting, ontleend aan Hippocrates, dat gezondheid afhangt van de balans tussen bloed, slijm, gele gal en zwarte gal. |
+| Pneuma | De levensadem die volgens Galenus door aders, hart en hersenen stroomt en beweging, gevoel en denken mogelijk maakt. |
+| Vivisectie | Het openbaar ontleden van levende dieren, door Galenus gebruikt om anatomische claims direct voor publiek te bewijzen. |
+| Polsleer | Zijn methode om uit het ritme, de kracht en de regelmaat van de pols de toestand van een patiënt af te lezen. |
+| Erasistrateeërs | Aanhangers van de arts Erasistratus, Galenus' voornaamste tegenstanders, die minder waarde hechtten aan ontleding. |
+| Methodisten | Een tweede rivaliserende school, die ziekte terugbracht tot enkele algemene toestanden en gedetailleerde anatomie overbodig vond. |
+| Tweede Sofistiek | De cultuur van openbare redenaarswedstrijden in het tweede-eeuwse Rome, waarin ook artsen als Galenus hun gezag in het publiek moesten bevechten. |
+| Over het vermijden van verdriet | Het traktaat dat Galenus schreef na de brand van 192, in 2005 herontdekt, en een belangrijke bron voor zijn latere leven. |
+
+#### Waar het argument op rust
+
+Mattern werkt vrijwel uitsluitend met Galenus' eigen geschriften, en dat is
+meteen de kern van het probleem. Van geen andere arts uit de oudheid is zoveel
+eigen werk bewaard gebleven, inclusief passages waarin hij expliciet over zijn
+eigen leven, zijn diagnoses en zijn ruzies schrijft. Die rijkdom aan bronnen
+is uitzonderlijk voor de oudheid en levert Mattern een gedetailleerdheid op
+die voor vrijwel geen andere Romeinse arts mogelijk is.
+
+Tegelijk komt vrijwel alles wat we over Galenus weten, van Galenus zelf.
+Rivalen en tegenstanders komen alleen aan het woord via zijn eigen, vaak
+spottende beschrijving van hen. Mattern erkent dat probleem en wijst er
+expliciet op waar Galenus' zelfbeeld waarschijnlijk kleurt wat hij vertelt,
+bijvoorbeeld rond zijn vertrek uit Rome in 166 en zijn rol tijdens de
+pestepidemie.
+
+#### Wat er tegen in te brengen valt
+
+De Bryn Mawr Classical Review wijst erop dat Mattern soms verder gaat dan de
+bronnen toestaan. Zij beschrijft de anatomische demonstratie tegen de
+Erasistrateeërs als spontaan straattheater, met studenten die door Rome
+zwerven op zoek naar een geschikt varken, terwijl niets in de tekst van
+Galenus die lezing dwingend maakt; het kan net zo goed een geplande, besloten
+bijeenkomst zijn geweest. Dat past bij een breder patroon: waar de bronnen
+zwijgen, vult Mattern in met een aannemelijk scenario, wat de leesbaarheid
+dient maar de zekerheid van het verhaal soms laat groter lijken dan die is.
+
+Verder blijft onderbelicht waarom Galenus' systeem meer dan duizend jaar lang
+autoritatief bleef: het boek verklaart goed hoe hij in zijn eigen tijd gezag
+verwierf, minder goed waarom latere generaties artsen dat gezag pas met
+Vesalius in de zestiende eeuw serieus in twijfel trokken. De hoofdstukken over
+zijn vivisecties bevatten bovendien uitgebreide beschrijvingen van dierproeven
+die door sommige lezers als onaangenaam expliciet worden ervaren.
+
+#### Wat je hierna leest
+
+- 232. On the Shortness of Life. Seneca schreef vanuit hetzelfde Romeinse
+hofmilieu, een generatie eerder, over hoe een openbaar leven te combineren is
+met een eigen blik op sterfelijkheid.
+- 57. The Lessons of History. Voor de lange lijn waarin Galenus past: hoe
+autoriteit en kennis zich door eeuwen heen verplaatsen en waarom sommige
+systemen zo lang stand houden.
+- 240. Einstein: His Life and Universe. Isaacsons biografie van Einstein laat
+een vergelijkbare combinatie zien van werkelijk talent en een scherp
+ontwikkeld gevoel voor de eigen reputatie.
+
+## 329. The Circadian Code
+
+Satchin Panda, 2018. Volledige titel *The Circadian Code: Lose Weight,
+Supercharge Your Energy, and Transform Your Health from Morning to Midnight*,
+bij Rodale Books (12 juni 2018, 288 blz., ISBN 9781635652437). Geen
+Nederlandse vertaling bekend. Rubriek: brein en lichaam.
+Tags: `gezondheid`, `slaap`, `voeding`, `biologische klok`, `chronobiologie`
+
+Satchin Panda, moleculair bioloog aan het Salk Institute, onderzoekt al
+twintig jaar de biologische klokken die vrijwel elke cel in het lichaam
+aansturen. In *The Circadian Code* vertaalt hij dat laboratoriumwerk naar een
+praktisch boek: niet alleen wat iemand eet, ook wanneer iemand eet, slaapt,
+beweegt en licht ziet, bepaalt volgens hem hoe gezond diegene is.
+
+Panda bouwt zijn betoog op twee soorten onderzoek: experimenten met muizen
+waarbij hij het tijdstip van voeren varieerde, en een grootschalig experiment
+via de app myCircadianClock, waarmee duizenden mensen zelf hun eet- en
+slaappatroon bijhielden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Panda betoogt dat vrijwel elk orgaan een eigen 24-uursklok
+heeft, aangestuurd door een centrale klok in de hersenen, en dat onregelmatige
+tijden voor eten, slapen, bewegen en licht die klokken net zo hard kunnen
+ontregelen als een slecht dieet. Zijn kernclaim is dat het beperken van eten
+tot een venster van acht tot twaalf uur per dag, zonder de hoeveelheid of
+samenstelling van het eten te veranderen, al meetbare gezondheidswinst
+oplevert: aangetoond bij muizen, en volgens hem ook waarneembaar bij mensen.
+
+#### De gang van het boek
+
+**Panda's eigen ontdekking: een derde lichtsensor**
+
+Voordat het boek bij voeding uitkomt, beschrijft Panda het onderzoek waarmee
+hij zijn naam vestigde. In 2002 publiceerde hij, destijds postdoc in het
+laboratorium van Steve Kay, samen met collega's in *Science* een studie naar
+muizen zonder het eiwit melanopsine. Die muizen zagen nog gewoon met hun
+staafjes en kegeltjes, maar hun centrale klok reageerde nauwelijks meer op een
+lichtpuls: het bewijs dat een derde, apart type lichtcel in het netvlies
+bestaat, uitsluitend bedoeld om de hersenklok op de dag-nachtcyclus af te
+stemmen, los van het zien zelf.
+
+Die vondst is de basis onder de rest van het boek: als het lichaam een apart
+systeem heeft om alleen de klok te voeden met tijdsinformatie, dan ligt het
+voor de hand dat er ook aparte systemen zijn die de klok voeden met informatie
+over eten en beweging, en dat is precies het spoor dat Panda vervolgens verder
+volgt.
+
+**Een klok in bijna elke cel**
+
+Panda's onderzoek begon met de ontdekking dat niet alleen de
+suprachiasmatische kern in de hersenen, de centrale klok, een dagritme
+aanhoudt, maar dat vrijwel elk orgaan, van lever tot vetweefsel, een eigen
+klok heeft die op moleculair niveau wordt aangedreven door dezelfde familie
+van klokgenen. Die perifere klokken luisteren voor een deel naar de centrale
+klok, die op licht reageert, maar worden minstens zo sterk gestuurd door het
+tijdstip waarop er gegeten wordt.
+
+**Wat de app liet zien**
+
+Via de app myCircadianClock lieten duizenden deelnemers een week lang zien
+wanneer ze aten, door bij elke hap een foto te maken. Panda concludeert dat de
+meeste mensen verspreid over vijftien uur of meer eten, van het eerste kopje
+koffie tot het laatste avondsnack, terwijl het spijsverteringssysteem daar
+volgens hem niet op is gebouwd. Zijn diagnose richt zich op de lengte van dat
+etensvenster, los van wat er precies wordt gegeten.
+
+**Tijdgebonden eten bij muizen**
+
+In zijn laboratoriumexperimenten kregen twee groepen muizen hetzelfde vet- en
+suikerrijke dieet. De ene groep mocht de hele dag vrij eten, de andere alleen
+binnen een venster van acht tot twaalf uur. Ondanks een gelijk aantal
+calorieën bleven de muizen met het beperkte eetvenster slanker en hielden ze
+een gezonder cholesterol- en bloedsuikerniveau dan de muizen die vrij konden
+eten. Panda gebruikt dit resultaat als het sterkste argument van het boek:
+timing kan blijkbaar iets doen wat losstaat van hoeveel of wat er wordt
+gegeten.
+
+**Slaap en licht**
+
+De centrale klok in de hersenen wordt vooral bijgesteld door licht, en Panda
+besteedt een deel van het boek aan hoe kunstlicht in de avond, vooral het
+blauwe licht van schermen, die klok vertraagt. Hij adviseert 's ochtends
+daglicht op te zoeken, licht in de avond te dimmen, en op vaste tijden te gaan
+slapen, ook in het weekend, om wat hij "sociale jetlag" noemt te vermijden:
+het verschil tussen het ritme doordeweeks en in het weekend.
+
+**Metabole omschakeling tijdens het vasten**
+
+Panda besteedt een hoofdstuk aan wat er in het lichaam gebeurt tijdens het
+langere etensvrije venster zelf. Na ongeveer acht tot twaalf uur raken de
+glycogeenvoorraden in de lever grotendeels uitgeput en schakelt het lichaam
+geleidelijk over op het verbranden van vetzuren en het aanmaken van ketonen.
+Panda noemt die omschakeling het eigenlijke doel van tijdgebonden eten: niet
+het vasten zelf, maar de dagelijkse herhaling van een periode waarin het
+lichaam op een andere brandstof draait dan tijdens het eten.
+
+**Bewegen op het juiste moment**
+
+Ook beweging krijgt volgens Panda een ander effect afhankelijk van het
+tijdstip: 's ochtends bewegen zou vooral de alertheid verhogen, laat in de
+middag getrainde spieren zouden beter herstellen. Dit deel van het boek steunt
+op minder eigen onderzoek dan de hoofdstukken over eten en licht, en blijft
+dichter bij algemene aanbevelingen uit de sportwetenschap dan bij Panda's
+eigen laboratoriumwerk.
+
+**Voor wie het niet vanzelf gaat**
+
+Panda wijdt een hoofdstuk aan ploegendienst en nachtwerk, groepen bij wie het
+lichaam structureel tegen de klok in moet werken. Voor hen biedt hij geen
+oplossing die het probleem opheft, alleen manieren om de schade te beperken:
+een vast eetvenster aanhouden ook tijdens nachtdiensten, en fel licht en
+donker gericht inzetten om de klok zo veel mogelijk bij het werkschema te
+houden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Melanopsine | Het lichtgevoelige eiwit dat Panda mede identificeerde als de sensor waarmee het netvlies de hersenklok op licht afstelt, los van het gewone zien. |
+| Circadiaans ritme | Het interne ritme van ongeveer vierentwintig uur waarmee lichaamsprocessen zich aan dag en nacht aanpassen. |
+| Suprachiasmatische kern (SCN) | De centrale klok in de hersenen, die vooral op licht reageert en de perifere klokken in de rest van het lichaam meestuurt. |
+| Perifere klok | Het eigen dagritme van een orgaan, zoals de lever of het vetweefsel, dat deels los van de hersenklok kan lopen. |
+| Tijdgebonden eten (TRE) | Het beperken van alle voedselinname tot een venster van acht tot twaalf uur per dag. |
+| myCircadianClock | De app waarmee Panda het eetgedrag van duizenden deelnemers in kaart bracht door foto's van elke maaltijd. |
+| Sociale jetlag | Het verschil tussen slaap- en eetritme doordeweeks en in het weekend, dat volgens Panda dezelfde ontregeling geeft als tijdzones overvliegen. |
+| Chronotype | De individuele aanleg om vroeg of laat actief te zijn, die volgens Panda meespeelt in hoe streng een eetvenster haalbaar is. |
+
+#### Waar het argument op rust
+
+Het sterkste bewijs in het boek komt uit Panda's eigen dierexperimenten:
+muizen op een gelijk dieet, maar met een beperkt eetvenster, die aantoonbaar
+gezonder bleven dan muizen die vrij konden eten. Dat is gecontroleerd
+onderzoek met een duidelijke uitkomstmaat, gepubliceerd in vaktijdschriften
+voordat het boek verscheen.
+
+Het bewijs bij mensen is zwakker. De myCircadianClock-data zijn zelf
+gerapporteerd, niet gecontroleerd, en tonen vooral een samenhang tussen een
+lang eetvenster en een minder gezond patroon, zonder dat vaststaat wat oorzaak
+en wat gevolg is. Panda benoemt dit onderscheid in het boek, maar de
+stelligheid van zijn adviezen suggereert een zekerheid die de menselijke data
+op het moment van schrijven nog niet boden.
+
+Na het verschijnen van het boek publiceerde Panda's eigen groep, samen met de
+University of California San Diego, in 2019 in *Cell Metabolism* een kleine
+pilotstudie onder negentien deelnemers met metabool syndroom: een tien uur
+durend eetvenster gedurende twaalf weken ging samen met minder gewicht, een
+lagere bloeddruk en een gunstiger cholesterolprofiel. Het ging om een studie
+zonder controlegroep, waarin elke deelnemer alleen met zichzelf vooraf werd
+vergeleken, wat de uitkomst suggestief maakt maar niet doorslaggevend.
+
+#### Wat er tegen in te brengen valt
+
+Latere, gecontroleerde studies bij mensen laten een gemengder beeld zien dan
+het boek doet vermoeden. Verschillende onderzoeken vinden dat een beperkt
+eetvenster vooral werkt omdat mensen er vanzelf minder door gaan eten, en dat
+het effect grotendeels verdwijnt zodra de calorie-inname tussen de groepen
+gelijk wordt gehouden. Bij mensen met diabetes type 2 bleek tijdgebonden eten
+in een latere studie niet beter te werken dan een gewoon mediterraan dieet.
+
+Het boek draagt bovendien een ondertitel die gewichtsverlies belooft, wat de
+indruk wekt van een afslankmethode terwijl het onderliggende onderzoek vooral
+over stofwisseling gaat en niet over blijvend gewichtsverlies op de lange
+termijn. Latere overzichtsstudies naar het onderzoeksveld wijzen erop dat de
+effecten op lichaamsgewicht bij mensen klein zijn en niet altijd standhouden.
+
+Het boek behandelt shift work en jetlag als bijzondere gevallen van hetzelfde
+probleem, maar juist voor die groepen is het advies het dunst onderbouwd: de
+mensen bij wie het meeste gezondheidsrisico ligt, ploegendienstwerkers, kunnen
+het geadviseerde vaste eetvenster het minst gemakkelijk aanhouden, en het boek
+biedt daar geen onderzoek naar oplossingen voor, alleen een aanbeveling om te
+doen wat mogelijk is.
+
+#### Wat er concreet mee te doen is
+
+- Noteer een week lang op welke tijden er wordt gegeten, voordat er iets aan
+verandert.
+- Bouw het eetvenster geleidelijk terug naar tien tot twaalf uur, in plaats
+van in één stap naar acht uur te gaan.
+- Zoek 's ochtends daglicht op en dim schermen en lampen twee uur voor het
+slapengaan.
+- Houd bij ploegendienst het eetvenster vast, ook als het slaapritme wisselt.
+
+#### Wat je hierna leest
+
+- 52. Why We Sleep. Walkers boek over slaap raakt aan dezelfde biologische
+klok, met meer nadruk op de gevolgen van slaaptekort zelf.
+- 80. The Hour Between Dog and Wolf. Coates beschrijft hoe hormonen als
+cortisol het lichaam op andere momenten van de dag anders laten reageren, een
+aanvulling op Panda's ritmes.
+- 88. Gewoontedieren. Brendborg bekijkt levensduur en biologische processen
+bij dieren breder dan Panda's dagritme alleen.
+
+## 330. The Nature of the Beast
+
+David J. Anderson, 2022. Volledige titel *The Nature of the Beast: How
+Emotions Guide Us*, bij Basic Books (15 maart 2022, 304 blz., ISBN
+9781541674639). Geen Nederlandse vertaling bekend. Onder dezelfde titel
+bestaan ook andere, niet-verwante boeken, onder meer romans van Louise Penny
+en Janni Howker; dit is de neurowetenschappelijke titel van David J. Anderson.
+Rubriek: brein en lichaam.
+Tags: `neurowetenschap`, `emoties`, `gedrag`, `dierproeven`, `hersenonderzoek`
+
+David Anderson, hoogleraar biologie aan Caltech en medeontwikkelaar van de
+optogenetica, onderzoekt al decennia hoe agressie en angst in het brein van
+fruitvliegen en muizen worden aangestuurd. In *The Nature of the Beast* laat
+hij zien dat interne hersentoestanden die aan emoties doen denken, zich ook
+bij insecten laten aantonen, zonder dat daarmee iets gezegd wordt over of een
+vlieg "voelt" zoals een mens dat doet.
+
+Het boek volgt zijn eigen onderzoekslijn: van de vraag welke criteria een
+interne toestand tot een emotietoestand maken, via experimenten waarin hij
+specifieke hersencellen aan en uit zet, naar wat dat kan betekenen voor de
+ontwikkeling van psychiatrische medicijnen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Anderson betoogt dat het onderzoek naar emoties bij dieren
+tot nu toe is vastgelopen op de vraag naar subjectief gevoel, een vraag die
+bij een vlieg of een muis niet te beantwoorden is. Zijn oplossing is om
+"emotie" te herdefiniëren als een interne hersentoestand met vier meetbare
+eigenschappen, los van de vraag of er iets bij gevoeld wordt, en op die basis
+laat hij zien dat angst- en agressiecircuits in het brein van fruitvliegen en
+muizen dezelfde bouwstenen delen als vergelijkbare toestanden bij mensen.
+
+#### De gang van het boek
+
+**Het probleem met gevoel als criterium**
+
+Anderson begint met de vraag waarom onderzoek naar dieremoties zo lang is
+blijven steken: de gangbare omschrijving van emotie draait om subjectief
+gevoel, iets dat bij een dier niet direct waar te nemen of te meten is. Elke
+poging om over een "boos" of "bang" dier te spreken loopt vast op die
+onmogelijkheid, en veel neurowetenschappers meden het onderwerp daarom liever
+helemaal.
+
+**Vier eigenschappen in plaats van een gevoel**
+
+Anderson stelt voor om een interne toestand een emotietoestand te noemen zodra
+die aan vier eigenschappen voldoet: valentie, de positieve of negatieve
+lading; persistentie, het aanhouden van de toestand nadat de prikkel is
+verdwenen; generalisatie, de invloed op ander gedrag dan de directe reactie;
+en schaalbaarheid, de mate waarin de toestand sterker of zwakker kan zijn. Die
+criteria zijn bij dieren wel te meten, ook zonder dat iets bekend is over hun
+innerlijke beleving.
+
+**Fruitvliegen die vluchten of vechten**
+
+Met optogenetica, waarbij lichtgevoelige eiwitten specifieke hersencellen aan-
+of uitzetten, laat Anderson zien dat het activeren van bepaalde neuronen bij
+fruitvliegen een agressie- of vluchttoestand oproept die aan alle vier de
+criteria voldoet: de vlieg blijft na de prikkel nog even alert, reageert
+sterker op een tweede prikkel, en de intensiteit van het gedrag schaalt mee
+met de sterkte van het signaal.
+
+Het boek beschrijft in dit verband het onderzoek van Eric Hoopfer, in 2015
+gepubliceerd met Anderson als medeauteur, naar een groep cellen die
+P1-neuronen heet. Kortdurende activering van die cellen zette geen direct
+gedrag in gang, maar een interne toestand die op zichzelf enkele minuten
+aanhield en de kans op agressie tegen een andere mannetjesvlieg gedurende die
+hele periode verhoogde: het gedrag zelf was voorbij zodra de prikkel stopte,
+de onderliggende toestand niet.
+
+**De schakelaar voor agressie in de muizenhersenen**
+
+Het boek beschrijft in detail het onderzoek van Dayu Lin, destijds postdoc in
+Andersons laboratorium, naar een groep van ongeveer tienduizend zenuwcellen in
+het ventrolaterale deel van de ventromediale hypothalamus, cellen die het
+eiwit Esr1 aanmaken. Bij zwakke activatie van die cellen begint een muis
+alleen te snuffelen aan een soortgenoot, bij iets sterkere activatie gaat hij
+bespringen, en bij de sterkste activatie valt hij aan: één en dezelfde groep
+cellen levert dus een reeks van gedrag die in kracht meeschaalt met het
+signaal, precies het criterium schaalbaarheid dat Anderson eerder in het boek
+heeft geïntroduceerd.
+
+Bij voldoende sterke activatie valt de muis bovendien vrijwel elk voorwerp aan
+dat in de buurt komt, ongeacht of het een rivaal, een speeltje of een
+handschoen is. Dat de aanval zich niet beperkt tot de oorspronkelijke rivaal
+maar generaliseert naar willekeurige objecten, ziet Anderson als sterk bewijs
+dat hier een interne toestand aan het werk is en niet alleen een directe
+reflex op één specifieke prikkel.
+
+**Waarom een vlieg iets over een mens kan zeggen**
+
+Een terugkerend argument in het boek is waarom onderzoek aan fruitvliegen en
+muizen relevant zou zijn voor mensen. Anderson wijst erop dat de basale
+bouwstenen van dit soort circuits, cellen die op hormonen en neurotransmitters
+reageren en die elkaar in vaste patronen aan- en uitschakelen, door de
+evolutie heen bewaard zijn gebleven, ook al zijn de hersenen van een vlieg en
+een mens verder nauwelijks te vergelijken. Fruitvliegen bieden bovendien een
+genetisch gereedschap waarmee een onderzoeker één specifiek celtype in het
+hele dier kan aan- of uitzetten, iets dat bij een mens of zelfs een muis veel
+lastiger is, en waarmee bevindingen sneller en goedkoper te herhalen en te
+verfijnen zijn dan in een langlevend zoogdier.
+
+**Van fruitvlieg naar medicijn**
+
+Anderson besteedt de laatste hoofdstukken aan wat dit onderzoek kan betekenen
+voor de ontwikkeling van psychiatrische medicijnen: als agressie- en
+angstcircuits in basisvorm door de evolutie heen bewaard zijn gebleven, kunnen
+ontdekkingen in muizen en vliegen aanknopingspunten geven voor aandoeningen
+bij mensen. Hij is daarin voorzichtig en benadrukt dat het vinden van een
+circuit nog geen medicijn oplevert.
+
+Zijn argument is dat de huidige generatie psychiatrische middelen vooral breed
+op stoffen als serotonine en dopamine aangrijpt, in het hele brein tegelijk,
+terwijl onderzoek op het niveau van specifieke celgroepen op termijn preciezer
+gerichte middelen zou kunnen opleveren. Anderson benadrukt dat dit een
+richting voor toekomstig onderzoek is, geen bestaande behandeling, en dat de
+weg van een circuit in een muis naar een goedgekeurd geneesmiddel doorgaans
+decennia beslaat.
+
+**Wat het boek bewust niet claimt**
+
+Anderson maakt herhaaldelijk duidelijk dat zijn criteria niets zeggen over of
+een vlieg of muis iets voelt op de manier waarop een mens dat doet: de vraag
+naar subjectieve beleving laat hij nadrukkelijk open. Dat onderscheid tussen
+een meetbare interne toestand en een gevoel is de spil van het hele boek, en
+tegelijk het punt waarop lezers die vooral wilden weten of dieren "echt" iets
+voelen, teleurgesteld kunnen raken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Interne toestand | Een hersentoestand die het gedrag van een dier tijdelijk verandert, los van de vraag of het dier zich daarvan bewust is. |
+| Valentie | De positieve of negatieve lading van een interne toestand. |
+| Persistentie | Het aanhouden van een toestand nadat de prikkel die hem opriep is verdwenen. |
+| Generalisatie | Het verschijnsel dat een interne toestand ook gedrag beïnvloedt dat niets met de oorspronkelijke prikkel te maken heeft. |
+| Schaalbaarheid | De eigenschap dat een toestand sterker of zwakker kan zijn, in verhouding tot de sterkte van de prikkel. |
+| Optogenetica | De techniek waarbij lichtgevoelige eiwitten specifieke hersencellen aan- of uitzetten, waardoor onderzoekers gedrag direct kunnen sturen. |
+| Esr1-neuronen (VMHvl) | De groep van circa tienduizend cellen in de ventrolaterale ventromediale hypothalamus die bij muizen, afhankelijk van de activeringssterkte, snuffelen, bespringen of aanvallen opwekken. |
+| Modelorganisme | Een eenvoudig, genetisch goed te sturen dier zoals de fruitvlieg, gebruikt om circuits te bestuderen die in basisvorm ook bij complexere dieren voorkomen. |
+
+#### Waar het argument op rust
+
+Het boek steunt op Andersons eigen experimentele werk, uitgevoerd met
+optogenetische en genetische technieken die neuronen direct en omkeerbaar aan
+of uit kunnen zetten. Dat is causaal, herhaalbaar onderzoek: activeer deze
+cellen, en het gedrag verandert voorspelbaar en met een duidelijke
+dosis-effectrelatie, zowel bij fruitvliegen als bij muizen, gepubliceerd in
+vaktijdschriften als *Nature* voordat het boek verscheen.
+
+De herdefinitie van emotie als vier meetbare eigenschappen is echter een
+argumentatieve keuze, geen experimentele uitkomst. Dat interne toestanden bij
+dieren aan die vier criteria voldoen is aangetoond; dat dit dezelfde categorie
+is als wat mensen emotie noemen, blijft een interpretatie waar Anderson zelf
+voor pleit, maar die niet rechtstreeks uit het experiment volgt. Voor de
+menselijke kant van zijn betoog steunt hij vooral op de overeenkomst in bouw
+en werking tussen dierlijke en menselijke hersencircuits, niet op nieuw
+onderzoek bij mensen zelf.
+
+#### Wat er tegen in te brengen valt
+
+Recensenten wijzen op herhaling en vakjargon dat het boek voor een algemeen
+publiek zwaarder maakt dan de titel doet vermoeden, en op een spanning tussen
+de marketing van het boek, die suggereert dat het iets zegt over het innerlijk
+leven van huisdieren, en de inhoud, die daar juist geen uitspraak over doet.
+
+Het boek behandelt vrijwel alleen negatieve toestanden: angst en agressie
+krijgen de meeste aandacht, terwijl positieve emoties zoals vreugde of
+gehechtheid nauwelijks aan bod komen, waardoor de ondertitel "hoe emoties ons
+sturen" breder klinkt dan de inhoud waarmaakt.
+
+Filosofisch blijft de kernzet aanvechtbaar. Door emotie te definiëren via vier
+gedragskenmerken, omzeilt Anderson de vraag naar subjectieve beleving in
+plaats van haar te beantwoorden; wie meent dat een emotie per definitie iets
+is dat gevoeld wordt, zal zijn criteria eerder een precieze beschrijving van
+gedrag vinden dan een aantoning dat een fruitvlieg iets ervaart. Anderson zelf
+erkent dit punt en noemt zijn aanpak uitdrukkelijk agnostisch over beleving,
+maar de titel en de ondertitel van het boek beloven een claim over hoe emoties
+dieren en mensen sturen die groter oogt dan wat de agnostische positie
+eigenlijk toestaat.
+
+#### Wat je hierna leest
+
+- 66. The Folly of Fools. Trivers benadert gedrag ook vanuit de
+evolutiebiologie, met zelfbedrog in plaats van agressie als hoofdonderwerp.
+- 214. The Gift of Fear. De Beckers boek gaat over angst bij mensen als
+bruikbaar signaal, een toepassing van wat Anderson bij dieren in het brein
+aanwijst.
+- 80. The Hour Between Dog and Wolf. Coates beschrijft hoe stresshormonen het
+lichaam sturen, een aanvulling vanuit de fysiologie op Andersons circuits.
+- 223. The Anatomy of Human Destructiveness. Fromm onderzoekt agressie bij
+mensen vanuit een heel andere, psychoanalytische invalshoek dan Andersons
+laboratoriumbenadering.
+
+## 331. Projections
+
+Karl Deisseroth, 2021. Volledige titel *Projections: A Story of Human
+Emotions*, bij Random House (15 juni 2021, 256 blz., ISBN 9781984853691). Geen
+Nederlandse vertaling bekend. Rubriek: brein en lichaam.
+Tags: `psychiatrie`, `neurowetenschap`, `emoties`, `patiëntenverhalen`,
+`optogenetica`
+
+Karl Deisseroth is klinisch psychiater aan Stanford en medeontwikkelaar van de
+optogenetica, de techniek waarmee hersencellen met licht aan of uit te zetten
+zijn. In *Projections* koppelt hij patiëntgeschiedenissen uit zijn eigen
+praktijk aan wat zijn laboratorium over specifieke hersencircuits heeft
+ontdekt, om te laten zien waar alledaagse gevoelens als verlangen, verdriet en
+angst vandaan komen.
+
+Elk hoofdstuk draait om één patiënt: onder anderen een jonge vrouw met
+anorexia, een oudere man met dementie en depressie, een vrouw die na gedwongen
+migratie in eenzaamheid vervalt, en een patentjuriste met paranoïde wanen over
+satellietbewaking.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Deisseroth betoogt dat psychiatrische aandoeningen
+uitvergrotingen zijn van emotionele bouwstenen die bij iedereen aanwezig zijn:
+honger, verdriet, eenzaamheid, achterdocht. Door die bouwstenen bij patiënten
+in extreme vorm te bestuderen, en tegelijk in zijn laboratorium de
+onderliggende hersencircuits bloot te leggen, probeert hij te laten zien hoe
+gewone gevoelens materieel zijn ontstaan, opgebouwd uit hetzelfde weefsel als
+de stoornissen waarin ze soms doorschieten.
+
+#### De gang van het boek
+
+**Licht als schakelaar voor het brein**
+
+Het boek opent met de methode die Deisseroths laboratorium heeft ontwikkeld:
+opsines, lichtgevoelige eiwitten uit algen, worden met een virus in specifieke
+hersencellen van proefdieren gebracht, waarna die cellen met een lichtpuls aan
+of uit te zetten zijn. In combinatie met een tweede techniek die hersenweefsel
+doorzichtig maakt, kan zijn team zien en sturen welke cellen bij welk gedrag
+horen, in plaats van daar alleen naar te raden.
+
+**Honger die zichzelf tegenspreekt**
+
+De eerste patiënt is een jonge vrouw met anorexia, bij wie het lichaam ondanks
+ernstige ondervoeding geen normale hongersignalen meer lijkt af te geven.
+Deisseroth legt naast haar verhaal onderzoek naar hersencircuits die honger en
+verzadiging aansturen, en laat zien hoe een systeem dat is geëvolueerd om
+schaarste te overleven, in haar geval tegen zichzelf lijkt te zijn gekeerd.
+Hij benadrukt daarbij dat de gangbare verklaring, een keuze of een wens om dun
+te zijn, niet aansluit bij wat hij bij deze patiënt ziet: een lichaam dat op
+het niveau van basale regelkringen tegen zijn eigen overleving lijkt te
+werken, wat volgens hem meer recht doet aan de ernst van de aandoening dan een
+verklaring in termen van wilskracht.
+
+**Het doven van vreugde**
+
+Een tweede patiënt is een oudere man bij wie dementie en depressie
+samenvallen: hij herkent zijn omgeving nog, maar de emotionele kleur is eruit
+verdwenen. Deisseroth gebruikt dit geval om te bespreken hoe het vermogen om
+plezier te ervaren aan specifieke circuits gebonden is, en niet
+vanzelfsprekend meegroeit met de rest van het geheugen en het denken.
+
+**Alleen na ontworteling**
+
+Een derde geschiedenis draait om een vrouw uit de Oeigoerse gemeenschap die na
+gedwongen verhuizing haar sociale netwerk kwijtraakt. Deisseroth koppelt haar
+isolement aan onderzoek naar hersencircuits die sociale verbondenheid belonen,
+en beargumenteert dat langdurige eenzaamheid ook fysiologisch een vorm van
+gemis is, met meetbare gevolgen voor diezelfde circuits.
+
+**Achterdocht zonder grens**
+
+In het hoofdstuk over "Winnie", een patentjuriste die overtuigd is dat ze via
+satellieten wordt bespioneerd, bespreekt Deisseroth de bed nucleus van de
+stria terminalis, een hersengebied dat angst, ademhaling en risico-inschatting
+met elkaar verbindt. Hij laat zien hoe een op zichzelf beschermend systeem,
+gericht op het vroegtijdig herkennen van dreiging, bij haar is doorgeslagen
+tot een wanverhouding tussen wat er werkelijk gebeurt en wat ze eraan
+toeschrijft.
+
+Dat hersengebied stuurt zijn signalen via verschillende uitlopers, projecties,
+naar aparte doelgebieden: de ene uitloper versnelt de ademhaling, een andere
+verhoogt de neiging om risico's te mijden, een derde kleurt de emotionele
+lading van de situatie. Deisseroth gebruikt dat vertakte netwerk om de titel
+van het boek te verantwoorden: eenzelfde innerlijke toestand wordt via al die
+aparte projecties naar buiten geprojecteerd, in ademhaling, gedrag en stemming
+tegelijk, en niet als één enkel signaal.
+
+**Manie als evolutionaire ruil**
+
+Een van de latere patiënten is Alexander, bij wie een plotselinge, hevige
+manie losbarst na de aanslagen van 11 september 2001. Deisseroth gebruikt dat
+geval om een evolutionair argument op te bouwen: net zoals de sikkelcelaanleg
+bescherming tegen malaria oplevert ten koste van bloedarmoede, kan de
+verhoogde energie en het verminderde zelfbehoud van manie in voorouderlijke
+omgevingen ooit een voordeel zijn geweest bij het verdedigen van een groep of
+het snel verwerven van voedsel, ook al is diezelfde toestand nu vooral
+ontwrichtend.
+
+Dat idee, dat een aandoening als bijproduct van een ooit nuttige eigenschap
+kan zijn blijven bestaan, keert in het boek meermaals terug en vormt de meest
+concrete invulling van de stelling dat stoornissen uitvergrote vormen van
+gewone bouwstenen zijn.
+
+**Persoonlijke lijnen naast de patiënten**
+
+Door het boek heen weeft Deisseroth ook herinneringen aan zijn eigen leven en
+familie, naast de patiëntgeschiedenissen. Die persoonlijke lijnen geven de
+klinische hoofdstukken een literaire toon, waarin de schrijver zich net zo
+kwetsbaar opstelt als de mensen over wie hij schrijft, en verklaren voor een
+deel waarom recensenten het boek eerder als memoir dan als leerboek
+beschrijven.
+
+**Wat overblijft aan de rand van diagnose**
+
+De latere hoofdstukken, over onder meer autisme en borderline
+persoonlijkheidsstoornis, laten zien dat de grens tussen een
+persoonlijkheidstrek en een stoornis niet scherp is: dezelfde gevoeligheid
+voor afwijzing die bij de ene patiënt tot een stabiel leven leidt, ontregelt
+bij de andere elke relatie. Deisseroth benadrukt dat bij zijn patiënten
+telkens een van de bouwstenen van het gewone gemoed is doorgeschoten, een
+claim die hij door het hele boek herhaalt zonder haar in de latere
+hoofdstukken verder te onderbouwen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Optogenetica | De techniek waarmee lichtgevoelige eiwitten specifieke hersencellen met een lichtpuls aan- of uitzetten. |
+| Opsines | De lichtgevoelige eiwitten, oorspronkelijk uit algen, die de basis van de optogenetica vormen. |
+| Hydrogel-weefselchemie | De methode waarmee Deisseroths laboratorium hersenweefsel doorzichtig maakt om circuits zichtbaar te maken. |
+| Bed nucleus van de stria terminalis | Een hersengebied dat angst, ademhaling en risico-inschatting met elkaar verbindt, en centraal staat in het hoofdstuk over achterdocht. |
+| Valentie | De positieve of negatieve lading van een emotionele toestand, een begrip uit de neurowetenschap dat Deisseroth doorlopend gebruikt. |
+| Projectie | In het boek zowel de letterlijke verbinding tussen hersengebieden als het beeld voor hoe innerlijke toestanden naar buiten zichtbaar worden. |
+| Multi-infarctdementie | Een vorm van dementie door herhaalde kleine beroertes, die bij een van de patiënten samen met depressie wordt besproken. |
+| Evolutionaire ruil | Het idee dat een aandoening als manie kan voortbestaan omdat de onderliggende eigenschap in het verleden ook een voordeel opleverde, vergelijkbaar met de sikkelcelaanleg tegenover malaria. |
+| Composietpatiënt | Een beschreven patiënt van wie details zijn gewijzigd of van wie kenmerken van meerdere echte gevallen zijn samengevoegd, om herkenning te voorkomen. |
+
+#### Waar het argument op rust
+
+Het boek steunt op twee soorten materiaal die niet dezelfde bewijskracht
+hebben. Het laboratoriumwerk over opsines, circuits en de bed nucleus van de
+stria terminalis is gepubliceerd, getoetst onderzoek, uitgevoerd in
+diermodellen met de precisie die optogenetica mogelijk maakt.
+
+De patiëntgeschiedenissen zijn van een andere orde: individuele, herinnerde
+gevallen uit een klinische praktijk, waarvan details zijn aangepast om
+herkenning te voorkomen. Ze illustreren de wetenschap, maar bewijzen haar
+niet; Deisseroth trekt de parallel tussen het menselijke verhaal en het
+diercircuit zelf, zonder dat er onderzoek is dat die twee rechtstreeks aan
+elkaar koppelt.
+
+Het evolutionaire argument rond manie, met de sikkelcelaanleg als
+vergelijking, is een analogie en geen aangetoond mechanisme: van
+sikkelcelaanleg en malaria is de wisselwerking genetisch goed gedocumenteerd,
+van een vergelijkbare ruil bij manie bestaat geen equivalent bewijs, alleen
+een aannemelijke redenering die evengoed op andere aandoeningen zou passen.
+
+#### Wat er tegen in te brengen valt
+
+Verscheidene recensenten noemen het proza overdreven literair, tot het punt
+dat de wetenschap erdoor schuilgaat in plaats van dat ze duidelijker wordt;
+sommige neurowetenschappers die concrete uitleg over optogenetica hadden
+verwacht, vonden vooral klinische anekdotes en persoonlijke overpeinzing.
+
+De belofte van de ondertitel, een verhaal over de materiële oorsprong van
+menselijke emoties, wordt maar gedeeltelijk ingelost: de circuits die
+Deisseroth in zijn laboratorium blootlegt, verklaren het gedrag van
+proefdieren, terwijl de sprong naar wat een specifieke patiënt voelt op geen
+enkel moment experimenteel wordt onderbouwd, alleen verteld.
+
+Doordat patiëntdetails zijn gewijzigd en gevallen mogelijk zijn samengevoegd,
+een gangbare praktijk in psychiatrische memoires om herkenning te voorkomen,
+is niet te controleren hoeveel van elk hoofdstuk letterlijk gebeurd is en
+hoeveel is aangepast voor de vertelling; dat maakt de casussen sterker als
+illustratie dan als vaststaand gegeven, en het onderscheidt dit boek van een
+klinische publicatie waarin methode en resultaten wel controleerbaar zijn
+vastgelegd.
+
+#### Wat er concreet mee te doen is
+
+- Let bij eigen stemmingen op de eigenschappen die het boek aanreikt: hoe lang
+een gevoel aanhoudt nadat de aanleiding weg is, en of het overslaat naar
+dingen die er niets mee te maken hebben.
+- Wees terughoudend met het toeschrijven van een diagnose aan jezelf of
+anderen op basis van herkenning in één casus; het boek beschrijft
+uitzonderlijke, uitvergrote gevallen.
+- Zoek bij vragen over eigen of andermans geestelijke gezondheid een
+behandelaar op; de patiëntverhalen in dit boek zijn illustratief, geen
+diagnostisch instrument.
+- Onderscheid bij het lezen van elk hoofdstuk het gepubliceerde
+laboratoriumonderzoek van het persoonlijke, herinnerde patiëntverhaal; dat
+scheelt in hoe zwaar een claim mag wegen.
+
+#### Wat je hierna leest
+
+- 95. Het uur van het hart. Yalom schrijft eveneens als psychiater vanuit
+eigen patiëntencontact, over rouw in plaats van de circuits achter emotie.
+- 48. Man's Search for Meaning. Frankl beschrijft vanuit zijn eigen vak als
+psychiater hoe uiterste omstandigheden iets blootleggen over gewone menselijke
+drijfveren.
+- 96. Het verlaten individu. Van Fenema behandelt eenzaamheid en
+psychiatrische zorg in de Nederlandse context, een aanvulling op Deisseroths
+Amerikaanse patiëntgevallen.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
 
-`1906` 127 · `1937` 76 · `1938` 58 · `1952` 83 · `aandacht` 17, 34, 54, 70,
-71, 78, 141, 205, 209, 248, 288 · `aannames` 27 · `aanpassingsvermogen` 157,
-252 · `aantekeningen` 81 · `aanwezigheid` 149 · `aarde` 92 · `absurdisme` 173
-· `academisch` 143 · `actualiteit` 237 · `actueel` 67 · `adel` 235 ·
-`ademhaling` 87, 118 · `adviespraktijk` 151 · `affirmaties` 117, 184, 188, 190
-· `afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218,
+`1906` 127 · `1937` 76 · `1938` 58 · `1952` 83 · `aanbod` 307 · `aandacht` 17,
+34, 54, 70, 71, 78, 141, 205, 209, 248, 288, 326 · `aannames` 27 ·
+`aanpassingsvermogen` 157, 252 · `aantekeningen` 81 · `aanwezigheid` 149 ·
+`aarde` 92 · `absurdisme` 173 · `academisch` 143 · `achttiende eeuw` 321 ·
+`actualiteit` 237 · `actueel` 67 · `adel` 235 · `ademhaling` 87, 118, 318 ·
+`adverteren` 308 · `adviespraktijk` 151 · `affirmaties` 117, 184, 188, 190 ·
+`afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218,
 228 · `afscheid nemen` 285 · `afschrikking` 217 · `afwezige-vader` 4 ·
 `agressie` 223 · `alcohol` 4 · `alledaags` 89 · `allegorie` 222 · `amazon` 257
 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 · `amerika` 114 · `amerikaans`
@@ -60563,286 +66672,316 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
 170, 174, 209, 270, 282, 283, 293, 299 · `bestseller` 8, 37, 250 · `betekenis`
 143 · `beurs` 80 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 ·
-`bewustzijn` 148, 169, 200, 275 · `bezit` 37 · `bias` 209 · `bijgeloof` 63 ·
-`biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269 · `biologie`
-66, 88, 89, 90, 91 · `biologie van gedrag` 273 · `biotechnologie` 236 ·
-`bloedvaten` 86 · `blokkade` 14 · `boeddhisme` 111, 287 · `brainstormen` 33 ·
-`brieven` 292 · `broers` 10 · `budgetteren` 159, 233 · `buitenlandse hulp` 221
-· `burgerschap` 243 · `burn-out` 135, 207 · `cafeïne` 52 · `Californië` 10 ·
-`carl jung` 258 · `carrière` 146, 158 · `cases` 40 · `cashflow` 37 ·
-`challenger` 62 · `chaos` 74 · `chapbook` 100 · `Chinese geschiedenis` 219 ·
-`christendom` 162, 201 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
+`bewustzijn` 148, 169, 200, 275 · `bezit` 37 · `bias` 209 · `bijeenkomsten`
+304 · `bijgeloof` 63 · `biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266,
+267, 269, 320, 328 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 ·
+`biologie van gedrag` 273 · `biologische klok` 329 · `biologische-klok` 326 ·
+`biotechnologie` 236 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 ·
+`boeddhisme` 111, 287 · `brainstormen` 33 · `brieven` 292 · `broers` 10 ·
+`budgetteren` 159, 233 · `buitenlandse hulp` 221 · `burgerschap` 243 ·
+`burn-out` 135, 207 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
+`carrière` 146, 158 · `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos`
+74 · `chapbook` 100 · `Chinese geschiedenis` 219 · `christendom` 162, 201 ·
+`chronobiologie` 326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
 `coaching` 161, 291 · `cognitieve gedragstherapie` 147, 153 · `cognitieve
 herstructurering` 177 · `cognitieve vertekening` 234 · `cognitieve-bias` 59 ·
 `columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
-122, 145, 152, 156, 162, 164, 183, 186, 193, 213 · `complexiteit` 170, 268 ·
-`concentratie` 70 · `concurrentie` 293 · `conditionering` 61 · `conflict` 35,
-42, 43, 212 · `conflicthantering` 271 · `conformisme` 211 · `consumptiekeuzes`
-299 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206 ·
-`cricket` 174 · `crisis` 47 · `cultuur` 68, 274 · `cultuurkritiek` 54 ·
-`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131 · `cynisme` 250 ·
-`dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 · `dagboekmethode` 78
-· `dagelijkse gewoontes` 205 · `dankbaarheid` 129 · `dataïsme` 236 · `daten`
-166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298 · `dementie` 84, 85, 225
-· `democratie` 98 · `denkfouten` 55, 59, 142 · `design thinking` 150 ·
-`destructiviteit` 223 · `deugd` 247 · `diagnose` 104 · `dichotomie van
-controle` 194 · `dictatuur` 221 · `dienstbaarheid` 230, 245 · `diepe-tijd` 239
-· `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `DISC` 156 ·
-`discipline` 12, 13, 22, 30, 106, 133, 137, 146 · `disruptie` 293 · `docenten`
-116 · `doelen` 58, 136, 158 · `doelgericht-oefenen` 50 · `doelstellingen` 256
-· `donkere-triade` 124 · `dood` 98, 169, 292 · `doorzetten` 20 ·
-`doorzettingsvermogen` 185, 249, 289 · `dromen` 52 · `dummies` 112 ·
-`durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 · `e-commerce` 257 ·
-`e-mail` 70 · `ecologie` 298 · `economie` 65, 98, 217, 251, 297 · `economische
-geschiedenis` 155 · `eenvoud` 170, 205 · `eenzaamheid` 7, 96, 98, 111, 288 ·
-`eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149 ·
-`eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 ·
-`eigenaarschap` 97 · `einstein` 94 · `elektriciteit` 267 · `elektrische
-auto's` 266 · `emigratie` 240 · `emotie` 137 · `emoties` 3, 43, 142, 147, 153,
-177 · `empathie` 35, 67 · `energie` 92, 195, 291 · `epigenetica` 208 · `epos`
-5 · `erfenis` 39 · `erotiek` 113, 164 · `essay` 3, 9, 21, 57, 59, 63, 64, 68,
-96, 232 · `essays` 197 · `eten` 103 · `ethiek` 282, 299 · `evangelisatie` 201
-· `evolutie` 56, 66, 89, 90, 91, 239 · `evolutionaire-psychologie` 67 ·
-`expeditie` 36 · `experiment` 79, 215 · `experimenten` 280 · `experimenteren`
-265 · `expertise` 283 · `fabel` 8, 42, 135, 167, 252 · `falen` 23, 72, 75 ·
-`familie` 45 · `familieconflict` 178 · `familiegeschiedenis` 114, 235 ·
+122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305 · `complexiteit` 170,
+268, 300 · `concentratie` 70 · `concurrentie` 293 · `conditionering` 61 ·
+`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
+`conflicthantering` 271 · `conformisme` 211 · `consumptiekeuzes` 299 ·
+`content` 308 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
+74, 206, 312 · `cricket` 174 · `crisis` 47 · `cultuur` 68, 274 ·
+`cultuurkritiek` 54 · `cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131 ·
+`cynisme` 250, 319 · `dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 ·
+`dagboekmethode` 78 · `dagelijkse gewoontes` 205 · `dankbaarheid` 129 ·
+`dataïsme` 236 · `daten` 166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298
+· `dementie` 84, 85, 225 · `democratie` 98 · `denken` 310 · `denkfouten` 55,
+59, 142 · `design thinking` 150 · `destructiviteit` 223 · `deugd` 247 ·
+`diagnose` 104 · `dichotomie van controle` 194 · `dictatuur` 221 ·
+`dienstbaarheid` 230, 245 · `diepe-tijd` 239 · `dierenzintuigen` 322 ·
+`dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 ·
+`DISC` 156 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146 · `disruptie` 293
+· `docenten` 116 · `doelen` 58, 136, 158 · `doelgericht-oefenen` 50 ·
+`doelstellingen` 256 · `donkere-triade` 124 · `dood` 98, 169, 292 ·
+`doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314 ·
+`dromen` 52 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 ·
+`dystopie` 61 · `e-commerce` 257 · `e-mail` 70 · `e-mailmarketing` 309 ·
+`ecologie` 298 · `economie` 65, 98, 217, 251, 297 · `economische geschiedenis`
+155 · `educatief` 327 · `eenvoud` 170, 205 · `eenzaamheid` 7, 96, 98, 111,
+288, 302 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75,
+102, 149 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
+`eigen-oordeel` 58 · `eigenaarschap` 97 · `einstein` 94 · `elektriciteit` 267
+· `elektrische auto's` 266 · `emigratie` 240 · `emotie` 137 · `emoties` 3, 43,
+142, 147, 153, 177, 330, 331 · `empathie` 35, 67, 303 · `energie` 92, 195, 291
+· `epigenetica` 208 · `epos` 5 · `erfenis` 39 · `erotiek` 113, 164 · `essay`
+3, 9, 21, 57, 59, 63, 64, 68, 96, 232 · `essays` 197 · `eten` 103 · `ethiek`
+282, 299 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322,
+323 · `evolutionaire-psychologie` 67 · `expeditie` 36 · `experiment` 79, 215 ·
+`experimenten` 280 · `experimenteren` 265 · `expertise` 283, 320 · `fabel` 8,
+42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312 · `familie`
+45, 325 · `familieconflict` 178 · `familiegeschiedenis` 114, 235 ·
 `familieroman` 10 · `fantasy` 192, 203 · `fbi` 271 · `FBI` 154 · `feedback`
 41, 296 · `feiten` 43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 ·
 `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299 ·
 `filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 · `financiële
 markten` 268 · `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277
-· `financiering` 172 · `flow` 78, 187, 200 · `focus` 175, 197 · `fotoboek` 189
-· `frankrijk` 115 · `gaslighting` 123 · `gebed` 83, 259 · `gebruikersgedrag`
-294 · `gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90,
-138, 154, 280 · `gedragspatronen` 161 · `gedragspsychologie` 294 ·
-`gedragstypen` 156 · `gedragsverandering` 238, 290 · `gedragswetenschap` 166,
-209 · `geduld` 21 · `geestelijke gezondheid` 193 · `gehechtheid` 166 · `geheim
-genootschap` 202 · `geheugen` 66, 85, 175 · `gehoorzaamheid` 215 ·
-`geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159
-· `geldpsychologie` 233, 264 · `geloof` 45, 83, 201 · `geluk` 79, 93, 160, 228
-· `gemeenschap` 9, 96 · `geneeskunde` 49 · `generaties` 114 · `geologie` 239 ·
-`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
-258, 298 · `geschiedfilosofie` 235 · `gesprek` 43, 95 · `gesprekstechniek`
-182, 186 · `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht` 138 · `gewoonte`
-58, 70, 76, 77, 79, 88, 97, 103, 133, 138 · `gewoontelus` 238 · `gewoonten`
-187 · `gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158, 181, 207, 208,
-224, 230, 290 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294 · `gezag`
-62 · `gezondheid` 52, 88, 171, 181 · `ggz` 104 · `gijzelingsonderhandelaar`
-271 · `goeroe` 242 · `grenzen` 72, 105, 109, 120, 122, 187 · `grenzen stellen`
+· `financiering` 172 · `fitnessbranche` 307 · `flow` 78, 187, 200 · `focus`
+175, 197 · `fotoboek` 189 · `frankrijk` 115 · `fysieke uitdaging` 323 ·
+`fysiologie` 318 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
+`gebed` 83, 259 · `gebruikersgedrag` 294 · `gedachten` 148, 177 ·
+`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330 ·
+`gedragsbiologie` 322 · `gedragsonderzoek` 302 · `gedragspatronen` 161 ·
+`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290
+· `gedragswetenschap` 166, 209, 305 · `geduld` 21 · `geestelijke gezondheid`
+193 · `gehechtheid` 166 · `geheim genootschap` 202 · `geheugen` 66, 85, 175 ·
+`gehoorzaamheid` 215 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76,
+121, 132, 133, 158, 159 · `geldpsychologie` 233, 264 · `geloof` 45, 83, 201 ·
+`geluk` 79, 93, 160, 228 · `gemeenschap` 9, 96, 304 · `geneeskunde` 49, 328 ·
+`generaties` 114 · `generatieve drift` 315 · `genot en pijn` 314 · `geologie`
+239 · `geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218,
+250, 258, 298, 328 · `geschiedfilosofie` 235 · `gesprek` 43, 95, 302 ·
+`gesprekstechniek` 182, 186 · `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht`
+138 · `gewoonte` 58, 70, 76, 77, 79, 88, 97, 103, 133, 138 · `gewoontelus` 238
+· `gewoonten` 187 · `gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158,
+181, 207, 208, 224, 230, 290 · `gewoontevorming` 146, 161, 168, 188, 244, 291,
+294 · `gezag` 62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323,
+329 · `gezondheidszorg` 313, 317 · `ggz` 104 · `gijzelingsonderhandelaar` 271
+· `goeroe` 242 · `grenzen` 72, 105, 109, 120, 122, 187 · `grenzen stellen`
 151, 204 · `griekse mythologie` 261 · `groei` 222 · `groeimentaliteit` 116 ·
-`grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80, 251 ·
-`handelen` 30 · `handleiding` 112 · `hart` 86, 128 · `hechting` 145, 152 ·
-`hedendaags India` 202 · `heelal` 99, 262 · `helderheid` 82 · `herhaling` 125,
-134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86 ·
-`herstel` 87 · `Himalaya` 191 · `hindoeïsme` 169, 199 · `hindoeïstische
-mythologie` 192 · `Hindoeïstische mythologie` 202 · `hindoemythologie` 203 ·
-`Hinge` 166 · `historische portretten` 248 · `hofcultuur` 216 · `Hollywood`
-178 · `Holocaust` 48 · `hoop` 255 · `hormonen` 80 · `houding` 117 ·
-`huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105, 227 · `huwelijk`
-9, 34, 165 · `Huxley` 54 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206
-· `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261 ·
-`identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185 · `ik-vorm` 113 ·
-`illustraties` 109 · `imitatie` 11 · `import` 20 · `india` 172, 196, 199, 242
-· `India` 163, 171, 180, 189, 191, 203, 226 · `individualisme` 9, 96 ·
+`groepsgedrag` 303 · `grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91
+· `handel` 80, 251 · `handelen` 30 · `handleiding` 112 · `hart` 86, 128 ·
+`hechting` 145, 152, 317 · `hedendaags India` 202 · `heelal` 99, 262 ·
+`helderheid` 82 · `herhaling` 125, 134 · `herkomst` 127 · `heroverwegen` 28 ·
+`hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330 · `herstel` 87 ·
+`Himalaya` 191 · `hindoeïsme` 169, 199 · `hindoeïstische mythologie` 192 ·
+`Hindoeïstische mythologie` 202 · `hindoemythologie` 203 · `Hinge` 166 ·
+`historische portretten` 248 · `hofcultuur` 216 · `Hollywood` 178 ·
+`Holocaust` 48 · `homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80 ·
+`houding` 117 · `huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105,
+227 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hypnose` 123, 124, 125 · `Idaho`
+45 · `ideeën` 206 · `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261
+· `identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185 · `ik-vorm` 113 ·
+`illustraties` 109, 327 · `imitatie` 11 · `import` 20 · `india` 172, 196, 199,
+242 · `India` 163, 171, 180, 189, 191, 203, 226 · `individualisme` 9, 96 ·
 `individualiteit` 263 · `individuele-verantwoordelijkheid` 299 ·
-`innerlijk-kind` 109 · `innovatie` 206, 251, 293 · `instagram` 129 ·
+`innerlijk-kind` 109 · `innovatie` 206, 251, 293, 306 · `instagram` 129 ·
 `internet` 60, 198 · `interview` 58 · `interviews` 277, 289 · `intimiteit`
-122, 145, 164, 165 · `introversie` 33 · `intuitie` 128 · `intuïtie` 214, 283 ·
-`investeren` 270 · `invloed` 11 · `Italiaanse non-fictie` 211 · `Italië` 155 ·
-`jaloezie` 19 · `japan` 77, 261 · `Japan` 205 · `jaren-tachtig` 139 ·
+122, 145, 164, 165 · `introversie` 33 · `intuitie` 128 · `intuïtie` 214, 283,
+320 · `investeren` 270 · `invloed` 11 · `Italiaanse non-fictie` 211 · `Italië`
+155 · `jaloezie` 19 · `japan` 77, 261 · `Japan` 205 · `jaren-tachtig` 139 ·
 `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104,
-115 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman` 295 ·
-`journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285 · `jung` 143 ·
-`Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248 · `kans` 64 · `kansen` 137 ·
-`kansrekening` 282 · `kapitalisme` 298 · `karakter` 97 · `karma` 184 ·
-`Kasjmir` 180 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50 ·
-`kernwaarden` 245 · `keuzes` 51, 71, 72 · `kinderboek` 167 · `kinderjaren` 152
-· `klantcontact` 182, 186 · `klantrelaties` 246 · `klantvalidatie` 265 ·
-`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219 ·
-`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254 ·
-`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
-`klimaatfictie` 203 · `klimaatverandering` 299 · `kolonialisme` 298 · `korea`
+115 · `John Harrison` 321 · `jonge liefde` 180 · `jongeren` 25 ·
+`jongvolwassenenroman` 295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82,
+238, 257, 285 · `jung` 143 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248 ·
+`kans` 64 · `kansen` 137 · `kansrekening` 282 · `kapitalisme` 298 · `karakter`
+97 · `karma` 184 · `Kasjmir` 180 · `keegan` 110 · `kennis` 81 · `kenniswerk`
+6, 50 · `kernwaarden` 245 · `keuzes` 51, 71, 72 · `kinderboek` 167 ·
+`kinderjaren` 152 · `klantcontact` 182, 186 · `klantrelaties` 246 ·
+`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
+bronnen` 286 · `klassieke tekst` 219 · `klassieker` 10, 24, 38, 48, 61, 83,
+127, 135, 144, 173, 213, 254 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
+`kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
+`klimaatverandering` 299 · `klokkenmakerij` 321 · `kolonialisme` 298 · `korea`
 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
 `kort-stuk` 19, 30 · `korte-teksten` 111 · `kosmologie` 239, 262, 281 · `koude
 oorlog` 217, 220 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272
-· `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 · `kunstgeschiedenis` 241 ·
-`kunstmatige intelligentie` 297 · `kunstmatige-intelligentie` 236, 237 ·
-`kwaliteit` 1 · `kwantumfysica` 208 · `kwantumzwaartekracht` 281 ·
-`kwetsbaarheid` 32, 44 · `landbouw` 56, 98 · `lean manufacturing` 265 ·
-`leefstijl` 86, 103, 138, 171 · `leger` 106, 180, 222 · `leiderschap` 36, 41,
-44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273 · `leidinggeven` 156 ·
-`leren` 175, 296 · `lesmateriaal` 116 · `leugendetectie` 154 · `levenskeuzes`
-150 · `levenskunst` 27, 199, 216, 227 · `levenslessen` 285 · `levensloop` 91 ·
-`lezen` 18 · `lezingen` 169 · `lichaam` 80 · `lichaamstaal` 125, 126, 154 ·
-`liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden`
-48, 73, 160 · `literair` 110 · `literatuur` 49 · `logotherapie` 48 ·
+· `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 · `kunstenaars` 312 ·
+`kunstgeschiedenis` 241, 312 · `kunstmatige intelligentie` 297 ·
+`kunstmatige-intelligentie` 236, 237 · `kwaliteit` 1 · `kwantumfysica` 208 ·
+`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44 · `landbouw` 56, 98 ·
+`leadgeneratie` 308 · `lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171
+· `leertijd` 320 · `leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97,
+106, 157, 170, 183, 218, 222, 231, 260, 273 · `leidinggeven` 156 · `leren`
+175, 296 · `lesmateriaal` 116 · `leugendetectie` 154 · `levenskeuzes` 150 ·
+`levenskunst` 27, 199, 216, 227 · `levenslessen` 285 · `levensloop` 91 ·
+`lezen` 18 · `lezingen` 169 · `lichaam` 80 · `lichaamstaal` 125, 126, 154, 303
+· `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden`
+48, 73, 160, 310 · `literair` 110 · `literatuur` 49 · `logotherapie` 48 ·
 `Long-Island` 4 · `loopbaan` 50, 51, 150 · `losmaken` 45 · `lotsbestemming`
-261 · `luisteren` 24, 35 · `macht` 212, 250, 263 · `machtspolitiek` 220 ·
+261 · `luisteren` 24, 35, 305 · `macht` 212, 250, 263 · `machtspolitiek` 220 ·
 `machtstheorie` 221 · `machtsverhoudingen` 155 · `magisch realisme` 261 ·
 `management` 42, 47, 170, 183, 256 · `manifesteren` 128, 129, 130, 131, 132,
 190, 196 · `manipulatie` 123, 124, 125, 126, 212, 213 · `mannelijkheid` 3 ·
-`mannen` 7 · `mantelzorg` 225 · `marketing` 13, 40, 60, 172, 183, 279, 280 ·
-`media` 54, 60, 100 · `meditatie` 111, 141, 149, 169, 205, 208, 228, 230, 237,
-242 · `meesterschap` 296 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
-49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289 · `menselijk gedrag` 155 ·
-`mensenkennis` 126 · `mentale helderheid` 148 · `mentale weerbaarheid` 229 ·
-`mentorschap` 4, 285, 289 · `merken` 279 · `metafysica` 102 · `meten` 69, 133
-· `methode` 81 · `microbedrijf` 40, 172 · `middelbare-leeftijd` 7 · `militaire
-strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
-`mindfulness` 141, 147, 149, 177 · `mindset` 146, 181, 188 · `minimalisme` 181
-· `misdaad` 254 · `misleiding` 219, 272 · `modelleren` 139 · `moed` 44 ·
-`moeder-en-zoon` 26 · `monniksleven` 230 · `Monty-Python` 16 · `moraal` 9, 57,
-67, 263 · `moreel` 36 · `motivatie` 117, 139, 146, 183, 200, 207 · `motoren` 6
-· `muziek` 17, 85 · `mythologie` 73, 143 · `mythologische fantasy` 202 ·
-`mythologische fictie` 203 · `nalatenschap` 178 · `napoleontische oorlogen`
-235 · `narcisme` 258 · `naslag` 99, 112 · `naslagwerk` 59, 225 ·
-`nationalisme` 237 · `natuur` 191 · `natuurkunde` 62, 94, 240, 262, 281 ·
+`mannen` 7 · `mantelzorg` 225 · `marketing` 13, 40, 60, 172, 183, 279, 280,
+307, 308, 309 · `media` 54, 60, 100 · `meditatie` 111, 141, 149, 169, 205,
+208, 228, 230, 237, 242 · `meesterschap` 296, 320 · `memento mori` 286 ·
+`memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242,
+289, 324, 325 · `menselijk gedrag` 155 · `mensenkennis` 126 · `mentale
+gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323 ·
+`mentorschap` 4, 285, 289, 320 · `merken` 279 · `metabolisme` 313 ·
+`metafysica` 102 · `meten` 69, 133 · `methode` 81 · `microbedrijf` 40, 172 ·
+`middelbare-leeftijd` 7 · `midlife` 324 · `militaire strategie` 220 ·
+`millennials` 159 · `minderheden` 68 · `mindful` 103 · `mindfulness` 141, 147,
+149, 177 · `mindset` 146, 181, 188 · `minimalisme` 181 · `misdaad` 254 ·
+`misleiding` 219, 272 · `mitochondriën` 313 · `modellen` 300 · `modelleren`
+139 · `moed` 44 · `moeder-en-zoon` 26 · `monniksleven` 230 · `monopolie` 306 ·
+`Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moreel` 36 · `motivatie` 117,
+139, 146, 183, 200, 207, 315 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17,
+85 · `mythologie` 73, 143 · `mythologische fantasy` 202 · `mythologische
+fictie` 203 · `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme`
+258 · `naslag` 99, 112 · `naslagwerk` 59, 225 · `nationalisme` 237 · `natuur`
+191, 323 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 · `navigatie` 321 ·
 `navy seals` 229 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 ·
 `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130,
 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
-emoties` 176 · `negentig dagen` 188 · `nepnieuws` 237 · `netwerken` 24, 246 ·
-`neurobiologie` 119 · `neurochirurgie` 49 · `neuroplasticiteit` 175, 208 ·
-`neurowetenschap` 52, 208, 238, 275 · `new age` 149 · `new thought` 259 ·
-`NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 · `nieuwsgierigheid` 15,
-28, 62, 241 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-verbale
-communicatie` 154 · `notitieboeken` 241 · `novelle` 173 · `observeren` 15 ·
-`obsessieve liefde` 284 · `ochtendroutine` 14, 134, 244 · `oefenen` 29 ·
-`oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 ·
-`okinawa` 77 · `okr` 256 · `omgangsvormen` 24 · `omkering` 105 · `omstreden`
-37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125,
-126 · `onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131,
-132, 139 · `onbewuste` 16, 283 · `onderbewuste` 124 · `onderbewustzijn` 259 ·
-`onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
-260, 271, 272 · `ondernemen` 20, 39, 40, 47, 172 · `ondernemers` 174 ·
-`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
-278, 289 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237 ·
-`onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
-79, 80, 84, 85, 86, 88, 152 · `onderzoeksdebat` 53 · `onderzoeksethiek` 215 ·
-`onderzoekskritiek` 52 · `ongeneeslijke ziekte` 285 · `onsterfelijkheid` 236 ·
-`ontslagen` 47 · `ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 ·
-`onzekerheid` 268 · `oordeel` 59, 69 · `oorlog` 31, 57, 66 · `oorlogvoering`
-218 · `opdrachten` 116 · `opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295
-· `optimisme` 251 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `orde`
-73, 74 · `organisatie` 28, 41, 69 · `organisatiecultuur` 183, 273 ·
-`organisaties` 238 · `Orwell` 54 · `oud china` 272 · `ouder-worden` 5 ·
+emoties` 176 · `negentig dagen` 188 · `nepnieuws` 237 · `netwerken` 24, 246,
+300 · `neurobiologie` 119 · `neurochirurgie` 49 · `neurologie` 325 ·
+`neuroplasticiteit` 175, 208 · `neurowetenschap` 52, 208, 238, 275, 314, 326,
+330, 331 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age`
+149 · `new thought` 259 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90
+· `nieuwsgierigheid` 15, 28, 62, 241 · `Nike` 20 · `nlp` 123, 125, 139 ·
+`Nobelprijs` 55 · `non-verbale communicatie` 154 · `notitieboeken` 241 ·
+`novelle` 173 · `observeren` 15 · `obsessieve liefde` 284 · `ochtendroutine`
+14, 134, 244 · `oefenen` 29 · `oefening` 141, 296 · `oefeningen` 15, 35, 87,
+103, 109, 118, 120, 122, 130 · `okinawa` 77 · `okr` 256 · `omgangsvormen` 24 ·
+`omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 ·
+`onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
+`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283 ·
+`onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134,
+135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305 · `ondernemen`
+20, 39, 40, 47, 172 · `ondernemers` 174 · `ondernemerschap` 157, 163, 185,
+197, 198, 210, 222, 228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312 ·
+`onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237 · `onderwijskritiek` 37 ·
+`onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88,
+152, 305 · `onderzoeksdebat` 53 · `onderzoeksethiek` 215 · `onderzoekskritiek`
+52 · `ongemak` 323 · `ongeneeslijke ziekte` 285 · `online ondernemen` 309 ·
+`onsterfelijkheid` 236 · `ontmoeten` 304 · `ontslagen` 47 · `ontwikkeling` 46,
+85 · `ontwikkelingslanden` 234 · `onzekerheid` 268 · `oordeel` 59, 69 ·
+`oorlog` 31, 57, 66 · `oorlogvoering` 218 · `opdrachten` 116 · `opgetekend` 97
+· `opgeven` 249 · `opgroeien` 4, 295 · `optimisme` 251 · `optogenetica` 331 ·
+`opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `orde` 73, 74 ·
+`organisatie` 28, 41, 69 · `organisatiecultuur` 183, 273 · `organisaties` 238
+· `Orwell` 54 · `oud china` 272 · `Oude Rome` 328 · `ouder-worden` 5 ·
 `ouderdom` 77, 84, 91, 95, 191 · `oudheid` 2, 247, 292 · `outsourcen` 278 ·
 `overdenken` 148 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
 `overtuigen` 24, 182, 253 · `overtuiging` 280 · `overtuigingen` 28, 132, 139,
 143 · `overvloed` 17 · `Pacific` 31 · `pacifisme` 240 · `Padma-onderscheiding`
 189 · `para` 81 · `parabel` 38, 244, 246 · `passie` 50, 198 · `pastoraat` 34 ·
-`patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
-`perfectionisme` 19, 32, 44 · `persoonlijk merk` 198 · `persoonlijke
-financiën` 163, 233 · `persoonlijke ontwikkeling` 161 · `persoonlijkheid` 33 ·
-`piekeren` 105, 176 · `pijn` 85, 255 · `Pixar` 41, 46 · `planeten` 99 ·
-`planning` 70, 276 · `plicht` 2 · `podcast` 136 · `poëzie` 204 · `poker` 137 ·
-`polemiek` 67 · `politicologie` 220, 221 · `politiek` 54, 219 · `populair` 77,
-129, 133 · `populair-wetenschappelijk` 88, 239 · `populaire filosofie` 194 ·
+`patiëntenverhalen` 331 · `patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 ·
+`perceptie` 30 · `perfectionisme` 19, 32, 44 · `persoonlijk merk` 198 ·
+`persoonlijke financiën` 163, 233 · `persoonlijke ontwikkeling` 161 ·
+`persoonlijkheid` 33 · `piekeren` 105, 176 · `pijn` 85, 255 · `Pixar` 41, 46 ·
+`planeten` 99 · `planning` 70, 276 · `plantaardig-dieet` 324 · `plicht` 2 ·
+`podcast` 136 · `poëzie` 204 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
+· `politicologie` 220, 221 · `politiek` 54, 219 · `populair` 77, 129, 133 ·
+`populair-wetenschappelijk` 88, 239, 326 · `populaire filosofie` 194 ·
 `populaire psychologie` 156 · `portretten` 75, 94 · `positief denken` 179 ·
 `positief-denken` 83 · `positieve-psychologie` 207 · `postuum` 49 · `Praag`
 173 · `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren`
-82, 253 · `prestatie` 168, 291 · `prestatiebeoordeling` 256 · `preventie` 86 ·
-`prijzen` 23 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151
-· `proactief` 25 · `producer` 17 · `productiviteit` 151, 175, 197, 207, 244,
-276, 278, 290 · `productontwerp` 231, 294 · `productontwikkeling` 265 ·
-`proeven` 112 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60 ·
-`protocol` 69 · `pseudokennis` 126 · `psychedelica` 275 · `psychiatrie` 1, 48,
-95, 96, 104, 213 · `psychoanalyse` 223 · `psychologie` 23, 28, 29, 55, 73, 78,
-79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254, 258, 296
-· `psychotherapie` 164, 227 · `publiceren` 13 · `publieksfilosofie` 269 ·
-`Pulitzer` 5 · `quantum` 94 · `quilten` 114 · `quotes` 179 · `radicale
-transparantie` 270 · `Rat-Pack` 178 · `rechtspraak` 69 · `reclame` 206, 279 ·
-`reeks` 114, 192 · `regimeverandering` 220 · `reïncarnatie` 202 ·
-`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
-162, 164, 166, 167, 195, 213 · `relatietherapie` 165 · `relativiteitstheorie`
-240, 281 · `religie` 56 · `REM` 52 · `renaissance` 241 · `Renaissance` 15 ·
-`rente` 38 · `replicatie` 79 · `retorica` 253 · `revisie` 18 · `rijkdom` 57,
-228 · `risico` 64, 80, 144, 268, 282 · `rivier als symbool` 287 ·
-`roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114,
-115, 254 · `romeinse oudheid` 232 · `rouw` 95 · `rouwverwerking` 204 · `ruimte
-en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
-`sadisme` 223 · `Salinas` 10 · `samenleving` 90, 98 · `samenwerken` 25 ·
-`satire` 155 · `scepsis` 63 · `schaamte` 32, 44 · `schaarste` 92, 249 ·
-`scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81 ·
-`schrijverschap` 191 · `schuld` 254 · `schulden` 20, 38, 121, 159 ·
-`seksualiteit` 100, 145, 164, 165 · `selectoraattheorie` 221 · `seminar` 139 ·
-`slaap` 52, 87, 88, 171, 181 · `slavernij` 68 · `smartphone` 53, 288 ·
-`sociale media` 194, 198, 204, 288 · `sociale psychologie` 215, 280 ·
-`sociale-media` 53, 70 · `software` 276 · `somberheid` 119 · `spanning` 101 ·
+82, 253 · `prestatie` 168, 291 · `prestatiebeoordeling` 256 · `preventie` 86,
+313 · `prijsstelling` 307 · `prijzen` 23 · `prikkels` 60, 65 · `prioriteiten`
+25, 196 · `prioriteren` 151, 311 · `proactief` 25 · `producer` 17 ·
+`productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311 ·
+`productontwerp` 231, 294 · `productontwikkeling` 265 · `proeven` 112 ·
+`projecten` 81 · `projectie` 107, 108 · `propaganda` 60 · `protocol` 69 ·
+`pseudokennis` 126 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104,
+213, 314, 315, 317, 331 · `psychoanalyse` 223 · `psychologie` 23, 28, 29, 55,
+73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254,
+258, 296, 310 · `psychotherapie` 164, 227 · `publiceren` 13 ·
+`publieksfilosofie` 269 · `Pulitzer` 5 · `quantum` 94 · `quilten` 114 ·
+`quotes` 179 · `radicale transparantie` 270 · `Rat-Pack` 178 · `rechtspraak`
+69 · `reclame` 206, 279 · `reeks` 114, 192 · `regimeverandering` 220 ·
+`reïncarnatie` 202 · `reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101,
+120, 122, 145, 152, 162, 164, 166, 167, 195, 213 · `relatietherapie` 165 ·
+`relativiteitstheorie` 240, 281 · `religie` 56 · `REM` 52 · `renaissance` 241
+· `Renaissance` 15 · `rente` 38 · `replicatie` 79 · `retorica` 253 · `revisie`
+18 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282 · `rituelen` 304 ·
+`rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160
+· `roman` 61, 113, 114, 115, 254 · `romeinse oudheid` 232 · `rouw` 95 ·
+`rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart` 266 · `russische
+literatuur` 235 · `rust` 32 · `sadisme` 223 · `Salinas` 10 · `samenleving` 90,
+98, 319 · `samenwerken` 25 · `satire` 155 · `scepsis` 63 · `schaamte` 32, 44,
+317 · `schaarste` 92, 249 · `scheikunde` 92 · `school` 53, 84 · `schrijven`
+11, 12, 14, 18, 19, 81 · `schrijverschap` 191, 325 · `schuld` 254 · `schulden`
+20, 38, 121, 159 · `seksualiteit` 100, 145, 164, 165, 316 ·
+`selectoraattheorie` 221 · `seminar` 139 · `Silicon Valley` 306 · `slaap` 52,
+87, 88, 171, 181, 316, 329 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
+besmetting` 303 · `sociale media` 194, 198, 204, 288 · `sociale psychologie`
+215, 280, 302 · `sociale-media` 53, 70 · `sociale-psychologie` 319 ·
+`sociologie` 300 · `software` 276 · `somberheid` 119 · `spanning` 101 ·
 `sparen` 21, 38, 159, 233 · `speedreading` 175 · `spelen` 32 · `speltheorie`
-217, 221 · `spiegelogie` 108 · `spiritualiteit` 8, 14, 27, 102, 108, 141, 149,
-160, 169, 184, 190, 195, 196, 199, 242 · `spirituele zoektocht` 287 · `sport`
-20 · `spreekangst` 253 · `spreker` 117, 134 · `staatsgreep` 220 · `stalking`
-214 · `Stanford` 150 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268 ·
+217, 221 · `spiegelneuronen` 303 · `spiegelogie` 108 · `spieropbouw` 316 ·
+`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
+199, 242, 310 · `spirituele zoektocht` 287 · `sport` 20 · `spreekangst` 253 ·
+`spreker` 117, 134 · `staatsgreep` 220 · `stalking` 214 · `Stanford` 150 ·
+`start-ups` 306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300 ·
 `statistiek van uitzonderingen` 274 · `status` 39, 66 · `sterfelijkheid` 2,
 71, 232, 295 · `sterrenkunde` 99 · `sterven` 49, 95, 275 · `stijl` 18 ·
 `stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286 ·
 `stoïcisme` 2, 30, 194, 247, 248, 292 · `stommiteit` 155 · `storytelling` 253,
-279 · `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293 · `streken` 112
-· `stress` 80, 87, 106, 118, 187 · `stressmanagement` 153 · `structuur` 82 ·
-`succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171 · `systeem`
-22, 142 · `systeemtheorie` 165 · `taal` 26, 27 · `tactische empathie` 271 ·
-`talent` 23, 29, 274 · `tarieven` 121 · `team` 42 · `teams` 273 ·
-`teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
-`technologie` 160, 288, 294 · `technologiebedrijven` 293 ·
+279 · `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306 · `streken`
+112 · `stress` 80, 87, 106, 118, 187 · `stressmanagement` 153 · `structuur` 82
+· `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
+`synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 · `taal` 26,
+27 · `tactische empathie` 271 · `talent` 23, 29, 274 · `tarieven` 121 · `team`
+42 · `teams` 273 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6,
+43, 61, 92 · `technologie` 160, 288, 294, 306 · `technologiebedrijven` 293 ·
 `technologiegeschiedenis` 231, 267 · `technologiekritiek` 297 ·
 `tegen-productiviteit` 71 · `tegenslag` 30, 111, 174 · `tekenen` 15 ·
 `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `Texas` 5 ·
 `therapie` 51, 107, 118, 119, 120, 121, 122, 145 · `thriller` 101, 202 ·
-`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292 · `toekomst` 236 ·
-`toeval` 21, 64, 93, 137, 274 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132,
-145 · `trauma` 104, 119, 195, 229 · `trilling` 127 · `trilogie` 202, 203, 248
-· `tuinontwerp` 205 · `twaalf-weken` 14 · `tweede-wereldoorlog` 115 ·
-`twintigers` 51 · `uitdaging-vaardigheid` 200 · `uitleg` 99, 102 · `uitleggen`
-82 · `uitstel` 71, 140 · `uitstelgedrag` 12 · `uitstellen` 16 · `uitvinding`
-267 · `ultralopen` 229 · `Upanishaden` 169 · `vaardigheden` 40, 50 ·
-`vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173,
-287 · `vaderschap` 49, 226 · `vakbonden` 297 · `vakmanschap` 1, 206 ·
-`variantie` 137 · `vastgoed` 37 · `vedische filosofie` 230 · `veedrift` 5 ·
-`veerkracht` 106, 153, 174, 177, 189 · `veiligheid` 43, 214 ·
-`veiligheidsmarge` 144 · `verandering` 170, 252 · `verantwoordelijkheid` 42,
-72, 73, 74, 93, 184, 282 · `verdriet` 111, 227 · `vergaderen` 42 ·
-`vergaderingen` 276 · `vergeving` 31, 102, 120 · `verhaal` 74 · `verhaalvorm`
-135 · `verhalen` 56, 101, 110, 136, 196 · `verhalenbundel` 206 · `verhouding`
-113 · `verhoudingen` 110 · `verklaringen` 68 · `verkoop` 132, 182, 185, 186,
-188, 246, 280 · `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164 ·
-`verlichting` 243, 287 · `verlies` 95 · `vermaak` 61 · `vermogen` 39 ·
+`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292 · `tijdsbeleving`
+326 · `timemanagement` 311 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274 ·
+`Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `trauma` 104, 119, 195,
+229, 317 · `trilling` 127 · `trilogie` 202, 203, 248 · `tuinontwerp` 205 ·
+`twaalf-weken` 14 · `tweede-wereldoorlog` 115 · `twintigers` 51 ·
+`uitdaging-vaardigheid` 200 · `uitleg` 99, 102 · `uitleggen` 82 · `uitstel`
+71, 140 · `uitstelgedrag` 12, 311 · `uitstellen` 16 · `uitvinding` 267 ·
+`ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 · `Upanishaden` 169 ·
+`vaardigheden` 40, 50 · `vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 ·
+`vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324 · `vakbonden` 297 ·
+`vakmanschap` 1, 206, 320 · `variantie` 137 · `vastgoed` 37 · `vedische
+filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177, 189, 317 ·
+`veiligheid` 43, 214 · `veiligheidsmarge` 144 · `verandering` 170, 252 ·
+`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282 · `verbinding` 302 ·
+`verdriet` 111, 227 · `vergaderen` 42 · `vergaderingen` 276 · `vergeving` 31,
+102, 120 · `verhaal` 74 · `verhaalvorm` 135 · `verhalen` 56, 101, 110, 136,
+196 · `verhalenbundel` 206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer`
+300 · `verklaringen` 68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307,
+308 · `verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76, 100, 113, 130,
+164 · `verlichting` 243, 287 · `verlies` 95 · `vermaak` 61 · `vermogen` 39 ·
 `vermogensopbouw` 163, 264, 277 · `veroudering` 171 · `verpleegkunde` 225 ·
-`verplichting` 9 · `verslaving` 18, 238, 275, 294 · `vertrouwen` 42, 273, 279
-· `vervolg` 74, 131 · `vervreemding` 173 · `verwondering` 227 · `vier deugden`
-194 · `visualisatie` 259 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 ·
-`voeding` 86, 88, 171 · `volharding` 29 · `volledigheid` 167 · `voorbeelden`
-128 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55, 283 ·
-`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
-`voorzichtigheid` 216 · `vorming` 224 · `vriendschap` 5, 7, 114, 292, 295 ·
+`verplichting` 9 · `verslaving` 18, 238, 275, 294, 314, 324, 325 ·
+`vertrouwen` 42, 273, 279, 319 · `vervolg` 74, 131 · `vervreemding` 173 ·
+`verwondering` 227 · `vier deugden` 194 · `visualisatie` 259 · `visualiseren`
+116 · `vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313, 316, 329 ·
+`volharding` 29 · `volledigheid` 167 · `voorbeelden` 128 · `voorbereiding` 82
+· `voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellingen` 268 ·
+`vooruitgang` 251 · `vooruitgangsdenken` 298 · `voorzichtigheid` 216 ·
+`vorming` 224 · `vreemden` 302 · `vriendschap` 5, 7, 114, 292, 295, 319 ·
 `vrije tijd` 288 · `vrije-tijd` 78 · `vrije-wil` 10, 236 · `vrijheid` 61 ·
 `vroeg pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144 ·
 `waardecreatie` 246 · `waarden` 72, 142 · `waardering` 24, 34 · `waarheid` 263
-· `waarneming` 154, 283 · `wall-street` 144 · `weerbaarheid` 194 · `weerstand`
-12 · `welvaart` 251 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70, 78,
-151, 252 · `werkboek` 14, 122, 150 · `werkplek` 33, 43 · `werkwijze` 16 ·
-`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269 · `wet
-van aantrekking` 190 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94
-· `wetenschappers` 239 · `wetenschapsgeschiedenis` 239, 240 · `wijn` 112 ·
-`wilskracht` 238 · `wiskunde` 116 · `wisselstroom` 267 · `woede` 119, 120 ·
-`woestijn` 8 · `wraak` 101 · `Yale` 215 · `yoga` 195, 242 · `young adult` 192
-· `youtube` 245 · `zakelijke communicatie` 182 · `zeereis` 36 · `zeldzaam` 144
-· `zelfacceptatie` 176 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108,
-129, 138, 197 · `zelfbeheersing` 75, 148, 212, 248, 286 · `zelfbescherming`
-214 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158, 229, 244 · `zelfevaluatie`
-270 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146,
-147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174,
-175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204,
-207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291 · `zelfkennis` 258,
-260 · `zelfliefde` 190, 195, 204 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
-`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177 · `zelfsabotage` 161 ·
-`zelfspot` 19 · `zelfstandig` 40 · `zelfstandig denken` 211 · `zelfstandig
-ondernemen` 198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 ·
-`zelfuitgegeven` 123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen`
-157, 187 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225 ·
-`zen` 141 · `zenboeddhisme` 205 · `zenuwstelsel` 87 · `zeven-stappen` 129 ·
-`ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237,
-245, 255 · `zitten` 84 · `zorg` 96 · `zuid-afrika` 266 · `Zuid-Afrika` 26 ·
-`zuinigheid` 39 · `zwaar` 143 · `zwarte gaten` 262 · `zwarte-gaten` 99
+· `waarneming` 154, 283, 322 · `wall-street` 144 · `weerbaarheid` 194 ·
+`weerstand` 12 · `welvaart` 251 · `wereldbeeld` 234 · `wereldbouw` 192 ·
+`werk` 70, 78, 151, 252 · `werkboek` 14, 122, 150 · `werkplek` 33, 43 ·
+`werkwijze` 16 · `West-Point` 29 · `westen` 67 · `western` 5 · `westerse
+filosofie` 269 · `wet van aantrekking` 190 · `wet-van-aantrekking` 127 ·
+`wetenschap` 63, 66, 93, 94, 328 · `wetenschappers` 239 ·
+`wetenschapsgeschiedenis` 239, 240, 321 · `wijn` 112 · `wilskracht` 238 ·
+`wiskunde` 116 · `wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 ·
+`wraak` 101 · `Yale` 215 · `yoga` 195, 242 · `young adult` 192 · `youtube` 245
+· `zakelijk` 307 · `zakelijke communicatie` 182 · `zeereis` 36 · `zeevaart`
+321 · `zeldzaam` 144 · `zelfacceptatie` 176 · `zelfbedrog` 66 · `zelfbeeld`
+25, 27, 105, 107, 108, 129, 138, 197 · `zelfbeheersing` 75, 148, 212, 248,
+286, 314 · `zelfbescherming` 214 · `zelfcompassie` 32 · `zelfdiscipline` 2,
+158, 229, 244, 311 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318 ·
+`zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
+148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175,
+176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207,
+208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310 · `zelfkennis` 258,
+260 · `zelfliefde` 190, 195, 204 · `zelfonderzoek` 315 · `zelfontwikkeling`
+179 · `zelfpraat` 161 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177 ·
+`zelfsabotage` 161 · `zelfspot` 19 · `zelfstandig` 40 · `zelfstandig denken`
+211 · `zelfstandig ondernemen` 198 · `zelfstandig starten` 210 · `zelfsturing`
+142, 168 · `zelfuitgegeven` 123, 124, 125, 126 · `zelfverbetering` 243 ·
+`zelfvertrouwen` 157, 187, 312 · `zelfwaarde` 168 · `zelfwaardering` 121 ·
+`zelfzorg` 109, 225 · `zen` 141 · `zenboeddhisme` 205 · `zenuwstelsel` 87 ·
+`zeven-stappen` 129 · `ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91, 160,
+183, 200, 201, 237, 245, 255 · `zitten` 84 · `zorg` 96 · `zuid-afrika` 266 ·
+`Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwarte gaten` 262 ·
+`zwarte-gaten` 99
 
 ## Leesroutes
 

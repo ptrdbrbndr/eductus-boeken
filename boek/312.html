@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Think Like an Artist &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gompertz beweert dat de eigenschappen die kunstenaars succesvol maken, aan te leren zijn en niet aangeboren: kunstenaars stelen ideeën in plaats van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-312">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">312 &middot; Maken en scheppen</p>
+    <h1>Think Like an Artist</h1>
+    <p class="lede">Will Gompertz, 2015</p>
+    <p class="stats">
+      <span><b>1408</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="312"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gompertz beweert dat de eigenschappen die kunstenaars succesvol maken, aan te leren zijn en niet aangeboren: kunstenaars stelen ideeën in plaats van blanco te beginnen, ontwikkelen een eigen standpunt, behandelen mislukking als grondstof voor het volgende werk, tonen moed op het moment dat het ongemakkelijk wordt, bouwen bewust pauzes in hun proces in en gedragen zich ondernemend in plaats van te wachten tot iemand hen ontdekt. Wie deze gewoontes overneemt, wordt volgens hem net zo creatief en productief als de kunstenaars die hij als voorbeeld gebruikt. De inzet is dat creativiteit een vaardigheid is die te oefenen valt, geen gave die iemand wel of niet heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Tien eigenschappen uit een leven tussen kunstenaars</h3>
+      <p>Gompertz was zeven jaar directeur bij Tate en daarna elf jaar arts editor van de BBC, en dat werk bracht hem in gesprek met een groot deel van de gevestigde kunstwereld. Uit die gesprekken en uit de biografieën van kunstenaars van Caravaggio tot Ai Weiwei destilleert hij tien eigenschappen die volgens hem telkens terugkeren, elk met een eigen hoofdstuk: een citaat over een zwart-witfoto, een toelichting, voorbeelden uit de kunstgeschiedenis en een portret van een hedendaagse maker die de eigenschap volgens hem beoefent.</p>
+      <p>De opzet is nadrukkelijk niet beperkt tot beeldende kunst. Gompertz schrijft voor wie op kantoor, in de zorg of in een eigen bedrijf vastloopt in het eigen werk, en gebruikt de kunstenaar als voorbeeld omdat die volgens hem het duidelijkst laat zien hoe een gewoonte tot resultaat leidt.</p>
+      <h3>Stelen in plaats van blanco beginnen</h3>
+      <p>In het hoofdstuk <i>Artists Steal</i> keert het aan Picasso toegeschreven citaat terug dat goede kunstenaars lenen en grote kunstenaars stelen, een uitspraak waarvan de herkomst omstreden is maar die Gompertz gebruikt om een punt te maken: niemand begint bij niets. Kunstenaars nemen een vorm, een compositie of een idee van een voorganger over en buigen die om tot iets van zichzelf, en dat overnemen is volgens hem geen tekortkoming maar het begin van het werk.</p>
+      <p>Hij zet dat af tegen het beeld van de kunstenaar die in een vlaag van inspiratie iets nieuws uit het niets schept. Wie op dat gevoel wacht, wacht volgens hem vaak vergeefs; wie een bestaand werk als uitgangspunt neemt, heeft meteen iets om op te reageren.</p>
+      <h3>Mislukking als grondstof</h3>
+      <p>Het hoofdstuk <i>Artists Don't Fail</i> behandelt Bridget Riley en Roy Lichtenstein als kunstenaars die een richting die niet voldeed, niet als eindpunt namen maar als aanwijzing voor de volgende stap. Riley's vroege figuratieve werk voldeed haar niet, en de zoektocht daarna leidde tot de optische abstracte schilderijen waarmee ze bekend werd; Lichtenstein werkte jaren in een stijl die geen aandacht trok voor hij bij de stripbeelden uitkwam die zijn naam maakten.</p>
+      <p>Gompertz' punt is dat wat achteraf een mislukking heet, op het moment zelf vaak gewoon een resultaat is dat niet voldoet, en dat het verschil tussen kunstenaars die doorzetten en kunstenaars die stoppen zit in hoe zij die uitkomst lezen.</p>
+      <h3>Een standpunt hebben</h3>
+      <p>Het hoofdstuk <i>Artists Have a Point of View</i> gebruikt de Schotse schilder Peter Doig als voorbeeld: pas nadat hij zijn geboorteland had verlaten, kon hij het landschap ervan zien in plaats van er middenin te staan, en die afstand leverde de herinneringsbeelden op die zijn werk kenmerken. Gompertz leidt daaruit af dat een eigen standpunt vaak ontstaat door bewust afstand te nemen van wat vertrouwd is, niet door dichter op het onderwerp te gaan zitten.</p>
+      <h3>Moed</h3>
+      <p>Bij moed gebruikt Gompertz Caravaggio, die heiligen schilderde met de vuile voeten en de rimpels van de straatarmen die model stonden, tegen de gangbare, geïdealiseerde manier van religieuze schilderkunst in, en Ai Weiwei, wiens werk rechtstreeks het Chinese staatsapparaat aanspreekt en die daarvoor is gearresteerd.</p>
+      <p>In beide gevallen gaat het niet alleen om esthetische keuzes. Het gaat om de bereidheid een werk te maken dat opdrachtgevers, publiek of overheid tegen de haren instrijkt, en om vast te houden aan een standpunt zodra dat weerstand oproept.</p>
+      <h3>Zelfvertrouwen als ondernemersinstinct</h3>
+      <p>In het hoofdstuk over zelfvertrouwen staan Andy Warhol en Theaster Gates naast Vincent van Gogh. Warhol en Gates bouwden ieder een eigen infrastructuur om hun werk aan de man te brengen, van The Factory tot Gates' herontwikkeling van verlaten gebouwen in Chicago tot kunst- en gemeenschapsruimte. Van Gogh verkocht bij leven vrijwel niets en gold naar de maatstaf van zijn tijd als mislukt, en Gompertz gebruikt hem toch als voorbeeld van zelfvertrouwen omdat hij bleef schilderen op een overtuiging die pas na zijn dood werd bevestigd.</p>
+      <p>Die combinatie laat zien waar het boek kwetsbaar is: zelfvertrouwen wordt hier gemeten aan wat er later van iemand geworden is, en van de kunstenaars die met evenveel overtuiging doorwerkten zonder ooit ontdekt te worden, komt niemand aan het woord.</p>
+      <h3>Pauzeren, en van eigenschap naar gewoonte</h3>
+      <p>Het hoofdstuk <i>Artists Pause for Thought</i> pleit voor onderbreking als onderdeel van het werk zelf: tijd tussen het verzamelen van materiaal en het maken van een keuze, in plaats van rechtstreeks doorwerken tot een resultaat. Gompertz sluit af met de stelling dat de tien eigenschappen samen een gewoonte vormen die te trainen is, en dat het verschil tussen een kunstenaar en ieder ander vooral in de herhaling van die gewoonte zit, niet in een aanleg die de een wel en de ander niet heeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Stelen</td><td>Een bestaand werk of idee overnemen en ombuigen tot iets eigens, in plaats van bij niets te beginnen.</td></tr>
+          <tr><td class="term">Mislukking als aanwijzing</td><td>Een resultaat dat niet voldoet lezen als richtingaanwijzer voor de volgende stap, niet als eindpunt.</td></tr>
+          <tr><td class="term">Een punt van zicht hebben</td><td>Een herkenbaar, eigen standpunt in het werk leggen in plaats van neutraal te blijven.</td></tr>
+          <tr><td class="term">Moed</td><td>Vasthouden aan een werk of standpunt zodra dat weerstand oproept bij opdrachtgevers, publiek of overheid.</td></tr>
+          <tr><td class="term">Pauzeren om na te denken</td><td>Bewust tijd laten zitten tussen het verzamelen van materiaal en de keuze die je ermee maakt.</td></tr>
+          <tr><td class="term">Ondernemerschap</td><td>Een eigen infrastructuur bouwen om werk bij een publiek te krijgen in plaats van op ontdekking te wachten.</td></tr>
+          <tr><td class="term">Zelfvertrouwen</td><td>Vasthouden aan een overtuiging over het eigen werk voordat er enige bevestiging van buiten is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee soorten bronnen die niet van elkaar gescheiden worden: Gompertz' eigen gesprekken met hedendaagse kunstenaars uit zijn jaren bij Tate en de BBC, en de gangbare biografische overlevering van historische kunstenaars als Caravaggio en Van Gogh. Er wordt geen onderzoek aangehaald naar hoe vaak deze eigenschappen bij kunstenaars voorkomen, en er is geen vergelijking met kunstenaars bij wie dezelfde eigenschappen niet tot succes leidden.</p>
+      <p>De selectie bestaat uit bekende namen wier werk achteraf bevestigd is, wat de redenering gevoelig maakt voor omgekeerde causaliteit: iemand krijgt de eigenschap moed of doorzettingsvermogen toegeschreven omdat hij beroemd werd, terwijl datzelfde gedrag bij een onbekend gebleven kunstenaar nooit als eigenschap wordt opgemerkt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>John Kampfner noemde in The Guardian als bezwaar dat het boek geen groter geheel oplevert: de losse hoofdstukken over aparte eigenschappen tellen niet op tot een samenhangend beeld van wat creativiteit is. Lezers op Goodreads herhalen dat bezwaar in andere woorden en noemen het boek voorspelbaar, met adviezen die in vergelijkbare vorm al vaker zijn opgeschreven.</p>
+      <p>Het zwaarste bezwaar blijft de steekproef. Elk hoofdstuk illustreert een eigenschap met kunstenaars van wie het werk inmiddels tot de kunstgeschiedenis behoort, en dat is precies de groep bij wie de eigenschap achteraf wel moest kloppen. Hoeveel kunstenaars even moedig, ondernemend of standvastig waren en nooit een publiek vonden, komt niet ter sprake, waardoor de claim dat deze gewoontes tot succes leiden nooit wordt getoetst.</p>
+      <p>Verder blijft de reikwijdte ondanks de belofte beperkt tot beeldende kunst: vrijwel alle voorbeelden komen uit de schilder- en beeldhouwkunst, en de vertaalslag naar een kantoor of een zorgpraktijk waar het boek zich ook op richt, moet de lezer zelf maken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem bij een nieuw project een bestaand werk als uitgangspunt en beschrijf wat je eraan verandert, in plaats van blanco te beginnen.</li>
+        <li>Schrijf bij een mislukt resultaat op wat het je leert voor de volgende poging, voor je verdergaat.</li>
+        <li>Bouw een pauze in tussen het verzamelen van materiaal en de keuze die je ermee maakt.</li>
+        <li>Formuleer voor jezelf in één zin het standpunt van het werk dat je maakt, voor je begint.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Think Like an Artist: ...and Lead a More Creative, Productive Life</i> (Viking/Particular Books, Londen, 2015; Amerikaanse editie bij Abrams Image, ISBN 9781419721830). Nederlands als <i>Denk als een kunstenaar</i>, vertaald door Jacques Meerman (Meulenhoff, 2016, 240 blz., ISBN 9789029090568).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gompertz, jarenlang directeur bij Tate en daarna arts editor van de BBC, destilleert uit gesprekken met en biografieën van kunstenaars tien eigenschappen die volgens hem telkens terugkeren, van Caravaggio tot Warhol, van Da Vinci tot Ai Weiwei. Elk hoofdstuk behandelt één eigenschap: een citaat, een toelichting, voorbeelden uit de kunstgeschiedenis en een portret van een hedendaagse maker.</p><p>Het boek richt zich nadrukkelijk niet alleen op kunstenaars zelf, maar op iedereen die in eigen werk vastloopt en denkt dat creativiteit een gave is die iemand wel of niet heeft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>creativiteit</li><li>kunstgeschiedenis</li><li>zelfvertrouwen</li><li>falen</li><li>ondernemerschap</li><li>kunstenaars</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="11"><a href="11.html">Steal Like an Artist</a>. Kleon werkt precies het hoofdstuk over stelen uit dit boek verder uit tot een boek op zich, met dezelfde these dat niets uit het niets ontstaat.</li>
+          <li value="17"><a href="17.html">The Creative Act</a>. Rubin legt eenzelfde nadruk op aandacht en het verzamelen van materiaal, maar dan vanuit een muzikant en producer in plaats van een kunstcriticus.</li>
+          <li value="15"><a href="15.html">How to Think Like Leonardo da Vinci</a>. Gelb behandelt met Leonardo één kunstenaar in de diepte, waar Gompertz tien eigenschappen over veel kunstenaars uitspreidt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

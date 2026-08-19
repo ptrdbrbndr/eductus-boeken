@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 4-Hour Body &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ferriss beweert dat het lichaam zich laat optimaliseren als een systeem: meet nauwkeurig, verander één variabele tegelijk, en gebruik jezelf als…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-316">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">316 &middot; Brein en lichaam</p>
+    <h1>The 4-Hour Body</h1>
+    <p class="lede">Timothy Ferriss, 2010</p>
+    <p class="stats">
+      <span><b>1408</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="316"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ferriss beweert dat het lichaam zich laat optimaliseren als een systeem: meet nauwkeurig, verander één variabele tegelijk, en gebruik jezelf als proefpersoon om in weken te bereiken waar de gangbare fitnessindustrie jaren voor rekent. Het boek presenteert die belofte als een reeks afgeronde experimenten, met hemzelf en een handvol vrijwilligers als bewijsmateriaal. Wie de cijfers aanvaardt, aanvaardt daarmee ook dat wat bij één man en een paar bekenden werkte, voor de lezer met dezelfde zekerheid zal gelden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het lichaam als proefopstelling</h3>
+      <p>Ferriss opent met de belofte die de ondertitel al maakt: snel vetverlies, betere seks en een lichaam dat aankan wat de meeste mensen voor onmogelijk houden, allemaal binnen weken in plaats van jaren. Zijn methode noemt hij zelfexperiment: één variabele veranderen, nauwkeurig meten, en het resultaat opschrijven voordat de volgende variabele aan de beurt is. Hij noemt zichzelf daarbij een "human guinea pig", geen arts of onderzoeker.</p>
+      <p>Terugkerend is het begrip minimum-effectieve dosis: de kleinste inspanning die nog een meetbaar resultaat oplevert. Wie meer doet dan nodig, verspilt volgens hem tijd zonder er iets extra's voor terug te krijgen. Dat uitgangspunt bepaalt de toon van het hele boek: elk hoofdstuk zoekt de kortste weg naar een vooraf gedefinieerd doel.</p>
+      <h3>Het langzame-koolhydratendieet</h3>
+      <p>Het bekendste onderdeel is het dieet dat hij slow-carb noemt, met vijf vaste regels: vermijd witte koolhydraten, eet steeds dezelfde paar maaltijden, tel geen calorieën maar eet tot je verzadigd bent, drink geen calorieën, en eet geen fruit. Eén vaste dag per week, meestal zaterdag, mag alles op tafel komen, inclusief gebak en snoep; Ferriss noemt dat de cheat day en beschrijft hem als noodzakelijk voor de stofwisseling en voor het volhouden van de andere zes dagen.</p>
+      <p>Het dieet is smal: een handvol eiwitbronnen en peulvruchten, herhaald in bijna elke maaltijd. Dat maakt het volgens Ferriss gemakkelijk vol te houden, en volgens critici eenzijdig, omdat fruit en de meeste groenten uit de gangbare voedingsrichtlijnen ontbreken.</p>
+      <h3>Spieropbouw in twintig minuten</h3>
+      <p>Voor krachttraining introduceert hij Occam's Protocol, genoemd naar het beginsel dat de eenvoudigste verklaring de voorkeur verdient: twee oefeningen per spiergroep, één set tot spierfalen, vijf seconden op en vijf seconden neer, twee trainingen van twintig minuten per week. Als bewijs voert hij journalist Neil Strauss op, die naar eigen zeggen in vier weken tien pond spiermassa aanzette bij een startgewicht van 124 pond.</p>
+      <p>Ferriss beschrijft ook zijn eigen experiment Geek to Freak, waarin hij zegt in 28 dagen 34 pond spiermassa te hebben gewonnen. Dat cijfer ligt ver boven wat spierweefsel in die tijdspanne natuurlijk kan aanmaken, en het boek maakt niet duidelijk hoeveel van die toename vocht en glycogeen was in plaats van spier.</p>
+      <h3>Kou, herstel en slaap</h3>
+      <p>Een reeks hoofdstukken gaat over herstel: ijsbaden om ontstekingen te remmen, koude douches om de stofwisseling te verhogen, en een hoofdstuk over slaap dat draait om korte, geplande dutjes in plaats van één lange nachtrust. Ferriss verwijst hier naar onderzoek naar bruin vetweefsel, dat door blootstelling aan kou actiever zou worden en meer energie zou verbranden.</p>
+      <p>De koudehoofdstukken staan dichter bij gepubliceerd onderzoek dan de meeste andere delen van het boek, al vertaalt Ferriss resultaten uit laboratoriumstudies naar een dagelijkse routine op een manier die de oorspronkelijke onderzoekers zelf niet hebben getoetst.</p>
+      <h3>Van vijf naar vijftig kilometer</h3>
+      <p>Een apart deel gaat over duursport: een schema waarmee lopers die een 5 kilometer aankunnen, in twaalf weken een ultraloop van 50 kilometer zouden moeten kunnen afleggen, en een hoofdstuk waarin Ferriss claimt in tien dagen efficiënt te hebben leren zwemmen met een techniek die leunt op de Total Immersion-methode. Beide hoofdstukken volgen dezelfde opzet als de rest van het boek: een klein aantal regels over vorm, ademhaling en cadans, in plaats van een lang opbouwschema met wekelijkse kilometertoenames.</p>
+      <p>Ook hier ontbreekt een vergelijking met sporters die een gangbaar trainingsschema volgen. Het 50-kilometerprogramma steunt op de ervaring van Ferriss zelf en van ultraloopcoach Brian Mackenzie, niet op een gepubliceerde trainingsstudie met een controlegroep.</p>
+      <h3>De pil-stapel en het hoofdstuk over seks</h3>
+      <p>Voor wie liever een supplement neemt dan een dieet volgt, beschrijft Ferriss de PAGG-stack: policosanol, alfaliponzuur, groene-theeflavonolen en knoflookextract, in vaste doseringen rond de maaltijd. Hij noemt de combinatie zijn vervanging voor een eerdere stack met efedrine, die hij zelf had verlaten na bijwerkingen.</p>
+      <p>Het hoofdstuk over vrouwelijk orgasme binnen vijftien minuten bouwt op de Doing-methode uit een boek van Steve en Vera Bodansky en op gesprekken met onder anderen pornoactrice Nina Hartley. Ferriss beschrijft een vaste handbeweging en een vaste tijdsduur, zonder de fysiologische onderbouwing die de rest van het boek wel claimt te geven.</p>
+      <h3>Wat het boek niet doet</h3>
+      <p>Nergens in <i>The 4-Hour Body</i> staat een gecontroleerde studie met een controlegroep. Ferriss verzamelt uitkomsten bij zichzelf en bij een beperkt aantal vrijwilligers, en generaliseert die naar de lezer zonder te vermelden hoe representatief die groep is voor wie het boek koopt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Minimum-effectieve dosis</td><td>De kleinste inspanning die nog net het gewenste resultaat oplevert; meer doen is voor Ferriss verspilling.</td></tr>
+          <tr><td class="term">Zelfexperiment (n=1)</td><td>Onderzoek met jezelf als enige proefpersoon, zonder controlegroep of blindering.</td></tr>
+          <tr><td class="term">Slow-carb dieet</td><td>Het dieet met vijf regels rond eiwitten en peulvruchten en één vrije dag per week.</td></tr>
+          <tr><td class="term">Cheat day</td><td>De ene dag per week waarop alle voedsel is toegestaan, door Ferriss verdedigd als noodzakelijk voor vol te houden vetverlies.</td></tr>
+          <tr><td class="term">Occam's Protocol</td><td>Het krachttrainingsschema met twee oefeningen per spiergroep en één set tot spierfalen.</td></tr>
+          <tr><td class="term">Geek to Freak</td><td>Ferriss' eigen experiment waarin hij claimt in 28 dagen 34 pond spiermassa te hebben gewonnen.</td></tr>
+          <tr><td class="term">PAGG-stack</td><td>De supplementcombinatie van policosanol, alfaliponzuur, groene-theeflavonolen en knoflookextract.</td></tr>
+          <tr><td class="term">Bruin vetweefsel</td><td>Vetweefsel dat door koude actiever wordt en energie verbrandt, de basis onder de koudehoofdstukken.</td></tr>
+          <tr><td class="term">Human guinea pig</td><td>Ferriss' eigen omschrijving van zijn rol: proefpersoon, geen onderzoeker.</td></tr>
+          <tr><td class="term">Ultraendurance-programma</td><td>Het twaalfwekenschema waarmee Ferriss claimt lopers van 5 naar 50 kilometer te brengen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert vrijwel nergens gepubliceerd, onafhankelijk onderzoek. Ferriss beschrijft uitkomsten bij zichzelf en bij een klein aantal vrijwilligers zoals Neil Strauss, en laat zien wat er met hen gebeurde, niet wat er bij een grotere, willekeurig samengestelde groep zou gebeuren. Waar hij wel naar onderzoek verwijst, zoals bij bruin vetweefsel en koude, gaat het om laboratoriumstudies die iets anders maten dan de dagelijkse routine die hij eruit afleidt. Hetzelfde patroon geldt voor de duursporthoofdstukken: het ultraloopschema en de zwemtechniek worden gestaafd met de ervaring van hemzelf en een handvol testpersonen, niet met een vergelijkende trainingsstudie.</p>
+      <p>De sterkste kant van het boek is de nauwkeurigheid waarmee Ferriss zijn eigen metingen bijhoudt: gewicht, vetpercentage, bloedwaarden, herhaald over weken. Dat maakt zijn eigen resultaten navolgbaar. Navolgbaar is iets anders dan generaliseerbaar: een uitkomst bij één man van in de dertig met toegang tot dure bloedtests zegt weinig over wat een lezer met een ander lichaam, een andere leeftijd of minder tijd mag verwachten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek claims uit een steekproef van één of enkele personen presenteert als algemene regel. Het cijfer van 34 pond spiermassa in 28 dagen wordt nergens gerelativeerd, terwijl het ver boven bekende grenzen aan natuurlijke spiergroei ligt.</p>
+      <p>Het hoofdstuk over vrouwelijk orgasme mist juist de precisie die de rest van het boek claimt: één vaste techniek wordt als universeel voorgesteld, gebaseerd op de ervaring van een klein aantal bronnen in plaats van op onderzoek bij een bredere groep vrouwen.</p>
+      <p>Het dieet en de supplementen zijn niet zonder risico. Ferriss vermeldt zelf dat hij een eerdere efedrinestack verliet na bijwerkingen, en de dosering alfaliponzuur die hij aanbeveelt ligt dicht bij de hoeveelheid waarbij hij zelf maagklachten noemt. Wie het boek als medisch advies leest in plaats van als verslag van de experimenten van één man, loopt het risico dat verschil te missen.</p>
+      <p>De koudehoofdstukken bevatten weinig waarschuwing voor lezers met een hartaandoening. Plotselinge onderdompeling in ijswater kan bij kwetsbare mensen een schok voor het hart veroorzaken, een voorzichtigheidsmaatregel die in de reguliere sportgeneeskunde wel als voorwaarde geldt en in het boek nauwelijks aan bod komt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Meet voor je begint een paar weken je eigen basiswaarden (gewicht, omvang, energie) voordat je een van de protocollen overneemt.</li>
+        <li>Vervang een dieetregel door een studie: zoek naar herhaling bij anderen voordat je een resultaat als algemeen geldig aanneemt.</li>
+        <li>Bekijk de supplementhoofdstukken met de bijsluiter ernaast, niet als vervanging ervan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The 4-Hour Body: An Uncommon Guide to Rapid Fat-Loss, Incredible Sex, and Becoming Superhuman</i> (Crown Archetype, 2010, 592 blz.). Geen Nederlandse vertaling van dit boek verschenen; alleen zijn eerdere <i>The 4-Hour Workweek</i> (nr. 278) is als <i>Een werkweek van 4 uur</i> vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ferriss behandelt zijn eigen lichaam als een systeem dat met de juiste metingen snel is bij te sturen. Aan de hand van bloedwaarden, weegschaal en stopwatch test hij diëten, krachttraining, koudeprikkels en slaaptechnieken op zichzelf en op vrijwilligers, en schrijft op wat binnen de kortst mogelijke tijd werkte. Het bekendste resultaat is het langzame-koolhydratendieet, met vijf simpele regels en één vaste vrije dag per week.</p><p>Het boek gaat verder dan voeding: spieropbouw met twee oefeningen per spiergroep, herstel met koude baden, en een apart hoofdstuk over vrouwelijk orgasme dat voor evenveel ophef zorgde als de rest van het boek bij elkaar. Ferriss noemt zichzelf nadrukkelijk geen wetenschapper maar een "human guinea pig".</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfexperiment</li><li>voeding</li><li>spieropbouw</li><li>biohacking</li><li>slaap</li><li>seksualiteit</li><li>supplementen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="278"><a href="278.html">The 4-Hour Workweek</a>. Ferriss' eerdere boek over tijd in plaats van lichaam, met dezelfde methode van meten en minimaliseren.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker onderbouwt zijn claims over slaap met gepubliceerd onderzoek en laat zien hoe die onderbouwing eruitziet wanneer ze wel compleet is.</li>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Taleb waarschuwt voor precies de denkfout die dit boek maakt: een kleine steekproef voor een algemene wet aanzien.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eat That Frog! &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tracy's stelling is dat productiviteit niet draait om harder werken maar om de juiste volgorde: wie eerst de belangrijkste en lastigste taak van de dag…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-311">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">311 &middot; Werk en aandacht</p>
+    <h1>Eat That Frog!</h1>
+    <p class="lede">Brian Tracy, 2001</p>
+    <p class="stats">
+      <span><b>1077</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="311"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tracy's stelling is dat productiviteit niet draait om harder werken maar om de juiste volgorde: wie eerst de belangrijkste en lastigste taak van de dag aanpakt, de kikker, wint meer tijd en gemoedsrust dan wie eerst de makkelijke klusjes wegwerkt. Uitstelgedrag is bij hem geen karaktertrek maar een gewoonte die met vaste methoden te doorbreken is, zoals vooraf plannen, prioriteren en een taak in kleinere stukken opdelen. Daar valt tegenover te zetten dat niet elke lastige taak ook de belangrijkste is, en dat een dag die alleen om de zwaarste klus draait de kleinere, dringende zaken kan laten liggen die evengoed om aandacht vragen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De kikker en de volgorde van de dag</h3>
+      <p>Tracy opent met het beeld waaraan het boek zijn titel ontleent: eerst de belangrijkste, lastigste taak van de dag doen, de kikker, in plaats van hem uit te stellen tot na de makkelijke klusjes. Zijn argument is dat die taak toch gedaan moet worden, en dat uitstel alleen energie kost aan het erover blijven piekeren.</p>
+      <p>Als er meer dan één kikker op tafel ligt, is het advies simpel: begin met de lelijkste. Wat het meest weerstand oproept, levert bij afronding ook het meeste op.</p>
+      <h3>Van tevoren plannen en prioriteren</h3>
+      <p>Verschillende vroege hoofdstukken gaan over structuur vooraf: elke dag van tevoren plannen, liefst de avond ervoor, en de 80/20-regel toepassen op de takenlijst. Van alle taken levert twintig procent tachtig procent van het resultaat op, en het advies is die twintig procent eerst te herkennen voordat er begonnen wordt.</p>
+      <p>Daarvoor gebruikt Tracy de ABCDE-methode: elke taak krijgt een letter naar belang, van A voor taken met serieuze gevolgen als ze niet gebeuren tot E voor taken die net zo goed kunnen vervallen. Binnen de A-taken wordt vervolgens genummerd welke als eerste komt.</p>
+      <h3>Kiezen wat je laat liggen</h3>
+      <p>Een ander hoofdstuk draait de gebruikelijke opvatting van uitstelgedrag om: uitstellen is volgens Tracy niet het probleem, want iedereen stelt voortdurend iets uit. De vraag is wat er bewust wordt uitgesteld. Hij noemt dat creatief uitstellen: de laagwaardige taken bewust laten liggen om ruimte te maken voor de taken die er echt toe doen.</p>
+      <p>Daarbij hoort ook het onderkennen van de eigen belangrijkste beperking, de ene factor die het meest in de weg zit om sneller resultaat te boeken, en die factor als eerste aan te pakken in plaats van overal tegelijk aan te sleutelen.</p>
+      <h3>Grote taken behapbaar maken</h3>
+      <p>Voor taken die te groot aanvoelen om aan te beginnen, geeft Tracy twee verwante technieken. Bij de salamimethode wordt een project in dunne plakken gesneden en wordt er slechts aan één plak tegelijk gewerkt. Bij de andere techniek wordt een vaste hoeveelheid tijd gereserveerd om onafgebroken aan één taak te werken, ongeacht hoever die daarna nog van af is.</p>
+      <p>Beide technieken zijn bedoeld om de omvang van een taak geen reden te laten zijn om niet te beginnen: de eerste stap hoeft nooit meer te zijn dan een klein, afgebakend stuk.</p>
+      <h3>Jezelf op scherp zetten</h3>
+      <p>De laatste hoofdstukken gaan over vasthouden in plaats van beginnen: druk op jezelf zetten met deadlines, een gevoel van urgentie kweken alsof elke taak haast heeft, en single handling, een taak eenmaal opstarten en niet meer neerleggen voordat hij af is. Tracy noemt afleiding en herhaaldelijk wisselen tussen taken de grootste sluipmoordenaar van productiviteit, meer dan luiheid zelf.</p>
+      <p>Techniek krijgt in dit deel ook aandacht, met een waarschuwing dat e-mail en andere schermen een goede dienaar zijn zolang ze bewust worden ingezet, en een slechte meester zodra ze de dag ongemerkt overnemen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kikker</td><td>De belangrijkste, lastigste taak van de dag, degene die het meest wordt uitgesteld en het meest oplevert.</td></tr>
+          <tr><td class="term">80/20-regel</td><td>Het idee dat twintig procent van de taken tachtig procent van het resultaat oplevert.</td></tr>
+          <tr><td class="term">ABCDE-methode</td><td>Prioriteiten stellen door elke taak een letter te geven naar de ernst van de gevolgen als hij niet gebeurt.</td></tr>
+          <tr><td class="term">Creatief uitstellen</td><td>Bewust laagwaardige taken laten liggen om ruimte te maken voor de taken die er echt toe doen.</td></tr>
+          <tr><td class="term">Salamimethode</td><td>Een groot project in dunne plakken snijden en per keer aan één plak werken.</td></tr>
+          <tr><td class="term">Single handling</td><td>Een taak eenmaal oppakken en niet neerleggen voordat hij af is.</td></tr>
+          <tr><td class="term">Belangrijkste beperking</td><td>De ene factor die het meest in de weg zit om sneller resultaat te boeken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek en verwijst nauwelijks naar bronnen buiten Tracy's eigen ervaring als spreker, trainer en, naar eigen zeggen, adviseur van veel professionals in verkoop en management. De 80/20-regel wordt aangehaald als algemeen principe, ontleend aan de econoom Vilfredo Pareto, maar zonder dat Tracy die toepassing op takenlijsten met gegevens onderbouwt.</p>
+      <p>De kracht van het boek zit in de herkenbaarheid van de technieken en in het gemak waarmee ze zijn te proberen: een lezer kan de ABCDE-methode dezelfde dag nog toepassen en zelf zien of het iets oplevert. Dat is iets anders dan bewijs dat de methode breder werkt dan de anekdotes die Tracy aanhaalt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het belangrijkste bezwaar is dat de 21 technieken elkaar deels overlappen en dat het boek niet uitlegt hoe ze zich tot elkaar verhouden: de ABCDE-methode, de 80/20-regel en creatief uitstellen komen allemaal neer op hetzelfde advies om prioriteiten te stellen, in net iets andere bewoordingen. Wie één hoofdstuk goed leest, heeft de kern van de andere al gezien.</p>
+      <p>Verder veronderstelt het boek dat uitstelgedrag vooral een kwestie van planning en discipline is, en besteedt het weinig aandacht aan uitstel dat voortkomt uit angst, perfectionisme of overbelasting, factoren die in later onderzoek naar procrastinatie juist centraal staan. Wie vastloopt om een andere reden dan een gebrek aan structuur, vindt in dit boek weinig aanknopingspunten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal aan het begin van de dag welke taak de kikker is en doe die als eerste, voordat e-mail of andere kleinere klussen aan de beurt komen.</li>
+        <li>Geef aan het eind van elke dag de taken voor morgen een letter van A tot E naar belang.</li>
+        <li>Splits een project dat te groot aanvoelt in een eerste, kleine plak waaraan vandaag nog te beginnen is.</li>
+        <li>Zet een timer voor een vaste periode en werk in die tijd aan niets anders dan de gekozen taak.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Eat That Frog!: 21 Great Ways to Stop Procrastinating and Get More Done in Less Time</i> (Berrett-Koehler Publishers, 2001, 131 blz., ISBN 978-1-57675-198-5), sindsdien meerdere malen herzien en uitgebreid. Nederlands als <i>Eat that frog</i>, vertaald door Henny Corver (Maven Publishing, eerste druk 2017, ISBN 9789492493071; herziene editie 2025, ISBN 9789493434097); eerder verscheen ook een vertaling onder de titel <i>Slik die kikker!</i> (ISBN 9789059440302).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tracy vertrekt van een uitspraak die aan Mark Twain wordt toegeschreven: wie 's ochtends als eerste een levende kikker opeet, heeft de rest van de dag niets ergers meer te verwachten. De kikker staat bij Tracy voor de belangrijkste en lastigste taak van de dag, degene die het meest wordt uitgesteld en tegelijk het meest oplevert. Zijn advies is die taak als eerste te doen, voordat er tijd verloren gaat aan makkelijkere zaken.</p><p>Het boek bestaat uit 21 korte hoofdstukken, elk met één methode om prioriteiten te stellen of uitstelgedrag te doorbreken, van het vooraf plannen van elke dag tot het opknippen van een groot project in behapbare stukken. Tracy schreef het vanuit zijn werk als spreker en trainer in verkoop en persoonlijke effectiviteit, en het boek staat in de praktische, opsommende stijl van dat vak.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>productiviteit</li><li>timemanagement</li><li>uitstelgedrag</li><li>prioriteren</li><li>zelfdiscipline</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport werkt uit wat er nodig is om aan een taak vast te houden zodra die eenmaal is gekozen, met meer aandacht voor de omgeving dan Tracy.</li>
+          <li value="151"><a href="151.html">Essentialism</a>. McKeown stelt een vergelijkbare vraag over prioriteren, maar dan op het niveau van welke verplichtingen iemand aangaat en niet van de dagplanning.</li>
+          <li value="278"><a href="278.html">The 4-Hour Workweek</a>. Ferriss werkt de 80/20-regel verder uit tot een radicalere vraag: welke taken helemaal kunnen vervallen in plaats van alleen later aan de beurt komen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On the Move: A Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sacks stelt dat een leven zich niet laat samenvatten in het werk waarmee iemand bekend wordt, en zet in deze autobiografie zijn eigen roekeloosheid, zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-325">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">325 &middot; Roman en memoir</p>
+    <h1>On the Move: A Life</h1>
+    <p class="lede">Oliver Sacks, 2015</p>
+    <p class="stats">
+      <span><b>1211</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="325"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sacks stelt dat een leven zich niet laat samenvatten in het werk waarmee iemand bekend wordt, en zet in deze autobiografie zijn eigen roekeloosheid, zijn verslaving en zijn decennialange seksuele onthouding naast de neuroloog die patiënten met de grootste zorgvuldigheid beschreef. De vraag die het boek openhoudt, is hoe die twee figuren, de man die op de motor de Californische snelwegen afraasde en de arts die dagen aan één enkele patiënt kon besteden, één en dezelfde persoon zijn. Sacks beantwoordt die vraag niet met een verklaring maar met een opsomming van wat er allemaal tegelijk in hem omging.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een motor in Greenwich Village</h3>
+      <p><i>On the Move</i> opent met een foto op het omslag: Sacks als jonge man in een leren jack op zijn motor, Greenwich Village, 1961. Die openingsbeweging zet de toon voor het hele boek, dat zijn leven voorstelt als een aaneenschakeling van uitersten, van zwemmen tot gewichtheffen tot drugsgebruik tot het schrijven van boeken in koortsachtige periodes.</p>
+      <p>Sacks schreef het boek kort voordat bekend werd dat hij ongeneeslijk ziek was; hij maakte dat nieuws zelf bekend in een essay in The New York Times begin 2015, hetzelfde jaar waarin <i>On the Move</i> verscheen. Dat gegeven hangt niet expliciet boven de tekst, maar geeft het boek achteraf het karakter van een afronding.</p>
+      <h3>Oxford en de eerste openheid</h3>
+      <p>Sacks studeerde geneeskunde in Oxford. Op zijn achttiende vertelde hij zijn vader over zijn aantrekking tot mannen; zijn vader gaf dat door aan zijn moeder, die er volgens Sacks aan toevoegde: 'Je bent een gruwel. Ik wou dat je nooit geboren was.' Sacks schrijft dat die zin decennialang is blijven doorwerken in schuldgevoel en seksuele terughoudendheid.</p>
+      <p>Het boek behandelt dit moment kort, in enkele zinnen, ondanks het gewicht dat het in de rest van zijn leven blijkt te hebben gehad. Recensenten hebben dat contrast tussen de impact en de beknoptheid van de beschrijving opgemerkt als kenmerkend voor zijn manier van schrijven over zichzelf.</p>
+      <h3>Muscle Beach en amfetamine</h3>
+      <p>In Californië combineert Sacks gewichtheffen op Muscle Beach, waar hij een squat-record van 272 kilo (600 pond) zet, met een jarenlange verslaving aan amfetamine. Hij beschrijft periodes van roekeloos motorrijden en manische werklust naast periodes van instorting, waaronder een crisis waarin een vriendin die hij Carol noemt hem met gerichte vragen terugbrengt naar de werkelijkheid.</p>
+      <p>Rond 1966 stopt hij met de drugs, geholpen door psychotherapie die hij daarna decennialang voortzet. Het boek maakt niet duidelijk wat in die behandeling precies de doorslag gaf; Sacks noemt vooral dat hij bleef gaan.</p>
+      <h3>New York en de vergeten patiënten</h3>
+      <p>Als neuroloog in New York gaat Sacks werken met patiënten die na de encefalitis-epidemie van de jaren twintig decennialang in een roerloze toestand op een verpleegafdeling hadden geleefd. Zijn behandeling van die postencefalitische patiënten met het middel L-dopa levert de stof voor zijn boek <i>Awakenings</i> (1973).</p>
+      <p>Voor dat succes wordt hij herhaaldelijk ontslagen ondanks, of volgens collega's soms juist vanwege, het ongebruikelijke werk dat hij doet. Zichzelf noemt hij in die jaren zowel een gêne als een sieraad voor zijn afdeling neurologie.</p>
+      <h3>Een boek in negen dagen</h3>
+      <p>Zijn eerste boek, over migraine, schrijft Sacks in 1970 in een aaneengesloten, koortsachtige periode van negen dagen. Dat patroon van gedreven, geconcentreerd schrijven in korte, intense periodes keert in het boek meerdere keren terug, en Sacks verbindt het zelf aan dezelfde energie die hem als jongeman naar gewichtheffen en motorrijden dreef.</p>
+      <p><i>Awakenings</i> brengt hem in 1973 uiteindelijk de erkenning die eerder uitbleef. Zijn moeder, met wie de verhouding na haar reactie op zijn geaardheid nooit meer hetzelfde was, overlijdt voordat ze dat succes meemaakt.</p>
+      <h3>Zijn broer Michael</h3>
+      <p>Tijdens de Tweede Wereldoorlog wordt Sacks als kind geëvacueerd naar een kostschool waar hij naar eigen zeggen is mishandeld, een episode die hij kort behandelt. Zijn broer Michael krijgt op jonge leeftijd de diagnose schizofrenie, en Sacks beschrijft die band als een van de weinige constanten in een verder onrustig gezinsleven.</p>
+      <p>Het boek geeft aan de rest van het gezin, buiten zijn ouders en Michael, weinig ruimte. Wie op zoek is naar een volledig portret van de familie, vindt dat hier niet.</p>
+      <h3>Vijfendertig jaar en Billy Hayes</h3>
+      <p>Na Carol volgen decennia waarin Sacks naar eigen zeggen vrijwel geen seksuele relaties heeft, deels als nawerking van de reactie van zijn moeder. Pas na zijn vijfenzeventigste vindt hij een partner, de schrijver Billy Hayes, van wie hij het samenleven beschrijft als een rustige, veelzijdige verbinding van twee levens.</p>
+      <p>Het boek sluit daarmee dicht bij het heden van het schrijven zelf, en laat zien hoe laat in een lang leven iets nog kan veranderen wat decennialang vaststond.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Muscle Beach-record</td><td>De 272 kilo (600 pond) die Sacks op de squat tilde, voordat een spierscheuring aan zijn dijbenen een einde maakte aan het gewichtheffen.</td></tr>
+          <tr><td class="term">Postencefalitische patiënten</td><td>De patiënten met de nasleep van de encefalitis-epidemie van de jaren twintig, wier behandeling met L-dopa de stof voor <i>Awakenings</i> leverde.</td></tr>
+          <tr><td class="term">Prosopagnosie</td><td>Het onvermogen gezichten te herkennen waaraan Sacks zelf leed, en dat hij zonder zelfmedelijden beschrijft.</td></tr>
+          <tr><td class="term">'Physician, teacher and storyteller'</td><td>De omschrijving die Sacks zelf van zijn beroep gaf.</td></tr>
+          <tr><td class="term">Dagboeken</td><td>De notities die hij vanaf zijn veertiende bijhield en die het materiaal voor dit boek leverden.</td></tr>
+          <tr><td class="term">Kostschoolperiode</td><td>De oorlogsevacuatie naar een school waar hij naar eigen zeggen mishandeld werd.</td></tr>
+          <tr><td class="term">Vijfendertig jaar onthouding</td><td>De periode tussen zijn crisis in Californië en zijn latere partnerschap met Billy Hayes.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Sacks bouwt het boek op uit dagboeken die hij vanaf zijn veertiende bijhield, familiebrieven en ongepubliceerde essays. Dat levert een gedetailleerd verslag op, vooral over zijn studietijd in Oxford en zijn eerste jaren als arts, periodes waarover hij explicieter schrijft dan over zijn jeugd.</p>
+      <p>Recensent Helen Epstein wijst erop dat Sacks' geanalyseerde, klinische schrijfstijl, die in zijn patiëntenboeken zo goed werkt, in een memoir minder oplevert: emotioneel zware momenten, zoals de reactie van zijn moeder of de mishandeling op kostschool, worden kort en feitelijk beschreven. Hij onderging vijftig jaar psychoanalyse, maar het boek legt weinig van de psychologische verklaring bloot die dat zou kunnen opleveren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de verhouding tussen wat er gebeurde en hoe kort dat wordt beschreven. De woorden van zijn moeder en de kostschoolmishandeling worden genoemd, niet uitgewerkt, terwijl ze in de rest van het boek als verklaring voor latere terughoudendheid blijven terugkeren.</p>
+      <p>Het gezin blijft schetsmatig: zijn vader krijgt meer aandacht dan zijn moeder, en over zijn andere broers dan Michael staat vrijwel niets. Wie de familie achter Sacks wil begrijpen, moet het met fragmenten doen.</p>
+      <p>Dat Sacks het boek schreef wetend dat hij ongeneeslijk ziek was, is niet met zekerheid vast te stellen als reden voor de nadruk op verzoening en nalatenschap in plaats van op onopgeloste spanning, maar de timing maakt die lezing aannemelijk.</p>
+      <p>Ten slotte blijft, ondanks vijftig jaar therapie, de vraag waarom juist gewichtheffen, motorrijden en drugsgebruik de vorm werden waarin zijn onrust zich uitte, grotendeels onbeantwoord. Het boek beschrijft het patroon uitvoerig zonder het te verklaren.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>On the Move: A Life</i> (Knopf, 2015), zijn tweede autobiografie na <i>Uncle Tungsten: Memories of a Chemical Boyhood</i> (2001). Nederlands als <i>Onderweg</i> bij De Bezige Bij (2015, vertaald door Otto Biersma en Luud Dorresteijn, ca. 427 blz., ISBN 9789023496458).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De neuroloog en schrijver Oliver Sacks publiceerde <i>On the Move</i> kort voordat bekend werd dat hij ongeneeslijk ziek was, als zijn tweede en persoonlijkste autobiografie. Het boek volgt hem van een jeugd in Londen en de kostschool waar hij tijdens de oorlog naartoe werd gestuurd, via een gewichtheffersbestaan op Muscle Beach en een verslaving aan amfetamine in Californië, naar de New Yorkse ziekenhuisafdelingen waar hij de patiënten ontmoette over wie hij later schreef.</p><p>Sacks vertelde zijn vader op zijn achttiende al over zijn homoseksualiteit; zijn moeder reageerde met woorden die hem decennialang zouden bijblijven. Pas na zijn vijfenzeventigste vond hij, na vijfendertig jaar onthouding, een partner. <i>On the Move</i> zet die geschiedenis naast zijn werk als arts, en naast zijn broer Michael, bij wie op jonge leeftijd schizofrenie werd vastgesteld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>neurologie</li><li>homoseksualiteit</li><li>verslaving</li><li>motorfietsen</li><li>familie</li><li>schrijverschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="49"><a href="49.html">When Breath Becomes Air</a>. Kalanithi schrijft eveneens als arts over het eigen leven, maar dan wetend dat hij op korte termijn zal sterven, wat de toon nog directer maakt.</li>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Moehringer bouwt zijn memoir op rond mannen die een vaderrol overnemen, waar Sacks juist worstelt met de aanwezige vader en de afwijzende moeder.</li>
+          <li value="45"><a href="45.html">Educated</a>. Westover beschrijft eveneens een breuk met het gezin van herkomst en een identiteit die pas laat en via een omweg tot stand komt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zero to One &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thiel stelt dat economische vooruitgang niet komt van concurrentie maar van het vermijden ervan: bedrijven die een markt kopiëren en er iets beter in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-306">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">306 &middot; Geld en ondernemen</p>
+    <h1>Zero to One</h1>
+    <p class="lede">Peter Thiel met Blake Masters, 2014</p>
+    <p class="stats">
+      <span><b>1470</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="306"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thiel stelt dat economische vooruitgang niet komt van concurrentie maar van het vermijden ervan: bedrijven die een markt kopiëren en er iets beter in zijn, groeien de concurrentie in en verliezen daardoor het geld en de tijd om nieuwe dingen te bouwen; bedrijven die iets maken dat nog niet bestond, hoeven niet te concurreren en kunnen het monopolie dat daaruit volgt gebruiken om verder te investeren. Concurrentie is voor Thiel een ideologie die bedrijven arm maakt terwijl zij pretendeert hen scherp te houden, en een gezond monopolie is voor hem geen gevaar voor de vooruitgang maar de voorwaarde ervoor. Wie dat betwist, kan wijzen op wat monopolies doen met de klanten die geen alternatief meer hebben.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van 0 naar 1 tegenover 1 naar n</h3>
+      <p>Thiel opent met het onderscheid dat het boek zijn titel geeft. Horizontale vooruitgang, 1 naar n, is het kopiëren van iets wat al werkt: een tweede fabriek naast de eerste, een tweede webwinkel naast de eerste. Verticale vooruitgang, 0 naar 1, is het maken van iets nieuws waar nog niets van bestond.</p>
+      <p>Zijn stelling is dat de twintigste eeuw vooral horizontale vooruitgang kende, uitbreiding van wat al werkte over de hele wereld, en dat technologische vooruitgang in enge zin, dus 0 naar 1, zeldzamer is en meer aandacht verdient dan zij krijgt.</p>
+      <h3>Waarom concurrentie een mythe is</h3>
+      <p>Het middendeel van het boek keert de gangbare wijsheid om. Waar economieboeken concurrentie als de motor van vooruitgang beschrijven, stelt Thiel dat concurrentie vooral energie verspilt: bedrijven in een concurrerende markt besteden hun tijd aan het verslaan van elkaar in plaats van aan het bouwen van iets nieuws, en de winstmarges worden daardoor tot bijna niets teruggebracht.</p>
+      <p>Zijn tegenvoorbeeld is het monopolie: een bedrijf zonder directe concurrenten kan zich veroorloven om aan de lange termijn te denken, aan werknemers, aan producten die nog niet af zijn. Thiel noemt dat een creatief monopolie, in tegenstelling tot een monopolie dat ontstaat door het kapotconcurreren van anderen of door overheidsbescherming.</p>
+      <h3>Zeven vragen voor een start-up</h3>
+      <p>Om te bepalen of een bedrijf kans maakt op zo'n monopolie, geeft Thiel zeven vragen die het volgens hem allemaal goed moet beantwoorden: heeft het een technische doorbraak, is het moment juist, begint het klein genoeg om een niche te domineren, heeft het het juiste team, heeft het een plan om klanten te bereiken, houdt het positie tien of twintig jaar stand, en heeft het een geheim dat anderen niet zien.</p>
+      <p>Die laatste vraag, het geheim, komt het vaakst terug in het boek. Volgens Thiel geloven te weinig ondernemers nog dat er onontdekte waarheden bestaan, en dat gebrek aan geloof is voor hem een groter obstakel voor vooruitgang dan gebrek aan kapitaal.</p>
+      <h3>Definitief optimisme</h3>
+      <p>Thiel onderscheidt vier houdingen tegenover de toekomst: definitief of vaag, optimistisch of pessimistisch. Een definitief optimist gelooft dat de toekomst beter wordt en dat mensen die toekomst kunnen plannen en bouwen. Een vaag optimist gelooft ook dat het beter wordt, maar zonder een plan, in het vertrouwen dat het vanzelf goed komt.</p>
+      <p>Zijn kritiek richt zich vooral op de Verenigde Staten van na de jaren zeventig, die hij vaag optimistisch noemt: een cultuur die wel in vooruitgang gelooft maar nauwelijks nog grote, geplande projecten onderneemt en in plaats daarvan optimalisatie en financiële constructies verkiest boven het bouwen van iets nieuws.</p>
+      <h3>Mensen en teams</h3>
+      <p>Een deel van het boek gaat over hoe zo'n bedrijf wordt opgebouwd. Thiel raadt af om met te veel losse partijen te beginnen: te veel adviseurs, te veel deeltijdmedewerkers, te veel externe investeerders zonder betrokkenheid, want een start-up heeft volgens hem een klein aantal mensen nodig die zich volledig en op dezelfde manier binden.</p>
+      <p>Hij bespreekt ook de PayPal-mafia, de groep vroege medewerkers van PayPal die na de verkoop van het bedrijf onder meer Tesla, LinkedIn en YouTube oprichtten, als voorbeeld van wat een hecht, klein oprichtersteam later kan opleveren.</p>
+      <h3>Verkopen wordt onderschat</h3>
+      <p>Thiel besteedt aandacht aan distributie en verkoop, een onderwerp dat volgens hem door technische oprichters wordt onderschat. Een goed product verkoopt zichzelf niet, schrijft hij, en de overtuiging dat het dat wel doet is zelf een verkooppraatje dat technische mensen elkaar vertellen om distributie te kunnen negeren.</p>
+      <p>Hij onderscheidt verschillende verkoopmodellen naar de prijs en de complexiteit van het product, van reclame voor goedkope consumentenproducten tot persoonlijke verkoop voor grote, complexe contracten, en stelt dat elk bedrijf minstens één van die kanalen goed moet beheersen om te overleven.</p>
+      <h3>Mensen tegenover machines</h3>
+      <p>In het laatste deel plaatst Thiel technologie tegenover globalisering als de twee manieren waarop de wereld vooruit kan. Globalisering, het overal ter wereld invoeren van wat al werkt, botst volgens hem op de grenzen van grondstoffen als de wereld niet ook technisch vooruitgaat. Hij verwerpt het idee dat computers mensen zullen vervangen en pleit voor bedrijven die mens en machine samen sterker maken, met zijn eigen bedrijf Palantir als voorbeeld.</p>
+      <h3>Ontvangst</h3>
+      <p>Het boek werd na verschijnen een standaardwerk in startup-opleidingen en wordt sindsdien breed gebruikt als inleiding tot durfkapitaaldenken. De herkomst als collegeaantekeningen is in de tekst nog te herkennen: elk hoofdstuk behandelt één afgebakende stelling, zonder de bredere literatuurverwijzingen die een economisch handboek zou bevatten.</p>
+      <p>Diezelfde herkomst verklaart ook de toon: Thiel spreekt de lezer aan als een groep aankomende oprichters die hij ervan wil overtuigen anders te denken dan de gangbare wijsheid in durfkapitaalkringen, niet als een algemeen publiek dat een uitgebalanceerd overzicht van ondernemerschap zoekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">0 naar 1</td><td>Het maken van iets nieuws dat nog niet bestond, tegenover het kopiëren van wat al werkt.</td></tr>
+          <tr><td class="term">1 naar n</td><td>Horizontale vooruitgang: iets wat al bestaat, uitbreiden of verbeteren zonder het wezenlijk te veranderen.</td></tr>
+          <tr><td class="term">Creatief monopolie</td><td>Een monopolie dat ontstaat doordat een bedrijf iets bijzonders maakt, tegenover een monopolie door concurrentievervalsing.</td></tr>
+          <tr><td class="term">Definitief optimisme</td><td>Het geloof dat de toekomst beter wordt én dat die toekomst gepland en gebouwd kan worden.</td></tr>
+          <tr><td class="term">Vaag optimisme</td><td>Het geloof dat het beter wordt, zonder een plan voor hoe dat gebeurt.</td></tr>
+          <tr><td class="term">Het geheim</td><td>Een waarheid over de wereld die weinig mensen zien en waarop een start-up haar voorsprong kan bouwen.</td></tr>
+          <tr><td class="term">PayPal-mafia</td><td>De groep vroege PayPal-medewerkers die na de verkoop van het bedrijf onder meer Tesla, LinkedIn en YouTube oprichtten.</td></tr>
+          <tr><td class="term">Zeven vragen</td><td>De toets waarmee Thiel een start-up beoordeelt, van technische doorbraak tot een geheim dat anderen niet zien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Thiels bewijsvoering bestaat vrijwel volledig uit zijn eigen ervaring als medeoprichter van PayPal, vroeg investeerder in Facebook en oprichter van Palantir, aangevuld met de bedrijven die hij als investeerder van dichtbij zag. Het boek bevat geen dataset, geen vergelijkend onderzoek naar bedrijven die wel en niet volgens zijn principes werkten, en geen poging om zijn stelling te toetsen aan bedrijven die faalden ondanks een schijnbaar monopolie.</p>
+      <p>De kracht van het boek zit in de scherpte van de stellingen en in de weinige, goed gekozen voorbeelden, waaronder PayPal zelf. Dat is overtuigend als betoog en zwak als bewijs: een handvol geslaagde voorbeelden van iemand die zelf in die bedrijven zat, zegt weinig over hoeveel bedrijven met dezelfde aanpak faalden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat Thiel terugredeneert vanuit bedrijven die een monopolie bereikten, zonder de veel grotere groep bedrijven te bespreken die precies dezelfde principes volgden, een geheim claimden, klein begonnen, en toch verdwenen. Zonder die vergelijking is niet vast te stellen of zijn adviezen de oorzaak van succes waren of alleen achteraf bij geslaagde bedrijven passen.</p>
+      <p>Zijn pleidooi voor monopolies gaat bovendien voorbij aan wat een monopolie met klanten doet zodra de concurrentie eenmaal weg is: prijzen die stijgen, keuzevrijheid die verdwijnt, macht die zich ophoopt. Thiel bespreekt vooral wat een monopolie voor het bedrijf zelf oplevert, en nauwelijks wat het de rest van de markt kost.</p>
+      <p>Het boek is verder sterk gekleurd door de wereld van Silicon Valley-technologiebedrijven met investeerderskapitaal, en de adviezen over klein beginnen, een hecht team en een technisch geheim vertalen zich lastig naar bedrijven buiten die specifieke wereld, iets wat Thiel zelf ook nauwelijks probeert.</p>
+      <p>Zijn positie als investeerder maakt hem bovendien een belanghebbende partij: dezelfde overtuigingen die het boek verdedigt, bepalen ook welke bedrijven zijn fondsen financieren, wat de scheiding tussen analyse en eigenbelang niet vanzelfsprekend maakt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel bij een nieuw plan de vraag welke waarheid je gelooft die de meeste mensen om je heen niet delen.</li>
+        <li>Ga na of je begint in een markt klein genoeg om te domineren, in plaats van meteen breed te concurreren.</li>
+        <li>Kijk kritisch naar hoeveel losse partijen, adviseurs en deeltijdbetrokkenen bij je plan horen, en overweeg dat aantal te beperken.</li>
+        <li>Bedenk minstens één kanaal waarlangs klanten je product actief te weten komen, in plaats van te rekenen op vanzelf verspreiden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Zero to One: Notes on Startups, or How to Build the Future</i> (Crown Business, 16 september 2014, 224 blz., ISBN 9780804139298), gebaseerd op collegeaantekeningen van Blake Masters bij Thiels vak aan Stanford (voorjaar 2012). Nederlands als <i>Zero to one: creëer de toekomst</i> (Business Contact, vertaling Jan Willem Reitsma, 235 blz., ISBN 9789047007265).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thiel, medeoprichter van PayPal en vroege investeerder in Facebook, dicteerde dit boek op basis van collegeaantekeningen van zijn student Blake Masters bij het vak dat hij in 2012 aan Stanford gaf. Zijn stelling is dat vooruitgang niet komt van het kopiëren en verbeteren van wat al bestaat, wat het boek 1 naar n noemt, maar van het maken van iets dat nog niet bestond, van 0 naar 1.</p><p>Bedrijven die daarin slagen, bouwen volgens hem een tijdelijk monopolie, en dat monopolie is volgens Thiel geen probleem maar het doel: alleen een monopolist heeft de winst en de rust om verder te bouwen aan de toekomst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>start-ups</li><li>innovatie</li><li>monopolie</li><li>Silicon Valley</li><li>strategie</li><li>technologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz beschrijft vanuit dezelfde Silicon Valley-wereld wat er gebeurt zodra een bedrijf, monopolie of niet, in de problemen komt.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries zet tegenover Thiels grote visie een methode om snel te toetsen of een idee klopt voordat er groot op wordt ingezet.</li>
+          <li value="293"><a href="293.html">The Innovator's Dilemma</a>. Christensen verklaart vanuit onderzoek waarom gevestigde monopolisten juist kwetsbaar zijn voor nieuwe 0-naar-1-bedrijven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DotCom Secrets &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Brunsons stelling is dat een online bedrijf niet één product verkoopt maar een klant door een reeks aanbiedingen leidt die in prijs en toewijding oplopen,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-309">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">309 &middot; Geld en ondernemen</p>
+    <h1>DotCom Secrets</h1>
+    <p class="lede">Russell Brunson, 2015</p>
+    <p class="stats">
+      <span><b>1406</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="309"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Brunsons stelling is dat een online bedrijf niet één product verkoopt maar een klant door een reeks aanbiedingen leidt die in prijs en toewijding oplopen, van gratis naar duur, en dat wie die reeks niet bewust inricht klanten misloopt aan concurrenten die dat wel doen. Hij noemt die reeks de Value Ladder en stelt dat bedrijven vaker mislukken doordat ze een klant maar één aanbod voorleggen dan doordat hun product slecht is. Daar valt tegenover te zetten dat een oplopende reeks aanbiedingen evengoed kan neerkomen op een klant steeds verder een trechter injagen in plaats van hem daadwerkelijk beter bedienen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De basisformule</h3>
+      <p>Brunson opent met wat hij de Secret Formula noemt: vier vragen die aan elke marketinginspanning voorafgaan. Wie is de droomklant, waar komt die groep samen, welk lokmiddel trekt hun aandacht, en welk resultaat krijgen ze uiteindelijk aangeboden. Die volgorde dwingt om eerst het publiek te bepalen voordat er over het product wordt nagedacht.</p>
+      <p>Het idee achter deze volgorde is dat de meeste ondernemers omgekeerd te werk gaan: ze bedenken een product en zoeken daarna een publiek erbij. Brunson draait dat om en stelt het publiek voorop.</p>
+      <h3>De Value Ladder</h3>
+      <p>Het middelpunt van het boek is een ladder van aanbiedingen die in prijs en toewijding oplopen: onderaan een gratis of zeer goedkoop aanbod om iemand voor het eerst klant te maken, daarboven een reeks producten en diensten die duurder worden naarmate het vertrouwen groeit. Brunson stelt dat een bedrijf zonder deze ladder klanten na de eerste aankoop kwijtraakt aan wie wel een vervolgaanbod klaar heeft staan.</p>
+      <p>Hij onderscheidt daarbij front-end aanbiedingen, die klanten binnenhalen, van back-end aanbiedingen, die de winst opleveren, en stelt dat de meeste bedrijven al hun aandacht op het front-end besteden terwijl het geld verderop in de ladder zit.</p>
+      <h3>De Attractive Character</h3>
+      <p>In het tweede deel introduceert Brunson wat hij de Attractive Character noemt: een persoonlijk, herkenbaar personage rond wie de communicatie van een bedrijf draait, meestal de oprichter zelf. Hij onderscheidt daarbinnen vaste rollen, zoals de aanvoerder die de weg wijst en de verloren ziel die net als de lezer nog zoekende is.</p>
+      <p>Het argument is dat mensen kopen van mensen en niet van bedrijven, en dat een anoniem logo minder vertrouwen wekt dan een herkenbaar gezicht met een eigen verhaal.</p>
+      <h3>Soap Opera Sequence en Seinfeld-mails</h3>
+      <p>Voor e-mailmarketing werkt Brunson twee vaste volgordes uit. De Soap Opera Sequence is een reeks van vijf tot zeven e-mails na aanmelding, opgebouwd als een feuilleton, met een cliffhanger aan het eind van elke mail om de volgende geopend te krijgen. Daarna volgen de Seinfeld-mails, dagelijkse berichten zonder vaste opbouw die losse verhalen uit het dagelijks leven verbinden aan het aanbod.</p>
+      <p>Beide volgordes zijn bedoeld om een lijst met e-mailadressen te veranderen in een groep die het bedrijf blijft volgen in plaats van na één mail af te haken.</p>
+      <h3>Trechters voor elke situatie</h3>
+      <p>Het derde deel van het boek is een verzameling kant-en-klare trechters: een squeeze-pagetrechter om e-mailadressen te verzamelen, een productlanceringstrechter voor een nieuw aanbod, een webinartrechter om een groep tegelijk naar een verkoopmoment te leiden en een doorlopende trechter voor abonnementen.</p>
+      <p>Voor elke trechter geeft Brunson de volgorde van pagina's en de boodschap per stap, met als terugkerend idee dat een trechter geen losse verkooppagina is maar een reeks stappen die elkaar opvolgen.</p>
+      <h3>Meer verkopen na het eerste ja</h3>
+      <p>Een terugkerend onderdeel van de trechters is wat er gebeurt zodra iemand al heeft besloten te kopen. Brunson beschrijft de order bump, een aankruisvakje bij het betaalformulier waarmee een klant tegen een kleine meerprijs een aanvullend product toevoegt, en stelt dat zulke toevoegingen een groot deel van de winst van een trechter opleveren omdat iemand die al koopt eerder nog iets extra's aanschaft.</p>
+      <p>Na de betaling volgt vaak een eenmalig vervolgaanbod, een duurder product dat rechtstreeks aansluit op de eerste aankoop. Wijst de klant dat af, dan komt er een downsell: hetzelfde aanbod in een goedkopere vorm of met een gespreide betaling. Brunson illustreert dat met een eigen proef waarin een gratis verzendaanbod veertien procent van de bezoekers liet kopen, tegenover achtentwintig procent zodra daar een luisterboek met een onuitgegeven hoofdstuk voor 37 dollar tegenover stond.</p>
+      <h3>Funnel hacking</h3>
+      <p>Brunson raadt aan om de trechters van succesvolle concurrenten als klant te doorlopen, de pagina's, e-mails en aanbiedingen te noteren, en de eigen trechter daarop te baseren in plaats van bij een leeg scherm te beginnen. Hij noemt dat funnel hacking en presenteert het als de snelste manier om te weten wat in een markt al werkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Value Ladder</td><td>De reeks aanbiedingen van een bedrijf, oplopend in prijs en toewijding, van gratis tot het duurste product.</td></tr>
+          <tr><td class="term">Secret Formula</td><td>De vier vragen die aan elke marketinginspanning voorafgaan: droomklant, verzamelplek, lokmiddel, resultaat.</td></tr>
+          <tr><td class="term">Front-end en back-end</td><td>Front-end is het aanbod dat klanten binnenhaalt, back-end het duurdere vervolgaanbod dat de winst oplevert.</td></tr>
+          <tr><td class="term">Attractive Character</td><td>Het persoonlijke personage, meestal de oprichter, rond wie de communicatie van het bedrijf draait.</td></tr>
+          <tr><td class="term">Soap Opera Sequence</td><td>De reeks e-mails na aanmelding, opgebouwd als een feuilleton met een cliffhanger per aflevering.</td></tr>
+          <tr><td class="term">Seinfeld-mails</td><td>Dagelijkse e-mails zonder vaste opbouw die alledaagse verhalen aan het aanbod koppelen.</td></tr>
+          <tr><td class="term">Funnel hacking</td><td>De trechter van een concurrent doorlopen en naspelen om snel te weten wat in een markt werkt.</td></tr>
+          <tr><td class="term">Trechter</td><td>De vaste reeks pagina's die een bezoeker doorloopt van eerste contact tot aankoop.</td></tr>
+          <tr><td class="term">Order bump</td><td>Een aankruisvakje bij het betaalformulier waarmee een klant tegen een meerprijs een extra product toevoegt.</td></tr>
+          <tr><td class="term">Downsell</td><td>Een goedkoper alternatief dat wordt aangeboden zodra een klant een duurder vervolgaanbod afwijst.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op Brunsons eigen ervaring als oprichter van meerdere online bedrijven van voor zijn ClickFunnels-tijd, en op wat hij bij klanten van zijn softwarebedrijf zag werken. Er worden geen onafhankelijke cijfers, steekproeven of vergelijkende testen aangehaald; de voorbeelden zijn casussen uit zijn eigen netwerk, zonder bronvermelding die een lezer zelf kan natrekken.</p>
+      <p>Het boek is bovendien geschreven als opstap naar een product: ClickFunnels bouwt de trechters die Brunson beschrijft, en het boek functioneert zelf als voorbeeld van de front-end/back-end-ladder die het uitlegt. Dat betekent niet dat de beschreven technieken niet werken, maar wel dat de auteur belang heeft bij de conclusie dat elk bedrijf zo'n trechter nodig heeft.</p>
+      <p>De cijfers die Brunson wel geeft, zoals de vergelijking tussen een gratis verzendaanbod en een luisterboek met een onuitgegeven hoofdstuk, zijn resultaten uit zijn eigen tests, gemeld zonder steekproefgrootte of nadere toelichting over hoe lang de test liep. Dat maakt zulke cijfers illustratief voor het idee erachter en niet toetsbaar als op zichzelf staand bewijs.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is het belangenconflict uit de vorige alinea: een boek dat pleit voor trechters, geschreven door iemand die een trechterbouwer verkoopt, heeft weinig reden om de grenzen van die aanpak te bespreken. Situaties waarin een simpele verkooppagina beter werkt dan een uitgebreide trechter komen niet aan bod.</p>
+      <p>Verder is de toon doorgaans die van stelligheid: bijna elke techniek wordt gepresenteerd als iets wat werkt, zonder cijfers over hoe vaak het misgaat of voor welk type product het niet past. De Attractive Character-rollen en de Soap Opera Sequence zijn bovendien sjablonen die inmiddels door duizenden bedrijven zijn overgenomen, wat de herkenbaarheid ervan bij lezers van al die bedrijven eerder heeft doen toenemen dan afnemen.</p>
+      <p>Het boek is verder gedateerd op punten waar Brunson dat zelf niet kon voorzien. Het verscheen in 2015, toen e-mail nog de belangrijkste manier was om een publiek vast te houden en advertentieplatforms minder verzadigd waren; sindsdien is e-maildeliverability strenger geworden en is een groot deel van het bereik verschoven naar kort videomateriaal, waar het boek niets over zegt. De onderliggende ladder-gedachte blijft overeind, maar de technische uitwerking van sommige trechters is aan een update toe.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf de eigen Value Ladder: welk gratis of goedkoop aanbod haalt klanten binnen, en welk duurder aanbod volgt daarna.</li>
+        <li>Doorloop de trechter van een concurrent als klant en noteer elke pagina en elke e-mail die daarop volgt.</li>
+        <li>Schrijf een reeks van vijf e-mails na aanmelding die elk eindigen op een vraag die de volgende mail beantwoordt.</li>
+        <li>Ga na of het huidige aanbod een front-end of een back-end product is, en welk aanbod aan de andere kant ontbreekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>DotCom Secrets: The Underground Playbook for Growing Your Company Online with Sales Funnels</i> (Morgan James Publishing, 28 april 2015, 236 blz., ISBN 9781630474775), het eerste boek van Brunson en de basis onder zijn softwarebedrijf ClickFunnels. Geen Nederlandse uitgave gevonden; de samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Brunson beschrijft hoe een online bedrijf klanten zou moeten leiden langs een reeks aanbiedingen met oplopende prijs en oplopende toewijding, van een gratis of zeer goedkoop eerste aanbod tot de duurste dienst die het bedrijf voert. Hij noemt die reeks de Value Ladder en bouwt het boek op rond het idee dat een bedrijf zonder zo'n ladder klanten verliest aan concurrenten die er wel een hebben.</p><p>Het boek is in drie delen opgebouwd: eerst de basisformule en de Value Ladder, dan de communicatie met klanten via e-mail, en ten slotte een reeks kant-en-klare verkooptrechters voor verschillende situaties, van een eerste kennismaking tot een terugkerend abonnement. Brunson schreef het als voorportaal voor zijn softwarebedrijf ClickFunnels, dat de besproken trechters bouwt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>marketing</li><li>verkooptrechters</li><li>online ondernemen</li><li>e-mailmarketing</li><li>klantwaarde</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="279"><a href="279.html">All Marketers Are Liars</a>. Godin schreef eerder al over marketing als verhaal vertellen, met minder nadruk op de technische opbouw van pagina's en e-mails.</li>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini's onderzoek naar overtuiging ligt onder technieken als de cliffhanger in de Soap Opera Sequence, dan wetenschappelijk in plaats van praktisch onderbouwd.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries beschrijft vanuit een andere invalshoek hoe een bedrijf zijn aanbod aan een markt aanpast, met meetbare experimenten in plaats van vaste sjablonen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

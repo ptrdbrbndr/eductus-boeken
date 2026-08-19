@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hope for Cynics &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Zaki stelt dat cynisme, het geloof dat mensen in de kern zelfzuchtig, oneerlijk en onbetrouwbaar zijn, geen realistische kijk op de wereld is maar een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-319">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">319 &middot; Geschiedenis en samenleving</p>
+    <h1>Hope for Cynics</h1>
+    <p class="lede">Jamil Zaki, 2024</p>
+    <p class="stats">
+      <span><b>1411</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="319"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Zaki stelt dat cynisme, het geloof dat mensen in de kern zelfzuchtig, oneerlijk en onbetrouwbaar zijn, geen realistische kijk op de wereld is maar een systematische onderschatting die zich met onderzoek laat weerleggen. Zijn stelling is dat mensen structureel somberder over elkaar denken dan de feiten rechtvaardigen, en dat deze vertekening zichzelf in stand houdt: wie anderen wantrouwt, gedraagt zich wantrouwig, en roept daarmee het gedrag op dat het wantrouwen leek te bevestigen. Als alternatief bepleit hij wat hij hoopvol scepticisme noemt: bereid zijn overtuigd te worden door bewijs, in plaats van bij voorbaat het slechtste aan te nemen, zonder daarbij in naïef optimisme te vervallen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een cynicus onderzoekt zichzelf</h3>
+      <p>Zaki opent met een persoonlijke bekentenis: ondanks twintig jaar onderzoek naar empathie en menselijke vriendelijkheid, betrapte hij zichzelf op een groeiend wantrouwen tegenover mensen in het algemeen. Die spanning tussen wat zijn onderzoek liet zien en wat hij voelde, vormt het uitgangspunt van het boek.</p>
+      <p>Tegenover zijn eigen cynisme zet hij zijn vriend en collega Emile Bruneau, een neurowetenschapper die vredesonderzoek deed naar conflicten tussen groepen en die, ook nadat hij in 2019 de diagnose hersentumor kreeg, opvallend hoopvol bleef tot aan zijn dood in 2020. Bruneaus houding werkt als tegenvoorbeeld door het hele boek heen.</p>
+      <h3>Wat cynisme is, en wat het niet is</h3>
+      <p>Zaki maakt een scherp onderscheid tussen cynisme en scepsis. Scepsis is een houding die vraagt om bewijs en die openstaat om van mening te veranderen. Cynisme is volgens hem een vooraf getrokken conclusie, het geloof dat mensen sowieso zelfzuchtig en oneerlijk zijn, waarna nieuw bewijs wordt genegeerd of weggeredeneerd.</p>
+      <p>Dat onderscheid is belangrijk omdat cynisme in het publieke debat vaak wordt aangezien voor scherpzinnigheid. Zaki wijst erop dat cynische mensen in onderzoek juist slechter scoren op taken die vragen om anderen correct in te schatten, wat erop wijst dat cynisme eerder een denkfout is dan een vorm van doorzicht.</p>
+      <h3>De vertrouwenskloof</h3>
+      <p>Centraal staat onderzoek uit Zaki's eigen laboratorium en dat van anderen naar wat hij de vertrouwenskloof noemt: het verschil tussen hoe eerlijk, aardig en behulpzaam mensen daadwerkelijk zijn in experimenten, en hoe eerlijk, aardig en behulpzaam mensen denken dat vreemden zijn. In herhaalde studies onderschatten proefpersonen de bereidheid van anderen om verloren voorwerpen terug te geven, om oneerlijk verkregen geld te melden en om een vreemde te helpen.</p>
+      <p>Hij koppelt dat aan een langlopende Amerikaanse enquête, de General Social Survey, waarin het aandeel mensen dat zegt de meeste mensen te vertrouwen daalde van ongeveer de helft in 1972 tot ongeveer een derde rond 2018. Die daling loopt volgens Zaki niet gelijk op met een daling van daadwerkelijk vertrouwenswaardig gedrag, wat de kloof tussen perceptie en werkelijkheid alleen maar groter maakt.</p>
+      <h3>Waarom cynisme zichzelf bevestigt</h3>
+      <p>Zaki beschrijft hoe wantrouwen gedrag verandert op een manier die het eigen wantrouwen bevestigt. Wie een onderhandelingspartner als oneerlijk behandelt, roept eerder verdedigend of ontwijkend gedrag op, wat vervolgens als bewijs van oneerlijkheid wordt gelezen. Hij noemt dat mechanisme, waarin een verwachting haar eigen bevestiging produceert, een zichzelf vervullende voorspelling.</p>
+      <p>Op maatschappelijk niveau ziet hij hetzelfde patroon terug in de samenhang tussen cynisme en steun voor populistische en polariserende bewegingen: waar vertrouwen in instituties en medeburgers afneemt, groeit de aantrekkingskracht van politiek die van dat wantrouwen uitgaat.</p>
+      <h3>Gezondheid en cynisme</h3>
+      <p>Zaki bespreekt longitudinaal onderzoek dat cynische scores koppelt aan slechtere lichamelijke en geestelijke gezondheid, een hoger risico op depressie, en een oververtegenwoordiging in cardiovasculaire sterfte. Hij benadrukt dat deze bevindingen correlaties zijn: cynische mensen leven ook vaker in omstandigheden, zoals eenzaamheid en chronische stress, die zelf al met slechtere gezondheid samenhangen, en het onderzoek scheidt oorzaak en gevolg niet altijd overtuigend.</p>
+      <p>Zijn interpretatie is voorzichtiger dan de samenvatting die er vaak van rondgaat: cynisme maakt niet rechtstreeks ziek, het neemt volgens hem de sociale steun en verbondenheid weg die tegen stress beschermen.</p>
+      <h3>Hoopvol scepticisme als alternatief</h3>
+      <p>In het laatste deel werkt Zaki zijn alternatief uit: hoopvol scepticisme, de combinatie van kritisch nadenken over mensen en problemen met een basishouding die ruimte laat voor het goede. Hij beschrijft oefeningen die uit zijn eigen onderzoek voortkomen, zoals gericht opzoeken van voorbeelden van onverwachte vriendelijkheid en het bewust herzien van een eerste, negatieve inschatting van een vreemde.</p>
+      <p>Hij besluit met Bruneaus werk als voorbeeld: vredesonderzoek dat aantoont dat vooroordelen tussen groepen met gerichte interventies meetbaar afnemen, wat voor Zaki het bewijs is dat hoop hier geen sentiment is maar een uitkomst die met onderzoek te onderbouwen valt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Cynisme</td><td>De vooraf getrokken overtuiging dat mensen in de kern zelfzuchtig, oneerlijk en onbetrouwbaar zijn.</td></tr>
+          <tr><td class="term">Scepsis</td><td>Een houding die bewijs vraagt en bereid is van mening te veranderen, door Zaki tegenover cynisme geplaatst.</td></tr>
+          <tr><td class="term">Hoopvol scepticisme</td><td>Zaki's voorgestelde alternatief: kritisch blijven denken over mensen, met een basishouding die ruimte laat voor het goede.</td></tr>
+          <tr><td class="term">Vertrouwenskloof</td><td>Het verschil tussen hoe betrouwbaar mensen daadwerkelijk zijn in onderzoek en hoe betrouwbaar anderen denken dat zij zijn.</td></tr>
+          <tr><td class="term">Zichzelf vervullende voorspelling</td><td>Het mechanisme waarin wantrouwend gedrag de reactie oproept die het wantrouwen leek te bevestigen.</td></tr>
+          <tr><td class="term">General Social Survey</td><td>De langlopende Amerikaanse enquête waarop Zaki's cijfers over dalend vertrouwen sinds 1972 zijn gebaseerd.</td></tr>
+          <tr><td class="term">Lost-wallet-onderzoek</td><td>Internationaal experiment waarin verloren portefeuilles werden achtergelaten om te meten hoe vaak mensen ze daadwerkelijk teruggeven, vaker dan vooraf verwacht.</td></tr>
+          <tr><td class="term">Negativiteitsbias</td><td>De psychologische neiging om negatieve informatie zwaarder te wegen dan positieve, die volgens Zaki cynisme voedt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Zaki's sterkste bewijs komt uit herhaalde experimenten naar de vertrouwenskloof, waaronder het internationale lost-wallet-onderzoek waarin verloren portefeuilles met geld werden achtergelaten in tientallen landen: mensen gaven ze vaker terug dan voorspeld, en zelfs vaker terug wanneer er meer geld in zat, tegen de intuïtie van de meeste proefpersonen in. Dat onderzoek is onafhankelijk gepubliceerd en herhaald, en behoort tot het steviger onderbouwde deel van het boek.</p>
+      <p>De cijfers over dalend vertrouwen zijn afkomstig van de General Social Survey, een langlopende, methodologisch stabiele enquête. Wat die cijfers niet laten zien, is een sluitende verklaring voor de daling; Zaki noemt onder meer sociale media en toenemende ongelijkheid als factoren, maar dat blijft aannemelijke duiding, geen bewezen oorzaak.</p>
+      <p>Voor de koppeling tussen cynisme en gezondheid steunt Zaki op longitudinaal onderzoek dat een samenhang laat zien, en hij benoemt zelf dat samenhang geen oorzakelijk verband bewijst. Voor zijn eigen interventies, zoals gericht zoeken naar vriendelijkheid, verwijst hij naar kleinschalige studies uit zijn eigen laboratorium, die veelbelovend zijn maar nog niet op grote schaal herhaald.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek trekt de samenhang tussen cynisme en slechtere gezondheid soms strakker aan dan de onderliggende, overwegend correlationele data toelaten. Wie eenzaam of chronisch gestrest is, scoort op beide variabelen hoger, en het boek maakt niet altijd voldoende duidelijk hoeveel van het verband via die derde factor loopt.</p>
+      <p>Zaki's eigen positie als onderzoeker naar empathie en menselijke vriendelijkheid maakt hem geen onafhankelijke waarnemer van zijn eigen vakgebied; de studies die hij aanhaalt, zijn voor een deel afkomstig uit zijn eigen laboratorium en bevestigen een stelling die hij al aanhing voordat hij het boek schreef. Dat maakt de argumentatie op zichzelf eenzijdiger dan een overzicht zou zijn dat ook onderzoek van buiten zijn eigen school meeweegt.</p>
+      <p>De maatschappelijke diagnose, dat afnemend vertrouwen samenhangt met populisme en polarisatie, wordt overtuigend geïllustreerd maar niet hard onderbouwd met een verklarend mechanisme op dat niveau; individueel psychologisch onderzoek naar vertrouwen tussen personen is iets anders dan een verklaring voor politieke stromingen.</p>
+      <p>Het boek is geschreven voor lezers die al openstaan voor de boodschap. Een cynicus die het woord cynisme in de titel wantrouwt, is precies de lezer die het boek zegt te willen bereiken en die het minst snel zal openslaan.</p>
+      <p>De cijfers over dalend vertrouwen zijn vrijwel allemaal afkomstig uit Amerikaanse enquêtes. Zaki trekt daaruit conclusies over cynisme als bredere, structurele trend zonder vergelijkbare cijfers uit andere landen te bespreken, wat de vraag openlaat of dezelfde daling zich elders in hetzelfde tempo voordoet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Test bij een eerste negatieve inschatting van een onbekende of collega of die inschatting op feiten berust of op een automatische aanname.</li>
+        <li>Zoek een week lang gericht naar een voorbeeld van onverwachte vriendelijkheid of eerlijkheid bij een vreemde, en schrijf het op.</li>
+        <li>Onderscheid bij eigen wantrouwen of het gaat om scepsis, die bewijs vraagt, of om een vooraf vaststaande conclusie die geen bewijs meer toelaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Hope for Cynics: The Surprising Science of Human Goodness</i> (Grand Central Publishing, 2024). Geen Nederlandse vertaling verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Zaki, hoogleraar psychologie aan Stanford en directeur van het Stanford Social Neuroscience Lab, beschrijft zichzelf als een cynicus die zijn eigen cynisme onderzoekt met de instrumenten van zijn vakgebied. Zijn onderzoek laat zien dat mensen structureel te somber zijn over hoe eerlijk, aardig en behulpzaam anderen werkelijk zijn, en dat die onderschatting op zichzelf al schade aanricht: aan relaties, aan gezondheid en aan het vertrouwen dat samenlevingen nodig hebben om samen te werken.</p><p>Het boek is deels wetenschappelijke synthese en deels eerbetoon aan zijn vriend en collega, de neurowetenschapper Emile Bruneau, die ondanks een dodelijke hersentumor tot zijn dood in 2020 hoopvol bleef en Zaki daarmee tot zijn onderwerp bracht.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>cynisme</li><li>vertrouwen</li><li>sociale-psychologie</li><li>hoop</li><li>vriendschap</li><li>samenleving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="234"><a href="234.html">Factfulness</a>. Rosling bepleit dezelfde beweging van somber vooroordeel naar feitelijke inschatting, toegepast op de wereld in cijfers in plaats van op individuele mensen.</li>
+          <li value="66"><a href="66.html">The Folly of Fools</a>. Trivers beschrijft zelfbedrog en de evolutie van bedrog tussen mensen, en biedt daarmee het somberdere tegenwicht dat Zaki's optimisme over menselijke eerlijkheid moet weerleggen.</li>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt beschrijft een ander mechanisme achter hetzelfde verlies aan onderling vertrouwen bij een jongere generatie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
