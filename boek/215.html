@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obedience to Authority &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Milgram stelt dat gewone mensen bereid zijn een onbekende ernstig pijn te doen, en zelfs te doden, wanneer een gezagsdrager dat opdraagt, ook zonder dwang…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-215">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">215 &middot; Vrij denken en manipulatie</p>
+    <h1>Obedience to Authority</h1>
+    <p class="lede">Stanley Milgram, 1974</p>
+    <p class="stats">
+      <span><b>1573</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="215"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Milgram stelt dat gewone mensen bereid zijn een onbekende ernstig pijn te doen, en zelfs te doden, wanneer een gezagsdrager dat opdraagt, ook zonder dwang of dreiging en ook wanneer hun geweten protesteert. Niet een afwijkend karakter maar de structuur van de situatie bepaalt volgens hem de uitkomst: wie zich eenmaal in een hiërarchie bevindt en de gezagsdrager als legitiem erkent, verschuift van een staat waarin hij zijn eigen daden beoordeelt naar een staat waarin hij zichzelf ziet als uitvoerder van een andermans wil. Die verschuiving, niet een gebrek aan moraal, verklaart voor Milgram waarom gewone burgers zich lenen voor daden die ze afzonderlijk zouden afwijzen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De opzet</h3>
+      <p>Milgram wierf via een krantenadvertentie veertig mannen tussen twintig en vijftig jaar uit New Haven, met een dwarsdoorsnede aan beroepen en opleidingsniveaus, tegen een vergoeding die zij hoe dan ook mochten houden. Bij aankomst in het laboratorium van Yale ontmoetten zij een tweede "proefpersoon", in werkelijkheid een acteur, en werd door loting bepaald wie leraar en wie leerling werd; de loting was vals en de echte proefpersoon werd altijd leraar.</p>
+      <p>De leerling werd in een aangrenzende kamer aan een stoel met elektroden bevestigd. De leraar kreeg een generator met dertig schakelaars te bedienen, oplopend van 15 tot 450 volt en gemerkt van "lichte schok" tot "gevaar: ernstige schok" en, op de laatste twee, enkel "XXX". Bij elke fout antwoord van de leerling moest de leraar een stap hoger schakelen. Er vloeide geen stroom; wat de leraar hoorde, was een bandopname met protesten, gebonk op de muur en, vanaf een bepaald niveau, stilte.</p>
+      <h3>De gezagsdrager en zijn aandrang</h3>
+      <p>In de kamer stond een proefleider in grijze labjas die bij aarzeling van de leraar een vaste reeks aansporingen gebruikte, van "ga alstublieft door" tot "u heeft geen andere keuze, u moet doorgaan". Alleen als de leraar na de vierde aansporing nog weigerde, werd het experiment gestaakt. Vóór de proeven vroeg Milgram psychiatrisch geschoolde collega's en studenten een schatting: zij verwachtten dat vrijwel niemand tot de hoogste stand zou doorgaan en dat alleen een pathologische minderheid daartoe in staat zou zijn.</p>
+      <p>In de eerste, standaard afstandsvariant ging 65 procent (26 van de 40) door tot 450 volt, en geen van de proefpersonen stopte vóór het niveau van 300 volt, waar de leerling voor het eerst hoorbaar op de muur bonkte. Dat weerlegde de voorspelling van de experts en vormt de kern van wat het boek wil laten zien.</p>
+      <h3>Nabijheid als variabele</h3>
+      <p>Het grootste deel van het boek bestaat uit variaties op de basisopzet, systematisch aangebracht om te zien welke factor de gehoorzaamheid verandert. Naarmate leraar en leerling elkaar dichter naderden, daalde de gehoorzaamheid: in de conditie zonder enig hoorbaar protest van de leerling ging 65 procent door, met stemcontact via de muur 62,5 procent, in dezelfde ruimte als de leerling 40 procent, en wanneer de leraar de hand van de weigerende leerling zelf op de metalen plaat moest drukken nog 30 procent.</p>
+      <p>Ook de nabijheid van de gezagsdrager bleek te tellen: gaf de proefleider zijn instructies telefonisch in plaats van in de kamer, dan zakte de gehoorzaamheid tot ruim 20 procent, en enkele proefpersonen deden zich telefonisch voor als gehoorzamer dan zij in werkelijkheid waren. Andere hoofdstukken variëren de status van de instelling (een kaal kantoor in Bridgeport in plaats van Yale scheelde weinig), de aanwezigheid van tegenstribbelende medeproefpersonen, en het effect van een tweede gezagsdrager die zelf tegen de opdracht ingaat.</p>
+      <h3>De agentic state</h3>
+      <p>In de analytische hoofdstukken werkt Milgram zijn verklaring uit. Mensen functioneren volgens hem afwisselend in een autonome staat, waarin ze hun daden aan zichzelf toerekenen, en een agentic state, waarin ze zichzelf zien als uitvoerder van andermans wil en de verantwoordelijkheid bij de gezagsdrager leggen. De overgang naar die staat komt tot stand doordat de proefpersoon de hiërarchie als legitiem aanvaardt, bijvoorbeeld omdat de proef aan Yale plaatsvindt en vrijwillig is aangegaan.</p>
+      <p>Eenmaal in de agentic state houden volgens Milgram bindende factoren de proefpersoon vast: de sociale gêne om een lopende afspraak te verbreken, de opeenvolging van kleine stapjes waarbij elke volgende schok nauwelijks groter lijkt dan de vorige (het "foot in the door"-mechanisme, door hem niet zo genoemd maar wel beschreven), en de aandacht die verschuift van het lot van de leerling naar het technisch correct uitvoeren van de taak.</p>
+      <h3>Spanning en verzet</h3>
+      <p>Milgram laat via transcripten zien dat gehoorzaamheid zelden gemakkelijk ging. Veel proefpersonen zweetten, beefden, lachten nerveus of protesteerden hardop terwijl ze toch doorgingen; hij noemt die combinatie van innerlijk verzet en uiterlijke uitvoering de spanning van de gehoorzame proefpersoon. Een minderheid brak wel af, meestal na herhaald protest en zonder dat daar een duidelijk persoonlijkheidskenmerk aan te koppelen viel; Milgram vond in zijn eigen data geen bruikbare voorspeller voor wie zou weigeren.</p>
+      <p>Tegenover zijn eigen verklaring zet hij een alternatief dat hij verwerpt: dat de proefpersonen simpelweg agressie uitleefden. Hij wijst erop dat de schokken opliepen op instructie en niet uit eigen initiatief, en dat een variant waarin proefpersonen zelf de hoogte van de schok mochten kiezen, veel lagere niveaus opleverde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Agentic state</td><td>De toestand waarin iemand zichzelf ziet als uitvoerder van andermans wil en de verantwoordelijkheid voor de daad bij de gezagsdrager legt.</td></tr>
+          <tr><td class="term">Autonome staat</td><td>De tegenpool van de agentic state: het handelen wordt aan het eigen geweten en de eigen doelen toegerekend.</td></tr>
+          <tr><td class="term">Agentic shift</td><td>De overgang van de autonome staat naar de agentic state zodra een gezagsdrager als legitiem wordt aanvaard.</td></tr>
+          <tr><td class="term">Bindende factoren</td><td>De sociale en situationele krachten, zoals gêne en de opeenvolging van kleine stappen, die iemand in de agentic state vasthouden.</td></tr>
+          <tr><td class="term">Nabijheid van het slachtoffer</td><td>De mate waarin de leraar de leerling kan zien, horen of aanraken; naarmate die nabijheid toeneemt, daalt de gehoorzaamheid.</td></tr>
+          <tr><td class="term">Nabijheid van de gezagsdrager</td><td>De mate waarin de proefleider fysiek aanwezig is bij het geven van instructies; op afstand (telefonisch) daalt de gehoorzaamheid sterk.</td></tr>
+          <tr><td class="term">Legitimiteit van het gezag</td><td>De voorwaarde dat de proefpersoon de gezagsdrager als bevoegd erkent om opdrachten te geven; zonder die erkenning treedt geen agentic shift op.</td></tr>
+          <tr><td class="term">Spanning (strain)</td><td>De combinatie van zichtbaar innerlijk verzet, zoals zweten en protesteren, met voortgezette uitvoering van de opdracht.</td></tr>
+          <tr><td class="term">De-hoaxing</td><td>Milgrams term voor de nabespreking waarin proefpersonen te horen kregen dat de schokken niet echt waren geweest.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit boek is het onderzoeksverslag zelf, geen samenvatting van andermans werk. De kernclaim rust op een reeks van meer dan twintig experimentele condities met in totaal circa duizend proefpersonen, geworven uit de gewone bevolking van New Haven en later Bridgeport, met steeds veertig deelnemers per conditie. De basisuitkomst, 65 procent volledige gehoorzaamheid in de standaardopstelling, is binnen enkele jaren door andere onderzoekers in gewijzigde vorm herhaald, en de richting van het nabijheidseffect (dichter bij het slachtoffer, minder gehoorzaamheid) is een van de meest consistente bevindingen in de sociale psychologie van die periode.</p>
+      <p>De onderbouwing is sterker voor het experimentele patroon dan voor de verklaring die Milgram eraan verbindt. Dat de percentages verschillen tussen condities staat vast; dat de agentic state de juiste beschrijving is van wat er in de hoofden van de proefpersonen omging, is een interpretatie waarvoor Milgram geen onafhankelijke meting heeft, alleen de transcripten en zijn eigen lezing daarvan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De ethiek van het onderzoek is vanaf het begin omstreden geweest. Diana Baumrind bekritiseerde in 1964, direct na de eerste publicatie, dat proefpersonen zonder geïnformeerde toestemming aan zware emotionele belasting werden blootgesteld en dat de nabespreking ontoereikend was om die belasting weg te nemen. Milgram noemde dit "de-hoaxing" en beweerde dat elke proefpersoon te horen kreeg dat de leerling geen gevaarlijke schokken had gekregen; latere archiefonderzoek wijst uit dat veel proefpersonen die uitleg pas maanden of zelfs meer dan een jaar later kregen, in een schriftelijke vragenlijst, en niet direct na afloop.</p>
+      <p>De Australische psychologe Gina Perry heeft in <i>Behind the Shock Machine</i> (2013) Milgrams eigen archief en de bandopnamen van de sessies onderzocht en concludeert dat een aanzienlijk deel van de proefpersonen niet geloofde dat de schokken echt waren, wat de interpretatie van "gehoorzaamheid onder ware overtuiging" ondermijnt. Zij vond in Milgrams nagelaten papieren een niet gepubliceerde analyse van een van zijn eigen assistenten waaruit bleek dat proefpersonen die zeiden zeker te weten dat de schokken echt waren, juist minder ver gingen dan wie twijfelde, het omgekeerde van wat het boek suggereert. Ook de manier waarop de proefleider van het script afweek om aarzelende proefpersonen alsnog te laten doorgaan, is volgens Perry inconsistenter geweest dan het boek doet voorkomen.</p>
+      <p>Het boek presenteert bovendien vrijwel uitsluitend de resultaten die de these ondersteunen; condities met een lagere gehoorzaamheidsgraad krijgen minder ruimte dan de spectaculaire 65 procent uit de basisvariant, terwijl het gemiddelde over alle variaties van Milgram aanzienlijk lager ligt. De agentic-state-verklaring zelf is nooit los van deze experimenten getoetst en blijft een duiding achteraf, niet een onafhankelijk voorspelde en bevestigde mechaniek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de resultaten per conditie, niet alleen het percentage uit de basisvariant dat het meest wordt aangehaald.</li>
+        <li>Onderscheid Milgrams metingen (wat de proefpersonen deden) van zijn verklaring (de agentic state), en behandel die laatste als interpretatie.</li>
+        <li>Betrek bij het beoordelen van het boek de latere kritiek op de opzet en de nabespreking, niet alleen de uitkomst.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Obedience to Authority: An Experimental View</i> (Harper &amp; Row, 1974), later herdrukt bij Harper Perennial. Nederlands verschenen als <i>Grenzeloze gehoorzaamheid</i> (Bruna, Utrecht, 1974, 251 blz.); niet meer in de handel, wel te leen via de openbare bibliotheek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Stanley Milgram, hoogleraar sociale psychologie, beschrijft in dit boek de gehoorzaamheidsexperimenten die hij vanaf 1961 aan Yale University uitvoerde. Een proefpersoon kreeg de rol van "leraar" toebedeeld en moest een onzichtbare "leerling" (een acteur die geen echte schokken kreeg) steeds zwaardere elektrische schokken toedienen zodra deze een woordpaar verkeerd beantwoordde, tot en met een niveau gemerkt "Gevaar: ernstige schok" en twee ongemarkeerde schakelaars daarboven. Een man in labjas drong bij aarzeling aan met vaste zinnen als "het experiment vereist dat u doorgaat". In de basisvariant ging 65 procent van de veertig proefpersonen door tot de hoogste stand. Milgram werkte in latere versies van het experiment de afstand tussen leraar en leerling en tussen leraar en gezagsdrager stelselmatig om, en zag de gehoorzaamheid dalen naarmate leraar en leerling dichter bij elkaar kwamen.</p><p>Milgrams verklaring is dat mensen in een "agentic state" terechtkomen: ze dragen de verantwoordelijkheid voor hun daden over aan de gezagsdrager en voeren uit zonder zich nog eigenaar van het resultaat te voelen. Het boek citeert uitgebreid uit de opnamen van de sessies, van proefpersonen die protesteren en toch doorgaan tot de enkeling die weigert. Het is tegelijk het onderzoeksverslag zelf en het meest bediscussieerde stuk sociaalpsychologisch werk van de twintigste eeuw, onder meer omdat latere onderzoekers, onder wie Gina Perry, met Milgrams eigen archief in de hand vraagtekens hebben gezet bij de manier waarop hij zijn resultaten en zijn proefpersonen heeft weergegeven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sociale psychologie</li><li>gehoorzaamheid</li><li>experiment</li><li>onderzoeksethiek</li><li>autoriteit</li><li>Yale</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan levert de maatstaf om een claim als de 65 procent te toetsen op wat er precies gemeten is en wat erbij verondersteld wordt.</li>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. Holiday beschrijft hoe een op zichzelf ware kern in de herhaling en versimpeling een eigen leven gaat leiden, iets dat ook met Milgrams cijfer is gebeurd.</li>
+          <li value="221"><a href="221.html">The Dictator's Handbook</a>. Beschrijft vanuit de politieke kant waarom gezagsdragers op gehoorzaamheid kunnen rekenen, als tegenhanger van Milgrams individuele verklaring.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

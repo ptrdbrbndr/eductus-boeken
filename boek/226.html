@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes of a Fatherosaur &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sahani's aantekeningen dragen de gedachte dat vaderschap geen rol is die je aanleert en daarna volhoudt, maar een voortdurende bijstelling waarbij de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-226">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">226 &middot; Roman en memoir</p>
+    <h1>Notes of a Fatherosaur</h1>
+    <p class="lede">Saheb Sahani</p>
+    <p class="stats">
+      <span><b>1044</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="226"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sahani's aantekeningen dragen de gedachte dat vaderschap geen rol is die je aanleert en daarna volhoudt, maar een voortdurende bijstelling waarbij de vader minstens zoveel van zijn dochter opsteekt als zij van hem. Die gedachte wordt niet verdedigd met een redenering of met verwijzingen naar onderzoek, ze wordt gedragen door het jaar na jaar optekenen van wat er in het contact met een jong kind gebeurt. Het boek claimt daarmee geen autoriteit over opvoeden in het algemeen, alleen een verslag van een vader die toegeeft dat hij het antwoord niet paraat heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het aantekeningenformat</h3>
+      <p>Het boek is opgezet als een reeks losse, persoonlijke aantekeningen, geen geschreven relaas met een vaste tijdlijn; dat blijkt al uit het woord "notes" in de titel, niet "story" of "memoir". Voor de vorm die dat concreet oplevert, dagboekachtige stukken die per keer op zichzelf staan of een indeling naar leeftijdsfase of thema, zijn met de beschikbare bronnen geen voorbeelden te geven: er is geen inhoudsopgave of voorbeeldfragment publiek terug te vinden.</p>
+      <h3>De titel als aanduiding</h3>
+      <p>Fatherosaur zet met de samentrekking van father en dinosaur een beeld neer van de vader als dier uit een andere tijd, half uitgestorven, dat naast een kind leeft dat de wereld sneller doorheeft dan hijzelf. De ondertitel bevestigt die lezing: life of a work-in-progress and ever-evolving father. Er wordt geen aanspraak gemaakt op een afgeronde opvatting over vaderschap; er wordt vastgesteld dat die opvatting in beweging blijft zolang het kind opgroeit.</p>
+      <h3>Wat over de inhoud niet vaststaat</h3>
+      <p>Openbare bronnen over dit boek zijn schaars. Er bestaat een Goodreads-vermelding met een gemiddelde van 4,00 op 5 sterren bij 5 beoordelingen, en Sahani sprak over het boek in de podcast <i>Pops in a Pod</i>, in een aflevering uit de reeks rond Vaderdag 2022 waarin hij als vader van een destijds vierjarige dochter werd voorgesteld. Een beschrijving van hoofdstukken, een indeling naar leeftijd van de dochter of specifieke gebeurtenissen uit het boek zelf zijn met deze bronnen niet te achterhalen en worden hier daarom niet als vaststaand gebruikt. Dat is ook de reden dat deze opbouw uit vier in plaats van vijf tot zeven onderdelen bestaat.</p>
+      <h3>Sahani als merkenverteller</h3>
+      <p>Sahani werkt als verteller van verhalen voor merken en noemt zichzelf op zijn professionele profiel iemand die schrijft voor zijn dochter en voor merken tegelijk. In een afzonderlijke bijdrage over geluidsmerken beschrijft hij hoe zijn dochter jingles van Paytm, Zomato, Netflix, Domino's en McDonald's herkent zonder de onderliggende diensten te kennen, als voorbeeld van hoe merken ook kinderen bereiken die geen klant zijn. Dat die twee registers, het vaderschap en het vak, bij hem dicht bij elkaar liggen staat met die bron vast; of en hoe dat de toon van <i>Notes of a Fatherosaur</i> zelf kleurt, is zonder de tekst zelf niet te zeggen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Fatherosaur</td><td>De titelterm zelf, een samentrekking van father en dinosaur voor een vader die zich verouderd voelt tegenover een kind dat sneller leert dan hij.</td></tr>
+          <tr><td class="term">Work-in-progress vader</td><td>De aanduiding uit de ondertitel voor een vaderschap dat nooit een vaste vorm bereikt en steeds wordt bijgesteld.</td></tr>
+          <tr><td class="term">Aantekeningenformat</td><td>De opzet van het boek als losse, chronologieloze notities, aangekondigd door het woord notes in de titel zelf.</td></tr>
+          <tr><td class="term">Merkenverteller</td><td>Sahani's beroepsaanduiding voor zichzelf: iemand die verhalen schrijft voor merken, het tweede register naast het vaderschap.</td></tr>
+          <tr><td class="term">Geluidsmerken-anekdote</td><td>Het voorbeeld uit een aparte bijdrage van Sahani, waarin zijn dochter jingles van merken als Paytm en Netflix herkent zonder de diensten erachter te kennen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op de eigen waarnemingen van Sahani bij zijn dochter, opgetekend in korte aantekeningen; het is geen boek dat put uit onderzoek naar ontwikkelingspsychologie of opvoeding. Zulk bewijs is per definitie beperkt tot één gezin en één vader en zegt niets over hoe representatief die ervaring is voor vaders in het algemeen.</p>
+      <p>Ook over de aantekeningen zelf is weinig extern te verifiëren: zonder toegang tot de tekst valt niet na te gaan hoe consequent Sahani zijn eigen waarnemingen weergeeft of hoe die zich in de tijd tot elkaar verhouden.</p>
+      <p>Waar de waarneming over merkjingles bij zijn dochter wel te controleren is, in een afzonderlijke LinkedIn-bijdrage buiten het boek om, geldt dat niet voor wat er in <i>Notes of a Fatherosaur</i> zelf staat: die aantekeningen zijn niet onafhankelijk gepubliceerd of besproken teruggevonden, en het is dus dit boek zelf dat de enige bron van zijn eigen bewijs is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het duidelijkste bezwaar tegen dit boek is niet inhoudelijk te maken, want de inhoud is met de beschikbare bronnen nauwelijks te controleren: er is geen voorbeeldfragment, inhoudsopgave of onafhankelijke bespreking gevonden die laat zien wat er werkelijk in staat. Om dezelfde reden staan hierboven weinig begrippen: verdere termen die Sahani zelf binnen het boek hanteert, zijn zonder de tekst niet met zekerheid vast te stellen.</p>
+      <p>Voor zover te beoordelen is de ontvangst klein: vijf beoordelingen op Goodreads is te weinig om iets te zeggen over hoe het boek buiten de eigen kring van de auteur is gevallen. Het is een debuut van een schrijver die zijn beroep in marketing en merkverhalen heeft, gepubliceerd zonder dat daar een uitgeverij, oplage of distributeur bij te vinden is, wat op eigen beheer of een kleine drukker wijst.</p>
+      <p>Zoals bij vrijwel elk boek dat op eigen ouderschap steunt, geldt dat de waarnemingen van één vader over één dochter niet zonder meer op andere gezinnen over te dragen zijn. Het boek presenteert dat overigens ook niet als zijn ambitie: de ondertitel spreekt van een vaderschap dat nog in ontwikkeling is, niet van een methode die voor anderen zou moeten werken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd zelf korte aantekeningen bij over wat een kind je laat zien, in plaats van er alleen zelf lessen aan te verbinden.</li>
+        <li>Zoek bij dit boek geen vervanging voor pedagogische vakliteratuur; lees het als het persoonlijke verslag dat het claimt te zijn.</li>
+        <li>Ga voor een oordeel over de inhoud naar het boek zelf: onafhankelijke besprekingen zijn nauwelijks te vinden.</li>
+        <li>Leg aantekeningen als deze naast die van andere ouders voordat je er een algemene les over opvoeden uit trekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Notes of a Fatherosaur: Life of a Work-in-Progress and Ever-Evolving Father</i>, op Goodreads vermeld als één editie met een gemiddelde beoordeling van 4,00 op 5 sterren bij 5 beoordelingen. Uitgeverij, verschijningsjaar en aantal bladzijden zijn met de beschikbare bronnen niet met zekerheid vast te stellen; een aflevering van de podcast <i>Pops in a Pod</i> rond Vaderdag 2022 noemde het toen als net verschenen debuut, wat op een verschijning rond 2022 wijst. Een Nederlandse vertaling is niet gevonden in de catalogus van bibliotheek.nl; het boek is alleen in het Engels traceerbaar.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Saheb Sahani schrijft in het dagelijks leven verhalen voor merken; met <i>Notes of a Fatherosaur</i> publiceerde hij zijn debuut, over zijn dochter, die op het moment van schrijven vier jaar oud was. Het boek bestaat uit korte, persoonlijke aantekeningen over het vaderschap, geen doorlopend verhaal met een vaste chronologie: de titel spreekt zelf van "notes". Fatherosaur voegt father en dinosaur samen en zet de vader neer als een log, verouderend wezen dat achter een kind aan draaft dat de wereld sneller doorheeft dan hijzelf. De ondertitel, life of a work-in-progress and ever-evolving father, zegt hetzelfde met andere woorden: dit boek doet geen uitspraak namens vaders in het algemeen, het houdt bij wat één vader nog aan het uitvogelen is.</p><p>Over de precieze inhoud is met openbare bronnen weinig vast te stellen. Er is geen inhoudsopgave, voorbeeldfragment of uitgeversbeschrijving gevonden die laat zien hoe de aantekeningen zijn ingedeeld of welke onderwerpen erin terugkeren. Sahani sprak over het boek in de podcast <i>Pops in a Pod</i>, in een aflevering rond Vaderdag 2022 waarin hij de aanleiding en het schrijfproces toelichtte; concrete voorbeelden uit de tekst zelf kwamen daarbij niet naar voren die met zekerheid aan het boek toe te schrijven zijn. Op Goodreads staat het boek met vijf beoordelingen en een gemiddelde van 4,00, te weinig om iets over de ontvangst te zeggen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vaderschap</li><li>vader-en-dochter</li><li>memoir</li><li>dagboekaantekeningen</li><li>debuutboek</li><li>India</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="178"><a href="178.html">My Father's Daughter</a>. Behandelt de vader-kindrelatie vanuit het omgekeerde perspectief, het kind dat over de vader schrijft, met net als hier eigen herinnering in plaats van onderzoek als bron.</li>
+          <li value="191"><a href="191.html">The Hill of Enchantment</a>. Een memoir van een schrijver die zijn eigen vader vroeg verloor en zijn leven ordent rond dat gemis, tegenover Sahani's aantekeningen over het vaderschap dat hij nu zelf vormgeeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

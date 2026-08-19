@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Games People Play &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Berne stelt dat een groot deel van het dagelijkse verkeer tussen mensen niet uit oprechte uitwisseling bestaat maar uit spelletjes: vaste reeksen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-213">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">213 &middot; Vrij denken en manipulatie</p>
+    <h1>Games People Play</h1>
+    <p class="lede">Eric Berne, 1964</p>
+    <p class="stats">
+      <span><b>1678</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="213"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Berne stelt dat een groot deel van het dagelijkse verkeer tussen mensen niet uit oprechte uitwisseling bestaat maar uit spelletjes: vaste reeksen transacties met een verborgen agenda, die de deelnemers onbewust spelen om aan hun honger naar erkenning te voldoen en om een vroeg gevormd beeld van zichzelf en anderen bevestigd te krijgen. Wie zo'n spel doorziet en vanuit de Volwassene blijft reageren in plaats van vanuit de Ouder of het Kind, kan de reeks doorbreken en tot een eerlijker transactie komen. Dat vraagt volgens Berne meer dan goede wil, want de spelers zijn zich van hun eigen aandeel doorgaans niet bewust, en de winst van het spel is voor hen, hoe pijnlijk ook, vertrouwder dan de onzekerheid van een gesprek zonder verborgen agenda.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een breuk met de psychoanalyse</h3>
+      <p>Berne behaalde in 1935 zijn artsenbul aan McGill University en diende van 1943 tot 1946 als legerpsychiater. Na de oorlog vestigde hij zich in Californië en zette hij zijn psychoanalytische opleiding voort aan het Psychoanalytisch Instituut van San Francisco. Toen dat instituut zijn aanvraag voor lidmaatschap in 1956 afwees, brak hij met de psychoanalytische gemeenschap en werkte hij het model verder uit dat hij in zijn eigen groepstherapiepraktijk had ontwikkeld.</p>
+      <p><i>Games People Play</i> verscheen in 1964 bij Grove Press en bereikte in maart 1966 de vijfde plaats op de bestsellerlijst van de New York Times. Het boek maakte begrippen als 'ego-toestand' en 'streling' tot gemeengoed en geldt als een van de eerste boeken van wat later populaire psychologie is gaan heten.</p>
+      <h3>Ouder, Volwassene en Kind</h3>
+      <p>De kern van het model is de driedeling van de persoonlijkheid in ego-toestanden. De Ouder bevat het gedrag en de houdingen van ouderfiguren zoals die zijn opgeslagen in de eerste levensjaren, inclusief hun regels, oordelen en zorg. Het Kind bevat de gevoelens en reacties uit diezelfde vroege periode, van spontaniteit tot angst. De Volwassene verwerkt informatie uit de omgeving en toetst wat de Ouder voorschrijft en wat het Kind voelt aan de werkelijkheid van het moment.</p>
+      <p>Berne benadrukt dat deze drie geen rollen of maskers zijn maar waarneembaar gedrag: iemand die vanuit de Ouder spreekt, klinkt en gebaart anders dan diezelfde persoon vanuit het Kind. Welke toestand aan het woord is, wisselt binnen één gesprek meerdere keren.</p>
+      <h3>Transacties: complementair en gekruist</h3>
+      <p>Een transactie is de eenheid van sociaal verkeer: een uitspraak vanuit één ego-toestand, gericht aan een ego-toestand bij de ander, gevolgd door een reactie. Bij een complementaire transactie komt het antwoord uit de toestand die was aangesproken, en het gesprek loopt door zonder wrijving, ook als de inhoud onprettig is.</p>
+      <p>Bij een gekruiste transactie reageert een andere ego-toestand dan verwacht, bijvoorbeeld wanneer een feitelijke vraag vanuit de Volwassene wordt beantwoord met een verwijt vanuit de Ouder. Het gesprek stokt dan of slaat om, en volgens Berne is dit het punt waarop ergernis en onbegrip ontstaan die niemand aan de inhoud van het gesprek kan verklaren.</p>
+      <h3>Strelingen en de honger naar erkenning</h3>
+      <p>Berne noemt elke vorm van erkenning tussen mensen een streling: een aanraking bij een baby, later een blik, een woord of een compliment. Mensen die als kind te weinig strelingen kregen, zoeken die als volwassene op elke beschikbare manier, ook via negatieve aandacht, want een streling die pijn doet is voor hem nog altijd beter dan geen streling.</p>
+      <p>Die honger verklaart volgens Berne waarom mensen situaties opzoeken die voorspelbaar tot ruzie leiden: de ruzie zelf levert de erkenning die op een andere manier uitblijft.</p>
+      <h3>De opbouw van een spel</h3>
+      <p>Berne definieert een spel als een reeks op elkaar volgende transacties met een verborgen agenda die naar een voorspelbare afloop toewerkt. Op het oppervlak lijkt de uitwisseling gewoon, maar onder de zichtbare transactie loopt een tweede, ongezegde boodschap mee die het feitelijke doel bepaalt.</p>
+      <p>Hij onderscheidt spellen naar ernst. Een spel van de eerste graad levert alledaagse gêne op en is in gezelschap te vertellen, een spel van de tweede graad kan een baan of huwelijk kosten, en een spel van de derde graad eindigt op de operatietafel, in de rechtszaal of het mortuarium.</p>
+      <h3>Het spelboek: van feestje tot spreekkamer</h3>
+      <p>Het grootste deel van het boek is een catalogus, gerangschikt naar de omgeving waarin een spel meestal voorkomt: spellen op feestjes, in het huwelijk, in de spreekkamer, in de onderwereld en op het werk. Bij <i>Why Don't You - Yes But</i> vraagt iemand herhaaldelijk om raad en wijst elk voorstel af met een tegenwerping, tot de omstanders opgeven; het feitelijke doel is niet een oplossing maar de bevestiging dat niemand kan helpen.</p>
+      <p>Bij <i>If It Weren't For You</i> houdt een partner de ander verantwoordelijk voor het missen van een kans, terwijl die kans in werkelijkheid ook zonder de partner beangstigend zou zijn geweest. Bij <i>Now I've Got You, You Son of a Bitch</i> zoekt de speler doelbewust situaties op waarin de ander een fout maakt, om vervolgens met recht van spreken zijn ongenoegen te kunnen uiten, ongenoegen dat losstaat van de fout zelf en al veel eerder aanwezig was.</p>
+      <h3>Script en het einde van het spel</h3>
+      <p>Berne verbindt spellen aan wat hij het script noemt: een levensplan dat een kind in de eerste jaren onbewust opstelt op basis van de boodschappen van zijn ouders, en dat de rest van het leven blijft sturen. Spellen zijn in die lezing herhalingen die het script bevestigen, ook wanneer de uitkomst voor de speler zelf ongunstig is.</p>
+      <p>In de slothoofdstukken beschrijft Berne wat hij autonomie noemt: contact zonder spel, waarin iemand vanuit de Volwassene waarneemt, vanuit het Kind voelt en beide toelaat zonder dat een vast patroon de uitkomst al vastlegt voordat het gesprek begint.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ouder</td><td>De ego-toestand met het gedrag en de opvattingen van ouderfiguren, opgeslagen in de eerste levensjaren.</td></tr>
+          <tr><td class="term">Volwassene</td><td>De ego-toestand die feiten verwerkt en toetst aan de werkelijkheid van het moment.</td></tr>
+          <tr><td class="term">Kind</td><td>De ego-toestand met de gevoelens en reacties uit de vroege kindertijd, die op volwassen leeftijd blijven meespelen.</td></tr>
+          <tr><td class="term">Transactie</td><td>De eenheid van sociaal verkeer: een uitspraak vanuit één ego-toestand en de reactie daarop.</td></tr>
+          <tr><td class="term">Streling</td><td>Elke vorm van erkenning tussen mensen, van een aanraking tot een blik of een woord.</td></tr>
+          <tr><td class="term">Spel</td><td>Een reeks transacties met een verborgen agenda die naar een voorspelbare, herkenbare afloop toewerkt.</td></tr>
+          <tr><td class="term">Winst</td><td>Het gevoel waarmee een spel eindigt, dat de speler al kende voordat het spel begon.</td></tr>
+          <tr><td class="term">Script</td><td>Het onbewuste levensplan dat een kind in zijn vroege jaren vormt op basis van boodschappen van zijn ouders.</td></tr>
+          <tr><td class="term">Why Don't You - Yes But</td><td>Spel waarin iemand om raad vraagt en elk voorstel afwijst, tot blijkt dat niemand kan helpen.</td></tr>
+          <tr><td class="term">Now I've Got You, You Son of a Bitch</td><td>Spel waarin de speler wacht op een fout van de ander om een ouder ongenoegen te kunnen uiten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Berne was praktiserend psychiater. Na zijn artsenopleiding aan McGill University en jaren als legerpsychiater probeerde hij toegelaten te worden tot het Psychoanalytisch Instituut van San Francisco. De afwijzing van die aanvraag in 1956 was voor hem de aanleiding om zijn eigen model verder te ontwikkelen op basis van zijn groepstherapiepraktijk uit de jaren vijftig, waaruit ook de meeste voorbeelden in het boek komen.</p>
+      <p>Voor het ego-toestandenmodel bouwde hij op het begrip ego-state van de psychoanalyticus Paul Federn en op het werk van de neurochirurg Wilder Penfield, die met elektrische prikkeling van de hersenschors bij bewuste patiënten oude herinneringen en de bijbehorende gevoelens kon oproepen. Berne leidde daaruit af dat het brein ervaringen bewaart als vaste opnames en dat Ouder en Kind letterlijke afdrukken van eerdere ervaringen zijn, geen abstracte constructen zoals het superego of het es bij Freud. Een toetsing van de spellen zelf bij een grotere groep mensen bevat het boek niet: de spellen zijn beschrijvingen uit de praktijk, geen resultaten van gecontroleerd onderzoek.</p>
+      <p>Van de kernclaims uit het boek is sindsdien weinig direct getoetst. Een overzichtsartikel uit 2021 in de Transactional Analysis Journal vond wel aanwijzingen voor effect van op transactionele analyse gebaseerde interventies in coaching, onderwijs en organisatieontwikkeling, met bescheiden effectgroottes, maar signaleerde tegelijk het ontbreken van recent gerandomiseerd onderzoek voor de bredere therapeutische claims die Berne zelf maakte.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het model overtuigend aanvoelt zonder ergens getoetst te zijn. De psycholoog Roger Hite constateerde al in 1974 dat er weinig onderzoek onder de claims van transactionele analyse ligt, en latere commentatoren rekenen het boek tot de populaire psychologie die herkenning verkoopt als verklaring: de driedeling Ouder, Volwassene en Kind voelt vertrouwd zodra men ernaar zoekt, wat niets zegt over of die indeling de werkelijkheid juist snijdt.</p>
+      <p>Het boek is ook lastig te weerleggen op een manier die het model zelf niet weer opslokt: wie het afwijst, kan volgens diezelfde theorie handelen vanuit een spel, waardoor tegenspraak als bevestiging kan worden uitgelegd. Daarbij benoemt Berne tientallen spellen met vaste namen en stappen, terwijl hij zelf schrijft dat de lijst niet volledig is en naar believen kan worden aangevuld. Dat wekt de indruk van een sluitend systeem, terwijl nergens scherp wordt getrokken waar een spel ophoudt en gewoon menselijk gedrag begint.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let bij een terugkerend conflict op het moment waarop het gesprek van onderwerp verandert zonder dat er iets is opgelost; dat wisselmoment markeert vaak de overgang van de Volwassene naar de Ouder of het Kind.</li>
+        <li>Vraag bij een verwijt aan een ander na of dat verwijt ook zou gelden wanneer het genoemde obstakel wegviel; bij <i>If It Weren't For You</i> verdwijnt de klacht niet zodra de belemmering is opgeheven.</li>
+        <li>Beantwoord een herhaald verzoek om advies met de vraag wat de vrager zelf al heeft geprobeerd, voordat een nieuwe suggestie volgt; bij <i>Why Don't You - Yes But</i> wordt ieder voorstel toch afgewezen.</li>
+        <li>Geef erkenning gericht en op het moment zelf, in plaats van pas te reageren wanneer een gesprek al is vastgelopen; onopgemerkt blijven werkt volgens Berne sterker averechts dan een lastig gesprek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Games People Play: The Psychology of Human Relationships</i> (Grove Press, New York, 1964). Nederlands als <i>Mens erger je niet</i>, vertaald door J.J.G. Muller-van Santen en bewerkt voor Nederland door M. Zeegers, voor het eerst uitgegeven in 1967 (NVSH); de 20e druk verscheen in 2003 bij uitgeverij Aula (199 blz., ISBN 904614013X).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eric Berne, Canadees psychiater, werkte na de Tweede Wereldoorlog aan een eigen theorie van de persoonlijkheid nadat het Psychoanalytisch Instituut van San Francisco zijn aanvraag voor lidmaatschap in 1956 afwees. Vanuit die breuk bouwde hij de transactionele analyse: een model waarin ieder mens drie toestanden in zich draagt, de Ouder, de Volwassene en het Kind, en waarin elk gesprek bestaat uit transacties tussen die toestanden. Berne onderbouwde het model met het werk van neurochirurg Wilder Penfield, die met elektrische prikkeling van de hersenschors oude herinneringen kon oproepen, en met het begrip ego-toestand van psychoanalyticus Paul Federn.</p><p>Het tweede deel beschrijft wat Berne spelletjes noemt: terugkerende reeksen transacties met een verborgen agenda en een vaste afloop, die mensen spelen om aan erkenning te komen, door hem strelingen genoemd, ook als die erkenning pijn doet. Hij ordent tientallen spelletjes naar de omgeving waarin ze voorkomen, op een feestje, in een huwelijk, in de spreekkamer, in de onderwereld. Bekende voorbeelden zijn <i>Why Don't You - Yes But</i>, waarin iemand om raad vraagt en elk voorstel afwijst, <i>If It Weren't For You</i>, waarin een partner zijn eigen angst verstopt achter een verwijt, en <i>Now I've Got You, You Son of a Bitch</i>, waarin de speler wacht op een fout van de ander om een oud gelijk te halen. Elk spel eindigt in wat Berne de winst noemt, een gevoel dat de speler al kende voordat het spel begon.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychologie</li><li>communicatie</li><li>relaties</li><li>manipulatie</li><li>zelfhulp</li><li>psychiatrie</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenberg geeft een taal voor transacties zonder verborgen agenda, waar Berne vooral blootlegt welk patroon een eerlijk gesprek in de weg staat.</li>
+          <li value="152"><a href="152.html">Attached</a>. Verklaart vanuit gehechtheidstheorie waarom sommige mensen onveiligheid in een relatie opzoeken, een drijfveer die bij Berne als honger naar strelingen terugkeert.</li>
+          <li value="162"><a href="162.html">Boundaries</a>. Werkt uit hoe een grens te stellen tegenover gedrag dat Berne als spel ontleedt, zonder zelf een van zijn spelnamen te gebruiken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

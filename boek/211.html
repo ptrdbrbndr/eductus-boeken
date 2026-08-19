@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Not To Be Stupid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sibaldi's boek stelt dat stupiditeit geen synoniem is van een laag IQ, maar een psychologische toestand: een bevriezing die optreedt zodra iemand stopt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-211">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">211 &middot; Gewoontes en denken</p>
+    <h1>How Not To Be Stupid</h1>
+    <p class="lede">Igor Sibaldi</p>
+    <p class="stats">
+      <span><b>1529</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="211"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sibaldi's boek stelt dat stupiditeit geen synoniem is van een laag IQ, maar een psychologische toestand: een bevriezing die optreedt zodra iemand stopt met zelfstandig denken en de geïnternaliseerde stem van ouders, leraren en instituties voor een eigen overtuiging aanziet. Twaalf functies, van communicatie tot de omgang met autoriteit en geld, bepalen hoe iemand de werkelijkheid waarneemt en erin handelt. Raakt zo'n functie geblokkeerd door aanpassing aan de meerderheid, dan ontstaat wat hij geïnduceerde stupiditeit noemt. De tegenpool daarvan is in zijn lezing vrijheid, niet intelligentie: het boek stelt dat wie de geïnduceerde stemmen in zichzelf leert onderscheiden van een eigen verlangen, de geblokkeerde functie weer in beweging krijgt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Domheid als bevriezing</h3>
+      <p>Sibaldi opent met een herlezing van het woord zelf. Het Latijnse <i>stupidus</i> komt van een werkwoord dat bevriezen of tot stilstand komen betekent, en daarmee verschuift hij domheid van een kwestie van intelligentie naar een kwestie van beweging. Iemand is dom, in zijn lezing, op het moment dat hij ophoudt een eigen afweging te maken en een aangeleerde reactie voor een eigen oordeel aanziet.</p>
+      <p>Dat verklaart volgens hem waarom domheid zelden samengaat met een gebrek aan aanleg. Wie hoogopgeleid is en onder druk van de groep toch een overtuiging herhaalt die hij zelf nooit heeft getoetst, is voor Sibaldi net zo goed bevroren als iemand zonder scholing. Hij noemt dat geïnduceerde stupiditeit: niet aangeboren, maar het resultaat van een overmaat aan sociale aanpassing.</p>
+      <h3>De twaalf functies</h3>
+      <p>De kern van het boek is een indeling in twaalf functies die samen bepalen hoe iemand de werkelijkheid waarneemt en erin handelt: onder meer de omgang met communicatie, met autoriteit, met geld, met tijd en het eigen verleden, en met het stellen van doelen. Sibaldi noemt ze uitdrukkelijk twaalf, niet meer: naar eigen zeggen heeft hij in decennia van lezingen en gesprekken geen gebied gevonden waarin mensen vastlopen dat buiten dit twaalftal valt.</p>
+      <p>Elke functie kan naar zijn beschrijving los van de andere geblokkeerd raken. Iemand kan vrijuit over geld denken en toch star zijn tegenover autoriteit, of andersom. Dat maakt de twaalf functies tegelijk een diagnose-instrument: niet één globale uitspraak over hoe dom of vrij iemand is, maar een overzicht van gebied per gebied.</p>
+      <h3>De methode per functie</h3>
+      <p>Voor elke functie werkt Sibaldi hetzelfde stramien af. Eerst een psychologische en existentiële doorlichting van het gebied, dan oefeningen om te merken waar de eigen reactie vastzit, gevolgd door een vaardigheidsproef die laat zien hoe stevig het patroon zit. Wie op een functie slecht scoort, krijgt een herprogrammeringsprogramma: concrete aanwijzingen voor lectuur, iets om naar te luisteren en een gesprek om aan te gaan, gericht op precies dat ene gebied.</p>
+      <p>Die opbouw maakt het boek minder een doorlopend betoog dan een reeks twaalf keer herhaalde stappen, met telkens dezelfde vraag: waar in dit gebied van je leven herhaal je een stem die niet je eigen is.</p>
+      <h3>Geïnduceerde stemmen en eigen verlangen</h3>
+      <p>Onder de twaalf functies ligt een tweedeling die Sibaldi telkens terughaalt: geïnduceerde stemmen tegenover authentiek verlangen. Wat mensen hun geweten noemen, is volgens hem voor een groot deel een koor van geïnternaliseerde autoriteiten, ouders, leraren, instituties, die vertellen wat wel en niet kan. Het anticonformistische werk dat het boek voorstelt, bestaat eruit die geïnduceerde stemmen te leren onderscheiden van een verlangen dat daadwerkelijk van de lezer zelf is.</p>
+      <p>De eerste daad van vrijheid is in die redenering niet een grote beslissing, maar het ondervragen van de woorden die iemand gebruikt en van de stemmen die hij bij zichzelf hoort op het moment dat hij iets wel of niet durft.</p>
+      <h3>Kuddedenken en de tijdgeest</h3>
+      <p>Sibaldi plaatst zijn onderwerp uitdrukkelijk in het heden. Er heerst volgens hem een conformisme dat in het Westen in drie eeuwen niet zo sterk is geweest: wat men mag zeggen, valt vrijwel samen met wat de meerderheid al denkt te willen horen. Hij verwijst daarbij naar Nietzsches beeld van de kuddemoraal, waarin veilige, gehoorzame groepsdeugd de plaats inneemt van een eigen afweging.</p>
+      <p>Het boek presenteert dit niet als een klacht over anderen, maar als een uitnodiging tot zelfonderzoek: de lezer wordt gevraagd na te gaan in welke van de twaalf gebieden hij zelf de meerderheid napraat zonder dat gemerkt te hebben.</p>
+      <h3>Techniek en algoritmes</h3>
+      <p>In het verlengde daarvan bespreekt het boek volgens de beschikbare uitgeversteksten of techniek mensen dommer maakt, met algoritmes die door herhaling van wat een gebruiker al gelooft een echokamer bouwen. Ook komen voorbeelden aan bod van leiders die fouten uit het verleden herhalen en van teams die met capabele mensen toch slechte besluiten nemen, als illustraties van hoe geïnduceerde stupiditeit zich op groepsniveau herhaalt.</p>
+      <p>De precieze uitwerking van die voorbeelden was niet uit de beschikbare bronnen te achterhalen; wat vaststaat is dat Sibaldi de vraag naar techniek en kuddegedrag als aparte functies binnen zijn twaalftal behandelt, niet als losse uitweiding.</p>
+      <h3>Herkomst, taal en het Nederlandse gat</h3>
+      <p>Het boek verscheen voor het eerst in april 2025 in Italië, bij Mondadori, in de reeks Vivere meglio, en werd daar een bestseller. De Engelse vertaling bij Pan Macmillan volgde iets meer dan een jaar later en is, voor zover te achterhalen, het eerste boek van Sibaldi dat in het Engels beschikbaar kwam, na tientallen Italiaanse titels over mythologie, religie en psychologie sinds de jaren negentig.</p>
+      <p>Een Nederlandse vertaling bestaat op dit moment niet. De catalogus van bibliotheek.nl geeft bij een zoekopdracht op zijn naam geen enkel resultaat, ook niet voor eerder werk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Stupiditeit</td><td>Niet een tekort aan intelligentie, maar een bevriezing (naar het Latijnse <i>stupidus</i>) die optreedt zodra iemand ophoudt zelfstandig te denken.</td></tr>
+          <tr><td class="term">Geïnduceerde stupiditeit</td><td>Domheid die niet uit gebrek aan aanleg voortkomt, maar uit een overmaat aan aanpassing aan de sociale omgeving.</td></tr>
+          <tr><td class="term">De twaalf functies</td><td>Sibaldi's indeling van de gebieden, van communicatie tot geld en tijd, waarin iemand naar zijn zeggen kan vastlopen; naar eigen opgave niet meer dan twaalf.</td></tr>
+          <tr><td class="term">Geïnduceerde stemmen</td><td>De geïnternaliseerde stem van ouders, leraren en instituties die voor een eigen overtuiging wordt aangezien.</td></tr>
+          <tr><td class="term">Authentiek verlangen</td><td>Het verlangen dat overblijft zodra de geïnduceerde stemmen ervan onderscheiden zijn; het tegenwicht tegen aanpassing.</td></tr>
+          <tr><td class="term">Anticonformisme</td><td>De houding die het boek traint, aangeduid in de Italiaanse ondertitel als oefeningen in anticonformisme.</td></tr>
+          <tr><td class="term">Psychologische en existentiële doorlichting</td><td>De eerste stap per functie: nagaan hoe het gebied er in het eigen leven concreet voor staat, voor er geoefend wordt.</td></tr>
+          <tr><td class="term">Vaardigheidsproef</td><td>Een korte proef per functie die laat zien hoe stevig een vastgelopen patroon zit.</td></tr>
+          <tr><td class="term">Herprogrammering</td><td>Het vervolgtraject per functie: gerichte lectuur, iets om naar te luisteren en een gesprek, toegesneden op dat ene gebied.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Sibaldi onderbouwt zijn stelling niet met experimenteel onderzoek of statistiek. Zijn drie steunpunten zijn een etymologische lezing van het woord stupiditeit, Nietzsches begrip van de kuddemoraal als filosofische bron voor het conformisme dat hij beschrijft, en zijn eigen ervaring als docent en spreker: hij geeft sinds 1997 lezingen en seminars over mythologie, religie en psychologie, en zijn twaalf functies presenteert hij als de neerslag van wat hij in die decennia bij mensen is tegengekomen.</p>
+      <p>Dat maakt het boek theologisch en filologisch onderlegd, Sibaldi vertaalde eerder bijbelteksten uit het Grieks en Hebreeuws en werkte als slavist aan Tolstoj en Dostojevski, maar niet empirisch onderbouwd in de zin van herhaalbaar onderzoek. Geen van de geraadpleegde uitgeverspagina's, recensies of interviews noemt een studie, een steekproef of een bron buiten Sibaldi's eigen waarneming en de klassieke en bijbelse teksten die hij als filoloog kent.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De twaalf functies worden gepresenteerd als een gesloten systeem, met Sibaldi's eigen mededeling dat hij er in al die jaren niet meer dan twaalf heeft geteld, zonder dat ergens wordt uitgelegd volgens welke methode dat aantal is vastgesteld of getoetst. Een lezer moet die indeling op gezag aannemen; er is geen manier om na te gaan of een dertiende functie ontbreekt of of twee ervan eigenlijk één zijn.</p>
+      <p>De vaardigheidsproeven en de doorlichting per functie zijn naar aard zelfrapportage: de lezer beoordeelt zelf of een stem geïnduceerd is of authentiek, met dezelfde vermogens die het boek net problematisch noemt. Er zit bovendien spanning tussen de anticonformistische boodschap en de vorm: het verscheen in Mondadori's reeks Vivere meglio, een commerciële zelfhulpreeks die juist werkt met de toegankelijke, hapklare hoofdstukken die het boek op andere plekken bekritiseert als symptoom van gemakzuchtig denken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een besluit na welke stem erachter zit: een eigen overweging of een geïnternaliseerde regel van een ouder, leraar of instituut.</li>
+        <li>Loop de twaalf gebieden (communicatie, autoriteit, geld, tijd, doelen stellen en de rest) een voor een langs en noteer bij welke een reactie altijd hetzelfde patroon volgt.</li>
+        <li>Zoek per vastgelopen gebied gericht naar één tekst, één gesprek of één oefening die dat specifieke patroon raakt, in plaats van in het algemeen aan zelfvertrouwen te werken.</li>
+        <li>Herlees eigen uitspraken die als vanzelfsprekend voelen op het punt of ze een eigen afweging zijn of een herhaling van wat de omgeving al denkt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Come non essere stupidi. Esercizi di anticonformismo</i> (Mondadori, reeks Vivere meglio, 15 april 2025, 180 blz.), in Italië een bestseller. Engelse vertaling <i>How Not To Be Stupid: The Transformative Power of Independent Thinking</i> (Pan Macmillan, imprint Pan, 16 juli 2026, 208 blz., ISBN 9781035094974), Sibaldi's eerste in het Engels vertaalde boek. Een Nederlandse vertaling is niet gevonden: de catalogus van bibliotheek.nl levert bij zijn naam geen resultaat op.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Italiaanse schrijver Igor Sibaldi (Milaan, 1957) is filoloog, theoloog en kenner van de geschiedenis van religies. Hij studeerde Slavische talen en literatuur, vertaalde werk van Tolstoj en Dostojevski en zette bijbelteksten uit het Grieks en Hebreeuws over in het Italiaans, en geeft sinds 1997 lezingen over mythologie, religie en psychologie. In <i>How Not To Be Stupid: The Transformative Power of Independent Thinking</i> stelt hij dat domheid geen tekort aan verstand is. Het Latijnse woord <i>stupidus</i> betekent bevriezen, tot stilstand komen, en daar zoekt Sibaldi de kern: een blokkade die optreedt zodra iemand ophoudt zelfstandig te denken en de stem van ouders, leraren en instituties voor zijn eigen overtuiging aanziet. Wie dom is, mist volgens hem geen aanleg. Hij mist vrijheid.</p><p>Het boek onderscheidt twaalf functies die bepalen hoe iemand de werkelijkheid waarneemt en erin handelt, van communicatie en de omgang met autoriteit tot de relatie met geld, tijd en het verleden. Voor elke functie geeft Sibaldi een korte analyse, oefeningen en een leesadvies om een vastgelopen patroon weer in beweging te krijgen. Het verscheen in april 2025 in Italië als <i>Come non essere stupidi. Esercizi di anticonformismo</i> bij Mondadori en werd daar een bestseller. De Engelse uitgave bij Pan Macmillan volgde in juli 2026, als de eerste vertaling van zijn werk in die taal.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>conformisme</li><li>zelfstandig denken</li><li>psychologie</li><li>zelfhulp</li><li>Italiaanse non-fictie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Bespreekt de systematische denkfouten waar Sibaldi's geïnduceerde stemmen operationeel dichtbij komen, maar dan met concrete denkfouten in plaats van een twaalfdelig zelfonderzoek.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Levert het onderliggende psychologische model (snel, automatisch denken tegenover traag, gecontroleerd denken) waar Sibaldi's bevriezing intuïtief op aansluit, zonder het onderzoek waarop dat boek wel steunt.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Zet kritisch, wetenschappelijk denken tegenover kuddegedrag en bijgeloof, en biedt zo een empirisch tegenwicht voor de kant van Sibaldi's betoog die op eigen gezag blijft steunen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

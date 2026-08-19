@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Napoleon's Maxims of War &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De maximes stellen dat oorlog voeren geen kwestie van improvisatie is, maar van een klein aantal vaste beginselen die in elke veldtocht terugkeren: de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-218">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">218 &middot; Geschiedenis en samenleving</p>
+    <h1>Napoleon's Maxims of War</h1>
+    <p class="lede">Napoleon Bonaparte</p>
+    <p class="stats">
+      <span><b>1562</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="218"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De maximes stellen dat oorlog voeren geen kwestie van improvisatie is, maar van een klein aantal vaste beginselen die in elke veldtocht terugkeren: de troepen samentrekken op het beslissende punt, één aanvoerlijn aanhouden, vooraf doordenken wat de tegenstander kan doen, en snelheid en moreel zwaarder laten wegen dan aantallen. Napoleon zelf schreef daar geen verhandeling over; de stelling dat zulke vaste beginselen bestaan is die van generaal Burnod, die de regels na Napoleons dood uit diens geschriften en veldtochten distilleerde en aanvulde met voorbeelden van andere veldheren om te laten zien dat het om iets algemeens gaat en niet om het toevallige succes van één man.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst: een postume verzameling</h3>
+      <p>Napoleon stierf in 1821 op Sint-Helena zonder zelf een systematisch werk over krijgskunde na te laten. Generaal Burnod stelde de maximes zes jaar later samen uit diens geschriften, orders en de overlevering van zijn veldtochten, en gaf elke regel een korte toelichting met een historisch voorbeeld. D'Aguilar vertaalde de tekst naar het Engels en breidde de toelichtingen uit met voorbeelden uit de memoires van Montecuccoli en de instructies van Frederik de Grote aan zijn generaals.</p>
+      <p>Het resultaat is een gebruikstekst voor officieren, geen memoires en geen geschiedschrijving. De achtenzeventig maximes staan zonder vaste hoofdstukindeling na elkaar, elk genummerd, en lopen van de opbouw van een veldtocht tot het gedrag van een aanvoerder tijdens een gevecht.</p>
+      <h3>Het terrein vooraf doordenken</h3>
+      <p>De eerste maximes gaan over wat een leger tegenkomt voor het vecht. Grenzen van staten bestaan volgens maxime I uit rivieren, gebergten of woestijnen, en van die drie is een woestijn het lastigst te overwinnen, een gebergte staat op de tweede plaats en een brede rivier op de derde. Een veroverend leger moet zijn beide vleugels laten steunen op neutraal gebied of op zulke natuurlijke hindernissen, zodat het niet omsingeld kan worden.</p>
+      <p>Daarbij hoort een tweede eis: bij het opstellen van een veldtochtplan moet alles wat de tegenstander kan doen, vooraf bedacht zijn, met de middelen klaar om erop te reageren. De maximes laten geen ruimte voor een plan dat pas ontstaat als de tegenstander zich meldt.</p>
+      <h3>Troepen op één punt houden</h3>
+      <p>Een terugkerend thema is dat een leger zich niet mag verspreiden. Trekken twee of drie legers gescheiden op naar een afgesproken punt, dan mag hun vereniging volgens maxime IV nooit dicht bij de tegenstander plaatsvinden, omdat dat het moment is waarop ze het kwetsbaarst zijn. Maxime XI voegt toe dat de colonnes van een leger altijd zo verenigd moeten blijven dat de tegenstander er niet ongestraft tussendoor kan trekken.</p>
+      <p>Die lijn eindigt in maxime XXIX, de meest geciteerde van de bundel: is eenmaal besloten een veldslag te leveren, dan moet de volledige krijgsmacht worden ingezet en niets worden achtergehouden, want één bataljon kan de dag beslissen.</p>
+      <h3>Eén aanvoerlijn, voortdurend paraat</h3>
+      <p>Maxime XII stelt dat een leger maar één aanvoerlijn hoort te hebben, die met zorg onderhouden en alleen in het uiterste geval verlaten wordt. Deze lijn verbindt het leger met zijn bevoorrading en zijn berichten, en het vertakken ervan maakt het leger op meerdere plaatsen tegelijk kwetsbaar.</p>
+      <p>Daarnaast eisen de maximes voortdurende paraatheid: een leger moet elke dag en elke nacht klaarstaan om weerstand te bieden, en de onderdelen van het leger moeten elkaar op elk moment kunnen bijstaan. Maxime VIII laat een aanvoerder zich meermaals per dag afvragen wat hij zou doen als de tegenstander op dat moment voor hem, rechts of links zou verschijnen.</p>
+      <h3>Snelheid als verrassing</h3>
+      <p>Maxime IX beschrijft de kracht van een leger als een vermenigvuldiging van massa en snelheid, naar analogie van de mechanica: een snelle mars verhoogt het moreel van een leger en vergroot zijn kans op de overwinning. Snelheid houdt volgens de toelichting ook de bewegingen van een leger verborgen, omdat er geen tijd overblijft om het plan van de aanvoerder te laten uitlekken.</p>
+      <p>De tegenstander moet, in de formulering van de maxime, de donder voelen voor hij de bliksem ziet. Verrassing is in deze lezing geen list op zichzelf, maar een gevolg van tempo.</p>
+      <h3>Moreel weegt zwaarder dan aantal</h3>
+      <p>Is een leger de tegenstander in aantal, cavalerie en artillerie de baas, dan is het volgens maxime X juist zaak een grote veldslag te vermijden; in die omstandigheden doet het moreel van de soldaat veel. Eenmaal begonnen met het offensief, moet dat volgens maxime VI worden volgehouden tot het uiterste, want elke terugtocht verzwakt het moreel van een leger, hoe kundig ook uitgevoerd, omdat de kansen op succes daarmee aan de tegenstander overgaan.</p>
+      <p>Aantallen komen in de maximes voortdurend terug als gegeven waarmee gerekend wordt, maar nooit als het laatste woord. Het is de gemoedstoestand van de troep die telkens de doorslag geeft in de voorbeelden die Burnod erbij zet.</p>
+      <h3>De aanvoerder als voorbeeld</h3>
+      <p>De laatste terugkerende lijn gaat over de aanvoerder zelf. Een groot veldheer, zo stelt maxime XVIII, vult tekorten aan met zijn eigen moed en trekt vastberaden op een aanval af; de eer van de wapens komt daarbij op de eerste plaats, als voorwaarde voor elke militaire meerderheid. De maximes over aanvoerderschap gaan niet over strategie in enge zin, maar over het gedrag dat de troep het moreel geeft waarvan de andere maximes afhankelijk zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Linie van operatie</td><td>De verbindingslijn tussen een leger en zijn achterland waarlangs bevoorrading en berichten lopen; volgens maxime XII moet een leger er maar één hebben en die met zorg aanhouden.</td></tr>
+          <tr><td class="term">Concentratie van troepen</td><td>Het samenbrengen van de volledige krijgsmacht op het beslissende punt in plaats van haar te verspreiden, kern van de maximes over het verenigen van legerkorpsen en het niets achterhouden bij een veldslag.</td></tr>
+          <tr><td class="term">Moreel</td><td>De gemoedstoestand van de troep, die volgens de maximes zwaarder weegt dan aantallen en die toeneemt door een snelle mars en afneemt door een terugtocht.</td></tr>
+          <tr><td class="term">Vleugels</td><td>De beide zijden van een opgesteld leger, die volgens maxime III moeten steunen op neutraal gebied of een natuurlijke hindernis om niet omsingeld te kunnen worden.</td></tr>
+          <tr><td class="term">Offensief tot het uiterste</td><td>Het beginsel dat een eenmaal begonnen aanval volgehouden moet worden tot de laatste mogelijkheid, omdat halverwege stoppen het moreel breekt.</td></tr>
+          <tr><td class="term">Wederzijdse steun</td><td>De eis dat elk onderdeel van het leger op elk moment een ander onderdeel kan bijstaan of door een ander onderdeel bijgestaan kan worden.</td></tr>
+          <tr><td class="term">Snelheid</td><td>Volgens maxime IX de factor die samen met de massa van een leger zijn kracht bepaalt, en het middel om de tegenstander te overrompelen voor die kan reageren.</td></tr>
+          <tr><td class="term">Terugtocht</td><td>Een manoeuvre die de maximes nadrukkelijk niet neutraal noemen, omdat zij altijd het moreel van het leger verzwakt en de kansen aan de tegenstander overdraagt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De maximes zijn niet het resultaat van onderzoek maar van de veldervaring van één man, na zijn dood door een ander in regels gevat. Burnod werkte uit Napoleons geschriften, orders en de overlevering van zijn veldtochten; er is geen methode, geen vergelijkingsgroep en geen controle op wat in een specifiek geval ook anders had kunnen uitpakken. Elke maxime steunt op de autoriteit van de veldheer zelf, niet op een toetsing achteraf.</p>
+      <p>Burnod en D'Aguilar voegden historische voorbeelden toe van andere aanvoerders, onder wie Gustavus Adolphus, Turenne en Frederik de Grote, om te laten zien dat het om algemene beginselen gaat en niet om de toevallige stijl van Napoleon. Die voorbeelden zijn echter gekozen om een al geformuleerde regel te illustreren, niet om die regel te toetsen aan gevallen waarin dezelfde aanpak mislukte. Napoleons eigen veldtocht naar Rusland in 1812, waarin concentratie, snelheid en een enkele aanvoerlijn evengoed golden, eindigt niet in de bundel als tegenvoorbeeld; de maximes citeren overwinningen ter illustratie en laten nederlagen ongenoemd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De regels zijn gedestilleerd uit een oorlogvoering met infanteriecolonnes, cavalerie en artillerie met een beperkt bereik, waarin een leger zich te voet en te paard verplaatste. Of dezelfde regels iets zeggen over latere, gemechaniseerde oorlogvoering, laat staan over de metaforische toepassing op onderneming of persoonlijk leven waarin het boek buiten militaire kringen vaak wordt gelezen, is een vraag die de tekst zelf niet stelt en die de vorm van de maximes, kort en verplaatsbaar naar elk onderwerp, eerder verdoezelt dan beantwoordt.</p>
+      <p>De maximes zijn bovendien niet in strikte zin Napoleons eigen woorden; het zijn Burnods samenstelling en D'Aguilars vertaling, gegoten in de vorm van een handboek. Sommige regels staan naast elkaar terwijl ze naar verschillende kanten wijzen, zoals de aanhoudende oproep om troepen te concentreren tegenover de eis om het terrein en de vleugels te blijven bewaken, en de tekst geeft geen aanwijzing hoe die twee tegen elkaar af te wegen zijn wanneer ze in een concrete situatie botsen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Denk voor een beslissend moment na over wat de tegenpartij kan doen, in plaats van pas te reageren als het zich voordoet.</li>
+        <li>Verzamel bij een beslissend treffen de volledige beschikbare inzet, in plaats van een deel achter de hand te houden voor zekerheid.</li>
+        <li>Behandel een terugtrekking niet als een neutrale stap terug, maar als een keuze die het moreel van de eigen groep aantast.</li>
+        <li>Houd bij een gekozen aanpak één duidelijke verbindingslijn met de achterban aan, in plaats van meerdere losse lijnen tegelijk te onderhouden.</li>
+        <li>Zet bij tegenslag snelheid in om de tegenpartij te overrompelen voor die kan reageren, in plaats van eerst rustig af te wachten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk als <i>Maximes de guerre</i>, samengesteld door generaal Burnod uit Napoleons geschriften en aantekeningen en uitgegeven in Parijs in 1827, zes jaar na Napoleons dood. Luitenant-generaal Sir George C. D'Aguilar vertaalde de tekst naar het Engels, met Burnods toelichtingen, in een editie die begin jaren 1830 verscheen en daarna meerdere drukken beleefde, waaronder een derde druk uit 1861 en een Amerikaanse uitgave uit 1862 onder de titel <i>The Officer's Manual: Napoleon's Maxims of War</i>. Een Nederlandse vertaling is niet gevonden in de catalogus van bibliotheek.nl.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Napoleon's Maxims of War verzamelt achtenzeventig korte regels over oorlogvoering, na Napoleons dood in 1821 samengesteld door generaal Burnod uit diens geschriften en de verslagen van zijn veldtochten. De regels gaan over het samentrekken van troepen op het beslissende punt, het aanhouden van één aanvoerlijn, het vooraf doordenken van wat de tegenstander kan doen, en het gewicht van moreel boven aantallen. Burnod voegde bij elke maxime een korte toelichting toe met voorbeelden uit veldtochten van onder anderen Gustavus Adolphus, Turenne en Frederik de Grote, om te laten zien dat hetzelfde beginsel bij verschillende veldheren terugkeert en niet aan Napoleon alleen toebehoort.</p><p>De Engelse vertaling van D'Aguilar verscheen voor het eerst rond 1831 en werd daarna herhaaldelijk herdrukt. Een Amerikaanse uitgave uit 1862, verschenen in het Zuiden tijdens de Amerikaanse Burgeroorlog, kreeg een aanbevelingsbrief van generaal Winfield Scott mee, die de tekst aan officieren aanraadde. Het boek is geen verhandeling met een doorlopend betoog maar een reeks losse stellingen van telkens een paar zinnen, bedoeld om uit het hoofd te kennen en in het veld toe te passen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>krijgskunde</li><li>strategie</li><li>leiderschap</li><li>oorlogvoering</li><li>geschiedenis</li><li>aforismen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="212"><a href="212.html">The 33 Strategies of War</a>. Voor strategie buiten het slagveld, in een vergelijkbare vorm van korte, harde regels.</li>
+          <li value="219"><a href="219.html">The Thirty-Six Stratagems</a>. Een oudere, Chinese tegenhanger in dezelfde beknopte vorm, gericht op list in plaats van op concentratie van kracht.</li>
+          <li value="57"><a href="57.html">The Lessons of History</a>. Voor de vraag of Napoleons beginselen inderdaad terugkeren over eeuwen van geschiedenis, of dat elke tijd zijn eigen patronen kent.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

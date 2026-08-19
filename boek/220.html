@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coup d'État &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Luttwak stelt dat een geslaagde staatsgreep geen brede volksmobilisatie of ideologische overtuigingskracht vereist, maar in de kern een technisch probleem…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-220">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">220 &middot; Geschiedenis en samenleving</p>
+    <h1>Coup d'État</h1>
+    <p class="lede">Edward N. Luttwak, 1968</p>
+    <p class="stats">
+      <span><b>1487</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="220"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Luttwak stelt dat een geslaagde staatsgreep geen brede volksmobilisatie of ideologische overtuigingskracht vereist, maar in de kern een technisch probleem is: wie een klein, goed gekozen deel van het bestaande staatsapparaat in handen krijgt, beheerst daarmee de rest, zonder dat de bevolking zich er ooit actief voor of tegen hoeft uit te spreken. Die stelling maakt de coup in zijn ogen een instrument dat vrijwel losstaat van de politieke kleur van wie hem pleegt, en dat vooral afhangt van de structuur van de staat waarin hij plaatsvindt, niet van de kracht van het idee erachter.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een handleiding als vorm</h3>
+      <p>Het boek is opgezet als een praktische gids, compleet met stappenplannen en checklists, gericht tot een lezer die overweegt zelf een staatsgreep te plegen. Die opzet is een retorisch middel: door zich tot de pleger te richten in plaats van tot de waarnemer, ontwijkt Luttwak de morele toon die politieke geschriften over machtswisseling meestal aanslaan, en beschrijft hij een coup zoals een adviseur een reorganisatie zou beschrijven, als een reeks beheersbare stappen met eigen risico's en faalpunten.</p>
+      <h3>Wat een coup is, en wat niet</h3>
+      <p>Voordat Luttwak instructies geeft, bakent hij zijn onderwerp af. Een coup d'état is de snelle overname van het bestuursapparaat door een klein deel van dat apparaat zelf, zonder dat daar een brede beweging aan te pas komt. Dat onderscheidt de coup van de revolutie, die juist draait om massale maatschappelijke mobilisatie, van de pronunciamiento, een greep die uitgevoerd wordt namens het voltallige officierskorps, van de putsch, die vanuit een factie binnen het leger opereert, en van de bevrijding, waarbij een andere staat van buitenaf de machtswisseling afdwingt.</p>
+      <p>Deze afbakening is meer dan begripsverheldering. Ze bepaalt meteen ook wie er in Luttwaks redenering aan het werk moet: geen legermeerderheid en geen menigte, maar een handjevol mensen op de juiste plek in de bestaande organisatie.</p>
+      <h3>De voorwaarden waaronder een land vatbaar is</h3>
+      <p>Luttwak noemt vier voorwaarden waaraan een land moet voldoen wil een coup er kans van slagen hebben. De economische situatie moet slecht genoeg zijn om onvrede onder de bevolking te voeden. De macht moet geconcentreerd zijn bij één partij of een kleine bestuurlijke elite, zodat er één centrum is om over te nemen. Het land moet politiek onafhankelijk genoeg zijn om niet meteen door een buitenlandse mogendheid te worden teruggedraaid. En de staat moet voldoende georganiseerd zijn, met een bureaucratie die zich als geheel laat overnemen in plaats van te versnipperen zodra de top wegvalt.</p>
+      <p>Ontbreekt een van die voorwaarden, dan werkt de rest van het handboek volgens Luttwak niet: in een land zonder centrale bureaucratie is er simpelweg niets om over te nemen, en in een land met sterke buitenlandse bescherming wordt de winst van een geslaagde greep binnen dagen weer ongedaan gemaakt.</p>
+      <h3>De strategie: de staat als werktuig</h3>
+      <p>Het onderscheidende idee van het boek is dat de plegers van een coup de dwangmiddelen van de staat, het leger, de politie, de veiligheidsdienst, niet hoeven te verslaan, maar kunnen inzetten. Wie de bevelslijnen en de communicatiekanalen van die diensten in handen krijgt, laat ze voor zich werken zonder dat de meeste officieren en ambtenaren doorhebben dat er iets veranderd is. Dat maakt een coup in Luttwaks beschrijving iets anders dan een oorlog of een opstand: het is een operatie tegen de leiding van de staat, uitgevoerd met de middelen van diezelfde staat.</p>
+      <h3>Planning en uitvoering: uur nul</h3>
+      <p>In de planningsfase draait alles om geheimhouding en beperking. Werving gebeurt in een kleine kring van mensen die elkaar persoonlijk vertrouwen, taken worden pas op het laatste moment aan de uitvoerders bekendgemaakt, en er wordt een tijdschema opgesteld waarin elke stap op de minuut is voorbereid, met een uitwijkmogelijkheid voor het geval iets misgaat.</p>
+      <p>Op het gekozen moment, uur nul, worden de sleutelposities tegelijk bezet: het regeringspaleis, de legerhoofdkwartieren, de hoofdbureaus van politie, en vooral de radio- en televisiestations, omdat wie het nieuws beheerst kan bepalen wat er als feit geldt zolang niemand het kan tegenspreken. Sleutelfiguren die zich tegen de nieuwe orde zouden kunnen keren, worden binnen hetzelfde tijdsbestek opgepakt of afgesneden van hun eigen achterban.</p>
+      <h3>De nasleep en de herziene editie</h3>
+      <p>Na de machtsovername beschrijft Luttwak hoe de nieuwe leiders hun positie moeten verankeren: snel een regering vormen, de bestaande ambtenarij grotendeels op zijn plek laten om chaos te voorkomen, en in de eerste dagen laten zien dat de instellingen van de staat blijven functioneren, zodat burgers en buitenland de nieuwe machthebbers als de facto bestuur gaan behandelen.</p>
+      <p>Voor de herziene editie van 2016 liet Luttwak de tekst uit 1968 grotendeels intact en voegde hij een nieuw voorwoord toe. Daarin stelt hij vast dat de controle over één centrale zender, ooit voldoende om het nieuws te beheersen, niet meer volstaat in een land met internettoegang, omdat inwoners dan via meerdere kanalen tegelijk aan informatie kunnen komen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">coup d'état</td><td>de snelle overname van het bestuursapparaat door een klein deel van dat apparaat zelf, zonder brede volksbeweging.</td></tr>
+          <tr><td class="term">revolutie</td><td>het contrastbegrip bij Luttwak: een machtswisseling die juist wél draait om massale maatschappelijke mobilisatie.</td></tr>
+          <tr><td class="term">pronunciamiento</td><td>een staatsgreep die wordt uitgevoerd namens het voltallige officierskorps van het leger.</td></tr>
+          <tr><td class="term">putsch</td><td>een staatsgreep die vanuit een factie binnen het leger opereert, eventueel met steun van burgers.</td></tr>
+          <tr><td class="term">bevrijding</td><td>een machtswisseling die van buitenaf wordt afgedwongen doordat een andere staat ingrijpt.</td></tr>
+          <tr><td class="term">dwangmiddelen incorporeren</td><td>de strategie om leger, politie en veiligheidsdienst niet te bevechten maar over te nemen en voor zich te laten werken.</td></tr>
+          <tr><td class="term">sleutelposities</td><td>de handvol plekken, zoals paleis, hoofdkwartier en zendstation, waarvan de controle bepaalt wie het land bestuurt.</td></tr>
+          <tr><td class="term">uur nul</td><td>het vooraf vastgestelde tijdstip waarop alle onderdelen van de operatie gelijktijdig beginnen.</td></tr>
+          <tr><td class="term">politieke krachten neutraliseren</td><td>het stap voor stap onschadelijk maken van partijen, vakbonden en andere organisaties die zich tegen de nieuwe machthebbers zouden kunnen keren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Luttwak onderbouwt zijn methode niet met een aparte dataset of statistische toets, maar met een vergelijkende lezing van staatsgrepen uit de jaren vijftig en zestig, vooral in Latijns-Amerika, het Midden-Oosten en Afrika, de regio's waar in de naoorlogse decennia de meeste machtswisselingen van dit type plaatsvonden. Uit die reeks episodes destilleert hij het terugkerende patroon dat hij tot handleiding maakt, aangevuld met bijlagen die tabellen en historische cijfers over dit soort machtswisselingen bevatten. Een voorwoord van historicus Walter Laqueur plaatst het werk in de bredere literatuur over naoorlogse staatsgrepen.</p>
+      <p>Het sterkste indirecte bewijs dat Luttwak zelf niet aanvoert, is de ontvangst van het boek na publicatie: het werd in zestien talen vertaald en gold in meerdere landen als leesvoer voor zowel plegers als regimes die zich ertegen wilden wapenen, onder wie de Marokkaanse generaal Mohamed Oufkir voorafgaand aan een couppoging tegen koning Hassan II in 1972. Dat zulke lezers er praktische waarde aan hechtten, zegt iets over hoe herkenbaar het patroon voor ingewijden was, maar is geen systematische toetsing van de vier voorwaarden aan een groter aantal gevallen. De herziene editie van 2016 liet die onderliggende argumentatie ongemoeid en voegde alleen een voorwoord toe; recentere staatsgrepen, zoals die in de Sahel-regio na 2020, worden niet opnieuw langs het model gelegd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De felste vroege kritiek kwam van historicus Eric Hobsbawm, die het boek als handleiding weinig nieuws vond bieden aan wie de praktijk al kende: wat in het Westen als onthulling gold, was volgens hem in Buenos Aires of Damascus gewone kennis. Zwaarder weegt zijn bezwaar dat Luttwak een coup als politiek neutraal instrument voorstelt, terwijl legerleidingen in de praktijk overwegend behoudend optreden en linkse militaire coups eerder uitzondering dan regel zijn, iets wat het boek volgens Hobsbawm niet verklaart.</p>
+      <p>Een tweede punt van kritiek, van militair historicus Richard Clutterbuck, is dat het boek de rol van nieuwsmedia bij het welslagen van een coup onderbelicht laat, terwijl juist die rol bepaalt of een bevolking de nieuwe machthebbers als voldongen feit accepteert. Verder blijven de vier voorwaarden in het boek beweringen op basis van Luttwaks eigen lezing van de geschiedenis, niet uitkomsten van een onderzoek dat ze tegen een groter aantal gevallen afzet, en de herziene editie van 2016 herhaalt die aanpak zonder de voorwaarden opnieuw te toetsen aan staatsgrepen van na 1968.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de vier voorwaarden als eerste inschatting van hoe kwetsbaar een land voor een staatsgreep is, niet als vaststaand bewijs.</li>
+        <li>Onderscheid coup, putsch, pronunciamiento en bevrijding voordat je een machtswisseling in het nieuws met een van die termen benoemt.</li>
+        <li>Let bij berichtgeving over een coup op wie de sleutelposities, zoals paleis, hoofdkwartier en omroep, daadwerkelijk in handen heeft; dat voorspelt de uitkomst vaak beter dan de aankondigingen van de plegers zelf.</li>
+        <li>Houd bij een land met brede internettoegang rekening met de aanvulling uit de herziene editie: controle over één zender is dan niet meer genoeg om het nieuws te beheersen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Coup d'État: A Practical Handbook</i> (Harvard University Press, 1968), met een voorwoord van historicus Walter Laqueur. Bij dezelfde uitgever verscheen in 2016 een herziene editie met een nieuw voorwoord van de auteur; de rest van de tekst uit 1968 bleef daarbij grotendeels ongewijzigd. Een Nederlandse vertaling is niet te vinden in de catalogus van bibliotheek.nl.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Luttwak schrijft zijn boek in de vorm van een instructiehandleiding voor wie een staatsgreep wil beramen en uitvoeren. Die vorm is een middel, geen doel: door de lezer als mogelijke pleger aan te spreken, dwingt de auteur zichzelf tot de droge, technische taal van een organisatieadviseur in plaats van de verontwaardigde toon van een politiek commentator. Het boek maakt eerst onderscheid tussen een coup en verwante vormen van machtswisseling, zoals de revolutie, de pronunciamiento, de putsch en de van buitenaf afgedwongen bevrijding, en stelt daarna vast onder welke voorwaarden een land er vatbaar voor is: een zwakke economie met sociale onrust, macht die in weinig handen ligt, geen sterke buitenlandse bemoeienis, en een staatsapparaat dat georganiseerd genoeg is om in zijn geheel te kunnen worden overgenomen.</p><p>De rest van het boek werkt de operatie zelf uit: hoe leger, politie en bureaucratie niet worden verslagen maar ingezet als werktuig, hoe in een kleine, afgeschermde kring wordt geworven en gepland, en hoe op het gekozen moment tegelijk de sleutelposities worden bezet, van paleis tot zendstation, terwijl de overige tegenkrachten onschadelijk worden gemaakt. Een laatste deel beschrijft hoe de nieuwe machthebbers zich daarna legitimeren. Voor de herziene editie van 2016 voegde Luttwak een nieuw voorwoord toe waarin hij vaststelt dat de controle over één zender niet meer volstaat zodra een land internettoegang heeft. Het boek is in zestien talen vertaald en gold volgens berichten uit meerdere landen ook als leesvoer voor generaals die zelf een coup overwogen of er juist een wilden voorkomen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>staatsgreep</li><li>machtspolitiek</li><li>militaire strategie</li><li>politicologie</li><li>regimeverandering</li><li>geopolitiek</li><li>koude oorlog</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="212"><a href="212.html">The 33 Strategies of War</a>. Een andere blik op machtsstrijd als techniek, ditmaal via historische krijgsheren in plaats van een handleiding voor het heden.</li>
+          <li value="221"><a href="221.html">The Dictator's Handbook</a>. Bespreekt vanuit een ander vakgebied waarom machthebbers doen wat ze doen, met dezelfde nadruk op structuur boven ideologie.</li>
+          <li value="217"><a href="217.html">The Strategy of Conflict</a>. Legt met speltheorie de logica bloot achter beslissingen van tegenstanders, een aanvulling op Luttwaks meer beschrijvende aanpak.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

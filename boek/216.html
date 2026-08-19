@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Worldly Wisdom &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gracián stelt dat wie in de wereld iets wil bereiken twee dingen nodig heeft die los van elkaar weinig waard zijn: prudencia, het vermogen om in elke…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-216">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">216 &middot; Levenskunst</p>
+    <h1>The Art of Worldly Wisdom</h1>
+    <p class="lede">Baltasar Gracián, 1647</p>
+    <p class="stats">
+      <span><b>1599</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="216"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gracián stelt dat wie in de wereld iets wil bereiken twee dingen nodig heeft die los van elkaar weinig waard zijn: prudencia, het vermogen om in elke situatie de juiste maat en het juiste moment te treffen, en ingenio, het vernuft om een situatie sneller te doorzien dan de ander. Deugd alleen is volgens hem onvoldoende, want de wereld oordeelt op wat zichtbaar wordt gemaakt en niet op wat feitelijk waar is. Wie zijn kwaliteiten niet toont en zijn zwakheden niet verbergt, verliest het van wie dat wel kan. Het boek biedt driehonderd korte regels om in die wereld staande te blijven zonder de eigen waardigheid volledig prijs te geven, al trekt Gracián de grens tussen sluwheid en oneerlijkheid zelden scherp.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een handboek zonder verhaal, samengesteld door een vriend</h3>
+      <p>Het boek heeft geen plot en geen hoofdpersoon. Het bestaat uit driehonderd genummerde aforismen, elk gevolgd door een korte uitleg, zonder duidelijke opbouw van eenvoudig naar moeilijk of van algemeen naar specifiek. Lastanosa stelde de tekst samen uit ouder materiaal van Gracián en nieuw werk; minder dan een kwart is terug te voeren op de eerdere boeken <i>El Héroe</i>, <i>El Político</i> en <i>El Discreto</i>.</p>
+      <p>Er is geen argument dat van aforisme 1 naar aforisme 300 loopt, en de lezer kan met evenveel recht bij nummer 150 beginnen als bij het begin. Joseph Jacobs, de Engelse vertaler uit 1892, raadde aan er telkens vijftig te lezen en de rest te laten liggen.</p>
+      <h3>Zelfbeheersing als grondvoorwaarde</h3>
+      <p>Een groot deel van de aforismen gaat over het beheersen van de eigen hartstocht voordat iemand zich met anderen bemoeit. Wie zijn ergernis, zijn ongeduld of zijn enthousiasme laat zien, geeft de tegenpartij een aangrijpingspunt. Gracián beschrijft dit niet als onderdrukking van gevoel maar als het uitstellen van de uiting ervan tot het moment waarop zij nuttig is.</p>
+      <p>Deze zelfbeheersing is bij hem geen deugd op zichzelf, maar een voorwaarde om de andere regels van het boek te kunnen toepassen. Wie zijn humeur niet in de hand heeft, kan ook zijn woorden en zijn gezicht niet in de hand houden, en verliest daarmee het enige middel dat hij tegen een sterkere tegenstander heeft.</p>
+      <h3>Schijn weegt zwaarder dan wat werkelijk is</h3>
+      <p>Terugkerend is het idee dat mensen beoordeeld worden op wat zij tonen, niet op wat zij zijn. Een verdienste die niemand opmerkt, telt in de praktijk niet mee, en een gebrek dat goed verborgen blijft, schaadt niet. Gracián raadt daarom aan verdiensten met beleid zichtbaar te maken in plaats van erop te vertrouwen dat ze vanzelf worden opgemerkt.</p>
+      <p>Dat maakt reputatie tot een instrument dat onderhouden moet worden, niet tot een neveneffect van goed gedrag. Het is ook het punt waarop latere lezers het boek het cynischt hebben genoemd, omdat het imago boven de zaak zelf lijkt te plaatsen.</p>
+      <h3>Verhulling: niet alles laten zien</h3>
+      <p>Een derde lijn betreft het omgaan met anderen zonder de eigen bedoelingen volledig prijs te geven. Gracián noemt dit disimulo: iets verbergen zonder ronduit te liegen. Wie zijn plannen, zijn voorkeuren en zijn zwakke plekken half laat zien, blijft voor de ander onvoorspelbaar en dus lastiger te gebruiken.</p>
+      <p>Aforisme 101 vat de houding tegenover de buitenwereld die daaruit volgt kort samen: de ene helft van de wereld lacht om de andere helft, en dwazen zijn ze allebei. Wie dat aanneemt, verwacht van niemand een onbevangen oordeel en past zijn eigen gedrag daarop aan.</p>
+      <h3>Fortuna en het juiste moment</h3>
+      <p>Gracián behandelt geluk, door hem fortuna genoemd, als een factor die niet af te dwingen is maar wel te benutten. Dezelfde daad die op het ene moment een triomf oplevert, levert op een ander moment niets op of schaadt zelfs. Een deel van de wijsheid waar het boek over gaat, is dus niet het kiezen van de juiste daad maar het herkennen van het juiste ogenblik ervoor.</p>
+      <p>Wachten wordt bij hem daarom geen zwakte maar een vaardigheid, mits het wachten actief blijft: de gelegenheid moet herkend worden zodra zij zich voordoet, anders is het geduld verspild.</p>
+      <h3>Vrienden, rivalen en het hof</h3>
+      <p>In de aforismen over de omgang met anderen maakt Gracián onderscheid tussen mensen die iemand werkelijk toegedaan zijn en mensen die alleen nuttig zijn zolang het hun uitkomt. Hij raadt aan weinig mensen echt te vertrouwen en toch met velen goed om te gaan, en waarschuwt tegen het corrigeren van andermans fouten in het openbaar, omdat dat een vijand maakt van iemand die eerst neutraal was.</p>
+      <p>Deze regels zijn geschreven voor het leven aan een hof of in een kerkelijke hiërarchie, waar concurrenten en medestanders vaak dezelfde mensen zijn; buiten die context is een deel van dit advies minder van toepassing.</p>
+      <h3>De grens die het boek zelf trekt</h3>
+      <p>Het laatste aforisme, nummer 300, wijkt af van de driehonderd die eraan voorafgaan. Na regels over aanzien, verhulling en beleid eindigt Gracián met één zin: in één woord, wees een heilige. Daarmee erkent hij dat alle voorzichtigheid ondergeschikt blijft aan een deugd die niet met beleid te verwerven is.</p>
+      <p>Die slotzin zet een grens onder alles wat eraan voorafging: wereldwijsheid is bij Gracián een middel om overeind te blijven, geen doel op zichzelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Prudencia</td><td>Praktische wijsheid of beleid: het vermogen om in elke situatie de juiste maat en het juiste moment te vinden.</td></tr>
+          <tr><td class="term">Ingenio</td><td>Vernuft, het vermogen snel verbanden te leggen en een situatie sneller te doorzien dan de tegenpartij.</td></tr>
+          <tr><td class="term">Agudeza</td><td>Scherpzinnigheid, de gepolijste geestigheid in woord en oordeel; ook de titel van Graciáns andere hoofdwerk over stijl.</td></tr>
+          <tr><td class="term">Disimulo</td><td>Verhulling: eigen bedoelingen en gevoelens niet volledig tonen, zonder ronduit te liegen.</td></tr>
+          <tr><td class="term">Reputación</td><td>Reputatie of aanzien, het beeld dat anderen van iemand hebben, dat volgens Gracián zwaarder telt dan wat iemand werkelijk is.</td></tr>
+          <tr><td class="term">Fortuna</td><td>Het geluk of de gunst van de omstandigheden, grillig en niet af te dwingen, wel te herkennen op het juiste moment.</td></tr>
+          <tr><td class="term">Desengaño</td><td>Ontgoocheling: het doorzien van de schijn die de wereld en de mensen erin aanbieden.</td></tr>
+          <tr><td class="term">El discreto</td><td>De schrandere, bezonnen mens die zijn hartstochten beheerst; het ideaaltype waar de aforismen naartoe redeneren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit boek is geen onderzoek en presenteert zich ook niet als zodanig. Het is een verzameling regels, ontstaan uit het leven van een man die als leraar, prediker en rector binnen de jezuïetenorde werkte en die als kapelaan de Catalaanse Opstand van 1646 meemaakte, aangevuld met de kring van geleerden rond zijn beschermheer Lastanosa in Aragón. De aforismen zijn de neerslag van wat Gracián aan het hof en in de kerkelijke hiërarchie heeft waargenomen, niet van een bevraging van meerdere bronnen.</p>
+      <p>Elk aforisme wordt gepresenteerd als algemeen geldig, zonder voorbeeld, zonder naam en zonder jaartal erbij. Dat is eigen aan het genre: de Spaanse conceptismo waarin Gracián schreef, waardeerde een gedachte juist om haar dichtheid en om hoeveel zij in weinig woorden zegt, niet om de mate waarin zij met gevallen onderbouwd is. Van de driehonderd regels is minder dan een kwart terug te voeren op Graciáns eerdere boeken; de rest is nieuw voor deze uitgave, wat betekent dat het om een bewuste herformulering gaat en niet om een haastige samenraapsel van eerder werk.</p>
+      <p>Elke regel staat dus op eigen gezag. Er is geen manier om na te gaan hoe vaak een advies is beproefd of hoe vaak het averechts heeft gewerkt; de autoriteit van het boek berust op de scherpte van de formulering, niet op een toetsbare claim.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste tegenwerping is dat de bondigheid die het boek beroemd maakte, ook zijn zwakte is. Sommige aforismen zijn zo compact geformuleerd dat ze zonder toelichting nauwelijks te volgen zijn, en soms blijft de toelichting even raadselachtig als de regel zelf.</p>
+      <p>Een tweede punt is dat het boek weinig warmte biedt. Het gaat vrijwel overal over beter functioneren in een omgeving van wedijver en jaloezie, zelden over goedheid als doel op zich. Waar andere zeventiende-eeuwse moralisten ook over mededogen of vergeving schrijven, blijft dat bij Gracián op de achtergrond; alleen het slotaforisme, met zijn oproep om heilig te worden, wijkt daarvan af.</p>
+      <p>De regels staan bovendien los naast elkaar, waardoor sommige elkaar tegenspreken: op de ene plaats raadt Gracián aan weinigen te vertrouwen, op een andere plaats prijst hij een goede vriend als het grootste bezit. Het boek legt beide kanten naast elkaar neer, zonder ze met elkaar te verzoenen.</p>
+      <p>Ten slotte is er de biografische ironie die latere lezers vaak noemen: Gracián publiceerde zijn roman <i>El Criticón</i> zonder toestemming van zijn orde, werd daarvoor naar een afgelegen post overgeplaatst en zijn boeken werden hem afgenomen; hij stierf binnen twee jaar. De schrijver van driehonderd regels over het bewaren van aanzien eindigde zelf in ongenade bij het instituut waaraan hij zijn leven had gewijd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees niet meer dan tien tot twintig aforismen per keer en laat de rest liggen tot een volgend moment.</li>
+        <li>Zoek bij een onduidelijk aforisme eerst de toelichting van de vertaler op voordat je er een eigen uitleg aan geeft.</li>
+        <li>Noteer bij elk aforisme dat blijft hangen in welke situatie het wel en in welke situatie het niet opgaat, want Gracián geeft die begrenzing zelf niet aan.</li>
+        <li>Lees aforisme 300 als laatste, ook als je de rest niet in volgorde leest, om het boek niet zonder de grens te lezen die het zichzelf stelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Oráculo manual y arte de prudencia</i> (Huesca, 1647), verschenen onder het pseudoniem Lorenzo Gracián om de kerkelijke censuur van zijn orde te omzeilen. Engelse vertaling door Joseph Jacobs als <i>The Art of Worldly Wisdom</i> (Macmillan, 1892), sindsdien in vrije toegang en veelvuldig herdrukt. Nederlands als <i>Handorakel en kunst van de voorzichtigheid</i>, vertaald door Theo Kars (Athenaeum, Amsterdam; editie 2014, herdruk 2020, ISBN 9789025312510).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het boek bestaat uit driehonderd korte regels, elk met een toelichting van enkele zinnen, over hoe iemand zich in de wereld staande houdt zonder zijn positie of zijn waardigheid te verliezen. De regels zijn niet in een doorlopend betoog gezet maar naast elkaar geplaatst, zodat de lezer er een paar per keer tot zich neemt. Het werk verscheen in 1647 in Huesca onder het pseudoniem Lorenzo Gracián en is samengesteld door zijn vriend en mecenas Vincencio Juan de Lastanosa, die daarvoor ouder materiaal van Gracián naast nieuw geschreven aforismen legde; minder dan een kwart van de tekst is terug te voeren op zijn eerdere boeken. De toon is die van iemand die de omgang met macht, aanzien en jaloezie van dichtbij heeft gezien en er kort en puntig verslag van doet, zonder de lezer te vertellen dat het allemaal goed komt.</p><p>Baltasar Gracián (1601-1658) was een Spaans jezuïet die als leraar, prediker en biechtvader werkte en het tot rector van het jezuïetencollege van Tarragona bracht; tijdens de Catalaanse Opstand diende hij als kapelaan in het leger. Zijn roman <i>El Criticón</i> publiceerde hij zonder toestemming van zijn orde, waarop hij naar het afgelegen Graus werd overgeplaatst en zijn boeken moest afstaan. Hij stierf iets meer dan een jaar later in Tarazona: het werk van een man wiens eigen loopbaan eindigde in ongenade bij het instituut waaraan hij zijn leven had gewijd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>aforismen</li><li>levenskunst</li><li>voorzichtigheid</li><li>barok</li><li>hofcultuur</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius schrijft eveneens in korte, losstaande aantekeningen over zelfbeheersing, maar zoekt de rust in het loslaten van de wereld waar Gracián juist leert hoe daarin te opereren.</li>
+          <li value="212"><a href="212.html">The 33 Strategies of War</a>. Robert Greene werkt dezelfde vragen over macht, verhulling en het juiste moment uit tot uitgebreide, met geschiedenis onderbouwde hoofdstukken, tegenover Graciáns korte regels zonder voorbeeld.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Ryan Holiday actualiseert de gedachte dat zelfbeheersing en het herkennen van het juiste moment de kern van praktische wijsheid vormen, vanuit de stoïcijnse traditie waarmee Graciáns jezuïtische vorming raakvlakken heeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

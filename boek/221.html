@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Dictator's Handbook &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat leiders, van dictators tot presidenten tot bestuursvoorzitters, hun gedrag primair laten sturen door de vraag wat hun winning coalition…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-221">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">221 &middot; Geschiedenis en samenleving</p>
+    <h1>The Dictator's Handbook</h1>
+    <p class="lede">Bruce Bueno de Mesquita en Alastair Smith, 2011</p>
+    <p class="stats">
+      <span><b>1571</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="221"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat leiders, van dictators tot presidenten tot bestuursvoorzitters, hun gedrag primair laten sturen door de vraag wat hun winning coalition tevreden houdt, niet door wat het land, het bedrijf of de kiezers ten goede komt. Goed bestuur is in die lezing geen doel maar een toevallig bijproduct: het ontstaat alleen wanneer de coalitie die een leider nodig heeft te groot is om met gunsten aan enkelen af te kopen. Corruptie, oorlog, armoede en hulp die averechts werkt zijn in deze visie geen falen van individuele leiders, maar de voorspelbare uitkomst van een kleine coalitie. Daarmee keren de auteurs de gangbare aanname om dat slecht bestuur vooral het gevolg is van slechte mensen aan de macht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie kringen kiezers</h3>
+      <p>Bueno de Mesquita en Smith onderscheiden drie groepen rond elke machthebber. De interchangeables zijn iedereen met formeel stemrecht: in een dictatuur de bevolking die op papier partijcongressen of schijnverkiezingen bijwoont, in een democratie het hele electoraat. Zij zijn individueel vervangbaar en tellen als groep amper mee. De influentials kiezen de leider daadwerkelijk, zoals de leden van een politbureau, een koninklijke familie of, in de Verenigde Staten, het college van kiesmannen. Binnen die groep zit de kleinste en belangrijkste kring, de essentials: de mensen zonder wier actieve steun een leider zijn positie kwijtraakt.</p>
+      <p>Het verschil tussen een dictatuur en een democratie zit volgens de auteurs in de verhouding tussen die kringen. Een dictatuur draait op een kleine winning coalition getrokken uit een enorme groep interchangeables. Een democratie draait op een winning coalition die bijna even groot is als de groep influentials zelf. Naarmate die coalitie groter is, wordt het voor een leider goedkoper om iedereen tevreden te houden met beleid dat iedereen ten goede komt, en duurder om enkelen om te kopen.</p>
+      <h3>De vijf regels</h3>
+      <p>Uit dat model destilleren de auteurs vijf regels die volgens hen elke machthebber volgt, bewust of onbewust. Houd de winning coalition zo klein mogelijk, want hoe minder mensen delen in de buit, hoe minder het kost. Houd de groep interchangeables zo groot mogelijk, zodat elk lid van de coalitie weet dat er buiten hem genoeg vervangers klaarstaan. Beheers de geldstroom, want wie zelf bepaalt wie wat krijgt, koopt loyaliteit op maat. Betaal medestanders precies genoeg om hen loyaal te houden en niet meer, want een te rijke medestander kan zelf naar de macht grijpen. Geef ten slotte nooit geld aan de bevolking dat ten koste gaat van de coalitie, want de coalitie beslist over het voortbestaan van de leider, de bevolking beslist daar zelden over.</p>
+      <h3>Klein houden: Zaïre en Noord-Korea</h3>
+      <p>Mobutu Sese Seko regeerde Zaïre van 1965 tot 1997 op de opbrengst van de koper- en diamantmijnen van het land, die hij grotendeels liet wegvloeien naar een kleine kring van familieleden, legercommandanten en zakenpartners. Schattingen van zijn persoonlijk vermogen lopen op tot enkele miljarden dollars, terwijl wegen en spoorlijnen wegzakten. Kim Jong-il hield Noord-Korea volgens de auteurs op vergelijkbare wijze draaiende: buitenlandse voedselhulp ging voor een groot deel naar het leger, de groep waarvan zijn positie afhing, en niet naar de hongerende bevolking.</p>
+      <h3>Een grote coalitie maakt zuinig niet vanzelf eerlijk</h3>
+      <p>Dat dezelfde logica ook binnen een democratie geldt, laten de auteurs zien aan het stadje Bell in Californië, waar stadsmanager Robert Rizzo tussen 1993 en 2010 zijn jaarsalaris opdreef van ongeveer 72.000 naar bijna 800.000 dollar, terwijl nauwelijks iemand naar de gemeenteraadsverkiezingen ging en de feitelijke coalitie die hem aan de macht hield tot een handjevol raadsleden was geslonken. Op landenniveau noemen ze het verschil tussen de kronkelende wegen naar vliegvelden in democratieën, waar grondeigenaren met onteigening moeten instemmen, en de kaarsrechte wegen in autocratieën, waar een leider zonder overleg door elk perceel heen laat aanleggen.</p>
+      <h3>Inkomsten en hulp</h3>
+      <p>Wie de geldstroom beheerst, hoeft zich niet te verantwoorden bij een parlement of een belastingdienst. Daarom werken olie-inkomsten en andere delfstoffen volgens de auteurs vaak averechts voor de bevolking van autocratieën: die inkomsten hoeven niet via belasting bij burgers te worden opgehaald en maken de coalitie onafhankelijk van wat de bevolking ervan vindt. Buitenlandse hulp werkt in hun analyse vaak hetzelfde: geld dat bedoeld is voor ziekenhuizen en scholen komt in een land met een kleine coalitie terecht bij de mensen die de leider aan de macht houden, en verkleint zo de prikkel om ooit iets aan de bevolking te veranderen.</p>
+      <h3>Oorlog en opstand</h3>
+      <p>Omdat soldaten voor een dictator tot de vervangbare interchangeables behoren en niet tot de essentials, is het voor hem goedkoop ze in een oorlog te verliezen. Democratische leiders verliezen bij een oorlog burgers die tot hun coalitie kunnen behoren en investeren daarom eerder in technologie die het aantal gesneuvelden beperkt. Bij dreigende opstand geldt volgens de auteurs dezelfde rekensom: een leider onderdrukt zolang onderdrukking goedkoper is dan het uitbreiden van de coalitie, en pas wanneer die verhouding omslaat verschuift er macht naar een grotere groep.</p>
+      <h3>Wat de auteurs aanraden</h3>
+      <p>In het slothoofdstuk richten de auteurs de blik op buitenstaanders: hoe dwing je een kleine coalitie om groter te worden. Hun voorstellen draaien vooral om voorwaarden: hulp en handel koppelen aan verkiezingen die een reële uitslag kunnen opleveren, aan een vrije pers en aan onafhankelijke controle van de geldstroom, zodat de kring die een leider tevreden moet houden vanzelf groeit.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Selectoraat</td><td>Iedereen die volgens de regels van een systeem een rol speelt bij het kiezen of aanstellen van de leider.</td></tr>
+          <tr><td class="term">Interchangeables</td><td>Mensen met formeel stemrecht die individueel vervangbaar zijn en als groep zelden het verschil maken.</td></tr>
+          <tr><td class="term">Influentials</td><td>De kring die de leider daadwerkelijk kiest of aanstelt, kleiner dan de interchangeables en groter dan de winning coalition.</td></tr>
+          <tr><td class="term">Winning coalition (essentials)</td><td>De kleine groep zonder wier actieve steun een leider zijn positie verliest.</td></tr>
+          <tr><td class="term">De vijf regels</td><td>De vaste reeks aanwijzingen die de auteurs afleiden voor wie aan de macht wil blijven, van coalitiegrootte tot loyaliteitsbeloning.</td></tr>
+          <tr><td class="term">Coalitiegrootte</td><td>De verhouding tussen winning coalition en selectoraat die bepaalt of een systeem als dictatuur of democratie functioneert.</td></tr>
+          <tr><td class="term">Resource curse</td><td>Het verschijnsel dat makkelijk te gelde te maken grondstoffen een land arm en onvrij houden omdat de leider geen belasting van burgers nodig heeft.</td></tr>
+          <tr><td class="term">Private goederen versus collectieve goederen</td><td>Uitkeringen die alleen naar coalitieleden gaan, tegenover voorzieningen die voor iedereen beschikbaar zijn.</td></tr>
+          <tr><td class="term">Vervangbaarheid</td><td>Het besef bij coalitieleden dat er buiten hen genoeg kandidaten klaarstaan, wat hen gehoorzaam houdt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De redenering steunt op de selectoraattheorie die Bueno de Mesquita samen met Smith, Randolph Siverson en James Morrow eerder wiskundig uitwerkte in het academische boek <i>The Logic of Political Survival</i> (2003). Daar toetsten zij een speltheoretisch model aan gegevens over tientallen landen en decennia, met de omvang van de winning coalition en het selectoraat als verklarende variabelen voor uitkomsten als economische groei, corruptie en oorlogvoering. Bueno de Mesquita bouwde daarbij voort op eigen werk uit de jaren tachtig en negentig, waarin hij met speltheoretische modellen de uitkomst van internationale conflicten probeerde te voorspellen, werk waarmee hij ook inlichtingendiensten adviseerde.</p>
+      <p>In <i>The Dictator's Handbook</i> zelf, geschreven voor een breed publiek, ontbreekt dat statistische apparaat. De auteurs onderbouwen hun stellingen met een reeks afzonderlijke gevallen: Zaïre onder Mobutu, Noord-Korea onder Kim Jong-il, Indonesië onder Soeharto en, dichter bij huis, de salarisfraude in Bell. Voetnoten en bronvermelding per claim ontbreken grotendeels; wie de onderliggende cijfers wil natrekken, wordt verwezen naar het eerdere academische werk. Dit boek is vooral de populaire vertaling van een model dat elders is getoetst, en niet de plek waar die toetsing zichtbaar wordt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste bedenking is dat de auteurs politiek gedrag herleiden tot één drijfveer: het in stand houden van de coalitie. Ideologie, nationale identiteit en morele overtuiging krijgen in die lezing geen zelfstandige rol, hooguit die van een dekmantel voor eigenbelang. Critici, onder wie historicus Peter Turchin, wijzen erop dat leiders zich ook laten sturen door identificatie met hun land of groep, iets wat het model niet meet en dus ook niet kan weerleggen.</p>
+      <p>Een tweede bedenking betreft de bewijsvoering in het populaire boek zelf: de voorbeelden zijn raak gekozen maar illustratief, niet systematisch, en enkele van de gebruikte maatstaven zijn omstreden. Het contrast tussen kaarsrechte wegen in autocratieën en kronkelende wegen in democratieën houdt geen rekening met verschillen in landschap, bevolkingsdichtheid en welvaart, en de stelling dat grondstofrijkdom een land vrijwel altijd arm houdt kent uitzonderingen als Noorwegen, Canada en de Verenigde Staten, die de auteurs niet bespreken.</p>
+      <p>Het boek is ten slotte langer dan de stof rechtvaardigt: dezelfde vijf regels keren in bijna elk hoofdstuk terug, toegepast op een nieuw onderwerp, waardoor de tweede helft vooral bevestigt wat de eerste hoofdstukken al vaststelden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel het gedrag van een bestuurder, van staatshoofd tot bestuursvoorzitter, aan de hand van wie hem daadwerkelijk aan de macht houdt, en niet aan de hand van wie er op papier over gaat.</li>
+        <li>Gebruik coalitiegrootte als vraag bij elke organisatie: hoeveel mensen kunnen de leiding werkelijk wegsturen, en hoe klein blijft die groep voordat verantwoording verdwijnt.</li>
+        <li>Verbind hulp of investeringen aan regimes met een kleine coalitie aan voorwaarden die de coalitie vergroten, zoals vrije verkiezingen en een onafhankelijke pers.</li>
+        <li>Verklaar corruptie eerst vanuit de prikkels van het systeem, voordat die wordt toegeschreven aan het karakter van een individuele bestuurder.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Dictator's Handbook: Why Bad Behavior is Almost Always Good Politics</i> (PublicAffairs, New York, 2011; paperback 2012, 319 blz., ISBN 9781610391849). Bibliotheek.nl en de Nederlandse boekhandel voeren alleen deze Engelstalige editie; een Nederlandse vertaling is niet gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bruce Bueno de Mesquita en Alastair Smith, beiden politicoloog aan New York University, stellen dat elke machthebber zijn positie dankt aan een beperkte groep mensen die hem daadwerkelijk aan de macht houdt, en niet aan het volk. Zij noemen die groep de winning coalition en plaatsen haar binnen een groter geheel van drie kringen: de interchangeables, die formeel stemrecht hebben maar er individueel amper toe doen, de influentials, die feitelijk invloed hebben op wie regeert, en de essentials, zonder wier steun geen leider aanblijft. Een dictator als Kim Jong-il steunde op enkele honderden legerofficieren en partijfunctionarissen, een Amerikaans president op miljoenen kiezers via het college van kiesmannen, maar de logica waarmee beiden hun achterban tevreden houden noemen de auteurs identiek.</p><p>Uit die logica leiden zij vijf regels af: houd de winning coalition zo klein mogelijk, houd de groep vervangbare stemgerechtigden zo groot mogelijk, beheers de geldstroom, betaal medestanders precies genoeg om loyaal te blijven, en haal nooit geld bij hen weg om het aan de bevolking te geven. Die regels passen de auteurs behalve op staten ook toe op bedrijven, sportbonden en internationale organisaties. Het boek bouwt op de selectoraattheorie die Bueno de Mesquita eerder met Smith, Randolph Siverson en James Morrow formeel uitwerkte in <i>The Logic of Political Survival</i> (2003), en illustreert die theorie met gevallen als Zaïre onder Mobutu en de salarisfraude in het Californische stadje Bell.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>politicologie</li><li>machtstheorie</li><li>dictatuur</li><li>corruptie</li><li>selectoraattheorie</li><li>buitenlandse hulp</li><li>speltheorie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="220"><a href="220.html">Coup d'État</a>. <i>Coup d'État</i> beschrijft hoe een kleine, goed geplaatste groep een staat kan overnemen, de praktijk waar de selectoraattheorie de machtslogica achter blootlegt.</li>
+          <li value="217"><a href="217.html">The Strategy of Conflict</a>. <i>The Strategy of Conflict</i> legt de speltheoretische grondslag waarop Bueno de Mesquita en Smith voortbouwen om machtsbehoud als een berekenbaar spel te beschrijven.</li>
+          <li value="57"><a href="57.html">The Lessons of History</a>. <i>The Lessons of History</i> trekt over veel langere tijd dezelfde vraag: welke terugkerende patronen bepalen wie macht krijgt en behoudt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

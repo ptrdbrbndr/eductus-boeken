@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Strategy of Conflict &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Schelling stelt dat onderhandelen, dreigen en oorlog voeren geen aparte terreinen zijn maar varianten van hetzelfde probleem: twee partijen die winnen bij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-217">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">217 &middot; Geschiedenis en samenleving</p>
+    <h1>The Strategy of Conflict</h1>
+    <p class="lede">Thomas C. Schelling, 1960</p>
+    <p class="stats">
+      <span><b>1670</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="217"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Schelling stelt dat onderhandelen, dreigen en oorlog voeren geen aparte terreinen zijn maar varianten van hetzelfde probleem: twee partijen die winnen bij samenwerking én bij een gunstiger aandeel in het conflict, en die daarom voortdurend inschatten wat de ander zal doen op grond van wat zij zelf doen. De klassieke speltheorie had zulke gemengde-motievenspelen nauwelijks een plaats gegeven, omdat zij zich had toegespitst op zuiver conflict of zuivere samenwerking. Schellings kernpunt is dat een dreiging, een belofte of een afspraak alleen werkt als de tegenpartij die geloofwaardig vindt, en dat geloofwaardigheid vaak ontstaat doordat een partij zichzelf welbewust minder keuzevrijheid geeft: wie zijn eigen mogelijkheden inperkt, dwingt de ander tot een berekening waarin toegeven de enige verstandige uitkomst is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een verwaarloosde wetenschap</h3>
+      <p>Schelling opent met de klacht dat internationale strategie, in tegenstelling tot bijvoorbeeld logistiek, nauwelijks als een eigen denkgebied is ontwikkeld. Wat ontbreekt is een theorie van situaties waarin partijen elkaar nodig hebben om tot een uitkomst te komen en tegelijk over de verdeling van die uitkomst botsen: een gemengde-motievenspel. Onderhandelen tussen een vakbond en een werkgever, een gijzelaarssituatie en een wapenbeheersingsverdrag hebben volgens hem dezelfde kern, ook al lijken ze inhoudelijk niets met elkaar te maken te hebben.</p>
+      <p>Zijn tweede essay in dit deel behandelt onderhandelen zelf. Een onderhandelaar die zich in het openbaar vastlegt op een positie, of die zijn achterban een mandaat geeft dat hij zelf niet meer kan verruimen, staat sterker dan iemand die alle ruimte behoudt. Die vaststelling loopt tegen de intuïtie in dat meer speelruimte altijd beter is, en zij is het scharnier waarop de rest van het boek draait.</p>
+      <h3>Afspreken zonder overleg: het focal point</h3>
+      <p>In het tweede deel herschikt Schelling de speltheorie zelf. Bij zuivere samenwerkingsspelen zonder mogelijkheid tot communicatie blijkt dat mensen elkaar toch vaak vinden, doordat zij zich richten op een oplossing die opvalt boven de andere, ook al is die logisch niet beter dan de alternatieven. Zijn voorbeeld van twee mensen die zonder afspraak ergens in New York moeten samenkomen en allebei uitkomen bij de informatiebalie van Grand Central Terminal om twaalf uur, gaf dit verschijnsel zijn naam: het focal point, later het Schelling-punt genoemd.</p>
+      <p>Hetzelfde deel bespreekt experimenteel onderzoek naar spelen tussen proefpersonen, dat volgens Schelling laat zien dat mensen in de praktijk sneller tot afspraken komen dan de formele speltheorie voorspelt, precies omdat zij op zulke focal points sturen. Coördinatie zonder woorden is voor hem geen curiosum maar een basisvorm van menselijk handelen, ook binnen internationale betrekkingen waar formeel overleg vaak ontbreekt of niet te vertrouwen is.</p>
+      <h3>Geloofwaardige dreigingen en het binden van jezelf</h3>
+      <p>Een dreiging die niet geloofwaardig is, stelt volgens Schelling niets voor: de tegenstander rekent uit dat uitvoering ervan ook de dreiger zelf zou schaden, en negeert haar dus. Zijn oplossing is precommitment, het opzettelijk wegnemen van de eigen keuzevrijheid, zodat de tegenstander niet langer kan hopen dat de dreiger op het laatste moment terugkrabbelt. Zijn bekendste illustratie is het spel chicken, waarin twee auto's recht op elkaar afrijden: wie zichtbaar zijn stuur uit het raam gooit, kan niet meer uitwijken en dwingt daarmee de ander tot uitwijken.</p>
+      <p>Diezelfde logica keert terug bij reputatie en bij het opzettelijk beperken van eigen onderhandelingsruimte, bijvoorbeeld door een besluit publiekelijk aan te kondigen voordat de gesprekken beginnen. Wat in het dagelijks leven een zwakte lijkt, minder opties overhouden, is in een onderhandeling vaak juist de bron van invloed.</p>
+      <h3>Het dreigement dat iets aan het toeval overlaat</h3>
+      <p>Niet elke dreiging laat zich vooraf vastleggen. Bij kernwapens zou een staat die vooraf belooft terug te slaan bij de kleinste provocatie, zichzelf in een onhoudbare positie manoeuvreren. Schellings uitweg is de dreiging die iets aan het toeval overlaat: een partij laat een situatie zo escaleren dat de kans op een ramp geleidelijk toeneemt, zonder dat een van beide zijden op enig moment nog volledig de controle heeft. Dat is de kern van wat later brinkmanship is gaan heten, het bewust laten oplopen van risico tot aan de rand van de afgrond.</p>
+      <p>De redenering verklaart waarom staten in de Koude Oorlog dreigden met stappen die, letterlijk uitgevoerd, ook henzelf zouden vernietigen: niet de zekerheid van vergelding hield de vrede in stand, maar de gedeelde onzekerheid over waar een crisis zou eindigen.</p>
+      <h3>De wederzijdse angst voor de verrassingsaanval</h3>
+      <p>Het vierde deel past deze begrippen toe op het scenario waar Schelling voortdurend naartoe schrijft: twee kernmachten die geen van beide oorlog willen, maar wel bang zijn dat de ander als eerste toeslaat. Die angst kan volgens hem op zichzelf al genoeg zijn om een eerste aanval aantrekkelijk te maken, ook zonder dat een van beide partijen ooit oorlog heeft gewild. Ontwapening lost dat probleem niet vanzelf op: minder wapens kunnen een verrassingsaanval juist lonender maken als zij de tegenstander een beslissend voordeel geven wanneer hij als eerste slaat.</p>
+      <p>Schelling pleit daarom voor maatregelen die de waarde van een eerste aanval verlagen in plaats van simpelweg het aantal wapens te verminderen, zoals inspectie, verificatie en wapensystemen die een verrassingsaanval overleven. De stabiliteit van afschrikking hangt in zijn analyse af van wat beide partijen denken dat de ander in een crisis zal doen, niet van de totale hoeveelheid wapens op zich.</p>
+      <h3>De technische bijlagen</h3>
+      <p>Het boek sluit af met drie bijlagen die de speltheoretische onderbouwing uitwerken voor lezers met belangstelling voor de formele kant: een kritiek op de aanname van symmetrie in klassieke speeltheoretische oplossingen, en een herinterpretatie van een oplossingsbegrip voor niet-coöperatieve spelen. Deze bijlagen zijn wiskundig van aard en voegen weinig toe aan het betoog van de hoofdtekst, maar laten zien dat Schelling zijn informele redeneringen ook in de formele taal van de speltheorie kon verantwoorden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gemengde-motievenspel</td><td>Een situatie waarin partijen zowel een gedeeld belang bij overeenstemming als een tegengesteld belang bij de verdeling hebben.</td></tr>
+          <tr><td class="term">Focal point (Schelling-punt)</td><td>Het punt waarop partijen zonder overleg hun verwachtingen laten samenvallen, doordat het boven de alternatieven uitspringt.</td></tr>
+          <tr><td class="term">Geloofwaardige dreiging</td><td>Een dreiging die de tegenstander gelooft dat wordt uitgevoerd, ook wanneer uitvoering op het moment zelf onverstandig zou zijn.</td></tr>
+          <tr><td class="term">Precommitment</td><td>Het opzettelijk beperken van de eigen keuzemogelijkheden om de eigen positie in een onderhandeling geloofwaardiger te maken.</td></tr>
+          <tr><td class="term">Brinkmanship</td><td>Het bewust laten oplopen van een gevaarlijke situatie tot dicht bij de rand van de ramp, om de tegenstander tot toegeven te dwingen.</td></tr>
+          <tr><td class="term">Dreigement dat iets aan het toeval overlaat</td><td>Een dreiging waarvan de uitvoering niet volledig onder eigen controle blijft, waardoor zij geloofwaardig blijft zonder een bewuste laatste stap.</td></tr>
+          <tr><td class="term">Wederzijdse angst voor de verrassingsaanval</td><td>Het patroon waarin beide partijen overwegen als eerste toe te slaan uit angst dat de ander dat doet, niet uit een wens tot oorlog.</td></tr>
+          <tr><td class="term">Stilzwijgend onderhandelen (tacit bargaining)</td><td>Het bereiken van een uitkomst tussen partijen zonder expliciete communicatie.</td></tr>
+          <tr><td class="term">Interdependente beslissing</td><td>Een beslissing waarvan de uitkomst afhangt van wat de tegenpartij besluit, en omgekeerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een economisch-theoretisch werk, geen empirisch onderzoek met dataverzameling. De onderbouwing rust op formele speltheorie: uitkomsten worden afgeleid uit de logica van gemengde-motievenspelen, met wiskundige uitwerking in de hoofdtekst en verder in de drie bijlagen. Schelling toetst zijn begrippen niet aan een systematische reeks casussen maar aan zorgvuldig gekozen voorbeelden, van alledaagse situaties zoals het elkaar vinden in een warenhuis tot de kernwapenstrategie van de Verenigde Staten en de Sovjet-Unie in de jaren vijftig.</p>
+      <p>Waar hij wel naar onderzoek verwijst, is dat naar het experimentele werk van andere auteurs met proefpersonen in laboratoriumspelen, dat hij aanhaalt om te laten zien dat mensen in de praktijk sneller tot afspraken komen dan de formele speltheorie op dat moment voorspelde. Dat onderzoek is bij hem illustratie, geen fundament: het boek staat of valt met de overtuigingskracht van de redenering zelf, niet met een reeks herhaalbare experimenten. Voor de historische voorbeelden over kernwapenstrategie geldt dat Schelling schrijft vanuit zijn eigen werk voor de RAND Corporation en de Amerikaanse overheid, zonder dat hij geheime informatie of gedetailleerde bronnen citeert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste aanname van het boek, dat partijen in een conflict zich als rationele rekenaars gedragen die de uitkomsten van hun keuzes doordenken, is later herhaaldelijk bekritiseerd. Onderzoek naar hoe regeringsleiders in crises daadwerkelijk beslissen, laat zien dat misverstanden, tijdsdruk en verkeerde inschattingen van de tegenstander minstens zo bepalend zijn als de koele berekening die Schellings modellen veronderstellen.</p>
+      <p>Een tweede bezwaar, destijds het scherpst verwoord door de wiskundige en criticus Anatol Rapoport, is dat de formele taal van de speltheorie de inzet van kernwapenstrategie verhult: wie afschrikking als een spel met uitkomsten en dreigementen beschrijft, loopt het risico de vernietiging van steden te herleiden tot een rekensom, zonder de morele lading daarvan te benoemen. Schelling zelf besteedt in het boek weinig aandacht aan die morele kant en concentreert zich op de logica van de strategie.</p>
+      <p>Een derde punt is dat het focal point afhangt van wat binnen een cultuur als vanzelfsprekend geldt. Grand Central Terminal ligt voor Amerikanen voor de hand, maar het voorbeeld werkt niet vanzelf in een andere context, en het boek maakt niet expliciet hoe ver dat begrip overdraagbaar is naar onderhandelingen tussen partijen met weinig gedeelde achtergrond. Het boek biedt bovendien geen toetsing achteraf: het is nooit systematisch nagegaan in hoeverre de Koude Oorlog daadwerkelijk verliep zoals de modellen voorspelden, en Schelling presenteert zijn analyse als verklaringskader, niet als voorspelling die getoetst kan worden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga voor een dreiging of een toezegging na of de tegenpartij gelooft dat zij wordt waargemaakt, los van de vraag of zij inhoudelijk juist is.</li>
+        <li>Onderzoek of het opzettelijk beperken van de eigen keuzemogelijkheden, bijvoorbeeld door een positie vooraf publiek te maken, de eigen onderhandelingspositie sterker maakt.</li>
+        <li>Zoek bij coördinatie zonder overleg naar het punt dat voor beide partijen het meest voor de hand ligt, in plaats van het theoretisch optimale punt.</li>
+        <li>Onderscheid bij een conflict eerst het gedeelde belang van het tegengestelde belang, voordat een strategie wordt gekozen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk bij Harvard University Press (1960), sinds 1980 in de editie <i>The Strategy of Conflict: With a New Preface by the Author</i> (ISBN 9780674840317). Van dit specifieke boek is geen Nederlandse vertaling gevonden; wel verscheen van Schelling in 1972 bij Samson het Nederlandstalige <i>Macht, politiek en bewapening</i>, gebaseerd op ander werk van hem over afschrikking.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Schelling herschrijft in 1960 de speltheorie voor situaties waarin partijen niet alleen tegen elkaar strijden maar ook belang hebben bij een uitkomst waarin beide overeind blijven. Hij noemt dit gemengde-motievenspelen: onderhandelen, dreigen, oorlog voeren en zelfs een afspraak maken zonder te kunnen communiceren delen volgens hem dezelfde structuur, namelijk dat de ene partij meerekent wat de andere zal doen op grond van wat zij zelf doet. Vanuit die structuur bouwt hij begrippen op als het focal point (twee mensen die elkaar zonder overleg ergens in New York moeten vinden, kiezen allebei de informatiebalie van Grand Central Terminal om twaalf uur) en de geloofwaardige dreiging: een dreiging werkt pas als de tegenstander gelooft dat zij wordt uitgevoerd, ook wanneer uitvoering achteraf onverstandig zou zijn.</p><p>Het boek is geschreven tegen de achtergrond van de Koude Oorlog en de kernwapenwedloop, en de meeste voorbeelden komen uit die wereld: afschrikking, verrassingsaanvallen, ontwapeningsonderhandelingen. Schelling redeneert vanuit de speltheorie maar schrijft in proza, met alledaagse voorbeelden naast internationale. Voor dit werk en de latere uitwerking ervan kreeg hij in 2005, samen met Robert Aumann, de Nobelprijs voor de economie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>speltheorie</li><li>koude oorlog</li><li>onderhandelen</li><li>afschrikking</li><li>strategie</li><li>economie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="212"><a href="212.html">The 33 Strategies of War</a>. Greene werkt vanuit dezelfde interesse in dreiging en misleiding, maar dan als verzameling historische lessen in plaats van als formele theorie.</li>
+          <li value="220"><a href="220.html">Coup d'État</a>. Behandelt de praktijk van machtsovername als een strategisch probleem van verrassing en geloofwaardigheid, dicht bij Schellings hoofdstukken over de verrassingsaanval.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman laat zien waar de rationele rekenaar uit Schellings modellen in de praktijk van echte beslissers afwijkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
