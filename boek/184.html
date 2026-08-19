@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>God Won't Help &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat God niet ingrijpt in het leven van mensen, en dat geluk en tegenslag daarom niet van gebed, religieuze rituelen of het lot afhangen,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-184">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">184 &middot; Positief denken en manifesteren</p>
+    <h1>God Won't Help</h1>
+    <p class="lede">Rajiv Grover</p>
+    <p class="stats">
+      <span><b>1001</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="184"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat God niet ingrijpt in het leven van mensen, en dat geluk en tegenslag daarom niet van gebed, religieuze rituelen of het lot afhangen, maar van de wet van karma: wat iemand vandaag overkomt, is het gevolg van wat hij eerder deed. Wie zijn ellende toeschrijft aan een afwezige god, ontloopt volgens Grover zijn eigen verantwoordelijkheid, en wie dat inziet, houdt op met wachten en begint te handelen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Kabul en de aanleiding</h3>
+      <p>Shiv is burgerlijk ingenieur uit Mumbai en werkt, eenzaam en ontmoedigd, in het door oorlog getekende Kabul. Daar ontmoet hij Jim, een voormalig officier van de Amerikaanse special forces met de bijnaam Candyman. Die ontmoeting is het startpunt van een reis die zich uitstrekt tot in het Karakoramgebergte en die Shiv confronteert met de vraag waarom geluk, ondanks religie, tempels en godsdienaren, voor de meeste mensen buiten bereik blijft.</p>
+      <h3>Het gesprek met Nasir</h3>
+      <p>Een tweede figuur, de Pashtoense Nasir, worstelt met zijn geloof en met de onvoorspelbaarheid van het lot. In de dialogen die Jim met Nasir voert, wijst hij de gedachte af dat een god ingrijpt in wat mensen overkomt. In plaats daarvan legt hij uit dat de omstandigheden van vandaag het gevolg zijn van wat iemand eerder heeft gedaan, en dat wie op een tussenkomst van buitenaf blijft wachten, zijn eigen aandeel in de uitkomst ontkent.</p>
+      <h3>Vier hoofdstukken, één weg</h3>
+      <p>Het boek is ingedeeld in vier hoofdstukken, elk met een titel die een stap in het betoog markeert: <i>Disbelieve the belief!</i>, <i>Awaken the warrior within</i>, <i>Expunge and Re-boot</i> en <i>Be the source</i>. De titels wijzen op een opbouw van afbreken naar opbouwen: eerst het loslaten van aangeleerde overtuigingen, dan het aanspreken van een innerlijke vastberadenheid, vervolgens het wissen van oude patronen en ten slotte het zelf worden van de bron waaruit verandering komt. Over de precieze scènes binnen elk hoofdstuk zijn, buiten de titels en de algemene lijn van het verhaal, geen betrouwbare gegevens gevonden.</p>
+      <h3>Karma tegenover gebed</h3>
+      <p>Handelen bepaalt volgens het boek de uitkomst, niet gebed. Grover werkt dat uit met de wet van karma als uitgangspunt, waarbij goede en slechte ervaringen worden verklaard vanuit eerdere daden in plaats van vanuit een god die beloont of straft. Religieuze structuren, tempels en godsdienaren krijgen daarbij een kritische rol toebedeeld: ze bieden volgens het boek troost, maar geen oplossing voor het lijden dat mensen zichzelf en elkaar aandoen.</p>
+      <h3>Een god die weigert</h3>
+      <p>De ondertitel <i>Affirmations of the Reluctant God</i> vat de positie samen die het boek inneemt: een god die bestaat maar zich onttrekt aan ingrijpen, en die zijn aanwezigheid dus niet toont in wonderen of verhoorde gebeden. De affirmaties uit de titel zijn de korte, bevestigende uitspraken waarin die positie steeds opnieuw wordt geformuleerd; recensenten citeren daaruit onder meer de zin <i>Prayer isn't going to help you, you are.</i></p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Karma</td><td>De wet die de huidige omstandigheden verklaart als gevolg van eerdere daden, door Grover ingezet als alternatief voor een god die ingrijpt.</td></tr>
+          <tr><td class="term"><i>Disbelieve the belief!</i></td><td>Titel van het eerste hoofdstuk, de oproep om aangeleerde religieuze overtuigingen eerst los te laten.</td></tr>
+          <tr><td class="term"><i>Awaken the warrior within</i></td><td>Titel van het tweede hoofdstuk, over het aanspreken van een innerlijke vastberadenheid.</td></tr>
+          <tr><td class="term"><i>Expunge and Re-boot</i></td><td>Titel van het derde hoofdstuk, over het wissen van vastgeroeste denkpatronen en opnieuw beginnen.</td></tr>
+          <tr><td class="term"><i>Be the source</i></td><td>Titel van het vierde en laatste hoofdstuk, de conclusie dat de lezer zelf de bron van verandering moet worden.</td></tr>
+          <tr><td class="term">De weigerachtige god</td><td>De god uit de ondertitel die bestaat maar zich niet met ingrijpen bezighoudt, waarmee de verantwoordelijkheid bij de mens zelf komt te liggen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een verteld verhaal, geen onderzoek: het argument rust op de dialogen tussen Shiv, Nasir en Jim, niet op data, bronnen of noten. Voor zover na te gaan citeert het boek de Bhagavad Gita niet met naam en bevat het geen expliciete verwijzing naar geschriften; wel noemt een lezersrecensie het een "shortcut book to Gita", wat erop wijst dat de karma-leer van het boek aansluit bij dat bekende kader zonder het met bronvermelding te onderbouwen.</p>
+      <p>Grover, geboren in New Delhi en voormalig directeur van een modeconcern, presenteert zichzelf als een lezer en onderzoeker van spirituele geschriften; dat maakt hem geen erkend theoloog of filosoof, en het boek claimt dat ook niet. Het verscheen bij Notion Press, een Indiaas zelfpublicatieplatform, zonder de redactionele toetsing van een literaire uitgeverij.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek presenteert zijn kernstelling, dat karma en niet gebed de uitkomst van een leven bepaalt, via verzonnen personages en dialogen, en niet via een beargumenteerd betoog dat ingaat op tegenwerpingen: waarom gebed voor gelovigen wel als werkzaam wordt ervaren, of hoe karma zich verhoudt tot toeval en structureel onrecht, komt niet aan bod. Dat maakt het een bevestiging van een standpunt, geen weerlegging van het alternatief.</p>
+      <p>De ontvangst is klein: op Goodreads staan twee afzonderlijke vermeldingen met samen enkele tientallen beoordelingen, en een bespreking in de literaire of religiewetenschappelijke pers is niet gevonden. Over de inhoud van de vier hoofdstukken, buiten hun titel en de algemene lijn van het verhaal, is uit openbare bronnen weinig na te gaan; wie meer wil weten dan hier staat, moet het boek zelf lezen. Ook de begrippenlijst hierboven is daardoor korter dan gebruikelijk: verder eigen vakjargon van Grover kon niet met zekerheid worden vastgesteld.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na welk deel van een tegenslag het gevolg is van eigen eerder handelen, voordat het lot of een god de schuld krijgt.</li>
+        <li>Doorloop de volgorde die het boek zelf voorstelt: leg aangeleerde overtuigingen naast je neer, spreek een innerlijke vastberadenheid aan, laat vastgeroeste patronen los en neem zelf de bron van verandering.</li>
+        <li>Vervang wachten op een gebeurtenis van buitenaf door een concrete volgende handeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>God Won't Help: Affirmations of the Reluctant God</i> (Notion Press, juni 2018, 118 blz., ISBN 9781643246116). Een Nederlandse vertaling is niet gevonden; een zoekopdracht op de auteursnaam in de catalogus van bibliotheek.nl levert geen resultaat op.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Shiv is burgerlijk ingenieur uit Mumbai en werkt, eenzaam en ontmoedigd, in het door oorlog getekende Kabul. Daar ontmoet hij Jim, een voormalig officier van de Amerikaanse special forces met de bijnaam Candyman. Hun gesprekken, die zich uitstrekken tot in het Karakoramgebergte, draaien om de Pashtoense Nasir, die worstelt met zijn geloof en met het lot dat hem is toebedeeld. Jim houdt hem voor dat niet het toeval en niet een god zijn leven bepalen, maar zijn eigen keuzes en daden.</p><p>Het boek telt vier hoofdstukken: <i>Disbelieve the belief!</i>, <i>Awaken the warrior within</i>, <i>Expunge and Re-boot</i> en <i>Be the source</i>. Samen bouwen ze naar de stelling die ook de titel vormt: God grijpt niet in, en wie op een gebed wacht, wacht op iets dat niet komt. Het is het debuut van Rajiv Grover, geboren in New Delhi en voormalig directeur van een modeconcern, die het boek naar eigen zeggen schreef als lezer en onderzoeker van spirituele geschriften.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>karma</li><li>spiritualiteit</li><li>Kabul</li><li>affirmaties</li><li>verantwoordelijkheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. Beide boeken bouwen op bevestigende uitspraken, maar Peale plaatst God als hulpbron, terwijl Grover een god beschrijft die zich juist onttrekt aan ingrijpen.</li>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Deelt de gedachte dat de huidige omstandigheden het gevolg zijn van eigen eerder handelen, hier vertaald naar karma in plaats van naar Hills wetten van rijkdom.</li>
+          <li value="139"><a href="139.html">Unlimited Power</a>. Werkt de gedachte dat mensen zelf de bron van hun uitkomsten zijn verder uit, los van een religieus kader.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

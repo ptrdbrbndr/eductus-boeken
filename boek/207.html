@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feel-Good Productivity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Abdaal stelt dat productiviteitsadvies dat op discipline en wilskracht leunt, de zaak omdraait. Positieve emoties als plezier, nieuwsgierigheid en trots…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-207">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">207 &middot; Werk en aandacht</p>
+    <h1>Feel-Good Productivity</h1>
+    <p class="lede">Ali Abdaal, 2023</p>
+    <p class="stats">
+      <span><b>1459</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="207"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Abdaal stelt dat productiviteitsadvies dat op discipline en wilskracht leunt, de zaak omdraait. Positieve emoties als plezier, nieuwsgierigheid en trots zijn volgens hem niet het resultaat van goed werk maar de brandstof ervoor: wie zich goed voelt tijdens het werk, werkt vanzelf meer en langer door. Uitstelgedrag verklaart hij niet uit luiheid maar uit drie gevoelens die het werk onaangenaam maken, onzekerheid, angst en traagheid om te beginnen, en die volgens hem weggenomen kunnen worden zonder dat er wilskracht aan te pas komt. Het derde deel van het boek erkent dat dit schema zelf tot overwerk kan leiden, en voegt daarom drie gewoontes toe die uitputting moeten voorkomen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De omkering waarop het boek rust</h3>
+      <p>Abdaal opent met de constatering dat de meeste productiviteitsboeken discipline als grondstof behandelen: eerst doorzetten, dan komt het resultaat, en het goede gevoel is een bijverschijnsel als het meezit. Hij zet daar de omgekeerde volgorde tegenover, met een beroep op de broaden-and-build-theorie van de Amerikaanse psycholoog Barbara Fredrickson, die stelt dat positieve emoties de aandacht verbreden en op termijn hulpbronnen opbouwen zoals veerkracht, creativiteit en sociale steun.</p>
+      <p>Op die basis introduceert hij zijn indeling in drie groepen van elk drie onderdelen: energisers om werk aantrekkelijker te maken, ontgrendelaars om de emoties weg te nemen die uitstelgedrag voeden, en volhouders om het tempo op de lange termijn vol te houden. De rest van het boek werkt elk onderdeel in een eigen hoofdstuk uit, met steeds dezelfde combinatie van een idee, een onderzoek en een kort lijstje oefeningen.</p>
+      <h3>Energise: spel, macht en mensen</h3>
+      <p>Het eerste deel behandelt drie manieren om werk energie te geven. Spel houdt in dat een taak met nieuwsgierigheid benaderd wordt in plaats van met de ernst waarmee volwassenen werk gewoonlijk bejegenen; Abdaal citeert onderzoek naar spelgedrag bij jonge dieren als aanwijzing dat spelen een manier van leren is en geen afleiding daarvan. Macht gaat over het gevoel van controle over de eigen taak en verwijst naar onderzoek naar zelfeffectiviteit, waaronder een overzicht van 114 studies met bijna 22.000 deelnemers dat een verband laat zien tussen het vertrouwen in eigen kunnen en werkprestatie; Abdaal voegt daar de Feynman-techniek aan toe, het uitleggen van een onderwerp in eenvoudige taal om te ontdekken wat nog niet begrepen is.</p>
+      <p>Mensen, het derde onderdeel, gaat over het effect van gezelschap op energie. Abdaal pleit voor wat hij een kameraadschapshouding noemt tegenover een concurrentiehouding: samenwerken en informatie delen in plaats van vergelijken en verbergen. Als voorbeeld gebruikt hij zijn eigen studiegroepen tijdens de studie geneeskunde, waarin medestudenten elkaar stof uitlegden volgens dezelfde Feynman-techniek.</p>
+      <h3>Unblock: helderheid, moed en een eerste stap</h3>
+      <p>Het tweede deel behandelt uitstelgedrag als een emotieprobleem, niet als een tekort aan wilskracht. Abdaal citeert de Amerikaanse psycholoog Joseph Ferrari, die opmerkt dat tegen een chronische uitsteller zeggen dat hij het gewoon moet doen, hetzelfde is als tegen een depressief iemand zeggen dat hij vrolijk moet worden. Voor onduidelijkheid over een taak reikt hij de vijfmaal-waarom-methode aan, waarbij een probleem herhaald bevraagd wordt tot de onderliggende oorzaak zichtbaar wordt, en een eigen doelenschema dat hij NICE noemt: doelen die op de korte termijn liggen, op inspanning gericht zijn in plaats van op uitkomst, binnen eigen controle vallen en energie geven.</p>
+      <p>Voor angst beschrijft hij een onderzoek van de Amerikaanse ontwikkelingspsycholoog Rachel White, waarin kinderen van vier tot zes die zich tijdens een saaie taak voorstelden als een superheld, langer volhielden en zich beter konden concentreren dan kinderen die dat niet deden; Abdaal noemt dit het Batman-effect en stelt voor dezelfde afstand te nemen door aan een bewonderde derde te denken. Voor traagheid om te beginnen wijst hij op de eerste wet van Newton en raadt aan een taak zo klein te maken dat de eerste stap vrijwel geen inspanning kost.</p>
+      <h3>Sustain: behoud, herstel en richting</h3>
+      <p>Het derde deel erkent dat spel, macht, mensen en het wegnemen van blokkades iemand kunnen aanzetten tot meer werk dan gezond is, en behandelt daarom drie vormen van opbranden: overbelasting door grenzeloos doorwerken, uitputting doordat pauzes niet echt herstellen, en het gevoel dat het werk niet meer aansluit bij wat iemand belangrijk vindt. Voor overbelasting stelt Abdaal voor werk en rust te behandelen als een portefeuille die in balans gehouden moet worden in plaats van als een wedstrijd die gewonnen moet worden.</p>
+      <p>Voor echte rust introduceert hij het letterwoord CALM: activiteiten die competentie, autonomie, verbondenheid en rust geven, tegenover schermtijd die wel ontspannen aanvoelt maar geen van die vier oplevert. Voor het derde punt, het gevoel dat werk niet meer aansluit bij eigen waarden, stelt hij voor om in kleine, omkeerbare experimenten een ander soort werk te proberen voordat een grote beslissing zoals ontslag genomen wordt.</p>
+      <h3>De plaats van dit boek in Abdaals eigen loopbaan</h3>
+      <p>Het boek is ontstaan uit Abdaals YouTube-kanaal, waarop hij eerst studietechnieken voor medisch studenten besprak en later bredere productiviteitsvideo's maakte, en het draagt de stijl van die video's: korte, genummerde technieken met een herkenbare naam, ondersteund door een enkel onderzoek en een persoonlijk voorbeeld. Dat maakt het boek makkelijk doorzoekbaar, maar het betekent ook dat de negen onderdelen los van elkaar te lezen zijn zonder dat de lezer iets mist van een doorlopend betoog.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Energisers</td><td>De drie krachten die werk aangenaam maken en zo de motivatie voeden: spel, macht en mensen.</td></tr>
+          <tr><td class="term">Ontgrendelaars (unblockers)</td><td>De drie emoties die uitstelgedrag veroorzaken en die weggenomen moeten worden: onduidelijkheid, angst en traagheid om te beginnen.</td></tr>
+          <tr><td class="term">Volhouders (sustainers)</td><td>De drie gewoontes die opbranden moeten voorkomen: behoud, herstel en richting bewaren.</td></tr>
+          <tr><td class="term">Broaden-and-build</td><td>Fredricksons theorie dat positieve emoties de aandacht verbreden en op termijn hulpbronnen als veerkracht en creativiteit opbouwen.</td></tr>
+          <tr><td class="term">Batman-effect</td><td>White's bevinding dat kinderen die zich als superheld voorstellen, een saaie taak langer volhouden dan kinderen die dat niet doen.</td></tr>
+          <tr><td class="term">NICE-doelen</td><td>Abdaals alternatief voor SMART-doelen: doelen die kortetermijn, inspanningsgericht, beheersbaar en energiegevend zijn.</td></tr>
+          <tr><td class="term">Vijfmaal-waarom</td><td>Een probleem herhaald bevragen met 'waarom' tot de onderliggende oorzaak van uitstelgedrag zichtbaar wordt.</td></tr>
+          <tr><td class="term">Feynman-techniek</td><td>Een onderwerp in eenvoudige taal uitleggen om te ontdekken welk deel ervan nog niet begrepen is.</td></tr>
+          <tr><td class="term">CALM</td><td>Letterwoord voor rust die competentie, autonomie, verbondenheid en werkelijke ontspanning geeft, ter onderscheid van schermtijd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Abdaal onderbouwt zijn schema met twee soorten materiaal naast elkaar. Het eerste is gepubliceerd psychologisch onderzoek: de broaden-and-build-theorie van Barbara Fredrickson, een meta-analyse van 114 studies naar zelfeffectiviteit, White's experiment met kinderen en superheldenrollen, en de uitspraak van Ferrari over chronisch uitstelgedrag. Deze bronnen zijn nagaanbaar en komen uit gepubliceerde vakliteratuur, al citeert Abdaal ze doorgaans als aanwijzing voor een mechanisme en niet als sluitend bewijs dat zijn negenledige schema als geheel werkt.</p>
+      <p>Het tweede soort materiaal is zijn eigen ervaring: als coassistent die aan uitputting ten onder ging, als YouTuber die technieken op zijn kanaal uitprobeerde en aan zijn kijkers voorlegde, en als iemand die zijn eigen studiegroepen en videoproductie als voorbeeld gebruikt. Die twee lagen worden in de tekst niet uit elkaar gehouden: een onderzoek naar kinderen die superhelden naspelen en een anekdote over Abdaals eigen tentamenvoorbereiding krijgen evenveel gewicht. Het schema van negen onderdelen zelf, en de indeling in drie groepen van drie, is Abdaals eigen ordening en is niet als zodanig in onderzoek getoetst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek behandelt uiteenlopend onderzoek, van kinderpsychologie tot bedrijfspsychologie, als bevestiging van één schema dat Abdaal zelf heeft samengesteld, terwijl de aangehaalde studies elk een beperkt en specifiek verschijnsel onderzoeken. Dat een meta-analyse een verband laat zien tussen zelfeffectiviteit en werkprestatie, betekent niet dat de brede categorie macht als energiser aantoonbaar werkt zoals Abdaal die inzet, en het boek maakt dat onderscheid zelden expliciet.</p>
+      <p>De negen onderdelen ogen als een YouTube-video in boekvorm: elk hoofdstuk is met een herkenbare naam, een kort onderzoek en een lijst oefeningen op zichzelf te lezen, wat de tekst makkelijk doorzoekbaar maakt maar ook de indruk geeft van een verzameling losse technieken eerder dan van een doorlopend betoog. Dat de drie delen precies uit drie hoofdstukken bestaan, is een vormkeuze die de indruk van volledigheid wekt zonder dat duidelijk wordt waarom het er negen zijn en niet meer of minder.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf een taak die is blijven liggen in één zin en vraag daar vijfmaal waarom bij, tot de onderliggende reden voor het uitstel boven komt.</li>
+        <li>Stel bij een nieuw doel vier vragen: ligt het binnen handbereik, is het gericht op inspanning of op uitkomst, valt het binnen eigen controle, en geeft het energie.</li>
+        <li>Maak de eerste stap van een taak zo klein dat er geen aanloop voor nodig is, bijvoorbeeld één zin schrijven in plaats van een hoofdstuk.</li>
+        <li>Toets een rustmoment aan vier vragen: voelt het competent, vrijwillig gekozen, verbonden met anderen en werkelijk ontspannend, of is het alleen afleiding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Feel-Good Productivity: How to Do More of What Matters to You</i> (Celadon Books, New York, 2023, ISBN 9781250865038). Nederlands als <i>Feel-good productiviteit</i>, vertaald door Vanja Walsmit (Business Contact, Amsterdam, 2024, paperback, 256 blz., ISBN 9789047016496).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ali Abdaal, arts van opleiding en YouTuber van beroep, keert de gangbare volgorde van productiviteitsdenken om. Niet hard werken leidt tot een goed gevoel, maar een goed gevoel leidt tot goed werk. Hij bouwt daaromheen een schema van negen onderdelen in drie groepen. Drie energisers, spel, macht en mensen, geven werk energie. Drie ontgrendelaars, helderheid, moed en een eerste stap, ruimen de blokkades op die uitstelgedrag veroorzaken. Drie volhouders, behoud, herstel en richting, moeten voorkomen dat wie eenmaal energiek en ontblokkeerd is, alsnog opbrandt.</p><p>Het boek ontstond uit Abdaals eigen ervaring als coassistent, die de discipline en het harde werken die hem door zijn studie geneeskunde aan Cambridge hadden geloodst, in de kliniek zag omslaan in uitputting. Hij verliet de geneeskunde voor een YouTube-kanaal over productiviteit en verwerkte wat hij daarna las en uitprobeerde tot dit schema. Elk hoofdstuk volgt hetzelfde patroon: een uitleg van het mechanisme, een verwijzing naar onderzoek dat het ondersteunt, en een reeks kleine oefeningen om het toe te passen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>productiviteit</li><li>motivatie</li><li>burn-out</li><li>zelfhulp</li><li>positieve-psychologie</li><li>gewoontes</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Behandelt gewoontevorming met een vergelijkbare nadruk op kleine, haalbare stappen als Abdaals traagheidshoofdstuk.</li>
+          <li value="151"><a href="151.html">Essentialism</a>. Zet tegenover Abdaals nadruk op gevoel een strenger onderscheid tussen diep en oppervlakkig werk.</li>
+          <li value="70"><a href="70.html">Deep Work</a>. Deelt het onderwerp aandacht en geconcentreerd werk, met een andere en strengere onderbouwing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

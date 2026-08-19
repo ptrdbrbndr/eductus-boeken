@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clash of Singularity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek zet twee morele posities tegenover elkaar in de vorm van twee geheime genootschappen, de Sentinels en de Guardians, en laat zien dat die posities…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-202">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">202 &middot; Roman en memoir</p>
+    <h1>Clash of Singularity</h1>
+    <p class="lede">Sharad Bindal, 2020</p>
+    <p class="stats">
+      <span><b>1166</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="202"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek zet twee morele posities tegenover elkaar in de vorm van twee geheime genootschappen, de Sentinels en de Guardians, en laat zien dat die posities niet in een tijdperk uit het verleden zijn opgelost maar in het heden worden uitgevochten, met gewone studievrienden als toevallige getuigen en instrumenten. De krijger die al eeuwen naar zijn eigen dood zoekt, staat daarbij niet voor overwinning maar voor het gewicht van een daad die geen enkele tijd kan afkopen. Bindal presenteert dat gewicht als iets dat in de hindoeïstische tijdrekening thuishoort, waarin het huidige tijdperk, kaliyuga, gezien wordt als de periode van verval waarin oude schuld zich alsnog voltrekt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een krijger zonder rust</h3>
+      <p>Het verhaal opent met een figuur die niet nieuw is in de wereld, maar al generaties meegaat: een krijger die zijn eigen dood zoekt als afsluiting van een oude schuld. Die zoektocht plaatst Bindal niet in een mythische oertijd maar middenin het huidige, hedendaagse India, wat de toon zet voor de rest van het boek: mythologie is hier geen decor uit het verleden maar een kracht die in het nu doorwerkt.</p>
+      <h3>Twee genootschappen, twee leiders</h3>
+      <p>Tegenover elkaar staan de Sentinels en de Guardians, elk met een eigen leider, Jaywardhan aan de ene kant en Rudra Pratap aan de andere. Beide genootschappen bewegen zich in het verborgene en beide claimen het gelijk van hun eigen morele orde. Waar dat treffen precies om draait, houdt het boek in dit eerste deel grotendeels op de achtergrond, als een dreiging die zich langzaam opbouwt.</p>
+      <p>De tegenstelling tussen de twee genootschappen is niet uitgewerkt als een strijd tussen goed en kwaad in de gebruikelijke zin, maar als een botsing tussen twee opvattingen van deugd die allebei ergens op steunen. Dat sluit aan bij de manier waarop Bindal in interviews over zijn eigen achtergrond spreekt: hij noemt zijn werk in de financiële sector en zijn belangstelling voor de Veda's uitdrukkelijk twee tegenovergestelde bezigheden, en diezelfde spanning tussen twee op zichzelf verdedigbare posities keert terug in de opzet van de Sentinels tegenover de Guardians.</p>
+      <h3>Studievrienden als toeval</h3>
+      <p>Een groep vrienden van het bedrijfskundeinstituut IIM Lucknow vormt de laag van het verhaal waar de lezer zich het makkelijkst in herkent: mensen zonder mythologische achtergrond die door omstandigheden in het treffen tussen de genootschappen terechtkomen. Zij zijn geen ingewijden maar toeschouwers die stap voor stap worden meegetrokken, en via hen krijgt de lezer een hedendaags aangrijpingspunt voor een verhaal dat verder op oude bronnen leunt.</p>
+      <p>Die keuze voor een groep gewone studievrienden als ingang is functioneel voor de opbouw van het boek. Waar de krijger, de genootschappen en de wijzenkring al eeuwen met elkaar verbonden zijn en het verhaal dus van binnenuit moeilijk uit te leggen valt, kunnen de studievrienden vragen stellen die een buitenstaander ook zou stellen. Zij vormen daarmee de brug tussen het oude treffen en de hedendaagse lezer, in een stad, Lucknow, die ook de eigen woonplaats van de auteur is.</p>
+      <h3>Jager en wijzen</h3>
+      <p>Naast de studievrienden brengt het boek een huurmoordenaar in stelling, die op de krijger is afgestuurd, en een verborgen kring van Indiase wijzen die al eeuwenlang oude geheimen bewaakt. Die twee partijen geven het verhaal zijn dreiging en zijn diepte: de een zet de klok onder druk, de ander bewaart de kennis die nodig is om te begrijpen waar het treffen werkelijk over gaat.</p>
+      <p>Met deze twee partijen krijgt het boek de twee registers die het door de hele tekst heen blijft afwisselen. Het register van de jacht, kort en gericht op de volgende bedreiging, en het register van de uitleg, waarin de wijzenkring de achtergrond van kaliyuga en van de oude schuld van de krijger stap voor stap laat zien. Lezersreacties noemen dat afwisselende tempo een van de sterkere kanten van het boek.</p>
+      <h3>Opbouw naar het vervolg</h3>
+      <p>Het eerste deel van de trilogie sluit niet af met een ontknoping maar met een verdere toespitsing van de tegenstelling tussen de twee genootschappen. Bindal bouwt daarmee bewust naar het tweede deel, <i>Dawn of Duality</i>, waarin dat treffen tot een uitbarsting komt. Wie <i>Clash of Singularity</i> op zichzelf leest, krijgt dus een openingsdeel dat vooral posities en personages neerzet.</p>
+      <p>Dat maakt het boek in de eerste plaats een aanloop. De vraag wat er precies op het spel staat tussen de Sentinels en de Guardians, en welke rol de studievrienden daar uiteindelijk in spelen, blijft aan het einde van dit deel nog grotendeels open. Wie de trilogie als geheel wil beoordelen, moet dus wachten op het vervolg, dat volgens de eigen aankondiging van de auteur het evenwicht van het bestaan verder onder druk zet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sentinels</td><td>Het geheime genootschap onder leiding van Jaywardhan, een van de twee partijen in het centrale treffen.</td></tr>
+          <tr><td class="term">Guardians</td><td>Het tegenovergestelde geheime genootschap, aangevoerd door Rudra Pratap.</td></tr>
+          <tr><td class="term">Kaliyuga</td><td>In de hindoeïstische tijdrekening het huidige, laatste van vier tijdperken, gezien als een periode van verval waarin oude schuld zich voltrekt.</td></tr>
+          <tr><td class="term">De krijger</td><td>De hoofdpersoon uit een vroeger tijdperk die in het heden zijn eigen dood zoekt als vorm van boetedoening.</td></tr>
+          <tr><td class="term">IIM Lucknow</td><td>Het Indian Institute of Management in Lucknow, de hedendaagse leeromgeving van de groep studievrienden die in het verhaal verzeild raken.</td></tr>
+          <tr><td class="term">De wijzenkring</td><td>Een verborgen groep Indiase wijzen die al eeuwenlang oude geheimen bewaakt en de achtergrond van het treffen kent.</td></tr>
+          <tr><td class="term">The Sentinels Trilogy</td><td>De driedelige reeks waarvan dit boek het eerste deel is, met <i>Dawn of Duality</i> als tweede deel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is fictie, dus er is geen empirische onderbouwing om te toetsen. Wat wel te beoordelen valt, is op welke bronnen de wereldopbouw steunt. Bindal zegt zelf al vanaf zijn jeugd de Veda's en de hindoeïstische mythologie te bestuderen, en die achtergrond is terug te zien in de morele tegenstelling tussen de twee genootschappen en in de tijdrekening van kaliyuga waarin het verhaal is geplaatst.</p>
+      <p>Lezersreacties op verkoopplatforms melden dat een deel van de plaatsen en gebeurtenissen in het boek teruggaat op bestaande locaties en historische verwijzingen in India, in plaats van volledig verzonnen te zijn. Dat maakt het boek een voorbeeld van hedendaagse mythologische fictie, een genre waarin Indiase auteurs klassieke Sanskrit-verhaalstof naar een modern jasje vertalen; hoe nauwkeurig Bindal daarbij specifieke bronnen volgt, is uit de beschikbare materialen niet te herleiden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is het eerste deel van een trilogie en is daar ook duidelijk naar gebouwd: de kern van het treffen tussen de Sentinels en de Guardians komt in dit deel nog niet tot een uitbarsting, wat wie op zoek is naar een afgerond verhaal kan tegenvallen.</p>
+      <p>Omdat het boek leunt op kennis van hindoeïstische mythologie die niet overal wordt uitgelegd, is de toegankelijkheid voor lezers zonder die achtergrond een aandachtspunt: waar een lezer met voorkennis van de Veda's de verwijzingen direct herkent, moet een lezer zonder die achtergrond meer op de directe verhaallijn varen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Clash of Singularity: The Sentinels Saga</i> (2020), deel 1 van The Sentinels Trilogy, gevolgd door <i>Dawn of Duality</i> (deel 2, ook op deze site). Geen Nederlandse vertaling gevonden: de catalogus van bibliotheek.nl levert geen enkel resultaat op voor deze auteur.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een krijger uit een ver verleden leeft in het huidige tijdperk, dat in de hindoeïstische tijdrekening kaliyuga heet, en zoekt daar niet naar overwinning maar naar zijn eigen dood als vorm van boetedoening. Rond hem groeit een treffen tussen twee geheime genootschappen, de Sentinels en de Guardians, elk aangevoerd door een raadselachtige leider, respectievelijk Jaywardhan en Rudra Pratap. Een groep studievrienden van het bedrijfskundeinstituut IIM Lucknow raakt onbedoeld verstrikt in dat treffen, samen met een huurmoordenaar die op de krijger gezet is en een verborgen kring van Indiase wijzen die al eeuwenlang over oude geheimen waakt. Bindal zet dat samenspel neer in een hedendaagse omgeving, met plaatsen en historische verwijzingen die volgens lezersreacties op echte locaties in India teruggaan.</p><p>Het boek is het eerste deel van The Sentinels Trilogy en bouwt naar een treffen dat pas in het tweede deel, <i>Dawn of Duality</i>, tot een uitbarsting komt. Bindal combineert daarbij twee werelden die hij zelf tegenover elkaar zet: hij leidt al jaren een vermogensbeheerbedrijf in Lucknow en verdiept zich daarnaast al vanaf zijn jeugd in de Veda's en de hindoeïstische mythologie. Die tweede belangstelling geeft het boek zijn onderlaag: de personages en de twee genootschappen dragen deugden en morele posities die teruggaan op klassieke Sanskrit-begrippen, ingebed in een verhaal dat qua vaart en opbouw op een hedendaagse thriller lijkt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mythologische fantasy</li><li>Hindoeïstische mythologie</li><li>geheim genootschap</li><li>reïncarnatie</li><li>thriller</li><li>trilogie</li><li>hedendaags India</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="203"><a href="203.html">Dawn of Duality</a>. Het tweede deel van de trilogie, waarin het treffen tussen de twee genootschappen tot een uitbarsting komt.</li>
+          <li value="192"><a href="192.html">The Legend of Triquetra</a>. Een andere hedendaagse roman die op mythologische verhaalstof leunt.</li>
+          <li value="61"><a href="61.html">Brave New World</a>. Een andere roman die een tijdperk van verval en een vastgelegde toekomst als uitgangspunt neemt, zij het vanuit een geheel andere traditie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

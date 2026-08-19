@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Explored &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De cursus stelt dat mensen blijvend geluk zoeken in dingen die God geeft, zoals relaties, werk, vrijheid, gezondheid en erkenning, en dat die dingen dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-201">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">201 &middot; Levenskunst</p>
+    <h1>Life Explored</h1>
+    <p class="lede">Barry Cooper en Nate Morgan-Locke</p>
+    <p class="stats">
+      <span><b>1029</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="201"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De cursus stelt dat mensen blijvend geluk zoeken in dingen die God geeft, zoals relaties, werk, vrijheid, gezondheid en erkenning, en dat die dingen dat geluk niet kunnen dragen. Zeven sessies bouwen toe naar de stelling dat het diepste plezier in het leven niet in de gaven van God zit maar in God zelf, en de handleiding nodigt de deelnemer uit die claim te toetsen aan het eigen leven en aan het bijbelse verhaal van schepping, zondeval, verlossing en nieuwe schepping. Dat is geen filosofische stelling die op meerdere manieren beargumenteerd kan worden, maar de conclusie waar de hele cursus opzettelijk naartoe werkt.</p>
+      </div>
+
+      <h2>De opzet van de cursus</h2>
+      <h3>Vorm en doelgroep</h3>
+      <p>Het handboek hoort bij een cursus van Christianity Explored Ministries, de organisatie achter de eerdere cursus <i>Christianity Explored</i> van Cooper en Tice. Barry Cooper en Nate Morgan-Locke schreven <i>Life Explored</i>; op de films presenteren zij samen met Rico Tice. Het handboek dat hier besproken wordt is het gastenexemplaar, met ruimte voor aantekeningen; er bestaat daarnaast een apart Leader's Handbook voor de begeleider.</p>
+      <p>Elke sessie draait om twee korte films, een verhalend filmpje en een uitleg, gevolgd door een gesprek in de groep aan de hand van vragen in het handboek. De cursus is bedoeld voor mensen die geen kerkelijke achtergrond hebben en grote levensvragen hebben, en kan een op een of in een groep, thuis of in een kerk gevolgd worden, voor of na <i>Christianity Explored</i>.</p>
+      <h3>Zeven sessies, zeven eigenschappen</h3>
+      <p>De sessies heten De Goede God, De Betrouwbare God, De Vrijgevige God, De Bevrijdende God, De Vervullende God, De Levenschenkende God en De Blijde God. Elke titel benoemt een eigenschap die de cursus aan God toeschrijft en die daarna in een gesprek getoetst wordt aan het leven van de deelnemer: is geluk te vinden in wat je bezit, wie je liefheeft of wat je bereikt, en wat gebeurt er als dat wegvalt.</p>
+      <p>Onder die zeven titels loopt de opbouw van het bijbelse verhaal in grote lijnen mee: schepping, het afwenden van de mens van God, de geschiedenis van verlossing die daarna volgt, en een nieuwe schepping aan het einde. De cursus wisselt dus niet willekeurig van onderwerp per week, maar laat elke sessie een stap in dat verhaal illustreren.</p>
+      <h3>Kruis en uitnodiging</h3>
+      <p>De latere sessies brengen het verhaal naar de dood en opstanding van Jezus en naar de vraag wat dat voor de deelnemer betekent. Dat is het punt waarop de cursus het duidelijkst evangelisch wordt: zij vraagt niet alleen om het verhaal te begrijpen, maar om er een houding tegenover te bepalen. De slotsessie, De Blijde God, sluit de reeks af met de claim waar de hele cursus naartoe werkt, dat blijvend plezier in God zelf ligt en niet in wat hij geeft.</p>
+      <h3>Wat het handboek wel en niet is</h3>
+      <p>Het handboek zelf bevat geen doorlopend betoog om te lezen, maar aantekenvelden, korte samenvattingen per sessie en vragen om in de groep te bespreken. De inhoudelijke argumentatie zit in de films en in de begeleiding door de gespreksleider, niet in de tekst van het gastenhandboek op zichzelf. Wie het boek zonder de films en het gesprek leest, mist een groot deel van wat de cursus bedoelt over te brengen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Verhalend filmpje en uitlegfilmpje</td><td>De twee korte films per sessie: eerst een scène die het thema laat zien, dan een korte uitleg die het aan de Bijbel verbindt.</td></tr>
+          <tr><td class="term">Schepping, zondeval, verlossing, nieuwe schepping</td><td>De vierdelige opbouw van het bijbelse verhaal waarlangs de zeven sessies zijn ingedeeld.</td></tr>
+          <tr><td class="term">Sessie</td><td>Een van de zeven bijeenkomsten, elk gewijd aan een eigenschap van God en een stap in het bijbelse verhaal.</td></tr>
+          <tr><td class="term">Genieten van God zelf</td><td>De centrale claim van de cursus: blijvend plezier zit niet in wat God geeft, maar in God zelf.</td></tr>
+          <tr><td class="term">Gastenhandboek en Leader's Handbook</td><td>Het onderscheid tussen het boekje voor de deelnemer, hier besproken, en het uitgebreidere boek voor de begeleider.</td></tr>
+          <tr><td class="term">Christianity Explored</td><td>De eerdere cursus van dezelfde makers waarnaar <i>Life Explored</i> uitdrukkelijk verwijst als voorganger of vervolg.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is geen boek dat een stelling met onderzoek onderbouwt. Het is een cursushandleiding vanuit een evangelisch-christelijk geloofskader, en de argumentatie steunt op het gezag van de Bijbel zoals de makers dat lezen, niet op empirisch bewijs of vergelijkend onderzoek naar geluk. Waar het handboek claims doet over wat mensen gelukkig maakt, komen die uit de bijbelse verhalen die de cursus bespreekt en niet uit een studie naar menselijk gedrag.</p>
+      <p>De makers verantwoorden hun aanpak niet met bronnen of noten; het handboek is bedoeld om samen met de films en een gespreksleider gebruikt te worden, en de onderbouwing van de claims ligt dus buiten de tekst zelf, in de bijbelse passages waarnaar de sessies verwijzen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De cursus spreekt uitdrukkelijk vanuit een evangelisch-christelijk kader en presenteert zich niet als een neutrale verkenning van levensvragen. Het doel staat van tevoren vast: de deelnemer laten zien dat blijvend geluk in God zelf ligt, en de zeven sessies zijn daarnaar toe geschreven. Wie een gelijkwaardige vergelijking tussen levensbeschouwingen zoekt, of een gids die openlaat welke conclusie eruit volgt, vindt dat hier niet.</p>
+      <p>Het handboek zelf bevat weinig dat op zichzelf te beoordelen valt, omdat de inhoud vooral in de films en het gesprek zit. Dat maakt de cursus moeilijk te scheiden van de mensen die haar begeleiden: dezelfde sessies kunnen in de ene groep als een uitnodiging voelen en in de andere als drang, afhankelijk van hoe de gespreksleider ermee omgaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na wie de cursus samenstelt en presenteert voordat je meedoet, zodat het evangelische doel vooraf duidelijk is.</li>
+        <li>Bepaal voor een sessie begint of je open staat voor een uitnodiging om een standpunt te bepalen, niet alleen voor informatie.</li>
+        <li>Lees het handboek niet los van de films: de tekst op zichzelf geeft geen volledig beeld van de argumentatie.</li>
+        <li>Vergelijk de claim dat blijvend plezier in God zelf ligt met wat andere levensbeschouwelijke tradities daarover zeggen, voordat je een oordeel vormt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Life Explored Handbook</i> (The Good Book Company, 2016, 64 blz., ISBN 9781784980825), het gastenhandboek bij de gelijknamige cursus van Christianity Explored Ministries, gepresenteerd door Barry Cooper, Nate Morgan-Locke en Rico Tice. Een Nederlandse vertaling is niet gevonden, niet in de catalogus van thegoodbook.co.uk en niet in de catalogus van bibliotheek.nl; wel staat daar een ander boek van Cooper vermeld, <i>Als je God één vraag mocht stellen</i> (2009, met Paul Williams), dat een andere titel is.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p><i>Life Explored</i> is geen boek om te lezen maar het gastenhandboek bij een cursus van zeven bijeenkomsten, gemaakt door Christianity Explored Ministries. Barry Cooper en Nate Morgan-Locke schreven de cursus en presenteren, samen met Rico Tice, de films die bij elke sessie horen: per bijeenkomst een kort verhalend filmpje en een korte uitleg, gevolgd door een gesprek in de groep waarbij het handboek ruimte biedt voor aantekeningen. De cursus is bedoeld voor mensen buiten de kerk die met grote levensvragen zitten, en kan een op een of in groepsverband gevolgd worden, voor of na de eerdere cursus van dezelfde makers, <i>Christianity Explored</i>.</p><p>De zeven sessies dragen namen die telkens een eigenschap van God noemen: de goede, de betrouwbare, de vrijgevige, de bevrijdende, de vervullende, de levenschenkende en de blijde God. Samen volgen ze de opbouw van de Bijbel van schepping via zondeval naar verlossing en nieuwe schepping. De kernboodschap is dat het grootste plezier in het leven niet zit in wat God geeft, maar in God zelf, en de cursus werkt toe naar de vraag of de deelnemer daarin wil geloven. Dat maakt het handboek nuttig als voorbeeld van hoe een evangelisatiecursus is opgebouwd, en oneerlijk om te lezen als een neutrale gids voor de zin van het leven: het doel staat van tevoren vast.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>christendom</li><li>evangelisatie</li><li>cursus</li><li>geloof</li><li>zingeving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Een andere gids die levensvragen vanuit een geloofskader benadert, maar dan vanuit Een cursus in wonderen in plaats van het christendom.</li>
+          <li value="199"><a href="199.html">The Four Purusharthas</a>. Een raamwerk voor een goed leven vanuit een ander religieus systeem, de vier Purusharthas uit de hindoeïstische traditie.</li>
+          <li value="169"><a href="169.html">The Heartbeat of the Absolute</a>. Een niet-christelijke tekst die eveneens claimt dat het hoogste goed in het goddelijke zelf ligt en niet in de gaven daarvan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

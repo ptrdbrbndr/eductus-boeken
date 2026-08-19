@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Heartbeat of the Absolute &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Osho betoogt dat lijden ontstaat uit een verkeerde identificatie: met het lichaam, met wat iemand bezit, en met de gedachte dat het eigen leven een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-169">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">169 &middot; Levenskunst</p>
+    <h1>The Heartbeat of the Absolute</h1>
+    <p class="lede">Osho (Bhagwan Shree Rajneesh)</p>
+    <p class="stats">
+      <span><b>1509</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="169"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Osho betoogt dat lijden ontstaat uit een verkeerde identificatie: met het lichaam, met wat iemand bezit, en met de gedachte dat het eigen leven een persoonlijk eigendom is. Hij leest de openingsspreuk van de Ishavasya Upanishad, dat het geheel uit het geheel genomen nog altijd het geheel overhoudt, als een uitspraak over de mens zelf: wie zich niet langer vereenzelvigt met het vergankelijke, ontdekt een bewustzijn dat aan de geboorte voorafgaat en de dood overleeft. Vandaar zijn advies om lichaam, bezit en doodsangst niet te bestrijden maar te doorzien als vergissingen van het denken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een meditatiekamp in Mount Abu</h3>
+      <p>Twintig lezingen, gehouden in het Hindi van 4 tot 10 april 1971, tijdens een meditatiekamp in Koda House in Mount Abu, Rajasthan. Osho opent met de eerste spreuk van de Ishavasya Upanishad: dat is heel, en dit is heel; wanneer het hele uit het hele wordt weggenomen, blijft het hele over. Hij noemt dat een wiskunde die niet optelt en aftrekt zoals de gewone wiskunde: liefde die wordt gedeeld wordt niet minder maar meer, en een schilderij is meer dan de som van doek en verf.</p>
+      <p>Voor de week van het kamp geeft hij vijf aanwijzingen mee: bewust ademen door de dag heen, minder eten om vaste patronen te doorbreken, aanhoudende concentratie op de adem, perioden van afzondering met een blinddoek en oordoppen, en het vasthouden van blijheid tijdens alle bezigheden.</p>
+      <h3>Niets is van mij</h3>
+      <p>In de tweede lezing keert Osho de gangbare volgorde om: niet het bezit maakt het ik, maar het ik ontstaat uit de gedachte iets te bezitten. Geboorte en dood overkomen een mens zonder diens toestemming, en dus kan ook het leven daartussenin niet van hem zijn. Zelfs het krijgen van een kind is in zijn lezing geen prestatie: een moeder maakt geen melk door inspanning, het gebeurt door haar heen. Ook verliefdheid ontstaat zonder dat iemand haar maakt of kiest.</p>
+      <p>Wie het idee van bezit loslaat, wordt volgens Osho niet armer maar, in zijn woorden, heer over een onmetelijke rijkdom: alles blijft er, alleen de claim erop verdwijnt.</p>
+      <h3>Ik ben niet het lichaam</h3>
+      <p>Osho onderscheidt avidya, de kennis die de wetenschap biedt en die de dood hooguit uitstelt, van vidya, de kennis die naar het onsterfelijke wijst. De fout die de meeste mensen maken is dat ze lichamelijke gewaarwordingen als van henzelf beschouwen: iemand zegt "ik heb honger" in plaats van "de maag heeft honger". Met de parabel van de blinde en de kreupele, die alleen samen verder komen, laat hij zien dat lichaam en bewustzijn twee verschillende zaken zijn die ten onrechte worden samengevoegd.</p>
+      <p>Wie leert waarnemen zonder zich te vereenzelvigen, de houding die hij getuige-bewustzijn noemt, benadert volgens hem wat er was voor de geboorte en wat blijft na de dood.</p>
+      <h3>De weerstand tegen de dood</h3>
+      <p>De vijftiende lezing behandelt de angst voor de dood rechtstreeks. Osho stelt dat niet de dood zelf angst veroorzaakt maar het verzet ertegen, en dat piekeren alleen zin heeft over wat nog te veranderen is; aan de dood valt niets te veranderen. Als voorbeeld noemt hij de soldaat die pas rust vindt zodra hij beseft dat ontsnappen niet meer mogelijk is.</p>
+      <p>Zijn praktische voorstel is wat hij vrijwillige dood noemt: leven alsof je al gestorven bent, bewust, zodat de overgang naar wat hij het ongemanifesteerde Brahman noemt geen schok meer is. Onsterfelijkheid betekent bij hem geen eindeloos voortbestaan van het lichaam, maar inzicht in iets dat niet aan tijd gebonden is.</p>
+      <h3>De schaduw van het ego en de werking van de geest</h3>
+      <p>In latere lezingen keert Osho terug naar de vraag hoe de geest zichzelf in stand houdt. Het ego is voor hem geen ding maar een gewoonte: een steeds herhaalde claim op ervaringen die net zo goed zonder die claim plaatsvinden. Hij vergelijkt overdenken met de fabel van de duizendpoot die struikelt zodra hij zich afvraagt in welke volgorde zijn poten bewegen: wat vanzelf gaat, gaat mis zodra het denken zich ermee bemoeit.</p>
+      <p>De geest, zo stelt hij, ordent de wereld voortdurend in vaste vormen en grenzen die de werkelijkheid zelf niet kent.</p>
+      <h3>Praktische aanwijzingen voor meditatie</h3>
+      <p>Door de lezingen heen herhaalt Osho een klein aantal oefeningen: word een spiegel voor wat er gebeurt in plaats van een beoordelaar ervan, zoek dagelijks stilte op, en gebruik de adem als vast aandachtspunt omdat die, anders dan gedachten, altijd in het heden plaatsvindt.</p>
+      <p>Die aanwijzingen zijn niet uitgewerkt tot een methode met vaste stappen en tijdsduur. Ze worden aangereikt als richting, niet als voorschrift, en telkens gekoppeld aan de sutra van die dag.</p>
+      <p>Wat terugkeert is het wantrouwen tegen het benoemen zelf. Zodra iemand een innerlijke toestand een naam geeft, zo waarschuwt Osho, verwart hij het woord met de zaak, en daarmee is de aandacht al verplaatst van het ervaren naar het vasthouden van een omschrijving. De oefeningen zijn er dan ook op gericht het benoemen te vertragen, niet om er sneller in te worden.</p>
+      <h3>Het geheel blijft geheel</h3>
+      <p>De laatste lezing keert terug naar de openingsspreuk. Osho houdt vol dat het bestaan niet met logica te vatten is: vaste definities passen niet op iets dat voortdurend verandert, en wat niet te zeggen valt, kan hooguit getoond worden.</p>
+      <p>Zijn slotadvies is niet redeneren maar de sprong wagen, het onbekende in, in het vertrouwen dat wat overblijft na het wegnemen van een deel nog altijd het geheel is. Daarmee sluit het boek de cirkel met de sutra waarmee het begon.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Purnam (het geheel)</td><td>Het openingsbegrip uit de Ishavasya Upanishad: wat heel is, blijft heel, ook als er een deel van wordt weggenomen.</td></tr>
+          <tr><td class="term">Ishavasya Upanishad</td><td>De achttien verzen waarop alle twintig lezingen zijn gebouwd, een van de kortste Upanishaden.</td></tr>
+          <tr><td class="term">Sakshi (getuige-bewustzijn)</td><td>Waarnemen zonder je met het waargenomene te vereenzelvigen, de kern van Osho's meditatie-aanwijzingen.</td></tr>
+          <tr><td class="term">Avidya</td><td>De wetenschappelijke, uitstellende kennis die de dood hooguit vertraagt maar niet opheft.</td></tr>
+          <tr><td class="term">Vidya</td><td>De kennis die volgens Osho naar het onsterfelijke, tijdloze wijst.</td></tr>
+          <tr><td class="term">Samsara</td><td>Het wiel van geboorte en dood, dat Osho droomachtig noemt tegenover het absolute.</td></tr>
+          <tr><td class="term">Sannyas</td><td>Hier: vrijwillig sterven bij leven, bewust leven alsof het lichamelijke al is losgelaten.</td></tr>
+          <tr><td class="term">Brahman</td><td>Het ongemanifesteerde waarin de bewuste sterveling volgens Osho binnengaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit boek bestaat uit mondelinge lezingen bij een oude tekst, geen onderzoek. Er staan geen studies, cijfers of gecontroleerde waarnemingen in. De overtuigingskracht rust op twee dingen: het gezag van de Ishavasya Upanishad zelf, als tekst uit een eeuwenoude overleveringstraditie, en Osho's eigen claim dat hij spreekt vanuit directe ervaring en niet vanuit redenering.</p>
+      <p>Waar hij zijn stellingen toelicht, doet hij dat met parabels en beelden, de blinde en de kreupele, de soldaat op het slagveld, de duizendpoot die struikelt zodra hij nadenkt over zijn eigen poten. Dat zijn illustraties, geen bewijsvoering: ze maken een innerlijke toestand invoelbaar voor wie haar al kent, maar leveren geen zelfstandig argument voor wie haar niet herkent.</p>
+      <p>De vijf oefeningen die hij het kamp meegeeft, konden op dat moment alleen door de deelnemers zelf beproefd worden. Het boek biedt geen manier om het effect ervan buiten die beoefening te toetsen; wie meent dat het werkt, heeft daarvoor geen andere grond dan het eigen gevoel na afloop.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De Ishavasya Upanishad telt slechts achttien verzen en is binnen de Vedanta-traditie eeuwenlang verschillend gelezen, met uiteenlopende commentaren op wat de openingsspreuk over het geheel precies inhoudt. Osho presenteert zijn eigen lezing als vanzelfsprekend en enig mogelijk, zonder een andere uitleg te noemen of te verklaren waarom die van hem de juiste zou zijn.</p>
+      <p>De stap van een compacte, meerduidige versregel over "het geheel" naar een volledige psychologie van ego, bezit en dood wordt niet stap voor stap beargumenteerd maar herhaald en met parabels aangedikt. Wie het uitgangspunt niet al deelt, dat bewustzijn aan het lichaam voorafgaat, vindt in de tekst zelf geen zelfstandige aanleiding om dat uitgangspunt alsnog over te nemen.</p>
+      <p>Ook de vergelijking met de wetenschap gaat mank. Osho zet vidya tegenover avidya alsof de tweede alleen uitstel biedt en de eerste onsterfelijkheid, maar hij toetst die tegenstelling nergens aan een geval waarin iemand door zijn methode aantoonbaar anders met de dood is omgegaan dan door een andere weg. De claim blijft daardoor een geloofsuitspraak, gepresenteerd in de vorm van een filosofisch onderscheid.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Adem een dag lang bewust, zonder de ademhaling te forceren.</li>
+        <li>Merk een lichamelijke gewaarwording op als gebeurtenis in het lichaam, niet als "ik": zeg tegen jezelf dat de maag honger heeft in plaats van dat je honger hebt.</li>
+        <li>Bouw op vaste momenten korte stilte in, zonder prikkels van geluid of beeld.</li>
+        <li>Schrijf op wat je niet kunt veranderen, en laat het piekeren daarover voor die dag rusten.</li>
+        <li>Volg een terugkerende gedachte een tijd lang als toeschouwer, zonder haar te beoordelen of te sturen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Twintig lezingen, oorspronkelijk in het Hindi gehouden van 4 tot 10 april 1971 in Koda House, Mount Abu (Rajasthan), tijdens een meditatiekamp, over de Ishavasya Upanishad. Voor het eerst als boek verschenen in 1980. Engelse edities als <i>Heartbeat of the Absolute: Discourses on the Ishavasya Upanishad</i>, onder meer bij Element Books (Shaftesbury, 1994, 320 blz., ISBN 9781852304768) en bij Jaico Publishing House (Mumbai). Een Nederlandse vertaling is niet gevonden, niet in de catalogus van Bibliotheek.nl en niet op de site Osho Boeken Besproken, die het werk alleen in de Engelstalige rubriek vermeldt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In april 1971 houdt Osho, op dat moment nog Acharya Rajneesh, tijdens een meditatiekamp in Koda House in Mount Abu twintig lezingen in het Hindi over de Ishavasya Upanishad, een van de kortste Upanishaden. Hij opent met de eerste spreuk: het geheel blijft heel, ook wanneer het geheel uit het geheel wordt weggenomen, en leest daarin een uitspraak over de luisteraar zelf. Wie zich niet vereenzelvigt met wat vergaat, zo stelt hij, houdt iets over dat aan de geboorte voorafgaat.</p><p>Vanuit die ene spreuk beweegt hij zich naar lichaam, bezit en dood. Liefde en verliefdheid overkomen een mens zonder diens toedoen, dus is er niets om als eigendom op te eisen; het lichaam voelt honger en pijn, niet het zelf dat waarneemt; en de angst voor de dood is volgens hem verzet tegen iets dat toch al vaststaat. Naast de lezingen geeft hij het kamp vijf dagelijkse oefeningen mee, van bewust ademen tot perioden van stilte met blinddoek en oordoppen. Bewijs in de gangbare zin biedt het boek niet: het rust op het gezag van de Upanishad en op Osho's eigen ervaring, aangereikt in parabels in plaats van in redeneringen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spiritualiteit</li><li>meditatie</li><li>Upanishaden</li><li>hindoeïsme</li><li>bewustzijn</li><li>dood</li><li>lezingen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle werkt het onderscheid tussen het waarnemende bewustzijn en het denken, waar Osho met getuige-bewustzijn naar wijst, uit tot een eigen leer over aanwezigheid in het nu.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius aanvaardt de dood eveneens als iets om niet tegen te vechten, maar bouwt dat op als dagelijkse discipline in plaats van als meditatieve doorbraak.</li>
+          <li value="141"><a href="141.html">Voorbij de vorm</a>. Bodian beschrijft dezelfde stilte achter gedachten en gevoelens, vanuit de traditie van de directe weg die dicht bij Osho's aanwijzingen ligt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Good Vibes, Good Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="King stelt dat de kwaliteit van iemands leven wordt bepaald door de vibratie die diegene uitzendt, een innerlijke toestand die voortkomt uit gedachten,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-190">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">190 &middot; Positief denken en manifesteren</p>
+    <h1>Good Vibes, Good Life</h1>
+    <p class="lede">Vex King, 2018</p>
+    <p class="stats">
+      <span><b>1483</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="190"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>King stelt dat de kwaliteit van iemands leven wordt bepaald door de vibratie die diegene uitzendt, een innerlijke toestand die voortkomt uit gedachten, gevoelens en gewoontes en die volgens hem overeenkomstige ervaringen aantrekt. Zelfliefde is in die redenering geen doel op zich maar het middel om die vibratie te verhogen: wie zichzelf accepteert en tegelijk aan zichzelf blijft werken, zendt minder negativiteit uit en trekt minder tegenslag aan. Daarmee maakt hij van een innerlijke houding de verklaring voor uitkomsten in de buitenwereld, van gezondheid tot succes, een stap die verder gaat dan zeggen dat een betere gemoedstoestand het leven prettiger maakt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De wet van vibratie</h3>
+      <p>King opent met het uitgangspunt dat alles, van objecten tot gedachten, op een bepaalde frequentie trilt en dat gelijksoortige frequenties elkaar aantrekken. Wie voortdurend piekert, klaagt of jaloers is, zendt naar zijn omschrijving een lage vibratie uit en trekt meer van hetzelfde aan; wie dankbaarheid en blijdschap voelt, zendt een hoge vibratie uit en trekt volgens hem gunstiger omstandigheden aan.</p>
+      <p>In dit deel introduceert hij ook het ego als het deel van de persoon dat zich boven anderen wil plaatsen en zich uit in roddel, oordeel en klagen. Het verminderen van die ego-reacties is voor hem de eerste stap om de eigen vibratie te verhogen.</p>
+      <h3>Gewoontes voor een hogere vibratie</h3>
+      <p>Het tweede deel werkt de theorie om naar dagelijkse gewoontes: mediteren, de eigen omgeving opruimen, minder tijd doorbrengen met mensen die energie kosten, en bewuster omgaan met sociale media en nieuws. King beschrijft deze gewoontes als concrete keuzes die de gemoedstoestand door de dag heen bepalen, niet als eenmalige inzichten.</p>
+      <p>Concreet raadt hij aan een dankbaarheidsdagboek bij te houden, waarin dagelijks een paar dingen worden opgeschreven waarvoor iemand dankbaar is, en om bewust te kiezen welk nieuws en welke sociale media iemand tot zich neemt. Wie voortdurend negatief nieuws of vergelijkend contact opzoekt, houdt volgens hem de eigen vibratie laag, ook als de rest van de dag verder in orde is.</p>
+      <h3>Zichzelf op de eerste plaats zetten</h3>
+      <p>Hierna gaat het boek over grenzen: nee zeggen, tijd voor zichzelf claimen en relaties beëindigen die vooral leegzuigen. King koppelt dit uitdrukkelijk los van egoïsme; wie zichzelf verwaarloost, heeft naar zijn overtuiging op termijn ook minder te bieden aan anderen.</p>
+      <p>King onderscheidt daarbij vermoeidheid door goede zorg, waarvan iemand later weer energie krijgt, van vermoeidheid door verplichtingen die niets opleveren. Een relatie of afspraak die stelselmatig de tweede soort vermoeidheid oplevert, is voor hem een kandidaat om af te bouwen, ook als dat op korte termijn ongemakkelijk voelt.</p>
+      <h3>Zichzelf accepteren</h3>
+      <p>Het vierde deel gaat over zelfacceptatie: het loslaten van vergelijking met anderen, het vergeven van eigen fouten en het waarderen van wat iemand van anderen onderscheidt. King werkt hier zijn eerdere definitie van zelfliefde verder uit, als de combinatie van jezelf volledig accepteren zoals je bent en actief aan jezelf blijven werken.</p>
+      <h3>Manifesteren: denken en doen</h3>
+      <p>De twee volgende delen behandelen manifesteren, eerst als mentale oefening en daarna als actie. King beschrijft affirmaties die in de tegenwoordige tijd geformuleerd moeten worden, het stellen van een heldere intentie en visualisatie als manieren om het onderbewustzijn te richten op een gewenst doel.</p>
+      <p>Daarna benadrukt hij dat manifesteren zonder handelen volgens hem niet werkt: wie een intentie stelt maar geen stappen zet, heeft naar zijn woorden alleen de eerste helft gedaan. Discipline en consequent doorzetten horen voor hem net zo goed bij manifesteren als het positieve denken zelf.</p>
+      <h3>Pijn en doel</h3>
+      <p>Het laatste deel herleest tegenslag als aanleiding tot groei. King koppelt dit aan zijn eigen jeugd van dakloosheid, armoede en verlies, en stelt dat juist die periode hem uiteindelijk naar zijn werk als schrijver en spreker heeft gebracht. Het boek sluit af met de gedachte dat pijn een reden kan worden om een hoger doel te vinden, zonder dat hij claimt dat elke vorm van pijn daarmee verklaard of gerechtvaardigd is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wet van vibratie</td><td>Het uitgangspunt dat alles op een bepaalde frequentie trilt en dat gelijksoortige frequenties elkaar aantrekken.</td></tr>
+          <tr><td class="term">Goede en slechte vibraties</td><td>Zijn aanduiding voor een hoge respectievelijk lage innerlijke frequentie, af te lezen aan gedachten, gevoelens en gedrag.</td></tr>
+          <tr><td class="term">Zelfliefde</td><td>Bij King de combinatie van jezelf volledig accepteren zoals je bent en tegelijk actief aan jezelf blijven werken.</td></tr>
+          <tr><td class="term">Ego</td><td>Het deel van de persoon dat zich boven anderen wil plaatsen en zich uit in oordeel, roddel en klagen.</td></tr>
+          <tr><td class="term">Affirmaties</td><td>Positieve uitspraken in de tegenwoordige tijd die dagelijks herhaald worden om het onderbewustzijn bij te sturen.</td></tr>
+          <tr><td class="term">Intentie zetten</td><td>Voor het manifesteren van een doel eerst helder en specifiek vastleggen wat er gewenst wordt.</td></tr>
+          <tr><td class="term">Visualisatie</td><td>Het gewenste resultaat zo levendig mogelijk voor je zien als hulpmiddel om het te helpen manifesteren.</td></tr>
+          <tr><td class="term">Manifesteren</td><td>Het proces waarbij innerlijke gerichtheid, gecombineerd met handelen, een gewenste uitkomst dichterbij brengt.</td></tr>
+          <tr><td class="term">Pijn en doel</td><td>Zijn kader om tegenslag terug te lezen als aanleiding tot groei en een hoger doel in het leven.</td></tr>
+          <tr><td class="term">Dankbaarheid</td><td>Voor King een van de snelste manieren om de eigen vibratie te verhogen, praktisch ingevuld met een dagboek of een vast moment per dag.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>King onderbouwt zijn stellingen niet met onderzoek maar met zijn eigen levensverhaal: dakloosheid, armoede, racisme en een periode van zware neerslachtigheid, gevolgd door een ommekeer die hij toeschrijft aan het bewust veranderen van zijn gedachten en gewoontes. Die ervaring functioneert in het boek als bewijs op zichzelf, niet als illustratie bij een apart onderbouwd principe.</p>
+      <p>Voor de wet van vibratie en de wet van de aantrekking verwijst hij naar dezelfde bronnen als andere boeken in dit genre: elementen uit boeddhistische en hindoeïstische tradities, herschreven in de taal van energie en frequentie. Er staat geen verwijzing naar herhaald onderzoek in, en de kernclaim, dat innerlijke toestand uitkomsten in de buitenwereld aantrekt, is niet te toetsen: succes wordt uitgelegd als bewijs van een hoge vibratie en tegenslag als teken dat er aan de vibratie gewerkt moet worden, waardoor de stelling zichzelf altijd gelijk kan geven.</p>
+      <p>De spirituele bronnen die hij aanhaalt worden niet herleid tot een specifieke traditie, tekst of leraar; het boek geeft losse ideeën uit meditatie- en mindfulnesspraktijken weer zonder een doorlopende bronvermelding. Daardoor is niet vast te stellen in hoeverre een idee een gangbare praktijk binnen die tradities weergeeft en in hoeverre het Kings eigen invulling is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De centrale claim is niet falsifieerbaar. Omdat elke gunstige uitkomst wordt toegeschreven aan een hoge vibratie en elke tegenslag aan een lage, is er geen waarneming denkbaar die de theorie zou kunnen weerleggen. Dat maakt het onderscheid tussen deze aanpak en bijgeloof lastig te trekken, ook al voelt de praktische kant, zoals grenzen stellen en gewoontes aanpassen, voor lezers behulpzaam aan.</p>
+      <p>Verder loopt het boek het risico dat het lezers verantwoordelijk maakt voor omstandigheden die buiten hun macht liggen. Als een hogere vibratie voorspoed aantrekt, ligt de omgekeerde conclusie, dat ziekte, armoede of tegenslag samenhangen met een tekortschietende innerlijke houding, dicht bij de hand, ook al bestrijdt King dat expliciet in het laatste deel. King schrijft zelf vanuit een groot platform en een omvangrijk bereik dat aan zijn boodschap is voorafgegaan; het boek gaat niet in op hoeveel van zijn eigen ommekeer aan gedachteverandering te danken is en hoeveel aan het bouwen van dat platform zelf.</p>
+      <p>Inhoudelijk herhaalt het boek veel adviezen die in vergelijkbare titels terugkomen: mediteren, dankbaarheid oefenen, de eigen omgeving opschonen, affirmaties uitspreken. Wie eerder een boek over de wet van de aantrekking of positieve psychologie las, komt weinig tegen dat nieuw is; de toegevoegde waarde zit vooral in de toon en het persoonlijke verhaal, niet in de onderliggende methode.</p>
+      <p>Het boek bereikte vooral lezers die nog niet eerder over dit onderwerp lazen, en de persoonlijke, toegankelijke toon draagt daaraan bij. Voor wie het genre al kent, biedt <i>Good Vibes, Good Life</i> weinig dat verder gaat dan wat in eerdere titels over de wet van de aantrekking al stond; het onderscheidende zit in de leesbaarheid en het verhaal van de auteur, niet in een andere onderbouwing.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer affirmaties in de tegenwoordige tijd en herhaal ze dagelijks, als geheugensteun voor het gewenste gedrag, niet als vervanging van dat gedrag.</li>
+        <li>Leg bij een doel eerst een concrete intentie vast en koppel daar een stap aan die deze week te zetten is.</li>
+        <li>Ga na welke mensen of gewoontes energie kosten en stel daar een grens aan, ook als dat betekent dat een terugkerende afspraak of relatie wordt afgebouwd.</li>
+        <li>Lees de hoofdstukken over pijn en doel met behoud van de kritische vraag welk deel van een verbetering aan innerlijke houding te danken is en welk deel aan andere, meetbare veranderingen.</li>
+        <li>Houd een kort overzicht bij van mensen en gewoontes die energie kosten in plaats van opleveren, en gebruik dat overzicht om één concrete verandering per maand door te voeren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Good Vibes, Good Life</i> (Hay House, 2018), zijn eerste boek. Nederlands als <i>Good Vibes, Good Life: de perfecte gids voor een mooier en zinvoller leven</i>, bij Kosmos Uitgevers (Utrecht, 2022, 303 blz., ISBN 9789021574776).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vex King groeide op in Northamptonshire in een gezin dat een groot deel van zijn jeugd dakloos was. Zijn vader stierf toen hij zes maanden oud was en hij maakte als kind armoede, racisme en geweld mee. Als tiener kreeg hij te maken met zware neerslachtigheid; naar eigen zeggen hielden de steun van zijn moeder en zussen hem op de been. Na een opleiding bedrijfsinformatiesystemen werkte hij als systeemanalist en in de muziekindustrie, tot hij rond 2013 begon met sociale-mediaprofielen waarop hij bemoedigende teksten plaatste. Dat groeide uit tot een groot eigen account en het merk Bon Vita, met inmiddels miljoenen volgers.</p><p>In 2018 verscheen zijn eerste boek, waarin hij zelfliefde voorstelt als voorwaarde voor een goed leven: wie zichzelf accepteert en verzorgt, houdt volgens hem ook meer ruimte over voor anderen en voor wat hij goede vibraties noemt. Het boek is verdeeld in zeven delen die van een grondbeginsel naar de praktijk lopen, van de wet van vibratie via dagelijkse gewoontes, grenzen en zelfacceptatie naar manifesteren en het omgaan met tegenslag. King bouwt voort op de wet van de aantrekking en op elementen uit boeddhistische en hindoeïstische tradities, aangevuld met zijn eigen levensverhaal. Het boek werd een Sunday Times-bestseller en is in tientallen talen vertaald.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>zelfliefde</li><li>manifesteren</li><li>wet van aantrekking</li><li>affirmaties</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="195"><a href="195.html">Healing Is the New High</a>. Kings eigen tweede boek, waarin hij drie jaar later dieper ingaat op emotionele verwerking dan in dit debuut.</li>
+          <li value="128"><a href="128.html">Leer manifesteren zoals Oprah Winfrey en J.K. Rowling</a>. Zelfde jaar en genre, maar met drie beroemde levens als bewijs in plaats van Kings eigen verhaal.</li>
+          <li value="129"><a href="129.html">Manifest</a>. Manifesteren in een stappenplan van vier jaar later, met dezelfde onbewijsbare kern.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

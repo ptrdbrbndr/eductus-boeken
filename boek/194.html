@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Everyday Stoic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat wie leert onderscheiden wat in zijn macht ligt van wat dat niet is, en wie zijn oordeel over gebeurtenissen leert scheiden van de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-194">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">194 &middot; Moed en karakter</p>
+    <h1>The Everyday Stoic</h1>
+    <p class="lede">William Mulligan, 2024</p>
+    <p class="stats">
+      <span><b>1415</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="194"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat wie leert onderscheiden wat in zijn macht ligt van wat dat niet is, en wie zijn oordeel over gebeurtenissen leert scheiden van de gebeurtenissen zelf, zich staande kan houden tegen wat het leven toevallig over hem uitstort. Mulligan herhaalt in eigentijdse taal de stoïcijnse regel dat niet de dingen een mens van streek maken maar de mening die hij erover heeft, en voegt daar bij elke gedachte een korte oefening aan toe waarmee zij dezelfde dag te beproeven is. De inzet is dat tweeduizend jaar oude regels voor een goed leven zonder filosofische vooropleiding bruikbaar zijn. Wie daar iets tegenover wil zetten, kan vragen of een regel die in een paar bladzijden wordt uitgelegd nog het gewicht draagt van de tekst waaraan zij ontleend is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst: van de Overpeinzingen naar een account met groot bereik</h3>
+      <p>Mulligan ontdekte de stoïcijnse filosofie via de <i>Overpeinzingen</i> van Marcus Aurelius. Een eerste, haastige lezing zei hem weinig; maanden later las hij de tekst opnieuw en werd hij getroffen door hoe eigentijds tweeduizend jaar oude aantekeningen konden klinken. Hij richtte het account The Everyday Stoic op om diezelfde teksten buiten de universiteit te brengen, met een luchtige toon en herkenbare beelden om ook lezers te bereiken die van een academische inleiding zouden afhaken.</p>
+      <p><i>The Everyday Stoic: Simple Rules for a Good Life</i> is zijn eerste boek en verscheen in 2024, in de Verenigde Staten bij Running Press en in het Verenigd Koninkrijk bij Michael Joseph. Het bouwt rechtstreeks voort op het materiaal van het account: dezelfde korte, direct toepasbare vorm, nu tot een doorlopend boek gemaakt.</p>
+      <h3>De opzet: uitleg en oefening rond vier deugden</h3>
+      <p>Elk onderdeel van het boek volgt hetzelfde stramien: eerst een idee uit de stoïcijnse traditie in enkele bladzijden uitgelegd, dan een korte, concrete oefening waarmee de lezer het idee dezelfde dag kan beproeven. Mulligan plaatst die onderdelen binnen het kader van de vier deugden die de stoïcijnen aan een goed leven verbinden: wijsheid, moed, rechtvaardigheid en gematigdheid.</p>
+      <p>Dat kader is een ordening, geen keten van hoofdstukken die op elkaar voortbouwen. Het boek is zo opgezet dat het ook los, bij één onderwerp tegelijk, te lezen is, wat aansluit bij de manier waarop de lezers van het account de losse berichten al gewend waren te gebruiken.</p>
+      <h3>Onvoorspelbaarheid en het onderscheid tussen wat van jou is en wat niet</h3>
+      <p>Een van de gedachten die in het boek telkens terugkomt, is dat het leven onvoorspelbaar blijft en dat de enige zinnige reactie daarop is te onderscheiden wat in de eigen macht ligt van wat dat niet is. Mulligan ontleent dat aan het <i>Enchiridion</i> van Epictetus, dat met precies dat onderscheid opent: oordeel, verlangen en handelen zijn van de mens, alles daarbuiten, van bezit tot reputatie tot het gedrag van anderen, niet. Wat niet in de macht ligt, hoort volgens die regel geen inzet van energie te krijgen, want daar valt toch niets te winnen.</p>
+      <p>De oefening die erbij hoort is een gebeurtenis uit de eigen week nemen en haar te splitsen in wat er feitelijk gebeurde en wat de lezer erover dacht. Mulligan laat aan de hand van herkenbare voorbeelden zien dat het tweede deel vaak groter is dan het eerste, en dat daar de ruimte zit om iets te veranderen.</p>
+      <h3>Het oordeel schept de ervaring</h3>
+      <p>Nauw verwant is de gedachte dat niet de gebeurtenis maar het oordeel erover de ervaring bepaalt. Mulligan werkt dat uit met alledaagse voorbeelden, zoals in de file staan of een afwijzing krijgen, en laat zien hoe twee mensen in dezelfde situatie tot een tegengestelde ervaring komen naar gelang het oordeel dat zij eraan verbinden. Ook hier wijst hij terug naar Epictetus, bij wie deze gedachte al in de openingsregels van het <i>Enchiridion</i> staat, en naar Marcus Aurelius, die zich in de <i>Overpeinzingen</i> voortdurend tot dezelfde gedachte terugroept.</p>
+      <h3>Verbondenheid en gelijkheid onder de rede</h3>
+      <p>Twee andere terugkerende gedachten horen inhoudelijk bij elkaar: dat de natuur mensen aan elkaar verbindt, en dat mensen in wat telt aan elkaar gelijk zijn. Mulligan verwijst hier naar de kosmopolitische kant van het stoïcisme, de gedachte dat mensen door de rede die zij delen tot één gemeenschap horen, ongeacht afkomst of positie. Bij Marcus Aurelius komt dat terug in zijn herhaalde herinnering aan zichzelf dat hij voor samenwerking gemaakt is en niet voor afzondering; de stroming zelf gaat terug op Zeno van Kition, die als eerste een leer van universeel burgerschap formuleerde.</p>
+      <h3>Genoeg hebben aan weinig</h3>
+      <p>Een laatste terugkerende gedachte is dat een mens minder nodig heeft dan hij denkt, en dat het najagen van meer bezit, aanzien of comfort de rust ondermijnt die de andere gedachten juist proberen op te bouwen. Mulligan zet hier de negatieve visualisatie in die ook bij Seneca voorkomt: je voorstellen dat je iets waaraan je gehecht bent kwijtraakt, niet om somber te worden maar om te zien hoeveel je al hebt. Hetzelfde oefenformat keert terug, een korte opdracht om dagelijks iets te noemen dat je zou missen als het er niet meer was.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dichotomie van controle</td><td>Het onderscheid tussen wat in de eigen macht ligt, oordeel, verlangen, handelen, en wat dat niet is.</td></tr>
+          <tr><td class="term">Oordeel</td><td>De mening over een gebeurtenis, die volgens Mulligan de ervaring bepaalt, niet de gebeurtenis zelf.</td></tr>
+          <tr><td class="term">Blik van bovenaf</td><td>Een visualisatie waarbij de lezer zich de eigen situatie van grote afstand voorstelt om haar in verhouding te zien.</td></tr>
+          <tr><td class="term">Negatieve visualisatie</td><td>Je voorstellen dat je iets waaraan je gehecht bent kwijtraakt, om dankbaarheid voor wat er is op te wekken.</td></tr>
+          <tr><td class="term">De vier deugden</td><td>Wijsheid, moed, rechtvaardigheid en gematigdheid, het kader waarbinnen Mulligan zijn onderwerpen ordent.</td></tr>
+          <tr><td class="term">Kosmopolitisme</td><td>De gedachte dat mensen door de rede die zij delen tot één gemeenschap horen, ongeacht afkomst of positie.</td></tr>
+          <tr><td class="term">Aanvaarding van het onvoorspelbare</td><td>De regel om te berusten in wat buiten de eigen macht ligt in plaats van ertegen te vechten.</td></tr>
+          <tr><td class="term">Soberheid</td><td>De overtuiging dat een mens minder nodig heeft dan hij denkt en dat overvloed de rust ondermijnt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek draagt geen eigen onderzoek aan en claimt dat ook niet. De autoriteit ervan zit in de klassieke bronnen die Mulligan naar eigen zeggen het meest raadpleegt: de <i>Overpeinzingen</i> van Marcus Aurelius, het <i>Enchiridion</i> van Epictetus en de brieven van Seneca. Zijn werk bestaat uit het parafraseren en toepasbaar maken van die teksten, niet uit een nieuwe lezing ervan of uit een filosofisch argument dat verder gaat dan wat de klassieke auteurs al schreven.</p>
+      <p>Dat maakt de onderbouwing zo stevig als de bronnen zelf, en dat is aanzienlijk: het gaat om teksten die al tweeduizend jaar gelezen worden en waarvan de kernideeën, het onderscheid tussen wat in de macht ligt en wat niet, het gewicht van het oordeel, weinig weerlegd zijn zolang men de stoïcijnse aannames over de rede als ordenend beginsel deelt. Zwakker is de vertaalslag naar oefeningen: die zijn Mulligans eigen toevoeging en berusten op zijn ervaring met het account en zijn publiek, niet op onderzoek naar wat werkt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste kritiek is dat het boek geen stap verder zet dan een inleiding. Lezersreacties op Goodreads noemen de opzet herhalend en de behandeling van elk onderwerp dun: eenmaal uitgelegd wat de dichotomie van controle inhoudt, komt zij in latere hoofdstukken in een lichte variant terug zonder dat er iets aan wordt toegevoegd. Wie de <i>Overpeinzingen</i> of het <i>Enchiridion</i> al kent, leest hier weinig nieuws.</p>
+      <p>Een tweede punt is dat het boek de spanningen in het stoïcisme zelf niet bespreekt. Dat de wereld volgens de stoïcijnen door een rationele, geordende natuur bestuurd wordt, is een aanname die het hele bouwwerk draagt, en Mulligan laat die grotendeels onbesproken staan terwijl hij wel de praktische gevolgen ervan aanbeveelt. Het boek verschijnt bovendien in een genre waarin al meerdere populaire stoïcijnse werken staan; het onderscheidt zich vooral door de herkomst uit een account met groot bereik, niet door een eigen invalshoek op de stof.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Splits een gebeurtenis van de afgelopen week in wat er feitelijk gebeurde en wat je erover dacht.</li>
+        <li>Noem bij een ergernis wat daarvan in je macht ligt en laat de rest los.</li>
+        <li>Doe de blik-van-bovenaf-oefening: stel je de eigen situatie van grote afstand voor.</li>
+        <li>Beoefen negatieve visualisatie: stel je voor dat je iets waaraan je gehecht bent kwijtraakt.</li>
+        <li>Noteer aan het eind van de dag kort welk oordeel je vandaag hebt bijgesteld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The Everyday Stoic: Simple Rules for a Good Life</i>. Verschenen in de Verenigde Staten bij Running Press (Hachette), 14 mei 2024, gebonden, 192 blz., ISBN 9780762488940; in het Verenigd Koninkrijk bij Michael Joseph (Penguin), 7 maart 2024, gebonden, ISBN 9780241643297. Geen Nederlandse vertaling gevonden; een zoekopdracht op William Mulligan in de catalogus van bibliotheek.nl levert geen resultaat op.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>William Mulligan begon het account The Everyday Stoic op Instagram en YouTube om stoïcijnse ideeën buiten de universiteit te brengen, in korte berichten en video's die het onderscheid tussen wat in je macht ligt en wat niet telkens opnieuw op een alledaagse situatie toepassen. <i>The Everyday Stoic: Simple Rules for a Good Life</i> is zijn eerste boek en zet die aanpak om in een doorlopende tekst: een reeks korte hoofdstukken, elk gebouwd rond één stoïcijnse gedachte, gevolgd door een korte oefening waarmee de lezer haar dezelfde dag kan beproeven.</p><p>Het boek citeert geen wetenschappelijk onderzoek en doet dat ook niet voor; het is een bewerking van klassieke bronnen, vooral de <i>Overpeinzingen</i> van Marcus Aurelius, het <i>Enchiridion</i> van Epictetus en de brieven van Seneca, in eigentijdse taal en met eigentijdse voorbeelden. Mulligan is ook een van de Mulligan Brothers, een trio dat motiverende video's maakt, en dat register is in de toon van het boek te herkennen: kort, direct, gericht op de lezer die vandaag iets wil veranderen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stoïcisme</li><li>zelfhulp</li><li>sociale media</li><li>dichotomie van controle</li><li>vier deugden</li><li>populaire filosofie</li><li>weerbaarheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. De belangrijkste bron waarop Mulligan terugvalt; wie de tekst zelf wil lezen in plaats van de bewerking, begint hier.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Een ander populariserend stoïcijns boek, gericht op tegenslag en hindernissen in plaats van op de volle leer.</li>
+          <li value="75"><a href="75.html">Ego Is the Enemy</a>. Behandelt vanuit dezelfde traditie de deugd van gematigdheid tegenover eigenbelang en status.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Country, Little Business &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat de meerderheid van de Indiase kleine bedrijven ontstaat buiten de grote metropolen, in wat de auteurs tier 2- en tier 3-steden noemen,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-172">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">172 &middot; Geld en ondernemen</p>
+    <h1>Big Country, Little Business</h1>
+    <p class="lede">Santosh Choubey, Siddharth Chaturvedi en Pallavi Rao Chaturvedi, 2024</p>
+    <p class="stats">
+      <span><b>1409</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="172"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat de meerderheid van de Indiase kleine bedrijven ontstaat buiten de grote metropolen, in wat de auteurs tier 2- en tier 3-steden noemen, bij mensen die van een hobby of vaardigheid een inkomen willen maken. Choubey, Chaturvedi en Chaturvedi zetten het opzetten van zo'n micro-onderneming om in een reeks stappen: een idee toetsen, een plan en de cijfers op orde brengen, een bedrijf registreren, financiering regelen, klanten vinden en ten slotte opschalen. Die stappen onderbouwen ze met meer dan honderd concrete bedrijfsideeën en de praktijkervaring van ruim veertig Indiase ondernemers uit het eigen netwerk van de auteurs.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie auteurs uit dezelfde organisatie</h3>
+      <p>De drie auteurs werken alle drie bij AISECT Group, een Indiase organisatie voor onderwijs en beroepsopleiding die Santosh Choubey veertig jaar geleden mede heeft opgebouwd. Choubey is voorzitter van de groep, sociaal ondernemer en Ashoka fellow, en ontving de Schwab Foundation Award for Social Entrepreneurship; daarnaast schreef hij meer dan veertig boeken over wetenschap en techniek voor een breed publiek.</p>
+      <p>Siddharth Chaturvedi is vicevoorzitter van AISECT en kanselier van SCOPE Global Skills University, een tweede-generatie ondernemer met een mba van SPJIMR Mumbai. Pallavi Rao Chaturvedi is eveneens vicevoorzitter van AISECT, verantwoordelijk voor marketing en voor de ontwikkeling van medewerkers, en bouwde daarnaast een publiek van meer dan een miljoen volgers op rond opvoeding. Hun gezamenlijke ervaring wordt in de aankondigingen van het boek op veertig jaar gesteld.</p>
+      <h3>Van idee tot getoetst plan</h3>
+      <p>Het eerste deel van het boek gaat over het kiezen en toetsen van een bedrijfsidee: nagaan of er vraag is voordat er geld en tijd in gestoken wordt, en een idee omzetten in een plan met een korte beschrijving, een blik op de markt en een eerste begroting. Dat idee-toetsen staat naast een lijst van meer dan honderd bedrijfsideeën, waarvan de boekhandelbeschrijving zegt dat ze zijn toegesneden op de Indiase context en op het benutten van lokale grondstoffen en ambachten.</p>
+      <p>Daarbij hoort ook klantonderzoek: rechtstreeks met mogelijke klanten praten om te bepalen wat een product of dienst waard is en voor wie het bedoeld is, in plaats van dat vanachter een bureau te bedenken.</p>
+      <h3>Papierwerk en cijfers</h3>
+      <p>Een volgend deel behandelt de administratieve kant van een Indiase micro-onderneming: registratie, het aanvragen van een GST-nummer, de Indiase omzetbelasting die vergelijkbaar is met de Nederlandse btw, en de vergunningen die per branche kunnen verschillen. Dit deel is nadrukkelijk op de Indiase regelgeving toegesneden.</p>
+      <p>Daarnaast krijgen budgettering en cashflow aandacht: hoeveel geld er binnenkomt en uitgaat, en hoe een beginnend ondernemer voorkomt dat het bedrijf zonder werkkapitaal komt te zitten.</p>
+      <h3>Financiering en netwerk</h3>
+      <p>Het boek beschrijft verschillende manieren om een micro-onderneming te financieren, van eigen inleg tot bankkrediet en investeerders, en geeft wat het een netwerktoolkit noemt: contacten en gereedschap om aansluiting te vinden bij andere ondernemers, brancheorganisaties en opleidingsinstellingen zoals die van AISECT zelf.</p>
+      <h3>Klanten bereiken</h3>
+      <p>Voor marketing kiest het boek voor werkwijzen die weinig kosten: mond-tot-mondreclame, lokale netwerken en digitale kanalen naast elkaar. De nadruk ligt op zichtbaarheid opbouwen zonder een reclamebudget dat een micro-onderneming meestal niet heeft.</p>
+      <h3>Zes obstakels die vaak genoemd worden</h3>
+      <p>Een artikel op de eigen website van AISECT, de organisatie van de drie auteurs, vat de belemmeringen samen die het boek bij beginnende ondernemers signaleert: te weinig startkapitaal, concurrentie, het voldoen aan regelgeving, het opschalen van de bedrijfsvoering, klanten vasthouden en schommelingen in de markt.</p>
+      <p>Voor elk van die obstakels geeft het boek volgens diezelfde bron een tegenmaatregel, van kleinschalig beginnen met een duidelijke niche tot het inzetten van technologie voor zowel de bedrijfsvoering als het klantcontact.</p>
+      <h3>Tier 2- en tier 3-steden, vrouwen en jongeren</h3>
+      <p>Een terugkerend thema is dat het meeste Indiase ondernemerschap in kleinere steden zit en dat het boek daar met opzet voorbeelden en ideeën vandaan haalt. Siddharth Chaturvedi wijst in de aankondiging van het boek op de omvang van de Indiase kleinbedrijvensector, die hij de derde grootste ter wereld noemt.</p>
+      <p>Een tweede terugkerende lijn is aandacht voor vrouwen en jongeren als ondernemer, met ideeën en voorbeelden die op die groepen zijn toegesneden.</p>
+      <h3>Opstarten, volhouden, overleven en opschalen</h3>
+      <p>De uitgever beschrijft de opzet van het boek als een gids door vier fasen: een bedrijf opstarten, het draaiend houden, het overeind houden in moeilijke perioden en het laten groeien. De latere hoofdstukken gaan over dat laatste: wanneer en hoe een micro-onderneming groter wordt dan één persoon.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Micro-onderneming</td><td>De kleinste bedrijfsvorm waar het boek zich op richt, vaak ontstaan uit een hobby of vaardigheid van één persoon.</td></tr>
+          <tr><td class="term">Tier 2- en tier 3-steden</td><td>Indiase indeling van middelgrote en kleinere steden buiten de grote metropolen, waar de auteurs het meeste ondernemerschap situeren.</td></tr>
+          <tr><td class="term">Idee-validatie</td><td>Toetsen of er vraag bestaat naar een idee voordat er tijd en geld in wordt gestoken.</td></tr>
+          <tr><td class="term">Klantonderzoek</td><td>Rechtstreeks met mogelijke klanten praten om een aanbod scherp te krijgen, in plaats van dat vanachter een bureau te bedenken.</td></tr>
+          <tr><td class="term">GST</td><td>De Indiase omzetbelasting waarvoor een micro-onderneming zich moet registreren, vergelijkbaar met de Nederlandse btw.</td></tr>
+          <tr><td class="term">Cashflow</td><td>Het overzicht van geld dat in en uit een bedrijf stroomt, waarmee volgens het boek een micro-onderneming overeind blijft.</td></tr>
+          <tr><td class="term">Netwerktoolkit</td><td>De contacten en het gereedschap waarmee een beginnend ondernemer aansluiting zoekt bij andere ondernemers en instellingen.</td></tr>
+          <tr><td class="term">Opstarten, volhouden, overleven, opschalen</td><td>De vier fasen waarlangs het boek de levensloop van een micro-onderneming indeelt.</td></tr>
+          <tr><td class="term">Sjablonen</td><td>Kant-en-klare formats, bijvoorbeeld voor een businessplan, die de lezer volgens de boekhandelbeschrijving direct kan invullen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing van het boek is de praktijkervaring van de auteurs zelf en van de organisatie waarvoor ze werken, niet onafhankelijk onderzoek. AISECT Group is decennialang actief in beroepsopleiding en ondernemerschapsbevordering in India, vooral buiten de grote steden, en de auteurs putten voor hun voorbeelden uit dat netwerk: de aankondigingen van het boek noemen de succesverhalen van ruim veertig bedrijven.</p>
+      <p>De drie auteurs hebben elk een andere invalshoek. Choubey brengt veertig jaar bestuurlijke en maatschappelijke ervaring mee als oprichter en voorzitter van AISECT, Siddharth Chaturvedi een bedrijfskundige achtergrond met een mba van SPJIMR Mumbai en een functie als kanselier van een hogeschool voor beroepsvaardigheden, en Pallavi Rao Chaturvedi een marketing- en communicatie-achtergrond, zichtbaar in de aandacht voor vrouwen en jongeren als doelgroep. Die combinatie maakt het boek breder dan een boek van één schrijver met één invalshoek, al blijven de bronnen eigen ervaring en het eigen netwerk.</p>
+      <p>Op de kaft staan aanbevelingen van onder anderen schrijver en oud-diplomaat Pavan K. Verma, Anand Kumar, oprichter van de gratis toelatingscursus Super 30, en Yogesh Chander Munjal. Zulke namen zeggen iets over het netwerk waarin de auteurs zich bewegen, maar zijn geen onafhankelijke recensies.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Doordat de voorbeelden en cijfers uit het eigen netwerk van de auteurs komen, is niet na te gaan hoe representatief de veertig succesverhalen zijn voor Indiase micro-ondernemingen in het algemeen. Het boek noemt geslaagde bedrijven; hoeveel pogingen binnen hetzelfde netwerk zijn mislukt, staat er niet in, waardoor het beeld dat ontstaat gunstiger kan uitvallen dan de werkelijkheid.</p>
+      <p>De statistieken die in de aankondigingen van het boek circuleren, zoals de omvang van de Indiase kleinbedrijvensector, worden in het materiaal dat over het boek te vinden is niet met een bron of methode toegelicht. Een volledige inhoudsopgave met hoofdstuktitels is niet openbaar beschikbaar, waardoor de structuur hier is gereconstrueerd uit de beschrijvingen van uitgever en boekhandel en niet rechtstreeks uit het boek zelf kon worden nagegaan.</p>
+      <p>Onafhankelijke bespreking van het boek is schaars: buiten de Indiase pers rond de verschijning in januari 2025 en één blogrecensie is er weinig kritische ontvangst te vinden. De aanbevelingen op de kaft komen van bekende Indiase namen uit het maatschappelijke veld, niet van vakbladen voor ondernemerschap of bedrijfskunde. De inhoud is bovendien sterk op Indiase regelgeving toegesneden, waardoor de hoofdstukken over registratie en belasting buiten India weinig waarde hebben.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als bron van ideeën en stappen, niet als vervanging voor lokaal juridisch en fiscaal advies.</li>
+        <li>Zoek statistieken die het boek aanhaalt, zoals cijfers over de Indiase kleinbedrijvensector, apart na voordat je ze elders gebruikt.</li>
+        <li>Houd er bij het lezen van de praktijkvoorbeelden rekening mee dat het steeds om geslaagde ondernemingen uit het netwerk van de auteurs gaat.</li>
+        <li>Sla de hoofdstukken over Indiase registratie en belasting over als het bedrijf dat je zelf voor ogen hebt buiten India staat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Big Country, Little Business: A Beginner's Guide to Building Your Own Micro-Enterprise</i> (India Penguin, een imprint van Penguin Random House India, 27 december 2024, 294 blz., ISBN 9780143459774). Er is geen Nederlandse vertaling gevonden: noch bibliotheek.nl noch de gangbare Nederlandse boekhandels voeren een Nederlandse editie. Deze samenvatting is op de Engelse uitgave gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Drie leidinggevenden van de Indiase onderwijs- en opleidingsorganisatie AISECT Group schreven samen een gids voor wie van een hobby of vaardigheid een eigen bedrijf wil maken. Santosh Choubey is voorzitter van AISECT en werkte veertig jaar in onderwijs en ondernemerschap, Siddharth Chaturvedi is bedrijfsleider binnen dezelfde groep en kanselier van een hogeschool voor beroepsvaardigheden, Pallavi Rao Chaturvedi houdt zich bij AISECT bezig met marketing en met de ontwikkeling van medewerkers en schrijft daarnaast over opvoeding. Samen zetten ze meer dan honderd bedrijfsideeën en ruim veertig praktijkvoorbeelden uit hun eigen netwerk om in een gids die de lezer van een eerste idee naar een lopend bedrijf leidt, met nadruk op steden buiten de grote Indiase metropolen en op vrouwen en jongeren die voor zichzelf willen beginnen.</p><p>De opbouw volgt de weg die een klein bedrijf aflegt: een idee toetsen, een plan en de cijfers op orde krijgen, een bedrijf registreren, financiering vinden, klanten bereiken en ten slotte groeien. Korte hoofdstukken met sjablonen en oefeningen moeten die stappen behapbaar maken voor mensen zonder ondernemerservaring. Het boek is dicht op de Indiase context geschreven, met verwijzingen naar Indiase registratie- en belastingregels die buiten India niet opgaan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemen</li><li>microbedrijf</li><li>india</li><li>kleine-bedrijven</li><li>financiering</li><li>marketing</li><li>praktisch</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Vergelijkbare opzet van klein en met weinig geld beginnen, maar dan in de Amerikaanse context en zonder de nadruk op één regio of doelgroep.</li>
+          <li value="37"><a href="37.html">Rich Dad Poor Dad</a>. Kiyosaki werkt met geleend geld en vastgoed als hefboom, tegenover de zuinige, stapsgewijze opbouw die dit boek voorstaat.</li>
+          <li value="159"><a href="159.html">Broke Millennial</a>. Voor de persoonlijke financiën van de starter zelf, budgetteren en schulden, waar dit boek zich op het bedrijf richt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Father's Daughter &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat Frank Sinatra, achter het beeld van de onaantastbare entertainer, een rusteloze en eenzame man was die zijn hele leven bleef zoeken…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-178">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">178 &middot; Roman en memoir</p>
+    <h1>My Father's Daughter</h1>
+    <p class="lede">Tina Sinatra, 2000</p>
+    <p class="stats">
+      <span><b>1113</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="178"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat Frank Sinatra, achter het beeld van de onaantastbare entertainer, een rusteloze en eenzame man was die zijn hele leven bleef zoeken naar een geborgenheid die hem bleef ontglippen, en dat zijn vierde vrouw Barbara Marx in zijn laatste decennium een wig dreef tussen hem en de kinderen uit zijn eerste huwelijk. Tina Sinatra schrijft dat relaas als dochter die zelf op afstand werd gezet, tot aan het sterfbed toe.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Hoboken en het eerste huwelijk</h3>
+      <p>Het boek begint bij Frank Sinatra's jeugd in Hoboken, New Jersey, en bij zijn huwelijk met Nancy Barbato in 1939, de moeder van Tina en van haar oudere zuster Nancy en broer Frank jr. Tina beschrijft haar moeder als de vaste grond in het gezin, ook nadat het huwelijk in 1951 eindigde en haar vader al beroemd was geworden.</p>
+      <p>Die eerste jaren dienen in het boek als referentiepunt voor alles wat volgt. De latere huwelijken worden telkens afgezet tegen wat er met Nancy Barbato wél stand hield, ook lang na de scheiding.</p>
+      <h3>Roem, Ava Gardner en de rusteloosheid</h3>
+      <p>Met het huwelijk met Ava Gardner in 1951 komt een patroon in beeld dat zich blijft herhalen: een vrouw die net zo onafhankelijk is als Frank Sinatra zelf, en een verhouding die op grote hartstocht en op even grote jaloezie draait. Tina beschrijft haar vader in deze jaren als een man met genie, rijkdom en de bewondering van beroemde vrienden, en tegelijk als iemand die geen van die zaken de rust gaf die hij zocht.</p>
+      <p>Die rusteloosheid is voor het boek geen bijzaak maar een vaste lijn. Tina koppelt de stemmingswisselingen en de perioden van somberheid van haar vader aan dezelfde onvrede die ook zijn huwelijken deed mislukken.</p>
+      <h3>De Rat Pack en het korte huwelijk met Mia Farrow</h3>
+      <p>De jaren van de Rat Pack, met Dean Martin en Sammy Davis jr. als vaste metgezellen, staan in het boek voor het uiterlijk van Frank Sinatra op zijn onaantastbaarst: Las Vegas, optredens, omgang met macht tot aan het Witte Huis. Tina plaatst daar zijn huwelijk met de veel jongere Mia Farrow in 1966 tegenover, dat na twee jaar strandde.</p>
+      <p>Zij beschrijft Mia Farrow als een vrouw met dezelfde onafhankelijkheid en dezelfde gerichtheid op haar eigen carrière die zij eerder al bij Ava Gardner zag, en plaatst het korte huwelijk zo in het verlengde van het eerdere.</p>
+      <h3>Barbara Marx en het vierde huwelijk</h3>
+      <p>Frank Sinatra trouwt in 1976 met Barbara Marx, voorheen getrouwd met Zeppo Marx. Tina beschrijft hoe de afstand tussen haar vader en zijn kinderen uit het eerste huwelijk in de jaren daarna geleidelijk groeit, en schrijft die verandering toe aan de invloed van Barbara op wie er nog toegang tot hem had.</p>
+      <p>Het boek behandelt dit huwelijk niet als één gebeurtenis maar als een reeks kleinere breukmomenten: beslissingen over geld, over gezondheid en later over de regie rond zijn overlijden, die Tina in toenemende mate buiten haar om ziet gebeuren.</p>
+      <h3>De miniserie Sinatra en de strijd om de nalatenschap</h3>
+      <p>Tina produceert in 1992 samen met haar zuster Nancy de televisieminiserie <i>Sinatra</i>, over het leven van hun vader. In het boek is dat project ook een strijdtoneel. De zeggenschap over hoe het verhaal van Frank Sinatra verteld mag worden, en wie daarbij hoort, speelt zich af terwijl hij nog leeft en zijn gezondheid al achteruitgaat.</p>
+      <h3>Het sterfbed en de nasleep</h3>
+      <p>Frank Sinatra overlijdt op 14 mei 1998 aan een hartaanval in het Cedars-Sinai ziekenhuis in Los Angeles, na een medische behandeling van bijna anderhalf uur. Tina schrijft dat zij die avond thuis was en naar de laatste aflevering van <i>Seinfeld</i> keek, en dat zij pas een halfuur na zijn dood werd gebeld, terwijl zij en haar zuster op enkele minuten rijden van het ziekenhuis woonden.</p>
+      <p>Zij noemt dat geen toeval: in haar lezing zorgde Barbara ervoor dat zij als enige aan het sterfbed stond en daarna als weduwe alleen naar buiten trad. Het boek eindigt met de begrafenis en met de verhoudingen binnen de familie die na Frank Sinatra's dood verder verharden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Rat Pack</td><td>De vriendengroep rond Frank Sinatra, Dean Martin en Sammy Davis jr., in het boek vooral de sfeer van uiterlijke onaantastbaarheid tegenover innerlijke rusteloosheid.</td></tr>
+          <tr><td class="term">Cedars-Sinai</td><td>Het ziekenhuis in Los Angeles waar Frank Sinatra op 14 mei 1998 aan een hartaanval overleed.</td></tr>
+          <tr><td class="term">De Seinfeld-finale</td><td>Het televisieprogramma dat Tina die avond keek, door haar gebruikt als tijdsanker voor het moment waarop zij nog niets van zijn dood wist.</td></tr>
+          <tr><td class="term">Nancy Barbato</td><td>Frank Sinatra's eerste vrouw en de moeder van Tina, in het boek de vaste grond tegenover de latere huwelijken.</td></tr>
+          <tr><td class="term">Ava Gardner</td><td>Frank Sinatra's tweede vrouw, in het boek de maatstaf waarmee Tina latere vrouwen, onder wie Mia Farrow, vergelijkt.</td></tr>
+          <tr><td class="term">Barbara Marx</td><td>Frank Sinatra's vierde vrouw, in het boek de centrale tegenspeler van Tina in de strijd om haar vader en zijn nalatenschap.</td></tr>
+          <tr><td class="term">De miniserie Sinatra</td><td>De televisieserie uit 1992 die Tina samen met haar zuster Nancy produceerde en die in het boek als inzet van familieconflict terugkeert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een persoonlijk relaas van een direct betrokkene, niet het werk van een buitenstaander die bronnen tegen elkaar afweegt. Tina Sinatra put uit eigen herinnering, uit gesprekken binnen de familie en uit haar eigen aanwezigheid bij de gebeurtenissen die zij beschrijft. Voor de jaren van haar eigen jeugd en volwassenheid is dat een sterke positie: zij was erbij.</p>
+      <p>Voor het huwelijk met Barbara Marx geldt dat anders. Tina beschrijft een vrouw met wie zij zelf in conflict lag, over invloed op haar vader en later over de nalatenschap, en het boek biedt daarvoor geen ander perspectief dan het hare. Barbara Sinatra publiceerde in 2011 met <i>Lady Blue Eyes: My Life with Frank</i> een eigen relaas over dezelfde jaren, wat laat zien dat er van deze periode minstens twee lezingen van de feiten in omloop zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De centrale vraag bij dit boek is hoeveel afstand een dochter kan houden tot haar eigen vader en tot de vrouw met wie zij hem deelde. Tina Sinatra schrijft niet als onderzoeker maar als partij in een familieconflict dat op het moment van schrijven nog speelde, en dat kleurt elke bladzijde over Barbara Marx.</p>
+      <p>Recensenten merkten destijds op dat het boek in twee ongelijke delen uiteenvalt: de eerste helft een breed portret van Frank Sinatra's leven en carrière, de tweede helft vrijwel geheel gewijd aan de afrekening met zijn laatste vrouw. Wie op zoek is naar een gebalanceerd beeld van dat huwelijk, leest hier maar één kant, en het boek zelf maakt dat verschil niet klein.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>My Father's Daughter: A Memoir</i> (Simon &amp; Schuster, New York, 2000), geschreven met Jeff Coplon, circa 320 bladzijden. Een Nederlandse vertaling is niet gevonden, niet bij een uitgeverij en niet in de catalogus van bibliotheek.nl; het boek is in Nederland alleen in het Engels verkrijgbaar.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tina Sinatra is de jongste dochter van Frank Sinatra en zijn eerste vrouw Nancy Barbato. In deze memoire, geschreven met Jeff Coplon, volgt zij haar vader vanaf zijn jeugd in Hoboken, New Jersey, via de jaren van de Rat Pack tot aan zijn dood in 1998. Het beeld dat ontstaat is dat van een man die ondanks roem, rijkdom en vriendschappen tot aan het Witte Huis zijn hele leven op zoek bleef naar een rust die hem bleef ontglippen. Zijn opeenvolgende huwelijken, met Nancy Barbato, met Ava Gardner, kort met Mia Farrow en ten slotte met Barbara Marx, lezen in dit boek als steeds nieuwe pogingen om die rust te vinden.</p><p>Het zwaartepunt van het boek ligt bij het vierde huwelijk. Tina beschrijft hoe Barbara Marx haar en haar broer en zus geleidelijk op afstand zet, tot en met de laatste uren van hun vader in het Cedars-Sinai ziekenhuis in Los Angeles, op 14 mei 1998. Volgens Tina werd geen van de kinderen gebeld terwijl hun vader op sterven lag, hoewel zij vlakbij woonden; zij zat die avond thuis naar de laatste aflevering van <i>Seinfeld</i> te kijken en hoorde pas een halfuur na zijn overlijden dat hij dood was. Ook haar rol bij de televisieserie <i>Sinatra</i> uit 1992, die zij samen met haar zuster Nancy produceerde, keert in het boek terug als onderdeel van de strijd om de zeggenschap over haar vaders leven en nalatenschap.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>vader-en-dochter</li><li>Hollywood</li><li>Rat-Pack</li><li>roem-en-eenzaamheid</li><li>familieconflict</li><li>nalatenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Voor een andere memoir waarin een kind opgroeit in de schaduw van een afwezige of onbereikbare vaderfiguur.</li>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Voor een andere memoir die met een co-auteur is geschreven en het leven van een dominante oprichtersfiguur van dichtbij beschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

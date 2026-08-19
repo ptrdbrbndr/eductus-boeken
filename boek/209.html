@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tune In &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Walsh stelt dat het grootste onderschatte risico voor bedrijven en individuen menselijk is: de manier waarop mensen onder tijdsdruk, dataoverload en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-209">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">209 &middot; Gewoontes en denken</p>
+    <h1>Tune In</h1>
+    <p class="lede">Nuala Walsh, 2024</p>
+    <p class="stats">
+      <span><b>1452</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="209"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Walsh stelt dat het grootste onderschatte risico voor bedrijven en individuen menselijk is: de manier waarop mensen onder tijdsdruk, dataoverload en groepsdruk beslissingen nemen, weegt volgens haar zwaarder dan economische, technologische of klimatologische risico's. De kern van haar argument is het begrip dovemansoor, een toestand waarin signalen die al aanwezig zijn genegeerd of verkeerd geïnterpreteerd worden. Ze onderscheidt dat van de bekendere blinde vlek, waarin iemand iets simpelweg niet ziet. Wie herkent welke van de tien vallen uit haar PERIMETERS-raamwerk op een gegeven moment het hardst speelt, kan zich daar volgens haar tegen wapenen voordat een beslissing verkeerd uitpakt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een consultant met een vak</h3>
+      <p>Walsh opent met haar eigen achtergrond: dertig jaar in de beleggingsindustrie, onder meer bij BlackRock, Merrill Lynch en als marketingdirecteur bij Standard Life Aberdeen, gevolgd door een master in gedragswetenschap aan de London School of Economics. Ze doceert sindsdien besluitvorming aan INSEAD, de LSE en de Harvard Kennedy School en leidt het consultancybureau MindEquity, dat bedrijven uit de Fortune 500 adviseert over strategie, reputatie en gedragsverandering.</p>
+      <p>Die achtergrond bepaalt de toon van het boek: geen academisch onderzoeksverslag, maar een praktijkgerichte synthese van bestaande gedragswetenschap, geschreven voor bestuurders en leidinggevenden die zelf onder tijdsdruk beslissingen nemen.</p>
+      <h3>Blinde vlek versus dovemansoor</h3>
+      <p>Het boek zet in met een onderscheid dat de rest draagt. Een blinde vlek is iets dat iemand niet ziet, een dovemansoor is een psychologische term voor het niet oppikken of verkeerd uitleggen van wat mensen zeggen of juist niet zeggen. Walsh geeft aan dat de tweede vorm minder aandacht krijgt terwijl ze in haar advieswerk vaker de oorzaak van misgelopen beslissingen bleek te zijn.</p>
+      <p>Als voorbeeld noemt ze de Britse premier Liz Truss, die volgens Walsh de waarschuwingen van haar eigen minister van Financiën en van het Internationaal Monetair Fonds naast zich neerlegde en na vierenveertig dagen aftrad.</p>
+      <h3>Een wereld die doof maakt</h3>
+      <p>Walsh beschrijft vier omstandigheden die het dovemansoor volgens haar aanwakkeren: een hoog werktempo, een overvloed aan data, een voorkeur voor beeld boven geluid, en een neiging om vraagstukken tot twee kampen terug te brengen. Ze verwijst naar een onderzoek van Microsoft waarin het merendeel van de medewerkers zegt zelden twee ononderbroken uren te krijgen om geconcentreerd te werken.</p>
+      <p>Ook haalt ze een studie van King's College London aan waarin bijna de helft van de ondervraagden zegt dat diep nadenken voor hen verleden tijd is geworden. Beide cijfers gebruikt ze om te onderbouwen dat de omgeving waarin mensen beslissen zelf al een bron van misjudgement is, los van de persoon die de beslissing neemt.</p>
+      <h3>Het PERIMETERS-raamwerk</h3>
+      <p>De kern van het boek is het raamwerk PERIMETERS, een ezelsbrug voor tien vallen die de letters van het woord vormen: power (macht), ego, risk (risico), identity (identiteit), memory (geheugen), ethics (ethiek), time (tijd), emotion (emotie), relationships (relaties) en stories (verhalen). Onder elk van die tien brengt Walsh een reeks van de meer dan vijfenzeventig cognitieve vertekeningen samen die de gedragswetenschap de afgelopen decennia in kaart bracht.</p>
+      <p>Het raamwerk is dus geen nieuwe ontdekking maar een ordening: bestaande bias-onderzoeken worden herverdeeld over tien herkenbare categorieën, zodat een lezer bij een concrete beslissing kan nagaan welke van de tien op dat moment het meest waarschijnlijk meespeelt.</p>
+      <h3>Voorbeelden uit bedrijf en bestuur</h3>
+      <p>Walsh onderbouwt de vallen met gevallen die ze zelf niet onderzocht maar wel als illustratie gebruikt: de fraude bij Theranos, het boekhoudschandaal bij Enron en het Truss-kabinet keren terug als voorbeelden van organisaties waarin macht, ego of groepsdruk de doorslag gaven boven signalen die al aanwezig waren. Volgens de uitgever bevat het boek daarnaast voorbeelden uit de sport, uit de rechtspraak en uit de ruimtevaart, aangedragen als illustratie van hoe breed de tien vallen volgens Walsh voorkomen.</p>
+      <p>De voorbeelden functioneren als toelichting bij het raamwerk, niet als op zichzelf staand feitenonderzoek: Walsh reconstrueert de zaken niet zelf maar leunt op wat er al over gepubliceerd is.</p>
+      <h3>Instrumenten om te horen</h3>
+      <p>Het laatste deel van het boek bestaat uit instrumenten. De 4x BIAS-toets vraagt bij een beslissing achtereenvolgens naar de vooringenomenheid die meespeelt, de intuïtie die iets als vreemd markeert, wat nog geverifieerd moet worden, en welk signaal dreigt te worden overgeslagen. Daarnaast beschrijft Walsh het herinrichten van de omgeving waarin een beslissing valt, een vorm van digitale afleidingsdetox, en de pomodoro-methode van werken in korte, afgebakende blokken.</p>
+      <p>Elk hoofdstuk sluit af met een lijst die Walsh een Decision Ninja-checklist noemt: een korte opsomming van wat de lezer uit het hoofdstuk zou moeten onthouden voordat de volgende beslissing zich aandient.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Human decision risk</td><td>Walsh' aanduiding voor het risico dat voortkomt uit de manier waarop mensen beslissen, dat ze naast economisch, technologisch en klimatologisch risico plaatst.</td></tr>
+          <tr><td class="term">Dovemansoor (deaf spot)</td><td>Het niet oppikken of verkeerd uitleggen van signalen die al aanwezig zijn, onderscheiden van de blinde vlek waarin iemand iets niet ziet.</td></tr>
+          <tr><td class="term">PERIMETERS</td><td>Het raamwerk van tien vallen: macht, ego, risico, identiteit, geheugen, ethiek, tijd, emotie, relaties en verhalen.</td></tr>
+          <tr><td class="term">4x BIAS-toets</td><td>Een controlelijst bij een beslissing: welke vooringenomenheid meespeelt, wat de intuïtie zegt, wat nog geverifieerd moet worden en welk signaal genegeerd dreigt te worden.</td></tr>
+          <tr><td class="term">Herinrichten van de beslisomgeving</td><td>Het aanpassen van de fysieke of digitale omstandigheden waarin een beslissing valt, als middel om minder gevoelig te zijn voor ruis.</td></tr>
+          <tr><td class="term">Digitale afleidingsdetox</td><td>Walsh' term voor het tijdelijk uitschakelen van meldingen en apparaten om ononderbroken aandacht mogelijk te maken.</td></tr>
+          <tr><td class="term">Decision Ninja-checklist</td><td>De lijst aan het eind van elk hoofdstuk met de belangrijkste punten om bij een volgende beslissing toe te passen.</td></tr>
+          <tr><td class="term">Blinde vlek</td><td>Het bestaande begrip waar Walsh het dovemansoor tegenover zet: iets dat iemand niet ziet, in plaats van iets dat iemand niet hoort.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Walsh is geen academisch onderzoeker die in dit boek eigen experimenten rapporteert. Haar gezag komt uit een combinatie van een master in gedragswetenschap aan de LSE, dertig jaar ervaring in de beleggingsindustrie, doceeropdrachten aan INSEAD, de LSE en de Harvard Kennedy School, en haar werk als oprichtend bestuurslid van de Global Association of Applied Behavioural Scientists en als voorzitter van Innocence Project London. Het boek zelf is een synthese: Walsh brengt meer dan vijfenzeventig al gepubliceerde cognitieve vertekeningen onder in de tien PERIMETERS-categorieën en onderbouwt de omgevingsfactoren met verwijzingen naar onder meer een onderzoek van Microsoft naar ononderbroken werktijd en een studie van King's College London naar het verdwijnen van diep nadenken.</p>
+      <p>Voor de meeste concrete voorbeelden, zoals Theranos, Enron en het aftreden van Liz Truss, geldt dat ze al uitvoerig elders gedocumenteerd zijn en door Walsh als illustratie worden aangehaald, niet als eigen onderzoek. Dat maakt het boek sterk in het ordenen en toegankelijk maken van bestaande kennis, en zwak als bron voor nieuw feitenmateriaal: wie een claim wil natrekken, moet terug naar de oorspronkelijke studies waar Walsh naar verwijst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Recensies van het boek zijn overwegend positief maar noemen ook terugkerende bezwaren: het PERIMETERS-model met zijn ezelsbrug en de bijbehorende deelacroniemen zoals de 4x BIAS-toets voelt bij sommige lezers omslachtig, en de behandeling van onderwerpen blijft volgens minstens één recensent op punten oppervlakkig terwijl een diepere uitwerking gerechtvaardigd zou zijn geweest. Een boekblogger die het boek maanden na lezing terugpakte, kon zich ondanks een heldere hoofdstukindeling geen concrete lessen meer voor de geest halen en moest terugvallen op eigen aantekeningen om ze weer boven te halen.</p>
+      <p>Dat wijst op een risico dat aan het genre zelf kleeft: tientallen technieken in één raamwerk samenbrengen maakt een boek overzichtelijk om te lezen, maar zegt niets over hoeveel daarvan blijft hangen. Verder verdient de vermelding op de kaft een kanttekening: de American Festival Book Awards en de International Book Award zijn Amerikaanse boekprijzen waarvoor uitgevers en auteurs zich tegen betaling van een inschrijfgeld kunnen aanmelden, geoordeeld door ingehuurde juryleden, geen onafhankelijke literaire onderscheidingen zoals de Financial Times/McKinsey Business Book of the Year. Dat maakt de vermelding op de kaft minder zwaarwegend dan zij op het eerste gezicht oogt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een beslissing met gevolgen eerst na welke van de tien PERIMETERS-vallen op dat moment het meest waarschijnlijk meespeelt, voordat er naar een oplossing gezocht wordt.</li>
+        <li>Doorloop bij twijfel de 4x BIAS-toets: noteer welke vooringenomenheid meespeelt, wat er intuïtief niet klopt, wat nog geverifieerd moet worden en welk signaal dreigt te worden overgeslagen.</li>
+        <li>Richt de omgeving waarin een belangrijke beslissing genomen wordt opnieuw in, bijvoorbeeld door schermen weg te leggen of het gesprek te verplaatsen naar een rustiger moment.</li>
+        <li>Bouw vaste blokken ononderbroken tijd in voor beslissingen met gevolgen, juist omdat de meeste werkomgevingen die tijd niet vanzelf bieden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Tune In: How to Make Smarter Decisions in a Noisy World</i> (Harriman House, 26 maart 2024, 440 blz., ISBN 9780857199959). Geen Nederlandse vertaling gevonden: een zoekopdracht op bibliotheek.nl naar Nuala Walsh levert geen resultaat op en geen Nederlandse uitgever vermeldt een editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nuala Walsh werkte dertig jaar in de beleggingswereld, onder meer bij BlackRock en Merrill Lynch en als marketingdirecteur bij Standard Life Aberdeen, en behaalde daarna een master in gedragswetenschap aan de London School of Economics. In <i>Tune In</i> betoogt ze dat het grootste onderschatte risico voor mensen en organisaties niet economisch, technologisch of klimatologisch van aard is, maar menselijk: de manier waarop beslissingen tot stand komen. Kern van het boek is het begrip dovemansoor, een toestand waarin iemand signalen die er wel degelijk zijn niet oppikt of verkeerd uitlegt. Walsh onderscheidt dat van de bekendere blinde vlek, waarin iemand iets simpelweg niet ziet. Een hoog tempo, een overvloed aan data, de nadruk op beeld boven geluid en een neiging tot zwart-witdenken maken volgens haar dat mensen steeds vaker doof worden voor wat ze eigenlijk wel horen.</p><p>Om daar iets tegenover te zetten ontwikkelde Walsh het raamwerk PERIMETERS, tien vallen die de letters van dat woord vormen: macht, ego, risico, identiteit, geheugen, ethiek, tijd, emotie, relaties en verhalen. Onder die tien vallen brengt ze meer dan vijfenzeventig cognitieve vertekeningen samen die in de gedragswetenschap al beschreven staan. Ze illustreert de vallen met gevallen als de fraude bij Theranos en het korte premierschap van Liz Truss, en biedt instrumenten aan als de 4x BIAS-toets en het herinrichten van de omgeving waarin een beslissing valt. Het boek won onder meer de American Festival Book Awards 2024 in de categorie Best New Non-Fiction en de International Book Award 2024 voor zelfhulp.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>besluitvorming</li><li>gedragswetenschap</li><li>bias</li><li>zelfhulp</li><li>bedrijfsleven</li><li>aandacht</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman werkt het onderscheid tussen snel en langzaam denken uit waarop Walsh voortbouwt, maar dan als psycholoog in plaats van als consultant.</li>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Dobelli's catalogus van misvattingen is qua vorm het dichtst verwant: beide boeken rijgen tientallen bias-namen aaneen tot een naslagwerk.</li>
+          <li value="69"><a href="69.html">Ruis</a>. Beschrijft dezelfde spreiding in menselijke oordelen die Walsh met het dovemansoor verklaart, maar dan uitgewerkt door onderzoekers in plaats van een praktijkconsultant.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

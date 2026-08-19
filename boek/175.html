@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Limitless &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat trage of moeizame leerprestaties zelden aan het brein zelf liggen en vrijwel altijd aan drie factoren die te trainen zijn: de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-175">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">175 &middot; Brein en lichaam</p>
+    <h1>Limitless</h1>
+    <p class="lede">Jim Kwik, 2020</p>
+    <p class="stats">
+      <span><b>1557</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="175"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat trage of moeizame leerprestaties zelden aan het brein zelf liggen en vrijwel altijd aan drie factoren die te trainen zijn: de overtuiging dat leren mogelijk is (mindset), de energie en het doel die iemand naar het leren toe brengt (motivation) en de concrete technieken waarmee iemand leest, onthoudt en denkt (methods). Kwik ontleent die stelling aan zijn eigen geschiedenis: een hersenletsel dat hem als kind tot een trage leerling maakte, gevolgd door een herstel dat volgens hem niet uit medische behandeling kwam maar uit het aanleren van andere gewoonten. Wie dat wil weerleggen kan wijzen op het verschil tussen één individuele hersteltocht en een algemene regel over leren die voor iedereen zou gelden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een jongen met een kapot brein</h3>
+      <p>Op zijn vijfde werd Kwik van een stoel geduwd en kwam met zijn hoofd tegen een radiator terecht. Het hersenletsel maakte concentreren en lezen moeilijk, en op de basisschool hoorde hij een lerares hem tegen een collega omschrijven als de jongen met het kapotte brein. Die uitspraak nam hij lange tijd over als een feit over zichzelf.</p>
+      <p>Op de universiteit viel hij een tweede keer, van een trap in de bibliotheek, en werd uitgedroogd en ondervoed in het ziekenhuis opgenomen. Die twee gebeurtenissen vormen het startpunt van het boek: de aanleiding om zelf uit te zoeken hoe leren werkt, eerst voor zichzelf en later als trainer voor management, acteurs en sporters.</p>
+      <h3>De 3 M's als raamwerk</h3>
+      <p>Kwik verdeelt zijn aanpak in drie onderdelen die hij de 3 M's noemt: Mindset, Motivation en Methods. Mindset gaat over de overtuigingen die iemand over zijn eigen leervermogen heeft, Motivation over de energie en het doel die iemand naar een taak toe brengt, en Methods over de concrete technieken waarmee iemand leest, onthoudt en denkt. Het boek volgt die volgorde ook in zijn opbouw: eerst overtuigingen, dan drijfveer, en pas daarna de technieken zelf.</p>
+      <p>Die volgorde is bij Kwik ook een stelling op zich. Hij houdt vol dat een techniek pas werkt als de overtuiging en de energie eronder kloppen, en dat mensen die met een techniek beginnen zonder aan hun mindset te werken, na een paar weken terugvallen op oude gewoonten.</p>
+      <h3>Mindset: de zeven leugens van het leren</h3>
+      <p>In het mindset-deel behandelt Kwik wat hij de zeven leugens van het leren noemt, met het letterwoord LIE voor Limited Ideas Entertained, beperkte ideeën die iemand voor waar aanneemt. Daaronder vallen de aanname dat intelligentie vaststaat, het idee dat mensen maar tien procent van hun brein gebruiken, de gedachte dat een fout een mislukking is, en de overtuiging dat genialiteit aangeboren is. Bij elke leugen zet hij een nieuwe formulering, zoals dat intelligentie groeit door oefening en dat een fout een teken van een poging is.</p>
+      <p>De opzet is telkens hetzelfde: eerst de wijdverbreide aanname benoemen, dan uitleggen waarom die aanname volgens hem niet klopt, en daarna een nieuwe overtuiging aanreiken om te herhalen.</p>
+      <h3>Motivation: doel, energie en kleine stappen</h3>
+      <p>Het motivatiedeel werkt met de formule doel maal energie maal kleine stappen. Doel wordt getoetst aan wat Kwik HEART-doelen noemt: gezond, standvastig, aantrekkelijk, relevant en waarachtig. Energie krijgt een apart hoofdstuk met adviezen over voeding, water en slaap, met een lijst voedingsmiddelen die de hersenen zouden ondersteunen, van bladgroente tot vette vis.</p>
+      <p>Kleine stappen staat voor het opdelen van een groot doel in stukken die klein genoeg zijn om er vandaag mee te beginnen. Kwik verbindt dat aan het begrip flow, de toestand van volledige concentratie waarin een taak vanzelf lijkt te lopen.</p>
+      <h3>Methods: focus en de FASTER-aanpak</h3>
+      <p>Het laatste en langste deel opent met focus. Kwik introduceert daar het letterwoord FASTER voor de opbouw van een leermoment: Forget (afleiding wegnemen), Act (actief verwerken in plaats van alleen lezen), State (de fysieke en mentale toestand kiezen), Teach (leren met het doel het aan iemand anders uit te leggen), Enter (een vast moment inplannen) en Review (op vaste tijdstippen herhalen tegen het vergeten).</p>
+      <p>Daarnaast beveelt hij de pomodoro-techniek aan: blokken van vijfentwintig minuten geconcentreerd werk, gevolgd door een korte pauze, omdat de aandacht volgens hem na verloop van tijd terugloopt.</p>
+      <h3>Methods: geheugen</h3>
+      <p>Voor geheugen grijpt Kwik terug op de loci-methode, ook wel geheugenpaleis genoemd: nieuwe informatie wordt gekoppeld aan een vaste route langs bekende plekken, zodat het aflopen van die route de informatie in de goede volgorde terugbrengt. Hij beschrijft hoe hij die methode zelf gebruikt om lijsten en presentaties zonder aantekeningen te onthouden.</p>
+      <p>Daarnaast werkt hij met associatie: een nieuw feit wordt gekoppeld aan een beeld of een al bekend gegeven, met als argument dat het brein losse feiten slecht onthoudt en verbanden goed.</p>
+      <h3>Methods: sneller lezen</h3>
+      <p>Het laatste hoofdstuk gaat over speedreading. Kwik beschrijft het gebruik van een vinger of pen als pacer die de ogen over de regel leidt en het teruglezen moet verminderen, en oefeningen om subvocalisatie, het inwendig meespreken van elk woord, terug te dringen door tijdens het lezen hardop te tellen. De 4-3-2-1-oefening laat dezelfde bladzijde viermaal lezen in steeds kortere tijd, om het tempo op te voeren.</p>
+      <p>Woorden worden daarbij in groepjes gelezen in plaats van één voor één, wat Kwik chunking noemt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">3 M's</td><td>De driedeling Mindset, Motivation en Methods waarop het hele boek is gebouwd.</td></tr>
+          <tr><td class="term">LIE (Limited Ideas Entertained)</td><td>Kwiks letterwoord voor de zeven wijdverbreide aannames over leren die hij ontkracht.</td></tr>
+          <tr><td class="term">FASTER</td><td>Het stappenplan Forget, Act, State, Teach, Enter, Review voor het opzetten van een leermoment.</td></tr>
+          <tr><td class="term">Digital Deluge, Distraction, Dementia en Deduction</td><td>De vier manieren waarop digitale apparaten volgens Kwik het denken, onthouden en concentreren ondermijnen.</td></tr>
+          <tr><td class="term">HEART-doelen</td><td>Toets voor een doel op gezond, standvastig, aantrekkelijk, relevant en waarachtig, als aanvulling op de bekendere SMART-toets.</td></tr>
+          <tr><td class="term">Loci-methode</td><td>Het koppelen van te onthouden informatie aan een vaste route langs bekende plekken, ook geheugenpaleis genoemd.</td></tr>
+          <tr><td class="term">Pacer</td><td>Een vinger of pen die tijdens het lezen over de regel beweegt om terugkijken te verminderen.</td></tr>
+          <tr><td class="term">Subvocalisatie</td><td>Het inwendig meespreken van elk gelezen woord, dat Kwik als rem op de leessnelheid beschouwt.</td></tr>
+          <tr><td class="term">Chunking</td><td>Woorden in groepjes lezen in plaats van één voor één, om het leestempo te verhogen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Kwik onderbouwt zijn stellingen op twee manieren door elkaar. De ene is eigen ervaring: zijn herstel na het hersenletsel, en de resultaten die hij zegt te zien bij deelnemers aan zijn cursussen en bij cliënten als acteurs en topsporters, van wie de meesten niet met naam en toenaam worden genoemd. De andere is een verwijzing naar hersenwetenschap in het algemeen: neuroplasticiteit, het vermogen van het brein om zich op elke leeftijd te blijven aanpassen, wordt herhaaldelijk aangehaald als reden waarom de zeven leugens van het leren volgens hem niet kloppen.</p>
+      <p>Van geen van de eigen technieken, zoals FASTER of de loci-methode, citeert Kwik een onderzoek dat de effectiviteit ervan meet tegenover een gewone manier van leren. Er staat geen notenapparaat of literatuurlijst in het boek; wetenschappelijke bevindingen worden losjes genoemd, zonder jaartal of vindplaats, wat het voor een lezer onmogelijk maakt een claim na te trekken.</p>
+      <p>Sommige onderdelen staan wel op vaste grond. Dat intelligentie niet star is en dat het brein niet voor tien procent maar vrijwel geheel actief is, zijn bevindingen die breed worden gedragen in de neurowetenschap. Voor de effectiviteit van speedreading-technieken als de pacer en het onderdrukken van subvocalisatie ligt dat anders: leesonderzoek laat zien dat begrip terugloopt zodra het tempo ver boven het gewone leestempo komt, en die spanning bespreekt het boek niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is opgebouwd uit korte hoofdstukken met letterwoorden, actiepunten en verhalen over bekende cliënten, een vorm die veel recensenten herkennen uit ander zelfhulpwerk en die als herhalend en promotioneel wordt ervaren. Sommige lezers wijzen erop dat de kern, zonder de anekdotes en de verwijzingen naar Kwiks eigen coachingprogramma's, in een fractie van de bladzijden had gepast.</p>
+      <p>Een tweede punt van kritiek richt zich op het speedreading-hoofdstuk. De aanname dat begrip gelijk blijft terwijl het tempo flink oploopt, wordt in het boek nergens getoetst aan een leestest, terwijl leesonderzoek dat verband juist ter discussie stelt. Ook het onderscheid tussen boek en bedrijf blijft vaag: cursussen en producten van Kwiks eigen onderneming worden in de tekst aanbevolen zonder dat duidelijk wordt waar de uitleg eindigt en de commerciële aanbieding begint.</p>
+      <p>Verder blijft de zevende leugen, dat genialiteit gemaakt wordt in plaats van geboren, onderbouwd met bekende voorbeelden van mensen die duizenden uren trainden, zonder dat het boek ingaat op de vraag waarom niet iedereen die evenveel uren oefent tot hetzelfde niveau komt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Loop de zeven leugens van het leren langs en noteer welke overtuiging het eigen leren het meest afremt.</li>
+        <li>Gebruik het FASTER-stappenplan als vaste volgorde bij het beginnen van een leertaak, van het wegnemen van afleiding tot het inplannen van een herhaalmoment.</li>
+        <li>Oefen de pacer-techniek een paar bladzijden per dag: volg de regel met een vinger of pen en let op hoe vaak de blik teruggaat.</li>
+        <li>Koppel een lijst die onthouden moet worden aan een vaste route langs bekende plekken in huis, in plaats van de lijst alleen te herlezen.</li>
+        <li>Werk in blokken van vijfentwintig minuten met een korte pauze erna bij studie- of leeswerk.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Limitless</i>, met een langere ondertitel over het brein en het versneld leren (Hay House, 2020, ISBN 9781401958237). Er verscheen geen Nederlandse vertaling; de catalogus van Bibliotheek.nl voert alleen deze Engelse editie. Bij dezelfde uitgever kwam in 2023 een uitgebreide editie uit met extra hoofdstukken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jim Kwik werd op zijn vijfde van een stoel geduwd en kwam met zijn hoofd tegen een radiator terecht. Het hersenletsel dat daaruit volgde maakte leren moeizaam, en toen hij een lerares hem ooit hoorde omschrijven als de jongen met het kapotte brein, nam hij die uitspraak lange tijd over als een feit over zichzelf. Op de universiteit viel hij opnieuw, ditmaal van een trap in de bibliotheek, en werd uitgedroogd en ondervoed in het ziekenhuis opgenomen. Uit die twee gebeurtenissen ontstond zijn zoektocht naar hoe leren werkt, die hij sindsdien als trainer aan management, acteurs en topsporters doorgeeft. <i>Limitless</i> bundelt die zoektocht in een raamwerk van drie onderdelen die Kwik de 3 M's noemt: Mindset, Motivation en Methods.</p><p>Het boek volgt die driedeling in vier delen. Eerst worden de aannames blootgelegd die leren volgens Kwik in de weg zitten, zoals het idee dat intelligentie vaststaat of dat mensen maar tien procent van hun brein gebruiken. Daarna komt de vraag naar drijfveer en energie aan bod, en pas in het laatste en langste deel volgen de technieken: sneller lezen, beter onthouden, langer geconcentreerd blijven en helderder denken. Kwik gebruikt voor zijn eigen technieken telkens een letterwoord als geheugensteun, zoals FASTER voor de opbouw van een leermoment, en wisselt korte oefeningen af met verhalen over cliënten en bekende mensen met wie hij heeft gewerkt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>leren</li><li>geheugen</li><li>focus</li><li>speedreading</li><li>neuroplasticiteit</li><li>productiviteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Voor het denk-hoofdstuk van dit boek: Kahnemans onderscheid tussen snel en langzaam denken raakt aan Kwiks pleidooi om leren actief en bewust te maken.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Voor het energiehoofdstuk van dit boek: Walker onderbouwt met onderzoek waarom slaap voor geheugen en leren doorslaggevend is, waar Kwik het bij een aanbeveling laat.</li>
+          <li value="142"><a href="142.html">Designing the Mind</a>. Voor het mindset-deel van dit boek: Bush werkt het herzien van eigen overtuigingen preciezer uit dan Kwiks zeven leugens.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

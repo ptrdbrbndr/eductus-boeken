@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Message From The Middle Of Nowhere &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thorisson betoogt dat de weg naar zakelijk succes dezelfde is als de weg waarmee IJslanders eeuwenlang vulkaanuitbarstingen, lawines en economische rampen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-185">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">185 &middot; Geld en ondernemen</p>
+    <h1>Message From The Middle Of Nowhere</h1>
+    <p class="lede">Gunnar Andri Thorisson, 2017</p>
+    <p class="stats">
+      <span><b>1357</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="185"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thorisson betoogt dat de weg naar zakelijk succes dezelfde is als de weg waarmee IJslanders eeuwenlang vulkaanuitbarstingen, lawines en economische rampen hebben doorstaan: nooit opgeven, elke opening grijpen zodra die zich voordoet en zonder schaamte rechtstreeks vragen wat je nodig hebt. Hij onderbouwt die stelling niet met onderzoek maar uitsluitend met zijn eigen leven, van zesjarige krantenjongen tot verkooptrainer die duizenden mensen heeft opgeleid, en gebruikt IJslandse volksverhalen over trollen, elfen en kabouters als beeldspraak voor tegenstanders en tegenslag. Wie zich net als hijzelf naar elke nieuwe start toe blijft bewegen, komt volgens het boek terug van faillissementen, natuurrampen en persoonlijke crises.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De krantenjongen en de vulkaan</h3>
+      <p>Het eerste hoofdstuk vertelt hoe Thorisson als zesjarige de dag na de vulkaanuitbarsting van Heimaey in januari 1973, waarbij zijn familie van de Westman-eilanden moest worden geëvacueerd, gewoon weer kranten ging verkopen in het centrum van Reykjavik. Hij wilde staan op de drukke hoek bij de bank die later bekend zou worden als Landsbankinn, maar die plek was al bezet door "Óli de Krantenkoning", een oudere jongen die niemand in zijn buurt duldde. Thorisson sluit een verbond met een grote, onbekende man die geld inzamelde voor het Leger des Heils, in het boek "de Trol" genoemd: in ruil voor een percentage van de verkoop beschermt de Trol hem tegen Óli, waarna beide jongens naast elkaar kunnen verkopen.</p>
+      <p>Het tweede hoofdstuk gaat verder bij zijn grootouders, bij wie hij na een moeilijke jeugdperiode introk, en bij het geloof in elfen en onzichtbare krachten dat volgens hem zijn kijk op kansen heeft gevormd. Hier introduceert hij ook de stelregel die in het boek blijft terugkeren: iedereen verkoopt voortdurend iets, ook wie dat zelf niet beseft.</p>
+      <h3>Van gemotiveerde dwaas naar meesterverkoper</h3>
+      <p>De hoofdstukken drie en vier volgen zijn eerste jaren als verkoper op een boerderij en later met een busje vol boeken. Hij beschrijft zichzelf in die periode als een "gemotiveerde dwaas": vol overtuiging maar zonder systeem, met een eerste mislukking die hem dwingt zijn verkoopgebied letterlijk in kaart te brengen voordat de omzet begint te lopen.</p>
+      <p>In hoofdstuk vier raakt hij tijdens een verkooptocht met het busje bekneld tussen twee lawinegevaren in een besneeuwd bergpad, en wordt hij met een sneeuwploeg gered. Hij verbindt dat incident met wat hij "de grote les" noemt: humor gebruiken om spanning te breken, ook tegenover een klant die eerst weigert.</p>
+      <h3>Van binnenuit exploderen</h3>
+      <p>Hoofdstuk vijf, "Erupt From Within", beschrijft zijn overstap van boekenverkoop naar huishoudapparaten en de invloed van verkooptrainer Brian Tracy op zijn manier van doelen stellen. Thorisson werkt hier zijn eigen versie van doelgericht werken uit: waarom de meeste doelen mislukken, hoe hindernissen weg te nemen zijn en waarom hij zich naar eigen zeggen niet aan doelen op lange termijn vasthoudt maar aan het eerstvolgende haalbare doel.</p>
+      <h3>Griekenland en de terugval</h3>
+      <p>In hoofdstuk zes vertrekt hij naar Griekenland voor een zakelijk avontuur dat mislukt door onbekendheid met de lokale cultuur, waarna hij terugkeert naar IJsland op het moment dat een natuurramp het land treft. Hij beschrijft een bezoek aan een waarzegster wier voorspelling niet uitkomt, het uiteenvallen van zijn relatie en de periode waarin hij weer bij zijn grootmoeder introk om zijn leven opnieuw op te bouwen.</p>
+      <p>Hoofdstuk zeven en acht gaan over het starten van een eigen verkoopschool vanaf nul, een periode waarin hij zich naar eigen zeggen staande hield met klusjes zoals werken bij een wasstraat, en over reizen door Afrika die hij beschrijft als een omslagpunt in hoe hij naar keuzevrijheid kijkt.</p>
+      <h3>De kattenfluisteraar en de vikingverkoopkoning</h3>
+      <p>Hoofdstuk negen draait om een geschil met de belastingdienst dat volgens het boek tot de keuze tussen hechtenis en een taakstraf leidt, gevolgd door een periode waarin hij overstapt op netwerkmarketing en stelt dat zijn omzet vooral groeide toen hij zich richtte op het helpen van anderen in plaats van op de verkoop zelf.</p>
+      <p>In hoofdstuk tien beschrijft hij de opbouw van een eigen verkoopteam, met een commissie die volgens hem van tien naar tachtig procent steeg, en wijst hij een vergelijking met "de Wolf van Reykjavik" nadrukkelijk van de hand: zijn aanpak steunt naar eigen zeggen op discipline, enthousiasme en eerlijkheid bij elke verkoop, niet op agressie.</p>
+      <h3>De crisis van 2008 en de Viking Clap</h3>
+      <p>Hoofdstuk elf plaatst zijn eigen zaken tegen de achtergrond van de IJslandse bankencrisis van 2008 en het Icesave-geschil, waarna hoofdstuk twaalf eindigt bij het "Húh!", het ritmische applaus van IJslandse voetbalsupporters dat wereldwijd bekend werd, en bij een telefoongesprek met Brian Tracy dat hij als hoogtepunt van zijn carrière beschrijft.</p>
+      <p>Het boek sluit af met een bonushoofdstuk, "De essentie van kwaliteitsverkoop", waarin hij zijn methode samenvat in vijf stappen: eerste indruk, behoefteanalyse, omgaan met weerstand en het sluiten van de verkoop, een tevreden klant als beste marketinginstrument, en nazorg.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Berichten uit het midden van nergens</td><td>De puntsgewijze lessenlijst waarmee elk hoofdstuk eindigt, en waaraan het boek zijn titel ontleent.</td></tr>
+          <tr><td class="term">Erupt from within</td><td>Zijn term voor de innerlijke drijfveer die er volgens hem eerst moet zijn voordat uiterlijke doelen te bereiken zijn.</td></tr>
+          <tr><td class="term">Gemotiveerde dwaas</td><td>Zijn naam voor de beginnende verkoper met overtuiging maar zonder systeem of vaardigheid.</td></tr>
+          <tr><td class="term">Vegvísir</td><td>Het IJslandse magische baken op de omslag, dat volgens overlevering de drager nooit de weg laat verliezen in storm of onbekend terrein.</td></tr>
+          <tr><td class="term">Iedereen verkoopt, altijd</td><td>Terugkerende stelregel dat ieder mens voortdurend zichzelf, een idee of een product verkoopt, ook zonder dat te beseffen.</td></tr>
+          <tr><td class="term">De vijf stappen naar kwaliteitsverkoop</td><td>Het verkoopmodel uit het bonushoofdstuk: eerste indruk, behoefteanalyse, weerstand en sluiten, tevreden klant als marketinginstrument, nazorg.</td></tr>
+          <tr><td class="term">Viking Clap (Húh!)</td><td>Het ritmische applaus van IJslandse voetbalsupporters, dat hij aanhaalt als voorbeeld van gezamenlijk volhouden.</td></tr>
+          <tr><td class="term">De reus die een kabouter wordt</td><td>De beeldspraak uit hoofdstuk een waarin een tegenstander klein wordt zodra er een bondgenoot naast je staat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het hele boek rust op één bron: de eigen levensloop van de auteur, chronologisch verteld van zijn zesde tot ergens in de veertig. Er staat geen extern onderzoek in, geen interview met iemand anders en geen cijfer dat buiten zijn eigen zaak te controleren valt; de commissiestijging van tien naar tachtig procent en de omzetcijfers die hij noemt, zijn zelf gerapporteerd en niet na te gaan.</p>
+      <p>Waar hij wel buiten zichzelf verwijst, is naar andere verkoop- en zelfhulpboeken, met name Brian Tracy, die in het boek ook als persoon opduikt na een telefoongesprek dat hij als keerpunt beschrijft. Aan <i>The Secret</i> ontleent hij expliciet kritiek: de wet van de aantrekkingskracht mist volgens hem één woord, namelijk werk. Dat is de meest concrete stellingname in het boek tegenover een ander werk, en verder blijft de onderbouwing beperkt tot eigen anekdote.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De opbouw van het boek is die van de overlevende: één man vertelt hoe volhouden bij hem heeft gewerkt, en uit dat ene geval worden algemene regels afgeleid over wat werkt voor iedereen. Wie na eenzelfde volharding niet slaagt, komt in het boek niet aan het woord, en de rol van geluk, timing en een klein land met veel onderlinge bekendheid in zijn succes wordt nauwelijks onderzocht.</p>
+      <p>De IJslandse en Vikingfilosofie uit de titel functioneert vooral als verpakking om vrij algemeen zelfhulpadvies heen: volhouden, initiatief nemen, rechtstreeks vragen. Trollen, elfen en het teken vegvísir werken als beeldspraak, niet als een andere manier van redeneren over zaken doen. Sommige episodes, zoals het geschil met de belastingdienst dat tot de keuze tussen hechtenis en een taakstraf zou hebben geleid, worden aangestipt zonder dat wordt uitgelegd wat er precies aan de hand was, waardoor de lezer moet aannemen dat de afloop de auteur in het gelijk stelt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het vijfstappenmodel uit het bonushoofdstuk, eerste indruk, behoefteanalyse, weerstand, tevreden klant, nazorg, als checklist bij een verkoopgesprek.</li>
+        <li>Stel na een tegenslag niet de vraag hoe het einddoel ooit weer haalbaar wordt, maar welke ene volgende stap nu mogelijk is.</li>
+        <li>Vraag rechtstreeks naar wat nodig is in plaats van erop te hopen; Thorisson leerde dat als kind door volwassenen letterlijk om overtollig geld te vragen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in eigen beheer uitgegeven als <i>Message From The Middle Of Nowhere: Icelandic Viking Philosophy for Conquering the Challenges of Business and Life</i> (2017, 236 blz., ISBN 9789935242327). Geen Nederlandse vertaling gevonden in de catalogus van de gezamenlijke Nederlandse openbare bibliotheken (bibliotheek.nl).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gunnar Andri Thorisson begon zijn verkoopcarrière als zesjarige krantenjongen in Reykjavik, op de dag na de vulkaanuitbarsting die in 1973 zijn familie op de Westman-eilanden dakloos maakte. Dat verhaal opent het boek en zet de toon voor twaalf hoofdstukken die zijn leven op volgorde doorlopen: armoede bij zijn grootouders, een lawine waarin hij met een busje vol boeken vast kwam te zitten, een mislukte periode in Griekenland, een belastingkwestie, de opbouw van een verkoopschool en de financiële ineenstorting van IJsland in 2008. Elk hoofdstuk sluit af met een puntsgewijze lijst lessen die hij "berichten uit het midden van nergens" noemt, en waaraan hij IJslandse volksverhalen over trollen, elfen en het magische teken vegvísir koppelt.</p><p>Thorisson werkte twintig jaar als verkoper en verkooptrainer in IJsland, en bouwt het boek op als een reeks persoonlijke anekdotes met telkens een les erachteraan, eindigend met een bonushoofdstuk waarin hij zijn verkoopmethode in vijf stappen uitlegt. De IJslandse Vikingfilosofie uit de titel is vooral een verpakking om die lessen heen: ze gaan over doorzetten, initiatief nemen en rechtstreeks durven vragen, en worden telkens verbonden aan IJslandse mythologie en geschiedenis, van de aswolk van de Eyjafjallajökull tot de "Viking Clap" van het IJslandse voetbalelftal.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>verkoop</li><li>ondernemerschap</li><li>memoir</li><li>IJsland</li><li>doorzettingsvermogen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Een ander verkoopleven dat van bijna niets begint, maar dan in de schoenenbranche en met meer zakelijke onderbouwing.</li>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Voor wie de les "gewoon beginnen" wil zonder de persoonlijke mythologie eromheen.</li>
+          <li value="158"><a href="158.html">No Excuses!</a>. Brian Tracy zelf, de trainer die Thorisson in dit boek noemt als zijn invloed op doelgericht werken en zelfdiscipline.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

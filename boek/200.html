@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Csikszentmihalyi's stelling is dat geluk een vaardigheid is: het bewustzijn zo leren ordenen dat het opgaat in een activiteit met een duidelijk doel,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-200">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">200 &middot; Werk en aandacht</p>
+    <h1>Flow</h1>
+    <p class="lede">Mihaly Csikszentmihalyi, 1990</p>
+    <p class="stats">
+      <span><b>1691</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="200"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Csikszentmihalyi's stelling is dat geluk een vaardigheid is: het bewustzijn zo leren ordenen dat het opgaat in een activiteit met een duidelijk doel, meteen merkbare terugkoppeling en een uitdaging die net past bij het eigen kunnen. Comfort, bezit en ontspanning leveren die orde volgens hem zelden op, alleen gerichte inspanning doet dat. De toestand die daaruit ontstaat noemt hij flow, en wie haar vaak genoeg opzoekt bouwt aan wat hij het autotelische zelf noemt: een persoon voor wie een activiteit haar eigen beloning is, ongeacht wat de buitenwereld toevoegt of afneemt. Het boek zet die these neer op basis van jarenlang onderzoek naar hoe mensen hun dagen daadwerkelijk beleven, tegenover ieder beeld van geluk dat bij rust of consumptie begint.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het onbehagen van de vooruitgang</h3>
+      <p>Csikszentmihalyi opent met de constatering dat honderd jaar vooruitgang in gezondheid, welvaart en vrije tijd niet heeft geleid tot een overeenkomstige groei van tevredenheid. Culturen beschermden hun leden vroeger met gedeelde verhalen, rituelen en religie tegen de chaos van het bestaan; die bescherming is voor veel mensen weggevallen zonder dat er iets voor in de plaats is gekomen.</p>
+      <p>Daar plaatst hij zijn kernonderscheid tegenover: psychische entropie, de wanorde die ontstaat wanneer doelen met elkaar botsen of informatie het zelf bedreigt, tegenover flow, de orde die ontstaat wanneer aandacht volledig naar één taak gaat. Het boek stelt dat mensen die orde niet meer van buitenaf krijgen aangereikt en haar zelf moeten leren maken.</p>
+      <h3>De grenzen van het bewustzijn</h3>
+      <p>Voordat hij flow beschrijft, legt Csikszentmihalyi uit waarom aandacht een schaars goed is. Naar zijn berekening kan het bewustzijn hooguit ongeveer 126 bits informatie per seconde verwerken; een gesprek volgen kost daar al zo'n 40 bits van, waardoor het onmogelijk is om meer dan enkele mensen tegelijk echt te volgen. Aandacht noemt hij daarom psychische energie: een beperkte voorraad die bepaalt wat er in iemands bewustzijn kan bestaan.</p>
+      <p>Wie zijn aandacht niet zelf stuurt, laat toe dat ruis, verveling of angst die voorraad opeisen. Wie haar wel stuurt, kan haar richten op een taak tot er niets van over blijft voor iets anders, en dat is de toestand die hij verderop flow noemt.</p>
+      <h3>De acht kenmerken van de flow-ervaring</h3>
+      <p>In het hoofdstuk over de elementen van plezier noemt hij acht herkenningspunten: een taak met een haalbare afronding, een duidelijk doel, onmiddellijke terugkoppeling, concentratie op wat er op dat moment gebeurt, een gevoel van controle over de eigen handelingen, het wegvallen van zelfbewustzijn tijdens de activiteit, een veranderde beleving van de duur van tijd, en het feit dat de activiteit zichzelf beloont los van wat zij oplevert.</p>
+      <p>Dat laatste kenmerk noemt hij autotelisch, van het Griekse <i>auto</i> (zelf) en <i>telos</i> (doel): een handeling die haar doel in zichzelf draagt. Csikszentmihalyi onderscheidt plezier, dat ontstaat uit herstel van een verstoord evenwicht zoals eten of rusten, van dit soort verrukking, die alleen ontstaat na aanhoudende inspanning.</p>
+      <h3>De voorwaarden: uitdaging, vaardigheid en het flow-kanaal</h3>
+      <p>Flow ontstaat volgens Csikszentmihalyi alleen binnen een smalle marge waar de uitdaging van een activiteit en de vaardigheid van de persoon elkaar in evenwicht houden. Hij zet dat in een grafiek met vaardigheid op de ene as en uitdaging op de andere: te veel uitdaging bij weinig vaardigheid geeft angst, weinig uitdaging bij veel vaardigheid geeft verveling, en alleen de smalle diagonaal daartussen, het flow-kanaal, geeft de ervaring zelf. Omdat vaardigheid groeit, moet de uitdaging meegroeien, anders verdwijnt de activiteit uit het kanaal.</p>
+      <p>Op dat inzicht bouwt hij de autotelische persoonlijkheid: iemand die uit zichzelf uitdagingen opzoekt en aanpast in plaats van op vermaak van buitenaf te wachten. Zulke mensen hebben volgens hem weinig aan bezit, status of erkenning omdat hun activiteit zelf al de beloning levert.</p>
+      <h3>Flow in lichaam en denken</h3>
+      <p>Twee hoofdstukken werken het patroon uit voor het lichaam en voor het denken. Sport, dans, seksualiteit en oosterse bewegingsdisciplines als yoga en de vechtkunsten komen aan bod als vormen waarin het lichaam zelf de balans tussen uitdaging en vaardigheid levert. Voor het denken geldt hetzelfde patroon voor lezen, wiskunde, filosofie en wetenschap: een geordende reeks symbolen die om volle aandacht vraagt en die aandacht ook beloont.</p>
+      <p>Csikszentmihalyi benadrukt dat geen van beide domeinen bevoorrecht is. Een schaakpartij en een bergbeklimming leveren volgens hem dezelfde soort ervaring op, ook al is de ene mentaal en de andere lichamelijk.</p>
+      <h3>De paradox van werk en de mensen om je heen</h3>
+      <p>Het hoofdstuk over werk bevat de uitkomst die het boek zijn scherpste punt geeft: in zijn dagboekonderzoek melden mensen vaker flow tijdens betaald werk dan in hun vrije tijd, terwijl zij als hun tijd gemeten wordt liever vrij zouden zijn. Televisie en passieve vormen van ontspanning leveren in dat onderzoek weinig flow en veel tijd op. Csikszentmihalyi wijt dat aan een verkeerd beeld van wat rust geeft: mensen kiezen voor het makkelijke omdat het weinig kost, ook al levert het weinig op.</p>
+      <p>Een volgend hoofdstuk gaat over eenzaamheid en gezelschap. Alleen zijn is voor de meeste mensen moeilijk vol te houden zonder een zelfgekozen structuur, terwijl gesprekken met vrienden en familie tot de betrouwbaarste bronnen van flow horen, mits er sprake is van een gedeelde uitdaging in plaats van tijdverdrijf.</p>
+      <h3>Chaos ordenen en een levensthema maken</h3>
+      <p>In het slot behandelt Csikszentmihalyi wat er gebeurt wanneer flow ontbreekt: tegenslag, ziekte of verlies. Hij onderscheidt een reactie waarbij iemand zich terugtrekt in zichzelf en de aandacht naar het eigen onvermogen trekt, van een reactie waarbij de aandacht naar buiten blijft gaan: open blijven voor wat de situatie toelaat en van daaruit een nieuw, haalbaar doel stellen. Die tweede houding noemt hij onbevangen zelfvertrouwen, en die is volgens hem aan te leren en niet aangeboren.</p>
+      <p>Het boek eindigt met het begrip levensthema: het geheel van doelen dat iemands losse flow-ervaringen tot een samenhangend leven maakt. Zonder zo'n thema blijft flow beperkt tot losse momenten; met een thema krijgt een heel leven er volgens Csikszentmihalyi richting door.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Flow</td><td>De toestand waarin iemand zo opgaat in een activiteit dat zelfbewustzijn en tijdsbesef naar de achtergrond verdwijnen.</td></tr>
+          <tr><td class="term">Psychische entropie</td><td>Wanorde in het bewustzijn die ontstaat wanneer doelen met elkaar botsen of informatie het zelf bedreigt; het tegendeel van flow.</td></tr>
+          <tr><td class="term">Aandacht als psychische energie</td><td>Csikszentmihalyi's beeld van aandacht als beperkte voorraad, met een berekende bovengrens van ongeveer 126 bits informatie per seconde.</td></tr>
+          <tr><td class="term">Elementen van de flow-ervaring</td><td>De acht herkenningspunten die hij aan flow toeschrijft, van een duidelijk doel tot een veranderde beleving van tijd.</td></tr>
+          <tr><td class="term">Autotelisch</td><td>Gezegd van een handeling die haar doel in zichzelf draagt, van het Grieks <i>auto</i> (zelf) en <i>telos</i> (doel).</td></tr>
+          <tr><td class="term">Flow-kanaal</td><td>De smalle zone in zijn grafiek van uitdaging tegen vaardigheid waarbinnen flow optreedt, tussen verveling en angst in.</td></tr>
+          <tr><td class="term">Autotelische persoonlijkheid</td><td>Iemand die uit zichzelf uitdagingen opzoekt en aanpast, en weinig nodig heeft aan bezit of erkenning van buitenaf.</td></tr>
+          <tr><td class="term">Autotelisch zelf</td><td>Het vermogen om ook onder tegenslag doelen te blijven stellen en de aandacht naar buiten te richten in plaats van naar het eigen onvermogen.</td></tr>
+          <tr><td class="term">Experience Sampling Method</td><td>De dagboekmethode met een pieper op willekeurige momenten, waarmee proefpersonen ter plekke verslag deden van activiteit en gevoel.</td></tr>
+          <tr><td class="term">Levensthema</td><td>Het samenhangende geheel van doelen dat losse flow-ervaringen tot een leven met richting maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Csikszentmihalyi bouwt voort op eigen onderzoek uit de jaren zeventig, toen hij met een team vijfenvijftig schakers, dertig moderne dansers, dertig componisten, dertig bergbeklimmers en dertig basketballers interviewde over wat hen in hun activiteit hield, aangevuld met gesprekken met chirurgen en leraren. Uit die gesprekken kwam het terugkerende patroon van doel, terugkoppeling en balans tussen uitdaging en vaardigheid dat in dit boek is uitgewerkt.</p>
+      <p>Voor het boek uit 1990 gebruikte hij daarnaast de Experience Sampling Method, die hij eind jaren zeventig ontwikkelde met de toen nieuwe semafoon: proefpersonen droegen een pieper die op willekeurige momenten van de dag afging, waarna zij meteen noteerden wat zij deden, met wie, en hoe zij zich op dat moment voelden op een aantal schalen. Die methode leverde per proefpersoon enkele tientallen metingen per week op, verspreid over duizenden respondenten in verschillende landen en beroepen, en is de reden dat het boek kan spreken over wanneer flow in het echte leven optreedt en niet alleen in een interview achteraf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De onderbouwing rust voor een groot deel op zelfrapportage over een innerlijke toestand die zichzelf per definitie aan bewuste waarneming onttrekt: wie in flow is, is juist niet bezig zichzelf te observeren, en toch moet die persoon achteraf of op een piepsignaal verslag doen van precies die staat. Critici wijzen er bovendien op dat de voorwaarden van flow, zoals de balans tussen uitdaging en vaardigheid, en de gevolgen ervan, zoals concentratie en tijdsvervorming, in het model niet los van elkaar te toetsen zijn: de een wordt uit de ander afgeleid, waardoor de theorie moeilijk te weerleggen is.</p>
+      <p>Het materiaal waarop het boek in 1990 grotendeels leunt komt uit gesprekken met mensen die al bekendstonden om hun toewijding aan hun activiteit, zoals de vijfenvijftig schakers en de dertig bergbeklimmers, dansers, componisten en basketballers uit zijn vroegere onderzoek. Dat is geen aselecte steekproef, en het risico bestaat dat het boek beschrijft wat gedreven mensen al deden in plaats van te verklaren hoe minder gedreven mensen tot diezelfde staat komen. Csikszentmihalyi's eigen bevinding dat werk vaker flow oplevert dan vrije tijd, terwijl mensen vrije tijd verkiezen, blijft in dit boek een constatering; pas in het latere, kortere <i>Finding Flow</i> werkt hij die spanning explicieter uit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies bij een terugkerende taak een uitdaging die net boven het huidige kunnen ligt, en verzwaar haar zodra zij makkelijk wordt.</li>
+        <li>Bouw in elke activiteit een duidelijk deeldoel en een moment van directe terugkoppeling in, ook waar de taak zelf die niet vanzelf geeft.</li>
+        <li>Houd een week bij wanneer opgaan in een taak daadwerkelijk optreedt, in plaats van aan te nemen dat dit vanzelf gebeurt tijdens vrije tijd.</li>
+        <li>Richt bij tegenslag de aandacht op de situatie zelf in plaats van op het eigen onvermogen, en kies van daaruit een nieuw doel dat wel haalbaar is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Flow: The Psychology of Optimal Experience</i> (Harper &amp; Row, 1990; heruitgegeven bij Harper Perennial). Nederlands als <i>Flow: psychologie van de optimale ervaring</i>, vertaald door Henk Moerdijk, verschenen bij Boom (Amsterdam, 1999) en heruitgegeven bij Ten Have (Utrecht, 2020, 429 blz., ISBN 9789025908416). Dit is het uitgebreide, academischer boek waarin Csikszentmihalyi flow voor het eerst voor een breed publiek uitwerkte; het latere en toegankelijkere <i>Finding Flow</i> (1997, nr. 78 op deze lijst) is zijn eigen kortere herschrijving ervan.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Csikszentmihalyi onderzocht vanaf het begin van de jaren zeventig waarom mensen soms volledig opgaan in wat ze doen, tot het gevoel van tijd en van zichzelf naar de achtergrond verdwijnt. Hij noemde die toestand flow en beschreef haar aan de hand van acht kenmerken: een duidelijk doel, meteen merkbare terugkoppeling, een uitdaging die precies aansluit bij de eigen vaardigheid, samensmelting van handelen en aandacht, volledige concentratie, een gevoel van controle, het wegvallen van zelfbewustzijn en een veranderde beleving van tijd. Zijn eerste materiaal kwam uit gesprekken met schakers, chirurgen, componisten en bergbeklimmers die uit zichzelf vertelden dat hun werk hen volledig in beslag nam; later onderbouwde hij dat met dagboekonderzoek onder duizenden mensen op willekeurige momenten van hun dag.</p><p>De uitkomst is minder geruststellend dan de titel doet vermoeden. Mensen melden vaker flow tijdens hun werk dan in hun vrije tijd, terwijl ze zeggen liever vrij te zijn. Csikszentmihalyi bouwt daarop zijn these dat geluk uit gerichte inspanning voortkomt, en werkt uit wat hij de autotelische persoonlijkheid noemt: iemand voor wie een activiteit haar eigen beloning is. Dit is het dichte, academische boek uit 1990 waarin hij dat voor het eerst voor een breed publiek uitschreef. Het latere <i>Finding Flow</i> uit 1997 is zijn eigen kortere en toegankelijkere herschrijving van dezelfde stof, en staat elders op deze lijst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>flow</li><li>psychologie</li><li>bewustzijn</li><li>autotelie</li><li>uitdaging-vaardigheid</li><li>motivatie</li><li>zingeving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="78"><a href="78.html">Finding Flow</a>. Csikszentmihalyi's eigen latere en kortere herschrijving van dit boek, met dezelfde kernbegrippen maar toegankelijker en met de spanning tussen werk en vrije tijd explicieter uitgewerkt.</li>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport bouwt zijn advies over geconcentreerd werk rechtstreeks op het flow-onderzoek uit dit boek, met name op de bevinding dat werk vaker flow oplevert dan vrije tijd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

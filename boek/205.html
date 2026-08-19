@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zen: The Art of Simple Living &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat rust in het dagelijks leven ontstaat uit honderd kleine, met de hand te verrichten handelingen: schoenen recht zetten, langzaam…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-205">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">205 &middot; Levenskunst</p>
+    <h1>Zen: The Art of Simple Living</h1>
+    <p class="lede">Shunmyo Masuno</p>
+    <p class="stats">
+      <span><b>1551</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="205"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat rust in het dagelijks leven ontstaat uit honderd kleine, met de hand te verrichten handelingen: schoenen recht zetten, langzaam uitademen, een kamer leeg maken. Masuno redeneert vanuit zijn werk als tuinontwerper, waar de plaatsing van een enkele steen de indruk van de hele tuin bepaalt, en past dat principe toe op een leven zonder tempel of tuin. Bij hem gaat orde in het lichaam en de omgeving vooraf aan orde in de geest; de gedachten volgen de handeling. Daarmee staat het boek tegenover de gedachte dat verandering begint met een ander denken over jezelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vorm en achtergrond</h3>
+      <p>Het boek bestaat uit honderd lessen van elk ongeveer een bladzijde, verdeeld over vier delen: dertig lessen om de huidige zelf energie te geven, dertig om vertrouwen en moed te wekken, twintig tegen verwarring en piekeren, en twintig om van een dag de beste dag te maken. Elke les krijgt een lijntekening naast zich en een korte toelichting die eindigt in een handeling voor die dag.</p>
+      <p>Masuno is hoofdpriester van een zenboeddhistische tempel in Japan die al 450 jaar bestaat, ontwerpt zen-tuinen waarmee hij internationale prijzen heeft gewonnen, en is hoogleraar milieuontwerp aan een kunstacademie. Die achtergrond is in het boek te merken: de lessen zijn religieus van herkomst, praktisch van uitvoering, en besteden opvallend veel aandacht aan de inrichting van een ruimte.</p>
+      <h3>Het eerste deel: het lichaam als beginpunt</h3>
+      <p>Het eerste deel opent bij het lichaam en de directe omgeving. Les 4 vraagt om 's avonds de schoenen recht te zetten voor de volgende ochtend, les 15 om een kamer sober in te richten, en les 17 om vanuit een punt onder de navel, de tanden, lang en dun uit te ademen zodra boosheid of onrust opkomt. Les 11 voegt daar de gewoonte aan toe om tijdens het eten even te pauzeren tussen de happen.</p>
+      <p>De redenering achter deze lessen is telkens dezelfde: lichaam en kamer zijn eerder te sturen dan gedachten, en een geordend lichaam en een geordende kamer werken door in een geordende geest. Masuno beroept zich daarbij op zazen (les 18), het zitten in een vaste houding met gerichte aandacht op de ademhaling, dat hij de kern van de zenpraktijk noemt.</p>
+      <h3>Het tweede deel: vertrouwen tegenover anderen</h3>
+      <p>Het tweede deel gaat over vertrouwen en moed en verschuift van de eigen kamer naar de omgang met anderen. Les 25 leert de handen tegen elkaar te vouwen, gasshō, zodra iemand boos wordt of een meningsverschil dreigt te escaleren. Het gebaar staat volgens Masuno voor het opheffen van de afstand tussen zichzelf en de ander en werkt kalmerend nog voor er een woord is gezegd.</p>
+      <p>Andere lessen in dit deel gaan over werk, over omgaan met vergelijking met anderen, en over hoe tegenslag te verwerken zonder de dagelijkse gewoontes los te laten die de eerste dertig lessen hebben opgebouwd.</p>
+      <h3>Derde en vierde deel: piekeren en de dag zelf</h3>
+      <p>Het derde deel, twintig lessen tegen verwarring en piekeren, en het vierde deel, twintig lessen om van een dag de beste dag te maken, herhalen het patroon van kleine handelingen die bij een enkel moment op de dag beginnen. Les 20 vraagt om bij het vallen van de avond de zonsondergang op te zoeken en stil te staan bij het feit dat de dag volbracht is.</p>
+      <p>Les 41 laat een bloemzaadje planten en er elke ochtend tegen praten bij het water geven, als oefening in het opmerken van verandering die zich dag na dag voltrekt en niet in één keer zichtbaar wordt.</p>
+      <h3>Herhaling als methode</h3>
+      <p>Het boek biedt geen doorlopend betoog en geen opbouw waarin de ene les op de andere voortbouwt. De honderd lessen staan naast elkaar, bedoeld om over honderd dagen gelezen te worden, één per dag, zodat herhaling het werk doet dat een enkel advies niet kan.</p>
+      <p>Masuno noemt dat zelf zo: het uitvoeren van een les levert volgens hem meer op dan het lezen ervan, ook als de handeling maar een paar minuten duurt.</p>
+      <h3>Vorm die de inhoud herhaalt</h3>
+      <p>De vormgeving herhaalt wat de tekst zegt. Iedere les krijgt een eigen bladzijde met een sobere lijntekening en verder veel wit; er staat nooit meer dan wat in een paar minuten te lezen en te doen is. Wie het boek in één ruk doorleest, treft vooral herhaling van hetzelfde recept in nieuwe bewoordingen aan; wie het als dagboek gebruikt zoals bedoeld, krijgt elke ochtend één zin om aan te denken.</p>
+      <h3>Twee Engelse vertalingen van dezelfde honderd lessen</h3>
+      <p>Dezelfde honderd lessen verschenen in 2019 in twee afzonderlijke Engelse edities. In het Verenigd Koninkrijk bracht Penguin/Michael Joseph het uit als <i>Zen: The Art of Simple Living</i>, vertaald door Harry Goldhawk en met tekeningen van Zanna Goldhawk. In de Verenigde Staten verscheen bij Penguin Life <i>The Art of Simple Living: 100 Daily Practices from a Zen Buddhist Monk for a Lifetime of Calm and Joy</i>, vertaald door Allison Markin Powell en met tekeningen van Harriet Lee-Merrion.</p>
+      <p>De honderd lessen zelf komen overeen; titel, ondertitel en illustraties verschillen per markt. Dat wijst op een boek dat de uitgever vooral als praktisch cadeauboek heeft gepositioneerd, met een omslag en aankondiging die per taalgebied zijn aangepast.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zazen</td><td>Zitmeditatie met gerichte aandacht op houding en ademhaling, door Masuno de kern van de zenpraktijk genoemd (les 18).</td></tr>
+          <tr><td class="term">Gasshō</td><td>Het samenvouwen van de handen voor de borst als gebaar van eenheid met de ander, toegepast om boosheid of onenigheid te doorbreken (les 25).</td></tr>
+          <tr><td class="term">Tanden</td><td>Het punt enkele centimeters onder de navel waarop bij het uitademen de aandacht wordt gericht om onrust te laten wegvloeien (les 17).</td></tr>
+          <tr><td class="term">Chisoku</td><td>Tevredenheid met wat er al is, tegenover het najagen van meer.</td></tr>
+          <tr><td class="term">Ichi-go ichi-e</td><td>De gedachte dat een ontmoeting zich nooit op precies dezelfde manier herhaalt en daarom volledige aandacht verdient.</td></tr>
+          <tr><td class="term">Huidige zelf</td><td>De staat van iemand die zich niet laat afleiden door verleden of toekomst en met volle aandacht handelt; uitgangspunt van het eerste deel.</td></tr>
+          <tr><td class="term">Zen-tuin</td><td>Het tuinontwerp waarin de plaatsing van steen, water en beplanting de indruk van het geheel bepaalt; het denkmodel achter de lessen.</td></tr>
+          <tr><td class="term">De honderd dagen</td><td>De opzet om elke les apart en op een eigen dag te lezen, zodat herhaling het effect oplevert dat één les alleen niet geeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek, geen cijfers en geen verwijzingen naar wetenschappelijke literatuur. De onderbouwing is de traditie van de zenpraktijk zelf: eeuwenoude oefeningen als zazen en gasshō, en Masuno's eigen ervaring als priester en tuinontwerper die deze oefeningen dagelijks toepast en aan anderen doorgeeft.</p>
+      <p>Waar het boek verder op leunt is de innerlijke samenhang van de methode: elke les herleidt een klein, uitvoerbaar handelen tot hetzelfde beginsel, dat orde in de omgeving orde in de geest oplevert. Getoetst wordt dat beginsel nergens; het boek herhaalt en illustreert het met een korte anekdote of vergelijking uit de tuinierpraktijk. Voor wie binnen de zentraditie werkt is dat een vertrouwde vorm van overdracht; wie een oorzakelijke claim verwacht, vindt in het boek niets om die te toetsen.</p>
+      <p>Op de omslag en in besprekingen wordt het boek aangeduid als wereldwijd meer dan een miljoen keer verkocht. Een verkoopcijfer zegt iets over de aantrekkingskracht van de vorm, honderd korte lessen met een tekening erbij, en niets over de werkzaamheid van de geadviseerde oefeningen zelf. Verkoopsucces en bewijskracht zijn twee verschillende zaken die het boek niet uit elkaar houdt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De honderd lessen herhalen in de kern een klein aantal ideeën: adem vertragen, ruimte opruimen, één ding tegelijk doen, dankbaarheid uitspreken. Doordat elke les op zichzelf staat, ontstaat geen opbouw en geen verdieping; wie de eerste twintig lessen heeft gelezen, kent het patroon van de resterende tachtig.</p>
+      <p>Het boek gaat niet in op situaties waarin de omstandigheden zelf het probleem vormen: armoede, ziekte, verlies van werk of een moeizame relatie krijgen dezelfde behandeling als een volle inbox. De aanname dat onrust wijkt voor een geordende kamer of een langzame ademhaling wordt nergens beargumenteerd, alleen verondersteld.</p>
+      <p>De lessen zijn geschreven alsof ze voor iedere lezer even goed werken, ongeacht cultuur, leeftijd of woonsituatie. Een kamer sober inrichten veronderstelt bijvoorbeeld een kamer om in te richten en de vrijheid om die naar eigen inzicht te veranderen; voor lezers voor wie die aanname niet opgaat, biedt het boek geen alternatief.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies een vast moment op de dag en voer één les uit voor je verder leest, in plaats van meerdere lessen achter elkaar te lezen.</li>
+        <li>Zet 's avonds bewust iets recht dat door de dag scheef is komen te staan, als kleine oefening in orde voor het slapengaan.</li>
+        <li>Adem bij oplopende spanning enkele keren lang en dun uit voor een reactie volgt.</li>
+        <li>Gebruik een terugkerend, klein voorwerp, een plant, een paar schoenen, een kop, als vast ankerpunt voor aandacht in plaats van een nieuw hulpmiddel te zoeken.</li>
+        <li>Lees niet meer dan één les per dag, ook als de tekst kort genoeg is om er meteen meerdere achter elkaar te lezen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk gepubliceerd in Japan. In het Engels als <i>Zen: The Art of Simple Living</i> (Penguin/Michael Joseph, 2019, 224 blz.), vertaald door Harry Goldhawk. In de Verenigde Staten verschenen dezelfde honderd lessen als <i>The Art of Simple Living: 100 Daily Practices from a Zen Buddhist Monk for a Lifetime of Calm and Joy</i> (Penguin Life, 2019), vertaald door Allison Markin Powell. Nederlands als <i>Zen &amp; de kunst van eenvoudig leven</i> (Boekerij, 2019, 219 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Masuno geeft honderd lessen, elk op ongeveer een bladzijde en bedoeld voor telkens één dag. Het boek is verdeeld in vier delen: dertig lessen om de huidige zelf energie te geven, dertig om vertrouwen en moed te wekken, twintig tegen verwarring en piekeren, en twintig om van een dag de beste dag te maken. Masuno is hoofdpriester van een zenboeddhistische tempel in Japan die al 450 jaar bestaat, tuinontwerper met internationale prijzen, en hoogleraar milieuontwerp aan een kunstacademie. Zijn tuinen gelden als een hedendaagse voortzetting van de traditie van de zen-tuin, en die achtergrond keert terug in de lessen: ze gaan vaker over ruimte, orde en aandacht voor één ding dan over innerlijke overtuigingen.</p><p>De lessen zijn concreet en klein. Les 4 vraagt om 's avonds de schoenen recht te zetten, les 15 om een kamer sober in te richten, les 17 om vanuit een punt onder de navel lang en dun uit te ademen, les 18 om zazen te zitten, les 20 om bij het vallen van de avond de zonsondergang op te zoeken, les 25 om de handen tegen elkaar te vouwen (gasshō) bij oplopende boosheid, en les 41 om een bloemzaadje te planten en het elke ochtend water te geven. Geen van de lessen kost meer dan een paar minuten; het boek rekent op de herhaling van honderd dagen voor het effect dat één enkel advies niet geeft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zenboeddhisme</li><li>eenvoud</li><li>dagelijkse gewoontes</li><li>meditatie</li><li>tuinontwerp</li><li>aandacht</li><li>Japan</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1"><a href="01.html">Zen en de kunst van het motoronderhoud</a>. Pirsig achterhaalt in een filosofisch betoog wat Kwaliteit is; Masuno noemt het woord zen nauwelijks en biedt honderd keer een handeling zonder toelichting op het begrip zelf.</li>
+          <li value="141"><a href="141.html">Voorbij de vorm</a>. Bodian bekritiseert mindfulness-oefening omdat die een aparte toestand in stand houdt die onderhoud vraagt; Masuno's honderd lessen zijn zulke oefeningen, herhaald zonder die kritiek te bespreken.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle zoekt toegang tot het Nu via het loslaten van denken; Masuno bereikt eenzelfde soort aandacht via een fysieke handeling, zoals het planten van een bloem of het recht zetten van schoenen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

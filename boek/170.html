@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Simplicity Trap &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nambiar stelt dat de meeste organisaties vastlopen door een tekort aan moed, meer dan door een tekort aan ideeën: complexiteit stapelt zich op omdat de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-170">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">170 &middot; Werk en aandacht</p>
+    <h1>The Simplicity Trap</h1>
+    <p class="lede">Rohit Chandrasekharan Nambiar, 2026</p>
+    <p class="stats">
+      <span><b>1268</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="170"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nambiar stelt dat de meeste organisaties vastlopen door een tekort aan moed, meer dan door een tekort aan ideeën: complexiteit stapelt zich op omdat de mensen die haar zouden kunnen wegnemen de prijs daarvoor niet willen betalen. Simpel maken noemt hij de zwaarste keuze die een leidinggevende kan maken, omdat opruimen altijd iemands product, proces of positie raakt. Wie een systeem ongemoeid laat omdat niemand het meer durft aan te pakken, kiest zonder dat uit te spreken voor het voortbestaan van de complexiteit.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het probleem: complexiteit als gewoonte</h3>
+      <p>Na een inleiding opent het boek met het hoofdstuk 'The Complexity'. Daarin formuleert Nambiar de kernzin die op de eigen website van het boek terugkomt: de meeste organisaties lijden niet aan een tekort aan ideeën, maar aan een tekort aan moed. Complexiteit is in die lezing bijna nooit een ongeluk. Zij blijft bestaan omdat wie haar zou kunnen wegnemen de kosten daarvan niet wil dragen: het product dat niemand meer kan uitleggen blijft in het assortiment, het proces dat uit gewoonte bestaat blijft in stand.</p>
+      <h3>Wanneer automatisering complexiteit toevoegt</h3>
+      <p>Het hoofdstuk 'The Robot That Broke Everything' behandelt, voor zover de titel aangeeft, een geval waarin automatisering een organisatie juist ingewikkelder maakte in plaats van eenvoudiger. Welk project, welk bedrijf en welke techniek het precies betreft, is uit het openbaar beschikbare materiaal niet af te leiden; de inhoud van dit hoofdstuk kon niet los van de titel worden geverifieerd.</p>
+      <h3>Klanttevredenheid en het juiste kanaal</h3>
+      <p>Twee hoofdstukken, 'Seven Out of Ten Liked' en 'Go Where the Customer Wants to Meet', gaan naar hun titels te oordelen over klantonderzoek en over de keuze van het contactkanaal. Nambiars loopbaan bij verzekeraars die als eerste in Maleisië een telematica-autoverzekering en een digitale zorgverzekering op de markt brachten, maakt dat onderwerp aannemelijk als bron, maar welke voorbeelden hij in deze hoofdstukken zelf aanhaalt, is niet met zekerheid vast te stellen buiten de titels.</p>
+      <h3>Sturen op het juiste en op de juiste mensen</h3>
+      <p>'What Gets Measured Gets Done' herneemt een bestaande managementregel, vaak toegeschreven aan Peter Drucker al is die toeschrijving omstreden, en past haar toe op de vraag welke meetpunten een organisatie ongemerkt richting geven. 'Attitude Over Aptitude' zet daar een uitgangspunt voor aanname en beoordeling naast: houding weegt zwaarder dan aanwezige vaardigheid. Beide hoofdstukken lezen als praktische regels eerder dan als een uitgewerkt betoog.</p>
+      <h3>Eén boodschap</h3>
+      <p>In 'The Single Overriding Message' herneemt Nambiar een term uit het communicatievak: de ene boodschap die overblijft als een organisatie moet kiezen wat zij werkelijk wil zeggen. Hij past het idee toe op interne en externe communicatie in een omgeving die door complexiteit meerdere, elkaar tegensprekende boodschappen tegelijk verspreidt.</p>
+      <h3>Vergrijzing en de zorg voor twee generaties</h3>
+      <p>'The Sandwich Generation and the Jobs Crisis' verbindt het boek met Nambiars werk als medeoprichter van SabaiHealth, een dienst voor ouderenzorg in Zuidoost-Azië. De term sandwichgeneratie duidt op mensen die tegelijk voor opgroeiende kinderen en voor verouderende ouders zorgen, en het hoofdstuk lijkt die druk te koppelen aan complexiteit op de arbeidsmarkt.</p>
+      <h3>De sprong die overblijft</h3>
+      <p>Het boek sluit af met 'The Leap' en een nawoord. Uit een los citaat op de website van het boek, 'als je wilt vernieuwen, moet je nooit bang zijn om ontslagen te worden', valt op te maken dat het slothoofdstuk de lezer aanspoort om de beslissing tot vereenvoudiging niet langer uit te stellen uit angst voor de gevolgen ervan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">The Simplicity Trap</td><td>De val waarin een organisatie complexiteit aanziet voor verfijning en daarom nalaat haar weg te nemen.</td></tr>
+          <tr><td class="term">Single Overriding Message</td><td>De ene boodschap die overblijft wanneer een organisatie kiest wat zij werkelijk wil zeggen, in plaats van meerdere boodschappen tegelijk.</td></tr>
+          <tr><td class="term">Attitude over Aptitude</td><td>Het uitgangspunt dat houding bij aanname en beoordeling zwaarder telt dan aanwezige vaardigheid.</td></tr>
+          <tr><td class="term">What Gets Measured Gets Done</td><td>De regel dat een organisatie zich richt naar wat zij meet, ook als dat niet is wat zij eigenlijk wil sturen.</td></tr>
+          <tr><td class="term">Sandwichgeneratie</td><td>Mensen die tegelijk voor kinderen en voor verouderende ouders zorgen, door Nambiar verbonden aan druk op de arbeidsmarkt.</td></tr>
+          <tr><td class="term">Go Where the Customer Wants to Meet</td><td>Het uitgangspunt dat een organisatie het contactkanaal van de klant volgt in plaats van het kanaal dat haarzelf het beste uitkomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Nambiar onderbouwt zijn stelling niet met onderzoek of literatuur, maar met de eigen loopbaan: als group CEO van Tune Protect zegt hij vier jaar van teruggang te hebben omgebogen naar een samengestelde jaarlijkse groei van 26 procent, en als CEO van AXA AFFIN Life Malaysia een omzetgroei van 74 procent te hebben geboekt tegen een marktgemiddelde van 16 procent. Die cijfers staan op de website van het boek en in zijn eigen profiel, niet in een noot naar een jaarverslag of accountantsverklaring.</p>
+      <p>Tune Protect is een aan de Bursa Maleisië genoteerd bedrijf, waardoor de onderliggende resultaten in beginsel via openbare jaarverslagen te controleren zijn. Voor deze samenvatting is die controle niet uitgevoerd; de cijfers zijn hier weergegeven als door de auteur zelf gestelde feiten over zijn loopbaan, niet als onafhankelijk geverifieerde onderzoeksresultaten.</p>
+      <p>Het boek bevat, voor zover uit het beschikbare materiaal blijkt, geen literatuurlijst en geen verwijzingen naar extern onderzoek. De overtuigingskracht van het betoog steunt op de anekdotes uit de aangeduide hoofdstukken en op de autoriteit die de auteur aan zijn eigen bestuursfuncties ontleent.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Notion Press is een uitgeefplatform voor zelfpublicatie, zonder de redactionele toetsing die een gevestigde zakelijke uitgeverij normaal aan een manuscript geeft. Er zijn geen recensies in gevestigde media gevonden, en de website van het boek biedt geen inkijkexemplaar dat verder gaat dan enkele losse citaten en de inhoudsopgave.</p>
+      <p>Daardoor kon de inhoud van de meeste hoofdstukken in deze samenvatting alleen worden beschreven aan de hand van de titel en het onderwerp dat die titel suggereert, niet aan de hand van de tekst zelf. Voor hoofdstukken als 'The Robot That Broke Everything' en 'Seven Out of Ten Liked' is dat een aanmerkelijke beperking: welke voorbeelden, bedrijven of getallen de auteur daarin gebruikt, is niet te verifiëren.</p>
+      <p>Om diezelfde reden bevat de lijst met begrippen hierboven zes termen in plaats van de gebruikelijke zeven tot tien: een vollediger begrippenkader is er vermoedelijk wel, maar kon niet met zekerheid uit openbaar materiaal worden vastgesteld.</p>
+      <p>Dat het boek kort in de top vijf van de bestsellerslijst management op Amazon India stond, zegt op zichzelf weinig. Dergelijke lijsten zijn vaak smal ingedeeld en kunnen door een beperkt aantal verkopen in korte tijd worden bereikt, zeker bij een zelfgepubliceerde titel; het is geen aanwijzing voor een groot of blijvend lezerspubliek.</p>
+      <p>'What Gets Measured Gets Done' is bovendien geen eigen vondst van Nambiar: de regel circuleert al decennia in managementliteratuur, vaak toegeschreven aan Peter Drucker, hoewel die toeschrijving zelf omstreden is. Het boek herschikt op dit punt bestaand gedachtegoed eerder dan dat het iets nieuws toevoegt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel een lijst op van producten of processen die niemand in de organisatie meer volledig kan uitleggen, en bepaal per item of afschaffen goedkoper uitpakt dan handhaven.</li>
+        <li>Herleid een besluit of mededeling tot één boodschap voordat die de organisatie in gaat, en schrap de rest.</li>
+        <li>Toets bij aanname en beoordeling niet alleen vaardigheid maar ook houding, en leg vast waarom een keuze is gemaakt.</li>
+        <li>Ga na welke meetpunten het gedrag in de praktijk sturen, en vervang meetpunten die een ander gedrag belonen dan bedoeld.</li>
+        <li>Onderzoek via welk kanaal klanten zelf contact zoeken, en richt de dienstverlening daarop in plaats van op het kanaal dat de organisatie het goedkoopst uitkomt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Simplicity Trap: The Bravest Thing a Leader Can Do Is to Make Things Simple.</i> (Notion Press, 2026, 206 blz., ISBN 9798903626960 volgens de uitgever; edities bij andere verkopers dragen afwijkende ISBN's voor dezelfde tekst). Geen Nederlandse vertaling gevonden, ook niet in de catalogus van bibliotheek.nl.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rohit Chandrasekharan Nambiar was jarenlang bestuurder bij verzekeraars in Zuidoost-Azië en het Midden-Oosten, onder meer als CEO van AXA AFFIN Life Malaysia en als group CEO van het aan de Bursa Maleisië genoteerde Tune Protect. In <i>The Simplicity Trap</i> keert hij die ervaring naar binnen: complexiteit in een organisatie ontstaat zelden per ongeluk, schrijft hij, maar blijft bestaan omdat niemand de rekening voor het opruimen ervan wil betalen. Een product dat niemand meer kan uitleggen blijft in het assortiment, een proces dat uit gewoonte bestaat blijft overeind, en een systeem dat niemand meer test blijft draaien. Elk hoofdstuk draagt de naam van een gebeurtenis uit zijn loopbaan, van een mislukt automatiseringsproject tot een meting van klanttevredenheid, en gebruikt die als aanleiding voor een stelling over leiderschap.</p><p>Het boek verscheen in 2026 bij Notion Press, een Indiaas platform voor zelfpublicatie, en bereikte kort de top vijf van de bestsellerslijst management op Amazon India. Het is Nambiars debuut en telt 206 bladzijden: een inleiding, negen hoofdstukken met elk een eigen titel, en een slothoofdstuk. Buiten de inhoudsopgave en enkele citaten op de eigen website van het boek is er weinig onafhankelijk materiaal over de inhoud te vinden. Er bestaan nog geen recensies in gevestigde media en de uitgever biedt geen uitgebreid inkijkexemplaar aan. Een Nederlandse vertaling is er niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leiderschap</li><li>complexiteit</li><li>eenvoud</li><li>besluitvorming</li><li>verandering</li><li>bedrijfscultuur</li><li>management</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="70"><a href="70.html">Deep Work</a>. Waar Nambiar vraagt om organisaties te ontdoen van overbodige complexiteit, vraagt dit boek om de aandacht van een persoon te ontdoen van overbodige afleiding.</li>
+          <li value="81"><a href="81.html">Building a Second Brain</a>. Dit boek biedt een manier om de informatie die bij het opruimen van organisatorische complexiteit vrijkomt, persoonlijk geordend te houden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

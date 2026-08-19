@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duck to Century &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat een dieptepunt, net als een score van nul in cricket, geen einde is maar het beginpunt van een vaste opeenvolging van elf herkenbare…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-174">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">174 &middot; Moed en karakter</p>
+    <h1>Duck to Century</h1>
+    <p class="lede">Sumit Kukreja, 2026</p>
+    <p class="stats">
+      <span><b>1141</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="174"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat een dieptepunt, net als een score van nul in cricket, geen einde is maar het beginpunt van een vaste opeenvolging van elf herkenbare fasen die een tegenslag omzetten in de opbouw naar een doorbraak. Wie de fasen van het D.U.C.K. to C.E.N.T.U.R.Y.-raamwerk doorloopt en op elk moment de juiste beslissing neemt, komt volgens Kukreja van nul op honderd. Die claim veronderstelt dat herstel een vaste, herhaalbare volgorde kent in plaats van een geschiedenis die voor iedereen anders verloopt, en juist die vaste volgorde heeft de auteur nergens in het openbaar toegelicht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van nul naar honderd: de cricketbeelden</h3>
+      <p>In cricket krijgt elke slagman de kans om runs te scoren tot hij wordt uitgeschakeld. Een "duck", genoemd naar de vorm van een eendenei die op een nul lijkt, is de slagbeurt die eindigt zonder dat er ook maar één run is gescoord: de slechtst denkbare uitkomst voor een individuele speler. Een "century" is het tegenovergestelde, honderd runs in één slagbeurt, een mijlpaal die in de sport apart wordt bijgehouden en gevierd.</p>
+      <p>Kukreja zet die twee uitersten tegenover elkaar als beeld voor een leven na een zware tegenslag. Waar de sport de nul en de honderd als losse uitkomsten van losse wedstrijden ziet, maakt het boek er één doorlopende reis van: van het dieptepunt naar de doorbraak, met de veronderstelling dat wie er middenin zit dezelfde weg aflegt als de auteur zelf heeft afgelegd.</p>
+      <h3>Elf fasen onder twee acroniemen</h3>
+      <p>Het raamwerk telt elf fasen, verdeeld over twee woorden: D.U.C.K., vier letters, en C.E.N.T.U.R.Y., zeven letters. Samen dekken zij naar eigen zeggen de weg van dieptepunt naar doorbraak. Op de website van de auteur staat die verdeling alleen als aantal en als naam vermeld: nergens wordt toegelicht waar de afzonderlijke letters voor staan of wat elke fase inhoudt.</p>
+      <p>Dat betekent dat de kern van het boek, de exacte stappen van het raamwerk, buiten het boek zelf niet te controleren is. Wat vaststaat is de vorm: een vast aantal fasen in een vaste volgorde, gepresenteerd als toepasbaar op uiteenlopende soorten tegenslag.</p>
+      <h3>Voor wie het boek is bedoeld</h3>
+      <p>De website noemt als doelgroep wie zijn eerste grote tegenslag doormaakt en wie na jaren van stille strijd weer probeert op te bouwen, met als voorbeelden ondernemers, werkende professionals, studenten en mensen met een langlopend plan. De aanspraak is dat het boek de lezer ontmoet in de fase waarin die zich bevindt, ongeacht hoe ver de val al gevorderd is.</p>
+      <h3>De auteur en het merk eromheen</h3>
+      <p>Sumit Kukreja profileert zich op zijn website als auteur, spreker en mentor, en als oprichter van PV Advisory. Hij noemt zichzelf een fervent reiziger die vindt dat onderwijs zonder reizen onvolledig is, en voert zijn persoonlijke merk onder de naam @uncutwithsumit op Instagram en LinkedIn, met als leus "Fail. Rise. Repeat."</p>
+      <p>De website vraagt lezers om hun eigen verhaal van falen en herstel in te sturen, met het vooruitzicht dat zulke verhalen kunnen terugkomen in latere hoofdstukken, in een podcast of in lezingen. Het boek staat daarmee niet op zichzelf maar in een lopend project rond de persoon van de auteur.</p>
+      <h3>Geen theorie, een kaart uit eigen terrein</h3>
+      <p>Kukreja beschrijft zijn boek expliciet als iets anders dan theorie: "het is een kaart, getekend vanuit het eigen terrein." Daarmee plaatst hij het buiten de categorie van onderzoek en binnen die van persoonlijke en overgedragen ervaring. Het boek claimt geen wetenschappelijke basis en pretendeert dat ook niet te zijn.</p>
+      <h3>Positie tegenover uitgeverij en catalogus</h3>
+      <p>Het boek is op het moment van schrijven niet te vinden in de catalogus van Goodreads en niet in die van de Nederlandse openbare bibliotheken. Er is geen ISBN, geen paginaomvang en geen uitgeversnaam gevonden, en de website van de auteur noemt op verschillende plekken een andere verschijningsmaand voor 2026. Samen wijst dat op een zelfgepubliceerde titel die nog nauwelijks buiten de eigen kanalen van de auteur is besproken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Duck</td><td>Cricketterm voor een slagbeurt die eindigt op een score van nul, in het boek het beeld voor het dieptepunt waarmee de reis begint.</td></tr>
+          <tr><td class="term">Century</td><td>Cricketterm voor honderd runs in één slagbeurt, in het boek het beeld voor de doorbraak waarmee de reis eindigt.</td></tr>
+          <tr><td class="term">D.U.C.K.-fasen</td><td>De eerste vier van de elf fasen uit het raamwerk, genoemd naar het dieptepunt; wat de afzonderlijke letters betekenen, maakt de auteur in het openbaar niet bekend.</td></tr>
+          <tr><td class="term">C.E.N.T.U.R.Y.-fasen</td><td>De laatste zeven van de elf fasen, genoemd naar de doorbraak; ook hier ontbreekt een openbare toelichting per letter.</td></tr>
+          <tr><td class="term">Fail. Rise. Repeat.</td><td>De leus waarmee Kukreja zijn merk en het boek op zijn website en social media aanduidt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de eigen ervaring van de auteur als mentor en spreker, en op verhalen die hij via zijn website bij lezers ophaalt. Er wordt geen onderzoek, enquête of vakliteratuur genoemd waarop het elf-fasenmodel steunt: de onderbouwing is anekdotisch en persoonlijk, precies zoals de auteur het zelf aankondigt met de omschrijving "een kaart, geen theorie".</p>
+      <p>Onafhankelijke verificatie is bij een titel die net verschijnt nauwelijks mogelijk. Het boek staat niet in de catalogus van Goodreads, er zijn geen besprekingen buiten de eigen kanalen van de auteur gevonden, en zelfs de basisgegevens van de uitgave, waaronder de exacte verschijningsmaand, lopen op de eigen website van de auteur uiteen. Wat resteert als toetsbaar gegeven is alleen de cricketmetafoor en de verdeling in elf fasen, niet de inhoud van die fasen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De centrale claim, dat herstel na een tegenslag een vast aantal fasen in een vaste volgorde doorloopt, veronderstelt een mate van herhaalbaarheid die het boek nergens onderbouwt met meer dan de eigen ervaring van de auteur. Voor een raamwerk dat zich aan cricket en aan andere terreinen tegelijk wil laten toepassen, is dat een forse aanname die om meer dan één casus vraagt.</p>
+      <p>Daarnaast maakt het ontbreken van een genoemde uitgeverij, een ISBN en enige catalogusvermelding het onmogelijk om de inhoud van de elf fasen te toetsen zonder het boek zelf te lezen. De promotietaal op de eigen website, inclusief tegenstrijdige verschijningsmaanden, past bij een net gelanceerde, zelfgepubliceerde titel en niet bij een werk dat zijn claims al aan een breder lezerspubliek heeft kunnen bewijzen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf het eigen moment op nul zonder dat gelijk te stellen aan een blijvende toestand.</li>
+        <li>Onderscheid voor de eigen situatie een fase van tegenslag van een fase van opbouw, ook zonder de exacte namen uit het boek te kennen.</li>
+        <li>Stel het overnemen van het volledige elf-fasenmodel uit tot de inhoud ervan buiten de eigen website van de auteur te controleren is.</li>
+        <li>Lees eerst waarvoor de auteur ingezonden verhalen van lezers gebruikt, voordat een eigen tegenslagverhaal met hem gedeeld wordt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschijnt in het Engels zonder genoemde uitgeverij. De eigen website van de auteur (sumitkukreja.com) noemt op verschillende plekken een andere verschijningsmaand voor 2026, juli op de ene pagina en augustus op de andere, wat op een informele, kort voor de uitgave nog wisselende planning wijst. Het boek wordt verkocht via Amazon; ten minste één vindbare vermelding geeft als ondertitel <i>Turning Setbacks into Comebacks, One Decision at a Time</i>. Geen ISBN, paginaomvang of vertaler gevonden. Het boek staat niet in de catalogus van Goodreads en niet in die van de Nederlandse openbare bibliotheken (bibliotheek.nl), wat samen met het ontbreken van een uitgeversnaam wijst op een zelfgepubliceerde titel. Geen Nederlandse vertaling aangetroffen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p><i>Duck to Century</i> gaat over het omzetten van een tegenslag in een opstap naar iets groters. De titel ontleent haar beeld aan cricket, een sport waarin een slagman uitgeschakeld kan raken voordat hij ook maar één run heeft gescoord. Zo'n slagbeurt op nul heet een "duck", naar de vorm van een eendenei die op het cijfer nul lijkt. Het tegenovergestelde is een "century": honderd runs in één slagbeurt, een van de hoogste individuele prestaties die de sport kent. Kukreja gebruikt die twee uitersten als beeld voor een leven dat bij niets begint en bij iets aanzienlijks uitkomt. Daarvoor introduceert hij het "D.U.C.K. to C.E.N.T.U.R.Y."-raamwerk: elf fasen, ontleend aan cricket en aan zijn eigen ervaring als mentor en spreker, die de weg van dieptepunt naar doorbraak in kaart brengen.</p><p>Over de inhoud van die elf fasen is via openbare bronnen weinig concreets te vinden. De auteur noemt op zijn website het aantal en de twee acroniemen, maar licht nergens toe waar de afzonderlijke letters voor staan. Het boek richt zich naar eigen zeggen op wie een eerste grote tegenslag doormaakt of na jaren van stille strijd weer opbouwt, van ondernemer tot student. Kukreja noemt zijn boek geen theorie maar "een kaart, getekend vanuit het eigen terrein", en verbindt de uitgave aan een breder merk rond persoonlijke verhalen van falen en herstel. Van een gevestigde uitgeverij of een vermelding in boekencatalogi is geen spoor: voor zover na te gaan is dit een zelfgepubliceerde, kersverse titel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>tegenslag</li><li>veerkracht</li><li>cricket</li><li>zelfhulp</li><li>ondernemers</li><li>besluitvorming</li><li>zelfpublicatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Behandelt hetzelfde thema van tegenslag omzetten in vooruitgang, met een steviger onderbouwing vanuit de stoïcijnse traditie.</li>
+          <li value="158"><a href="158.html">No Excuses!</a>. Legt de nadruk op de losse beslissingen die ook in dit boek de weg van dieptepunt naar doorbraak moeten bepalen.</li>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Werkt uit hoe kleine, herhaalde beslissingen zich opstapelen tot een resultaat, zonder de sportmetafoor van dit boek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

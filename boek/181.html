@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're Too Good to Feel This Bad &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat de angst en uitputting van succesvolle mensen wortelen in een verwaarloosde basis: slecht slapen, verkeerd ademhalen, te weinig water…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-181">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">181 &middot; Gewoontes en denken</p>
+    <h1>You're Too Good to Feel This Bad</h1>
+    <p class="lede">Nate Dallas, 2020</p>
+    <p class="stats">
+      <span><b>1449</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="181"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat de angst en uitputting van succesvolle mensen wortelen in een verwaarloosde basis: slecht slapen, verkeerd ademhalen, te weinig water en te lage persoonlijke normen, eerder dan in te weinig ambitie. Dallas' redenering is dat mensen dagelijks terugvallen op hun gewoonten in plaats van toe te groeien naar hun doelen, en dat wie die dagelijkse norm verhoogt, vanzelf ook zijn resultaten verhoogt. Fysiologie gaat daarbij vooraf aan psychologie: wie slecht slaapt of verkeerd ademhaalt, verandert zijn mindset niet, hoe hard hij daaraan ook werkt. Het boek plaatst zichzelf tegenover zelfhulpliteratuur die bij de mindset begint, door de oplossing lager te leggen, in het lichaam.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een tandarts die vastliep</h3>
+      <p>Dallas opent met het hoofdstuk "Waking Up", waarin hij vertelt dat hij naar buiten toe succesvol was en toch bleef vastzitten in angst en uitputting. Die ervaring is de aanleiding voor het boek, dat hij presenteert als een persoonlijk experiment en niet als vakliteratuur.</p>
+      <p>Het boek is verdeeld in drie fasen die hij zelf Physiology, Psychology en Life Application noemt. Die volgorde is een keuze: eerst het lichaam, dan de geest, dan de praktijk van werk, geld en relaties, vanuit de aanname dat de latere fasen niet werken zolang de eerdere overgeslagen wordt.</p>
+      <p>De ondertitel, <i>An Orthodox Approach to Living an Unorthodox Life</i>, wijst op de manier waarop Dallas zijn advies presenteert: de methode zelf is behoudend en herhaalbaar, discipline in slaap, ademhaling en dagelijkse gewoonten, terwijl het doel ervan is om weg te komen van een levensstijl die hij als jachtig en aangeleerd beschouwt.</p>
+      <h3>Het lichaam eerst</h3>
+      <p>Vier hoofdstukken behandelen de fysiologische basis: "Lying in Plain Sight" over slaap, "Get with the Flow" over ademhaling, "Better Inputs for Better Output" over water en voeding, en "Strain, Pain, & Gains" over beweging. Bij ademhaling bepleit hij ademen door de neus in plaats van door de mond, bij voeding vooral meer water drinken en minder bewerkt eten.</p>
+      <p>Dit zijn de hoofdstukken die in besprekingen het vaakst als het meest praktisch en het best onderbouwd worden genoemd, herkenbaar voor lezers die zelf met slaaptekort of gejaagdheid kampen.</p>
+      <h3>De brug tussen lichaam en emotie</h3>
+      <p>In "Motion & Emotion" verbindt Dallas de fysiologische hoofdstukken met de psychologische. Hij stelt dat lichamelijke toestand en gemoedstoestand op elkaar inwerken en dat wie aan zijn lichaam sleutelt, daarmee ook aan zijn gemoed sleutelt. Dit hoofdstuk vormt het scharnier van het boek.</p>
+      <h3>De geest: mindset en behoeften</h3>
+      <p>"Getting Real with Yourself" gaat over mindset en zelfgesprek, met aandacht voor het herkennen van negatieve gedachtepatronen. "Why We Do What We Do" behandelt menselijke behoeften aan de hand van een indeling in zes basisbehoeften, zekerheid, afwisseling, betekenis, verbinding, groei en bijdrage, een model dat niet van Dallas zelf komt maar dat hij gebruikt om te verklaren waarom mensen vasthouden aan gedrag dat hen niet dient.</p>
+      <p>In besprekingen wordt dit hoofdstuk het toegankelijkst genoemd, vooral door de reflectievragen aan het eind van elke paragraaf.</p>
+      <h3>Patronen doorbreken</h3>
+      <p>Drie hoofdstukken volgen. "Lost Leaders" gaat over recreatie, rust en liefde, door Dallas aangeduid als R & R & L, en volgens hem de eerste dingen die sneuvelen zodra het druk wordt. "The Path to Stillness" gaat over meditatie. "Lightening the Load" gaat over minimalisme, met als stelling dat minder bezit ruimte geeft voor aandacht.</p>
+      <p>De drie hoofdstukken volgen dezelfde opbouw als de rest van het boek: eerst benoemt Dallas wat er ontbreekt in het leven van een drukbezette lezer, daarna koppelt hij dat aan zijn eigen ervaring, en pas aan het eind volgt een concreet, klein voornemen in plaats van een ingrijpende verandering.</p>
+      <h3>Werk en geld</h3>
+      <p>"Reworking" gaat over de inrichting van werk en systemen, "Cash Flow States" over de omgang met geld. Beide hoofdstukken passen de eerder ingevoerde ideeën, normen verhogen en gewoonten laten optellen, toe op een concreet levensterrein: een vaste ochtendroutine wordt in dit deel een vast systeem op het werk, en een kleine dagelijkse spaargewoonte wordt de manier waarop hij compounding op geld toepast.</p>
+      <p>Deze twee hoofdstukken staan het dichtst bij algemene loopbaan- en persoonlijke-financiënadviezen, en leunen minder op de fysiologische basis van het eerste deel dan de eerdere psychologische hoofdstukken dat nog deden.</p>
+      <h3>Relaties en afsluiting</h3>
+      <p>Het laatste hoofdstuk, "Leveling Up", behandelt relaties, waarna een outro het boek afsluit. Meerdere lezers noemen dit deel minder scherp dan het begin: de bespreking van slaap en ademhaling wordt breder geprezen dan die van werk, geld en relaties, die dichter bij algemene zelfhulpadviezen blijft staan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Physiology, Psychology, Life Application</td><td>De drie fasen waarin Dallas het boek zelf indeelt: eerst het lichaam, dan de geest, dan de praktijk van werk, geld en relaties.</td></tr>
+          <tr><td class="term">Inner thermostat</td><td>De zelf ingestelde grens voor hoeveel rust of succes iemand zichzelf toestaat, waarbij iemand die eroverheen gaat zichzelf terugtrekt naar de vertrouwde stand.</td></tr>
+          <tr><td class="term">Raise your standards</td><td>De gedachte dat mensen terugvallen op hun dagelijkse gewoonten in plaats van toe te groeien naar hun doelen, en dat het verhogen van die gewoonten de enige blijvende vooruitgang oplevert.</td></tr>
+          <tr><td class="term">Lost Leaders (R & R & L)</td><td>Zijn naam voor recreatie, rust en liefde: de onderdelen die volgens hem het functioneren dragen maar het eerst sneuvelen zodra het druk wordt.</td></tr>
+          <tr><td class="term">Six Human Needs</td><td>Het overgenomen model van zes basisbehoeften, zekerheid, afwisseling, betekenis, verbinding, groei en bijdrage, waarmee hij verklaart waarom mensen vasthouden aan gedrag dat hen niet dient.</td></tr>
+          <tr><td class="term">Angst als signaal</td><td>Zijn stelling dat angst gelezen moet worden als aanwijzing dat er iets moet veranderen, niet als storing die weggewerkt moet worden.</td></tr>
+          <tr><td class="term">Compounding</td><td>Het idee dat kleine, dagelijks herhaalde keuzes zich opstapelen tot een ander resultaat, door hem toegepast op slaap en gewoonten in plaats van op geld.</td></tr>
+          <tr><td class="term">Lightening the Load</td><td>Zijn term voor minimalisme: minder bezit als weg naar meer aandacht en rust.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit twee lagen. Dallas beschrijft zijn eigen ervaring met angst en uitputting als tandarts-ondernemer en presenteert het boek uitdrukkelijk als verslag van een persoonlijk experiment, niet als klinisch onderzoek. Voor de psychologische hoofdstukken leunt hij op modellen die hij niet zelf ontwikkelde, zoals de zes basisbehoeften die ook in populaire psychologie elders voorkomen, en die hij als kader aanhaalt zonder ze als eigen ontdekking te presenteren. Besprekingen noemen de hoofdstukken over slaap, ademhaling en voeding het best onderbouwd en het dichtst bij bestaand onderzoek naar die onderwerpen.</p>
+      <p>Dallas is van huis uit tandarts, geen onderzoeker of psycholoog, en het boek is in eigen beheer uitgegeven zonder de redactie van een gevestigde uitgeverij. Dat verklaart mede waarom losse hoofdstukken dichter bij bestaand onderzoek staan, zoals slaap en ademhaling, en andere dichter bij persoonlijke overtuiging, zoals menselijke behoeften, geld en relaties. De kwaliteit van de onderbouwing wisselt zo per hoofdstuk in plaats van te rusten op één doorlopende bron.</p>
+      <p>Voor de lezer betekent dit dat de fysiologische hoofdstukken zelfstandig te toetsen zijn aan bekend onderzoek over slaap en ademhaling, terwijl de latere hoofdstukken vooral staan of vallen met het gezag van de modellen die Dallas erbij haalt en met de mate waarin zijn eigen ervaring generaliseert naar die van de lezer.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Op Goodreads staat het boek op 3,95 van de 5 sterren bij ruim 1300 beoordelingen, en de kritiek van lezers wijst steeds naar dezelfde plek: de eerste helft, over slaap, ademhaling, voeding en beweging, wordt sterker genoemd dan de tweede, over werk, geld en relaties, die dichter bij algemene zelfhulpadviezen blijft hangen. Een recensent noemt de tweede helft minder gedreven dan de eerste.</p>
+      <p>De bredere kritiek betreft de omvang van het onderwerp. Het boek behandelt veertien hoofdstukken in iets meer dan 250 bladzijden, en dat gaat ten koste van diepte: een recensent merkt op dat de brede opzet weinig ruimte laat voor verdieping per onderwerp, wat vooral opvalt bij lezers die al bekend zijn met zelfreflectiepraktijken. Een deel van de aangedragen kaders, zoals de zes basisbehoeften en het beeld van de innerlijke thermostaat, is bovendien niet door Dallas zelf ontwikkeld maar overgenomen uit bestaande populaire psychologie, zonder dat het boek dat onderscheid steeds scherp markeert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij slaap en ademhaling voordat je aan mindset of gewoonten werkt.</li>
+        <li>Verhoog een kleine dagelijkse gewoonte in plaats van een groot doel te stellen.</li>
+        <li>Gebruik de zes basisbehoeften om na te gaan welke behoefte een vastzittende gewoonte voedt.</li>
+        <li>Lees angst als signaal voor een noodzakelijke verandering in plaats van als iets dat weg moet.</li>
+        <li>Behandel de hoofdstukken over slaap en ademhaling als het uitgangspunt en toets latere adviezen over werk en geld daaraan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in eigen beheer uitgegeven als <i>You're Too Good to Feel This Bad: An Orthodox Approach to Living an Unorthodox Life</i> (uitgever Nathan Dallas, 2020, 258 blz., ISBN 9780578643427). Geen Nederlandse vertaling gevonden; een zoekopdracht op "Nate Dallas" in de catalogus van bibliotheek.nl levert geen resultaat op.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nate Dallas, een Amerikaanse tandarts en ondernemer uit de staat Georgia, beschrijft in dit boek zijn eigen zoektocht naar rust nadat hij ondanks zichtbaar succes bleef vastzitten in angst en uitputting. Die ervaring is de aanleiding voor het boek: een persoonlijk experiment, opgeschreven als een vaste volgorde die hij zelf doorliep. Het boek is verdeeld in drie fasen die hij zelf Physiology, Psychology en Life Application noemt en die stuk voor stuk in enkele hoofdstukken worden uitgewerkt: eerst het lichaam (slaap, ademhaling, water en voeding, beweging), dan de geest (mindset, menselijke behoeften, meditatie) en ten slotte de praktijk van werk, geld en relaties.</p><p>Dallas werkt met een vaste redenering: mensen groeien niet vanzelf toe naar hun doelen, ze vallen terug op hun dagelijkse gewoonten, en wie die gewoonten een klein beetje beter maakt, verandert daarmee ook het resultaat op langere termijn. Voor de psychologische hoofdstukken leunt hij op modellen die hij niet zelf bedacht, zoals een indeling van zes menselijke basisbehoeften, en voor de fysiologische hoofdstukken op algemeen bekende adviezen over slaap en ademhaling. Het boek is nadrukkelijk een verslag van eigen ervaring en geen wetenschappelijke studie, en de veertien hoofdstukken zijn kort genoeg om het geheel in een paar dagen te lezen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>gewoontes</li><li>slaap</li><li>mindset</li><li>minimalisme</li><li>angst</li><li>gezondheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Beschrijft hetzelfde idee van opstapelende kleine keuzes waar Dallas' hoofdstukken over gewoonten op leunen, maar dan uitgewerkt tot een doorlopend model.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Werkt de gedachte dat mensen terugvallen op hun gewoonten in plaats van naar hun doelen toe te groeien, uit tot een systematiek van gewoontevorming.</li>
+          <li value="158"><a href="158.html">No Excuses!</a>. Deelt de nadruk op dagelijkse discipline en het verhogen van de eigen norm, vanuit een directere en minder persoonlijke toon.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

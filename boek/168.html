@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Process &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat prestatie geen kwestie is van talent of geluk maar van een innerlijk proces met een vaste structuur, een proces dat volgens Jani uit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-168">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">168 &middot; Gewoontes en denken</p>
+    <h1>The Process</h1>
+    <p class="lede">Mitesh Jani, 2026</p>
+    <p class="stats">
+      <span><b>1580</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="168"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat prestatie geen kwestie is van talent of geluk maar van een innerlijk proces met een vaste structuur, een proces dat volgens Jani uit zes mechanismen bestaat en dat mensen zelden geleerd krijgen omdat het onderwijs hun een vooraf bepaald pad laat volgen in plaats van hun te leren dat pad zelf uit te stippelen. Wie dat proces niet volgt en bijhoudt, kan het volgens hem ook niet vertrouwen. De inzet ligt bij Jani niet in geld, titels of erkenning maar in zelfwaarde en zelfbeeld, die hij voorstelt als de bodem waarop elke andere vorm van prestatie rust.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt: een systeem dat geen proces leert</h3>
+      <p>Jani opent met de constatering dat de meeste mensen wel een doel kunnen noemen maar niet weten hoe ze daar zelfstandig moeten komen. Hij wijt dat aan het onderwijs, dat leerlingen jarenlang een vastgesteld traject van opdrachten en toetsen laat volgen zonder hun ooit te leren hoe ze zelf een pad uitstippelen of bijstellen. Wie van school komt, is volgens hem uitstekend getraind in het volgen van instructies en onvoorbereid op de situatie waarin niemand meer een instructie geeft.</p>
+      <p>Daaruit haalt hij zijn kernzin: iemand kan een proces pas vertrouwen als hij het ook volgt en bijhoudt. Achievement noemt hij in dat opzicht "an inside job", een zaak die zich binnenin afspeelt voordat zij zich buiten laat zien, en het boek is opgezet om dat binnenwerk in zes stappen te ontleden.</p>
+      <h3>Zes mechanismen als kader</h3>
+      <p>Het boek is verdeeld in zes hoofdstukken die Jani zelf mechanismen noemt en die hij doorlopend nummert. Uit de beschikbare beschrijvingen valt op te maken dat de reeks een boog volgt: van het nemen van de eerste stap en het ombuigen van zelfsabotage, via het doorbreken van uitstelgedrag, naar het herkennen van voortgang, het bijstellen van koers en het volhouden van een hoog niveau. Die volgorde is een afgeleide uit de manier waarop de uitgever het boek aanprijst, niet een letterlijke lijst van hoofdstuktitels, en van de zes mechanismen zijn er maar twee met een eigen titel te bevestigen.</p>
+      <p>Door het hele boek loopt een vaste formule terug: je kunt het proces niet vertrouwen als je het niet kunt bijhouden. Die zin functioneert als een soort spil waar de zes mechanismen op zijn geregen, en Jani gebruikt hem meermaals om aan te geven waarom hij prestatie als een systeem behandelt in plaats van als een reeks losse doorbraken.</p>
+      <h3>Mechanisme vier: de sprong</h3>
+      <p>Het vierde mechanisme heeft als titel "The Leap: When Everything Clicks" en gaat over het moment waarop vooruitgang volgens Jani niet langer geleidelijk verloopt maar met een sprong bij een verder ontwikkeld niveau van uitvoering of inzicht uitkomt. Hij noemt dit zelf het hoofdstuk dat hij het liefst geschreven heeft, wat behalve een biografisch detail ook laat zien welk deel van zijn eigen proces hem het meest heeft beziggehouden.</p>
+      <p>De sprong wordt bij hem niet voorgesteld als toeval maar als het resultaat van de vijf hoofdstukken die eraan voorafgaan: pas wie het fundament heeft gelegd, ervaart volgens hem dat de vooruitgang plotseling versnelt in plaats van gestaag doorloopt.</p>
+      <h3>Mechanisme vijf: het kompas in plaats van de kaart</h3>
+      <p>Het vijfde mechanisme draagt de titel "Ditch the Map, Trust the Compass" en stelt een vastgelegde route tegenover een innerlijke richting. Een kaart legt volgens Jani van tevoren vast waar iemand moet uitkomen, terwijl een kompas alleen een richting aanwijst en de reiziger vrijlaat in de route. Hij past dat toe op doelen die onderweg veranderen: wie zich aan een kaart vasthoudt, verliest de weg zodra de omstandigheden afwijken van het plan, terwijl een kompas blijft werken.</p>
+      <p>Het kompasbeeld staat ook op de omslag van het boek, wat aangeeft dat Jani het als de centrale metafoor van het hele werk beschouwt en niet als een losse illustratie bij één hoofdstuk.</p>
+      <h3>Zelfwaarde als meetlat</h3>
+      <p>Een terugkerend thema is het onderscheid tussen innerlijke en uiterlijke maatstaven. Jani beschrijft zelfvertrouwen en zelfwaarde als de metingen die er volgens hem werkelijk toe doen, tegenover geld, titels en erkenning die hij als afgeleide effecten behandelt. Daarbij pleit hij voor metacognitie, het nadenken over het eigen denken, geoefend via vormen van aandachtstraining, als middel om die innerlijke maatstaf scherp te houden.</p>
+      <p>Consistentie krijgt in dit deel een eigen formulering: buitengewone mensen doen volgens Jani geen buitengewone dingen, ze doen dezelfde eenvoudige dingen met een buitengewone regelmaat. Daarmee verschuift de nadruk van een enkele grote prestatie naar een herhaald, bijgehouden patroon.</p>
+      <h3>De auteur als bewijs</h3>
+      <p>Jani presenteert zichzelf nadrukkelijk als bron van het boek. Hij behaalde zijn tandheelkundige titel aan de universiteit van Toronto, bouwde twee tandartspraktijken op en werkt inmiddels nog deeltijds als tandarts terwijl hij zich verder richt op schrijven en spreken. Naar eigen zeggen verzamelt hij al sinds zijn jeugd motiverende uitspraken en reflecteert hij al langer dan tien jaar op wat prestatie drijft, en die verzameling vormt de grondstof voor het boek.</p>
+      <p>Zijn praktijk als tandarts en ondernemer levert hem volgens de beschikbare bronnen vooral voorbeelden op van hoe mensen omgaan met angst, tegenslag en verandering, niet een onderzoeksbasis. Het boek blijft daarmee dicht bij het genre van de persoonlijke gids, geschreven vanuit een enkel leven in plaats van vanuit een vergelijking van veel levens.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het proces</td><td>De innerlijke gang van handelen en bijstellen die Jani als de kern van elke prestatie beschouwt, en die iemand eerst moet volgen voor hij hem kan vertrouwen.</td></tr>
+          <tr><td class="term">Mechanismen van prestatie</td><td>De zes onderdelen waarin Jani het proces opdeelt, elk uitgewerkt als een genummerd hoofdstuk.</td></tr>
+          <tr><td class="term">Inner work for outer results</td><td>Zijn kernzin voor het idee dat uitwendige resultaten voortkomen uit innerlijk werk aan zelfbeeld en overtuigingen.</td></tr>
+          <tr><td class="term">Zelfwaarde</td><td>Het zelfbeeld dat Jani als fundament van elke prestatie ziet en dat hij belangrijker acht dan geld, titels of erkenning.</td></tr>
+          <tr><td class="term">De sprong</td><td>Het vierde mechanisme, over het moment waarop vooruitgang niet meer geleidelijk verloopt maar plotseling bij een verder ontwikkeld niveau uitkomt.</td></tr>
+          <tr><td class="term">Kompas in plaats van kaart</td><td>Het vijfde mechanisme en de omslagmetafoor van het boek, voor een innerlijke richting tegenover een vooraf vastgelegde route.</td></tr>
+          <tr><td class="term">Het proces bijhouden</td><td>Zijn stelregel dat iemand het proces niet kan vertrouwen zolang hij het niet volgt en registreert.</td></tr>
+          <tr><td class="term">Metacognitie</td><td>Het nadenken over het eigen denken, dat Jani aanbeveelt via aandachtstraining als onderdeel van het proces.</td></tr>
+          <tr><td class="term">De kern</td><td>Waar volgens Jani alle grootsheid uit voortkomt, een kern die hij omschrijft als onlogisch, onpraktisch, irrationeel en onrealistisch.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Jani onderbouwt het boek niet met onderzoek of verwijzingen naar studies. Zijn bronnen zijn eigen reflectie, meer dan tien jaar aantekeningen en citaten die hij naar eigen zeggen al sinds zijn jeugd verzamelt, en ervaring als tandarts die twee klinieken opbouwde voordat hij overstapte op een deeltijdpraktijk. Die achtergrond levert hem vooral vergelijkingsmateriaal op uit de tandartspraktijk en het ondernemerschap, niet uit onderzoek naar prestatie of motivatie.</p>
+      <p>Voor de zes mechanismen gebruikt hij naar verluidt voorbeelden van bekende namen als Steve Jobs, Kobe Bryant, James Dyson en Leonardo da Vinci, ontleend aan wat over hen bekend is en niet aan eigen onderzoek of gesprekken met hen. Dat maakt de argumentatie illustratief in plaats van bewijzend: de voorbeelden laten zien wat Jani bedoelt, ze tonen niet aan dat zijn zes mechanismen kloppen of volledig zijn.</p>
+      <p>Doordat het boek pas op 10 februari 2026 verscheen, bestaat er nog nauwelijks onafhankelijke bespreking. Buiten een auteursinterview op wroteabook.org, de eigen omschrijving van de auteur op Selfworth.ca en enkele losse recensies op sociale media is er weinig materiaal om de argumentatie tegen af te zetten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste onduidelijkheid zit in de opbouw zelf. Van de zes mechanismen zijn er via de uitgever en het interview met de auteur maar twee met naam te achterhalen, de sprong en het kompas in plaats van de kaart. Wat de overige vier inhouden en hoe ze op elkaar aansluiten, is met de beschikbare bronnen niet te verifiëren, waardoor niet te beoordelen valt of het zesdelige kader consistent is opgebouwd of achteraf op zes onderdelen is verdeeld.</p>
+      <p>Het boek verschijnt bij Selfworth Media, het eigen platform van de auteur, zonder externe uitgeverij die het manuscript onafhankelijk beoordeelt. Dat is geen bewijs van lage kwaliteit, maar het betekent wel dat er geen redactionele toets van buitenaf valt aan te wijzen.</p>
+      <p>Zoals bij het meeste in dit genre rust de overtuigingskracht op de persoon van de schrijver en op herkenning bij de lezer, niet op een aangetoond verband tussen de zes mechanismen en daadwerkelijke prestatie. De voorbeelden van beroemdheden als Jobs en Bryant zijn zo bekend en zo vaak op uiteenlopende manieren geduid dat ze bijna elke stelling over prestatie kunnen illustreren.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd het proces bij in plaats van alleen het resultaat: noteer wat je dagelijks doet, niet alleen wat het oplevert.</li>
+        <li>Onderscheid interne maatstaven zoals zelfvertrouwen en zelfwaarde van externe maatstaven zoals geld of erkenning, en noteer bij twijfel welke van de twee op dat moment de doorslag geeft.</li>
+        <li>Begin voordat de omstandigheden ideaal zijn in plaats van te wachten op het juiste moment.</li>
+        <li>Bouw aan een vast, herhaalbaar ritme van kleine handelingen in plaats van te vertrouwen op sporadische pieken van inzet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Process: Six Mechanics of Achievement</i> (Selfworth Media, 10 februari 2026, 256 blz., ISBN 9781069973405 paperback en 9781069973429 hardcover). Geen Nederlandse vertaling gevonden: niet bij een Nederlandse uitgeverij, niet in de catalogus van bibliotheek.nl.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mitesh Jani is tandarts in Toronto en oprichter van het platform Selfworth.ca. In <i>The Process</i> beschrijft hij zes door hemzelf genummerde "mechanismen van prestatie", stappen die volgens hem onder elke vorm van vooruitgang liggen, van een carrière tot een vaardigheid, een gezondheidsdoel of een creatief project. Zijn uitgangspunt is dat het onderwijs leerlingen een vooraf uitgestippeld pad laat volgen en hun niet leert hoe ze zelf een doel stellen en een eigen proces bijhouden. Wie dat proces niet volgt en registreert, kan het volgens hem ook niet vertrouwen: vooruitgang wordt dan toeval in plaats van iets waar iemand grip op heeft.</p><p>Van de zes hoofdstukken zijn er twee met titel te achterhalen: "de sprong", over het moment waarop vooruitgang plotseling versnelt, en "kompas in plaats van kaart", over het loslaten van een vastgelegde route ten gunste van een innerlijke richting. Jani onderbouwt zijn stellingen niet met onderzoek maar met eigen ervaring als tandarts en ondernemer en met voorbeelden van bekende figuren als Steve Jobs en Kobe Bryant. Over de overige vier mechanismen en de precieze hoofdstukindeling is via de uitgever en de beschikbare besprekingen weinig concreets te vinden. Dit is het debuut van een auteur wiens boek pas begin 2026 verscheen, en onafhankelijke bespreking is er nauwelijks.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>prestatie</li><li>zelfwaarde</li><li>gewoontevorming</li><li>zelfsturing</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Voor de nadruk op consistente kleine handelingen boven sporadische pieken van inzet, waar Jani's uitspraak over gewone dingen met buitengewone regelmaat rechtstreeks bij aansluit.</li>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Voor het idee dat kleine herhaalde keuzes zich optellen tot grote verschillen, een gedachte die Jani's nadruk op het bijhouden van het proces spiegelt.</li>
+          <li value="142"><a href="142.html">Designing the Mind</a>. Voor een andere invulling van werk aan het eigen denken als voorwaarde voor uitwendig resultaat, ditmaal met een steviger onderbouwing.</li>
+          <li value="158"><a href="158.html">No Excuses!</a>. Voor een vergelijkbare nadruk op zelfsturing en het wegnemen van excuses als voorwaarde om te beginnen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

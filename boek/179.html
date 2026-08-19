@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I Can Change The I & Everyone Is I &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tangal stelt dat verandering van het individu, de I uit de titel, ook verandering van iedereen om die persoon heen betekent, omdat elk mens een van de I's…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-179">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">179 &middot; Positief denken en manifesteren</p>
+    <h1>I Can Change The I & Everyone Is I</h1>
+    <p class="lede">Rushang Tangal</p>
+    <p class="stats">
+      <span><b>852</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="179"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tangal stelt dat verandering van het individu, de I uit de titel, ook verandering van iedereen om die persoon heen betekent, omdat elk mens een van de I's is waaruit "iedereen" bestaat. Het boek werkt die gedachte niet uit tot een lopend argument. Ze staat er in meer dan honderd losse quotes over thema's als woede, houding, keuze, vrijheid en hoop, met de aansporing die quotes te lezen, ze te herkennen in het eigen leven, en op grond daarvan anders te gaan handelen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt: de I als individu en als iedereen</h3>
+      <p>De bundel opent met de titel als programma: verandering van de I is verandering van iedereen, omdat ieder mens een van de I's is waaruit "iedereen" bestaat. Tangal vat de manier van lezen samen in de leus Read. Relate. Realize. Recreate: lezen, herkennen in de eigen situatie, onder ogen zien wat dat betekent, en op grond daarvan opnieuw kiezen hoe te handelen.</p>
+      <h3>Houding, karakter en keuze</h3>
+      <p>Een groot deel van de quotes gaat over houding en karakter. Ze waarschuwen tegen het klakkeloos overnemen van wat anderen zeggen dat iemand moet zijn, en verbinden karakter aan wie iemand nadoet of juist niet nadoet. Andere quotes verbinden keuze aan verantwoordelijkheid: wat iemand kiest te doen met een gevoel of een gebeurtenis weegt volgens de bundel zwaarder dan de gebeurtenis zelf.</p>
+      <h3>Emotie, tegenslag en doorzettingsvermogen</h3>
+      <p>Een tweede cluster gaat over woede, angst en tegenslag als emoties die te sturen zijn zodra iemand ze herkent in plaats van erin mee te gaan. Doorzettingsvermogen komt terug als de eigenschap die het verschil maakt tussen opgeven en volhouden na een mislukking. Een uitgewerkte methode of een stappenplan geeft de bundel daar niet bij.</p>
+      <h3>Vrijheid, geluk en hoop</h3>
+      <p>Een derde cluster verbindt vrijheid met een innerlijke staat, los van de omstandigheden waarin iemand zich bevindt, en plaatst geluk en hoop als gevolg van een positieve grondhouding. Deze quotes liggen dicht bij het gedachtegoed van boeken over positief denken en manifesteren: wie zich blijft richten op wat goed gaat, trekt volgens die lijn meer van hetzelfde aan.</p>
+      <h3>Vorm: een alfabetische lijst zonder verhaallijn</h3>
+      <p>De bundel zelf ordent de quotes alfabetisch op onderwerp, van woede tot doorzettingsvermogen, zonder volgorde die opbouwt naar een conclusie. De indeling hierboven groepeert de terugkerende thema's voor het overzicht van deze samenvatting; het boek zelf kent geen hoofdstukken in die vorm.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">I</td><td>De letter uit de titel, die bij Tangal zowel het individu aanduidt als de optelsom van iedereen samen.</td></tr>
+          <tr><td class="term">Read. Relate. Realize. Recreate.</td><td>De leus waarin de auteur zijn leesmethode samenvat: lezen, herkennen, onder ogen zien en er nieuw gedrag van maken.</td></tr>
+          <tr><td class="term">Book Your I</td><td>De aanvullende leus van de uitgebreide editie 2.0, die dezelfde gedachte van zelfverandering herhaalt.</td></tr>
+          <tr><td class="term">Houding</td><td>Een van de onderwerpen waaronder de quotes alfabetisch zijn gerangschikt; gaat over wat iemand nadoet of juist niet nadoet van anderen.</td></tr>
+          <tr><td class="term">Doorzettingsvermogen</td><td>Een van de onderwerpen waaronder de quotes alfabetisch zijn gerangschikt; het verschil tussen opgeven en volhouden na een mislukking.</td></tr>
+          <tr><td class="term">Karakter</td><td>Een van de onderwerpen waaronder de quotes alfabetisch zijn gerangschikt; wie iemand nadoet of juist niet nadoet, bepaalt volgens de bundel wie iemand wordt.</td></tr>
+          <tr><td class="term">Keuze</td><td>Een van de onderwerpen waaronder de quotes alfabetisch zijn gerangschikt; wat iemand kiest te doen met een gevoel of gebeurtenis weegt zwaarder dan de gebeurtenis zelf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Tangal onderbouwt de quotes niet met onderzoek, cijfers of bronvermeldingen. De bundel citeert geen studies en verwijst niet naar ander werk; wat er staat, staat er als persoonlijke overtuiging van de auteur, geformuleerd als aforisme in plaats van als argument.</p>
+      <p>Besprekingen op Goodreads en op boekenblogs bevestigen dat beeld. Ze prijzen de herkenbaarheid van de zinnen, niet de onderbouwing ervan, en geen van de recensenten die voor dit overzicht zijn geraadpleegd claimt dat de quotes op iets anders rusten dan het eigen inzicht van de schrijver.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het duidelijkste bezwaar is herhaling. Een bespreking op Books Charming merkt op dat een deel van de quotes dezelfde boodschap in andere woorden herhaalt, wat bij een bundel die zich juist onderscheidt door haar omvang, 120 quotes in de eerste editie en meer in de tweede, een structureel probleem is.</p>
+      <p>Een tweede bezwaar betreft de uitvoering. Bij de uitgebreide editie 2.0 meldt een recensent dat de taal professionele redactie kon gebruiken, en de bundel verscheen in eigen beheer zonder uitgeverij die dat proces begeleidt.</p>
+      <p>Verder blijft de begrippenlijst hierboven beperkt tot drie punten. Buiten de twee taglines voert Tangal geen eigen terminologie in; elke quote staat op zichzelf, zonder kader dat de zinnen aan elkaar verbindt. Daardoor is de bundel toegankelijk en tegelijk moeilijk te onderscheiden van de vele vergelijkbare quote-verzamelingen in hetzelfde zelfhulpsegment.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees een quote die aansluit bij een actuele situatie en schrijf op welk gedrag die zin aanraadt.</li>
+        <li>Ga na of de aangeraden houding ook standhoudt wanneer de situatie tegenzit, niet alleen wanneer de quote bevestigt wat al vaststond.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Zelf uitgegeven in eigen beheer bij Astitva Prakashan (India). Editie 1.0 verscheen in 2022 als <i>I Can Change The I &amp; Everyone Is I: Quoted For Billion People 1.0</i>, 135 bladzijden met 120 quotes (ISBN 9789394607705). Een uitgebreide editie 2.0 volgde met extra quotes en de leus "Book Your I" (ISBN 9789394607712). In de catalogus van bibliotheek.nl staat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p><i>I Can Change The I &amp; Everyone Is I: Quoted For Billion People</i> is een verzameling korte quotes van de Indiase auteur Rushang Tangal, zijn debuut, voor het eerst verschenen in 2022 bij Astitva Prakashan. De titel speelt met de letter I: die staat zowel voor het individu als voor iedereen, en de gedachte achter de bundel is dat wie zichzelf verandert daarmee ook de mensen om zich heen verandert. De eerste editie, aangeduid als 1.0, bevat 120 quotes, alfabetisch gerangschikt onder meer dan honderd onderwerpen als woede, waardering, houding, keuze, karakter, cultuur, lotsbestemming, emotie, vrijheid, geluk, hoop en doorzettingsvermogen. Een tweede, uitgebreide editie 2.0 volgde met extra quotes en de aanvullende leus "Book Your I".</p><p>Het boek bestaat niet uit hoofdstukken met een lopend verhaal. Elke bladzijde staat op zichzelf, en de auteur raadt aan op een willekeurige pagina te beginnen en de quote te verbinden met de eigen situatie, in de geest van de leus "Read. Relate. Realize. Recreate". Door de korte vorm is de bundel in één zitting uit te lezen, al bepleiten besprekingen om dat juist niet te doen en de tekst in kleine stukken te nemen. Recensies op Goodreads en op boekenblogs als The Literature Times en Books Charming noemen de taal toegankelijk en de boodschap herkenbaar, en signaleren tegelijk dat een deel van de quotes hetzelfde zeggen in andere woorden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>aforismen</li><li>quotes</li><li>positief denken</li><li>zelfontwikkeling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Bepleit een vergelijkbare gedachte, dat overtuiging de uitkomst stuurt, uitgewerkt met voorbeelden in plaats van losse quotes.</li>
+          <li value="127"><a href="127.html">The Law of Attraction</a>. Ligt het dichtst bij het vrijheid-geluk-hoop-cluster van Tangal: ook hier bepaalt de innerlijke gerichtheid wat iemand aantrekt.</li>
+          <li value="139"><a href="139.html">Unlimited Power</a>. Werkt de aansporing tot zelfverandering uit tot een methode met stappen, in plaats van een reeks losse zinnen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

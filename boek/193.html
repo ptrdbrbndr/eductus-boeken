@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teen Spirit &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sureka stelt dat het gesprek waarin een tiener zich werkelijk gehoord voelt in de meeste gezinnen nooit gevoerd wordt. Ze wijt dat aan het ontbreken van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-193">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">193 &middot; Gewoontes en denken</p>
+    <h1>Teen Spirit</h1>
+    <p class="lede">Pragati Jalan Sureka</p>
+    <p class="stats">
+      <span><b>1291</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="193"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sureka stelt dat het gesprek waarin een tiener zich werkelijk gehoord voelt in de meeste gezinnen nooit gevoerd wordt. Ze wijt dat aan het ontbreken van vaardigheid bij ouders om de eigen emoties onder controle te krijgen voordat er gesproken wordt, eerder dan aan onwil. Haar boek noemt zichzelf een routekaart naar een omgeving die de geestelijke gezondheid van tieners ondersteunt: ouders werken eerst aan hun eigen zelfregulering, en tieners krijgen in het tweede deel een eigen stem met dezelfde boodschap, toegespitst op hun positie. De stelling gaat ervan uit dat verbinding een vaardigheid is die te trainen valt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee delen, twee lezers</h3>
+      <p><i>Teen Spirit</i> bestaat uit twee ongelijke helften. Het eerste en grootste deel, De opvoedervaring, is voor ouders geschreven en behandelt onder meer effectief opvoeden, rituelen voor open gesprekken, opvoeden vanuit liefde en het herstellen van een band na een conflict. Het tweede deel, Een gids voor tieners, is korter en rechtstreeks aan de tiener zelf gericht, met onderwerpen als autonomie, nederigheid en de druk om altijd positief te zijn.</p>
+      <p>Sureka onderbouwt beide delen met vragenlijsten en met korte, in de ik-vorm geschreven anekdotes van tieners, naast aanbevelingen die ze aandraagt vanuit haar eigen praktijk als psycholoog. Die opzet maakt het boek tegelijk een handleiding voor de ouder en een boek dat een tiener apart ter hand kan nemen.</p>
+      <h3>Het EAR-kader</h3>
+      <p>Centraal in het boek staat een kader dat Sureka Emotional Ability Resources noemt, afgekort tot EAR. Ze werkte het eerder uit in een apart boek over emotionele vaardigheid en past het hier toe op de relatie tussen ouder en tiener. Het uitgangspunt is dat een ouder eerst het eigen emotionele vermogen op orde moet hebben voordat die van een kind kan vragen zich open te stellen.</p>
+      <p>Wat er precies in het EAR-kader zit, komt in het boek per hoofdstuk terug: prikkelbaarheid herkennen, een gesprek voorbereiden, een misser herstellen. De term zelf functioneert als de rode draad waarmee de afzonderlijke hoofdstukken aan elkaar hangen.</p>
+      <h3>Prikkelbaarheid en het moment vóór het gesprek</h3>
+      <p>Een apart hoofdstuk gaat over wat Sureka parental irritability noemt, de kortaangebonden reactie van een ouder op gedrag van een tiener. Ze beschrijft die prikkelbaarheid als een reactie die te herkennen en te vertragen is, eerder dan als een karaktertrek, en gebruikt daarvoor technieken uit de cognitieve gedragstherapie: het moment tussen prikkel en reactie wordt de plek waar volgens haar de opvoeding zich afspeelt.</p>
+      <p>Aan dat hoofdstuk koppelt ze een hoofdstuk over opvoeden vanuit liefde, waarin ze onderscheid maakt tussen reageren op gedrag en reageren op het kind zelf. Vaste rituelen, zoals een terugkerend moment zonder agenda, moeten volgens haar de ruimte scheppen waarin een gesprek kan landen.</p>
+      <h3>Gesprek en herstel</h3>
+      <p>Een aantal hoofdstukken gaat over het gesprek zelf: hoe een ruimte voor open dialoog te bouwen, hoe overtuigingskracht werkt zonder op dwang te lijken, en wat Sureka repair attempts noemt, de pogingen om een relatie te herstellen nadat een gesprek is vastgelopen of een conflict is geëscaleerd.</p>
+      <p>Ze werkt dat uit met concrete situaties: een tiener die een deur dichtslaat, een ouder die te laat merkt dat een opmerking hard aankwam. Het herstel zit volgens haar in het moment daarna opnieuw contact zoeken, ongeacht wie er inhoudelijk gelijk had.</p>
+      <h3>Zelfsabotage en consequenties</h3>
+      <p>Een hoofdstuk behandelt wat de auteur adolescent self-sabotage noemt: gedrag waarmee een tiener zijn eigen doelen ondermijnt, van uitstelgedrag tot het laten lopen van een kans die hij zelf wilde. Sureka koppelt dat aan onderliggende angst en aan een gebrek aan geoefende zelfregulering, meer dan aan luiheid.</p>
+      <p>Daarop volgt een hoofdstuk over consequenties, waarin ze onderscheid maakt tussen een consequentie die iets leert en straf die vooral macht laat zien. Het boek raadt ouders aan om vooraf, samen met de tiener, te bepalen wat er gebeurt als een afspraak niet wordt nagekomen.</p>
+      <h3>Het deel voor de tiener</h3>
+      <p>In het tweede deel richt Sureka zich rechtstreeks tot de tiener, in een toon die dichter bij een gesprek dan bij een instructie ligt. Ze behandelt autonomie als iets waar een tiener recht op heeft en waar tegelijk verantwoordelijkheid bij hoort, en wijdt een hoofdstuk aan wat ze de kracht van nederigheid noemt.</p>
+      <p>Het laatste inhoudelijke hoofdstuk gaat over wat ze toxic positivity noemt, de druk om altijd positief te blijven. Die druk wordt volgens haar juist een last zodra een tiener zich daardoor niet meer mag laten zien hoe hij zich werkelijk voelt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">EAR (Emotional Ability Resources)</td><td>Het kader voor emotionele vaardigheid dat Sureka in een eerder boek uitwerkte en hier toepast op de band tussen ouder en tiener.</td></tr>
+          <tr><td class="term">Parental irritability</td><td>De kortaangebonden reactie van een ouder op het gedrag van een tiener, die volgens haar te herkennen en te vertragen is.</td></tr>
+          <tr><td class="term">Repair attempts</td><td>De pogingen om een relatie of gesprek te herstellen nadat een conflict is geëscaleerd.</td></tr>
+          <tr><td class="term">Adolescent self-sabotage</td><td>Gedrag waarmee een tiener zijn eigen doelen ondermijnt, dat Sureka koppelt aan angst en aan onvoldoende geoefende zelfregulering.</td></tr>
+          <tr><td class="term">Toxic positivity</td><td>De druk om altijd positief te blijven, die volgens Sureka een last wordt zodra een tiener zijn werkelijke gevoelens niet meer mag tonen.</td></tr>
+          <tr><td class="term">Consequentie versus straf</td><td>Het onderscheid dat Sureka maakt tussen een consequentie die iets leert en straf die vooral macht laat zien.</td></tr>
+          <tr><td class="term">Autonomie</td><td>De ruimte en verantwoordelijkheid die een tiener volgens Sureka nodig heeft om zelf beslissingen te leren nemen.</td></tr>
+          <tr><td class="term">Nederigheid</td><td>De vaardigheid die Sureka tieners aanraadt als tegenwicht tegen de druk om overal in te moeten uitblinken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De uitgever noemt het boek onderzoeksgebaseerd. Sureka is psycholoog, IIM Kolkata-alumna, NET UGC-gekwalificeerd en volgens de uitgeversbeschrijving Harvard-geaccrediteerd, met ruim tien jaar ervaring in training, psychotherapie en preventieve geestelijke gezondheidszorg voor tieners en ouders; ze werkt daarnaast aan promotieonderzoek naar emotioneel welzijn. Die achtergrond levert klinische ervaring op, geen wetenschappelijke publicatie die apart te controleren is.</p>
+      <p>Wat in de beschikbare beschrijvingen en inhoudsopgave naar voren komt, is een opbouw uit vragenlijsten, korte anekdotes van tieners in de ik-vorm en technieken uit de cognitieve gedragstherapie, een bij therapeuten gangbare en wetenschappelijk onderbouwde stroming. Een bibliografie, notenapparaat of verwijzing naar specifieke onderzoeken is in de openbaar beschikbare fragmenten en beschrijvingen niet terug te vinden, zodat niet is na te gaan op welke studies losse claims in het boek precies steunen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek bouwt op een eigen kader, EAR, dat Sureka zelf ontwikkelde en in een eerder boek al gebruikte. Onafhankelijke validatie van dat kader in vakliteratuur is niet gevonden; het staat op naam van de auteur en wordt in haar eigen uitgaven toegepast.</p>
+      <p>Er is geen vermelding van dit boek op Goodreads gevonden, en ook geen onafhankelijke recensies buiten de website van de uitgever en de boekhandels die het verkopen. Op het moment van dit onderzoek, augustus 2026, valt de ontvangst van het boek dus niet te toetsen aan lezersreacties of vakpers.</p>
+      <p>Het boek combineert twee publieksgroepen in één band: een uitgebreid deel voor ouders en een korter deel voor tieners zelf. Dat maakt het compact, maar het tienerdeel is aanzienlijk dunner uitgewerkt dan het ouderdeel, wat de belofte dat de tiener een eigen stem krijgt, relativeert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Herken het eigen moment van prikkelbaarheid voordat een gesprek met een tiener begint.</li>
+        <li>Spreek vooraf met de tiener af welke consequentie bij welke afspraak hoort, in plaats van die achteraf te verzinnen.</li>
+        <li>Bouw een vast, agendaloos moment in de week in voor een gesprek.</li>
+        <li>Zoek na een ruzie actief opnieuw contact, los van wie er gelijk had.</li>
+        <li>Laat een tiener het tweede deel van het boek apart en op eigen tempo lezen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Teen Spirit: Sparking Connection with Your Teenager</i> (Hay House Publishers India, 2024, 240 blz., ISBN 9788119554713). Geen Nederlandse vertaling gevonden; bibliotheek.nl geeft geen resultaat op de naam van de auteur. Er bestaan ook andere, niet-verwante boeken met de titel <i>Teen Spirit</i>, onder meer een roman van Francesca Lia Block en een politiek boek van Paul Howe; dit is het opvoedboek van de Indiase psycholoog Pragati Jalan Sureka.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pragati Jalan Sureka is psycholoog en werkt al meer dan tien jaar met tieners en hun ouders, in therapie en in trainingen. Haar boek stelt dat het gesprek waarin een tiener zich echt begrepen voelt in de meeste gezinnen nooit plaatsvindt, en biedt daarvoor een aanpak in twee delen. Het eerste deel is voor ouders en gaat over de eigen prikkelbaarheid onder controle krijgen, vaste momenten voor een gesprek inbouwen en een band herstellen na een conflict. Sureka gebruikt daarbij een kader dat ze eerder EAR noemde, voor Emotional Ability Resources, en leunt op cognitieve gedragstherapie om te laten zien hoe een ouder een reactie kan vertragen voordat die escaleert.</p><p>Het tweede deel is rechtstreeks aan de tiener zelf gericht en behandelt onder meer autonomie, nederigheid en de schade van gedwongen positiviteit. Het boek werkt met vragenlijsten en korte, in de ik-vorm geschreven verhalen van tieners, naast aanbevelingen uit de praktijk van de auteur zelf.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>opvoeding</li><li>tieners</li><li>geestelijke gezondheid</li><li>communicatie</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="25"><a href="25.html">The 7 Habits of Highly Effective Teens</a>. Behandelt dezelfde overgang naar zelfstandigheid rechtstreeks vanuit het perspectief van de tiener, met een vergelijkbare nadruk op te trainen vaardigheden.</li>
+          <li value="51"><a href="51.html">The Defining Decade</a>. Sluit aan op de levensfase net na de tienerjaren, waarin dezelfde vraag naar zelfregulering in een andere vorm terugkeert.</li>
+          <li value="33"><a href="33.html">Quiet</a>. Biedt een tegenwicht vanuit de introverte tiener, voor wie de nadruk op open gesprek en zichtbare positiviteit extra spanning kan opleveren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

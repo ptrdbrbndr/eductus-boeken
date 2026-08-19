@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start with Why &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sinek betoogt dat mensen en organisaties die eerst uitleggen waarom ze doen wat ze doen, loyaliteit krijgen die communicatie over het product zelf nooit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-183">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">183 &middot; Geld en ondernemen</p>
+    <h1>Start with Why</h1>
+    <p class="lede">Simon Sinek, 2009</p>
+    <p class="stats">
+      <span><b>1504</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="183"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sinek betoogt dat mensen en organisaties die eerst uitleggen waarom ze doen wat ze doen, loyaliteit krijgen die communicatie over het product zelf nooit oplevert. Hij vat dat verschil samen in de Gouden Cirkel: why, how en what als drie concentrische ringen, waarbij de meeste bedrijven van buiten naar binnen communiceren en een kleine groep geïnspireerde leiders van binnen naar buiten spreekt. Zijn stelligste claim gaat verder dan marketing: hij stelt dat dit onderscheid aansluit op de bouw van de hersenen, waarbij het limbisch systeem op why-boodschappen reageert en beslissingen neemt die de rationele neocortex achteraf verklaart. Wie zonder why communiceert, moet volgens hem daarna manipuleren met prijs, angst, groepsdruk of nieuwigheid om mensen tot een aankoop te bewegen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De Gouden Cirkel</h3>
+      <p>Sinek opent met de waarneming dat vrijwel elke organisatie kan zeggen wat ze doet en de meeste kunnen uitleggen hoe, terwijl weinigen weten waarom ze bestaan; why staat bij hem nooit voor winst, want winst is een resultaat en geen doel. Hij tekent dat als drie concentrische ringen, met what buitenop, how in het midden en why in de kern, en noemt dit de Gouden Cirkel.</p>
+      <p>De meeste communicatie loopt van buiten naar binnen: eerst het product, dan de werkwijze, soms een reden. Apple draait die volgorde om, aldus Sinek: het bedrijf presenteert zich als uitdager van de gevestigde orde, met computers, telefoons en muziekspelers als opeenvolgende uitkomsten van diezelfde overtuiging. Dat verklaart volgens hem waarom kopers een nieuw Apple-product aanschaffen zonder het te vergelijken met concurrerende specificaties.</p>
+      <h3>Manipulatie tegenover inspiratie</h3>
+      <p>Sinek onderscheidt twee manieren om gedrag te sturen. Manipulatie werkt met prijsverlaging, promoties, angst, groepsdruk, ambitie of nieuwigheid en levert een transactie op zonder loyaliteit: de klant koopt omdat de voorwaarden gunstig zijn. Inspiratie spreekt de overtuiging van de klant aan en levert klanten op die zelf aanbevelingen doen en bij een volgende aankoop terugkomen, ook als het product duurder is.</p>
+      <p>Als voorbeeld van mislukte verspreiding ondanks een goed product noemt hij TiVo, dat begin jaren 2000 als beste vinding van het jaar werd geprezen en veel kapitaal ophaalde, maar nooit een breed publiek bereikte. Sinek wijt dat aan de manier van communiceren: TiVo somde functies op, zoals het pauzeren van live televisie en het overslaan van reclame, zonder een overtuiging te noemen waarom die functies ertoe deden.</p>
+      <h3>Dit is geen mening, dit is biologie</h3>
+      <p>Sinek legt de Gouden Cirkel naast een indeling van de hersenen: een buitenste laag, de neocortex, verantwoordelijk voor taal en rationeel denken en gekoppeld aan what, en een binnenste laag rond het limbisch systeem, die volgens hem gevoel, gedrag en beslissingen stuurt en gekoppeld is aan why en how. Omdat het limbisch systeem geen taal heeft, doet een beslissing die daar wordt genomen zich voor als een gevoel dat ergens goed of verkeerd aan is, zonder dat de koper er woorden voor heeft.</p>
+      <p>Daaruit leidt hij af dat een boodschap die met why begint rechtstreeks het deel van de hersenen aanspreekt dat over gedrag beslist, terwijl een boodschap die met feiten en cijfers begint alleen de neocortex bereikt. Zelf noemt hij dit geen mening maar biologie.</p>
+      <h3>De gebroeders Wright tegen Samuel Langley</h3>
+      <p>Als historisch voorbeeld gebruikt Sinek de wedloop om de eerste bemande vlucht. Samuel Pierpont Langley, gevestigd wetenschapper aan het Smithsonian Institution, kreeg vijftigduizend dollar van het Amerikaanse ministerie van Oorlog en verzamelde de beste ingenieurs van zijn tijd. Orville en Wilbur Wright financierden hun pogingen uit de opbrengst van hun fietsenwinkel en hadden geen van beiden een universitaire opleiding.</p>
+      <p>Op 17 december 1903 bleven de Wrights 59 seconden in de lucht. Sinek schrijft dat succes toe aan een team dat, anders dan Langleys ingehuurde specialisten, geloofde dat vliegen de wereld zou veranderen; toen het nieuws van de vlucht kwam, staakte Langley zijn eigen project.</p>
+      <h3>Martin Luther King en de wet van de verspreiding van innovatie</h3>
+      <p>Voor de toespraak <i>I Have a Dream</i> op het National Mall in augustus 1963 stuurde niemand uitnodigingen en bestond er geen sociale media om mensen te mobiliseren, toch kwamen er naar schatting een kwart miljoen mensen af. Sinek stelt dat zij kwamen voor wat King geloofde, en dat zij dat geloof met anderen deelden.</p>
+      <p>Hij koppelt dat aan het model voor verspreiding van innovatie van socioloog Everett Rogers: innovators, early adopters, early majority, late majority en laggards. Een product of idee bereikt een omslagpunt, in Sineks weergave rond vijftien tot achttien procent penetratie, zodra de vroege meerderheid de early adopters volgt. Leiders die eerst innovators en early adopters aanspreken met een why, bereiken volgens hem dat omslagpunt eerder dan wie zich meteen op de grote middengroep richt.</p>
+      <h3>Als succes de why laat verdwijnen</h3>
+      <p>In het laatste deel beschrijft Sinek wat er gebeurt als een organisatie groeit: de oprichter die de why belichaamde, wordt aangevuld met managers die op what en how zijn aangenomen, en de why blijft dan hooguit hangen als tekst op een muur. Hij noemt dat moment split, de scheiding tussen wat een organisatie zegt te zijn en wat de dagelijkse beslissingen laten zien.</p>
+      <p>Zijn advies om dat te voorkomen is procesmatig: elke aanwerving, elk product en elke beslissing toetsen aan de why, en de why zelf hardop blijven herhalen zodra een organisatie te groot wordt om iedereen persoonlijk te spreken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gouden Cirkel</td><td>Het model van drie concentrische ringen, why binnenin, how in het midden, what buitenop, dat het onderscheid tussen gewone en geïnspireerde communicatie samenvat.</td></tr>
+          <tr><td class="term">Why</td><td>De reden van bestaan van een persoon of organisatie, uitdrukkelijk geen winstdoel maar een overtuiging.</td></tr>
+          <tr><td class="term">Manipulatie</td><td>Sturing van gedrag met prijs, angst, groepsdruk, ambitie of nieuwigheid, die een transactie oplevert zonder loyaliteit.</td></tr>
+          <tr><td class="term">Inspiratie</td><td>Sturing van gedrag via een gedeelde overtuiging, die volgens Sinek duurzamere klant- en medewerkerstrouw oplevert dan manipulatie.</td></tr>
+          <tr><td class="term">Limbisch brein</td><td>Het hersendeel dat Sinek koppelt aan gevoel, vertrouwen en beslissingen, en dat volgens hem geen taal heeft.</td></tr>
+          <tr><td class="term">Neocortex</td><td>Het hersendeel dat Sinek koppelt aan taal en rationeel denken, en dat alleen what-informatie verwerkt.</td></tr>
+          <tr><td class="term">Wet van de verspreiding van innovatie</td><td>Het model van Everett Rogers met innovators, early adopters, early majority, late majority en laggards, door Sinek gebruikt om uit te leggen hoe een idee een breed publiek bereikt.</td></tr>
+          <tr><td class="term">Omslagpunt</td><td>Het punt, bij Sinek rond vijftien tot achttien procent penetratie, waarop de vroege meerderheid een product of idee overneemt.</td></tr>
+          <tr><td class="term">Split</td><td>Het moment waarop een groeiende organisatie de why van de oprichter kwijtraakt aan managers die op what en how zijn aangenomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Sineks bewijsvoering bestaat uit twee lagen die niet even sterk zijn. De casussen, zoals Apple, TiVo, de vergelijking tussen de Wrights en Langley, en de toespraak van Martin Luther King, zijn navertelbare historische gebeurtenissen waarvan de uitkomst vaststaat, ook al kiest Sinek voor elke casus de lezing die zijn these bevestigt en noemt hij tegenvoorbeelden niet.</p>
+      <p>De biologische claim is zwakker. Sinek plaatst het limbisch systeem en de neocortex als gescheiden lagen met elk een eigen taak, een indeling die teruggaat op het driehersenenmodel van Paul MacLean uit de jaren zestig. Neurowetenschappers hebben dat model sindsdien grotendeels verlaten: gevoel en ratio blijken niet in aparte hersendelen te zitten maar in netwerken die door de hele hersenen lopen en voortdurend samenwerken, en er bestaat geen onderzoek dat aantoont dat een why-boodschap het limbisch systeem sterker activeert dan een what-boodschap. Sinek geeft in dit hoofdstuk geen bronvermelding en presenteert de claim als vaststaand feit, terwijl zij in de vakliteratuur als verouderd geldt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen het boek is dat de biologische onderbouwing niet standhoudt, terwijl Sinek haar als doorslaggevend argument presenteert onder de hoofdstuktitel <i>This Is Not Opinion, This Is Biology</i>. Daarmee wekt het boek een wetenschappelijke zekerheid die het zelf niet levert.</p>
+      <p>Een tweede bezwaar betreft de selectie van voorbeelden. Voor elke geslaagde why-gedreven organisatie bestaan tegenvoorbeelden van bedrijven die zonder uitgesproken why groot zijn geworden, en van why-gedreven initiatieven die toch faalden; het boek noemt die niet. Succes wordt verklaard door een sterke why en falen door het ontbreken ervan, ook achteraf, wat de redenering moeilijk te weerleggen maakt binnen het eigen kader.</p>
+      <p>Het boek blijft verder vaag over hoe een lezer de eigen why vindt, buiten de suggestie om terug te kijken naar momenten die voldoening gaven. Concrete stappen komen pas in latere boeken en trainingsmateriaal van Sinek; wie hier op zoek is naar een uitgewerkte methode, vindt vooral het model en de casussen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer de eigen why in één zin die verder gaat dan winst of marktaandeel.</li>
+        <li>Toets aanwervingen, producten en communicatie aan die why voordat je ze naar buiten brengt.</li>
+        <li>Richt een nieuw initiatief eerst op mensen die de overtuiging al delen, voordat je de grootste doelgroep benadert.</li>
+        <li>Herhaal de why zichtbaar zodra de organisatie groeit, zodat nieuwe medewerkers haar meekrijgen naast wat en hoe.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Start with Why: How Great Leaders Inspire Everyone to Take Action</i> (Portfolio, New York, 2009, 246 blz., ISBN 9781591842804). Nederlands als <i>Begin met het waarom</i> (Business Contact, 2012, 240 blz., ISBN 9789047004943), vertaald door Vanja Walsmit.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Simon Sinek stelt dat de meeste organisaties communiceren van buiten naar binnen: eerst wat ze doen, dan hoe, zelden waarom. Hij vat het omgekeerde patroon van geïnspireerde leiders en bedrijven samen in de Gouden Cirkel, drie ringen met why binnenin, how in het midden en what buitenop. Apple noemt hij als voorbeeld van een bedrijf dat communiceert vanuit een overtuiging over het doorbreken van de gevestigde orde, met computers en telefoons als resultaat van die overtuiging, waardoor klanten ook nieuwe producten kopen zonder ze eerst met de concurrentie te vergelijken. Als tegenvoorbeeld noemt hij TiVo, dat met een geprezen product en veel kapitaal toch nooit een breed publiek bereikte omdat het bedrijf alleen functies opsomde.</p><p>Onder die voorbeelden legt Sinek een claim over de hersenen: het limbisch systeem stuurt gevoel en beslissingen en reageert op why, de neocortex verwerkt taal en feiten en hoort bij what. Hij onderbouwt zijn these verder met de gebroeders Wright, die zonder geld en zonder opleiding als eerste vlogen terwijl de rijkelijk gefinancierde Samuel Langley faalde, en met Martin Luther King, wiens toespraak op het National Mall een kwart miljoen mensen liet komen die niemand had uitgenodigd. Het boek combineert die casussen met instructies om de eigen why op te sporen en vast te houden zodra een organisatie groeit.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leiderschap</li><li>marketing</li><li>organisatiecultuur</li><li>zingeving</li><li>communicatie</li><li>management</li><li>motivatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Voor een tegenwicht vanuit de praktijk: Horowitz beschrijft besluiten die uit crisismanagement zonder goede opties volgen, niet uit een vooraf heldere why.</li>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Phil Knight beschrijft bij Nike een overtuiging die pas achteraf woorden kreeg, tegenover Sineks aanname dat de why aan het begin al helder moet zijn.</li>
+          <li value="42"><a href="42.html">The Five Dysfunctions of a Team</a>. Lencioni werkt uit hoe een team op elkaar ingespeeld raakt, als aanvulling op Sineks aandacht voor de why van de hele organisatie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

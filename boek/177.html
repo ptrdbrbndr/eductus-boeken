@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Master Your Emotions &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Meurisse stelt dat een emotie ontstaat uit de interpretatie van een gebeurtenis en uit het verhaal dat iemand zichzelf daarover vertelt, zelden…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-177">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">177 &middot; Gewoontes en denken</p>
+    <h1>Master Your Emotions</h1>
+    <p class="lede">Thibaut Meurisse, 2018</p>
+    <p class="stats">
+      <span><b>1503</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="177"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Meurisse stelt dat een emotie ontstaat uit de interpretatie van een gebeurtenis en uit het verhaal dat iemand zichzelf daarover vertelt, zelden rechtstreeks uit de gebeurtenis zelf. Dat verhaal wordt geschreven door wat hij het ego noemt: de zelfgevormde identiteit die van een ervaring een vaste betekenis maakt en die betekenis daarna telkens weer bevestigt. Wie leert dat verhaal bewust te herschrijven, oefent volgens hem narrative control, het bijsturen van de interpretatie waaruit een emotie voortkomt, eerder dan het bestrijden van de emotie zelf. Zijn claim is dat vrijwel elke aanhoudende negatieve emotie op die manier te ontmantelen valt, van wrok tot bezorgdheid, zolang iemand bereid is het eigen aandeel in de interpretatie onder ogen te zien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Emotie als optelsom, geen automatisme</h3>
+      <p>Meurisse opent met het onderscheid tussen wat er gebeurt en wat iemand daarvan maakt. Twee mensen die dezelfde tegenslag meemaken, een afwijzing, een file, een kritische opmerking, reageren volgens hem verschillend omdat ze de gebeurtenis anders interpreteren, zich met die interpretatie identificeren en de gedachte al dan niet herhalen. Een emotie die kort opkomt en weer wegebt noemt hij spontaan; een emotie die blijft hangen ontstaat door die herhaling.</p>
+      <p>Hij grijpt daarbij terug op de letterlijke betekenis van het woord emotie als energie in beweging, energie die vastloopt zodra ze wordt vastgehouden in plaats van erkend. Dat onderscheid tussen een emotie die voorbijgaat en een emotie die blijft hangen, keert in de rest van het boek terug als uitgangspunt voor bijna elke oefening.</p>
+      <h3>Hoe het lichaam meespeelt</h3>
+      <p>In het hoofdstuk over de werking van emoties beschrijft Meurisse in algemene termen de rol van de amygdala, die snel en zonder overleg op een prikkel reageert, tegenover de prefrontale cortex, die trager een reactie kan afremmen of bijsturen. Op die basis bouwt hij een pleidooi voor onderliggende gewoontes: slaaptekort, te weinig beweging, onregelmatige voeding en oppervlakkige ademhaling maken een lichaam volgens hem gevoeliger voor een heftige reactie, los van wat er die dag daadwerkelijk gebeurt.</p>
+      <p>De oefeningen in dit deel richten zich op het lichaam onder de gedachte: een vast slaapritme, dagelijkse beweging en een korte ademhalingsoefening bij een oplopende spanning.</p>
+      <h3>Het ego als scriptschrijver: narrative control</h3>
+      <p>De kern van het boek is het hoofdstuk waarin Meurisse het ego omschrijft als de zelfgevormde identiteit die, gevormd door eerdere ervaringen en gedachten, het verhaal schrijft waarmee iemand een gebeurtenis begrijpt. Dat script bepaalt wat iemand voelt bij een gebeurtenis en, doordat het bij herhaling wordt bevestigd, ook wat diezelfde persoon er de volgende keer bij voelt.</p>
+      <p>Narrative control is de vaardigheid om dat script bij te sturen: een gedachte bevragen voordat ze als waarheid wordt aangenomen, met vragen als of ze werkelijk klopt en wat de gebeurtenis nog meer zou kunnen betekenen, en een zin als 'ik faal altijd' vervangen door een zin die dichter bij de feiten blijft, zoals 'ik heb fouten gemaakt en leer daarvan'. Meurisse noemt dat geen vorm van positief denken, eerder een preciezere lezing van wat er gebeurd is.</p>
+      <h3>Anderen als bron van emotie</h3>
+      <p>Een apart hoofdstuk gaat over de invloed van de mensen in de omgeving van iemand op diens gemoedstoestand: een gespannen collega of een somber gezin werkt door in de eigen stemming, vaak zonder dat de betrokkene dat opmerkt. Meurisse pleit ervoor die invloed te herkennen en bewust te kiezen met wie iemand veel tijd doorbrengt, als aanvulling op het werk aan de eigen interpretatie.</p>
+      <p>Hij koppelt daar de vraag aan wie iemand zelf voor anderen is: wie de eigen negativiteit ongefilterd doorgeeft, versterkt bij de ander precies het patroon dat het boek elders probeert te doorbreken. Verantwoordelijkheid voor de eigen gemoedstoestand werkt volgens hem dus twee kanten op.</p>
+      <h3>Vaardigheden om bij te sturen</h3>
+      <p>De hoofdstukken over mindfulness, visualisatie en cognitieve herstructurering leggen elk een technische vaardigheid naast narrative control. Mindfulness is bij Meurisse het aandachtig en zonder oordeel opmerken van een gemoedstoestand voordat ze escaleert. Visualisatie is het je voor de geest halen van een gewenste uitkomst, als vaste ochtendoefening. Cognitieve herstructurering is het stapsgewijs vervangen van een storende gedachte door een gedachte die dichter bij de feiten staat en minder emotie oproept.</p>
+      <p>Elk hoofdstuk sluit af met een korte oefening, in lijn met de dertig-plus strategieën die het boek als geheel aanreikt.</p>
+      <h3>Van emotie naar zelfkennis</h3>
+      <p>In de slothoofdstukken behandelt Meurisse een reeks veelvoorkomende negatieve emoties, waaronder wrok, angst, uitstelgedrag en bezorgdheid, als signalen die iets aanwijzen over een onvervulde behoefte of een verwaarloosde grens, eerder dan als problemen die opgelost moeten worden.</p>
+      <p>Het boek eindigt met emotionele veerkracht als optelsom van de eerdere hoofdstukken: iemand die de eigen interpretatie kan bijsturen, het lichaam op orde houdt en negatieve emoties als informatie leest, bouwt volgens Meurisse aan een stabielere basis voor de lange termijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Narrative control</td><td>Het bewust herkaderen van het verhaal dat iemand zichzelf over een ervaring vertelt, in plaats van de emotie zelf te bestrijden.</td></tr>
+          <tr><td class="term">Ego als scriptschrijver</td><td>De zelfgevormde identiteit die volgens Meurisse het innerlijke verhaal schrijft waarmee iemand een ervaring interpreteert.</td></tr>
+          <tr><td class="term">Spontane emotie</td><td>Een emotie die opkomt en vanzelf wegebt, tegenover een emotie die blijft hangen door herhaling van de gedachte erachter.</td></tr>
+          <tr><td class="term">Emotie als energie in beweging</td><td>Meurisse omschrijft emotie letterlijk als energie die vastloopt zodra ze wordt onderdrukt in plaats van erkend.</td></tr>
+          <tr><td class="term">De waarnemer</td><td>Het besef dat iemand een emotie kan opmerken zonder ermee samen te vallen, als basis voor afstand nemen.</td></tr>
+          <tr><td class="term">Mindfulness</td><td>Aandachtig en zonder oordeel opmerken van de eigen gemoedstoestand voordat ze escaleert.</td></tr>
+          <tr><td class="term">Visualisatie</td><td>Je voor de geest halen van een gewenste uitkomst, als vaste oefening om een emotie een andere richting te geven.</td></tr>
+          <tr><td class="term">Cognitieve herstructurering</td><td>Een storende gedachte bevragen en vervangen door een gedachte die dichter bij de feiten blijft.</td></tr>
+          <tr><td class="term">Emotionele veerkracht</td><td>Het vermogen waarmee het boek afsluit, opgebouwd uit interpretatie bijsturen, het lichaam op orde houden en emoties als signaal lezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Meurisse onderbouwt zijn claims met verwijzingen naar hersenwerking, waaronder de amygdala en de prefrontale cortex, en met algemene bevindingen over slaap en beweging, zoals het verband tussen slaaptekort en een grotere gevoeligheid voor angst en somberheid. Die verwijzingen blijven functioneel: hij noemt geen onderzoekers bij naam, geen jaartallen en geen vindplaatsen, en het boek bevat geen notenapparaat of literatuurlijst. Wie de achterliggende bron wil controleren, moet daarvoor buiten het boek zoeken.</p>
+      <p>Het zwaartepunt van de onderbouwing ligt bij eigen ervaring en bij technieken die al vóór dit boek bestonden: cognitieve herstructurering komt uit de gedragstherapie, mindfulness uit de meditatietraditie, visualisatie uit de sportpsychologie. Meurisse past ze toe op emotieregulatie en verpakt ze in eigen taal, waaronder narrative control, maar claimt zelf niet dat hij ze heeft uitgevonden. De oefeningen zijn concreet genoeg om te proberen; of ze werken zoals beschreven, moet de lezer zelf nagaan, want het boek levert daarvoor geen metingen aan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De grootste zwakte is het ontbreken van bronvermelding bij uitspraken die wel als vaststaand worden gepresenteerd, zoals de rol van de amygdala of het effect van slaap op stemming. Dat zijn op zichzelf breed gedragen bevindingen uit de neurowetenschap, maar de lezer moet dat op gezag aannemen in plaats van kunnen natrekken.</p>
+      <p>Verder herhaalt het boek zich tussen hoofdstukken: dezelfde stap, een gedachte bevragen voordat ze wordt aangenomen, komt terug onder verschillende namen in het hoofdstuk over cognitieve herstructurering en in dat over narrative control, zonder dat het onderscheid tussen beide scherp wordt getrokken. Meurisse legt bovendien veel nadruk op keuze: geluk noemt hij een dagelijkse keuze. Die formulering werkt bij alledaagse tegenslag, maar biedt weinig houvast bij trauma of bij omstandigheden die iemand niet zelf heeft gekozen, en het boek erkent dat onderscheid niet.</p>
+      <p>Tot slot leunt het boek op zelfrapportage: de voorbeelden komen uit Meurisses eigen leven en uit gesprekken met cliënten die hij als coach begeleidde, zonder dat daar een systematische toetsing tegenover staat. De lezer moet de aanpak dus op eigen ervaring beproeven, want het boek biedt daar zelf geen onderzoek voor aan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bevraag een storende gedachte voordat ze wordt aangenomen: ga na of ze klopt en wat de gebeurtenis verder nog kan betekenen.</li>
+        <li>Noteer bij een aanhoudende emotie de aanleiding, de interpretatie en de herhaling die haar vasthoudt, niet alleen de emotie zelf.</li>
+        <li>Bouw een vast slaap-, beweeg- en ademhalingsritme in als basis onder emotieregulatie.</li>
+        <li>Behandel een terugkerende negatieve emotie, zoals wrok of uitstelgedrag, als signaal en vraag welke behoefte of grens erachter zit.</li>
+        <li>Kies bewust met wie veel tijd wordt doorgebracht: een aanhoudende gemoedstoestand van anderen werkt door in de eigen stemming.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Engels als <i>Master Your Emotions: A Practical Guide to Overcome Negativity and Better Manage Your Feelings</i>, zelfstandig uitgegeven (Independently Published, 16 mei 2018, ISBN 9781981089154), eerste deel van de Mastery Series; bronnen over het exacte aantal bladzijden lopen uiteen, dus dat getal staat hier niet. Van een Nederlandse vertaling is geen spoor: bibliotheek.nl kent geen titel van Meurisse, en Bruna, Libris en bol.com voeren enkel de Engelstalige editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Master Your Emotions is het eerste deel van Thibaut Meurisses Mastery Series en is sinds de verschijning in 2018 meer dan 400.000 keer verkocht en in ruim dertig talen vertaald. Het boek vertrekt van de gedachte dat een emotie ontstaat uit de interpretatie van een gebeurtenis en uit het verhaal dat iemand zichzelf daarover vertelt, zelden rechtstreeks uit de gebeurtenis zelf. Meurisse noemt het bijsturen van dat verhaal narrative control en behandelt het als een te trainen vaardigheid: wie leert welke gedachte aandacht verdient, kan een emotie ombuigen voordat ze zich vastzet. Hij bouwt dat uit met algemene verwijzingen naar hersenwerking, waaronder de amygdala en de prefrontale cortex, en met ervaring uit zijn eigen werk als auteur en coach.</p><p>Elk hoofdstuk sluit af met een oefening, van het bevragen van een storende gedachte tot het bijhouden van een dagboek van terugkerende emoties. Het boek behandelt ook de invloed van slaap, beweging en de mensen in de omgeving op de gemoedstoestand, en besteedt de laatste hoofdstukken aan het lezen van negatieve emoties als signaal. Van dit boek verscheen geen Nederlandse vertaling: een zoekopdracht op bibliotheek.nl levert geen titel van Meurisse op, en de Nederlandse boekhandel voert alleen de Engelstalige editie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>emoties</li><li>zelfhulp</li><li>gedachten</li><li>mindfulness</li><li>zelfregulatie</li><li>veerkracht</li><li>cognitieve herstructurering</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="153"><a href="153.html">Control Your Emotions</a>. King werkt hetzelfde onderwerp gedetailleerder uit met een vast model van aanleiding, gedrag en gevolg en vijf reactiestrategieën, waar Meurisse dertig-plus losse strategieën naast elkaar zet.</li>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Dobelli beschrijft de denkfouten die verklaren waarom een gedachte zich gezaghebbend voordoet ook wanneer ze niet klopt, het mechanisme dat Meurisse bij narrative control veronderstelt zonder het zelf te benoemen.</li>
+          <li value="148"><a href="148.html">Your Biggest Enemy Is Your Uncontrolled Mind</a>. Khan behandelt dezelfde overtuiging dat een gedachte niet automatisch waar is enkel omdat ze opkomt, bouwt daar echter geen herkenbare methode omheen zoals Meurisse dat met narrative control doet.</li>
+          <li value="161"><a href="161.html">Stop Doing That Sh*t</a>. Bishop plaatst een vergelijkbaar mechanisme bij het ego: drie conclusies uit de kindertijd die als filter werken, waar Meurisse spreekt van een ego dat het hele verhaal schrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
