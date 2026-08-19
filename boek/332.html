@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jaws: The Story of a Hidden Epidemic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kahn en Ehrlich stellen dat de menselijke kaak sinds de industrialisatie zichtbaar kleiner is geworden terwijl de tanden hun oorspronkelijke afmeting…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-332">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">332 &middot; Brein en lichaam</p>
+    <h1>Jaws: The Story of a Hidden Epidemic</h1>
+    <p class="lede">Sandra Kahn en Paul R. Ehrlich, 2018</p>
+    <p class="stats">
+      <span><b>1450</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="332"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kahn en Ehrlich stellen dat de menselijke kaak sinds de industrialisatie zichtbaar kleiner is geworden terwijl de tanden hun oorspronkelijke afmeting hielden, met scheve en te dicht opeengepakte gebitten als gevolg voor een meerderheid van de westerse bevolking. Zij noemen dat geen cosmetisch ongemak maar een verborgen epidemie, omdat een te kleine kaak de luchtweg vernauwt en zo mondademen, gestoorde slaap en op termijn cardiovasculaire schade in de hand werkt. De oorzaak zoeken zij niet in de genen maar in hoe modern leven de kaak laat groeien: zacht bewerkt voedsel, flesvoeding en een mondhouding waarbij de tong niet meer tegen het gehemelte rust. Wie dat aanvaardt, moet ook aanvaarden dat de gangbare orthodontie volgens hen het verkeerde probleem oplost, want zij zet tanden recht zonder de kaak die ze moet dragen te laten groeien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een epidemie die niemand als epidemie ziet</h3>
+      <p>Kahn deed haar afstudeeronderzoek aan Berkeley in fysische antropologie en menselijke schedelgroei voordat zij orthodontiste werd; Ehrlich is bioloog en werd bekend door zijn boek over bevolkingsgroei uit 1968. Samen openen zij met een vergelijking tussen schedelverzamelingen: pre-industriële en niet-westerse populaties vertonen vrijwel altijd volle tandbogen met ruimte voor alle kiezen, verstandskiezen inbegrepen.</p>
+      <p>Bij hedendaagse westerse schedels is dat beeld omgekeerd. Scheve tanden, te weinig ruimte en het routinematig trekken van verstandskiezen worden als vanzelfsprekend ervaren, terwijl dat volgens de auteurs pas een verschijnsel van de laatste anderhalve eeuw is.</p>
+      <h3>Kauwen als bouwsteen</h3>
+      <p>Het mechanisme dat zij voorstellen is mechanisch: kaakbot reageert, net als ander bot, op herhaalde belasting tijdens de kindertijd. Stevig, vezelrijk voedsel dat veel kauwbewegingen en kauwkracht vraagt, stimuleert de kaak om zich naar voren en opzij te ontwikkelen tot haar volle omvang.</p>
+      <p>Sinds bewerkt en zacht voedsel de norm werd, valt die prikkel grotendeels weg. De tanden zelf, waarvan de grootte grotendeels erfelijk vastligt, groeien wel door tot hun normale omvang, met een kaak die er te klein voor blijft en dus verdringing van tanden als resultaat.</p>
+      <h3>Voeding, houding en het huis</h3>
+      <p>In een breder hoofdstuk noemen de auteurs drie samenhangende veranderingen: het dieet werd zachter en bewerkter, de lichaamshouding verschoof van actief en buiten naar zittend en binnen, en de gebouwde omgeving bracht nieuwe blootstelling aan stof en allergenen die de neus vaker verstoppen.</p>
+      <p>Ook flesvoeding komt hier terug: zij vraagt minder tong- en kaakinspanning van een zuigeling dan borstvoeding, wat volgens hen al in de eerste levensmaanden aan het patroon bijdraagt.</p>
+      <h3>Mondhouding en mondademen</h3>
+      <p>Centraal staat de theorie van de mondhouding: de tong die in rust tegen het gehemelte drukt, werkt als een inwendige mal die het gehemelte tijdens de groei verbreedt. Zodra de neus verstopt raakt, door allergie, vergrote amandelen of gewoonte, zakt de tong, verschuift de ademhaling naar de mond en blijft het gehemelte smal en hoog.</p>
+      <p>Kahn illustreert dat met fotoreeksen van eigen patiënten bij wie het gezicht in de loop van de kindertijd langer en smaller werd, een patroon dat in de vakliteratuur wel het 'adenoïde gelaat' heet.</p>
+      <h3>Slaap en adem: de gezondheidsgevolgen</h3>
+      <p>Een vernauwde luchtweg werkt door in de slaap. De auteurs bespreken snurken en obstructieve slaapapneu bij kinderen, met gevolgen voor concentratie en gedrag overdag, en bij volwassenen met dezelfde anatomie een verhoogd risico op slaapapneu, hoge bloeddruk en jarenlange belasting van hart en vaten.</p>
+      <p>Daarmee tillen zij het onderwerp uit de spreekkamer van de tandarts naar de huisartsenpraktijk, en dat is de kern van hun claim dat het om meer dan uiterlijk gaat.</p>
+      <h3>Orthotropie tegenover orthodontie</h3>
+      <p>Tegenover de gangbare orthodontie, die tanden met beugels rechtzet en soms elementen trekt om ruimte te maken, zetten zij orthotropie: een methode ontwikkeld door de Britse orthodontist John Mew, bij wie Kahn zelf heeft gestudeerd en die zij nu zelf toepast. Met apparatuur en myofunctionele oefeningen wil die de kaak tijdens de groeijaren naar voren sturen, vóór de groeischijven zich sluiten.</p>
+      <p>Het laatste hoofdstuk vertaalt dat naar praktische aanwijzingen: stevig voedsel geven, borstvoeding aanmoedigen, een verstopte neus vroeg laten behandelen en kinderen laten screenen op mondademen. De auteurs benadrukken daarbij dat het venster voor orthotropie beperkt is: zodra de groeischijven van de kaak zich in de puberteit sluiten, is bijsturen langs deze weg volgens hen niet meer mogelijk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Malocclusie</td><td>De verkeerde stand van tanden ten opzichte van elkaar en de kaken, met te weinig ruimte als gevolg van een te kleine kaak.</td></tr>
+          <tr><td class="term">Mondademen</td><td>Ademen door de mond in plaats van door de neus, door de auteurs gezien als zowel oorzaak als gevolg van een vernauwde luchtweg.</td></tr>
+          <tr><td class="term">Mondhouding</td><td>De rustpositie van tong, lippen en kaak; een tong tegen het gehemelte zou de kaak tijdens de groei verbreden.</td></tr>
+          <tr><td class="term">Orthotropie</td><td>De door John Mew ontwikkelde methode om de kaak tijdens de groei naar voren te sturen, in plaats van tanden achteraf recht te zetten.</td></tr>
+          <tr><td class="term">Myofunctionele therapie</td><td>Oefeningen voor tong- en mondspieren, bedoeld om neusademen en een juiste mondhouding aan te leren.</td></tr>
+          <tr><td class="term">Obstructieve slaapapneu</td><td>Herhaalde onderbrekingen van de ademhaling tijdens slaap door een vernauwde luchtweg.</td></tr>
+          <tr><td class="term">Kauwbelasting</td><td>De mechanische kracht die tijdens het kauwen op de kaak werkt en die volgens de auteurs de omvang van de groei stuurt.</td></tr>
+          <tr><td class="term">Adenoïde gelaat</td><td>Het langwerpige, smalle gezicht dat volgens de auteurs ontstaat bij chronisch mondademen in de kindertijd.</td></tr>
+          <tr><td class="term">Groeivenster</td><td>De periode vóór de kaakgroeischijven zich sluiten, waarbinnen orthotropie volgens de auteurs nog effect zou kunnen hebben.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De sterkste kant van het bewijs is vergelijkend: schedelcollecties van pre-industriële en niet-westerse populaties tonen consistent volle tandbogen, een patroon dat antropologen, onder wie Kahn zelf tijdens haar studie, in veel verschillende populaties hebben vastgesteld. Dat er iets is veranderd, staat op basis daarvan vrij stevig.</p>
+      <p>Het mechanisme dat mondademen de kaakgroei verstoort, steunt zwaarder op één veelgeciteerd experiment uit de jaren zeventig, waarin de neus van rhesusapen werd afgeplakt zodat zij gedwongen door de mond ademden, met een veranderde gezichtsgroei tot gevolg. Dat is één dierstudie van decennia geleden, om ethische redenen niet direct in mensen herhaald, en functioneert in het boek eerder als illustratie dan als sluitend bewijs.</p>
+      <p>Voor orthotropie als behandeling specifiek leunt het boek vooral op patiëntverhalen en fotoreeksen uit Kahns eigen praktijk, niet op gepubliceerde vergelijkende studies tegenover reguliere orthodontie. Recensenten uit de orthodontische vakliteratuur, onder wie de hoogleraren Proffit en Ackerman, stellen dat de claim dat apparatuur de kaak voorbij haar genetisch bepaalde koers naar voren kan laten groeien, niet wordt gedragen door de peer-reviewed literatuur.</p>
+      <p>Ook de herkomst van de methode zelf is niet neutraal: John Mew, bij wie Kahn opleidde, publiceerde zijn 'tropic premise' vooral in theoretische en filosofische stukken en leverde zelf geen gecontroleerde klinische trials aan die zijn critici vroegen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat een reële correlatie, tussen malocclusie, mondademen en slechte slaap, wordt gekoppeld aan een specifieke, omstreden behandeling. Dat orthotropie de kaak daadwerkelijk kan laten doorgroeien voorbij haar aanleg, wordt door vakgenoten buiten de school van Mew niet onderschreven.</p>
+      <p>De reputatie van de school waaruit orthotropie voortkomt, is bovendien belast: de Britse tuchtinstantie voor tandartsen schrapte John Mew in 2017 van het register wegens misleidende reclame, en schrapte in 2024 ook zijn zoon Michael Mew, die de methode via de internettrend 'mewing' populair maakte, wegens ondeskundige behandeling van een jong kind. Dat bewijst niets over de onderliggende theorie, maar het relativeert wel het gezag waarmee het boek die theorie aanhaalt.</p>
+      <p>Er is bovendien een belangenverstrengeling die het boek niet expliciet maakt: Kahn behandelt patiënten met de methode die het boek aanprijst, en de overtuigendste voorbeelden komen uit haar eigen praktijk. Een lezer kan een zelf geselecteerd succesverhaal niet onderscheiden van een gecontroleerde uitkomst.</p>
+      <p>De omvang van de 'epidemie' zelf rust op schedelvergelijkingen en klinische anekdote, niet op gestandaardiseerde bevolkingsdata die de prevalentie van malocclusie over een eeuw volgen; zulke cijfers bestaan niet, en dat maakt het woord epidemie suggestiever dan gemeten.</p>
+      <p>Ten slotte onderschat het boek volgens de gangbare orthodontische opvatting het aandeel van erfelijkheid in kaakvorm en kaakgrootte, die daar als sterk bepalend gelden en niet louter als een kader waarbinnen omgeving vrij spel heeft.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Laat een kind vroeg controleren op mondademen en een verstopte neus, in plaats van te wachten tot het gebit al scheefstaat.</li>
+        <li>Geef kinderen voedsel dat kauwen vraagt, naast en niet in plaats van de rest van een evenwichtig dieet.</li>
+        <li>Vraag bij een orthodontische behandeling niet alleen naar het rechtzetten van tanden, maar ook naar de oorzaak van de ruimte die ontbreekt.</li>
+        <li>Weeg een claim over orthotropie af tegen de bredere orthodontische vakliteratuur voordat je op basis van dit boek alleen een behandelkeuze maakt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Jaws: The Story of a Hidden Epidemic</i> (Stanford University Press, 2018, 197 blz., ISBN 9781503604131; paperback-editie 2020, ISBN 9781503613584). Geen Nederlandse uitgave bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Orthodontiste Sandra Kahn en evolutiebioloog Paul R. Ehrlich (bekend van <i>The Population Bomb</i>) betogen dat de menselijke kaak in twee tot drie generaties merkbaar kleiner is geworden terwijl het gebit dezelfde grootte hield. Het gevolg is scheve, te dicht opeengepakte tanden bij een meerderheid van de westerse bevolking, iets wat inmiddels als normaal geldt maar dat volgens hen bij vrijwel geen enkele pre-industriële schedel te zien is.</p><p>Zij zoeken de oorzaak niet in erfelijkheid maar in hoe modern leven de kaak laat groeien: zacht bewerkt voedsel dat weinig kauwkracht vraagt, flesvoeding in plaats van borstvoeding, en een verschoven mondhouding waarbij kinderen vaker door de mond dan door de neus ademen. Een te kleine kaak vernauwt de luchtweg, en dat koppelen zij aan slaapstoornissen tot ver in de volwassenheid. Als remedie bepleiten zij orthotropie, een methode die tanden niet achteraf rechtzet maar de kaak tijdens de groei stuurt, iets waar de gevestigde orthodontie kritisch tegenover staat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kaakontwikkeling</li><li>ademhaling</li><li>evolutie</li><li>orthodontie</li><li>slaapapneu</li><li>voeding</li><li>gezondheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. Nestor onderzoekt dezelfde vernauwde luchtweg vanuit ademtechniek in plaats van kaakgroei, met net als hier veel nadruk op de neus.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker plaatst de slaapstoornissen die dit boek aan de kaak koppelt in de bredere gezondheidsschade van slecht slapen.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari beschrijft de kloof tussen evolutionair verleden en modern leven waarvan Kahn en Ehrlich de kaak als één concreet voorbeeld behandelen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

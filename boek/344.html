@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Last Word on Power &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat leidinggevenden die het onmogelijke moeten laten gebeuren, niet geholpen zijn met een betere versie van zichzelf. Iedereen die ooit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-344">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">344 &middot; Geld en ondernemen</p>
+    <h1>The Last Word on Power</h1>
+    <p class="lede">Tracy Goss, 1996</p>
+    <p class="stats">
+      <span><b>1424</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="344"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat leidinggevenden die het onmogelijke moeten laten gebeuren, niet geholpen zijn met een betere versie van zichzelf. Iedereen die ooit succesvol is geweest, heeft daarvoor een onbewuste formule ontwikkeld die Goss de Winning Strategy noemt: een vaste manier van luisteren, handelen en beoordelen die in het verleden werkte en die precies daarom de grens wordt van wat er nu nog kan. Verbetering binnen die formule levert alleen een grotere versie van hetzelfde resultaat op. Om iets te laten gebeuren dat vanuit de huidige situatie onmogelijk lijkt, moet een leidinggevende de formule zelf loslaten en spreken vanuit een toekomst die nergens uit voortvloeit, in plaats van vanuit een verbeterd verleden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De methode achter het boek</h3>
+      <p>Goss ontwikkelde het Executive Re-Invention Program als adviseur van topbestuurders en bouwt daarbij voort op het gedachtegoed van Werner Erhard, oprichter van est en de Landmark Forum, en van de Chileense filosoof en informaticus Fernando Flores. Beiden worden in het boek als leermeesters genoemd. De achtergrond is een stroming die taal niet ziet als beschrijving van de werkelijkheid, maar als iets dat werkelijkheid mede voortbrengt: wie iets hardop verklaart, verandert daarmee wat er voor hem of haar mogelijk is.</p>
+      <h3>De Winning Strategy blootleggen</h3>
+      <p>Elke Winning Strategy volgt bij Goss dezelfde vorm: luisteren naar iets specifieks, daardoor een vaste manier van handelen, om een onderliggende behoefte veilig te stellen. Een van haar voorbeelden is een cliënt die luistert naar de grootst mogelijke uitdaging in een gesprek en daarop reageert door tegen te spreken, om te voorkomen dat hij ooit als gewoon wordt gezien. Zo'n patroon verklaart succes in de ene situatie en falen in de andere, en blijft voor de drager zelf onzichtbaar omdat het aanvoelt als wie hij is, niet als een strategie die hij ooit heeft aangeleerd.</p>
+      <h3>Het Universal Human Paradigm</h3>
+      <p>Onder de Winning Strategy ligt volgens Goss een grotere, gedeelde aanname die ze het Universal Human Paradigm noemt: het idee dat er een manier is waarop dingen zouden moeten zijn, en dat afwijking daarvan iemands schuld is, van zichzelf, van een ander of van de omstandigheden. Dat patroon houdt mensen vast in een kringloop van interpreteren en beoordelen. Goss noemt die kringloop een verslaving, omdat elke nieuwe interpretatie opnieuw bevestigt wat iemand al dacht en zo het patroon versterkt in plaats van doorbreekt.</p>
+      <h3>Alles op het spel zetten</h3>
+      <p>De stap die Goss het zwaarst laat wegen, is het risico nemen van de eigen verworven identiteit: de reputatie, de bevoegdheid en de manier van optreden die iemand tot een geloofwaardige bestuurder hebben gemaakt. Zolang die identiteit overeind moet blijven, blijft ook de Winning Strategy erachter overeind, want zij is precies waarmee die identiteit is opgebouwd. Pas wanneer een leidinggevende bereid is dat te verliezen, ontstaat er volgens het boek ruimte voor een ander paradigma.</p>
+      <h3>Het Re-Invention Paradigm en de verklaring</h3>
+      <p>Het alternatief dat Goss aanreikt, noemt ze het Re-Invention Paradigm. Kern daarvan is de declaration: een uitspraak die geen beschrijving is van iets dat al zo is, maar die vanaf het moment van uitspreken een nieuwe mogelijkheid opent. Wie zo'n verklaring doet, gaat er niet naartoe vanuit het heden, maar spreekt vanuit die toekomst, alsof ze er al is, en handelt vervolgens terug naar het huidige moment. Goss noemt dat werken backward from the future in plaats van forward from the present.</p>
+      <h3>Van verklaring naar werkelijkheid</h3>
+      <p>Een verklaring alleen verandert niets als er niemand naar handelt. Goss werkt daarom met verzoeken en beloften als het bindmiddel tussen mogelijkheid en werkelijkheid: een verzoek heeft pas gewicht als er een toegewijde spreker, een luisteraar, specifieke voorwaarden en een termijn zijn, en een belofte is pas een belofte als iemand bereid is de consequenties te dragen wanneer hij zich er niet aan houdt. Zo krijgt een verklaring die aanvankelijk alleen taal is, een weg naar de praktijk van een organisatie.</p>
+      <h3>Rackets en het herkennen van de haak</h3>
+      <p>Het boek besteedt aandacht aan wat Goss rackets noemt: terugkerende gedragspatronen, zoals altijd gelijk willen hebben of de schuld bij een ander leggen, die op korte termijn een voordeel opleveren maar op langere termijn gezondheid, relaties en het eigen functioneren ondermijnen. Ze beschrijft ook het moment waarop een gebeurtenis een emotionele reactie oproept als het 'hooked' raken: wie dat moment leert herkennen voordat hij erop reageert, houdt volgens haar de keuze om vanuit de verklaring te blijven handelen in plaats van vanuit het oude patroon.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Winning Strategy</td><td>De onbewuste formule van luisteren, handelen en doel die iemands eerdere succes verklaart en tegelijk de grens wordt van wat hij nu nog kan bereiken.</td></tr>
+          <tr><td class="term">Universal Human Paradigm</td><td>De gedeelde, onbewuste aanname dat er een juiste manier is waarop dingen zouden moeten zijn, en dat afwijking daarvan aan iemand of iets te wijten is.</td></tr>
+          <tr><td class="term">Re-Invention Paradigm</td><td>Het alternatieve kader waarin een leidinggevende niet vanuit het verleden verbetert, maar vanuit een verklaarde toekomst handelt.</td></tr>
+          <tr><td class="term">Declaration</td><td>Een uitspraak die niet beschrijft wat al zo is, maar die vanaf het moment van uitspreken zelf een nieuwe mogelijkheid opent.</td></tr>
+          <tr><td class="term">Backward from the future</td><td>De werkwijze om vanuit een verklaarde, nog niet bestaande toekomst terug te redeneren naar wat er nu voor nodig is, in plaats van vanuit het heden vooruit te plannen.</td></tr>
+          <tr><td class="term">Hooked raken</td><td>Het moment waarop een gebeurtenis automatisch een oude emotionele reactie oproept, voordat er ruimte is voor een andere keuze.</td></tr>
+          <tr><td class="term">Rackets</td><td>Terugkerende gedragspatronen met een kortetermijnvoordeel, zoals gelijk willen hebben, die op langere termijn een hoge prijs vragen.</td></tr>
+          <tr><td class="term">Conversation for action</td><td>Het stelsel van verzoeken en beloften waarmee een verklaring wordt omgezet in concrete afspraken tussen mensen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust niet op onderzoek maar op Goss' eigen praktijk als adviseur: ze put uit haar Executive Re-Invention Program, waarin ze topbestuurders begeleidde, en uit gesprekken en cases uit die begeleiding. Namen van bedrijven of exacte aantallen deelnemers noemt ze niet, waardoor de voorbeelden illustratief blijven en niet te verifiëren zijn.</p>
+      <p>De theoretische basis is wel met naam te herleiden. Goss erkent in het boek zelf de invloed van Werner Erhard en Fernando Flores, en via hen de taalfilosofie over de werking van uitspraken en Heideggers denken over openheid en mogelijkheid. Dat maakt het boek een toegepaste, voor een zakelijk publiek herschreven versie van een bestaande filosofische en therapeutische traditie, geen oorspronkelijk model.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de herkomst. Erhards est-training en de latere Landmark Forum worden al decennia beschreven als grensoverschrijdend in hun groepsdruk en zijn door voormalige deelnemers vergeleken met een sekte; Goss neemt de vocabulaire en de werkwijze van die traditie over zonder dat in het boek zelf te bespreken. Wie het boek zonder die achtergrond leest, mist een deel van de context waarin de methode is ontstaan.</p>
+      <p>Ook los van die herkomst blijft de onderbouwing dun. Er staan geen namen, cijfers of gecontroleerde uitkomsten in, alleen samengevatte gesprekken die Goss zelf heeft gevoerd en geïnterpreteerd. Voor wie al vertrouwd is met de taal van coaching en Landmark oogt het overtuigend; voor wie dat niet is, kan dezelfde tekst aandoen als jargon voor een simpel advies: kijk naar het eigen vaste patroon en probeer iets anders.</p>
+      <p>Het advies is bovendien geschreven voor een smalle groep: bestuurders met de positie, het budget en de speelruimte om zichzelf zo ingrijpend te heroverwegen. Wat er gebeurt als een verklaring op weerstand stuit van collega's of een raad van bestuur die niet in hetzelfde paradigma meedenken, blijft in het boek onderbelicht. Ook het risico dat een 'onmogelijke' verklaring op niets uitloopt en de bestuurder juist geloofwaardigheid kost, komt in het boek nauwelijks aan bod; Goss beschrijft vooral de gevallen waarin de methode wel werkte.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf de eigen Winning Strategy in de vorm: ik luister naar …, ik handel door …, om te bereiken dat …</li>
+        <li>Ga na welke recente mislukking is toegeschreven aan een ander of aan de omstandigheden, en onderzoek wat het eigen aandeel daarin was.</li>
+        <li>Formuleer een verklaring voor een concreet doel die niet volgt uit de huidige stand van zaken, en bepaal welk verzoek daarvoor als eerste nodig is.</li>
+        <li>Let op het moment waarop een opmerking van een ander een oude reactie oproept, voordat er gereageerd wordt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Last Word on Power: Executive Re-Invention for Leaders Who Must Make the Impossible Happen</i> (Currency/Doubleday, 1996, 272 blz., ISBN 9780385474924). Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tracy Goss was jarenlang adviseur van topbestuurders en bouwde daarvoor een eigen programma, het Executive Re-Invention Program. In dit boek maakt ze dat programma voor het eerst toegankelijk voor een breder publiek. Haar uitgangspunt is dat leidinggevenden die iets moeten laten gebeuren dat binnen de huidige situatie onmogelijk lijkt, niet geholpen zijn met een betere versie van de aanpak die hen tot dan toe succesvol maakte.</p><p>Elke leidinggevende heeft volgens Goss een onbewuste Winning Strategy: een vaste formule van luisteren, handelen en beoordelen die eerder succes verklaart en tegelijk de grens wordt van wat er nu nog kan. Het boek reikt een methode aan om die formule zichtbaar te maken en om vervolgens te handelen vanuit een verklaarde toekomst in plaats van vanuit een verbeterd verleden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leiderschap</li><li>reïnventie</li><li>ontologie</li><li>taal en macht</li><li>landmark forum</li><li>executives</li><li>zelfsabotage</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="75"><a href="75.html">Ego Is the Enemy</a>. Ego Is the Enemy behandelt vanuit een andere traditie hetzelfde probleem: een identiteit die succes heeft opgeleverd, wordt de rem op wat er daarna nog kan.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. The Hard Thing About Hard Things laat zien hoe een bestuurder in de praktijk tegen de grenzen van een vertrouwde aanpak aanloopt, zonder het vocabulaire van Goss.</li>
+          <li value="270"><a href="270.html">Principles</a>. Principles biedt een ander persoonlijk besturingssysteem voor beslissingen, opgebouwd uit vastgelegde regels in plaats van een verklaarde toekomst.</li>
+          <li value="258"><a href="258.html">The Laws of Human Nature</a>. The Laws of Human Nature beschrijft de vaste gedragspatronen die Goss rackets noemt, vanuit een bredere psychologische invalshoek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

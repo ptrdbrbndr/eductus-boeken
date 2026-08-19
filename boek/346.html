@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Book of Five Rings &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat zwaardvechten geen losse verzameling technieken is maar een Weg die niet verschilt van andere vormen van vakmanschap: wie de strategie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-346">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">346 &middot; Vakmanschap en aandacht</p>
+    <h1>The Book of Five Rings</h1>
+    <p class="lede">Miyamoto Musashi, ca. 1645</p>
+    <p class="stats">
+      <span><b>1300</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="346"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat zwaardvechten geen losse verzameling technieken is maar een Weg die niet verschilt van andere vormen van vakmanschap: wie de strategie van het duel werkelijk doorgrondt, doorgrondt tegelijk hoe een timmerman zijn gereedschap kiest, hoe een veldheer een leger opstelt en hoe een mens zich verhoudt tot leven en dood. Musashi schreef dit vlak voor zijn dood als afrekening met scholen die het zwaardvechten volgens hem tot uiterlijk vertoon en verkoopbare vormen hadden verlaagd, en als vastlegging van wat hijzelf in tientallen duels zonder nederlaag had geleerd: dat overwinning ontstaat uit timing, uit een houding die zich nergens op vastlegt, en uit een geest die zich aan niets vasthoudt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een leven van duels</h3>
+      <p>Miyamoto Musashi werd in 1584 geboren en vocht naar eigen zeggen zijn eerste duel op zijn dertiende, dat hij won. Daarna volgden tientallen andere gevechten, met en zonder scherp zwaard, tot zijn beroemdste treffen in 1612 op het eiland Ganryūjima tegen Sasaki Kojirō, een zwaardvechter die bekendstond om zijn snelle techniek met een lang zwaard. Musashi kwam opzettelijk te laat, verscheen met een uit een roeispaan gesneden houten zwaard en versloeg Kojirō in enkele slagen. Volgens de overlevering verloor hij in meer dan zestig van dat soort ontmoetingen geen enkele keer.</p>
+      <p>Later in zijn leven trok Musashi zich terug uit het vechten zelf en richtte hij de Niten Ichi-ryū op, een stijl die de gelijktijdige inzet van een lang en een kort zwaard onderwijst, tegen de gangbare gewoonte om het lange zwaard met twee handen te voeren.</p>
+      <h3>Het ontstaan van de tekst</h3>
+      <p>In 1643 trok Musashi zich terug in de grot Reigandō bij Kumamoto, op het eiland Kyushu. Daar schreef hij tussen 1643 en 1645 <i>Go Rin no Sho</i>, dat hij enkele weken voor zijn dood aan zijn leerling Terao Magonojo overhandigde. Het origineel is niet bewaard gebleven; wat er nu van het boek bestaat, gaat terug op latere afschriften.</p>
+      <h3>Aarde: de grondslag van de Weg</h3>
+      <p>Het boek Aarde legt uit waarom Musashi strategie via het zwaardvechten onderwijst: het is het vak waarin hij zelf is getoetst, en het staat volgens hem model voor elke andere krijgskunst en voor elk ander vakmanschap dat om beheersing en timing draait. Hij vergelijkt de opbouw van een strategie met die van een timmerman die zijn gereedschap kiest en zijn hout beoordeelt voordat hij begint te bouwen.</p>
+      <h3>Water en Vuur: houding, blik en gevecht</h3>
+      <p>Het boek Water beschrijft de innerlijke en lichamelijke houding tijdens het gevecht: een geest die niet vastzit aan één gedachte of emotie, en een blik die Musashi opdeelt in ken, het gewone kijken naar wat dichtbij is, en kan, het waarnemen op afstand van wat er werkelijk gebeurt. Van die twee moet volgens hem de tweede sterk zijn en de eerste zwak.</p>
+      <p>Het boek Vuur gaat over het gevecht zelf, van het duel tussen twee mensen tot de veldslag tussen legers, en werkt met het begrip hyōshi, ritme: elke tegenstander en elke situatie heeft een eigen tempo, en wie dat tempo doorbreekt of naar zijn hand zet, wint eerder dan wie sneller of sterker is.</p>
+      <h3>Wind en Leegte: andere scholen en het einde van vaste vorm</h3>
+      <p>In het boek Wind zet Musashi zich af tegen andere zwaardscholen van zijn tijd, die zich volgens hem vastleggen op één lang zwaard, één afstand of één vaste reeks technieken, en daarmee een stijl tot doel op zich maken in plaats van een middel om te winnen.</p>
+      <p>Het korte boek Leegte sluit het geschrift af met de constatering dat wie de Weg volledig heeft doorlopen, niet langer een vaste vorm nodig heeft: hij handelt vanuit een geest zonder gehechtheid aan een techniek, een school of een verwachting, en juist daarin ligt volgens Musashi de vrijheid die eerder in het boek stap voor stap is opgebouwd.</p>
+      <h3>Van zwaardschool tot managementboek</h3>
+      <p>In het Westen kreeg het boek pas een lezerspubliek na de eerste Engelse vertaling door Victor Harris in 1974. Vanaf de jaren tachtig werd het, naast <i>The Art of War</i>, gelezen als bron voor bedrijfsstrategie en leiderschap, een gebruik dat met de oorspronkelijke context van een op zichzelf staand duel weinig te maken heeft, maar dat de blijvende verspreiding van de tekst wel verklaart.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Go Rin no Sho</td><td>De Japanse titel van het geschrift, letterlijk het boek van de vijf ringen, genoemd naar de vijf elementen waarnaar Musashi zijn hoofdstukken vernoemt.</td></tr>
+          <tr><td class="term">Niten Ichi-ryū</td><td>De zwaardschool die Musashi oprichtte, die het gelijktijdig voeren van een lang en een kort zwaard onderwijst.</td></tr>
+          <tr><td class="term">Ken en kan</td><td>Musashi's onderscheid tussen het gewone kijken naar wat dichtbij is (ken) en het waarnemen op afstand van wat er werkelijk speelt (kan), waarvan de tweede sterk moet zijn.</td></tr>
+          <tr><td class="term">Hyōshi</td><td>Ritme: het eigen tempo van een tegenstander of een situatie, dat een strateeg volgens Musashi moet doorzien en kan doorbreken.</td></tr>
+          <tr><td class="term">De Weg</td><td>Musashi's aanduiding voor strategie als een levenslange discipline, gelijk aan die van elk ander vakmanschap, niet als een verzameling losse technieken.</td></tr>
+          <tr><td class="term">Leegte</td><td>De staat waarin een strateeg niet langer vasthoudt aan een vaste vorm, techniek of verwachting, en die het laatste van de vijf boeken bespreekt.</td></tr>
+          <tr><td class="term">Vaste stijl</td><td>De gewoonte van andere zwaardscholen om zich toe te leggen op één wapen, afstand of reeks technieken, die Musashi in het boek Wind bekritiseert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op Musashi's eigen ervaring in tientallen duels, zoals hij die zelf in de inleiding opgeeft, en niet op een lessenreeks van een school waartoe hij zich rekent: hij schrijft uitdrukkelijk vanuit de overtuiging dat hij als enige de Weg volledig heeft doorgrond. Die claim is voor latere lezers niet te verifiëren; wat wel vaststaat, is dat de tekst kort voor zijn dood aan een vertrouwde leerling is overhandigd en dat het origineel niet bewaard is gebleven, zodat de bestaande versies op afschriften teruggaan.</p>
+      <p>Voor de biografische gegevens over de duels, waaronder dat met Sasaki Kojirō, bestaan geen documenten uit Musashi's eigen tijd; de details zijn overgeleverd via latere biografieën en de mondelinge overlevering van zijn school, en zijn in de eeuwen erna verder aangedikt door romans en verfilmingen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is geschreven voor leerlingen van een specifieke zwaardschool in een specifieke tijd, met veel passages over zwaardlengte, handgrepen en stanshoudingen die voor een lezer zonder zwaardtraining weinig meer zijn dan technisch jargon. Wie het als managementboek leest, slaat die passages doorgaans over en houdt vooral de algemene uitspraken over timing, aandacht en het niet vasthouden aan een vaste vorm over, waardoor het boek in de praktijk vaak platter wordt gelezen dan het is.</p>
+      <p>De vertaling naar bedrijfsstrategie, populair sinds de jaren tachtig, is een latere toevoeging die met Musashi's eigen bedoeling weinig te maken heeft: hij schreef voor zwaardvechters die letterlijk hun leven op het spel zetten, niet voor bestuurders die een vergadering willen winnen. Die overdracht maakt het boek toegankelijker, maar ook makkelijker om te lezen als een verzameling losse aforismen in plaats van als het samenhangende geheel dat het is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng bij een terugkerend conflict of een onderhandeling het eigen ritme en dat van de tegenpartij in kaart, en let op het moment waarop dat ritme wordt doorbroken.</li>
+        <li>Onderzoek welke vaste gewoonte of vorm in het eigen werk inmiddels doel op zich is geworden in plaats van middel.</li>
+        <li>Oefen het onderscheid tussen ken en kan: het dichtbij waarnemen van details en het van een afstand waarnemen van wat er werkelijk gebeurt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Japans als <i>Go Rin no Sho</i> (五輪書), geschreven tussen 1643 en 1645 in de grot Reigandō bij Kumamoto en enkele weken voor zijn dood overhandigd aan zijn leerling Terao Magonojo; het originele handschrift is niet bewaard gebleven en bestaande versies gaan terug op latere afschriften. Eerste Engelse vertaling door Victor Harris als <i>A Book of Five Rings</i> (Overlook Press, 1974); latere vertalingen van onder meer Thomas Cleary en William Scott Wilson. Nederlands als <i>Het boek van de vijf ringen</i>, vertaald door Thomas Cleary (Altamira-Becht, 2001, 165 blz., ISBN 9789069635262).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Miyamoto Musashi vocht naar eigen zeggen tientallen duels en verloor er niet één, met als beroemdste treffen het gevecht tegen Sasaki Kojirō op het eiland Ganryūjima in 1612. Later in zijn leven richtte hij de zwaardschool Niten Ichi-ryū op, die het gelijktijdig voeren van een lang en een kort zwaard onderwijst.</p><p>Kort voor zijn dood trok hij zich terug in de grot Reigandō en schreef hij dit geschrift op, verdeeld in vijf boeken die elk naar een element zijn genoemd: Aarde, Water, Vuur, Wind en Leegte. Het boek behandelt houding, timing en waarneming in het duel, bekritiseert andere zwaardscholen en eindigt met een staat van geest zonder gehechtheid aan een vaste vorm.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zwaardvechten</li><li>strategie</li><li>samoerai</li><li>krijgskunst</li><li>zen</li><li>japan</li><li>vakmanschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="272"><a href="272.html">The Art of War</a>. The Art of War behandelt vanuit dezelfde traditie van krijgskunst een vergelijkbare, korte verzameling principes, gericht op het leger in plaats van het duel.</li>
+          <li value="320"><a href="320.html">Mastery</a>. Mastery beschrijft de jarenlange leertijd die aan de vrijheid van de Leegte voorafgaat, vanuit een modernere, psychologische invalshoek.</li>
+          <li value="216"><a href="216.html">The Art of Worldly Wisdom</a>. The Art of Worldly Wisdom is een even beknopte verzameling maximes uit dezelfde eeuw, gericht op het hofleven in plaats van het zwaardvechten.</li>
+          <li value="212"><a href="212.html">The 33 Strategies of War</a>. The 33 Strategies of War herschrijft klassieke krijgskunst, waaronder ideeën die teruggaan op Musashi, voor een modern publiek van macht en concurrentie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Read People Like a Book &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="King stelt dat een groot deel van wat iemand voelt en van plan is, zich toch verraadt: in woordkeus, gezichtsuitdrukking, houding en in wat iemand juist…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-338">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">338 &middot; Samenwerken en gesprek</p>
+    <h1>Read People Like a Book</h1>
+    <p class="lede">Patrick King, 2020</p>
+    <p class="stats">
+      <span><b>1413</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="338"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>King stelt dat een groot deel van wat iemand voelt en van plan is, zich toch verraadt: in woordkeus, gezichtsuitdrukking, houding en in wat iemand juist vermijdt te zeggen. Wie leert op de juiste signalen te letten en ze in combinatie leest in plaats van los van elkaar, kan het gedrag van anderen beter voorspellen dan wie op een eerste indruk afgaat. Zijn inzet is dat dit een vaardigheid is die te trainen valt met aandacht en herhaling, en geen truc die in één keer werkt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het probleem van de eigen bril</h3>
+      <p>King opent met de reden waarom mensen anderen zo vaak verkeerd inschatten: ze projecteren hun eigen motieven, angsten en normen op wie ze tegenover zich hebben. Wie zelf nooit zou liegen over een kleinigheid, gelooft de ander sneller op zijn woord, en wie zelf achterdochtig is, ziet overal verborgen bedoelingen. Objectiviteit is volgens hem geen startpunt maar iets waar je met bewuste moeite naartoe moet werken.</p>
+      <h3>Motivatie als voorspeller</h3>
+      <p>Het eerste hoofdstuk plaatst gedrag tegenover onderliggende motivatie. King gebruikt Maslows piramide van behoeften om te laten zien dat gedrag dat onbegrijpelijk lijkt vaak neerkomt op een tekort lager in de piramide, aan veiligheid of erkenning. Daarnaast leent hij Jungs begrip van de schaduw: het deel van iemands persoonlijkheid dat verdrongen is en juist daardoor ongemerkt het gedrag stuurt.</p>
+      <p>Hij bespreekt ook het onderscheid tussen pijn en plezier als de twee drijfveren achter vrijwel elke keuze, en de klassieke egoverdedigingen uit de psychoanalyse: ontkenning, projectie, rationalisatie. Die begrippen dienen niet om iemand te diagnosticeren, maar om een vraag te stellen bij gedrag dat op het eerste gezicht overdreven of misplaatst lijkt.</p>
+      <p>Een voorbeeld dat King gebruikt, is de collega die fel reageert op een terloopse opmerking over zijn werktempo. Los gelezen is dat buitenproportioneel; gelezen als rationalisatie van een onderliggende onzekerheid over zijn functioneren wordt de reactie voorspelbaar. King benadrukt dat zo'n verklaring een werkhypothese blijft die om bevestiging vraagt in verder gedrag, en geen vaststaand oordeel over iemands binnenwereld.</p>
+      <h3>Het lichaam, het gezicht en de cluster</h3>
+      <p>In het tweede hoofdstuk behandelt King gezichtsuitdrukkingen en lichaamshouding, met de nadruk dat een los signaal, een gekruiste arm, een weggedraaide blik, zelden iets betekent. Pas een cluster van signalen die dezelfde kant op wijzen, geeft houvast. Hij benadrukt ook congruentie: kloppen woorden en lichaam met elkaar, of spreekt het een het ander tegen.</p>
+      <p>Die nadruk op clusters in plaats van losse tekens is de kern van zijn methode en komt in elk volgend hoofdstuk terug: nooit één signaal isoleren, altijd het geheel wegen.</p>
+      <h3>Persoonlijkheidstypologie</h3>
+      <p>Het derde hoofdstuk zet vier typologieën naast elkaar: het Big Five-model, Jungs typologie zoals verwerkt in de MBTI, Keirseys temperamenten en het enneagram. King gebruikt ze als denkkaders om sneller in te schatten waar iemands voorkeuren liggen, van introversie tot behoefte aan structuur.</p>
+      <p>Hij behandelt de vier modellen grotendeels als gelijkwaardige hulpmiddelen en besteedt weinig aandacht aan het verschil in wetenschappelijke onderbouwing daartussen, een punt waarop verderop wordt teruggekomen.</p>
+      <h3>Leugens herkennen</h3>
+      <p>Het laatste hoofdstuk gaat over het herkennen van onwaarheden, en King begint daar opvallend voorzichtig: hij noemt onzekerheid het grootste probleem van leugendetectie en waarschuwt tegen te snelle conclusies op basis van één signaal. Zijn advies richt zich meer op gespreksvoering dan op lichaamstaal: eerst het gewone, ontspannen gedrag van iemand kennen als vergelijkingsmateriaal, dan onverwachte vragen stellen om te zien of een antwoord doordacht is of juist te vlot klaarligt.</p>
+      <p>Die voorzichtigheid staat in schril contrast met de belofte in de titel van het boek, en King lost die spanning niet volledig op. Wel waarschuwt hij expliciet tegen enkele wijdverbreide vuistregels, zoals het idee dat wegkijken tijdens een antwoord altijd op liegen wijst: bij veel mensen is dat gewoon een teken van nadenken.</p>
+      <h3>Positionering tegenover manipulatie</h3>
+      <p>Door het boek heen benadrukt King dat het hem niet gaat om macht over anderen, maar om waarneming en begrip. Daarmee zet hij zich uitdrukkelijk af tegen een genre van vergelijkbaar klinkende boeken over overtuigen en overheersen, waarvan enkele voorbeelden ook op deze lijst staan (nrs. 123 tot en met 126). Of die scheidslijn in de praktijk overeind blijft, hangt af van wat een lezer met de kennis doet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Schaduw</td><td>Het Jungiaanse begrip voor het verdrongen deel van de persoonlijkheid, dat volgens King ongemerkt gedrag stuurt.</td></tr>
+          <tr><td class="term">Innerlijk kind</td><td>Het idee dat vroege, onverwerkte behoeften uit de jeugd in het gedrag van volwassenen blijven doorwerken.</td></tr>
+          <tr><td class="term">Piramide van behoeften</td><td>Maslows indeling van menselijke behoeften, door King gebruikt om onbegrepen gedrag te herleiden tot een tekort lager in de piramide.</td></tr>
+          <tr><td class="term">Egoverdediging</td><td>De psychoanalytische afweermechanismen, zoals ontkenning en rationalisatie, waarmee iemand ongemakkelijke waarheden op afstand houdt.</td></tr>
+          <tr><td class="term">Berichtcluster</td><td>Een combinatie van signalen die dezelfde kant op wijst; Kings basisregel is dat je nooit één los signaal moet lezen.</td></tr>
+          <tr><td class="term">Big Five</td><td>Het persoonlijkheidsmodel met vijf brede trekken, in de academische psychologie het best onderbouwde van de vier modellen die King bespreekt.</td></tr>
+          <tr><td class="term">Enneagram</td><td>Een indeling in negen persoonlijkheidstypen die King als denkkader aanreikt zonder de zwakke onderbouwing ervan te bespreken.</td></tr>
+          <tr><td class="term">Baseline-gedrag</td><td>Iemands gewone, ontspannen manier van doen, die volgens King eerst bekend moet zijn voordat een afwijking iets betekent.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>King is geen onderzoeker maar een voormalig jurist die als gesprekscoach werkt en een lange reeks boeken over communicatie op zijn naam heeft staan. Het boek citeert bekende namen uit de psychologie, Maslow, Jung, Freud, zonder daarbij telkens naar het onderliggende onderzoek te verwijzen, en leunt voor een groot deel op de eigen ervaring en observatie van de auteur.</p>
+      <p>De vier persoonlijkheidsmodellen die hij bespreekt, staan er wetenschappelijk zeer ongelijk voor. Het Big Five-model is in herhaald onderzoek het meest stabiel gebleken; de MBTI en het enneagram komen in dat onderzoek juist slecht naar voren op betrouwbaarheid en voorspellende waarde. King benoemt dat verschil niet.</p>
+      <p>Voor leugendetectie is er wel degelijk stevig onderzoek, en dat onderzoek is somberder dan de titel van het boek suggereert. De meta-analyse van Bond en DePaulo uit 2006, gebaseerd op 206 studies en meer dan 24.000 beoordelaars, vond een gemiddelde nauwkeurigheid van 54 procent bij het onderscheiden van leugen en waarheid, nauwelijks boven de kansverdeling van 50 procent, en trainingservaring bleek amper verschil te maken, ook niet bij mensen van wie het beroep is om leugens te herkennen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar raakt precies het onderdeel dat de titel het meest belooft. Als getrainde beoordelaars en professionals in gecontroleerd onderzoek nauwelijks boven het toeval uitkomen, is voorzichtigheid op zijn plaats bij een boek dat leert leugens te herkennen aan gedragspatronen. King erkent die onzekerheid met zoveel woorden in zijn eigen hoofdstuk, wat eerlijk is, maar dat neemt de belofte in de titel niet weg.</p>
+      <p>Het naast elkaar zetten van vier persoonlijkheidsmodellen zonder onderscheid in bewijskracht geeft de lezer een vals gevoel van houvast. Wie het enneagram met dezelfde stelligheid inzet als het Big Five-model, gebruikt een instrument waarvan herhaald onderzoek geen stabiele typen en geen voorspellende waarde heeft kunnen aantonen.</p>
+      <p>De ontvangst bij lezers is verdeeld. Op recensiesites schommelt de gemiddelde waardering rond de 3,5 van de 5, met als terugkerende klacht dat delen van het boek nauwelijks meer bieden dan gezond verstand, vooral voor wie al bekend is met lichaamstaalliteratuur zoals die van Joe Navarro.</p>
+      <p>Het boek levert verder geen manier om de eigen inschatting te toetsen: er zit geen oefening of feedbackmoment in waarmee een lezer kan nagaan of zijn nieuwe interpretatie van andermans gedrag ook klopt.</p>
+      <p>King schrijft in een breed genre van vergelijkbare, in eigen beheer uitgegeven boeken over gedrag en gesprek, met een productietempo van meerdere titels per jaar. Dat tempo verklaart mede waarom onderwerpen als de vier persoonlijkheidsmodellen kort naast elkaar worden gezet in plaats van uitgediept.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel iemand nooit op één signaal, maar zoek naar een cluster van houding, gezicht en woorden die dezelfde kant op wijzen.</li>
+        <li>Leer eerst iemands gewone, ontspannen gedrag kennen voor je een afwijking daarvan als betekenisvol behandelt.</li>
+        <li>Trek geen conclusie over eerlijkheid op basis van lichaamstaal alleen; stel een onverwachte vervolgvraag en let op of het antwoord doordacht is of te vlot klaarligt.</li>
+        <li>Gebruik een persoonlijkheidsmodel als denkkader om een gesprek te openen, niet als vaststaand label voor wie iemand is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Read People Like a Book: How to Analyze, Understand, and Predict People's Emotions, Thoughts, Intentions, and Behaviors</i> (PKCS Media, december 2020, 276 blz., ISBN 9781647432225). In eigen beheer uitgegeven; geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Patrick King, voormalig ondernemingsjurist en nu gesprekscoach, betoogt dat de meeste mensen anderen verkeerd inschatten omdat ze uitgaan van hun eigen binnenwereld in plaats van te kijken naar wat de ander laat zien. Zijn boek zet motivatie, lichaamstaal, persoonlijkheidstypologie en leugendetectie op een rij als vier ingangen om iemand beter te doorgronden, van de piramide van Maslow tot de vraag waarom een enkel gebaar weinig zegt en een cluster van signalen meer.</p><p>King schreef eerder <i>Control Your Emotions</i> (nr. 153 op deze lijst), dat over het eigen gevoelsleven gaat. Dit boek richt zich op het lezen van de ander en staat, zoals King zelf benadrukt, uitdrukkelijk niet in de traditie van manipulatietechnieken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>lichaamstaal</li><li>persoonlijkheid</li><li>communicatie</li><li>leugendetectie</li><li>psychologie</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="154"><a href="154.html">What Every BODY Is Saying</a>. Navarro werkte als FBI-agent en werkt het lezen van lichaamstaal preciezer en met meer praktijkervaring uit dan King.</li>
+          <li value="156"><a href="156.html">Surrounded by Idiots</a>. Erikson gebruikt een eigen, DISC-achtige typologie voor hetzelfde doel: sneller inschatten met wie je te maken hebt.</li>
+          <li value="283"><a href="283.html">Blink</a>. Gladwell onderzoekt dezelfde snelle, intuïtieve inschatting van mensen en situaties, en is kritischer over wanneer die vertrouwd kan worden.</li>
+          <li value="153"><a href="153.html">Control Your Emotions</a>. Ander boek van dezelfde auteur, dat niet het lezen van anderen maar het reguleren van het eigen gevoelsleven behandelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

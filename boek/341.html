@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wisdom of Insecurity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Watts onderscheidt pijn van angst: pijn is wat zich nu voordoet, angst is de gedachte aan pijn die nog moet komen of ooit is geweest. Een mens die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-341">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">341 &middot; Levenskunst</p>
+    <h1>The Wisdom of Insecurity</h1>
+    <p class="lede">Alan Watts, 1951</p>
+    <p class="stats">
+      <span><b>1372</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="341"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Watts onderscheidt pijn van angst: pijn is wat zich nu voordoet, angst is de gedachte aan pijn die nog moet komen of ooit is geweest. Een mens die zekerheid zoekt, doet dat met precies het instrument dat geen zekerheid kan geven, het eigen denken, dat zichzelf niet buiten zichzelf kan plaatsen om zich van zijn eigen grond te verzekeren. Wie zich vastklampt aan een vast zelf, een blijvend bezit of een gegarandeerde toekomst, jaagt op iets dat door de jacht zelf ontglipt, want het verlangen naar zekerheid is zelf de bron van de onrust die het wil wegnemen. Watts' stelling is dat rust niet ontstaat door de jacht te winnen, maar door haar te staken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het tijdperk van angst</h3>
+      <p>Watts opent met een diagnose van zijn eigen tijd, kort na de Tweede Wereldoorlog: een periode van materiële vooruitgang die de innerlijke onrust niet heeft verminderd, eerder heeft vergroot. Waar vroegere generaties hun angst nog konden afwenden op godsdienst of traditie, ziet hij zijn eigen generatie zonder dat vangnet, terwijl de wetenschap wel de oude zekerheden heeft weggenomen maar er geen nieuwe voor in de plaats heeft gesteld. Het is in die leegte dat hij zijn onderzoek naar onzekerheid plaatst, als antwoord op een concrete, wijdverbreide klacht en niet als filosofische oefening op zichzelf.</p>
+      <h3>Pijn en tijd</h3>
+      <p>Watts maakt vroeg in het boek een onderscheid dat de rest ervan draagt: het verschil tussen pijn, die zich in het moment zelf voordoet, en angst, die bestaat uit het vooruitdenken naar pijn die nog moet komen of het terugdenken aan pijn die al voorbij is. Een groter gevoelsleven brengt volgens hem niet alleen groter genot maar ook grotere kwetsbaarheid, en de mens probeert dat laatste te ontlopen door zich in gedachten te wapenen tegen wat nog moet gebeuren. Dat wapenen lukt niet, want de gedachte aan toekomstige pijn is zelf al een vorm van huidige onrust, terwijl de pijn waarvoor zij waarschuwt nog niet bestaat.</p>
+      <h3>De grote stroom</h3>
+      <p>In het hart van het boek verwerpt Watts het idee van een vast, blijvend zelf. Wat wij ik noemen is voor hem geen ding maar een proces, een stroom van ervaringen die zich voordoet zoals een rivier zich voordoet: nooit twee keer hetzelfde water, wel steeds dezelfde naam. Het zoeken naar een vaste kern achter die stroom is volgens hem gedoemd, want de zoeker is zelf een deel van wat gezocht wordt. Hij haalt daarbij het Chinese beeld aan van modderig water dat pas helder wordt als je het met rust laat, niet door het te roeren.</p>
+      <h3>De wijsheid van het lichaam</h3>
+      <p>Watts wendt zich vervolgens tot het lichaam als tegenvoorbeeld. Ademhaling, spijsvertering en de regeling van lichaamstemperatuur verlopen zonder dat bewuste sturing eraan te pas komt, en werken beter naarmate het bewuste denken zich er minder mee bemoeit. Angstige controle over het eigen lichaam, zoals geforceerd proberen te ontspannen of geforceerd proberen te slapen, werkt averechts: de poging tot beheersing verstoort het proces dat op zichzelf al in evenwicht is. Dat lichamelijke evenwicht is voor Watts een model voor wat hij bij de geest voor mogelijk houdt.</p>
+      <h3>Aandacht zonder woorden</h3>
+      <p>Een volgend deel gaat over waarneming die niet meteen in taal wordt omgezet. Watts onderscheidt de rechtstreekse ervaring van een moment van het commentaar dat het denken er onmiddellijk overheen legt: het benoemen, beoordelen en vergelijken. Wie in staat is een moment waar te nemen voordat het label erop wordt geplakt, ervaart volgens hem iets dat hij het wonderlijke moment noemt: geen prestatie die te plannen valt, eerder een opening die ontstaat zodra de dwang om het moment te grijpen wegvalt.</p>
+      <h3>Leven zonder vaste regels</h3>
+      <p>In de slothoofdstukken werkt Watts uit wat er overblijft van moraal als de zoektocht naar een vast, veilig zelf wordt losgelaten. Hij bepleit geen regelloosheid maar een moraal die uit het moment zelf ontstaat in plaats van uit een vooraf vastgelegd stelsel van geboden, en behandelt godsdienst als een van de plekken waar de mens zekerheid heeft proberen te organiseren. Zijn conclusie is dat instituties die zekerheid beloven, in de praktijk vooral de angst bevestigen die zij zeggen weg te nemen, en dat een levenshouding zonder die belofte niet losbandiger hoeft te zijn, alleen eerlijker over wat zij niet kan garanderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Pijn versus angst</td><td>Pijn is wat zich in het moment voordoet, angst is de gedachte aan pijn die nog moet komen of voorbij is.</td></tr>
+          <tr><td class="term">De achterwaartse wet</td><td>Watts' formule dat wie geluk najaagt het misloopt, en wie de jacht staakt, dichter bij rust komt.</td></tr>
+          <tr><td class="term">Het zelf als stroom</td><td>De opvatting dat er geen vast ik bestaat, alleen een doorlopende reeks ervaringen die zich als één geheel voordoet.</td></tr>
+          <tr><td class="term">Modderig water</td><td>Beeld voor een geest die pas helder wordt als hij niet langer geroerd wordt door de poging zichzelf te doorgronden.</td></tr>
+          <tr><td class="term">Lichamelijke wijsheid</td><td>De onbewuste regeling van ademhaling en spijsvertering, door Watts als voorbeeld genomen voor een geest die zichzelf niet hoeft te sturen.</td></tr>
+          <tr><td class="term">Het wonderlijke moment</td><td>Een waarneming voordat het denken er een naam en een oordeel aan geeft.</td></tr>
+          <tr><td class="term">Scheppende moraal</td><td>Een moraal die ontstaat uit de situatie zelf, tegenover een vooraf vastgelegd stelsel van regels.</td></tr>
+          <tr><td class="term">Zekerheidsinstituties</td><td>Watts' term voor godsdienst en vergelijkbare stelsels die met beloften van blijvende zekerheid de onderliggende angst juist in stand houden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Watts werkt niet met onderzoeksgegevens maar met een herlezing van boeddhistische, taoïstische en christelijk-mystieke teksten, aangevuld met eigen introspectie. Er staan geen experimenten of cijfers in het boek; het argument moet het doen op innerlijke herkenning en op de vraag of de lezer, wanneer die de eigen jacht op zekerheid bekijkt, de beschreven onrust terugvindt.</p>
+      <p>Zijn belezenheid in Aziatische bronnen is breed, maar niet die van een academisch geschoolde sinoloog of boeddholoog: Watts leerde zichzelf en werkte buiten een vaste leertraditie. Dat verklaart waarom hij teksten soepel naar zijn eigen these toe leest, wat het boek toegankelijk maakt en tegelijk de vraag openlaat hoe getrouw die lezing aan de bronnen zelf is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste makke is dat Watts' bronnen vaak vrij worden gelezen om zijn these te ondersteunen: waar het christendom eigenlijk over verlossing na de dood spreekt, leest hij er een boodschap over het huidige moment in, en waar taoïstische bronnen over een specifieke levenspraktijk gaan, maakt hij er een algemene levenshouding van. Dat maakt het boek overtuigend als eigen betoog en minder betrouwbaar als weergave van wat die tradities zelf beweren.</p>
+      <p>Het boek bevat bovendien een innerlijke spanning die het zelf niet oplost: wie wordt aangespoord om niet meer naar rust te jagen, ontvangt daarmee toch een instructie, en een instructie volgen is zelf een vorm van streven. Watts erkent die paradox terloops maar werkt niet uit hoe een lezer, die het boek juist ter hand neemt om iets te bereiken, zonder streven bij het beschreven punt uitkomt.</p>
+      <p>Het boek verscheen in 1951, het jaar nadat Watts zijn ambt als Episcopaals priester had neergelegd na een echtscheiding. Die directe aanleiding staat er niet in vermeld, maar verklaart mede waarom een boek over het loslaten van houvast juist op dat moment werd geschreven, en waarom sommige lezers het evengoed als rechtvaardiging achteraf lezen.</p>
+      <p>Ten slotte mist het boek elk contact met wat er later aan onderzoek naar angst en aandacht is gedaan. Aandachtstraining is inmiddels onderwerp van gecontroleerd onderzoek geworden, en dat onderzoek wijst eerder op een te leren vaardigheid dan op het spontane inzicht dat Watts beschrijft. Wat bij hem een sprong is, wordt in latere programma's een oefening met herhaling, en dat verschil ontbreekt in dit boek volledig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij een onrustig moment expliciet wat er feitelijk gebeurt van wat je erbij verwacht of vreest.</li>
+        <li>Merk op wanneer je jezelf dwingt te ontspannen of te slapen, en laat op dat moment de dwang los in plaats van de ontspanning.</li>
+        <li>Lees het boek niet als leidraad met stappen, maar als beschrijving; wie een oefening zoekt, vindt die eerder in latere aandachtstraining dan in dit boek zelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>A Message for an Age of Anxiety</i>, oorspronkelijk bij Pantheon Books (New York, 1951, 152 blz.). Nederlands als <i>De wijsheid van onzekerheid</i>, eerder ook verschenen als <i>Lof der onzekerheid</i>; de editie van 2011 kreeg een nieuw voorwoord van Deepak Chopra.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Watts schreef dit boek in 1951, het jaar nadat hij als Episcopaals priester was afgetreden na een echtscheiding, en zet daarin een onderscheid neer dat zijn latere werk over zen en taoïsme zou blijven dragen: pijn is wat zich nu voordoet, angst is het denken aan pijn die nog moet komen. Wie zekerheid zoekt met het eigen verstand, gebruikt volgens hem het enige instrument dat zekerheid per definitie niet kan leveren.</p><p>Het boek bevat geen technieken of oefeningen in de gebruikelijke zin, eerder een herlezing van boeddhistische, taoïstische en christelijk-mystieke bronnen die Watts vrij en toegankelijk maakt voor een westerse lezer. Het verscheen zestig jaar later opnieuw, met een nieuw voorwoord van Deepak Chopra, en gaf mede de toon voor latere boeken over het leven in het huidige moment.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>taoïsme</li><li>angst</li><li>onzekerheid</li><li>aandacht</li><li>westerse filosofie</li><li>godsdienstkritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius zoekt dezelfde aanvaarding van wat niet in de hand te houden is, vanuit een geheel andere, stoïcijnse traditie.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman werkt dezelfde gedachte over eindigheid en controle uit voor een lezer van driekwart eeuw later.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle bouwt zijn boodschap over het huidige moment rechtstreeks op de aandacht die Watts hier al beschrijft.</li>
+          <li value="287"><a href="287.html">Siddhartha</a>. Hesse verbeeldt in romanvorm dezelfde zoektocht naar een houding tegenover onzekerheid en verlangen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

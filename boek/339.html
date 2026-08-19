@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Behave &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sapolsky betoogt dat geen enkele verklaring voor menselijk gedrag op zichzelf staat. Agressie, toewijding, vooroordeel en opoffering ontstaan telkens uit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-339">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">339 &middot; Brein en lichaam</p>
+    <h1>Behave</h1>
+    <p class="lede">Robert M. Sapolsky, 2017</p>
+    <p class="stats">
+      <span><b>1524</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="339"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sapolsky betoogt dat geen enkele verklaring voor menselijk gedrag op zichzelf staat. Agressie, toewijding, vooroordeel en opoffering ontstaan telkens uit de samenloop van wat er een seconde eerder in de hersenen gebeurt, wat er uren tot dagen eerder aan hormonen door het lichaam ging, wat iemand in de jeugd heeft meegemaakt, welke genen iemand heeft geërfd en in welke cultuur en evolutionaire geschiedenis dat lichaam zich heeft ontwikkeld. Wie één van die lagen aanwijst als dé oorzaak, doet volgens hem afbreuk aan de andere lagen die evenzeer meespelen. Dat besef verandert volgens Sapolsky hoe naar schuld en verantwoordelijkheid gekeken zou moeten worden, zonder dat het gedrag daarmee wordt goedgepraat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Terugwerken vanaf de daad</h3>
+      <p>Het boek opent met een handeling, in het openingshoofdstuk het al dan niet overhalen van een trekker, en gebruikt die als anker voor de rest van het boek. Elk volgend hoofdstuk behandelt een tijdsbestek dat verder terug ligt: een seconde ervoor, seconden tot minuten ervoor, uren tot dagen ervoor, dagen tot maanden ervoor, en zo verder via de adolescentie, de kindertijd, de baarmoeder, de genen tot bij eeuwen en millennia terug in de evolutie.</p>
+      <p>Die opbouw is zelf al een argument. Sapolsky wil laten zien dat elke laag een stuk van de verklaring draagt en dat geen enkele laag de andere overbodig maakt.</p>
+      <h3>Een seconde ervoor: het brein in het moment</h3>
+      <p>In het hoofdstuk over de seconde voor een handeling beschrijft Sapolsky de wisselwerking tussen de amygdala, die snel reageert op dreiging en angst, en de prefrontale cortex, die impulsen afremt en afweegt wat op langere termijn verstandig is. Bij een woedeaanval of een impulsieve daad is die balans naar de amygdala doorgeslagen.</p>
+      <p>Belangrijk daarbij is dat de prefrontale cortex het laatste hersengebied is dat volgroeid raakt, ergens in het midden van de twintiger jaren, wat volgens hem meespeelt in de verklaring waarom jongeren gemiddeld impulsiever handelen dan volwassenen.</p>
+      <h3>Uren tot dagen ervoor: hormonen</h3>
+      <p>Het hoofdstuk over hormonen ontmantelt de gangbare aanname dat testosteron simpelweg agressie veroorzaakt. Sapolsky laat onderzoek zien waarin testosteron vooral status en de bereidheid om die status te verdedigen versterkt, iets wat zich al naar gelang de situatie in agressie kan uiten of juist in vrijgevigheid tegenover de eigen groep.</p>
+      <p>Oxytocine krijgt eenzelfde herziening: het hormoon dat bekendstaat als het knuffelhormoon versterkt vertrouwen en binding, maar vooral binnen de eigen groep, en kan tegelijk wantrouwen tegenover buitenstaanders vergroten.</p>
+      <h3>Jaren ervoor: jeugd en adolescentie</h3>
+      <p>In het deel over de langere termijn behandelt Sapolsky hoe vroege tegenslag, verwaarlozing of aanhoudende stress in de kindertijd het stressysteem van een lichaam blijvend anders instelt, met gevolgen tot ver in de volwassenheid. Hij gebruikt hier het begrip epigenetica: de omgeving kan bepalen welke genen worden afgelezen zonder dat de onderliggende DNA-volgorde verandert.</p>
+      <p>Ook adolescentie krijgt een eigen behandeling, als een periode waarin het beloningssysteem al volop actief is terwijl de rem van de prefrontale cortex nog moet groeien, wat volgens hem verklaart waarom risicogedrag in die levensfase piekt.</p>
+      <h3>Generaties ervoor: genen, evolutie en cultuur</h3>
+      <p>Sapolsky benadrukt dat genen zelden rechtstreeks gedrag bepalen, maar de gevoeligheid voor de omgeving veranderen. Zijn voorbeeld is een variant van het MAOA-gen, soms het krijgersgen genoemd, die alleen met verhoogde agressie samenhangt bij mensen die in hun jeugd zijn mishandeld, en niet bij wie diezelfde genvariant heeft zonder die geschiedenis.</p>
+      <p>Op evolutionair niveau bespreekt hij verwantschapsselectie en wederkerig altruïsme als verklaringen voor samenwerking, en op cultureel niveau de these van een cultuur van eer: samenlevingen die van herders afstammen, zoals delen van de Amerikaanse Zuid, vertonen volgens onderzoek van Nisbett en Cohen sterkere reacties op belediging dan samenlevingen die van akkerbouwers afstammen, omdat vee makkelijker te stelen valt dan land.</p>
+      <h3>Wij tegen zij, hiërarchie en de vraag naar vrije wil</h3>
+      <p>In de slothoofdstukken keert het boek terug naar het heden met een blik op groepsgedrag. Sapolsky laat zien dat het brein binnen een fractie van een seconde mensen indeelt in een eigen groep en een andere groep, op basis van kenmerken die daarvoor volstrekt willekeurig kunnen zijn, en dat die indeling de basis legt voor zowel loyaliteit als vooroordeel. Hij bespreekt ook Milgrams gehoorzaamheidsexperimenten als voorbeeld van hoe snel mensen hun eigen oordeel opzij zetten voor een autoriteit.</p>
+      <p>Het laatste hoofdstuk richt zich op het strafrecht, dat volgens Sapolsky steunt op een naïeve opvatting van vrije wil die geen rekening houdt met alles wat in de voorgaande hoofdstukken is beschreven. Zijn alternatief, een soort kwarantainemodel waarin gevaarlijke mensen van de samenleving worden afgezonderd zonder morele veroordeling, blijft een schets en wordt niet in praktische regelgeving uitgewerkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Amygdala</td><td>Het hersengebied dat snel reageert op dreiging en angst en een grote rol speelt in impulsieve, agressieve reacties.</td></tr>
+          <tr><td class="term">Prefrontale cortex</td><td>Het hersengebied dat impulsen afremt en afweegt wat op langere termijn verstandig is, en als laatste volgroeid raakt.</td></tr>
+          <tr><td class="term">Testosteron als statushormoon</td><td>Sapolsky's herziening van het idee dat testosteron simpelweg agressie veroorzaakt: het versterkt vooral de bereidheid status te verdedigen.</td></tr>
+          <tr><td class="term">Oxytocine als parochiaal hormoon</td><td>Het bindingshormoon dat vertrouwen binnen de eigen groep versterkt en wantrouwen tegenover buitenstaanders kan vergroten.</td></tr>
+          <tr><td class="term">Epigenetica</td><td>Het mechanisme waarmee de omgeving bepaalt welke genen worden afgelezen, zonder de DNA-volgorde zelf te veranderen.</td></tr>
+          <tr><td class="term">Gen-omgeving-interactie</td><td>Het principe dat een genvariant vaak alleen gedrag beïnvloedt in combinatie met een bepaalde omgeving, zoals bij het MAOA-gen en jeugdmishandeling.</td></tr>
+          <tr><td class="term">Cultuur van eer</td><td>De these dat samenlevingen met een herdersverleden sterker reageren op belediging dan samenlevingen met een landbouwverleden.</td></tr>
+          <tr><td class="term">Wij-zij-indeling</td><td>De snelheid, binnen een fractie van een seconde, waarmee het brein mensen indeelt in een eigen en een andere groep, op basis van vaak willekeurige kenmerken.</td></tr>
+          <tr><td class="term">Kwarantainemodel</td><td>Sapolsky's voorstel om gevaarlijke mensen af te zonderen ter bescherming van de samenleving, zonder de morele veroordeling die het huidige strafrecht kenmerkt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Sapolsky is zelf onderzoeker: hij bracht decennia door met veldonderzoek naar stresshormonen bij wilde bavianen in Kenia en doceert biologie, neurologie en neurochirurgie aan Stanford. Dat is te merken in de hoofdstukken over hormonen en hersenen, waar hij dicht bij zijn eigen vakgebied blijft en ruim uit herhaald, gepubliceerd onderzoek put.</p>
+      <p>Het boek is een synthese, geen nieuw onderzoek, en beslaat willens en wetens een groot aantal vakgebieden: endocrinologie, neurowetenschap, genetica, primatologie, antropologie en geschiedenis. Naarmate hij verder van zijn eigen specialisme raakt, wordt de bodem onder zijn stellingen dunner. De these van een cultuur van eer en het beroep op verwantschapsselectie en groepsselectie in de evolutiebiologie zijn voorbeelden van onderwerpen waarover onder vakgenoten nog altijd wordt getwist, iets wat Sapolsky in de hoofdtekst niet steeds evenveel gewicht geeft als in zijn eigen vakgebied.</p>
+      <p>Het notenapparaat is omvangrijk, met duizenden verwijzingen verspreid over de laatste hoofdstukken van het boek, en Sapolsky benoemt vrijwel overal expliciet wanneer een bevinding is gerepliceerd en wanneer die nog omstreden is. Dat maakt het boek voorzichtiger dan veel populairwetenschappelijke boeken over hetzelfde terrein, al blijft het voor de lezer moeilijk te controleren hoe representatief zijn selectie van onderzoek is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het laatste hoofdstuk, over strafrecht en vrije wil, is het meest omstreden onderdeel van het boek. Sapolsky's kwarantainemodel blijft een richting, geen uitgewerkt voorstel: er staat weinig in over hoe zo'n systeem zou moeten worden ingericht, wie zou beslissen wie gevaarlijk is, en hoe misbruik van die beslissing voorkomen zou worden.</p>
+      <p>Zijn standpunt dat vrije wil in de gangbare zin niet bestaat, werkte hij later verder uit in <i>Determined</i> (2023). Filosofen die zich met dat debat bezighouden, wijzen erop dat biologische beïnvloeding van gedrag niet automatisch betekent dat begrippen als verantwoordelijkheid en toerekeningsvatbaarheid hun betekenis verliezen; die tegenpositie, het compatibilisme, komt in <i>Behave</i> nauwelijks aan bod.</p>
+      <p>De spreiding over zoveel vakgebieden in één boek van achthonderd bladzijden brengt een ongelijkheid in bewijskracht met zich mee die niet altijd wordt gemarkeerd. Een lezer die de hoofdstukken over hormonen en hersenen als even stevig onderbouwd leest als het hoofdstuk over groepsselectie in de evolutiebiologie, doet zichzelf tekort: dat laatste onderwerp ligt onder biologen nog altijd open.</p>
+      <p>De omvang en dichtheid van het boek zijn voor veel lezers zelf al een drempel, en Sapolsky's herhaalde nuancering, dat het antwoord bijna altijd "het is ingewikkelder dan dat" is, werkt intellectueel eerlijk maar laat de lezer op meerdere plekken zonder een helder antwoord achter waar het boek naartoe leek te werken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een verklaring voor gedrag altijd naar het tijdsbestek waarover die gaat: een seconde, een uur, een jaar of een generatie eerder, in plaats van te zoeken naar één oorzaak.</li>
+        <li>Onderscheid een bepalende factor van een gevoeligheid: een gen of hormoon vergroot een kans op gedrag, het legt dat gedrag niet vast.</li>
+        <li>Let op het moment waarop een gesprek, een nieuwsbericht of een groep mensen indeelt in een wij en een zij, want die indeling vormt zich sneller dan het bewuste oordeel.</li>
+        <li>Houd het begrijpen van een daad gescheiden van het goedkeuren ervan: een biologische verklaring is geen vrijspraak.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Behave: The Biology of Humans at Our Best and Worst</i> (Penguin Press, 2017, ca. 800 blz. inclusief noten). Nederlands als <i>Behave</i> bij Borgerhoff &amp; Lamberigts (27 mei 2024, 744 blz., ISBN 9789464778830).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sapolsky, hoogleraar biologie, neurologie en neurochirurgie aan Stanford en decennialang veldonderzoeker naar stresshormonen bij wilde bavianen in Kenia, vertrekt vanuit één simpele handeling, bijvoorbeeld een vuist die wordt gebald of juist ontspannen, en werkt van daaruit terug in de tijd. Wat gebeurde er een seconde eerder in de hersenen, wat stroomde er uren tot dagen eerder aan hormonen door het lichaam, wat gebeurde er in de jeugd, voor de geboorte, in de genen en in de evolutionaire geschiedenis van de soort.</p><p>Elk hoofdstuk schuift zo een stap verder terug in de tijd, tot het boek uitkomt bij de vraag waarom mensen elkaar zo snel indelen in een groep waartoe ze horen en een groep waartoe ze niet horen, en wat dat betekent voor hoe een samenleving met schuld en straf omgaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>neurowetenschap</li><li>gedragsbiologie</li><li>evolutie</li><li>hormonen</li><li>agressie</li><li>vrije wil</li><li>groepsdenken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Milgrams eigen verslag van de gehoorzaamheidsexperimenten die Sapolsky aanhaalt bij hiërarchie en het opzijzetten van eigen oordeel.</li>
+          <li value="223"><a href="223.html">The Anatomy of Human Destructiveness</a>. Fromm zoekt eveneens naar de bronnen van menselijke destructiviteit, vanuit de psychoanalyse in plaats van de biologie.</li>
+          <li value="66"><a href="66.html">The Folly of Fools</a>. Trivers behandelt zelfbedrog en misleiding vanuit dezelfde evolutionaire invalshoek als Sapolsky's hoofdstukken over verwantschap en groepen.</li>
+          <li value="325"><a href="325.html">On the Move: A Life</a>. Oliver Sacks, met wie dit boek weleens wordt verward, schrijft over individuele patiënten in plaats van over de biologie van gedrag in het algemeen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

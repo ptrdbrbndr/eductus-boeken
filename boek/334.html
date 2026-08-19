@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 5 Types of Wealth &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bloom stelt dat de gangbare definitie van welvaart, uitgedrukt in geld, mensen op hun sterfbed spijt oplevert in plaats van tevredenheid, omdat geld op…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-334">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">334 &middot; Levenskunst</p>
+    <h1>The 5 Types of Wealth</h1>
+    <p class="lede">Sahil Bloom, 2025</p>
+    <p class="stats">
+      <span><b>1418</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="334"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bloom stelt dat de gangbare definitie van welvaart, uitgedrukt in geld, mensen op hun sterfbed spijt oplevert in plaats van tevredenheid, omdat geld op zichzelf geen tijd, relaties, gezondheid of gemoedsrust koopt. Zijn these is dat een leven pas welvarend is wanneer het in balans is over vijf op te bouwen vormen van kapitaal: tijd, sociale banden, geestelijke helderheid, lichamelijke gezondheid en financiële middelen, waarbij de laatste de andere vier dient in plaats van andersom. Wie dat aanvaardt, moet ook aanvaarden dat vooruitgang in één type welvaart, doorgaans het financiële, niet compenseert voor achteruitgang in een ander type, en dat verwaarlozing van tijd of relaties evenzeer een vorm van armoede is als een leeg banksaldo.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag aan ouderen</h3>
+      <p>Bloom opent met zijn eigen aanleiding: op zijn dertigste had hij carrière gemaakt in durfkapitaal en toch het gevoel dat er iets ontbrak. Hij begon ouderen te vragen wat zij, terugkijkend, hun jongere zelf zouden aanraden.</p>
+      <p>De antwoorden gingen bijna nooit over geld verdienen, en bijna altijd over tijd, relaties, gezondheid en betekenis. Die uitkomst vormt het startpunt van zijn indeling in vijf soorten welvaart, die hij naar eigen zeggen verder onderbouwde met drie jaar onderzoek, zelf uitgeprobeerde systemen en duizenden gesprekken wereldwijd.</p>
+      <h3>Tijdswelvaart</h3>
+      <p>Het eerste type gaat over de vrijheid om zelf te bepalen waar tijd en energie naartoe gaan. Bloom maakt onderscheid tussen chronos, de meetbare kloktijd, en kairos, het kwalitatieve, betekenisvolle moment, en stelt dat mensen kairos opofferen aan chronos zodra de agenda leidend wordt.</p>
+      <p>Als instrumenten noemt hij de Eisenhower-matrix voor prioriteiten en een zelfontworpen energiekalender waarin activiteiten niet alleen naar tijdstip maar ook naar de energie die zij kosten of geven worden ingedeeld, zodat een volle agenda zichtbaar wordt als uitputtend of juist als voedend.</p>
+      <h3>Sociale welvaart</h3>
+      <p>Het tweede type betreft de diepte en breedte van relaties. Bloom onderscheidt drie pijlers: diepgang in een kleine kring, breedte in een ruimer netwerk, en wat hij verdiende status noemt, aanzien dat is opgebouwd door bij te dragen in plaats van te claimen.</p>
+      <p>Hij verwijst naar onderzoek dat relaties als sterkste voorspeller van geluk, gezondheid en levensduur aanwijst, zonder de onderliggende studie zelf te specificeren, en pleit voor terugkerende, geplande momenten met de kleine kring in plaats van contact aan het toeval over te laten.</p>
+      <h3>Mentale welvaart</h3>
+      <p>Het derde type gaat over helderheid, nieuwsgierigheid en veerkracht, opgebouwd rond de pijlers doel, groei en ruimte. Bloom pleit voor actief, gestructureerd nadenken via onder meer de Feynman-techniek, waarbij iemand een idee uitlegt alsof aan een leek, en periodieke 'denkdagen' zonder de gebruikelijke verplichtingen.</p>
+      <p>Dit deel leunt sterk op zelfgekozen gewoontes en minder op onderzoek dan de andere hoofdstukken. Bloom koppelt mentale welvaart ook aan wat hij ruimte noemt: bewust niets doen, als tegenwicht tegen de constante prikkeling van telefoon en werk, waarvan hij stelt dat die de geestelijke helderheid ondermijnt.</p>
+      <h3>Fysieke welvaart</h3>
+      <p>Het vierde type behandelt beweging, voeding en herstel als de drie pijlers van lichamelijke gezondheid. Bloom benadrukt vooral wat binnen ieders bereik ligt: slaapkwaliteit, regelmatige beweging en eenvoudige voedingsprincipes, zonder zich te wagen aan specialistisch medisch advies. Hij plaatst herstel uitdrukkelijk naast inspanning, met als argument dat groei in de rust na een inspanning plaatsvindt en niet in de inspanning zelf.</p>
+      <h3>Financiële welvaart, op de vijfde plaats</h3>
+      <p>Pas als laatste behandelt hij financiële welvaart, met de pijlers inkomen, uitgaven en beleggen op lange termijn. De volgorde is een bewuste keuze: geld dient volgens hem de andere vier vormen van welvaart en is geen doel op zich.</p>
+      <p>Hij besteedt aandacht aan het bepalen van 'genoeg', als tegenwicht tegen een streven naar meer dat volgens hem geen natuurlijk eindpunt kent.</p>
+      <h3>Instrumenten om het samen te brengen</h3>
+      <p>In het slotdeel introduceert Bloom overkoepelende instrumenten: de Life Razor, een kort, op de eigen identiteit toegesneden principe om keuzes aan te toetsen, de Wealth Score als zelfbeoordeling over de vijf types, en een True North Compass die doelen, anti-doelen en terugkerende evaluatie combineert.</p>
+      <p>Het boek sluit met de waarschuwing dat de vijf types elkaar niet compenseren: een hoge score op financiële welvaart maakt een tekort aan tijd of relaties volgens Bloom niet goed, hoe verleidelijk die rekensom in de praktijk ook is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De vijf soorten welvaart</td><td>Tijd, sociaal, mentaal, fysiek en financieel kapitaal, samen de indeling waarop het boek is gebouwd.</td></tr>
+          <tr><td class="term">Chronos en kairos</td><td>Meetbare kloktijd tegenover het kwalitatieve, betekenisvolle moment; Bloom waarschuwt dat het eerste het tweede verdringt.</td></tr>
+          <tr><td class="term">Life Razor</td><td>Een kort, persoonlijk principe waaraan een keuze snel wordt getoetst, bedoeld om prioriteiten te beschermen.</td></tr>
+          <tr><td class="term">Wealth Score</td><td>Een zelfbeoordelingsinstrument waarmee iemand de eigen stand op elk van de vijf welvaartstypes inschat.</td></tr>
+          <tr><td class="term">True North Compass</td><td>Een overkoepelend kader van doelen, anti-doelen en terugkerende evaluatie om de vijf types in balans te houden.</td></tr>
+          <tr><td class="term">Verdiende status</td><td>Aanzien binnen een sociaal netwerk dat is opgebouwd door bij te dragen, als pijler van sociale welvaart naast diepgang en breedte.</td></tr>
+          <tr><td class="term">Genoeg</td><td>Het bewust bepalen van een financieel eindpunt, als tegenwicht tegen een streven naar meer zonder natuurlijke grens.</td></tr>
+          <tr><td class="term">Anti-doelen</td><td>Uitkomsten die iemand uitdrukkelijk wil vermijden, als tegenhanger van gewone doelen binnen de True North Compass.</td></tr>
+          <tr><td class="term">Energiekalender</td><td>Een agenda waarin activiteiten niet naar tijdstip maar naar de energie die zij kosten of opleveren worden ingedeeld.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bloom onderbouwt zijn indeling vooral met eigen ervaring, gesprekken met ouderen en een reeks statistieken die de urgentie van elk type welvaart moeten aantonen, zoals cijfers over ouders die te weinig tijd voor hun kinderen zeggen te hebben en over leidinggevenden die vakanties afzeggen voor werk. Die cijfers worden in de tekst genoemd zonder consistente bronvermelding waarmee een lezer ze kan natrekken.</p>
+      <p>Voor de claim dat relaties de sterkste voorspeller van geluk, gezondheid en levensduur zijn, verwijst hij naar een langlopende Harvard-studie zonder de precieze publicatie te noemen; die studie bestaat, loopt sinds de late jaren dertig van de vorige eeuw en wordt breed erkend, maar het ontbreken van een concrete verwijzing maakt de claim in dit boek zelf niet narekenbaar voor wie de onderliggende data wil bekijken.</p>
+      <p>Het boek presenteert zich niet als wetenschappelijke synthese maar als praktisch kader, opgebouwd uit bestaande inzichten uit psychologie, gedragswetenschap en persoonlijke financiën die Bloom herordent onder vijf koppen. De waarde zit vooral in die herordening, niet in nieuw onderzoek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Verscheidene recensenten wijzen erop dat het boek grotendeels bestaat uit al bekende adviezen uit andere management- en zelfhulpboeken, herverpakt onder de noemer van vijf types welvaart, waardoor het meer als overzicht dan als nieuwe bijdrage functioneert.</p>
+      <p>Het zwaarste bezwaar is dat het kader weinig oog heeft voor wie niet vrij over tijd, geld of aandacht kan beschikken. Bloom formuleert zijn inzichten vanuit een positie van financiële armslag die veel lezers, zoals alleenstaande ouders met meerdere banen, niet delen, zonder dat verschil expliciet te bespreken.</p>
+      <p>Er zit een innerlijke spanning in het betoog: Bloom bereikte zijn financiële uitgangspositie langs een conventioneel pad van hard werken en carrière maken, en presenteert vervolgens een kader dat datzelfde pad relativeert. Lezers die zijn financiële welvaart nog moeten opbouwen, krijgen weinig houvast voor die stap zelf.</p>
+      <p>Inhoudelijk herschikt het boek voor een groot deel bekende inzichten uit andere zelfhulp- en managementliteratuur onder een nieuwe indeling in vijf types; wie die bronnen al kent, treft weinig aan dat werkelijk nieuw is.</p>
+      <p>Het hoofdstuk over financiële welvaart blijft bovendien algemeen: het benoemt inkomen, uitgaven en beleggen als pijlers, maar gaat niet de diepte in van concrete beleggingsstrategie of belastingkeuzes, wat het voor lezers die daar houvast zoeken tekortschiet.</p>
+      <p>De vijf types ogen bovendien minder onafhankelijk dan het schema suggereert: financiële armslag maakt tijdswelvaart en fysieke welvaart in de praktijk gemakkelijker haalbaar, iets wat het boek erkent maar niet in het model zelf verwerkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel jezelf op elk van de vijf types apart, in plaats van vooruitgang op één type te laten gelden als algemene vooruitgang.</li>
+        <li>Stel een eigen Life Razor op: één zin die aangeeft wat je nooit opgeeft voor iets anders.</li>
+        <li>Vraag jezelf bij een grote tijdsbesteding af of die chronos dient of kairos, en pas de agenda daarop aan.</li>
+        <li>Formuleer voor je financiële situatie een concreet bedrag dat voor jou 'genoeg' betekent, in plaats van een open streven naar meer aan te houden.</li>
+        <li>Reserveer bewust tijd zonder telefoon of werk, en behandel die tijd als een afspraak die net zo min verzet wordt als een zakelijke vergadering.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>A Transformative Guide to Design Your Dream Life</i>, bij Ballantine Books (2025, 464 blz., ISBN 9780593723180). Geen Nederlandse uitgave bekend; het boek wordt in Nederland alleen in het Engels verkocht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sahil Bloom, oud-investeerder en schrijver van een populaire nieuwsbrief, vertelt hoe hij midden twintig financieel succesvol was en zich toch leeg voelde. Na gesprekken met ouderen die hij vroeg wat zij hun jongere zelf zouden meegeven, en na eigen onderzoek en duizenden interviews, onderscheidt hij vijf vormen van welvaart: tijd, sociaal, mentaal, fysiek en financieel.</p><p>Voor elk type geeft hij een eigen kader met drie pijlers en praktische instrumenten, van een Life Razor tot een Wealth Score. Financiële welvaart krijgt in zijn opzet uitdrukkelijk een ondersteunende rol tegenover de andere vier, niet de hoofdrol die het in de gangbare betekenis van welvaart meestal krijgt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>welvaart</li><li>levensinrichting</li><li>tijd</li><li>relaties</li><li>financiën</li><li>gewoontes</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel behandelt de financiële pijler die Bloom bewust op de vijfde plaats zet, met meer diepgang over gedrag rond geld.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman werkt de eindigheid van tijd uit die Blooms onderscheid tussen chronos en kairos veronderstelt.</li>
+          <li value="151"><a href="151.html">Essentialism</a>. McKeown biedt een vergelijkbaar keuzekader voor prioriteiten, toegespitst op het weglaten in plaats van het indelen in vijf types.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
