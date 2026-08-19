@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Moved My Cheese? &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Johnson vertelt in een fabel dat mensen op twee manieren reageren zodra iets waar ze aan gewend waren verdwijnt: door meteen op zoek te gaan naar iets…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-252">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">252 &middot; Gewoontes en denken</p>
+    <h1>Who Moved My Cheese?</h1>
+    <p class="lede">Spencer Johnson, 1998</p>
+    <p class="stats">
+      <span><b>1022</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="252"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Johnson vertelt in een fabel dat mensen op twee manieren reageren zodra iets waar ze aan gewend waren verdwijnt: door meteen op zoek te gaan naar iets nieuws, of door vast te houden aan de oude situatie en te wachten tot die terugkeert. De kaas in het verhaal staat voor alles wat iemand nastreeft, een baan, een relatie, gezondheid, en de kern van het boek is dat die kaas vroeg of laat verplaatst wordt, of iemand daarop voorbereid is of niet. Wachten maakt de honger en de woede in de fabel groter, niet kleiner; wie blijft zitten waar de kaas wegging, lijdt meer dan wie op zoek gaat naar een nieuwe plek.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het doolhof en de vier personages</h3>
+      <p>Het verhaal speelt zich af in een doolhof waarin twee muizen, Sniff en Scurry, en twee kleine mensen op muizenformaat, Hem en Haw, elke dag naar kaas zoeken. Sniff en Scurry gedragen zich als dieren: ze rennen op reuk af, proberen gangen uit en onthouden welke doodlopen. Hem en Haw denken na, plannen en gewennen, en juist dat vertraagt hen zodra de situatie verandert.</p>
+      <h3>Kaasstation C en de gewenning</h3>
+      <p>Alle vier vinden op een dag een grote voorraad kaas bij Kaasstation C. De muizen blijven op hun hoede en controleren de voorraad elke ochtend. Hem en Haw verhuizen hun hele leven naar de gang bij C, hangen er versieringen op en gaan ervan uit dat de kaas van hen is en zal blijven liggen.</p>
+      <h3>De kaas is op</h3>
+      <p>Op een ochtend is de kaas verdwenen. Sniff en Scurry, die de voorraad al dagen zagen slinken, schrikken niet en gaan meteen de gang weer in om elders te zoeken. Hem en Haw zijn niet voorbereid. Ze voelen zich bestolen, blijven staan waar de kaas hoorde te liggen en verwachten dat iemand haar terugbrengt.</p>
+      <h3>Wachten, boosheid en honger</h3>
+      <p>De dagen daarna keren Hem en Haw terug naar de lege plek, in de hoop dat de kaas is teruggekomen. Ze raken uitgehongerd en verwijten elkaar en de situatie, zonder de gang in te gaan. Haw begint zich af te vragen wat ze zouden doen als ze niet bang waren, een vraag die hij op de muur van het doolhof schrijft.</p>
+      <h3>Haw gaat op weg</h3>
+      <p>Terwijl Hem blijft wachten, dwingt Haw zichzelf de gang in. Onderweg schrijft hij observaties op de muur, zoals de gedachte dat wie niet verandert kan uitsterven, en dat bewegen in een nieuwe richting helpt om nieuwe kaas te vinden. Hij vindt kleine stukjes kaas onderweg, die hem op krachten houden en zijn vertrouwen langzaam teruggeven.</p>
+      <h3>Kaasstation N</h3>
+      <p>Haw komt uiteindelijk bij Kaasstation N, waar Sniff en Scurry al zitten en waar meer kaas ligt dan er ooit bij C lag. Hij leert de kaas voortaan geregeld te controleren op tekenen van veroudering, zodat een volgende verdwijning hem niet meer overvalt. Of Hem hem ooit volgt, laat het boek in het midden.</p>
+      <h3>De reünie eromheen</h3>
+      <p>Het verhaal wordt verteld op een klasgenotenreünie, waar een van de aanwezigen het gebruikt om een gesprek over reorganisaties op zijn werk te openen. Die inbedding maakt duidelijk voor welk publiek Johnson schreef: managers en medewerkers die verandering in een organisatie makkelijker bespreekbaar willen maken zonder over ontslag of falen te hoeven praten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kaas</td><td>Het symbool in de fabel voor alles wat iemand in het leven nastreeft, van een baan tot een relatie of gezondheid.</td></tr>
+          <tr><td class="term">Het doolhof</td><td>De omgeving waarin de zoektocht naar kaas plaatsvindt, staat voor de organisatie of het leven waarin iemand zich beweegt.</td></tr>
+          <tr><td class="term">Sniff en Scurry</td><td>De twee muizen die instinctief en zonder aarzelen op verandering reageren.</td></tr>
+          <tr><td class="term">Hem en Haw</td><td>De twee kleine mensen die eerst denken en plannen, waardoor ze trager op verandering reageren.</td></tr>
+          <tr><td class="term">Kaasstation C</td><td>De plek waar de vier personages lange tijd kaas vinden en waaraan ze gewend raken.</td></tr>
+          <tr><td class="term">De inscripties op de muur</td><td>Haws aantekeningen onderweg door het doolhof, geformuleerd als korte lessen over verandering.</td></tr>
+          <tr><td class="term">Wat zou je doen als je niet bang was</td><td>De vraag die Haw zichzelf stelt en die het omslagpunt in het verhaal vormt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een fabel en geen onderzoek. Johnson onderbouwt zijn punt niet met gegevens over organisaties of gedrag, maar met een verhaal waarin de personages precies doen wat de les vereist: de muizen die zonder nadenken bewegen hebben altijd gelijk, en de mens die blijft wachten heeft altijd ongelijk.</p>
+      <p>Dat maakt de fabel overtuigend als illustratie en zwak als argument. Er is in het verhaal geen tegenvoorbeeld van een personage dat wacht en daar baat bij heeft, terwijl afwachten in een organisatie soms wel degelijk verstandig is, bijvoorbeeld wanneer een verandering later wordt teruggedraaid. Het boek sluit die mogelijkheid op voorhand uit door de kaas nooit te laten terugkeren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de fabel de reden voor de verandering nooit bevraagt. De kaas verdwijnt zonder oorzaak of verantwoordelijke, en het boek besteedt geen aandacht aan de vraag of een reorganisatie zelf verstandig is. Wie het op de werkvloer gebruikt, kan het zo inzetten dat werknemers hun onbehagen bij ontslag of herstructurering als een gebrek aan flexibiliteit gaan voelen, terwijl de beslissing zelf buiten beeld blijft.</p>
+      <p>Ook het personage Hem krijgt weinig ruimte. Zijn weerstand wordt uitsluitend als angst en koppigheid weergegeven, niet als een redelijke reactie op onzekerheid of als gemis aan iets wat hij nodig had, bijvoorbeeld informatie of inspraak. Daardoor verklaart de fabel wel waarom mensen niet veranderen, maar niet of een organisatie zelf iets kan doen om die overgang makkelijker te maken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na welke kaas, welke situatie of gewoonte, in je eigen leven of werk al een tijd niet meer verandert.</li>
+        <li>Merk op wanneer een vertrouwde situatie kleiner of onzekerder wordt, in plaats van te wachten tot ze helemaal verdwijnt.</li>
+        <li>Schrijf net als Haw op wat je zou doen als je niet bang was voor het verlies van iets vertrouwds.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Who Moved My Cheese? An A-Mazing Way to Deal with Change in Your Work and in Your Life</i> (G.P. Putnam's Sons, 1998). Nederlands als <i>Wie heeft mijn kaas gepikt?</i>, sinds 1998 bij Business Contact (92 blz., ISBN 9789025413873), vertaald door Pim van Tol.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In een doolhof leven twee muizen, Sniff en Scurry, en twee kleine mensen op muizenformaat, Hem en Haw. Alle vier zoeken ze kaas, het symbool voor wat iemand in het leven wil: een baan, een relatie, gezondheid. Lange tijd vinden ze die kaas op dezelfde plek, Kaasstation C, en raken eraan gewend. Op een dag is de kaas op. Sniff en Scurry, die de voorraad al dagen zagen slinken, trekken meteen de gang weer in om nieuwe kaas te zoeken. Hem en Haw reageren anders: ze voelen zich bestolen, blijven wachten tot de oude kaas terugkomt en worden bozer en hongeriger naarmate de tijd verstrijkt.</p><p>Haw doorbreekt uiteindelijk als eerste het patroon. Ondanks zijn angst gaat hij de gang weer in en schrijft onderweg lessen op de muur, zoals de gedachte dat wie niet verandert kan uitsterven, en dat wie zich vroeg beweegt sneller nieuwe kaas vindt. Hij ontdekt Kaasstation N, waar Sniff en Scurry allang zitten, met veel meer kaas dan er ooit bij C lag. Hem blijft achter; wat er met hem gebeurt, laat het boek in het midden. Het verhaal wordt verteld op een klasgenotenreünie, als aanleiding voor een gesprek over verandering op het werk. De vorm is een fabel en geen onderzoek: de les zit in het gedrag van de personages, niet in gegevens.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>fabel</li><li>verandering</li><li>aanpassingsvermogen</li><li>angst</li><li>werk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear beschrijft hoe nieuw gedrag zich vestigt, waar Johnsons fabel vooral bij het besluit tot bewegen blijft staan.</li>
+          <li value="238"><a href="238.html">The Power of Habit</a>. Duhigg legt uit hoe een gewoonte in de hersenen werkt, een mechanisme dat de fabel wel benoemt maar niet verklaart.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday behandelt tegenslag als iets om te gebruiken in plaats van te vermijden, een strengere versie van dezelfde les.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

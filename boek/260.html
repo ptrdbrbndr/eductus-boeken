@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Next Five Moves &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bet-David stelt dat ondernemers vaak reageren in plaats van vooruitdenken, en dat wie een bedrijf wil laten groeien vijf zetten in de juiste volgorde moet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-260">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">260 &middot; Geld en ondernemen</p>
+    <h1>Your Next Five Moves</h1>
+    <p class="lede">Patrick Bet-David met Greg Dinkin, 2020</p>
+    <p class="stats">
+      <span><b>1459</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="260"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bet-David stelt dat ondernemers vaak reageren in plaats van vooruitdenken, en dat wie een bedrijf wil laten groeien vijf zetten in de juiste volgorde moet beheersen: zichzelf kennen, problemen tot de kern oplossen, een team bouwen dat het werk aankan, de organisatie laten meegroeien met het kapitaal, en zich staande houden tegenover grotere en machtiger tegenstanders. Net als bij schaken is een zet pas goed als hij rekening houdt met wat de tegenstander daarna doet; wie alleen naar de volgende stap kijkt, verliest volgens hem uiteindelijk van wie verder vooruitkijkt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De achtergrond van de schrijver</h3>
+      <p>Bet-David groeide op in Iran en vluchtte als kind met zijn familie via Duitsland naar de Verenigde Staten, waar hij opgroeide in armoede in Los Angeles. Na de middelbare school diende hij bij het Amerikaanse leger, ging daarna de verzekeringsbranche in en richtte in 2009 het bedrijf PHP Agency op. Zijn platform Valuetainment, waarop hij ondernemers en bestuurders interviewt, vormt de bron van veel van de voorbeelden in het boek.</p>
+      <p>Hij presenteert zichzelf niet als academisch strateeg maar als iemand die zijn kader heeft opgebouwd uit eigen fouten en uit gesprekken met honderden ondernemers. Dat bepaalt de toon van het boek: kort, met veel anekdotes en weinig verwijzingen naar onderzoek.</p>
+      <h3>Zet een: jezelf kennen</h3>
+      <p>De eerste zet gaat niet over de markt maar over de speler. Bet-David laat de lezer een 'Personal Identity Audit' invullen: een lijst vragen over waarden, angsten en ambities, bedoeld om te ontdekken wie iemand wil worden voordat hij een bedrijf opzet. Zonder dat antwoord, stelt hij, kiest een ondernemer doelen die niet bij hem passen en loopt hij vast zodra het moeilijk wordt.</p>
+      <p>Hij onderscheidt daarbij mensen die aangedreven worden door een tekort, zoals armoede of afwijzing, van mensen die aangedreven worden door een overschot aan energie of ambitie. Beide typen kunnen slagen, maar volgens hem alleen als ze weten welk van de twee ze zijn, omdat de aanpak die daarbij past verschilt.</p>
+      <h3>Zet twee: het probleem tot de kern oplossen</h3>
+      <p>Bij de tweede zet introduceert hij de methode 'Solve for X': een probleem wordt herhaald opgesplitst in de vraag die eronder ligt, tot de werkelijke oorzaak overblijft. Een dalende omzet is dan niet het probleem maar het symptoom van bijvoorbeeld een verkoopproces dat leads te laat opvolgt, en dat proces is op zijn beurt weer het symptoom van een onduidelijke rolverdeling in het team.</p>
+      <p>Bet-David waarschuwt voor de neiging om het eerste zichtbare probleem te behandelen, omdat dat op korte termijn opluchting geeft maar de oorzaak intact laat. Hij illustreert dat met voorbeelden uit zijn eigen bedrijf, waar een terugkerend personeelsprobleem uiteindelijk bleek terug te voeren op een onduidelijke functieomschrijving.</p>
+      <h3>Zet drie: een team bouwen</h3>
+      <p>De derde zet gaat over het aannemen en vasthouden van mensen die het werk aankunnen dat de oprichter niet meer alleen aankan. Bet-David onderscheidt rollen die op karakter aangenomen moeten worden van rollen die op vaardigheid aangenomen moeten worden, en waarschuwt dat de meeste oprichters die twee door elkaar halen.</p>
+      <p>Cultuur is bij hem geen poster met waarden aan de muur maar het patroon van wat een team beloont en afstraft in de praktijk. Hij bespreekt ontslag als een verantwoordelijkheid van de leiding, niet als een falen, wanneer iemand structureel niet past bij wat het bedrijf nodig heeft.</p>
+      <h3>Zet vier: opschalen</h3>
+      <p>Bij groei moet volgens Bet-David het kapitaal en de mensen gelijk oplopen: een bedrijf dat sneller geld aantrekt dan het leiderschap kan ontwikkelen, loopt vast op een organisatie die de omzet niet aankan. Hij introduceert de 'Investment-Time-Return'-formule om te bepalen of een uitbreiding, een aanwerving of een investering de tijd waard is die ze kost.</p>
+      <p>Hij benadrukt dat opschalen andere vaardigheden vraagt dan opstarten, en dat oprichters die goed zijn in het beginnen van een bedrijf daarom niet vanzelf goed zijn in het besturen ervan. Sommigen moeten volgens hem plaatsmaken voor een operationeel directeur zodra het bedrijf een bepaalde omvang bereikt.</p>
+      <h3>Zet vijf: power plays</h3>
+      <p>De laatste zet gaat over de omgang met grotere en machtiger tegenstanders: hoe een kleinere partij onderhandelt, het verhaal rond een bedrijf bepaalt en concurrentie aangaat zonder over voldoende middelen te beschikken. Bet-David bespreekt hier openlijk tactieken die aan machtsspel grenzen, zoals het bewust vertragen van een onderhandeling of het inzetten van publiciteit tegen een grotere partij.</p>
+      <p>Hij besluit het boek met de waarschuwing dat wie deze zetten kent maar de eerste zet, zelfkennis, overslaat, uiteindelijk een bedrijf bouwt dat niet bij hem past, ook als het financieel slaagt.</p>
+      <h3>Ontvangst en plaats in het genre</h3>
+      <p>Het boek werd een bestseller op de lijst van de Wall Street Journal en groeide vooral via Bet-Davids eigen mediakanaal, waar hij en zijn team het boek uitgebreid bespraken voor en na verschijning. Die aanpak, een boek voeden vanuit een bestaand publiek, verklaart voor een deel het commerciële succes, los van de vraag hoe origineel het raamwerk is.</p>
+      <p>Binnen het genre van praktische strategieboeken staat het dicht bij werk van auteurs als Robert Greene en Ray Dalio, met dit verschil dat Bet-David minder uitgaat van historische voorbeelden en meer van zijn eigen praktijk en die van de ondernemers die hij interviewt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De vijf zetten</td><td>Het raamwerk van het boek: zelfkennis, probleemoplossing, teamvorming, opschalen en power plays, in die volgorde.</td></tr>
+          <tr><td class="term">Personal Identity Audit</td><td>Een vragenlijst over waarden en ambities waarmee een lezer voor zichzelf vaststelt wie hij wil worden.</td></tr>
+          <tr><td class="term">Solve for X</td><td>Een probleem herhaald opsplitsen in de onderliggende vraag tot de werkelijke oorzaak zichtbaar wordt.</td></tr>
+          <tr><td class="term">Investment-Time-Return</td><td>Een rekenmodel om te bepalen of een investering van tijd of geld de opbrengst ervan waard is.</td></tr>
+          <tr><td class="term">Power play</td><td>Een strategische zet waarmee een kleinere partij een onderhandeling of het publieke verhaal naar haar hand zet.</td></tr>
+          <tr><td class="term">Tekort versus overschot als drijfveer</td><td>Het onderscheid tussen ondernemers die vanuit gemis handelen en ondernemers die vanuit overtollige energie handelen.</td></tr>
+          <tr><td class="term">Aannemen op karakter versus op vaardigheid</td><td>Het onderscheid dat bepaalt of een rol vraagt om iemand die te vertrouwen is of iemand die de klus kan klaren.</td></tr>
+          <tr><td class="term">Franchise-denken</td><td>Bet-Davids nadruk op het opschalen van verkoopteams en distributie, afkomstig uit zijn eigen achtergrond in de verzekeringsbranche.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bouwt niet op onderzoek maar op ervaring: Bet-David's eigen loopbaan in de verzekeringsbranche, en de honderden gesprekken die hij als presentator van Valuetainment met ondernemers en bestuurders voerde. Er staan geen bronnenlijst, geen cijfers uit onafhankelijke studies en geen vergelijking tussen bedrijven die zijn raamwerk wel en niet volgden.</p>
+      <p>De voorbeelden komen vrijwel allemaal uit zijn eigen netwerk of uit interviews die hij zelf afnam, wat betekent dat succesverhalen ruim vertegenwoordigd zijn en mislukkingen vooral als leermoment worden opgevoerd, niet als uitkomst die het raamwerk zelf in twijfel trekt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het raamwerk nooit getoetst wordt aan een geval waarin het niet werkte. Bet-David citeert ondernemers die zijn aanpak bevestigen, maar bespreekt geen bedrijf dat volgens dezelfde zetten handelde en toch mislukte, waardoor onduidelijk blijft hoe voorspellend het model werkelijk is.</p>
+      <p>De vijfde zet, de power plays, schuurt daarnaast tegen manipulatie: het boek geeft tactieken voor onderhandelen en verhaalbeheersing zonder veel aandacht te besteden aan de grens tussen strategisch handelen en misleiding. Ten slotte is de indeling in vijf zetten overzichtelijk maar niet nieuw: de kern, zelfkennis, probleemanalyse, teamvorming en aanpassingsvermogen, komt terug in tientallen andere managementboeken, en Bet-David voegt vooral zijn eigen voorbeelden en terminologie toe, niet een andere onderliggende logica.</p>
+      <p>Het boek is bovendien sterk gekleurd door de sector waarin Bet-David zijn ervaring opdeed, de verzekerings- en franchisewereld in de Verenigde Staten, met veel nadruk op het werven en aansturen van verkoopteams. Hoeveel van de zetten zich laat vertalen naar een klein zelfstandig bedrijf of naar een sector met een andere verdienstructuur, blijft in het boek onbesproken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vul de Personal Identity Audit uit het boek in, of stel voor jezelf drie vragen op over waarden, angsten en ambities voordat je een beslissing over je werk neemt.</li>
+        <li>Neem een terugkerend probleem op je werk en herleid het met Solve for X stap voor stap naar de onderliggende oorzaak, in plaats van het eerste symptoom aan te pakken.</li>
+        <li>Ga na of een rol in je team op karakter of op vaardigheid is ingevuld, en of dat bij de rol past.</li>
+        <li>Bereken bij een investering van tijd of geld wat de verwachte opbrengst is voordat je eraan begint.</li>
+        <li>Vergelijk voordat je een zet uit het boek overneemt of jouw situatie op dezelfde aannames berust: een verkoopteam opschalen, een merk met een boegbeeld, en een markt met veel concurrentie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Master the Art of Business Strategy</i>, bij Gallery Books (2020), geschreven samen met Greg Dinkin. Geen Nederlandse uitgave: van Bet-David is geen boek in het Nederlands vertaald verschenen. De samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bet-David, oprichter van het verzekeringsbedrijf PHP Agency en van het mediaplatform Valuetainment, beschrijft ondernemersstrategie als een reeks zetten die vooruit gedacht moeten worden, zoals bij schaken. Het boek is opgebouwd rond vijf zetten: jezelf kennen, problemen tot op de kern oplossen, een team bouwen, opschalen, en je staande houden tegenover grotere concurrenten. Elke zet krijgt een eigen deel met oefeningen, waaronder een 'Personal Identity Audit' om uit te zoeken wie iemand wil worden voordat hij een bedrijf bouwt. Bet-David vertelt zijn eigen geschiedenis als vluchteling uit Iran die via het Amerikaanse leger in de verzekeringsbranche terechtkwam, en vult dat aan met interviews die hij als presentator van zijn eigen show met ondernemers en bestuurders voerde.</p><p>De methode 'Solve for X' staat centraal bij de tweede zet: een probleem wordt net zolang uitgesplitst in kleinere vragen tot de werkelijke oorzaak zichtbaar wordt, in plaats van het eerste symptoom te behandelen. Bij de laatste zet, de 'power plays', gaat het om onderhandelen en het bepalen van het verhaal rond een bedrijf wanneer een kleinere partij het opneemt tegen een grotere. Het boek richt zich op ondernemers en leidinggevenden en bevat aan het eind werkbladen per hoofdstuk. Onderbouwing komt vooral uit ervaring en anekdote, niet uit onderzoek: Bet-David citeert regelmatig historische strategen en zakenmensen, maar toetst zijn kader niet aan gegevens buiten zijn eigen praktijk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>strategie</li><li>zelfkennis</li><li>teamvorming</li><li>onderhandelen</li><li>leiderschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz beschrijft dezelfde overgang van opstarten naar besturen, maar dan vanuit softwarebedrijven en met meer aandacht voor de eenzaamheid van de leidersrol.</li>
+          <li value="270"><a href="270.html">Principles</a>. Dalio's principes vormen een vergelijkbaar raamwerk voor besluitvorming, uitgewerkt met meer nadruk op het vastleggen van regels dan op verhalen.</li>
+          <li value="212"><a href="212.html">The 33 Strategies of War</a>. Greene werkt de strategische kant van zet vijf, de omgang met een sterkere tegenstander, veel verder uit dan Bet-David hier doet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

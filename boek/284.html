@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Great Gatsby &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Fitzgerald laat zien hoe een man zijn hele volwassen leven inricht rond het herwinnen van één moment uit het verleden, en hoe die inzet hem tegelijk…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-284">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">284 &middot; Roman en memoir</p>
+    <h1>The Great Gatsby</h1>
+    <p class="lede">F. Scott Fitzgerald, 1925</p>
+    <p class="stats">
+      <span><b>1355</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="284"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Fitzgerald laat zien hoe een man zijn hele volwassen leven inricht rond het herwinnen van één moment uit het verleden, en hoe die inzet hem tegelijk grootser en holler maakt dan iedereen om hem heen. Gatsby's fortuin, zijn feesten en zijn zelfgekozen naam dienen geen ander doel dan Daisy terug te winnen alsof de vijf tussenliggende jaren nooit hebben bestaan; het boek stelt dat zo'n herhaling van het verleden onmogelijk is, ook al gelooft Gatsby tot het einde van harte van niet. Rond dat persoonlijke drama bouwt Fitzgerald een beeld van Amerika waarin geld van twee soorten is, oud en nieuw, en waarin de nieuwe rijkdom nooit toegang krijgt tot wat de oude bezit zonder ervoor te hoeven werken.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Nick komt aan op Long Island</h3>
+      <p>Nick Carraway vertelt vanuit een later moment terug over de zomer van 1922, toen hij vanuit het Midwesten naar New York trok om het effectenvak te leren en een huisje huurde in West Egg, het nieuwrijke deel van Long Island. Aan de overkant van de baai ligt East Egg, waar zijn nicht Daisy woont met haar man Tom Buchanan, een voormalige footballster met een fors vermogen van zijn familie. Bij zijn eerste bezoek ontmoet Nick ook Jordan Baker, een golfster met wie hij later iets krijgt, en hoort hij Tom openlijk praten over een vrouw in New York.</p>
+      <p>Vanuit zijn eigen tuin ziet Nick zijn buurman Gatsby 's avonds alleen op zijn steiger staan, met zijn armen uitgestrekt naar een groen licht aan het einde van Daisy's aanlegsteiger. Dat beeld, van een man die reikt naar iets wat hij niet kan aanraken, staat aan het begin van het boek en keert aan het eind terug.</p>
+      <h3>De feesten en de eerste ontmoeting</h3>
+      <p>Gatsby's villa trekt elk weekend honderden gasten die zonder uitnodiging komen, drinken van zijn drank en over hem roddelen zonder hem ooit gesproken te hebben. De geruchten lopen uiteen van Duits spion tot neef van de keizer tot moordenaar. Nick krijgt als een van de weinigen een echte uitnodiging en ontmoet Gatsby zelf, die opvalt door zijn overdreven formele aanspreekvorm "old sport" en door een glimlach die de indruk wekt dat hij precies jou begrijpt.</p>
+      <p>Al snel wordt duidelijk dat Gatsby Nick heeft opgezocht met een bedoeling: via Jordan vraagt hij Nick om een theevisite te regelen waarbij Daisy, zonder het te weten, bij Gatsby langskomt. Het weerzien is stroef en overweldigd tegelijk; Gatsby laat Daisy zijn kasten vol overhemden zien, en zij barst in tranen uit om de schoonheid ervan.</p>
+      <h3>Wie Gatsby werkelijk is</h3>
+      <p>Gaandeweg onthult het boek wie er achter de naam Gatsby schuilgaat. Hij is geboren als James Gatz, zoon van arme boeren in North Dakota, die zichzelf als tiener al herdoopte en aan boord ging bij de rijke Dan Cody, van wie hij manieren en smaak overnam zonder diens erfenis te krijgen. Na de oorlog bouwde hij, met de zakenpartner Meyer Wolfshiem op de achtergrond, in enkele jaren een vermogen op waarvan de herkomst nooit helemaal wordt uitgesproken maar wel wordt gesuggereerd: illegale drankhandel en vervalste effecten, in de jaren van de drooglegging.</p>
+      <h3>De confrontatie in het hotel</h3>
+      <p>Op een broeierige middag komt de hele groep, Nick, Jordan, Tom, Daisy en Gatsby, samen in een hotelsuite in New York. Daar dwingt Tom de zaak tot een uitbarsting: hij confronteert Gatsby met zijn afkomst en zijn handel, en eist van Daisy dat ze toegeeft dat ze nooit van Gatsby heeft gehouden. Gatsby dringt op zijn beurt aan dat Daisy tegen Tom zegt dat ze hem nooit heeft liefgehad, alsof de afgelopen vijf jaar dan ongedaan zouden zijn.</p>
+      <p>Daisy breekt onder de druk en zegt dat ze wel van Tom heeft gehouden, wat voor Gatsby een nederlaag is die hij niet had voorzien. Tom, zeker van zijn overwicht, stuurt Daisy met Gatsby mee terug naar Long Island, zonder nog bang te zijn haar te verliezen.</p>
+      <h3>Het ongeluk en de dood</h3>
+      <p>Op de terugweg rijdt Daisy, achter het stuur van Gatsby's gele auto, Toms minnares Myrtle Wilson dood, die de auto vanaf de weg herkent en de weg op rent. Gatsby, die naast haar zat, neemt zich voor de schuld op zich te nemen als het zover komt. Tom vertelt Myrtles man George, kapot van verdriet, dat de gele auto van Gatsby was, zonder te melden dat Daisy reed. George zoekt Gatsby op bij diens zwembad, schiet hem dood en maakt daarna een einde aan zijn eigen leven.</p>
+      <h3>De begrafenis en Nicks afscheid</h3>
+      <p>Van de honderden mensen die maandenlang bij Gatsby aten en dronken, komt op zijn begrafenis vrijwel niemand opdagen: alleen Nick, Gatsby's vader Henry Gatz, die vol trots een oud schoolschema van zijn zoon laat zien, en één gast die Gatsby ooit "Owl Eyes" noemde. Daisy en Tom zijn al vertrokken zonder een bericht achter te laten. Nick, vervuld van afkeer voor de oppervlakkigheid van iedereen om hem heen, keert terug naar het Midwesten. Het boek sluit met Nicks overpeinzing dat Gatsby geloofde in het groene licht en de belofte van morgen, en met de beroemde slotzin over boten die tegen de stroom in blijven roeien, teruggevoerd naar het verleden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het groene licht</td><td>Het licht aan het einde van Daisy's aanlegsteiger waar Gatsby 's avonds naar staart; staat voor zijn verlangen en voor de onbereikbaarheid ervan.</td></tr>
+          <tr><td class="term">West Egg en East Egg</td><td>De twee delen van Long Island in het boek, respectievelijk voor nieuw en oud geld, met een onoverbrugbaar sociaal verschil ondanks vergelijkbare rijkdom.</td></tr>
+          <tr><td class="term">De asvallei</td><td>Het industriële, verwaarloosde gebied tussen Long Island en New York waar de arme Wilsons wonen, tegenover de rijkdom aan beide kanten ervan.</td></tr>
+          <tr><td class="term">De ogen van Doctor T. J. Eckleburg</td><td>Een verweerd reclamebord met een bril boven de asvallei, dat door personages soms wordt gelezen als een blik die alles ziet.</td></tr>
+          <tr><td class="term">Oud geld en nieuw geld</td><td>Het onderscheid tussen families als de Buchanans, die vermogen erfden, en zelfgemaakte rijken als Gatsby, die er nooit volledig bij mogen horen.</td></tr>
+          <tr><td class="term">James Gatz</td><td>Gatsby's oorspronkelijke naam, die hij als tiener aflegde toen hij besloot zichzelf opnieuw uit te vinden.</td></tr>
+          <tr><td class="term">Old sport</td><td>Gatsby's aanspreekvorm voor bijna iedereen, aangeleerd en enigszins te formeel, een teken van iemand die een rol speelt.</td></tr>
+          <tr><td class="term">De onbetrouwbare verteller</td><td>Nick presenteert zich als een eerlijke waarnemer, maar is zelf betrokken bij de gebeurtenissen en oordeelt voortdurend mee.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is fictie, maar Fitzgerald bouwde het verhaal op zijn eigen ervaringen. Hij woonde in 1922 en 1923 in Great Neck, Long Island, tussen precies het soort nieuwe en oude rijkdom dat hij in het boek tegenover elkaar zet, en zijn huwelijk met de rijke, veeleisende Zelda Sayre had trekken van Gatsby's obsessieve werving van Daisy: ook Fitzgerald moest eerst geld verdienen voordat Zelda's familie hem accepteerde.</p>
+      <p>Het boek verkocht bij verschijnen in 1925 matig en Fitzgerald stierf in 1940 in de overtuiging dat het een mislukking was; pas na de Tweede Wereldoorlog, toen goedkope legereditie's van het boek onder Amerikaanse soldaten werden verspreid, groeide de reputatie ervan uit tot wat nu vaak de grote Amerikaanse roman wordt genoemd. Die late erkenning is zelf een feit, geen literaire onderbouwing van de kwaliteit van het boek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft Daisy, die door Fitzgerald vooral van buitenaf wordt getekend, via Nicks en Gatsby's bewondering, en weinig eigen innerlijk krijgt. Zij functioneert meer als symbool van wat geld en klasse beloven dan als een personage met een eigen logica, wat ook opgaat voor Myrtle en, in mindere mate, Jordan; alle drie de vrouwen in het boek bestaan grotendeels in relatie tot wat de mannen om hen heen willen.</p>
+      <p>Een tweede punt is dat het boek de wereld van overvloed die het aan de kaak stelt met evenveel plezier beschrijft als het veroordeelt: de beschrijvingen van Gatsby's feesten, garderobe en auto's zijn te gedetailleerd en te genietbaar om alleen als kritiek te lezen. Dat maakt het moreel oordeel aan het eind minder hard dan de toon ervan suggereert.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Great Gatsby</i> (Charles Scribner's Sons, 1925). Nederlands als <i>De grote Gatsby</i>, sinds 2024 bij L.J. Veen Klassiek (15e druk, 207 blz., ISBN 9789020417531); vertaald door Susan Janssen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nick Carraway, een jonge effectenhandelaar uit het Midwesten, huurt in de zomer van 1922 een huisje op Long Island, naast de villa van zijn geheimzinnige buurman Jay Gatsby. Gatsby geeft er wekelijks enorme feesten voor gasten die hem nauwelijks kennen, terwijl hijzelf zelden meedoet en vooral uitkijkt over de baai naar een groen licht aan de overkant. Daar woont Nicks nicht Daisy Buchanan, getrouwd met de rijke en ontrouwe Tom. Via Nick regelt Gatsby een ontmoeting met Daisy, van wie blijkt dat hij vijf jaar eerder verliefd op haar werd, voordat hij als arme officier naar de oorlog vertrok en zij met Tom trouwde. Gatsby's hele fortuin en de feesten blijken opgebouwd met één doel: haar terugwinnen.</p><p>Naarmate de zomer vordert, blijkt Gatsby's afkomst minder chic dan zijn optreden doet vermoeden: hij is geboren als James Gatz, zoon van arme boeren in North Dakota, en heeft zichzelf met hulp van de zakenman Dan Cody en later twijfelachtige handel opnieuw uitgevonden. Tom ontdekt Gatsby's herkomst en zijn affaire met Daisy en confronteert hem in een hotel in New York; Daisy kiest uiteindelijk niet voor Gatsby. Op de terugweg rijdt zij, achter het stuur van Gatsby's auto, Toms minnares Myrtle Wilson dood. Gatsby neemt de schuld op zich, waarna Myrtles man George hem doodschiet en zichzelf van het leven berooft. Op Gatsby's begrafenis komt bijna niemand van zijn duizenden feestgasten opdagen; alleen Nick, diens vader en één andere gast zijn aanwezig.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>jazztijdperk</li><li>amerikaanse droom</li><li>klassenverschil</li><li>obsessieve liefde</li><li>onbetrouwbare verteller</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="10"><a href="10.html">Ten oosten van Eden</a>. Steinbecks Amerikaanse familie-epos deelt de vraag of een zelfgekozen identiteit het verleden ooit kan overschrijven.</li>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Moehringers memoir toont van binnenuit dezelfde drang om via geld en stijl bij een hogere klasse te horen.</li>
+          <li value="61"><a href="61.html">Brave New World</a>. Huxleys wereld van georganiseerd genot laat zien waar de leegte achter Gatsby's feesten toe kan uitgroeien.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

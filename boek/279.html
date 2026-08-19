@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Marketers Are Liars &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Godin stelt dat marketing geen kwestie is van feiten overbrengen maar van een verhaal aanbieden dat aansluit bij wat de koper al gelooft, en dat een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-279">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">279 &middot; Geld en ondernemen</p>
+    <h1>All Marketers Are Liars</h1>
+    <p class="lede">Seth Godin, 2005</p>
+    <p class="stats">
+      <span><b>1410</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="279"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Godin stelt dat marketing geen kwestie is van feiten overbrengen maar van een verhaal aanbieden dat aansluit bij wat de koper al gelooft, en dat een product of dienst pas werkt zodra die koper zichzelf een reden heeft gegeven om het te geloven. Hij noemt dat proces met opzet een leugen, niet omdat de marketeer bewust bedriegt, maar om te laten zien hoe dun de grens is tussen een verhaal dat overtuigt en een verhaal dat misleidt. Het boek biedt daarbij geen scherpe toets om die twee uit elkaar te houden, behalve de vraag of de marketeer zijn eigen verhaal gelooft en waarmaakt, een criterium dat van buitenaf nauwelijks te controleren is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Feiten zijn niet genoeg</h3>
+      <p>Godin opent met het voorbeeld van wijn: mensen die een dure fles krijgen voorgeschoteld, beoordelen de inhoud vaker als lekkerder dan wie dezelfde wijn uit een goedkope fles krijgt, ook al is de vloeistof identiek. Daaruit leidt hij af dat een koper niet reageert op wat een product objectief is, maar op het verhaal dat om het product heen hangt.</p>
+      <h3>Wereldbeeld en kader</h3>
+      <p>Twee begrippen dragen het boek: het wereldbeeld van de koper, de aannames en overtuigingen die iemand al heeft voordat hij een product tegenkomt, en het kader waarin een marketeer zijn verhaal presenteert. Een verhaal dat niet aansluit bij het wereldbeeld van de koper wordt genegeerd, ongeacht hoe waar het is; een verhaal dat er wel bij aansluit, wordt overgenomen en vaak door de koper zelf verder uitgewerkt.</p>
+      <h3>Vroege gelovigen en de rest</h3>
+      <p>Nieuwe verhalen vinden volgens Godin eerst gehoor bij een klein publiek dat al openstaat voor verandering, voordat een breder publiek volgt. Die vroege gelovigen accepteren een verhaal makkelijker en vertellen het door, waarmee ze het voor de grotere groep geloofwaardig maken. Een marketeer die zich meteen op de brede massa richt, mist volgens hem deze noodzakelijke tussenstap.</p>
+      <h3>Voorbeelden uit de praktijk</h3>
+      <p>Het boek werkt de stelling vooral uit met bekende merkvoorbeelden: water met een verhaal over herkomst dat duurder wordt verkocht dan gewoon water, biologische producten die als gezonder gelden zonder dat de koper de voedingswaarde heeft vergeleken, een bier dat zich onderscheidt doordat de brouwer zelf op het etiket staat. In elk geval is niet het product veranderd, maar het verhaal eromheen.</p>
+      <p>Ook merken met een lange geschiedenis, zoals een wodka die zich beroept op een Russische herkomst of een zeepmerk met een dichte tekst op de verpakking, gebruikt Godin om te laten zien dat een verhaal niet per se kort of eenvoudig hoeft te zijn om te werken; het moet vooral kloppen met wat de koper al wilde geloven over kwaliteit, herkomst of een merk dat ergens voor staat.</p>
+      <h3>De grens tussen overtuigen en misleiden</h3>
+      <p>Godin onderscheidt verhalen die de koper beter af laten zijn, bijvoorbeeld een placebo-effect dat een product daadwerkelijk beter laat werken, van verhalen die uiteindelijk schade toebrengen zodra de koper de werkelijkheid ontdekt. De enige toets die hij aanreikt, is of de marketeer zelf in het verhaal gelooft en het waarmaakt in plaats van er alleen de verkoop mee te bevorderen.</p>
+      <p>Wat die toets in de praktijk moet tegenhouden, een marketeer die overtuigd is van een verhaal dat toch schade aanricht, blijft in het boek onbeantwoord.</p>
+      <h3>Grote en middelmatige marketeers</h3>
+      <p>In de slothoofdstukken zet Godin grote marketeers af tegen middelmatige. Een middelmatige marketeer test onderdelen los van elkaar, een advertentietekst hier, een kleur daar, en verliest het verhaal als geheel uit het oog. Een grote marketeer bewaakt volgens hem de consistentie van het hele verhaal, van het product zelf tot de verpakking en de manier waarop een verkoper erover praat, omdat één afwijkend detail het hele verhaal kan ontkrachten.</p>
+      <p>Hij noemt dat de esthetiek van een verhaal: niet de mooie vormgeving op zich, maar de mate waarin elk zichtbaar detail bevestigt wat het verhaal al beloofde. Een goedkoop etiket op een duur product ondermijnt zo het verhaal, ongeacht wat er verder over het product wordt gezegd.</p>
+      <p>Datzelfde geldt voor de mensen achter een merk: een verkoper die het verhaal niet zelf uitstraalt, in toon, kleding of gedrag, ondermijnt volgens Godin evenveel vertrouwen als een goedkoop etiket. Het verhaal moet daarom niet alleen op de verpakking kloppen, maar op elk moment waarop een koper met het merk in aanraking komt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wereldbeeld</td><td>De aannames en overtuigingen die een koper al heeft voordat hij een product of verhaal tegenkomt.</td></tr>
+          <tr><td class="term">Kader</td><td>De context waarin een marketeer zijn verhaal presenteert en die bepaalt hoe het wordt gelezen.</td></tr>
+          <tr><td class="term">De leugen</td><td>Godins term voor een marketingverhaal, met opzet provocerend gekozen om de grens met misleiding te tonen.</td></tr>
+          <tr><td class="term">Vroege gelovigen</td><td>Het kleine publiek dat als eerste een nieuw verhaal accepteert en het voor een breder publiek geloofwaardig maakt.</td></tr>
+          <tr><td class="term">Authenticiteit</td><td>De eis dat een marketeer zijn eigen verhaal gelooft en er ook naar handelt.</td></tr>
+          <tr><td class="term">Aannemelijkheid</td><td>Hoe goed een verhaal aansluit bij wat een koper al gelooft, los van of het feitelijk klopt.</td></tr>
+          <tr><td class="term">Esthetiek</td><td>De mate waarin elk zichtbaar detail van een product het onderliggende verhaal bevestigt in plaats van ondermijnt.</td></tr>
+          <tr><td class="term">Zelfversterkend verhaal</td><td>Een verhaal dat de koper na aankoop zelf verder uitwerkt en aan zichzelf blijft vertellen.</td></tr>
+          <tr><td class="term">Consistentie</td><td>Het kenmerk dat Godin toeschrijft aan grote marketeers: elk onderdeel van product en presentatie bevestigt hetzelfde verhaal.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat vrijwel volledig uit bekende merkvoorbeelden en Godins eigen observaties uit zijn werk als marketeer, niet uit systematisch onderzoek. Het voorbeeld van de wijn is een uitzondering: het effect van prijs op smaakbeleving is later ook in gecontroleerd onderzoek bevestigd. Onderzoekers van Caltech en Stanford lieten proefpersonen dezelfde wijn proeven bij verschillende, verzonnen prijskaartjes en zagen niet alleen de gerapporteerde smaak veranderen maar ook de activiteit in het deel van de hersenen dat plezier registreert; die publicatie verscheen pas na de eerste druk van dit boek en bevestigt achteraf wat Godin als anekdote opvoerde.</p>
+      <p>Voor de rest van het boek geldt dat de voorbeelden zijn gekozen omdat ze de stelling ondersteunen, zonder dat wordt gekeken naar merken waarbij eenzelfde aanpak niet werkte. Dat maakt het boek overtuigend als verzameling observaties, maar zwak als bewijs dat het patroon universeel opgaat.</p>
+      <p>Het onderscheid tussen grote en middelmatige marketeers steunt evenmin op een meting van consistentie in de praktijk; het blijft bij een handvol voorbeelden waarin achteraf, na een bekend succes of een bekende mislukking, wordt aangewezen waar de consistentie wel of niet aanwezig was.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar richt zich op de titel en het onderliggende onderscheid. Door elk overtuigend verhaal een leugen te noemen, ongeacht of het schade aanricht, verkleint Godin het verschil tussen onschuldige framing en daadwerkelijke misleiding, terwijl dat verschil voor een koper die zich bedrogen voelt allesbehalve klein is. De enige toets die hij aanreikt, of de marketeer zijn verhaal zelf gelooft, is voor een buitenstaander niet te controleren en biedt dus weinig houvast om een goede van een kwalijke leugen te onderscheiden.</p>
+      <p>Dat de titel later op het omslag is aangevuld met <i>Tell Stories</i>, wijst er bovendien op dat ook de uitgever de oorspronkelijke formulering voor verwarring liet zorgen.</p>
+      <p>Het onderscheid tussen grote en middelmatige marketeers is achteraf geredeneerd: een succesvol merk krijgt het predicaat consistent, een mislukt merk niet, zonder dat vooraf is vastgelegd hoe die consistentie te meten valt. Dat maakt het lastig om de stelling te toetsen aan een geval dat nog niet is uitgewezen.</p>
+      <p>Het boek gaat ook nauwelijks in op de koper die een verhaal doorziet en zich daardoor bewust tegen een merk keert. Wie eenmaal doorheeft dat een prijs, een etiket of een oorsprongsverhaal vooral is bedoeld om een indruk te wekken, kan dat de volgende keer juist wantrouwen, en dat weerwerk krijgt in Godins optimistische toon over authentieke verhalen weinig aandacht.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf bij een eigen product niet wat het is, maar welk verhaal een koper zichzelf erover vertelt.</li>
+        <li>Ga na of een claim aansluit bij het wereldbeeld van de doelgroep voordat je hem test op een breder publiek.</li>
+        <li>Zoek eerst een klein publiek dat al openstaat voor het verhaal, voordat je een grotere markt benadert.</li>
+        <li>Vraag jezelf af of je een eigen verkoopverhaal zelf zou geloven als je het als koper hoorde.</li>
+        <li>Controleer of elk zichtbaar detail van een product, van verpakking tot toon, hetzelfde verhaal bevestigt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>All Marketers Are Liars: The Power of Telling Authentic Stories in a Low-Trust World</i> (Portfolio, 2005, 208 blz.). Bij de herziene druk van 2009 liet Godin de titel op het omslag staan maar zette er een streep door "Liars" met <i>Tell Stories</i> ernaast; sindsdien wordt het boek ook onder die laatste naam aangehaald, al is de tekst zelf niet herschreven. Nederlands als <i>Alle marketeers vertellen verhalen</i>, sinds 2010 bij Lev. (1e druk, 284 blz., ISBN 9789022997451); vertaald door Marijke van der Horst.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Seth Godin betoogt dat een markt niet reageert op feiten over een product maar op een verhaal dat aansluit bij wat de koper al gelooft. Wie duurdere wijn lekkerder vindt smaken, of biologische groente gezonder acht zonder de voedingswaarde te hebben vergeleken, gelooft niet iets onwaars maar een verhaal dat bij zijn eigen wereldbeeld past. Marketing is in die lezing het aanbieden van zulke verhalen, en een goede marketeer is iemand die zijn eigen verhaal zelf gelooft en waarmaakt in plaats van een verhaal dat na de verkoop instort.</p><p>De titel is met opzet uitdagend: Godin noemt zulke verhalen leugens om te laten zien hoe dun de grens is tussen overtuigen en misleiden, en heeft het boek na de eerste druk uit 2005 laten heruitgeven met Tell Stories naast de oorspronkelijke titel op het omslag. Het boek werkt vooral met bekende merkvoorbeelden en eigen observaties, zonder onderzoek dat de claims onafhankelijk toetst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>marketing</li><li>storytelling</li><li>reclame</li><li>vertrouwen</li><li>merken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini beschrijft de psychologische mechanismen achter overtuigen preciezer en met meer experimenteel bewijs dan Godin hier doet.</li>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. Holiday laat vanuit de andere kant zien hoe media en marketeers verhalen fabriceren die niet aan Godins eigen toets van geloofwaardigheid voldoen.</li>
+          <li value="13"><a href="13.html">The Practice</a>. Godins latere boek werkt de gedachte achter een eigen verhaal verder uit tot een pleidooi voor consistente, dagelijkse creatieve arbeid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

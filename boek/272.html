@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of War &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat de beste manier om een oorlog te winnen is hem te vermijden: een veldheer die de tegenstander dwingt zich over te geven zonder slag te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-272">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">272 &middot; Geschiedenis en samenleving</p>
+    <h1>The Art of War</h1>
+    <p class="lede">Sun Tzu, ca. 5e eeuw v.Chr.</p>
+    <p class="stats">
+      <span><b>1404</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="272"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat de beste manier om een oorlog te winnen is hem te vermijden: een veldheer die de tegenstander dwingt zich over te geven zonder slag te leveren, heeft meer bereikt dan een veldheer die overwint na een lange strijd. Overwinning volgt uit voorbereiding, kennis van zichzelf en van de tegenstander, en het vermogen de tegenstander te misleiden over de eigen sterkte en zwakte, niet uit moed of aantal soldaten. Wie deze berekening voor de strijd achterwege laat, heeft volgens de tekst al verloren voordat het eerste zwaard is getrokken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst en vorm van de tekst</h3>
+      <p>De dertien hoofdstukken zijn kort, aforistisch en zonder de verhalende voorbeelden die latere lezers er vaak bij verwachten; namen van veldslagen of tegenstanders ontbreken. Die vorm maakt de tekst compact en leerbaar uit het hoofd, wat past bij een geschrift dat lange tijd mondeling werd doorgegeven aan officieren voordat het werd opgeschreven.</p>
+      <p>Al in de derde eeuw na Christus voorzag de generaal en staatsman Cao Cao de tekst van aantekeningen, en die commentaartraditie, met elf erkende commentatoren over de eeuwen heen, is een van de redenen dat de tekst zo goed is overgeleverd.</p>
+      <h3>De vijf factoren en de berekening vooraf</h3>
+      <p>Het eerste hoofdstuk somt vijf factoren op die voor elke veldtocht tegen elkaar moeten worden afgewogen: de Weg, de mate waarin heerser en volk hetzelfde nastreven, de Hemel, de tijd van het jaar en de omstandigheden, de Aarde, afstand en terrein, het Bevel, de eigenschappen van de veldheer, en de Methode, de organisatie en bevoorrading van het leger.</p>
+      <p>Deze telling vindt plaats in de tempel, voor de aanvang van de campagne, en de tekst is expliciet dat wie voor de strijd de meeste factoren in zijn voordeel heeft berekend, de grootste kans op overwinning heeft, en wie er weinig heeft, zou beter niet beginnen.</p>
+      <h3>Oorlog als kostenpost</h3>
+      <p>Het tweede hoofdstuk behandelt de prijs van een veldtocht: duizenden wagens, honderdduizenden soldaten en de belasting die dat voor de schatkist betekent. Een leger dat lang in het veld blijft, put niet alleen zijn eigen middelen uit maar ook het thuisfront, en de tekst stelt dat geen enkel land baat heeft gehad bij een langdurige oorlog, hoe goed doorgevoerd ook.</p>
+      <p>Praktisch advies volgt daaruit: leef zoveel mogelijk van het land van de tegenstander in plaats van bevoorrading van thuis te laten aanslepen, en streef naar een snelle beslissing boven een volmaakte, langdurige campagne.</p>
+      <h3>Overwinnen zonder te vechten</h3>
+      <p>Het derde hoofdstuk zet een rangorde neer van wat een goede veldheer nastreeft: eerst de plannen van de tegenstander doorkruisen, dan zijn bondgenootschappen breken, dan pas zijn leger aanvallen, en als laatste, slechtste optie zijn steden belegeren. Elke stap in die reeks kost meer mensen en tijd dan de vorige.</p>
+      <p>Hier staat ook de bekendste zin uit het boek: wie zichzelf kent en de tegenstander kent, hoeft honderd gevechten niet te vrezen. Wie alleen zichzelf kent, wint de ene keer en verliest de andere. Wie geen van beide kent, verliest elke keer.</p>
+      <h3>Vorm, kracht en misleiding</h3>
+      <p>De hoofdstukken over opstelling en momentum beschrijven twee kanten van hetzelfde probleem. De vorm van een leger, zijn zichtbare opstelling, moet verdedigend zijn en niets prijsgeven, terwijl de kracht die eruit voortkomt, vergeleken met een rollende steen of stromend water, offensief moet worden ingezet zodra de gelegenheid zich voordoet.</p>
+      <p>Daaruit volgt het advies om sterkte te concentreren op het punt waar de tegenstander zwak staat en zwakte te verbergen waar hij sterk staat, en om de verwachte, directe aanval te combineren met een onverwachte, indirecte manoeuvre, zodat de tegenstander nooit precies weet waar het gewicht van de aanval zal vallen.</p>
+      <h3>Terrein en aanpassing</h3>
+      <p>Meerdere hoofdstukken behandelen soorten terrein, van open vlaktes tot bergpassen en moerassen, en de tactiek die daarbij past. Bijzonder is het begrip "dodelijk terrein": grond waar een leger geen kant op kan en daarom vecht met een vastberadenheid die het op veiliger grond niet zou tonen.</p>
+      <p>De les die de tekst daaraan verbindt, is dat een veldheer zijn eigen troepen soms bewust in een positie zonder ontsnapping moet brengen om ze tot hun uiterste te laten gaan, en dat kennis van het terrein net zo zwaar telt als kennis van de tegenstander.</p>
+      <h3>Spionage als sluitstuk</h3>
+      <p>Het laatste hoofdstuk onderscheidt vijf soorten spionnen: plaatselijke informanten, ingezetenen van de vijand, omgekochte vijandelijke spionnen, spionnen die bewust met valse informatie worden teruggestuurd, en spionnen die levend terugkeren met bruikbaar nieuws.</p>
+      <p>De tekst besluit dat voorkennis, het weten wat de tegenstander van plan is, niet van geesten of goden komt en ook niet uit vergelijking met eerdere gebeurtenissen valt af te leiden, maar alleen van mensen die de vijand kennen. Daarmee eindigt een boek dat met berekening begon, met de bron waaruit die berekening haar gegevens haalt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wu shi (vijf factoren)</td><td>Weg, Hemel, Aarde, Bevel en Methode, de vijf punten waarop een veldtocht vooraf wordt beoordeeld.</td></tr>
+          <tr><td class="term">Tempelberekening</td><td>Het vooraf tellen van voor- en nadelen voor de strijd begint, uitgevoerd voordat het leger vertrekt.</td></tr>
+          <tr><td class="term">Xing (vorm)</td><td>De zichtbare opstelling van een leger; verbergen ervan hoort bij verdediging.</td></tr>
+          <tr><td class="term">Shi (kracht, momentum)</td><td>De opgebouwde stuwkracht van een leger dat als één geheel beweegt, vergeleken met een rollende steen.</td></tr>
+          <tr><td class="term">Xu en shi (leeg en vol)</td><td>Het beginsel om sterkte te richten op de zwakke plek van de tegenstander en de eigen zwakte te verbergen waar hij sterk staat.</td></tr>
+          <tr><td class="term">Zheng en qi (direct en indirect)</td><td>De combinatie van de verwachte, directe aanval met een onverwachte, indirecte manoeuvre.</td></tr>
+          <tr><td class="term">Dodelijk terrein</td><td>Grond zonder ontsnapping, waar troepen volgens de tekst het felst vechten omdat zij geen keuze hebben.</td></tr>
+          <tr><td class="term">Vijf soorten spionnen</td><td>Plaatselijke, ingezeten, omgekochte, misleide en terugkerende bronnen die voorkennis leveren.</td></tr>
+          <tr><td class="term">Voorkennis</td><td>Kennis van de plannen van de tegenstander, volgens de tekst alleen te verkrijgen via mensen, niet via voorspelling.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De tekst levert geen bewijs in de moderne zin. Er staan geen veldslagen, jaartallen of tegenstanders bij de meeste stellingen; ze worden gepresenteerd als destilleerbare regels, niet als conclusies uit een reeks voorbeelden. De autoriteit van het boek rust op iets anders: op ononderbroken gebruik en becommentariëring door generaals over meer dan tweeduizend jaar, van Cao Cao in de derde eeuw tot leerplannen van hedendaagse militaire academies.</p>
+      <p>Militair historici wijzen erop dat de terugkerende beginselen, het bundelen van kracht op het zwakke punt van de tegenstander en het vermijden van een langdurige campagne, in vrijwel elke krijgstraditie afzonderlijk zijn herontdekt. Dat pleit voor de bruikbaarheid van die beginselen, maar is geen toetsing: de aforismen zijn algemeen genoeg om achteraf op veel situaties te passen, zonder dat de tekst een manier biedt om ze te weerleggen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wie de tekst heeft geschreven en in welke periode staat niet vast. Sommige sinologen betwijfelen of Sun Wu heeft bestaan zoals de overlevering hem beschrijft, en anderen wijzen erop dat de tekst sporen draagt van redactie over meerdere generaties, wat het lastig maakt hem als het samenhangende werk van één auteur te lezen.</p>
+      <p>De populariteit van het boek in managementliteratuur haalt het los van zijn context. Zinnen als "ken uzelf en ken uw tegenstander" worden voorgesteld als tijdloze wijsheid voor ondernemers, terwijl de tekst is geschreven voor veldheren met een leger en wapens. De algemeenheid van de aforismen maakt ze geschikt om achteraf op vrijwel elke uitkomst te plakken, eerder een verklaring achteraf dan een leidraad vooraf.</p>
+      <p>Als handboek voor hedendaagse oorlogvoering is de bruikbaarheid beperkt. De tekst gaat over legers, terrein en bevoorrading in een tijd zonder mechanisatie, laat staan cyberoperaties, kernwapens of coalities van tientallen staten, en zwijgt logischerwijs over die vraagstukken.</p>
+      <p>Ten slotte is klassiek Chinees compact en dubbelzinnig, waardoor vertalingen uiteenlopen: wat de ene editie als verdediging leest, leest een andere als aanval, en wie een uitspraak aan "Sun Tzu" toeschrijft, spreekt eigenlijk over de keuze van een vertaler.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Weeg voor een conflict de vijf factoren tegen elkaar af: steun, timing, omgeving, wie leiding geeft en hoe de zaak is georganiseerd.</li>
+        <li>Zoek eerst naar een manier om het doel te bereiken zonder confrontatie voor je de confrontatie aangaat.</li>
+        <li>Richt je aandacht op de plek waar de tegenstander zwak staat en verberg waar je zelf kwetsbaar bent.</li>
+        <li>Houd een geschil kort; een aanslepend conflict kost doorgaans meer dan het oplevert, ook als je uiteindelijk gelijk krijgt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Chinees, overgeleverd als <i>Sunzi Bingfa</i> ("De krijgskunst van meester Sun") uit de tijd van de Strijdende Staten. Van de vele Nederlandse vertalingen is de recentste, en de enige die rechtstreeks uit het Chinees is vertaald, <i>De kunst van het oorlogvoeren</i>, sinds 2025 bij Athenaeum (ISBN 9789025319083); vertaald door Mark Leenhouts. Eerdere Nederlandse edities verschenen als <i>Winnen zonder strijd</i> (vertaling Peter van der Roest, Altamira, 2018, 260 blz., ISBN 9789401304030) en, via het Engels, als <i>De kunst van het oorlogvoeren</i> (vertaling Anders Pieterse, 1994).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het boek bestaat uit dertien korte hoofdstukken die worden toegeschreven aan de Chinese generaal Sun Tzu en die zijn overgeleverd uit de tijd van de Strijdende Staten. Het opent met de stelling dat oorlog een zaak van leven en dood is voor de staat en dat geen veldtocht mag beginnen zonder eerst vijf factoren tegen elkaar af te wegen: de gezindheid van het volk, het weer, het terrein, het bevel en de discipline. Van daaruit werkt de tekst toe naar stellingen die telkens terugkeren. Een lange oorlog put een land uit, de beste overwinning is die waarbij de tegenstander zich al gewonnen geeft voor de strijd begint, en een leger dat zijn opstelling verbergt is moeilijker te verslaan dan een leger dat zijn kracht toont. Misleiding is daarbij het uitgangspunt: wie kan aanvallen, wekt de indruk dat hij het niet kan.</p><p>Wie de tekst precies heeft geschreven staat niet vast. Het historische bestaan van generaal Sun Wu wordt door sommige sinologen betwist, en de tekst lijkt in de eeuwen na de eerste redactie te zijn aangevuld met latere commentaren, onder wie de derde-eeuwse staatsman en generaal Cao Cao. Sindsdien is het in Oost-Azië ononderbroken gelezen als militair handboek. In het Westen kwam het pas vanaf de achttiende eeuw in vertaling beschikbaar en groeide het vanaf de jaren tachtig van de vorige eeuw uit tot een vaste naam in managementliteratuur, waar de militaire context vaak wegvalt ten gunste van algemene lessen over concurrentie en onderhandelen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>strategie</li><li>krijgskunde</li><li>oud china</li><li>misleiding</li><li>onderhandelen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="212"><a href="212.html">The 33 Strategies of War</a>. Greene herschrijft dezelfde krijgslogica tot eenendertig strategieën, met historische veldslagen als toelichting die Sun Tzu zelf niet geeft.</li>
+          <li value="219"><a href="219.html">The Thirty-Six Stratagems</a>. Een andere Chinese verzameling strategische spreuken, korter en beeldender, uit dezelfde traditie van misleiding en indirecte manoeuvre.</li>
+          <li value="217"><a href="217.html">The Strategy of Conflict</a>. Schelling vertaalt hetzelfde soort denken over dreiging en toezegging naar de speltheorie van de twintigste eeuw.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

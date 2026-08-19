@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Millionaire Fastlane &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="DeMarco stelt dat de gangbare raad om spaarzaam te leven, een indexfonds te vullen en op je pensioenleeftijd rijk te zijn, uitgaat van een tijdlijn die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-264">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">264 &middot; Geld en ondernemen</p>
+    <h1>The Millionaire Fastlane</h1>
+    <p class="lede">MJ DeMarco, 2011</p>
+    <p class="stats">
+      <span><b>1429</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="264"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>DeMarco stelt dat de gangbare raad om spaarzaam te leven, een indexfonds te vullen en op je pensioenleeftijd rijk te zijn, uitgaat van een tijdlijn die vermogen pas oplevert wanneer er weinig jaren overblijven om ervan te genieten. Volgens hem ontstaat vermogen niet uit het ruilen van uren tegen loon maar uit eigendom van een systeem dat waarde levert aan een groot aantal mensen tegelijk, zonder dat de eigenaar voor elke transactie zelf aanwezig hoeft te zijn. Wie zo'n systeem eenmaal heeft gebouwd, kan in een paar jaar bereiken waar de spaarder decennia voor nodig heeft. Wie daar tegenin wil brengen, kan wijzen op hoeveel ondernemingen mislukken en op hoeveel geluk, timing en marktomstandigheden meespelen in de gevallen die wel slagen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie wegen naar geld</h3>
+      <p>DeMarco opent met drie types die hij op een snelweg tegenkomt. De voetganger op de stoep geeft alles uit wat binnenkomt en heeft geen plan. De automobilist op de langzame rijstrook rijdt netjes binnen de regels, spaart een vast percentage, belegt in fondsen en accepteert dat de reis decennia duurt. Op de snelle rijstrook rijdt wie een eigen voertuig heeft gebouwd, een bedrijf dat harder werkt dan de eigenaar zelf.</p>
+      <p>Die indeling is zijn manier om de gangbare financiële adviesindustrie te ondervragen. Hij stelt dat boeken over budgetteren en samengestelde rente uitgaan van een loonstrookje als enige inkomstenbron, en dat die aanname zelf de reden is waarom vermogen zo lang op zich laat wachten.</p>
+      <h3>De rekensom achter de langzame rijstrook</h3>
+      <p>DeMarco rekent voor wat een gemiddeld salaris, een spaarquote van tien procent en een historisch rendement op de beurs opleveren over veertig jaar. De uitkomst is een bedrag dat pas laat in een leven vrijheid geeft, en dat alleen als er onderweg niets misgaat: geen ontslag, geen scheiding, geen jaren van dalende koersen vlak voor pensionering.</p>
+      <p>Zijn bezwaar is niet dat sparen en beleggen nutteloos zijn, maar dat ze als enige route worden gepresenteerd. Wie zijn inkomen niet kan vergroten, kan zijn tempo niet vergroten, en dat maakt de langzame rijstrook volgens hem een plan met een vaste, trage snelheid.</p>
+      <h3>Vermogen als vergelijking</h3>
+      <p>Zijn kernformule luidt dat vermogen gelijk is aan netto winst plus bezit dat zelf inkomen oplevert. Een baan levert het eerste bijna nooit op, omdat het loon aan uren gebonden blijft, en meestal ook niet het tweede, omdat pensioenpotten pas na jaren iets uitkeren. Een bedrijf dat een product of dienst aan een grote groep klanten levert, kan in principe beide leveren binnen een veel korter tijdvak.</p>
+      <p>DeMarco benadrukt dat dit geen belofte van snel geld is. De formule zegt iets over de bron van vermogen, niet over de moeite die het kost om die bron te laten lopen.</p>
+      <h3>De vijf letters: CENTS</h3>
+      <p>Om een bedrijfsidee te toetsen gebruikt hij het ezelsbruggetje CENTS. Control, de eigenaar houdt zeggenschap en is geen franchisenemer of freelancer die op elk moment kan worden ontslagen. Entry, er is een drempel die voorkomt dat duizenden anderen hetzelfde product morgen kopiëren. Need, het bedrijf lost een probleem op dat mensen echt hebben. Time, het inkomen blijft niet gebonden aan de persoonlijke uren van de eigenaar. Scale, het bedrijf kan in principe miljoenen klanten bedienen zonder dat de kosten evenredig meegroeien.</p>
+      <p>Een idee dat op een van deze vijf punten faalt, wijst hij af, ook als het op papier winstgevend lijkt. Een lokale wasserette bijvoorbeeld voldoet aan Need en Entry, maar niet aan Scale, en blijft daarom volgens zijn indeling op de langzame rijstrook staan.</p>
+      <h3>Vier systemen die schalen</h3>
+      <p>DeMarco werkt CENTS uit in een klein aantal bedrijfsvormen die volgens hem wel aan Scale voldoen: verhuur van bezit zoals vastgoed, licenties of patenten, software die via internet dag en nacht beschikbaar is, content zoals boeken, video of geluid die eenmaal gemaakt en oneindig verkocht kan worden, en distributie via franchise of netwerken. In elk van die vier ligt de nadruk op een product dat, eenmaal gebouwd, blijft verkopen zonder dat de eigenaar per klant opnieuw tijd hoeft te investeren.</p>
+      <p>Hij waarschuwt tegelijk dat elk van die vormen ook op de langzame rijstrook kan eindigen als de eigenaar zich niet meer laat vervangen in de dagelijkse uitvoering, en zo zelf weer terug in de tijd-voor-geld-ruil stapt die hij probeerde te ontlopen.</p>
+      <h3>Limos.com: het eigen bewijsstuk</h3>
+      <p>Het boek keert steeds terug naar zijn eigen geschiedenis. Als limochauffeur in Phoenix merkte DeMarco dat klanten hem vroegen naar limousinediensten in andere steden, en in 1997 bouwde hij daarvoor de website Limos.com. Het bedrijf groeide, ging in de dotcomcrisis bijna verloren, kwam via een reorganisatie weer in zijn handen en werd in 2007 verkocht aan een investeringsmaatschappij uit Phoenix.</p>
+      <p>Die verkoop, niet een spaarrekening, leverde hem het vermogen op waarmee hij het boek kon schrijven. Hij gebruikt het verhaal als illustratie van CENTS in de praktijk: een website die dag en nacht boekingen verwerkte, met een schaal die zijn eigen agenda ver oversteeg.</p>
+      <h3>De prijs van de snelle rijstrook</h3>
+      <p>In het slotdeel relativeert DeMarco zijn eigen enthousiasme. De snelle rijstrook vraagt volgens hem jaren van geconcentreerde, vaak obsessieve arbeid, met weinig garantie op resultaat en met een reëel risico op mislukking. Hij noemt dat de prijs die de langzame rijstrook juist vermijdt door het risico over veertig jaar uit te smeren.</p>
+      <p>Zijn advies is daarom niet dat iedereen moet ondernemen, maar dat wie voor de snelle rijstrook kiest, dat weloverwogen doet en niet als truc om sneller rijk te worden zonder de bijbehorende inzet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De stoep</td><td>Zijn beeld voor wie zonder plan leeft van inkomen naar uitgave, met de grootste kans op blijvende armoede.</td></tr>
+          <tr><td class="term">De langzame rijstrook</td><td>De gangbare route van baan, sparen en beleggen, die volgens DeMarco decennia nodig heeft om vermogen op te leveren.</td></tr>
+          <tr><td class="term">De snelle rijstrook</td><td>Zijn eigen alternatief: eigendom van een bedrijf dat waarde levert aan veel klanten tegelijk, waardoor vermogen sneller ontstaat.</td></tr>
+          <tr><td class="term">CENTS</td><td>Zijn toetsingskader voor een bedrijfsidee: zeggenschap, toetredingsdrempel, behoefte, onafhankelijkheid van eigen tijd en schaal.</td></tr>
+          <tr><td class="term">Vermogensformule</td><td>Netto winst plus bezit dat zelf inkomen oplevert, tegenover loon dat aan uren gebonden blijft.</td></tr>
+          <tr><td class="term">Schaal</td><td>Het vermogen van een bedrijf om miljoenen klanten te bedienen zonder dat de kosten van de eigenaar evenredig meegroeien.</td></tr>
+          <tr><td class="term">De vier systemen</td><td>Verhuur, software, content en distributie, de bedrijfsvormen die volgens DeMarco het makkelijkst aan Scale voldoen.</td></tr>
+          <tr><td class="term">Tijd-voor-geld-ruil</td><td>Zijn term voor werk waarbij inkomen stopt zodra de eigen uren stoppen, kenmerkend voor zowel loondienst als veel eenmanszaken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek, geen steekproef en geen vergelijking met andere ondernemers die het niet redden. DeMarco onderbouwt zijn stellingen met eigen ervaring bij Limos.com en met rekenvoorbeelden die hij zelf construeert om de langzame rijstrook af te zetten tegen de snelle.</p>
+      <p>Dat is een steekproef van één, in een tijdvak waarin internetbedrijven met lage opstartkosten een uitzonderlijke groeikans hadden. Of dezelfde aanpak in een andere sector of een ander decennium hetzelfde resultaat geeft, laat het boek onbeantwoord. Ook zijn rekenvoorbeelden voor de langzame rijstrook zijn eenzijdig gekozen: hij gaat uit van een vaste spaarquote en een gemiddeld beursrendement zonder rekening te houden met werkgeversbijdragen aan pensioenen of met periodes waarin lonen sneller stijgen dan hij aanneemt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is overlevingsbias. DeMarco vertelt het verhaal van zijn eigen geslaagde bedrijf, niet van de vele ondernemers die met dezelfde CENTS-toets zijn begonnen en zijn mislukt. Het boek noemt geen mislukkingscijfers en weegt het risico van de snelle rijstrook niet tegen de zekerheid van een salaris.</p>
+      <p>Verder is de toon fel tegen de langzame rijstrook, terwijl juist die route voor de meeste lezers het enige realistische pad is: niet iedereen heeft de vaardigheden, het risicokapitaal of de marktkansen om een schaalbaar bedrijf te bouwen. De vier systemen die hij als voorbeeld geeft, zijn bovendien breder verspreid en dus concurrerender dan in 2011, toen het boek verscheen.</p>
+      <p>Ten slotte behandelt DeMarco zijn eigen succes als bevestiging van de methode, terwijl het net zo goed kan wijzen op een uitzonderlijke marktkans in de vroege internetjaren die zich niet in elke sector of elk decennium herhaalt. Het boek onderscheidt die twee verklaringen niet van elkaar.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Toets een bedrijfsidee expliciet aan de vijf letters van CENTS voordat je tijd of geld investeert.</li>
+        <li>Reken uit of het inkomen van een idee aan je eigen uren gebonden blijft of dat het ook doorloopt als je niet werkt.</li>
+        <li>Vraag bij elk plan hoeveel klanten het in principe kan bedienen zonder dat de kosten evenredig meegroeien.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Millionaire Fastlane: Crack the Code to Wealth and Live Rich for a Lifetime</i> (Viperion Publishing Corporation, 2011). Geen Nederlandse uitgave: van DeMarco is geen enkel boek in het Nederlands verschenen, ook zijn latere <i>Unscripted</i> niet. De samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>DeMarco onderscheidt drie wegen naar geld. De stoep is voor wie leeft van dag tot dag en aan het eind van de maand niets overhoudt. De langzame rijstrook is de gangbare raad: hard werken, sparen, een deel beleggen in indexfondsen en hopen dat er op je vijfenzestigste genoeg ligt. De snelle rijstrook is zijn eigen alternatief, een bedrijf bouwen dat waarde levert aan veel klanten tegelijk, zodat vermogen ontstaat uit eigendom van een systeem en niet uit het verkopen van eigen uren. Zijn rekensom is simpel: vermogen is winst plus bezit dat inkomsten oplevert. Een idee toetst hij aan vijf letters die hij CENTS noemt, zeggenschap, toetredingsdrempel, aansluiting bij een echte behoefte, onafhankelijkheid van eigen tijd, en de mogelijkheid om naar veel klanten te schalen.</p><p>Het boek leunt zwaar op zijn eigen geschiedenis. DeMarco richtte in 1997 de limousineboekingssite Limos.com op, verloor het bedrijf bijna in de dotcomcrisis, kreeg het via een reorganisatie terug en verkocht het in 2007 aan een investeringsmaatschappij. Die ervaring gebruikt hij als bewijs dat een systeem dat dag en nacht klanten bedient sneller vermogen opbouwt dan een spaarrekening, mits de eigenaar de zeggenschap houdt en het systeem los van zijn persoonlijke aanwezigheid blijft draaien. De toon is fel: DeMarco haalt uit naar de gedachte dat uitgesteld genot vanzelf tot rijkdom leidt, en zet daar jarenlange, geconcentreerde arbeid tegenover.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vermogensopbouw</li><li>financiële onafhankelijkheid</li><li>bedrijfssystemen</li><li>geldpsychologie</li><li>vroeg pensioen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="37"><a href="37.html">Rich Dad Poor Dad</a>. Kiyosaki zet een vergelijkbaar onderscheid neer tussen actief en passief inkomen, met minder nadruk op een eigen bedrijf.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries laat zien hoe zo'n schaalbaar bedrijf in de praktijk wordt getest voordat het overeind blijft staan.</li>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Knight beschrijft van binnenuit hoeveel jaren onzekere arbeid aan een geslaagd schaalbaar bedrijf voorafgingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Everything Is F*cked &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Manson stelt dat mensen niet in de eerste plaats geluk nodig hebben, maar hoop: een reden om te lijden en vol te houden. Hij bouwt dat betoog op rond drie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-255">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">255 &middot; Levenskunst</p>
+    <h1>Everything Is F*cked</h1>
+    <p class="lede">Mark Manson, 2019</p>
+    <p class="stats">
+      <span><b>1413</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="255"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Manson stelt dat mensen niet in de eerste plaats geluk nodig hebben, maar hoop: een reden om te lijden en vol te houden. Hij bouwt dat betoog op rond drie voorwaarden voor hoop, namelijk een gevoel van controle over de eigen situatie, waarden die het lijden waard zijn, en een gemeenschap om bij te horen. Zijn stelling is dat welvarende samenlevingen de eerste twee voorwaarden steeds beter vervullen, terwijl de waarden en de gemeenschap eronder verzwakken, waardoor mensen met meer comfort dan ooit toch minder houvast ervaren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De oncomfortabele waarheid</h3>
+      <p>Manson opent met het punt dat mensen zichzelf minder sturen dan ze denken. Veel van wat iemand voelt en gelooft komt niet voort uit bewuste keuze maar uit een reactie die al in gang is voordat het verstand eraan te pas komt, en het verstand voegt daarna een verklaring toe die het gevoel rechtvaardigt in plaats van het te sturen.</p>
+      <h3>Het Voelend Brein en het Denkend Brein</h3>
+      <p>Manson werkt dat verder uit met wat hij het Voelend Brein en het Denkend Brein noemt: het Voelend Brein neemt de meeste beslissingen op basis van emotie, en het Denkend Brein verzint achteraf een verhaal dat verklaart waarom die beslissing redelijk was. Zelfbeheersing is in die lezing minder een kwestie van wilskracht dan van stemming: wie moe, gestrest of overprikkeld is, verliest grip op zijn eigen gedrag, ongeacht hoeveel discipline hij zichzelf toeschrijft.</p>
+      <p>Doelen en dromen ontlenen hun waarde volgens Manson niet aan het moment van bereiken, dat snel weer wegebt, maar aan de richting die ze aan iemands dagelijkse keuzes geven.</p>
+      <h3>Newtons wetten van emotie</h3>
+      <p>Manson leent Newtons bewegingswetten als losse metafoor voor emotie. Een gevoel blijft volgens hem hangen tot een ander gevoel het verdringt, wat verklaart waarom mensen in een slechte bui blijven zonder aanwijsbare reden. Twee mensen kunnen daarnaast dezelfde gebeurtenis meemaken en er tegengestelde emoties aan overhouden, omdat niet de gebeurtenis zelf maar de betekenis die iemand eraan geeft de emotie bepaalt.</p>
+      <p>Die laatste stap is voor Manson de opening naar verandering: iemand kan de gebeurtenis niet ongedaan maken, maar wel de betekenis ervan bijstellen, en daarmee indirect de emotie die eruit volgt.</p>
+      <h3>Hoop en de drie voorwaarden ervoor</h3>
+      <p>Het middendeel van het boek werkt de titel uit. Hoop vereist volgens Manson een gevoel van controle over de eigen situatie, waarden die het lijden waard worden geacht, en een gemeenschap waarin iemand zich thuis voelt. Hij stelt dat welvarende samenlevingen mensen meer controle en meer keuze bieden dan ooit, maar dat de waarden en de gemeenschap die daarbij hoorden, vaak religieus van aard, zijn afgebrokkeld zonder dat er iets gelijkwaardigs voor terugkwam.</p>
+      <h3>De formule van de menselijkheid</h3>
+      <p>Voor een waardesysteem dat niet op zelfbedrog of misbruik van anderen steunt, grijpt Manson terug op Kants formule van de menselijkheid: behandel de mensheid, in jezelf of in een ander, nooit alleen als middel maar altijd ook als doel op zich. Hij gebruikt dat principe om waarden te onderscheiden die op de lange termijn standhouden van waarden die op leugens of uitbuiting rusten en daardoor uiteindelijk instorten.</p>
+      <h3>Pijn als constante</h3>
+      <p>Pijn noemt Manson een gegeven dat niet is weg te nemen, alleen te verplaatsen. Een cultuur die belooft pijn te kunnen wegnemen, via consumptie, prestatie of zelfhulp, verschuift het probleem alleen maar naar een volgende vorm van ongemak. De vraag die overblijft is niet hoe iemand lijden vermijdt, maar waarvoor iemand bereid is te lijden.</p>
+      <h3>De gevoelseconomie</h3>
+      <p>Manson beschrijft vervolgens hoe media en sociale platforms verdienen aan het opwekken van sterke emoties, vooral verontwaardiging, omdat die het langst de aandacht vasthoudt. Nieuws en meningen worden zo geselecteerd op de emotie die ze opwekken in plaats van op de waarheid ervan, wat volgens hem bijdraagt aan het gevoel dat de wereld voortdurend op instorten staat.</p>
+      <h3>De laatste religie</h3>
+      <p>Het boek sluit af met wat Manson zelf een laatste religie noemt: niet een leer met een god of een instituut, maar de feitelijke waarden waarmee iemand leeft, met of zonder dat hij ze zo noemt. Zijn advies is niet om een nieuw geloof te zoeken, maar om onder ogen te zien welke waarden iemands gedrag al sturen, en die te toetsen aan de vraag of ze op de lange termijn standhouden.</p>
+      <h3>Verhouding met het eerdere boek</h3>
+      <p><i>Everything Is F*cked</i> bouwt voort op <i>The Subtle Art of Not Giving a F*ck</i>, waarin Manson al schreef dat een goed leven draait om de keuze van je problemen, niet om het wegnemen ervan. Waar dat eerdere boek zich vooral richt op het individu en zijn eigen waarden, verlegt dit boek de blik naar wat een hele samenleving nodig heeft om vol te kunnen houden, en waarom welvaart op zichzelf dat houvast niet biedt.</p>
+      <p>Manson herhaalt daarbij een deel van zijn eerdere terminologie, zoals de nadruk op ongemak als iets om op te zoeken in plaats van te vermijden, maar plaatst die nu in een breder kader van hoop, waarden en gemeenschap in plaats van persoonlijke gewoonten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Voelend Brein en Denkend Brein</td><td>Mansons onderscheid tussen het deel dat op basis van emotie beslist en het deel dat daarna een rechtvaardiging verzint.</td></tr>
+          <tr><td class="term">De drie voorwaarden voor hoop</td><td>Een gevoel van controle, waarden die het lijden waard zijn, en een gemeenschap om bij te horen.</td></tr>
+          <tr><td class="term">De formule van de menselijkheid</td><td>Kants beginsel dat een mens nooit alleen als middel maar altijd ook als doel behandeld moet worden, door Manson gebruikt om waarden te toetsen.</td></tr>
+          <tr><td class="term">Pijn als universele constante</td><td>Het idee dat lijden niet is weg te nemen maar alleen van vorm verandert.</td></tr>
+          <tr><td class="term">De gevoelseconomie</td><td>Mansons term voor media en platforms die verdienen aan het opwekken van sterke emoties, vooral verontwaardiging.</td></tr>
+          <tr><td class="term">De laatste religie</td><td>Manson noemt zo de feitelijke waarden waarmee iemand leeft, ongeacht of hij ze religieus noemt.</td></tr>
+          <tr><td class="term">Newtons wetten van emotie</td><td>Mansons losse vertaling van Newtons bewegingswetten naar emotie, onder meer het idee dat niet de gebeurtenis maar de betekenis ervan de emotie bepaalt.</td></tr>
+          <tr><td class="term">Consumptie als vervangende religie</td><td>Mansons omschrijving van kopen en presteren als de manier waarop welvarende samenlevingen het gat opvullen dat traditionele waardestelsels achterlieten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Manson schrijft geen onderzoeksboek. Hij bouwt zijn argument op filosofen als Kant en Nietzsche, op psychologische concepten die hij zelf herformuleert, en op eigen anekdotes en observaties, zonder daarbij stelselmatig naar studies of cijfers te verwijzen die de lezer kan natrekken.</p>
+      <p>Waar hij concreter wordt, gaat het om cultuurkritiek die iedereen zelf kan toetsen, zoals de manier waarop nieuwsmedia en sociale platforms reageren op verontwaardiging. Voor de meer psychologische claims, zoals de precieze werking van het Voelend en het Denkend Brein, leunt het boek op een vereenvoudigde lezing van bestaand onderzoek naar intuïtie en redenering, zonder dat die vereenvoudiging expliciet wordt benoemd.</p>
+      <p>Newtons wetten van emotie zijn expliciet een metafoor en geen natuurkundige claim; Manson gebruikt de vergelijking om een patroon herkenbaar te maken, niet om te beweren dat gevoelens zich volgens vaste, meetbare regels gedragen zoals bewegende voorwerpen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat Manson filosofische tradities, van Kant tot boeddhistische ideeën over lijden, naast elkaar gebruikt zonder hun onderlinge spanningen te bespreken. Dat maakt het betoog toegankelijk, maar ook losser dan de bronnen waarop het steunt.</p>
+      <p>Een tweede punt is dat het boek de gevoelseconomie scherp bekritiseert terwijl het zelf drijft op dezelfde toon van provocatie en directe taal die het bij anderen aan de kaak stelt, inclusief de titel. Dat maakt de kritiek niet ongeldig, maar wel dubbelzinnig.</p>
+      <p>Ten derde blijft de overgang van Newtons wetten van emotie, bedoeld als beeldspraak, naar een stellige claim over hoe zelfbeheersing werkt, wankel. Manson trekt uit een metafoor conclusies over wilskracht en gedrag die de metafoor zelf niet kan dragen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na welke waarden je gedrag daadwerkelijk sturen, los van wat je zegt te geloven, door te kijken waar je tijd en geld naartoe gaan.</li>
+        <li>Merk op wanneer een sterke emotionele reactie, vooral verontwaardiging, wordt opgewekt door een bron die daar belang bij heeft.</li>
+        <li>Formuleer voor jezelf niet wat je gelukkig zou maken, maar waarvoor je bereid bent ongemak te verdragen.</li>
+        <li>Kijk bij een terugkerend gevoel niet alleen naar de gebeurtenis die het opriep, maar naar de betekenis die je er zelf aan geeft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Everything Is F*cked: A Book About Hope</i> (Harper, 2019). Nederlands als <i>Alles is f*cked: een boek over hoop</i>, sinds 2019 bij Lev (304 blz., ISBN 9789041715739), vertaald door Joost van der Meer, William Oostendorp en Theo van der Ster.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mansons opvolger op <i>The Subtle Art of Not Giving a F*ck</i> gaat niet over geluk maar over hoop. Zijn stelling is dat mensen niet primair gelukkig willen zijn, maar iets nodig hebben om voor te leven en te lijden, en dat de moderne, welvarende wereld daar juist een tekort aan heeft. Hij onderscheidt een Voelend Brein en een Denkend Brein: het Voelend Brein neemt de meeste beslissingen op basis van emotie, en het Denkend Brein verzint achteraf een verhaal dat die beslissing rechtvaardigt. Zelfbeheersing is in die lezing geen kwestie van wilskracht maar van stemming, en dromen en doelen ontlenen hun waarde niet aan het bereiken ervan maar aan de richting die ze geven.</p><p>Voor een waardesysteem dat niet op zelfbedrog of misbruik van anderen steunt, grijpt Manson terug op Kants formule van de menselijkheid: behandel een mens nooit alleen als middel, ook niet jezelf. Pijn noemt hij een constante die niet is weg te nemen, waardoor de vraag niet is hoe iemand lijden vermijdt maar waarvoor iemand bereid is te lijden. Hij bekritiseert een cultuur die steeds op zoek is naar het volgende goede gevoel, van consumptie tot verontwaardiging op sociale media, en sluit af met wat hij zelf een laatste religie noemt: geen leer met een god, maar de waarden waarmee iemand feitelijk leeft. Het boek bouwt op eigen redeneringen en persoonlijke anekdotes, niet op onderzoek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hoop</li><li>zingeving</li><li>zelfhulp</li><li>filosofie</li><li>pijn</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="72"><a href="72.html">The Subtle Art of Not Giving a F*ck</a>. Mansons eerdere boek werkt dezelfde afkeer van voortdurend goed voelen uit, maar dan vanuit het perspectief van waarden kiezen in plaats van hoop.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl beschrijft vanuit eigen ervaring hoe een reden om voor te leven iemand door extreem lijden heen kan dragen, de kern van wat Manson hoop noemt.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman behandelt vanuit een andere invalshoek dezelfde vraag wat het betekent om te kiezen waarvoor je je beperkte tijd en aandacht inzet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>High Performance Habits &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Burchard stelt dat het verschil tussen mensen die kortstondig pieken en mensen die jarenlang op hoog niveau blijven presteren, niet in talent of geluk zit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-291">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">291 &middot; Gewoontes en denken</p>
+    <h1>High Performance Habits</h1>
+    <p class="lede">Brendon Burchard, 2017</p>
+    <p class="stats">
+      <span><b>1410</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="291"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Burchard stelt dat het verschil tussen mensen die kortstondig pieken en mensen die jarenlang op hoog niveau blijven presteren, niet in talent of geluk zit maar in zes aan te leren gewoontes: helderheid, energie, noodzaak, productiviteit, invloed en moed. Hij presenteert dit als de uitkomst van eigen onderzoek onder een grote groep mensen via zijn coachingsbedrijf, en voegt daar drie valkuilen aan toe die ook wie deze gewoontes beheerst, alsnog kunnen laten ontsporen: te veel plezieren, een onhoudbaar tempo en isolement.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een claim over eigen onderzoek</h3>
+      <p>Burchard opent met de stelling dat hij via zijn bedrijf tientallen jaren coachingservaring en enquêtegegevens van een grote groep respondenten heeft samengebracht om te achterhalen wat mensen die langdurig op hoog niveau presteren, gemeen hebben. Die dataset en de gebruikte vragenlijst zijn eigendom van zijn bedrijf en niet in een onafhankelijk tijdschrift gepubliceerd.</p>
+      <h3>Helderheid en energie</h3>
+      <p>De eerste gewoonte, helderheid, gaat over een scherp beeld van wie je wilt zijn, hoe je je wilt voelen en wat je op korte termijn wilt bereiken, in plaats van vaag te blijven zweven tussen doelen. Burchard raadt aan die helderheid regelmatig opnieuw vast te stellen, omdat ze volgens hem vervaagt zodra de dagelijkse drukte overneemt, en niet iets is wat eenmalig wordt vastgelegd en daarna vanzelf blijft gelden.</p>
+      <p>De tweede gewoonte, energie, gaat over het bewust vrijmaken van fysieke en mentale spanning, het stellen van een intentie voor elke overgang tussen taken, en het bewaken van slaap en beweging als voorwaarde voor de rest van het model. Burchard beschrijft energie niet als een vaste voorraad die opraakt, maar als iets dat actief valt op te wekken door kleine, herhaalde handelingen tussen de bezigheden van de dag door.</p>
+      <h3>Noodzaak en productiviteit</h3>
+      <p>Noodzaak is het gevoel dat iets nu moet gebeuren, dat volgens Burchard niet vanzelf ontstaat maar actief te versterken is. Hij onderscheidt drie bronnen ervan: een identiteit die om een bepaald resultaat vraagt, iemand die zich er publiekelijk aan verbindt, een verplichting tegenover anderen die van dat resultaat afhankelijk zijn, of een uiterste termijn die geen ruimte laat voor uitstel. Wie geen van de drie voelt, mist volgens hem de aandrijving die verder gaat dan losse motivatie.</p>
+      <p>Productiviteit gaat bij Burchard niet over meer doen, maar over wat hij prolific quality output noemt: een klein aantal resultaten die er echt toe doen en waarin iemand zich onderscheidt. Hij raadt aan tijd en oefening te concentreren op die paar resultaten, ze steeds verder te verfijnen, en bewust minder aandacht te geven aan taken die wel dringend voelen maar weinig aan dat kernresultaat bijdragen.</p>
+      <h3>Invloed en moed</h3>
+      <p>Invloed ontstaat volgens Burchard door anderen te onderwijzen en hoge, expliciete verwachtingen van hen te hebben, niet door macht over hen uit te oefenen. Mensen met invloed vertellen anderen niet alleen wat goed gaat, maar durven ook te benoemen waar het beter kan, gekoppeld aan het vertrouwen dat degene die dat hoort tot meer in staat is.</p>
+      <p>Moed is de bereidheid om een standpunt in te nemen, een lastig gesprek te voeren of een risico te nemen dat bij de eigen waarden past, ook als de uitkomst onzeker is. Burchard onderscheidt dat nadrukkelijk van roekeloosheid: moed is bij hem gebonden aan een reden die iemand voor zichzelf kan verantwoorden, niet aan het risico op zich.</p>
+      <h3>De coachingspraktijk achter het boek</h3>
+      <p>Door het hele boek heen verwijst Burchard naar zijn eigen coachingsbedrijf: de zes gewoontes vormen de basis van een assessment en een certificeringsprogramma dat hij aan coaches verkoopt, en veel voorbeelden in het boek zijn afkomstig van cliënten uit die praktijk. Het boek functioneert daarmee zowel als zelfstandig werk als als visitekaartje voor dat bredere aanbod.</p>
+      <p>Burchard illustreert moed vaak met het moment waarop iemand in een vergadering als enige een ongemakkelijke waarheid uitspreekt die de rest van de groep liever vermijdt, en stelt dat het herhaaldelijk nemen van dat soort kleine stappen op termijn zwaarder weegt dan één grote, uitzonderlijke daad.</p>
+      <h3>Drie valkuilen</h3>
+      <p>Zelfs met de zes gewoontes op orde noemt Burchard drie manieren waarop mensen alsnog vastlopen. De neiging om iedereen te plezieren gaat ten koste van de eigen kwaliteitseisen, omdat wie voortdurend rekening houdt met wat anderen ervan vinden, zelden nog een lastige maar noodzakelijke beslissing durft te nemen.</p>
+      <p>Een tempo zonder rustmomenten leidt op termijn tot uitputting, ook bij mensen die alle zes gewoontes beheersen; Burchard raadt daarom vaste periodes van herstel aan, niet als beloning achteraf maar als vast onderdeel van het ritme zelf. Isolement ontstaat wanneer succes wordt nagejaagd zonder de steun en tegenspraak van anderen, wat op de lange duur net zo schadelijk blijkt als een gebrek aan discipline, omdat niemand meer aanwezig is om een blinde vlek te benoemen.</p>
+      <h3>Praktische opzet</h3>
+      <p>Het boek is opgebouwd als naslagwerk: elk hoofdstuk sluit af met concrete opdrachten en een korte samenvatting, en Burchard verwijst regelmatig naar zijn eigen coachingservaring met cliënten om een gewoonte te illustreren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Helderheid</td><td>Een scherp beeld van wie je wilt zijn, hoe je je wilt voelen en wat je nu wilt bereiken.</td></tr>
+          <tr><td class="term">Energiebeheer</td><td>Het bewust vrijmaken van fysieke en mentale spanning en het stellen van een intentie bij elke overgang tussen taken.</td></tr>
+          <tr><td class="term">Noodzaak</td><td>Het zelf actief versterkte gevoel dat een doel nu moet worden bereikt, in plaats van een gevoel dat vanzelf ontstaat.</td></tr>
+          <tr><td class="term">Prolific quality output</td><td>Burchards term voor het kleine aantal waardevolle resultaten waarop productiviteit zich volgens hem moet richten.</td></tr>
+          <tr><td class="term">Invloed door onderwijzen</td><td>Het opbouwen van invloed door anderen te coachen en hoge, expliciete verwachtingen te stellen.</td></tr>
+          <tr><td class="term">De fitting in trap</td><td>De valkuil om anderen te plezieren ten koste van de eigen kwaliteitseisen.</td></tr>
+          <tr><td class="term">De pace trap</td><td>De valkuil van een tempo dat op termijn niet is vol te houden, zonder ingebouwde rust.</td></tr>
+          <tr><td class="term">De isolation trap</td><td>De valkuil om succes na te jagen zonder steun of tegenspraak van anderen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Burchard beroept zich op wat hij zelf de grootste studie naar hoge prestaties ooit noemt: enquêtes en assessments afgenomen bij een groot aantal deelnemers via zijn coachingsbedrijf, aangevuld met decennia eigen coachingservaring. Die dataset en de gebruikte methode zijn niet gepubliceerd in een onafhankelijk beoordeeld tijdschrift en niet door anderen te controleren.</p>
+      <p>Waar het boek verwijst naar bestaand onderzoek, bijvoorbeeld over doelen stellen, flow of zelfregulatie, komt dat uit gevestigde psychologische literatuur die los van Burchards eigen claims overeind blijft. De zes gewoontes zelf worden echter vooral onderbouwd met herkenbare coachingsvoorbeelden en niet met cijfers die een lezer zelf kan narekenen.</p>
+      <p>Burchard is daarnaast open over zijn eigen belang: hij schrijft expliciet dat het boek voortkomt uit zijn coachingspraktijk en dat de zes gewoontes de kern vormen van een assessment dat hij aan cliënten en aan coaches verkoopt. Dat maakt de herkomst van het model transparant, maar het betekent ook dat het boek niet is geschreven als neutrale weergave van onderzoek, met alle belang dat erbij hoort om het eigen model gunstig voor te stellen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de kernclaim, dat dit de grootste studie naar hoge prestaties ooit is, niet te verifiëren is: de vragenlijst, de steekproef en de analysemethode zijn eigendom van Burchards bedrijf en nergens onafhankelijk gepubliceerd. Een claim die zich aandient als wetenschappelijk onderzoek maar niet narekenbaar is, verschilt in bewijskracht wezenlijk van onderzoek dat wel aan collega's is voorgelegd.</p>
+      <p>Veel van de zes gewoontes overlappen bovendien met langer bestaande en beter onderbouwde concepten, zoals doorzettingsvermogen bij Duckworth, flow bij Csikszentmihalyi en zelfbeschikking uit de motivatiepsychologie, nu verpakt onder een nieuwe, merkgebonden naam. Het boek functioneert daarnaast als opstap naar Burchards betaalde certificeringsprogramma voor coaches, wat een belang schept om het eigen model aantrekkelijker voor te stellen dan onafhankelijk aangetoond is.</p>
+      <p>Ten slotte richt het boek zich vrijwel volledig op individueel gedrag, terwijl veel van wat langdurige prestaties mogelijk maakt, zoals toegang tot goede werkgevers, financiële zekerheid of gezondheid, buiten iemands eigen gewoontes ligt. Wie in een instabiele situatie zit, heeft aan helderheid over de eigen identiteit weinig als de omstandigheden zelf blijven wisselen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op wie je over een jaar wilt zijn en welk gevoel je daarbij dagelijks nastreeft.</li>
+        <li>Benoem het kleine aantal resultaten waarop je dit kwartaal echt wordt beoordeeld, en schrap tijd voor de rest.</li>
+        <li>Kies een vaardigheid waarin je iemand anders expliciet gaat coachen, met een concrete verwachting.</li>
+        <li>Plan bewust een rustmoment in je week in plaats van tempo als vast gegeven te accepteren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>How Extraordinary People Become That Way</i>, bij Hay House (2017). Geen Nederlandse uitgave: van Burchard is wel <i>Life's Golden Ticket</i> vertaald, als <i>Het Gouden Ticket</i> (Ankh-Hermes, 2016, 207 blz., ISBN 9789020200690, vertaald door Ed Nissink), dit boek niet. De samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Burchard presenteert zes gewoontes die volgens hem het verschil maken tussen mensen die kortstondig succesvol zijn en mensen die dat over jaren volhouden: helderheid over wie je wilt zijn en wat je wilt voelen, het bewust opwekken van fysieke en mentale energie, het zelf creëren van een gevoel van noodzaak in plaats van erop te wachten, het verhogen van productiviteit door je te richten op een klein aantal waardevolle resultaten, het ontwikkelen van invloed door anderen te coachen en hoge eisen te stellen, en het tonen van moed door ondanks angst te spreken en te handelen. Hij baseert dit op enquêtes en assessments die hij via zijn coachingsbedrijf bij een grote groep mensen afnam.</p><p>Naast de zes gewoontes beschrijft Burchard drie valkuilen die ook mensen met die gewoontes kunnen laten ontsporen: de neiging om anderen te plezieren ten koste van eigen kwaliteit, een tempo dat op termijn niet vol te houden is, en een isolement waarin succes wordt nagejaagd zonder steun van anderen. Het boek is opgezet als praktisch naslagwerk, met aan het eind van elk hoofdstuk concrete oefeningen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>prestatie</li><li>coaching</li><li>energie</li><li>gewoontevorming</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear biedt een concreter, stapsgewijzer systeem voor gewoontevorming dan Burchards bredere zes-gewoontenmodel.</li>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth onderbouwt met peer-reviewed onderzoek het doorzettingsvermogen dat bij Burchard als noodzaak terugkomt.</li>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Hardy werkt een vergelijkbaar idee uit dat kleine, volgehouden gewoontes op termijn het verschil maken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

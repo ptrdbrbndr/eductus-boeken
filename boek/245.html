@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Built to Serve &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Carmichaels stelling is dat mensen zich pas blijvend voldaan voelen in hun werk wanneer drie dingen samenvallen: hun Who, de kernwaarde die in alles wat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-245">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">245 &middot; Geld en ondernemen</p>
+    <h1>Built to Serve</h1>
+    <p class="lede">Evan Carmichael, 2020</p>
+    <p class="stats">
+      <span><b>1421</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="245"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Carmichaels stelling is dat mensen zich pas blijvend voldaan voelen in hun werk wanneer drie dingen samenvallen: hun Who, de kernwaarde die in alles wat ze waarderen terugkeert, hun Why, het pijnlijkste dat hun is overkomen, en hun How, de manier waarop ze die pijn overwonnen. Die derde vraag levert volgens hem de vaardigheid die iemand aan anderen kan doorgeven, en pas als die vaardigheid wordt ingezet om mensen met eenzelfde soort pijn te helpen, ontstaat wat hij dienstbaar ondernemerschap noemt. Succes is in die lezing een gevolg van dienstbaarheid, niet van het najagen van geld of aanzien op zichzelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van interviewer tot auteur</h3>
+      <p>Carmichael begon als ondernemer met wisselend succes en bouwde daarna een YouTube-kanaal op waarop hij uitspraken van bekende ondernemers knipte en monteerde tot compilatievideo's. Uit duizenden van die interviews meende hij een terugkerend patroon te zien bij mensen die hun werk als vervullend omschreven: hun activiteit hing samen met iets wat ze altijd al belangrijk vonden, met een moeilijke periode in hun leven en met een aanpak die ze daaruit hadden overgehouden.</p>
+      <p>Dat patroon werkte hij uit tot het Who-Why-How-stelsel dat de rest van het boek draagt. Het is nadrukkelijk geen wetenschappelijke bevinding maar een indruk uit eigen kijk- en interviewwerk, die Carmichael vervolgens als raamwerk aan lezers aanreikt.</p>
+      <h3>Wie: de kernwaarde opsporen</h3>
+      <p>De eerste vraag, de Who, spoort Carmichael op via een omweg. Hij laat lezers hun favoriete leraren, films en liedjes opschrijven en zoeken naar wat die met elkaar gemeen hebben, in de veronderstelling dat voorkeuren die niets met elkaar te maken lijken te hebben, toch naar dezelfde onderliggende waarde wijzen. Bij hemzelf is dat woord Believe, geloof, dat hij zowel op zijn YouTube-kanaal als in zijn eigen levensverhaal terugvindt.</p>
+      <h3>Waarom: de pijn als kompas</h3>
+      <p>De tweede vraag zoekt niet naar een ambitie maar naar een litteken. Carmichael stelt dat het pijnlijkste moment uit iemands leven de richting aangeeft waarin de grootste voldoening te vinden is, omdat mensen het felst gedreven worden om anderen te helpen die hetzelfde meemaken. Hij illustreert dit met zijn eigen ervaring van uitsluiting op school en vertaalt dat naar de aansporing om de eigen pijn niet weg te stoppen maar als aanwijzing te lezen.</p>
+      <h3>Hoe: de vaardigheid die eruit ontstond</h3>
+      <p>De derde vraag, de How, is de methode waarmee iemand zijn eigen pijn te boven kwam. Die methode is volgens Carmichael leerbaar en overdraagbaar, en verandert met de tijd mee: dezelfde Who en Why kunnen zich op verschillende momenten in een andere vaardigheid vertalen, van een ambacht naar een cursus naar een boek.</p>
+      <h3>Drie voorbeelden</h3>
+      <p>Carmichael werkt het stelsel uit aan drie personen die hij als coachingscliënt begeleidde: een autoverkoper in Atlanta wiens Who vertrouwen bleek en die zich gehinderd voelde in zijn groei, een interieurontwerper in Salt Lake City die als kind mishandeld werd en nu ruimtes ontwerpt die op herstel gericht zijn, en een spreker in Tulsa die als vluchteling uit een oorlogsgebied kwam en nu verdeelde gemeenschappen bij elkaar brengt. In alle drie de gevallen wordt de vroegere pijn de bron van het latere werk.</p>
+      <h3>Van inzicht naar dienstbaar bedrijf</h3>
+      <p>De tweede helft van het boek verlaat de zingevingsvraag en behandelt hoe iemand van zijn Who-Why-How een verdienmodel maakt. Carmichael bespreekt het rechtstreeks benaderen van potentiële klanten, het aangaan van samenwerkingen met partijen die al bij dezelfde doelgroep komen, en het opbouwen van een naam als vakspecialist via artikelen, video's en spreekbeurten.</p>
+      <p>Die hoofdstukken volgen grotendeels het stramien van zijn eigen loopbaan als contentmaker en coach, en lezers die niet van plan zijn een adviespraktijk of contentkanaal te beginnen, vinden er weinig dat op hun situatie toegesneden is.</p>
+      <h3>Plaats binnen het zelfhulpaanbod over zingeving</h3>
+      <p><i>Built to Serve</i> verscheen in 2020 in een markt waarin het zoeken naar een persoonlijk waarom al een gevestigd genre was, met titels als <i>Start with Why</i> van Simon Sinek en het Japanse begrip ikigai als bekende voorbeelden. Carmichael onderscheidt zich vooral door de nadruk op pijn als startpunt in plaats van op ambitie of aanleg, en door zijn eigen achtergrond als samensteller van interviewcompilaties in plaats van als organisatieadviseur of academicus.</p>
+      <p>Het boek verscheen bij Savio Republic, een kleiner imprint van Post Hill Press dat zich vooral op persoonlijke-ontwikkelingstitels richt, en kreeg geen brede recensie-aandacht buiten de kring van Carmichaels eigen volgers en het coachingscircuit waarin hij actief is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Who</td><td>De kernwaarde die volgens Carmichael terug te vinden is in wat iemand het meest waardeert, van leraren tot films.</td></tr>
+          <tr><td class="term">Why</td><td>Het pijnlijkste moment uit iemands leven, dat volgens hem de richting van blijvende voldoening aangeeft.</td></tr>
+          <tr><td class="term">How</td><td>De vaardigheid waarmee iemand zijn eigen pijn te boven kwam, en die overdraagbaar wordt gemaakt aan anderen.</td></tr>
+          <tr><td class="term">Dienstbaar ondernemerschap</td><td>Werk inrichten om mensen met dezelfde pijn te helpen, in plaats van geld of aanzien als eerste doel te nemen.</td></tr>
+          <tr><td class="term">Vakspecialistschap</td><td>De positie die iemand opbouwt door herkenbaar te worden als deskundige binnen zijn Who-Why-How, via artikelen, video's en spreekbeurten.</td></tr>
+          <tr><td class="term">Directe klantbenadering</td><td>Zelf potentiële klanten opzoeken in plaats van te wachten tot ze uit zichzelf komen.</td></tr>
+          <tr><td class="term">Strategische samenwerking</td><td>Een verbinding aangaan met een partij die al toegang heeft tot de doelgroep die iemand wil bereiken.</td></tr>
+          <tr><td class="term">Believe</td><td>Het woord dat Carmichael als zijn eigen Who noemt en dat de naam vormt van zijn YouTube-kanaal en online gemeenschap.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Carmichael onderbouwt zijn stelsel met zijn eigen loopbaan, met indrukken uit duizenden interviewfragmenten die hij voor zijn YouTube-kanaal monteerde, en met drie coachingscliënten die hij met naam en plaats beschrijft. Er is geen vervolgonderzoek, geen steekproef en geen manier voor de lezer om na te gaan of de drie voorbeelden representatief zijn voor wie het stelsel volgt.</p>
+      <p>De kern van het Who-Why-How-stelsel, dat pijn een leidraad voor werk kan zijn, is ouder dan dit boek en komt in vergelijkbare vorm terug bij andere auteurs over zingeving in werk. Carmichael verwijst niet naar die traditie en presenteert het stelsel als zijn eigen ontdekking uit interviewmateriaal.</p>
+      <p>Voor de oefeningen zelf, het opsporen van de Who via favoriete leraren en films, geldt hetzelfde: het zijn herkenbare reflectievragen uit de coachingspraktijk, niet uit gedragswetenschap. Het boek claimt ook niet dat de oefeningen zijn getoetst, en presenteert ze uitsluitend als wat bij Carmichael en zijn cliënten heeft gewerkt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het stelsel gaat ervan uit dat elke pijnlijke ervaring zich laat omzetten in een vaardigheid die anderen kan helpen, en dat wie die vaardigheid vindt, er ook een werkzaam bestaan van kan maken. Voor wie een pijnlijke ervaring vooral heeft beschadigd, zonder dat er een overdraagbare methode uit voortkwam, biedt het boek geen alternatief.</p>
+      <p>De drie voorbeelden zijn niet onafhankelijk te controleren; het zijn coachingscliënten van de auteur zelf, beschreven door de auteur zelf, in een boek dat de methode van diezelfde auteur moet aanprijzen. Dat is geen bewijs tegen het stelsel, maar het is ook geen bevestiging ervan buiten Carmichaels eigen praktijk.</p>
+      <p>De overgang naar de tweede helft verandert het boek van een boek over zingeving in een boek over het opzetten van een coachings- of contentbedrijf. Wie alleen de eerste vraag kwam beantwoorden, waarom voelt mijn werk niet vervuld, krijgt in de laatste hoofdstukken vooral advies over marketing en klantwerving.</p>
+      <p>Het stelsel veronderstelt bovendien dat er voor elke combinatie van kernwaarde, pijn en overwonnen moeilijkheid ook daadwerkelijk een markt bestaat die daarvoor wil betalen. Carmichaels drie voorbeelden werken omdat hun vaardigheid, verkoop, ontwerp, spreken, al een bestaand beroep is; voor wie een minder courante combinatie vindt, laat het boek in het midden hoe die zich tot een inkomen laat vertalen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf drie favoriete leraren, films en liedjes op en zoek naar het woord dat ze gemeen hebben.</li>
+        <li>Beschrijf het pijnlijkste moment uit je leven in een paar zinnen, zonder het meteen te verklaren of te verzachten.</li>
+        <li>Noteer hoe je uit die periode kwam, en kijk of die aanpak zich laat uitleggen aan iemand anders in dezelfde situatie.</li>
+        <li>Voordat je een bedrijf of kanaal rond die vaardigheid opzet, ga na of je de tweede helft van het boek, over klantwerving en partnerschappen, eigenlijk wilt volgen.</li>
+        <li>Leg de drie antwoorden een paar weken weg en kijk er dan opnieuw naar; een eerste formulering van Who, Why en How is vaak nog gekleurd door de stemming van de dag waarop je hem opschreef.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Find Your Purpose and Become the Leader You Were Born to Be</i>, bij Savio Republic, een imprint van Post Hill Press (2020, ISBN 9781642934915, 272 blz.). Geen Nederlandse uitgave: van Carmichael is geen enkele titel vertaald. De samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Carmichael bouwde zijn naam op met YouTube-video's onder de naam Believe, waarin hij uitspraken van ondernemers als Gary Vaynerchuk, Oprah Winfrey en Elon Musk monteerde tot lijstjes met "tien regels voor succes". In <i>Built to Serve</i> vertaalt hij wat hij daaruit meende te leren naar een stelsel van drie vragen: je Who, de kernwaarde die als een rode draad door je voorkeuren loopt, je Why, het pijnlijkste moment uit je leven, en je How, de manier waarop je die pijn te boven kwam en die je nu als vaardigheid aan anderen kunt doorgeven. Zijn stelling is dat blijvend succes ontstaat wanneer die drie op elkaar aansluiten en iemand zijn werk inricht om anderen met dezelfde pijn te helpen.</p><p>Het eerste deel van het boek werkt de drie vragen uit aan de hand van oefeningen en drie voorbeelden van mensen die hun Who, Why en How vonden. Het tweede deel verschuift naar het opbouwen van een dienstverlenend bedrijf rond die vaardigheid, met hoofdstukken over het rechtstreeks benaderen van klanten, het aangaan van samenwerkingen en het opbouwen van een naam als vakspecialist. Die overgang van zingevingsvraag naar verdienmodel maakt het boek in de tweede helft nadrukkelijker een gids voor coaches en contentmakers dan de titel doet vermoeden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zingeving</li><li>ondernemerschap</li><li>kernwaarden</li><li>youtube</li><li>dienstbaarheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="183"><a href="183.html">Start with Why</a>. Sinek werkt een vergelijkbaar begin bij de eigen drijfveer uit, met minder nadruk op pijn en meer op een gedeeld waarom binnen organisaties.</li>
+          <li value="50"><a href="50.html">So Good They Can't Ignore You</a>. Newport bestrijdt juist het idee dat werk om een voorafgaande passie of roeping moet draaien, en zet daar vaardigheid en geduld tegenover.</li>
+          <li value="279"><a href="279.html">All Marketers Are Liars</a>. Godin beschrijft hoe verhalen, ook oprechte, de kern van marketing vormen, wat licht werpt op het tweede deel van Carmichaels boek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

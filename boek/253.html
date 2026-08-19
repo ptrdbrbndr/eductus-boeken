@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talk Like TED &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gallo destilleert uit honderden TED-talks en gesprekken met veelbekeken sprekers negen aanwijzingen die succesvolle talks gemeen hebben, verdeeld over…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-253">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">253 &middot; Samenwerken en gesprek</p>
+    <h1>Talk Like TED</h1>
+    <p class="lede">Carmine Gallo, 2014</p>
+    <p class="stats">
+      <span><b>1434</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="253"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gallo destilleert uit honderden TED-talks en gesprekken met veelbekeken sprekers negen aanwijzingen die succesvolle talks gemeen hebben, verdeeld over drie clusters: emotie, nieuwigheid en het blijvende. Zijn stelling is dat een goede talk niet begint bij de dia's of de structuur, maar bij een onderwerp waar de spreker zelf oprecht om geeft, verteld als verhaal en gebracht als gesprek in plaats van voordracht. Techniek, zoals de duur van achttien minuten of het gebruik van meerdere zintuigen, komt pas daarna, als middel om een idee dat er al toe doet beter te laten landen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt: ideeën als drijvende kracht</h3>
+      <p>Gallo opent met de constatering dat TED sinds de eerste online talks in 2006 sprekers heeft die met een talk van een kwartier miljoenen kijkers bereiken, iets wat bedrijfspresentaties zelden lukt. Hij analyseerde naar eigen zeggen honderden talks en sprak met sprekers, presentatiecoaches en onderzoekers in psychologie en neurowetenschap om te achterhalen wat de best bekeken talks gemeen hebben.</p>
+      <p>Uit die analyse destilleert hij negen punten, die hij niet als losse trucs presenteert maar als een volgorde: eerst een onderwerp dat de moeite waard is, dan de manier waarop het wordt overgebracht, en pas daarna de techniek waarmee het beklijft.</p>
+      <h3>Emotie: een onderwerp om oprecht om te geven</h3>
+      <p>Het eerste cluster gaat over betrokkenheid bij het onderwerp zelf. Gallo stelt dat kijkers voelen of een spreker zijn onderwerp belangrijk vindt, en dat gespeelde bevlogenheid niet overkomt. Hij illustreert dit met sprekers die een persoonlijk verlies of een jarenlange fascinatie als aanleiding voor hun talk gebruiken, in plaats van een onderwerp dat hun louter is opgedragen.</p>
+      <p>Bij storytelling adviseert hij minstens één persoonlijk verhaal te vertellen naast de feiten, omdat een verhaal een idee een gezicht geeft dat een lijst met argumenten niet heeft. Bij het derde punt, spreken als een gesprek, gaat het om toon: geen voorgelezen tekst, maar zinnen die klinken zoals iemand ze ook tegen een vriend zou zeggen.</p>
+      <h3>Nieuwigheid: iets laten zien dat nog niemand wist</h3>
+      <p>Het tweede cluster draait om verrassing. Een talk moet volgens Gallo iets bevatten dat het publiek nog niet wist of nog niet zo had gezien, groot of klein. Hij noemt Bill Gates, die tijdens een talk over malaria een pot met muskieten opende om de zaal te laten voelen wat miljoenen mensen dagelijks meemaken, als voorbeeld van een moment dat de aandacht ergens in de talk laat pieken.</p>
+      <p>Humor krijgt in dit cluster een aparte plek, niet als losse grap maar als een manier om spanning weg te nemen voordat een zwaarder punt volgt.</p>
+      <h3>Het blijvende: achttien minuten en meerdere zintuigen</h3>
+      <p>Het derde cluster gaat over wat een talk laat beklijven. TED hanteert een limiet van achttien minuten, een regel die curator Chris Anderson volgens Gallo koos omdat langere talks sneller uit het geheugen van kijkers verdwijnen dan sprekers zelf beseffen. Gallo raadt aan om een talk desnoods korter te maken dan de toegestane tijd, in plaats van elke minuut te vullen.</p>
+      <p>Bij meerdere zintuigen gaat het om het combineren van woorden met beeld, geluid of een object op het podium, zodat een idee niet alleen gehoord maar ook gezien of gevoeld wordt. Het laatste advies, in je eigen spoor blijven, waarschuwt tegen het kopiëren van de stijl van een andere spreker.</p>
+      <h3>De opbouw van een verhaal</h3>
+      <p>Binnen het advies om te vertellen als een verhaal werkt Gallo een terugkerend patroon uit dat hij in veel talks terugziet: een spreker begint bij een tegenslag of een probleem uit het eigen leven, beschrijft daarna het moment waarop iets duidelijk werd, en eindigt bij wat die inzage veranderde. Dat patroon geeft een talk een richting die een opsomming van punten mist, en het zorgt ervoor dat het publiek meeleeft voordat de inhoudelijke boodschap komt.</p>
+      <p>Gallo waarschuwt tegelijk dat een verhaal geen versiering is die achteraf wordt toegevoegd. Sprekers die hun talk rond zo'n verhaal opbouwen, kiezen hun feiten en voorbeelden pas nadat het verhaal vaststaat, in plaats van andersom.</p>
+      <h3>Oefening als onderliggende voorwaarde</h3>
+      <p>Door het boek heen benadrukt Gallo dat de sprekers die hij beschrijft weken tot maanden repeteerden voordat ze het podium op gingen, ook degenen die improviserend overkomen. Hij presenteert dat niet als een apart advies, maar als de voorwaarde waaronder de andere negen pas werken: zonder herhaling blijft een goed idee een aantekening, geen talk.</p>
+      <h3>Van talk naar presentatie op het werk</h3>
+      <p>Gallo vertaalt de negen punten naar reguliere zakelijke presentaties, van een pitch tot een kwartaalupdate. Zijn advies is steeds hetzelfde patroon te volgen: een onderwerp kiezen waar de spreker zelf achter staat, het inpakken in een verhaal, en de techniek pas daarna toevoegen. Hij waarschuwt daarbij tegen het overnemen van een dia-opmaak zonder dat de inhoud dat verdient.</p>
+      <h3>Wat het boek niet doet</h3>
+      <p>Het boek richt zich op vorm en overtuigingskracht, niet op de inhoudelijke kwaliteit van wat een spreker beweert. Een talk kan volgens Gallo's eigen negen punten sterk scoren zonder dat de onderliggende claims kloppen, en dat spanningsveld benoemt het boek zelf niet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De 18-minutenregel</td><td>TED's vaste limiet voor de duur van een talk, die volgens Gallo aansluit bij hoe lang aandacht is vast te houden.</td></tr>
+          <tr><td class="term">Jaw-dropping moment</td><td>Het punt in een talk waarop de spreker iets onthult dat het publiek verrast en de aandacht laat pieken.</td></tr>
+          <tr><td class="term">Multisensorische ervaring</td><td>Een talk die naast woorden ook beeld, geluid of een fysiek object gebruikt om een idee voelbaar te maken.</td></tr>
+          <tr><td class="term">In je eigen spoor blijven</td><td>Gallo's advies om de eigen stijl van een spreker te volgen in plaats van die van een andere spreker te kopiëren.</td></tr>
+          <tr><td class="term">Emotie, nieuwigheid, het blijvende</td><td>De drie clusters waarin Gallo zijn negen aanwijzingen indeelt.</td></tr>
+          <tr><td class="term">Gesprekstoon</td><td>Spreken zoals tegen een vriend, zonder de afstand van een voorgelezen tekst.</td></tr>
+          <tr><td class="term">Herhaling als voorwaarde</td><td>De weken tot maanden voorbereiding die Gallo als onderliggende voorwaarde voor elke goede talk beschrijft.</td></tr>
+          <tr><td class="term">Het verhaalpatroon van tegenslag, inzicht en verandering</td><td>De volgorde die Gallo in veel talks terugziet: een probleem uit het eigen leven, het moment van inzicht, en wat dat inzicht veranderde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gallo's onderbouwing bestaat uit voorbeelden, niet uit cijfers over wat een talk succesvol maakt. Hij citeert onderzoekers uit psychologie en neurowetenschap over onderwerpen als aandacht en verhalen, maar koppelt hun bevindingen zelden aan een specifieke bron met jaartal of studieomvang, waardoor de lezer die claims niet zelf kan natrekken.</p>
+      <p>Sterker is het boek waar het talks zelf analyseert. Gallo beschrijft concrete scènes, zoals de muskieten van Bill Gates of de opbouw van een specifieke talk, die iedereen met de video ernaast kan controleren. Dat maakt zijn negen punten aannemelijk als beschrijving van wat werkt, zonder dat vaststaat dat het ook de oorzaak is van het succes van die talks.</p>
+      <p>Het boek vermeldt niet hoeveel talks Gallo precies bekeek, op welke manier hij ze selecteerde, of hoe hij tot negen punten kwam in plaats van een ander aantal. Die keuzes blijven impliciet, wat zijn methode moeilijker te beoordelen maakt dan de aanpak zelf doet vermoeden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek werkt met succesvolle voorbeelden en niet met talks die volgens dezelfde regels waren opgebouwd en toch weinig kijkers trokken. Daardoor blijft onduidelijk of de negen punten talks beter maken, of dat Gallo achteraf negen kenmerken heeft gevonden die toevallig bij de populairste talks passen.</p>
+      <p>Een tweede punt is dat het boek vorm en overtuigingskracht centraal stelt zonder aandacht voor de vraag of wat een spreker beweert klopt. Een talk kan volgens de negen regels sterk scoren en toch misleidend zijn, en dat spanningsveld benoemt Gallo niet.</p>
+      <p>Ten slotte is het verhaalpatroon dat Gallo aanprijst, tegenslag, inzicht, verandering, ook een vorm die zich laat forceren. Een spreker die geen echte tegenslag heeft doorgemaakt, kan er een verzinnen of aandikken om in het patroon te passen, en het boek biedt geen manier om dat verschil te herkennen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies voor je volgende presentatie een onderwerp waar je zelf werkelijk achter staat, ook als het een verplicht onderwerp is.</li>
+        <li>Bouw minstens één kort persoonlijk verhaal in voordat je met argumenten of cijfers komt, opgebouwd rond een probleem, een moment van inzicht en wat dat veranderde.</li>
+        <li>Kort je talk desnoods in tot ruim onder de beschikbare tijd, in plaats van elke minuut te vullen.</li>
+        <li>Oefen de talk hardop en meerdere keren voordat je hem geeft, in plaats van te vertrouwen op de tekst.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Talk Like TED: The 9 Public-Speaking Secrets of the World's Top Minds</i> (St. Martin's Press, 2014). Nederlands als <i>Spreek als TED: de negen geheimen van de beste sprekers ter wereld</i>, sinds 2015 bij Business Contact (288 blz., ISBN 9789047010432), vertaald door Tosca Weijers.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gallo analyseerde honderden TED-talks en sprak met veelbekeken sprekers en onderzoekers in psychologie en neurowetenschap, op zoek naar wat succesvolle talks gemeen hebben. Hij groepeert negen aanwijzingen in drie clusters: emotie, nieuwigheid en het blijvende. Onder emotie valt het advies om te spreken vanuit een onderwerp waar de spreker zelf om geeft, verhalen te vertellen in plaats van op te sommen, en een talk te brengen als een gesprek in plaats van een voordracht. Onder nieuwigheid valt het geven van nieuwe informatie of een onverwacht inzicht, een moment dat verrast, en humor.</p><p>Onder het blijvende vallen drie technische adviezen: een talk van niet meer dan achttien minuten, aandacht voor meerdere zintuigen zodat een idee ook visueel of tastbaar wordt, en een eigen, herkenbare stijl in plaats van het kopiëren van een andere spreker. Gallo onderbouwt elk advies met een voorbeeld uit een bekende talk, van Ken Robinson over creativiteit tot Bill Gates die op het podium muskieten losliet. Het boek is een praktische gids voor presenteren, geschreven voor een zakelijk publiek, en beoordeelt talks op vorm, niet op de juistheid van wat erin wordt beweerd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>presenteren</li><li>storytelling</li><li>overtuigen</li><li>retorica</li><li>spreekangst</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="183"><a href="183.html">Start with Why</a>. Sinek behandelt waarom een boodschap overtuigt vanuit een ander principe dan Gallo, maar met dezelfde nadruk op een onderwerp waar de spreker zelf in gelooft.</li>
+          <li value="82"><a href="82.html">The Art of Explanation</a>. Atkins beschrijft hoe je een ingewikkeld onderwerp uitlegt aan een breed publiek, een vaardigheid die in Gallo's boek als vanzelfsprekend wordt verondersteld.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Voss laat zien hoe toon en gesprekstechniek in een onderhandeling werken, een andere context voor hetzelfde punt dat vorm het verschil maakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

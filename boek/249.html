@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Dip &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Godin stelt dat bijna elke onderneming die de moeite waard is een fase van tegenslag kent tussen het enthousiaste begin en de bekwaamheid die iemand…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-249">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">249 &middot; Werk en aandacht</p>
+    <h1>The Dip</h1>
+    <p class="lede">Seth Godin, 2007</p>
+    <p class="stats">
+      <span><b>1013</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="249"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Godin stelt dat bijna elke onderneming die de moeite waard is een fase van tegenslag kent tussen het enthousiaste begin en de bekwaamheid die iemand nastreeft, een fase die hij de dip noemt. De meeste mensen beginnen enthousiast aan iets nieuws, lopen na een tijd vast in die dip en stoppen op precies het moment waarop volhouden het verschil zou maken. Wie wél doorzet profiteert van schaarste: omdat de meesten afhaken, wordt wie blijft vanzelf een van de weinigen die overblijven, en dus relatief de beste. Zijn advies is niet vasthouden om het vasthouden, maar strategisch kiezen: stop onmiddellijk met wat toch nergens toe leidt, en bewaar de energie voor de ene dip die het doorstaan waard is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De curve van de dip</h3>
+      <p>Godin opent met een grafiek: een lijn die begint bij een enthousiaste piek, daalt naar een dal en pas na dat dal weer stijgt naar een niveau boven het beginpunt. Dat dal is de dip, de periode waarin het leren moeilijk wordt, de vooruitgang stokt en de aanvankelijke motivatie wegebt. Zijn stelling is dat vrijwel elke waardevolle bezigheid, van een vak leren tot een bedrijf opbouwen, deze vorm heeft, en dat de meeste mensen de curve niet kennen en daardoor precies op het laagste punt afhaken.</p>
+      <h3>Drie vormen van tegenslag</h3>
+      <p>Naast de dip onderscheidt hij twee andere patronen. De doodlopende weg levert, hoeveel moeite iemand er ook in steekt, nooit meer op dan hij nu al oplevert; hier is stoppen de enige verstandige keuze, en wel zo snel mogelijk. De afgrond gaat juist geleidelijk goed tot het plotseling instort, zoals bij verslaving of bij een verdienmodel dat afhankelijk is van iets wat op een dag ophoudt te bestaan; hier is beginnen al de vergissing. Alleen de eerste vorm, de echte dip, is het overwinnen waard.</p>
+      <h3>Waarom schaarste de sleutel is</h3>
+      <p>Zijn economische argument is dat de wereld overal ruim aanbod van 'redelijk goed' kent en weinig aanbod van 'de beste in zijn soort'. Omdat de meeste mensen afhaken in de dip, is de groep die volhoudt klein, en die schaarste maakt hun positie waardevol. Wie de tweede beste hondentrainer van de stad is, verdient volgens Godin veel minder dan wie de beste is, ook al is het verschil in kunde klein; de markt beloont het uiterste van de curve, niet het midden.</p>
+      <h3>De beste ter wereld, opnieuw gedefinieerd</h3>
+      <p>Godin verruimt 'de beste ter wereld' door de wereld te verkleinen tot de markt die iemand daadwerkelijk bedient: een buurt, een niche, een klantenkring. Wie zijn afzetgebied smal genoeg kiest, kan wel degelijk de beste zijn binnen dat gebied, ook zonder wereldberoemd te worden. Die herdefinitie maakt zijn advies concreet: kies een dip die klein genoeg is om te winnen, in plaats van een dip die toevallig het meest voor de hand ligt.</p>
+      <h3>Strategisch stoppen</h3>
+      <p>Het laatste deel keert het gangbare advies om nooit op te geven om. Opgeven op het verkeerde moment, uit angst of ongemak terwijl er nog wel vooruitgang mogelijk is, noemt Godin een vergissing. Maar volhouden op een doodlopende weg uit trots of gewoonte is volgens hem een grotere vergissing, omdat het tijd en geld opslokt die elders wel tot een dip konden leiden die de moeite waard is. Zijn advies is om vooraf te bepalen wanneer je zou stoppen, voordat de emoties van het moment die beslissing overnemen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De dip</td><td>De fase van tegenslag en trage vooruitgang tussen het enthousiaste begin en de bekwaamheid, waarna de opbrengst weer stijgt.</td></tr>
+          <tr><td class="term">De doodlopende weg</td><td>Een situatie waarin inspanning niet tot verbetering leidt, hoe lang iemand ook volhoudt.</td></tr>
+          <tr><td class="term">De afgrond</td><td>Een situatie die geleidelijk goed blijft gaan tot een plotselinge, onomkeerbare ineenstorting.</td></tr>
+          <tr><td class="term">Strategisch stoppen</td><td>Vooraf besluiten wanneer je een doodlopende weg verlaat, in plaats van dat in het moment zelf te bepalen.</td></tr>
+          <tr><td class="term">Schaarste</td><td>Het economische gegeven dat er weinig aanbod is van 'de beste', waardoor wie volhoudt tot dat niveau meer waard wordt.</td></tr>
+          <tr><td class="term">De beste ter wereld</td><td>Een niet-letterlijke maatstaf: de beste binnen de markt of niche die iemand daadwerkelijk bedient.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek, geen cijfers en geen noten; het is een reeks beweringen, toegelicht met korte voorbeelden uit sport, bedrijfsleven en persoonlijke observatie, zoals de vergelijking tussen de beste en de op een na beste hondentrainer. Godin onderbouwt zijn economische claim over schaarste niet met marktdata maar met intuïtie en anekdote. De kracht van het boek zit niet in bewijsvoering maar in de helderheid van het onderscheid tussen de drie curven, dat voor lezers herkenbaar genoeg is om er hun eigen situatie op te toetsen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat het onderscheid tussen een dip en een doodlopende weg pas achteraf met zekerheid te maken is. Terwijl je er middenin zit, voelen beide vormen van tegenslag identiek, en Godin geeft weinig houvast om ze op het moment zelf uit elkaar te houden, terwijl zijn hele advies daarvan afhangt.</p>
+      <p>Het boek is bovendien geschreven vanuit een uitgesproken westers, ondernemend perspectief waarin stoppen een strategische keuze is die iemand zich kan veroorloven; voor wie afhankelijk is van een vast inkomen of geen enkele marktmacht heeft, is 'de tweede beste dienst weigeren' geen optie. Ten slotte blijft de these dun: het boek herhaalt in ruim tachtig bladzijden in feite één idee vanuit steeds nieuwe invalshoeken, zonder dat er na het eerste kwart nieuwe argumenten bijkomen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Teken voor een lopend project de curve die je verwacht: gaat het nu beter, slechter of blijft het gelijk, en waarom denk je dat.</li>
+        <li>Leg voor jezelf vooraf vast bij welk signaal je een activiteit stopt, voordat de tegenslag zelf die beslissing gaat kleuren.</li>
+        <li>Beëindig één ding waar je al langer geen vooruitgang in boekt, om tijd vrij te maken voor iets waarin dat wel kan.</li>
+        <li>Bepaal binnen welke markt of niche je daadwerkelijk de beste zou kunnen worden, in plaats van te mikken op de hele wereld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Dip: A Little Book That Teaches You When to Quit (and When to Stick)</i> (Portfolio, 2007). Nederlands als <i>De Dip</i>, sinds 2007 bij A.W. Bruna (1e druk, 110 blz., ISBN 9789022993767); de catalogus noemt geen vertaler.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Godin's these is dat bijna alles wat de moeite waard is, een fase van tegenslag kent tussen het enthousiaste begin en de beheersing die je ambieert; hij noemt die fase de dip. De meeste mensen beginnen enthousiast, lopen vast in de dip en stoppen precies op het moment dat volhouden het verschil zou maken. Wie de dip wél doorkomt profiteert van schaarste: er zijn maar weinig mensen die volhouden tot het einde, dus wie dat wel doet, wordt vanzelf een van de besten. Naast de dip onderscheidt Godin twee andere patronen: de doodlopende weg, waarbij inspanning niets oplevert, en de afgrond, waarbij het geleidelijk beter lijkt te gaan tot een plotselinge ineenstorting.</p><p>Het boek is nog geen honderd bladzijden en leest als een uitgewerkt essay, met korte hoofdstukken en veel wit. Godin's advies is niet 'nooit opgeven' maar het tegenovergestelde: stop meteen met doodlopende wegen, zodat er tijd en geld overblijven voor de ene dip die het overwinnen waard is. Wat hij onder 'de beste ter wereld zijn' verstaat is smaller dan het klinkt: niet de beste van de planeet, maar de beste binnen de markt die je bedient, hoe klein die ook is. Het boek verscheen in dezelfde periode als Godin's werk over marketing en aandacht, en deelt daarmee het uitgangspunt dat middelmatigheid in een overvolle markt nauwelijks nog wordt beloond, hoeveel moeite iemand er ook in steekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>doorzettingsvermogen</li><li>opgeven</li><li>schaarste</li><li>strategie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth pleit juist voor volhouden als kernkwaliteit; leg dat naast Godin's pleidooi voor strategisch stoppen.</li>
+          <li value="50"><a href="50.html">So Good They Can't Ignore You</a>. Newport beschrijft dezelfde weg naar bekwaamheid, maar uitgewerkt over jaren in plaats van in tachtig bladzijden.</li>
+          <li value="279"><a href="279.html">All Marketers Are Liars</a>. Van dezelfde auteur, over hoe schaarste en aandacht werken in marketing in plaats van in loopbanen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

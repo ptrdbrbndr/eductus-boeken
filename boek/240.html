@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Einstein: His Life and Universe &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Isaacson betoogt dat Einsteins wetenschappelijke doorbraken voortkwamen uit dezelfde eigenschap die hem als kind en student in de problemen bracht: een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-240">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">240 &middot; Natuur en wetenschap</p>
+    <h1>Einstein: His Life and Universe</h1>
+    <p class="lede">Walter Isaacson, 2007</p>
+    <p class="stats">
+      <span><b>1536</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="240"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Isaacson betoogt dat Einsteins wetenschappelijke doorbraken voortkwamen uit dezelfde eigenschap die hem als kind en student in de problemen bracht: een onwil om aannames van gezag te aanvaarden zonder ze zelf te controleren. Waar de klassieke natuurkunde ruimte en tijd als vaste, absolute grootheden behandelde, stelde Einstein die aanname zelf ter discussie en kwam zo tot de relativiteitstheorie. Isaacson koppelt dat vermogen uitdrukkelijk aan Einsteins levenslange wantrouwen tegenover instituties, van de Duitse school tot de latere Amerikaanse politiek, en stelt dat een gehoorzamer, aangepaster man de doorbraak nooit had gemaakt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een kind dat niet wilde gehoorzamen</h3>
+      <p>Einstein leerde pas laat vloeiend spreken en zijn ouders vreesden een tijd dat er iets mis was. Op de Duitse school van zijn jeugd, met de nadruk op uit het hoofd leren en gehoorzaamheid aan de leraar, viel hij op als lastig: een leraar zei hem naar eigen zeggen dat hij nooit iets zou bereiken zolang hij in de klas bleef zitten. Isaacson leest dat verzet niet als jeugdzonde maar als de eerste vorm van een houding die hij zijn hele leven volhield.</p>
+      <p>Na zijn opleiding aan de Polytechnische Hogeschool in Zürich kreeg hij, ondanks goede cijfers, geen van de assistentschappen waarop hij solliciteerde, deels omdat hij hoogleraren tegen zich in het harnas had gejaagd. Pas via connecties van een studievriend kreeg hij in 1902 een baan als technisch beoordelaar bij het Zwitserse octrooibureau in Bern, een functie die hem genoeg tijd en afstand tot de academische wereld gaf om zelfstandig te blijven denken.</p>
+      <h3>Het wonderjaar 1905</h3>
+      <p>In 1905 publiceerde Einstein, naast zijn werk bij het octrooibureau, vier artikelen in het tijdschrift Annalen der Physik. Een verklaarde het foto-elektrisch effect door licht als pakketjes energie voor te stellen, een tweede leverde bewijs voor het bestaan van atomen via de Brownse beweging, een derde introduceerde de speciale relativiteitstheorie en een vierde leidde daaruit de vergelijking E=mc² af. Voor het foto-elektrisch effect kreeg hij in 1921 de Nobelprijs; de relativiteitstheorie zelf werd nooit met een Nobelprijs bekroond, omdat het Zweedse comité haar te omstreden vond.</p>
+      <p>Isaacson benadrukt dat geen van die vier artikelen voortkwam uit laboratoriumexperimenten. Einstein werkte met gedachte-experimenten, zoals de vraag wat je zou zien als je naast een lichtstraal mee zou rennen, en trok daaruit conclusies die tegen de intuïtie ingingen maar wiskundig consistent waren.</p>
+      <h3>Van speciale naar algemene relativiteit</h3>
+      <p>Waar de speciale relativiteitstheorie uit 1905 nog geen rol voor zwaartekracht kende, werkte Einstein de tien jaar daarna toe naar een theorie die zwaartekracht verklaarde als een kromming van ruimte en tijd zelf, veroorzaakt door massa. Hij publiceerde de algemene relativiteitstheorie in 1915, na jaren van rekenwerk waarin hij zich, tot zijn eigen frustratie, de wiskunde van gekromde ruimtes eigen moest maken die hij als student had overgeslagen.</p>
+      <p>De theorie voorspelde dat licht van sterren zou afbuigen langs de rand van de zon. Tijdens de zonsverduistering van 1919 bevestigde een Britse expeditie onder leiding van Arthur Eddington die voorspelling, wat Einstein van vakgenoot tot wereldberoemdheid maakte; kranten over de hele wereld openden ermee.</p>
+      <h3>Mileva, Lieserl en de kinderen</h3>
+      <p>Einstein trouwde in 1903 met Mileva Marić, die hij als natuurkundestudente in Zürich had leren kennen. Voor het huwelijk kregen zij een dochter, Lieserl, van wie het spoor na een vermelding in hun brieven verdwijnt; Isaacson concludeert dat niemand met zekerheid weet of zij jong stierf of ter adoptie werd afgestaan. Het huwelijk zelf verzuurde: Einstein stelde Mileva op enig moment schriftelijke voorwaarden voor verzorging en gehoorzaamheid, en in 1919 volgde de scheiding.</p>
+      <p>Van de twee zoons kreeg Eduard op jongvolwassen leeftijd de diagnose schizofrenie en bracht hij een groot deel van zijn leven door in een Zwitserse inrichting; Einstein zag hem na zijn emigratie niet meer terug. Isaacson gebruikt deze episodes om te laten zien dat de man die de kosmos herordende, in zijn eigen gezin weinig grip had.</p>
+      <h3>Pacifisme, zionisme en de bom</h3>
+      <p>Tijdens de Eerste Wereldoorlog behoorde Einstein tot de weinige Duitse wetenschappers die publiekelijk pacifistisch waren, terwijl collega's oproepen tot de oorlog ondertekenden. Later steunde hij de zionistische zaak en hielp hij fondsen werven voor de Hebreeuwse Universiteit van Jeruzalem, zonder zelf voorstander te zijn van een exclusief joodse staat; toen hem in 1952 het presidentschap van Israël werd aangeboden, sloeg hij het af.</p>
+      <p>In 1933 vluchtte hij, kort na de machtsovername van Hitler, naar de Verenigde Staten en werd hoogleraar in Princeton. In 1939 ondertekende hij op aandringen van Leo Szilard de brief aan president Roosevelt die waarschuwde voor een Duits atoomwapenprogramma en aandrong op Amerikaans onderzoek, een brief die aan de wieg van het Manhattanproject stond, al werkte Einstein zelf niet aan de bom mee.</p>
+      <h3>De onaf gebleven zoektocht naar eenheid</h3>
+      <p>De laatste decennia van zijn leven zocht Einstein naar een verenigde veldtheorie die zwaartekracht en elektromagnetisme in één wiskundig kader zou vangen, en verzette hij zich tegen de kansrekening die de kwantummechanica centraal stelde. Zijn uitspraak dat God niet dobbelt met het heelal vatte dat verzet samen; in discussies met Niels Bohr bleef hij volhouden dat de theorie onvolledig moest zijn, ook toen experimenten steeds meer in het voordeel van Bohr uitvielen.</p>
+      <p>Isaacson beschrijft deze jaren niet als aftakeling maar als volgehouden koppigheid: Einstein werkte tot zijn dood in 1955 aan de eenheidstheorie, zonder resultaat, terwijl jongere natuurkundigen het onderwerp inmiddels hadden losgelaten.</p>
+      <h3>Burgerrechten en het wantrouwen van de FBI</h3>
+      <p>Na aankomst in de Verenigde Staten trok Einstein zich ook het lot van Amerikaanse zwarte burgers aan. In 1946 schreef hij een essay waarin hij racisme Amerika's ergste ziekte noemde, werd hij lid van de NAACP en onderhield hij contact met onder anderen Paul Robeson en W.E.B. Du Bois. Voor het conservatieve Amerika van na de oorlog maakte die opstelling, samen met zijn eerdere linkse sympathieën, hem verdacht.</p>
+      <p>De FBI onder J. Edgar Hoover hield decennialang een dossier over hem bij, uiteindelijk honderden bladzijden dik, zonder dat er ooit een aanklacht uit voortkwam. Isaacson leest dit als de Amerikaanse variant van hetzelfde patroon: een instituut dat afwijkende meningen wantrouwt, precies het soort wantrouwen waaraan Einstein zijn hele leven blootstond, van de Duitse school tot de Amerikaanse geheime dienst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Foto-elektrisch effect</td><td>Het verschijnsel dat licht elektronen uit een metaal kan losslaan, dat Einstein verklaarde door licht als energiepakketjes voor te stellen en waarvoor hij de Nobelprijs kreeg.</td></tr>
+          <tr><td class="term">Speciale relativiteitstheorie</td><td>De theorie uit 1905 die stelt dat de lichtsnelheid voor iedere waarnemer gelijk is en dat ruimte en tijd daardoor niet absoluut zijn.</td></tr>
+          <tr><td class="term">Algemene relativiteitstheorie</td><td>De theorie uit 1915 die zwaartekracht verklaart als een kromming van ruimte en tijd door massa.</td></tr>
+          <tr><td class="term">Gedachte-experiment</td><td>Einsteins methode om natuurkundige vragen te onderzoeken door zich een situatie voor te stellen, zoals meerennen met een lichtstraal, in plaats van in het laboratorium te meten.</td></tr>
+          <tr><td class="term">Het wonderjaar 1905</td><td>Het jaar waarin Einstein vier artikelen publiceerde die de natuurkunde ingrijpend veranderden, naast zijn werk bij het octrooibureau.</td></tr>
+          <tr><td class="term">Eenheidstheorie</td><td>Het onvoltooide project waarmee Einstein zwaartekracht en elektromagnetisme in één beschrijving wilde vangen.</td></tr>
+          <tr><td class="term">Einstein-Szilard-brief</td><td>De brief aan Roosevelt uit 1939 die waarschuwde voor Duits atoomonderzoek en mede aan de basis van het Manhattanproject stond.</td></tr>
+          <tr><td class="term">Zonsverduistering van 1919</td><td>De waarneming waarmee Arthur Eddington de door Einstein voorspelde afbuiging van sterlicht bevestigde en die hem wereldberoemd maakte.</td></tr>
+          <tr><td class="term">FBI-dossier</td><td>Het jarenlange, uiteindelijk honderden bladzijden tellende dossier dat de Amerikaanse geheime dienst over Einstein bijhield vanwege zijn linkse sympathieën en burgerrechtenwerk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Isaacsons belangrijkste bron is de volledige persoonlijke briefwisseling van Einstein, die de Hebreeuwse Universiteit van Jeruzalem, eigenaar van de rechten, in 2006 zonder beperkingen vrijgaf. Eerdere biografieën moesten het doen met een selectie; Isaacson kon voor het eerst ook de brieven aan Mileva Marić en de kinderen in volledige vorm gebruiken.</p>
+      <p>Voor de natuurkundige hoofdstukken liet Isaacson het manuscript nalezen door onder anderen Brian Greene en Lawrence Krauss, zodat de uitleg van relativiteit en kwantummechanica correct is zonder in formules te vervallen. Fysicus E.L. Schucking prees het onderzoek maar merkte op dat het ontbreken van wiskunde de wetenschappelijke diepgang beperkt.</p>
+      <p>De biografische feiten, geboortedata, aanstellingen en correspondentie, zijn goed gedocumenteerd en na te trekken in het Einstein Papers Project van Princeton en Caltech, dat de brieven ook publiceert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De historicus Matthew Stanley heeft Isaacsons kernbeeld van Einstein als rebel bekritiseerd als een verklaring die te veel moet dragen: niet elke keuze van Einstein, zoals zijn latere vasthoudendheid tegen de kwantummechanica, past bij het beeld van een man die per definitie tegen de gevestigde orde ingaat. Soms was Einstein juist degene die aan een oud idee bleef vasthouden terwijl anderen vernieuwden.</p>
+      <p>Het boek is daarnaast een synthese van bestaand onderzoek en nieuw vrijgegeven brieven, geen nieuw natuurkundig onderzoek; Isaacson zelf is journalist, geen natuurkundige, en leunt op geraadpleegde vakgenoten voor de technische onderbouwing. Wie op zoek is naar een grondige wiskundige uitleg van de relativiteitstheorie zelf, moet elders zijn.</p>
+      <p>Ook de nadruk op Einsteins onaangepastheid als verklarend principe roept de vraag op waarom zoveel andere onaangepaste geesten uit dezelfde tijd nooit tot een vergelijkbare doorbraak kwamen; onaangepastheid mag dan een voorwaarde zijn geweest, als volledige verklaring is zij niet genoeg.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Einstein: His Life and Universe</i> (Simon &amp; Schuster, 2007). Nederlands als <i>Einstein: De Biografie</i>, sinds 2007 bij Spectrum (656 blz., ISBN 9789046803189); vertaald door Henk Moerdijk.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Isaacson vertelt het leven van Albert Einstein van zijn geboorte in Ulm in 1879 tot zijn dood in Princeton in 1955, op basis van de persoonlijke briefwisseling die de Hebreeuwse Universiteit van Jeruzalem in 2006 volledig vrijgaf. Die brieven laten een man zien die als kind traag leerde spreken, op school botste met leraren die gehoorzaamheid eisten, en na zijn afstuderen geen universitaire aanstelling kreeg en noodgedwongen bij het Zwitserse octrooibureau ging werken. Juist in die functie, met tijd over tussen de aanvragen door, schreef hij in 1905 vier artikelen die de natuurkunde ingrijpend veranderden, waaronder de speciale relativiteitstheorie en de verklaring van het foto-elektrisch effect waarvoor hij later de Nobelprijs kreeg.</p><p>Isaacson besteedt evenveel aandacht aan het persoonlijke leven als aan de natuurkunde: het moeizame huwelijk met studiegenote Mileva Marić, de dochter Lieserl van wie het lot onbekend bleef, de latere zoon Eduard die aan schizofrenie leed, en de vlucht naar de Verenigde Staten in 1933 toen de nazi's aan de macht kwamen. Voor de natuurkundige uitleg raadpleegde Isaacson vakgenoten als Brian Greene en Lawrence Krauss, zodat het boek leesbaar blijft zonder de inhoud te versimpelen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuurkunde</li><li>relativiteitstheorie</li><li>biografie</li><li>wetenschapsgeschiedenis</li><li>emigratie</li><li>pacifisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="231"><a href="231.html">Steve Jobs</a>. Zelfde auteur en dezelfde vraag naar wat een onaangepaste persoonlijkheid oplevert, nu toegepast op Steve Jobs.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Hawkings eigen uitleg van de kosmologie die op Einsteins relativiteitstheorie voortbouwt.</li>
+          <li value="267"><a href="267.html">Tesla: Inventor of the Electrical Age</a>. Carlsons biografie van Tesla laat zien hoe een andere vorm van vasthoudendheid, zonder Einsteins wiskundige onderbouwing, tot een ander soort nalatenschap leidde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skin in the Game &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Taleb stelt dat een advies, een mening of een besluit alleen te vertrouwen is wanneer wie het geeft ook zelf de gevolgen draagt als het verkeerd uitpakt.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-282">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">282 &middot; Gewoontes en denken</p>
+    <h1>Skin in the Game</h1>
+    <p class="lede">Nassim Nicholas Taleb, 2018</p>
+    <p class="stats">
+      <span><b>1602</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="282"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Taleb stelt dat een advies, een mening of een besluit alleen te vertrouwen is wanneer wie het geeft ook zelf de gevolgen draagt als het verkeerd uitpakt. Systemen waarin de een de winst opstrijkt en de ander het verlies draagt, van bankiers die met andermans geld gokken tot bestuurders die vertrekken met een premie na een mislukking, zijn volgens hem principieel oneerlijk en op termijn onstabiel, omdat niemand meer leert van fouten waarvan hij de rekening niet betaalt. Zijn wiskundige onderbouwing komt uit de kansrekening: het gemiddelde resultaat van een grote groep mensen is iets anders dan het resultaat van één mens door de tijd heen, en wie een risico loopt waaruit geen herstel meer mogelijk is, moet daarop anders rekenen dan het gemiddelde voorschrijft. Skin in the game is voor Taleb niet alleen eerlijker maar ook de manier waarop kennis en instellingen zich over lange tijd bewijzen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De grondregel: geen mening zonder risico</h3>
+      <p>Taleb opent met een eis die volgens hem in de praktijk voortdurend wordt genegeerd: wie een advies geeft, een risico neemt namens een ander of een mening verkondigt, moet zelf de gevolgen dragen als het misgaat. Een bankier die met andermans geld gokt en bij winst een bonus krijgt en bij verlies gewoon aanblijft, een bestuurder die een bedrijf laat mislukken en vertrekt met een premie, en een pandit die voorspellingen doet zonder ze ooit te laten narekenen, zijn voor hem drie vormen van dezelfde fout.</p>
+      <p>Die fout noemt hij een verborgen asymmetrie: de een incasseert de voordelen van een gok, de ander draagt de nadelen. Skin in the game, zelf iets op het spel hebben staan, is bij Taleb geen morele oproep maar een technische eis waaraan een systeem moet voldoen om op termijn te functioneren.</p>
+      <h3>Ergodiciteit: het verschil tussen een groep en één mens door de tijd</h3>
+      <p>Het wiskundige fundament onder het boek is het onderscheid tussen twee soorten kansrekening. Het gemiddelde resultaat van duizend mensen die op één moment hetzelfde risico nemen, is iets anders dan het resultaat van één mens die datzelfde risico duizend keer na elkaar neemt, want die ene mens kan onderweg een verlies tegenkomen waaruit geen herstel meer mogelijk is.</p>
+      <p>Taleb noemt zo'n onherstelbaar verlies een absorberende barrière: faillissement, ernstig letsel of overlijden. Bij een absorberende barrière is het gemiddelde van de groep waardeloos als voorspelling voor het individu, omdat één mislukte poging het einde van elke volgende poging betekent. Wie herhaaldelijk een kleine kans op ondergang accepteert voor een gestage winst, gaat op termijn vrijwel zeker ten onder, ook al ziet elke afzonderlijke gok er verstandig uit.</p>
+      <h3>De zilveren regel</h3>
+      <p>Tegenover de gulden regel, doe een ander wat je zelf ook aangedaan wilt worden, zet Taleb wat hij de zilveren regel noemt: doe een ander niet aan wat je zelf niet aangedaan wilt worden. Het verschil lijkt klein maar is volgens hem beslissend, omdat de zilveren regel afdwingbaar is. Een verbod op schade is te toetsen aan wat er niet gebeurt, terwijl een gebod tot weldoen oneindig veel invullingen toelaat.</p>
+      <p>Hij past dat toe op regelgeving en op ethiek in het algemeen: instellingen die vooral zeggen wat niet mag, houden beter stand dan instellingen die voorschrijven wat wel moet, omdat de eerste categorie is te controleren en de tweede al snel verzandt in goedbedoelde, oncontroleerbare idealen.</p>
+      <h3>De onbuigzame minderheid</h3>
+      <p>Een van de meest besproken hoofdstukken behandelt wat Taleb de minderheidsregel noemt. Een kleine groep met een onbuigzame voorkeur kan het gedrag van een veel grotere, onverschillige meerderheid bepalen, simpelweg omdat het voor de meerderheid weinig kost om zich aan te passen en voor de minderheid onmogelijk is dat niet te doen.</p>
+      <p>Zijn voorbeeld is voedsel: wie geen bezwaar heeft tegen koosjer of halal eten, eet net zo makkelijk niet-koosjer, maar wie het wel voorschrijft, kan alleen het koosjere alternatief eten. Een fabrikant die maar één productielijn wil, kiest dan voor de koosjere variant voor iedereen, en zo bepaalt een kleine, strikte minderheid de norm voor een veel grotere groep die zelf onverschillig is.</p>
+      <h3>De intellectuele idioot</h3>
+      <p>Taleb muntte de term intellectuele idioot voor de gediplomeerde deskundige die met zekerheid over de praktijk spreekt zonder er zelf in te werken en zonder zelf de gevolgen te dragen als hij het mis heeft: de beleidsadviseur, de opiniemaker, sommige academici. Hun kennis is volgens hem vaak theoretisch geldig en praktisch waardeloos, omdat zij nooit hebben moeten leveren onder omstandigheden waarin een verkeerde inschatting henzelf iets kost.</p>
+      <p>Tegenover die figuur zet hij de ambachtsman, de chauffeur, de kleine ondernemer: mensen wier kennis voortdurend wordt getoetst doordat hun eigen inkomen ervan afhangt. Het is het meest polemische deel van het boek, en Taleb noemt met naam en toenaam wie hij tot deze categorie rekent.</p>
+      <h3>Interventie zonder rekening</h3>
+      <p>Taleb behandelt oorlog en buitenlandse interventie als het scherpste voorbeeld van gebrek aan skin in the game: wie besluit tot een militaire interventie stuurt zelden een eigen kind naar het front, en draagt dus niet de kosten van een verkeerde inschatting. Hetzelfde patroon ziet hij bij economisch beleid, waar de bedenkers van een maatregel zelden de mensen zijn die de rekening betalen wanneer die maatregel verkeerd uitpakt.</p>
+      <p>Zijn algemene regel is dat elk voorstel tot ingrijpen in een complex systeem vergezeld moet gaan van de vraag wie er persoonlijk voor opdraait als het misgaat, en dat wie die vraag niet kan beantwoorden geen recht van spreken heeft over het risico van anderen.</p>
+      <h3>Wat overleeft heeft gelijk</h3>
+      <p>In de slothoofdstukken verbindt Taleb skin in the game met tijd: gewoontes, religieuze rituelen en instellingen die al eeuwen bestaan, hebben een stilzwijgende test doorstaan die geen enkel modern onderzoek kan nabootsen, namelijk voortdurende blootstelling aan risico's die er niet meer zouden zijn als de instelling niet werkte. Hij noemt dat het Lindy-effect: hoe langer iets al bestaat, hoe langer het naar verwachting nog zal bestaan.</p>
+      <p>Religieuze rituelen leest hij in dat licht als kostbare signalen van betrokkenheid: wie bereid is tijd, geld of ongemak te investeren in een ritueel, toont daarmee een inzet die met woorden alleen niet te bewijzen valt. Het boek sluit af met de oproep om wantrouwig te zijn tegenover wie voor een verandering pleit zonder zelf iets te verliezen als die verandering verkeerd uitpakt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Skin in the game</td><td>Zelf het risico dragen van de gevolgen van je eigen beslissingen en adviezen.</td></tr>
+          <tr><td class="term">Asymmetrie</td><td>Een situatie waarin iemand de voordelen van een gok incasseert en een ander de nadelen draagt.</td></tr>
+          <tr><td class="term">Ergodiciteit</td><td>Het verschil tussen het gemiddelde resultaat van een grote groep op één moment en het resultaat van één persoon door de tijd heen.</td></tr>
+          <tr><td class="term">Absorberende barrière</td><td>Een verlies waaruit geen herstel meer mogelijk is, zoals faillissement of overlijden, dat kansrekening op basis van gemiddelden ongeldig maakt.</td></tr>
+          <tr><td class="term">Zilveren regel</td><td>Doe een ander niet aan wat je zelf niet aangedaan wilt worden; volgens Taleb bruikbaarder dan de gulden regel omdat overtreding ervan is af te dwingen.</td></tr>
+          <tr><td class="term">Minderheidsregel</td><td>Een kleine, onbuigzame groep kan de voorkeuren van een grote, onverschillige meerderheid bepalen omdat aanpassen voor de meerderheid goedkoper is dan volhouden.</td></tr>
+          <tr><td class="term">Intellectuele idioot</td><td>Talebs term voor een gediplomeerde deskundige die met zekerheid spreekt zonder zelf de gevolgen van een verkeerd advies te dragen.</td></tr>
+          <tr><td class="term">Lindy-effect</td><td>Hoe langer iets al bestaat, hoe langer het naar verwachting nog zal bestaan; overleven door de tijd als bewijs van degelijkheid.</td></tr>
+          <tr><td class="term">Interventionisme</td><td>Ingrijpen in een complex systeem door iemand die zelf niet de rekening betaalt als het misgaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Taleb onderbouwt zijn hoofdstelling niet met een enkel experiment maar met een wiskundig argument over kansrekening en ergodiciteit, aangevuld met economische en historische voorbeelden: makelaars die op commissie werken, bestuurders die een bedrijf failliet laten gaan en zelf met een vertrekpremie vertrekken, journalisten die voorspellingen doen zonder ze ooit te laten narekenen.</p>
+      <p>Het wiskundige deel over ergodiciteit en absorberende barrières is een gevestigd onderdeel van de kansrekening en niet omstreden; Taleb heeft het ook in vakpublicaties uitgewerkt. De historische en antropologische voorbeelden, over religieuze rituelen, de minderheidsregel en de intellectuele idioot, zijn illustratief en selectief gekozen, en worden niet systematisch getoetst aan tegenvoorbeelden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is polemisch van toon en Taleb rekent voortdurend af met naamloze of met naam genoemde tegenstanders, journalisten, academici, beleidsmakers, wat de lezer weinig ruimte laat om zelf te wegen hoe sterk een argument is los van de felheid waarmee het wordt gebracht.</p>
+      <p>De term intellectuele idioot is breed genoeg om vrijwel elke deskundige met wie Taleb het oneens is erin onder te brengen, en het boek geeft geen duidelijk criterium waarmee die term te weerleggen valt. De minderheidsregel is aantrekkelijk als verklaring maar wordt op enkele voorbeelden gebaseerd en niet op systematisch onderzoek naar wanneer zij wel en niet opgaat. Taleb geeft zelf ook zelden aan wanneer hij ergens naast zou kunnen zitten, een houding die in spanning staat met zijn eigen aanbeveling om altijd zelf risico te dragen voor wat je beweert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een advies of voorspelling wat de gever ervan verliest als hij het mis heeft.</li>
+        <li>Wees achterdochtig bij aanbevelingen van iemand die op commissie werkt en dus belang heeft bij een bepaalde uitkomst.</li>
+        <li>Onderscheid risico's die je eigen leven raken van risico's die je alleen gemiddeld genomen raken; een absorberende barrière, een ramp waaruit geen herstel meer mogelijk is, weegt zwaarder dan het gemiddelde suggereert.</li>
+        <li>Beoordeel een instelling of gewoonte die lang heeft standgehouden niet meteen als achterhaald; lange overleving is zelf een vorm van bewijs.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Skin in the Game: Hidden Asymmetries in Daily Life</i> (Random House, 2018). Nederlands als <i>Skin in the game: verborgen asymmetrieën in het dagelijks leven</i>, sinds 2018 bij Nieuwezijds (288 blz., ISBN 9789057125072), vertaald door het Bookmakers Vertalersteam; het is het vijfde en laatste deel van de Incerto-reeks, die begint met <i>Misleid door toeval</i> en verder loopt met <i>De zwarte zwaan</i>, <i>Het bed van Procrustes</i> en <i>Antifragiel</i>, alle bij dezelfde uitgever.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Taleb betoogt dat een advies, een mening of een beslissing pas te vertrouwen is wanneer wie hem geeft ook zelf de gevolgen draagt als het misgaat. Bankiers die met andermans geld gokken, bestuurders die vertrekken met een premie na een mislukking en journalisten die voorspellingen doen zonder ze ooit te laten narekenen, zijn voor hem voorbeelden van dezelfde fout: winst en verlies zijn losgekoppeld, en daardoor leert niemand van fouten waarvan hij de rekening niet betaalt.</p><p>De wiskundige kern komt uit de kansrekening: het gemiddelde resultaat van een grote groep mensen op één moment is iets anders dan het resultaat van één mens door de tijd heen, vooral wanneer er een verlies bestaat waaruit geen herstel meer mogelijk is. Daaromheen bouwt Taleb polemische hoofdstukken over religieuze rituelen, een onbuigzame minderheid die de voorkeuren van een meerderheid kan bepalen, en wat hij de intellectuele idioot noemt: de gediplomeerde deskundige die met zekerheid spreekt zonder zelf iets op het spel te zetten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>risico</li><li>asymmetrie</li><li>ethiek</li><li>besluitvorming</li><li>verantwoordelijkheid</li><li>kansrekening</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Fooled by Randomness legt de kansrekening onder ergodiciteit en absorberende barrières die hier als uitgangspunt wordt genomen.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. The Black Swan werkt de kwetsbaarheid voor zeldzame gebeurtenissen uit die skin in the game volgens Taleb juist blootlegt.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft de denkfouten van individuen; Taleb voegt daaraan toe wie voor die fouten de rekening betaalt en wie niet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

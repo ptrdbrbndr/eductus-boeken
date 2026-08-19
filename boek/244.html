@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 5 AM Club &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sharma's stelling is dat het eerste uur na het opstaan bepaalt hoe de rest van de dag, en op termijn het leven, verloopt, en dat wie dat uur bewust…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-244">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">244 &middot; Gewoontes en denken</p>
+    <h1>The 5 AM Club</h1>
+    <p class="lede">Robin Sharma, 2018</p>
+    <p class="stats">
+      <span><b>1521</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="244"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sharma's stelling is dat het eerste uur na het opstaan bepaalt hoe de rest van de dag, en op termijn het leven, verloopt, en dat wie dat uur bewust inricht met inspanning, reflectie en leren een voorsprong opbouwt die zich in maanden opstapelt. Discipline gaat volgens hem vóór motivatie: wie wacht tot hij zin heeft, wacht voor altijd, en wie een vaste routine installeert, heeft aan het einde geen wilskracht meer nodig om hem uit te voeren. De opbrengst van vroeg opstaan zit niet in de vroegte zelf maar in wat iemand met die ongestoorde tijd doet voordat de dag met eisen van anderen begint.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het verhaal als voertuig</h3>
+      <p>Het boek opent op een persoonlijke-ontwikkelingscongres waar een uitgebluste ondernemer en een kunstenaar die zijn zelfvertrouwen kwijt is, worden opgehaald door een excentrieke miljardair. Hij vliegt hen naar een afgelegen eiland en belooft hen in enkele dagen te leren wat hemzelf jaren geleden veranderde: een strikte ochtendroutine die begint om vijf uur.</p>
+      <p>Die vorm, een raamvertelling waarin een mentor in etappes zijn methode uitlegt, gebruikte Sharma ook in eerdere boeken zoals <i>The Monk Who Sold His Ferrari</i>. De personages krijgen weinig diepgang; ze bestaan om vragen te stellen die de lezer zelf ook heeft, zodat de miljardair er antwoord op kan geven.</p>
+      <h3>Het overwinningsuur: de 20/20/20-formule</h3>
+      <p>De kern van het boek is de indeling van het eerste uur na het opstaan in drie blokken van twintig minuten. Het eerste blok, Move, bestaat uit intensieve lichamelijke inspanning om de doorbloeding en de aanmaak van BDNF, een eiwit dat met hersenaanpassing wordt geassocieerd, op gang te brengen. Het tweede blok, Reflect, is voor meditatie, dagboek schrijven of het formuleren van dankbaarheid en dagdoelen. Het derde blok, Grow, is bestemd voor leren: een hoofdstuk uit een boek, een cursus, een vak dat de lezer zich eigen wil maken.</p>
+      <p>Sharma noemt dit uur het overwinningsuur, de tijd waarin niemand anders aanspraak op de lezer maakt. Zijn argument is dat wie dit uur consequent aan zichzelf besteedt, in de rest van de dag met meer rust en minder reactiviteit kan werken.</p>
+      <h3>Twee cycli van topprestatie</h3>
+      <p>Naast het ochtenduur beschrijft Sharma twee ritmes voor de rest van de dag. De 90/90/1-regel houdt in dat de eerste negentig minuten van de werkdag gaan naar het ene project dat het meeste oplevert, zonder onderbrekingen. De 60/10-methode verdeelt de rest van de werktijd in blokken van zestig minuten geconcentreerd werk, gevolgd door tien minuten pauze.</p>
+      <p>Hij noemt deze afwisseling de twee cycli, met een fase van geconcentreerde arbeid die hij de Monnik-cyclus noemt tegenover een fase van herstel en aandacht voor het lichaam die hij de Brahmaan-cyclus noemt. Zijn argument is dat prestatie zonder herstel op termijn instort, een gedachte die aansluit bij wat in de sportwetenschap periodisering heet, al gebruikt Sharma die term niet en verwijst hij niet naar onderzoek.</p>
+      <h3>De vier innerlijke rijken</h3>
+      <p>Sharma verdeelt persoonlijke ontwikkeling in vier gebieden die hij innerlijke rijken noemt: het Mindset, de manier van denken, het Heartset, de omgang met emoties, het Healthset, de conditie van het lichaam, en het Soulset, de verbinding met een groter doel. Elk hoofdstuk van het boek valt onder een van deze vier, en de miljardair keert er steeds naar terug om te laten zien dat een tekort in het ene gebied de andere drie ondermijnt.</p>
+      <h3>De gewoonte installeren</h3>
+      <p>Het boek besteedt een apart deel aan hoe een nieuwe gewoonte, zoals vroeg opstaan, zich in het gedrag vastzet. Sharma verdeelt een periode van 66 dagen in drie fasen van ongeveer 22 dagen: Destructie, waarin het oude patroon wordt losgelaten en de weerstand het grootst is, Installatie, waarin de nieuwe routine nog bewuste inspanning kost, en Integratie, waarin het gedrag overgaat in wat hij het automaticiteitspunt noemt.</p>
+      <p>Het getal 66 komt niet uit Sharma's eigen onderzoek. Het is ontleend aan een studie van de Britse psychologe Phillippa Lally uit 2010, die vond dat het bij haar proefpersonen gemiddeld 66 dagen duurde voordat een nieuw gedrag automatisch werd, met een spreiding van 18 tot 254 dagen naargelang de gewoonte en de persoon.</p>
+      <h3>De val van het vertrouwde</h3>
+      <p>Sharma benoemt een mechanisme dat hij de val van het vertrouwde noemt: mensen houden vast aan bekende routines, ook als die routines hen niet dienen, omdat het vertrouwde veiliger voelt dan het onbekende. Vroeg opstaan doorbreekt volgens hem die val, omdat het de eerste stap is die niemand voor je hoeft te controleren en die meteen bewijs levert dat verandering mogelijk is.</p>
+      <h3>Plaats in Sharma's werk en ontvangst</h3>
+      <p><i>The 5 AM Club</i> verscheen na eerdere bestsellers van Sharma zoals <i>The Monk Who Sold His Ferrari</i> en herhaalt de opzet die hem bekend maakte: een fictieve mentorfiguur die in etappes een levensles overdraagt aan wie hem toevallig tegenkomt. Het boek werd na verschijnen in 2018 in tientallen talen vertaald, met de Nederlandse editie pas in 2023, vijf jaar na het origineel.</p>
+      <p>Die vertraging past bij het patroon van Sharma's werk: zijn boeken verspreiden zich vooral via mond-tot-mondreclame en via sociale media, waar korte citaten uit het boek, zoals de 20/20/20-formule, losstaand van de verhaalvorm circuleren. Dat maakt de formule bekender dan het boek waarin ze werd geïntroduceerd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">20/20/20-formule</td><td>De indeling van het eerste uur na het opstaan in twintig minuten inspanning, twintig minuten reflectie en twintig minuten leren.</td></tr>
+          <tr><td class="term">Overwinningsuur</td><td>Sharma's naam voor dat eerste uur, de tijd die aan niemand anders toebehoort.</td></tr>
+          <tr><td class="term">90/90/1-regel</td><td>De eerste negentig minuten van de werkdag onverdeeld aan het ene project besteden dat het meeste oplevert.</td></tr>
+          <tr><td class="term">60/10-methode</td><td>Werkblokken van zestig minuten afgewisseld met tien minuten pauze, voor de rest van de werkdag.</td></tr>
+          <tr><td class="term">Monnik-cyclus en Brahmaan-cyclus</td><td>De afwisseling tussen geconcentreerde arbeid en bewuste rust die Sharma nodig acht om prestatie vol te houden.</td></tr>
+          <tr><td class="term">Vier innerlijke rijken</td><td>Mindset, Heartset, Healthset en Soulset, de vier gebieden waarop Sharma persoonlijke ontwikkeling verdeelt.</td></tr>
+          <tr><td class="term">Automaticiteitspunt</td><td>Het moment waarop een nieuw gedrag geen bewuste inspanning meer kost, aan het eind van het 66-dagenprotocol.</td></tr>
+          <tr><td class="term">Val van het vertrouwde</td><td>De neiging om aan bekende routines vast te houden, ook als ze niet meer werken, omdat ze veiliger aanvoelen.</td></tr>
+          <tr><td class="term">De Spellbinder</td><td>De naam voor de mentor van de miljardair in het verhaal, de bron van de methode die hij aan de twee hoofdpersonen doorgeeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert vrijwel geen extern bewijs voor zijn claims. Sharma bouwt zijn stelsel op eigen coachingservaring met topsporters en bedrijfsleiders, op de logica van het verhaal en op herhaling van zijn eigen terminologie, niet op verwijzingen naar onderzoek. De enige uitzondering is de 66 dagen uit het gewoonteprotocol, ontleend aan de studie van Phillippa Lally naar gewoontevorming; Sharma neemt het gemiddelde over zonder de spreiding of de beperkingen van dat onderzoek te vermelden.</p>
+      <p>Voor de rest van zijn stelsel, de 20/20/20-formule, de twee cycli, de vier innerlijke rijken, geeft hij geen onderbouwing buiten zijn eigen ervaring en de overtuigingskracht van het verhaal. Dat wil niet zeggen dat de adviezen onzinnig zijn: vroeg bewegen, reflecteren en leren zijn stuk voor stuk gewoontes waarvoor elders wel onderzoek bestaat, maar dat onderzoek komt in dit boek niet aan bod.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het stelsel uitgaat van een leven met veel keuzevrijheid: een vaste bedtijd, controle over de eigen agenda, geen nachtdienst, geen jong kind dat om drie uur wakker wordt. Voor wie ploegendienst draait, voor ouders van baby's of voor mensen met een onregelmatig inkomen is het advies om consequent om vijf uur op te staan moeilijk uitvoerbaar, en het boek erkent dat nergens.</p>
+      <p>De verhaalvorm is de tweede zwakte. De personages zijn er om Sharma's begrippen in dialoogvorm te herhalen, en die begrippen zelf, overwinningsuur, innerlijke rijken, automaticiteitspunt, dienen deels om een eenvoudig advies, vroeg opstaan en de tijd goed gebruiken, ingewikkelder te laten klinken dan het is.</p>
+      <p>Ten slotte is er weinig aandacht voor slaap zelf. Het boek gaat uitgebreid in op wat er na het opstaan moet gebeuren, maar nauwelijks op hoe laat iemand dan naar bed moet om voldoende uren te halen, terwijl slaaptekort de effecten van een vroege ochtendroutine grotendeels tenietdoet.</p>
+      <p>De miljardair-mentor wordt in het verhaal nergens bevraagd op zijn eigen positie: zijn rijkdom en vrije tijd maken zijn advies makkelijker te volgen dan voor de gemiddelde lezer, maar het boek behandelt hem als onbetwiste autoriteit in plaats van als iemand wiens omstandigheden het advies mede mogelijk maakten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zet een week lang de wekker een uur vroeger en vul dat uur met twintig minuten inspanning, twintig minuten reflectie en twintig minuten lezen, voordat je een telefoon aanraakt.</li>
+        <li>Kies voor je werkdag één taak die de meeste waarde oplevert en werk daar de eerste negentig minuten onverdeeld aan, zonder meldingen.</li>
+        <li>Leg voor jezelf vast wat bij jou onder Mindset, Heartset, Healthset en Soulset valt, en kijk welk van de vier het meest is verwaarloosd.</li>
+        <li>Reken uit hoe laat je naar bed moet om zeven tot acht uur slaap te halen bij een vroeger opstaan, en begin daar in plaats van bij de wekker.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The 5 AM Club: Own Your Morning. Elevate Your Life.</i> (HarperCollins, 2018). Nederlands als <i>5 AM Club</i>, sinds 2023 bij Kosmos Uitgevers (1e druk, 368 blz., ISBN 9789043929738); de titel bleef onvertaald en de catalogus noemt geen vertaler.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sharma verpakt zijn methode in een verhaal. Een uitgebluste ondernemer en een kunstenaar die worstelt met zijn werk ontmoeten op een congres een excentrieke miljardair die hen meeneemt naar een afgelegen eiland. Daar leert hij hen wat hijzelf ooit van zijn eigen mentor, de Spellbinder, kreeg voorgeschoteld: wie om vijf uur 's ochtends opstaat en het eerste uur van de dag vastlegt, wint het verschil tussen een gemiddeld en een bijzonder leven. De kern is de 20/20/20-formule: twintig minuten intensieve inspanning, twintig minuten reflectie of dagboek schrijven, twintig minuten leren uit een boek of cursus. Rond dat uur bouwt Sharma een stelsel van werkcycli, rustcycli en een reeks begrippen die hij door het hele boek herhaalt.</p><p>Het boek werkt met de omweg van fictie om adviesboek en verhaal te combineren, een vorm die Sharma ook in eerdere boeken gebruikte. De personages blijven functioneel: de ondernemer en de kunstenaar dienen vooral om de lessen van de miljardair in dialoogvorm te presenteren, met tussendoor scènes op het eiland en flashbacks naar de jeugd van de mentor. Wie het als roman leest, komt bedrogen uit; wie het als praktijkgids met een verhalend jasje leest, krijgt een compact stelsel van gewoontes rond vroeg opstaan, inspanning, reflectie en leren, aangevuld met een protocol voor gewoontevorming van 66 dagen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ochtendroutine</li><li>zelfdiscipline</li><li>productiviteit</li><li>parabel</li><li>gewoontevorming</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="238"><a href="238.html">The Power of Habit</a>. Duhigg beschrijft dezelfde gewoontevorming vanuit onderzoek naar gedrag, waar Sharma vooral op eigen ervaring en verhaalvorm leunt.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear werkt een vergelijkbaar stelsel van kleine gewoontes uit, met meer aandacht voor de mechaniek van gedragsverandering.</li>
+          <li value="291"><a href="291.html">High Performance Habits</a>. Burchard beschrijft eveneens gewoontes van bovengemiddelde presteerders, met dezelfde nadruk op ochtendroutines en energiebeheer.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

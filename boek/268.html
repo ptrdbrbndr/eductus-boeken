@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Black Swan &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Taleb betoogt dat de gebeurtenissen die de geschiedenis het meest bepalen, oorlogen, beurscrashes, technologische omwentelingen, per definitie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-268">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">268 &middot; Gewoontes en denken</p>
+    <h1>The Black Swan</h1>
+    <p class="lede">Nassim Nicholas Taleb, 2007</p>
+    <p class="stats">
+      <span><b>1521</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="268"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Taleb betoogt dat de gebeurtenissen die de geschiedenis het meest bepalen, oorlogen, beurscrashes, technologische omwentelingen, per definitie onvoorspelbaar zijn omdat ze buiten het bereik van onze modellen vallen, en dat mensen ze achteraf toch verklaren alsof ze te zien aankwamen. Die neiging om na afloop een sluitend verhaal te verzinnen noemt hij de narratieve drogreden, en ze zorgt ervoor dat we van elke ramp de verkeerde les trekken: we bereiden ons voor op de vorige zwarte zwaan in plaats van te erkennen dat de volgende per definitie ergens anders vandaan komt. Zijn advies is daarom niet om beter te voorspellen, wat volgens hem voor gebeurtenissen in Extremistan principieel onmogelijk is, maar om de eigen blootstelling aan schadelijke verrassingen te beperken en aan gunstige juist te vergroten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De kalkoen en de twee landschappen</h3>
+      <p>Taleb opent met het beeld van een kalkoen die duizend dagen achtereen te eten krijgt en daaruit met toenemende overtuiging afleidt dat de mens het beste met hem voorheeft, tot de dag voor Thanksgiving alles anders blijkt. De kalkoen had, met de gegevens die hij had, gelijk: zijn overtuiging werd elke dag sterker bevestigd, tot het moment waarop de bevestiging zelf de valstrik was.</p>
+      <p>Daaruit leidt hij een onderscheid tussen twee landschappen af. In Mediocristan, waar lengte, gewicht en de meeste natuurlijke verschijnselen thuishoren, ligt er een grens aan hoe ver een enkele waarneming van het gemiddelde kan afwijken. In Extremistan, waar vermogen, boekverkopen, oorlogsslachtoffers en beurskoersen thuishoren, kan één waarneming alles overheersen wat er daarvoor is gemeten.</p>
+      <h3>Wat een zwarte zwaan is</h3>
+      <p>Een zwarte zwaan is voor Taleb een gebeurtenis met drie kenmerken: ze ligt buiten wat op basis van het verleden te verwachten viel, ze heeft een grote impact, en pas achteraf verzint men er een verklaring bij die haar onvermijdelijk laat lijken. De term ontleent hij aan de ontdekking van zwarte zwanen in Australië, die in één klap de Europese zekerheid onderuit haalde dat alle zwanen wit zijn.</p>
+      <p>Als voorbeelden noemt hij de opkomst van het internet, de aanslagen van 11 september 2001 en de financiële crisis die kort na de eerste druk van dit boek in 2007 volgde. Taleb had voor een crisis van die orde gewaarschuwd, wat het boek achteraf een profetische status gaf, al benadrukt hij zelf dat het punt niet is dát hij deze crisis voorzag, maar dat het systeem zo was gebouwd dat een crisis van die orde er vroeg of laat uit moest komen.</p>
+      <h3>De narratieve drogreden en verborgen bewijs</h3>
+      <p>Mensen verklaren gebeurtenissen achteraf graag met een lopend verhaal, en dat verhaal voelt overtuigender naarmate het eenvoudiger is. Taleb noemt dat de narratieve drogreden: de vondst van een oorzaak na de feiten geeft een vals gevoel dat de uitkomst te voorzien was, terwijl er op het moment zelf tientallen even plausibele verhalen mogelijk waren.</p>
+      <p>Een verwant probleem is wat hij verborgen bewijs noemt. Wie het succes van een select groepje handelaren of ondernemers bestudeert, ziet niet de veel grotere groep die met dezelfde methode faalde en van het toneel verdween. Zonder die mislukte pogingen mee te tellen, lijkt succes voorspelbaarder dan het is.</p>
+      <h3>De klokvormige curve en de kritiek op risicomodellen</h3>
+      <p>De klassieke statistiek werkt met de klokvormige, Gaussische curve, waarin extreme uitkomsten snel onwaarschijnlijk worden. Taleb betoogt dat die curve in Mediocristan goed past, maar in Extremistan ernstig misleidt, omdat verdelingen daar veel dikkere staarten hebben dan de curve toestaat.</p>
+      <p>Hij richt zijn kritiek met name op de financiële sector, die volgens hem risicomodellen op die verkeerde curve heeft gebouwd. Het bekendste voorbeeld dat hij aanhaalt is Long-Term Capital Management, een fonds met twee Nobelprijswinnaars in de gelederen dat in 1998 alsnog instortte doordat de markt zich niet aan het model hield.</p>
+      <h3>Experts, voorspellers en epistemische arrogantie</h3>
+      <p>Taleb is scherp over voorspellers die met stelligheid over de toekomst van economie, politiek of markten spreken. Zijn bezwaar is niet dat zij vaak fout zitten, maar dat zij zelden erkennen hoe groot de onzekerheid rond hun voorspelling eigenlijk is. Die overschatting van wat we weten noemt hij epistemische arrogantie.</p>
+      <p>Hij onderscheidt daarbij de ludieke drogreden: het verwarren van beheersbare, spelachtige kansberekening, zoals bij een dobbelsteen, met de open, ongeperkte onzekerheid van de echte wereld. Een casino kan zijn risico's op de speeltafels nauwkeurig berekenen en toch worden geraakt door iets volledig buiten dat model, zoals de aanval van een tijger op een van de entertainers in het eigen theater, het voorbeeld dat hij aanhaalt naar aanleiding van het ongeval met Roy Horn van het duo Siegfried and Roy in 2003.</p>
+      <h3>Robuustheid, kwetsbaarheid en de barbell-strategie</h3>
+      <p>Als praktisch antwoord stelt Taleb niet voor om zwarte zwanen te voorspellen, wat volgens hem principieel niet kan, maar om de eigen blootstelling eraan te sturen. Hij maakt onderscheid tussen negatieve zwarte zwanen, waartegen je je wilt beschermen, en positieve, waar je juist voor open wilt staan.</p>
+      <p>Zijn concrete advies is de barbell-strategie: het grootste deel van je middelen extreem veilig beleggen en een klein deel in posities zetten met een beperkt, bekend verlies en een onbegrensde winstkans, in plaats van overal een gemiddeld risico te nemen. Die vorm beschermt tegen het ergste terwijl ze de deur openhoudt voor het beste.</p>
+      <h3>Plaats in de Incerto-reeks</h3>
+      <p><i>The Black Swan</i> is het tweede deel van wat Taleb later zijn Incerto-reeks noemde, na <i>Fooled by Randomness</i> uit 2001 en gevolgd door onder meer <i>Antifragile</i> en <i>Skin in the Game</i>. De tweede druk uit 2010 voegt een essay toe, "Over robuustheid", waarin hij reageert op de financiële crisis van 2008 en zijn aanbevelingen aanscherpt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zwarte zwaan</td><td>Een gebeurtenis die buiten de verwachting ligt, een grote impact heeft en pas achteraf verklaarbaar lijkt.</td></tr>
+          <tr><td class="term">Mediocristan</td><td>Het domein waarin waarnemingen begrensd zijn en het gemiddelde de uitkomsten goed beschrijft.</td></tr>
+          <tr><td class="term">Extremistan</td><td>Het domein waarin één waarneming alles kan overheersen wat er daarvoor is gemeten, zoals vermogen of beurskoersen.</td></tr>
+          <tr><td class="term">Narratieve drogreden</td><td>De neiging om achteraf een verklarend verhaal te verzinnen dat een onvoorspelbare gebeurtenis onvermijdelijk laat lijken.</td></tr>
+          <tr><td class="term">Verborgen bewijs</td><td>Het over het hoofd zien van de mislukte pogingen die niet in het overzicht van succesvolle uitkomsten staan.</td></tr>
+          <tr><td class="term">Ludieke drogreden</td><td>Het verwarren van beheersbare, spelachtige kansberekening met de open onzekerheid van de werkelijkheid.</td></tr>
+          <tr><td class="term">Epistemische arrogantie</td><td>Het overschatten van wat we weten en het onderschatten van de onzekerheid rond een voorspelling.</td></tr>
+          <tr><td class="term">Klokvormige curve</td><td>De Gaussische verdeling die in Mediocristan goed werkt maar de kans op extreme uitkomsten in Extremistan onderschat.</td></tr>
+          <tr><td class="term">Barbell-strategie</td><td>Het grootste deel van de middelen extreem veilig zetten en een klein deel in posities met onbegrensde winstkans.</td></tr>
+          <tr><td class="term">Robuustheid</td><td>De mate waarin een systeem of een portefeuille bestand is tegen negatieve verrassingen zonder in te storten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een essay, geen empirische studie met een vaste onderzoeksopzet. Taleb bouwt zijn argument op drie pijlers: zijn eigen jaren als optiehandelaar, waarin hij posities innam die wonnen bij zeldzame, grote koersbewegingen; de wiskunde van machtswetten en fractale verdelingen, waarbij hij expliciet leunt op het werk van wiskundige Benoit Mandelbrot; en een lezing van de wetenschapsfilosofie, met name Karl Poppers falsifieerbaarheid en Humes probleem van de inductie.</p>
+      <p>Dat maakt het boek sterk in het blootleggen van de aannames achter gangbare risicomodellen en zwak in het leveren van een eigen, toetsbaar alternatief model. De financiële crisis van 2008, die kort na de eerste druk volgde, wordt door aanhangers gelezen als een bevestiging van zijn these, al is dat achteraf precies het soort redenering waar het boek zelf voor waarschuwt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt van kwantitatieve economen zelf: dikke staarten en machtswetten waren binnen de financiële wiskunde al langer bekend en werden door delen van de sector al verrekend, zodat Taleb soms een karikaturaal beeld van zijn tegenstander schetst om die vervolgens overtuigend neer te halen.</p>
+      <p>De toon is strijdlustig en generaliserend naar hele beroepsgroepen, economen, bankiers, journalisten, wat de argumentatie retorisch sterker maakt maar de nuance kleiner. Ook is de these voor een deel moeilijk te weerleggen: elke onverwachte gebeurtenis bevestigt haar, terwijl rustige periodes worden weggezet als een stilte voor de volgende storm, wat van de theorie minder een voorspelling maakt en meer een altijd geldige waarschuwing.</p>
+      <p>Ten slotte biedt het boek weinig houvast voor wie de barbell-strategie wil toepassen buiten de context van een handelaar met toegang tot opties: voor een gewone lezer blijft er vooral het advies over om voorzichtig te zijn met wat veilig lijkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bouw een barbell-verdeling: zet het grootste deel van je middelen extreem veilig en een klein deel in posities met een beperkt verlies en een onbegrensde winstkans.</li>
+        <li>Wantrouw een verklaring die een gebeurtenis achteraf onvermijdelijk laat lijken, en vraag welke andere verhalen op het moment zelf even plausibel waren.</li>
+        <li>Zoek bij een succesverhaal actief naar de mislukte pogingen die niet in het overzicht staan voordat je de methode overneemt.</li>
+        <li>Vraag bij elk risicomodel niet wat het meet, maar wat het uitsluit.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Black Swan: The Impact of the Highly Improbable</i> (Random House, 2007; uitgebreide tweede editie 2010). Nederlands als <i>De Zwarte Zwaan: de impact van het hoogst onwaarschijnlijke</i>, sinds 2012 bij Nieuwezijds (2e editie, 480 blz., ISBN 9789057123672); de uitgever vermeldt geen vertaler.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een zwarte zwaan is een gebeurtenis die zeldzaam is, een grote impact heeft en pas achteraf verklaarbaar lijkt, terwijl niemand haar vooraf voorspelde. Taleb opent met het beeld van een kalkoen die duizend dagen lang elke dag te eten krijgt en daaruit met steeds meer zekerheid afleidt dat de mens het beste met hem voorheeft, tot de dag voor Thanksgiving alles anders blijkt. Hij onderscheidt daarbij twee landschappen. In Mediocristan, waar lengte en gewicht thuishoren, blijft een enkele uitschieter beperkt en telt het gemiddelde. In Extremistan, waar vermogen, boekverkopen en beurskoersen thuishoren, kan één uitschieter alles overheersen wat er daarvoor gebeurde. De meeste gebeurtenissen die er echt toe doen, oorlogen, een crash, een uitvinding die alles verandert, spelen zich af in Extremistan, waar de gangbare statistiek faalt.</p><p>Taleb was zelf optiehandelaar voordat hij ging schrijven, en zijn wantrouwen tegen voorspelmodellen komt uit die praktijk. Hij verwijt economen en historici de narratieve drogreden: het achteraf verzinnen van een verhaal dat een onvoorspelbare gebeurtenis onvermijdelijk laat lijken, terwijl niemand haar vooraf zag aankomen. Zijn advies is niet om beter te voorspellen, wat volgens hem voor gebeurtenissen in Extremistan principieel niet kan, maar om de eigen blootstelling aan schade te beperken en aan gunstige verrassingen juist te vergroten. Concreet stelt hij een barbell-strategie voor: het grootste deel van je middelen extreem veilig zetten en een klein deel in posities met een beperkt verlies en een onbegrensde winst, in plaats van overal een gemiddeld risico te nemen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>risico</li><li>onzekerheid</li><li>statistiek</li><li>voorspellingen</li><li>financiële markten</li><li>complexiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Talebs eerdere boek in dezelfde reeks, over het onderschatten van toeval in het dagelijks leven van handelaren.</li>
+          <li value="282"><a href="282.html">Skin in the Game</a>. Zijn latere boek werkt uit wie de kosten draagt als een zwarte zwaan toeslaat, en wie er alleen de winst van opstrijkt.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman onderzoekt vanuit de psychologie dezelfde neiging om achteraf een sluitend verhaal te zien waar toeval regeerde.</li>
+          <li value="234"><a href="234.html">Factfulness</a>. Rosling laat zien hoe stelselmatig mensen de kans op zeldzame, dramatische gebeurtenissen verkeerd inschatten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

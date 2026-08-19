@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonardo da Vinci &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Isaacson betoogt dat Leonardo's genie niet voortkwam uit een aangeboren talent dat los stond van zijn andere bezigheden, maar juist uit de weigering om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-241">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">241 &middot; Maken en scheppen</p>
+    <h1>Leonardo da Vinci</h1>
+    <p class="lede">Walter Isaacson, 2017</p>
+    <p class="stats">
+      <span><b>1426</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="241"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Isaacson betoogt dat Leonardo's genie niet voortkwam uit een aangeboren talent dat los stond van zijn andere bezigheden, maar juist uit de weigering om kunst en natuurwetenschap als gescheiden terreinen te behandelen. Zijn anatomische ontledingen leerden hem hoe gezichtsspieren werken en die kennis maakte de glimlach van de Mona Lisa mogelijk; zijn studies van stromend water beïnvloedden zijn tekeningen van haar en van de zondvloed. Isaacson stelt dat deze eindeloze, ongerichte nieuwsgierigheid, die opdrachten vaak onafgemaakt liet, de voorwaarde was voor precies dat wat wél af kwam.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een onwettige zoon zonder Latijnse scholing</h3>
+      <p>Leonardo werd in 1452 geboren in het Toscaanse dorp Vinci, als zoon van een notaris en een vrouw met wie deze niet trouwde. Omdat hij onwettig was, kon hij niet naar de universiteit of in het notarisambt van zijn vader treden; hij kreeg geen opleiding in het Latijn, wat hem als volwassene dwong zich klassieke teksten via vertalingen eigen te maken.</p>
+      <p>Isaacson wijst erop dat dit gemis Leonardo ook vrijheid gaf. Zonder de scholastieke training die zijn tijdgenoten kregen, ontwikkelde hij een eigen methode van kennis vergaren, gebaseerd op eigen waarneming in plaats van op het gezag van klassieke auteurs.</p>
+      <h3>In de werkplaats van Verrocchio</h3>
+      <p>Rond zijn veertiende werd Leonardo leerling in de werkplaats van Andrea del Verrocchio in Florence, waar hij naast schilderen ook beeldhouwen, metaalbewerking en toneeltechniek leerde. Isaacson beschrijft hoe Verrocchio hem liet meewerken aan de Doop van Christus en hoe de overlevering, mogelijk overdreven, wil dat de meester na het zien van Leonardo's engel nooit meer schilderde.</p>
+      <p>In deze jaren begon Leonardo ook met zijn levenslange gewoonte van lijstjes maken: boodschappenlijstjes naast aantekeningen om de opbouw van een specifieke spier te bestuderen of om een boek over de vlucht van vogels te lenen.</p>
+      <h3>Milaan: hofschilder, ingenieur en anatoom</h3>
+      <p>In 1482 verhuisde Leonardo naar Milaan om voor hertog Ludovico Sforza te werken, aan wie hij zichzelf voorstelde als in de eerste plaats ontwerper van bruggen, kanonnen en oorlogsmachines, en pas daarna als schilder. Isaacson leest die zelfpresentatie als praktisch: aan het hof was er meer vraag naar ingenieurs dan naar schilders.</p>
+      <p>In Milaan schilderde hij Het Laatste Avondmaal op de muur van het klooster Santa Maria delle Grazie, met een experimentele techniek die al tijdens zijn leven begon af te bladderen. In dezelfde periode begon hij lijken te ontleden, aanvankelijk om spieren en gewrichten beter te kunnen schilderen, later puur uit belangstelling voor de werking van het lichaam zelf.</p>
+      <h3>De notitieboeken als methode</h3>
+      <p>Van de naar schatting achtentwintigduizend bladzijden die Leonardo vulde, zijn er ongeveer zevenduizend bewaard gebleven, verspreid over collecties in onder meer Milaan, Parijs en Windsor. Isaacson gebruikt ze als hoofdbron en laat zien dat Leonardo geen aantekeningen voor publicatie maakte, maar voor zichzelf: vragen aan zichzelf, schetsen van waterwervelingen naast een rekening, een aantekening om de tong van een specht te onderzoeken.</p>
+      <p>Die notitieboeken tonen ook hoe weinig onderscheid Leonardo maakte tussen disciplines. Dezelfde bladzijde kan een studie van het menselijk hart bevatten naast een ontwerp voor een vliegmachine en een schets voor een altaarstuk, zonder dat een van de drie voorrang krijgt.</p>
+      <h3>Mona Lisa en de jaren van talmen</h3>
+      <p>Leonardo begon rond 1503 aan het portret dat nu bekendstaat als de Mona Lisa en droeg het schilderij tot zijn dood met zich mee, er steeds opnieuw aan werkend. Isaacson verbindt de beroemde glimlach direct aan zijn anatomische studies van de gezichtsspieren: door te weten welke spieren een glimlach vormen en oplossen, kon hij een uitdrukking schilderen die precies op het kantelpunt tussen opkomen en verdwijnen balanceert.</p>
+      <p>Tegelijk bleven veel andere opdrachten onaf, van een ruiterstandbeeld voor Sforza tot verschillende altaarstukken. Isaacson behandelt dat talmen niet als karakterfout naast het genie, maar als hetzelfde mechanisme: dezelfde honger naar nieuwe vragen die een schilderij eindeloos liet verbeteren, liet andere werken onafgemaakt liggen.</p>
+      <h3>Vliegen en de wiskunde van het lichaam</h3>
+      <p>Leonardo vulde tientallen bladzijden met studies van de vlucht van vogels, van de vorm van hun vleugels tot de manier waarop lucht langs een oppervlak stroomt, later gebundeld in wat de Codex over de vlucht van vogels wordt genoemd. Daaruit ontwikkelde hij ontwerpen voor vliegmachines die een mens met gespierde armen en een vleugelmechaniek de lucht in moesten krijgen; geen van die ontwerpen werd ooit gebouwd of getest, en Isaacson wijst erop dat de mechanica van menselijke spierkracht een dergelijk toestel nooit had kunnen laten vliegen. De waarde van deze bladzijden zit niet in een geslaagde uitvinding maar in de methode: Leonardo probeerde vliegen te begrijpen door het probleem in onderdelen te ontleden, lang voordat aerodynamica als vak bestond.</p>
+      <p>Rond 1490 tekende Leonardo de Vitruviusman, een naakte mannelijke figuur binnen een cirkel en een vierkant, gebaseerd op de proporties die de Romeinse architect Vitruvius eeuwen eerder had beschreven. Isaacson leest de tekening als samenvatting van Leonardo's methode: pas door zelf te meten en te tekenen, in plaats van Vitruvius' tekst alleen te lezen, kon hij zien waar de klassieke verhoudingen wel en niet klopten met een echt lichaam, en paste hij ze aan op basis van eigen waarneming.</p>
+      <h3>De laatste jaren in Frankrijk</h3>
+      <p>Op uitnodiging van de Franse koning Frans I vertrok Leonardo in 1516 naar Frankrijk, waar hij zijn laatste jaren doorbracht in het kasteel Clos Lucé, met de Mona Lisa nog altijd in zijn bezit. Isaacson beschrijft hem in die jaren niet als een uitgewerkte oude man maar als iemand die tot vlak voor zijn dood in 1519 aantekeningen bleef maken over waterhuishouding en meetkunde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sfumato</td><td>De schildertechniek waarbij overgangen tussen licht en donker vervagen zonder harde lijnen, kenmerkend voor onder meer de Mona Lisa.</td></tr>
+          <tr><td class="term">Vitruviusman</td><td>De tekening van een mannelijk lichaam in cirkel en vierkant naar de proporties van Vitruvius, die kunst, wiskunde en anatomie in één beeld samenbrengt.</td></tr>
+          <tr><td class="term">Salvator Mundi</td><td>Het omstreden schilderij dat in 2017 voor recordbedrag werd geveild als grotendeels eigenhandig werk van Leonardo, een toeschrijving die niet door alle kunsthistorici wordt gedeeld.</td></tr>
+          <tr><td class="term">De notitieboeken</td><td>De duizenden bewaarde bladzijden waarop Leonardo schetsen, vragen en berekeningen door elkaar noteerde, zonder publicatie voor ogen.</td></tr>
+          <tr><td class="term">Onwettige geboorte</td><td>Leonardo's status als buitenechtelijk kind, die hem de toegang tot universiteit en notarisambt ontzegde maar ook vrij hield van scholastieke training.</td></tr>
+          <tr><td class="term">Codex</td><td>De naam voor de gebundelde verzamelingen van Leonardo's aantekeningen, zoals de Codex Leicester over water en geologie.</td></tr>
+          <tr><td class="term">Anatomische studies</td><td>Leonardo's ontledingen van lichamen, aanvankelijk voor zijn schilderwerk bedoeld en later voortgezet als zelfstandig onderzoek.</td></tr>
+          <tr><td class="term">Onaf gebleven werk</td><td>Het grote aantal opdrachten dat Leonardo niet voltooide, door Isaacson verklaard als keerzijde van zijn ongerichte nieuwsgierigheid.</td></tr>
+          <tr><td class="term">Verbinding van kunst en wetenschap</td><td>Isaacsons kernbegrip voor de manier waarop Leonardo waarneming, tekenen en onderzoek als één en dezelfde activiteit behandelde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De belangrijkste bron zijn Leonardo's eigen notitieboeken, die grotendeels gedigitaliseerd en raadpleegbaar zijn; Isaacson citeert er voortdurend rechtstreeks uit, inclusief de kleine, alledaagse aantekeningen naast de grote wetenschappelijke vragen. Dat maakt het boek dicht bij de bron, al benadrukt Isaacson zelf dat het geen nieuw archiefonderzoek bevat en vooral bestaande kennis samenbrengt voor een breed publiek.</p>
+      <p>Voor de kunsthistorische en biografische feiten steunt Isaacson op gevestigde Leonardo-geleerden zoals Martin Kemp en Carmen Bambach, van wie het onderzoek in voetnoten wordt erkend. Waar bronnen elkaar tegenspreken, zoals over de precieze reden van zijn vertrek uit Milaan, geeft Isaacson dat expliciet aan in plaats van zelf een keuze te presenteren als vaststaand.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Verschillende recensenten, onder wie Jennifer Senior, vonden Isaacsons kunsthistorische beschrijvingen te enthousiast en weinig kritisch, met een neiging om elk werk als een nieuw hoogtepunt te presenteren. Daniel Levitin noemde het boek in vergelijking met andere Leonardo-biografieën minder samenhangend, meer een verzameling aantekeningen dan een doorlopend verhaal.</p>
+      <p>De recensent van de Literary Review wees op momenten waarop Isaacson Leonardo's zestiende-eeuwse keuzes beoordeelt met hedendaagse maatstaven, bijvoorbeeld rond zijn seksuele geaardheid, wat het risico van anachronisme met zich meebrengt. Zelf erkent Isaacson dat het boek geen nieuwe vondsten bevat; de waarde zit in de synthese, niet in nieuw bewijs.</p>
+      <p>Isaacson behandelt ook Salvator Mundi, dat na een omstreden restauratie als grotendeels eigenhandig werk van Leonardo werd verkocht voor een recordbedrag, terwijl verscheidene kunsthistorici de toeschrijving betwisten en het werk eerder als atelierwerk of latere kopie beschouwen. Dat Isaacson de hogere toeschrijving overneemt zonder de tegenargumenten uitgebreid te wegen, is door critici aangehaald als voorbeeld van te weinig scepsis tegenover een verhaal dat het boek zelf aantrekkelijker maakt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Leonardo da Vinci</i> (Simon &amp; Schuster, 2017). Nederlands als <i>Leonardo da Vinci</i>, sinds 2017 bij Spectrum (640 blz., ISBN 9789000358663); vertaald door Rob de Ridder.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Isaacson baseert deze biografie op de bijna zevenduizend bladzijden aantekeningen die van Leonardo da Vinci bewaard zijn gebleven, een fractie van wat hij ooit vulde. Die notitieboeken tonen een man die tegelijk aan de Mona Lisa werkte, kikkervisjes ontleedde, de spieren van een gezicht tekende om een glimlach te doorgronden, en bladzijden vulde met de vraag waarom de lucht blauw is. Leonardo, in 1452 geboren als onwettige zoon van een Florentijnse notaris, kreeg geen formele Latijnse scholing en leerde zichzelf vrijwel alles wat hij wist.</p><p>Isaacson vertelt zijn leven via de steden waar hij werkte: de leertijd bij Verrocchio in Florence, de jaren aan het hof van Ludovico Sforza in Milaan waar hij Het Laatste Avondmaal schilderde en wapentuig ontwierp, en de laatste jaren in Frankrijk onder bescherming van koning Frans I. Het boek benadrukt dat veel opdrachten onafgemaakt bleven en dat juist die combinatie van nieuwsgierigheid en talmen bij Leonardo onlosmakelijk verbonden was.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>renaissance</li><li>kunstgeschiedenis</li><li>biografie</li><li>anatomie</li><li>notitieboeken</li><li>nieuwsgierigheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="231"><a href="231.html">Steve Jobs</a>. Isaacsons eigen biografie van Steve Jobs, met een vergelijkbare vraag naar het verband tussen persoonlijkheid en het soort werk dat iemand aflevert.</li>
+          <li value="15"><a href="15.html">How to Think Like Leonardo da Vinci</a>. Gelb destilleert uit Leonardo's methode direct toepasbare oefeningen, waar Isaacson vooral het leven zelf beschrijft.</li>
+          <li value="17"><a href="17.html">The Creative Act</a>. Rubin behandelt scheppen als vak dat evengoed in observatie als in uitvoering zit, een parallel met Leonardo's notitieboeken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

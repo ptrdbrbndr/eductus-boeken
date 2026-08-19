@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Letters from a Stoic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Seneca stelt dat wijsheid geen inzicht is dat je één keer verwerft maar een oefening die dagelijks herhaald moet worden, en dat de belangrijkste stof voor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-292">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">292 &middot; Levenskunst</p>
+    <h1>Letters from a Stoic</h1>
+    <p class="lede">Seneca, ca. 65 n.Chr.</p>
+    <p class="stats">
+      <span><b>1652</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="292"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Seneca stelt dat wijsheid geen inzicht is dat je één keer verwerft maar een oefening die dagelijks herhaald moet worden, en dat de belangrijkste stof voor die oefening het gewone leven is: een storm op zee, een lastige slaaf, een verkoudheid, het ouder worden. Zijn kerngedachte is dat tijd het enige is wat een mens werkelijk bezit, terwijl de meeste mensen haar weggeven aan drukte, aan de mening van anderen en aan uitstel, alsof zij onbeperkt voorradig is. Wie zich dat realiseert, gaat volgens Seneca anders leven, niet door de wereld te ontvluchten maar door haar met minder angst tegemoet te treden. Tegenover die claim staat dat Seneca zelf, een van de rijkste mannen van Rome en adviseur van een keizer die zijn moeder liet vermoorden, in een positie verkeerde die zijn eigen raad moeilijk navolgbaar maakte.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een vriendschap in brieven</h3>
+      <p>De 124 overgeleverde brieven zijn gericht aan Lucilius, een vriend van lagere komaf dan Seneca die het tot procurator van Sicilië had gebracht. Van Lucilius' antwoorden is niets bewaard gebleven, en filologen wijzen erop dat de brieven qua lengte en opbouw te regelmatig zijn voor gewone privécorrespondentie. Vermoedelijk zijn ze geschreven met het oog op publicatie, in een traditie van filosofische briefliteratuur die al bij Cicero en Epicurus bestond.</p>
+      <p>Dat verandert niets aan de toon. Seneca spreekt Lucilius aan als een gelijke die nog leert, niet als een leerling die instructies krijgt, en herhaalt zichzelf net zo vaak als hij Lucilius aanspoort iets te doen. De laatste brief breekt midden in een onderwerp af, wat er sterk op wijst dat de verzameling zoals wij haar kennen onvolledig is.</p>
+      <h3>Tijd als enig bezit</h3>
+      <p>De eerste brief zet de toon voor de rest. Seneca schrijft dat mensen zuinig zijn op geld en bezit maar hun tijd laten wegglippen aan wie er om vraagt, uit gewoonte of uit angst iemand te weigeren. Zijn advies is om tijd terug te claimen: reken elke dag na wat hij je heeft gekost, en merk dat een groot deel ervan al weg is voordat je er erg in had.</p>
+      <p>Het punt is niet dat mensen te weinig tijd hebben, maar dat zij haar verkwisten alsof er onbeperkt voorraad is. Pas op het sterfbed, schrijft Seneca elders, beseffen de meeste mensen hoeveel dagen zij aan niets hebben besteed. Die omkering, tijd als bezit in plaats van als vanzelfsprekende achtergrond, keert in bijna elke brief terug.</p>
+      <h3>De dood van tevoren doordenken</h3>
+      <p>Seneca raadt Lucilius herhaaldelijk aan tegenslag vooraf te doordenken: ballingschap, armoede, ziekte, de dood van een dierbare, de eigen dood. Wie zich dat scenario al heeft voorgesteld, wordt er niet meer door overvallen als het zich voordoet. Hij schrijft zelf over zijn astma-aanvallen als oefeningen in het sterven, en over een schipbreuk die hij van dichtbij zag, waarbij het meeste verdriet volgens hem niet uit het ongeluk zelf kwam maar uit de paniek die de omstanders eraan toevoegden.</p>
+      <p>Dat is geen somberheid om de somberheid. De gedachte is dat een verwacht verlies zijn schrik grotendeels kwijtraakt, terwijl een onverwacht verlies iemand overrompelt op het moment dat hij het minst kan verdragen.</p>
+      <h3>Het lot en het eigen oordeel</h3>
+      <p>Gebeurtenissen overkomen een mens, schrijft Seneca, maar het oordeel daarover, of iets erg is, oneerlijk, ondraaglijk, ligt bij de mens zelf. Fortuna deelt uit zoals zij wil, en wie zijn gemoedsrust daarvan afhankelijk maakt, is overgeleverd aan iets wat hij niet in de hand heeft. Wie leert het eigen oordeel te scheiden van wat er feitelijk gebeurt, houdt een stuk vrijheid over dat niemand hem kan afnemen.</p>
+      <p>Dat is makkelijker gezegd dan gedaan, en Seneca geeft dat ook toe. Hij beschrijft zichzelf meermalen als iemand die nog onderweg is, geen wijze die het al kan, maar een medeleerling van Lucilius.</p>
+      <h3>De slaaf als medemens</h3>
+      <p>In brief 47 pleit Seneca voor een menselijker omgang met slaven, op een manier die voor zijn tijd ver ging. Hij schrijft dat een slaaf een mens is die toevallig onder een ander lot valt, dat meester en slaaf allebei speelbal van hetzelfde toeval zijn, en dat wie zijn slaven als vee behandelt zich alleen maar minachting op de hals haalt. Hij stelt zelfs voor sommige slaven aan tafel te laten aanzitten in plaats van hen als bedienden weg te sturen.</p>
+      <p>Het pleidooi blijft binnen de grenzen van zijn tijd: Seneca vraagt om welwillendheid, niet om afschaffing van slavernij als instelling. Toch is de brief een van de vroegst overgeleverde teksten waarin een Romeinse schrijver de menselijkheid van slaven zo expliciet vooropstelt.</p>
+      <h3>Filosofie als geneeskunde, niet als vertoon</h3>
+      <p>Seneca heeft weinig geduld met filosofen die spitsvondige redeneringen oefenen zonder dat het hun leven verandert. Filosofie noemt hij een <i>ars vitae</i>, de kunst van het leven, en haar enige zin is dat zij iemand kalmer, rechtvaardiger en minder bang maakt. Een filosoof die schitterend over de dood kan redeneren maar zelf doodsbang is, heeft volgens hem niets geleerd.</p>
+      <p>Die maatstaf gebruikt hij ook op zichzelf. Verscheidene brieven eindigen met de erkenning dat hij het advies dat hij net gaf zelf nog niet volledig in praktijk brengt, wat de tekst minder een leerboek maakt dan het verslag van iemand die onderweg is.</p>
+      <h3>De rijke raadgever van soberheid</h3>
+      <p>Buiten de brieven staat een leven dat moeilijk te rijmen valt met hun toon. Seneca was een van de rijkste mannen van Rome, deels via leningen, en jarenlang de belangrijkste raadgever en toespraakschrijver van keizer Nero, onder wie hij ook betrokken was bij het rechtvaardigen van de moord op Nero's moeder Agrippina. De brieven, geschreven na zijn terugtreden van het hof in 62, gaan over die episode nauwelijks in.</p>
+      <p>In 65 werd hij beschuldigd van betrokkenheid bij een samenzwering tegen Nero en gedwongen zelfmoord te plegen. Tacitus beschrijft zijn dood als kalm en welbespraakt, in de geest van de brieven zelf; of dat verslag de werkelijkheid weergeeft of Seneca's eigen leerstellingen postuum bevestigt, laat de bron in het midden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Vindica te tibi</td><td>"Claim jezelf voor jezelf", de openingsoproep van de eerste brief om tijd niet langer weg te geven aan anderen.</td></tr>
+          <tr><td class="term">Praemeditatio malorum</td><td>Het vooraf doordenken van tegenslag, zodat de schok ervan gebroken is wanneer zij zich werkelijk voordoet.</td></tr>
+          <tr><td class="term">Otium</td><td>De teruggetrokken vrije tijd gewijd aan filosofie, die Seneca stelt tegenover de politieke drukte die hij achter zich liet.</td></tr>
+          <tr><td class="term">Fortuna</td><td>Het toeval of lot dat gebeurtenissen stuurt en waartegen volgens Seneca alleen het eigen oordeel weerstand kan bieden.</td></tr>
+          <tr><td class="term">Sapiens</td><td>De wijze, het ideaalbeeld van iemand die volledig met de rede leeft; Seneca noemt zichzelf nadrukkelijk geen sapiens maar een leerling.</td></tr>
+          <tr><td class="term">Ars vitae</td><td>Filosofie als de kunst van het leven, in Seneca's ogen het enige nuttige doel van denken.</td></tr>
+          <tr><td class="term">Condiscipulus</td><td>Medeleerling; de positie waarin Seneca zichzelf tegenover Lucilius plaatst, niet als leraar met kant-en-klare antwoorden.</td></tr>
+          <tr><td class="term">Contemptus mortis</td><td>De gelijkmoedigheid tegenover de dood die volgens Seneca door herhaalde oefening bereikbaar is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen bewijs in wetenschappelijke zin. Seneca redeneert vanuit de stoïsche leer die hij als waar aanneemt en past haar toe op concrete situaties. Dat de tekst uit brieven aan een vriend bestaat wekt de indruk van spontane correspondentie, maar zoals hierboven vermeld is alleen Seneca's kant bewaard gebleven en wijst de regelmaat van de brieven op een tekst die met het oog op lezers is opgesteld.</p>
+      <p>De overtuigingskracht van de brieven zit voor een groot deel in de persoon die aan het woord is: iemand die ballingschap, ziekte, verlies van politieke macht en uiteindelijk een gedwongen dood zelf heeft meegemaakt. Dat geeft de tekst gewicht als getuigenis van één man onder druk, en tegelijk is het een steekproef van één, uit een uitzonderlijk bevoorrechte positie.</p>
+      <p>De overlevering is smal en beschadigd op plaatsen. De verzameling breekt bij brief 124 af zonder duidelijke afronding, en de gangbare aanname is dat het oorspronkelijke geheel groter was of dat Seneca's dood het werk onvoltooid liet. Latere edities, zoals de Engelse selectie van Robin Campbell, kiezen bewust maar veertig van de 124 brieven en geven daarmee een ander beeld dan de volledige tekst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de afstand tussen woord en leven. Seneca preekt soberheid en onthechting van bezit, terwijl hij zelf via leningen een van de rijkste mannen van Rome was; de geschiedschrijver Cassius Dio, die generaties later schreef, brengt zijn leningen in Britannia zelfs in verband met de opstand van Boudicca, al is die claim onder historici omstreden en niet onafhankelijk bevestigd.</p>
+      <p>Zwaarder nog weegt zijn politieke rol. Als raadgever van Nero hielp Seneca volgens Tacitus een toespraak opstellen die de moord op Nero's moeder Agrippina voor de Senaat moest rechtvaardigen. De brieven, geschreven na zijn terugtreden, gaan aan die episode voorbij en bieden geen verantwoording voor wat er tijdens zijn jaren aan het hof gebeurde.</p>
+      <p>Inhoudelijk berust de leer op een kosmos die door rede geordend is, waarin het lot uiteindelijk met het goede samenvalt. Wie die aanname niet deelt, houdt van de gelijkmoedigheid die Seneca aanprijst minder grond over. Ook is het onderscheid tussen het aanvaarden van tegenslag en het onderdrukken van verdriet in de brieven niet altijd scherp: wie zich voortdurend oefent om niet geraakt te worden, loopt het risico gevoelens weg te redeneren in plaats van ze te verwerken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees één brief per keer en laat de gedachte een paar dagen liggen voor je verdergaat.</li>
+        <li>Schrijf bij een tegenslag eerst op wat er feitelijk gebeurd is, los van het oordeel dat het erg is.</li>
+        <li>Denk voorafgaand aan een moeilijke gebeurtenis het ongunstigste scenario concreet door, in plaats van het te vermijden.</li>
+        <li>Ga aan het eind van de dag na aan wie of wat je je tijd hebt gegeven zonder dat je dat bewust besloot.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Latijn geschreven als <i>Epistulae Morales ad Lucilium</i>, in de laatste jaren van Senecas leven (ca. 63&ndash;65 n.Chr.). De titel <i>Letters from a Stoic</i> is die van de Engelse selectie van veertig van de 124 overgeleverde brieven, vertaald door Robin Campbell (Penguin Classics, 1969); dit is een ander, eerder geschreven werk dan Senecas essay <i>De Brevitate Vitae</i> (Over de kortheid van het leven). Nederlands als <i>Brieven aan Lucilius</i>, de volledige verzameling brieven, vertaald door Cornelis Verhoeven, sinds 1980 bij Ambo (3e druk, 2004, 516 blz., ISBN 9789026318510).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Seneca schrijft in de laatste jaren van zijn leven een reeks brieven aan zijn jongere vriend Lucilius, procurator op Sicilië. Elke brief vertrekt vanuit iets kleins, een reis, een verkoudheid, een slaaf die hem bedient, en werkt van daaruit naar een stoïcijnse les: onderscheid wat in je macht ligt van wat niet, bereid je voor op tegenslag voordat zij komt, en behandel tijd als het enige bezit dat werkelijk van jou is. De toon is die van een oudere die meeleeft en tegelijk streng blijft; Seneca spreekt zichzelf net zo vaak terecht als Lucilius.</p><p>De brieven behandelen een breed scala aan onderwerpen: de dood, rijkdom, drukte, vriendschap, de omgang met slaven, en het verschil tussen filosofie als levenswijze en filosofie als woordenspel. Seneca had zelf een groot vermogen en een positie aan het hof van Nero, wat op gespannen voet staat met zijn pleidooien voor soberheid en afstand van de wereld. Hij pleegde in 65 na Christus zelfmoord op bevel van Nero, nadat hij van samenzwering was beschuldigd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stoïcisme</li><li>brieven</li><li>tijd</li><li>dood</li><li>vriendschap</li><li>filosofie</li><li>oudheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius oefent een eeuw later dezelfde stoïsche discipline, maar dan in aantekeningen die nooit voor een lezer bedoeld waren.</li>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. In dit eerdere essay, gericht aan Paulinus, werkt Seneca zijn gedachte over tijd uit tot één doorlopend betoog in plaats van verspreide brieven.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday herschikt Seneca's raad tot een hedendaags stappenplan voor tegenslag op het werk, zonder de politieke context waarin Seneca zelf schreef.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

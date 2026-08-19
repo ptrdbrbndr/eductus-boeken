@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Brief History of Time &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hawking betoogt dat de twee grote natuurkundige theorieën van de twintigste eeuw, de algemene relativiteitstheorie voor het zeer grote en de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-262">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">262 &middot; Natuur en wetenschap</p>
+    <h1>A Brief History of Time</h1>
+    <p class="lede">Stephen Hawking, 1988</p>
+    <p class="stats">
+      <span><b>1465</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="262"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hawking betoogt dat de twee grote natuurkundige theorieën van de twintigste eeuw, de algemene relativiteitstheorie voor het zeer grote en de kwantummechanica voor het zeer kleine, elkaar tegenspreken zodra ze op hetzelfde punt worden toegepast, zoals bij het begin van het heelal of het binnenste van een zwart gat. Zijn boek volgt de weg naar een enkele theorie die beide zou moeten verenigen, en eindigt met de gedachte dat zo'n theorie, als zij ooit gevonden wordt, voor het eerst zou verklaren waarom het heelal bestaat zoals het bestaat in plaats van op oneindig veel andere manieren. Onderweg werkt hij zijn eigen bijdrage uit: het idee dat zwarte gaten straling uitzenden en dus niet voor altijd bestaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het beeld van het heelal voor Einstein</h3>
+      <p>Hawking begint bij Aristoteles en Ptolemaeus, die een onbewegende aarde in het middelpunt plaatsten, en bij Copernicus en Galilei, die dat beeld omdraaiden. Newtons zwaartekrachtwet leverde een heelal op dat stabiel leek te kunnen bestaan, zolang niemand zich afvroeg of het oneindig groot was of niet.</p>
+      <p>Dat historische overzicht is geen zijspoor: Hawking gebruikt het om te laten zien dat elke generatie het heelal beschrijft met de wiskunde die op dat moment beschikbaar is, en dat vragen die onbeantwoordbaar leken, dat vaak alleen waren omdat het juiste gereedschap ontbrak.</p>
+      <h3>Ruimte, tijd en relativiteit</h3>
+      <p>Het tweede hoofdstuk legt Einsteins inzicht uit dat ruimte en tijd geen vast decor zijn maar met elkaar verbonden en beïnvloed worden door massa. Een grote massa buigt de ruimte om zich heen, en licht dat langs die massa scheert, buigt daardoor mee, wat tijdens een zonsverduistering in 1919 voor het eerst gemeten werd en Einsteins theorie bevestigde.</p>
+      <p>Hawking benadrukt dat dit geen wiskundige truc is maar een echte eigenschap van de wereld: klokken lopen meetbaar langzamer dichter bij een zware massa, wat inmiddels met atoomklokken is nagemeten.</p>
+      <h3>Het uitdijende heelal</h3>
+      <p>Edwin Hubble ontdekte in de jaren twintig dat sterrenstelsels zich vrijwel allemaal van ons af bewegen, en hoe verder weg, hoe sneller. Dat wijst op een heelal dat uitdijt, en als de film wordt teruggespoeld, op een begintoestand waarin alle materie in een punt van oneindige dichtheid samenkwam.</p>
+      <p>Die begintoestand wordt de oerknal genoemd. Het sterkste bewijs ervoor is de kosmische achtergrondstraling die Penzias en Wilson in 1965 bij toeval ontdekten: een zwakke straling die vanuit alle richtingen komt en die geldt als de nagalm van die vroege, hete fase.</p>
+      <h3>Onzekerheid en elementaire deeltjes</h3>
+      <p>Om iets over het allereerste moment van het heelal te kunnen zeggen, is de kwantummechanica nodig, de natuurkunde van het zeer kleine. Hawking legt Heisenbergs onzekerheidsprincipe uit: van een deeltje kunnen positie en snelheid niet allebei precies tegelijk bekend zijn, wat niet aan de meetapparatuur ligt maar aan de aard van deeltjes zelf.</p>
+      <p>Hij bespreekt daarna de bouwstenen van materie en de krachten die ze bijeenhouden, als basis voor het latere hoofdstuk waarin hij op zoek gaat naar een theorie die al die krachten in één beschrijving vangt.</p>
+      <h3>Zwarte gaten en Hawkingstraling</h3>
+      <p>Een zwart gat ontstaat wanneer een voldoende zware ster instort onder haar eigen zwaartekracht, tot een punt waarvan zelfs licht niet meer kan ontsnappen. De grens waarbinnen dat geldt heet de gebeurtenishorizon. Tot in de jaren zeventig gold als vaststaand dat niets een zwart gat ooit kan verlaten.</p>
+      <p>Hawking beschrijft zijn eigen berekening dat een zwart gat, door een kwantumeffect vlak bij de gebeurtenishorizon, toch heel langzaam straling uitzendt en daardoor massa verliest. Op de lange duur zou een zwart gat daardoor kunnen verdampen. Deze straling is nooit rechtstreeks waargenomen; zij is theoretisch afgeleid en te zwak om met de huidige instrumenten te meten.</p>
+      <h3>De oorsprong van het heelal en de pijl van de tijd</h3>
+      <p>Hawking onderscheidt drie richtingen waarin tijd lijkt te lopen: de thermodynamische, waarin wanorde toeneemt, de psychologische, waarin herinnering alleen het verleden vastlegt, en de kosmologische, waarin het heelal uitdijt. Dat deze drie dezelfde kant op wijzen is volgens hem geen toeval maar een voorwaarde voor het bestaan van wezens die zich iets kunnen herinneren.</p>
+      <p>Hij werkt vervolgens zijn eigen voorstel uit, samen met James Hartle: het grenzeloosheidsvoorstel. Met behulp van wat hij denkbeeldige tijd noemt, een wiskundig hulpmiddel, beschrijft hij een heelal dat eindig is maar geen rand of beginmoment heeft, zoals het oppervlak van een bol geen rand heeft. Daarmee vervalt de vraag wat er voor de oerknal was.</p>
+      <h3>Op zoek naar een verenigde theorie</h3>
+      <p>In het laatste deel bespreekt Hawking pogingen om de vier natuurkrachten in één theorie te vangen, de zogeheten grote verenigde theorieën, die voorspellen dat de krachten bij extreem hoge energie samenvallen. Hij is voorzichtig over hoever dat onderzoek al staat en erkent dat een volledige theorie er bij het schrijven van het boek nog niet is.</p>
+      <p>Het boek eindigt met de opmerking dat het vinden van zo'n theorie de mensheid voor het eerst zou laten begrijpen waarom het heelal bestaat zoals het bestaat, en niet op een van de talloze andere manieren die wiskundig ook mogelijk zouden zijn. Hawking laat de vraag naar een schepper daarbij uitdrukkelijk open, en schrijft dat een uitdijend heelal een schepper niet uitsluit, maar wel beperkt op welk moment die zou hebben kunnen ingrijpen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Oerknal</td><td>De begintoestand van het heelal, waarin alle materie in een punt van oneindige dichtheid samenkwam, afgeleid uit het feit dat sterrenstelsels zich van elkaar verwijderen.</td></tr>
+          <tr><td class="term">Roodverschuiving</td><td>De verschuiving van licht van verre sterrenstelsels naar rodere golflengtes, waarmee Hubble aantoonde dat het heelal uitdijt.</td></tr>
+          <tr><td class="term">Kosmische achtergrondstraling</td><td>De zwakke straling die overal vandaan komt en geldt als het overblijfsel van de hete beginfase van het heelal.</td></tr>
+          <tr><td class="term">Onzekerheidsprincipe</td><td>Heisenbergs inzicht dat positie en snelheid van een deeltje niet beide tegelijk precies vastliggen.</td></tr>
+          <tr><td class="term">Gebeurtenishorizon</td><td>De grens rond een zwart gat waarbinnen zelfs licht niet meer kan ontsnappen.</td></tr>
+          <tr><td class="term">Hawkingstraling</td><td>De straling die een zwart gat volgens Hawkings berekening langzaam uitzendt, waardoor het op termijn massa verliest.</td></tr>
+          <tr><td class="term">De pijl van de tijd</td><td>De drie richtingen, thermodynamisch, psychologisch en kosmologisch, waarin tijd lijkt te lopen, en die volgens Hawking altijd samenvallen.</td></tr>
+          <tr><td class="term">Denkbeeldige tijd</td><td>Een wiskundig hulpmiddel waarmee Hawking tijd als een extra ruimtelijke richting behandelt om het grenzeloosheidsvoorstel te formuleren.</td></tr>
+          <tr><td class="term">Grenzeloosheidsvoorstel</td><td>Hawkings voorstel, met James Hartle, dat het heelal eindig is maar geen rand of beginmoment heeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een groot deel van het boek berust op metingen die onafhankelijk herhaald en bevestigd zijn: de afbuiging van licht door zwaartekracht is sinds 1919 herhaaldelijk nagemeten, de roodverschuiving van sterrenstelsels is de basis van decennia sterrenkunde, en de kosmische achtergrondstraling is na de ontdekking door Penzias en Wilson in fijn detail in kaart gebracht door latere satellieten.</p>
+      <p>Hawkingstraling, zijn eigen belangrijkste bijdrage, staat daar los van: zij volgt uit een wiskundige berekening waarin kwantummechanica wordt toegepast op de omgeving van een zwart gat, maar is tot op heden niet rechtstreeks waargenomen, omdat zij voor bekende zwarte gaten te zwak zou zijn om te meten. Hetzelfde geldt voor het grenzeloosheidsvoorstel en de grote verenigde theorieën: dit zijn theoretische voorstellen die met de rest van de natuurkunde overeenkomen, niet uitkomsten van een experiment.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek geldt als een van de meest gekochte en minst uitgelezen bestsellers ooit; onderzoek naar leesgedrag suggereerde dat een groot deel van de kopers al vroeg afhaakte, ondanks de belofte van maar één vergelijking. De hoofdstukken over kwantummechanica en de vereniging van de natuurkrachten blijven dicht, ook zonder wiskunde, en vragen om herlezen.</p>
+      <p>Een ander punt is dat Hawking zijn eigen, nog altijd onbevestigde grenzeloosheidsvoorstel bespreekt in dezelfde toon als de goed bevestigde onderdelen zoals de roodverschuiving, waardoor voor een lezer zonder achtergrond niet altijd duidelijk is welk deel vaststaat en welk deel een persoonlijke hypothese is. Latere natuurkundigen hebben bovendien laten zien dat het grenzeloosheidsvoorstel niet de enige of overheersende opvatting is over wat er aan de oerknal voorafging; andere modellen, zoals eeuwige inflatie, worden in het boek niet naast elkaar gelegd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij een uitspraak over 'het begin van het heelal' of het gaat over de oerknal zelf, een goed gemeten gegeven, of over wat daaraan voorafging, waar geen overeenstemming over bestaat.</li>
+        <li>Let bij een populaire uitleg van zwarte gaten op of Hawkingstraling als vaststaand feit of als theoretische voorspelling wordt gepresenteerd.</li>
+        <li>Gebruik het onderscheid tussen de drie pijlen van de tijd om uit te leggen waarom een film die achteruit wordt afgespeeld er vreemd uitziet, ook als de natuurkundige wetten zelf niet zeggen in welke richting tijd hoort te lopen.</li>
+        <li>Vraag bij een claim over een 'theorie van alles' na of het om een bevestigde eenwording gaat of om een van de nog concurrerende voorstellen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>A Brief History of Time: From the Big Bang to Black Holes</i>, bij Bantam Books (1988). Nederlands als <i>Het heelal</i>, sinds 1988 bij Bert Bakker, vertaald door Ronald Jonkers; tegenwoordig bij Prometheus (45e druk, 2024, 269 blz., ISBN 9789044618099).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hawking legt in dit boek de stand van de kosmologie uit voor lezers zonder natuurkundige achtergrond, van de oude astronomie van Aristoteles tot de zwaartekrachttheorie van Einstein. Hij bespreekt hoe astronomen ontdekten dat het heelal uitdijt, wat dat zegt over een oerknal in het verleden, en hoe zwarte gaten ontstaan uit ingestorte sterren. Het boek bevat op verzoek van de uitgever maar één vergelijking, E=mc², omdat Hawking te horen kreeg dat elke formule de lezerskring zou halveren. Op basis van zijn eigen werk beschrijft hij hoe zwarte gaten, in tegenstelling tot wat lang werd aangenomen, langzaam straling uitzenden en daardoor uiteindelijk kunnen verdampen.</p><p>In de laatste hoofdstukken combineert hij de drie richtingen waarin tijd lijkt te lopen, natuurkundig, psychologisch en kosmologisch, en werkt hij zijn eigen idee uit dat het heelal eindig kan zijn zonder een moment van ontstaan, met behulp van wat hij denkbeeldige tijd noemt. Het boek werd na publicatie in 1988 een wereldwijde bestseller met tientallen miljoenen verkochte exemplaren, terwijl onderzoek naar het leesgedrag van kopers liet zien dat een groot deel van de lezers er niet ver in kwam. Latere edities uit 1996 en 1998 voegden illustraties en een nawoord toe; in 2005 verscheen een vereenvoudigde versie onder de titel <i>A Briefer History of Time</i>.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kosmologie</li><li>zwarte gaten</li><li>tijd</li><li>heelal</li><li>natuurkunde</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="281"><a href="281.html">Reality Is Not What It Seems</a>. Rovelli beschrijft vanuit een andere hoek, de lusquantumzwaartekracht, dezelfde onopgeloste botsing tussen relativiteit en kwantummechanica.</li>
+          <li value="239"><a href="239.html">A Short History of Nearly Everything</a>. Bryson zet de geschiedenis van de natuurwetenschap breder neer, met meer aandacht voor de mensen achter de ontdekkingen dan voor de natuurkunde zelf.</li>
+          <li value="92"><a href="92.html">Onze bouwstenen</a>. Røyne behandelt de scheikundige kant van de natuurlijke wereld, de grondstoffen, op eenzelfde manier: feitelijk en met oog voor wat nog onzeker is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

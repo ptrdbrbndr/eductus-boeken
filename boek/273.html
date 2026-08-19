@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leaders Eat Last &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sinek stelt dat mensen alleen goed samenwerken binnen een groep waar zij zich veilig voelen, en dat het scheppen van die veiligheid de eigenlijke taak van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-273">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">273 &middot; Samenwerken en gesprek</p>
+    <h1>Leaders Eat Last</h1>
+    <p class="lede">Simon Sinek, 2014</p>
+    <p class="stats">
+      <span><b>1414</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="273"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sinek stelt dat mensen alleen goed samenwerken binnen een groep waar zij zich veilig voelen, en dat het scheppen van die veiligheid de eigenlijke taak van een leider is. Een leider die zijn positie gebruikt om zichzelf te bevoordelen breekt het vertrouwen af waarop samenwerking rust, terwijl een leider die eigen comfort inlevert voor de mensen onder zijn hoede loyaliteit wint die geen contract kan afdwingen. Dat mechanisme is volgens Sinek biologie: het beloningssysteem van de hersenen is zo ingericht dat het zorg voor de groep beloont en dreiging en isolement bestraft, ongeacht wat er in een functieomschrijving staat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De mariniers die als laatste eten</h3>
+      <p>Het boek opent met Sineks bezoek aan het Marine Corps, waar hij ziet dat bij de maaltijd de laagste rangen als eerste worden bediend en de hoogste als laatste, uit eigen keuze en niet uit voorschrift. Die volgorde staat voor wat hij als de kern van leiderschap beschrijft: wie leiding geeft, geeft iets op, tijd, comfort of eten, voor de mensen die van hem afhankelijk zijn.</p>
+      <p>Het beeld keert het gangbare idee om dat leiderschap vooral over macht en privileges gaat. Sinek stelt dat status pas iets waard is als hij wordt ingezet ten dienste van de groep, en dat een organisatie waarin de top zich het eerst bedient, structureel minder vertrouwen opbouwt dan een organisatie waarin dat andersom is.</p>
+      <h3>Vier stoffen die samenwerking belonen</h3>
+      <p>Om zijn punt biologisch te onderbouwen bespreekt Sinek vier stoffen die de hersenen afgeven: endorfine, die vermoeidheid maskeert en inspanning vol te houden maakt, dopamine, die een gevoel van voldoening geeft bij het bereiken van een doel, serotonine, die vrijkomt bij erkenning en status binnen de groep, en oxytocine, die ontstaat bij vriendschap, vertrouwen en fysieke nabijheid.</p>
+      <p>Hij noemt de eerste twee de "egoïstische" stoffen, omdat ze een individu belonen voor eigen prestatie, en de laatste twee de "onbaatzuchtige" stoffen, omdat ze samenwerking en verbondenheid belonen. Een gezonde organisatie heeft volgens hem beide nodig, maar een cultuur die uitsluitend op de eerste twee stuurt, bijvoorbeeld door alleen individuele targets te belonen, ondermijnt volgens hem op termijn de tweede.</p>
+      <h3>Cortisol en de cirkel van veiligheid</h3>
+      <p>Tegenover die vier stoffen zet Sinek cortisol, het stresshormoon dat vrijkomt bij dreiging, onzekerheid en isolement. Cortisol is nuttig bij acuut gevaar, maar chronisch aanwezig, bijvoorbeeld door reorganisaties, onvoorspelbaar gedrag van een leidinggevende of interne concurrentie tussen collega's, tast het volgens hem het beoordelingsvermogen en de bereidheid tot samenwerken aan.</p>
+      <p>De cirkel van veiligheid is zijn term voor de grens die een leider trekt tussen bedreiging van buiten en vertrouwen van binnen. Zolang mensen binnen die cirkel zich beschermd weten tegen willekeur van de leiding, richten ze hun energie op de buitenwereld; zodra de cirkel wankelt, richten ze die energie op elkaar, in de vorm van interne politiek en wantrouwen.</p>
+      <h3>Wat er misgaat als een organisatie groeit</h3>
+      <p>Sinek koppelt de cirkel van veiligheid aan het Dunbar-getal, de door de antropoloog Robin Dunbar geopperde grens van ongeveer honderdvijftig stabiele sociale relaties die een mens kan onderhouden. Binnen die grens werkt vertrouwen als iets tussen mensen; erboven moet het worden vervangen door regels, procedures en beoordelingssystemen, omdat niemand meer iedereen persoonlijk kent.</p>
+      <p>Hij haalt Gore-Tex aan als voorbeeld van een bedrijf dat zijn vestigingen bewust rond die omvang houdt, en stelt dat veel grotere organisaties de overgang naar regelgestuurd vertrouwen niet bewust maken, met als gevolg een cultuur waarin mensen zich aan het systeem houden zonder zich er nog verantwoordelijk voor te voelen.</p>
+      <h3>Overvloed, angst en de jacht op cijfers</h3>
+      <p>Een deel van het boek behandelt de financiële crisis van 2008 als voorbeeld van wat er gebeurt wanneer een cirkel van veiligheid volledig ontbreekt. Sinek beschrijft een cultuur op Wall Street waarin kortetermijnbonussen en interne concurrentie de plaats innamen van gedeeld belang, en waarin mensen zich tegen collega's keerden in plaats van tegen een gezamenlijke uitdaging van buiten.</p>
+      <p>Hij noemt dat destructieve overvloed: een omgeving met genoeg middelen om ieder voor zich te kunnen overleven, wat de biologische prikkel om als groep samen te werken juist wegneemt. De crisis dient bij hem als bewijs dat materiële welvaart zonder een cirkel van veiligheid niet tot samenwerking leidt, eerder tot het tegendeel.</p>
+      <h3>Voorbeelden van een andere keuze</h3>
+      <p>Tegenover die voorbeelden zet Sinek bedrijven die volgens hem wel een cirkel van veiligheid bewaren. Costco betaalt structureel hogere lonen dan concurrenten en houdt personeelsverloop laag, wat hij aanvoert als bewijs dat investeren in mensen zich op de lange termijn terugbetaalt.</p>
+      <p>Het uitvoerigste voorbeeld is de fabrikant Barry-Wehmiller, die tijdens de crisis van 2008 koos voor een regeling van gedeeld onbetaald verlof in plaats van gedwongen ontslagen. Topman Bob Chapman nam zelf ook verlof zonder salaris, en Sinek presenteert die beslissing als het omgekeerde van de reflex om eerst het personeel te ontzien wanneer de cijfers tegenzitten.</p>
+      <h3>Wat een leider daadwerkelijk doet</h3>
+      <p>Het slot herhaalt dat leiderschap geen titel of bevoegdheid is maar een dagelijkse praktijk van empathie: aanwezig zijn, voorspelbaar gedrag tonen en beslissingen nemen die het welzijn van mensen zwaarder laten wegen dan een cijfer op korte termijn.</p>
+      <p>Sinek besluit dat die praktijk niet vanzelf ontstaat in een grote organisatie en bewust moet worden ingericht, met kleinere teams, zichtbare betrokkenheid van de top en beloningen die verder gaan dan individuele targets.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Cirkel van veiligheid</td><td>De grens die een leider trekt tussen dreiging van buiten en vertrouwen van binnen de groep.</td></tr>
+          <tr><td class="term">E.D.S.O.</td><td>Endorfine, dopamine, serotonine en oxytocine, de vier stoffen die Sinek koppelt aan prestatie en verbondenheid.</td></tr>
+          <tr><td class="term">Egoïstische stoffen</td><td>Endorfine en dopamine, die volgens Sinek individuele inspanning en prestatie belonen.</td></tr>
+          <tr><td class="term">Onbaatzuchtige stoffen</td><td>Serotonine en oxytocine, die volgens Sinek erkenning en verbondenheid met anderen belonen.</td></tr>
+          <tr><td class="term">Cortisol</td><td>Het stresshormoon dat vrijkomt bij dreiging en isolement en dat chronisch samenwerking ondermijnt.</td></tr>
+          <tr><td class="term">Dunbar-getal</td><td>De grens van ongeveer honderdvijftig stabiele sociale relaties waarbinnen vertrouwen als persoonlijke relatie werkt.</td></tr>
+          <tr><td class="term">Destructieve overvloed</td><td>Een omgeving met zoveel middelen dat mensen niet meer op elkaar zijn aangewezen om te overleven.</td></tr>
+          <tr><td class="term">Vertrouwen als gevoel</td><td>Sineks onderscheid tussen vertrouwen dat tussen mensen ontstaat en vertrouwen dat via regels wordt afgedwongen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Sinek bouwt zijn argument op drie soorten materiaal: populariserende samenvattingen van neurowetenschappelijk en evolutionair-biologisch onderzoek, waaronder het werk van de neuro-econoom Paul Zak naar oxytocine, historische en militaire anekdotes zoals het Marine Corps-voorbeeld, en bedrijfscasussen zoals Costco en Barry-Wehmiller. Hij voert zelf geen onderzoek uit en citeert geen eigen data of enquêtes.</p>
+      <p>De bedrijfscasussen zijn gekozen omdat ze het argument illustreren, niet omdat ze systematisch zijn vergeleken met bedrijven die andere keuzes maakten en toch goed presteerden. Dat maakt het boek sterker in het overbrengen van een idee dan in het aantonen ervan; de lezer krijgt voorbeelden die passen bij de stelling, niet een afweging van tegenvoorbeelden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vier-stoffen-indeling is een sterke versimpeling van neurowetenschap die in werkelijkheid veel minder scherp is afgebakend: dopamine speelt bijvoorbeeld ook een rol bij verwachting en verlangen, niet alleen bij individuele prestatie, en de functies van deze stoffen lopen in het brein voortdurend door elkaar. Sinek presenteert een populair vereenvoudigd model als vaststaand feit.</p>
+      <p>De bedrijfsvoorbeelden zijn zorgvuldig gekozen om de stelling te ondersteunen en zijn niet systematisch getoetst. Er bestaan bedrijven met een sterk resultaatgerichte, weinig zorgzame cultuur die eveneens goed presteren, en het boek gaat daar niet op in, wat het lastig maakt te beoordelen hoeveel van het succes van Costco of Barry-Wehmiller aan hun personeelsbeleid ligt en hoeveel aan andere factoren.</p>
+      <p>Sinek is geen wetenschapper en het boek bevat geen eigen onderzoek; het is in vorm en toon dicht verwant aan zijn eerdere <i>Start with Why</i>, met overlappende voorbeelden en dezelfde voorkeur voor overtuigende vertelling boven getoetste data.</p>
+      <p>Ten slotte blijft het boek algemeen over hoe een cirkel van veiligheid in de praktijk wordt opgebouwd in een organisatie die al voorbij het Dunbar-getal is gegroeid; de aanbevelingen zijn eerder een houding dan een concreet stappenplan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na of beslissingen in je team eerst het belang van de leiding dienen of eerst het belang van de mensen die ervan afhankelijk zijn.</li>
+        <li>Houd het aantal mensen waaraan je direct leiding geeft klein genoeg om ze persoonlijk te kennen.</li>
+        <li>Beloon niet alleen individuele resultaten, maar ook zichtbaar gedrag dat collega's helpt.</li>
+        <li>Wees voorspelbaar in hoe je reageert op tegenslag; onvoorspelbaarheid van een leidinggevende ondermijnt vertrouwen sneller dan een enkele foute beslissing.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Leaders Eat Last: Why Some Teams Pull Together and Others Don't</i> (Portfolio/Penguin, 2014). Nederlands als <i>Een voor allen, allen voor een: waarom leiders een cultuur van veiligheid moeten creëren</i>, sinds 2014 bij Business Contact (ISBN 9789047007296); vertaald door Robert Neugarten. Een herziene, uitgebreide editie verscheen later onder de titel <i>Goede leiders eten als laatste</i> (ISBN 9789047016113).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sinek opent met een waarneming uit het Marine Corps: bij het eten staan de laagste rangen vooraan in de rij en wachten de officieren tot iedereen onder hen heeft gegeten. Daaruit haalt hij zijn hoofdargument: mensen werken pas goed samen binnen een groep waar zij zich veilig voelen, en het scheppen van die veiligheid, wat hij de cirkel van veiligheid noemt, is de eigenlijke taak van een leider. Hij onderbouwt dat met een versimpelde uitleg van vier stoffen die de hersenen afgeven bij samenwerking en erkenning, endorfine, dopamine, serotonine en oxytocine, tegenover cortisol, dat vrijkomt bij dreiging en isolement.</p><p>Van daaruit vertaalt hij het argument naar organisaties. Zodra een bedrijf groter wordt dan de groep waarin mensen elkaar nog persoonlijk kennen, ongeveer honderdvijftig mensen volgens het zogeheten Dunbar-getal, valt de cirkel van veiligheid uiteen in anonieme lagen, en verschuift vertrouwen van een gevoel tussen mensen naar een set regels op papier. Aan de hand van bedrijven als Costco en de fabrikant Barry-Wehmiller, die tijdens de crisis van 2008 koos voor gedeelde verlofdagen boven ontslagen, laat hij zien wat het betekent als een leiding die keuze wel maakt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leiderschap</li><li>vertrouwen</li><li>teams</li><li>organisatiecultuur</li><li>biologie van gedrag</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="42"><a href="42.html">The Five Dysfunctions of a Team</a>. Lencioni beschrijft vanuit een ander perspectief waarom vertrouwen de basis is waarop een team pas goed kan functioneren.</li>
+          <li value="183"><a href="183.html">Start with Why</a>. Sineks eigen eerdere boek, waarin hij hetzelfde soort biologisch onderbouwd argument toepast op waarom organisaties bestaan.</li>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Brown onderzoekt vanuit onderzoek naar schaamte en kwetsbaarheid een verwant soort veiligheid binnen teams en relaties.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

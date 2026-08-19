@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Power of Habit &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Duhigg's these is dat een groot deel van het dagelijkse gedrag, van tandenpoetsen tot aankoopbeslissingen, niet door bewuste overweging tot stand komt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-238">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">238 &middot; Gewoontes en denken</p>
+    <h1>The Power of Habit</h1>
+    <p class="lede">Charles Duhigg, 2012</p>
+    <p class="stats">
+      <span><b>1421</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="238"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Duhigg's these is dat een groot deel van het dagelijkse gedrag, van tandenpoetsen tot aankoopbeslissingen, niet door bewuste overweging tot stand komt maar door een neurologisch ingesleten lus van aanwijzing, routine en beloning, waarbij het brein energie bespaart door de tussenliggende handeling op de automatische piloot te zetten. Omdat die lus grotendeels buiten het bewustzijn werkt, is een gewoonte volgens hem vrijwel nooit uit te wissen, maar wel te vervangen door de aanwijzing en de beloning intact te laten en alleen de routine ertussen te veranderen. Zijn tweede, minder onschuldige punt is dat wie deze lus doorziet, macht krijgt over het gedrag van anderen, wat hij toont aan de hand van bedrijven die gewoontes van klanten bewust construeren. Wie hier iets tegenover wil zetten, kan wijzen op hoeveel van het boek op bedrijfscases leunt die de eigen aanpak in het gunstigste licht vertellen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De ontdekking van de gewoontelus</h3>
+      <p>Het boek opent met onderzoek uit het laboratorium van Ann Graybiel aan het MIT, waarin ratten leren een doolhof te doorlopen voor een beloning. Metingen van hersenactiviteit laten zien dat de basale kernen, een gebied diep in het brein, in het begin van het leerproces voortdurend actief zijn, maar zodra de routine is ingesleten alleen nog een piek vertonen bij de aanwijzing die de handeling start en bij de beloning aan het eind. Het tussenliggende gedrag verloopt dan zonder dat het bewustzijn er nog bij hoeft te zijn.</p>
+      <p>Daaruit haalt Duhigg zijn basismodel: een gewoonte bestaat uit een aanwijzing die de lus start, een routine die het gedrag zelf is, en een beloning die het brein leert de lus te herhalen. Naarmate de lus vaker doorlopen wordt, ontstaat er een verlangen naar de beloning zodra de aanwijzing zich voordoet, en dat verlangen is wat een gewoonte in stand houdt.</p>
+      <h3>Hoe een gewoonte verandert</h3>
+      <p>Duhigg illustreert het veranderen van gewoontes met de mislukking en latere doorbraak van het luchtverfrisserproduct Febreze. Het product verwijderde geurtjes effectief, maar verkocht aanvankelijk nauwelijks, tot de fabrikant de formule zo aanpaste dat er zelf een aangename geur achterbleef die als beloning kon dienen. Pas met een duidelijke beloning aan het eind sloeg de gewoonte van gebruik aan.</p>
+      <p>Zijn regel voor gewoonteverandering volgt daaruit: houd de aanwijzing en de beloning gelijk en vervang alleen de routine. Hij past dat toe op verslavingsprogramma's, waar een vervangende, minder schadelijke handeling dezelfde aanwijzing en hetzelfde soort beloning moet opleveren als het gedrag dat wordt afgeleerd.</p>
+      <h3>Kernhabits in organisaties</h3>
+      <p>Het middendeel behandelt wat Duhigg kernhabits noemt: gewoontes die, eenmaal veranderd, een keten van andere veranderingen in gang zetten. Zijn voorbeeld is Paul O'Neill, die bij zijn aantreden als directeur van aluminiumbedrijf Alcoa niet over winst maar over werknemersveiligheid begon, en daarmee volgens Duhigg onbedoeld de communicatie- en kwaliteitscultuur van het hele bedrijf veranderde.</p>
+      <p>Ook Michael Phelps komt in dit deel terug, met de vaste voorwedstrijdroutine die zijn coach hem liet inslijpen zodat hij bij tegenslag, zoals een beschadigde zwembril tijdens een olympische finale, op een ingesleten volgorde van handelingen kon terugvallen in plaats van op paniek.</p>
+      <h3>Wilskracht als hulpbron</h3>
+      <p>Duhigg besteedt een apart hoofdstuk aan wilskracht, met Starbucks als casus: de keten traint nieuwe medewerkers in een vaste routine voor lastige klantsituaties, gebouwd op dezelfde lus van aanwijzing en routine, om zelfbeheersing onder druk aan te leren in plaats van op improvisatie te vertrouwen.</p>
+      <p>Hij verbindt dat aan onderzoek dat wilskracht voorstelt als een hulpbron die opraakt bij gebruik en weer aangevuld kan worden door oefening, vergelijkbaar met een spier. Uit die vergelijking leidt hij af dat een vaste routine voor voorspelbare stressmomenten wilskracht bespaart die anders in het moment zelf verbruikt zou worden.</p>
+      <h3>Gewoontes van bedrijven en samenlevingen</h3>
+      <p>In het derde deel bespreekt Duhigg hoe de Amerikaanse winkelketen Target aankoopgewoontes van klanten gebruikte om zwangerschap te voorspellen op basis van veranderingen in koopgedrag, nog voordat de klant het zelf had aangekondigd. Hij gebruikt dit als voorbeeld van hoe een organisatie gewoontepatronen kan lezen en er vervolgens actief op inspeelt.</p>
+      <p>Daarna verschuift hij naar sociale gewoontes, met de Montgomery-bus-boycot na de arrestatie van Rosa Parks als voorbeeld van hoe een beweging groeit via de sterke persoonlijke banden van een klein netwerk en zich vervolgens via de zwakkere banden van kennissen verspreidt tot een gewoonte van deelname die zichzelf in stand houdt. Parks was volgens Duhigg niet toevallig het startpunt: ze was via kerk, vakbond en buurt met tientallen verschillende groepen verbonden, wat haar arrestatie in korte tijd tot een gedeelde zaak van al die groepen tegelijk maakte.</p>
+      <h3>Verantwoordelijkheid voor gewoontegedrag</h3>
+      <p>Het slothoofdstuk bespreekt rechtszaken waarin gewoontegedrag als verweer werd aangevoerd, onder meer van gokverslaafden bij wie medicatie tegen de ziekte van Parkinson dwangmatig gokgedrag opriep, en van een man die tijdens het slaapwandelen zijn vrouw doodde. Duhigg gebruikt die zaken om de vraag te stellen wanneer een gewoonte iemand vrijpleit en wanneer niet, en concludeert dat het weten van de lus juist verantwoordelijkheid geeft: wie eenmaal doorziet hoe een gewoonte werkt, kan niet meer beweren dat hij er niets aan kon doen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gewoontelus</td><td>Het drieledige patroon van aanwijzing, routine en beloning waarmee het brein gedrag automatiseert.</td></tr>
+          <tr><td class="term">Verlangen</td><td>De aangeleerde behoefte aan de beloning die zich al bij de aanwijzing aandient en de lus in stand houdt.</td></tr>
+          <tr><td class="term">Gulden regel van gewoonteverandering</td><td>Het advies om aanwijzing en beloning gelijk te houden en alleen de routine ertussen te vervangen.</td></tr>
+          <tr><td class="term">Kernhabit</td><td>Een gewoonte die, eenmaal veranderd, een keten van andere veranderingen in een organisatie in gang zet.</td></tr>
+          <tr><td class="term">Wilskracht als trainbare spier</td><td>Duhigg's aanname dat zelfbeheersing uitgeput raakt bij gebruik maar ook door oefening sterker wordt.</td></tr>
+          <tr><td class="term">Sterke en zwakke sociale banden</td><td>Het onderscheid tussen hechte persoonlijke relaties en losse kennissenkringen, gebruikt om te verklaren hoe een beweging zich verspreidt.</td></tr>
+          <tr><td class="term">Voorspellend koopgedrag</td><td>Het gebruik van veranderingen in aankooppatronen om een levensgebeurtenis van een klant te voorspellen voordat die bekend is gemaakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Duhigg bouwt het neurologische deel van zijn model op gepubliceerd onderzoek van Ann Graybiel en collega's naar de basale kernen bij ratten, werk dat breed erkend wordt binnen de neurowetenschap als onderbouwing voor het bestaan van geautomatiseerde gedragspatronen.</p>
+      <p>Voor het onderdeel wilskracht leunt hij zwaar op onderzoek van psycholoog Roy Baumeister naar wat destijds ego-depletie werd genoemd, het idee dat zelfbeheersing een uitputbare hulpbron is. Grootschalige replicatiestudies die na de publicatie van dit boek zijn uitgevoerd, hebben dat effect niet kunnen bevestigen, wat een van de centrale wetenschappelijke pijlers onder het boek aanzienlijk verzwakt.</p>
+      <p>De bedrijfscases, Alcoa, Starbucks, Target, zijn gebaseerd op interviews en gepubliceerde bronnen, maar zijn verhalend van aard en eenzijdig verteld vanuit het perspectief dat het beste bij Duhigg's these past; onafhankelijke bevestiging van de causale keten die hij schetst ontbreekt grotendeels.</p>
+      <p>Het hoofdstuk over sociale bewegingen steunt mede op het werk van socioloog Mark Granovetter over de kracht van zwakke sociale banden, gepubliceerd onderzoek dat los van Duhigg's boek een gevestigde plaats in de sociologie heeft, al past niet elk historisch detail van de Montgomery-boycot die Duhigg vertelt precies op dat model.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste tekortkoming is dat een deel van de psychologische onderbouwing, met name over wilskracht als uitputbare hulpbron, na publicatie van het boek niet standhield bij herhaling van het onderzoek. Duhigg presenteert dat onderdeel niettemin als vaststaand gegeven.</p>
+      <p>Journalisten en onderzoekers hebben ook de precisie van de Target-casus in twijfel getrokken: het verhaal is dramatischer verteld dan de onderliggende praktijk van marketingsegmentatie rechtvaardigt, en het idee van kernhabits blijft grotendeels een aantrekkelijke metafoor zonder dat Duhigg aantoont waarom de ene gewoonte wel en de andere niet die keten van veranderingen in gang zet.</p>
+      <p>Verder wordt het boek verweten dat het complexe gedragsverandering, zoals bij verslaving, terugbrengt tot een enkel driestappenmodel, terwijl de klinische praktijk laat zien dat terugval vaak door meerdere aanwijzingen en beloningen tegelijk wordt aangedreven en niet altijd met één routinewissel op te lossen is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng bij een eigen gewoonte de aanwijzing en de beloning in kaart voordat je de routine probeert te veranderen.</li>
+        <li>Vervang bij het afleren van een gewoonte de routine, niet de aanwijzing of de beloning.</li>
+        <li>Bouw voor een voorspelbaar spanningsmoment vooraf een vaste routine, naar het voorbeeld van Phelps en de Starbucks-training, in plaats van in het moment zelf op wilskracht te vertrouwen.</li>
+        <li>Ga bij een bedrijfsvoorbeeld uit dit boek na welk deel op onderzoek rust en welk deel op een verhalend geformuleerde causale keten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Power of Habit: Why We Do What We Do and How to Change It</i> (Random House, 2012). Nederlands als <i>Macht der gewoonte: waarom we doen wat we doen en hoe we dat kunnen veranderen</i>, sinds 2012 bij Ambo (recentste editie 384 blz., ISBN 9789026332227); vertaald door Patty Adelaar.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Duhigg is journalist bij The New York Times en bouwt het boek op rond onderzoek van het MIT naar de basale kernen in het brein: bij ratten die een routine in een doolhof inslijpen, verschuift de hersenactiviteit naar het begin en einde van de handeling, alsof het middenstuk op de automatische piloot verloopt. Daaruit leidt hij zijn kernmodel af, de gewoontelus van aanwijzing, routine en beloning, waarbij het verlangen naar de beloning de lus in gang houdt.</p><p>De praktische kern van het boek is dat een gewoonte zelden helemaal verdwijnt, maar wel te veranderen is door dezelfde aanwijzing en beloning te houden en alleen de routine ertussen te vervangen. Hij onderbouwt dat met bedrijfscases, waaronder Alcoa, Starbucks en Target, en met de rol van sociale gewoontes in de Amerikaanse burgerrechtenbeweging.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gewoontelus</li><li>wilskracht</li><li>neurowetenschap</li><li>organisaties</li><li>verslaving</li><li>journalistiek</li><li>gedragsverandering</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear werkt dezelfde gewoontelus uit tot een systematische methode voor gedragsverandering, met meer nadruk op identiteit dan op verlangen.</li>
+          <li value="88"><a href="88.html">Gewoontedieren</a>. Brendborg benadert gewoontevorming vanuit gedragsbiologie in plaats van vanuit bedrijfscases, met een andere maatstaf voor onderbouwing.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman levert het bredere kader van automatisch versus bewust denken waarbinnen Duhigg's gewoontelus een specifiek geval is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Innovator's Dilemma &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Christensen stelt dat de gangbare regels van goed management, luister naar je beste klanten en investeer waar de winstmarge het grootst is, precies de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-293">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">293 &middot; Geld en ondernemen</p>
+    <h1>The Innovator's Dilemma</h1>
+    <p class="lede">Clayton Christensen, 1997</p>
+    <p class="stats">
+      <span><b>1418</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="293"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Christensen stelt dat de gangbare regels van goed management, luister naar je beste klanten en investeer waar de winstmarge het grootst is, precies de reden zijn waarom sterke bedrijven bezwijken zodra een disruptieve technologie opkomt. Zulke technologie is aanvankelijk goedkoper en zwakker dan wat de markt vraagt, en bedient eerst klanten die de gevestigde markt niet interessant vindt. Doordat de nieuwe technologie zich snel verbetert terwijl gevestigde bedrijven vasthouden aan hun bestaande klanten en marges, wordt zij op een gegeven moment goed genoeg voor de hoofdmarkt en verdringt zij de oude spelers. Tegenover die claim staat dat het patroon vooral is aangetoond in technologie- en componentenmarkten, en dat latere critici betwijfelen of het even overtuigend werkt als voorspelling voor de toekomst als het werkt als verklaring achteraf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De harde-schijvenindustrie als casus</h3>
+      <p>Het boek bouwt op Christensens onderzoek naar de harde-schijvenindustrie tussen ongeveer 1975 en 1994. Bij elke overgang naar een kleiner formaat, van 14 inch naar 8 inch, naar 5,25 inch, naar 3,5 inch, werden de toenmalige marktleiders bijna steeds ingehaald door nieuwe toetreders die met het kleinere, aanvankelijk zwakkere formaat begonnen bij nieuwe klanten.</p>
+      <p>Christensen volgt per generatie welk bedrijf welk product wanneer op de markt bracht en hoe de marktaandelen verschoven. Die gedetailleerde reconstructie is de empirische kern van het boek en het overtuigendste deel ervan.</p>
+      <h3>Twee soorten technologie</h3>
+      <p>Christensen onderscheidt verbeterende (sustaining) technologie, die presteert op de maatstaven waar de bestaande klanten al om vragen, van disruptieve technologie, die op die maatstaven juist achterblijft maar iets anders biedt: goedkoper, kleiner, eenvoudiger, gemakkelijker.</p>
+      <p>Verbeterende technologie kan technisch radicaal zijn en toch weinig ontwrichten, omdat zij dezelfde klanten met dezelfde wensen bedient. Disruptieve technologie ontwricht juist omdat zij aanvankelijk geen enkele bestaande klant aanspreekt en daardoor door gevestigde bedrijven wordt genegeerd.</p>
+      <h3>Waarom goed management faalt</h3>
+      <p>De kern van het dilemma zit in het proces waarmee bedrijven investeringen toewijzen. Voorstellen voor een nieuw, klein marktsegment leveren op papier weinig omzet op vergeleken met de bestaande markt, en verliezen het daardoor stelselmatig van voorstellen die inspelen op wat de grootste klanten al vragen.</p>
+      <p>Middenmanagers die hun voorstellen willen laten goedkeuren, leren dat kansen richting de bestaande klanten sneller worden goedgekeurd. Zo verdwijnen kansrijke maar kleine markten uit beeld nog voordat zij ter discussie hebben gestaan, niet door een fout van individuele managers maar door de manier waarop het besluitvormingsproces zelf is ingericht.</p>
+      <p>Christensen illustreert dit ook aan de computerindustrie. Fabrikanten van mainframes gingen niet zelf over op minicomputers, en gevestigde makers van minicomputers zoals Digital Equipment Corporation misten op hun beurt de opkomst van de personal computer, terwijl beide overgangen achteraf hetzelfde patroon volgen als de opeenvolgende generaties harde schijven.</p>
+      <h3>Prestatie-overaanbod</h3>
+      <p>Technologie verbetert vaak sneller dan de behoefte van de gemiddelde klant meegroeit. Op een gegeven moment biedt het bestaande product al meer dan de klant nodig heeft, terwijl de disruptieve technologie inmiddels goed genoeg is geworden voor diezelfde klant en bovendien goedkoper of gemakkelijker is.</p>
+      <p>Vanaf dat kantelpunt verschuift de keuze van klanten van de beste prestatie naar prijs en gemak, en juist op die twee punten wint de nieuwkomer.</p>
+      <h3>De graafmachine- en staalindustrie</h3>
+      <p>Twee kortere hoofdstukken herhalen het patroon buiten de harde-schijvenindustrie. Bij graafmachines verdrongen hydraulische kraantjes voor kleine klussen geleidelijk de gevestigde kabelgraafmachines, die eerst veel groter en sterker bleven. Bij staal klommen minimills als Nucor, die begonnen met laagwaardig betonstaal, stap voor stap op naar hoogwaardiger staalproducten en verdrongen zo de geïntegreerde staalfabrieken.</p>
+      <p>Deze twee casussen zijn minder diep onderzocht dan de harde-schijvenindustrie en steunen op bestaande bedrijfshistories in plaats van Christensens eigen archiefonderzoek, maar ze laten zien dat het patroon niet tot één sector beperkt blijft.</p>
+      <h3>Wat bedrijven zouden moeten doen</h3>
+      <p>Christensens advies is niet om disruptieve kansen binnen de bestaande organisatie te laten beoordelen, omdat dezelfde besluitvormingslogica ze daar zal afwijzen. In plaats daarvan pleit hij voor een aparte, kleine organisatie die enthousiast kan worden van een klein marktsegment omdat het voor haar wél substantieel is.</p>
+      <p>Daarnaast raadt hij aan de markt te laten ontdekken waar een nieuwe technologie uiteindelijk goed voor is, in plaats van dat vooraf te bepalen. Klanten weten zelf vaak nog niet wat zij met een nieuwe technologie willen, en marktonderzoek onder de bestaande klantenkring levert daarom weinig op.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Disruptieve technologie</td><td>Een technologie die op de gangbare prestatiematen achterblijft maar goedkoper, eenvoudiger of gemakkelijker is en een nieuw of klein marktsegment aanspreekt.</td></tr>
+          <tr><td class="term">Sustaining (verbeterende) technologie</td><td>Een technologie die de prestatie verbetert op maatstaven waar de bestaande klanten al om vragen, ongeacht hoe radicaal de techniek zelf is.</td></tr>
+          <tr><td class="term">Resource-allocatieproces</td><td>Het interne proces waarmee een bedrijf beslist welke voorstellen investering krijgen, dat volgens Christensen systematisch kleine, nieuwe markten benadeelt.</td></tr>
+          <tr><td class="term">Prestatie-overaanbod</td><td>De situatie waarin een product meer biedt dan de klant nodig heeft, waardoor prijs en gemak belangrijker worden dan verdere prestatieverbetering.</td></tr>
+          <tr><td class="term">Waardenetwerk</td><td>De context van leveranciers, klanten en maatstaven waarbinnen een bedrijf winstgevendheid definieert, en die bepaalt welke innovaties aantrekkelijk lijken.</td></tr>
+          <tr><td class="term">Agnostisch marketen</td><td>Een nieuwe technologie de markt op brengen zonder vooraf te bepalen wie haar zal gebruiken, en de toepassing via de markt zelf laten ontstaan.</td></tr>
+          <tr><td class="term">Onafhankelijke organisatie</td><td>Een apart bedrijfsonderdeel, klein genoeg om een nieuw marktsegment als substantieel te ervaren, dat Christensen aanraadt voor disruptieve kansen.</td></tr>
+          <tr><td class="term">S-curve van technologische verbetering</td><td>Het verloop waarin een technologie eerst langzaam, dan snel en ten slotte weer langzamer verbetert, gebruikt om te verklaren waarom disruptie op een bepaald moment doorbreekt.</td></tr>
+          <tr><td class="term">Laag-einddisruptie</td><td>Een variant waarbij de nieuwe technologie eerst de minst veeleisende klanten aan de onderkant van de bestaande markt bedient, voordat zij verder naar boven klimt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De sterkste onderbouwing van het boek is de harde-schijvenindustrie: Christensen bouwde een dataset van vrijwel elk bedrijf en elk productgeneratie in die sector over twintig jaar, gebaseerd op vakbladen en bedrijfsgegevens, en volgt daarmee kwantitatief hoe marktleiderschap bij elke technologische overgang verschoof.</p>
+      <p>De graafmachine- en staalcasussen zijn beknopter en steunen op bestaande bedrijfshistories in plaats van origineel archiefonderzoek op hetzelfde niveau van detail. Ze dienen om te laten zien dat het patroon niet tot de harde-schijvenindustrie beperkt blijft, maar leveren niet dezelfde diepte aan bewijs.</p>
+      <p>Het boek is in de kern een theorie die uit één industrie diepgaand is opgebouwd en breder is gegeneraliseerd. Het bevat geen systematische steekproef van mislukkingen over veel sectoren, waardoor de verklaring dat disruptie de oorzaak is moet concurreren met andere verklaringen zodra de theorie op sectoren buiten Christensens kernvoorbeelden wordt toegepast.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De bekendste kritiek komt van historica Jill Lepore, die in 2014 in The New Yorker betoogde dat de voorspellende kracht van de theorie zwakker is dan vaak wordt aangenomen en dat sommige van Christensens eigen casussen achteraf beter passen dan zij vooraf als voorspelling zouden hebben gewerkt. Zij wees ook op bedrijven die Christensen als kwetsbaar voor disruptie had aangewezen maar die niet zijn omgevallen.</p>
+      <p>Een tweede punt van kritiek is dat het begrip disruptie na dit boek zo breed is gaan circuleren dat het vrijwel elke verandering ging aanduiden, waardoor het specifieke mechanisme dat Christensen beschreef, verwaterde. Christensen erkende dat zelf later mede in een artikel uit 2015 waarin hij het begrip opnieuw probeerde af te bakenen.</p>
+      <p>Ten slotte is de aanbeveling om disruptieve kansen in een aparte organisatie onder te brengen makkelijker opgeschreven dan uitgevoerd. Het boek bespreekt geen gevallen waarin bedrijven dat advies volgden en er toch niet in slaagden, waardoor de aanbeveling overtuigender oogt dan zij in de praktijk is gebleken.</p>
+      <p>De reikwijdte van het boek is bovendien smaller dan de reputatie ervan. Vrijwel alle casussen komen uit industrieën waar een fysiek product of onderdeel met meetbare prestatiematen centraal staat, harde schijven, graafmachines, staal. Bij bedrijven waarvan de waarde vooral uit netwerkeffecten of merk komt, is minder duidelijk of hetzelfde mechanisme op dezelfde manier werkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf voor je eigen product welke klanten je zou moeten laten schieten om een klein, nieuw segment te kunnen bedienen.</li>
+        <li>Zet voor een kansrijk maar klein marktsegment een apart team op met een eigen resultatenrekening, los van de bestaande omzeteisen.</li>
+        <li>Vraag bij elk investeringsvoorstel niet alleen wat de beste klanten willen, maar ook wie nu nog geen klant is en waarom niet.</li>
+        <li>Meet de groei van een nieuw segment in percentages in plaats van in omzet, zolang het nog klein is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Innovator's Dilemma: When New Technologies Cause Great Firms to Fail</i> (Harvard Business School Press, 1997). Nederlands als <i>Het innovatiedilemma</i>, sinds 2017 bij Business Contact (1e druk, 320 blz., ISBN 9789047008149); noch de uitgever noch de catalogus noemt daar een vertaler bij.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Christensen onderzoekt waarom succesvolle bedrijven met goed management toch ten onder gaan zodra een nieuwe, aanvankelijk zwakkere technologie de markt betreedt. Zijn belangrijkste voorbeeld is de harde-schijvenindustrie, waar bij vrijwel elke overgang naar een kleiner schijfformaat nieuwe bedrijven de markt overnamen en de gevestigde marktleiders wegvielen, ook al hadden die laatste de kennis en het geld om mee te doen. De verklaring is niet luiheid of domheid: de gevestigde bedrijven luisterden juist heel goed naar hun beste klanten, en die klanten hadden aanvankelijk niets aan de nieuwe technologie.</p><p>Christensen noemt dit een disruptieve technologie: goedkoper, eenvoudiger en eerst minder presterend, gericht op een klein of nieuw marktsegment, maar in een tempo dat de gevestigde markt uiteindelijk inhaalt. Omdat de bestaande manier van investeringsbeslissingen nemen investeringen in de kleinste marges systematisch afwijst, kan een onderneming in elke afzonderlijke beslissing verstandig handelen en toch de nieuwe golf missen. Naast harde schijven bespreekt hij de graafmachine-industrie en de staalindustrie als vergelijkbare gevallen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>innovatie</li><li>disruptie</li><li>strategie</li><li>technologiebedrijven</li><li>besluitvorming</li><li>concurrentie</li><li>bedrijfsleven</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries bouwt op Christensens diagnose voort met een concrete methode om een nieuwe markt vroeg en goedkoop te ontdekken in plaats van vooraf te voorspellen.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz beschrijft van binnenuit de bestuurlijke druk die het moeilijk maakt om Christensens advies over aparte teams daadwerkelijk op te volgen.</li>
+          <li value="257"><a href="257.html">The Everything Store</a>. Amazons eigen geschiedenis, van boeken naar clouddiensten, leest als een voorbeeld van een bedrijf dat zijn eigen kernmarkt bleef ontwrichten voordat concurrenten dat konden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

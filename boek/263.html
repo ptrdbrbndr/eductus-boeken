@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond Good and Evil &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nietzsche stelt dat filosofen door de eeuwen heen deden alsof zij de waarheid zochten, terwijl zij in werkelijkheid hun eigen morele overtuigingen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-263">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">263 &middot; Levenskunst</p>
+    <h1>Beyond Good and Evil</h1>
+    <p class="lede">Friedrich Nietzsche, 1886</p>
+    <p class="stats">
+      <span><b>1442</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="263"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nietzsche stelt dat filosofen door de eeuwen heen deden alsof zij de waarheid zochten, terwijl zij in werkelijkheid hun eigen morele overtuigingen achteraf van een stelsel voorzagen. Die onbevraagde voorkeur voor waarheid boven leven noemt hij de wil tot waarheid, en hij stelt daar een andere vraag tegenover: niet of iets waar is, maar of het leven en groei dient. Wat mensen goed en kwaad noemen, is volgens hem niet vastgelegd in de aard van de dingen maar het resultaat van een machtsverhouding waarin de ene groep haar eigen behoeften tot deugd heeft verklaard. Zijn boek vraagt om een nieuw soort filosoof die deze aannames durft te herzien, ook als dat gevaarlijk of onwelkom is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vooroordelen van filosofen</h3>
+      <p>In het eerste deel valt Nietzsche de aanname aan dat filosofie een onbevangen zoektocht naar waarheid is. Elk filosofisch stelsel is volgens hem een onbedoelde memoires van zijn maker: wie Kants morele wetten leest, ziet niet een sluitend bewijs maar een rechtvaardiging achteraf van overtuigingen die de filosoof al had voordat hij begon te redeneren.</p>
+      <p>Hij stelt daar de vraag tegenover waarom mensen waarheid eigenlijk hoger achten dan schijn, dwaling of onzekerheid. Die voorkeur, de wil tot waarheid, is volgens hem zelf geen vanzelfsprekendheid maar een keuze die om verantwoording vraagt en die de meeste filosofen nooit stellen.</p>
+      <h3>De vorm: aforismen in plaats van een stelsel</h3>
+      <p>Nietzsche schrijft in genummerde paragrafen die van één zin tot enkele bladzijden lopen, zonder de aaneengesloten redenering die filosofen als Kant of Hegel gebruiken. Die vorm is geen toeval: een sluitend stelsel suggereert volgens hem een afgerondheid die het denken juist tegenhoudt, terwijl een aforisme uitnodigt om verder te denken dan de schrijver zelf deed.</p>
+      <p>Het nadeel van die keuze is dat de lezer zelf de verbanden tussen de paragrafen moet leggen. Nietzsche geeft weinig overgangen en herhaalt zijn stellingen liever in een nieuwe formulering dan dat hij ze stap voor stap opbouwt.</p>
+      <h3>De vrije geest</h3>
+      <p>Tegenover de systeembouwers plaatst Nietzsche de vrije geest: iemand die niet aan een vaste overtuiging vasthoudt maar bereid is elk standpunt, inclusief het eigen standpunt, opnieuw te onderzoeken. Dat gaat gepaard met eenzaamheid, omdat een vrije geest zich niet aan een groep of leer kan binden zonder daarmee zijn vrijheid te verliezen.</p>
+      <p>Hier introduceert hij het perspectivisme: er bestaat geen waarneming zonder standpunt, en de gedachte aan een objectief, standpuntloos weten is voor hem een fictie. Dat betekent niet dat alles even waar is, maar dat elk inzicht rekenschap moet afleggen van het perspectief waaruit het komt.</p>
+      <h3>Religie en het ascetische ideaal</h3>
+      <p>Het derde deel behandelt religie, met nadruk op het christendom, als een stelsel dat lijden en zelfverloochening tot deugd heeft gemaakt. Nietzsche ziet daarin geen toeval maar een strategie: wie zwak is, heeft baat bij een moraal die kracht en zelfvertrouwen verdacht maakt en nederigheid beloont.</p>
+      <p>Hij is daarbij niet uit op spot maar op verklaring: religieuze moraal ontstaat volgens hem uit een reële behoefte van wie de wereld niet naar zijn hand kan zetten, en juist daarom is zij, zegt hij, zo doeltreffend geworden.</p>
+      <h3>De oorsprong van de moraal</h3>
+      <p>In het middendeel werkt Nietzsche zijn bekendste stelling uit: wat vandaag moraal heet, is de moraal van de kudde, ontstaan uit het verzet van de zwakkeren tegen de sterken. Oorspronkelijk noemden de sterken hun eigen eigenschappen, moed, trots, zelfstandigheid, goed; de moraal die daaruit voortkwam diende hun eigen groei.</p>
+      <p>Toen de zwakkeren die eigenschappen niet konden evenaren, verklaarden zij ze tot kwaad en verhieven zij hun eigen eigenschappen, gehoorzaamheid, medelijden, gelijkheid, tot deugd. Die omkering noemt hij een opstand in de moraal, en hij stelt dat de huidige Europese moraal nog altijd die kudde-oorsprong draagt, ook waar niemand zich daarvan bewust is.</p>
+      <h3>Geleerdheid en deugden</h3>
+      <p>De delen over geleerden en over deugden richten zich op wat Nietzsche de objectieve wetenschapper noemt: iemand die zich verschuilt achter feiten om geen eigen waardeoordeel te hoeven vellen. Hij prijst nauwkeurigheid maar wantrouwt de gedachte dat feiten verzamelen op zichzelf al filosofie is.</p>
+      <p>Hier komt ook zijn kritiek op vrouwen naar voren, waarin hij generaliseert op een manier die vandaag algemeen als vooroordeel wordt gelezen, zonder de onderbouwing die hij elders van zichzelf eist.</p>
+      <h3>Volkeren, voornaamheid en de wil tot macht</h3>
+      <p>In de laatste delen vergelijkt Nietzsche Europese volkeren met elkaar en werkt hij toe naar zijn beeld van voornaamheid: een houding die zichzelf de maatstaf stelt in plaats van zich te meten aan wat de meerderheid goedkeurt. Hij noemt dat de pathos van de afstand, het besef van een eigen rangorde dat volgens hem nodig is voor een hoge cultuur.</p>
+      <p>De wil tot macht, die door het hele boek heen opduikt, krijgt hier haar breedste toepassing: niet alleen mensen maar al het levende streeft volgens Nietzsche niet in de eerste plaats naar zelfbehoud, maar naar het uitbreiden van zijn eigen kracht. Het boek eindigt met een gedicht, 'Uit hoge bergen', dat de eenzaamheid van de filosoof die deze weg gaat bezingt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wil tot waarheid</td><td>De onbevraagde voorkeur van filosofen voor waarheid boven schijn, die Nietzsche zelf als keuze en niet als vanzelfsprekendheid behandelt.</td></tr>
+          <tr><td class="term">Perspectivisme</td><td>Het idee dat elk inzicht vanuit een bepaald standpunt komt en dat een standpuntloos beeld van de werkelijkheid niet bestaat.</td></tr>
+          <tr><td class="term">Vrije geest</td><td>Iemand die geen vaste overtuiging vasthoudt en bereid is elk standpunt, ook het eigen standpunt, opnieuw te onderzoeken.</td></tr>
+          <tr><td class="term">Kuddemoraal</td><td>De moraal die volgens Nietzsche is ontstaan uit het verzet van zwakkeren tegen sterken, en die inmiddels als vanzelfsprekend geldt.</td></tr>
+          <tr><td class="term">Wil tot macht</td><td>De drijfveer die Nietzsche aan al het levende toeschrijft: niet alleen zelfbehoud, maar het uitbreiden van de eigen kracht.</td></tr>
+          <tr><td class="term">Pathos van de afstand</td><td>Het besef van een eigen rangorde tegenover anderen, dat Nietzsche als voorwaarde voor een hoge cultuur ziet.</td></tr>
+          <tr><td class="term">Filosofen van de toekomst</td><td>De nieuwe soort denker die Nietzsche voorstelt: iemand die gevestigde waarden durft te herzien in plaats van te verdedigen.</td></tr>
+          <tr><td class="term">Het ding op zich</td><td>Kants begrip voor de werkelijkheid onafhankelijk van waarneming, dat Nietzsche verwerpt als een gedachte zonder inhoud.</td></tr>
+          <tr><td class="term">Aforisme</td><td>De vorm van korte, genummerde paragrafen waarin Nietzsche schrijft, in plaats van een doorlopend betoog.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Nietzsche redeneert niet vanuit onderzoek maar vanuit aforisme en observatie; het boek bevat geen bronnenlijst, geen gegevens en geen systematische opbouw van premisse naar conclusie. Zijn gezag ontleent hij aan zijn training als classicus en aan een scherpe lezing van filosofen als Kant, Schopenhauer en de Engelse utilitaristen, die hij aanvalt zonder hen paragraaf voor paragraaf te weerleggen.</p>
+      <p>Zijn belangrijkste begrip, de wil tot macht, blijft in dit boek een suggestie eerder dan een uitgewerkte theorie; Nietzsche zelf werkte het nooit tot een sluitend geheel uit, en latere uitgaven van fragmenten onder die titel zijn door zijn zuster samengesteld uit nagelaten aantekeningen, niet door hemzelf voor publicatie bedoeld. Onder Nietzsche-kenners bestaat dan ook geen overeenstemming of de wil tot macht een psychologische waarneming is of een metafysische claim over al het bestaande.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De aforistische vorm maakt het boek moeilijk te weerleggen omdat het zelden een argument in de gebruikelijke zin opbouwt: een paragraaf stelt iets vast en de volgende gaat verder, zonder dat de eerste bewijs krijgt. Dat maakt het boek prikkelend om te lezen en lastig om methodisch te toetsen.</p>
+      <p>De afleiding van kuddemoraal uit een historische omkering is een verhaal, geen bevinding uit bronnenonderzoek; latere geschiedschrijving en antropologie hebben dat verhaal niet bevestigd zoals Nietzsche het presenteert. Zijn uitspraken over vrouwen in het zevende deel worden vandaag algemeen als vooringenomen gelezen en vormen een zwakte in een boek dat elders juist vraagt om vooroordelen te onderzoeken in plaats van te herhalen. Ten slotte is het boek, samen met ander werk van Nietzsche, na zijn dood door zijn zuster Elisabeth Förster-Nietzsche selectief bewerkt en voor nationalistische doeleinden ingezet; hedendaagse Nietzsche-filologie beschouwt die lezing als een vervorming van de tekst zoals die hier staat, maar de geschiedenis van dat misbruik blijft aan het boek kleven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een morele overtuiging die vanzelfsprekend aanvoelt naar de herkomst ervan, in plaats van meteen naar de rechtvaardiging te zoeken.</li>
+        <li>Let bij een filosofisch betoog op of het echt een argument opbouwt of vooral een overtuiging herhaalt in andere bewoordingen.</li>
+        <li>Onderscheid bij het lezen over Nietzsche zelf tussen wat hij publiceerde en wat na zijn dood uit aantekeningen is samengesteld.</li>
+        <li>Lees een paragraaf op zichzelf en ga na of de volgende paragraaf hem onderbouwt of alleen in andere woorden herhaalt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Jenseits von Gut und Böse: Vorspiel einer Philosophie der Zukunft</i>, in eigen beheer uitgegeven bij C. G. Naumann (Leipzig, 1886). Nederlands als <i>Voorbij goed en kwaad</i>, sinds 2023 bij Boom, vertaald door Maarten van Buuren (1e druk, 272 blz., ISBN 9789024456758).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nietzsche opent met de stelling dat filosofen tot dan toe niet zozeer de waarheid zochten als wel hun eigen morele voorkeuren achteraf van argumenten voorzagen. Zijn boek bestaat uit negen delen met genummerde, vaak losstaande paragrafen, van een enkele zin tot een paar bladzijden, en behandelt achtereenvolgens de vooroordelen van filosofen, de vrije geest, religie, de oorsprong van moraal, geleerdheid, deugden, volkeren en wat hij voornaamheid noemt. Centraal staat zijn kritiek op wat hij de 'wil tot waarheid' noemt: de onbevraagde aanname dat waarheid altijd belangrijker is dan leven en groei. Daartegenover zet hij het perspectivisme, het idee dat elk inzicht vanuit een bepaald standpunt komt en dat een standpuntloos beeld van de werkelijkheid niet bestaat.</p><p>In het middendeel herleidt hij de gangbare moraal tot een omkering die volgens hem ooit heeft plaatsgevonden: wat sterken van nature goed vonden, werd door zwakkeren tot slecht verklaard, en wat zwakke mensen bij zichzelf nodig hadden, medelijden, gelijkheid, gehoorzaamheid, werd tot deugd gemaakt. Hij noemt de kracht die daarachter schuilgaat de 'wil tot macht' en gebruikt haar als verklaring voor gedrag dat verder gaat dan alleen overleven. Het boek bevat ook uitspraken over vrouwen die tegenwoordig algemeen als denigrerend gelden. Nietzsche schreef het in 1886 in eigen beheer, nadat gevestigde uitgevers zijn werk hadden afgewezen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>moraal</li><li>macht</li><li>waarheid</li><li>individualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius schrijft eveneens in korte, losse aantekeningen, maar vanuit een moraal van plichtsbesef die Nietzsche juist tot de kuddemoraal zou rekenen.</li>
+          <li value="216"><a href="216.html">The Art of Worldly Wisdom</a>. Gracián geeft aforistische leefregels vanuit eenzelfde wantrouwen tegen de massa, maar zonder Nietzsches these over de oorsprong van moraal.</li>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Seneca verdedigt een moraal van zelfbeheersing die precies het type deugd is dat Nietzsche als kuddemoraal zou aanmerken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

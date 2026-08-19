@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elon Musk &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Vance stelt dat Musk zijn bedrijven niet runt zoals andere Silicon Valley-ondernemers, die vaak op software en snelle opschaling mikken, maar dat hij zich…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-266">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">266 &middot; Geld en ondernemen</p>
+    <h1>Elon Musk</h1>
+    <p class="lede">Ashlee Vance, 2015</p>
+    <p class="stats">
+      <span><b>1148</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="266"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Vance stelt dat Musk zijn bedrijven niet runt zoals andere Silicon Valley-ondernemers, die vaak op software en snelle opschaling mikken, maar dat hij zich willens en wetens op zware industrie stort, raketten en auto's, sectoren met hoge kapitaalbehoefte, lange ontwikkeltijden en een geschiedenis van mislukte nieuwkomers. Zijn overtuiging dat een enkele vastberaden ingenieur-ondernemer die industrieën opnieuw kan uitvinden, dreef SpaceX en Tesla in 2008 tot vlak bij de afgrond en bracht ze er daarna, tegen de verwachting van vrijwel iedereen in de sector, weer bovenop. Diezelfde vastberadenheid leverde ook een leiderschapsstijl op die door werknemers als meeslepend en als uitputtend wordt beschreven, vaak door dezelfde mensen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Pretoria</h3>
+      <p>Vance begint in Zuid-Afrika, waar Musk opgroeide met een vader die hij later als moeilijk en veeleisend beschrijft, en met pesterijen op school die op een gegeven moment zo hard werden dat hij in het ziekenhuis belandde. Musk las in die jaren volgens het boek grote hoeveelheden sciencefiction en encyclopedieën, en ontwikkelde al vroeg een voorkeur voor grote, technische vraagstukken boven sociale omgang.</p>
+      <p>Op zijn zeventiende vertrok hij naar Canada, deels om de dienstplicht van het apartheidsregime te ontlopen en deels omdat hij, zoals Vance het weergeeft, ervan overtuigd was dat de Verenigde Staten de plek waren waar grote dingen gebeurden.</p>
+      <h3>Zip2 en X.com</h3>
+      <p>In de Verenigde Staten richtte Musk met zijn broer Kimbal het bedrijf Zip2 op, dat online stadsgidsen voor kranten bouwde, en dat in 1999 werd verkocht aan Compaq. Met dat geld richtte hij X.com op, een online betaaldienst die na een fusie met een concurrent PayPal werd.</p>
+      <p>Vance beschrijft hoe Musk bij X.com als bestuursvoorzitter werd afgezet terwijl hij op huwelijksreis was, een gebeurtenis die volgens het boek zijn wantrouwen jegens bestuursraden voor de rest van zijn loopbaan heeft gevormd. De verkoop van PayPal aan eBay in 2002 leverde hem het kapitaal op waarmee hij SpaceX en later Tesla financierde.</p>
+      <h3>SpaceX en de vierde poging</h3>
+      <p>Musk richtte SpaceX in 2002 op met het doel raketten goedkoper te maken en uiteindelijk mensen naar Mars te brengen, een ambitie die vrijwel niemand in de gevestigde ruimtevaartindustrie serieus nam. Vance beschrijft de eerste jaren op het testeiland Kwajalein in de Stille Oceaan, waar drie opeenvolgende lanceringen van de Falcon 1-raket mislukten.</p>
+      <p>Tegen eind 2008, met nog maar geld voor één lancering, slaagde de vierde poging op 28 september wel. Vance beschrijft dat moment als het scharnierpunt van het hele boek: zonder die lancering was SpaceX volgens de mensen die Vance sprak binnen enkele weken failliet gegaan.</p>
+      <h3>Tesla en de crisis van 2008</h3>
+      <p>Musk stapte in 2004 als investeerder en bestuursvoorzitter in Tesla Motors, dat toen nog door anderen was opgericht, en nam in 2008 ook de dagelijkse leiding over nadat de ontwikkeling van de eerste auto, de Roadster, herhaaldelijk was vertraagd en duurder was geworden dan gepland. Vance beschrijft hoe Tesla in dezelfde weken als de vierde SpaceX-lancering bijna zonder geld kwam te zitten, terwijl de financiële crisis investeerders terughoudend maakte.</p>
+      <p>Musk voorkwam een faillissement door persoonlijk geld in te leggen, tot het punt waarop hij volgens het boek nauwelijks nog liquide middelen overhad, en wist op de valreep, met kerstavond als deadline, een nieuwe investeringsronde rond te krijgen.</p>
+      <h3>De werkwijze</h3>
+      <p>Vance tekent een manager die zelf tachtig tot honderd uur per week werkt, techniek tot in detail beheerst en weinig geduld heeft met wat hij als onnodige voorzichtigheid beschouwt. Werknemers vertellen over deadlines die als onmogelijk werden ervaren en later toch werden gehaald, over ontslagen na één slecht gesprek, en over een cultuur waarin het normaal was om nachten door te werken vlak voor een lancering of productiedeadline.</p>
+      <p>Diezelfde mensen beschrijven ook waarom ze bleven: het gevoel dat ze aan iets werkten dat nergens anders mogelijk was, en de indruk dat Musk zelf net zo hard of harder werkte dan wie hij ook maar aanspoorde.</p>
+      <h3>Het privéleven</h3>
+      <p>Naast de bedrijven volgt Vance Musks eerste huwelijk met schrijfster Justine Musk, het verlies van hun eerste kind aan wiegendood, en de daaropvolgende scheiding, die volgens beide betrokkenen samenviel met de jaren waarin Musk het meest opging in zijn bedrijven.</p>
+      <p>Vance behandelt dat niet als zijlijn maar als deel van hetzelfde patroon dat de bedrijven overeind hield: een bereidheid om vrijwel alles ondergeschikt te maken aan het werk, met kosten die niet alleen Musk zelf raakten. Later huwelijk en samenwonen met de Britse actrice Talulah Riley volgen hetzelfde patroon van intensieve verbondenheid gevolgd door breuk, telkens in periodes waarin een van de bedrijven op het randje balanceerde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zip2</td><td>Musks eerste bedrijf, een online stadsgids voor kranten, verkocht aan Compaq in 1999.</td></tr>
+          <tr><td class="term">SolarCity</td><td>Het zonne-energiebedrijf dat Musks neven met zijn financiering oprichtten en dat later met Tesla fuseerde.</td></tr>
+          <tr><td class="term">X.com</td><td>De online betaaldienst die na een fusie PayPal werd en in 2002 aan eBay werd verkocht.</td></tr>
+          <tr><td class="term">Falcon 1</td><td>SpaceX' eerste raket, die na drie mislukkingen op de vierde poging in september 2008 succesvol in een baan om de aarde kwam.</td></tr>
+          <tr><td class="term">De Roadster</td><td>Tesla's eerste auto, waarvan de vertraagde en duurder geworden ontwikkeling het bedrijf in 2008 bijna te gronde richtte.</td></tr>
+          <tr><td class="term">De crisis van 2008</td><td>De periode waarin SpaceX en Tesla in dezelfde weken bijna failliet gingen en Musk zijn privévermogen in beide bedrijven stak.</td></tr>
+          <tr><td class="term">Werkweken van tachtig tot honderd uur</td><td>De arbeidsnorm die Musk volgens werknemers zichzelf en anderen oplegde in periodes van crisis.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Vance sprak volgens het nawoord meer dan driehonderd mensen, onder wie werknemers, investeerders, familieleden en Musk zelf gedurende tientallen uren, nadat deze aanvankelijk had geweigerd mee te werken. Feiten over de lanceringen van SpaceX en de financiering van Tesla zijn ook via openbare bronnen te controleren, zoals persberichten en jaarverslagen uit die jaren.</p>
+      <p>Voor het innerlijke leven van Musk, zijn motieven en zijn jeugd in Zuid-Afrika, steunt het boek grotendeels op zijn eigen herinneringen en die van familieleden, die elkaar op punten tegenspreken. Vance vermeldt die tegenspraak in het boek zelf, bijvoorbeeld over de ernst van het pesten op school. Cijfers over de lanceringen, de financieringsrondes en de productieaantallen van Tesla zijn wel goed te toetsen aan persberichten, rechtszaken en latere jaarverslagen uit dezelfde periode.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek verscheen in 2015, ruim voor de latere controverses rond Musks gedrag op sociale media, de overname van Twitter en zijn politieke uitspraken, en geeft dus geen beeld van dat deel van zijn loopbaan. Wie het boek als volledig portret van Musk leest, mist een decennium.</p>
+      <p>Vance staat ook dicht bij zijn onderwerp: hij bewondert zichtbaar wat SpaceX en Tesla technisch bereikten, en de kritiek op de werkcultuur komt vooral uit de mond van werknemers zelf, niet uit een eigen, scherp oordeel van de schrijver. Latere berichtgeving over arbeidsomstandigheden in Tesla-fabrieken gaat verder dan wat dit boek beschrijft.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future</i> (Ecco/HarperCollins, 2015, 400 blz., ISBN 9780062301239); niet te verwarren met de latere, uitgebreidere biografie van Walter Isaacson uit 2023. Nederlands als <i>Elon Musk: hoe de topman van SpaceX en Tesla onze toekomst vormgeeft</i>, sinds 2016 bij Lev. (424 blz., ISBN 9789400507142); vertaald door Henk Popken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vance volgt Musk van een moeilijke jeugd in Pretoria, met een veeleisende vader en pesterijen op school, via zijn vertrek naar Canada en de Verenigde Staten en de verkoop van zijn eerste bedrijven Zip2 en X.com (dat later PayPal werd), naar de oprichting van SpaceX in 2002 en zijn overname van de leiding bij Tesla vanaf 2004. Het boek beschrijft in detail hoe beide bedrijven eind 2008, tijdens de financiële crisis, tegelijk bijna failliet gingen, en hoe Musk zijn laatste privévermogen in beide stak voordat een NASA-contract voor SpaceX en een investeringsronde voor Tesla op de valreep uitkomst boden.</p><p>Vance, die honderden uren met Musk en zijn omgeving sprak, tekent ook een veeleisende manager die werknemers onmogelijke deadlines oplegt, zelf tachtig tot honderd uur per week werkt en weinig geduld heeft met excuses. Het boek combineert bewondering voor wat SpaceX en Tesla technisch voor elkaar kregen met een portret van de persoonlijke prijs daarvan, voor Musk zelf en voor de mensen om hem heen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biografie</li><li>ruimtevaart</li><li>elektrische auto's</li><li>zuid-afrika</li><li>arbeidsethos</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="231"><a href="231.html">Steve Jobs</a>. Isaacson tekent bij Jobs een vergelijkbare combinatie van visie en veeleisend, soms vernederend leiderschap.</li>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Knight beschrijft van binnenuit dezelfde jaren van bijna-faillissement die aan een groot bedrijf voorafgingen.</li>
+          <li value="267"><a href="267.html">Tesla: Inventor of the Electrical Age</a>. Carlson portretteert de negentiende-eeuwse uitvinder naar wie Musk zijn autobedrijf vernoemde, met een minstens zo moeizame late loopbaan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

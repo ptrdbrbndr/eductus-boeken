@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Everything Store &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Stone beschrijft Amazon als een bedrijf dat zijn enorme omvang dankt aan één man die bereid was jarenlang verlies te draaien, personeel en leveranciers…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-257">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">257 &middot; Geld en ondernemen</p>
+    <h1>The Everything Store</h1>
+    <p class="lede">Brad Stone, 2013</p>
+    <p class="stats">
+      <span><b>1122</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="257"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Stone beschrijft Amazon als een bedrijf dat zijn enorme omvang dankt aan één man die bereid was jarenlang verlies te draaien, personeel en leveranciers hard te bejegenen en elke gevestigde speler in zijn markt als bedreiging te behandelen, in ruil voor een positie waarin de klant op de korte termijn altijd wint. Zijn stelling is niet dat Bezos een uitzonderlijk visionair was, maar dat hij bereid was tot een compromisloosheid die de meeste bestuurders en investeerders niet volhouden: jarenlang geen winst tonen aan aandeelhouders, terwijl concurrenten en eigen medewerkers de tol betaalden. Wie het boek leest als bewondering voor Bezos, leest tegelijk het relaas van wat die compromisloosheid aan mensen heeft gekost.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een garage bij Seattle</h3>
+      <p>Bezos werkt bij het kwantitatieve hedgefonds D.E. Shaw in New York wanneer hij, op verzoek van zijn baas, de groeicijfers van internetcommercie onderzoekt. Boeken springen eruit: een miljoenencatalogus die geen enkele fysieke winkel kan voeren. Hij rijdt met zijn vrouw MacKenzie naar Seattle, schrijft onderweg een deel van het businessplan, en start Amazon in juli 1995 vanuit een garage, met bureaus die hij zelf van deuren en houten balken in elkaar timmert om geld te besparen.</p>
+      <p>De naam Amazon, gekozen om de omvang van de rivier te suggereren, verraadt de ambitie al voordat het bedrijf iets anders dan boeken verkoopt. Stone laat zien dat die schaalgedachte, groot worden voordat er winst is, van meet af aan het uitgangspunt was, niet iets dat later ontstond uit succes.</p>
+      <h3>Bijna kapot in de dotcom-crisis</h3>
+      <p>Rond 2000 klapt de internetzeepbel, de aandelenkoers van Amazon zakt van meer dan honderd dollar naar minder dan zes, en een analistenrapport van Lehman Brothers noemt het bedrijf schertsend Amazon.bomb. Een herfinanciering van de schuld, kort voor de markt volledig op slot ging, houdt het bedrijf op de been.</p>
+      <p>Stone beschrijft hoe de zuinigheid uit de garagetijd doorwerkt in deze periode: kostenbesparingen, ontslagrondes en een cultuur waarin financieel directeur Joy Covey met scherpe blik op de kasstroom lette, terwijl Bezos naar buiten toe bleef vasthouden aan een groeiverhaal dat de meeste investeerders niet meer geloofden.</p>
+      <h3>De cultuur van de klant, naar binnen toe</h3>
+      <p>Naar buiten toe is klantgerichtheid het kernwoord: een lege stoel in de vergaderzaal symboliseert de klant, en beslissingen worden er systematisch aan getoetst. Stone laat via tientallen getuigenissen van voormalige werknemers zien dat diezelfde compromisloosheid zich naar binnen keert: felle interne debatten, hoog personeelsverloop en een reeks leidinggevenden die na botsingen met Bezos vertrokken.</p>
+      <p>Bezos zelf komt naar voren als iemand die feilloos rekent, ongeduldig is met halve antwoorden en een schaterlach heeft die volgens meerdere geïnterviewden net zo ontwapenend als intimiderend kon werken.</p>
+      <h3>Voorbij boeken: platform, cloud, e-reader</h3>
+      <p>Amazon opent zijn winkel voor externe verkopers via Amazon Marketplace, een besluit dat intern omstreden was omdat het de eigen verkoop leek te ondermijnen, tot bleek dat het de totale omzet juist vergrootte. Uit de eigen technische infrastructuur groeit Amazon Web Services, aanvankelijk bedoeld om de eigen systemen te ordenen en later een van de winstgevendste onderdelen van het bedrijf.</p>
+      <p>De ontwikkeling van de Kindle, onder leiding van Steve Kessel, vraagt van Amazon dat het zijn eigen kernproduct, het fysieke boek, actief ondermijnt. Stone beschrijft hoe Bezos die spanning bewust opzocht in plaats van vermeed, met het argument dat een concurrent het anders wel zou doen.</p>
+      <h3>Het Gazelle Project en de overname van Quidsi</h3>
+      <p>Bij onderhandelingen met kleine uitgevers hanteerde Amazon intern het Gazelle Project, een naam die verwijst naar de manier waarop een cheetah een zieke gazelle uitkiest: uitgevers zonder de druk van grote fondsen kregen strengere voorwaarden opgelegd dan de gevestigde uitgeverijen. Bij de babywinkel Quidsi, eigenaar van Diapers.com, zette Amazon een prijzenoorlog in met verlieslatende kortingen tot Quidsi koos voor overname door Amazon boven een bod van Walmart.</p>
+      <p>Stone presenteert beide episodes niet als incidenten maar als voorbeelden van een vaste werkwijze: waar Amazon een zwakke plek bij een concurrent of leverancier ziet, wordt die stelselmatig uitgebuit.</p>
+      <h3>De grenzen van het verhaal</h3>
+      <p>Het boek eindigt in 2013, ruim voor de latere kritiek op de arbeidsomstandigheden in Amazons distributiecentra, de mislukte Fire Phone, de overname van Whole Foods en de antitrustonderzoeken in de Verenigde Staten en Europa. Bezos werkte deels mee aan het boek maar liet later publiekelijk weten ontevreden te zijn over sommige passages, wat de balans tussen toegang en onafhankelijkheid van de auteur zichtbaar maakt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Get Big Fast</td><td>Amazons vroege strategie om marktaandeel te veroveren voordat winstgevendheid werd nagestreefd.</td></tr>
+          <tr><td class="term">Flywheel</td><td>Bezos' model waarin lage prijzen meer klanten trekken, wat meer verkopers trekt, wat de kosten verder verlaagt.</td></tr>
+          <tr><td class="term">Regret Minimization Framework</td><td>Bezos' beslismethode om een keuze te toetsen aan de vraag of hij die op zijn tachtigste zou betreuren.</td></tr>
+          <tr><td class="term">Gazelle Project</td><td>De interne naam voor Amazons harde onderhandelingsstrategie tegenover kleine, kwetsbare uitgevers.</td></tr>
+          <tr><td class="term">Amazon Marketplace</td><td>Het platform waarmee externe verkopers hun producten naast Amazons eigen assortiment aanbieden.</td></tr>
+          <tr><td class="term">AWS</td><td>Amazon Web Services, de clouddivisie die voortkwam uit Amazons eigen technische infrastructuur.</td></tr>
+          <tr><td class="term">Day 1</td><td>Bezos' aanduiding voor een bedrijfscultuur die zich blijft gedragen als startend bedrijf, om stagnatie te voorkomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Stone bouwt het boek op meer dan driehonderd interviews met huidige en voormalige werknemers, familieleden, concurrenten en zakenpartners, aangevuld met rechtbankstukken, beursdocumenten en interne memo's die hij kon achterhalen. Bezos sprak zelf meerdere keren met de auteur, al bleef zijn medewerking beperkt en gaf hij niet op alle vragen antwoord.</p>
+      <p>Een deel van het materiaal komt van medewerkers die anoniem wilden blijven, uit angst voor gevolgen bij een bedrijf dat bekendstaat om zijn geheimhouding. Gesprekken uit het verleden zijn door de geïnterviewden gereconstrueerd, niet uit opnames overgenomen, wat de precisie van citaten beperkt zonder de grote lijn van de gebeurtenissen te ondermijnen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek leunt zwaar op de herinneringen van mensen die het bedrijf hebben verlaten, van wie sommigen na een conflict met Bezos vertrokken. Dat maakt het aannemelijk dat de interne cultuur harder wordt neergezet dan wie er nog werkt zou herkennen, zonder dat na te gaan valt hoeveel van dat verschil aan selectie ligt.</p>
+      <p>Bezos' beperkte medewerking betekent dat zijn eigen motieven vaker gereconstrueerd dan geciteerd worden. Waar het boek intenties toeschrijft, zoals de gedachte achter het Gazelle Project of de beslissing om Marketplace te openen, is dat Stone's interpretatie van andermans getuigenissen, niet Bezos' eigen woorden.</p>
+      <p>Het boek stopt in 2013 en mist daardoor de kritiek op arbeidsomstandigheden in distributiecentra die latere onderzoeksjournalistiek naar boven bracht, evenals de antitrustzaken die volgden. Wie Amazon vandaag wil begrijpen, moet dit boek aanvullen met recenter werk.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Everything Store: Jeff Bezos and the Age of Amazon</i> (Little, Brown and Company, 2013). Nederlands als <i>Mr. Amazon: de onstuitbare ambitie van Jeff Bezos</i>, sinds 2013 bij Business Contact (337 blz., ISBN 9789047005872), vertaald door Martin Appelman en Rob de Ridder.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Brad Stone, journalist bij Bloomberg Businessweek, reconstrueert de geschiedenis van Amazon van de oprichting in 1994 in een garage bij Seattle tot 2013, op basis van gesprekken met Jeff Bezos zelf en met meer dan driehonderd huidige en voormalige werknemers, familieleden en concurrenten. Het boek volgt Bezos van zijn jeugd op de ranch van zijn grootvader in Texas, via een baan bij het hedgefonds D.E. Shaw, naar het besluit om via internet boeken te verkopen, het snelst groeiende segment dat hij in zijn eigen onderzoek kon vinden. De vroege jaren, met bijna-faillissementen tijdens het uiteenspatten van de internetzeepbel rond 2000, krijgen evenveel ruimte als de latere groei naar boekwinkel voor alles.</p><p>Stone toont twee kanten van hetzelfde bedrijf. Naar buiten toe draait alles om de klant, met een cultuur waarin een lege stoel in vergaderingen de klant vertegenwoordigt. Naar binnen toe beschrijft hij een compromisloze omgang met medewerkers en leveranciers, met als voorbeeld het interne Gazelle Project, waarin Amazon kleine uitgevers benaderde zoals een cheetah een zieke gazelle achtervolgt, en de prijzenoorlog waarmee Amazon de babywinkel Quidsi dwong zich te laten overnemen. Het boek eindigt in 2013 en beschrijft dus niet de latere kritiek op de arbeidsomstandigheden in de distributiecentra of de mislukte Fire Phone.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>amazon</li><li>jeff bezos</li><li>e-commerce</li><li>bedrijfscultuur</li><li>journalistiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="266"><a href="266.html">Elon Musk</a>. Vance beschrijft in zijn Musk-biografie een vergelijkbare combinatie van visionaire ambitie en een compromisloze, uitputtende bedrijfscultuur.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz beschrijft van binnenuit hoe het is om als bestuurder de beslissingen te nemen die Stone bij Amazon van buitenaf reconstrueert.</li>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Knights eigen memoir over Nike laat zien hoe een oprichter dezelfde jaren van bijna-faillissement en compromisloze groei van binnenuit vertelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

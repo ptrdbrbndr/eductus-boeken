@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stillness Is the Key &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Holiday stelt dat wie onder aanhoudende prikkels leeft zijn grootste voordeel niet behaalt door harder te werken of sneller te reageren, maar door een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-248">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">248 &middot; Moed en karakter</p>
+    <h1>Stillness Is the Key</h1>
+    <p class="lede">Ryan Holiday, 2019</p>
+    <p class="stats">
+      <span><b>1466</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="248"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Holiday stelt dat wie onder aanhoudende prikkels leeft zijn grootste voordeel niet behaalt door harder te werken of sneller te reageren, maar door een innerlijke toestand te bereiken die hij stilte noemt: een geest die helder blijft onder druk, een gemoed dat niet wordt meegesleept door de eerste emotie, en een lichaam dat rust genoeg heeft om vol te houden. Die toestand is voor hem geen deugd voor kloosterlingen maar het werktuig waarmee staatslieden, kunstenaars en sporters op beslissende momenten iets deden wat anderen in dezelfde positie niet lukte. Wie die toestand niet oefent, is overgeleverd aan de eerste impuls die zich aandient, en Holiday's boek is een verzameling voorbeelden van mensen bij wie dat wel en niet lukte.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie domeinen, één toestand</h3>
+      <p>Het boek volgt een vaste vorm. Elk van de drie delen, Geest, Gemoed en Lichaam, bestaat uit een reeks korte hoofdstukken van vier tot zes bladzijden, en elk hoofdstuk opent met een historische of hedendaagse figuur wiens verhaal een aspect van stilte illustreert. Er is geen doorlopend argument dat van hoofdstuk naar hoofdstuk opbouwt; de delen zijn een verzameling voorbeelden rond hetzelfde thema, meer een drieluik van portretten dan een redenering met stappen.</p>
+      <p>Holiday zet die vorm uiteen in een inleiding waarin hij Kennedy tijdens de Cubacrisis van oktober 1962 aanhaalt als het beeld waarmee het boek opent: een president die, omringd door adviseurs die tot een luchtaanval aandrongen, dagen nam om na te denken voordat hij koos voor een blokkade. Die vertraging noemt Holiday geen aarzeling maar de stilte die het onderscheid maakte tussen een wereldoorlog en een crisis die werd opgelost.</p>
+      <h3>Geest: denken zonder ruis</h3>
+      <p>In het eerste deel gaat het om helderheid van denken. Holiday behandelt onder meer de gewoonte van Kennedy om tijdens de crisis losse memo's te vragen in plaats van groepsvergaderingen, zodat adviseurs niet naar elkaar gingen luisteren maar ieder voor zich bleven denken. Hij bespreekt ook Fred Rogers, presentator van het Amerikaanse kinderprogramma Mister Rogers' Neighborhood, die elke uitzending vertraagde tot een tempo dat volwassenen ongemakkelijk vonden en kinderen juist rustig maakte.</p>
+      <p>De les die Holiday eruit trekt is dat helderheid niet vanzelf ontstaat in een hoofd vol input. Hij pleit voor het bijhouden van een dagboek, voor het vermijden van nieuws dat geen handelingsperspectief biedt, en voor het opzoeken van stilte als praktijk, niet als toeval.</p>
+      <h3>Gemoed: niet meegesleept worden</h3>
+      <p>Het tweede deel gaat over emotionele rust. Holiday leunt hier het zwaarst op de Stoa: Seneca die aan het hof van de wispelturige keizer Nero bleef functioneren door zijn eigen reacties te reguleren, en Marcus Aurelius die zichzelf in zijn Overpeinzingen (nr. 2) voortdurend terugroept naar wat binnen zijn macht ligt. Hij combineert dat met modernere voorbeelden, zoals een sporter die pas laat leert een slechte fase niet te laten doorwerken in de volgende.</p>
+      <p>Zijn punt is dat het gemoed getraind wordt zoals een spier: door herhaaldelijk te oefenen in het niet reageren op de eerste prikkel. Wie dat niet doet, blijft naar zijn overtuiging speelbal van elke tegenslag.</p>
+      <h3>Lichaam: de voorwaarde die vaak wordt overgeslagen</h3>
+      <p>Het derde deel is het minst filosofisch en het meest praktisch. Holiday bespreekt slaap, vaste routines, ordelijke werkruimtes en het belang van vriendschap en een rustig privéleven als voorwaarden voor een kalm hoofd. Hij haalt Anne Frank aan, die in het achterhuis een dagelijkse structuur aanhield te midden van doodsangst, als voorbeeld dat orde in de kleine dingen ruimte maakt voor het grotere.</p>
+      <p>Dit deel bevat de meest concrete adviezen van het boek en het minst nieuwe: veel ervan is bekend uit andere boeken over routine en discipline, hier ingebed in het kader van stilte.</p>
+      <h3>Tegenvoorbeelden: wat rusteloosheid kost</h3>
+      <p>Holiday zet zijn positieve voorbeelden af tegen mensen bij wie stilte ontbrak. Tiger Woods, wiens golfspel bewondering opriep terwijl zijn privéleven uit de hand liep, functioneert als terugkerend contrast: iemand met een grote beheersing op de golfbaan en weinig beheersing daarbuiten. Ook Winston Churchill komt in twee gedaanten voor, als staatsman die in 1940 kalm bleef terwijl het land in paniek was, en als man die zijn hele leven worstelde met wat hij zelf zijn 'zwarte hond' noemde.</p>
+      <p>Holiday plaatst die twee kanten van Churchill nadrukkelijk naast elkaar in plaats van er één van te kiezen: dezelfde man die in het openbaar het beeld van onverstoorbaarheid gaf, zocht in privé naar bezigheden, van schilderen tot metselwerk, om zijn sombere buien te bezweren. Die combinatie gebruikt hij om te laten zien dat stilte geen aangeboren eigenschap is die iemand wel of niet heeft, maar een praktijk die ook bij mensen met een zware aanleg tot onrust resultaat kan opleveren, zij het nooit voorgoed.</p>
+      <h3>Bronnen door elkaar</h3>
+      <p>Holiday put uit de Stoa, het boeddhisme, het christendom en het confucianisme zonder de tradities apart te houden of hun onderlinge verschillen te bespreken. Seneca, Thich Nhat Hanh, Augustinus en Confucius verschijnen in hetzelfde register, als leveranciers van hetzelfde inzicht in een ander jasje. Voor de lezer die het boek als inleiding gebruikt is dat toegankelijk; voor wie de tradities zelf kent, is het een vereenvoudiging die verschillen wegpoetst die er in de bronnen wel degelijk zijn.</p>
+      <h3>Plaats in de trilogie</h3>
+      <p>Van de drie delen is dit het boek met het breedste onderwerp. Het obstakel is de weg beperkt zich tot handelen onder tegenslag, Ego is de vijand tot de omgang met ambitie en succes, terwijl stilte als thema vrijwel elk aspect van een leven kan raken: werk, relaties, gezondheid, geloof. Die breedte maakt het boek bij verschijnen minder scherp ontvangen dan de eerdere twee delen, ook al verkocht het via de bestaande lezersgroep van de trilogie eveneens goed.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Stilte</td><td>De combinatie van een helder hoofd, een kalm gemoed en een rustig lichaam die Holiday als voorwaarde voor goed handelen beschrijft.</td></tr>
+          <tr><td class="term">Geest</td><td>Het eerste domein van het boek: het vermogen om helder te denken zonder ruis van meningen en prikkels.</td></tr>
+          <tr><td class="term">Gemoed</td><td>Het tweede domein: de emotionele rust waarmee iemand niet wordt meegesleept door de eerste impuls.</td></tr>
+          <tr><td class="term">Lichaam</td><td>Het derde domein: de fysieke routine en discipline die geest en gemoed pas mogelijk maken.</td></tr>
+          <tr><td class="term">Aanwezigheid</td><td>Het vermogen om volledig bij het moment te blijven in plaats van bij de volgende taak of gedachte.</td></tr>
+          <tr><td class="term">Journaling</td><td>Het dagelijks opschrijven van gedachten en gebeurtenissen, door Holiday aanbevolen als oefening voor een helder hoofd.</td></tr>
+          <tr><td class="term">Afzondering</td><td>Bewust gezochte tijd alleen, die Holiday onderscheidt van eenzaamheid die iemand overkomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek werkt net als de andere twee delen van de trilogie met historische anekdotes, gebaseerd op bestaande biografieën en secundaire bronnen, niet op eigen archiefonderzoek. Holiday citeert regelmatig uit vertaalde klassieke teksten en uit gangbare biografieën van figuren als Churchill en Kennedy, zonder voetnoten in de hoofdtekst; een notenapparaat staat achterin.</p>
+      <p>De selectie van voorbeelden is nadrukkelijk gestuurd door de these: van elke figuur wordt het moment gekozen dat stilte illustreert, niet een representatieve doorsnede van een heel leven. Bij Churchill komen zowel de kalme staatsman als de man met terugkerende depressies aan bod, maar de balans daartussen wordt niet gewogen. Dat maakt het boek een verzameling illustraties van een vooraf vaststaand idee, niet een onderzoek waaruit het idee volgt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat het boek weinig weerstand biedt. Anekdotes worden aangedragen als bevestiging, nooit als aanleiding om de these bij te stellen, en schijnbaar tegenstrijdig materiaal zoals Churchills depressies wordt ingepast in plaats van serieus genomen. De opsomming van tradities, stoïcijns, boeddhistisch, christelijk, confuciaans, in één adem suggereert een gedeeld inzicht, terwijl de verschillen tussen die tradities aanzienlijk zijn en met geen woord worden besproken.</p>
+      <p>Ook ontbreekt een omschrijving van hoe iemand met een baan, kinderen en schulden de aanbevolen rust zou moeten vinden; de voorbeelden zijn bijna allemaal mensen met macht, geld of allebei. Vergeleken met Het obstakel is de weg en Ego is de vijand, die elk een scherper afgebakend probleem behandelen, voelt In de stilte ligt het antwoord breder en vager: het domein 'een rustig leven' is zo ruim dat bijna elk gedrag zich er wel in laat passen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Blokkeer een vast moment per dag zonder telefoon of scherm, en gebruik het om op te schrijven wat er die dag gebeurde.</li>
+        <li>Neem bij een beslissing onder druk een nacht de tijd voordat je kiest, zoals Kennedy tijdens de Cubacrisis deed.</li>
+        <li>Leg voor jezelf vast welke vaste routine je in slaap, eten en werktijden aanhoudt, en welke daarvan het eerst verdwijnt zodra het druk wordt.</li>
+        <li>Onderzoek bij een tegenslag of de eerste reactie een gewoonte is of een keuze, voordat je hem uitvoert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Stillness Is the Key</i> (Portfolio, 2019). Nederlands als <i>In de stilte ligt het antwoord</i>, sinds 2020 bij A.W. Bruna (1e druk, 296 blz., ISBN 9789400512740); de catalogus noemt geen vertaler.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dit is het derde boek in Holiday's stoïcijnse drieluik, na Het obstakel is de weg (nr. 30) over handelen en Ego is de vijand (nr. 75) over eerzucht. Waar die twee boeken gaan over wat iemand doet, gaat dit boek over de toestand waaruit iemand handelt. Holiday noemt die toestand stilte: een helder hoofd, een kalm gemoed en een lichaam dat niet wordt afgeleid door onrust. Het boek is verdeeld in drie delen, Geest, Gemoed en Lichaam, met korte hoofdstukken die telkens één historische figuur als voorbeeld nemen. John F. Kennedy tijdens de Cubacrisis, Seneca aan het hof van Nero, Anne Frank in het achterhuis: telkens laat Holiday zien hoe stilte iemand in staat stelde helder te blijven terwijl de omstandigheden dat tegenwerkten.</p><p>De opbouw is opsommend en niet betogend: elk hoofdstuk levert een anekdote en een korte les, zonder dat er één doorlopend argument ontstaat. Dat maakt het boek makkelijk in kleine stukken te lezen, en het verklaart ook waarom het weinig weerstand biedt. Holiday combineert stoïcijnse, boeddhistische en christelijke bronnen zonder ze scherp van elkaar te onderscheiden, en gebruikt tegenvoorbeelden als Tiger Woods, wiens vroege jaren op de golfbaan bewondering opriepen en wiens latere jaren volgens Holiday laten zien wat rusteloosheid met een leven doet. Ook Winston Churchill keert terug als dubbel voorbeeld: de staatsman die in 1940 kalm bleef terwijl het land in paniek was, tegenover de man die zijn hele leven worstelde met wat hij zelf zijn 'zwarte hond' noemde. Het is het derde en laatste deel van de trilogie die begon met Het obstakel is de weg en Ego is de vijand.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stoïcisme</li><li>kalmte</li><li>aandacht</li><li>zelfbeheersing</li><li>trilogie</li><li>historische portretten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Eerste deel van dezelfde drieluik, over handelen in plaats van over de toestand waaruit gehandeld wordt.</li>
+          <li value="75"><a href="75.html">Ego Is the Enemy</a>. Tweede deel van de drieluik, over eerzucht als tegenhanger van de rust die dit boek beschrijft.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. De Overpeinzingen van Marcus Aurelius, een van de bronnen waar Holiday's hoofdstuk over het gemoed rechtstreeks uit put.</li>
+          <li value="286"><a href="286.html">The Daily Stoic</a>. Holiday's dagboek met stoïcijnse citaten, in dezelfde toegankelijke vorm als dit boek maar als dagelijkse oefening.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Outliers &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gladwell betoogt dat individueel succes minder wordt bepaald door aangeboren talent en persoonlijke inzet dan de gangbare voorstelling suggereert, en meer…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-274">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">274 &middot; Gewoontes en denken</p>
+    <h1>Outliers</h1>
+    <p class="lede">Malcolm Gladwell, 2008</p>
+    <p class="stats">
+      <span><b>1413</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="274"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gladwell betoogt dat individueel succes minder wordt bepaald door aangeboren talent en persoonlijke inzet dan de gangbare voorstelling suggereert, en meer door een opeenstapeling van verborgen voordelen: het moment van geboorte, de cultuur waarin iemand opgroeit, en toegang tot kansen om te oefenen die anderen niet krijgen. Wie succesvol wordt, is volgens hem zelden alleen de knapste of hardst werkende persoon in de kamer, maar vaker degene die op het juiste moment de juiste gelegenheid kreeg om die aanleg om te zetten in duizenden uren voorsprong.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het Matteüseffect bij ijshockey</h3>
+      <p>Het boek opent met een lijst spelers uit een Canadees juniorenkampioenschap, waarvan een onevenredig groot deel in januari, februari of maart is geboren. Omdat de leeftijdsgrens voor een leeftijdscategorie op 1 januari ligt, is een kind dat in januari is geboren bijna een jaar ouder, en dus fysiek verder ontwikkeld, dan een teamgenoot die in december is geboren.</p>
+      <p>Dat kleine verschil leidt ertoe dat de oudere kinderen vaker worden geselecteerd voor sterkere teams, meer trainingsuren krijgen en meer aandacht van coaches, waardoor het aanvankelijke verschil in de loop van jaren uitgroeit tot een echt verschil in vaardigheid. Gladwell noemt dit het Matteüseffect, naar de bijbeltekst dat wie heeft, meer zal krijgen.</p>
+      <h3>De 10.000-uurregel</h3>
+      <p>In het volgende deel bespreekt Gladwell onderzoek van de psycholoog Anders Ericsson naar violisten aan een Berlijnse muziekacademie, waaruit naar voren kwam dat de beste studenten op hun twintigste gemiddeld rond de tienduizend uur hadden geoefend. Gladwell veralgemeniseert dat naar een regel: om ergens werkelijk goed in te worden is ongeveer tienduizend uur doelgerichte oefening nodig.</p>
+      <p>Hij past die regel toe op Bill Gates, die als tiener ongewoon vroege en ruime toegang had tot een computerterminal, en op The Beatles, die in hun beginjaren duizenden uren speelden tijdens lange, uitputtende optredens in Hamburg. In beide gevallen benadrukt hij niet alleen de inzet, maar vooral de bijzondere, voor die tijd zeldzame toegang tot zoveel oefenuren.</p>
+      <h3>Meer dan intelligentie alleen</h3>
+      <p>Een volgend deel zet twee mannen met een uitzonderlijk hoog IQ tegenover elkaar: Christopher Langan, die ondanks zijn intelligentie geen academische carrière opbouwde, en de natuurkundige J. Robert Oppenheimer, die dat wel deed. Gladwell verklaart het verschil met het begrip praktische intelligentie van de psycholoog Robert Sternberg: het vermogen om een omgeving te lezen en er sociaal handig in te opereren, iets wat volgens Gladwell sterker samenhangt met de sociale klasse waarin iemand opgroeit dan met IQ.</p>
+      <p>Langans opvoeding in armoede bood die training niet, terwijl Oppenheimers welgestelde achtergrond hem al vroeg leerde hoe met autoriteit te onderhandelen, een vaardigheid die zijn academische loopbaan volgens Gladwell mede mogelijk maakte.</p>
+      <h3>Geboren op het juiste moment</h3>
+      <p>Gladwell laat zien dat een reeks bekende Amerikaanse techondernemers, onder wie Bill Gates, Steve Jobs, Bill Joy, Eric Schmidt en Steve Ballmer, geboren zijn tussen 1953 en 1956, wat hen als jonge twintigers precies op tijd bracht toen de personal computer opkwam: te jong om vastgeroest te zitten in de oude mainframe-industrie, oud genoeg om de nieuwe technologie te grijpen.</p>
+      <p>Op dezelfde manier bespreekt hij een generatiedip in de geboortecijfers rond de Grote Depressie, waardoor wie in die jaren werd geboren later minder concurrentie ondervond bij het vinden van werk. Beide voorbeelden dienen om te laten zien dat het geboortejaar, iets wat niemand kiest, net zo goed meetelt als talent.</p>
+      <h3>Culturele erfenis</h3>
+      <p>Gladwell onderzoekt hoe cultuur, overgeërfd van generaties eerder, gedrag blijft sturen. Hij beschrijft een "eergevoelscultuur" onder afstammelingen van Schotse en Ierse herdersgemeenschappen in het Amerikaanse Appalachengebied, waar familievetes zoals die tussen de Hatfields en de McCoys volgens hem voortkomen uit een traditie waarin eer met geweld werd verdedigd omdat vee, in tegenstelling tot landbouwgrond, makkelijk te stelen was.</p>
+      <p>Vervolgens bespreekt hij de rol van machtsafstand, een begrip van de organisatiepsycholoog Geert Hofstede voor de mate waarin een cultuur autoriteit accepteert zonder tegenspraak, als verklaring voor een reeks vliegrampen bij Korean Air in de jaren negentig, waarbij copiloten volgens de cockpitopnamen aarzelden om de gezagvoerder rechtstreeks op fouten te wijzen.</p>
+      <h3>Rijstvelden, rekenen en langere schooljaren</h3>
+      <p>In het laatste deel verbindt Gladwell de arbeidsintensieve rijstteelt in delen van Azië aan een cultuur van doorzettingsvermogen, en aan het feit dat Aziatische talstelsels korter en regelmatiger zijn opgebouwd dan het Engelse, wat volgens hem vroeg rekenen makkelijker maakt.</p>
+      <p>Hij sluit af met een Amerikaanse school voor kansarme kinderen, KIPP, die een langer schooljaar en langere schooldagen invoerde en daarmee de trainingsuren van leerlingen dichter bij die van bevoorrechte klasgenoten bracht, als praktische toepassing van het idee dat toegang tot oefentijd zwaarder weegt dan aanleg alleen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Matteüseffect</td><td>Het verschijnsel dat een klein aanvangsvoordeel zichzelf versterkt doordat het meer kansen en aandacht oplevert.</td></tr>
+          <tr><td class="term">10.000-uurregel</td><td>Gladwells veralgemenisering van onderzoek naar violisten, dat ongeveer tienduizend uur doelgerichte oefening nodig is voor uitzonderlijke vaardigheid.</td></tr>
+          <tr><td class="term">Praktische intelligentie</td><td>Sternbergs begrip voor het vermogen om een sociale omgeving te lezen en er handig in te opereren, los van IQ.</td></tr>
+          <tr><td class="term">Demografisch geluk</td><td>Het toevallige voordeel van geboren zijn in een jaar dat gunstig samenvalt met een economische of technologische ontwikkeling.</td></tr>
+          <tr><td class="term">Eergevoelscultuur</td><td>Een cultuur waarin eer met geweld wordt verdedigd, door Gladwell verklaard uit een herderseconomie waar vee makkelijk te stelen was.</td></tr>
+          <tr><td class="term">Machtsafstand</td><td>Hofstedes begrip voor de mate waarin een cultuur accepteert dat autoriteit niet wordt tegengesproken.</td></tr>
+          <tr><td class="term">Cumulatief voordeel</td><td>De optelsom van kleine, herhaalde voordelen die uiteindelijk een groot verschil in uitkomst verklaren.</td></tr>
+          <tr><td class="term">Relatief-leeftijdseffect</td><td>Het verschil in ontwikkeling tussen kinderen van dezelfde leeftijdscategorie, veroorzaakt door de plaatsing van een vaste peildatum.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gladwell werkt als journalist met bestaand academisch onderzoek dat hij samenvat en aan elkaar verbindt: Ericssons onderzoek naar violisten, de geboortemaandstatistieken van Canadese jeugdhockeyers zoals in kaart gebracht door de socioloog Roger Barnsley, Sternbergs werk over praktische intelligentie, en Hofstedes cultuurdimensies. Deze bronnen zijn gepubliceerd en controleerbaar, maar Gladwell voert zelf geen onderzoek uit.</p>
+      <p>Zijn methode is die van de casus: een klein aantal sprekende voorbeelden, Gates, The Beatles, Langan, Korean Air, die het patroon illustreren. Dat is overtuigend als vertelling, maar zegt weinig over hoeveel mensen met dezelfde voordelen niet succesvol werden, en het boek gaat op die vraag niet in.</p>
+      <p>Waar het kan noemt Gladwell de vaknaam en de universiteit van een onderzoeker, wat de claim controleerbaar maakt voor wie de oorspronkelijke publicatie zelf opzoekt. In de lopende tekst staan echter zelden paginaverwijzingen of exacte cijfers; wie een uitspraak wil natrekken, is aangewezen op het notenapparaat achterin het boek en niet op directe bronvermelding bij elke claim.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De 10.000-uurregel is het meest bekritiseerde onderdeel van het boek. Anders Ericsson, wiens onderzoek Gladwell als basis gebruikt, heeft publiekelijk gesteld dat Gladwell zijn bevindingen verkeerd weergeeft: het oorspronkelijke onderzoek betrof het gemiddelde aantal oefenuren van elite-violisten op hun twintigste, niet een vaste drempel die voor elk vakgebied garant staat voor meesterschap, en de spreiding tussen individuele violisten was groot. Latere studies naar doelgerichte oefening in andere disciplines, waaronder sport en schaken, laten zien dat het aandeel van oefening in de verklaring van prestatieverschillen sterk uiteenloopt en vaak kleiner is dan Gladwells versimpeling suggereert.</p>
+      <p>Het boek selecteert voorbeelden die bij de stelling passen zonder tegenvoorbeelden te tellen: er wordt niet systematisch nagegaan hoeveel mensen met dezelfde geboortemaand, dezelfde vroege toegang tot een computer of dezelfde culturele achtergrond geen uitzonderlijk succes behaalden. Die overlevingsvertekening maakt de argumentatie overtuigend als verhaal, maar zwak als verklaring.</p>
+      <p>De culturele generalisaties, met name de eergevoelscultuur in Appalachen en de koppeling tussen rijstteelt, taal en rekenvaardigheid, worden door antropologen en taalkundigen bekritiseerd als te grofmazig: ze herleiden complex, historisch gevormd gedrag van hele bevolkingsgroepen tot één economische of linguïstische verklaring, zonder de tegenvoorbeelden en uitzonderingen te wegen die dat soort generalisaties doorgaans ondermijnen.</p>
+      <p>Ten slotte biedt het boek geen statistische toetsing van hoeveel van het succes van zijn hoofdpersonen daadwerkelijk aan de genoemde factoren valt toe te schrijven tegenover andere, niet-besproken factoren; de argumentatie blijft daardoor plausibel zonder aantoonbaar te zijn.</p>
+      <p>De vorm keert terug in Gladwells latere werk: een klein aantal opvallende casussen draagt een brede, aansprekende stelling. Critici hebben dat patroon, ook zichtbaar in <i>Blink</i>, aangewezen als het punt waarop zijn boeken eerder overtuigen door verteltechniek dan door de stapeling van bewijs die de stelling zou moeten dragen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Outliers: The Story of Success</i> (Little, Brown and Company, 2008, 309 blz.). Nederlands als <i>Uitblinkers: waarom sommige mensen succes hebben en andere niet</i>, sinds 2008 bij Business Contact, inmiddels Atlas Contact (twintigste druk, 2021, 344 blz., ISBN 9789047015345); vertaald door Judith Dijs.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gladwell stelt dat opvallend succesvolle mensen minder te danken hebben aan aangeboren talent dan aan verborgen voordelen: het moment waarop ze geboren zijn, de cultuur waarin ze opgroeiden en toegang tot oefening die anderen niet hadden. Hij opent met Canadese jeugdhockeyers, van wie een onevenredig groot deel in de eerste maanden van het jaar is geboren, omdat de leeftijdsgrens voor een team op 1 januari ligt en een kind dat net na de zomer geboren is bijna een jaar ouder is dan een teamgenoot die in december geboren is. Dat kleine verschil in ontwikkeling leidt tot meer aandacht van trainers, wat leidt tot meer training, wat het verschil op den duur laat groeien: het zogeheten Matteüseffect, waarbij een klein aanvangsvoordeel zichzelf versterkt.</p><p>Van daaruit behandelt hij onder meer de "10.000-uurregel", ontleend aan onderzoek naar violisten, en past die toe op onder anderen Bill Gates en The Beatles, de invloed van cultuur op gedrag, met een hoofdstuk over vliegrampen bij Korean Air, en het toeval van geboortejaar, waarbij techondernemers geboren in 1954 en 1955 toevallig de juiste leeftijd hadden toen de computerindustrie op gang kwam. De 10.000-uurregel is na verschijning van het boek het meest bediscussieerde onderdeel gebleken: Anders Ericsson, wiens onderzoek Gladwell als bron gebruikt, heeft zelf gesteld dat Gladwell zijn bevindingen te grofmazig heeft samengevat tot een vaste drempel die het onderzoek niet als zodanig claimde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>succes</li><li>talent</li><li>toeval</li><li>cultuur</li><li>statistiek van uitzonderingen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman onderzoekt vanuit cognitiepsychologisch onderzoek hoe mensen oordelen over kansen en verdiensten, een vraag die dicht bij Gladwells thema ligt.</li>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth onderzoekt doorzettingsvermogen met eigen data en biedt zo een tegenwicht tegen Gladwells anekdotische benadering van hetzelfde onderwerp.</li>
+          <li value="50"><a href="50.html">So Good They Can't Ignore You</a>. Newport bouwt op vergelijkbare onderzoeksliteratuur over vaardigheid en oefening voort, met een praktischer insteek dan Gladwells verklarende verhaal.</li>
+          <li value="283"><a href="283.html">Blink</a>. Gladwells eigen boek over razendsnelle oordelen, geschreven in dezelfde casus-gedreven stijl en onderhevig aan vergelijkbare kritiek op de bewijskracht ervan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Short History of Nearly Everything &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bryson's uitgangspunt is dat vrijwel niemand, hijzelf incluis, kan uitleggen hoe wetenschappers eigenlijk weten wat leerboeken als vaststaand presenteren,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-239">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">239 &middot; Natuur en wetenschap</p>
+    <h1>A Short History of Nearly Everything</h1>
+    <p class="lede">Bill Bryson, 2003</p>
+    <p class="stats">
+      <span><b>1425</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="239"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bryson's uitgangspunt is dat vrijwel niemand, hijzelf incluis, kan uitleggen hoe wetenschappers eigenlijk weten wat leerboeken als vaststaand presenteren, van de leeftijd van het heelal tot het gewicht van de aarde, en dat die kennis niet via een rechte lijn van geniale inzichten tot stand kwam maar via een lange reeks ruzies, toevalstreffers, koppige overtuigingen en soms decennialange miskenning. Zijn boek behandelt daarom niet alleen wat er inmiddels bekend is over het heelal, de aarde en het leven, maar minstens zo veel hoe die kennis, vaak node en via omwegen, boven tafel kwam. Wie iets tegenover die these wil zetten, kan zich afvragen of het benadrukken van ruzie en toeval de indruk wekt dat wetenschap minder betrouwbaar is dan de uitkomst, na correctie door herhaald onderzoek, uiteindelijk laat zien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe groot en hoe oud</h3>
+      <p>Het boek opent bij de kosmologie: de omvang van het heelal, de oerknaltheorie en de ontdekking dat het heelal uitdijt, via het werk van astronomen als Vesto Slipher en Edwin Hubble. Bryson besteedt daarbij veel aandacht aan hoe onzeker en omstreden metingen van afstanden in de sterrenkunde lange tijd waren, en hoe traag consensus over de leeftijd van het heelal tot stand kwam.</p>
+      <p>Van daaruit springt hij naar de aarde zelf, met het achttiende-eeuwse experiment van Henry Cavendish om met een eenvoudige torsiebalans het gewicht van de aarde te bepalen, een meting die volgens Bryson verbazingwekkend dicht bij de latere, veel preciezere waarde uitkwam.</p>
+      <h3>Ruzies tussen wetenschappers</h3>
+      <p>Een terugkerend motief is de rol van persoonlijke rivaliteit in de wetenschap. Bryson beschrijft uitvoerig de zogeheten botenoorlog tussen de Amerikaanse paleontologen Edward Cope en Othniel Marsh, die elkaar decennialang beconcurreerden bij het opgraven en vernoemen van dinosaurusfossielen, met alle haastwerk en fouten van dien.</p>
+      <p>Ook de geoloog en meteoroloog Alfred Wegener komt terug, die in het begin van de twintigste eeuw continentendrift voorstelde en tot zijn dood in 1930 door vakgenoten werd afgewezen, decennia voordat platentektoniek als verklaring algemeen aanvaard raakte.</p>
+      <h3>Scheikunde en de bouwstenen van materie</h3>
+      <p>Tussen de aarde en het leven in behandelt Bryson de ontdekking van het atoom en het periodiek systeem. Hij beschrijft hoe scheikundigen als Dmitri Mendelejev orde probeerden te scheppen in de bekende elementen, en hoe latere natuurkundigen als Ernest Rutherford ontdekten dat het atoom zelf grotendeels lege ruimte is met een piepklein, zwaar geladen kern.</p>
+      <p>Ook hier ligt de nadruk op de mensen achter de ontdekking: Bryson besteedt aandacht aan de radioactiviteitsonderzoekers die decennialang met gevaarlijke stoffen werkten zonder de risico's te kennen, en aan hoe traag de kennis over stralingsgevaar via ziekte en sterfte onder onderzoekers zelf tot de wetenschap doordrong.</p>
+      <h3>Een onrustige planeet</h3>
+      <p>Het middendeel behandelt geologie en de risico's die daaruit voortvloeien, van aardbevingen tot vulkanisme. Bryson besteedt aandacht aan de supervulkaan onder Yellowstone National Park en aan hoe recent en onvolledig het inzicht in zulke risico's nog is.</p>
+      <p>Hij bespreekt ook de massa-extinctie aan het einde van het Krijt, en de asteroïde-inslaghypothese van Luis en Walter Alvarez waarmee die massale sterfte, waaronder die van de niet-vogelachtige dinosauriërs, in verband wordt gebracht.</p>
+      <h3>Het ontstaan en de breekbaarheid van leven</h3>
+      <p>Vervolgens richt het boek zich op biologie: hoe onwaarschijnlijk het ontstaan van de eerste cel was, hoe weinig bekend is over de precieze oorsprong van het leven, en hoe complex en toevallig de stap naar meercellige organismen verliep. Bryson benadrukt daarbij vooral hoeveel er nog onzeker is, in plaats van een afgerond verhaal te presenteren.</p>
+      <p>Hij besteedt ook aandacht aan uitgestorven en met uitsterven bedreigde diersoorten, en aan hoe onvolledig het fossielenbestand is waarop reconstructies van de evolutie steunen.</p>
+      <h3>De weg naar de mens</h3>
+      <p>Het slotdeel gaat over de menselijke evolutie, en Bryson benadrukt hier vooral hoezeer paleoantropologen het onderling oneens zijn over welke fossiele vondst tot welke tak van de menselijke stamboom behoort. Het beeld van een opgeruimde, lineaire ontwikkeling van aap naar mens noemt hij een vereenvoudiging die het vakgebied zelf niet onderschrijft.</p>
+      <p>Het boek eindigt met een hoofdstuk over hoe weinig van de aarde eigenlijk in kaart is gebracht, van onbekende diepzeesoorten tot onvolledige kennis van uitstervingsrisico's, en sluit af met de constatering dat wetenschappelijke kennis een werk in uitvoering blijft. Bryson benadrukt daarbij dat de mens de enige soort is die weet dat uitsterven een risico is dat zij zelf kan beïnvloeden, wat hij als de eigenlijke reden ziet om te begrijpen hoe die kennis tot stand kwam.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Cavendish-experiment</td><td>De achttiende-eeuwse torsiebalansmeting waarmee Henry Cavendish het gewicht van de aarde berekende.</td></tr>
+          <tr><td class="term">Continentendrift</td><td>Alfred Wegeners omstreden theorie dat continenten zich over geologische tijd verplaatsen, later bevestigd door platentektoniek.</td></tr>
+          <tr><td class="term">Alvarez-hypothese</td><td>De verklaring van de massa-extinctie aan het einde van het Krijt door een asteroïde-inslag, voorgesteld door Luis en Walter Alvarez.</td></tr>
+          <tr><td class="term">Diepe tijd</td><td>Het besef dat de geschiedenis van de aarde zich over miljarden jaren uitstrekt, een tijdschaal die zich moeilijk laat voorstellen.</td></tr>
+          <tr><td class="term">Fossielenoorlog</td><td>De verbeten decennialange concurrentiestrijd tussen de paleontologen Cope en Marsh om het vinden en vernoemen van dinosaurusfossielen.</td></tr>
+          <tr><td class="term">Supervulkaan</td><td>Een vulkaan met een uitbarstingspotentieel dat de wereldwijde klimaat- en voedselvoorziening kan ontwrichten, zoals die onder Yellowstone.</td></tr>
+          <tr><td class="term">Onvolledig fossielenbestand</td><td>Het gegeven dat slechts een klein deel van uitgestorven soorten ooit als fossiel bewaard en teruggevonden is, wat reconstructies van de evolutie onzeker maakt.</td></tr>
+          <tr><td class="term">Periodiek systeem</td><td>De ordening van chemische elementen naar atoomeigenschappen, opgesteld door Mendelejev en later door de kwantummechanica verklaard.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bryson is journalist en reisschrijver, geen wetenschapper, en het boek is geen origineel onderzoek maar een synthese van interviews met wetenschappers en van populaire en vakliteratuur. Voor de publicatie liet hij delen van het manuscript nalezen door vakgenoten, wat de feitelijke betrouwbaarheid ten goede kwam, al staat er geen apparaat van voetnoten bij losse claims dat elke bewering herleidbaar maakt.</p>
+      <p>Het boek verscheen in 2003, en een deel van de cijfers en inzichten is sindsdien bijgesteld naarmate onderzoek vorderde, van schattingen van het aantal soorten op aarde tot details over menselijke evolutie. De uitgever bracht in 2025 een herziene editie 2.0 uit die zulke verouderde passages actualiseert, wat op zichzelf laat zien dat delen van de oorspronkelijke tekst niet meer de actuele stand van zaken weergeven.</p>
+      <p>Voor historische gebeurtenissen, zoals de fossielenoorlog tussen Cope en Marsh of de late acceptatie van Wegeners continentendrift, kan Bryson steunen op gedocumenteerde correspondentie en publicaties uit die tijd, wat deze passages beter verifieerbaar maakt dan zijn samenvattingen van actueel onderzoek op het moment van schrijven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Vakwetenschappers hebben bij verschijning gewezen op incidentele feitelijke vereenvoudigingen en onnauwkeurigheden, onvermijdelijk bij een boek dat vrijwel de volledige natuurwetenschap in een handzaam volume samenbrengt. Zonder brongegevens bij afzonderlijke beweringen is voor een lezer lastig te achterhalen welke claim stevig staat en welke een vereenvoudigde weergave van een lopend debat is.</p>
+      <p>De nadruk op persoonlijke rivaliteit en ijdelheid van wetenschappers, hoewel vermakelijk verteld, kan de indruk wekken dat wetenschap vooral wordt gedreven door ego en toeval, terwijl diezelfde wetenschap zich juist onderscheidt doordat foutieve of te vroege claims, zoals die van Wegener aanvankelijk, uiteindelijk via herhaling en toetsing door anderen worden gecorrigeerd of alsnog bevestigd.</p>
+      <p>Doordat het boek geen enkel onderwerp met de diepgang van een vakboek behandelt, blijft het bij elk hoofdstuk een introductie in plaats van een grondige uitleg. Wie zich echt in een van de behandelde vakgebieden wil verdiepen, heeft aan dit boek een vertrekpunt maar geen eindpunt. Doordat het boek bovendien geen apart notenapparaat per claim bijhoudt, is de grens tussen een breed gedragen wetenschappelijk inzicht en een detail dat Bryson bij één bron heeft opgepikt, voor de lezer niet altijd te trekken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als kaart van onderwerpen om verder in te lezen, niet als laatste woord over een actuele stand van onderzoek.</li>
+        <li>Ga bij een opvallend feit uit het boek na of recentere bronnen het bevestigen, gezien het boek al ruim twee decennia oud is.</li>
+        <li>Let op het verschil tussen een claim die Bryson aan gevestigd onderzoek ontleent en een anekdote over de persoon achter een ontdekking.</li>
+        <li>Kies bij verdere verdieping in een van de behandelde vakgebieden een gericht boek of vakpublicatie, in plaats van bij deze algemene inleiding te blijven hangen.</li>
+        <li>Neem het slothoofdstuk over onvolledige kennis van de aarde als aansporing om na te gaan wat er sindsdien, twee decennia na publicatie, wel in kaart is gebracht.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>A Short History of Nearly Everything</i> (Broadway Books, 2003). Nederlands als <i>Een kleine geschiedenis van bijna alles</i>, sinds 2004 bij Atlas (512 blz., ISBN 9789045009704); vertaald door Servaas Goddijn.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bryson is reisschrijver, geen wetenschapper, en dat is precies het uitgangspunt: hij zegt zelf op school nooit begrepen te hebben waarom natuurwetenschap hem zou moeten interesseren, en schrijft dit boek als een reis langs kosmologie, geologie, scheikunde en biologie om te achterhalen hoe mensen eigenlijk weten wat ze beweren te weten over de oerknal, het gewicht van de aarde of het uitsterven van de dinosauriërs.</p><p>Zijn aanpak is minstens zo veel geschiedenis van de wetenschap als wetenschap zelf. Hij besteedt evenveel aandacht aan de vaak koppige, ijdele of berooide mensen achter een ontdekking als aan de ontdekking zelf, van de decennialange ruzie tussen twee Amerikaanse botenjagers over dinosaurusfossielen tot de meteoroloog die zijn continentendriftheorie tot zijn dood verworpen zag worden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>kosmologie</li><li>geologie</li><li>evolutie</li><li>populair-wetenschappelijk</li><li>wetenschappers</li><li>diepe-tijd</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Hawking behandelt de kosmologie waarmee dit boek opent in meer diepgang, van een natuurkundige die zelf aan de theorie heeft bijgedragen.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Sapiens zet de grote-lijnenaanpak van dit boek voort op het menselijke tijdvak, met dezelfde neiging om een omvangrijk verhaal in een leesbaar geheel samen te trekken.</li>
+          <li value="57"><a href="57.html">The Lessons of History</a>. De Durants proberen op een vergelijkbare schaal lessen uit een enorme hoeveelheid geschiedenis te trekken, maar dan voor de menselijke samenleving in plaats van de natuur.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

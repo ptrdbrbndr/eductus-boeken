@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Minimalism &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Newport betoogt dat de smartphone en de sociale media die erop draaien niet toevallig aandacht opeisen, maar volgens een engineeringlogica zijn gebouwd om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-288">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">288 &middot; Werk en aandacht</p>
+    <h1>Digital Minimalism</h1>
+    <p class="lede">Cal Newport, 2019</p>
+    <p class="stats">
+      <span><b>1457</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="288"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Newport betoogt dat de smartphone en de sociale media die erop draaien niet toevallig aandacht opeisen, maar volgens een engineeringlogica zijn gebouwd om dat te doen, met variabele beloningen die dezelfde psychologische knoppen indrukken als een gokautomaat. Zijn oplossing is geen minder techniek maar een filosofie: gebruik alleen de digitale hulpmiddelen die een zorgvuldig gekozen waarde in je leven dienen, en gebruik ze dan doelbewust in plaats van uit gewoonte. Wie dat niet zelf kiest, laat de keuze over aan bedrijven wier verdienmodel draait op zoveel mogelijk van iemands tijd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie regels voor een filosofie</h3>
+      <p>Newport opent met een onderscheid tussen digitaal minimalisme als losse trucjes en als filosofie. Een filosofie berust bij hem op drie regels. Rommel is kostbaar: elke extra app of gewoonte brengt kosten met zich mee die vaak hoger zijn dan de losse voordelen bij elkaar opgeteld rechtvaardigen. Optimalisatie doet ertoe: het is niet genoeg om te weten dat een hulpmiddel nuttig kan zijn, iemand moet ook bepalen hoe en wanneer hij het inzet. Intentie geeft voldoening: wie zelf kiest wat hij gebruikt en waarvoor, ervaart meer grip dan wie meegaat in wat er toevallig langskomt.</p>
+      <h3>De dertigdaagse opschoning</h3>
+      <p>De methode begint met een pauze van dertig dagen waarin alle optionele technologie wegvalt, van sociale media tot videospellen. Die tijd is niet bedoeld om vol te houden maar om te herontdekken wat iemand zonder scherm eigenlijk doet en fijn vindt.</p>
+      <p>Na de dertig dagen komt elke dienst terug op basis van drie vragen: dient ze een waarde die iemand echt belangrijk vindt, is ze de beste beschikbare manier om die waarde te dienen, en gebruikt hij haar op een vaste, ingeplande manier in plaats van op elk moment dat de aandacht verslapt. Wat niet aan alle drie voldoet, blijft weg.</p>
+      <p>Wie de dertig dagen overslaat en meteen aan de regels probeert te voldoen zonder eerst zonder alles te hebben geleefd, mist volgens Newport het belangrijkste effect van de oefening: pas na een periode zonder een dienst wordt duidelijk wat die dienst werkelijk toevoegt, in plaats van wat de gewoonte om haar te gebruiken alleen maar in stand hield.</p>
+      <h3>De aandachtseconomie en de gokautomaat</h3>
+      <p>Newport legt uit hoe apps zijn ontworpen rond variabele beloning: net als bij een gokautomaat weet de gebruiker nooit vooraf of de volgende scroll of melding iets waardevols oplevert, en die onzekerheid houdt het gedrag in stand sterker dan een vaste beloning zou doen. Hij citeert Sean Parker, de eerste president van Facebook, die na zijn vertrek toegaf dat het platform bewust was gebouwd om een tussentijdse dopaminestoot te geven en zo veel mogelijk tijd en aandacht van gebruikers te winnen.</p>
+      <h3>Solitude deprivation</h3>
+      <p>Newport noemt het een moderne aandoening om vrijwel nooit meer alleen te zijn met de eigen gedachten, omdat elk leeg moment wordt opgevuld met een scherm. Hij haalt Abraham Lincoln aan, die zich terugtrok in het Soldiers' Home om na te denken, en Henry David Thoreau bij Walden Pond, die eenzaamheid bewust opzocht als werkvorm en niet als straf.</p>
+      <p>Zijn these is dat het verwerken van ervaringen en het vormen van een eigen mening tijd zonder input nodig heeft, en dat een generatie die daar nooit meer aan toekomt onrustiger wordt, niet ondanks maar door de constante verbondenheid. Als praktische invulling stelt hij voor om vaste momenten zonder telefoon in te bouwen, zoals een wandeling of een rit in de auto, niet om iets te bereiken maar om de eigen gedachten de ruimte te geven die ze anders nooit krijgen.</p>
+      <h3>Gesprek als de rijkste vorm van contact</h3>
+      <p>Newport onderscheidt gesprek, met stem, timing en lichaamstaal, van wat hij connectie noemt: een bericht, een like, een korte reactie. Connectie geeft het gevoel van contact zonder de inhoud ervan te leveren, waardoor iemand het gevoel kan hebben veel contact te hebben en toch eenzaam te blijven. Zijn advies is niet om te stoppen met berichten, maar om tekst te gebruiken om een gesprek te plannen in plaats van als vervanging ervan.</p>
+      <p>Hij noemt als voorbeeld het instellen van vaste wandel- of belafspraken met vrienden, zodat contact niet afhangt van losse berichten die iemand toevallig beantwoordt, maar van een terugkerend moment waarop beide partijen daadwerkelijk aandacht aan elkaar besteden.</p>
+      <h3>Hoogwaardige vrije tijd</h3>
+      <p>Passief scrollen herstelt volgens Newport weinig, omdat het niets van de gebruiker vraagt. Hij pleit voor vrije tijd die vaardigheid, oefening en vaak gezelschap vergt: iets repareren, een instrument bespelen, een vaste wekelijkse afspraak. Als voorbeeld beschrijft hij hoe de Amish niet tegen technologie zijn maar elke nieuwe uitvinding eerst toetsen aan wat die doet met gezin en gemeenschap, voordat ze haar overnemen of afwijzen.</p>
+      <h3>Het aandachtsverzet toepassen</h3>
+      <p>Het slot vertaalt de filosofie naar concrete stappen: apps van de telefoon verwijderen en sociale media alleen nog vanaf een computer gebruiken, op vaste momenten, zoals een afspraak in plaats van een reflex. Newport sluit af met de oproep om het gesprek boven het bericht te stellen en om minstens één terugkerende, vaardigheid vragende bezigheid in te plannen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Digitaal minimalisme</td><td>De filosofie om alleen technologie te gebruiken die een zorgvuldig gekozen waarde dient, en die dan doelbewust in te zetten.</td></tr>
+          <tr><td class="term">Digitale opschoning</td><td>De dertigdaagse pauze van alle optionele technologie waarmee de methode begint.</td></tr>
+          <tr><td class="term">Aandachtseconomie</td><td>Het verdienmodel waarin bedrijven concurreren om zoveel mogelijk van iemands aandachtstijd te winnen.</td></tr>
+          <tr><td class="term">Variabele beloning</td><td>Het beloningspatroon met onvoorspelbare uitkomst dat apps en gokautomaten gebruiken om gedrag te laten terugkeren.</td></tr>
+          <tr><td class="term">Solitude deprivation</td><td>De toestand waarin iemand vrijwel nooit meer alleen is met zijn eigen gedachten, zonder input van buiten.</td></tr>
+          <tr><td class="term">Conversation-centric communication</td><td>De regel om voor belangrijk contact een gesprek te kiezen boven tekst, en tekst te gebruiken om dat gesprek te plannen.</td></tr>
+          <tr><td class="term">Hoogwaardige vrije tijd</td><td>Vrije tijd die vaardigheid, inspanning en vaak gezelschap vraagt, tegenover het passief consumeren van een scherm.</td></tr>
+          <tr><td class="term">De Amish-toets</td><td>De gewoonte om een nieuwe technologie eerst te wegen tegen de eigen waarden voordat ze wordt overgenomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Newports belangrijkste materiaal komt uit een eigen pilot: vrijwilligers die zich via zijn website aanmeldden voor een dertigdaagse opschoning en hem na afloop per e-mail verslag deden. Hun ervaringen leveren de meeste voorbeelden en citaten in het boek, en zijn zelf geselecteerd: wie zich voor zo'n experiment aanmeldt, is al gemotiveerd om te veranderen, wat de kans op succesverhalen vergroot ten opzichte van een aselecte steekproef.</p>
+      <p>Daarnaast steunt hij op onderzoek van anderen, zoals de psychologe Jean Twenge over de samenhang tussen smartphonegebruik en somberheid bij tieners, en op experimenteel werk van B.F. Skinner over variabele beloning. Dat onderzoek gaat over de werking van de techniek zelf, niet over de effectiviteit van Newports eigen methode om er iets tegen te doen; voor die laatste stap levert het boek alleen de zelfgerapporteerde ervaringen van deelnemers.</p>
+      <p>Het voorbeeld van de Amish, dat in het boek een belangrijke plaats krijgt, is illustratief bedoeld en niet als getoetste vergelijking: Newport beschrijft hun manier van technologie beoordelen op basis van eigen observaties en secundaire bronnen, niet op basis van veldonderzoek naar de uitkomsten daarvan voor welzijn of gemeenschapszin.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste tegenwerping betreft de gegevens van Twenge waarop Newport steunt: latere en zorgvuldiger heranalyses van dezelfde datasets laten een veel kleiner verband zien tussen schermtijd en somberheid dan de oorspronkelijke publicatie suggereerde, en na correctie voor andere factoren houdt het effect in sommige studies nauwelijks stand. Newport presenteert het verband als vaststaand, terwijl het onderwerp van voortgaand debat is.</p>
+      <p>Het boek herhaalt bovendien voor een groot deel de argumenten uit Newports eigen <i>Deep Work</i> (zie 70), nu toegepast op consumptie in plaats van op werk, waardoor wie dat boek al kent hier weinig nieuws vindt. De methode veronderstelt ook een vrijheid die niet iedereen heeft: wie voor werk of sociale aansluiting op specifieke platforms is aangewezen, kan niet zomaar de dertig dagen overslaan die Newport als beginpunt voorschrijft, en daar besteedt het boek weinig aandacht aan.</p>
+      <p>Ten slotte blijft de vergelijking met de gokautomaat aan de oppervlakte: Newport noemt het mechanisme van variabele beloning, maar gaat niet in op hoeveel individueel verschil er bestaat in gevoeligheid daarvoor, terwijl juist dat verschil zou verklaren waarom sommige lezers zijn methode zonder veel moeite volhouden en anderen al na een paar dagen terugvallen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Voer voor jezelf een dertigdaagse opschoning uit en noteer per week wat je het meest mist.</li>
+        <li>Stel voor elke app die je terugzet een vaste regel op: welk moment, welk doel, welke tijdsduur.</li>
+        <li>Vervang één moment van scrollen per dag door een gesprek of een telefoontje.</li>
+        <li>Zoek een bezigheid die om vaardigheid en oefening vraagt en plan er wekelijks tijd voor in.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Digital Minimalism: Choosing a Focused Life in a Noisy World</i> (Portfolio, 2019). Nederlands als <i>Digitaal minimalisme</i>, sinds 2019 bij Atlas Contact (1e druk, 304 blz., ISBN 9789047011903); vertaald door Carla Zijlemaker en Tracey Drost-Plegt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Newport wil geen digitale onthouding maar een filosofie: gebruik alleen de technologie die een zorgvuldig gekozen waarde in je leven dient, en gebruik die dan doelbewust. Zijn methode begint met een opschoning van dertig dagen waarin alle optionele technologie wordt stopgezet, gevolgd door een langzame terugkeer waarbij elke app of dienst zich moet verantwoorden: dient ze iets wat je belangrijk vindt, is ze de beste manier om dat te dienen, en gebruik je haar op een vaste, geplande manier in plaats van uit verveling. Onderweg legt hij uit hoe sociale media zijn gebouwd rond variabele beloningen, hetzelfde mechanisme dat gokautomaten gebruiken, en waarom een dun contact via likes en berichtjes de behoefte aan gesprek en aan alleen zijn met je eigen gedachten verdringt.</p><p>Het tweede deel gaat over wat ervoor in de plaats moet komen: eenzaamheid als oefening in plaats van iets om te vermijden, gesprek als de rijkste vorm van contact, en vrije tijd die om vaardigheid en inspanning vraagt in plaats van passieve consumptie. Newport, zelf hoogleraar informatica, gebruikt de Amish als voorbeeld van een gemeenschap die nieuwe technologie eerst weegt tegen haar waarden voordat ze die overneemt, niet als curiositeit maar als werkwijze.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>technologie</li><li>sociale media</li><li>aandacht</li><li>eenzaamheid</li><li>vrije tijd</li><li>smartphone</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="70"><a href="70.html">Deep Work</a>. Newports eigen eerdere boek, dezelfde grondgedachte toegepast op werk in plaats van op vrije tijd.</li>
+          <li value="290"><a href="290.html">Indistractable</a>. Eyal snijdt dezelfde afleiding aan vanuit de psychologie van de gebruiker in plaats van vanuit een filosofie van technologiekeuze.</li>
+          <li value="81"><a href="81.html">Building a Second Brain</a>. Forte biedt een aanpak voor de aandacht en informatie die overblijven nadat de ruis is weggehaald.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

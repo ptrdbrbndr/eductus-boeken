@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indistractable &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Eyal betoogt dat afleiding niet in de eerste plaats wordt veroorzaakt door telefoons, meldingen of sociale media, maar door onaangename innerlijke…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-290">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">290 &middot; Werk en aandacht</p>
+    <h1>Indistractable</h1>
+    <p class="lede">Nir Eyal, 2019</p>
+    <p class="stats">
+      <span><b>1412</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="290"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Eyal betoogt dat afleiding niet in de eerste plaats wordt veroorzaakt door telefoons, meldingen of sociale media, maar door onaangename innerlijke gevoelens, zoals verveling, onzekerheid, vermoeidheid of eenzaamheid, waarvoor mensen een snelle ontsnapping zoeken. Alle gedrag, gewenst en ongewenst, komt volgens hem voort uit de wens om ongemak te ontlopen; wat iemand naar zijn voornemen toe trekt noemt hij tractie, wat hem ervan weg trekt noemt hij afleiding. Wie leert die innerlijke drijfveer te herkennen voordat die in gedrag omslaat, heeft volgens Eyal meer aan zijn aandacht dan wie alleen meldingen uitzet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van Hooked naar Indistractable</h3>
+      <p>Eyal opent met zijn eigen positie: na <i>Hooked</i>, waarin hij bedrijven leerde gewoontevormende producten te bouwen, kreeg hij de vraag hoe gebruikers zich daartegen kunnen wapenen. Dit boek is zijn antwoord, geschreven vanuit de overtuiging dat techniek een makkelijk doelwit is, maar dat de werkelijke oorzaak van afleiding in de gebruiker zelf ligt.</p>
+      <p>Hij illustreert dat met zijn eigen ervaring als vader: pas toen hij merkte dat hij zijn dochter tijdens een spelletje afkapte om zijn telefoon te checken, realiseerde hij zich dat hij zelf het gedrag vertoonde waar hij als ontwerper juist op had gemikt. Die persoonlijke aanleiding keert later in het boek terug bij het hoofdstuk over kinderen.</p>
+      <h3>Interne triggers herkennen</h3>
+      <p>Voordat iemand naar zijn telefoon grijpt, gaat er volgens Eyal altijd een innerlijke gewaarwording aan vooraf: onbehagen, onzekerheid, verveling. Hij noemt dat de interne trigger en stelt dat wie die gewaarwording benoemt, opschrijft wat eraan voorafging en er tien minuten mee blijft zitten in plaats van er meteen aan toe te geven, de opwelling vaak voelt wegzakken.</p>
+      <p>Eyal neemt daarbij expliciet afstand van het woord verslaving. Volgens hem is voor de meeste mensen geen sprake van een klinische aandoening maar van onhandig omgaan met ongemak, en die framing is voor hem meer dan een woordkeuze: wie zichzelf verslaafd noemt, geeft de eigen verantwoordelijkheid uit handen aan iets wat hij niet zelf in de hand zou hebben.</p>
+      <h3>Tijd maken voor tractie</h3>
+      <p>Eyal pleit voor het vooraf volledig inplannen van de dag, inclusief werk, relaties en gezondheid, zodat er een concrete maatstaf ontstaat voor wat afleiding is: niet elk moment op de telefoon is afleiding, alleen het gedrag dat afwijkt van wat iemand voor dat moment had gepland. Zonder zo'n plan is er volgens hem niets om aan af te meten of iets tractie of afleiding was.</p>
+      <p>Hij benadrukt dat ontspanning en sociale media in dat schema gewoon een plek mogen krijgen. Wie bewust een half uur voor het scrollen door een tijdlijn inplant, is op dat moment niet afgeleid maar bezig met tractie, omdat het gedrag overeenkomt met wat hij zichzelf had voorgenomen.</p>
+      <h3>Externe triggers terugpakken</h3>
+      <p>Elke melding, badge of pop-up wordt getoetst op één vraag: dient deze trigger mij, of dien ik hem. Eyal geeft concrete aanpassingen, zoals meldingen uitzetten, apps van het beginscherm verwijderen en e-mail en groepschats op vaste momenten checken in plaats van bij elke binnenkomende melding.</p>
+      <p>Op de werkvloer breidt hij dat uit naar de manier waarop teams met elkaar communiceren. Hij pleit voor afgesproken tijden waarop reactie op berichten wordt verwacht, in plaats van de impliciete norm dat iedereen altijd direct bereikbaar hoort te zijn, omdat die norm volgens hem evenveel externe triggers oplevert als een onbeheerde telefoon.</p>
+      <p>Ook bij e-mail past hij dat principe toe: hij stelt voor om vaste blokken per dag te reserveren voor het beantwoorden van berichten, in plaats van de inbox de rest van de dag steeds opnieuw te laten onderbreken, en om automatische antwoorden te gebruiken die aangeven wanneer een reactie wel te verwachten is.</p>
+      <h3>Vooraf afspraken maken</h3>
+      <p>Het sterkste wapen tegen afleiding is volgens Eyal een pact met jezelf, vooraf gesloten, op een moment dat het hoofd nog helder is. Een inspanningspact maakt afleiding fysiek lastiger, bijvoorbeeld door de telefoon in een andere kamer te leggen of in een afsluitbaar kastje op te bergen. Een prijspact verbindt er een kost aan, bijvoorbeeld door met iemand anders een geldbedrag af te spreken dat verbeurt bij het niet nakomen van een voornemen. Een identiteitspact verandert het zelfbeeld, door jezelf te zien als iemand die niet afgeleid raakt in plaats van iemand die daartegen vecht.</p>
+      <h3>Toepassing op werk, relaties en kinderen</h3>
+      <p>In het laatste deel past Eyal het model toe op de werkvloer, waar hij afleiding voor een groot deel wijt aan een gebrek aan psychologische veiligheid in plaats van aan zwakke werknemers: mensen die zich onveilig voelen om een probleem te melden, vluchten volgens hem eerder in hun telefoon dan mensen die dat wel durven. Op relaties past hij het toe door vaste schermvrije momenten met een partner voor te stellen, en bij kinderen raadt hij aan om samen met hen een schema voor schermtijd af te spreken in plaats van alleen regels op te leggen, omdat een gezamenlijk gemaakt schema volgens hem eerder wordt nageleefd dan een opgelegd verbod.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Interne trigger</td><td>De onaangename innerlijke gewaarwording, zoals verveling of onzekerheid, die aan een opwelling tot afleiding voorafgaat.</td></tr>
+          <tr><td class="term">Externe trigger</td><td>Een prikkel van buiten, zoals een melding of geluidssignaal, die de aandacht naar zich toe trekt.</td></tr>
+          <tr><td class="term">Tractie</td><td>Gedrag dat iemand naar zijn eigen voornemen toe trekt.</td></tr>
+          <tr><td class="term">Afleiding</td><td>Gedrag dat iemand van zijn eigen voornemen weg trekt, als reactie op hetzelfde ongemak dat ook tractie oproept.</td></tr>
+          <tr><td class="term">Timeboxing</td><td>Het vooraf volledig inplannen van de dag, zodat er een maatstaf ontstaat voor wat afleiding eigenlijk is.</td></tr>
+          <tr><td class="term">Inspanningspact</td><td>Een vooraf gemaakte afspraak die afleiding fysiek moeilijker maakt.</td></tr>
+          <tr><td class="term">Prijspact</td><td>Een vooraf gemaakte afspraak die aan afleiding een kost verbindt.</td></tr>
+          <tr><td class="term">Identiteitspact</td><td>Een vooraf gemaakte afspraak die het eigen zelfbeeld verbindt aan het niet toegeven aan afleiding.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Eyal bouwt voort op zijn achtergrond als consultant voor techbedrijven en op zijn eigen werk aan gewoontevormend ontwerp uit <i>Hooked</i>. Hij verwijst naar onderzoek over zelfbeheersing, gewoontevorming en motivatie, maar de indistractable-methode als geheel, de combinatie van triggers herkennen, timeboxing en pacten, is niet als zodanig in een gecontroleerde studie getoetst.</p>
+      <p>De voorbeelden in het boek komen grotendeels uit zijn eigen coachingspraktijk en uit gesprekken met managers en ouders die de methode al toepasten, aangevuld met zijn persoonlijke ervaring met zijn dochter. Dat illustreert hoe het model in de praktijk werkt, maar toont niet aan hoe vaak het ook mislukt.</p>
+      <p>Zijn stelling dat de meeste mensen niet in klinische zin verslaafd zijn aan hun telefoon, onderbouwt hij met verwijzingen naar de definitie van verslaving in de gedragswetenschap en naar onderzoekers die zich verzetten tegen het te snel toepassen van dat woord op alledaags gedrag. Dat is een gangbaar standpunt binnen een deel van het vakgebied, maar niet het enige: andere gedragswetenschappers gebruiken het woord verslaving juist wel voor bepaalde vormen van compulsief app-gebruik, en het boek behandelt die tegenstem niet uitgebreid.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De opvallendste tegenwerping betreft Eyals eigen positie: hij bouwde zijn naam op met <i>Hooked</i>, waarin hij bedrijven leerde hoe ze producten gewoontevormend maken, en presenteert zich in dit boek als de gids die mensen daartegen beschermt. Critici wijzen erop dat de nadruk op persoonlijke zelfbeheersing precies het verhaal is dat techbedrijven graag horen, omdat het de aandacht wegleidt van hoe hun producten doelbewust zijn ontworpen om aandacht vast te houden.</p>
+      <p>Verder blijft de these dat afleiding vrijwel altijd van binnenuit komt, een aanname die het boek zelf niet toetst tegen alternatieve verklaringen, zoals werkdruk of slecht ontworpen software waar iemand part noch deel aan heeft. Wie in een omgeving zit die structureel onderbrekingen afdwingt, schiet weinig op met een pact met zichzelf.</p>
+      <p>Zijn afwijzing van het woord verslaving is bovendien zelf niet neutraal: als voormalig ontwerper van gewoontevormende producten heeft Eyal belang bij een verklaring die het probleem vooral bij de gebruiker legt en minder bij het ontwerp van de producten waaraan hij zelf heeft meegewerkt. Dat maakt zijn positie in dat specifieke debat minder onafhankelijk dan die van een buitenstaander.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf voor morgen een volledig tijdschema en noteer aan het eind van de dag waar je ervan afweek.</li>
+        <li>Benoem bij de volgende afleiding welk ongemak eraan voorafging, voordat je toegeeft.</li>
+        <li>Zet meldingen van niet-essentiële apps uit en verplaats ze van het beginscherm.</li>
+        <li>Spreek met een collega, partner of kind een concreet pact af, met een vaste tijd, plek of consequentie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Indistractable: How to Control Your Attention and Choose Your Life</i> (BenBella Books, 2019). Nederlands als <i>Indistractable: hoe je greep houdt op je aandacht en je eigen leven kiest</i>, sinds 2020 bij Anderz (304 blz., ISBN 9789462961395); vertaald door Carla Zijlemaker.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eyal, die met <i>Hooked</i> (zie 294) eerder productontwerpers leerde hoe ze gewoontevormende apps bouwen, keert in dit boek het perspectief om: hoe wordt de gebruiker zelf weerbaar tegen diezelfde technieken. Zijn kernstelling is dat afleiding niet in de eerste plaats door telefoons of meldingen wordt veroorzaakt, maar door onaangename innerlijke gevoelens zoals verveling, onzekerheid of eenzaamheid waarvoor mensen een snelle ontsnapping zoeken. Wat iemand wegtrekt van zijn voornemen noemt hij afleiding, wat hem ernaartoe trekt noemt hij tractie, en beide zijn reacties op hetzelfde soort ongemak.</p><p>Het boek werkt dat uit in vier stappen: eerst leren de innerlijke triggers te herkennen voordat ze in gedrag omslaan, dan de eigen tijd vooraf inplannen zodat er een maatstaf is voor wat afleiding eigenlijk is, vervolgens externe triggers zoals meldingen actief aanpassen, en ten slotte vooraf afspraken met jezelf maken die afleiding moeilijker, duurder of in strijd met je zelfbeeld maken. Aparte hoofdstukken passen dit toe op de werkvloer, op relaties en op kinderen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>afleiding</li><li>gedragsverandering</li><li>gewoontes</li><li>productiviteit</li><li>opvoeding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="294"><a href="294.html">Hooked</a>. Eyals eigen eerdere boek over hetzelfde mechanisme, dan vanuit het perspectief van wie het product bouwt in plaats van wie het gebruikt.</li>
+          <li value="288"><a href="288.html">Digital Minimalism</a>. Newport benadert dezelfde afleiding vanuit een filosofie van technologiekeuze in plaats van vanuit de psychologie van de gebruiker.</li>
+          <li value="70"><a href="70.html">Deep Work</a>. Voor een methode die zich richt op langere blokken geconcentreerd werk in plaats van op het beheersen van losse momenten van afleiding.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

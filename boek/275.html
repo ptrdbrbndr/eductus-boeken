@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Change Your Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pollan betoogt dat psychedelica als LSD en psilocybine een veelbelovende, wetenschappelijk onderbouwde rol hadden in de psychiatrie van de jaren vijftig,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-275">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">275 &middot; Brein en lichaam</p>
+    <h1>How to Change Your Mind</h1>
+    <p class="lede">Michael Pollan, 2018</p>
+    <p class="stats">
+      <span><b>1258</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="275"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pollan betoogt dat psychedelica als LSD en psilocybine een veelbelovende, wetenschappelijk onderbouwde rol hadden in de psychiatrie van de jaren vijftig, dat die ontwikkeling werd afgebroken door de vermenging met de tegencultuur van de jaren zestig en de daaropvolgende verboden, en dat een voorzichtig heropgebouwd klinisch onderzoeksveld sinds het begin van deze eeuw laat zien dat ze onder gecontroleerde omstandigheden kunnen helpen bij depressie, verslaving en doodsangst bij ongeneeslijk zieke patiënten. Zijn these steunt zowel op het gepubliceerde onderzoek als op zijn eigen begeleide ervaringen, die hij uitdrukkelijk als persoonlijk en niet als bewijs presenteert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een persoonlijke aanleiding en een oude ontdekking</h3>
+      <p>Pollan opent met zijn eigen uitgangspositie: een op leeftijd rakende, nieuwsgierige maar terughoudende schrijver die nooit eerder psychedelica had geprobeerd en zich afvroeg wat de recente golf klinisch onderzoek eigenlijk had gevonden. Van daaruit gaat hij terug naar de scheikundige Albert Hofmann, die LSD in 1943 bij toeval op zichzelf uitprobeerde bij Sandoz in Zwitserland, en naar de ontdekking van psilocybinepaddenstoelen door de bankier en amateurmycoloog Gordon Wasson, die er in 1957 een spraakmakend artikel over publiceerde in het tijdschrift Life.</p>
+      <p>Deze ontdekkingen zette hij neer als het begin van een periode waarin deze stoffen nog geen tegencultureel symbool waren, maar chemische nieuwigheden die de psychiatrie en de farmaceutische industrie serieus onderzochten.</p>
+      <h3>Het eerste onderzoekstijdperk en de val</h3>
+      <p>In de jaren vijftig en begin jaren zestig leverde Sandoz LSD gratis aan honderden onderzoekers wereldwijd, die het middel bestudeerden bij alcoholisme, angst bij kankerpatiënten en als hulpmiddel in psychotherapie, met resultaten die door de onderzoekers destijds als hoopgevend werden beschreven.</p>
+      <p>Pollan beschrijft hoe die legitieme onderzoekslijn werd overschaduwd doordat Harvard-hoogleraren Timothy Leary en Richard Alpert psilocybine en later LSD buiten de kliniek om gingen verspreiden en propageerden als middel tot maatschappelijke bevrijding. De vermenging van wetenschappelijk onderzoek met tegencultureel activisme droeg volgens hem rechtstreeks bij aan de groeiende publieke paniek die uitmondde in het Amerikaanse verbod van 1970, waarna legaal onderzoek vrijwel volledig stilviel.</p>
+      <h3>De hersenen onder invloed</h3>
+      <p>Pollan bespreekt onderzoek van onder anderen de Britse neurowetenschapper Robin Carhart-Harris naar het default mode network, een samenhangend hersennetwerk dat actief is tijdens zelfreflectie en dat onder invloed van psilocybine en LSD in hersenscans minder actief blijkt, terwijl andere hersengebieden juist meer met elkaar gaan communiceren dan gebruikelijk.</p>
+      <p>Carhart-Harris' "entropische hersenhypothese" stelt dat deze middelen de gebruikelijke, rigide patronen van het brein tijdelijk ontregelen, wat volgens hem samenhangt met de vaak beschreven ervaring van het loslaten van het eigen ik en met een grotere flexibiliteit van denken die na de ervaring soms aanhoudt.</p>
+      <h3>Zelf de proef ondergaan</h3>
+      <p>Een substantieel deel van het boek bestaat uit Pollans eigen, begeleide ervaringen met psilocybinepaddenstoelen, LSD en het gif van de Sonorawoestijnpad, dat 5-MeO-DMT bevat, telkens onder toezicht van ervaren begeleiders buiten klinisch verband.</p>
+      <p>Hij beschrijft deze sessies gedetailleerd en met zelfkritiek, inclusief momenten van angst en verwarring, en benadrukt daarbij herhaaldelijk dat het gaat om persoonlijke, niet-representatieve ervaringen die als illustratie dienen, niet als bewijs voor de werking van deze stoffen bij anderen.</p>
+      <h3>De klinische heropleving</h3>
+      <p>Pollan bespreekt hedendaags onderzoek aan Johns Hopkins University onder leiding van Roland Griffiths, waarbij ongeneeslijk zieke kankerpatiënten in een gecontroleerde setting psilocybine kregen toegediend en bij een groot deel van hen de existentiële angst voor de dood aantoonbaar afnam, een effect dat bij follow-upmetingen maanden later nog merkbaar was.</p>
+      <p>Daarnaast beschrijft hij kleinschalige studies naar het gebruik van psilocybine bij het stoppen met roken en bij therapieresistente depressie, telkens met de kanttekening dat het om beperkte groepen deelnemers gaat en dat grootschalig, herhaald onderzoek nog moet uitwijzen hoe robuust deze resultaten zijn.</p>
+      <h3>De mystieke ervaring als werkzaam bestanddeel</h3>
+      <p>Pollan bespreekt het "Goede Vrijdag-experiment" van psychiater en predikant Walter Pahnke uit 1962, waarin theologiestudenten tijdens een dienst psilocybine of een placebo kregen toegediend, en waarbij de groep die het middel kreeg opvallend vaker een ervaring rapporteerde die zij zelf als religieus of mystiek beschreven.</p>
+      <p>Hedendaagse onderzoekers gebruiken een vergelijkbare vragenlijst om de intensiteit van zo'n "mystieke ervaring" te meten, en vinden een samenhang tussen de mate waarin deelnemers die ervaring rapporteren en de mate waarin hun angst of verslaving later afneemt. Pollan bespreekt ook het begrip "set en setting", de term van Timothy Leary voor de invloed van iemands psychologische gesteldheid en de fysieke, sociale omgeving op het verloop van een psychedelische ervaring, als verklaring waarom dezelfde stof bij dezelfde persoon zo verschillend kan uitpakken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Default mode network</td><td>Een samenhangend hersennetwerk actief bij zelfreflectie, dat onder psychedelica minder actief wordt.</td></tr>
+          <tr><td class="term">Entropische hersenhypothese</td><td>Carhart-Harris' idee dat psychedelica de gebruikelijke, rigide patronen van het brein tijdelijk ontregelen.</td></tr>
+          <tr><td class="term">Ego-ontbinding</td><td>De ervaring van het (deels) loslaten van het gevoel een afgebakend zelf te zijn, vaak gerapporteerd tijdens een psychedelische sessie.</td></tr>
+          <tr><td class="term">Set en setting</td><td>Leary's term voor de invloed van iemands geestesgesteldheid en de fysieke, sociale omgeving op het verloop van een psychedelische ervaring.</td></tr>
+          <tr><td class="term">Mystieke ervaring</td><td>Een met een vragenlijst gemeten type ervaring, gekenmerkt door onder meer eenheidsgevoel en ontzag, dat samenhangt met betere klinische uitkomsten.</td></tr>
+          <tr><td class="term">Goede Vrijdag-experiment</td><td>Pahnkes onderzoek uit 1962 waarbij theologiestudenten psilocybine of een placebo kregen tijdens een religieuze dienst.</td></tr>
+          <tr><td class="term">Existentiële angst</td><td>De doodsangst bij ongeneeslijk zieke patiënten die in klinische studies met psilocybine het onderzochte effect is.</td></tr>
+          <tr><td class="term">Microdosering</td><td>Het innemen van zeer kleine, niet-psychoactieve hoeveelheden van een psychedelicum, door Pollan besproken maar met nadruk op het ontbreken van goed onderzoek ernaar.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Pollan steunt op drie soorten bronnen: gepubliceerd historisch materiaal over het onderzoek van de jaren vijftig en zestig, gepubliceerde hedendaagse klinische studies aan onder meer Johns Hopkins, New York University en Imperial College London, en eigen interviews met de betrokken onderzoekers en begeleiders. Zijn eigen ervaringen voert hij expliciet op als illustratie, niet als bewijs.</p>
+      <p>De klinische studies die hij bespreekt zijn echt gepubliceerd en peer-reviewed, maar betreffen doorgaans kleine groepen deelnemers, vaak enkele tientallen, wat de statistische power beperkt. Blindering is bij deze middelen nauwelijks mogelijk: deelnemers en begeleiders merken vrijwel altijd of iemand een werkzame dosis heeft gekregen in plaats van een placebo, wat het risico op verwachtingseffecten vergroot, iets wat Pollan zelf benoemt zonder het probleem op te lossen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De kleine omvang van de klinische studies en het vrijwel onvermijdelijke ontbreken van goede blindering betekenen dat de resultaten veelbelovend zijn maar niet het niveau van bewijs hebben dat grootschalige, dubbelblinde geneesmiddelenstudies normaal opleveren; herhaling op grotere schaal was ten tijde van publicatie nog goeddeels toekomstmuziek.</p>
+      <p>Pollans eigen, uitgebreid beschreven ervaringen geven het boek overtuigingskracht als verhaal, maar een ervaring van één persoon zegt weinig over werkzaamheid bij anderen, en de literaire kwaliteit van die passages kan de indruk van bewijskracht vergroten terwijl die er feitelijk niet is.</p>
+      <p>De taal van "mystieke ervaring" en "ontbinding van het ik" leent woorden uit religieuze tradities voor een verschijnsel dat neurowetenschappelijk nog onvolledig wordt begrepen, wat het risico met zich meebrengt dat therapeutische claims verstrengeld raken met spirituele beloften die zich lastig laten toetsen.</p>
+      <p>Het boek besteedt aandacht aan risico's zoals paniekreacties en het aanwakkeren van psychose bij kwetsbare personen, maar de nadruk op hoopvolle klinische resultaten en persoonlijke transformatie overheerst, wat een lezer met weinig voorkennis een optimistischer beeld kan geven van hoe bewezen en hoe breed toepasbaar deze behandelingen op het moment van schrijven daadwerkelijk waren.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>How to Change Your Mind: What the New Science of Psychedelics Teaches Us About Consciousness, Dying, Addiction, Depression, and Transcendence</i> (Penguin Press, 2018). Nederlands als <i>Verruim je geest: wat psychedelica ons leren over bewustzijn, sterven, verslaving en depressie</i>, sinds 2018 bij De Arbeiderspers (eerste druk, 474 blz., ISBN 9789029525770); vertaald door Lidwien Biekmann en Koos Mebius.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pollan onderzoekt hoe LSD en psilocybine, na een veelbelovende start in de psychiatrie van de jaren vijftig, in de jaren zestig verstrikt raakten in de tegencultuur en vervolgens werden verboden, en hoe ze sinds het begin van deze eeuw voorzichtig terugkeren in klinisch onderzoek naar depressie, verslaving en doodsangst bij ongeneeslijk zieke patiënten. Hij combineert medisch-historisch onderzoek, gesprekken met wetenschappers en therapeuten, en een verslag van zijn eigen, begeleide ervaringen met verschillende middelen, ondanks dat hij zichzelf bij aanvang een sceptische, weinig avontuurlijke lezer van middelbare leeftijd noemt.</p><p>Centraal staat de vraag wat er in het brein gebeurt tijdens een psychedelische ervaring: onderzoek naar het zogeheten default mode network, een hersennetwerk dat samenhangt met het zelfbeeld en dat onder invloed van deze middelen tijdelijk minder actief wordt, wat volgens sommige onderzoekers de vaak beschreven "oplossing van het ik" verklaart. Pollan bespreekt hoe klinieken aan Johns Hopkins en de New York University dat effect proberen in te zetten bij mensen met existentiële angst rond een naderende dood en bij verslaving, met kleinschalige maar veelbelovende resultaten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychedelica</li><li>bewustzijn</li><li>neurowetenschap</li><li>verslaving</li><li>sterven</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker beschrijft vanuit vergelijkbaar populariserend wetenschapsjournalistiek een ander onderdeel van de neurowetenschap van het brein, met dezelfde spanning tussen stevig onderzoek en publieksvriendelijke versimpeling.</li>
+          <li value="95"><a href="95.html">Het uur van het hart</a>. Yalom behandelt vanuit de psychotherapie dezelfde vraag naar doodsangst die in Pollans hoofdstukken over kankerpatiënten centraal staat.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle beschrijft vanuit een spirituele traditie een ervaring van ego-ontbinding die opvallend dicht bij de psychedelische ervaringen ligt die Pollan bespreekt, zonder de klinische onderbouwing die Pollan wel zoekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

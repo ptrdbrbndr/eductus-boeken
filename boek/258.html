@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Laws of Human Nature &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Greene stelt dat mensen zichzelf voortdurend voorhouden rationeel te handelen en zelf de regie over hun gedrag te voeren, terwijl dat gedrag in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-258">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">258 &middot; Vrij denken en manipulatie</p>
+    <h1>The Laws of Human Nature</h1>
+    <p class="lede">Robert Greene, 2018</p>
+    <p class="stats">
+      <span><b>1401</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="258"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Greene stelt dat mensen zichzelf voortdurend voorhouden rationeel te handelen en zelf de regie over hun gedrag te voeren, terwijl dat gedrag in werkelijkheid door een klein aantal terugkerende patronen wordt gestuurd: de behoefte aan bevestiging, de neiging te oordelen op grond van een eerste indruk, de verleiding om een verleden trauma te herhalen. Zijn stelling is dat wie deze patronen bij zichzelf leert herkennen, er minder de speelbal van wordt, en dat wie ze bij anderen leert lezen, zich beter kan wapenen tegen misbruik. De keerzijde die Greene zelf nauwelijks bespreekt, is dat exact dezelfde kennis van harte bruikbaar is voor wie een ander juist wél wil beïnvloeden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Achttien wetten, één opzet</h3>
+      <p>Elk hoofdstuk volgt hetzelfde stramien: een historische figuur illustreert eerst hoe het patroon iemand ten gronde richt en vervolgens hoe een ander figuur, geconfronteerd met hetzelfde patroon, het wist te beheersen. Daarna volgt een analyse onder de kop keys to human nature, en het hoofdstuk sluit met concrete strategieën.</p>
+      <p>Die opzet maakt het boek makkelijk los te lezen, hoofdstuk voor hoofdstuk, zonder dat de lezer de vorige moet kennen, wat verklaart waarom het boek ook in fragmenten wordt gelezen en aanbevolen. Het maakt het geheel ook lang: 624 bladzijden voor achttien wetten die elkaar in toon en structuur sterk overlappen.</p>
+      <h3>De Schaduw van Jung</h3>
+      <p>Het begrip dat door bijna elk hoofdstuk terugkeert, is de Schaduw van Carl Jung: het deel van de persoonlijkheid dat een mens niet bij zichzelf wil erkennen en daarom naar de achtergrond dringt. Greene stelt dat wie zijn Schaduw niet onder ogen ziet, hem toch laat spreken, in uitbarstingen van jaloezie, in projectie op anderen, of in gedrag dat met de eigen zelfbeeld in tegenspraak is.</p>
+      <p>Hij past dat begrip toe op historische figuren als Richard Nixon, wiens onderdrukte onzekerheid volgens Greene medebepalend was voor zijn latere val en zijn achterdocht tegenover vrijwel iedereen om hem heen, en pleit ervoor dat lezers hun eigen Schaduw eerder verkennen dan verdringen.</p>
+      <h3>Rolgedrag en het lezen van maskers</h3>
+      <p>In het hoofdstuk over rolgedrag stelt Greene dat mensen zich voortdurend anders voordoen dan ze zich voelen, uit beleefdheid, ambitie of angst voor afwijzing. Wie dat doorziet, kan volgens hem letten op kleine signalen die het masker verraden: een korte aarzeling, een gebaar dat niet bij de woorden past, een reactie die net iets te fel is.</p>
+      <p>Als voorbeeld gebruikt hij onder meer Lyndon Johnson, die volgens Greene precies wist welk gezicht hij bij welke gesprekspartner moest tonen, van joviaal tot dreigend, en juist door dat te wisselen grip kreeg op de Amerikaanse Senaat.</p>
+      <h3>Groepsdenken en conformiteit</h3>
+      <p>Greene beschrijft hoe individuen in een groep systematisch anders gaan denken dan alleen, sneller meegaan met de meerderheid en minder snel afwijkende meningen uiten. Hij verwijst daarbij losjes naar klassiek sociaalpsychologisch onderzoek naar groepsdruk, zonder dat zelf als apart notenapparaat te presenteren.</p>
+      <p>De strategie die hij aanreikt is het behoud van een innerlijke afstand tot de groep: mee kunnen doen zonder het eigen oordeel volledig te laten opgaan in wat de groep op dat moment wil horen.</p>
+      <h3>Verlangen en agressie</h3>
+      <p>Twee andere wetten die Greene uitgebreid behandelt, gaan over verlangen en agressie. In het hoofdstuk over covetousness, begeerte, stelt hij dat mensen sterker verlangen naar wat schaars of onbereikbaar lijkt dan naar wat voortdurend beschikbaar is, en dat verkopers en aanstichters van speculatiegolven dit systematisch uitbuiten door beschikbaarheid kunstmatig te beperken.</p>
+      <p>In het hoofdstuk over agressie onderscheidt hij openlijke agressie, die zich uit in dwang en dreiging, van passieve agressie, die zich verbergt achter behulpzaamheid of slachtofferschap maar hetzelfde doel dient: controle over een ander. Als voorbeeld bespreekt hij onder anderen Henry Kissinger, wiens onderhandelingsstijl volgens Greene beide vormen combineerde, dwingend wanneer dat kon en verzoenend wanneer dat nodig was.</p>
+      <h3>Sterfelijkheid en betekenis</h3>
+      <p>Het slothoofdstuk, over wat Greene doodsbewustzijn noemt, keert terug naar een ouder thema uit de stoïcijnse filosofie: het besef van de eigen eindigheid als correctie op kleine, dagelijkse ergernissen en op de illusie van oneindig uitstel.</p>
+      <p>Greene sluit daarmee het boek af niet met een praktische wet zoals de andere hoofdstukken, maar met een aansporing om vanuit dat besef te leven, wat het boek een filosofischer einde geeft dan de eerdere, praktischer hoofdstukken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De Schaduw</td><td>Het onderdrukte deel van de persoonlijkheid, ontleend aan Carl Jung, dat zich ongemerkt in gedrag en projectie uit.</td></tr>
+          <tr><td class="term">Diep narcisme</td><td>Een gebrekkig ontwikkeld zelfbeeld dat zich vertaalt in een voortdurende behoefte aan bevestiging van buitenaf.</td></tr>
+          <tr><td class="term">Gezond narcisme</td><td>Een stabiel zelfbeeld dat volgens Greene juist ruimte geeft om aandacht naar anderen te verplaatsen.</td></tr>
+          <tr><td class="term">Rolgedrag</td><td>De sociale maskers die mensen aannemen, en het vermogen om de kleine signalen te lezen die daaronder liggen.</td></tr>
+          <tr><td class="term">Keys to human nature</td><td>Het analytische tussendeel in elk hoofdstuk waarin Greene het historische voorbeeld vertaalt naar een algemeen mechanisme.</td></tr>
+          <tr><td class="term">Generatiemyopie</td><td>De neiging om de eigen tijd als vanzelfsprekend eindpunt te zien in plaats van als een fase tussen andere generaties.</td></tr>
+          <tr><td class="term">Doodsbewustzijn</td><td>Het besef van de eigen sterfelijkheid als correctie op uitstel en op onbeduidende ergernissen.</td></tr>
+          <tr><td class="term">Begeerte</td><td>De sterkere aantrekkingskracht van wat schaars of onbereikbaar lijkt ten opzichte van wat voortdurend beschikbaar is.</td></tr>
+          <tr><td class="term">Passieve agressie</td><td>Controle over een ander uitoefenen via behulpzaamheid of slachtofferschap in plaats van via openlijke dwang.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Greene bouwt zijn wetten op uit historische anekdote en eigen observatie, niet uit gecontroleerd onderzoek. Voor elk patroon kiest hij een of twee figuren uit de geschiedenis, van Napoleon tot Milton Erickson, wier levensloop het patroon illustreert, aangevuld met losse verwijzingen naar Jung en, spaarzamer, naar sociaalpsychologisch onderzoek.</p>
+      <p>Dat is een andere manier van onderbouwen dan een wetenschappelijke claim toetsen: een goed gekozen historische casus laat zien dat een patroon kán voorkomen, niet hoe vaak het voorkomt of onder welke voorwaarden. Greene claimt ook niet meer dan dat; hij noemt zijn wetten geen natuurwetten maar herkenbare regelmatigheden. Voor de hoofdstukken over begeerte en agressie geldt hetzelfde: de historische figuren die Greene aanhaalt tonen dat het patroon voorkwam bij Kissinger of bij een specifieke speculatiegolf, niet hoe vaak eenzelfde patroon bij anderen ontbreekt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat het raamwerk nauwelijks te weerleggen is. Wie zich narcistisch gedraagt bevestigt de wet van narcisme, en wie zich juist bescheiden gedraagt kan volgens hetzelfde boek een verdrongen vorm van diezelfde behoefte aan bevestiging vertonen. Eenzelfde patroon geldt voor agressie: wie openlijk dwingend optreedt bevestigt de wet, en wie juist inschikkelijk overkomt kan volgens het boek passieve agressie vertonen. Een verklaring die elk gedrag inpast, is moeilijk te onderscheiden van een verklaring die niets uitsluit.</p>
+      <p>De Jungiaanse Schaduw, het theoretisch fundament onder een groot deel van het boek, staat buiten de empirische psychologie van vandaag; het is een begrip uit een therapeutische traditie, geen getoetst model. Greene presenteert het niettemin als een vaststaand mechanisme.</p>
+      <p>Het bezwaar dat ook <i>The 48 Laws of Power</i> volgde Greene, keert hier terug: een gedetailleerde beschrijving van hoe narcisten, manipulatoren en gladde onderhandelaars te werk gaan, leert een lezer met kwade bedoelingen evenveel als een lezer die zich wil beschermen. Greene stelt dat kennis van het patroon per definitie aan de kant van de verdediging staat, maar die aanname wordt in het boek niet verdedigd, en het hoofdstuk over agressie leest op plekken eerder als een cursus onderhandelingstactiek dan als een waarschuwing ertegen.</p>
+      <p>Ten slotte is de lengte van het boek een zwakte op zichzelf. Achttien hoofdstukken van elk hetzelfde stramien, historische casus, analyse, strategie, leiden tot herhaling in toon en opbouw, en een aantal wetten, zoals begeerte en grandiositeit, overlappen inhoudelijk meer dan de afzonderlijke hoofdstuktitels doen vermoeden. Wie het boek in één keer doorleest, merkt dat de scherpte van de eerste hoofdstukken tegen het einde afneemt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let bij een nieuwe kennis eerst op wat iemand doet in een onbewaakt moment, niet op wat iemand zegt te zijn.</li>
+        <li>Schrijf bij een sterke afkeer van iemand op welk gedrag je precies stoort, en ga na of je dat gedrag ook bij jezelf herkent.</li>
+        <li>Bewaar in een groep een moment van stilte voordat je instemt met de mening die op dat ogenblik het hardst klinkt.</li>
+        <li>Leg bij een beslissing die uitstel behoeft vast wat er over vijf jaar nog toe doet, in plaats van wat vandaag het meest dringend voelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Laws of Human Nature</i> (Viking, 2018). Nederlands als <i>De 18 wetten van de menselijke natuur</i>, sinds 2020 bij Meulenhoff (3e druk, 624 blz., ISBN 9789029093644), vertaald door André Haacke en Ruud van der Helm.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Robert Greene verdeelt dit boek in achttien hoofdstukken, elk gewijd aan een wet van de menselijke natuur: patronen als narcisme, rolgedrag, verdringing en groepsdenken die volgens hem bij vrijwel iedereen spelen, ook al ontkennen mensen dat het liefst. Elk hoofdstuk opent met een historische casus, van Napoleon en Coco Chanel tot Lyndon Johnson en koningin Elizabeth I, gevolgd door een analyse van het onderliggende mechanisme en een strategie om er weerstand aan te bieden. De rode draad is het begrip van de Schaduw van Carl Jung, het deel van de persoonlijkheid dat mensen bij zichzelf onderdrukken en vervolgens bij anderen menen te herkennen.</p><p>Greene presenteert het boek als een instrument voor twee doelen tegelijk: jezelf beter begrijpen en jezelf beschermen tegen wie misbruik maakt van diezelfde patronen bij anderen. Dat tweeledige doel roept dezelfde vraag op als bij zijn eerdere boek <i>The 48 Laws of Power</i>: een beschrijving van hoe narcisten, aanstichters en gladde onderhandelaars te werk gaan, is tegelijk een handleiding voor wie het zelf wil toepassen. Greene onderbouwt zijn wetten met geschiedenis en anekdote, niet met experimenteel onderzoek, en het boek leest daardoor eerder als een verzameling scherpe observaties dan als een verklaring van menselijk gedrag die zich laat toetsen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychologie</li><li>narcisme</li><li>carl jung</li><li>geschiedenis</li><li>zelfkennis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="250"><a href="250.html">The 48 Laws of Power</a>. Greenes eerdere boek werkt dezelfde spanning tussen zelfbescherming en manipulatie uit, maar dan expliciet vanuit het perspectief van macht.</li>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini onderbouwt vergelijkbare beïnvloedingsmechanismen met experimenteel onderzoek in plaats van historische anekdote.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft de cognitieve neigingen die aan een deel van Greenes wetten ten grondslag liggen, met de empirie die Greene achterwege laat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kafka on the Shore &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Murakami zet twee verhalen naast elkaar die beide draaien om een vraag die niemand kan beantwoorden: of een voorspelling te ontlopen is en of iemand ooit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-261">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">261 &middot; Roman en memoir</p>
+    <h1>Kafka on the Shore</h1>
+    <p class="lede">Haruki Murakami, 2002</p>
+    <p class="stats">
+      <span><b>1172</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="261"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Murakami zet twee verhalen naast elkaar die beide draaien om een vraag die niemand kan beantwoorden: of een voorspelling te ontlopen is en of iemand ooit werkelijk kiest, of alleen uitvoert wat al vaststond. Kafka Tamura vlucht voor een vloek die zijn vader hem heeft opgelegd en komt juist door die vlucht in de buurt van precies de mensen die de vloek zou moeten treffen. Nakata, die zijn geheugen en leesvaardigheid kwijtraakte na een onverklaarde gebeurtenis tijdens de oorlog, wordt zonder duidelijke reden dezelfde kant op getrokken. Het boek stelt niet of het lot bestaat, maar wat iemand overhoudt aan de poging eraan te ontsnappen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Twee sporen naast elkaar</h3>
+      <p>Het boek wisselt hoofdstuk voor hoofdstuk tussen twee vertellers. De oneven hoofdstukken volgen Kafka Tamura in de ik-vorm, de even hoofdstukken volgen Nakata in de derde persoon. Beide verhalen beginnen in Tokio en het omliggende gebied en bewegen in de loop van het boek naar Shikoku toe, zonder dat de personages elkaar ontmoeten.</p>
+      <p>Die vorm laat de lezer twee werelden tegelijk volgen die met elkaar te maken lijken te hebben zonder dat duidelijk wordt hoe. Murakami onderbreekt dat patroon pas laat in het boek, wanneer de twee lijnen elkaar het dichtst naderen.</p>
+      <h3>Kafka en de voorspelling</h3>
+      <p>Kafka groeit op bij zijn vader, een bekende beeldhouwer, nadat zijn moeder met zijn oudere zuster is verdwenen toen hij vier was. Zijn vader zegt tegen hem dat hij op een dag zijn vader zal doden en met zijn moeder en zijn zuster zal slapen, een voorspelling die aan de Oedipusmythe doet denken. Op zijn vijftiende verjaardag loopt Kafka weg, met een innerlijke stem die hij Crow noemt als enige metgezel.</p>
+      <p>Hij komt via een nachtbus in Takamatsu terecht en vindt via toeval onderdak in de particuliere Komura-bibliotheek, waar hij de dagen doorbrengt met lezen. Op hetzelfde moment gebeurt in Tokio een moord op zijn vader, zonder dat Kafka daar op de gewone manier bij aanwezig was.</p>
+      <h3>Oshima en Miss Saeki</h3>
+      <p>In de bibliotheek raakt Kafka bevriend met Oshima, een medewerker die biologisch vrouw is maar als man leeft en aan hemofilie lijdt. Oshima neemt Kafka onder zijn hoede, geeft hem onderdak in een hut in de bergen als de politie naar hem zoekt, en fungeert als de stem die de gebeurtenissen probeert te duiden zonder ze te verklaren.</p>
+      <p>Miss Saeki, de beheerster van de bibliotheek, schreef decennia eerder als jonge vrouw een lied met de titel 'Kafka on the Shore', voordat haar geliefde omkwam. Kafka herkent in haar mogelijk zijn verdwenen moeder, en de vraag of dat zo is blijft de rest van het boek onbeantwoord.</p>
+      <h3>Nakata en de sprekende katten</h3>
+      <p>Het tweede spoor volgt Nakata, die als kind tijdens een schoolreisje in de oorlog samen met klasgenoten buiten bewustzijn raakte door een gebeurtenis die nooit verklaard wordt. Hij werd wakker zonder geheugen en zonder het vermogen te lezen, maar met het onverwachte talent om met katten te praten, wat hem een klein inkomen oplevert als opsporder van weggelopen huisdieren.</p>
+      <p>Op zoek naar een kat ontmoet hij een man die zichzelf Johnnie Walker noemt en die katten doodt om van hun zielen een fluit te maken. De ontmoeting eindigt in een geweldsdaad waarbij Nakata betrokken raakt, waarna hij Tokio verlaat met een aandrang die hij zelf niet kan uitleggen.</p>
+      <h3>Hoshino, Colonel Sanders en de steen</h3>
+      <p>Onderweg naar het westen krijgt Nakata gezelschap van Hoshino, een jonge vrachtwagenchauffeur die hem oppikt en langzaam meegezogen raakt in zijn vreemde opdracht. Nakata, die niet kan lezen en geen kaart kan volgen, wordt toch onmiskenbaar naar Takamatsu getrokken, alsof er iets op hem wacht.</p>
+      <p>Een figuur die zich voordoet als Colonel Sanders, het uithangbord van een fastfoodketen, helpt Hoshino een steen te vinden die dient als ingang tussen deze wereld en een andere. Het openen en sluiten van die steen wordt het middelpunt van het tweede deel van het boek, met Hoshino als degene die uiteindelijk moet handelen waar Nakata het niet meer kan.</p>
+      <h3>Wat samenkomt en wat open blijft</h3>
+      <p>Kafka trekt zich terug in het bos rond Oshima's hut en ontmoet daar twee soldaten uit de Tweede Wereldoorlog die niet ouder zijn geworden, en later een versie van Miss Saeki uit haar jeugd. Daar krijgt hij de gelegenheid zijn eigen aandeel in de voorspelling onder ogen te zien, zonder dat het boek vertelt of hij die werkelijk heeft uitgevoerd.</p>
+      <p>Murakami laat de twee sporen niet in een sluitende verklaring samenkomen. Wat er precies gebeurd is met de moord op Kafka's vader, wie Miss Saeki voor hem is en wat er met de steen gebeurt, blijft aan de lezer om in te vullen. Het boek eindigt met Kafka die terugkeert naar Tokio, met de aankondiging dat hij nu deel uitmaakt van een nieuwe wereld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De voorspelling</td><td>De vloek die Kafka's vader hem meegeeft, dat hij zijn vader zal doden en met zijn moeder en zuster zal slapen, naar het patroon van de Oedipusmythe.</td></tr>
+          <tr><td class="term">Crow</td><td>De innerlijke stem die Kafka tijdens zijn vlucht aanspreekt en aanmoedigt, vernoemd naar de Tsjechische betekenis van de naam Kafka.</td></tr>
+          <tr><td class="term">De ingangssteen</td><td>Een steen die Hoshino en Nakata openen als toegang tussen de gewone wereld en een andere, en die aan het eind weer gesloten moet worden.</td></tr>
+          <tr><td class="term">Johnnie Walker</td><td>De figuur die katten doodt om van hun zielen een fluit te maken, en wiens confrontatie met Nakata het tweede spoor van het boek in gang zet.</td></tr>
+          <tr><td class="term">Colonel Sanders</td><td>Een figuur die de gedaante aanneemt van het uithangbord van een fastfoodketen en Hoshino helpt de ingangssteen te vinden.</td></tr>
+          <tr><td class="term">De Komura-bibliotheek</td><td>De particuliere bibliotheek in Takamatsu waar Kafka onderdak vindt en waar Oshima en Miss Saeki werken.</td></tr>
+          <tr><td class="term">De twee sporen</td><td>De afwisselende hoofdstukken die Kafka's verhaal in de ik-vorm en Nakata's verhaal in de derde persoon naast elkaar laten lopen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Murakami laat bewust veel onopgelost: wie Miss Saeki voor Kafka precies is, wat er met Kafka's vader is gebeurd en wat de steen werkelijk voorstelt, wordt nergens vastgelegd. Voor sommige lezers is dat de kracht van het boek, voor anderen een manier om een verhaal dat niet sluitend is te laten doorgaan voor diepzinnig.</p>
+      <p>De seksuele scènes tussen de vijftienjarige Kafka en een vrouw die mogelijk zijn moeder is, zijn door critici bekritiseerd als ongemakkelijk en weinig functioneel voor het verhaal, en Murakami is vaker verweten dat zijn vrouwelijke personages vooral bestaan om het innerlijke leven van zijn mannelijke hoofdpersonen vooruit te helpen. Sakura en Miss Saeki krijgen weinig eigen leven buiten hun betekenis voor Kafka. Ook de lange gesprekken waarin Oshima klassieke muziek, Griekse tragedie en Japanse literatuur uitlegt, worden door sommige lezers ervaren als vertragende uitweidingen die het verhaal ophouden zonder het verder te brengen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Umibe no Kafuka</i>, bij Shinchosha (Tokio, 2002). Nederlands als <i>Kafka op het strand</i>, sinds 2006 bij Atlas Contact, vertaald door Jacques Westerhoven (30e druk, 2021, 640 blz., ISBN 9789025470913).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Twee verhalen lopen door elkaar heen. Kafka Tamura, vijftien jaar, loopt weg van huis in Tokio nadat zijn vader hem een voorspelling heeft meegegeven die aan de Oedipusmythe doet denken: hij zal zijn vader doden en met zijn moeder en zuster slapen. Hij reist naar Takamatsu op het eiland Shikoku en vindt onderdak in de particuliere Komura-bibliotheek, waar de bibliothecaris Oshima hem begeleidt en de afstandelijke beheerster Miss Saeki een sleutelrol krijgt. Ernaast staat het verhaal van Nakata, een oudere man die als kind tijdens de oorlog buiten bewustzijn raakte, daarna niet meer kon lezen maar wel met katten kan praten. Op zoek naar een weggelopen kat komt hij een kattenmoordenaar tegen die zichzelf Johnnie Walker noemt.</p><p>Na een geweldsdaad waarbij Nakata betrokken raakt, reist hij met de jonge vrachtwagenchauffeur Hoshino naar het westen, gedreven door een aandrang die hij zelf niet kan verklaren. Onderweg helpt een figuur die zich voordoet als Colonel Sanders hen een steen te vinden die als ingang tussen twee werelden dient. De twee verhaallijnen komen dichter bij elkaar zonder elkaar volledig uit te leggen: Murakami laat bewust open wat er precies gebeurt en wie Miss Saeki voor Kafka is. Het boek combineert magisch realisme met verwijzingen naar Griekse tragedie en Japanse klassiekers, en de titel verwijst naar een lied dat Miss Saeki ooit schreef.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>magisch realisme</li><li>lotsbestemming</li><li>identiteit</li><li>japan</li><li>griekse mythologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="173"><a href="173.html">The Metamorphosis</a>. Kafka's vader vernoemde hem naar Franz Kafka; De gedaanteverwisseling laat een vergelijkbare wending van het gewone naar het onverklaarbare zien.</li>
+          <li value="10"><a href="10.html">Ten oosten van Eden</a>. Steinbeck bouwt zijn verhaal eveneens rond een familievloek die aan een bijbels patroon is ontleend, met dezelfde vraag of een personage eraan kan ontkomen.</li>
+          <li value="287"><a href="287.html">Siddhartha</a>. Hesse volgt net als Murakami een jonge man die zijn eigen weg moet vinden buiten het gezin, in een verhaal dat evenmin op een sluitende verklaring uitkomt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

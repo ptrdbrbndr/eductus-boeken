@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Factfulness &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rosling betoogt dat het wereldbeeld van de meeste mensen, inclusief hoogopgeleide experts, systematisch somberder is dan de feiten rechtvaardigen, en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-234">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">234 &middot; Geschiedenis en samenleving</p>
+    <h1>Factfulness</h1>
+    <p class="lede">Hans Rosling, met Ola Rosling en Anna Rosling Rönnlund, 2018</p>
+    <p class="stats">
+      <span><b>1407</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="234"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rosling betoogt dat het wereldbeeld van de meeste mensen, inclusief hoogopgeleide experts, systematisch somberder is dan de feiten rechtvaardigen, en dat dit geen toeval is maar het gevolg van tien herkenbare denkinstincten die evolutionair verklaarbaar zijn maar in een moderne informatieomgeving misleiden. Hij onderbouwt dit met een feitentoets waarop grote groepen, van studenten tot Nobelprijswinnaars, gemiddeld slechter scoren dan wanneer ze de antwoorden met een dobbelsteen zouden bepalen, wat volgens hem laat zien dat de fout systematisch negatief is en niet uit willekeurige onwetendheid voortkomt. Zijn remedie is niet blind optimisme maar wat hij feitenkennis noemt: het gewoonte maken van instincten checken aan cijfers voordat je een oordeel velt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De feitentoets</h3>
+      <p>Het boek opent met een reeks meerkeuzevragen over de wereld, bijvoorbeeld over het aandeel mensen in extreme armoede of de vaccinatiegraad wereldwijd. Rosling liet deze vragen aan uiteenlopende groepen voorleggen, van schoolklassen tot conferentiegangers en Nobelprijswinnaars, en telkens bleek de gemiddelde score lager dan de kans die drie willekeurig gekozen antwoorden zouden opleveren.</p>
+      <p>Die uitkomst is voor Rosling het bewijs dat er geen sprake is van simpele onwetendheid, waarbij antwoorden willekeurig fout zouden zijn, maar van een stelselmatige vertekening richting het negatieve. Mensen weten niet te weinig, ze weten verkeerd, en steeds in dezelfde richting.</p>
+      <h3>Vier inkomensniveaus in plaats van arm en rijk</h3>
+      <p>Rosling verwerpt de tweedeling ontwikkeld en ontwikkelingsland, die volgens hem uit een tijd stamt waarin die kloof reëel was maar nu een groot deel van de wereldbevolking verkeerd plaatst. Hij stelt een indeling in vier inkomensniveaus voor, van mensen die op blote voeten leven tot mensen met auto's en vakanties, en laat zien dat de meeste mensen tegenwoordig in de middelste twee niveaus leven.</p>
+      <h3>De dramatische instincten</h3>
+      <p>De kern van het boek bespreekt tien instincten, waaronder het kloofinstinct, dat de wereld in twee tegengestelde groepen verdeelt, het negativiteitsinstinct, dat verbetering over het hoofd ziet omdat slecht nieuws harder aankomt, het rechte-lijninstinct, dat aanneemt dat trends lineair doorlopen terwijl veel trends afvlakken, en het angstinstinct, dat zeldzame maar dramatische risico's laat zwaarder wegen dan veel voorkomende maar onopvallende risico's.</p>
+      <p>Daarnaast bespreekt hij het generalisatie-instinct, dat groepen te snel over één kam scheert, het bestemmingsinstinct, dat aanneemt dat landen of culturen vastzitten aan hun verleden, het enkelvoudig-perspectiefinstinct, dat op zoek gaat naar één verklaring of oplossing voor complexe problemen, het schuldinstinct, dat liever een dader aanwijst dan een systeem onderzoekt, en het urgentie-instinct, dat aandringt op snelle actie zonder de tijd te nemen voor betrouwbare gegevens.</p>
+      <h3>Cijfers als tegengif</h3>
+      <p>Bij elk instinct geeft Rosling een concrete regel om cijfers beter te lezen: kijk naar percentages in plaats van absolute aantallen, vergelijk met eerdere metingen in plaats van met een ideaalbeeld, en ga na of een trend een rechte lijn is of een curve die afbuigt. Deze regels vormen samen wat hij feitenkennis noemt, een gewoonte van nauwkeurig kijken in plaats van een politieke stellingname.</p>
+      <h3>Persoonlijke ervaring als arts</h3>
+      <p>Rosling weeft door het boek heen ervaringen uit zijn werk als arts in Mozambique in de jaren tachtig, waaronder een incident waarbij een dorp hem voor een dief aanzag, wat hij gebruikt om te laten zien hoe cultuurverschillen en gebrek aan informatie tot verkeerde, wederzijdse aannames leiden. Die anekdotes geven de statistische hoofdstukken een persoonlijke laag.</p>
+      <h3>Gapminder en de herkomst van de cijfers</h3>
+      <p>Het boek verwijst voortdurend naar Gapminder, de stichting die Rosling met zijn zoon Ola Rosling en schoondochter Anna Rosling Rönnlund oprichtte om cijfers van onder meer de Wereldbank, de Verenigde Naties en nationale statistiekbureaus toegankelijk te maken via visualisaties. Die achtergrond verklaart waarom het boek leunt op samengestelde datasets in plaats van eigen veldonderzoek.</p>
+      <p>Rosling bouwde met zijn zoon en schoondochter eerder het programma Trendalyzer, dat statistieken over landen als bewegende, interactieve bellendiagrammen weergaf en dat later door Google werd overgenomen. Die manier van cijfers tonen, waarbij de beweging van een trend over tientallen jaren in één oogopslag zichtbaar wordt, ligt aan de basis van veel voorbeelden in het boek.</p>
+      <h3>Waarom ook experts het mis hebben</h3>
+      <p>Rosling besteedt apart aandacht aan de vraag waarom niet alleen leken maar ook journalisten, beleidsmakers en wetenschappers slecht scoren op zijn feitentoets. Zijn verklaring is dat de instincten niet voortkomen uit gebrek aan intelligentie of opleiding, maar uit vaste denkgewoonten die iedereen deelt, en dat expertise op één terrein geen bescherming biedt tegen een verouderd beeld van een ander terrein.</p>
+      <p>Hij illustreert dit met voorbeelden van internationale organisaties en media die verouderde categorieën blijven gebruiken, zoals de indeling in ontwikkelde en ontwikkelingslanden, lang nadat de onderliggende cijfers die indeling achterhaald hebben. Daarmee richt zijn kritiek zich niet alleen op individuele lezers maar ook op instituties die informatie verspreiden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">kloofinstinct</td><td>De neiging de wereld te verdelen in twee tegengestelde groepen, zoals arm en rijk, terwijl de meerderheid ertussenin zit.</td></tr>
+          <tr><td class="term">negativiteitsinstinct</td><td>De neiging om verbetering te missen omdat slecht nieuws meer aandacht trekt dan geleidelijke vooruitgang.</td></tr>
+          <tr><td class="term">rechte-lijninstinct</td><td>De aanname dat een trend lineair doorloopt, terwijl veel trends afvlakken of ombuigen.</td></tr>
+          <tr><td class="term">angstinstinct</td><td>Het overschatten van zeldzame, dramatische risico's ten koste van veel voorkomende maar onopvallende risico's.</td></tr>
+          <tr><td class="term">generalisatie-instinct</td><td>Het te snel over één kam scheren van groepen, waardoor verschillen binnen een groep uit het zicht raken.</td></tr>
+          <tr><td class="term">bestemmingsinstinct</td><td>De aanname dat landen, culturen of mensen vastzitten aan hun verleden en niet wezenlijk veranderen.</td></tr>
+          <tr><td class="term">vier inkomensniveaus</td><td>Roslings indeling van de wereldbevolking naar levensstandaard, als alternatief voor de tweedeling ontwikkeld en ontwikkelingsland.</td></tr>
+          <tr><td class="term">feitenkennis</td><td>De gewoonte om aannames aan cijfers te toetsen voordat er een oordeel over de wereld wordt geveld.</td></tr>
+          <tr><td class="term">Trendalyzer</td><td>Het door Gapminder ontwikkelde programma dat statistieken als bewegende bellendiagrammen toont, later overgenomen door Google.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op samengestelde statistieken van de Wereldbank, de Verenigde Naties en nationale bureaus, ontsloten via de eigen organisatie Gapminder. Voor kernclaims zoals de daling van extreme armoede, de stijging van de levensverwachting en de daling van de kindersterfte bestaat brede overeenstemming tussen internationale bronnen, ook al verschillen instituten soms in de precieze afbakening van wat als extreme armoede telt.</p>
+      <p>De feitentoets zelf is herhaald afgenomen bij uiteenlopende groepen, van schoolklassen tot conferentiegangers, en leverde telkens vergelijkbare, lage scores op. Dat is voor Rosling het sterkste onderdeel van zijn bewijsvoering, omdat het niet om een eenmalige meting gaat maar om een patroon dat zich bij verschillende groepen en op verschillende momenten herhaalde. Het is bovendien een van de weinige onderdelen van het boek die op eigen verzameld materiaal berusten in plaats van op bestaande statistieken van derden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Economen die kritisch zijn op de gangbare armoedegrens van iets meer dan een dollar per dag, onder wie Jason Hickel, wijzen erop dat deze drempel zo laag ligt dat ze de indruk van vooruitgang vergroot; bij een hogere, realistischer drempel oogt de daling van armoede minder groot. Rosling gebruikt in het boek vooral de gangbare drempel en gaat niet uitgebreid in op deze methodologische discussie.</p>
+      <p>De optimistische toon van het boek loopt het risico verkeerd te worden gelezen als reden tot achterover leunen, ook al benadrukt Rosling zelf dat verbetering en ernstige problemen tegelijk kunnen bestaan. Onderwerpen als klimaatverandering en groeiende ongelijkheid binnen landen komen in het boek beperkt aan bod vergeleken met de aandacht voor mondiale gemiddelden, waardoor het gevaar bestaat dat lezers de nuance overslaan en alleen het geruststellende beeld onthouden.</p>
+      <p>Het boek verscheen postuum, na het overlijden van Hans Rosling in 2017, en is afgerond door zijn zoon en schoondochter. Dat verklaart een deel van de toon, maar betekent ook dat Rosling zelf de definitieve tekst niet meer heeft kunnen herzien.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een nieuwsbericht met een schrikbarend getal naar het percentage of de langetermijntrend, in plaats van het losse aantal te geloven.</li>
+        <li>Test jezelf op de vier inkomensniveaus voordat je een land of regio in gedachten indeelt bij arm of rijk.</li>
+        <li>Ga na of een trend die je als voortdurend verslechterend ziet, over een langere periode bekeken misschien juist verbetert.</li>
+        <li>Wees alert op verhalen met één duidelijke schuldige, en vraag of er ook een systeem of meerdere oorzaken meespelen.</li>
+        <li>Controleer bij een dramatische nieuwskop de bron van het cijfer en of die vergelijkbaar is met eerdere metingen, voor je een oordeel velt.</li>
+        <li>Leg een eigen aanname over een land of onderwerp naast de recentste cijfers van een bron als de Wereldbank voor je erover meepraat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Factfulness: Ten Reasons We're Wrong About the World - and Why Things Are Better Than You Think</i> (Sceptre/Flatiron Books, 2018). Nederlands als <i>Feitenkennis</i>, sinds 2018 bij Spectrum (28e druk, 344 blz., ISBN 9789000378920); vertaald door Annemie de Vries.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rosling, arts en statisticus, laat aan de hand van een feitentoets zien dat de meeste mensen, ook goed opgeleide experts, systematisch te somber oordelen over de staat van de wereld: op vragen over armoede, vaccinatiegraad of levensverwachting scoren groepen vaak slechter dan wanneer ze willekeurig zouden gokken. Hij onderscheidt tien instincten die dat vertekende beeld veroorzaken, zoals de neiging de wereld in twee kampen te verdelen, de aanname dat trends rechtlijnig doorlopen, en de gewoonte een enkele schuldige aan te wijzen voor complexe problemen. Tegenover elk instinct zet hij een regel om cijfers beter te lezen, bijvoorbeeld door verhoudingen te bekijken in plaats van absolute aantallen.</p><p>Het boek combineert persoonlijke anekdotes uit Roslings werk als arts in Mozambique met cijfers van onder meer de Wereldbank en de Verenigde Naties, samengebracht via de organisatie Gapminder die hij met zijn zoon en schoondochter oprichtte. De kernboodschap is dat de wereld op veel meetbare punten is verbeterd terwijl de perceptie ervan is achtergebleven, zonder dat dit betekent dat er geen ernstige problemen meer zijn.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>statistiek</li><li>ontwikkelingslanden</li><li>cognitieve vertekening</li><li>wereldbeeld</li><li>armoede</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari beschrijft dezelfde lange-termijnverbetering in levensomstandigheden vanuit een historisch in plaats van statistisch perspectief.</li>
+          <li value="251"><a href="251.html">The Rational Optimist</a>. Ridley onderbouwt een vergelijkbaar optimistisch beeld van menselijke vooruitgang, met meer nadruk op ruil en technologie als motor.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan behandelt hoe onjuiste, angstige aannames over de wereld ontstaan en hoe je ze met feiten en methode kunt toetsen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

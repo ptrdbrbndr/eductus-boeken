@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 4-Hour Workweek &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ferriss stelt dat het gangbare levenspatroon, hard werken tot aan het pensioen om dan pas te gaan leven, een vergissing is, en dat wie zijn tijd en taken…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-278">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">278 &middot; Werk en aandacht</p>
+    <h1>The 4-Hour Workweek</h1>
+    <p class="lede">Timothy Ferriss, 2007</p>
+    <p class="stats">
+      <span><b>1428</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="278"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ferriss stelt dat het gangbare levenspatroon, hard werken tot aan het pensioen om dan pas te gaan leven, een vergissing is, en dat wie zijn tijd en taken kritisch selecteert al tijdens zijn werkzame leven lange periodes van vrijheid kan inbouwen. Zijn methode steunt op het toepassen van het 80/20-principe op werk, het uitbesteden van taken die geen aandacht van de eigenaar vereisen en het bouwen van een eenvoudige bron van inkomen die met weinig toezicht blijft draaien. Het boek veralgemeniseert die aanpak vanuit één geval, zijn eigen voedingssupplementenbedrijf, naar een claim die voor vrijwel ieder beroep zou moeten gelden, en dat is precies het punt waarop de methode het meest aanvechtbaar is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herdefinitie van pensioen</h3>
+      <p>Ferriss opent met een aanval op wat hij het uitgestelde leven noemt: veertig jaar werken in de verwachting dat het leven daarna begint. Daar zet hij mini-pensioenen tegenover, korte periodes van weken tot maanden waarin iemand tijdens zijn werkzame leven al leeft zoals hij zich het pensioen voorstelt, in plaats van alle vrije tijd te bewaren voor het einde.</p>
+      <h3>D van Definitie: de New Rich</h3>
+      <p>De eerste letter van zijn DEAL-methode staat voor Definitie: het herzien van wat rijkdom betekent. Niet het inkomen op zich telt, maar de verhouding tussen inkomen, vrije tijd en de vrijheid om ergens te werken, een combinatie die hij de New Rich noemt tegenover mensen die wel geld maar geen tijd hebben.</p>
+      <h3>E van Eliminatie: het 80/20-principe</h3>
+      <p>Bij Eliminatie past hij het 80/20-principe toe op werk: een klein deel van de klanten, taken of producten levert doorgaans het grootste deel van de opbrengst, en de rest kost tijd zonder er evenredig aan bij te dragen. Daarnaast gebruikt hij de wet van Parkinson, die stelt dat werk uitdijt om de beschikbare tijd te vullen, als argument om deadlines en werkdagen bewust te verkorten.</p>
+      <p>Een strikt beperkte informatie-inname, minder nieuws en minder controlemomenten voor e-mail, moet daarbij helpen om aandacht vrij te maken voor wat wel telt. Concreet stelt Ferriss voor om e-mail op twee vaste momenten per dag te behandelen in plaats van doorlopend, en om bij afwezigheid een automatisch antwoord te sturen dat uitlegt wanneer een vraag wel beantwoord wordt, zodat de afzender niet blijft wachten op een reactie die er voorlopig niet komt.</p>
+      <h3>A van Automatisering: werk uitbesteden</h3>
+      <p>Automatisering betekent bij Ferriss vooral het uitbesteden van terugkerende taken aan virtuele assistenten, vaak werkzaam vanuit landen met lagere lonen, en het opzetten van vaste procedures zodat een bedrijf blijft draaien zonder dat de eigenaar iedere beslissing zelf hoeft te nemen. Hij illustreert dat met zijn eigen bedrijf BrainQuicken, een voedingssupplement dat hij vanuit deze aanpak liet doorlopen terwijl hij zelf reisde.</p>
+      <h3>L van Liberatie: loskomen van een vaste plek</h3>
+      <p>De laatste stap gaat over het loskomen van een vaste werkplek, hetzij door met een werkgever afstandswerk te onderhandelen, hetzij door een eigen bedrijf zo in te richten dat het overal te runnen is. Ferriss werkt dit uit met concrete voorbeelden van reizen combineren met werk, en keert daarbij terug naar de mini-pensioenen uit het begin van het boek.</p>
+      <h3>Dromen omrekenen naar een maandbedrag</h3>
+      <p>Voordat hij de vier stappen verder uitwerkt, laat Ferriss de lezer een oefening doen die hij dreamlining noemt: concrete dromen, een auto, een periode in het buitenland, een cursus, omrekenen naar wat ze per maand zouden kosten. Een abstract verlangen naar meer vrijheid wordt zo een getal, en dat getal bepaalt vervolgens hoeveel inkomen een muse, zijn term voor een eenvoudig lopend bedrijfje, in de praktijk moet opleveren.</p>
+      <h3>Angst als obstakel</h3>
+      <p>Een terugkerend thema is dat mensen niet zozeer door gebrek aan kennis vasthouden aan hun huidige situatie, maar door angst voor wat er kan misgaan als ze iets anders proberen. Ferriss laat lezers daarom kleine, ongemakkelijke oefeningen doen, zoals een onbekende om iets vragen of een dag zonder vaste planning doorbrengen, om te ervaren dat een mislukking meestal minder ernstig uitpakt dan gevreesd.</p>
+      <h3>Ontstaan uit één specifiek geval</h3>
+      <p>De methode is niet vanuit een algemene theorie opgebouwd maar vanuit Ferriss' eigen ervaring: een jonge, alleenstaande ondernemer met een product dat zich via internet liet verkopen en automatiseren, in een tijd, 2007, waarin onlinemarketing nog relatief goedkoop en onontgonnen was. Latere edities voegden reacties van lezers toe die de aanpak op hun eigen situatie hadden toegepast, maar het uitgangspunt blijft dat ene geval.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">DEAL</td><td>Ferriss' afkorting voor Definitie, Eliminatie, Automatisering en Liberatie, de vier stappen van zijn methode.</td></tr>
+          <tr><td class="term">Uitgesteld leven</td><td>Zijn term voor het patroon van werken tot het pensioen om dan pas te gaan leven, dat hij als vergissing beschouwt.</td></tr>
+          <tr><td class="term">New Rich</td><td>Mensen die rijkdom meten in de combinatie van inkomen, tijd en vrijheid van locatie, niet in inkomen alleen.</td></tr>
+          <tr><td class="term">Mini-pensioen</td><td>Een korte periode van weken tot maanden waarin iemand tijdens zijn werkzame leven al leeft zoals na pensionering.</td></tr>
+          <tr><td class="term">80/20-principe</td><td>Het uitgangspunt dat een klein deel van de inspanning het grootste deel van het resultaat oplevert, hier toegepast op klanten en taken.</td></tr>
+          <tr><td class="term">Wet van Parkinson</td><td>Het idee dat werk uitdijt om de tijd te vullen die ervoor beschikbaar is, gebruikt als argument voor kortere deadlines.</td></tr>
+          <tr><td class="term">Informatiedieet</td><td>Het bewust beperken van nieuws en communicatie om aandacht vrij te maken voor belangrijker werk.</td></tr>
+          <tr><td class="term">Virtuele assistent</td><td>Een op afstand ingehuurde medewerker aan wie terugkerende taken worden uitbesteed.</td></tr>
+          <tr><td class="term">Dreamlining</td><td>De oefening om concrete dromen om te rekenen naar de maandelijkse kosten die ze met zich meebrengen.</td></tr>
+          <tr><td class="term">Muse</td><td>Ferriss' term voor een eenvoudig, weinig arbeidsintensief bedrijfje dat is opgezet om een vooraf bepaald inkomen te leveren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op Ferriss' eigen ervaring met zijn bedrijf BrainQuicken en op anekdotes van lezers die na de eerste druk contact met hem opnamen. Er is geen systematisch onderzoek naar hoeveel van die lezers de methode daadwerkelijk met succes hebben toegepast, en de voorbeelden die wel worden genoemd, zijn door Ferriss zelf geselecteerd.</p>
+      <p>Het 80/20-principe en de wet van Parkinson zijn op zichzelf bekende, in andere context onderbouwde economische observaties, maar de manier waarop Ferriss ze op individuele werkdagen en klantenlijsten toepast, is een eigen vertaalslag die niet apart is getoetst.</p>
+      <p>Ook de oefeningen tegen angst, zoals het benaderen van vreemden, zijn niet aan onderzoek naar gedragsverandering getoetst; ze zijn beschreven vanuit wat bij Ferriss zelf en bij lezers die hem daarover schreven, leek te werken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste kritiek is dat de methode voortkomt uit een specifieke situatie, een product dat zich goed leende voor automatisering, in een markt en een tijd met weinig concurrentie op internetmarketing, en dat de veralgemenisering naar willekeurig welk beroep daardoor te ver gaat. Voor werk waarin persoonlijke aanwezigheid, vast dienstverband of fysieke handelingen centraal staan, biedt de methode weinig houvast.</p>
+      <p>Ook het uitbesteden aan virtuele assistenten in lagelonenlanden wordt in het boek zonder veel reflectie op arbeidsvoorwaarden of verhoudingen gepresenteerd, terwijl dat wel een kant van de aanpak is die om afweging vraagt.</p>
+      <p>Het begrip muse suggereert bovendien een bedrijf dat vrijwel zichzelf runt, terwijl ieder bedrijf, hoe eenvoudig ook, klantenservice, voorraad of technische problemen blijft opleveren; het boek onderschat op dat punt hoeveel doorlopende aandacht ook een klein bedrijf nog vraagt.</p>
+      <p>De titel zelf is eerder een rekenkundige truc dan een letterlijke belofte: vier uur werk per week ontstaat door de definitie van werk te versmallen tot directe, onvermijdelijke taken en alles daaromheen, van het opzetten van systemen tot het aansturen van assistenten, niet mee te tellen. Wie de aanpak volgt, verlegt tijd eerder dan dat hij die laat verdwijnen, en dat verschil komt in de titel niet naar voren.</p>
+      <p>Ferriss zelf werkte na dit boek verder als schrijver, spreker en investeerder, activiteiten die zelf weer veel tijd vragen; het boek laat in het midden of vier uur werk per week op de lange duur een houdbaar of zelfs een wenselijk eindpunt is, dan wel vooral een fase op weg naar een ander soort werk.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Maak een lijst van klanten of taken en streep het deel weg dat weinig oplevert.</li>
+        <li>Stel voor een terugkerende taak een vaste procedure op zodat iemand anders hem kan overnemen.</li>
+        <li>Beperk het aantal keren per dag dat je e-mail controleert tot een vast moment.</li>
+        <li>Plan een korte periode vrij in tijdens je werkzame leven in plaats van alle vrije tijd te bewaren voor het pensioen.</li>
+        <li>Reken een concrete wens om naar een maandbedrag voordat je hem afschrijft als onbetaalbaar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The 4-Hour Workweek: Escape 9-5, Live Anywhere, and Join the New Rich</i> (Crown Publishers, 2007). Nederlands als <i>Een werkweek van 4 uur: leid een rijk leven zonder veel te doen</i>, sinds 2010 bij Meulenhoff Boekerij (1e druk, 314 blz., ISBN 9789022547953); vertaald door Carla Zijlemaker.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Timothy Ferriss beschrijft in dit boek hoe hij zijn eigen voedingssupplementenbedrijf terugbracht tot een paar uur werk per week door taken uit te besteden aan virtuele assistenten en klanten en producten te schrappen die weinig opleverden. Zijn stelling is dat traditioneel werken, sparen tot aan het pensioen en dan pas gaan leven, een omweg is; wie zijn taken selecteert met het 80/20-principe en zijn tijd bewust beperkt, houdt volgens hem ruimte over voor wat hij mini-pensioenen noemt, korte periodes van reizen of vrije tijd verspreid door het werkzame leven.</p><p>Het boek bevat concrete tips over e-mail, reizen en het opzetten van een bedrijf dat weinig toezicht nodig heeft, en werd na verschijnen in 2007 een bestseller die het idee van locatieonafhankelijk werken bij een breed publiek bekend maakte. De aanpak komt voort uit één specifieke situatie, een jonge ondernemer met een product dat zich makkelijk liet automatiseren, en is niet zonder meer over te zetten naar werk waarin persoonlijke aanwezigheid of vast dienstverband de norm is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>outsourcen</li><li>reizen</li><li>productiviteit</li><li>lifestyle</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman zet tegenover Ferriss' tijdwinst een andere opvatting: dat de eindigheid van tijd iets is om te aanvaarden, niet te verslaan.</li>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Guillebeau werkt een vergelijkbaar idee van een klein, zelfstandig bedrijf verder uit, met minder nadruk op uitbesteden.</li>
+          <li value="276"><a href="276.html">Rework</a>. Fried en Heinemeier Hansson delen de afkeer van lange werkdagen als teken van toewijding, vanuit een bedrijf in plaats van een individu.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

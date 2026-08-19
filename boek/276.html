@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rework &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Fried en Heinemeier Hansson stellen dat de gangbare adviezen over het starten en laten groeien van een bedrijf, een uitgebreid businessplan, extern…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-276">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">276 &middot; Werk en aandacht</p>
+    <h1>Rework</h1>
+    <p class="lede">Jason Fried en David Heinemeier Hansson, 2010</p>
+    <p class="stats">
+      <span><b>1585</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="276"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Fried en Heinemeier Hansson stellen dat de gangbare adviezen over het starten en laten groeien van een bedrijf, een uitgebreid businessplan, extern kapitaal, een kantoor vol personeel, lange werkdagen, vooral bedoeld zijn om onzekerheid te maskeren en dat ze een bedrijf eerder vertragen dan helpen. Klein blijven is voor hen geen tussenstap naar iets groters maar een volwaardig einddoel, en wie voortdurend plant voor een verre toekomst, verliest volgens hen het zicht op wat er nu werkt. Daar staat tegenover dat hun eigen bedrijf, 37signals, groeide in een markt met weinig kapitaalbehoefte en een gunstig moment voor software als dienst, wat de vraag oproept of hetzelfde advies opgaat voor een bedrijf dat wel voorraad, machines of vergunningen nodig heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een bedrijf zonder omweg</h3>
+      <p>Fried en Heinemeier Hansson richtten 37signals op als ontwerpstudio en bouwden Basecamp als hulpmiddel voor hun eigen projecten, tot het product zelf de omzet ging dragen. Het bedrijf nam op een kleine investering na geen extern geld aan, bleef jarenlang met een handvol mensen werken, verspreid over meerdere landen, en publiceerde onder de naam <i>Signal vs. Noise</i> jarenlang blogposts over hoe het dat deed.</p>
+      <p><i>Rework</i> bundelt en bewerkt die posts tot tientallen korte hoofdstukken van twee tot drie bladzijden, gegroepeerd onder kopjes als Takeoff, Progress en Productivity. Die vorm, korte losse stellingen zonder lange redenering ertussen, is zelf ook een toepassing van wat het boek predikt: kort, direct, zonder omweg.</p>
+      <h3>Een plan is gissen</h3>
+      <p>Een van de terugkerende doelwitten is het businessplan. Wie een plan schrijft voor de komende drie of vijf jaar, gokt volgens de auteurs op aannames die de eerste maand al kunnen sneuvelen, en het enige plan dat het waard is te maken, is het plan voor morgen. Hetzelfde wantrouwen geldt geld van buiten: een investeerder dwingt een bedrijf tot een tempo en een richting die van iemand anders zijn, en de schrijvers wijzen liever op eigen omzet als basis voor groei.</p>
+      <p>Ook lange werkdagen worden ontmaskerd. Een workaholic is voor hen niet iemand die veel doet, maar iemand die problemen creëert om 's avonds nog iets te kunnen oplossen; het boek stelt dat het aantal gewerkte uren niets zegt over wat er is bereikt, en dat overwerk vaker een teken is van een slecht ingericht proces dan van toewijding.</p>
+      <h3>Klein blijven als keuze</h3>
+      <p>Groei is in het boek geen doel op zich. De schrijvers stellen voor om je niet te meten aan concurrenten die groter zijn, maar te bedenken wat een handvol mensen zonder budget zou doen, en dat vervolgens te bouwen. Een kleiner product dat één probleem goed oplost, noemen ze sterker dan een uitgebreid product dat overal een beetje bij helpt.</p>
+      <p>Wie een concurrent wil verslaan door telkens meer functies toe te voegen, verliest zich volgens hen in een wapenwedloop die nooit stopt en die uiteindelijk ten koste gaat van wat het product oorspronkelijk goed deed.</p>
+      <h3>Bouwen met minder</h3>
+      <p>Voor het bouwen zelf geldt hetzelfde uitgangspunt: lever een half product op, geen half afgewerkt product. Dat betekent schrappen tot alleen overblijft wat een gebruiker echt nodig heeft, in plaats van een lange lijst wensen half afmaken. Beperkingen, zoals weinig tijd, weinig geld of weinig mensen, zijn in die redenering geen nadeel maar een reden om scherpere keuzes te maken.</p>
+      <p>De schrijvers raden ook aan een product te bouwen voor een probleem dat je zelf hebt, omdat je dan meteen weet of een oplossing werkt zonder eerst een grote groep gebruikers te hoeven bevragen.</p>
+      <h3>Vergaderingen en documenten als ziekte</h3>
+      <p>Een apart deel van het boek richt zich op wat werk binnen een bedrijf kapotmaakt. Vergaderingen kosten volgens de auteurs meer tijd dan ze opleveren, omdat de kosten voor iedere deelnemer los staan en bij elkaar worden opgeteld terwijl de opbrengst zelden in verhouding staat, en een vergadering eindigt vaak in een schijnbare overeenstemming die zodra iedereen weer aan het werk gaat, uiteenvalt in net zoveel interpretaties als er deelnemers waren.</p>
+      <p>Onderbrekingen krijgen dezelfde behandeling: geconcentreerd werk vraagt aaneengesloten tijd, en elke vraag tussendoor kost meer dan de paar minuten die hij lijkt te kosten. Uitgebreide documentatie, ten slotte, wordt vaker geschreven om jezelf in te dekken tegen kritiek dan om iemand echt iets te leren.</p>
+      <h3>Mensen en cultuur</h3>
+      <p>Over personeel is het boek terughoudend: pas aannemen als het pijn doet om het niet te doen, en dan het liefst iemand die het werk al laat zien in plaats van op een cv te vertrouwen.</p>
+      <p>Cultuur is in die visie geen document met kernwaarden maar het resultaat van wat een bedrijf dagelijks doet en beloont; een poster met woorden als klantgericht of integer verandert niets als het gedrag erachter ontbreekt.</p>
+      <h3>Bekend worden zonder reclamebudget</h3>
+      <p>Het laatste deel gaat over promotie, en ook daar wijken de auteurs af van de gangbare route. In plaats van een reclamebudget stellen ze voor om uit te leggen wat je kunt: een blog bijhouden over het eigen vak, vragen van klanten in het openbaar beantwoorden en kennis delen die een concurrent liever voor zich zou houden. Wie zo een publiek opbouwt voordat er iets te verkopen valt, hoeft volgens hen later niet meer te betalen om gezien te worden.</p>
+      <p>Persberichten en een grote lancering krijgen weinig krediet; de schrijvers zagen bij 37signals meer effect van een goed geschreven blogpost die weken later nog werd gedeeld dan van eenmalige aandacht in een medium. Ook hier geldt hun terugkerende regel: een klein, aanhoudend signaal weegt zwaarder dan een korte uitschieter.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Workaholism</td><td>Het overwerken dat de auteurs zien als een teken van slechte planning, niet van toewijding.</td></tr>
+          <tr><td class="term">Planning is gissen</td><td>Hun stelling dat een plan voor de lange termijn niet meer is dan een aanname die snel achterhaald raakt.</td></tr>
+          <tr><td class="term">Underdo your competition</td><td>Het advies om een concurrent te verslaan door minder en beter te doen in plaats van meer functies toe te voegen.</td></tr>
+          <tr><td class="term">Half product, geen half afgewerkt product</td><td>Hun regel om te schrappen tot een kleiner, af product overblijft in plaats van een grotere lijst half te bouwen.</td></tr>
+          <tr><td class="term">Illusie van overeenstemming</td><td>Het effect dat een vergadering eindigt in schijnbare consensus die na afloop in net zoveel interpretaties uiteenvalt.</td></tr>
+          <tr><td class="term">Ass covering</td><td>Documentatie die geschreven wordt om jezelf in te dekken tegen kritiek, niet om iemand iets te leren.</td></tr>
+          <tr><td class="term">Scratch your own itch</td><td>Een product bouwen voor een probleem dat je zelf hebt, zodat je meteen weet of de oplossing werkt.</td></tr>
+          <tr><td class="term">Aannemen als het pijn doet</td><td>Pas personeel werven op het moment dat het gebrek er al schade van oplevert, niet vooruitlopend daarop.</td></tr>
+          <tr><td class="term">Cultuur als gedrag</td><td>Hun opvatting dat cultuur ontstaat uit wat een bedrijf dagelijks doet en beloont, niet uit een verklaring op de muur.</td></tr>
+          <tr><td class="term">Out-teach je concurrent</td><td>Bekendheid opbouwen door kennis openbaar te delen in plaats van te betalen voor advertenties.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt vrijwel volledig op de eigen ervaring van de auteurs met 37signals, aangevuld met observaties uit hun contact met klanten en andere kleine bedrijven die hen benaderden. Er is geen onderzoek, enquête of vergelijking met bedrijven die wel voor een businessplan of extern kapitaal kozen; de claims worden nergens tegen een controlegroep afgezet.</p>
+      <p>Dat maakt het boek sterk als verslag van wat voor hen werkte in een specifieke context, softwareontwikkeling met lage kosten voor extra klanten en weinig fysiek kapitaal, en zwakker als algemene wet. Waar een stelling klopt voor een bedrijf met code als product, hoeft die niet te gelden voor een bedrijf dat voorraad, vergunningen of zwaar materieel nodig heeft.</p>
+      <p>Ook het advies over promotie via een blog rust op wat bij 37signals werkte in de jaren voor het boek verscheen, een periode waarin bedrijfsblogs nog schaars waren en een goed artikel makkelijker opviel. Of dezelfde aanpak vandaag, tussen een veelvoud aan bedrijven die hetzelfde proberen, nog evenveel oplevert, laat het boek in het midden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het duidelijkste bezwaar is dat het advies voortkomt uit een uitzonderlijk gunstige uitgangspositie. Heinemeier Hansson had de programmeertaal Ruby on Rails geschreven en vrijgegeven, wat 37signals al bekendheid en geloofwaardigheid gaf voordat het boek verscheen; niet elke lezer die zonder kapitaal begint, start met dat soort omgeving.</p>
+      <p>Verder mist het boek voorbeelden van momenten waarop de eigen aanpak niet werkte. De schrijvers erkennen zelden een vergissing, en de aforistische vorm, korte stellige hoofdstukken zonder wederhoor, laat weinig ruimte voor nuance of voor situaties waarin een businessplan of extern kapitaal wel nodig blijkt, bijvoorbeeld bij een product dat een grote voorinvestering vergt voordat er iets te verkopen valt.</p>
+      <p>Ten slotte is de raad om via een blog bekendheid op te bouwen sterk gebonden aan een tijd waarin dat kanaal nog weinig concurrentie kende. Het boek besteedt geen aandacht aan wat er verandert als iedereen dezelfde raad opvolgt en een blog niet langer opvalt tussen duizenden andere.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Herschrijf een langetermijnplan tot een plan voor de komende maand.</li>
+        <li>Streep bij een nieuw product de helft van de geplande functies weg voordat je begint met bouwen.</li>
+        <li>Stel bij een vergadering vooraf vast wat het besluit moet zijn en houd hem kort zodra dat gehaald is.</li>
+        <li>Wacht met een vacature tot het gebrek er aantoonbaar pijn doet.</li>
+        <li>Vervang een lang intern document door een kort gesprek waar dat kan.</li>
+        <li>Schrijf één keer per maand op wat je in je vak hebt geleerd en deel dat in plaats van een reclametekst.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Rework</i> (Crown Business, 2010). Nederlands als <i>Rework: Minder is meer</i>, sinds 2010 bij Business Contact (1e druk, 256 blz., ISBN 9789045801872); vertaald door Ab van Ieperen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jason Fried en David Heinemeier Hansson bouwden met hun bedrijf 37signals (later omgedoopt tot Basecamp) een softwarebedrijf zonder extern kapitaal, zonder kantoor voor iedereen en zonder een businessplan vooraf. <i>Rework</i> bundelt wat zij daaruit hebben overgehouden in tientallen korte hoofdstukken van een paar bladzijden, elk met een eigen stelling: een businessplan is gissen, een vergadering kost meer dan hij oplevert, workaholisme is geen teken van toewijding maar van een slechte planning. De schrijvers keren zich tegen het idee dat een bedrijf moet groeien om te slagen en pleiten voor klein blijven als een bewuste keuze.</p><p>Het boek is geen stappenplan maar een verzameling overtuigingen, voortgekomen uit blogposts die Fried al jaren schreef voordat het boek verscheen. Onderwerpen als concurrentie, personeel werven en een product lanceren komen alle terug, telkens vanuit hetzelfde uitgangspunt: doe minder, maar doe het goed. Voor lezers buiten de software- of dienstensector is niet elk advies één op één toepasbaar, maar de kernvraag, of een gewoonte in een bedrijf nog een doel dient, blijft overal bruikbaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>productiviteit</li><li>vergaderingen</li><li>planning</li><li>software</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Guillebeau beschrijft vanuit een ander soort ondernemer dezelfde afkeer van een uitgebreid businessplan en een kantoor.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries biedt met de leanstartupmethode een tegenhanger die wel meet en test in plaats van op overtuiging te bouwen.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz laat zien wat er gebeurt zodra een bedrijf wel groeit, personeel aanneemt en extern geld nodig heeft, het scenario dat dit boek juist afraadt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

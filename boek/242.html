@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autobiography of a Yogi &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Yogananda presenteert kriya yoga als een leerbare, herhaalbare techniek voor spirituele ontwikkeling, vergelijkbaar met een methode uit de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-242">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">242 &middot; Levenskunst</p>
+    <h1>Autobiography of a Yogi</h1>
+    <p class="lede">Paramahansa Yogananda, 1946</p>
+    <p class="stats">
+      <span><b>1408</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="242"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Yogananda presenteert kriya yoga als een leerbare, herhaalbare techniek voor spirituele ontwikkeling, vergelijkbaar met een methode uit de natuurwetenschap, en onderbouwt die claim niet met experimenten maar met een reeks persoonlijke getuigenissen van wonderen: bilocatie, materialisatie, genezing op afstand en een verschijning na de dood van zijn leraar. De stelling van het boek is dat de grens tussen wat westerse lezers als bijgeloof beschouwen en wat als natuurwet geldt, alleen een kwestie is van onvoldoende begrip van de yogische wetenschap, niet van een andere orde van werkelijkheid.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een jeugd vol voortekenen</h3>
+      <p>Yogananda, geboren als Mukunda Lal Ghosh in 1893 in Gorakhpur, opent met jeugdherinneringen die hij als voortekenen van zijn latere pad leest: een visioen van zijn overleden moeder, een genezing die hij aan gebed toeschrijft, een vroege ontmoeting met een yogi die hem zou hebben gezegend. Deze hoofdstukken zijn geschreven als aanloop naar de ontmoeting die het boek zijn richting geeft.</p>
+      <p>Als tiener liep hij enkele keren van huis weg op zoek naar een heilige die hem als leerling zou aannemen, tot hij op zeventienjarige leeftijd Swami Sri Yukteswar Giri ontmoette in Benares, iemand die hij naar eigen zeggen al in een eerdere ontmoeting had voorvoeld.</p>
+      <h3>De jaren bij Sri Yukteswar</h3>
+      <p>Yogananda beschrijft zijn jaren in het ashram van Sri Yukteswar in Serampore als een training in gehoorzaamheid en zelfonderzoek, waarbij zijn leraar hem herhaaldelijk confronteerde met zijn eigen ijdelheid en ongeduld. Naast de spirituele oefening bleef Yogananda studeren voor een universitaire graad, iets wat Sri Yukteswar aanmoedigde omdat hij vond dat spirituele training de wereldse plicht niet moest vervangen.</p>
+      <p>In deze jaren introduceert het boek kriya yoga zelf, een ademhalings- en meditatietechniek die volgens de overlevering via Sri Yukteswars eigen leraar Lahiri Mahasaya teruggaat op de negentiende eeuw, en die Yogananda voorstelt als een versnelde, mechanische methode voor spirituele groei.</p>
+      <h3>Heiligen en wonderen</h3>
+      <p>Een groot deel van het boek bestaat uit ontmoetingen met figuren wier vermogens de natuurwetten volgens Yogananda te boven gaan: een swami die zonder voedsel zou leven, een heilige die zich naar verluidt op twee plaatsen tegelijk zou hebben bevonden, een asceet die een paleis in het Himalayagebergte zou hebben gematerialiseerd. Yogananda vertelt deze verhalen als ooggetuigenverslag, zonder verificatie door een derde partij.</p>
+      <p>Deze hoofdstukken vormen de kern van wat het boek later omstreden maakte: de dichtheid van wonderclaims is voor een westers lezerspubliek ongewoon, en Yogananda presenteert ze zonder het onderscheid dat een biograaf of journalist zou aanbrengen tussen wat hij zelf zag en wat hem verteld werd.</p>
+      <h3>Naar Amerika</h3>
+      <p>In 1920 reisde Yogananda naar Boston om als afgevaardigde van India te spreken op een internationaal congres van religieuze liberalen. Hij bleef in de Verenigde Staten, gaf lezingen door het land en richtte in 1925 in Los Angeles de Self-Realization Fellowship op, met als hoofdkwartier het Mount Washington-complex.</p>
+      <p>Het boek beschrijft deze jaren als een brug tussen twee tradities: Yogananda presenteert kriya yoga niet als vervanging voor het christendom van zijn Amerikaanse gehoor, maar als techniek die volgens hem ook door Christus zelf zou zijn beoefend, een claim die het boek herhaaldelijk maakt zonder historische onderbouwing.</p>
+      <h3>Terug naar India, 1935</h3>
+      <p>Op verzoek van Sri Yukteswar keerde Yogananda in 1935 terug naar India, waar hij Mahatma Gandhi ontmoette en hem naar eigen zeggen inwijdde in kriya yoga, en waar hij ook Rabindranath Tagore sprak. Hij bezocht een vrouw, Giri Bala, die beweerde al tientallen jaren zonder voedsel te leven, een claim die Yogananda onderzocht noemt maar niet onafhankelijk laat verifiëren.</p>
+      <p>Tijdens dit bezoek stierf Sri Yukteswar. Het bekendste hoofdstuk van het boek beschrijft hoe hij weken later in een hotelkamer in Bombay in lichamelijke vorm aan Yogananda verscheen en vertelde over een tussenwereld waarin hij verbleef; Yogananda presenteert dit niet als visioen maar als feitelijke gebeurtenis.</p>
+      <h3>Babaji en de goeroeketen</h3>
+      <p>Een van de centrale figuren van het boek is Mahavatar Babaji, een volgens Yogananda eeuwenoude, onsterfelijke yogi die zich in de Himalaya ophoudt en zelden aan gewone mensen verschijnt. Babaji zou in 1861 aan Lahiri Mahasaya zijn verschenen en hem kriya yoga hebben onderwezen, waarmee de techniek na eeuwen van verval opnieuw beschikbaar kwam voor gewone beoefenaars in plaats van alleen voor teruggetrokken asceten die zich hun hele leven aan een grot of klooster wijden.</p>
+      <p>Yogananda plaatst zichzelf, via Sri Yukteswar en Lahiri Mahasaya, in een directe lijn die teruggaat op Babaji, en presenteert die lijn als garantie voor de zuiverheid van de leer. Voor lezers buiten de traditie is Babaji vooral een verhaalfiguur zonder onafhankelijke bevestiging van zijn bestaan; binnen de Self-Realization Fellowship geldt hij als een levende, actieve aanwezigheid.</p>
+      <h3>Terugkeer en late jaren</h3>
+      <p>Na zijn terugkeer in de Verenigde Staten breidde Yogananda de Self-Realization Fellowship uit met kloosters en correspondentielessen, en onderhield hij contact met wetenschappers als de plantkundige Luther Burbank, die in het boek geciteerd wordt met lof voor Yogananda's opvattingen over voeding. Hij overleed in 1952 in Los Angeles, tijdens een toespraak, wat in latere edities van het boek als bevestiging van zijn eigen voorspellingen over zijn dood wordt gepresenteerd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kriya yoga</td><td>De ademhalings- en meditatietechniek die Yogananda voorstelt als mechanische, herhaalbare methode voor versnelde spirituele ontwikkeling.</td></tr>
+          <tr><td class="term">Mahavatar Babaji</td><td>De volgens de traditie onsterfelijke yogi in de Himalaya die aan het begin van de goeroeketen staat en Lahiri Mahasaya kriya yoga zou hebben geleerd.</td></tr>
+          <tr><td class="term">Yuga's</td><td>De hindoeïstische tijdcycli waarnaar Sri Yukteswar in het boek verwijst om te verklaren waarom kennis als kriya yoga periodiek verloren gaat en herontdekt wordt.</td></tr>
+          <tr><td class="term">Guru-leerling-verhouding</td><td>De centrale relatie in het boek, waarbij de leerling volledige gehoorzaamheid aan de leraar verschuldigd is als voorwaarde voor spirituele vooruitgang.</td></tr>
+          <tr><td class="term">Bilocatie</td><td>Het vermogen dat aan sommige heiligen in het boek wordt toegeschreven om op twee plaatsen tegelijk aanwezig te zijn.</td></tr>
+          <tr><td class="term">Self-Realization Fellowship</td><td>De organisatie die Yogananda in 1920 oprichtte in de Verenigde Staten en die het boek sindsdien uitgeeft en aanpast.</td></tr>
+          <tr><td class="term">Materialisatie</td><td>Het door Yogananda beschreven vermogen van bepaalde asceten om objecten, zoals een paleis, uit het niets te doen ontstaan.</td></tr>
+          <tr><td class="term">Lahiri Mahasaya</td><td>De negentiende-eeuwse leraar aan wie Yogananda de herontdekking van kriya yoga toeschrijft, en van wie Sri Yukteswar leerling was.</td></tr>
+          <tr><td class="term">Christus-in-India-claim</td><td>Yogananda's herhaalde bewering dat de leer van Christus in de kern overeenkomt met kriya yoga en de yogische traditie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een eerstepersoonsgetuigenis, geen onderzoek door een buitenstaander. Yogananda beroept zich op eigen waarneming en op wat anderen hem vertelden, zonder dat er voor de wonderclaims onafhankelijke bevestiging bestaat; namen, plaatsen en jaartallen zijn deels na te trekken, de buitengewone gebeurtenissen zelf niet.</p>
+      <p>Voor de biografische kern, zijn jeugd, zijn tijd bij Sri Yukteswar en zijn werk in de Verenigde Staten, bestaan wel controleerbare gegevens zoals krantenverslagen van zijn lezingen en de oprichtingsdocumenten van de Self-Realization Fellowship, die een latere, onafhankelijke biograaf als Phillip Goldberg heeft gebruikt om het levensverhaal naast het boek zelf te reconstrueren. De Self-Realization Fellowship heeft na Yogananda's dood in nieuwe edities zelf ook enkele feitelijke details aangepast of van een voetnoot voorzien, wat erop wijst dat ook de organisatie sommige passages als aanvulling behoevend beschouwt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De letterkundige Srinivas Aravamudan noemde het boek doortrokken van wondervertellingen, met een dichtheid die hij vergeleek met bijna één wonder per bladzijde, en beschreef Yogananda's presentatie ervan als een retorische stijl die spiritueel gezag opbouwt via herhaling in plaats van via argumentatie. Dat is de kern van het bezwaar tegen het boek: het vraagt de lezer buitengewone claims te aanvaarden op gezag van de verteller, zonder enige vorm van verificatie of weerlegbaarheid aan te bieden.</p>
+      <p>Het boek onderscheidt bovendien zelden tussen wat Yogananda zelf zag en wat hem door anderen werd verteld, waardoor verhalen uit de tweede of derde hand dezelfde status krijgen als eigen ervaring. Voor lezers die het boek als spirituele getuigenis lezen is dat onderdeel van het genre; voor wie het als feitelijk verslag leest, is het een gebrek in de opzet.</p>
+      <p>Vergeleken met de latere, onafhankelijke biografie van Phillip Goldberg, die ook onderzoek deed naar documenten en getuigen buiten Yogananda's eigen kring, blijft dit boek uitsluitend Yogananda's eigen perspectief; wie de gebeurtenissen extern wil toetsen, is op dat latere werk aangewezen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Autobiography of a Yogi</i> (Philosophical Library, 1946). Nederlands als <i>Autobiografie van een yogi</i>, sinds 1949 bij Ankh-Hermes (17e druk, 2023, 508 blz., ISBN 9789020221053); vertaling toegeschreven aan de Self-Realization Fellowship, geen individuele vertaler vermeld.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Yogananda schreef dit boek zelf, als eerstepersoonsgetuigenis van zijn jeugd in Gorakhpur, zijn zoektocht naar een leraar en zijn jaren als leerling van Swami Sri Yukteswar in een ashram bij Kolkata. Het boek staat vol ontmoetingen met heilige mannen die volgens Yogananda buiten de gewone natuurwetten om leefden: een swami die op twee plaatsen tegelijk zou zijn geweest, een yogi die jaren zonder voedsel zou hebben geleefd, en een hoofdstuk waarin Yogananda beschrijft hoe zijn overleden leraar aan hem verscheen in een hotelkamer in Bombay.</p><p>In 1920 reisde Yogananda naar de Verenigde Staten om een congres van religieuze liberalen in Boston toe te spreken en bleef er lesgeven in kriya yoga, een meditatietechniek die hij voorstelde als oefening en niet als geloofsartikel. Hij richtte in Los Angeles de Self-Realization Fellowship op, die het boek nog altijd uitgeeft. Het boek combineert die leer met een terugreis naar India in 1935, waarin hij onder anderen Gandhi en Tagore ontmoet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>yoga</li><li>spiritualiteit</li><li>meditatie</li><li>memoir</li><li>goeroe</li><li>india</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagans pleidooi voor het onderscheid tussen wat aannemelijk gemaakt is en wat alleen beweerd wordt, vormt het scherpste tegenwicht bij de wonderhoofdstukken van dit boek.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle herformuleert een verwante notie van bewustzijn voorbij het denken voor een westers publiek, zonder Yogananda's goeroe-traditie.</li>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Glaudemans behandelt vanuit een andere, latere spirituele traditie eenzelfde soort claims over wonderen en innerlijke ervaring als bron van gezag.</li>
+          <li value="199"><a href="199.html">The Four Purusharthas</a>. García en Miralles behandelen vanuit dezelfde Indiase traditie de vraag hoe levensdoelen zich tot spirituele oefening verhouden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

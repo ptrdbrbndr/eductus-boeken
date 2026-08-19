@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reality Is Not What It Seems &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rovelli beschrijft de natuurkunde van de twintigste eeuw als twee revoluties die naast elkaar bestaan zonder met elkaar te kunnen praten: de algemene…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-281">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">281 &middot; Natuur en wetenschap</p>
+    <h1>Reality Is Not What It Seems</h1>
+    <p class="lede">Carlo Rovelli, 2014</p>
+    <p class="stats">
+      <span><b>1476</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="281"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rovelli beschrijft de natuurkunde van de twintigste eeuw als twee revoluties die naast elkaar bestaan zonder met elkaar te kunnen praten: de algemene relativiteitstheorie, die ruimte en tijd zelf tot een kromgetrokken, dynamisch weefsel maakt, en de kwantummechanica, die laat zien dat de wereld op de kleinste schaal niet continu maar korrelig is en dat eigenschappen pas bestaan in een interactie. Zijn eigen vak, lussenkwantumzwaartekracht, is een poging om beide te verenigen door de ruimte zelf te kwantiseren: haar op te vatten als opgebouwd uit discrete korrels op de Planckschaal, met als mogelijk gevolg dat ook de tijd niet fundamenteel is maar een grootschalig verschijnsel. Dat laatste deel van het boek is geen vaststaand resultaat maar een van de weinige serieuze, nog onbevestigde pogingen om de twee revoluties samen te voegen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van Democritus tot de twintigste eeuw</h3>
+      <p>Rovelli opent niet bij Einstein maar bij de Griekse atomisten uit de vijfde eeuw voor Christus, met Democritus als centrale figuur. Diens idee dat de wereld bestaat uit ondeelbare deeltjes die door lege ruimte bewegen, werd twee millennia lang als speculatie terzijde gelegd en pas in de negentiende en twintigste eeuw experimenteel bevestigd, met de ontdekking van atomen en moleculen.</p>
+      <p>Die geschiedenis dient als voorbeeld voor wat het boek daarna doet: een idee dat eerst als filosofische gok klinkt, kan later blijken te kloppen, en Rovelli gebruikt dat patroon om zijn eigen, nog onbevestigde theorie later in het boek in te leiden.</p>
+      <h3>De eerste revolutie: ruimte zonder vast decor</h3>
+      <p>Einsteins algemene relativiteitstheorie uit 1915 doet iets wat vóór hem ondenkbaar was: zij maakt van de ruimte zelf een veld dat kan buigen, golven en vervormen onder invloed van massa, in plaats van een neutraal, onveranderlijk decor waarop andere dingen gebeuren. Zwaartekracht is in die opvatting geen kracht die op afstand werkt, maar de kromming van dat veld zelf, waar planeten doorheen bewegen zoals een knikker over een ingedeukt laken rolt.</p>
+      <p>Rovelli benadrukt vooral dat de theorie geen vaste achtergrond nodig heeft: er is geen apart, onveranderlijk podium van ruimte en tijd waarbinnen de zwaartekracht plaatsvindt, de zwaartekracht is het podium. Die eigenschap, achtergrondonafhankelijkheid, wordt later in het boek de eis waar zijn eigen theorie aan moet voldoen.</p>
+      <h3>De tweede revolutie: een korrelige werkelijkheid</h3>
+      <p>Kwantummechanica laat zien dat energie, licht en materie op de kleinste schaal niet continu zijn maar in discrete pakketjes voorkomen, en dat een deeltje geen vaste eigenschappen heeft voordat het interactie heeft met iets anders. Rovelli legt uit hoe een elektron geen bepaalde plaats inneemt totdat het wordt waargenomen of botst met iets anders, en dat die onbepaaldheid geen gebrek aan kennis is maar een kenmerk van de werkelijkheid zelf.</p>
+      <p>Hij verdedigt daarbij zijn eigen lezing, de relationele kwantummechanica: eigenschappen bestaan volgens hem niet op zichzelf, maar alleen in verhouding tot een ander systeem waarmee interactie plaatsvindt. Dat is een van de mogelijke interpretaties van de kwantummechanica en niet de enige, al schrijft Rovelli er met overtuiging over.</p>
+      <h3>Twee theorieën die elkaar tegenspreken</h3>
+      <p>Het probleem waar het boek om draait, is dat beide revoluties, elk voor zich buitengewoon goed getest, niet met elkaar te verzoenen zijn. De algemene relativiteitstheorie beschrijft ruimte als een glad, continu veld, terwijl de kwantummechanica juist zegt dat niets op de kleinste schaal continu is. Zodra natuurkundigen proberen zwaartekracht op de kwantummanier te beschrijven, lopen de berekeningen vast in oneindige, betekenisloze uitkomsten.</p>
+      <p>Dat gebrek aan een gemeenschappelijke theorie is niet een klein technisch mankement maar een teken dat minstens een van beide theorieën, of allebei, niet het laatste woord kan zijn over hoe de wereld in elkaar zit.</p>
+      <h3>Lussen: ruimte opgebouwd uit korrels</h3>
+      <p>Rovelli's eigen vakgebied, lussenkwantumzwaartekracht, probeert de twee revoluties te verenigen door de les van de kwantummechanica ook op de ruimte zelf toe te passen: als energie in pakketjes komt, waarom de ruimte dan niet. De theorie stelt dat ruimte is opgebouwd uit discrete korrels op de Planckschaal, een lengte van ongeveer een miljardste van een miljardste van een miljardste van een centimeter, en beschrijft die structuur wiskundig met spinnetwerken.</p>
+      <p>Op menselijke schaal lijkt de ruimte daardoor continu, zoals een foto van dichtbij uit losse korrels blijkt te bestaan terwijl zij van veraf glad oogt. Rovelli is hier eerlijk over de status van het werk: het is een van de weinige serieuze pogingen om beide revoluties samen te voegen, geen bevestigde uitkomst.</p>
+      <h3>Tijd die misschien niet fundamenteel is</h3>
+      <p>Uit de wiskunde van lussenkwantumzwaartekracht volgt een vreemde consequentie: de vergelijkingen bevatten geen tijdsvariabele. Rovelli licht toe dat dit niet betekent dat er niets gebeurt, maar dat tijd op het diepste niveau misschien geen ingrediënt van de werkelijkheid is, en pas ontstaat op grotere schaal, samenhangend met de manier waarop de wereld van geordend naar wanordelijk beweegt.</p>
+      <p>Dat is het meest speculatieve deel van het boek, en Rovelli werkt het hier korter uit dan in zijn latere boek dat volledig aan tijd is gewijd. Voor lezers die alleen dit boek lezen, blijft het bij een schets van de richting waarin hij denkt, niet bij een sluitend argument.</p>
+      <h3>Een heelal dat mogelijk terugkaatst</h3>
+      <p>Aan het slot bespreekt Rovelli wat lussenkwantumzwaartekracht zou kunnen betekenen voor het ontstaan van het heelal. In de gangbare kosmologie begint alles in een singulariteit, een punt waar de bekende natuurkunde ophoudt te werken; volgens sommige berekeningen binnen zijn eigen vakgebied zou die singulariteit vervangen kunnen worden door een terugkaatsing, waarbij een instortend voorgaand heelal omslaat in het uitdijende heelal dat wij nu waarnemen.</p>
+      <p>Het boek eindigt niet met een sluitend antwoord maar met bespiegelingen over wat natuurkunde eigenlijk is: een voortdurend bijstellen van beelden van de werkelijkheid die nooit definitief zijn, en waarvan de huidige stand, inclusief zijn eigen theorie, over enkele decennia weer achterhaald kan blijken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kwantumzwaartekracht</td><td>Het onopgeloste vraagstuk om zwaartekracht en kwantummechanica in één samenhangende theorie te verenigen.</td></tr>
+          <tr><td class="term">Ruimtetijd</td><td>Einsteins samenvoeging van ruimte en tijd tot één kromgetrokken, dynamisch geheel dat zelf de zwaartekracht vormt.</td></tr>
+          <tr><td class="term">Achtergrondonafhankelijkheid</td><td>Het uitgangspunt dat een natuurkundige theorie geen vast, onveranderlijk decor van ruimte en tijd mag vooronderstellen.</td></tr>
+          <tr><td class="term">Lussenkwantumzwaartekracht</td><td>Rovelli's eigen theorie, waarin de ruimte zelf is opgebouwd uit discrete korrels op de Planckschaal.</td></tr>
+          <tr><td class="term">Spinnetwerk</td><td>Het wiskundige beeld waarmee lussenkwantumzwaartekracht de korrelige structuur van de ruimte beschrijft.</td></tr>
+          <tr><td class="term">Planckschaal</td><td>De kleinste lengte die de natuurkunde kent, waaronder het gewone begrip ruimte zijn betekenis verliest.</td></tr>
+          <tr><td class="term">Relationele kwantummechanica</td><td>Rovelli's opvatting dat eigenschappen van een deeltje niet op zichzelf bestaan, maar alleen in verhouding tot een ander systeem waarmee het interactie heeft.</td></tr>
+          <tr><td class="term">Singulariteit</td><td>Het punt in de gangbare kosmologie waar de bekende natuurkunde ophoudt te werken, aan het begin van het heelal.</td></tr>
+          <tr><td class="term">Atomisme</td><td>De oudgriekse gedachte dat de werkelijkheid bestaat uit ondeelbare deeltjes in lege ruimte, door Rovelli gelezen als voorloper van moderne natuurkunde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Algemene relativiteitstheorie en kwantummechanica behoren tot de best geteste theorieën in de natuurkunde: relativiteit is bevestigd van GPS-correcties tot de rechtstreekse meting van zwaartekrachtsgolven, en kwantummechanica ligt aan de basis van de halfgeleidertechniek waarmee elke computer werkt. Rovelli's weergave van deze twee revoluties rust op gevestigde, breed gedeelde kennis.</p>
+      <p>Zijn eigen onderwerp, lussenkwantumzwaartekracht, staat daar los van. Het is een van meerdere concurrerende pogingen om zwaartekracht te verenigen met kwantummechanica, naast bijvoorbeeld snarentheorie, en geen van die pogingen is tot nu toe experimenteel getoetst: de energieën en afstanden waarop het verschil zichtbaar zou worden liggen ver buiten het bereik van huidige apparatuur. Rovelli is daar in het boek open over, maar schrijft over zijn eigen theorie met een stelligheid die de status van onbevestigde hypothese soms uit het zicht laat verdwijnen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft precies dat punt: een lezer die de eerste hoofdstukken volgt, waarin gevestigde natuurkunde staat, kan de indruk krijgen dat lussenkwantumzwaartekracht dezelfde status heeft, terwijl het een van meerdere onbewezen concurrenten is. Aanhangers van snarentheorie zouden een ander boek schrijven met een andere, even aannemelijke afloop.</p>
+      <p>Verder vraagt het boek wiskundige voorkennis op plekken waar het die niet uitlegt, waardoor lezers zonder natuurkundeachtergrond stukken over spinnetwerken en achtergrondonafhankelijkheid met minder houvast doorlopen dan de vloeiende stijl van de eerdere hoofdstukken suggereert. Het slothoofdstuk verlaat de natuurkunde voor bespiegelingen over kennis en bewustzijn die persoonlijker en minder onderbouwd zijn dan de rest van het boek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij een populair-wetenschappelijk boek over natuurkunde welk deel over experimenteel bevestigde theorie gaat en welk deel over een nog onbevestigde eigen hypothese van de auteur.</li>
+        <li>Lees het hoofdstuk over kwantummechanica als inleiding op relationele kwantummechanica, en leg het naast een leerboek voor wie de wiskunde erachter wil volgen.</li>
+        <li>Zoek bij verdere verdieping in lussenkwantumzwaartekracht een tweede bron die de belangrijkste concurrerende benadering, snarentheorie, evenwichtig weergeeft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Italiaans als <i>La realtà non è come ci appare: la struttura elementare delle cose</i> (Adelphi, 2014); Engels als <i>Reality Is Not What It Seems: The Journey to Quantum Gravity</i>, vertaald door Simon Carnell en Erica Segre (Allen Lane, 2016). Nederlands als <i>De werkelijkheid is niet wat ze lijkt</i>, sinds 2017 bij Amsterdam University Press (256 blz., ISBN 9789462985391), vertaald door Hans van den Berg.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rovelli beschrijft in kort bestek de twee natuurkundige revoluties van de twintigste eeuw: de algemene relativiteitstheorie van Einstein, die ruimte en tijd zelf tot een kromgetrokken, dynamisch weefsel maakt zonder vast decor, en de kwantummechanica, die laat zien dat de wereld op de kleinste schaal niet continu maar korrelig is en dat eigenschappen pas ontstaan in een interactie. Beide theorieën zijn stuk voor stuk uitzonderlijk goed getest, en toch spreken zij elkaar tegen zodra iemand ze op dezelfde vraag wil toepassen.</p><p>Het tweede deel van het boek gaat over zijn eigen vak, lussenkwantumzwaartekracht, een van de weinige serieuze, nog onbevestigde pogingen om die twee te verenigen door de ruimte zelf te kwantiseren tot discrete korrels op de Planckschaal. Rovelli werkt van daaruit toe naar het vermoeden dat ook de tijd niet fundamenteel is maar een grootschalig verschijnsel, en besluit met bespiegelingen over wat natuurkunde eigenlijk over kennis en werkelijkheid leert.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuurkunde</li><li>kwantumzwaartekracht</li><li>ruimte en tijd</li><li>kosmologie</li><li>relativiteitstheorie</li><li>atomisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="94"><a href="94.html">Het tijdperk van onzekerheid</a>. Hürter beschrijft de geschiedenis van de kwantummechanica die hier in enkele hoofdstukken wordt samengevat, met meer aandacht voor de mensen achter de ontdekkingen.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Hawking behandelt dezelfde twee revoluties, relativiteit en kwantummechanica, met de nadruk op kosmologie in plaats van op het eigen onderzoeksterrein van de auteur.</li>
+          <li value="92"><a href="92.html">Onze bouwstenen</a>. Røyne beschrijft in dezelfde korte, toegankelijke vorm de bouwstenen van de aarde, waar Rovelli hier de bouwstenen van de ruimte zelf behandelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

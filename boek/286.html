@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Daily Stoic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Holiday en Hanselman stellen dat de stoïcijnse filosofie geen academisch stelsel is maar een dagelijkse praktijk, en dat de kern ervan in één regel is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-286">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">286 &middot; Moed en karakter</p>
+    <h1>The Daily Stoic</h1>
+    <p class="lede">Ryan Holiday en Stephen Hanselman, 2016</p>
+    <p class="stats">
+      <span><b>1409</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="286"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Holiday en Hanselman stellen dat de stoïcijnse filosofie geen academisch stelsel is maar een dagelijkse praktijk, en dat de kern ervan in één regel is samen te vatten: onderscheid wat binnen je macht ligt van wat dat niet is, en besteed je aandacht alleen aan het eerste. Het boek biedt daarom geen doorlopend betoog maar 366 losse dagfragmenten, elk opgebouwd uit een vertaald citaat van Marcus Aurelius, Seneca of Epictetus gevolgd door een korte uitleg die het naar een eigentijdse situatie vertaalt. De auteurs stellen dat oefening en herhaling, niet eenmalig inzicht, het verschil maken tussen mensen die stoïcijnse ideeën kennen en mensen die er ook naar leven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vorm: één dag, één les</h3>
+      <p>In plaats van hoofdstukken met een lopend argument kiezen de auteurs voor 366 korte eenheden van telkens ongeveer een halve bladzijde: een citaat, een titel die de kern samenvat, en enkele alinea's toelichting. Die vorm dwingt tot herhaling over een heel jaar in plaats van eenmalige lezing, wat aansluit bij hoe de auteurs stellen dat de oude stoïcijnen zelf hun ideeën beoefenden: als een dagelijkse discipline en niet als een leerstuk dat je één keer doorneemt en kent.</p>
+      <h3>De discipline van de waarneming</h3>
+      <p>De eerste vier maanden, januari tot en met april, gaan over hoe je naar de wereld kijkt: het onderscheid tussen wat er objectief gebeurt en het oordeel dat je erover velt, de dichotomie van controle van Epictetus, en de waarschuwing dat de meeste onrust ontstaat door meningen over gebeurtenissen, niet door de gebeurtenissen zelf.</p>
+      <p>Holiday illustreert dat met het voorbeeld van boosheid in het verkeer: niet de file veroorzaakt de ergernis, maar het oordeel dat de file er niet zou moeten zijn. Wie dat oordeel loslaat, houdt volgens hem dezelfde file over, maar niet dezelfde ergernis. Deze maanden bevatten ook herhaalde waarschuwingen tegen het native geloof in eerste indrukken, met de raad om een reactie altijd even uit te stellen.</p>
+      <h3>De discipline van de actie</h3>
+      <p>Mei tot en met augustus richt zich op hoe je vervolgens handelt: rechtvaardig, doelgericht en zonder je energie te verspillen aan zaken buiten je bereik. Hier komen thema's als plichtsbesef, samenwerking en de stoïcijnse nadruk op deugd als het enige werkelijke goed aan de orde, met voorbeelden van hoe Marcus Aurelius als keizer zijn ambt vervulde.</p>
+      <p>In dit deel staat ook het onderscheid tussen doel en resultaat centraal: een boogschutter kan zijn techniek beheersen maar niet garanderen dat de pijl raak is, omdat wind en afstand meespelen. Zo geredeneerd ligt de morele waardering van een handeling in de inzet en de intentie, niet in de uitkomst, wat volgens de auteurs ruimte geeft om vol te blijven inzetten zonder afhankelijk te worden van succes.</p>
+      <h3>De discipline van de wil</h3>
+      <p>September tot en met december gaat over het uithouden van tegenslag die je niet kunt veranderen: verlies, ziekte, tegenspoed en uiteindelijk de dood. Amor fati, het aanvaarden van het lot, en memento mori, het besef van sterfelijkheid, krijgen hier de meeste aandacht, met Seneca's brieven over de dood als terugkerende bron.</p>
+      <p>December zelf bouwt toe naar het jaareinde met fragmenten over afronding en overgave: de gedachte dat een leven, net als een verhaal, niet aan lengte maar aan afwerking wordt beoordeeld. Holiday citeert hier herhaaldelijk Marcus Aurelius' aansporing om elke handeling te verrichten alsof het de laatste van je leven is, niet als aansporing tot haast maar tot volledige aandacht.</p>
+      <h3>De drie stoïcijnse leermeesters</h3>
+      <p>Door het hele boek keren drie hoofdbronnen terug: Marcus Aurelius, de Romeinse keizer wiens persoonlijke notities bekend werden als de Overpeinzingen; Seneca, staatsman en toneelschrijver die zijn ideeën vooral in brieven aan een vriend uitwerkte; en Epictetus, een voormalig slaaf wiens colleges door zijn leerling Arrianus zijn opgetekend. Hanselman vertaalde voor dit boek fragmenten van alle drie opnieuw uit het Grieks en Latijn.</p>
+      <h3>Voorbeelden uit de geschiedenis</h3>
+      <p>Naast de klassieke bronnen gebruikt Holiday historische en moderne voorbeelden om de ideeën te illustreren: Cato de Jongere, die zich bleef verzetten tegen Caesar tot aan zijn eigen dood; en marineofficier James Stockdale, die zich tijdens zeven jaar krijgsgevangenschap in Vietnam op Epictetus' onderscheid tussen wat wel en niet binnen zijn macht lag, beriep om overeind te blijven.</p>
+      <h3>Het dagelijkse gebruik</h3>
+      <p>Het boek eindigt niet met een conclusie maar met de suggestie dat de lezer het na 31 december weer van voren af aan begint, ditmaal met een jaar ervaring erbij. Aan het eind van elke maand staat een korte samenvatting van het overkoepelende thema, bedoeld als checkpoint in plaats van als nieuwe informatie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dichotomie van controle</td><td>Epictetus' onderscheid tussen wat volledig binnen je macht ligt, je eigen oordelen en handelen, en wat dat niet is.</td></tr>
+          <tr><td class="term">Memento mori</td><td>Het Latijnse "bedenk dat je zult sterven", een herinnering die volgens de stoïcijnen scherpte geeft aan hoe je leeft.</td></tr>
+          <tr><td class="term">Amor fati</td><td>Het aanvaarden en zelfs omarmen van wat je overkomt, in plaats van ertegen te vechten of het te wensen anders te zijn.</td></tr>
+          <tr><td class="term">Premeditatio malorum</td><td>Het bij voorbaat doordenken van mogelijke tegenslag, zodat die minder ontwrichtend aankomt als hij zich voordoet.</td></tr>
+          <tr><td class="term">De drie disciplines</td><td>De indeling van het boek in waarneming, actie en wil, die Holiday ontleent aan de manier waarop latere lezers Epictetus' onderwijs hebben geordend.</td></tr>
+          <tr><td class="term">Deugd als enige goed</td><td>De stoïcijnse stelling dat alleen morele kwaliteit werkelijk goed of slecht is, en uiterlijke zaken als rijkdom of gezondheid daaraan ondergeschikt zijn.</td></tr>
+          <tr><td class="term">De Stoa</td><td>De overdekte zuilengang in Athene waar Zeno van Citium rond 300 voor Christus zijn leerlingen onderwees en die de stroming haar naam gaf.</td></tr>
+          <tr><td class="term">Apatheia</td><td>Vrijheid van ontwrichtende emoties, niet hetzelfde als onverschilligheid maar het ontbreken van oordelen die tot onrust leiden.</td></tr>
+          <tr><td class="term">De innerlijke citadel</td><td>Het beeld van het eigen oordeelsvermogen als een vesting die niets van buitenaf kan innemen zolang je het zelf niet toelaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op bestaande, overgeleverde teksten: de Overpeinzingen van Marcus Aurelius, de brieven van Seneca en de colleges van Epictetus zoals opgetekend door Arrianus. Hanselman, classicus van beroep, heeft voor dit boek een eigen vertaling van fragmenten uit die bronnen gemaakt, wat de citaten dichter bij de oorspronkelijke tekst brengt dan wanneer bestaande vertalingen waren overgenomen.</p>
+      <p>De historische anekdotes over figuren als Cato en Stockdale zijn extern te verifiëren via biografieën en, in het geval van Stockdale, diens eigen geschriften over zijn gevangenschap. De alledaagse voorbeelden waarmee Holiday de citaten naar de actualiteit vertaalt, zijn eigen interpretatie en niet bedoeld als historisch bewijs; ze illustreren, ze onderbouwen niet.</p>
+      <p>Holiday bouwt in dit boek voort op zijn eigen eerdere werk over stoïcijnse thema's, waarin hij vergelijkbare bronnen gebruikte om tegenslag en ego te behandelen. Dat maakt de selectie van citaten in <i>The Daily Stoic</i> consistent met zijn eerdere interpretatie van de stoïcijnse traditie, maar het betekent ook dat andere lezingen van dezelfde bronnen, die minder nadruk leggen op zelfsturing en meer op de sociale en politieke plicht die de stoïcijnen ook beschreven, in dit boek onderbelicht blijven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de vorm van 366 losse fragmenten de interne spanningen binnen het stoïcisme wegwerkt. De oude stoïcijnen debatteerden onderling over emoties, over de rol van de gemeenschap en over hoever onthechting moet gaan; in dit boek verschijnen hun uitspraken naast elkaar als bevestiging van dezelfde boodschap, zonder dat die onderlinge verschillen worden benoemd.</p>
+      <p>Een tweede punt is de context van de sprekers zelf: Marcus Aurelius was keizer, Seneca een van de rijkste mannen van Rome, Epictetus een voormalig slaaf. Hun advies om onthecht te zijn van uiterlijke omstandigheden klinkt anders vanuit een troon dan vanuit slavernij, en het boek benoemt dat verschil zelden expliciet wanneer het de citaten op een moderne lezer betrekt.</p>
+      <p>Ten slotte is Holiday's eigen positie relevant: hij bouwde rond dit boek een commercieel merk van nieuwsbrieven, munten en cursussen. Dat een filosofie die onthechting van bezit predikt, wordt vermarkt als dagelijks product, is een spanning die het boek zelf niet bespreekt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees per dag één fragment in plaats van het boek in één keer door te werken.</li>
+        <li>Noteer bij elk fragment kort wat er die dag wel en niet binnen jouw macht lag.</li>
+        <li>Gebruik de decembermaand gericht als je met verlies of tegenslag te maken hebt.</li>
+        <li>Herlees na een jaar het boek opnieuw en vergelijk je aantekeningen met het jaar ervoor.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Daily Stoic: 366 Meditations on Wisdom, Perseverance, and the Art of Living</i> (Portfolio/Penguin, 2016). Nederlands als <i>De dagelijkse stoïcijn: 366 overpeinzingen over wijsheid, sereniteit, zelfkennis en veerkracht die je nodig hebt om een goed leven te leiden</i>, sinds 2021 bij Lev. (1e druk, 424 blz., ISBN 9789400512948); vertaald door Elisabeth van Borselen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het boek bestaat uit 366 dagfragmenten, verdeeld over twaalf maanden die weer zijn onderverdeeld in drie "disciplines": waarneming, actie en wil. Elk fragment opent met een citaat van Marcus Aurelius, Seneca of Epictetus, opnieuw vertaald door classicus Stephen Hanselman, gevolgd door een korte toelichting van Ryan Holiday die het citaat verbindt aan een alledaagse situatie. De opzet is nadrukkelijk niet chronologisch of academisch: lezers worden aangemoedigd één fragment per dag te lezen in plaats van het boek als doorlopend betoog te consumeren.</p><p>Terugkerende ideeën zijn de dichotomie van controle, het onderscheid tussen wat binnen en buiten je macht ligt; memento mori, het besef van de eigen sterfelijkheid; en amor fati, het aanvaarden van wat gebeurt in plaats van ertegen te vechten. Holiday illustreert die ideeën met voorbeelden van historische stoïcijnen als Cato en Marcus Aurelius zelf, en met latere figuren als de Amerikaanse marineofficier James Stockdale, die zich tijdens zijn krijgsgevangenschap in Vietnam op Epictetus beriep. Het boek is verdeeld in drie delen die de maanden van het jaar volgen: de discipline van de waarneming van januari tot april, de discipline van de actie van mei tot augustus, en de discipline van de wil van september tot december, elk met een eigen nadruk binnen de bredere stoïcijnse leer.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stoïcijnse filosofie</li><li>dagboek</li><li>zelfbeheersing</li><li>klassieke bronnen</li><li>memento mori</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius' eigen aantekeningen, de belangrijkste van de drie bronnen waaruit dit boek citeert.</li>
+          <li value="292"><a href="292.html">Letters from a Stoic</a>. Seneca's brieven in volledige vorm, waar dit boek slechts fragmenten van geeft.</li>
+          <li value="247"><a href="247.html">Lives of the Stoics</a>. Holiday's eigen portrettenreeks van stoïcijnse figuren, die de historische voorbeelden uit dit boek verder uitwerkt.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday's uitwerking van één stoïcijns thema, tegenslag als kans, tot een doorlopend betoog.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

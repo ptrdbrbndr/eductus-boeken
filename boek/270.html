@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Principles &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dalio stelt dat de meeste problemen die mensen tegenkomen, in werk en in het leven, in essentie herhalingen zijn van problemen die al eerder zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-270">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">270 &middot; Geld en ondernemen</p>
+    <h1>Principles</h1>
+    <p class="lede">Ray Dalio, 2017</p>
+    <p class="stats">
+      <span><b>1499</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="270"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dalio stelt dat de meeste problemen die mensen tegenkomen, in werk en in het leven, in essentie herhalingen zijn van problemen die al eerder zijn opgelost, en dat wie de onderliggende oorzaak-en-gevolgprincipes ervan opschrijft en systematisch toepast, betere beslissingen neemt dan wie telkens opnieuw op gevoel reageert. Zijn stelling gaat verder: pijnlijke waarheden onder ogen zien en ze hardop uitspreken, ook als dat ongemakkelijk is voor de spreker of de ontvanger, is volgens hem de enige weg naar snelle verbetering, zowel voor een persoon als voor een organisatie. Bridgewater, het bedrijf dat hij vanuit een appartement opbouwde tot een van de grootste hedgefondsen ter wereld, is de proeftuin waarin hij dat uitgangspunt decennialang heeft doorgevoerd, tot en met software die bijhoudt hoe zwaar iemands mening over een onderwerp mag wegen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van bijna-faillissement naar systeem</h3>
+      <p>Dalio richtte Bridgewater Associates in 1975 op vanuit zijn appartement. In 1981 en 1982 voorspelde hij publiekelijk, ook in een getuigenis voor het Amerikaanse Congres, een diepe economische crisis als gevolg van de Latijns-Amerikaanse schuldencrisis. Toen de Amerikaanse beurs in plaats daarvan herstelde, verloor hij voor zijn klanten zoveel geld dat hij bijna zijn hele personeel moest ontslaan en geld van zijn vader moest lenen om rekeningen te betalen.</p>
+      <p>Die mislukking noemt hij het keerpunt van zijn loopbaan. Hij besloot voortaan geen beslissing meer te nemen zonder de onderliggende logica ervan op te schrijven en achteraf te toetsen aan wat er werkelijk gebeurde, wat de kiem vormde voor de verzameling principes die het boek beschrijft.</p>
+      <h3>Levensprincipes: de realiteit onder ogen zien</h3>
+      <p>Dalio's centrale formule luidt dat pijn plus reflectie tot vooruitgang leidt: wie een pijnlijke ervaring niet ontwijkt maar analyseert op de oorzaak erachter, zet die om in een herbruikbaar inzicht. Hij noemt dit "radicale open-mindedness", het actief opzoeken van meningen die tegen de eigen overtuiging ingaan voordat een beslissing wordt genomen.</p>
+      <p>Fouten zijn in die logica geen falen maar grondstof: wie dezelfde fout twee keer maakt zonder het onderliggende patroon vast te leggen, verspilt volgens hem de enige winst die een fout oplevert.</p>
+      <h3>Radicale waarheid en radicale transparantie</h3>
+      <p>Radicale waarheid betekent voor Dalio dat niemand binnen zijn bedrijf een oncomfortabel feit mag verzwijgen omdat het de sfeer verstoort. Radicale transparantie is de organisatorische kant daarvan: vergaderingen worden opgenomen, meningsverschillen tussen medewerkers van elk niveau worden vastgelegd en zijn voor iedereen binnen het bedrijf inzichtelijk.</p>
+      <p>Om te voorkomen dat de mening van de luidste of hoogst geplaatste persoon automatisch wint, werkt Bridgewater met wat Dalio geloofwaardigheidsgewogen besluitvorming noemt: de mening van iemand met een bewezen staat van dienst op een onderwerp weegt zwaarder dan die van iemand zonder relevante ervaring, ongeacht positie.</p>
+      <h3>Ideeënmeritocratie: het overkoepelende doel</h3>
+      <p>Dalio vat radicale waarheid, radicale transparantie en geloofwaardigheidsgewogen besluitvorming samen onder één doel: een ideeënmeritocratie bouwen, een organisatie waarin niet de functietitel maar de kwaliteit van het idee en het track record van wie het inbrengt bepalen hoe zwaar een mening telt.</p>
+      <p>Hij zet dat model uitdrukkelijk tegenover twee alternatieven die hij allebei afwijst: een autocratie, waarin één leidinggevende beslist zonder tegenspraak, en een gewone democratie binnen een bedrijf, waarin elke stem even zwaar telt ongeacht kennis van zaken. Beide vormen missen volgens hem een manier om onwetendheid van deskundigheid te onderscheiden.</p>
+      <h3>Werkprincipes: een organisatie als machine</h3>
+      <p>Dalio beschrijft een bedrijf als een machine die bestaat uit cultuur en mensen, en een leidinggevende als een ontwerper die de machine voortdurend bijstelt op basis van wat de uitkomsten laten zien. Aanwerving en ontslag zijn in dat beeld geen personeelskwestie maar onderhoud: wie niet bij de cultuur van radicale waarheid past, hoort er volgens hem niet thuis, ongeacht talent.</p>
+      <p>Hij werkt dit uit in een vast proces van vijf stappen: doelen stellen, problemen benoemen, de oorzaak ervan vaststellen, een aanpak ontwerpen en die uitvoeren, en dat proces telkens herhalen.</p>
+      <h3>Instrumenten: Dot Collector en Baseball Cards</h3>
+      <p>Om de principes buiten woorden om af te dwingen, ontwikkelde Bridgewater eigen software. De Dot Collector laat medewerkers tijdens een vergadering in real time een score geven aan wat een collega zegt, op eigenschappen als betrouwbaarheid van het argument. De "Baseball Cards" houden van iedereen een profiel bij van sterke en zwakke kanten, gebaseerd op eerdere beoordelingen, zodat nieuwe collega's snel weten wiens mening op welk onderwerp zwaarder weegt.</p>
+      <p>Dalio presenteert deze instrumenten als een manier om subjectiviteit uit besluitvorming te halen. Buitenstaanders hebben ze ook beschreven als een voortdurende beoordeling die weinig ruimte voor privacy laat.</p>
+      <h3>De cultuur van Bridgewater in de buitenwereld</h3>
+      <p>Het boek presenteert de cultuur van Bridgewater als veeleisend maar in essentie zorgzaam: pijnlijke feedback dient de groei van de ontvanger. Reportages over het bedrijf, onder meer in Amerikaanse kranten, beschreven diezelfde cultuur ook als uitputtend voor wie er niet in gedijt, met een hoog personeelsverloop in de eerste jaren van een dienstverband.</p>
+      <p>Dalio zelf erkent in het boek dat radicale transparantie niet voor iedereen is weggelegd en dat een deel van de nieuwe medewerkers binnen twee jaar vertrekt, wat hij ziet als het systeem dat werkt zoals bedoeld en anderen als een teken dat de aanpak zwaarder valt dan het boek laat doorschemeren.</p>
+      <h3>Later werk: van bedrijf naar wereldorde</h3>
+      <p>Na <i>Principles</i> paste Dalio dezelfde manier van werken, patronen uit het verleden vastleggen en er beslisregels uit afleiden, toe op een veel groter onderwerp: de opkomst en ondergang van wereldmachten. Dat leverde in 2021 <i>Principles for Dealing with the Changing World Order</i> op, in het Nederlands verschenen als <i>Verschuivingen in de wereldorde</i>, eveneens vertaald door Wybrand Scheffer.</p>
+      <p>Dat vervolg maakt zichtbaar wat het eerste boek als methode presenteert: voor Dalio is het geen boek over onderhandelen of investeren op zich, maar een manier van patronen herkennen en vastleggen die hij op vrijwel elk onderwerp loslaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Radicale waarheid</td><td>Het principe dat niemand binnen de organisatie een oncomfortabel feit mag verzwijgen.</td></tr>
+          <tr><td class="term">Ideeënmeritocratie</td><td>Een organisatie waarin de kwaliteit van het idee en het track record van de spreker bepalen hoe zwaar een mening telt, niet de functietitel.</td></tr>
+          <tr><td class="term">Radicale transparantie</td><td>Het openbaar en voor iedereen inzichtelijk maken van meningsverschillen en beoordelingen binnen het bedrijf.</td></tr>
+          <tr><td class="term">Geloofwaardigheidsgewogen besluitvorming</td><td>Het zwaarder laten wegen van de mening van iemand met een bewezen staat van dienst op een onderwerp.</td></tr>
+          <tr><td class="term">Pijn plus reflectie is vooruitgang</td><td>Dalio's formule dat een pijnlijke ervaring pas iets oplevert als de oorzaak ervan wordt geanalyseerd.</td></tr>
+          <tr><td class="term">Radicale open-mindedness</td><td>Het actief opzoeken van meningen die tegen de eigen overtuiging ingaan voordat een beslissing wordt genomen.</td></tr>
+          <tr><td class="term">Vijfstappenproces</td><td>Doelen stellen, problemen benoemen, de oorzaak vaststellen, een aanpak ontwerpen en uitvoeren, telkens herhaald.</td></tr>
+          <tr><td class="term">Dot Collector</td><td>Software waarmee medewerkers elkaars bijdrage in een vergadering in real time beoordelen.</td></tr>
+          <tr><td class="term">Baseball Cards</td><td>Interne profielen van medewerkers met hun sterke en zwakke kanten, gebaseerd op eerdere beoordelingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op Dalio's eigen veertig jaar aan de leiding van Bridgewater, dat uitgroeide tot een van de grootste hedgefondsen ter wereld. De resultaten van het bedrijf, waarnaar Dalio verwijst als bewijs dat zijn aanpak werkt, zijn zijn eigen cijfers, gepresenteerd zonder onafhankelijke toetsing binnen het boek zelf.</p>
+      <p>Er staan geen externe metingen in van de tevredenheid of het welzijn van medewerkers; het beeld van de cultuur komt vrijwel volledig van Dalio zelf. Dat maakt het boek sterk als verslag van wat één oprichter geloofde te doen, en zwak als onafhankelijk bewijs dat het ook zo werkte voor iedereen die er werkte.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest gehoorde bezwaar betreft het mensbeeld dat aan het machine-model ten grondslag ligt: een organisatie bijstellen zoals je een apparaat bijstelt, veronderstelt dat mensen zich net zo voorspelbaar en zonder blijvende schade laten aanpassen, en waarnemers van het bedrijf hebben beschreven hoe de voortdurende beoordeling via de Dot Collector als uitputtend werd ervaren.</p>
+      <p>Een tweede bezwaar is dat het boek door de oprichter zelf is geschreven over een bedrijf dat hij nog altijd financieel bezit, wat zijn eigen verslag van de cultuur een belang geeft dat een onafhankelijke waarnemer niet heeft.</p>
+      <p>Ten slotte is de overdraagbaarheid beperkt: veel van de instrumenten veronderstellen een schaal, een budget en een juridische afdeling die kleinere organisaties niet hebben, waardoor radicale transparantie invoeren zonder dezelfde waarborgen andere risico's met zich meebrengt dan bij Bridgewater.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf de principes op die je in een terugkerende situatie hebt toegepast, in plaats van ze telkens opnieuw te bedenken.</li>
+        <li>Leg bij een fout niet alleen vast wat er misging, maar ook het patroon erachter, zodat je het kunt herkennen voordat het zich herhaalt.</li>
+        <li>Vraag bij een meningsverschil eerst naar de onderbouwing en de eerdere staat van dienst van de ander op dat onderwerp, voordat je zijn mening laat meewegen.</li>
+        <li>Ga na welke van je eigen beslisregels je nooit hardop hebt uitgesproken, en schrijf ze op.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Principles: Life and Work</i> (Simon and Schuster, 2017). Nederlands als <i>Principes: leven en werk</i>, sinds 2019 bij Business Contact (huidige editie 2022, 1e druk, 592 blz., ISBN 9789047016441), vertaald door Wybrand Scheffer.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ray Dalio, oprichter van het hedgefonds Bridgewater Associates, bundelt in dit boek de principes die hij decennialang binnen zijn bedrijf liet gelden, eerst als intern document voor medewerkers, later uitgewerkt tot boek. Zijn uitgangspunt is dat de werkelijkheid volgens herkenbare oorzaak-en-gevolgpatronen verloopt, en dat wie die patronen opschrijft en systematisch toepast, beter beslist dan wie telkens opnieuw op gevoel reageert. Twee begrippen dragen het boek: radicale waarheid, het onder ogen zien van pijnlijke feiten, en radicale transparantie, het hardop uitspreken van meningsverschillen in plaats van ze te verzwijgen. Beide moeten samen leiden tot wat Dalio een ideeënmeritocratie noemt, waarin het beste idee wint, ongeacht wie het inbrengt.</p><p>Het boek bestaat uit drie delen: Dalio's eigen levensverhaal, met als keerpunt de bijna-ondergang van zijn bedrijf in 1982 na een verkeerde voorspelling die hem dwong personeel te ontslaan en geld van zijn vader te lenen; levensprincipes over hoe met fouten en tegenslag om te gaan; en werkprincipes over het bouwen van een bedrijfscultuur, tot en met software waarmee medewerkers elkaars mening in vergaderingen in real time beoordelen op geloofwaardigheid. Dalio werkte de aanpak later uit voor een heel ander onderwerp, de op- en ondergang van wereldmachten, in het vervolgboek <i>Principles for Dealing with the Changing World Order</i> uit 2021.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>besluitvorming</li><li>bedrijfscultuur</li><li>radicale transparantie</li><li>investeren</li><li>zelfevaluatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel benadert geld vanuit gedrag en gevoel in plaats van vanuit een systeem van principes, een tegenwicht bij Dalio's ingenieursbenadering.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz beschrijft dezelfde soort crisismomenten in een bedrijf, met minder nadruk op vastgelegde principes en meer op de eenzaamheid van de beslisser.</li>
+          <li value="256"><a href="256.html">Measure What Matters</a>. Doerr werkt een ander systeem uit om doelen en voortgang binnen een organisatie meetbaar te maken.</li>
+          <li value="144"><a href="144.html">Margin of Safety</a>. Klarman laat zien hoe een ander soort discipline, gericht op risicobeperking bij beleggen, tot een vergelijkbare nadruk op vastgelegde regels leidt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

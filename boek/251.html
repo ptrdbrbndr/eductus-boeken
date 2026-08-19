@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rational Optimist &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ridley stelt dat menselijke welvaart al sinds de prehistorie structureel toeneemt, niet doordat centrale planning dat organiseert, maar doordat mensen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-251">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">251 &middot; Geschiedenis en samenleving</p>
+    <h1>The Rational Optimist</h1>
+    <p class="lede">Matt Ridley, 2010</p>
+    <p class="stats">
+      <span><b>1404</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="251"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ridley stelt dat menselijke welvaart al sinds de prehistorie structureel toeneemt, niet doordat centrale planning dat organiseert, maar doordat mensen ruilen en zich specialiseren, waardoor kennis en technieken zich blijven hercombineren tot iets nieuws. Hij noemt dat proces 'ideas having sex': zoals genetische recombinatie via voortplanting nieuwe variatie oplevert, levert de uitwisseling van technieken en ideeën via ruilhandel nieuwe welvaart op, in een proces dat zichzelf versterkt naarmate meer mensen met elkaar in contact staan. Vanuit die stelling verklaart hij zowel de vroegste ruilhandel in vuurstenen werktuigen als de moderne wereldeconomie, en bestrijdt hij het terugkerende pessimisme dat elke generatie ervan overtuigt dat het nu toch echt slechter gaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Ruilhandel voor landbouw en steden</h3>
+      <p>Ridley opent met archeologisch bewijs voor ruilhandel die tienduizenden jaren voor de landbouw al bestond: obsidiaan en vuursteen die honderden kilometers van hun herkomst zijn teruggevonden, wat wijst op netwerken van uitwisseling tussen jager-verzamelaargroepen. Hij gebruikt dat als tegenwicht voor het beeld van de prehistorische mens als geïsoleerd en zelfvoorzienend: specialisatie en ruil zijn volgens hem net zo oud als de soort zelf, niet een uitvinding van steden of geld.</p>
+      <h3>Ideas having sex</h3>
+      <p>De kernmetafoor van het boek vergelijkt culturele evolutie met seksuele voortplanting. Bij ongeslachtelijke voortplanting ontstaat variatie alleen via toevallige mutatie; bij geslachtelijke voortplanting hercombineren bestaande genen zich tot nieuwe combinaties, wat variatie sneller laat toenemen. Ridley stelt dat ruilhandel voor technieken en ideeën hetzelfde effect heeft: zodra twee groepen met verschillende technieken met elkaar in contact komen en ruilen, ontstaan combinaties die geen van beide groepen afzonderlijk had kunnen bedenken. Specialisatie, gevolgd door ruil, is in zijn redenering de motor achter alle latere vooruitgang.</p>
+      <h3>Fossiele brandstof als tijdmachine</h3>
+      <p>Bij de industriële revolutie voegt Ridley een tweede mechanisme toe: het gebruik van fossiele energie als vervanging voor menselijke en dierlijke arbeid. Waar voorindustriële samenlevingen afhankelijk waren van spierkracht, zonlicht en de arbeid van mensen en dieren, ontsluit steenkool volgens hem energie die miljoenen jaren geleden is opgeslagen, wat in korte tijd een veelvoud van beschikbare arbeidskracht oplevert. Die versnelling verklaart voor hem waarom welvaart na 1800 sneller groeide dan in alle voorgaande eeuwen samen.</p>
+      <h3>Het weerlegde pessimisme</h3>
+      <p>Een groot deel van het boek is gewijd aan wat Ridley het pessimisme van elke generatie noemt: van Malthus' voorspelling in 1798 dat bevolkingsgroei tot hongersnood zou leiden, tot de Club van Rome die in 1972 grondstoffenschaarste voorspelde, tot herhaalde voorspellingen van hongersnoden in de jaren zestig en zeventig die niet zijn uitgekomen doordat landbouwopbrengsten sneller stegen dan verwacht. Hij zet die reeks mislukte voorspellingen naast elkaar om te laten zien dat pessimisme over de toekomst een terugkerend patroon is, geen uitzonderlijke waarschuwing die deze keer toevallig klopt.</p>
+      <h3>Optimisme voor Afrika en de toekomst</h3>
+      <p>Ridley past zijn these toe op ontwikkelingslanden en verwacht dat landen die laat instapten in wereldhandel, met name in Afrika, dezelfde versnelling kunnen doormaken die Azië na 1950 doormaakte, mits handelsbelemmeringen wegvallen. Hij is uitgesproken kritisch over ontwikkelingshulp die volgens hem plaatselijke markten verstoort, en pleit in plaats daarvan voor vrijere handel als de belangrijkste hefboom voor welvaartsgroei.</p>
+      <h3>De Groene Revolutie als bewijsstuk</h3>
+      <p>Een terugkerend voorbeeld in het boek is de landbouwkundige Norman Borlaug, wiens veredelde tarwerassen vanaf de jaren zestig de graanopbrengst in Mexico, India en Pakistan meervoudigden en daarmee de hongersnoden voorkwamen die demografen op basis van de toenmalige bevolkingsgroei hadden voorspeld. Ridley gebruikt dat voorbeeld als het scherpste tegenbewijs tegen het Malthusiaanse pessimisme: niet omdat de voorspelde schaarste niet dreigde, maar omdat innovatie sneller ging dan de voorspellers voor mogelijk hielden.</p>
+      <p>Hij trekt dezelfde lijn door naar energie en grondstoffen: voorspelde tekorten aan olie, kunstmest en zeldzame metalen zijn er volgens hem telkens gekomen, gevolgd door nieuwe wingebieden, vervangende technieken of efficiëntere winning die de tekorten weer verdreven. Die herhaling is voor Ridley het patroon waarop zijn optimisme rust: schaarste roept de innovatie op die haar weer oplost, mits ruil en onderzoek vrij kunnen verlopen.</p>
+      <h3>Het omstreden slothoofdstuk over klimaat</h3>
+      <p>In het laatste hoofdstuk bespreekt Ridley klimaatverandering en zet hij vraagtekens bij de somberste scenario's van klimaatmodellen, zonder de opwarming zelf te ontkennen. Hij verwacht dat dezelfde combinatie van innovatie en ruil die eerdere ondergangsvoorspellingen ontkrachtte, ook hier voor aanpassing zal zorgen. Dit hoofdstuk kreeg de felste kritiek van alle onderdelen van het boek en wordt in latere besprekingen vaker genoemd dan de rest van het betoog.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ideas having sex</td><td>Ridley's metafoor voor de hercombinatie van technieken en ideeën via ruilhandel, naar analogie van genetische recombinatie.</td></tr>
+          <tr><td class="term">Specialisatie</td><td>Het proces waarbij individuen of groepen zich toeleggen op één taak en de rest via ruil betrekken, de motor achter zijn welvaartsverklaring.</td></tr>
+          <tr><td class="term">Tijdsubstitutie</td><td>Het vervangen van menselijke arbeidstijd door energie uit fossiele brandstof, waardoor meer met minder arbeid wordt geproduceerd.</td></tr>
+          <tr><td class="term">Pessimisme van elke generatie</td><td>Het terugkerende patroon waarin elke generatie voorspelt dat het nu definitief slechter gaat, een voorspelling die volgens Ridley telkens wordt weerlegd.</td></tr>
+          <tr><td class="term">Zelforganiserende markt</td><td>Ridley's opvatting dat welvaart ontstaat uit ongeplande, gedecentraliseerde ruil in plaats van uit centrale sturing.</td></tr>
+          <tr><td class="term">Comparatief voordeel</td><td>Het klassiek-economische principe dat ruil voordelig is zodra partijen verschillende relatieve productiekosten hebben, de basis onder Ridley's specialisatie-argument.</td></tr>
+          <tr><td class="term">Katastrofisme</td><td>Ridley's term voor de neiging om rampscenario's zwaarder te wegen dan de historische trend van verbetering.</td></tr>
+          <tr><td class="term">Groene Revolutie</td><td>De naam voor de landbouwkundige vernieuwing vanaf de jaren zestig, met Norman Borlaug als centrale figuur, die Ridley aanhaalt als bewijs dat innovatie voorspelde schaarste kan inhalen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Ridley schrijft als wetenschapsjournalist en bioloog van vorming, niet als econoom, en bouwt zijn betoog op economische geschiedenis, archeologie en evolutiebiologie, met uitgebreide literatuurverwijzingen in de noten. Zijn belangrijkste empirische steun is een reeks historische reeksen: levensverwachting, calorie-inname, kindersterfte en koopkracht die over eeuwen bezien vrijwel overal zijn gestegen, gecombineerd met een overzicht van eerdere ondergangsvoorspellingen die niet zijn uitgekomen.</p>
+      <p>Die combinatie is sterker in het weerleggen van pessimisme dan in het aantonen van zijn eigen mechanisme: dat ruilhandel en specialisatie de oorzaak zijn van de gemeten groei, is aannemelijk gemaakt met voorbeelden, niet met een model dat andere verklaringen, zoals instituties, eigendomsrecht of toeval, tegen elkaar afweegt. Voor het slothoofdstuk over klimaat citeert Ridley een selectie van klimaatwetenschappers die het op dat moment niet eens waren met de bredere consensus, zonder zelf klimaatwetenschapper te zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De felste kritiek richt zich op het slothoofdstuk over klimaatverandering. Klimaatwetenschappers wezen erop dat Ridley zich baseerde op een smalle selectie van sceptische bronnen in plaats van op de bredere consensus, en dat zijn eigen achtergrond, zijn familie bezat generaties lang een steenkoolmijn in Noord-Engeland, hem geen onafhankelijke positie in dat debat geeft. Latere klimaatontwikkelingen hebben een deel van zijn scepsis over de ernst van de opwarming niet bevestigd.</p>
+      <p>Een tweede punt van kritiek betreft de timing van het boek. Ridley trad in 2007 af als voorzitter van de Britse bank Northern Rock, nadat die bank als eerste in het Verenigd Koninkrijk in anderhalve eeuw een bankrun meemaakte tijdens de kredietcrisis. Critici wezen erop dat een boek dat de zelfregulerende kracht van markten en gedecentraliseerde systemen bezingt, is geschreven door iemand wiens eigen bestuurspraktijk bijdroeg aan het bewijs van het tegendeel.</p>
+      <p>Inhoudelijk is de belangrijkste weerlegging dat Ridley successen uit het verleden gebruikt om toekomstige risico's te relativeren, terwijl klimaatverandering, anders dan de hongersnoodvoorspellingen die hij weerlegt, systeemeffecten met vertraging kent waarbij eerdere patronen minder garantie bieden. Zijn overtuiging dat ruilhandel en innovatie vanzelf oplossingen opleveren, wordt door critici gezien als een aanname die hij op het ene terrein, welvaart, overtuigend onderbouwt en op het andere, klimaat, ongegrond doortrekt.</p>
+      <p>Ook het Borlaug-voorbeeld kent een grens die Ridley zelf niet bespreekt: de Groene Revolutie werd mogelijk gemaakt door grootschalige publieke onderzoeksprogramma's en internationale instituten, niet alleen door vrije ruilhandel tussen particuliere partijen. Dat zijn eigen sterkste bewijsstuk deels steunt op precies het soort gecoördineerde, publiek gefinancierde inspanning dat zijn these van ongeplande, gedecentraliseerde vooruitgang zou moeten relativeren, blijft in het boek onbesproken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij een nieuwsbericht over een dreigende schaarste op of eenzelfde voorspelling al eerder is gedaan, en wat daarvan is uitgekomen.</li>
+        <li>Ga voor een product dat je dagelijks gebruikt na hoeveel gespecialiseerde stappen en handen eraan te pas zijn gekomen voordat het bij jou terechtkwam.</li>
+        <li>Lees het slothoofdstuk over klimaat naast een actueel overzicht van klimaatonderzoek, en beoordeel zelf welke voorspellingen overeind zijn gebleven.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Rational Optimist: How Prosperity Evolves</i> (Fourth Estate, 2010). Nederlands als <i>De rationele optimist: over de evolutie van welvaart</i>, sinds 2010 bij Uitgeverij Contact, vertaald door Robert Vernooy (1e druk, 440 blz., ISBN 9789025427436).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ridley's centrale stelling is dat welvaart al sinds de prehistorie groeit doordat mensen ruilen en zich specialiseren, en niet doordat wijze leiders het plannen. Hij vergelijkt ruilhandel met seksuele voortplanting bij dieren: zoals genen zich door voortplanting hercombineren tot nieuwe variatie, zo hercombineren technieken en ideeën zich zodra mensen ermee gaan ruilen, wat hij 'ideas having sex' noemt. Aan de hand van stenen werktuigen die duizenden kilometers van hun oorsprong zijn teruggevonden, laat hij zien dat die uitwisseling al tienduizenden jaren gaande is, lang voor geld, steden of schrift bestonden. Landbouw, steden, de industriële revolutie en de huidige wereldhandel zijn in zijn lezing stappen in dezelfde logica: specialisatie vergroot de koek voor iedereen, mits mensen vrij kunnen ruilen.</p><p>Het tweede deel van het boek weerlegt wat Ridley 'het pessimisme van elke generatie' noemt: de herhaalde voorspelling dat hulpbronnen opraken, de bevolking de aarde overspoelt of de volgende generatie het slechter zal hebben, een voorspelling die volgens hem in elke eeuw is gedaan en tot dusver nooit is uitgekomen. Het slothoofdstuk, waarin hij klimaatverandering bespreekt en twijfelt aan de somberste scenario's, is het meest omstreden onderdeel van het boek en bracht Ridley in aanvaring met klimaatwetenschappers. Het boek verscheen kort na zijn aftreden als voorzitter van de Britse bank Northern Rock, die tijdens de kredietcrisis van 2007 als eerste Britse bank in anderhalve eeuw een bankrun meemaakte, wat sommige recensenten hem bij zijn optimisme over zelfregulerende markten voor de voeten wierpen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>economie</li><li>vooruitgang</li><li>handel</li><li>welvaart</li><li>optimisme</li><li>innovatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari beschrijft dezelfde lange geschiedenis van menselijke samenwerking, maar met een sceptischer blik op de vraag of vooruitgang gelijkstaat aan welzijn.</li>
+          <li value="65"><a href="65.html">Economic Facts and Fallacies</a>. Sowell weerlegt vanuit een vergelijkbare vrijemarktpositie populaire misvattingen over economie en geschiedenis.</li>
+          <li value="234"><a href="234.html">Factfulness</a>. Rosling onderbouwt hetzelfde optimisme over wereldwijde vooruitgang met actuele data in plaats van economische geschiedenis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

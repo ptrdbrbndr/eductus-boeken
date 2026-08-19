@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Story of Philosophy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Durant stelt dat filosofie alleen te begrijpen is als een menselijk bedrijf, verbonden aan het leven en de tijd van wie haar bedreef, en dat de gangbare…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-269">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">269 &middot; Geschiedenis en samenleving</p>
+    <h1>The Story of Philosophy</h1>
+    <p class="lede">Will Durant, 1926</p>
+    <p class="stats">
+      <span><b>1611</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="269"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Durant stelt dat filosofie alleen te begrijpen is als een menselijk bedrijf, verbonden aan het leven en de tijd van wie haar bedreef, en dat de gangbare manier om haar te onderwijzen, als een reeks abstracte stellingen los van de denker, het vak juist ontoegankelijk maakt voor wie geen vakfilosoof is. Hij herschrijft de geschiedenis van het westerse denken daarom als een reeks portretten: elk hoofdstuk begint bij het leven van een filosoof en laat het systeem daaruit voortkomen, in de overtuiging dat een idee pas gaat leven wanneer de lezer ziet welke vraag, welke tijd en welke persoonlijke nood het opriep. De inzet is dat filosofie een leesbaar en noodzakelijk onderdeel van een algemene ontwikkeling kan zijn, en geen specialistenvak dat aan de universiteit blijft hangen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een reeks portretten in plaats van een leerboek</h3>
+      <p>Het boek ontstond uit een reeks goedkope pamfletten, de zogeheten Little Blue Books, die Durant schreef voor arbeiders en lezers zonder universitaire opleiding. Simon and Schuster bundelde ze in 1926 tot één band, en de informele, verhalende toon uit die oorsprong is in het boek blijven zitten.</p>
+      <p>Elk hoofdstuk begint bij het leven van een denker: waar hij opgroeide, wat hem kwelde, tegen wie hij zich afzette. Pas daarna legt Durant het systeem uit, in de overtuiging dat een idee losgemaakt van die achtergrond aan zeggingskracht verliest.</p>
+      <h3>Plato en Aristoteles: het begin</h3>
+      <p>De eerste hoofdstukken behandelen Plato en Aristoteles, met Athene in verval als decor. Durant leest Plato's ideeënleer en zijn ontwerp van de ideale staat in <i>De Staat</i> als een reactie op de dood van Socrates en op de politieke chaos die Athene na de Peloponnesische oorlog trof.</p>
+      <p>Aristoteles krijgt de rol van de systematische tegenvoeter: minder op zoek naar een ideale wereld achter de dingen, meer geïnteresseerd in het ordenen en classificeren van de wereld zoals ze zich aandient, van biologie tot logica tot ethiek.</p>
+      <h3>Bacon en Descartes: de weg naar Spinoza</h3>
+      <p>In het hoofdstuk over Francis Bacon benadrukt Durant diens pleidooi voor waarneming en experiment boven het napraten van oude autoriteiten, met Bacons eigen leven, zijn val als lord-kanselier wegens omkoping, als illustratie dat een denker zijn eigen leer niet altijd volgt. Descartes komt kort ter sprake als degene die het denkende zelf tot vertrekpunt van alle zekerheid maakte, een opstelling waar Spinoza zich volgens Durant juist tegen afzet.</p>
+      <h3>Spinoza: de denker die Durant het meest bewondert</h3>
+      <p>Bij Spinoza slaat de toon om naar bewondering: Durant beschrijft hem als een denker die zijn eigen leven, sober en teruggetrokken, glazen slijpend voor zijn inkomen, liet samenvallen met zijn filosofie van de rede en de "sub specie aeternitatis", het bezien van de dingen vanuit het gezichtspunt van de eeuwigheid.</p>
+      <p>Hij besteedt uitgebreid aandacht aan Spinoza's verstoting door de Amsterdamse joodse gemeente en aan diens weigering van een hoogleraarschap in Heidelberg om zijn onafhankelijkheid te bewaren. Voor Durant is dat de illustratie dat filosofie geen beroep is maar een manier van leven.</p>
+      <h3>Voltaire en Rousseau: de Verlichting</h3>
+      <p>Voltaire dient als overgang naar de Verlichting: minder een systeembouwer dan een polemist, wiens filosofie zich vooral uit in wat hij aanviel, van kerkelijk gezag tot willekeurige straffen. Durant bespreekt zijn jarenlange conflict met de Franse staat en de kerk, zijn ballingschap in Engeland en zijn latere jaren in Ferney, van waaruit hij bleef schrijven tegen onrecht.</p>
+      <p>Rousseau krijgt binnen datzelfde hoofdstuk een tegengesteld portret: waar Voltaire op de rede vertrouwt, stelt Rousseau het gevoel en de natuurlijke staat van de mens voorop. Durant laat de twee denkers als tegenpolen tegenover elkaar staan, verbonden door dezelfde eeuw en een persoonlijke afkeer van elkaar.</p>
+      <h3>Kant, met Hegel in de kantlijn, en Schopenhauer</h3>
+      <p>Het hoofdstuk over Kant probeert diens notoir dichte proza toegankelijk te maken door zijn categorische imperatief en zijn onderscheid tussen het ding op zich en het ding zoals het verschijnt terug te voeren op een overzichtelijke vraag: wat kunnen we weten, en wat moeten we doen. Durant erkent zelf dat dit de moeilijkste bladzijden van het boek zijn, en behandelt Hegels dialectiek als een aanhangsel bij Kant in plaats van in een eigen hoofdstuk.</p>
+      <p>Bij Schopenhauer staat de wil tot leven centraal, de blinde drang die volgens hem onder alle verlangen ligt en die nooit blijvend te bevredigen is. Durant leest zijn pessimisme mede vanuit een moeizame verhouding met zijn moeder en een leven lang in de schaduw van Hegels populariteit aan de Berlijnse universiteit.</p>
+      <h3>Herbert Spencer en Nietzsche</h3>
+      <p>Herbert Spencer krijgt een eigen hoofdstuk als de filosoof die de evolutieleer van Darwin uitbreidde tot een omvattend systeem, zijn "synthetische filosofie", en die de uitdrukking "survival of the fittest" muntte. Durant beschrijft hoe Spencers reputatie in zijn eigen tijd enorm was en hoe snel die na zijn dood wegzakte, als voorbeeld van hoe filosofische mode kan verschuiven.</p>
+      <p>Nietzsche krijgt een sympathiek maar niet onkritisch portret: Durant neemt diens kritiek op christelijke moraal en het begrip Übermensch serieus, plaatst het tegen de achtergrond van Nietzsches slepende ziekte en eenzaamheid, en waarschuwt tegelijk voor de latere, vervormde toe-eigening van dat werk.</p>
+      <h3>De slothoofdstukken en wat er ontbreekt</h3>
+      <p>De laatste twee hoofdstukken bespreken denkers die op het moment van schrijven nog leefden of net waren overleden. Het ene behandelt Europeanen: Henri Bergson en zijn begrip élan vital, de levensdrang die volgens hem niet in mechanische termen te vangen is, naast Benedetto Croce en Bertrand Russell. Het andere behandelt Amerikanen: George Santayana en de pragmatisten William James en John Dewey, voor wie de waarheid van een idee afhangt van wat het in de praktijk oplevert.</p>
+      <p>In het voorwoord bij de herziene editie van 1933 erkent Durant zelf de kritiek dat zijn boek zich beperkt tot de westerse traditie en grote denkers als Confucius en Boeddha ongenoemd laat. Die erkenning verandert niets aan de inhoud, en de slothoofdstukken maken het boek bovendien gedateerd op precies de plek waar het actueel probeerde te zijn: de filosofie van de twintigste eeuw is na 1933 in andere richtingen verder gegaan, van de logisch-positivisten tot het existentialisme, zonder dat latere drukken dat hebben bijgewerkt.</p>
+      <h3>Het vervolg: The Story of Civilization</h3>
+      <p>Het commerciële succes van dit boek stelde Durant in staat zich volledig te wijden aan een veel groter project: samen met zijn vrouw Ariel schreef hij de daaropvolgende decennia aan de elfdelige <i>The Story of Civilization</i>, die de wereldgeschiedenis van de oudheid tot Napoleon beschrijft. Het laatste deel van die reeks, het essay <i>The Lessons of History</i>, verscheen in 1968 en trekt de lessen uit dat hele project samen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wil tot leven</td><td>Schopenhauers begrip voor de blinde, onverzadigbare drang die volgens hem onder alle verlangen en handelen ligt.</td></tr>
+          <tr><td class="term">Übermensch</td><td>Nietzsches beeld van de mens die eigen waarden schept in plaats van overgeleverde moraal te volgen.</td></tr>
+          <tr><td class="term">Categorische imperatief</td><td>Kants regel dat je alleen mag handelen volgens een beginsel waarvan je wilt dat het een algemene wet wordt.</td></tr>
+          <tr><td class="term">Sub specie aeternitatis</td><td>Spinoza's aanduiding voor het bezien van de dingen vanuit het gezichtspunt van de eeuwigheid, los van toevallige omstandigheden.</td></tr>
+          <tr><td class="term">Dialectiek</td><td>Hegels beeld van de geschiedenis van het denken als een opeenvolging van stelling, tegenstelling en synthese.</td></tr>
+          <tr><td class="term">Pragmatisme</td><td>De opvatting van James en Dewey dat de waarheid van een idee afhangt van wat het in de praktijk oplevert.</td></tr>
+          <tr><td class="term">Élan vital</td><td>Bergsons term voor de levensdrang die zich volgens hem niet in mechanische of zuiver rationele termen laat vangen.</td></tr>
+          <tr><td class="term">Ideeënleer</td><td>Plato's opvatting dat achter de zichtbare wereld een wereld van onveranderlijke, volmaakte vormen schuilgaat.</td></tr>
+          <tr><td class="term">Synthetische filosofie</td><td>Herbert Spencers poging om de evolutieleer tot een omvattend systeem uit te bouwen dat biologie, psychologie en ethiek verklaart.</td></tr>
+          <tr><td class="term">Survival of the fittest</td><td>De uitdrukking die Spencer muntte voor de overleving van de best aangepaste soort, later verbonden aan Darwins evolutietheorie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Durant had een promotie in filosofie van Columbia University en schreef het boek zonder voetnoten, met een woordkeuze die op een algemeen publiek is gericht. Zijn claims over het leven van elke denker steunen op de biografische kennis die in de jaren twintig beschikbaar was, niet op archiefonderzoek van zijn eigen hand.</p>
+      <p>Sindsdien is er nieuw biografisch materiaal over vrijwel elke behandelde denker verschenen, van Spinoza tot Nietzsche, dat op punten preciezer of anders is dan wat Durant kon weten. Het boek moet daarom worden gelezen als een introductie uit de jaren twintig en dertig van de vorige eeuw, niet als een actuele stand van zaken in de filosofiegeschiedenis.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is de beperking tot de westerse canon, die Durant zelf benoemt maar niet verhelpt: het boek presenteert zich als een geschiedenis van de wijsbegeerte terwijl het een geschiedenis van een deel ervan is.</p>
+      <p>Daarnaast is de behandeling ongelijk. Denkers die Durant aanspreken, Spinoza voorop, krijgen een warm en persoonlijk portret, terwijl anderen vooral als bouwsteen voor het verhaal van de volgende denker fungeren. Dat maakt het boek meer een subjectieve leesreis dan een gebalanceerd overzicht.</p>
+      <p>Het slothoofdstuk over eigentijdse denkers is inmiddels bijna een eeuw oud en mist alles wat na 1933 in de filosofie is gebeurd, van de logisch-positivisten en Wittgenstein tot het existentialisme en de latere analytische filosofie.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik ieder hoofdstuk als opstap naar de oorspronkelijke tekst van de behandelde denker, niet als vervanging ervan.</li>
+        <li>Let bij elk hoofdstuk op wat Durant vertelt over de tijd waarin de denker leefde, en toets of het idee ook zonder die achtergrond overeind blijft.</li>
+        <li>Lees het slothoofdstuk over eigentijdse denkers met het besef dat het bij de stand van 1933 is blijven staan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Story of Philosophy: The Lives and Opinions of the Greater Philosophers</i> (Simon and Schuster, 1926; herziene editie 1933). Nederlands als <i>Van Socrates tot Bergson: leven en leer der grote denkers</i>, verschenen bij L.J.C. Boucher en later als Salamander-pocket bij Querido (laatste bekende druk 1962); een vertaler is niet te achterhalen en het boek is sindsdien niet herdrukt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Durant herschrijft de geschiedenis van de westerse filosofie als een reeks portretten in plaats van als een opsomming van stellingen. Elk hoofdstuk begint bij het leven van een denker, van Plato en Aristoteles via Bacon, Spinoza en Voltaire tot Kant, Schopenhauer en Nietzsche, en laat het systeem daaruit voortkomen. Zijn uitgangspunt is dat een idee pas gaat leven als de lezer ziet welke vraag, welke tijd en welke persoonlijke nood het opriep. Het boek ontstond uit een reeks goedkope pamfletten voor een algemeen publiek zonder universitaire opleiding, voordat Simon and Schuster het in 1926 als één band uitgaf.</p><p>Het boek werd een verkoophit en gaf een generatie lezers zonder filosofieopleiding hun eerste kennismaking met het vak. Het succes financierde het decennialange vervolgproject dat Durant met zijn vrouw Ariel schreef, de elfdelige <i>The Story of Civilization</i>. Het boek is geen neutraal overzicht: Durant heeft duidelijke voorkeuren, Spinoza krijgt de warmste behandeling, en in het voorwoord bij de herziene editie van 1933 erkent hij zelf dat Aziatische denkers als Confucius en Boeddha ontbreken. Ook Herbert Spencer, in 1926 nog een gezaghebbend naam, krijgt een eigen hoofdstuk dat inmiddels vooral laat zien hoe snel filosofische roem kan vervagen. De samenvatting hier is op de Engelse editie gebaseerd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofiegeschiedenis</li><li>biografie</li><li>westerse filosofie</li><li>publieksfilosofie</li><li>ideeëngeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="57"><a href="57.html">The Lessons of History</a>. Zijn latere, met Ariel geschreven slotessay bij de wereldgeschiedenis die dit boek financierde, in een strengere, minder biografische stijl.</li>
+          <li value="263"><a href="263.html">Beyond Good and Evil</a>. Nietzsches eigen tekst naast Durants hoofdstuk over hem, om te zien wat een portret op afstand weglaat.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius laat zien hoe een filosofie eruitziet die niet wordt uitgelegd maar dagelijks wordt beoefend, het soort bron waar Durants portretten naar verwijzen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

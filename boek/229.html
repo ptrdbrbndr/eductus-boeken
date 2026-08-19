@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can't Hurt Me &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Goggins stelt dat de meeste mensen stoppen zodra hun geest hun lichaam vertelt dat het klaar is, terwijl dat punt volgens zijn eigen ervaring gemiddeld…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-229">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">229 &middot; Moed en karakter</p>
+    <h1>Can't Hurt Me</h1>
+    <p class="lede">David Goggins, 2018</p>
+    <p class="stats">
+      <span><b>1133</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="229"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Goggins stelt dat de meeste mensen stoppen zodra hun geest hun lichaam vertelt dat het klaar is, terwijl dat punt volgens zijn eigen ervaring gemiddeld nog maar veertig procent van het werkelijke vermogen vertegenwoordigt. Wie doelbewust en herhaaldelijk ongemak opzoekt, callust daarmee zijn geest zoals huid eelt vormt onder herhaalde wrijving, en bouwt zo een discipline op die volgens hem sterker is dan aanleg, opleiding of afkomst. Het boek presenteert zijn eigen omslag van mishandeld en zwaarlijvig kind tot Navy SEAL en ultraloper als het bewijs van die stelling, zonder onderzoek te betrekken dat haar los van zijn persoon toetst.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Jeugd en mishandeling</h3>
+      <p>Goggins beschrijft een jeugd in Indiana en Ohio met een vader die hem en zijn moeder sloeg en de gezinsleden financieel en sociaal isoleerde. Op school kampte hij met een leerstoornis, stotteren en discriminatie in een overwegend witte omgeving, waardoor hij als kind al gewend raakte aan het idee dat de wereld tegen hem was.</p>
+      <p>Zijn moeder ontvluchtte het gezin uiteindelijk met hem mee; het boek beschrijft die vlucht als het eerste moment waarop Goggins zag dat iemand een uitzichtloze situatie toch kon doorbreken, ook al bleef de schade van de jaren daarvoor voelbaar.</p>
+      <h3>De omslag naar de Navy SEALs</h3>
+      <p>Als jongvolwassene werkt Goggins in ongediertebestrijding, weegt hij ruim 135 kilo en rookt hij, tot hij op televisie een reportage ziet over Navy SEALs. Hij besluit zich aan te melden, ontdekt dat hij binnen enkele maanden tientallen kilo's moet verliezen om aan de gewichtseisen te voldoen, en beschrijft in detail hoe hij dat met een strak dieet en dagelijks zwemmen voor elkaar krijgt.</p>
+      <p>De eerste twee pogingen om de SEAL-opleiding te voltooien stranden op stressfracturen en longontsteking. Pas bij de derde poging, na 'Hell Week' twee keer opnieuw te hebben doorstaan, haalt hij zijn insigne.</p>
+      <h3>Drie opleidingen en ultralopen</h3>
+      <p>Na de SEAL-opleiding voltooit Goggins ook de Amerikaanse Army Ranger School, waar hij als 'honor graduate' afstudeert, en de opleiding tot tactical air controller bij de Air Force. Hij noemt zichzelf de enige militair die alle drie de zwaarste Amerikaanse special-forces-opleidingen heeft afgerond.</p>
+      <p>Daarna verlegt hij zijn uitdaging naar ultralopen zonder specifieke voorbereiding: hij rent de Badwater 135 door Death Valley en andere ultramarathons, vaak op fysiek onverantwoorde wijze, en breekt met 4030 pull-ups in zeventien uur het wereldrecord voor een goed doel.</p>
+      <h3>De 40-procent-regel</h3>
+      <p>Zijn centrale idee is dat het gevoel van volledige uitputting optreedt lang voordat het lichaam werkelijk op is; hij noemt dat de 40-procent-regel, gebaseerd op zijn eigen ervaring dat hij na het punt van 'ik kan niet meer' herhaaldelijk nog aanzienlijk verder bleek te kunnen gaan.</p>
+      <p>Die regel presenteert hij niet als natuurkundige wet maar als een vuistregel om zelf op te merken hoe vaak de geest eerder capituleert dan het lichaam, en om die grens vervolgens systematisch te verleggen door opzettelijk ongemak op te zoeken.</p>
+      <h3>Callusing the mind en de accountability mirror</h3>
+      <p>Goggins vergelijkt mentale groei met het vormen van eelt: net zoals huid eelt onder herhaalde wrijving, wordt de geest volgens hem taaier door herhaald, zelfgekozen ongemak. Hij beschrijft daarnaast de accountability mirror, waarbij hij dagelijks in de spiegel zijn eigen tekortkomingen en doelen hardop benoemt op briefjes, om zichzelf niet toe te staan excuses te verzinnen.</p>
+      <p>Een derde methode is de cookie jar, het bewust terughalen van eerdere momenten waarop hij iets moeilijks volhield, als brandstof voor een nieuwe zware taak.</p>
+      <h3>Terugblik en gezondheid</h3>
+      <p>Het boek is niet zonder zelfkritiek: Goggins beschrijft ook de fysieke schade van zijn methode, waaronder een tijdelijke nierbeschadiging na een ultramarathon en hartproblemen die pas later aan het licht kwamen. Hij presenteert dat niet als waarschuwing tegen zijn aanpak, maar als bewijs van de prijs die hij bereid was te betalen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">40-procent-regel</td><td>Het idee dat de geest capituleert bij ongeveer veertig procent van het werkelijke vermogen van het lichaam.</td></tr>
+          <tr><td class="term">Callusing the mind</td><td>Het opzettelijk en herhaald opzoeken van ongemak om mentale weerstand op te bouwen, naar analogie van eelt op de huid.</td></tr>
+          <tr><td class="term">Accountability mirror</td><td>Het dagelijks hardop benoemen van eigen tekortkomingen en doelen in de spiegel, met briefjes als geheugensteun.</td></tr>
+          <tr><td class="term">Cookie jar</td><td>Het bewust terughalen van eerdere zware momenten die je volhield, als motivatie voor een nieuwe uitdaging.</td></tr>
+          <tr><td class="term">Taking souls</td><td>Goggins' term voor het overtreffen van tegenstanders of medesporters op een manier die hen zichtbaar breekt, als eigen motivatiebron.</td></tr>
+          <tr><td class="term">Hell Week</td><td>De zwaarste week van de Navy SEAL-training, met vrijwel ononderbroken fysieke inspanning en slaaptekort.</td></tr>
+          <tr><td class="term">Governor</td><td>Goggins' beeld voor het ingebouwde rem­mechanisme dat de meeste mensen ver onder hun werkelijke grens laat stoppen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een persoonlijk relaas, geen onderzoek. Alle centrale claims, de 40-procent-regel voorop, zijn afgeleid uit Goggins' eigen ervaring en niet onderbouwd met fysiologisch of psychologisch onderzoek naar uitputting, motivatie of doorzettingsvermogen bij een bredere groep mensen.</p>
+      <p>De overtuigingskracht zit in de concreetheid van zijn prestaties, die extern verifieerbaar zijn: zijn militaire diploma's, zijn deelname aan ultramarathons en zijn wereldrecord pull-ups zijn gedocumenteerd door de betrokken organisaties. Dat zijn methode voor anderen dezelfde uitkomst geeft, blijft daarmee onbewezen; het boek citeert geen enkele derde die met dezelfde methode een vergelijkbaar resultaat behaalde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Onderzoek naar doorzettingsvermogen, zoals Angela Duckworths werk over grit, wijst op factoren als betrokkenheid bij een doel over jaren en het vinden van betekenis in het werk zelf, en niet primair op het opzoeken van fysiek lijden. Goggins' aanpak generaliseert een extreem individueel geval naar een universele methode zonder die bredere onderzoekslijn te betrekken, en zonder aandacht voor de vraag hoeveel van zijn doorzettingsvermogen samenhangt met een uitzonderlijke lichamelijke aanleg die niet iedereen deelt.</p>
+      <p>Zijn eigen relaas over nierschade en later ontdekte hartproblemen laat zien dat de methode een reële gezondheidsprijs kent; het boek benoemt dat wel, maar weegt het niet af tegen de aanbeveling om de aanpak na te volgen.</p>
+      <p>De 'geen excuses'-toon van het boek maakt geen onderscheid tussen mensen die tegen hun eigen grenzen aan duwen en mensen bij wie vermoeidheid, angst of somberheid een klinische oorzaak heeft die met doorzetten alleen niet weggaat; voor die laatste groep kan het advies eerder schadelijk dan behulpzaam zijn.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf drie momenten op waarop je iets moeilijks volhield, als eigen cookie jar voor de volgende keer dat je wilt opgeven.</li>
+        <li>Noem in een paar zinnen hardop een tekortkoming die je liever verzwijgt, en een concrete stap om eraan te werken.</li>
+        <li>Merk het moment op waarop je bij een fysieke of mentale inspanning denkt dat je niet verder kunt, en ga na of dat gevoel klopt met wat je lichaam werkelijk nog aankan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Can't Hurt Me: Master Your Mind and Defy the Odds</i> (Lioncrest Publishing, 2018, 364 blz., ISBN 9781544512280). Nederlands als <i>Can't Hurt Me: master je mindset en doe het onmogelijke</i>, sinds 2023 bij Kosmos Uitgevers (1e druk, 384 blz., ISBN 9789043929868); vertaald door Marjan Doets, Janke Greving en Marianne Kerkhof.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Goggins vertelt zijn eigen levensverhaal: een jeugd met een gewelddadige vader, armoede, racisme, een leerstoornis en ernstig overgewicht, gevolgd door een omslag waarbij hij binnen enkele maanden tientallen kilo's afvalt om toegelaten te worden tot de Navy SEAL-training. Hij doorstaat die training drie keer, omdat hij telkens door blessures of longontsteking wordt teruggezet, en behaalt daarna ook het Army Ranger-diploma en de opleiding tot Air Force tactical air controller, als een van de weinigen die alle drie combineert. Later loopt hij ultramarathons zoals de Badwater 135 en verbreekt hij het wereldrecord pull-ups.</p><p>Elk hoofdstuk eindigt met een korte 'challenge' waarin Goggins de lezer een concrete, ongemakkelijke oefening voorlegt, van een eerlijke zelfinventarisatie tot fysieke inspanning voorbij het punt van uitputting. Het boek presenteert methodes die hij zelf ontwikkelde om zijn mentale weerstand te vergroten, zoals de 40-procent-regel en het bijhouden van een 'accountability mirror', en verbindt die steeds aan een concreet moment uit zijn eigen leven waarop hij ze toepaste.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>navy seals</li><li>mentale weerbaarheid</li><li>ultralopen</li><li>zelfdiscipline</li><li>trauma</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="29"><a href="29.html">Grit</a>. Duckworths onderzoek naar doorzettingsvermogen levert het empirische tegenwicht dat Goggins' eigen relaas mist.</li>
+          <li value="31"><a href="31.html">Unbroken</a>. Hillenbrands relaas over Louis Zamperini beschrijft vergelijkbaar extreem fysiek en mentaal uithoudingsvermogen, in oorlogsomstandigheden.</li>
+          <li value="36"><a href="36.html">Endurance</a>. Lansings verslag van de Shackleton-expeditie toont doorzettingsvermogen onder groepsdruk, tegenover Goggins' vrijwel solistische aanpak.</li>
+          <li value="75"><a href="75.html">Ego Is the Enemy</a>. Holiday benadert discipline en ego vanuit de stoïcijnse traditie, met meer nadruk op zelfbeheersing dan op fysiek lijden opzoeken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

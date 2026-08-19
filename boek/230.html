@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Think Like a Monk &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Shetty stelt dat de onrust van het moderne leven voortkomt uit een omgeving die voortdurend afleiding, vergelijking en de mening van anderen aanbiedt, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-230">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">230 &middot; Levenskunst</p>
+    <h1>Think Like a Monk</h1>
+    <p class="lede">Jay Shetty, 2020</p>
+    <p class="stats">
+      <span><b>1421</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="230"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Shetty stelt dat de onrust van het moderne leven voortkomt uit een omgeving die voortdurend afleiding, vergelijking en de mening van anderen aanbiedt, en dat monniken al eeuwen een systematische methode hebben om daar los van te komen. Dat systeem, samengevat in de stappen loslaten, groeien en geven, is volgens hem overdraagbaar naar een leven buiten het klooster, mits iemand bereid is dagelijkse gewoontes rond stilte, dienstbaarheid en zelfonderzoek in te voeren. De claim steunt vrijwel volledig op Shetty's eigen ervaring in een ashram en op zijn latere werk als coach, niet op onderzoek naar de effecten van die specifieke aanpak.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van Londen naar de ashram en terug</h3>
+      <p>Shetty opent met zijn eigen aanleiding: als student aan een businessschool in Londen raakte hij gefascineerd door een monnik die op de campus sprak, en besloot hij een deel van zijn studietijd door te brengen in een Vedische ashram in India. Na zijn afstuderen leefde hij enkele jaren als monnik, tot zijn leraren hem aanraadden zijn kennis buiten het klooster te delen.</p>
+      <p>Die herkomst is het frame van het hele boek: elk hoofdstuk begint met een anekdote uit de ashram, die vervolgens vertaald wordt naar een oefening voor lezers met een baan, een gezin en een telefoon vol meldingen.</p>
+      <h3>Loslaten: angst, ego en de mening van anderen</h3>
+      <p>Het eerste deel behandelt wat Shetty ziet als de grootste bronnen van onrust: angst voor wat anderen denken, vergelijking met andermans leven via sociale media, en een ego dat zich identificeert met bezit, functietitel of uiterlijk. Hij beschrijft oefeningen om bewust te worden van die invloeden, zoals het navertellen van je eigen dag door de ogen van iemand die je bewondert.</p>
+      <p>Een terugkerend beeld is dat van het monnikendenken als filter: niet elke gedachte of mening hoeft te worden toegelaten, en het is aan de lezer om bewust te kiezen welke stemmen ruimte krijgen.</p>
+      <h3>Groeien: dharma, routine en onthechting</h3>
+      <p>Het tweede deel introduceert dharma, de Vedische term voor de combinatie van talent en behoefte van de wereld waarin iemands roeping ligt. Shetty geeft oefeningen om die roeping te vinden, onder meer door te inventariseren welke activiteiten energie geven in plaats van kosten.</p>
+      <p>Daarnaast bepleit hij een vaste dagelijkse routine met momenten van stilte, gebaseerd op het kloosterritme van meditatie op vaste tijden, en onthechting: het loslaten van de uitkomst van een handeling zodra de handeling zelf is verricht, een idee dat hij rechtstreeks aan de Bhagavad Gita ontleent.</p>
+      <h3>Geven: dankbaarheid, relaties en dienstbaarheid</h3>
+      <p>Het derde deel verschuift de aandacht van zelfverbetering naar de ander. Shetty beschrijft dankbaarheid als een geoefende houding in plaats van een gevoel, met concrete oefeningen zoals het dagelijks opschrijven van specifieke, niet-algemene punten van dank.</p>
+      <p>Relaties krijgen een eigen hoofdstuk, waarin hij ingaat op luisteren zonder meteen te reageren en op het onderscheid tussen liefde die neemt en liefde die geeft. Het boek sluit af met dienstbaarheid, oftewel seva, als de hoogste vorm van betekenis in de Vedische traditie die Shetty aanhaalt.</p>
+      <h3>Meditatietechnieken</h3>
+      <p>Verspreid over het boek staan concrete meditatie- en ademhalingsoefeningen, van korte visualisaties tot langere stiltesessies, telkens gekoppeld aan het onderwerp van het hoofdstuk. Shetty presenteert deze als vereenvoudigde versies van kloosterpraktijken, aangepast aan lezers die geen jaren in een ashram doorbrengen.</p>
+      <p>Een deel van die oefeningen betreft visualisatie van een 'ideale dag' of een gesprek met een toekomstige versie van jezelf, technieken die Shetty koppelt aan monniken die hem leerden werken met verbeelding als voorbereiding op moeilijke keuzes. Andere oefeningen zijn ademhalingspatronen die hij direct herleidt tot dagelijkse praktijk in de ashram, zoals een langzame uitademing die volgens hem het zenuwstelsel tot rust brengt.</p>
+      <h3>Persoonlijke anekdotes als drager van het betoog</h3>
+      <p>Waar andere zelfhulpboeken vaak leunen op onderzoeksresultaten, drijft dit boek vooral op verhalen: Shetty beschrijft momenten met zijn leraren in de ashram, gesprekken met beroemdheden die hij later in zijn podcast interviewde, en eigen worstelingen na terugkeer in Londen, zoals de moeite om weer een gewoon inkomen te verdienen.</p>
+      <p>Die anekdotes maken de tekst leesbaar en persoonlijk, maar ze vervangen ook het soort onderbouwing dat een lezer nodig heeft om te beoordelen of een oefening bij meer mensen dan alleen de auteur werkt.</p>
+      <h3>Vorm en bereik</h3>
+      <p>Het boek verscheen in 2020, kort na het uitgroeien van Shetty's video's en podcast <i>On Purpose</i> tot een van de best beluisterde shows over persoonlijke ontwikkeling, en werd een internationale bestseller die volgens de uitgever in tientallen talen is vertaald. De hoofdstukken zijn kort, met tussenkopjes, opsommingen en oefeningen die het boek geschikt maken om met tussenpozen te lezen in plaats van in een doorlopende zit.</p>
+      <p>Die vorm sluit aan bij het medium waarin Shetty zijn naam maakte: korte, afgeronde eenheden inspiratie, eerder dan een doorlopend filosofisch betoog dat de lezer van hoofdstuk naar hoofdstuk moet volgen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dharma</td><td>De Vedische term voor de combinatie van persoonlijk talent en de behoefte van de wereld, door Shetty gebruikt voor het vinden van een roeping.</td></tr>
+          <tr><td class="term">Seva</td><td>Dienstbaarheid aan anderen zonder eigenbelang, in het boek de hoogste bron van blijvende voldoening.</td></tr>
+          <tr><td class="term">Onthechting</td><td>Het loslaten van de uitkomst van een handeling zodra de handeling zelf is verricht, ontleend aan de Bhagavad Gita.</td></tr>
+          <tr><td class="term">Monnikendenken</td><td>Shetty's overkoepelende term voor een houding van bewuste selectie van invloeden, in plaats van passief alles toe te laten.</td></tr>
+          <tr><td class="term">Loslaten, groeien, geven</td><td>De drie delen van het boek, die samen het programma vormen dat kloosterwijsheid vertaalt naar het dagelijks leven.</td></tr>
+          <tr><td class="term">Vergelijkingsval</td><td>Het voortdurend afmeten van eigen leven aan het leven van anderen, vooral via sociale media, als bron van onrust.</td></tr>
+          <tr><td class="term">Dankbaarheidsoefening</td><td>Het dagelijks specifiek benoemen van concrete punten van dank, in plaats van algemene dankbaarheid als vaag gevoel.</td></tr>
+          <tr><td class="term">Ideale-dag-visualisatie</td><td>Een verbeeldingsoefening waarin de lezer een gewenste dag in detail doorleeft, als voorbereiding op het maken van keuzes die daarbij aansluiten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek naar de effecten van de beschreven oefeningen. De onderbouwing bestaat uit Shetty's eigen jaren in de ashram, uit citaten en herformuleringen van de Bhagavad Gita en andere Vedische bronnen, en uit anekdotes uit zijn latere werk als coach en mediamaker.</p>
+      <p>Waar het boek meditatie en ademhaling aanbeveelt, sluit dat aan bij een breder onderzoeksveld naar mindfulness, maar Shetty citeert dat onderzoek niet systematisch en onderscheidt zijn eigen kloosteroefeningen niet expliciet van wat in die literatuur is getoetst. Verwijzingen naar de Bhagavad Gita en andere Vedische teksten worden doorgaans kort samengevat zonder paginaverwijzing, waardoor een lezer die de bron zelf wil naslaan weinig houvast heeft en op Shetty's herformulering moet vertrouwen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Shetty's geloofwaardigheid als bron is zelf onderwerp van onderzoek geweest. Een uitgebreide reportage in The Guardian uit 2024 bracht aan het licht dat Shetty al eerder betrokken was bij de Hare Krishna-beweging dan hij in zijn verhalen suggereert, dat de duur en aard van zijn tijd in een ashram in India ter discussie staat, en dat delen van zijn online content jarenlang bestonden uit citaten en verhalen van anderen die zonder bronvermelding als eigen werk werden gepresenteerd, iets wat hij na kritiek in 2019 gedeeltelijk met terugwerkende kracht van bronnen voorzag.</p>
+      <p>Inhoudelijk is het boek een mengvorm van Vedische spiritualiteit en westerse zelfhulp, zonder dat expliciet wordt gemaakt waar de ene traditie eindigt en de andere begint; lezers die de Bhagavad Gita kennen, zullen delen van de tekst sterk vereenvoudigd terugvinden.</p>
+      <p>De oefeningen zijn talrijk maar oppervlakkig uitgewerkt: het boek somt op wat een lezer zou kunnen doen, zonder de moeilijkheden te behandelen die optreden als iemand een van die oefeningen langere tijd volhoudt.</p>
+      <p>De discussie rond Shetty's eigen betrouwbaarheid raakt de leeswaarde van het boek rechtstreeks: waar een lezer bij een zuiver filosofisch werk de bron los kan beoordelen van de auteur, presenteert dit boek zich uitdrukkelijk als persoonlijk getuigenis van iemand die als monnik leefde, en juist die claim staat ter discussie.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf een dag lang op welke meningen van anderen je gedrag beïnvloeden, en beslis bewust welke daarvan je wilt loslaten.</li>
+        <li>Noteer drie activiteiten die je energie geven in plaats van kosten, als eerste stap naar het in kaart brengen van je eigen dharma.</li>
+        <li>Noem elke avond twee specifieke, niet-algemene dingen waarvoor je dankbaar bent, in plaats van een vage dankbaarheid te voelen.</li>
+        <li>Kies één keer per week een moment van onbetaalde dienstbaarheid aan iemand anders, zonder daar iets voor terug te verwachten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Think Like a Monk: Train Your Mind for Peace and Purpose Every Day</i> (Simon &amp; Schuster, 2020, 352 blz., ISBN 9781982134488). Nederlands als <i>Denk als een monnik</i>, sinds 2020 bij Uitgeverij Rainbow (352 blz., ISBN 9789041715760); vertaald door Davida van Dijke.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jay Shetty leefde naar eigen zeggen drie jaar als monnik in een Vedische ashram-traditie voordat hij terugkeerde naar Londen en uitgroeide tot maker van populaire video's en podcasts over persoonlijke ontwikkeling. In dit boek zet hij die kloostertijd om in een programma voor lezers buiten het klooster, opgebouwd uit drie delen: loslaten, groeien en geven. Elk deel bevat oefeningen, persoonlijke anekdotes uit zijn tijd in de ashram en verwijzingen naar de Bhagavad Gita en andere Vedische bronnen.</p><p>Het loslaten-deel gaat over het afbouwen van externe invloeden, angst en vergelijking met anderen. Het groeien-deel behandelt dharma, oftewel de vraag naar een eigen roeping, samen met routine, meditatie en onthechting. Het geven-deel sluit af met dankbaarheid, relaties en dienstbaarheid aan anderen als bron van blijvende voldoening, in tegenstelling tot de kortstondige voldoening van status of bezit.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>meditatie</li><li>monniksleven</li><li>vedische filosofie</li><li>dienstbaarheid</li><li>zelfhulp</li><li>gewoontes</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle werkt het onderscheid tussen ego en aanwezig zijn dieper uit dan Shetty's toegankelijker, oefeningsgerichte versie ervan.</li>
+          <li value="205"><a href="205.html">Zen: The Art of Simple Living</a>. Masuno beschrijft vanuit de zenboeddhistische traditie een vergelijkbare vertaalslag van kloosterleven naar dagelijkse gewoontes.</li>
+          <li value="77"><a href="77.html">Ikigai</a>. García en Miralles bundelen eveneens Oosterse levenswijsheid tot een westers zelfhulpprogramma, met een vergelijkbaar losse onderbouwing.</li>
+          <li value="208"><a href="208.html">Breaking the Habit of Being Yourself</a>. Dispenza biedt een ander, neurowetenschappelijk aangeklede versie van gewoonteverandering via meditatie, met eigen kritiekpunten over onderbouwing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Go-Giver &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De stelling van Burg en Mann is dat inkomen en invloed geen gevolg zijn van harder onderhandelen of meer klanten benaderen, maar van de hoeveelheid waarde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-246">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">246 &middot; Geld en ondernemen</p>
+    <h1>The Go-Giver</h1>
+    <p class="lede">Bob Burg en John David Mann, 2007</p>
+    <p class="stats">
+      <span><b>947</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="246"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De stelling van Burg en Mann is dat inkomen en invloed geen gevolg zijn van harder onderhandelen of meer klanten benaderen, maar van de hoeveelheid waarde die iemand aan anderen geeft zonder daar direct iets voor terug te vragen. Wie zijn eigen belang op de tweede plaats zet en zich richt op wat de ander nodig heeft, bouwt volgens het boek uiteindelijk meer op dan wie zijn eigen gewin voorop stelt. Het verhaal van Joe, een verkoper die faalt door te veel op zijn eigen doelen te letten, moet die stelling voelbaar maken voordat de wetten hem met naam worden gegeven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een kwartaal dat niet lukt</h3>
+      <p>Joe haalt zijn verkoopcijfers niet en ziet de deadline van het kwartaal naderen. Een collega verwijst hem door naar de Chairman, een gepensioneerde consultant met een reputatie die niemand precies kan uitleggen. Joe gaat met tegenzin, in de verwachting een trucje voor betere gesprekstechniek te krijgen.</p>
+      <h3>De Chairman als gids</h3>
+      <p>In plaats van gesprekstechniek stelt de Chairman voor dat Joe in vijf dagen vijf mensen ontmoet die hij persoonlijk kent, elk met een andere achtergrond, van restauranthouder tot financieel adviseur. De opdracht is niet om te luisteren naar verkoopadvies maar om te zien hoe deze mensen hun werk hebben ingericht.</p>
+      <h3>De eerste wet: waarde</h3>
+      <p>De eerste ontmoeting draait om de wet die stelt dat iemands ware waarde wordt bepaald door hoeveel meer hij aan waarde geeft dan hij in betaling ontvangt. Joe ziet iemand die zijn werk zo inricht dat klanten voortdurend meer krijgen dan waarvoor ze betaalden, zonder dat dit als verliesgevend wordt voorgesteld.</p>
+      <h3>De tweede wet: compensatie</h3>
+      <p>De tweede wet koppelt inkomen aan het aantal mensen dat iemand bedient en hoe goed hij dat doet. Het boek stelt dat wie zijn kring van dienstverlening vergroot, ook zijn inkomen vergroot, als logisch gevolg en niet als beloning die apart onderhandeld moet worden.</p>
+      <h3>De derde en vierde wet: invloed en echtheid</h3>
+      <p>De derde wet zegt dat invloed toeneemt naarmate iemand het belang van anderen consequenter vooropstelt. De vierde wet stelt dat het waardevolste dat iemand te bieden heeft, hijzelf is: zijn eigen kennis, aandacht en netwerk, in plaats van een aangeleerde verkooppersoonlijkheid.</p>
+      <h3>De vijfde wet: ontvankelijkheid</h3>
+      <p>De laatste wet is de minst voor de hand liggende: wie wil geven, moet ook kunnen ontvangen. Joe blijkt in de praktijk hulp en erkenning af te wijzen omdat hij denkt dat vragen om iets terug een vorm van zwakte is, en die houding blokkeert volgens het boek zijn eigen groei net zo goed als hebzucht dat zou doen.</p>
+      <h3>De deal aan het einde</h3>
+      <p>In het slot past Joe de vijf wetten toe op precies de deal die hem aan het begin van het boek dreigde te ontglippen, door zijn klant eerst te helpen zonder daar een verkoop van te maken. Het contract dat daaruit volgt, is groter dan wat hij aanvankelijk najoeg, en het boek laat dat gevolg zien als bewijs van de wetten en niet als toeval.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wet van Waarde</td><td>Iemands ware waarde ligt in hoeveel meer hij geeft dan hij ontvangt, niet in de prijs die hij vraagt.</td></tr>
+          <tr><td class="term">Wet van Compensatie</td><td>Inkomen volgt uit het aantal mensen dat iemand bedient en hoe goed hij dat doet.</td></tr>
+          <tr><td class="term">Wet van Invloed</td><td>Invloed groeit naarmate iemand consequenter het belang van anderen vooropstelt.</td></tr>
+          <tr><td class="term">Wet van Echtheid</td><td>Het waardevolste dat iemand te bieden heeft is hijzelf, niet een aangeleerde verkoopstijl.</td></tr>
+          <tr><td class="term">Wet van Ontvankelijkheid</td><td>Effectief geven vraagt om open te blijven staan voor wat ervoor terugkomt.</td></tr>
+          <tr><td class="term">Stratosferisch succes</td><td>De term van de auteurs voor succes dat uit de vijf wetten samen voortkomt, in plaats van uit een enkele techniek.</td></tr>
+          <tr><td class="term">De Chairman</td><td>De gepensioneerde consultant die Joe langs vijf mensen uit zijn netwerk stuurt om de wetten te laten zien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een parabel en presenteert zich ook zo: er zijn geen cijfers, geen bronnen en geen claim dat de vijf wetten uit onderzoek komen. De overtuigingskracht zit in de voorbeelden binnen het verhaal, die zo zijn gekozen dat ze de wetten bevestigen, wat inherent is aan de vorm en niet als tekortkoming wordt verborgen.</p>
+      <p>Buiten het boek is de gedachte dat dienstbaarheid op termijn tot meer omzet leidt, wijdverbreid in verkoopliteratuur en deels terug te voeren op onderzoek naar klantloyaliteit en mond-tot-mondreclame. Dat verband wordt in dit boek niet aangehaald; het staat en valt met de overtuigingskracht van het verhaal zelf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste zwakte is dat het boek nauwelijks ingaat op wat er gebeurt als geven niet wordt beantwoord. Elke go-giver in het verhaal wordt uiteindelijk beloond; de mogelijkheid dat iemand structureel misbruik maakt van wie altijd geeft, komt niet aan bod, terwijl dat in de praktijk een reëel risico is voor wie de wetten letterlijk neemt.</p>
+      <p>De vijf wetten worden nergens tegen elkaar afgewogen of van grenzen voorzien. Hoeveel waarde geven voordat het bedrijf verlies draait, wanneer eigenbelang wél mag meetellen, blijft onbeantwoord.</p>
+      <p>De personages en de opzet zijn dun: vijf dagen, vijf lessen, één bekering aan het eind. Wie het boek voor de plot leest in plaats van voor de wetten, houdt weinig over.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag jezelf bij het volgende verkoopgesprek af wat je de klant kunt geven voordat je iets van hem vraagt.</li>
+        <li>Tel voor jezelf op hoeveel mensen je werk daadwerkelijk ten goede komt, in plaats van hoeveel omzet het oplevert.</li>
+        <li>Let op momenten waarop je hulp of erkenning afslaat, en vraag je af of dat helpt of juist in de weg zit.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Go-Giver: A Little Story About a Powerful Business Idea</i> (Portfolio, 2007). Nederlands als <i>De Go-Giver: een inspirerend verhaal over de waarde van geven</i>, sinds 2019 bij Van Duuren Management (1e druk, 144 blz., ISBN 9789089654687); de catalogus noemt geen vertaler.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Joe is een ambitieuze verkoper die zijn kwartaaldoelen niet haalt en via via wordt doorverwezen naar een gepensioneerde consultant die iedereen de Chairman noemt. In de dagen die volgen, brengt de Chairman hem in contact met een reeks mensen uit zijn netwerk die stuk voor stuk succesvol zijn geworden door eerst waarde te geven en pas daarna aan verdienen te denken. Uit die ontmoetingen destilleert het boek vijf wetten van wat de auteurs stratosferisch succes noemen: waarde, compensatie, invloed, echtheid en ontvankelijkheid. Elke wet krijgt een eigen dag en een eigen gesprekspartner, en Joe past het geleerde meteen toe op de deal die hij aan het eind van het kwartaal dreigt mis te lopen.</p><p>De vorm is dezelfde als bij oudere zakelijke parabels: een korte roman die adviezen verpakt in een reisverhaal van vijf dagen, geschreven om in één avond uit te lezen en makkelijk door te geven binnen verkoopteams. Het boek werd na verschijnen veelgebruikt materiaal in salestrainingen, mede door de lengte en de eenvoud van de vijf wetten. De personages blijven functioneel en de plot is voorspelbaar; de waarde van het boek zit in de herhaalbare formulering van de wetten, niet in de literaire kwaliteit van het verhaal eromheen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>verkoop</li><li>netwerken</li><li>waardecreatie</li><li>parabel</li><li>klantrelaties</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="38"><a href="38.html">The Richest Man in Babylon</a>. Clason gebruikt dezelfde parabelvorm voor financieel advies, met dezelfde eenvoud en dezelfde afwezigheid van tegenvoorbeelden.</li>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini beschrijft de invloedmechanismen die hier als deugd worden voorgesteld, vanuit onderzoek naar hoe mensen daadwerkelijk overtuigd raken.</li>
+          <li value="279"><a href="279.html">All Marketers Are Liars</a>. Godin plaatst dienstbaarheid en verhaal in een bredere marketingtheorie waar dit boek er één toepassing van laat zien.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

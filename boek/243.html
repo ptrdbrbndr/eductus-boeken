@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benjamin Franklin: An American Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Isaacson betoogt dat Franklin, meer dan de andere grondleggers van de Verenigde Staten, de Amerikaanse identiteit vormgaf die tot op vandaag herkenbaar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-243">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">243 &middot; Geld en ondernemen</p>
+    <h1>Benjamin Franklin: An American Life</h1>
+    <p class="lede">Walter Isaacson, 2003</p>
+    <p class="stats">
+      <span><b>1404</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="243"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Isaacson betoogt dat Franklin, meer dan de andere grondleggers van de Verenigde Staten, de Amerikaanse identiteit vormgaf die tot op vandaag herkenbaar is: pragmatisch, sociaal mobiel, wantrouwend tegenover aristocratische pretentie en gericht op zelfverbetering als burgerlijke plicht. Waar Jefferson filosofische idealen formuleerde, ontwierp Franklin instituties, van bibliotheek tot brandweer, die burgers zelf konden dragen zonder van bovenaf opgelegde autoriteit. Isaacson stelt dat deze praktische, middenklasse-versie van het Amerikaanse ideaal minstens zoveel gewicht in de schaal legt als de retorische idealen van de Onafhankelijkheidsverklaring.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een weggelopen drukkersleerling</h3>
+      <p>Franklin werd in 1706 geboren in Boston als een van zeventien kinderen van een kaarsenmaker. Op zijn twaalfde werd hij in de leer gedaan bij zijn oudere broer James, drukker van een krant, maar de verhouding verzuurde en Franklin liep op zijn zeventiende weg, tegen de wet in die leerlingcontracten bindend maakte, en vestigde zich in Philadelphia.</p>
+      <p>Isaacson beschrijft hoe Franklin daar binnen enkele jaren een eigen drukkerij opbouwde en in 1732 begon met de uitgave van Poor Richard's Almanack, een jaarlijkse kalender met weersvoorspellingen en korte, praktische spreuken over spaarzaamheid en vlijt die hem in de hele kolonie bekend maakten.</p>
+      <h3>Het project van de dertien deugden</h3>
+      <p>Rond zijn twintigste stelde Franklin voor zichzelf een lijst van dertien deugden op, waaronder matigheid, orde, vlijt en oprechtheid, en hield hij een schema bij waarin hij dagelijks aankruiste waar hij tekortschoot. Isaacson leest dit project niet als religieuze oefening maar als vroeg voorbeeld van zelfmanagement, gericht op nuttig gedrag in plaats van op zuivering van de ziel.</p>
+      <p>Franklin gaf zelf toe nooit perfect in de deugden te zijn geworden, maar schreef in zijn eigen autobiografie dat de poging hem al een beter en gelukkiger mens had gemaakt; Isaacson gebruikt dat citaat om te laten zien dat Franklin resultaat belangrijker vond dan overtuiging.</p>
+      <h3>Wetenschap en burgerlijke initiatieven</h3>
+      <p>Franklin voerde in 1752 het beroemde experiment met een vlieger uit om aan te tonen dat bliksem een vorm van elektriciteit is, wat leidde tot de uitvinding van de bliksemafleider. Isaacson plaatst dit naast andere uitvindingen zoals de Franklin-kachel en de bril met dubbel gezichtsveld, en benadrukt dat Franklin nooit patent aanvroeg omdat hij vond dat uitvindingen de gemeenschap toebehoorden.</p>
+      <p>Naast wetenschap richtte Franklin in Philadelphia een bibliotheek, een brandweerkorps, een ziekenhuis, het Amerikaanse Filosofische Genootschap en de instelling op die later de Universiteit van Pennsylvania werd. Isaacson leest deze initiatieven als praktische toepassing van dezelfde overtuiging: burgers konden gezamenlijk instituties bouwen zonder op een aristocratie of de kroon te wachten.</p>
+      <h3>Diplomaat in Londen en Parijs</h3>
+      <p>Franklin bracht een groot deel van de jaren 1757 tot 1775 door in Londen, aanvankelijk als vertegenwoordiger van de kolonie Pennsylvania, en probeerde daar tot vlak voor de revolutie een verzoening tussen de kolonies en de Britse kroon te bewerkstelligen. Isaacson beschrijft hoe die hoop instortte na een vernederend verhoor door de Britse Privy Council in 1774, waarna Franklin definitief de kant van de onafhankelijkheid koos.</p>
+      <p>Als gezant in Parijs vanaf 1776 wist Franklin de Franse steun te verwerven die voor de Amerikaanse overwinning beslissend was, en onderhandelde hij mee over het Verdrag van Parijs uit 1783 dat de oorlog beëindigde. Isaacson benadrukt Franklins sociale vaardigheid aan het Franse hof, waar hij zijn imago van eenvoudige, deugdzame Amerikaan bewust cultiveerde.</p>
+      <h3>William en het gezin</h3>
+      <p>Franklins zoon William, die hij als buitenechtelijk kind grootbracht en later hielp aan het gouverneurschap van New Jersey, koos tijdens de revolutie de kant van de Britse kroon en werd na de oorlog verbannen. Isaacson beschrijft de breuk als definitief: vader en zoon spraken elkaar nog één keer, kort en zakelijk, over een schuld die Franklin wilde vereffenen.</p>
+      <p>Franklins jarenlange afwezigheid in Londen en Parijs kostte hem ook de nabijheid van zijn vrouw Deborah, die tijdens zijn afwezigheid overleed, en van zijn dochter Sally, wier huwelijk hij miste. Isaacson stelt dat Franklins publieke, burgerlijke inzet een prijs had die zijn eigen gezin betaalde.</p>
+      <h3>Slavernij en de late jaren</h3>
+      <p>Franklin bezat gedurende een deel van zijn leven huisslaven en adverteerde vroeg in zijn drukkerscarrière voor de verkoop van tot slaaf gemaakte mensen. Pas op hoge leeftijd, in de jaren voor zijn dood in 1790, werd hij voorzitter van de Pennsylvania Society for Promoting the Abolition of Slavery en diende hij een petitie tegen slavernij in bij het Congres.</p>
+      <p>Isaacson beschrijft deze late overtuiging als een voortzetting van Franklins bereidheid om standpunten aan te passen op basis van nieuwe ervaring en ontmoetingen, een houding die door zijn hele leven terugkeert, van zijn religieuze opvattingen, die van jongs af aan deïstisch waren, tot zijn politieke posities.</p>
+      <h3>Franklins eigen onvoltooide autobiografie</h3>
+      <p>Franklin begon in 1771 aan zijn eigen levensverhaal, aanvankelijk als brief aan zijn zoon William, en werkte er de rest van zijn leven met onderbrekingen aan zonder het ooit af te maken; het verhaal breekt af rond 1758. Postuum, eerst in een Franse vertaling en pas later in een betrouwbare Engelse versie, werd het een van de eerste en invloedrijkste voorbeelden van het Amerikaanse zelfverbeteringsgenre, met Franklins eigen deugdenschema als kernstuk.</p>
+      <p>Isaacson gebruikt deze tekst als belangrijkste innerlijke bron, maar wijst er ook op dat Franklin haar schreef als voorbeeld voor zijn nakomelingen en dus met een boodschap voor ogen; passages die hem in een ongunstig daglicht zetten, zoals zijn verwaarlozing van zijn eigen vader tijdens diens laatste jaren, komen er beknopt vanaf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Poor Richard's Almanack</td><td>Franklins jaarlijkse uitgave met weersvoorspellingen en korte spreuken over spaarzaamheid en vlijt, die zijn naam in de kolonies vestigde.</td></tr>
+          <tr><td class="term">Franklins Autobiography</td><td>Franklins eigen, onvoltooide levensverhaal, geschreven als brief aan zijn zoon en postuum uitgegeven, dat model stond voor het latere Amerikaanse zelfverbeteringsgenre.</td></tr>
+          <tr><td class="term">Deïsme</td><td>De religieuze houding die Franklin als jongeman aannam, waarbij hij een schepper aanvaardde maar georganiseerde kerkelijke dogma's wantrouwde.</td></tr>
+          <tr><td class="term">De dertien deugden</td><td>Franklins zelf opgestelde lijst van gedragsregels, met een dagelijks bijgehouden schema om zijn eigen tekortkomingen te registreren.</td></tr>
+          <tr><td class="term">Bliksemafleider</td><td>Franklins uitvinding na zijn vliegerexperiment van 1752, die hij bewust niet liet patenteren.</td></tr>
+          <tr><td class="term">Junto</td><td>Het bespreekclubje van ambachtslieden dat Franklin in Philadelphia oprichtte en van waaruit projecten als de bibliotheek en het brandweerkorps ontstonden.</td></tr>
+          <tr><td class="term">Verdrag van Parijs</td><td>Het vredesverdrag van 1783 waarover Franklin mede onderhandelde en dat de Amerikaanse Revolutie beëindigde.</td></tr>
+          <tr><td class="term">Pennsylvania Society for Promoting the Abolition of Slavery</td><td>De abolitionistische organisatie waarvan Franklin op hoge leeftijd voorzitter werd, na zelf decennialang slaven te hebben gehouden.</td></tr>
+          <tr><td class="term">Praktische deugd</td><td>Isaacsons term voor Franklins opvatting dat moraal zich moet bewijzen in nuttig, maatschappelijk gedrag en niet in abstracte overtuiging.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Isaacson steunt op Franklins omvangrijke, goed bewaarde correspondentie en op diens eigen onvoltooide autobiografie, aangevuld met archieven van het Amerikaanse Filosofische Genootschap en de Yale-editie van de verzamelde Franklin-papieren. Veel van de geciteerde brieven en gebeurtenissen zijn daardoor onafhankelijk na te trekken.</p>
+      <p>Voor de politieke en diplomatieke episodes gebruikt Isaacson daarnaast overheidsarchieven uit zowel de Verenigde Staten als Groot-Brittannië en Frankrijk, wat de reconstructie van de onderhandelingen in Parijs en het verhoor voor de Privy Council goed onderbouwt. Voor de wetenschappelijke episodes, zoals het vliegerexperiment, bestaan behalve Franklins eigen verslag geen onafhankelijke ooggetuigenrapporten uit 1752 zelf; latere historici hebben op basis van omstandig bewijs geconcludeerd dat het experiment wel degelijk heeft plaatsgevonden, al blijft de exacte datum onzeker.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek behandelt Franklins decennia als slavenhouder korter en met minder scherpte dan zijn latere abolitionisme, wat het risico geeft dat lezers de late bekering zwaarder laten wegen dan de lange periode ervoor. Recensenten hebben opgemerkt dat de overwegend bewonderende toon van het boek weinig ruimte laat voor een indringender afrekening met die periode.</p>
+      <p>Daarnaast benadrukt Isaacson het beeld van Franklin als de man die zichzelf omhoog werkte sterk, terwijl Franklins succes ook steunde op het gilde van drukkers, op leningen van vrienden bij de start van zijn eigen zaak, en op een netwerk van contacten dat niet iedere weggelopen leerling ter beschikking stond. Het boek erkent dat netwerk wel, maar de nadruk op eigen inzet blijft dominant in de toon van het geheel.</p>
+      <p>Ook Franklins eigen autobiografie, die Isaacson als bron gebruikt, is zelf al een vorm van zelfpresentatie: Franklin schreef haar met een boodschap aan zijn nakomelingen voor ogen en liet oncomfortabele episodes weg of beknopt. Isaacson citeert de tekst ruimhartig zonder dat onderscheid telkens opnieuw te markeren.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>An American Life</i>, bij Simon &amp; Schuster (2003). Geen Nederlandse uitgave: van Isaacson zijn wel <i>Einstein: De Biografie</i>, <i>Leonardo da Vinci</i> en <i>Steve Jobs</i> vertaald, dit boek niet. De samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Isaacson volgt Franklins hele leven, van weggelopen drukkersleerling in Boston tot ambassadeur in Parijs, aan de hand van diens omvangrijke correspondentie en eigen geschriften. Franklin verliet op zeventienjarige leeftijd de drukkerij van zijn broer om in Philadelphia een eigen bestaan op te bouwen, en groeide daar uit tot uitgever van Poor Richard's Almanack, uitvinder van de bliksemafleider en oprichter van een bibliotheek, brandweer en universiteit.</p><p>Isaacson besteedt ook aandacht aan Franklins rol in de Amerikaanse Revolutie, zijn jarenlange diplomatieke missies in Londen en Parijs, en de gespannen relatie met zijn zoon William, die als gouverneur loyaal aan de Britse kroon bleef en daarmee met zijn vader brak. Het boek plaatst Franklins praktische, burgerlijke levenshouding uitdrukkelijk tegenover de meer aristocratische stijl van andere grondleggers van de Verenigde Staten, zoals Jefferson.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biografie</li><li>amerikaanse revolutie</li><li>zelfverbetering</li><li>diplomatie</li><li>verlichting</li><li>burgerschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="231"><a href="231.html">Steve Jobs</a>. Zelfde auteur, met een vergelijkbare these dat praktische vindingrijkheid en burgerzin zwaarder wegen dan afkomst of stijl.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius hield eenzelfde soort dagelijkse zelfcontrole bij, al was zijn doel innerlijke rust en niet maatschappelijk nut.</li>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel behandelt spaarzaamheid en gedrag rond geld als karaktervraag, een thema dat in Franklins eigen deugdenproject al centraal stond.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

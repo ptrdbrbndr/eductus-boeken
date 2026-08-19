@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measure What Matters &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Doerr betoogt dat de kwaliteit van een organisatie afhangt van hoe scherp zij haar doelen formuleert en hoe zichtbaar zij de voortgang daarop maakt, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-256">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">256 &middot; Werk en aandacht</p>
+    <h1>Measure What Matters</h1>
+    <p class="lede">John Doerr, 2018</p>
+    <p class="stats">
+      <span><b>1400</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="256"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Doerr betoogt dat de kwaliteit van een organisatie afhangt van hoe scherp zij haar doelen formuleert en hoe zichtbaar zij de voortgang daarop maakt, en dat het OKR-systeem, ontwikkeld bij Intel en overgenomen door Google, daarvoor het beste instrument is dat hij in veertig jaar als investeerder is tegengekomen. Een Objective zegt wat een team wil bereiken, de Key Results zeggen meetbaar hoe het daar komt, en beide worden voor iedereen in de organisatie zichtbaar gemaakt. Zijn stelling is dat bedrijven vastlopen niet bij gebrek aan goede ideeën maar bij gebrek aan discipline om er een klein aantal van te kiezen en die vol te houden meten. Wie daar iets tegenover wil zetten, kan wijzen op de vele bedrijven met precies diezelfde discipline die het toch niet hebben gered.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van Intel naar Google</h3>
+      <p>Doerr werkte in de jaren zeventig als verkoper bij Intel onder Andy Grove, die er een eigen doelsysteem hanteerde: Objectives and Key Results. Toen Doerr later als durfinvesteerder bij Kleiner Perkins geld stak in het pas opgerichte Google, nam hij het systeem mee naar een vergadering met Larry Page, Sergey Brin en een man of veertig medewerkers, in 1999. Google gebruikt OKR's sindsdien onafgebroken, en Doerr beschrijft die vergadering als het moment waarop een idee van een oude chipfabrikant in een jonge zoekmachine ging groeien.</p>
+      <p>Het boek zelf ademt die herkomst: Doerr citeert Grove uitvoerig en presenteert zichzelf als doorgeefluik van diens methode, niet als bedenker ervan. Dat plaatst het boek in een langere lijn van doelmanagement die teruggaat op de management by objectives van Peter Drucker uit de jaren vijftig, een verwantschap die Doerr wel noemt maar niet uitwerkt.</p>
+      <h3>Objective en Key Result</h3>
+      <p>Een Objective is een kort geformuleerde ambitie, iets als een team beter laten samenwerken; een Key Result is een getal waarmee je over een kwartaal kunt vaststellen of dat gelukt is, zoals een reactietijd die van vier naar twee dagen daalt. Doerr onderscheidt committed OKR's, die volledig gehaald moeten worden, van aspirational OKR's of moonshots, waarbij een score van zeven op tien al een goed resultaat is.</p>
+      <p>Die zeven-op-tien-regel is functioneel: een OKR die telkens voor honderd procent wordt gehaald, is volgens Doerr waarschijnlijk te voorzichtig geformuleerd. Het systeem beloont dus niet het slagen op zich, maar het kiezen van een doel dat net te hoog gegrepen is.</p>
+      <h3>Vier zaken die het systeem oplevert</h3>
+      <p>Doerr noemt focus, omdat een team volgens hem niet meer dan drie tot vijf Objectives per kwartaal kan dragen; onderlinge afstemming, omdat teams hun OKR's aan elkaar koppelen en zo zien hoe hun werk bijdraagt aan een groter doel; het bijhouden van voortgang, in plaats van een jaarlijkse evaluatie achteraf; en het stellen van doelen die verder reiken dan wat met zekerheid haalbaar is, wat hij roofshots noemt tegenover de zeldzamere moonshots.</p>
+      <p>De casussen in het boek zijn zo gekozen dat elk van de vier iets illustreert: Intel gebruikte OKR's om in 1980 marktaandeel terug te winnen op Motorola, Google om zijn snelle groei bestuurbaar te houden, en Intuit om een gestage jaarlijkse cyclus te versnellen naar kortere, aanpasbare doelen.</p>
+      <h3>Doelen op elk niveau</h3>
+      <p>Doerr beschrijft hoe OKR's bij Google van bovenaf naar beneden en van beneden naar boven tegelijk lopen: de directie stelt Objectives voor het hele bedrijf vast, teams leiden daar hun eigen OKR's van af, en individuele medewerkers stellen op hun beurt OKR's op die aan het team gekoppeld zijn. Iedereen kan bij Google intern de OKR's van iedere collega inzien, van de topman tot de nieuwste stagiair.</p>
+      <p>Die zichtbaarheid is volgens Doerr net zo belangrijk als de doelen zelf, omdat een medewerker zo kan zien hoe het eigen werk aansluit op wat een ander team probeert te bereiken, zonder dat daar een aparte vergadering voor nodig is. Bij bedrijven die de OKR's alleen aan de top houden, blijft die aansluiting volgens hem grotendeels onzichtbaar voor wie lager in de organisatie werkt.</p>
+      <h3>CFR's: het gesprek in plaats van het formulier</h3>
+      <p>Naast OKR's introduceert Doerr CFR's: conversations, feedback, recognition. Bij Adobe verving personeelsdirecteur Donna Morris het jaarlijkse beoordelingsformulier door doorlopende check-ins tussen medewerker en leidinggevende, met als argument dat een gesprek over een half jaar oud probleem weinig meer oplevert dan frustratie.</p>
+      <p>Doerr benadrukt dat OKR's bij Google nooit rechtstreeks aan bonussen gekoppeld zijn. De reden is dat mensen die weten dat hun salaris van de score afhangt, geneigd zijn voorzichtige doelen te kiezen in plaats van doelen die de organisatie echt vooruit helpen, een gedrag dat hij sandbagging noemt.</p>
+      <h3>Casussen buiten het bedrijfsleven</h3>
+      <p>Een deel van het boek verlaat Silicon Valley. De Gates Foundation gebruikte een OKR-achtige structuur bij haar campagne tegen polio, met een Key Result dat het aantal nieuwe besmettingen wereldwijd concreet vastlegde. Bono's ONE Campaign zette OKR's in om de aandacht van Amerikaanse Congresleden voor ontwikkelingshulp in Afrika te vergroten, met meetbare doelen voor het aantal ontmoetingen en toezeggingen.</p>
+      <p>Doerr gebruikt deze voorbeelden om te laten zien dat het systeem niet aan techbedrijven gebonden is. Tegelijk blijft het opvallend dat elk voorbeeld, van polio tot ontwikkelingshulp, een organisatie is waarmee Doerr of zijn stichting persoonlijk verbonden was.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">OKR</td><td>Objectives and Key Results, het doelsysteem dat een ambitie koppelt aan een klein aantal meetbare uitkomsten.</td></tr>
+          <tr><td class="term">Objective</td><td>De korte, richtinggevende formulering van wat een team wil bereiken, zonder getal.</td></tr>
+          <tr><td class="term">Key Result</td><td>Het meetbare onderdeel van een OKR waaraan je kunt aflezen of het Objective gehaald is.</td></tr>
+          <tr><td class="term">Committed OKR</td><td>Een doel dat volledig gehaald moet worden, in tegenstelling tot een aspirational OKR.</td></tr>
+          <tr><td class="term">Moonshot</td><td>Een ambitieus, aspirational doel waarbij een score van rond de zeven op tien als geslaagd geldt.</td></tr>
+          <tr><td class="term">CFR</td><td>Conversations, feedback, recognition: doorlopende gesprekken die het jaarlijkse beoordelingsgesprek moeten vervangen.</td></tr>
+          <tr><td class="term">Sandbagging</td><td>Het bewust kiezen van een voorzichtig, makkelijk haalbaar doel om een lage score te vermijden.</td></tr>
+          <tr><td class="term">Zeven-op-tien-regel</td><td>De vuistregel dat een aspirational OKR die telkens volledig wordt gehaald, waarschijnlijk te laag gemikt is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Doerr onderbouwt zijn stelling met casussen, niet met vergelijkend onderzoek. Voor elk bedrijf of elke organisatie in het boek beschrijft hij hoe OKR's zijn ingevoerd en welk resultaat daarop volgde, meestal in de woorden van een leidinggevende die hij zelf heeft geïnterviewd. Er is geen controlegroep van vergelijkbare organisaties die zonder OKR's hebben gepresteerd, en geen meting van hoeveel van het succes aan het systeem zelf valt toe te schrijven tegenover andere factoren zoals kapitaal, timing of het marktsegment.</p>
+      <p>Doerr is bovendien geen onafhankelijke waarnemer. Via Kleiner Perkins investeerde hij in Google, Intuit en verschillende andere bedrijven die in het boek als bewijs dienen, en hij zat bij een aantal ervan zelf in de raad van bestuur. Dat plaatst hem dichter bij een pleitbezorger van zijn eigen portefeuille dan bij een onderzoeker die het systeem van buitenaf toetst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste tegenwerping is survivorship bias: elk voorbeeld in het boek is een bedrijf dat groeide nadat het OKR's invoerde, en geen enkel voorbeeld is een bedrijf dat OKR's invoerde en er niets aan had. Zonder die tegenvoorbeelden is niet te zeggen of OKR's zelf het verschil maakten, of dat succesvolle bedrijven toevallig ook dit systeem gebruikten.</p>
+      <p>Een tweede punt is dat OKR's inhoudelijk weinig nieuws zijn ten opzichte van Peter Druckers management by objectives uit 1954. Doerr voegt vooral kadans en zichtbaarheid toe, met kortere cycli en openbare dashboards, maar het onderliggende idee, doelen expliciet maken en meten, is decennia ouder dan het boek suggereert.</p>
+      <p>Ten slotte is de overdraagbaarheid onduidelijk. Vrijwel alle casussen komen uit snelgroeiende technologiebedrijven en filantropische organisaties met veel geld en een platte structuur, waar medewerkers gewend zijn aan verandering per kwartaal. Of hetzelfde systeem even goed werkt in een productiebedrijf met vaste processen, een overheidsorganisatie met budgetcycli van een jaar of een familiebedrijf zonder aparte HR-afdeling om het systeem te begeleiden, laat het boek onbesproken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beperk elk team tot drie tot vijf Objectives per kwartaal, en verwijder bewust wat daarbuiten valt.</li>
+        <li>Formuleer bij elke Objective een paar Key Results als getal, met een startwaarde en een streefwaarde.</li>
+        <li>Koppel de score van een OKR nooit rechtstreeks aan een bonus of beoordeling, om sandbagging te voorkomen.</li>
+        <li>Vervang het jaargesprek door een kort, terugkerend gesprek over voortgang, obstakels en erkenning.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Measure What Matters: How Google, Bono, and the Gates Foundation Rock the World with OKRs</i> (Portfolio, 2018). Nederlands als <i>OKR: Objectives &amp; Key Results</i>, sinds 2025 bij Nubiz (1e druk, 304 blz., ISBN 9789492790507); een vertaler wordt niet vermeld.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>John Doerr leerde het OKR-systeem, Objectives and Key Results, begin jaren zeventig van Andy Grove bij Intel en droeg het in 1999 over aan Larry Page en Sergey Brin, kort na de oprichting van Google. Een OKR bestaat uit een Objective, wat je wilt bereiken, en een paar Key Results, meetbare stappen waaraan je aflezen kunt of dat lukt. Doerr bouwt het boek op uit twee helften: een uitleg van het systeem en een reeks casussen van bedrijven en organisaties die het gebruiken, van Google en Intel tot de softwarebedrijven Intuit en Adobe, de app MyFitnessPal en, buiten het bedrijfsleven, de ONE Campaign van Bono en de Gates Foundation bij de uitroeiing van polio.</p><p>Doerr onderscheidt vier zaken die OKR's volgens hem opleveren: focus, omdat een team er maar een handvol tegelijk mag hebben, onderlinge afstemming, omdat doelen van teams zichtbaar aan elkaar gekoppeld worden, het bijhouden van voortgang, en het stellen van doelen die net iets verder reiken dan wat zeker haalbaar is. Daarnaast pleit hij voor CFR's, doorlopende gesprekken, feedback en erkenning, als vervanging van het jaarlijkse beoordelingsgesprek. Doerr schrijft als investeerder die in veel van de besproken bedrijven zelf heeft geïnvesteerd via Kleiner Perkins, en zijn voorbeelden zijn zonder uitzondering succesverhalen; bedrijven waar OKR's niet aansloegen komen in het boek niet voor.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>okr</li><li>doelstellingen</li><li>management</li><li>teamwork</li><li>prestatiebeoordeling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="151"><a href="151.html">Essentialism</a>. McKeown werkt de onderliggende gedachte van OKR's, minder doelen kiezen om ze serieus te kunnen nastreven, uit tot een levensbrede filosofie.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz beschrijft dezelfde Silicon Valley-wereld van doelen en groei, maar dan vanuit de chaos van een bedrijf dat bijna omvalt.</li>
+          <li value="270"><a href="270.html">Principles</a>. Dalio bouwt met zijn principes een vergelijkbaar systeem van expliciete regels voor besluitvorming, toegepast op een heel ander soort organisatie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

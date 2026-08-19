@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Almanack of Naval Ravikant &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ravikant stelt dat rijkdom en geluk allebei vaardigheden zijn die volgens vaste principes te verwerven zijn, en niet de uitkomst van geluk, aanleg of…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-228">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">228 &middot; Levenskunst</p>
+    <h1>The Almanack of Naval Ravikant</h1>
+    <p class="lede">Eric Jorgenson, 2020</p>
+    <p class="stats">
+      <span><b>1424</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="228"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ravikant stelt dat rijkdom en geluk allebei vaardigheden zijn die volgens vaste principes te verwerven zijn, en niet de uitkomst van geluk, aanleg of afkomst. Rijkdom ontstaat volgens hem uit specifieke kennis, hefboom en eigenaarschap, volgehouden over jaren; geluk ontstaat uit het laten varen van verlangen in plaats van het najagen van de volgende bevrediging. Beide claims steunen niet op onderzoek maar op wat Ravikant als ondernemer zelf ontdekte en, naar eigen zeggen, opdeed bij stoïcijnen, boeddhisten en evolutiebiologen die hij op eigen houtje las.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst van het boek</h3>
+      <p>In 2018 vroeg Jorgenson, op dat moment een van Ravikants volgers, of hij diens tweets, blogposts en podcastoptredens mocht bundelen tot een boek. Ravikant stemde toe onder voorwaarde dat het gratis zou blijven. Jorgenson las jaren aan materiaal terug, waaronder een veelgedeelde tweetreeks uit 2018 getiteld 'How to Get Rich (without getting lucky)', en herschikte losse uitspraken tot doorlopende hoofdstukken met een inleiding per onderwerp.</p>
+      <p>Dat maakt het boek tegelijk toegankelijk en beperkt: de losse herkomst van de zinnen levert korte, uitspraakachtige alinea's op die weinig doorwerken naar een sluitend betoog. Herhaling tussen hoofdstukken is inherent aan de vorm, omdat Ravikant dezelfde gedachte in verschillende interviews telkens anders formuleerde.</p>
+      <h3>Specifieke kennis</h3>
+      <p>Ravikants kernbegrip voor rijkdom is specifieke kennis: kennis die niet via een opleiding of certificaat is over te dragen, omdat zij ontstaat uit oprechte nieuwsgierigheid en jarenlange verdieping in iets waarin bijna niemand anders zo ver komt. Waar algemene kennis, zoals een diploma rechten of een MBA, overal te koop is en dus weinig oplevert, is specifieke kennis per definitie schaars omdat zij niet is na te bootsen door iemand die alleen het eindresultaat kopieert.</p>
+      <p>Hij raadt aan die kennis te zoeken in wat iemand toch al zou doen zonder ervoor betaald te worden, omdat gedwongen inspanning nooit de duizenden uren oplevert die nodig zijn om er werkelijk in uit te blinken.</p>
+      <h3>Hefboom, verantwoordelijkheid en oordeel</h3>
+      <p>Specifieke kennis alleen is niet genoeg; zij moet gecombineerd worden met hefboom om vermogen op te leveren. Ravikant onderscheidt arbeid, kapitaal en code of media als vormen van hefboom, en wijst erop dat code en media de eerste vormen zijn waarvoor niemand toestemming hoeft te vragen: een programma of een video kan zich zonder extra inspanning van de maker over miljoenen mensen verspreiden.</p>
+      <p>Hefboom zonder verantwoordelijkheid vindt hij gevaarlijk, en daarom koppelt hij er twee andere eisen aan: bereidheid om in het openbaar verantwoordelijkheid te nemen voor beslissingen, en goed oordeel, dat volgens hem vooral ontstaat door veel te lezen buiten het eigen vakgebied en door de gevolgen van eerdere keuzes serieus te bestuderen.</p>
+      <p>Ravikant vat deze vier elementen, specifieke kennis, verantwoordelijkheid, hefboom en oordeel, samen als een formule die op elkaar inwerkt: kennis zonder hefboom blijft klein van schaal, hefboom zonder verantwoordelijkheid leidt tot onbetrouwbaarheid, en beide zonder oordeel leiden tot verkeerde beslissingen die zich net zo hard vermenigvuldigen als de goede.</p>
+      <h3>Lange spellen met lange spelers</h3>
+      <p>Een terugkerend advies is om spellen te spelen met een samengesteld effect: reputatie, kennis, vaardigheden en relaties die over decennia oplopen in plaats van eenmalige transacties. Ravikant formuleert dit als spelen in lange spellen met lange spelers, en herhaalt dat de meeste win-verliesuitkomsten in het leven op korte termijn spelen, terwijl de winsten van rijkdom en aanzien zich pas op lange termijn opstapelen.</p>
+      <p>Hij onderscheidt daarbij expliciet rijkdom van geld en status: geld is een nul-som-achtige ruilwaarde en status is een spel met vaste rangorde, terwijl rijkdom volgens hem betekent dat er iets bestaat dat waarde levert terwijl je slaapt, zoals een bedrijf, geschreven code of intellectueel eigendom.</p>
+      <h3>Geluk als afwezigheid van verlangen</h3>
+      <p>In het tweede deel wisselt het onderwerp van rijkdom naar geluk, dat Ravikant scherp onderscheidt van plezier. Plezier is voor hem kortstondige opwinding die volgt op prikkels, terwijl geluk de staat is die overblijft wanneer het gevoel wegvalt dat er iets ontbreekt. Hij noemt geluk daarom een vaardigheid en een keuze, niet een gebeurtenis die van buitenaf moet worden veroorzaakt.</p>
+      <p>Kernbegrip hierbij is dat verlangen een contract is dat iemand met zichzelf sluit om ongelukkig te blijven totdat het vervuld is. Elke wens naar iets wat er nu niet is, importeert daarmee automatisch een periode van ontevredenheid, ongeacht wat er uiteindelijk wordt bereikt.</p>
+      <h3>Meditatie en het observeren van de gedachtestroom</h3>
+      <p>Ravikant beschrijft meditatie niet als ontspanningstechniek maar als het trainen van het vermogen om gedachten te zien opkomen zonder ze automatisch te volgen. Vrijwel alle negatieve gevoelens, stelt hij, ontstaan doordat het denken zich vastklampt aan een gedachte over verleden of toekomst; wie leert die gedachte te zien komen en gaan zonder actie, ervaart minder lijden bij gelijkblijvende omstandigheden.</p>
+      <p>Hij besluit met een gedachte-experiment: zou je tien miljoen dollar aannemen in ruil voor een jaar volledige eenzaamheid op een onbewoond eiland? De meeste mensen zeggen nee, wat volgens hem laat zien dat gezondheid, vrije tijd en relaties zwaarder wegen dan geld zodra de basisbehoeften zijn gedekt, ook al richten de meeste levens zich vrijwel uitsluitend op het vermeerderen van geld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Specifieke kennis</td><td>Kennis die niet via opleiding is over te dragen, ontstaan uit oprechte nieuwsgierigheid en jarenlange verdieping.</td></tr>
+          <tr><td class="term">Hefboom</td><td>Vermenigvuldigers van inspanning: arbeid, kapitaal, en de toestemmingsloze vormen code en media.</td></tr>
+          <tr><td class="term">Rijkdom versus geld en status</td><td>Rijkdom is bezit dat waarde blijft leveren zonder actieve inzet, geld is ruilwaarde, status is relatieve rangorde.</td></tr>
+          <tr><td class="term">Lange spellen met lange spelers</td><td>De keuze om relaties en projecten aan te gaan met een horizon van jaren, omdat reputatie en vertrouwen samengesteld effect hebben.</td></tr>
+          <tr><td class="term">Verlangen als contract</td><td>Elke wens is een afspraak met jezelf om ongelukkig te blijven totdat de wens vervuld is.</td></tr>
+          <tr><td class="term">Geluk als vaardigheid</td><td>De staat die overblijft wanneer het gevoel wegvalt dat er iets ontbreekt, aan te leren zoals elke andere vaardigheid.</td></tr>
+          <tr><td class="term">Goed oordeel</td><td>Het vermogen om de juiste beslissingen te nemen met onvolledige informatie, opgebouwd door veel te lezen en eerdere keuzes te evalueren.</td></tr>
+          <tr><td class="term">Geluk versus plezier</td><td>Plezier is kortstondige opwinding door een prikkel, geluk is een aanhoudende afwezigheid van gevoeld tekort.</td></tr>
+          <tr><td class="term">Leermachine</td><td>Ravikants beeld van zichzelf als iemand die voortdurend leest en bijleert buiten het eigen vakgebied, als basis voor goed oordeel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek, geen enquêtes en geen citaten uit vakliteratuur. De uitspraken zijn afkomstig uit Ravikants eigen ervaring als oprichter en investeerder in de Amerikaanse techsector, en uit zijn zelfstandige lectuur van stoïcijnse en boeddhistische bronnen, die hij in de tekst noemt maar niet stelselmatig citeert. Namen als Marcus Aurelius en Epictetus vallen herhaaldelijk, zonder brontekst of paginaverwijzing.</p>
+      <p>De overtuigingskracht zit in de herhaalbaarheid van de aforismen en in Ravikants zichtbare succes als investeerder, niet in enige toetsing van de stelling dat zijn aanpak voor anderen dezelfde uitkomst geeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is overlevingsvertekening. Ravikant bouwde zijn vermogen op tijdens de opkomst van internetbedrijven in Silicon Valley, met toegang tot kapitaal en netwerken die de meeste lezers niet hebben; zijn advies om te bouwen zonder toestemming via code gaat voorbij aan hoeveel van zijn eigen succes afhing van precies dat ene decennium en die ene plek. Het boek vermeldt zelf niet hoeveel vergelijkbaar getalenteerde mensen dezelfde principes toepasten zonder een vergelijkbare uitkomst te behalen.</p>
+      <p>Verder wringt het happiness-deel met het wealth-deel: een boek dat aanraadt te stoppen met verlangen naar meer, is samengesteld uit het werk van een man die decennia lang zeer gericht naar meer vermogen streefde en daar publiekelijk over spreekt. Ravikant erkent die spanning zelf ten dele in enkele interviewfragmenten die Jorgenson opnam, maar lost haar in de tekst niet op; de twee delen staan vrijwel onafhankelijk van elkaar in het boek, zonder dat wordt uitgewerkt hoe iemand ze in de praktijk verenigt.</p>
+      <p>Omdat de tekst uit losse aforismen bestaat, ontbreekt een sluitend betoog waarop een lezer tegenspraak kan aanbrengen: uitspraken worden naast elkaar gezet, niet met elkaar in verband gebracht of tegen elkaar afgewogen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf wat je toch al zou doen zonder er geld voor te krijgen, en ga na of daar een vorm van specifieke kennis in schuilt.</li>
+        <li>Noteer welke van je huidige projecten alleen op korte termijn uitbetalen, en welke over jaren reputatie of relaties opbouwen.</li>
+        <li>Leg jezelf het gedachte-experiment over het onbewoonde eiland voor en schrijf op wat het antwoord zegt over je huidige tijdsbesteding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Almanack of Naval Ravikant: A Guide to Wealth and Happiness</i>, door Eric Jorgenson samengesteld uit tweets, essays en podcastgesprekken van Naval Ravikant uit de jaren 2007-2018, in eigen beheer uitgegeven bij Magrathea Publishing (2020, 242 blz.). Geen Nederlandse uitgave: van Ravikant en Jorgenson is niets vertaald. De samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Naval Ravikant is een in India geboren Amerikaanse ondernemer en investeerder, medeoprichter van AngelList en vroege investeerder in onder meer Twitter en Uber. Dit boek is geen geschreven werk van Ravikant zelf maar een compilatie: Eric Jorgenson verzamelde tienduizenden tweets, essays, interviews en podcastfragmenten van Ravikant en ordende ze tot twee delen, een over rijkdom en een over geluk. Het boek is gratis te lezen en te beluisteren; de opbrengst van de verkochte edities gaat naar goede doelen.</p><p>Het rijkdomdeel beschrijft hoe iemand zonder toevalstreffer vermogen kan opbouwen: door specifieke kennis te ontwikkelen die niet in een cursus valt te leren, door hefboom te zoeken in code en media die zonder toestemming schalen, en door verantwoordelijkheid te nemen voor de uitkomst van eigen beslissingen. Het geluksdeel behandelt geluk als een vaardigheid en niet als een toestand die van buiten komt: verlangen naar iets anders dan wat er nu is, noemt Ravikant een zelfgekozen vorm van ongeluk, en meditatie is bij hem het middel om die gewoonte af te leren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>rijkdom</li><li>geluk</li><li>aforismen</li><li>ondernemerschap</li><li>stoïcijnse filosofie</li><li>meditatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel behandelt vermogen ook als gedrag in plaats van kennis, met meer nadruk op de rol van toeval en tevredenheid dan Ravikant toelaat.</li>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Seneca's stoïcijnse bronmateriaal waarop Ravikants geluksdeel leunt, in de oorspronkelijke, uitgewerkte vorm.</li>
+          <li value="197"><a href="197.html">Hell Yeah or No</a>. Sivers werkt vanuit dezelfde ondernemerswereld en dezelfde aforistische stijl, met een vergelijkbare nadruk op eigen regie.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle werkt de gedachte dat lijden voortkomt uit denken over verleden en toekomst verder uit dan Ravikants korte aanstip ervan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
