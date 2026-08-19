@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catastrophe Ethics &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rieder betoogt dat de morele intuïties waarmee mensen zijn toegerust, ontwikkeld in kleine groepen waarin een handeling een duidelijke dader en een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-299">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">299 &middot; Levenskunst</p>
+    <h1>Catastrophe Ethics</h1>
+    <p class="lede">Travis Rieder, 2024</p>
+    <p class="stats">
+      <span><b>1712</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="299"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rieder betoogt dat de morele intuïties waarmee mensen zijn toegerust, ontwikkeld in kleine groepen waarin een handeling een duidelijke dader en een duidelijk slachtoffer had, niet werken bij problemen die pas ontstaan als miljarden losse handelingen bij elkaar worden opgeteld. Individuele plicht loslaten omdat één vlucht of één stuk vlees het klimaat niet meetbaar raakt, is voor hem geen ontsnapping maar een denkfout, want dezelfde redenering zou iedereen tegelijk vrijpleiten terwijl de optelsom van al die vrijgepleite handelingen de schade wél veroorzaakt. Zijn alternatief is dat mensen niet vanuit strikte plicht maar vanuit redenen van wisselend gewicht handelen, wat ruimte laat voor een leven dat niet perfect is en toch verdedigbaar. Wie zijn boek leest als vrijbrief om te blijven doen wat men al deed, heeft volgens datzelfde argument dan weer geen reden om dat zonder meer te doen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De Puzzel</h3>
+      <p>Rieder opent met de spanning die het boek draagt: mensen voelen zich verantwoordelijk voor klimaatverandering, ongelijkheid in de aanvoerketen van hun telefoon of de cobaltmijnen achter hun elektrische auto, en tegelijk verandert geen van hun individuele keuzes daar iets aan. Honderd bedrijven zijn volgens de cijfers die hij aanhaalt verantwoordelijk voor het grootste deel van de wereldwijde uitstoot, wat de vraag oproept waarom een individu zich daar nog iets bij zou moeten voorstellen.</p>
+      <p>Zijn antwoord is dat de vraag zelf verkeerd gesteld is zolang zij om een meetbaar gevolg draait. Een handeling kan volgens hem moreel relevant zijn zonder dat zij op zichzelf iets veroorzaakt, namelijk als onderdeel van een patroon dat gezamenlijk wel iets veroorzaakt. Daarmee wil hij het gesprek verplaatsen van "heeft mijn handeling effect" naar "welke rol speel ik in dit patroon".</p>
+      <h3>Twee dwaalwegen: zuiverheid en onverschilligheid</h3>
+      <p>De eerste dwaalweg is wat Rieder zuiverheidsethiek noemt: de eis om volledig buiten elk schadelijk systeem te blijven, geen vlees, geen vliegtuig, geen product waarvan de herkomst besmet is. Hij vindt dat onhaalbaar in een wereld waarin vrijwel elke aankoop ergens in een keten zit die schade doet, en waarschuwt dat de eis tot uitputting en tot een leven vol boekhouding leidt zonder dat de wereld er merkbaar beter van wordt.</p>
+      <p>De tweede dwaalweg is nihilisme: omdat niets wat een individu doet het verschil maakt, is er ook geen reden om iets te laten. Rieder erkent de logica ervan en verwerpt de uitkomst, want als iedereen zo redeneert is er niemand meer die iets doet, terwijl het probleem juist ontstaat doordat iedereen hetzelfde doet.</p>
+      <h3>De morele camera</h3>
+      <p>Om zijn eigen route te vinden leent Rieder een beeld van de psycholoog Joshua Greene: het morele beoordelingsvermogen werkt als een camera met een automatische en een handmatige stand. De automatische stand is snel, werkt goed bij vertrouwde situaties met een duidelijke dader en een duidelijk slachtoffer, en faalt bij problemen die de menselijke soort evolutionair nooit is tegengekomen, zoals een broeikaseffect dat pas na honderd jaar merkbaar wordt.</p>
+      <p>Klimaatverandering, mondiale bevoorradingsketens en soortgelijke problemen vragen daarom om de handmatige stand: trager, inspannender, maar in staat om met redenen te werken die de automatische intuïtie niet oppikt. Het grootste deel van het boek is een oefening in die handmatige stand.</p>
+      <h3>Van plicht naar reden</h3>
+      <p>Rieder stelt voor het onderscheid tussen "moet" en "moet niet" te vervangen door een schaal van wat hij shouldiness noemt, een mate van gewicht die een overweging in de schaal legt zonder meteen een harde plicht te worden. Een reden om minder vlees te eten is dan geen wet die overtreden wordt zodra er een keer een biefstuk op het bord ligt, maar een aanhoudende overweging die meetelt naast andere overwegingen, zoals kosten, gezondheid en wat iemand anders in zijn leven al doet.</p>
+      <p>Daarmee verdedigt hij ook zijn antwoord op het bezwaar dat individuele actie geen betekenisvol verschil maakt. Een handeling kan volgens hem reden geven zonder dat zij een aanwijsbaar gevolg heeft, omdat zij deel is van een gedragspatroon waarvan het geheel wel een gevolg heeft; wie daaraan bijdraagt, draagt een deel van de reden om het na te laten, ook al draagt niemand het gevolg alleen.</p>
+      <h3>De ethiek van nauwgezetheid in de praktijk</h3>
+      <p>In het middendeel past Rieder zijn schaal toe op alledaagse keuzes: vlees eten, een auto met verbrandingsmotor rijden, vliegen, elektronica kopen waarvan de mijnbouw omstreden is. Hij weegt telkens de reden om iets na te laten tegen de reden om het te blijven doen, inclusief overwegingen als beschikbare alternatieven, kosten en de vraag of iemand meer bijdraagt via ander werk, zoals activisme of beleidswerk, dan via consumptieonthouding.</p>
+      <p>Virtue ethics, het denken in karaktertrekken in plaats van regels of gevolgen, komt pas laat in het boek naar voren als aanvulling op zijn eigen model. Voor sommige lezers voelt dat als een instrument dat eerder in het betoog had gehoord, omdat het net zo goed het startpunt had kunnen zijn.</p>
+      <h3>De grootste beslissing: kinderen krijgen</h3>
+      <p>Het boek eindigt bij wat Rieder monumentale ethiek noemt: beslissingen die niet uit een reeks kleine handelingen bestaan maar uit één onomkeerbare keuze met gevolgen voor decennia, waarbij de ethiek van nauwgezetheid grotendeels tekortschiet. De keuze om een kind te krijgen valt daaronder, met de extra complicatie dat het kind zelf geen stem heeft in een wereld met een onzekere klimaattoekomst.</p>
+      <p>Rieder wijst het argument af dat niemand meer kinderen zou mogen krijgen zolang de klimaatcrisis voortduurt, en wijst evengoed de gedachte af dat de vraag geen overweging verdient. Hij laat de beslissing bij de lezer, met als aanwijzing dat wie haar neemt, haar bewust en met kennis van de gevolgen zou moeten nemen in plaats van uit gewoonte.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De Puzzel</td><td>Het gevoel medeverantwoordelijk te zijn voor een probleem dat pas ontstaat als optelsom van miljarden losse, op zichzelf onschadelijke handelingen.</td></tr>
+          <tr><td class="term">Zuiverheidsethiek</td><td>De eis om volledig buiten elk schadelijk systeem te blijven; volgens Rieder onhaalbaar en uitputtend.</td></tr>
+          <tr><td class="term">Nihilisme</td><td>De conclusie dat niets ertoe doet omdat een individuele handeling nooit meetbaar effect heeft, wat volgens Rieder de verkeerde les trekt uit een juiste waarneming.</td></tr>
+          <tr><td class="term">Ethiek van nauwgezetheid</td><td>Ridders eigen voorstel: geen zuiverheid en geen onverschilligheid, maar een voortdurende, persoonlijke afweging van redenen van wisselend gewicht.</td></tr>
+          <tr><td class="term">Morele camera</td><td>Het beeld, ontleend aan Joshua Greene, van morele oordeelsvorming als een automatische en een handmatige stand, waarbij grote collectieve problemen de handmatige stand vragen.</td></tr>
+          <tr><td class="term">Shouldiness</td><td>Ridders term voor een schaal van morele overwegingen tussen vrijblijvend en verplicht, in plaats van een strikt onderscheid tussen moeten en niet moeten.</td></tr>
+          <tr><td class="term">Betekenisvol verschil</td><td>De maatstaf die vraagt of een handeling op zichzelf een waarneembaar gevolg heeft; Rieder bestrijdt dat dit de enige maatstaf voor morele relevantie is.</td></tr>
+          <tr><td class="term">Monumentale ethiek</td><td>Beslissingen die uit één onomkeerbare keuze bestaan in plaats van uit herhaalbaar gedrag, zoals de keuze om een kind te krijgen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een filosofisch betoog en geen empirisch onderzoek. Rieder redeneert vanuit gedachte-experimenten, definities en de spanning tussen intuïties, op de manier van de morele filosofie waarin hij is opgeleid, en niet vanuit metingen, enquêtes of experimenten die hij zelf heeft uitgevoerd. Waar hij empirische claims doet, zoals de bewering dat een klein aantal bedrijven verantwoordelijk is voor het grootste deel van de wereldwijde uitstoot, steunt hij op bestaand onderzoek van anderen zonder dat zelf te herhalen of te toetsen.</p>
+      <p>Zijn beroep op Joshua Greenes onderscheid tussen automatische en handmatige morele oordeelsvorming komt uit de psychologie en is daar zelf onderwerp van discussie; Rieder gebruikt het als illustratie, niet als bewijs voor zijn eigen ethische claims. De overtuigingskracht van het boek zit dus niet in gegevens maar in de consistentie van de redenering en in de vraag of de lezer de tussenstappen aanvaardt.</p>
+      <p>Rieder onderbouwt zijn positie verder met de klassieke tradities van de ethiek, gevolgenethiek, plichtethiek en deugdethiek, die hij tegen elkaar afzet en gedeeltelijk combineert. Dat maakt het boek breed gefundeerd binnen de filosofie, maar het blijft een positiekeuze tussen ongelijksoortige tradities en geen sluitend bewijs dat zijn eigen synthese de juiste is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek definieert nergens scherp wat een "catastrofe" precies is, terwijl die term in de titel staat en het hele onderscheid tussen alledaagse en monumentale ethiek erop steunt. Zonder een afgebakend begrip kan bijna elk groot probleem als catastrofe gelden, wat het raamwerk moeilijker te toetsen maakt.</p>
+      <p>De reikwijdte is smaller dan de belofte. Kernwapens, pandemieën, oorlogvoering en de drugsoorlog komen nauwelijks aan bod, terwijl Rieder als bio-ethicus juist op het terrein van pandemische ethiek iets te zeggen zou hebben. Ook niet-westerse ethische tradities, zoals het confuciaanse denken over collectieve plicht, blijven buiten beeld, wat opvalt in een boek dat claimt een ethiek voor de hele wereld te schetsen.</p>
+      <p>Een breder, ouder bezwaar tegen dit soort boeken is dat de nadruk op individuele keuzes de aandacht wegtrekt van de bedrijven en overheden die de meeste schade veroorzaken. Rieder erkent dat probleem uitdrukkelijk en probeert het te ontzenuwen door individuele reden en systemische verandering naast elkaar te zetten in plaats van tegenover elkaar, maar de vraag of een boek over persoonlijke moraal daarmee niet toch de aandacht verschuift van waar de macht ligt, blijft openstaan.</p>
+      <p>Ten slotte komt de deugdethiek pas laat in het boek naar voren, terwijl zij inhoudelijk net zo goed het uitgangspunt had kunnen zijn. Dat maakt de opbouw van het argument minder overtuigend dan de inhoud van de losse hoofdstukken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vervang bij een lastige keuze de vraag "heeft dit effect" door de vraag "welk patroon maak ik hiermee groter of kleiner".</li>
+        <li>Leg voor een concrete gewoonte, zoals vlees eten of vliegen, de redenen ervoor en ertegen naast elkaar in plaats van te zoeken naar één regel die de knoop doorhakt.</li>
+        <li>Zet je beschikbare tijd en geld in waar je positie het meeste gewicht in de schaal legt, en aanvaard dat andere terreinen dan minder aandacht krijgen.</li>
+        <li>Behandel een onomkeerbare beslissing, zoals kinderen krijgen, apart van alledaagse consumptiekeuzes; de afweging die daarbij hoort is zwaarder en eenmalig.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Catastrophe Ethics: How to Choose Well in a World of Tough Choices</i> (Dutton, 5 maart 2024, 336 blz., ISBN 9780593471975). In het Verenigd Koninkrijk verscheen het bij Duckworth onder de titel <i>Catastrophe Ethics: How to Be Good in a World Gone Bad</i> (paperback januari 2025). Een Nederlandse vertaling is er niet.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rieder, bio-ethicus aan het Berman Institute of Bioethics van Johns Hopkins, stelt een vraag die volgens hem met de gangbare ethiek niet te beantwoorden valt: wat moet één mens doen tegenover problemen die alleen als optelsom van miljarden mensen ontstaan, zoals klimaatverandering? Regels als "doe geen kwaad" veronderstellen dat een handeling een waarneembaar gevolg heeft, en een vlucht, een stuk vlees of een tweede auto heeft dat op zichzelf niet. Rieder noemt dit de Puzzel: het gevoel verantwoordelijk te zijn voor iets waaraan je onmogelijk zelf iets kunt veranderen.</p><p>Hij wijst twee uitwegen af. De ene is zuiverheid nastreven en elke deelname aan een schadelijk systeem weigeren, wat volgens hem niemand volhoudt en niemand zou moeten volhouden. De andere is vaststellen dat het toch niets uitmaakt en er verder niet meer over nadenken. Zijn eigen voorstel noemt hij een ethiek van nauwgezetheid: geen zuiverheid, geen onverschilligheid, maar een voortdurende afweging van redenen, toegepast op vleesconsumptie, autobezit en de beslissing om kinderen te krijgen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>ethiek</li><li>klimaatverandering</li><li>individuele-verantwoordelijkheid</li><li>consumptiekeuzes</li><li>besluitvorming</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahnemans onderscheid tussen snel en langzaam denken is de psychologische bron van de "morele camera" die Rieder van Joshua Greene leent.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman zoekt eveneens een leefbare houding tegenover een probleem dat niet op te lossen is, bij hem de eindigheid van de tijd, bij Rieder de onmacht van het individu.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius' onderscheid tussen wat in je macht ligt en wat niet, is de oudere versie van de vraag die Rieder voor een collectief probleem opnieuw stelt.</li>
+          <li value="237"><a href="237.html">21 Lessons for the 21st Century</a>. Harari beschrijft dezelfde generatie problemen op wereldschaal; waar hij vooral analyseert, zoekt Rieder een handelingsperspectief voor het individu.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 19
-augustus 2026: 295 titels in 18 rubrieken.
+augustus 2026: 299 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,20 +13,20 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296 |
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122 |
@@ -59643,6 +59643,896 @@ uitvaart doet.
 omstandigheden dezelfde vraag die Hazel zich stelt: of een kort of zwaar leven
 toch betekenis kan dragen.
 
+## 296. Get Better at Anything
+
+Scott H. Young, 2024. Ondertitel *12 Maxims for Mastery*, bij Harper Business
+(7 mei 2024, 304 blz., ISBN 9780063256675). Geen Nederlandse vertaling
+gevonden; de samenvatting hier is op de Engelse editie gebaseerd. Rubriek:
+gewoontes en denken.
+Tags: `leren`, `vaardigheid`, `oefening`, `feedback`, `meesterschap`,
+`psychologie`
+
+Young, bekend van *Ultralearning*, werkte vier jaar aan dit boek en las
+daarvoor honderden studies en boeken en sprak met vakmensen uit uiteenlopende
+disciplines. Zijn stelling is dat vooruitgang in vrijwel elke vaardigheid van
+drie dingen afhangt: zien hoe anderen het doen, zelf doen door te oefenen, en
+feedback krijgen die zegt of het beter wordt. Ontbreekt een van de drie, dan
+stokt de ontwikkeling, ook bij mensen die jaren met iets bezig zijn.
+
+Rond dat drieluik zet hij twaalf stellingen, elk met een eigen hoofdstuk: van
+de gedachte dat een probleem oplossen een zoektocht is, tot de waarschuwing
+dat vooruitgang nooit een rechte lijn volgt. Het boek is breder opgezet dan
+*Ultralearning*, dat over intensieve zelfstudieprojecten ging; hier gaat het
+over leren in het algemeen, van schaken tot chirurgie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Young stelt dat mensen vaak vastlopen in het leren van een
+vaardigheid, niet omdat ze te weinig talent hebben of te weinig tijd erin
+steken, maar omdat een van drie voorwaarden ontbreekt: een goed voorbeeld om
+van te leren, oefening van het juiste soort, en feedback die klopt. Wie
+urenlang traint zonder ooit een deskundige te zien werken, leert trager dan
+nodig; wie alleen kijkt en nooit zelf doet, blijft toeschouwer; wie oefent
+zonder te weten of het beter wordt, herhaalt soms jarenlang dezelfde fout. Het
+boek werkt dat uit in twaalf stellingen die stuk voor stuk een populaire
+aanname over leren aanvullen of tegenspreken, van het idee dat oefening vooral
+op herhaling draait tot het idee dat ervaring vanzelf tot expertise leidt.
+
+#### De gang van het boek
+
+**Een raamwerk van drie onderdelen**
+
+Young opent met de claim dat vrijwel alle leertheorieën, van sportcoaching tot
+onderwijskunde, terug te brengen zijn tot drie factoren: zien, doen en
+feedback. Het meeste van wat iemand weet komt van anderen, meesterschap vraagt
+om praktijk, en vooruitgang vraagt om een signaal dat laat weten of die
+praktijk werkt. Hij zet dat raamwerk af tegen twee populaire verklaringen die
+hij onvoldoende vindt: de gedachte dat aanleg alles bepaalt, en de gedachte
+dat alleen het aantal geoefende uren telt.
+
+De twaalf hoofdstukken die volgen zijn elk een stelling, drie tot vier per
+onderdeel van het raamwerk. Young bouwt ze op met onderzoek en met voorbeelden
+uit uiteenlopende vakken: wiskunde, jazz, schaken, luchtvaart, aardewerk.
+Vergeleken met zijn eerdere boek *Ultralearning*, dat vooral over eigen,
+intensieve leerprojecten ging, is dit boek breder bedoeld: het gaat over leren
+in het algemeen, ook waar een school of werkgever de omgeving bepaalt.
+
+**Zien: voorbeelden, imitatie en vroeg succes**
+
+Het eerste deel behandelt wat iemand van anderen overneemt. Een probleem
+oplossen noemt Young een zoektocht door een ruimte van mogelijke stappen; hij
+illustreert dat met Andrew Wiles, die na jaren afzondering in 1994 het laatste
+stuk van de stelling van Fermat bewees, een probleem dat sinds de zeventiende
+eeuw openstond. Daarna komt het hoofdstuk dat creativiteit met kopiëren
+begint: beginners die eerst het werk van een meester natekenen of nabouwen,
+bouwen sneller een eigen repertoire op dan wie meteen origineel wil zijn.
+
+Het derde hoofdstuk gaat over de eerste keer dat iets lukt, met een beroep op
+het begrip zelfeffectiviteit van de psycholoog Albert Bandura: het vertrouwen
+dat je iets kunt, opgebouwd uit eigen geslaagde pogingen, bepaalt of iemand
+doorzet bij de volgende, moeilijkere stap. Het vierde hoofdstuk keert dat om
+en beschrijft hoe kennis onzichtbaar wordt zodra iemand er goed in wordt.
+Schaakgrootmeesters die blind meerdere partijen tegelijk spelen, doen dat niet
+omdat ze meer onthouden dan een beginner, maar omdat ze bordposities herkennen
+als samenhangende patronen in plaats van losse stukken. Diezelfde
+automatisering maakt experts vaak slechte uitleggers: wat voor hen
+vanzelfsprekend is geworden, kunnen ze niet meer stap voor stap benoemen.
+
+**Doen: het juiste soort oefening**
+
+Het tweede deel gaat over praktijk. Young bespreekt de wenselijke
+moeilijkheidsgraad: een taak die te makkelijk is leert niets, een taak die te
+moeilijk is werkt ontmoedigend en overweldigt het geheugen, en ergens
+daartussen ligt het punt waarop leren het snelst gaat. Daarna weerlegt hij de
+gedachte dat het brein als een spier werkt die door willekeurige mentale
+training, zoals sudoku's of geheugenspelletjes, in het algemeen sterker wordt;
+onderzoek naar transfer laat zien dat vaardigheden zelden vanzelf overspringen
+naar een ander domein en dat oefening dicht bij de uiteindelijke toepassing
+moet blijven.
+
+Het hoofdstuk over variatie beschrijft onderzoek onder jazzmusici in New York
+in de jaren veertig: wie leerde improviseren over wisselende akkoordenschema's
+en met wisselende medespelers, paste die vaardigheid later beter toe dan wie
+hetzelfde stuk keer op keer herhaalde. Het achtste hoofdstuk, kwaliteit komt
+uit kwantiteit, gaat terug op een veelgeciteerde anekdote uit *Art & Fear* van
+David Bayles en Ted Orland: een keramiekdocent verdeelde zijn klas in twee
+groepen, de ene beoordeeld op het gewicht van alle gemaakte potten samen, de
+andere op één perfect exemplaar, en de beste potten kwamen uit de groep die op
+hoeveelheid werd beoordeeld, omdat zij fouten maakten en daarvan leerden
+terwijl de andere groep bleef nadenken over perfectie.
+
+**Feedback: van oefenruimte naar de echte wereld**
+
+Het derde deel gaat over de terugkoppeling die praktijk pas nuttig maakt.
+Young laat zien dat jarenlange ervaring geen garantie is voor expertise: in
+beroepen waar de uitkomst pas laat of onduidelijk zichtbaar wordt, zoals bij
+sommige vormen van diagnose of voorspelling, verbetert de prestatie nauwelijks
+met de jaren, terwijl in beroepen met snelle en heldere terugkoppeling, zoals
+schaken of weersvoorspelling, ervaring wel tot betere resultaten leidt. Het
+hoofdstuk daarna dringt aan op oefening die de omstandigheden van de echte
+toepassing benadert, omdat een vaardigheid die alleen in een veilige
+oefensetting werkt, onder druk vaak instort.
+
+Het elfde hoofdstuk waarschuwt dat vooruitgang met vallen en opstaan verloopt
+en niet gelijkmatig: perioden van stilstand horen bij het proces en zijn geen
+bewijs dat iemand geen aanleg heeft. Het laatste hoofdstuk behandelt angst als
+obstakel voor leren, met de blootstellingstherapie uit de klinische
+psychologie als voorbeeld, en de luchtaanvallen op Londen in de Tweede
+Wereldoorlog als illustratie dat herhaalde, beheersbare blootstelling aan een
+dreiging de angst ervoor kan doen afnemen in plaats van toenemen.
+
+**Verhouding tot Ultralearning**
+
+Young besteedt in het boek en in begeleidende teksten aandacht aan het
+verschil met zijn eerdere werk. *Ultralearning* ging over een klein aantal
+mensen die in korte tijd een moeilijke vaardigheid onder de knie kregen door
+intensieve, zelf ontworpen leerprojecten. Dit boek is nadrukkelijk breder
+bedoeld: het raamwerk moet ook gelden voor iemand die binnen een schoolklas,
+een sportteam of een bedrijf leert, waar niet alles zelf te ontwerpen valt.
+Waar het eerste boek dicht bij persoonlijke verhalen bleef, leunt dit boek
+zwaarder op onderzoek uit de psychologie van expertise en
+vaardigheidsverwerving.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zien, doen, feedback | De drie voorwaarden die Young als basis van elke vaardigheidsverwerving beschouwt: een voorbeeld, praktijk, en een signaal dat aangeeft of die praktijk vooruitgang oplevert. |
+| Probleemruimte | De verzameling mogelijke stappen waarlangs een oplossing gezocht wordt; problemen oplossen is voor Young het doorzoeken van die ruimte. |
+| Zelfeffectiviteit | Bandura's begrip voor het vertrouwen dat iemand een taak aankan, opgebouwd uit eerdere geslaagde pogingen en bepalend voor doorzettingsvermogen. |
+| Onzichtbare kennis | Kennis die door herhaling zo vanzelfsprekend wordt dat de expert haar niet meer bewust kan benoemen, wat uitleggen aan beginners bemoeilijkt. |
+| Wenselijke moeilijkheidsgraad | Het punt tussen te makkelijk en te moeilijk waarop een oefening het meeste leereffect oplevert. |
+| Variabiliteit boven herhaling | De bevinding dat afwisselende oefenomstandigheden een vaardigheid beter overdraagbaar maken dan het steeds herhalen van dezelfde taak. |
+| Kwaliteit uit kwantiteit | De gedachte dat veel maken en veel fouten maken sneller tot goed werk leidt dan vooraf nadenken over perfectie. |
+| Transfer | De mate waarin een geleerde vaardigheid ook buiten de context werkt waarin ze geoefend is; volgens Young meestal beperkter dan mensen denken. |
+
+#### Waar het argument op rust
+
+Young noemt zelf dat hij voor dit boek vier jaar onderzoek deed, honderden
+boeken en wetenschappelijke artikelen las en gesprekken voerde met vakmensen.
+Het boek is daarmee een synthese van bestaand onderzoek, geen eigen
+experiment, en de kwaliteit van de onderbouwing wisselt per hoofdstuk. Sommige
+claims steunen op stevig, herhaald onderzoek: het werk van Chase en Simon naar
+patroonherkenning bij schaakgrootmeesters en Bandura's onderzoek naar
+zelfeffectiviteit horen tot de bekendste bevindingen in de cognitieve en
+sociale psychologie.
+
+Andere claims steunen op zwakkere grond. De anekdote over de keramiekklas, die
+het hoofdstuk over kwantiteit en kwaliteit draagt, komt niet uit een
+gepubliceerde studie maar uit *Art & Fear* (1993), een boek zonder
+brongegevens over de klas, de docent of de school; niemand heeft de proef
+kunnen terugvinden of herhalen. Young presenteert haar niettemin als
+illustratie zonder dat voorbehoud te vermelden. Bij de hoofdstukken over
+variabiliteit en over transfer verwijst hij naar experimenteel onderzoek dat
+op kleine, specifieke taken is uitgevoerd, wat het lastig maakt om te zien
+hoever de conclusies reiken naar complexere vaardigheden.
+
+#### Wat er tegen in te brengen valt
+
+Het meest gehoorde bezwaar, ook van lezers die het boek verder waarderen, is
+dat het weinig nieuws brengt tegenover eerdere boeken over leren en geoefende
+expertise, en dat de kern in een lang artikel had gepast. Het drieluik zien,
+doen en feedback ligt dicht bij het begrip *deliberate practice* van
+psycholoog Anders Ericsson, dat al decennia in omloop is; Young erkent die
+verwantschap, maar het boek maakt niet steeds duidelijk wat zijn twaalf
+stellingen toevoegen aan wat in de vakliteratuur al vaststond.
+
+Een tweede punt is dat de reikwijdte van sommige adviezen vaag blijft. Het
+hoofdstuk over variatie raadt aan om leerstof en omstandigheden af te
+wisselen, maar het boek werkt niet uit wanneer dat werkt en wanneer niet: dat
+het onwaarschijnlijk is dat afwisselen tussen een scheikundeboek en een roman
+iemand een betere lezer van beide maakt, blijft onbesproken.
+
+Het derde punt is de keramiekanekdote zelf. Een boek dat zich op onderzoek
+beroept, gebruikt op een sleutelmoment een verhaal waarvan de bron niet te
+achterhalen is, en dat ondermijnt het vertrouwen in de zorgvuldigheid waarmee
+andere voorbeelden zijn gekozen.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij een nieuwe vaardigheid eerst een goed voorbeeld op, in plaats van
+meteen zelf te beginnen met oefenen.
+- Varieer de omstandigheden waarin je oefent zodra de basis er staat, in
+plaats van dezelfde herhaling te blijven doen.
+- Zorg voor een terugkoppeling die snel en duidelijk genoeg is om te weten of
+een poging beter was dan de vorige.
+- Bouw oefening op die dicht bij de uiteindelijke situatie ligt, zodat wat je
+leert ook standhoudt onder druk.
+
+#### Wat je hierna leest
+
+- 29. Grit. Duckworth onderzoekt met eigen data dezelfde vraag naar
+volgehouden oefening, waar Young vooral bestaand onderzoek van anderen
+samenbrengt.
+- 23. Mindset. Dweck beschrijft de overtuiging over eigen vermogen die Young
+met Bandura's zelfeffectiviteit onderbouwt, vanuit een ander onderzoeksspoor.
+- 274. Outliers. Gladwell populariseerde het idee van geoefende uren waar
+Young zich uitdrukkelijk tegen afzet door te wijzen op het soort oefening in
+plaats van de hoeveelheid.
+- 50. So Good They Can't Ignore You. Newport werkt de vraag hoe vaardigheid
+tot een loopbaan leidt verder uit, terwijl Young zich tot het leerproces zelf
+beperkt.
+
+## 297. The Reverse Centaur's Guide to Life After AI
+
+Cory Doctorow, 2026. Volledige titel *The Reverse Centaur's Guide to Life
+After AI: How to Think About Artificial Intelligence, Before It's Too Late*.
+Amerikaanse editie bij Farrar, Straus and Giroux, juni 2026, ISBN
+9780374621568; Britse editie bij Verso Books, ISBN 9781836745525, beide 240
+blz. Geen Nederlandse vertaling bekend. Rubriek: geschiedenis en samenleving.
+Tags: `kunstmatige intelligentie`, `arbeid`, `technologiekritiek`, `economie`,
+`automatisering`, `vakbonden`
+
+Doctorow, schrijver en langjarig digitaalrechtenactivist bij de Electronic
+Frontier Foundation, bouwt dit boek op een onderscheid dat hij al jaren op
+zijn blog Pluralistic en in een column voor Locus uitwerkt: de centaur, die
+een machine gebruikt om zijn eigen werk te versterken, tegenover de omgekeerde
+centaur, die zelf het aanhangsel van een machine wordt. Aan de hand daarvan
+onderzoekt hij waarom dezelfde technologie voor de een een hulpmiddel is en
+voor de ander een dwangbuis.
+
+Het boek combineert die analyse met een stevige twijfel aan de financiële
+beloftes achter de huidige AI-hausse en eindigt met wat hij zelf de vraag naar
+leven na AI noemt: wat er overblijft zodra de zeepbel klapt en de
+investeerdersretoriek wegvalt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Doctorow betoogt dat kunstmatige intelligentie zelf niet het
+probleem is, maar dat de vraag wie een toepassing dient en wie hem moet
+ondergaan de kern van elke discussie over AI zou moeten vormen. Hij
+onderscheidt de centaur, die een machine inzet en zelf de regie behoudt, van
+de omgekeerde centaur, die op het tempo en volgens de regels van een machine
+moet werken. De huidige AI-hausse wordt volgens hem vooral gedreven door de
+noodzaak beleggers ervan te overtuigen dat de winsten blijven groeien, niet
+door wat gebruikers er daadwerkelijk mee opschieten, en dat verklaart waarom
+dezelfde tools de een helpen en de ander uitputten. Hij verwacht dat de
+zeepbel barst, maar houdt vol dat er daarna bruikbare, bescheiden toepassingen
+overblijven. Wie meent dat de omvang van de investeringen zelf al bewijst dat
+deze technologie niet meer weg te denken is, vindt in dit boek een
+tegengestelde lezing van diezelfde cijfers.
+
+#### De gang van het boek
+
+**De vraag die het boek wil beantwoorden**
+
+Doctorow opent met een schijnbare tegenstrijdigheid: sommige gebruikers
+beschrijven hun ervaring met AI als een beproeving, anderen als een
+verademing, terwijl het vaak om dezelfde onderliggende technologie gaat. Hij
+lost die tegenstrijdigheid niet op door de techniek zelf te beoordelen, maar
+door te vragen wie de opstelling heeft bepaald en wie de uitkomst draagt.
+
+Die vraag komt uit een ouder begrippenpaar uit de automatiseringstheorie, dat
+hij overneemt en uitbreidt: de centaur en de omgekeerde centaur. Het boek is
+de uitwerking van dat onderscheid tot een leeswijzer voor de eigen werkplek en
+de eigen apparaten.
+
+**Centaur en omgekeerde centaur**
+
+Een centaur is voor Doctorow iemand die een machine gebruikt zoals een fietser
+een fiets gebruikt of een rekenaar een rekenmachine: het eigen oordeel blijft
+leidend, de machine versnelt of verlicht het werk, en de gebruiker kan er op
+elk moment mee stoppen. Als voorbeeld noemt hij zijn eigen gebruik van het
+spraakherkenningsprogramma Whisper om persoonlijke podcastopnames te
+transcriberen: hij koos het gereedschap, controleerde het resultaat en liet
+het weer los toen het niet meer nodig was.
+
+Een omgekeerde centaur is het spiegelbeeld: een mens die als hulpstuk van een
+machine moet werken, op het tempo dat de machine oplegt en zonder de vrijheid
+om af te wijken. Zijn voorbeelden zijn een bezorger die de hele dag zonder
+onderbreking pakketten moet afleveren omdat een routeplanner dat tempo
+voorschrijft, een magazijnmedewerker die geen pauze krijgt van een systeem dat
+elke seconde meet, en een programmeur die grote hoeveelheden door AI
+gegenereerde code moet nalopen zonder dat hij het tempo van die aanlevering
+zelf kan bepalen.
+
+**Wie doet het voor wie, en wie doet het aan wie**
+
+De vraag die door het hele boek terugkeert, formuleert Doctorow kort: voor wie
+doet een apparaat iets, en aan wie doet het iets. Diezelfde technologie kan
+een centaur-instrument zijn voor de een en een omgekeerde-centaurmachine voor
+de ander, afhankelijk van wie de voorwaarden bepaalt.
+
+Hij illustreert dat met het geval van een freelance journalist die alleen een
+omvangrijke special voor een krantenbijlage moest vullen, onder een deadline
+die zonder AI-ondersteuning niet haalbaar was, en die achteraf werd afgerekend
+op verzonnen titels die het programma had verzonnen. Doctorow noemt zo iemand
+een verantwoordingsput: degene die de fouten van een systeem draagt zonder dat
+systeem te hebben ontworpen of erover te hebben kunnen beslissen.
+
+**De zeepbel achter de hausse**
+
+Een groot deel van het boek richt zich op de economie achter de AI-hype.
+Doctorow wijst op waarderingen van techbedrijven die samen in de biljoenen
+dollars lopen en stelt dat die cijfers vooral bedoeld zijn om beleggers te
+overtuigen van blijvende groei, niet een afspiegeling van wat de technologie
+vandaag daadwerkelijk oplevert.
+
+Uit die redenering volgt zijn stelling dat AI in de eerste plaats aan
+investeerders wordt verkocht en pas in de tweede plaats aan gebruikers.
+Bedrijven die op die belofte moeten leveren, zetten volgens hem AI in op
+plekken waar zij werknemers kunnen dwingen, ook als het resultaat voor niemand
+goed werkt, omdat het tonen van adoptie op zichzelf al de koers ondersteunt.
+
+**Wat hij afwijst als oplossing: auteursrecht**
+
+Doctorow, zelf auteur en jarenlang pleitbezorger voor digitale rechten, wijst
+het idee af dat auteursrecht de kern van het AI-probleem kan oplossen.
+Trainingsdata juridisch afschermen verandert volgens hem weinig aan de
+onderliggende machtsverhouding tussen werkgever en werknemer, en hij verlegt
+het gesprek naar arbeid, onderhandelingsmacht, eigendom en zeggenschap.
+
+Als tegenvoorbeeld noemt hij de Amerikaanse scenaristenvakbond, die in 2023 na
+een langdurige staking afspraken over het gebruik van AI bij
+scriptontwikkeling in de cao kreeg vastgelegd. Hij erkent meteen dat de meeste
+werknemers niet over een vergelijkbare vakbond of onderhandelingspositie
+beschikken, waardoor dat precedent moeilijk breed te herhalen valt.
+
+**Agentic AI als doodlopende weg**
+
+Over autonome AI-agenten die namens gebruikers moeten kopen, onderhandelen of
+boeken, is Doctorow sceptisch. Zodra zulke agenten op schaal worden ingezet,
+verwachten verkopers en platforms dat en gaan zij tegenmaatregelen bouwen om
+ze te blokkeren of te misleiden, wat de belofte van de technologie ondermijnt
+nog voor die goed en wel is uitgerold. Hij noemt deze tak van de AI-industrie
+daarom vermoedelijk een doodlopende weg, los van de vraag of de onderliggende
+taal- en redeneermodellen zelf verbeteren.
+
+**Na de knal**
+
+Het boek besluit met een voorzichtig optimistische blik voorbij de verwachte
+klap. Doctorow vergelijkt de huidige situatie met de internetzeepbel van rond
+2000: de overwaardering verdween, maar de infrastructuur en een aantal
+bruikbare toepassingen bleven over en werden gewone, onopvallende onderdelen
+van het dagelijks computergebruik.
+
+Voor AI verwacht hij hetzelfde patroon. Kleinere, open toepassingen zoals
+spraakherkenning kunnen die overgang overleven, mits de zeggenschap erover
+niet in dezelfde handen blijft die nu de hausse aanjagen. Op dat laatste punt
+blijft het boek zelf vaag over hoe die zeggenschap dan wel verlegd zou moeten
+worden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Centaur | Iemand die een machine inzet om zijn eigen vermogen te vergroten en daarbij zelf de regie en de keuze om te stoppen behoudt. |
+| Omgekeerde centaur | Iemand die als hulpstuk van een machine moet werken, op het tempo en volgens de regels die de machine oplegt. |
+| Verantwoordingsput | Een positie die zo is ingericht dat degene erin de fouten van een systeem draagt zonder dat systeem te hebben ontworpen of gecontroleerd. |
+| Algoritmische loondiscriminatie | Het gebruik van bewakingsgegevens om voor gelijk werk per werknemer een ander, individueel bepaald loon of tarief te berekenen. |
+| Automatiseringsblindheid | Het verlies van vaardigheid en waakzaamheid dat optreedt zodra iemand een taak aan een automatisch systeem overlaat en alleen nog de uitkomst afvinkt. |
+| Vulgair Thatcherisme | Zijn term voor de bedrijfsretoriek dat er geen alternatief is voor AI op de voorwaarden van de aanbieder, gebruikt om het gesprek over andere keuzes te smoren. |
+| Wie doet het voor wie, wie doet het aan wie | Zijn terugkerende analytische vraag, die onderscheid maakt tussen gereedschap gebouwd ten behoeve van de gebruiker en gereedschap gebouwd om op een onderworpene te worden toegepast. |
+| AI-zeepbel | Zijn term voor de kloof tussen de speculatieve beurswaarde van AI-bedrijven en wat de technologie op dit moment aantoonbaar levert. |
+
+#### Waar het argument op rust
+
+Het boek is geen empirische studie maar een essay dat voortbouwt op jaren
+journalistiek en beleidswerk. Doctorow werkte lang voor de Electronic Frontier
+Foundation en beschreef de meeste voorbeelden eerder al op zijn blog
+Pluralistic en in een column voor Locus, voor hij ze hier tot een doorlopend
+betoog samenvoegde. Dat geeft de voorbeelden een zekere herkenbaarheid, maar
+levert geen steekproef of systematisch arbeidsmarktonderzoek op.
+
+Waar hij concreet wordt, zijn de voorbeelden natrekbaar: de cao-afspraken van
+de Amerikaanse scenaristenvakbond uit 2023 zijn publiek gedocumenteerd, en het
+geval van de freelance journalist die op AI-fouten werd afgerekend, is elders
+in de pers terug te vinden. De cijfers over de waardering van de AI-sector
+zijn actueler en veranderlijker, en het boek verscheen op een moment waarop
+die waarderingen nog stegen, wat zijn centrale voorspelling van een naderende
+klap vooralsnog een verwachting maakt en geen vaststaand feit.
+
+Onafhankelijke wetenschappelijke toetsing van het boek zelf bestaat door de
+recente verschijningsdatum nog niet; wat er ligt, zijn recensies in de vakpers
+en enkele lezersreacties op de eerdere blogstukken waarop het voortbouwt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar van recensenten is dat het boek een scherpe diagnose
+levert en een dunne remedie. Het legt helder uit waarom sommige werknemers
+onder AI lijden, maar geeft weinig houvast aan wie geen vakbond of
+onderhandelingspositie heeft en toch met het systeem moet werken zoals het is
+opgelegd.
+
+Er is overlap met zijn eerdere boek *Enshittification*, dat hij zelf als
+voorloper in een losse drieluik beschouwt; wie dat boek al kende, herkent
+argumenten en voorbeelden die hier worden herhaald in plaats van uitgebreid.
+
+De afwijzing van auteursrecht als hoofdoplossing is consequent met zijn
+eerdere werk, maar het boek besteedt weinig ruimte aan auteurs en kunstenaars
+voor wie een juridische aanspraak op grond van auteursrecht het enige
+beschikbare middel is, juist omdat zij niet over een vakbond als de
+scenaristenbond beschikken.
+
+De hoopvolle afsluiting, dat kleinere toepassingen de klap overleven zoals na
+de internetzeepbel van rond 2000, steunt op een analogie die wordt gesteld en
+niet stap voor stap wordt onderbouwd. Wie die overlevende toepassingen dan
+bezit en bestuurt, laat het boek grotendeels open.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke AI-toepassing op je werk wie de uitkomst controleert en wie
+de fout draagt als het misgaat.
+- Ga na of je taak nog een centaurtaak is, waarbij jij de machine aanstuurt,
+of al een omgekeerde-centaurtaak, waarbij het tempo van de machine jouw tempo
+bepaalt.
+- Zoek uit of beoordeling of beloning op je werkplek al op individueel niveau
+via verzamelde gegevens wordt bijgesteld, en vraag daar inzage in.
+- Lees de cao-afspraken van vergelijkbare beroepsgroepen over AI-gebruik na,
+zoals die van de Amerikaanse scenaristenvakbond, voor een concreet precedent.
+
+#### Wat je hierna leest
+
+- 236. Homo Deus. Harari onderzoekt vanuit een langere geschiedenis dezelfde
+vraag wie zeggenschap houdt zodra machines besluiten overnemen.
+- 237. 21 Lessons for the 21st Century. Behandelt de gevolgen van AI voor werk
+en samenleving op een breder, minder activistisch geschreven niveau.
+- 6. Shop Class as Soulcraft. Crawford beschrijft vanuit ambachtelijk werk wat
+er verloren gaat als iemand geen zeggenschap meer heeft over het tempo en de
+kwaliteit van zijn eigen taak.
+- 257. The Everything Store. Laat aan de hand van Amazon zien hoe de
+magazijnpraktijken ontstonden die Doctorow als voorbeeld van de omgekeerde
+centaur aanhaalt.
+
+## 298. Progress: A History of Humanity's Worst Idea
+
+Samuel Miller McDonald, 2025. Oorspronkelijk verschenen bij William
+Collins/HarperCollins (Londen, 14 augustus 2025, ISBN 9780008462505) onder de
+hier gebruikte titel; in de Verenigde Staten bij St. Martin's Press (2025,
+ISBN 9781250278319) onder de titel *Progress: How One Idea Built Civilization
+and Now Threatens to Destroy It*. Debuut van geograaf Samuel Miller McDonald,
+gepromoveerd aan Brasenose College, Oxford, met eerdere studies aan Yale
+University en het College of the Atlantic. Geen Nederlandse uitgave. Rubriek:
+geschiedenis en samenleving.
+Tags: `geschiedenis`, `vooruitgangsdenken`, `kolonialisme`, `kapitalisme`,
+`ecologie`, `degrowth`, `civilisatiekritiek`
+
+McDonald, geograaf met een promotie aan Oxford, bestrijdt in dit boek het idee
+dat vooruitgang een neutrale maatstaf voor welvaart is. Hij loopt vijfduizend
+jaar geschiedenis door, van religieuze rijken via koloniale expansie tot de
+fossiele economie van vandaag, en wijst telkens hetzelfde patroon aan: een
+belofte van verbetering die diende om onteigening, slavernij en oorlog te
+verhullen. Zijn sleutelbegrip is parasitisme, een stelsel dat structureel meer
+onttrekt dan het teruggeeft en daarom voortdurend nieuwe grenzen nodig heeft.
+
+Het boek verscheen in augustus 2025, in de Verenigde Staten bij St. Martin's
+Press onder de titel *Progress: How One Idea Built Civilization and Now
+Threatens to Destroy It* en in het Verenigd Koninkrijk bij William Collins
+onder de hier gebruikte titel. Het is McDonalds eerste boek en kreeg
+wisselende beoordelingen: een sterrecensie van Publishers Weekly staat
+tegenover een afwijzende bespreking in The Spectator, die feitelijke fouten in
+enkele van zijn voorbeelden aanwijst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** McDonald betoogt dat vooruitgang niet de neutrale meetlat is
+waarmee samenlevingen hun welvaart afwegen, maar een verhaal waarmee
+samenlevingen al vijfduizend jaar rechtvaardigen dat zij meer aan de aarde en
+aan andere mensen onttrekken dan zij teruggeven. Van de vroege rijken tot de
+koloniale expansie en de fossiele economie van nu wijst hij op hetzelfde
+patroon: een belofte van groei en verbetering die telkens weer diende om
+onteigening, slavernij en oorlog te verhullen. Wie dat patroon eenmaal ziet,
+kan volgens hem niet meer aannemen dat de huidige welvaart alleen het
+resultaat is van uitvindingen en hard werk, en moet vooruitgang zelf als
+verdacht behandelen in plaats van als vanzelfsprekend goed.
+
+#### De gang van het boek
+
+**Een boek tegen de gangbare vooruitgangsvertelling**
+
+McDonald schrijft zijn boek uitdrukkelijk als tegenwicht tegen wat hij
+techno-optimisme noemt: het geloof dat innovatie en marktwerking op zichzelf
+tot een betere wereld leiden. Hij plaatst zich daarmee in het gezelschap van
+de degrowth-beweging, die economische groei zelf als probleem behandelt in
+plaats van als oplossing.
+
+Het boek is zijn eerste, geschreven na een promotie aan Oxford in menselijke
+ecologie. Het bestrijkt vijfduizend jaar geschiedenis in een doorlopend
+betoog, zonder scherpe hoofdstukindeling, en beweegt zich vrij tussen
+theologie, koloniale geschiedenis en twintigste-eeuwse politiek.
+
+McDonald schreef eerder een essay in het tijdschrift Current Affairs waarin
+hij dezelfde stelling in het kort uitwerkte: dat het woord vooruitgang in het
+openbare debat zelden wordt onderzocht en bijna altijd als vanzelfsprekend
+goed wordt ingezet. Het boek is de uitgewerkte versie van dat argument, met de
+historische voorbeelden die het essay nog niet gaf.
+
+**Het theologische tijdperk**
+
+In de eerste fase, die McDonald van ongeveer 3000 voor Christus tot 1400 na
+Christus plaatst, laat hij zien hoe religieuze stelsels overheersing omzetten
+in een kosmische opdracht. Van het zoroastrisme tot het christendom herkent
+hij hetzelfde mechanisme: een aanvankelijk storende, gelijkheid belovende
+ethiek verandert, zodra een rijk haar aanvaardt, in een middel dat de
+bestaande hiërarchie bijeenhoudt.
+
+Zijn voorbeeld is de bekering van keizer Constantijn, die het christendom
+volgens hem ombouwde tot een bindmiddel voor het Romeinse gezag in plaats van
+een correctie erop.
+
+**Het maritiem-koloniale tijdperk**
+
+Tussen 1400 en 1900 verschuift de rechtvaardiging van hemel naar aarde.
+Vooruitgang wordt dan een geografische rangorde: sommige volken staan volgens
+de heersende opvatting hoger op de ladder van beschaving en mogen daarom over
+andere volken en hun grond beschikken.
+
+McDonald noemt onder meer Thomas Jefferson, wiens geschriften over Amerikaanse
+grond volgens hem geavanceerde inheemse samenlevingen wegschrijven tot
+ongebruikt land, zodat onteigening als verbetering kan worden voorgesteld.
+
+**Het genetwerkte, fossiele tijdperk**
+
+Vanaf 1900 wordt vooruitgang volgens McDonald economisch en ideologisch
+tegelijk, gedragen door fossiele energie en door concurrerende politieke
+stelsels die zich allemaal op dezelfde belofte beroepen. Hij zet Stalins
+vijfjarenplannen en Maos Grote Sprong Voorwaarts naast elkaar als
+socialistische varianten van hetzelfde patroon: groot menselijk lijden,
+gerechtvaardigd door een beloofde toekomst die nooit op tijd komt.
+
+Kapitalistische varianten van diezelfde logica komen aan bod via figuren als
+Andrew Carnegie, wiens fabrieksregime McDonald aanmerkt als een vorm van
+gedwongen arbeid onder de vlag van vooruitgang, ook al gaf Carnegie het
+grootste deel van zijn vermogen later weg.
+
+**Parasitisme als sleutelbegrip**
+
+Door de hele geschiedenis heen gebruikt McDonald één terugkerend begrip:
+parasitisme, een stelsel dat structureel meer aan hulpbronnen en arbeid
+onttrekt dan het teruggeeft en dat daarom voortdurend nieuw gebied nodig
+heeft. Is een grens uitgeput, dan verschuift het stelsel naar een volgende:
+bossen, de oceaan, de ruimte, en tegenwoordig ook menselijke aandacht.
+
+Die grenslogica verbindt voor hem ecologie, rijksuitbreiding en de
+veiligheidsstaat tot één mechanisme: uitbreiding vraagt om nieuwe grenzen, en
+nieuwe grenzen vragen om dwang.
+
+**Animisme als tegenwicht**
+
+Tegenover het parasitaire stelsel zet McDonald wat hij een ethische
+technologie noemt: animistische wereldbeelden waarin dieren, planten en
+landschappen als personen met een eigen aanspraak worden behandeld. Zulke
+wereldbeelden ontzeggen mensen niet het gebruik van hun omgeving, maar leggen
+er een grens overheen die uitputting tegenhoudt, omdat een relatie met een
+persoon zich anders gedraagt dan een relatie met een grondstof.
+
+**Naar een andere vooruitgang**
+
+In het slot pleit McDonald voor wederkerigheid, ecologische inbedding en
+begrensde groei, met verwijzingen naar samenlevingen die volgens hem met
+minder ongelijkheid, minder geweld en meer aansluiting bij hun omgeving hebben
+geleefd. Hij werkt dat niet uit tot een beleidsvoorstel of een stappenplan.
+
+Zijn punt is vooral dat het huidige stelsel niet vol te houden is, en dat de
+zoektocht naar een alternatief zonder die erkenning nergens begint.
+
+Als voorbeeld noemt hij samenlevingen die decennialang zonder centraal gezag
+en met een lagere ecologische voetafdruk hebben gefunctioneerd, en die hij
+aanhaalt om te laten zien dat de huidige inrichting geen natuurwet is maar een
+keuze uit de negentiende en twintigste eeuw. Hij presenteert die voorbeelden
+als richting, niet als kant-en-klaar model dat ergens anders is te kopiëren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Parasitisme | Een stelsel dat blijvend meer hulpbronnen en arbeid onttrekt dan het teruggeeft en daardoor afhankelijk is van steeds nieuwe grenzen. |
+| Grenslogica | De dwang om, wanneer een bron van uitbuiting uitgeput raakt, een volgende grens te zoeken, van land tot menselijke aandacht. |
+| Theologisch tijdperk | De fase van ongeveer 3000 voor Christus tot 1400 waarin religie overheersing omzet in een kosmische opdracht. |
+| Maritiem-koloniaal tijdperk | De fase van 1400 tot 1900 waarin een geografische rangorde van beschaving kolonisatie rechtvaardigt. |
+| Genetwerkt fossiel tijdperk | De fase vanaf 1900 waarin fossiele energie en concurrerende politieke stelsels dezelfde vooruitgangsbelofte dragen. |
+| Concrete en abstracte winning | Het onderscheid tussen het onttrekken van grondstoffen en het onttrekken van menselijke arbeid en aandacht via hetzelfde mechanisme. |
+| Animisme als ethische technologie | Het behandelen van niet-menselijke wezens als personen, waardoor een grens ontstaat die overexploitatie tegenhoudt. |
+| Vooruitgang als verhaal | McDonalds aanduiding voor vooruitgang als een vertelling die orde en rechtvaardiging geeft, niet als een neutrale meting van welvaart. |
+
+#### Waar het argument op rust
+
+McDonald werkt niet met eigen archiefonderzoek of veldwerk, maar met een
+synthese van bestaande literatuur uit antropologie, geschiedenis, filosofie en
+geografie. Zijn getuigenis bestaat telkens uit een reeks historische figuren
+en gebeurtenissen, zoals Constantijn, Jefferson, Stalin, Mao en Carnegie,
+gebruikt als illustratie van het patroon dat hij beschrijft. Dat maakt het
+boek breed van opzet en tegelijk afhankelijk van hoe zorgvuldig elk van die
+voorbeelden is weergegeven.
+
+Onafhankelijke recensenten hebben daar vragen bij gezet. Een recensie in The
+Spectator wijst op feitelijke onnauwkeurigheden bij meerdere van zijn
+voorbeelden: de mate van dwang bij Carnegies arbeiders, de
+verantwoordelijkheid van koning Edward VIII voor de Duitse herbezetting van
+het Rijnland, en de context van Harold Macmillans rede uit 1957. Dat zijn geen
+kleine details, want het boek steunt juist op de stapeling van dat soort
+voorbeelden om zijn patroon aannemelijk te maken.
+
+Publishers Weekly beoordeelde het boek daarentegen met een ster en noemde het
+een doortastende ondervraging van de fundamenten van de moderne samenleving.
+De twee beoordelingen laten zich niet met elkaar verzoenen: waar de ene
+recensent de invulling van de voorbeelden onderuithaalt, prijst de andere
+vooral de overkoepelende vraagstelling.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de these zo ruim geformuleerd is dat vrijwel elke
+episode uit de geschiedenis erin past: religie, kolonialisme, kapitalisme en
+het staatssocialisme worden allemaal onder hetzelfde begrip parasitisme
+geschaard. Een verklaring die op elk tijdvak past, is moeilijk te toetsen en
+moeilijk te weerleggen.
+
+De recensent van The Spectator, Simon Heffer, is uitgesproken negatief over
+toon en stijl: hij noemt het proza breedsprakig en gekleurd door eigen gelijk,
+en citeert zinnen vol zelfbedachte vaktaal die het argument eerder verhullen
+dan verduidelijken. Hij weerspreekt bovendien McDonalds stelling dat armoede
+wereldwijd toeneemt, met het argument dat zij juist daalt.
+
+Het boek presenteert bovendien geen uitgewerkt alternatief. De laatste
+hoofdstukken blijven bij algemene termen als wederkerigheid en ecologische
+inbedding, zonder een voorstel voor wat daarvoor in de plaats van bijvoorbeeld
+handel, landbouw of energievoorziening zou moeten komen. Wie na de diagnose
+een uitgewerkt plan verwacht, houdt een oproep over.
+
+De verdeeldheid tussen de recensies volgt bovendien grotendeels politieke
+lijnen: uitgaven die kritisch staan tegenover economische groei prijzen de
+vraagstelling, uitgaven met een behoudende signatuur wijzen vooral de
+feitelijke fouten en de toon aan. Dat maakt het boek meer een inzet in een
+bestaand debat dan een tekst die dat debat overstijgt.
+
+#### Wat er concreet mee te doen is
+
+- Zoek de voorbeelden die McDonald aanhaalt, zoals Carnegie, Jefferson en
+Macmillan, na in een onafhankelijke bron voordat je zijn duiding overneemt.
+- Leg zijn begrip parasitisme naast een boek met de tegenovergestelde
+uitgangspositie, zoals *The Rational Optimist* of *Factfulness*, en vergelijk
+welke cijfers beide kanten gebruiken.
+- Houd in je eigen leeswijze de historische reconstructie, waarvan de bronnen
+te controleren zijn, gescheiden van het morele oordeel erover, waarvan dat
+niet kan.
+- Lees bij twijfel over een aangehaald voorbeeld de recensie in The Spectator
+naast het boek zelf, want die wijst concreet aan waar McDonalds weergave van
+feiten afwijkt.
+
+#### Wat je hierna leest
+
+- 56. Sapiens. Harari beschrijft dezelfde lange lijn van de menselijke
+geschiedenis, maar leidt uit vergelijkbaar materiaal een minder eenduidig
+oordeel over vooruitgang af.
+- 57. The Lessons of History. De Durants zoeken net als McDonald patronen over
+duizenden jaren, met een aanzienlijk voorzichtiger toon over wat de
+geschiedenis leert.
+- 234. Factfulness. Rosling verdedigt met cijfers de vooruitgangsvertelling
+die McDonald aanvecht, en vormt daarmee de directe tegenhanger van dit boek.
+- 251. The Rational Optimist. Ridley bepleit vanuit dezelfde lange
+geschiedenis het omgekeerde standpunt: dat ruil en innovatie de wereld
+structureel verbeteren.
+
+## 299. Catastrophe Ethics
+
+Travis Rieder, 2024. Volledige titel *Catastrophe Ethics: How to Choose Well
+in a World of Tough Choices* (Dutton, 5 maart 2024, 336 blz., ISBN
+9780593471975). In het Verenigd Koninkrijk verscheen het bij Duckworth onder
+de titel *Catastrophe Ethics: How to Be Good in a World Gone Bad* (paperback
+januari 2025). Een Nederlandse vertaling is er niet. Rubriek: levenskunst.
+Tags: `filosofie`, `ethiek`, `klimaatverandering`,
+`individuele-verantwoordelijkheid`, `consumptiekeuzes`, `besluitvorming`
+
+Rieder, bio-ethicus aan het Berman Institute of Bioethics van Johns Hopkins,
+stelt een vraag die volgens hem met de gangbare ethiek niet te beantwoorden
+valt: wat moet één mens doen tegenover problemen die alleen als optelsom van
+miljarden mensen ontstaan, zoals klimaatverandering? Regels als "doe geen
+kwaad" veronderstellen dat een handeling een waarneembaar gevolg heeft, en een
+vlucht, een stuk vlees of een tweede auto heeft dat op zichzelf niet. Rieder
+noemt dit de Puzzel: het gevoel verantwoordelijk te zijn voor iets waaraan je
+onmogelijk zelf iets kunt veranderen.
+
+Hij wijst twee uitwegen af. De ene is zuiverheid nastreven en elke deelname
+aan een schadelijk systeem weigeren, wat volgens hem niemand volhoudt en
+niemand zou moeten volhouden. De andere is vaststellen dat het toch niets
+uitmaakt en er verder niet meer over nadenken. Zijn eigen voorstel noemt hij
+een ethiek van nauwgezetheid: geen zuiverheid, geen onverschilligheid, maar
+een voortdurende afweging van redenen, toegepast op vleesconsumptie, autobezit
+en de beslissing om kinderen te krijgen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Rieder betoogt dat de morele intuïties waarmee mensen zijn
+toegerust, ontwikkeld in kleine groepen waarin een handeling een duidelijke
+dader en een duidelijk slachtoffer had, niet werken bij problemen die pas
+ontstaan als miljarden losse handelingen bij elkaar worden opgeteld.
+Individuele plicht loslaten omdat één vlucht of één stuk vlees het klimaat
+niet meetbaar raakt, is voor hem geen ontsnapping maar een denkfout, want
+dezelfde redenering zou iedereen tegelijk vrijpleiten terwijl de optelsom van
+al die vrijgepleite handelingen de schade wél veroorzaakt. Zijn alternatief is
+dat mensen niet vanuit strikte plicht maar vanuit redenen van wisselend
+gewicht handelen, wat ruimte laat voor een leven dat niet perfect is en toch
+verdedigbaar. Wie zijn boek leest als vrijbrief om te blijven doen wat men al
+deed, heeft volgens datzelfde argument dan weer geen reden om dat zonder meer
+te doen.
+
+#### De gang van het boek
+
+**De Puzzel**
+
+Rieder opent met de spanning die het boek draagt: mensen voelen zich
+verantwoordelijk voor klimaatverandering, ongelijkheid in de aanvoerketen van
+hun telefoon of de cobaltmijnen achter hun elektrische auto, en tegelijk
+verandert geen van hun individuele keuzes daar iets aan. Honderd bedrijven
+zijn volgens de cijfers die hij aanhaalt verantwoordelijk voor het grootste
+deel van de wereldwijde uitstoot, wat de vraag oproept waarom een individu
+zich daar nog iets bij zou moeten voorstellen.
+
+Zijn antwoord is dat de vraag zelf verkeerd gesteld is zolang zij om een
+meetbaar gevolg draait. Een handeling kan volgens hem moreel relevant zijn
+zonder dat zij op zichzelf iets veroorzaakt, namelijk als onderdeel van een
+patroon dat gezamenlijk wel iets veroorzaakt. Daarmee wil hij het gesprek
+verplaatsen van "heeft mijn handeling effect" naar "welke rol speel ik in dit
+patroon".
+
+**Twee dwaalwegen: zuiverheid en onverschilligheid**
+
+De eerste dwaalweg is wat Rieder zuiverheidsethiek noemt: de eis om volledig
+buiten elk schadelijk systeem te blijven, geen vlees, geen vliegtuig, geen
+product waarvan de herkomst besmet is. Hij vindt dat onhaalbaar in een wereld
+waarin vrijwel elke aankoop ergens in een keten zit die schade doet, en
+waarschuwt dat de eis tot uitputting en tot een leven vol boekhouding leidt
+zonder dat de wereld er merkbaar beter van wordt.
+
+De tweede dwaalweg is nihilisme: omdat niets wat een individu doet het
+verschil maakt, is er ook geen reden om iets te laten. Rieder erkent de logica
+ervan en verwerpt de uitkomst, want als iedereen zo redeneert is er niemand
+meer die iets doet, terwijl het probleem juist ontstaat doordat iedereen
+hetzelfde doet.
+
+**De morele camera**
+
+Om zijn eigen route te vinden leent Rieder een beeld van de psycholoog Joshua
+Greene: het morele beoordelingsvermogen werkt als een camera met een
+automatische en een handmatige stand. De automatische stand is snel, werkt
+goed bij vertrouwde situaties met een duidelijke dader en een duidelijk
+slachtoffer, en faalt bij problemen die de menselijke soort evolutionair nooit
+is tegengekomen, zoals een broeikaseffect dat pas na honderd jaar merkbaar
+wordt.
+
+Klimaatverandering, mondiale bevoorradingsketens en soortgelijke problemen
+vragen daarom om de handmatige stand: trager, inspannender, maar in staat om
+met redenen te werken die de automatische intuïtie niet oppikt. Het grootste
+deel van het boek is een oefening in die handmatige stand.
+
+**Van plicht naar reden**
+
+Rieder stelt voor het onderscheid tussen "moet" en "moet niet" te vervangen
+door een schaal van wat hij shouldiness noemt, een mate van gewicht die een
+overweging in de schaal legt zonder meteen een harde plicht te worden. Een
+reden om minder vlees te eten is dan geen wet die overtreden wordt zodra er
+een keer een biefstuk op het bord ligt, maar een aanhoudende overweging die
+meetelt naast andere overwegingen, zoals kosten, gezondheid en wat iemand
+anders in zijn leven al doet.
+
+Daarmee verdedigt hij ook zijn antwoord op het bezwaar dat individuele actie
+geen betekenisvol verschil maakt. Een handeling kan volgens hem reden geven
+zonder dat zij een aanwijsbaar gevolg heeft, omdat zij deel is van een
+gedragspatroon waarvan het geheel wel een gevolg heeft; wie daaraan bijdraagt,
+draagt een deel van de reden om het na te laten, ook al draagt niemand het
+gevolg alleen.
+
+**De ethiek van nauwgezetheid in de praktijk**
+
+In het middendeel past Rieder zijn schaal toe op alledaagse keuzes: vlees
+eten, een auto met verbrandingsmotor rijden, vliegen, elektronica kopen
+waarvan de mijnbouw omstreden is. Hij weegt telkens de reden om iets na te
+laten tegen de reden om het te blijven doen, inclusief overwegingen als
+beschikbare alternatieven, kosten en de vraag of iemand meer bijdraagt via
+ander werk, zoals activisme of beleidswerk, dan via consumptieonthouding.
+
+Virtue ethics, het denken in karaktertrekken in plaats van regels of gevolgen,
+komt pas laat in het boek naar voren als aanvulling op zijn eigen model. Voor
+sommige lezers voelt dat als een instrument dat eerder in het betoog had
+gehoord, omdat het net zo goed het startpunt had kunnen zijn.
+
+**De grootste beslissing: kinderen krijgen**
+
+Het boek eindigt bij wat Rieder monumentale ethiek noemt: beslissingen die
+niet uit een reeks kleine handelingen bestaan maar uit één onomkeerbare keuze
+met gevolgen voor decennia, waarbij de ethiek van nauwgezetheid grotendeels
+tekortschiet. De keuze om een kind te krijgen valt daaronder, met de extra
+complicatie dat het kind zelf geen stem heeft in een wereld met een onzekere
+klimaattoekomst.
+
+Rieder wijst het argument af dat niemand meer kinderen zou mogen krijgen
+zolang de klimaatcrisis voortduurt, en wijst evengoed de gedachte af dat de
+vraag geen overweging verdient. Hij laat de beslissing bij de lezer, met als
+aanwijzing dat wie haar neemt, haar bewust en met kennis van de gevolgen zou
+moeten nemen in plaats van uit gewoonte.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De Puzzel | Het gevoel medeverantwoordelijk te zijn voor een probleem dat pas ontstaat als optelsom van miljarden losse, op zichzelf onschadelijke handelingen. |
+| Zuiverheidsethiek | De eis om volledig buiten elk schadelijk systeem te blijven; volgens Rieder onhaalbaar en uitputtend. |
+| Nihilisme | De conclusie dat niets ertoe doet omdat een individuele handeling nooit meetbaar effect heeft, wat volgens Rieder de verkeerde les trekt uit een juiste waarneming. |
+| Ethiek van nauwgezetheid | Ridders eigen voorstel: geen zuiverheid en geen onverschilligheid, maar een voortdurende, persoonlijke afweging van redenen van wisselend gewicht. |
+| Morele camera | Het beeld, ontleend aan Joshua Greene, van morele oordeelsvorming als een automatische en een handmatige stand, waarbij grote collectieve problemen de handmatige stand vragen. |
+| Shouldiness | Ridders term voor een schaal van morele overwegingen tussen vrijblijvend en verplicht, in plaats van een strikt onderscheid tussen moeten en niet moeten. |
+| Betekenisvol verschil | De maatstaf die vraagt of een handeling op zichzelf een waarneembaar gevolg heeft; Rieder bestrijdt dat dit de enige maatstaf voor morele relevantie is. |
+| Monumentale ethiek | Beslissingen die uit één onomkeerbare keuze bestaan in plaats van uit herhaalbaar gedrag, zoals de keuze om een kind te krijgen. |
+
+#### Waar het argument op rust
+
+Dit is een filosofisch betoog en geen empirisch onderzoek. Rieder redeneert
+vanuit gedachte-experimenten, definities en de spanning tussen intuïties, op
+de manier van de morele filosofie waarin hij is opgeleid, en niet vanuit
+metingen, enquêtes of experimenten die hij zelf heeft uitgevoerd. Waar hij
+empirische claims doet, zoals de bewering dat een klein aantal bedrijven
+verantwoordelijk is voor het grootste deel van de wereldwijde uitstoot, steunt
+hij op bestaand onderzoek van anderen zonder dat zelf te herhalen of te
+toetsen.
+
+Zijn beroep op Joshua Greenes onderscheid tussen automatische en handmatige
+morele oordeelsvorming komt uit de psychologie en is daar zelf onderwerp van
+discussie; Rieder gebruikt het als illustratie, niet als bewijs voor zijn
+eigen ethische claims. De overtuigingskracht van het boek zit dus niet in
+gegevens maar in de consistentie van de redenering en in de vraag of de lezer
+de tussenstappen aanvaardt.
+
+Rieder onderbouwt zijn positie verder met de klassieke tradities van de
+ethiek, gevolgenethiek, plichtethiek en deugdethiek, die hij tegen elkaar
+afzet en gedeeltelijk combineert. Dat maakt het boek breed gefundeerd binnen
+de filosofie, maar het blijft een positiekeuze tussen ongelijksoortige
+tradities en geen sluitend bewijs dat zijn eigen synthese de juiste is.
+
+#### Wat er tegen in te brengen valt
+
+Het boek definieert nergens scherp wat een "catastrofe" precies is, terwijl
+die term in de titel staat en het hele onderscheid tussen alledaagse en
+monumentale ethiek erop steunt. Zonder een afgebakend begrip kan bijna elk
+groot probleem als catastrofe gelden, wat het raamwerk moeilijker te toetsen
+maakt.
+
+De reikwijdte is smaller dan de belofte. Kernwapens, pandemieën, oorlogvoering
+en de drugsoorlog komen nauwelijks aan bod, terwijl Rieder als bio-ethicus
+juist op het terrein van pandemische ethiek iets te zeggen zou hebben. Ook
+niet-westerse ethische tradities, zoals het confuciaanse denken over
+collectieve plicht, blijven buiten beeld, wat opvalt in een boek dat claimt
+een ethiek voor de hele wereld te schetsen.
+
+Een breder, ouder bezwaar tegen dit soort boeken is dat de nadruk op
+individuele keuzes de aandacht wegtrekt van de bedrijven en overheden die de
+meeste schade veroorzaken. Rieder erkent dat probleem uitdrukkelijk en
+probeert het te ontzenuwen door individuele reden en systemische verandering
+naast elkaar te zetten in plaats van tegenover elkaar, maar de vraag of een
+boek over persoonlijke moraal daarmee niet toch de aandacht verschuift van
+waar de macht ligt, blijft openstaan.
+
+Ten slotte komt de deugdethiek pas laat in het boek naar voren, terwijl zij
+inhoudelijk net zo goed het uitgangspunt had kunnen zijn. Dat maakt de opbouw
+van het argument minder overtuigend dan de inhoud van de losse hoofdstukken.
+
+#### Wat er concreet mee te doen is
+
+- Vervang bij een lastige keuze de vraag "heeft dit effect" door de vraag
+"welk patroon maak ik hiermee groter of kleiner".
+- Leg voor een concrete gewoonte, zoals vlees eten of vliegen, de redenen
+ervoor en ertegen naast elkaar in plaats van te zoeken naar één regel die de
+knoop doorhakt.
+- Zet je beschikbare tijd en geld in waar je positie het meeste gewicht in de
+schaal legt, en aanvaard dat andere terreinen dan minder aandacht krijgen.
+- Behandel een onomkeerbare beslissing, zoals kinderen krijgen, apart van
+alledaagse consumptiekeuzes; de afweging die daarbij hoort is zwaarder en
+eenmalig.
+
+#### Wat je hierna leest
+
+- 55. Thinking, Fast and Slow. Kahnemans onderscheid tussen snel en langzaam
+denken is de psychologische bron van de "morele camera" die Rieder van Joshua
+Greene leent.
+- 71. Four Thousand Weeks. Burkeman zoekt eveneens een leefbare houding
+tegenover een probleem dat niet op te lossen is, bij hem de eindigheid van de
+tijd, bij Rieder de onmacht van het individu.
+- 2. Overpeinzingen. Marcus Aurelius' onderscheid tussen wat in je macht ligt
+en wat niet, is de oudere versie van de vraag die Rieder voor een collectief
+probleem opnieuw stelt.
+- 237. 21 Lessons for the 21st Century. Harari beschrijft dezelfde generatie
+problemen op wereldschaal; waar hij vooral analyseert, zoekt Rieder een
+handelingsperspectief voor het individu.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -59660,40 +60550,41 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `amerikaanse revolutie` 243 · `Amsterdam` 295 · `anatomie` 241 · `Andalusië` 8
 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252 · `animatie` 41 ·
 `Antarctica` 36 · `anthologie` 189 · `antropologie` 223 · `antwerpen` 113 ·
-`apartheid` 26 · `apple` 231 · `Apple` 46 · `apps` 294 · `arbeid` 6, 173 ·
-`arbeidsethos` 266 · `argumenten` 63 · `armoede` 26, 234, 254 ·
+`apartheid` 26 · `apple` 231 · `Apple` 46 · `apps` 294 · `arbeid` 6, 173, 297
+· `arbeidsethos` 266 · `argumenten` 63 · `armoede` 26, 234, 254 ·
 `assertiviteit` 162 · `asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 ·
-`Auschwitz` 48 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 ·
-`barok` 216 · `basisbehoeften` 107 · `bbc` 82 · `bedrijfscultuur` 170, 257,
-270 · `bedrijfsleven` 209, 293 · `bedrijfssystemen` 264 · `beginners` 112 ·
-`behoeften` 35 · `beinvloeding` 123, 126 · `bekentenis` 60 ·
-`belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277 · `beleid` 65
-· `bemiddeling` 35 · `beroemdheden` 128 · `beschadigd-bestand` 115, 130 ·
-`beschaving` 57 · `beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59,
-69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293 ·
-`bestseller` 8, 37, 250 · `betekenis` 143 · `beurs` 80 · `beweging` 77, 84 ·
-`bewijs` 63 · `bewustwording` 103 · `bewustzijn` 148, 169, 200, 275 · `bezit`
-37 · `bias` 209 · `bijgeloof` 63 · `biografie` 31, 46, 189, 231, 240, 241,
-243, 247, 266, 267, 269 · `biologie` 66, 88, 89, 90, 91 · `biologie van
-gedrag` 273 · `biotechnologie` 236 · `bloedvaten` 86 · `blokkade` 14 ·
-`boeddhisme` 111, 287 · `brainstormen` 33 · `brieven` 292 · `broers` 10 ·
-`budgetteren` 159, 233 · `buitenlandse hulp` 221 · `burgerschap` 243 ·
-`burn-out` 135, 207 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
-`carrière` 146, 158 · `cases` 40 · `cashflow` 37 · `challenger` 62 · `chaos`
-74 · `chapbook` 100 · `Chinese geschiedenis` 219 · `christendom` 162, 201 ·
-`cijfers` 39, 65 · `coaching` 161, 291 · `cognitieve gedragstherapie` 147, 153
-· `cognitieve herstructurering` 177 · `cognitieve vertekening` 234 ·
-`cognitieve-bias` 59 · `columns` 89, 90 · `comfortzone` 187 · `commando` 97 ·
-`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213 ·
-`complexiteit` 170, 268 · `concentratie` 70 · `concurrentie` 293 ·
-`conditionering` 61 · `conflict` 35, 42, 43, 212 · `conflicthantering` 271 ·
-`conformisme` 211 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16,
-17, 74, 206 · `cricket` 174 · `crisis` 47 · `cultuur` 68, 274 ·
-`cultuurkritiek` 54 · `cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131 ·
-`cynisme` 250 · `dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 ·
-`dagboekmethode` 78 · `dagelijkse gewoontes` 205 · `dankbaarheid` 129 ·
-`dataïsme` 236 · `daten` 166 · `debat` 28 · `debuutboek` 226 · `dementie` 84,
-85, 225 · `democratie` 98 · `denkfouten` 55, 59, 142 · `design thinking` 150 ·
+`Auschwitz` 48 · `automatisering` 297 · `autonomie` 6, 50 · `autoriteit` 215 ·
+`autotelie` 200 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
+`bedrijfscultuur` 170, 257, 270 · `bedrijfsleven` 209, 293 ·
+`bedrijfssystemen` 264 · `beginners` 112 · `behoeften` 35 · `beinvloeding`
+123, 126 · `bekentenis` 60 · `belangenverstrengeling` 138 · `beleggen` 21, 64,
+144, 233, 277 · `beleid` 65 · `bemiddeling` 35 · `beroemdheden` 128 ·
+`beschadigd-bestand` 115, 130 · `beschaving` 57 · `beslissen` 55 ·
+`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
+170, 174, 209, 270, 282, 283, 293, 299 · `bestseller` 8, 37, 250 · `betekenis`
+143 · `beurs` 80 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 ·
+`bewustzijn` 148, 169, 200, 275 · `bezit` 37 · `bias` 209 · `bijgeloof` 63 ·
+`biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269 · `biologie`
+66, 88, 89, 90, 91 · `biologie van gedrag` 273 · `biotechnologie` 236 ·
+`bloedvaten` 86 · `blokkade` 14 · `boeddhisme` 111, 287 · `brainstormen` 33 ·
+`brieven` 292 · `broers` 10 · `budgetteren` 159, 233 · `buitenlandse hulp` 221
+· `burgerschap` 243 · `burn-out` 135, 207 · `cafeïne` 52 · `Californië` 10 ·
+`carl jung` 258 · `carrière` 146, 158 · `cases` 40 · `cashflow` 37 ·
+`challenger` 62 · `chaos` 74 · `chapbook` 100 · `Chinese geschiedenis` 219 ·
+`christendom` 162, 201 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
+`coaching` 161, 291 · `cognitieve gedragstherapie` 147, 153 · `cognitieve
+herstructurering` 177 · `cognitieve vertekening` 234 · `cognitieve-bias` 59 ·
+`columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
+122, 145, 152, 156, 162, 164, 183, 186, 193, 213 · `complexiteit` 170, 268 ·
+`concentratie` 70 · `concurrentie` 293 · `conditionering` 61 · `conflict` 35,
+42, 43, 212 · `conflicthantering` 271 · `conformisme` 211 · `consumptiekeuzes`
+299 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206 ·
+`cricket` 174 · `crisis` 47 · `cultuur` 68, 274 · `cultuurkritiek` 54 ·
+`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131 · `cynisme` 250 ·
+`dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 · `dagboekmethode` 78
+· `dagelijkse gewoontes` 205 · `dankbaarheid` 129 · `dataïsme` 236 · `daten`
+166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298 · `dementie` 84, 85, 225
+· `democratie` 98 · `denkfouten` 55, 59, 142 · `design thinking` 150 ·
 `destructiviteit` 223 · `deugd` 247 · `diagnose` 104 · `dichotomie van
 controle` 194 · `dictatuur` 221 · `dienstbaarheid` 230, 245 · `diepe-tijd` 239
 · `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `DISC` 156 ·
@@ -59702,43 +60593,43 @@ controle` 194 · `dictatuur` 221 · `dienstbaarheid` 230, 245 · `diepe-tijd` 23
 · `donkere-triade` 124 · `dood` 98, 169, 292 · `doorzetten` 20 ·
 `doorzettingsvermogen` 185, 249, 289 · `dromen` 52 · `dummies` 112 ·
 `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 · `e-commerce` 257 ·
-`e-mail` 70 · `economie` 65, 98, 217, 251 · `economische geschiedenis` 155 ·
-`eenvoud` 170, 205 · `eenzaamheid` 7, 96, 98, 111, 288 · `eerlijk` 47 ·
-`eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149 · `eigen bedrijf`
-210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 · `eigenaarschap` 97 ·
-`einstein` 94 · `elektriciteit` 267 · `elektrische auto's` 266 · `emigratie`
-240 · `emotie` 137 · `emoties` 3, 43, 142, 147, 153, 177 · `empathie` 35, 67 ·
-`energie` 92, 195, 291 · `epigenetica` 208 · `epos` 5 · `erfenis` 39 ·
-`erotiek` 113, 164 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 232 · `essays`
-197 · `eten` 103 · `ethiek` 282 · `evangelisatie` 201 · `evolutie` 56, 66, 89,
-90, 91, 239 · `evolutionaire-psychologie` 67 · `expeditie` 36 · `experiment`
-79, 215 · `experimenten` 280 · `experimenteren` 265 · `expertise` 283 ·
-`fabel` 8, 42, 135, 167, 252 · `falen` 23, 72, 75 · `familie` 45 ·
-`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
-`fantasy` 192, 203 · `fbi` 271 · `FBI` 154 · `feedback` 41 · `feiten` 43 ·
-`feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199,
-211, 216, 224, 247, 255, 263, 292 · `filosofiegeschiedenis` 269 · `financiële
-geletterdheid` 163 · `financiële markten` 268 · `financiële onafhankelijkheid`
-264 · `financiele vrijheid` 277 · `financiering` 172 · `flow` 78, 187, 200 ·
-`focus` 175, 197 · `fotoboek` 189 · `frankrijk` 115 · `gaslighting` 123 ·
-`gebed` 83, 259 · `gebruikersgedrag` 294 · `gedachten` 148, 177 ·
-`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280 ·
-`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
-`gedragsverandering` 238, 290 · `gedragswetenschap` 166, 209 · `geduld` 21 ·
-`geestelijke gezondheid` 193 · `gehechtheid` 166 · `geheim genootschap` 202 ·
-`geheugen` 66, 85, 175 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176 ·
-`geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159 · `geldpsychologie` 233,
-264 · `geloof` 45, 83, 201 · `geluk` 79, 93, 160, 228 · `gemeenschap` 9, 96 ·
-`geneeskunde` 49 · `generaties` 114 · `geologie` 239 · `geopolitiek` 220 ·
-`geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258 ·
-`geschiedfilosofie` 235 · `gesprek` 43, 95 · `gesprekstechniek` 182, 186 ·
-`gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht` 138 · `gewoonte` 58, 70, 76,
-77, 79, 88, 97, 103, 133, 138 · `gewoontelus` 238 · `gewoonten` 187 ·
-`gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158, 181, 207, 208, 224,
-230, 290 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294 · `gezag` 62 ·
-`gezondheid` 52, 88, 171, 181 · `ggz` 104 · `gijzelingsonderhandelaar` 271 ·
-`goeroe` 242 · `grenzen` 72, 105, 109, 120, 122, 187 · `grenzen stellen` 151,
-204 · `griekse mythologie` 261 · `groei` 222 · `groeimentaliteit` 116 ·
+`e-mail` 70 · `ecologie` 298 · `economie` 65, 98, 217, 251, 297 · `economische
+geschiedenis` 155 · `eenvoud` 170, 205 · `eenzaamheid` 7, 96, 98, 111, 288 ·
+`eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149 ·
+`eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 ·
+`eigenaarschap` 97 · `einstein` 94 · `elektriciteit` 267 · `elektrische
+auto's` 266 · `emigratie` 240 · `emotie` 137 · `emoties` 3, 43, 142, 147, 153,
+177 · `empathie` 35, 67 · `energie` 92, 195, 291 · `epigenetica` 208 · `epos`
+5 · `erfenis` 39 · `erotiek` 113, 164 · `essay` 3, 9, 21, 57, 59, 63, 64, 68,
+96, 232 · `essays` 197 · `eten` 103 · `ethiek` 282, 299 · `evangelisatie` 201
+· `evolutie` 56, 66, 89, 90, 91, 239 · `evolutionaire-psychologie` 67 ·
+`expeditie` 36 · `experiment` 79, 215 · `experimenten` 280 · `experimenteren`
+265 · `expertise` 283 · `fabel` 8, 42, 135, 167, 252 · `falen` 23, 72, 75 ·
+`familie` 45 · `familieconflict` 178 · `familiegeschiedenis` 114, 235 ·
+`familieroman` 10 · `fantasy` 192, 203 · `fbi` 271 · `FBI` 154 · `feedback`
+41, 296 · `feiten` 43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 ·
+`filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299 ·
+`filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 · `financiële
+markten` 268 · `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277
+· `financiering` 172 · `flow` 78, 187, 200 · `focus` 175, 197 · `fotoboek` 189
+· `frankrijk` 115 · `gaslighting` 123 · `gebed` 83, 259 · `gebruikersgedrag`
+294 · `gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90,
+138, 154, 280 · `gedragspatronen` 161 · `gedragspsychologie` 294 ·
+`gedragstypen` 156 · `gedragsverandering` 238, 290 · `gedragswetenschap` 166,
+209 · `geduld` 21 · `geestelijke gezondheid` 193 · `gehechtheid` 166 · `geheim
+genootschap` 202 · `geheugen` 66, 85, 175 · `gehoorzaamheid` 215 ·
+`geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159
+· `geldpsychologie` 233, 264 · `geloof` 45, 83, 201 · `geluk` 79, 93, 160, 228
+· `gemeenschap` 9, 96 · `geneeskunde` 49 · `generaties` 114 · `geologie` 239 ·
+`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
+258, 298 · `geschiedfilosofie` 235 · `gesprek` 43, 95 · `gesprekstechniek`
+182, 186 · `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht` 138 · `gewoonte`
+58, 70, 76, 77, 79, 88, 97, 103, 133, 138 · `gewoontelus` 238 · `gewoonten`
+187 · `gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158, 181, 207, 208,
+224, 230, 290 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294 · `gezag`
+62 · `gezondheid` 52, 88, 171, 181 · `ggz` 104 · `gijzelingsonderhandelaar`
+271 · `goeroe` 242 · `grenzen` 72, 105, 109, 120, 122, 187 · `grenzen stellen`
+151, 204 · `griekse mythologie` 261 · `groei` 222 · `groeimentaliteit` 116 ·
 `grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80, 251 ·
 `handelen` 30 · `handleiding` 112 · `hart` 86, 128 · `hechting` 145, 152 ·
 `hedendaags India` 202 · `heelal` 99, 262 · `helderheid` 82 · `herhaling` 125,
@@ -59753,33 +60644,35 @@ mythologie` 192 · `Hindoeïstische mythologie` 202 · `hindoemythologie` 203 ·
 `identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185 · `ik-vorm` 113 ·
 `illustraties` 109 · `imitatie` 11 · `import` 20 · `india` 172, 196, 199, 242
 · `India` 163, 171, 180, 189, 191, 203, 226 · `individualisme` 9, 96 ·
-`individualiteit` 263 · `innerlijk-kind` 109 · `innovatie` 206, 251, 293 ·
-`instagram` 129 · `internet` 60, 198 · `interview` 58 · `interviews` 277, 289
-· `intimiteit` 122, 145, 164, 165 · `introversie` 33 · `intuitie` 128 ·
-`intuïtie` 214, 283 · `investeren` 270 · `invloed` 11 · `Italiaanse
-non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `japan` 77, 261 · `Japan` 205
-· `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos`
-257 · `jeugd` 53, 104, 115 · `jonge liefde` 180 · `jongeren` 25 ·
-`jongvolwassenenroman` 295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82,
-238, 257, 285 · `jung` 143 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248 ·
-`kans` 64 · `kansen` 137 · `kansrekening` 282 · `karakter` 97 · `karma` 184 ·
+`individualiteit` 263 · `individuele-verantwoordelijkheid` 299 ·
+`innerlijk-kind` 109 · `innovatie` 206, 251, 293 · `instagram` 129 ·
+`internet` 60, 198 · `interview` 58 · `interviews` 277, 289 · `intimiteit`
+122, 145, 164, 165 · `introversie` 33 · `intuitie` 128 · `intuïtie` 214, 283 ·
+`investeren` 270 · `invloed` 11 · `Italiaanse non-fictie` 211 · `Italië` 155 ·
+`jaloezie` 19 · `japan` 77, 261 · `Japan` 205 · `jaren-tachtig` 139 ·
+`jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104,
+115 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman` 295 ·
+`journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285 · `jung` 143 ·
+`Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248 · `kans` 64 · `kansen` 137 ·
+`kansrekening` 282 · `kapitalisme` 298 · `karakter` 97 · `karma` 184 ·
 `Kasjmir` 180 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50 ·
 `kernwaarden` 245 · `keuzes` 51, 71, 72 · `kinderboek` 167 · `kinderjaren` 152
 · `klantcontact` 182, 186 · `klantrelaties` 246 · `klantvalidatie` 265 ·
 `klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219 ·
 `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254 ·
 `klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
-`klimaatfictie` 203 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 ·
-`kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 · `korte-teksten` 111
-· `kosmologie` 239, 262, 281 · `koude oorlog` 217, 220 · `krijgsgevangenschap`
-31 · `krijgskunde` 212, 218, 219, 272 · `kritiek` 24, 41, 50 · `kroeg` 4 ·
-`kunst` 11 · `kunstgeschiedenis` 241 · `kunstmatige-intelligentie` 236, 237 ·
+`klimaatfictie` 203 · `klimaatverandering` 299 · `kolonialisme` 298 · `korea`
+111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
+`kort-stuk` 19, 30 · `korte-teksten` 111 · `kosmologie` 239, 262, 281 · `koude
+oorlog` 217, 220 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272
+· `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 · `kunstgeschiedenis` 241 ·
+`kunstmatige intelligentie` 297 · `kunstmatige-intelligentie` 236, 237 ·
 `kwaliteit` 1 · `kwantumfysica` 208 · `kwantumzwaartekracht` 281 ·
 `kwetsbaarheid` 32, 44 · `landbouw` 56, 98 · `lean manufacturing` 265 ·
 `leefstijl` 86, 103, 138, 171 · `leger` 106, 180, 222 · `leiderschap` 36, 41,
 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273 · `leidinggeven` 156 ·
-`leren` 175 · `lesmateriaal` 116 · `leugendetectie` 154 · `levenskeuzes` 150 ·
-`levenskunst` 27, 199, 216, 227 · `levenslessen` 285 · `levensloop` 91 ·
+`leren` 175, 296 · `lesmateriaal` 116 · `leugendetectie` 154 · `levenskeuzes`
+150 · `levenskunst` 27, 199, 216, 227 · `levenslessen` 285 · `levensloop` 91 ·
 `lezen` 18 · `lezingen` 169 · `lichaam` 80 · `lichaamstaal` 125, 126, 154 ·
 `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden`
 48, 73, 160 · `literair` 110 · `literatuur` 49 · `logotherapie` 48 ·
@@ -59790,72 +60683,72 @@ non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `japan` 77, 261 · `Japan` 
 190, 196 · `manipulatie` 123, 124, 125, 126, 212, 213 · `mannelijkheid` 3 ·
 `mannen` 7 · `mantelzorg` 225 · `marketing` 13, 40, 60, 172, 183, 279, 280 ·
 `media` 54, 60, 100 · `meditatie` 111, 141, 149, 169, 205, 208, 228, 230, 237,
-242 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106,
-178, 185, 191, 226, 229, 242, 289 · `menselijk gedrag` 155 · `mensenkennis`
-126 · `mentale helderheid` 148 · `mentale weerbaarheid` 229 · `mentorschap` 4,
-285, 289 · `merken` 279 · `metafysica` 102 · `meten` 69, 133 · `methode` 81 ·
-`microbedrijf` 40, 172 · `middelbare-leeftijd` 7 · `militaire strategie` 220 ·
-`millennials` 159 · `minderheden` 68 · `mindful` 103 · `mindfulness` 141, 147,
-149, 177 · `mindset` 146, 181, 188 · `minimalisme` 181 · `misdaad` 254 ·
-`misleiding` 219, 272 · `modelleren` 139 · `moed` 44 · `moeder-en-zoon` 26 ·
-`monniksleven` 230 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moreel` 36
-· `motivatie` 117, 139, 146, 183, 200, 207 · `motoren` 6 · `muziek` 17, 85 ·
-`mythologie` 73, 143 · `mythologische fantasy` 202 · `mythologische fictie`
-203 · `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258 ·
-`naslag` 99, 112 · `naslagwerk` 59, 225 · `nationalisme` 237 · `natuur` 191 ·
-`natuurkunde` 62, 94, 240, 262, 281 · `navy seals` 229 · `nazisme` 223 ·
-`necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103,
-104, 105, 106, 107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 ·
-`nederlandstalig` 113 · `negatieve emoties` 176 · `negentig dagen` 188 ·
-`nepnieuws` 237 · `netwerken` 24, 246 · `neurobiologie` 119 · `neurochirurgie`
-49 · `neuroplasticiteit` 175, 208 · `neurowetenschap` 52, 208, 238, 275 · `new
-age` 149 · `new thought` 259 · `NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws`
-60, 90 · `nieuwsgierigheid` 15, 28, 62, 241 · `Nike` 20 · `nlp` 123, 125, 139
-· `Nobelprijs` 55 · `non-verbale communicatie` 154 · `notitieboeken` 241 ·
-`novelle` 173 · `observeren` 15 · `obsessieve liefde` 284 · `ochtendroutine`
-14, 134, 244 · `oefenen` 29 · `oefening` 141 · `oefeningen` 15, 35, 87, 103,
-109, 118, 120, 122, 130 · `okinawa` 77 · `okr` 256 · `omgangsvormen` 24 ·
-`omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 ·
-`onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
-`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283 ·
-`onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134,
-135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272 · `ondernemen` 20, 39,
-40, 47, 172 · `ondernemers` 174 · `ondernemerschap` 157, 163, 185, 197, 198,
-210, 222, 228, 231, 245, 249, 276, 278, 289 · `onderwijs` 6, 23, 33, 45, 63,
-65, 68, 116, 237 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39,
-44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152 · `onderzoeksdebat` 53 ·
-`onderzoeksethiek` 215 · `onderzoekskritiek` 52 · `ongeneeslijke ziekte` 285 ·
-`onsterfelijkheid` 236 · `ontslagen` 47 · `ontwikkeling` 46, 85 ·
-`ontwikkelingslanden` 234 · `onzekerheid` 268 · `oordeel` 59, 69 · `oorlog`
-31, 57, 66 · `oorlogvoering` 218 · `opdrachten` 116 · `opgetekend` 97 ·
-`opgeven` 249 · `opgroeien` 4, 295 · `optimisme` 251 · `opvoeding` 3, 23, 29,
-44, 53, 73, 162, 193, 290 · `orde` 73, 74 · `organisatie` 28, 41, 69 ·
-`organisatiecultuur` 183, 273 · `organisaties` 238 · `Orwell` 54 · `oud china`
-272 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191 · `oudheid` 2, 247,
-292 · `outsourcen` 278 · `overdenken` 148 · `overleven` 31, 36 ·
-`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253 · `overtuiging` 280 ·
-`overtuigingen` 28, 132, 139, 143 · `overvloed` 17 · `Pacific` 31 ·
-`pacifisme` 240 · `Padma-onderscheiding` 189 · `para` 81 · `parabel` 38, 244,
-246 · `passie` 50, 198 · `pastoraat` 34 · `patriarchaat` 3 · `pelgrimage` 8 ·
-`pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32, 44 · `persoonlijk
-merk` 198 · `persoonlijke financiën` 163, 233 · `persoonlijke ontwikkeling`
-161 · `persoonlijkheid` 33 · `piekeren` 105, 176 · `pijn` 85, 255 · `Pixar`
-41, 46 · `planeten` 99 · `planning` 70, 276 · `plicht` 2 · `podcast` 136 ·
-`poëzie` 204 · `poker` 137 · `polemiek` 67 · `politicologie` 220, 221 ·
-`politiek` 54, 219 · `populair` 77, 129, 133 · `populair-wetenschappelijk` 88,
-239 · `populaire filosofie` 194 · `populaire psychologie` 156 · `portretten`
-75, 94 · `positief denken` 179 · `positief-denken` 83 ·
-`positieve-psychologie` 207 · `postuum` 49 · `Praag` 173 · `praktisch` 118,
-121, 140, 159, 172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie`
-168, 291 · `prestatiebeoordeling` 256 · `preventie` 86 · `prijzen` 23 ·
-`prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151 · `proactief`
-25 · `producer` 17 · `productiviteit` 151, 175, 197, 207, 244, 276, 278, 290 ·
-`productontwerp` 231, 294 · `productontwikkeling` 265 · `proeven` 112 ·
-`projecten` 81 · `projectie` 107, 108 · `propaganda` 60 · `protocol` 69 ·
-`pseudokennis` 126 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104,
-213 · `psychoanalyse` 223 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105,
-138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254, 258 ·
-`psychotherapie` 164, 227 · `publiceren` 13 · `publieksfilosofie` 269 ·
+242 · `meesterschap` 296 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
+49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289 · `menselijk gedrag` 155 ·
+`mensenkennis` 126 · `mentale helderheid` 148 · `mentale weerbaarheid` 229 ·
+`mentorschap` 4, 285, 289 · `merken` 279 · `metafysica` 102 · `meten` 69, 133
+· `methode` 81 · `microbedrijf` 40, 172 · `middelbare-leeftijd` 7 · `militaire
+strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
+`mindfulness` 141, 147, 149, 177 · `mindset` 146, 181, 188 · `minimalisme` 181
+· `misdaad` 254 · `misleiding` 219, 272 · `modelleren` 139 · `moed` 44 ·
+`moeder-en-zoon` 26 · `monniksleven` 230 · `Monty-Python` 16 · `moraal` 9, 57,
+67, 263 · `moreel` 36 · `motivatie` 117, 139, 146, 183, 200, 207 · `motoren` 6
+· `muziek` 17, 85 · `mythologie` 73, 143 · `mythologische fantasy` 202 ·
+`mythologische fictie` 203 · `nalatenschap` 178 · `napoleontische oorlogen`
+235 · `narcisme` 258 · `naslag` 99, 112 · `naslagwerk` 59, 225 ·
+`nationalisme` 237 · `natuur` 191 · `natuurkunde` 62, 94, 240, 262, 281 ·
+`navy seals` 229 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 ·
+`nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130,
+131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
+emoties` 176 · `negentig dagen` 188 · `nepnieuws` 237 · `netwerken` 24, 246 ·
+`neurobiologie` 119 · `neurochirurgie` 49 · `neuroplasticiteit` 175, 208 ·
+`neurowetenschap` 52, 208, 238, 275 · `new age` 149 · `new thought` 259 ·
+`NeXT` 46 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 · `nieuwsgierigheid` 15,
+28, 62, 241 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-verbale
+communicatie` 154 · `notitieboeken` 241 · `novelle` 173 · `observeren` 15 ·
+`obsessieve liefde` 284 · `ochtendroutine` 14, 134, 244 · `oefenen` 29 ·
+`oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 ·
+`okinawa` 77 · `okr` 256 · `omgangsvormen` 24 · `omkering` 105 · `omstreden`
+37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125,
+126 · `onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131,
+132, 139 · `onbewuste` 16, 283 · `onderbewuste` 124 · `onderbewustzijn` 259 ·
+`onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
+260, 271, 272 · `ondernemen` 20, 39, 40, 47, 172 · `ondernemers` 174 ·
+`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
+278, 289 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237 ·
+`onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
+79, 80, 84, 85, 86, 88, 152 · `onderzoeksdebat` 53 · `onderzoeksethiek` 215 ·
+`onderzoekskritiek` 52 · `ongeneeslijke ziekte` 285 · `onsterfelijkheid` 236 ·
+`ontslagen` 47 · `ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 ·
+`onzekerheid` 268 · `oordeel` 59, 69 · `oorlog` 31, 57, 66 · `oorlogvoering`
+218 · `opdrachten` 116 · `opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295
+· `optimisme` 251 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `orde`
+73, 74 · `organisatie` 28, 41, 69 · `organisatiecultuur` 183, 273 ·
+`organisaties` 238 · `Orwell` 54 · `oud china` 272 · `ouder-worden` 5 ·
+`ouderdom` 77, 84, 91, 95, 191 · `oudheid` 2, 247, 292 · `outsourcen` 278 ·
+`overdenken` 148 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
+`overtuigen` 24, 182, 253 · `overtuiging` 280 · `overtuigingen` 28, 132, 139,
+143 · `overvloed` 17 · `Pacific` 31 · `pacifisme` 240 · `Padma-onderscheiding`
+189 · `para` 81 · `parabel` 38, 244, 246 · `passie` 50, 198 · `pastoraat` 34 ·
+`patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
+`perfectionisme` 19, 32, 44 · `persoonlijk merk` 198 · `persoonlijke
+financiën` 163, 233 · `persoonlijke ontwikkeling` 161 · `persoonlijkheid` 33 ·
+`piekeren` 105, 176 · `pijn` 85, 255 · `Pixar` 41, 46 · `planeten` 99 ·
+`planning` 70, 276 · `plicht` 2 · `podcast` 136 · `poëzie` 204 · `poker` 137 ·
+`polemiek` 67 · `politicologie` 220, 221 · `politiek` 54, 219 · `populair` 77,
+129, 133 · `populair-wetenschappelijk` 88, 239 · `populaire filosofie` 194 ·
+`populaire psychologie` 156 · `portretten` 75, 94 · `positief denken` 179 ·
+`positief-denken` 83 · `positieve-psychologie` 207 · `postuum` 49 · `Praag`
+173 · `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren`
+82, 253 · `prestatie` 168, 291 · `prestatiebeoordeling` 256 · `preventie` 86 ·
+`prijzen` 23 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151
+· `proactief` 25 · `producer` 17 · `productiviteit` 151, 175, 197, 207, 244,
+276, 278, 290 · `productontwerp` 231, 294 · `productontwikkeling` 265 ·
+`proeven` 112 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60 ·
+`protocol` 69 · `pseudokennis` 126 · `psychedelica` 275 · `psychiatrie` 1, 48,
+95, 96, 104, 213 · `psychoanalyse` 223 · `psychologie` 23, 28, 29, 55, 73, 78,
+79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254, 258, 296
+· `psychotherapie` 164, 227 · `publiceren` 13 · `publieksfilosofie` 269 ·
 `Pulitzer` 5 · `quantum` 94 · `quilten` 114 · `quotes` 179 · `radicale
 transparantie` 270 · `Rat-Pack` 178 · `rechtspraak` 69 · `reclame` 206, 279 ·
 `reeks` 114, 192 · `regimeverandering` 220 · `reïncarnatie` 202 ·
@@ -59891,18 +60784,19 @@ en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
 `talent` 23, 29, 274 · `tarieven` 121 · `team` 42 · `teams` 273 ·
 `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
 `technologie` 160, 288, 294 · `technologiebedrijven` 293 ·
-`technologiegeschiedenis` 231, 267 · `tegen-productiviteit` 71 · `tegenslag`
-30, 111, 174 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
-`temperament` 33 · `Texas` 5 · `therapie` 51, 107, 118, 119, 120, 121, 122,
-145 · `thriller` 101, 202 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232,
-262, 292 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274 · `Tolteeks` 27 ·
-`toon` 72, 118, 119, 121, 132, 145 · `trauma` 104, 119, 195, 229 · `trilling`
-127 · `trilogie` 202, 203, 248 · `tuinontwerp` 205 · `twaalf-weken` 14 ·
-`tweede-wereldoorlog` 115 · `twintigers` 51 · `uitdaging-vaardigheid` 200 ·
-`uitleg` 99, 102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12 ·
-`uitstellen` 16 · `uitvinding` 267 · `ultralopen` 229 · `Upanishaden` 169 ·
-`vaardigheden` 40, 50 · `vaardigheid` 64 · `vader-en-dochter` 178, 226 ·
-`vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226 · `vakmanschap` 1, 206 ·
+`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297 ·
+`tegen-productiviteit` 71 · `tegenslag` 30, 111, 174 · `tekenen` 15 ·
+`tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `Texas` 5 ·
+`therapie` 51, 107, 118, 119, 120, 121, 122, 145 · `thriller` 101, 202 ·
+`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292 · `toekomst` 236 ·
+`toeval` 21, 64, 93, 137, 274 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132,
+145 · `trauma` 104, 119, 195, 229 · `trilling` 127 · `trilogie` 202, 203, 248
+· `tuinontwerp` 205 · `twaalf-weken` 14 · `tweede-wereldoorlog` 115 ·
+`twintigers` 51 · `uitdaging-vaardigheid` 200 · `uitleg` 99, 102 · `uitleggen`
+82 · `uitstel` 71, 140 · `uitstelgedrag` 12 · `uitstellen` 16 · `uitvinding`
+267 · `ultralopen` 229 · `Upanishaden` 169 · `vaardigheden` 40, 50 ·
+`vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173,
+287 · `vaderschap` 49, 226 · `vakbonden` 297 · `vakmanschap` 1, 206 ·
 `variantie` 137 · `vastgoed` 37 · `vedische filosofie` 230 · `veedrift` 5 ·
 `veerkracht` 106, 153, 174, 177, 189 · `veiligheid` 43, 214 ·
 `veiligheidsmarge` 144 · `verandering` 170, 252 · `verantwoordelijkheid` 42,
@@ -59918,21 +60812,21 @@ en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
 194 · `visualisatie` 259 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 ·
 `voeding` 86, 88, 171 · `volharding` 29 · `volledigheid` 167 · `voorbeelden`
 128 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55, 283 ·
-`voorspellingen` 268 · `vooruitgang` 251 · `voorzichtigheid` 216 · `vorming`
-224 · `vriendschap` 5, 7, 114, 292, 295 · `vrije tijd` 288 · `vrije-tijd` 78 ·
-`vrije-wil` 10, 236 · `vrijheid` 61 · `vroeg pensioen` 264 · `vrouwenhaat` 110
-· `waardebeleggen` 144 · `waardecreatie` 246 · `waarden` 72, 142 ·
-`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283 · `wall-street`
-144 · `weerbaarheid` 194 · `weerstand` 12 · `welvaart` 251 · `wereldbeeld` 234
-· `wereldbouw` 192 · `werk` 70, 78, 151, 252 · `werkboek` 14, 122, 150 ·
-`werkplek` 33, 43 · `werkwijze` 16 · `West-Point` 29 · `westen` 67 · `western`
-5 · `westerse filosofie` 269 · `wet van aantrekking` 190 ·
-`wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94 · `wetenschappers` 239
-· `wetenschapsgeschiedenis` 239, 240 · `wijn` 112 · `wilskracht` 238 ·
-`wiskunde` 116 · `wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 ·
-`wraak` 101 · `Yale` 215 · `yoga` 195, 242 · `young adult` 192 · `youtube` 245
-· `zakelijke communicatie` 182 · `zeereis` 36 · `zeldzaam` 144 ·
-`zelfacceptatie` 176 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108,
+`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
+`voorzichtigheid` 216 · `vorming` 224 · `vriendschap` 5, 7, 114, 292, 295 ·
+`vrije tijd` 288 · `vrije-tijd` 78 · `vrije-wil` 10, 236 · `vrijheid` 61 ·
+`vroeg pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144 ·
+`waardecreatie` 246 · `waarden` 72, 142 · `waardering` 24, 34 · `waarheid` 263
+· `waarneming` 154, 283 · `wall-street` 144 · `weerbaarheid` 194 · `weerstand`
+12 · `welvaart` 251 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70, 78,
+151, 252 · `werkboek` 14, 122, 150 · `werkplek` 33, 43 · `werkwijze` 16 ·
+`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269 · `wet
+van aantrekking` 190 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94
+· `wetenschappers` 239 · `wetenschapsgeschiedenis` 239, 240 · `wijn` 112 ·
+`wilskracht` 238 · `wiskunde` 116 · `wisselstroom` 267 · `woede` 119, 120 ·
+`woestijn` 8 · `wraak` 101 · `Yale` 215 · `yoga` 195, 242 · `young adult` 192
+· `youtube` 245 · `zakelijke communicatie` 182 · `zeereis` 36 · `zeldzaam` 144
+· `zelfacceptatie` 176 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108,
 129, 138, 197 · `zelfbeheersing` 75, 148, 212, 248, 286 · `zelfbescherming`
 214 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158, 229, 244 · `zelfevaluatie`
 270 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146,

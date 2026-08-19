@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Reverse Centaur's Guide to Life After AI &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Doctorow betoogt dat kunstmatige intelligentie zelf niet het probleem is, maar dat de vraag wie een toepassing dient en wie hem moet ondergaan de kern van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-297">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">297 &middot; Geschiedenis en samenleving</p>
+    <h1>The Reverse Centaur's Guide to Life After AI</h1>
+    <p class="lede">Cory Doctorow, 2026</p>
+    <p class="stats">
+      <span><b>1657</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="297"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Doctorow betoogt dat kunstmatige intelligentie zelf niet het probleem is, maar dat de vraag wie een toepassing dient en wie hem moet ondergaan de kern van elke discussie over AI zou moeten vormen. Hij onderscheidt de centaur, die een machine inzet en zelf de regie behoudt, van de omgekeerde centaur, die op het tempo en volgens de regels van een machine moet werken. De huidige AI-hausse wordt volgens hem vooral gedreven door de noodzaak beleggers ervan te overtuigen dat de winsten blijven groeien, niet door wat gebruikers er daadwerkelijk mee opschieten, en dat verklaart waarom dezelfde tools de een helpen en de ander uitputten. Hij verwacht dat de zeepbel barst, maar houdt vol dat er daarna bruikbare, bescheiden toepassingen overblijven. Wie meent dat de omvang van de investeringen zelf al bewijst dat deze technologie niet meer weg te denken is, vindt in dit boek een tegengestelde lezing van diezelfde cijfers.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag die het boek wil beantwoorden</h3>
+      <p>Doctorow opent met een schijnbare tegenstrijdigheid: sommige gebruikers beschrijven hun ervaring met AI als een beproeving, anderen als een verademing, terwijl het vaak om dezelfde onderliggende technologie gaat. Hij lost die tegenstrijdigheid niet op door de techniek zelf te beoordelen, maar door te vragen wie de opstelling heeft bepaald en wie de uitkomst draagt.</p>
+      <p>Die vraag komt uit een ouder begrippenpaar uit de automatiseringstheorie, dat hij overneemt en uitbreidt: de centaur en de omgekeerde centaur. Het boek is de uitwerking van dat onderscheid tot een leeswijzer voor de eigen werkplek en de eigen apparaten.</p>
+      <h3>Centaur en omgekeerde centaur</h3>
+      <p>Een centaur is voor Doctorow iemand die een machine gebruikt zoals een fietser een fiets gebruikt of een rekenaar een rekenmachine: het eigen oordeel blijft leidend, de machine versnelt of verlicht het werk, en de gebruiker kan er op elk moment mee stoppen. Als voorbeeld noemt hij zijn eigen gebruik van het spraakherkenningsprogramma Whisper om persoonlijke podcastopnames te transcriberen: hij koos het gereedschap, controleerde het resultaat en liet het weer los toen het niet meer nodig was.</p>
+      <p>Een omgekeerde centaur is het spiegelbeeld: een mens die als hulpstuk van een machine moet werken, op het tempo dat de machine oplegt en zonder de vrijheid om af te wijken. Zijn voorbeelden zijn een bezorger die de hele dag zonder onderbreking pakketten moet afleveren omdat een routeplanner dat tempo voorschrijft, een magazijnmedewerker die geen pauze krijgt van een systeem dat elke seconde meet, en een programmeur die grote hoeveelheden door AI gegenereerde code moet nalopen zonder dat hij het tempo van die aanlevering zelf kan bepalen.</p>
+      <h3>Wie doet het voor wie, en wie doet het aan wie</h3>
+      <p>De vraag die door het hele boek terugkeert, formuleert Doctorow kort: voor wie doet een apparaat iets, en aan wie doet het iets. Diezelfde technologie kan een centaur-instrument zijn voor de een en een omgekeerde-centaurmachine voor de ander, afhankelijk van wie de voorwaarden bepaalt.</p>
+      <p>Hij illustreert dat met het geval van een freelance journalist die alleen een omvangrijke special voor een krantenbijlage moest vullen, onder een deadline die zonder AI-ondersteuning niet haalbaar was, en die achteraf werd afgerekend op verzonnen titels die het programma had verzonnen. Doctorow noemt zo iemand een verantwoordingsput: degene die de fouten van een systeem draagt zonder dat systeem te hebben ontworpen of erover te hebben kunnen beslissen.</p>
+      <h3>De zeepbel achter de hausse</h3>
+      <p>Een groot deel van het boek richt zich op de economie achter de AI-hype. Doctorow wijst op waarderingen van techbedrijven die samen in de biljoenen dollars lopen en stelt dat die cijfers vooral bedoeld zijn om beleggers te overtuigen van blijvende groei, niet een afspiegeling van wat de technologie vandaag daadwerkelijk oplevert.</p>
+      <p>Uit die redenering volgt zijn stelling dat AI in de eerste plaats aan investeerders wordt verkocht en pas in de tweede plaats aan gebruikers. Bedrijven die op die belofte moeten leveren, zetten volgens hem AI in op plekken waar zij werknemers kunnen dwingen, ook als het resultaat voor niemand goed werkt, omdat het tonen van adoptie op zichzelf al de koers ondersteunt.</p>
+      <h3>Wat hij afwijst als oplossing: auteursrecht</h3>
+      <p>Doctorow, zelf auteur en jarenlang pleitbezorger voor digitale rechten, wijst het idee af dat auteursrecht de kern van het AI-probleem kan oplossen. Trainingsdata juridisch afschermen verandert volgens hem weinig aan de onderliggende machtsverhouding tussen werkgever en werknemer, en hij verlegt het gesprek naar arbeid, onderhandelingsmacht, eigendom en zeggenschap.</p>
+      <p>Als tegenvoorbeeld noemt hij de Amerikaanse scenaristenvakbond, die in 2023 na een langdurige staking afspraken over het gebruik van AI bij scriptontwikkeling in de cao kreeg vastgelegd. Hij erkent meteen dat de meeste werknemers niet over een vergelijkbare vakbond of onderhandelingspositie beschikken, waardoor dat precedent moeilijk breed te herhalen valt.</p>
+      <h3>Agentic AI als doodlopende weg</h3>
+      <p>Over autonome AI-agenten die namens gebruikers moeten kopen, onderhandelen of boeken, is Doctorow sceptisch. Zodra zulke agenten op schaal worden ingezet, verwachten verkopers en platforms dat en gaan zij tegenmaatregelen bouwen om ze te blokkeren of te misleiden, wat de belofte van de technologie ondermijnt nog voor die goed en wel is uitgerold. Hij noemt deze tak van de AI-industrie daarom vermoedelijk een doodlopende weg, los van de vraag of de onderliggende taal- en redeneermodellen zelf verbeteren.</p>
+      <h3>Na de knal</h3>
+      <p>Het boek besluit met een voorzichtig optimistische blik voorbij de verwachte klap. Doctorow vergelijkt de huidige situatie met de internetzeepbel van rond 2000: de overwaardering verdween, maar de infrastructuur en een aantal bruikbare toepassingen bleven over en werden gewone, onopvallende onderdelen van het dagelijks computergebruik.</p>
+      <p>Voor AI verwacht hij hetzelfde patroon. Kleinere, open toepassingen zoals spraakherkenning kunnen die overgang overleven, mits de zeggenschap erover niet in dezelfde handen blijft die nu de hausse aanjagen. Op dat laatste punt blijft het boek zelf vaag over hoe die zeggenschap dan wel verlegd zou moeten worden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Centaur</td><td>Iemand die een machine inzet om zijn eigen vermogen te vergroten en daarbij zelf de regie en de keuze om te stoppen behoudt.</td></tr>
+          <tr><td class="term">Omgekeerde centaur</td><td>Iemand die als hulpstuk van een machine moet werken, op het tempo en volgens de regels die de machine oplegt.</td></tr>
+          <tr><td class="term">Verantwoordingsput</td><td>Een positie die zo is ingericht dat degene erin de fouten van een systeem draagt zonder dat systeem te hebben ontworpen of gecontroleerd.</td></tr>
+          <tr><td class="term">Algoritmische loondiscriminatie</td><td>Het gebruik van bewakingsgegevens om voor gelijk werk per werknemer een ander, individueel bepaald loon of tarief te berekenen.</td></tr>
+          <tr><td class="term">Automatiseringsblindheid</td><td>Het verlies van vaardigheid en waakzaamheid dat optreedt zodra iemand een taak aan een automatisch systeem overlaat en alleen nog de uitkomst afvinkt.</td></tr>
+          <tr><td class="term">Vulgair Thatcherisme</td><td>Zijn term voor de bedrijfsretoriek dat er geen alternatief is voor AI op de voorwaarden van de aanbieder, gebruikt om het gesprek over andere keuzes te smoren.</td></tr>
+          <tr><td class="term">Wie doet het voor wie, wie doet het aan wie</td><td>Zijn terugkerende analytische vraag, die onderscheid maakt tussen gereedschap gebouwd ten behoeve van de gebruiker en gereedschap gebouwd om op een onderworpene te worden toegepast.</td></tr>
+          <tr><td class="term">AI-zeepbel</td><td>Zijn term voor de kloof tussen de speculatieve beurswaarde van AI-bedrijven en wat de technologie op dit moment aantoonbaar levert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is geen empirische studie maar een essay dat voortbouwt op jaren journalistiek en beleidswerk. Doctorow werkte lang voor de Electronic Frontier Foundation en beschreef de meeste voorbeelden eerder al op zijn blog Pluralistic en in een column voor Locus, voor hij ze hier tot een doorlopend betoog samenvoegde. Dat geeft de voorbeelden een zekere herkenbaarheid, maar levert geen steekproef of systematisch arbeidsmarktonderzoek op.</p>
+      <p>Waar hij concreet wordt, zijn de voorbeelden natrekbaar: de cao-afspraken van de Amerikaanse scenaristenvakbond uit 2023 zijn publiek gedocumenteerd, en het geval van de freelance journalist die op AI-fouten werd afgerekend, is elders in de pers terug te vinden. De cijfers over de waardering van de AI-sector zijn actueler en veranderlijker, en het boek verscheen op een moment waarop die waarderingen nog stegen, wat zijn centrale voorspelling van een naderende klap vooralsnog een verwachting maakt en geen vaststaand feit.</p>
+      <p>Onafhankelijke wetenschappelijke toetsing van het boek zelf bestaat door de recente verschijningsdatum nog niet; wat er ligt, zijn recensies in de vakpers en enkele lezersreacties op de eerdere blogstukken waarop het voortbouwt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar van recensenten is dat het boek een scherpe diagnose levert en een dunne remedie. Het legt helder uit waarom sommige werknemers onder AI lijden, maar geeft weinig houvast aan wie geen vakbond of onderhandelingspositie heeft en toch met het systeem moet werken zoals het is opgelegd.</p>
+      <p>Er is overlap met zijn eerdere boek <i>Enshittification</i>, dat hij zelf als voorloper in een losse drieluik beschouwt; wie dat boek al kende, herkent argumenten en voorbeelden die hier worden herhaald in plaats van uitgebreid.</p>
+      <p>De afwijzing van auteursrecht als hoofdoplossing is consequent met zijn eerdere werk, maar het boek besteedt weinig ruimte aan auteurs en kunstenaars voor wie een juridische aanspraak op grond van auteursrecht het enige beschikbare middel is, juist omdat zij niet over een vakbond als de scenaristenbond beschikken.</p>
+      <p>De hoopvolle afsluiting, dat kleinere toepassingen de klap overleven zoals na de internetzeepbel van rond 2000, steunt op een analogie die wordt gesteld en niet stap voor stap wordt onderbouwd. Wie die overlevende toepassingen dan bezit en bestuurt, laat het boek grotendeels open.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke AI-toepassing op je werk wie de uitkomst controleert en wie de fout draagt als het misgaat.</li>
+        <li>Ga na of je taak nog een centaurtaak is, waarbij jij de machine aanstuurt, of al een omgekeerde-centaurtaak, waarbij het tempo van de machine jouw tempo bepaalt.</li>
+        <li>Zoek uit of beoordeling of beloning op je werkplek al op individueel niveau via verzamelde gegevens wordt bijgesteld, en vraag daar inzage in.</li>
+        <li>Lees de cao-afspraken van vergelijkbare beroepsgroepen over AI-gebruik na, zoals die van de Amerikaanse scenaristenvakbond, voor een concreet precedent.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The Reverse Centaur's Guide to Life After AI: How to Think About Artificial Intelligence, Before It's Too Late</i>. Amerikaanse editie bij Farrar, Straus and Giroux, juni 2026, ISBN 9780374621568; Britse editie bij Verso Books, ISBN 9781836745525, beide 240 blz. Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Doctorow, schrijver en langjarig digitaalrechtenactivist bij de Electronic Frontier Foundation, bouwt dit boek op een onderscheid dat hij al jaren op zijn blog Pluralistic en in een column voor Locus uitwerkt: de centaur, die een machine gebruikt om zijn eigen werk te versterken, tegenover de omgekeerde centaur, die zelf het aanhangsel van een machine wordt. Aan de hand daarvan onderzoekt hij waarom dezelfde technologie voor de een een hulpmiddel is en voor de ander een dwangbuis.</p><p>Het boek combineert die analyse met een stevige twijfel aan de financiële beloftes achter de huidige AI-hausse en eindigt met wat hij zelf de vraag naar leven na AI noemt: wat er overblijft zodra de zeepbel klapt en de investeerdersretoriek wegvalt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kunstmatige intelligentie</li><li>arbeid</li><li>technologiekritiek</li><li>economie</li><li>automatisering</li><li>vakbonden</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="236"><a href="236.html">Homo Deus</a>. Harari onderzoekt vanuit een langere geschiedenis dezelfde vraag wie zeggenschap houdt zodra machines besluiten overnemen.</li>
+          <li value="237"><a href="237.html">21 Lessons for the 21st Century</a>. Behandelt de gevolgen van AI voor werk en samenleving op een breder, minder activistisch geschreven niveau.</li>
+          <li value="6"><a href="06.html">Shop Class as Soulcraft</a>. Crawford beschrijft vanuit ambachtelijk werk wat er verloren gaat als iemand geen zeggenschap meer heeft over het tempo en de kwaliteit van zijn eigen taak.</li>
+          <li value="257"><a href="257.html">The Everything Store</a>. Laat aan de hand van Amazon zien hoe de magazijnpraktijken ontstonden die Doctorow als voorbeeld van de omgekeerde centaur aanhaalt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

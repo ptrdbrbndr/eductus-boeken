@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress: A History of Humanity's Worst Idea &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="McDonald betoogt dat vooruitgang niet de neutrale meetlat is waarmee samenlevingen hun welvaart afwegen, maar een verhaal waarmee samenlevingen al…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-298">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">298 &middot; Geschiedenis en samenleving</p>
+    <h1>Progress: A History of Humanity's Worst Idea</h1>
+    <p class="lede">Samuel Miller McDonald, 2025</p>
+    <p class="stats">
+      <span><b>1506</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="298"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>McDonald betoogt dat vooruitgang niet de neutrale meetlat is waarmee samenlevingen hun welvaart afwegen, maar een verhaal waarmee samenlevingen al vijfduizend jaar rechtvaardigen dat zij meer aan de aarde en aan andere mensen onttrekken dan zij teruggeven. Van de vroege rijken tot de koloniale expansie en de fossiele economie van nu wijst hij op hetzelfde patroon: een belofte van groei en verbetering die telkens weer diende om onteigening, slavernij en oorlog te verhullen. Wie dat patroon eenmaal ziet, kan volgens hem niet meer aannemen dat de huidige welvaart alleen het resultaat is van uitvindingen en hard werk, en moet vooruitgang zelf als verdacht behandelen in plaats van als vanzelfsprekend goed.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek tegen de gangbare vooruitgangsvertelling</h3>
+      <p>McDonald schrijft zijn boek uitdrukkelijk als tegenwicht tegen wat hij techno-optimisme noemt: het geloof dat innovatie en marktwerking op zichzelf tot een betere wereld leiden. Hij plaatst zich daarmee in het gezelschap van de degrowth-beweging, die economische groei zelf als probleem behandelt in plaats van als oplossing.</p>
+      <p>Het boek is zijn eerste, geschreven na een promotie aan Oxford in menselijke ecologie. Het bestrijkt vijfduizend jaar geschiedenis in een doorlopend betoog, zonder scherpe hoofdstukindeling, en beweegt zich vrij tussen theologie, koloniale geschiedenis en twintigste-eeuwse politiek.</p>
+      <p>McDonald schreef eerder een essay in het tijdschrift Current Affairs waarin hij dezelfde stelling in het kort uitwerkte: dat het woord vooruitgang in het openbare debat zelden wordt onderzocht en bijna altijd als vanzelfsprekend goed wordt ingezet. Het boek is de uitgewerkte versie van dat argument, met de historische voorbeelden die het essay nog niet gaf.</p>
+      <h3>Het theologische tijdperk</h3>
+      <p>In de eerste fase, die McDonald van ongeveer 3000 voor Christus tot 1400 na Christus plaatst, laat hij zien hoe religieuze stelsels overheersing omzetten in een kosmische opdracht. Van het zoroastrisme tot het christendom herkent hij hetzelfde mechanisme: een aanvankelijk storende, gelijkheid belovende ethiek verandert, zodra een rijk haar aanvaardt, in een middel dat de bestaande hiërarchie bijeenhoudt.</p>
+      <p>Zijn voorbeeld is de bekering van keizer Constantijn, die het christendom volgens hem ombouwde tot een bindmiddel voor het Romeinse gezag in plaats van een correctie erop.</p>
+      <h3>Het maritiem-koloniale tijdperk</h3>
+      <p>Tussen 1400 en 1900 verschuift de rechtvaardiging van hemel naar aarde. Vooruitgang wordt dan een geografische rangorde: sommige volken staan volgens de heersende opvatting hoger op de ladder van beschaving en mogen daarom over andere volken en hun grond beschikken.</p>
+      <p>McDonald noemt onder meer Thomas Jefferson, wiens geschriften over Amerikaanse grond volgens hem geavanceerde inheemse samenlevingen wegschrijven tot ongebruikt land, zodat onteigening als verbetering kan worden voorgesteld.</p>
+      <h3>Het genetwerkte, fossiele tijdperk</h3>
+      <p>Vanaf 1900 wordt vooruitgang volgens McDonald economisch en ideologisch tegelijk, gedragen door fossiele energie en door concurrerende politieke stelsels die zich allemaal op dezelfde belofte beroepen. Hij zet Stalins vijfjarenplannen en Maos Grote Sprong Voorwaarts naast elkaar als socialistische varianten van hetzelfde patroon: groot menselijk lijden, gerechtvaardigd door een beloofde toekomst die nooit op tijd komt.</p>
+      <p>Kapitalistische varianten van diezelfde logica komen aan bod via figuren als Andrew Carnegie, wiens fabrieksregime McDonald aanmerkt als een vorm van gedwongen arbeid onder de vlag van vooruitgang, ook al gaf Carnegie het grootste deel van zijn vermogen later weg.</p>
+      <h3>Parasitisme als sleutelbegrip</h3>
+      <p>Door de hele geschiedenis heen gebruikt McDonald één terugkerend begrip: parasitisme, een stelsel dat structureel meer aan hulpbronnen en arbeid onttrekt dan het teruggeeft en dat daarom voortdurend nieuw gebied nodig heeft. Is een grens uitgeput, dan verschuift het stelsel naar een volgende: bossen, de oceaan, de ruimte, en tegenwoordig ook menselijke aandacht.</p>
+      <p>Die grenslogica verbindt voor hem ecologie, rijksuitbreiding en de veiligheidsstaat tot één mechanisme: uitbreiding vraagt om nieuwe grenzen, en nieuwe grenzen vragen om dwang.</p>
+      <h3>Animisme als tegenwicht</h3>
+      <p>Tegenover het parasitaire stelsel zet McDonald wat hij een ethische technologie noemt: animistische wereldbeelden waarin dieren, planten en landschappen als personen met een eigen aanspraak worden behandeld. Zulke wereldbeelden ontzeggen mensen niet het gebruik van hun omgeving, maar leggen er een grens overheen die uitputting tegenhoudt, omdat een relatie met een persoon zich anders gedraagt dan een relatie met een grondstof.</p>
+      <h3>Naar een andere vooruitgang</h3>
+      <p>In het slot pleit McDonald voor wederkerigheid, ecologische inbedding en begrensde groei, met verwijzingen naar samenlevingen die volgens hem met minder ongelijkheid, minder geweld en meer aansluiting bij hun omgeving hebben geleefd. Hij werkt dat niet uit tot een beleidsvoorstel of een stappenplan.</p>
+      <p>Zijn punt is vooral dat het huidige stelsel niet vol te houden is, en dat de zoektocht naar een alternatief zonder die erkenning nergens begint.</p>
+      <p>Als voorbeeld noemt hij samenlevingen die decennialang zonder centraal gezag en met een lagere ecologische voetafdruk hebben gefunctioneerd, en die hij aanhaalt om te laten zien dat de huidige inrichting geen natuurwet is maar een keuze uit de negentiende en twintigste eeuw. Hij presenteert die voorbeelden als richting, niet als kant-en-klaar model dat ergens anders is te kopiëren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Parasitisme</td><td>Een stelsel dat blijvend meer hulpbronnen en arbeid onttrekt dan het teruggeeft en daardoor afhankelijk is van steeds nieuwe grenzen.</td></tr>
+          <tr><td class="term">Grenslogica</td><td>De dwang om, wanneer een bron van uitbuiting uitgeput raakt, een volgende grens te zoeken, van land tot menselijke aandacht.</td></tr>
+          <tr><td class="term">Theologisch tijdperk</td><td>De fase van ongeveer 3000 voor Christus tot 1400 waarin religie overheersing omzet in een kosmische opdracht.</td></tr>
+          <tr><td class="term">Maritiem-koloniaal tijdperk</td><td>De fase van 1400 tot 1900 waarin een geografische rangorde van beschaving kolonisatie rechtvaardigt.</td></tr>
+          <tr><td class="term">Genetwerkt fossiel tijdperk</td><td>De fase vanaf 1900 waarin fossiele energie en concurrerende politieke stelsels dezelfde vooruitgangsbelofte dragen.</td></tr>
+          <tr><td class="term">Concrete en abstracte winning</td><td>Het onderscheid tussen het onttrekken van grondstoffen en het onttrekken van menselijke arbeid en aandacht via hetzelfde mechanisme.</td></tr>
+          <tr><td class="term">Animisme als ethische technologie</td><td>Het behandelen van niet-menselijke wezens als personen, waardoor een grens ontstaat die overexploitatie tegenhoudt.</td></tr>
+          <tr><td class="term">Vooruitgang als verhaal</td><td>McDonalds aanduiding voor vooruitgang als een vertelling die orde en rechtvaardiging geeft, niet als een neutrale meting van welvaart.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>McDonald werkt niet met eigen archiefonderzoek of veldwerk, maar met een synthese van bestaande literatuur uit antropologie, geschiedenis, filosofie en geografie. Zijn getuigenis bestaat telkens uit een reeks historische figuren en gebeurtenissen, zoals Constantijn, Jefferson, Stalin, Mao en Carnegie, gebruikt als illustratie van het patroon dat hij beschrijft. Dat maakt het boek breed van opzet en tegelijk afhankelijk van hoe zorgvuldig elk van die voorbeelden is weergegeven.</p>
+      <p>Onafhankelijke recensenten hebben daar vragen bij gezet. Een recensie in The Spectator wijst op feitelijke onnauwkeurigheden bij meerdere van zijn voorbeelden: de mate van dwang bij Carnegies arbeiders, de verantwoordelijkheid van koning Edward VIII voor de Duitse herbezetting van het Rijnland, en de context van Harold Macmillans rede uit 1957. Dat zijn geen kleine details, want het boek steunt juist op de stapeling van dat soort voorbeelden om zijn patroon aannemelijk te maken.</p>
+      <p>Publishers Weekly beoordeelde het boek daarentegen met een ster en noemde het een doortastende ondervraging van de fundamenten van de moderne samenleving. De twee beoordelingen laten zich niet met elkaar verzoenen: waar de ene recensent de invulling van de voorbeelden onderuithaalt, prijst de andere vooral de overkoepelende vraagstelling.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de these zo ruim geformuleerd is dat vrijwel elke episode uit de geschiedenis erin past: religie, kolonialisme, kapitalisme en het staatssocialisme worden allemaal onder hetzelfde begrip parasitisme geschaard. Een verklaring die op elk tijdvak past, is moeilijk te toetsen en moeilijk te weerleggen.</p>
+      <p>De recensent van The Spectator, Simon Heffer, is uitgesproken negatief over toon en stijl: hij noemt het proza breedsprakig en gekleurd door eigen gelijk, en citeert zinnen vol zelfbedachte vaktaal die het argument eerder verhullen dan verduidelijken. Hij weerspreekt bovendien McDonalds stelling dat armoede wereldwijd toeneemt, met het argument dat zij juist daalt.</p>
+      <p>Het boek presenteert bovendien geen uitgewerkt alternatief. De laatste hoofdstukken blijven bij algemene termen als wederkerigheid en ecologische inbedding, zonder een voorstel voor wat daarvoor in de plaats van bijvoorbeeld handel, landbouw of energievoorziening zou moeten komen. Wie na de diagnose een uitgewerkt plan verwacht, houdt een oproep over.</p>
+      <p>De verdeeldheid tussen de recensies volgt bovendien grotendeels politieke lijnen: uitgaven die kritisch staan tegenover economische groei prijzen de vraagstelling, uitgaven met een behoudende signatuur wijzen vooral de feitelijke fouten en de toon aan. Dat maakt het boek meer een inzet in een bestaand debat dan een tekst die dat debat overstijgt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek de voorbeelden die McDonald aanhaalt, zoals Carnegie, Jefferson en Macmillan, na in een onafhankelijke bron voordat je zijn duiding overneemt.</li>
+        <li>Leg zijn begrip parasitisme naast een boek met de tegenovergestelde uitgangspositie, zoals <i>The Rational Optimist</i> of <i>Factfulness</i>, en vergelijk welke cijfers beide kanten gebruiken.</li>
+        <li>Houd in je eigen leeswijze de historische reconstructie, waarvan de bronnen te controleren zijn, gescheiden van het morele oordeel erover, waarvan dat niet kan.</li>
+        <li>Lees bij twijfel over een aangehaald voorbeeld de recensie in The Spectator naast het boek zelf, want die wijst concreet aan waar McDonalds weergave van feiten afwijkt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk verschenen bij William Collins/HarperCollins (Londen, 14 augustus 2025, ISBN 9780008462505) onder de hier gebruikte titel; in de Verenigde Staten bij St. Martin's Press (2025, ISBN 9781250278319) onder de titel <i>Progress: How One Idea Built Civilization and Now Threatens to Destroy It</i>. Debuut van geograaf Samuel Miller McDonald, gepromoveerd aan Brasenose College, Oxford, met eerdere studies aan Yale University en het College of the Atlantic. Geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>McDonald, geograaf met een promotie aan Oxford, bestrijdt in dit boek het idee dat vooruitgang een neutrale maatstaf voor welvaart is. Hij loopt vijfduizend jaar geschiedenis door, van religieuze rijken via koloniale expansie tot de fossiele economie van vandaag, en wijst telkens hetzelfde patroon aan: een belofte van verbetering die diende om onteigening, slavernij en oorlog te verhullen. Zijn sleutelbegrip is parasitisme, een stelsel dat structureel meer onttrekt dan het teruggeeft en daarom voortdurend nieuwe grenzen nodig heeft.</p><p>Het boek verscheen in augustus 2025, in de Verenigde Staten bij St. Martin's Press onder de titel <i>Progress: How One Idea Built Civilization and Now Threatens to Destroy It</i> en in het Verenigd Koninkrijk bij William Collins onder de hier gebruikte titel. Het is McDonalds eerste boek en kreeg wisselende beoordelingen: een sterrecensie van Publishers Weekly staat tegenover een afwijzende bespreking in The Spectator, die feitelijke fouten in enkele van zijn voorbeelden aanwijst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geschiedenis</li><li>vooruitgangsdenken</li><li>kolonialisme</li><li>kapitalisme</li><li>ecologie</li><li>degrowth</li><li>civilisatiekritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari beschrijft dezelfde lange lijn van de menselijke geschiedenis, maar leidt uit vergelijkbaar materiaal een minder eenduidig oordeel over vooruitgang af.</li>
+          <li value="57"><a href="57.html">The Lessons of History</a>. De Durants zoeken net als McDonald patronen over duizenden jaren, met een aanzienlijk voorzichtiger toon over wat de geschiedenis leert.</li>
+          <li value="234"><a href="234.html">Factfulness</a>. Rosling verdedigt met cijfers de vooruitgangsvertelling die McDonald aanvecht, en vormt daarmee de directe tegenhanger van dit boek.</li>
+          <li value="251"><a href="251.html">The Rational Optimist</a>. Ridley bepleit vanuit dezelfde lange geschiedenis het omgekeerde standpunt: dat ruil en innovatie de wereld structureel verbeteren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
