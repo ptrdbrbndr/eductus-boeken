@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Good to Great &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Collins stelt dat het verschil tussen een goed en een geweldig bedrijf niet zit in de bedrijfstak, de technologie of het toeval, maar in een herkenbaar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-353">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">353 &middot; Geld en ondernemen</p>
+    <h1>Good to Great</h1>
+    <p class="lede">Jim Collins, 2001</p>
+    <p class="stats">
+      <span><b>1905</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="353"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Collins stelt dat het verschil tussen een goed en een geweldig bedrijf niet zit in de bedrijfstak, de technologie of het toeval, maar in een herkenbaar patroon van leiderschap en discipline dat elk van de elf onderzochte bedrijven vertoonde en de vergelijkingsbedrijven misten. De kern van dat patroon is een leider die persoonlijke bescheidenheid combineert met een onwrikbare wil om het bedrijf te laten slagen, die eerst de juiste mensen aanstelt en pas daarna een richting kiest, en die het bedrijf laat draaien om één helder, onderbouwd idee in plaats van om een reeks programma's. Grootsheid is in die lezing geen kwestie van omstandigheden maar van bewuste keuze en vasthoudendheid, een claim die zwaarder weegt nu een aantal van de elf bedrijven na de publicatie zelf onderuitging.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De methode: van 1.435 naar elf</h3>
+      <p>Collins begon niet met een theorie maar met een zeef. Zijn team doorzocht alle bedrijven die tussen 1965 en 1995 in de Fortune 500 stonden, 1.435 in getal, op zoek naar een specifiek koersverloop: vijftien jaar cumulatief rendement op of onder het marktgemiddelde, dan een omslagpunt, dan vijftien jaar waarin het cumulatieve rendement het marktgemiddelde met ten minste een factor drie oversteeg en dat bleef doen. Elf bedrijven haalden die lat: Abbott Laboratories, Circuit City, Fannie Mae, Gillette, Kimberly-Clark, Kroger, Nucor, Philip Morris, Pitney Bowes, Walgreens en Wells Fargo.</p>
+      <p>Voor elk van de elf zocht het team een vergelijkingsbedrijf uit dezelfde bedrijfstak, met vergelijkbare middelen op het omslagpunt, dat de sprong niet maakte, zoals Upjohn naast Abbott en Silo naast Circuit City. Een derde groep, bedrijven met een korte piek die niet standhield, diende om te toetsen of gevonden factoren ook duurzaamheid verklaarden. Zes jaar lang las het team jaarverslagen, artikelen en interviews over alle betrokken bedrijven vanaf 1965 en clusterde pas achteraf wat de elf gemeen hadden.</p>
+      <h3>Niveau 5-leiderschap</h3>
+      <p>De eerste bevinding verraste het team zelf: aan het hoofd van elk van de elf bedrijven stond op het omslagpunt een bestuurder die naar buiten toe weinig opviel. Collins noemt dat niveau 5-leiderschap, de top van een hiërarchie die begint bij de bekwame medewerker en oploopt via de teamspeler en de goede manager naar de leider met een heldere visie. Niveau 5 voegt daar een paradoxale combinatie aan toe: persoonlijke bescheidenheid samen met een vaste wil om het bedrijf te laten slagen, ook als dat een impopulair besluit vergt.</p>
+      <p>Zijn voorbeeld is Darwin Smith van Kimberly-Clark, die de papierfabrieken verkocht om vol in te zetten op consumentenmerken, tegen het advies van analisten in, weinig interviews gaf en zijn opvolging jarenlang voorbereidde. Tegenover die stille bestuurders zet Collins de bekende, charismatische topman die in de vergelijkingsbedrijven vaker aan het roer stond en zijn eigen naam sterker met het bedrijf verbond dan met de resultaten ervan.</p>
+      <h3>Eerst wie, dan wat</h3>
+      <p>De tweede bevinding gaat over volgorde. De onderzochte bestuurders begonnen niet met een strategie waar zij vervolgens mensen bij zochten, maar met het samenstellen van een leidinggevend team dat zij vertrouwden, waarna pas de vraag volgde welke richting het bedrijf op moest. Collins vat dat samen als eerst wie, dan wat: krijg de juiste mensen aan boord en de verkeerde eraf, en bepaal daarna de route.</p>
+      <p>De redenering daarachter is dat een team van de juiste mensen zich vanzelf aanpast als de markt verandert, terwijl een team rond één plan vastloopt zodra dat plan achterhaald raakt. Beloning speelde een kleinere rol dan verwacht: de bestuurders zochten mensen die om het werk zelf gedreven waren, niet om de vergoeding ervoor.</p>
+      <h3>De harde feiten onder ogen zien</h3>
+      <p>Collins beschrijft een derde patroon aan de hand van een gesprek met admiraal James Stockdale, acht jaar krijgsgevangene in Vietnam. Op de vraag wie het daar niet overleefde, antwoordde Stockdale: de optimisten, die telkens een nieuwe datum voor hun vrijlating verzonnen en aan elke teleurstelling kapotgingen. Wie het wel overleefde, hield twee dingen tegelijk vast: het vertrouwen dat het uiteindelijk goed zou komen, en de bereidheid om de feiten van het moment onder ogen te zien, hoe hard ook.</p>
+      <p>Collins noemt dat de Stockdale-paradox en herkent hetzelfde patroon in bedrijven die ongemakkelijke informatie actief naar boven haalden in plaats van ze te laten wegzakken in een cultuur waarin niemand slecht nieuws wil brengen. Een klimaat waarin leiders zelf naar tegenspraak zoeken, is volgens hem de voorwaarde om die feiten te zien voordat ze een crisis worden.</p>
+      <h3>Het egelconcept</h3>
+      <p>De vierde bevinding leent Collins van Isaiah Berlins essay over de vos die veel dingen weet en de egel die één ding grondig weet. De onderzochte bedrijven kozen voor de egel: zij versimpelden hun strategie tot het snijpunt van drie vragen, waarin zij wereldklasse konden worden, wat hun economische motor het beste liet draaien, en waar zij zelf gedreven door waren. Alleen activiteiten die in alle drie de cirkels vielen, kregen investering; de rest werd afgestoten, ook als die winstgevend was.</p>
+      <p>Walgreens koos zo voor het gemakkelijkst bereikbare, best gelegen apotheekfilaal per klant in plaats van groei in willekeurige richting, en verkocht daarvoor eerst zijn restaurantketen. Het egelconcept ontstond niet in één strategiesessie maar via jaren van vragen stellen, met gemiddeld vier jaar tussen het begin van dat proces en een helder antwoord.</p>
+      <h3>Discipline en technologie als versneller</h3>
+      <p>De vijfde en zesde bevinding raken aan hoe het egelconcept wordt uitgevoerd. Een cultuur van discipline betekent voor Collins dat gedisciplineerde mensen zelf binnen het egelconcept blijven zonder toezicht; bureaucratie ontstaat juist waar de verkeerde mensen discipline opgelegd moeten krijgen.</p>
+      <p>Technologie speelt in zijn bevindingen een kleinere rol dan de reputatie van sommige bedrijven doet vermoeden: geen van de elf werd koploper door als eerste een nieuwe technologie in te voeren. Ze kozen zorgvuldig welke technologie hun egelconcept kon versnellen, terwijl vergelijkingsbedrijven vaak reageerden uit angst achterop te raken.</p>
+      <h3>Het vliegwiel tegenover de ondergangsspiraal</h3>
+      <p>De laatste bevinding beschrijft hoe de omslag voelde voor wie erin zat. Er was geen enkel moment van aankondiging, geen persmoment met een nieuw programma. In plaats daarvan duwden de bestuurders een zwaar vliegwiel keer op keer in dezelfde richting, elke duw klein op zichzelf, tot de opgebouwde snelheid het wiel vanzelf liet doordraaien. Van buitenaf leek dat pas achteraf een doorbraak; van binnenuit was het een optelsom van consistente keuzes.</p>
+      <p>Vergelijkingsbedrijven deden vaker het tegenovergestelde: een overname, een reorganisatie, een nieuwe topman met een nieuw parool, telkens gevolgd door een korte uitschieter en dan een terugval, een patroon dat Collins de ondergangsspiraal noemt. Dat verschil loopt door zijn latere werk heen, tot in de monografie <i>Turning the Flywheel</i>, waarin hij het vliegwielconcept toepast op Amazon, dat hij in 2001 zelf adviseerde toen Jeff Bezos hem uitnodigde voor een gesprek met het bestuur.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Niveau 5-leiderschap</td><td>De top van een leiderschapshiërarchie, gekenmerkt door persoonlijke bescheidenheid gecombineerd met een onwrikbare wil om het bedrijf te laten slagen.</td></tr>
+          <tr><td class="term">Eerst wie, dan wat</td><td>Eerst de juiste mensen aanstellen en de verkeerde laten gaan, pas daarna de strategische richting bepalen.</td></tr>
+          <tr><td class="term">Stockdale-paradox</td><td>Tegelijk vasthouden aan het vertrouwen dat het goed komt en de hardste feiten van het moment onder ogen zien, genoemd naar admiraal James Stockdale.</td></tr>
+          <tr><td class="term">Egelconcept</td><td>Het snijpunt van drie cirkels: waarin je wereldklasse kunt worden, wat je economische motor drijft, waar je gedreven door bent.</td></tr>
+          <tr><td class="term">Cultuur van discipline</td><td>Een organisatie van zelfgedisciplineerde mensen die binnen het egelconcept blijven zonder dat hiërarchie hen dwingt.</td></tr>
+          <tr><td class="term">Technologie als versneller</td><td>Zorgvuldig gekozen technologie die een al bestaand egelconcept sneller laat draaien, in plaats van technologie die de richting zelf bepaalt.</td></tr>
+          <tr><td class="term">Het vliegwiel</td><td>Het beeld van consistente, kleine duwen in dezelfde richting die samen een omslag veroorzaken die van buitenaf plotseling lijkt.</td></tr>
+          <tr><td class="term">De ondergangsspiraal</td><td>Het patroon van steeds nieuwe programma's, elk gevolgd door een korte uitschieter en dan een terugval.</td></tr>
+          <tr><td class="term">Vergelijkingsbedrijven</td><td>De bedrijven uit dezelfde bedrijfstak die niet aan het gezochte koerspatroon voldeden en dienden als tegenvoorbeeld bij elk van de elf.</td></tr>
+          <tr><td class="term">Het omslagpunt</td><td>Het jaar waarop het cumulatieve beursrendement van een bedrijf definitief begon af te wijken van het marktgemiddelde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De selectie van de elf bedrijven is een objectief, herhaalbaar criterium: een vooraf vastgelegd koerspatroon, toegepast op de volledige Fortune 500 over dertig jaar, met een controlegroep van vergelijkbare bedrijven uit dezelfde bedrijfstak. Dat is meer dan de meeste managementboeken bieden, die met een handjevol succesverhalen beginnen zonder te laten zien hoeveel bedrijven er niet aan voldeden.</p>
+      <p>Wat na die selectie volgt, is minder hard. De verklarende factoren, niveau 5-leiderschap, het egelconcept, het vliegwiel, zijn geen vooraf getoetste hypothesen maar patronen die het team achteraf zag terugkeren in het bronmateriaal over de elf bedrijven. Dat is een kwalitatieve exercitie op elf gevallen, uitgevoerd door onderzoekers die op het moment van coderen al wisten welk bedrijf tot de winnaars behoorde.</p>
+      <p>Collins noemt dat laatste punt zelf in de methodologische bijlage, maar met een steekproef van elf is er geen statistische toets mogelijk die aangeeft welke van de gevonden overeenkomsten toeval is en welke verklarend. De overtuigingskracht van het boek zit voor een groot deel in hoe de voorbeelden per bedrijf worden verteld, wat iets anders is dan aangetoond verband.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar kwam van de bedrijven zelf. Circuit City, geroemd om een rendement van 18,5 keer de markt, ging in 2008 failliet. Fannie Mae, opgevoerd als voorbeeld van financiële discipline, moest in 2008 onder curatele van de Amerikaanse overheid worden geplaatst nadat het bedrijf zwaar bijdroeg aan de kredietcrisis. Wells Fargo kwam in 2016 in opspraak wegens grootschalige fraude met nepbankrekeningen. Verscheidene van de elf bedrijven presteerden, gemeten vanaf de publicatie van het boek, jarenlang slechter dan de S&amp;P 500 waar het boek juist aanhoudende voorsprong voor beloofde.</p>
+      <p>De econoom Phil Rosenzweig werkte die tegenslag in zijn boek <i>The Halo Effect</i> (2007) uit tot een methodologisch bezwaar. Wie eerst het beursresultaat van een bedrijf kent en vervolgens leest over de cultuur, het leiderschap en de strategie ervan, is geneigd elk kenmerk positief te duiden zolang het resultaat goed is en negatief zodra het omslaat, ook als het onderliggende gedrag nauwelijks veranderde. Rosenzweig noemt dat het halo-effect: een groot deel van wat Good to Great als oorzaak van succes presenteert, is in die lezing achteraf toegeschreven verhaal in plaats van vooraf gemeten gedrag.</p>
+      <p>Een verwant bezwaar is dat het onderzoek geen voorspelling toetst. Collins verklaart resultaten die al bekend waren toen het onderzoek begon; nergens wijst het boek vooraf een bedrijf aan waarvan te voorspellen viel dat het de sprong zou gaan maken. Achteraf een gemeenschappelijk patroon vinden in elf winnaars is iets anders dan een patroon dat vooraf onderscheid maakt tussen winnaars en verliezers, en de latere val van een aantal van de elf laat zien dat het gevonden patroon geen garantie was, ook niet voor de bedrijven waar het uit is afgeleid.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf de bezetting van je team los van de taken op de agenda: zitten de juiste mensen op de juiste plek, ongeacht welk plan er ligt.</li>
+        <li>Stel de drie egelvragen apart op papier, en kijk pas daarna waar ze elkaar overlappen.</li>
+        <li>Vraag in een overleg naar het meest ongemakkelijke feit dat nog niet genoemd is, voordat er een besluit valt.</li>
+        <li>Leg elk voorstel voor een nieuw programma naast wat er de afgelopen jaren al consistent werd volgehouden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Why Some Companies Make the Leap...and Others Don't</i>, oorspronkelijk bij HarperBusiness (New York, 2001, ISBN 9780066620992). Nederlands als <i>Good to great: waarom sommige bedrijven een sprong vooruit maken... en andere niet</i>, vertaald door Ypie Veenstra, sinds de heruitgave bij Atlas Contact (Business Contact-reeks, ISBN 9789047093848).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jim Collins en een team van twintig onderzoekers doorzochten de Fortune 500 van 1965 tot 1995 op een vast patroon: vijftien jaar lang gemiddelde of matige beursresultaten, gevolgd door een omslagpunt en daarna vijftien jaar waarin het aandeel het gemiddelde van de markt met minstens een factor drie versloeg. Elf bedrijven voldeden aan die eis, van Kimberly-Clark tot Walgreens. Collins legde ze naast bedrijven uit dezelfde bedrijfstak die de sprong niet maakten, en zocht wat de elf gemeen hadden dat de rest miste.</p><p>Zijn antwoord bestaat uit een reeks concepten die na dit boek gemeengoed werden in managementtaal: niveau 5-leiderschap, het egelconcept, het vliegwiel. Een deel van de elf bedrijven kwam later zwaar in het nieuws, waaronder Circuit City dat failliet ging en Fannie Mae dat in de kredietcrisis onder curatele kwam, wat sindsdien de vraag oproept hoeveel van Collins' verklaring standhoudt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>management</li><li>leiderschap</li><li>bedrijfsonderzoek</li><li>strategie</li><li>beursrendement</li><li>organisatiecultuur</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="293"><a href="293.html">The Innovator's Dilemma</a>. Christensen onderzoekt met een vergelijkbare methode van gepaarde bedrijven waarom gevestigde marktleiders juist door hun discipline ten onder gaan aan nieuwe technologie.</li>
+          <li value="257"><a href="257.html">The Everything Store</a>. Stone beschrijft hoe Bezos het vliegwielconcept uit dit boek, na een eigen gesprek met Collins, tot de kern van Amazons strategie maakte.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz zet tegenover Collins' rustige niveau 5-bestuurders een verslag van leiderschap onder acute crisis, geschreven vanuit de praktijk in plaats van vanuit onderzoek achteraf.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

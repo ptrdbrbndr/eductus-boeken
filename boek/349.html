@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Range &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Epstein zet de vroege specialisatie van Tiger Woods tegenover de brede sportieve jeugd van Roger Federer en gebruikt dat contrast om een stelling te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-349">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">349 &middot; Gewoontes en denken</p>
+    <h1>Range</h1>
+    <p class="lede">David Epstein, 2019</p>
+    <p class="stats">
+      <span><b>1502</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="349"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Epstein zet de vroege specialisatie van Tiger Woods tegenover de brede sportieve jeugd van Roger Federer en gebruikt dat contrast om een stelling te onderbouwen die ingaat tegen de tienduizend-uurregel: in de meeste vakgebieden, en zeker in de complexe en veranderlijke omgevingen waarin de meeste mensen werken, leidt een brede, late en omzwervende ontwikkeling tot betere uitkomsten dan vroege, smalle specialisatie. Alleen in wat hij 'gestileerde' domeinen noemt, met vaste regels en directe feedback zoals schaken en klassieke muziek, werkt vroege specialisatie wel. Wie hier tegenin wil brengen, kan wijzen op alle vakgebieden waarin diepte wel degelijk de doorslag geeft en waarin wie te veel omzwerft nooit ergens goed genoeg in wordt om nog aan de slag te komen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Tiger tegenover Roger</h3>
+      <p>Epstein opent met de twee sportverhalen die de rest van het boek voeden. Tiger Woods kreeg als kind van zeven maanden al een afgezaagd golfclubje mee, oefende als peuter voor televisiecamera's en werd door zijn vader vanaf de wieg klaargestoomd voor één sport. Roger Federer daarentegen groeide op in een gezin dat sport als spel zag: hij skiede, worstelde, zwom, deed aan skateboarden en badminton, en koos pas als tiener voor tennis boven de andere sporten waar hij evenveel talent voor had.</p>
+      <p>Beide verhalen zijn waar en worden allebei veel verteld, maar volgens Epstein wordt alleen het verhaal van Woods aangehaald als de norm. Zijn boek stelt die norm ter discussie door te laten zien dat Federer, niet Woods, de gangbare weg naar uitmuntendheid vertegenwoordigt zodra je verder kijkt dan een handvol topsporters.</p>
+      <h3>Gestileerde en onvoorspelbare werelden</h3>
+      <p>Epstein leunt op het onderscheid van de psycholoog Robin Hogarth tussen 'kind' en 'wicked' leeromgevingen. Een gestileerde omgeving heeft vaste regels, herhaalt zich en geeft snelle, eenduidige feedback: schaken, golf, klassieke muziek. Daar werkt intensieve, vroege specialisatie, en daar is de tienduizend-uurregel van Anders Ericsson, die via Malcolm Gladwells boek <i>Outliers</i> bekend werd, ook het best onderbouwd.</p>
+      <p>In een onvoorspelbare omgeving ontbreken die vaste regels: de signalen zijn misleidend, feedback komt vertraagd of helemaal niet, en wat gisteren werkte, werkt morgen niet meer. De meeste beroepen, van geneeskunde tot bestuur, vallen volgens Epstein in deze tweede categorie, en juist daar geeft brede ervaring een voordeel dat specialisatie niet biedt.</p>
+      <h3>De uitzondering die de regel lijkt te bevestigen</h3>
+      <p>Epstein bespreekt de zussen Polgár, drie Hongaarse schaaksters die hun vader met opzet vanaf jonge leeftijd intensief in het schaken trainde als experiment, en van wie de jongste, Judit, wereldtop werd. Hij gebruikt dat voorbeeld niet om zijn eigen stelling te ontkrachten maar om te laten zien waarom het precies in schaken werkt: een gesloten systeem met vaste regels en een duidelijke winnaar, het schoolvoorbeeld van een gestileerde omgeving.</p>
+      <p>Daarmee erkent het boek zijn eigen grens. Waar Epstein tegen waarschuwt is het overplaatsen van lessen uit schaken en golf naar vakgebieden die niet aan diezelfde voorwaarden voldoen.</p>
+      <h3>Late starters en overstappers</h3>
+      <p>Een groot deel van het boek gaat over mensen die laat beginnen of vaak wisselen. Van Gogh probeerde een loopbaan als kunsthandelaar, als leraar en als evangelist voordat hij op zijn zevenentwintigste ging schilderen, en had nog geen tien jaar te leven toen hij eraan begon. Epstein zet dat naast onderzoek van de econoom Ofer Malamud, die Schotse studenten, die pas laat een hoofdvak kiezen, vergeleek met Engelse studenten, die er al op hun zeventiende een moeten kiezen: de Schotten stapten na hun studie minder vaak over naar een heel ander vakgebied dan de Engelsen, ook al hadden zij meer tijd gehad om te proeven.</p>
+      <p>Epstein noemt dat brede zoeken naar wat iemand werkelijk past 'match quality', en stelt dat een tijdelijk verlies aan voorsprong door laat te beginnen op de lange termijn wordt goedgemaakt doordat mensen sneller op het werk uitkomen dat echt bij hen past.</p>
+      <h3>Kennis die niet vastzit aan één vak</h3>
+      <p>Epstein bespreekt de studie van de scheikundige Robert Root-Bernstein en zijn vrouw Michele, waaruit blijkt dat Nobelprijswinnaars in de natuurwetenschappen veel vaker dan gemiddelde wetenschappers een serieuze artistieke hobby hebben, zoals schilderen, musiceren of schrijven. Zijn verklaring is dat een tweede domein iemand dwingt om abstracter te denken over de eigen vakkennis, waardoor die kennis makkelijker op nieuwe situaties is over te dragen.</p>
+      <p>Hetzelfde patroon ziet hij bij de Japanse uitvinder Gunpei Yokoi, die bij Nintendo met eenvoudige, verouderde onderdelen speelgoed bouwde in plaats van met de nieuwste techniek, en zo tot ontwerpen kwam, waaronder de voorloper van de Game Boy, die specialisten met de nieuwste chips niet bedachten omdat zij binnen de grenzen van hun eigen vakgebied bleven denken.</p>
+      <h3>Wanneer specialisten falen</h3>
+      <p>In het laatste deel van het boek onderzoekt Epstein waarom groepen specialisten soms grote fouten maken die een buitenstaander had kunnen zien aankomen. Hij bespreekt de analyse van socioloog Diane Vaughan van de rampen met de spaceshuttles Challenger in 1986 en Columbia in 2003, waarin ingenieurs bij NASA risico's die buiten hun eigen smalle vakgebied lagen, keer op keer wegredeneerden totdat afwijkend gedrag de norm werd.</p>
+      <p>Zijn conclusie is dat specialistische kennis nodig blijft voor het oplossen van goed afgebakende problemen, maar dat het herkennen van een probleem dat de grenzen van een vakgebied overschrijdt, juist iemand vraagt die in meerdere vakgebieden thuis is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gestileerde leeromgeving</td><td>Hogarts term voor een domein met vaste regels en snelle, eenduidige feedback, zoals schaken of golf, waarin vroege specialisatie werkt.</td></tr>
+          <tr><td class="term">Onvoorspelbare leeromgeving</td><td>Een domein waarin signalen misleidend zijn en feedback vertraagd of onvolledig komt, waardoor brede ervaring meer oplevert dan specialisatie.</td></tr>
+          <tr><td class="term">Tienduizend-uurregel</td><td>De door Anders Ericsson onderbouwde en door Malcolm Gladwell gepopulariseerde stelling dat uitmuntendheid vooral een kwestie is van voldoende geoefende uren.</td></tr>
+          <tr><td class="term">Match quality</td><td>Malamuds term voor hoe goed iemands vaardigheden en interesses aansluiten bij het werk dat hij doet, iets wat volgens Epstein pas na proberen goed te bepalen is.</td></tr>
+          <tr><td class="term">Overdraagbare kennis</td><td>Epsteins term voor kennis die zo abstract geleerd is dat zij op nieuwe, ongelijksoortige problemen kan worden toegepast.</td></tr>
+          <tr><td class="term">Zijdelings denken met verouderde techniek</td><td>Gunpei Yokoi's ontwerpprincipe om met eenvoudige, goed begrepen onderdelen tot ongebruikelijke oplossingen te komen.</td></tr>
+          <tr><td class="term">Deliberate amateurs</td><td>Epsteins term voor mensen die bewust buiten hun kernvak blijven experimenteren in plaats van zich volledig op één specialisme te storten.</td></tr>
+          <tr><td class="term">Normalisering van afwijking</td><td>Diane Vaughans term voor het proces waarin een organisatie een risico dat eerder onacceptabel was, stap voor stap als normaal gaat behandelen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Epstein is onderzoeksjournalist, niet wetenschapper, en het boek bouwt op tientallen losse onderzoeken en interviews die hij aan elkaar rijgt tot één doorlopend argument. Een deel van die onderbouwing is stevig: Ofer Malamuds onderzoek naar Schotse en Engelse studenten is gepubliceerd, getoetst economisch onderzoek, en het onderscheid van Robin Hogarth tussen gestileerde en onvoorspelbare leeromgevingen bouwt voort op decennia onderzoek naar oordeelsvorming onder onzekerheid.</p>
+      <p>Andere onderdelen zijn illustratiever van aard. De studie van Root-Bernstein naar hobby's van Nobelprijswinnaars toont een samenhang, geen bewezen oorzakelijk verband, en Epstein erkent dat zelf niet altijd even scherp. Losse gevallen zoals Van Gogh en Gunpei Yokoi zijn aansprekend maar bewijzen op zichzelf niets; hun waarde in het boek is illustratief, gekozen om het onderliggende, wel onderbouwde patroon invoelbaar te maken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek als reactie op de tienduizend-uurregel en op boeken als Duckworths <i>Grit</i> soms zelf even eenzijdig wordt als waar het tegenin gaat. Waar vroege specialisten worden genoemd, worden vooral de negatieve gevallen uitgelicht, en de vakgebieden waarin vroege, diepe specialisatie wel degelijk tot uitmuntendheid leidt, zoals bepaalde takken van topsport en instrumentale muziek, komen er in het boek zelf mager van af buiten het korte hoofdstuk over de zussen Polgár.</p>
+      <p>Het onderscheid tussen gestileerde en onvoorspelbare domeinen is bovendien minder scherp dan het boek suggereert. De meeste beroepen zitten ergens tussen de twee categorieën in, en het boek geeft weinig houvast om in een concreet geval te bepalen hoeveel specialisatie wel en hoeveel niet loont.</p>
+      <p>Het boek steunt verder op een selectie van succesverhalen. Er is geen telling van hoeveel mensen laat wisselden en daardoor juist nergens goed genoeg in werden om aan de slag te komen; die mensen komen in een boek over generalisten die het uiteindelijk goed deden per definitie niet voor.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij het kiezen van een studie of vak eerst of het om een gestileerd of een onvoorspelbaar domein gaat, voordat je vroege specialisatie als vanzelfsprekend goed beschouwt.</li>
+        <li>Bouw bewust een tweede interesse op naast het hoofdvak, niet als ontspanning maar als bron van vergelijkingen die binnen het hoofdvak niet vanzelf opkomen.</li>
+        <li>Behandel een omweg of overstap niet als tijdverlies maar als informatie over match quality, en weeg die net zo zwaar als de tijd die de omweg kost.</li>
+        <li>Ga bij een groep specialisten na wie de aangewezen persoon is om een risico te signaleren dat buiten ieders eigen vakgebied valt, en organiseer daar expliciet ruimte voor.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Why Generalists Triumph in a Specialized World</i> (Riverhead Books, New York, 2019, 339 blz., ISBN 9780735214484). Nederlands als <i>Waarom generalisten verder komen</i> (Prometheus, 2020, 382 blz., ISBN 9789044643657); geen vertaler vermeld in de catalogusgegevens.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Epstein opent met het contrast tussen Tiger Woods, die als peuter al een golfclub in zijn handen kreeg en zich vanaf zijn vroegste jeugd op één sport richtte, en Roger Federer, die als kind skiede, worstelde, zwom, basketbalde en badmintonde voordat hij zich pas als tiener op tennis vastlegde. Woods geldt in de populaire cultuur als het bewijs dat vroege specialisatie en tienduizend uur oefening tot uitmuntendheid leiden. Epstein onderzoekt of dat patroon representatief is voor de meeste mensen en de meeste vakgebieden, en concludeert dat het dat niet is.</p><p>Hij trekt de vergelijking door naar wetenschap, muziek, geneeskunde en het bedrijfsleven, met voorbeelden als Nobelprijswinnaars met een kunstzinnige hobby, de late loopbaanwissel van Van Gogh en uitvinders die hun beste werk leverden op het raakvlak van vakgebieden. Zijn stelling is dat brede ervaring, late specialisatie en het vermogen om kennis van het ene naar het andere domein over te dragen, in de meeste complexe en onvoorspelbare omgevingen een voordeel opleveren boven vroege, smalle specialisatie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leren</li><li>specialisatie</li><li>loopbaan</li><li>sport</li><li>creativiteit</li><li>onderwijs</li><li>vaardigheden</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="274"><a href="274.html">Outliers</a>. Gladwell introduceerde de tienduizend-uurregel die Epstein in dit boek juist wil nuanceren en begrenzen tot gestileerde domeinen.</li>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth pleit voor volgehouden, gerichte inzet op één doel, de tegenpool van de brede omzwervingen die Epstein aanbeveelt.</li>
+          <li value="296"><a href="296.html">Get Better at Anything</a>. Young werkt de leerwetenschap achter vaardigheden verder uit, met meer aandacht voor hoe er geoefend wordt dan voor de vraag wat je zou moeten leren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

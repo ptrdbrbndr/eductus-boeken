@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mr. China &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Clissold beschrijft, aan de hand van zijn eigen jaren als onderhandelaar voor een Amerikaans investeringsfonds, hoe honderdvijftig miljoen dollar aan Wall…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-348">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">348 &middot; Geld en ondernemen</p>
+    <h1>Mr. China</h1>
+    <p class="lede">Tim Clissold, 2004</p>
+    <p class="stats">
+      <span><b>1490</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="348"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Clissold beschrijft, aan de hand van zijn eigen jaren als onderhandelaar voor een Amerikaans investeringsfonds, hoe honderdvijftig miljoen dollar aan Wall Street-kapitaal wordt losgelaten op tientallen Chinese staatsfabrieken in de vroege jaren negentig, in de overtuiging dat westerse contracten en westers management daar hetzelfde zouden werken als thuis. Zijn stelling is dat die overtuiging een misrekening was: in een land zonder afdwingbaar eigendomsrecht en zonder onafhankelijke rechtspraak is een handtekening onder een joint-ventureovereenkomst pas het begin van de onderhandeling, niet het einde ervan. Wie dat niet doorheeft, verliest zijn geld aan fabrieksdirecteuren die het spel al hun hele leven spelen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Peking, Mandarijn en een aanbod</h3>
+      <p>Clissold gaat na zijn opleiding in Cambridge, waar hij natuurkunde studeerde, en een aantal jaren in de accountancy in Londen en Hongkong naar Peking om Mandarijn te leren. Daar ontmoet hij een Amerikaanse zakenman die met steun van Wall Street-beleggers honderdvijftig miljoen dollar heeft opgehaald om aandelen te kopen in Chinese staatsfabrieken en ze om te bouwen tot winstgevende, beursklare bedrijven. Clissold, die in het boek naar zijn opdrachtgever verwijst onder het pseudoniem 'Pat', wordt aangenomen als onderhandelaar en krijgt Ai Jian naast zich, een voormalige roodegardist met de contacten en het gezag om deuren te openen die voor een buitenlander gesloten blijven.</p>
+      <p>Binnen twee jaar heeft het fonds belangen in meer dan twintig fabrieken door heel China, met tezamen tienduizenden werknemers: een bierbrouwerij en een garenspinnerij in Peking, een tandwielenfabriek en een remvoeringfabriek in de provincies, olievelden in het noordoosten. Het idee is eenvoudig, de uitvoering blijkt dat allerminst.</p>
+      <h3>Contracten die niets afdwingen</h3>
+      <p>Waar het in het Westen gebruikelijk is dat een joint-ventureovereenkomst de verhoudingen vastlegt, ontdekt Clissold dat in China de handtekening vooral een startpunt is. Fabrieksdirecteuren die decennialang gewend waren aan een staatsbedrijf zonder aandeelhouders, blijven na de deal gewoon zaken doen zoals zij dat altijd deden: personeel aannemen op basis van familie in plaats van kunde, voorraden laten verdwijnen, facturen vervalsen.</p>
+      <p>Een van de opvallendste scènes in het boek speelt in de bierfabriek in Peking, waar een fles die bier moet bevatten bij nader onderzoek een bruine vloeistof blijkt te bevatten met een half weggekrast etiket waarop nog net 'sojasaus' te lezen is. Het beeld staat voor het hele boek: wat op papier een modern, gecontroleerd bedrijf is, blijkt in de praktijk een fabriek die doet wat zij altijd al deed, met nieuw westers geld erbij.</p>
+      <h3>Verdwijnend geld</h3>
+      <p>Clissold reconstrueert hoe geld dat voor investeringen in machines en onderhoud bedoeld is, via omwegen naar rekeningen in Hongkong verdwijnt, en hoe directeuren met dat geld in het geheim een eigen fabriek optuigen die dezelfde producten maakt als de joint venture waarvan zij directeur zijn, om vervolgens klanten van het eigen bedrijf naar de nieuwe fabriek te leiden.</p>
+      <p>Wanneer dat aan het licht komt, volgt geen simpele ontslagprocedure. Het ontslaan van een directeur betekent het ontslaan van iemand die via familie en partijbanden verweven is met de lokale overheid, de bank en de politie ter plaatse, en dat maakt elk conflict tegelijk een zakelijk en een politiek gevecht.</p>
+      <h3>Rellen, rechtszaken en arbitrage</h3>
+      <p>Meerdere conflicten lopen uit op fysieke confrontaties: personeel dat de poort blokkeert, een directeur die weigert de boeken te overhandigen, dreigementen aan het adres van Clissold en zijn collega's zelf. Waar westerse partners bij een geschil naar de rechter stappen, ontdekt Clissold dat Chinese rechterlijke vonnissen in de praktijk weinig voorstellen als de tegenpartij lokaal invloedrijker is dan de eigenaar van het kapitaal.</p>
+      <p>Een deel van de geschillen eindigt in internationale arbitrage, een lang en kostbaar traject dat zelden de volledige inzet terugbrengt. Clissold beschrijft die zaken niet als overwinningen maar als schadebeperking: het fonds haalt er een fractie van de investering uit, tegen aanzienlijke advocatenkosten, en de fabriek zelf draait door onder de oude directeur.</p>
+      <h3>Wat overblijft</h3>
+      <p>Van de meer dan twintig fabrieken waarin het fonds investeert, wordt een klein aantal, vooral in de auto-onderdelenindustrie, uiteindelijk wel winstgevend en de basis voor een kleiner, gerichter bedrijf. De rest wordt afgestoten, soms met verlies, soms pas na een langdurig gevecht om er nog iets van waarde uit te halen.</p>
+      <p>Clissold trekt daaruit geen les over Chinese oneerlijkheid. Zijn conclusie is dat de fabrieksdirecteuren deden wat iemand in hun positie, met hun overlevingsgeschiedenis in staatsbedrijven en zonder garantie op een pensioen, redelijkerwijs zou doen. Het fonds had de risico's van het systeem verkeerd ingeschat, niet de mensen die er middenin zaten.</p>
+      <h3>Een leerschool voor wie na hem kwam</h3>
+      <p>Clissold schreef het boek na zijn vertrek uit het fonds, en het werd in de jaren daarna veel gelezen onder westerse zakenmensen die naar China vertrokken, als waarschuwing tegen het idee dat kapitaal en een goed contract vanzelf tot zeggenschap leiden. Hij bleef zelf in China actief, onder meer als bemiddelaar bij geschillen tussen buitenlandse investeerders en Chinese partners, het werk waarvoor het boek hem alsnog bekendheid gaf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Joint venture</td><td>Een gezamenlijke onderneming van een buitenlandse investeerder en een Chinese partner, in de jaren negentig vaak de enige toegestane vorm om als buitenlander in Chinese productie te investeren.</td></tr>
+          <tr><td class="term">Staatsfabriek</td><td>Een fabriek die formeel eigendom is van de staat of een lokale overheid, met een directeur die zijn positie dankt aan partijbanden in plaats van aan aandeelhouders.</td></tr>
+          <tr><td class="term">Arbitrage</td><td>Een vorm van geschillenbeslechting buiten de rechtbank om, door Clissold gebruikt als laatste middel wanneer een lokale partner een overeenkomst niet nakomt.</td></tr>
+          <tr><td class="term">'Pat'</td><td>Het pseudoniem waaronder Clissold zijn Amerikaanse opdrachtgever in het boek opvoert.</td></tr>
+          <tr><td class="term">Ai Jian</td><td>Clissolds Chinese collega, een voormalige roodegardist wiens netwerk en ervaring met de lokale bureaucratie de deals mogelijk maakt.</td></tr>
+          <tr><td class="term">Guanxi</td><td>Het Chinese begrip voor persoonlijke netwerken en wederzijdse verplichtingen, waarvan het boek laat zien dat het zwaarder weegt dan een handtekening.</td></tr>
+          <tr><td class="term">Institutionele verwarring</td><td>Clissolds eigen term voor een systeem met formele regels die inhoudelijk zelden worden gehandhaafd, waardoor de uitkomst van elk conflict onvoorspelbaar blijft.</td></tr>
+          <tr><td class="term">Due diligence</td><td>Het vooronderzoek naar een fabriek voor de investering, dat in het boek herhaaldelijk faalt om de werkelijke staat van de boekhouding en de macht van de zittende directeur bloot te leggen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een eigen relaas van de auteur, geschreven aan de hand van zijn eigen aantekeningen en herinneringen aan tientallen deals over een periode van ongeveer tien jaar. Namen van personen en bedrijven zijn op plaatsen veranderd of samengevoegd, zoals gebruikelijk is in dit soort zakenmemoires, wat betekent dat de scènes een reconstructie zijn en geen woordelijk protocol.</p>
+      <p>De cijfers die het boek noemt over het opgehaalde kapitaal, het aantal fabrieken en het aantal werknemers zijn extern te herleiden tot het fonds waarvoor Clissold werkte, dat na de in het boek beschreven jaren is doorgegaan als een van de grotere buitenlandse investeerders in de Chinese auto-onderdelenindustrie. Dat de uiteindelijke overlevende bedrijven vooral in die sector zaten, bevestigt de kern van het boek: van de brede, ongerichte eerste golf van investeringen bleek achteraf maar een deel houdbaar.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek één kant van elk conflict vertelt. De Chinese fabrieksdirecteuren, boekhouders en ambtenaren krijgen geen eigen stem, en hun gedrag wordt verklaard vanuit Clissolds latere, verzoenende inzicht dat zij deden wat hun positie hun opdroeg, zonder dat zij zelf ooit hun kant van het verhaal mogen doen.</p>
+      <p>Het boek buigt bovendien mee met de verwachtingen van zijn genre. Het combineert zelfspot over de eigen naïviteit met een verteltoon die de lezer vooral vermaakt, waardoor structurele vragen, zoals wat westers kapitaal in die jaren per saldo aan Chinese werknemers en lokale economieën heeft opgeleverd, buiten beeld blijven. Het is een verhaal over het fonds en zijn verliezen, niet over de fabrieken en hun mensen.</p>
+      <p>Het boek is twintig jaar oud en beschrijft een China dat sindsdien ingrijpend is veranderd: een land met een uitgebreider rechtssysteem, een grotere private sector en internationale bedrijven die er allang met eigen, aangepaste spelregels werken. Wat hier als algemene les over zakendoen in China wordt gepresenteerd, is voor een flink deel een portret van een overgangsperiode die voorbij is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een investering in een onbekende markt na wie er in de praktijk de macht heeft over de dagelijkse gang van zaken, los van wat het aandeelhoudersregister zegt.</li>
+        <li>Lees een contract in een joint venture als een startpunt voor onderhandeling, niet als een garantie, en bouw controlemomenten in die niet van de goede wil van de lokale partner afhangen.</li>
+        <li>Onderzoek voor een investering niet alleen de boekhouding maar ook waar de directeur zijn positie en zijn netwerk aan ontleent.</li>
+        <li>Weeg bij een geschil in het buitenland vooraf af wat arbitrage of een rechtszaak realistisch kan opleveren, in tijd en geld, tegenover een geregelde exit.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Mr. China: A Memoir</i> (Constable &amp; Robinson, Londen, 2004; HarperBusiness, New York, 2005). Nederlands als <i>Mister China</i>, vertaald door R. van der Helm (Roularta Books, 2005, 271 blz., ISBN 9789054666769).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Clissold, opgeleid als natuurkundige aan Cambridge en gepokt en gemazeld in de accountancy, vestigt zich begin jaren negentig in Peking om Mandarijn te leren en belandt via via bij een Amerikaanse zakenman die honderden miljoenen dollars van Wall Street-beleggers wil investeren in Chinese staatsfabrieken. Clissold wordt zijn onderhandelaar voor de deals: hij tekent contracten en reist van de ene provinciefabriek naar de andere, van een bierbrouwerij in Peking tot een remvoeringfabriek in Anhui.</p><p>Het geld verdwijnt sneller dan het binnenkomt. Fabrieksdirecteuren zetten met het kapitaal van de joint venture in het geheim hun eigen concurrerende bedrijf op, boekhoudingen blijken fictief en een deel van de fabrieken levert ondanks miljoeneninvesteringen simpelweg niets op. Clissold beschrijft hoe hij, deal na mislukte deal, leert dat een westers contract in China niets afdwingt zolang de mensen die het moeten naleven er geen reden toe hebben.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>China</li><li>investeren</li><li>joint ventures</li><li>zakendoen</li><li>memoir</li><li>jaren negentig</li><li>industrie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz beschrijft eveneens hoe een onderneming met te weinig zekerheden overeind wordt gehouden, zij het in een heel andere sector en cultuur.</li>
+          <li value="20"><a href="20.html">Shoe Dog</a>. Knight vertelt over dezelfde jaren van geïmproviseerd zakendoen en bijna-faillissementen, dan vanuit de kant van de oprichter in plaats van de investeerder.</li>
+          <li value="234"><a href="234.html">Factfulness</a>. Rosling relativeert de aannames waarmee westerlingen naar opkomende economieën kijken, een correctie die net zo goed op dit boek van toepassing is als op de wereldbeelden die hij bespreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

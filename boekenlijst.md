@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 19
-augustus 2026: 340 titels in 18 rubrieken.
+augustus 2026: 346 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -19,15 +19,15 @@ bij de volgende build verloren.
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349 |
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327 |
 
@@ -68636,6 +68636,1302 @@ plaats van het zwaardvechten.
 klassieke krijgskunst, waaronder ideeën die teruggaan op Musashi, voor een
 modern publiek van macht en concurrentie.
 
+## 347. Complexity
+
+M. Mitchell Waldrop, 1992. Oorspronkelijk *Complexity: The Emerging Science at
+the Edge of Order and Chaos* (Simon & Schuster, New York, 1992, 380 blz., ISBN
+9780671767891); vanaf 1993 als paperback bij Touchstone (ISBN 9780671872342).
+Geen Nederlandse uitgave bekend. Rubriek: natuur en wetenschap.
+Tags: `complexiteit`, `Santa Fe Institute`, `wetenschapsgeschiedenis`,
+`economie`, `evolutie`, `kunstmatig leven`, `chaos`
+
+Waldrop portretteert de groep wetenschappers die zich vanaf 1984 rond het
+Santa Fe Institute verzamelt: de econoom Brian Arthur, de bioloog Stuart
+Kauffman, de informaticus John Holland en de kunstmatig-levenonderzoeker Chris
+Langton, met de natuurkundige George Cowan en Nobelprijswinnaar Murray
+Gell-Mann als initiatiefnemers. Elk van hen botst in zijn eigen vak op iets
+dat de gangbare theorie niet verklaart, en in Santa Fe vinden zij een
+gezamenlijke taal daarvoor: complexe systemen die zich zelf organiseren op de
+grens tussen orde en chaos.
+
+Het boek volgt hen chronologisch, van de eerste bijeenkomsten in een gehuurd
+kloostergebouw tot de grote workshop van 1987 waarin natuurkundigen en
+economen elkaars vak proberen te doorgronden. Waldrop schrijft als journalist,
+niet als partij in het debat, maar hij deelt duidelijk het enthousiasme van
+zijn hoofdpersonen over wat zij als het begin van een nieuwe wetenschap zien.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Waldrop beschrijft hoe een groep wetenschappers uit
+uiteenlopende vakken, natuurkunde, economie, biologie en informatica, zich
+vanaf 1984 rond het Santa Fe Institute verzamelde met de stelling dat complexe
+systemen zoals economieën, ecosystemen en het immuunsysteem een gedeelde
+onderliggende logica delen: zelforganisatie die ontstaat op de grens tussen
+orde en chaos. Die grens, de "rand van de chaos", zou de plek zijn waar
+aanpassing, leren en evolutie het best gedijen. Het boek presenteert dat idee
+als het begin van een nieuwe wetenschap die de grenzen tussen disciplines zou
+opheffen. Wie ertegenin wil brengen, kan wijzen op wat er van die belofte
+veertig jaar later concreet over is: een verzameling bruikbare technieken,
+geen eengemaakte theorie.
+
+#### De gang van het boek
+
+**Een instituut zonder gebouw**
+
+George Cowan bracht het grootste deel van zijn werkzame leven door als
+natuurkundige bij het Los Alamos National Laboratory, het laboratorium waar
+tijdens de Tweede Wereldoorlog de atoombom werd ontwikkeld. Op zijn
+drieënzestigste, na zijn pensionering, begint hij samen met een kleine kring
+collega's, onder wie de natuurkundige Nicholas Metropolis, aan een plan voor
+een nieuw soort onderzoeksinstituut: een plek zonder vaste afdelingen, waar
+natuurkundigen, biologen, economen en informatici elkaars taal zouden leren
+spreken in plaats van naast elkaar te werken. In 1984 organiseert Cowan in Los
+Alamos een eerste bijeenkomst onder de titel *Emerging Syntheses in Science*,
+met de Nobelprijswinnaar natuurkunde Murray Gell-Mann als een van de
+aansprekende namen die het plan gewicht geven.
+
+Het Santa Fe Institute krijgt zijn eerste onderkomen in een gehuurd voormalig
+kloostergebouw aan Canyon Road in Santa Fe, zonder eigen studenten, zonder
+vaste leerstoelen en zonder een vast programma. Wat de plek bindt is niet een
+gebouw of een discipline maar een overtuiging: dat de grote onopgeloste vragen
+in de wetenschap, van het ontstaan van het leven tot het gedrag van markten,
+dezelfde soort systemen betreffen en dat de bestaande vakken daar elk maar een
+deel van zien.
+
+**Brian Arthur en de wet van de toenemende meeropbrengsten**
+
+Brian Arthur, een econoom uit Ierland die aan Stanford werkte, botst al vroeg
+in zijn loopbaan met een van de kernaannames van de economische theorie: dat
+markten naar een evenwicht toe bewegen omdat meeropbrengsten afnemen naarmate
+iets groter wordt. Arthur ziet dat technologieën vaak het tegenovergestelde
+doen. Een systeem dat toevallig een voorsprong krijgt, zoals de
+toetsenbordindeling QWERTY of de videostandaard VHS tegenover Betamax, kan die
+voorsprong vergroten omdat meer gebruikers een technologie aantrekkelijker
+maken voor nieuwe gebruikers, ongeacht of die technologie de beste is. Hij
+noemt dit toenemende meeropbrengsten en betoogt dat kleine, toevallige
+gebeurtenissen aan het begin van zo'n proces blijvend bepalen welke
+technologie wint.
+
+Het artikel waarin hij dit uitwerkt wordt jarenlang geweigerd door de gangbare
+economische tijdschriften, die zijn wiskunde niet vertrouwen zolang zij niet
+naar één enkel evenwicht convergeert. Pas als het Santa Fe Institute hem in
+1988 als eerste bezetter van een leerstoel voor economie aanstelt, krijgt zijn
+werk een plek waar het als volwaardige economie wordt behandeld in plaats van
+als curiosum.
+
+**Stuart Kauffman en orde om niet**
+
+Stuart Kauffman, opgeleid als arts en werkzaam als theoretisch bioloog,
+benadert een heel andere vraag: hoe kan uit de willekeurige chemie van de
+vroege aarde iets zo geordends ontstaan als een levende cel. Zijn antwoord
+bouwt op netwerken van genen die elkaar aan- en uitschakelen, uitgewerkt in
+wat bekend wordt als het NK-model. Bij een laag aantal verbindingen per gen
+valt zo'n netwerk vanzelf terug op een klein aantal stabiele patronen, zonder
+dat er een ontwerp of een externe sturing aan te pas komt.
+
+Kauffman noemt dat verschijnsel orde om niet: structuur die niet het resultaat
+is van natuurlijke selectie maar van de wiskundige eigenschappen van het
+netwerk zelf, waarna selectie pas later aangrijpt om te verfijnen. Hij werkt
+dat idee ook uit voor autokatalytische sets, netwerken van moleculen die
+elkaar wederzijds produceren, als mogelijke verklaring voor het ontstaan van
+leven zonder dat er eerst een zichzelf kopiërend molecuul als DNA nodig was.
+
+**John Holland en de genetische algoritmen**
+
+John Holland, informaticus in Michigan, vertaalt evolutie naar een
+rekenmethode. Zijn genetische algoritmen laten een populatie van
+kandidaat-oplossingen voor een probleem muteren en combineren, waarbij de
+sterkste combinaties de meeste nakomelingen krijgen, net als bij natuurlijke
+selectie. Wat Waldrop benadrukt is niet alleen de techniek maar Hollands
+overtuiging dat aanpassing zelf een onderwerp is dat in elk vakgebied dezelfde
+wiskunde volgt, van immuunsystemen tot economieën.
+
+Later in het boek werkt Holland aan Echo, een simulatiemodel waarin agenten
+met eigen regels hulpbronnen verzamelen, ruilen en zich voortplanten in een
+gedeelde omgeving, bedoeld om te testen of eenvoudige regels op het niveau van
+individuen de complexe patronen kunnen opleveren die in echte ecosystemen en
+economieën worden waargenomen.
+
+**Chris Langton en de rand van de chaos**
+
+Chris Langton, die zijn wetenschappelijke loopbaan laat begint na omzwervingen
+als programmeur en na een zwaar ongeluk met een parachute, organiseert in 1987
+in Los Alamos de eerste workshop over wat hij kunstmatig leven noemt:
+computerprogramma's die zich voortplanten, muteren en concurreren zonder dat
+er iets biologisch aan te pas komt. Zijn experimenten met cellulaire
+automaten, rasters van cellen die volgens simpele regels aan- of uitgaan
+afhankelijk van hun buren, laten zien dat het gedrag van zo'n systeem sterk
+verandert met één instelbare parameter: bij een lage waarde sterft het patroon
+snel uit, bij een hoge waarde ontstaat ruis, en in een smal gebied daartussen
+ontstaan patronen die zich voortplanten, botsen en blijven veranderen.
+
+Die smalle overgangszone noemt Langton de rand van de chaos, en Waldrop maakt
+daar de centrale metafoor van het hele boek van: leven, aanpassing en
+intelligentie zouden zich precies op zo'n grens bevinden, niet in de
+stabiliteit en niet in de willekeur maar in de dunne strook ertussen.
+
+**Een gezamenlijke taal die nooit helemaal ontstond**
+
+In september 1987 organiseren de natuurkundige Philip Anderson en de economen
+José Scheinkman en Kenneth Arrow in Santa Fe een tiendaagse bijeenkomst waarin
+tien economen en tien natuurkundigen elkaars vak proberen te doorgronden. De
+bijeenkomst levert weinig gedeelde conclusies op maar wel een boek, *The
+Economy as an Evolving Complex System*, en het besluit om economie tot een van
+de vaste onderzoekslijnen van het instituut te maken, met Arthur als eerste
+bezetter van de nieuwe leerstoel die deels door Citicorp wordt gefinancierd.
+
+Waldrop sluit het boek af zonder een uitkomst te claimen. De hoofdpersonen
+geloven aan het eind net zo sterk als aan het begin dat er een gezamenlijke
+wetenschap van complexiteit binnen bereik ligt, maar wat er op de bladzijden
+staat is vooral een verzameling losse doorbraken binnen aparte vakken,
+verbonden door een gedeelde woordenschat en een gedeeld enthousiasme, meer dan
+door een uitgewerkte, overkoepelende theorie.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Complexiteit | Het gedrag van systemen met veel onderling afhankelijke onderdelen, waarbij het geheel patronen vertoont die niet uit de afzonderlijke onderdelen zijn af te lezen. |
+| Emergentie | Het verschijnen van eigenschappen op het niveau van het geheel die geen van de samenstellende delen apart bezit. |
+| Rand van de chaos | De smalle overgangszone tussen starre orde en volledige willekeur waarin Langtons cellulaire automaten het langst complex en veranderlijk gedrag vertonen. |
+| Toenemende meeropbrengsten | Arthurs term voor processen waarin een voorsprong zichzelf versterkt in plaats van afneemt, zoals bij de verspreiding van een technologische standaard. |
+| Orde om niet | Kauffmans term voor stabiele patronen die uit de wiskundige structuur van een netwerk ontstaan, nog voordat natuurlijke selectie iets heeft kunnen doen. |
+| NK-model | Kauffmans wiskundig model van een genetisch netwerk, waarin N het aantal genen is en K het aantal verbindingen per gen. |
+| Genetisch algoritme | Hollands rekenmethode die kandidaat-oplossingen laat muteren en combineren naar analogie van natuurlijke selectie. |
+| Autokatalytische set | Een netwerk van moleculen die elkaars vorming wederzijds versnellen, door Kauffman geopperd als mogelijk beginpunt van leven. |
+| Complex adaptief systeem | Waldrops overkoepelende term voor systemen van veel op elkaar reagerende eenheden die zich als geheel aanpassen aan hun omgeving, van mierenkolonies tot de beurs. |
+
+#### Waar het argument op rust
+
+Waldrop is journalist met een natuurkundeachtergrond en baseert het boek op
+uitgebreide interviews met de hoofdpersonen eind jaren tachtig, aangevuld met
+bijeenkomsten die hij zelf bijwoonde. Het boek toetst de claims van de
+complexiteitswetenschap niet zelf, het laat zien hoe de betrokkenen tot hun
+ideeën kwamen en hoe zij die aan elkaar en aan buitenstaanders verkochten.
+Voor de losse technische onderdelen is dat onderscheid van belang: genetische
+algoritmen en het NK-model zijn wiskundig scherp gedefinieerd en breed
+toepasbaar gebleken buiten het boek om, terwijl de rand van de chaos als
+algemeen principe voor levende en economische systemen grotendeels een
+metafoor is gebleven die Waldrop overneemt zonder haar kritisch te wegen.
+
+Het boek verscheen in 1992, aan het begin van het bestaan van het instituut,
+en beschrijft dus vooral verwachtingen en eerste resultaten, niet een
+afgeronde balans. Latere overzichten van het veld, waaronder Melanie Mitchells
+*Complexity: A Guided Tour* uit 2009, bevestigen dat een aantal van de hier
+beschreven technieken, met name genetische algoritmen en op agenten gebaseerde
+modellen, zich buiten Santa Fe hebben verspreid en nuttig zijn gebleken,
+terwijl de gehoopte overkoepelende wetenschap van complexiteit als zodanig
+nooit een vastomlijnd vak is geworden.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar richt zich op de rand van de chaos zelf. Wat bij Langtons
+cellulaire automaten een precies meetbare parameter is, wordt in het boek stap
+voor stap een metafoor voor bijna alles: markten, evolutie, brein,
+geschiedenis. Latere critici binnen het veld, onder wie Melanie Mitchell,
+hebben erop gewezen dat het bewijs voor een universeel geldende rand van de
+chaos in echte biologische en economische systemen zwak is en dat de
+aantrekkingskracht van het idee vooral in de beeldspraak zit.
+
+Het boek is ook geschreven als portret, niet als evaluatie. Waldrop kiest voor
+een handvol hoofdpersonen die hij sympathiek en overtuigd neerzet, en critici
+van hun werk krijgen nauwelijks een stem. Economen die Arthurs toenemende
+meeropbrengsten als een nuttige maar beperkte aanvulling op bestaande theorie
+zien in plaats van als een omwenteling, komen in het boek niet aan het woord.
+
+Het boek is drieëndertig jaar oud en leest inmiddels ook als een document van
+zijn eigen tijd: de verwachting dat er binnen afzienbare tijd een eengemaakte
+wiskunde van complexe systemen zou ontstaan, vergelijkbaar met wat de
+thermodynamica voor warmte deed, is niet uitgekomen. Het Santa Fe Institute
+bestaat nog steeds en het vakgebied complexiteitswetenschap ook, maar als
+losse verzameling methoden in aparte vakken, niet als het ene nieuwe vak dat
+de hoofdpersonen in dit boek voor ogen hadden.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij het lezen welke begrippen wiskundig gedefinieerd zijn, zoals
+het NK-model en het genetisch algoritme, en welke vooral beeldspraak zijn,
+zoals de rand van de chaos.
+- Leg Arthurs toenemende meeropbrengsten naast een eigen voorbeeld van een
+markt of platform dat won door een vroege voorsprong, niet door de beste
+kwaliteit.
+- Lees Kauffmans orde om niet als een aanvulling op natuurlijke selectie, niet
+als een vervanging ervan.
+- Wie een actuele stand van het vakgebied wil, leest Melanie Mitchells latere
+*Complexity: A Guided Tour* naast dit boek.
+
+#### Wat je hierna leest
+
+- 94. Het tijdperk van onzekerheid. Hürter beschrijft hoe de twintigste-eeuwse
+natuurkunde zelf al met onzekerheid als grondbeginsel worstelde, de
+voedingsbodem waarop het denken over complexiteit verder bouwt.
+- 268. The Black Swan. Taleb werkt de onvoorspelbaarheid van complexe systemen
+uit voor financiële markten en trekt daar scherpere conclusies uit dan de
+optimistische toon van dit boek.
+- 56. Sapiens. Harari beschrijft eveneens hoe grote menselijke patronen
+ontstaan uit talloze kleine interacties, maar dan voor de geschiedenis van de
+soort in plaats van voor genen en markten.
+
+## 348. Mr. China
+
+Tim Clissold, 2004. Oorspronkelijk *Mr. China: A Memoir* (Constable &
+Robinson, Londen, 2004; HarperBusiness, New York, 2005). Nederlands als
+*Mister China*, vertaald door R. van der Helm (Roularta Books, 2005, 271 blz.,
+ISBN 9789054666769). Rubriek: geld en ondernemen.
+Tags: `China`, `investeren`, `joint ventures`, `zakendoen`, `memoir`, `jaren
+negentig`, `industrie`
+
+Clissold, opgeleid als natuurkundige aan Cambridge en gepokt en gemazeld in de
+accountancy, vestigt zich begin jaren negentig in Peking om Mandarijn te leren
+en belandt via via bij een Amerikaanse zakenman die honderden miljoenen
+dollars van Wall Street-beleggers wil investeren in Chinese staatsfabrieken.
+Clissold wordt zijn onderhandelaar voor de deals: hij tekent contracten en
+reist van de ene provinciefabriek naar de andere, van een bierbrouwerij in
+Peking tot een remvoeringfabriek in Anhui.
+
+Het geld verdwijnt sneller dan het binnenkomt. Fabrieksdirecteuren zetten met
+het kapitaal van de joint venture in het geheim hun eigen concurrerende
+bedrijf op, boekhoudingen blijken fictief en een deel van de fabrieken levert
+ondanks miljoeneninvesteringen simpelweg niets op. Clissold beschrijft hoe
+hij, deal na mislukte deal, leert dat een westers contract in China niets
+afdwingt zolang de mensen die het moeten naleven er geen reden toe hebben.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Clissold beschrijft, aan de hand van zijn eigen jaren als
+onderhandelaar voor een Amerikaans investeringsfonds, hoe honderdvijftig
+miljoen dollar aan Wall Street-kapitaal wordt losgelaten op tientallen Chinese
+staatsfabrieken in de vroege jaren negentig, in de overtuiging dat westerse
+contracten en westers management daar hetzelfde zouden werken als thuis. Zijn
+stelling is dat die overtuiging een misrekening was: in een land zonder
+afdwingbaar eigendomsrecht en zonder onafhankelijke rechtspraak is een
+handtekening onder een joint-ventureovereenkomst pas het begin van de
+onderhandeling, niet het einde ervan. Wie dat niet doorheeft, verliest zijn
+geld aan fabrieksdirecteuren die het spel al hun hele leven spelen.
+
+#### De gang van het verhaal
+
+**Peking, Mandarijn en een aanbod**
+
+Clissold gaat na zijn opleiding in Cambridge, waar hij natuurkunde studeerde,
+en een aantal jaren in de accountancy in Londen en Hongkong naar Peking om
+Mandarijn te leren. Daar ontmoet hij een Amerikaanse zakenman die met steun
+van Wall Street-beleggers honderdvijftig miljoen dollar heeft opgehaald om
+aandelen te kopen in Chinese staatsfabrieken en ze om te bouwen tot
+winstgevende, beursklare bedrijven. Clissold, die in het boek naar zijn
+opdrachtgever verwijst onder het pseudoniem 'Pat', wordt aangenomen als
+onderhandelaar en krijgt Ai Jian naast zich, een voormalige roodegardist met
+de contacten en het gezag om deuren te openen die voor een buitenlander
+gesloten blijven.
+
+Binnen twee jaar heeft het fonds belangen in meer dan twintig fabrieken door
+heel China, met tezamen tienduizenden werknemers: een bierbrouwerij en een
+garenspinnerij in Peking, een tandwielenfabriek en een remvoeringfabriek in de
+provincies, olievelden in het noordoosten. Het idee is eenvoudig, de
+uitvoering blijkt dat allerminst.
+
+**Contracten die niets afdwingen**
+
+Waar het in het Westen gebruikelijk is dat een joint-ventureovereenkomst de
+verhoudingen vastlegt, ontdekt Clissold dat in China de handtekening vooral
+een startpunt is. Fabrieksdirecteuren die decennialang gewend waren aan een
+staatsbedrijf zonder aandeelhouders, blijven na de deal gewoon zaken doen
+zoals zij dat altijd deden: personeel aannemen op basis van familie in plaats
+van kunde, voorraden laten verdwijnen, facturen vervalsen.
+
+Een van de opvallendste scènes in het boek speelt in de bierfabriek in Peking,
+waar een fles die bier moet bevatten bij nader onderzoek een bruine vloeistof
+blijkt te bevatten met een half weggekrast etiket waarop nog net 'sojasaus' te
+lezen is. Het beeld staat voor het hele boek: wat op papier een modern,
+gecontroleerd bedrijf is, blijkt in de praktijk een fabriek die doet wat zij
+altijd al deed, met nieuw westers geld erbij.
+
+**Verdwijnend geld**
+
+Clissold reconstrueert hoe geld dat voor investeringen in machines en
+onderhoud bedoeld is, via omwegen naar rekeningen in Hongkong verdwijnt, en
+hoe directeuren met dat geld in het geheim een eigen fabriek optuigen die
+dezelfde producten maakt als de joint venture waarvan zij directeur zijn, om
+vervolgens klanten van het eigen bedrijf naar de nieuwe fabriek te leiden.
+
+Wanneer dat aan het licht komt, volgt geen simpele ontslagprocedure. Het
+ontslaan van een directeur betekent het ontslaan van iemand die via familie en
+partijbanden verweven is met de lokale overheid, de bank en de politie ter
+plaatse, en dat maakt elk conflict tegelijk een zakelijk en een politiek
+gevecht.
+
+**Rellen, rechtszaken en arbitrage**
+
+Meerdere conflicten lopen uit op fysieke confrontaties: personeel dat de poort
+blokkeert, een directeur die weigert de boeken te overhandigen, dreigementen
+aan het adres van Clissold en zijn collega's zelf. Waar westerse partners bij
+een geschil naar de rechter stappen, ontdekt Clissold dat Chinese rechterlijke
+vonnissen in de praktijk weinig voorstellen als de tegenpartij lokaal
+invloedrijker is dan de eigenaar van het kapitaal.
+
+Een deel van de geschillen eindigt in internationale arbitrage, een lang en
+kostbaar traject dat zelden de volledige inzet terugbrengt. Clissold
+beschrijft die zaken niet als overwinningen maar als schadebeperking: het
+fonds haalt er een fractie van de investering uit, tegen aanzienlijke
+advocatenkosten, en de fabriek zelf draait door onder de oude directeur.
+
+**Wat overblijft**
+
+Van de meer dan twintig fabrieken waarin het fonds investeert, wordt een klein
+aantal, vooral in de auto-onderdelenindustrie, uiteindelijk wel winstgevend en
+de basis voor een kleiner, gerichter bedrijf. De rest wordt afgestoten, soms
+met verlies, soms pas na een langdurig gevecht om er nog iets van waarde uit
+te halen.
+
+Clissold trekt daaruit geen les over Chinese oneerlijkheid. Zijn conclusie is
+dat de fabrieksdirecteuren deden wat iemand in hun positie, met hun
+overlevingsgeschiedenis in staatsbedrijven en zonder garantie op een pensioen,
+redelijkerwijs zou doen. Het fonds had de risico's van het systeem verkeerd
+ingeschat, niet de mensen die er middenin zaten.
+
+**Een leerschool voor wie na hem kwam**
+
+Clissold schreef het boek na zijn vertrek uit het fonds, en het werd in de
+jaren daarna veel gelezen onder westerse zakenmensen die naar China
+vertrokken, als waarschuwing tegen het idee dat kapitaal en een goed contract
+vanzelf tot zeggenschap leiden. Hij bleef zelf in China actief, onder meer als
+bemiddelaar bij geschillen tussen buitenlandse investeerders en Chinese
+partners, het werk waarvoor het boek hem alsnog bekendheid gaf.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Joint venture | Een gezamenlijke onderneming van een buitenlandse investeerder en een Chinese partner, in de jaren negentig vaak de enige toegestane vorm om als buitenlander in Chinese productie te investeren. |
+| Staatsfabriek | Een fabriek die formeel eigendom is van de staat of een lokale overheid, met een directeur die zijn positie dankt aan partijbanden in plaats van aan aandeelhouders. |
+| Arbitrage | Een vorm van geschillenbeslechting buiten de rechtbank om, door Clissold gebruikt als laatste middel wanneer een lokale partner een overeenkomst niet nakomt. |
+| 'Pat' | Het pseudoniem waaronder Clissold zijn Amerikaanse opdrachtgever in het boek opvoert. |
+| Ai Jian | Clissolds Chinese collega, een voormalige roodegardist wiens netwerk en ervaring met de lokale bureaucratie de deals mogelijk maakt. |
+| Guanxi | Het Chinese begrip voor persoonlijke netwerken en wederzijdse verplichtingen, waarvan het boek laat zien dat het zwaarder weegt dan een handtekening. |
+| Institutionele verwarring | Clissolds eigen term voor een systeem met formele regels die inhoudelijk zelden worden gehandhaafd, waardoor de uitkomst van elk conflict onvoorspelbaar blijft. |
+| Due diligence | Het vooronderzoek naar een fabriek voor de investering, dat in het boek herhaaldelijk faalt om de werkelijke staat van de boekhouding en de macht van de zittende directeur bloot te leggen. |
+
+#### Waar het argument op rust
+
+Het boek is een eigen relaas van de auteur, geschreven aan de hand van zijn
+eigen aantekeningen en herinneringen aan tientallen deals over een periode van
+ongeveer tien jaar. Namen van personen en bedrijven zijn op plaatsen veranderd
+of samengevoegd, zoals gebruikelijk is in dit soort zakenmemoires, wat
+betekent dat de scènes een reconstructie zijn en geen woordelijk protocol.
+
+De cijfers die het boek noemt over het opgehaalde kapitaal, het aantal
+fabrieken en het aantal werknemers zijn extern te herleiden tot het fonds
+waarvoor Clissold werkte, dat na de in het boek beschreven jaren is doorgegaan
+als een van de grotere buitenlandse investeerders in de Chinese
+auto-onderdelenindustrie. Dat de uiteindelijke overlevende bedrijven vooral in
+die sector zaten, bevestigt de kern van het boek: van de brede, ongerichte
+eerste golf van investeringen bleek achteraf maar een deel houdbaar.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek één kant van elk conflict vertelt. De
+Chinese fabrieksdirecteuren, boekhouders en ambtenaren krijgen geen eigen
+stem, en hun gedrag wordt verklaard vanuit Clissolds latere, verzoenende
+inzicht dat zij deden wat hun positie hun opdroeg, zonder dat zij zelf ooit
+hun kant van het verhaal mogen doen.
+
+Het boek buigt bovendien mee met de verwachtingen van zijn genre. Het
+combineert zelfspot over de eigen naïviteit met een verteltoon die de lezer
+vooral vermaakt, waardoor structurele vragen, zoals wat westers kapitaal in
+die jaren per saldo aan Chinese werknemers en lokale economieën heeft
+opgeleverd, buiten beeld blijven. Het is een verhaal over het fonds en zijn
+verliezen, niet over de fabrieken en hun mensen.
+
+Het boek is twintig jaar oud en beschrijft een China dat sindsdien ingrijpend
+is veranderd: een land met een uitgebreider rechtssysteem, een grotere private
+sector en internationale bedrijven die er allang met eigen, aangepaste
+spelregels werken. Wat hier als algemene les over zakendoen in China wordt
+gepresenteerd, is voor een flink deel een portret van een overgangsperiode die
+voorbij is.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een investering in een onbekende markt na wie er in de praktijk de
+macht heeft over de dagelijkse gang van zaken, los van wat het
+aandeelhoudersregister zegt.
+- Lees een contract in een joint venture als een startpunt voor
+onderhandeling, niet als een garantie, en bouw controlemomenten in die niet
+van de goede wil van de lokale partner afhangen.
+- Onderzoek voor een investering niet alleen de boekhouding maar ook waar de
+directeur zijn positie en zijn netwerk aan ontleent.
+- Weeg bij een geschil in het buitenland vooraf af wat arbitrage of een
+rechtszaak realistisch kan opleveren, in tijd en geld, tegenover een geregelde
+exit.
+
+#### Wat je hierna leest
+
+- 47. The Hard Thing About Hard Things. Horowitz beschrijft eveneens hoe een
+onderneming met te weinig zekerheden overeind wordt gehouden, zij het in een
+heel andere sector en cultuur.
+- 20. Shoe Dog. Knight vertelt over dezelfde jaren van geïmproviseerd
+zakendoen en bijna-faillissementen, dan vanuit de kant van de oprichter in
+plaats van de investeerder.
+- 234. Factfulness. Rosling relativeert de aannames waarmee westerlingen naar
+opkomende economieën kijken, een correctie die net zo goed op dit boek van
+toepassing is als op de wereldbeelden die hij bespreekt.
+
+## 349. Range
+
+David Epstein, 2019. Ondertitel *Why Generalists Triumph in a Specialized
+World* (Riverhead Books, New York, 2019, 339 blz., ISBN 9780735214484).
+Nederlands als *Waarom generalisten verder komen* (Prometheus, 2020, 382 blz.,
+ISBN 9789044643657); geen vertaler vermeld in de catalogusgegevens. Rubriek:
+gewoontes en denken.
+Tags: `leren`, `specialisatie`, `loopbaan`, `sport`, `creativiteit`,
+`onderwijs`, `vaardigheden`
+
+Epstein opent met het contrast tussen Tiger Woods, die als peuter al een
+golfclub in zijn handen kreeg en zich vanaf zijn vroegste jeugd op één sport
+richtte, en Roger Federer, die als kind skiede, worstelde, zwom, basketbalde
+en badmintonde voordat hij zich pas als tiener op tennis vastlegde. Woods
+geldt in de populaire cultuur als het bewijs dat vroege specialisatie en
+tienduizend uur oefening tot uitmuntendheid leiden. Epstein onderzoekt of dat
+patroon representatief is voor de meeste mensen en de meeste vakgebieden, en
+concludeert dat het dat niet is.
+
+Hij trekt de vergelijking door naar wetenschap, muziek, geneeskunde en het
+bedrijfsleven, met voorbeelden als Nobelprijswinnaars met een kunstzinnige
+hobby, de late loopbaanwissel van Van Gogh en uitvinders die hun beste werk
+leverden op het raakvlak van vakgebieden. Zijn stelling is dat brede ervaring,
+late specialisatie en het vermogen om kennis van het ene naar het andere
+domein over te dragen, in de meeste complexe en onvoorspelbare omgevingen een
+voordeel opleveren boven vroege, smalle specialisatie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Epstein zet de vroege specialisatie van Tiger Woods tegenover
+de brede sportieve jeugd van Roger Federer en gebruikt dat contrast om een
+stelling te onderbouwen die ingaat tegen de tienduizend-uurregel: in de meeste
+vakgebieden, en zeker in de complexe en veranderlijke omgevingen waarin de
+meeste mensen werken, leidt een brede, late en omzwervende ontwikkeling tot
+betere uitkomsten dan vroege, smalle specialisatie. Alleen in wat hij
+'gestileerde' domeinen noemt, met vaste regels en directe feedback zoals
+schaken en klassieke muziek, werkt vroege specialisatie wel. Wie hier tegenin
+wil brengen, kan wijzen op alle vakgebieden waarin diepte wel degelijk de
+doorslag geeft en waarin wie te veel omzwerft nooit ergens goed genoeg in
+wordt om nog aan de slag te komen.
+
+#### De gang van het boek
+
+**Tiger tegenover Roger**
+
+Epstein opent met de twee sportverhalen die de rest van het boek voeden. Tiger
+Woods kreeg als kind van zeven maanden al een afgezaagd golfclubje mee,
+oefende als peuter voor televisiecamera's en werd door zijn vader vanaf de
+wieg klaargestoomd voor één sport. Roger Federer daarentegen groeide op in een
+gezin dat sport als spel zag: hij skiede, worstelde, zwom, deed aan
+skateboarden en badminton, en koos pas als tiener voor tennis boven de andere
+sporten waar hij evenveel talent voor had.
+
+Beide verhalen zijn waar en worden allebei veel verteld, maar volgens Epstein
+wordt alleen het verhaal van Woods aangehaald als de norm. Zijn boek stelt die
+norm ter discussie door te laten zien dat Federer, niet Woods, de gangbare weg
+naar uitmuntendheid vertegenwoordigt zodra je verder kijkt dan een handvol
+topsporters.
+
+**Gestileerde en onvoorspelbare werelden**
+
+Epstein leunt op het onderscheid van de psycholoog Robin Hogarth tussen 'kind'
+en 'wicked' leeromgevingen. Een gestileerde omgeving heeft vaste regels,
+herhaalt zich en geeft snelle, eenduidige feedback: schaken, golf, klassieke
+muziek. Daar werkt intensieve, vroege specialisatie, en daar is de
+tienduizend-uurregel van Anders Ericsson, die via Malcolm Gladwells boek
+*Outliers* bekend werd, ook het best onderbouwd.
+
+In een onvoorspelbare omgeving ontbreken die vaste regels: de signalen zijn
+misleidend, feedback komt vertraagd of helemaal niet, en wat gisteren werkte,
+werkt morgen niet meer. De meeste beroepen, van geneeskunde tot bestuur,
+vallen volgens Epstein in deze tweede categorie, en juist daar geeft brede
+ervaring een voordeel dat specialisatie niet biedt.
+
+**De uitzondering die de regel lijkt te bevestigen**
+
+Epstein bespreekt de zussen Polgár, drie Hongaarse schaaksters die hun vader
+met opzet vanaf jonge leeftijd intensief in het schaken trainde als
+experiment, en van wie de jongste, Judit, wereldtop werd. Hij gebruikt dat
+voorbeeld niet om zijn eigen stelling te ontkrachten maar om te laten zien
+waarom het precies in schaken werkt: een gesloten systeem met vaste regels en
+een duidelijke winnaar, het schoolvoorbeeld van een gestileerde omgeving.
+
+Daarmee erkent het boek zijn eigen grens. Waar Epstein tegen waarschuwt is het
+overplaatsen van lessen uit schaken en golf naar vakgebieden die niet aan
+diezelfde voorwaarden voldoen.
+
+**Late starters en overstappers**
+
+Een groot deel van het boek gaat over mensen die laat beginnen of vaak
+wisselen. Van Gogh probeerde een loopbaan als kunsthandelaar, als leraar en
+als evangelist voordat hij op zijn zevenentwintigste ging schilderen, en had
+nog geen tien jaar te leven toen hij eraan begon. Epstein zet dat naast
+onderzoek van de econoom Ofer Malamud, die Schotse studenten, die pas laat een
+hoofdvak kiezen, vergeleek met Engelse studenten, die er al op hun zeventiende
+een moeten kiezen: de Schotten stapten na hun studie minder vaak over naar een
+heel ander vakgebied dan de Engelsen, ook al hadden zij meer tijd gehad om te
+proeven.
+
+Epstein noemt dat brede zoeken naar wat iemand werkelijk past 'match quality',
+en stelt dat een tijdelijk verlies aan voorsprong door laat te beginnen op de
+lange termijn wordt goedgemaakt doordat mensen sneller op het werk uitkomen
+dat echt bij hen past.
+
+**Kennis die niet vastzit aan één vak**
+
+Epstein bespreekt de studie van de scheikundige Robert Root-Bernstein en zijn
+vrouw Michele, waaruit blijkt dat Nobelprijswinnaars in de natuurwetenschappen
+veel vaker dan gemiddelde wetenschappers een serieuze artistieke hobby hebben,
+zoals schilderen, musiceren of schrijven. Zijn verklaring is dat een tweede
+domein iemand dwingt om abstracter te denken over de eigen vakkennis, waardoor
+die kennis makkelijker op nieuwe situaties is over te dragen.
+
+Hetzelfde patroon ziet hij bij de Japanse uitvinder Gunpei Yokoi, die bij
+Nintendo met eenvoudige, verouderde onderdelen speelgoed bouwde in plaats van
+met de nieuwste techniek, en zo tot ontwerpen kwam, waaronder de voorloper van
+de Game Boy, die specialisten met de nieuwste chips niet bedachten omdat zij
+binnen de grenzen van hun eigen vakgebied bleven denken.
+
+**Wanneer specialisten falen**
+
+In het laatste deel van het boek onderzoekt Epstein waarom groepen
+specialisten soms grote fouten maken die een buitenstaander had kunnen zien
+aankomen. Hij bespreekt de analyse van socioloog Diane Vaughan van de rampen
+met de spaceshuttles Challenger in 1986 en Columbia in 2003, waarin ingenieurs
+bij NASA risico's die buiten hun eigen smalle vakgebied lagen, keer op keer
+wegredeneerden totdat afwijkend gedrag de norm werd.
+
+Zijn conclusie is dat specialistische kennis nodig blijft voor het oplossen
+van goed afgebakende problemen, maar dat het herkennen van een probleem dat de
+grenzen van een vakgebied overschrijdt, juist iemand vraagt die in meerdere
+vakgebieden thuis is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Gestileerde leeromgeving | Hogarts term voor een domein met vaste regels en snelle, eenduidige feedback, zoals schaken of golf, waarin vroege specialisatie werkt. |
+| Onvoorspelbare leeromgeving | Een domein waarin signalen misleidend zijn en feedback vertraagd of onvolledig komt, waardoor brede ervaring meer oplevert dan specialisatie. |
+| Tienduizend-uurregel | De door Anders Ericsson onderbouwde en door Malcolm Gladwell gepopulariseerde stelling dat uitmuntendheid vooral een kwestie is van voldoende geoefende uren. |
+| Match quality | Malamuds term voor hoe goed iemands vaardigheden en interesses aansluiten bij het werk dat hij doet, iets wat volgens Epstein pas na proberen goed te bepalen is. |
+| Overdraagbare kennis | Epsteins term voor kennis die zo abstract geleerd is dat zij op nieuwe, ongelijksoortige problemen kan worden toegepast. |
+| Zijdelings denken met verouderde techniek | Gunpei Yokoi's ontwerpprincipe om met eenvoudige, goed begrepen onderdelen tot ongebruikelijke oplossingen te komen. |
+| Deliberate amateurs | Epsteins term voor mensen die bewust buiten hun kernvak blijven experimenteren in plaats van zich volledig op één specialisme te storten. |
+| Normalisering van afwijking | Diane Vaughans term voor het proces waarin een organisatie een risico dat eerder onacceptabel was, stap voor stap als normaal gaat behandelen. |
+
+#### Waar het argument op rust
+
+Epstein is onderzoeksjournalist, niet wetenschapper, en het boek bouwt op
+tientallen losse onderzoeken en interviews die hij aan elkaar rijgt tot één
+doorlopend argument. Een deel van die onderbouwing is stevig: Ofer Malamuds
+onderzoek naar Schotse en Engelse studenten is gepubliceerd, getoetst
+economisch onderzoek, en het onderscheid van Robin Hogarth tussen gestileerde
+en onvoorspelbare leeromgevingen bouwt voort op decennia onderzoek naar
+oordeelsvorming onder onzekerheid.
+
+Andere onderdelen zijn illustratiever van aard. De studie van Root-Bernstein
+naar hobby's van Nobelprijswinnaars toont een samenhang, geen bewezen
+oorzakelijk verband, en Epstein erkent dat zelf niet altijd even scherp. Losse
+gevallen zoals Van Gogh en Gunpei Yokoi zijn aansprekend maar bewijzen op
+zichzelf niets; hun waarde in het boek is illustratief, gekozen om het
+onderliggende, wel onderbouwde patroon invoelbaar te maken.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek als reactie op de tienduizend-uurregel en
+op boeken als Duckworths *Grit* soms zelf even eenzijdig wordt als waar het
+tegenin gaat. Waar vroege specialisten worden genoemd, worden vooral de
+negatieve gevallen uitgelicht, en de vakgebieden waarin vroege, diepe
+specialisatie wel degelijk tot uitmuntendheid leidt, zoals bepaalde takken van
+topsport en instrumentale muziek, komen er in het boek zelf mager van af
+buiten het korte hoofdstuk over de zussen Polgár.
+
+Het onderscheid tussen gestileerde en onvoorspelbare domeinen is bovendien
+minder scherp dan het boek suggereert. De meeste beroepen zitten ergens tussen
+de twee categorieën in, en het boek geeft weinig houvast om in een concreet
+geval te bepalen hoeveel specialisatie wel en hoeveel niet loont.
+
+Het boek steunt verder op een selectie van succesverhalen. Er is geen telling
+van hoeveel mensen laat wisselden en daardoor juist nergens goed genoeg in
+werden om aan de slag te komen; die mensen komen in een boek over generalisten
+die het uiteindelijk goed deden per definitie niet voor.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij het kiezen van een studie of vak eerst of het om een gestileerd of
+een onvoorspelbaar domein gaat, voordat je vroege specialisatie als
+vanzelfsprekend goed beschouwt.
+- Bouw bewust een tweede interesse op naast het hoofdvak, niet als ontspanning
+maar als bron van vergelijkingen die binnen het hoofdvak niet vanzelf opkomen.
+- Behandel een omweg of overstap niet als tijdverlies maar als informatie over
+match quality, en weeg die net zo zwaar als de tijd die de omweg kost.
+- Ga bij een groep specialisten na wie de aangewezen persoon is om een risico
+te signaleren dat buiten ieders eigen vakgebied valt, en organiseer daar
+expliciet ruimte voor.
+
+#### Wat je hierna leest
+
+- 274. Outliers. Gladwell introduceerde de tienduizend-uurregel die Epstein in
+dit boek juist wil nuanceren en begrenzen tot gestileerde domeinen.
+- 29. Grit. Duckworth pleit voor volgehouden, gerichte inzet op één doel, de
+tegenpool van de brede omzwervingen die Epstein aanbeveelt.
+- 296. Get Better at Anything. Young werkt de leerwetenschap achter
+vaardigheden verder uit, met meer aandacht voor hoe er geoefend wordt dan voor
+de vraag wat je zou moeten leren.
+
+## 350. Ready, Fire, Aim
+
+Michael Masterson, 2007. Ondertitel *Zero to $100 Million in No Time Flat*
+(John Wiley & Sons, 2007, later herdrukt in de Agora-reeks). "Michael
+Masterson" is het pseudoniem waaronder ondernemer Mark Ford zijn zakelijke
+boeken publiceert. Geen Nederlandse vertaling. Rubriek: geld en ondernemen.
+Tags: `ondernemerschap`, `schaalvergroting`, `verkoop`, `marketing`,
+`management`, `direct response`, `bedrijfsgroei`
+
+Masterson, achter wiens naam de ondernemer Mark Ford schuilgaat, stelt dat een
+bedrijf van nul naar honderd miljoen dollar omzet vier fasen doorloopt, en dat
+elke fase een ander soort leider nodig heeft. In de eerste fase draait alles
+om de eerste verkoop, in de laatste fase moet de oprichter juist leren zich
+terug te trekken. Wie in fase twee nog doet wat in fase een werkte, remt zijn
+eigen bedrijf af.
+
+De titel verwijst naar zijn kernadvies: een product op de markt brengen
+voordat het af is, en het daarna bijstellen op basis van wat kopers echt doen.
+Masterson bouwde dertig jaar lang bedrijven binnen uitgeverijconcern Agora en
+schrijft vanuit die ervaring, zonder onderzoek erbij te halen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Masterson stelt dat ondernemers zichzelf in de weg zitten
+door te lang te wachten met verkopen: wie een product eerst perfect wil maken,
+verliest de tijd en het geld die nodig zijn om erachter te komen of iemand het
+wil kopen. Zijn advies is om vroeg te verkopen en het product te laten groeien
+op basis van wat kopers doen, niet op basis van wat de maker vermoedt. Dat
+principe is volgens hem maar de helft van het verhaal, want een bedrijf dat
+van nul naar honderd miljoen dollar omzet groeit, doorloopt vier fasen die elk
+een ander soort werk en een ander soort leider vragen. De vaardigheden die een
+fase-1-bedrijf redden, zijn precies de vaardigheden die een fase-3-bedrijf
+laten vastlopen.
+
+#### De gang van het boek
+
+**Herkomst: een weekend met ondernemers**
+
+Het boek is ontstaan uit een retraite die Masterson organiseerde voor een
+groep ondernemers die allemaal ergens tussen de opstartfase en de honderd
+miljoen dollar omzet zaten. Hij merkte dat hun problemen niet toevallig waren,
+maar hoorden bij de omvang van hun bedrijf, en dat oplossingen die in de ene
+fase werkten in de andere fase averechts uitpakten.
+
+Masterson zelf werkte sinds 1993 als groeistrateeg voor uitgeverijconcern
+Agora, dat nieuwsbrieven en boeken verkoopt over geld, gezondheid en
+zelfontplooiing via directe marketing. Zijn advies komt uit die praktijk:
+tientallen producten die hij zelf lanceerde, verkocht en weer aanpaste.
+
+**Ready, fire, aim tegenover ready, aim, fire**
+
+De gangbare volgorde is eerst mikken en dan pas schieten: een product
+uitdenken, testen, verbeteren, en pas dan verkopen. Masterson keert die
+volgorde om. Zijn advies is om een product te lanceren zodra het bruikbaar is,
+ook als het nog niet af is, en de verbetering te laten sturen door wat kopers
+daadwerkelijk doen in plaats van door wat de maker aanneemt dat zij willen.
+
+Zijn argument is dat de markt sneller en eerlijker antwoord geeft dan een
+testpanel of een marktonderzoek. Een product dat niet verkoopt, wordt niet
+gered door het te verfijnen; het wordt gered door het weg te doen en iets
+anders te proberen. Wie eerst probeert alles kloppend te krijgen, verliest de
+tijd waarin hij dat had kunnen ontdekken.
+
+**Fase 1, de kinderjaren: van nul naar een miljoen**
+
+In de eerste fase is er volgens Masterson maar één taak die telt: iets
+verkopen, en wel tegen lagere kosten dan de opbrengst. Hij noemt dit de
+Optimal Selling Strategy: wie is de koper, welk product past bij hem, welke
+prijs is haalbaar en welke boodschap overtuigt. Alles wat niet direct
+bijdraagt aan die eerste verkoop, zoals kantoormeubilair of een uitgewerkt
+bedrijfsplan, mag wachten.
+
+De vaardigheden die hier tellen zijn verkoop en copywriting: teksten die
+overtuigen, getest en bijgesteld op basis van de resultaten. Een oprichter die
+deze fase overslaat door eerst te investeren in productie of personeel, bouwt
+volgens Masterson een bedrijf op een fundament dat nooit is getest.
+
+**Fase 2, de snelle groei: van een naar tien miljoen**
+
+Zodra het eerste product verkoopt, verschuift de opgave naar uitbreiding.
+Masterson beschrijft dit als de overgang van één product naar een lijn van
+producten, en introduceert de Magic Product Cube: een raster waarmee een
+ondernemer nieuwe aanbiedingen bedenkt door het type product, de prijs en het
+bijbehorende serviceniveau te variëren rond wat al werkt.
+
+Snelheid blijft de norm. Masterson raadt aan om een nieuw productvoorstel
+binnen een dag uit te werken, in de markt te zetten en aan de verkoopcijfers
+te laten zien of het iets wordt. Wie in deze fase weken besteedt aan
+besluitvorming, verliest het tempo dat de groei draagt.
+
+**Fase 3, de puberteit: van tien naar honderd miljoen**
+
+In deze fase, schrijft Masterson, keert de chaos die in fase 1 nog een kracht
+was zich tegen het bedrijf. Er zijn te veel producten, te veel mensen en te
+weinig structuur, en de oprichter die alles zelf bleef beslissen wordt de
+bottleneck. De oplossing is een organisatie bouwen: afdelingen met een
+duidelijke taak, elk met een klein aantal cijfers waarop maandelijks wordt
+afgerekend, en managers die verantwoordelijkheid dragen in plaats van alleen
+uitvoeren.
+
+Hier verschuift ook het soort personeel dat nodig is. Masterson pleit voor het
+aantrekken van mensen met eigen ondernemersdrang, die zelf nieuwe ideeën
+aandragen, ook al betekent dat dat een deel van hen na verloop van tijd zelf
+vertrekt om iets eigens te beginnen.
+
+**Fase 4, de volwassenheid: voorbij de honderd miljoen**
+
+Bij honderd miljoen dollar omzet vlakt de groei vanzelf af, en Masterson stelt
+dat de oprichter dan een nieuwe rol moet vinden. Hij beschrijft dit als het
+overdragen van de dagelijkse leiding aan de mensen die in fase 3 zijn
+opgeleid, en het aannemen van een positie als adviseur of investeerder die
+alleen ingrijpt wanneer de kernprincipes van het bedrijf in het geding zijn.
+
+Voor sommige oprichters betekent dit een fusie, een overname of de verkoop van
+het bedrijf. Masterson behandelt dat niet als falen maar als een logische
+afsluiting van een traject waarin de oorspronkelijke taak, verkopen, allang is
+overgenomen door anderen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ready, fire, aim | Eerst lanceren, dan bijstellen op basis van wat de markt doet, in plaats van eerst perfectioneren en dan pas verkopen. |
+| Optimal Selling Strategy | Het raamwerk uit fase 1 waarmee koper, product, prijs en boodschap op elkaar worden afgestemd voor de eerste winstgevende verkoop. |
+| Magic Product Cube | Een raster van type, prijs en service waarmee in fase 2 nieuwe producten worden afgeleid van wat al verkoopt. |
+| De vier fasen | Kinderjaren ($0-1 miljoen), snelle groei ($1-10 miljoen), puberteit ($10-100 miljoen) en volwassenheid ($100 miljoen en hoger), elk met een ander soort werk. |
+| Copywriting | Het schrijven van verkooptekst die direct getest en bijgesteld wordt op basis van respons; de kernvaardigheid van fase 1. |
+| Split-testen | Twee versies van een aanbieding tegelijk uitproberen om aan de verkoopcijfers te zien welke werkt. |
+| Bottleneck-oprichter | De oprichter die in fase 3 zelf de vertraging wordt doordat elke beslissing nog via hem loopt. |
+
+#### Waar het argument op rust
+
+Het boek levert geen onderzoek. Masterson beroept zich op dertig jaar eigen
+ervaring met het opzetten en laten groeien van bedrijven binnen Agora, en op
+de vraagstukken die hij tegenkwam bij de ondernemers op zijn retraite. Er zijn
+geen cijfers over hoeveel bedrijven zijn aanpak volgden en hoeveel daarvan
+slaagden, en er is geen vergelijking met bedrijven die een andere weg kozen.
+
+De kracht van het boek zit in de herkenbaarheid van de vier fasen voor wie een
+bedrijf heeft laten groeien, en in de concrete, direct toepasbare vorm van de
+adviezen. Dat is iets anders dan een aangetoonde oorzaak-gevolgrelatie tussen
+de methode en het resultaat.
+
+#### Wat er tegen in te brengen valt
+
+Het advies is vooral beproefd in één soort bedrijf: directe verkoop van
+informatieproducten via reclame en nieuwsbrieven, het domein van Agora. Of
+dezelfde fasering en dezelfde nadruk op verkoop vóór product ook werkt in
+productiebedrijven, softwarebedrijven met lange verkoopcycli of gereguleerde
+sectoren, laat het boek in het midden.
+
+Zwaarder weegt wat er van diezelfde marketingfilosofie is terechtgekomen bij
+Agora zelf. De Amerikaanse Federal Trade Commission klaagde in 2019
+verschillende Agora-onderdelen aan wegens misleidende reclame die vooral op
+ouderen was gericht, met beweringen over een niet-bestaand middel tegen
+diabetes en een verzonnen overheidsuitkering; de zaak eindigde in 2021 met een
+schikking en de terugbetaling van meer dan twee miljoen dollar aan bijna
+35.000 klanten. Dat toont niet aan dat het boek tot fraude aanzet, maar wel
+dat dezelfde nadruk op snel verkopen en achteraf bijstellen, zonder even
+sterke nadruk op de waarheid van de claim, bij hetzelfde bedrijf tot
+aantoonbare schade heeft geleid.
+
+Recensenten noemen daarnaast delen van het boek voor de hand liggend, vooral
+de latere fasen over management en organisatiestructuur, die weinig toevoegen
+aan bestaande managementliteratuur.
+
+#### Wat er concreet mee te doen is
+
+- Bepaal in welke van de vier fasen je bedrijf zit en welke vaardigheid die
+fase vraagt, in plaats van vast te houden aan wat in de vorige fase werkte.
+- Werk een nieuw productidee binnen een dag uit tot een verkoopbare versie in
+plaats van weken te besteden aan verfijning voordat er een koper naar heeft
+gekeken.
+- Stel per afdeling een klein aantal cijfers vast waarop maandelijks wordt
+afgerekend, zodra het bedrijf te groot wordt voor overzicht door één persoon.
+- Ga na welke beslissingen nog altijd via jou lopen, en welke daarvan bij
+iemand anders horen te liggen.
+
+#### Wat je hierna leest
+
+- 307. $100M Offers. Hormozi werkt dezelfde nadruk op snel en agressief
+verkopen uit voor het aanbod zelf, in een latere en explicieter onderbouwde
+vorm.
+- 265. The Lean Startup. Ries beschrijft een verwante volgorde van lanceren en
+leren, maar bouwt die uit tot een systematische methode met meetbare aannames.
+- 47. The Hard Thing About Hard Things. Horowitz behandelt dezelfde overgang
+van opstartend bedrijf naar organisatie, vanuit de tegenslagen die daarbij
+horen.
+
+## 351. The Intelligent Investor
+
+Benjamin Graham, 1949. Oorspronkelijk bij Harper & Brothers (1949), door
+Graham zelf herzien tot en met de vierde editie (1973). De editie waarop deze
+samenvatting zich baseert is de herziene uitgave met commentaar bij elk
+hoofdstuk van Jason Zweig en een voorwoord van Warren Buffett (HarperBusiness,
+2003), die Grahams tekst uit 1973 ongewijzigd laat. Nederlands als *De
+intelligente belegger* bij Atlas Contact/Business Contact, met dezelfde
+combinatie van Buffetts voorwoord, een inleiding van John C. Bogle en Zweigs
+commentaar. Rubriek: geld en ondernemen.
+Tags: `beleggen`, `waardebeleggen`, `risico`, `geduld`, `Wall Street`,
+`klassieker`, `financiële markten`
+
+Graham onderscheidt beleggen van speculeren: beleggen is een handeling die, na
+grondige analyse, veiligheid van de inleg en een redelijk rendement belooft,
+en al het andere is speculatie. Zijn bekendste beelden zijn Mr. Market, de
+zakenpartner die elke dag een andere stemming heeft en een prijs biedt die je
+vrij bent te negeren, en de margin of safety, de marge tussen wat je betaalt
+en wat een bedrijf werkelijk waard is.
+
+Het boek onderscheidt de defensieve belegger, die met weinig tijd en een
+eenvoudige, gespreide aanpak volstaat, van de ondernemende belegger, die met
+meer tijd en analyse net iets meer rendement kan zoeken. Warren Buffett,
+Grahams student en later medewerker, noemt het het beste boek over beleggen
+dat ooit is geschreven, en wijst vooral naar de hoofdstukken over Mr. Market
+en de margin of safety.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Graham stelt dat de grootste vijand van de belegger niet de
+markt is maar zichzelf: wie zijn oordeel laat meeslepen door de stemming van
+de markt, koopt duur uit hebzucht en verkoopt goedkoop uit angst. Zijn
+oplossing is tweeledig. Ten eerste een scherpe scheiding tussen beleggen, wat
+rust op grondige analyse en een redelijke zekerheid van behoud van de inleg,
+en speculeren, wat op koersverwachting drijft. Ten tweede een marge tussen
+prijs en waarde die groot genoeg is om vergissingen en tegenslag te overleven,
+de margin of safety. Wie dat aanhoudt, hoeft de markt niet te voorspellen; de
+discipline om er niet aan mee te doen is volgens Graham belangrijker dan
+intelligentie.
+
+#### De gang van het boek
+
+**Een boek dat met de belegger zelf meegroeide**
+
+Graham publiceerde de eerste editie in 1949, na een carrière waarin hij aan de
+Columbia Universiteit doceerde en met zijn fonds Graham-Newman Corporation
+zelf belegde. Hij herzag het boek daarna meerdere keren, tot en met de vierde
+editie in 1973, telkens met nieuwe cijfers over de markt van dat moment maar
+met dezelfde kernprincipes.
+
+Warren Buffett volgde Grahams colleges aan Columbia en werkte na zijn
+afstuderen enkele jaren bij Graham-Newman. Voor de vierde editie schreef hij
+een voorwoord waarin hij het boek het beste boek over beleggen noemt dat ooit
+is geschreven, en waarin hij twee hoofdstukken aanwijst, acht en twintig, als
+de basis van zijn eigen werk. De editie van 2003 voegt bij elk hoofdstuk
+commentaar toe van financieel journalist Jason Zweig, die Grahams voorbeelden
+naast de markt van zijn eigen tijd legt zonder de oorspronkelijke tekst te
+wijzigen.
+
+**Investeren tegenover speculeren**
+
+Het eerste hoofdstuk trekt de grens die door het hele boek loopt. Een
+beleggingshandeling is er een die, na grondige analyse, veiligheid van de
+hoofdsom en een bevredigend rendement belooft; wat niet aan die eisen voldoet,
+is speculatie. Graham veroordeelt speculeren niet, maar wil dat een belegger
+weet welke van de twee hij bedrijft, want wie speculeert terwijl hij denkt te
+beleggen, neemt risico's zonder dat te beseffen.
+
+Die scheiding is niet gebaseerd op het soort effect, aandeel of obligatie,
+maar op de manier van omgaan ermee. Een aandeel kopen na grondig onderzoek van
+de onderliggende onderneming is beleggen; hetzelfde aandeel kopen omdat de
+koers stijgt, is speculeren, ook al is het exact hetzelfde stuk papier.
+
+**Mr. Market**
+
+In hoofdstuk acht introduceert Graham zijn bekendste beeld: een zakenpartner,
+Mr. Market, die elke dag langskomt met een prijs waartegen hij jouw aandeel
+wil kopen of het zijne wil verkopen. Sommige dagen is hij euforisch en biedt
+hij te veel, andere dagen is hij wanhopig en biedt hij te weinig. Hij is er om
+gebruikt te worden wanneer zijn bod voordelig is, en om genegeerd te worden
+wanneer dat niet zo is; hij is er niet om je te vertellen wat je aandeel waard
+is.
+
+Buffett noemt dit beeld het fundament van zijn eigen benadering: de dagelijkse
+koers is een aanbod, geen oordeel. Wie dat onderscheid loslaat en de markt
+gaat zien als een gezaghebbende bron van waarheid, wordt volgens Graham een
+speler in plaats van een belegger.
+
+**Margin of safety**
+
+Het laatste hoofdstuk, twintig, benoemt wat Graham het centrale concept van
+beleggen noemt: de marge tussen wat je betaalt en wat de onderneming volgens
+jouw analyse werkelijk waard is. Die marge is er niet om een vergissing te
+voorkomen, maar om er een te overleven; niemand schat waarde foutloos in, en
+de marge vangt op wat de schatting mist.
+
+Graham illustreert het principe met een brug die berekend is op dertigduizend
+kilo maar alleen wordt gebruikt door vrachtwagens van tienduizend kilo. De
+marge maakt het verschil tussen incidentele fouten en een blijvend verlies, en
+is voor Graham de reden dat een belegger de toekomst niet hoeft te voorspellen
+om verstandig te handelen.
+
+**De defensieve en de ondernemende belegger**
+
+Graham splitst zijn lezers in twee types, niet naar rijkdom of intelligentie
+maar naar de tijd en energie die iemand aan zijn portefeuille wil besteden. De
+defensieve belegger wil geen tijd kwijt zijn aan het volgen van individuele
+aandelen en houdt zich aan een eenvoudige, gespreide verdeling tussen aandelen
+en obligaties, met vaste regels voor wanneer hij die aanpast.
+
+De ondernemende belegger is bereid tijd te steken in het analyseren van
+individuele ondernemingen, en kan daarmee volgens Graham een net iets hoger
+rendement behalen, maar alleen als die tijd ook echt grondig wordt besteed.
+Halfslachtig ondernemend beleggen, waarschuwt hij, levert een slechter
+resultaat op dan volledig defensief beleggen, omdat het de discipline van de
+eenvoudige aanpak mist zonder de diepgang van de grondige aanpak te bereiken.
+
+**Concrete maatstaven en hun grenzen**
+
+Voor beide types geeft Graham cijfermatige regels: een grens aan de
+koers-winstverhouding, een grens aan de koers ten opzichte van de boekwaarde,
+en voor de ondernemende belegger het zoeken naar aandelen die onder hun netto
+werkkapitaal noteren, wat hij net-net stocks noemt. In hoofdstuk twee
+behandelt hij inflatie als een risico dat obligaties net zo hard kan raken als
+aandelen, tegen de gangbare aanname van zijn tijd in dat obligaties de veilige
+keuze waren.
+
+Deze regels zijn afgeleid uit decennia beursgegevens tot 1972 en waren op het
+moment van schrijven met enige regelmaat toepasbaar. Zweigs commentaar wijst
+er telkens op dat de precieze grenzen in een efficiëntere en drukker bezochte
+markt nauwelijks nog haalbaar zijn; wat blijft staan is het onderliggende
+principe, niet de exacte getallen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Investeren | Een handeling die, na grondige analyse, veiligheid van de inleg en een redelijk rendement belooft. |
+| Speculeren | Alles wat niet aan de eisen van investeren voldoet, vaak gedreven door verwachtingen over de koers zelf. |
+| Mr. Market | Het beeld van een zakenpartner met wisselende stemmingen die elke dag een prijs biedt die je vrij bent te negeren. |
+| Margin of safety | De marge tussen prijs en geschatte waarde die vergissingen en tegenslag moet opvangen; voor Graham het centrale beginsel. |
+| Defensieve belegger | Wie weinig tijd aan zijn portefeuille wil besteden en zich houdt aan een eenvoudige, gespreide verdeling. |
+| Ondernemende belegger | Wie tijd steekt in het grondig analyseren van individuele ondernemingen om net iets meer rendement te zoeken. |
+| Net-net stocks | Aandelen die op de beurs minder kosten dan het netto werkkapitaal van de onderneming, Grahams voorbeeld van een grote marge. |
+| Intrinsieke waarde | De waarde van een onderneming zoals die volgt uit haar bezittingen, winsten en vooruitzichten, los van de dagkoers. |
+
+#### Waar het argument op rust
+
+Grahams onderbouwing rust op twee benen. Het ene is empirisch: hij beheerde
+met Graham-Newman Corporation decennialang zelf een fonds volgens deze
+principes en toetste zijn regels aan koersgegevens over lange perioden, tot in
+de vierde editie aangevuld met cijfers tot 1972. Het andere been is
+redenerend: de margin of safety en het onderscheid tussen investeren en
+speculeren zijn geen empirische bevindingen maar een manier van denken over
+risico, die niet met een steekproef te bewijzen of te weerleggen is.
+
+Zijn eigen fonds leverde over lange termijn een bovengemiddeld rendement op,
+mede dankzij één grote uitzondering op zijn eigen regel van spreiding: een
+langdurig belang in GEICO, dat een klein deel van zijn portefeuille tot een
+veelvoud van de rest liet uitgroeien. Buffett noemt dat geval vaker als bewijs
+dat zelfs Graham zijn eigen principes soms liet varen wanneer de kans
+overtuigend genoeg was.
+
+Onafhankelijk van Graham hebben latere onderzoekers, onder wie zijn eigen
+studenten, de prestaties van aandelen met een lage koers-winstverhouding en
+een lage koers-boekwaardeverhouding over lange periodes gemeten en een
+voordeel gevonden ten opzichte van de bredere markt, wat als steun voor het
+waardebeleggen wordt gezien. Dat voordeel is niet in elke periode en op elke
+markt teruggevonden.
+
+#### Wat er tegen in te brengen valt
+
+De cijfermatige regels van het boek zijn geschreven voor een markt van vóór
+1973, met minder professionele analisten, minder computers en minder
+concurrentie om koopjes. Aandelen die ruim onder hun netto werkkapitaal
+noteren, Grahams favoriete voorbeeld van een grote marge, zijn in de
+hedendaagse markt zeldzaam geworden; wie Grahams getallen letterlijk toepast,
+vindt vandaag nauwelijks nog kandidaten.
+
+Het boek veronderstelt bovendien dat de ondernemende belegger de tijd, de
+vaardigheid en het temperament heeft om jaarrekeningen grondig te doorgronden.
+Voor de meeste lezers die zichzelf als ondernemend beschouwen, is dat volgens
+critici als indexfondsenpionier John Bogle, die de Nederlandse editie inleidt,
+een overschatting; zij zouden met de eenvoudige, gespreide aanpak van de
+defensieve belegger beter af zijn dan met een half uitgevoerde analyse.
+
+Waardebeleggen zoals Graham het beschrijft heeft daarnaast lange periodes
+gekend waarin het duidelijk achterbleef bij de bredere markt en vooral bij
+groeiaandelen, onder meer het decennium na 2010. Voorstanders van de methode
+wijzen erop dat het onderliggende principe, een marge tussen prijs en waarde
+aanhouden, iets anders is dan de specifieke screening op lage
+koers-winstverhoudingen, en dat het eerste overeind blijft ook als het tweede
+tijdelijk niet werkt. Critici antwoorden dat een principe dat niet vertelt
+wanneer het wel en niet zal renderen, moeilijk te toetsen is.
+
+#### Wat er concreet mee te doen is
+
+- Leg voor elke aankoop vast of die op grondige analyse rust of op een
+verwachting over de koers, en wees eerlijk over welke van de twee het is.
+- Bepaal vooraf hoeveel tijd je werkelijk aan je portefeuille wilt besteden,
+en kies daarmee bewust tussen de defensieve en de ondernemende aanpak in
+plaats van een tussenweg.
+- Reageer op een koersbeweging door te vragen wat er met de onderneming zelf
+is gebeurd, niet door de koers zelf als informatie te behandelen.
+- Lees vooral de hoofdstukken acht en twintig eerst; Buffett noemt die twee
+als de kern, de rest is uitwerking.
+
+#### Wat je hierna leest
+
+- 144. Margin of Safety. Klarman werkt Grahams marge tussen prijs en waarde
+uit voor de beleggingspraktijk van decennia later, met dezelfde nadruk op
+discipline.
+- 21. The Psychology of Money. Housel plaatst tegenover Grahams rekenkundige
+benadering de rol van gedrag en toeval bij geldzaken.
+- 268. The Black Swan. Taleb onderzoekt vanuit een andere hoek dezelfde vraag
+die aan de margin of safety ten grondslag ligt: hoe om te gaan met wat je niet
+kunt voorzien.
+
+## 353. Good to Great
+
+Jim Collins, 2001. Ondertitel *Why Some Companies Make the Leap...and Others
+Don't*, oorspronkelijk bij HarperBusiness (New York, 2001, ISBN
+9780066620992). Nederlands als *Good to great: waarom sommige bedrijven een
+sprong vooruit maken... en andere niet*, vertaald door Ypie Veenstra, sinds de
+heruitgave bij Atlas Contact (Business Contact-reeks, ISBN 9789047093848).
+Rubriek: geld en ondernemen.
+Tags: `management`, `leiderschap`, `bedrijfsonderzoek`, `strategie`,
+`beursrendement`, `organisatiecultuur`
+
+Jim Collins en een team van twintig onderzoekers doorzochten de Fortune 500
+van 1965 tot 1995 op een vast patroon: vijftien jaar lang gemiddelde of matige
+beursresultaten, gevolgd door een omslagpunt en daarna vijftien jaar waarin
+het aandeel het gemiddelde van de markt met minstens een factor drie versloeg.
+Elf bedrijven voldeden aan die eis, van Kimberly-Clark tot Walgreens. Collins
+legde ze naast bedrijven uit dezelfde bedrijfstak die de sprong niet maakten,
+en zocht wat de elf gemeen hadden dat de rest miste.
+
+Zijn antwoord bestaat uit een reeks concepten die na dit boek gemeengoed
+werden in managementtaal: niveau 5-leiderschap, het egelconcept, het
+vliegwiel. Een deel van de elf bedrijven kwam later zwaar in het nieuws,
+waaronder Circuit City dat failliet ging en Fannie Mae dat in de kredietcrisis
+onder curatele kwam, wat sindsdien de vraag oproept hoeveel van Collins'
+verklaring standhoudt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Collins stelt dat het verschil tussen een goed en een
+geweldig bedrijf niet zit in de bedrijfstak, de technologie of het toeval,
+maar in een herkenbaar patroon van leiderschap en discipline dat elk van de
+elf onderzochte bedrijven vertoonde en de vergelijkingsbedrijven misten. De
+kern van dat patroon is een leider die persoonlijke bescheidenheid combineert
+met een onwrikbare wil om het bedrijf te laten slagen, die eerst de juiste
+mensen aanstelt en pas daarna een richting kiest, en die het bedrijf laat
+draaien om één helder, onderbouwd idee in plaats van om een reeks programma's.
+Grootsheid is in die lezing geen kwestie van omstandigheden maar van bewuste
+keuze en vasthoudendheid, een claim die zwaarder weegt nu een aantal van de
+elf bedrijven na de publicatie zelf onderuitging.
+
+#### De gang van het boek
+
+**De methode: van 1.435 naar elf**
+
+Collins begon niet met een theorie maar met een zeef. Zijn team doorzocht alle
+bedrijven die tussen 1965 en 1995 in de Fortune 500 stonden, 1.435 in getal,
+op zoek naar een specifiek koersverloop: vijftien jaar cumulatief rendement op
+of onder het marktgemiddelde, dan een omslagpunt, dan vijftien jaar waarin het
+cumulatieve rendement het marktgemiddelde met ten minste een factor drie
+oversteeg en dat bleef doen. Elf bedrijven haalden die lat: Abbott
+Laboratories, Circuit City, Fannie Mae, Gillette, Kimberly-Clark, Kroger,
+Nucor, Philip Morris, Pitney Bowes, Walgreens en Wells Fargo.
+
+Voor elk van de elf zocht het team een vergelijkingsbedrijf uit dezelfde
+bedrijfstak, met vergelijkbare middelen op het omslagpunt, dat de sprong niet
+maakte, zoals Upjohn naast Abbott en Silo naast Circuit City. Een derde groep,
+bedrijven met een korte piek die niet standhield, diende om te toetsen of
+gevonden factoren ook duurzaamheid verklaarden. Zes jaar lang las het team
+jaarverslagen, artikelen en interviews over alle betrokken bedrijven vanaf
+1965 en clusterde pas achteraf wat de elf gemeen hadden.
+
+**Niveau 5-leiderschap**
+
+De eerste bevinding verraste het team zelf: aan het hoofd van elk van de elf
+bedrijven stond op het omslagpunt een bestuurder die naar buiten toe weinig
+opviel. Collins noemt dat niveau 5-leiderschap, de top van een hiërarchie die
+begint bij de bekwame medewerker en oploopt via de teamspeler en de goede
+manager naar de leider met een heldere visie. Niveau 5 voegt daar een
+paradoxale combinatie aan toe: persoonlijke bescheidenheid samen met een vaste
+wil om het bedrijf te laten slagen, ook als dat een impopulair besluit vergt.
+
+Zijn voorbeeld is Darwin Smith van Kimberly-Clark, die de papierfabrieken
+verkocht om vol in te zetten op consumentenmerken, tegen het advies van
+analisten in, weinig interviews gaf en zijn opvolging jarenlang voorbereidde.
+Tegenover die stille bestuurders zet Collins de bekende, charismatische topman
+die in de vergelijkingsbedrijven vaker aan het roer stond en zijn eigen naam
+sterker met het bedrijf verbond dan met de resultaten ervan.
+
+**Eerst wie, dan wat**
+
+De tweede bevinding gaat over volgorde. De onderzochte bestuurders begonnen
+niet met een strategie waar zij vervolgens mensen bij zochten, maar met het
+samenstellen van een leidinggevend team dat zij vertrouwden, waarna pas de
+vraag volgde welke richting het bedrijf op moest. Collins vat dat samen als
+eerst wie, dan wat: krijg de juiste mensen aan boord en de verkeerde eraf, en
+bepaal daarna de route.
+
+De redenering daarachter is dat een team van de juiste mensen zich vanzelf
+aanpast als de markt verandert, terwijl een team rond één plan vastloopt zodra
+dat plan achterhaald raakt. Beloning speelde een kleinere rol dan verwacht: de
+bestuurders zochten mensen die om het werk zelf gedreven waren, niet om de
+vergoeding ervoor.
+
+**De harde feiten onder ogen zien**
+
+Collins beschrijft een derde patroon aan de hand van een gesprek met admiraal
+James Stockdale, acht jaar krijgsgevangene in Vietnam. Op de vraag wie het
+daar niet overleefde, antwoordde Stockdale: de optimisten, die telkens een
+nieuwe datum voor hun vrijlating verzonnen en aan elke teleurstelling
+kapotgingen. Wie het wel overleefde, hield twee dingen tegelijk vast: het
+vertrouwen dat het uiteindelijk goed zou komen, en de bereidheid om de feiten
+van het moment onder ogen te zien, hoe hard ook.
+
+Collins noemt dat de Stockdale-paradox en herkent hetzelfde patroon in
+bedrijven die ongemakkelijke informatie actief naar boven haalden in plaats
+van ze te laten wegzakken in een cultuur waarin niemand slecht nieuws wil
+brengen. Een klimaat waarin leiders zelf naar tegenspraak zoeken, is volgens
+hem de voorwaarde om die feiten te zien voordat ze een crisis worden.
+
+**Het egelconcept**
+
+De vierde bevinding leent Collins van Isaiah Berlins essay over de vos die
+veel dingen weet en de egel die één ding grondig weet. De onderzochte
+bedrijven kozen voor de egel: zij versimpelden hun strategie tot het snijpunt
+van drie vragen, waarin zij wereldklasse konden worden, wat hun economische
+motor het beste liet draaien, en waar zij zelf gedreven door waren. Alleen
+activiteiten die in alle drie de cirkels vielen, kregen investering; de rest
+werd afgestoten, ook als die winstgevend was.
+
+Walgreens koos zo voor het gemakkelijkst bereikbare, best gelegen
+apotheekfilaal per klant in plaats van groei in willekeurige richting, en
+verkocht daarvoor eerst zijn restaurantketen. Het egelconcept ontstond niet in
+één strategiesessie maar via jaren van vragen stellen, met gemiddeld vier jaar
+tussen het begin van dat proces en een helder antwoord.
+
+**Discipline en technologie als versneller**
+
+De vijfde en zesde bevinding raken aan hoe het egelconcept wordt uitgevoerd.
+Een cultuur van discipline betekent voor Collins dat gedisciplineerde mensen
+zelf binnen het egelconcept blijven zonder toezicht; bureaucratie ontstaat
+juist waar de verkeerde mensen discipline opgelegd moeten krijgen.
+
+Technologie speelt in zijn bevindingen een kleinere rol dan de reputatie van
+sommige bedrijven doet vermoeden: geen van de elf werd koploper door als
+eerste een nieuwe technologie in te voeren. Ze kozen zorgvuldig welke
+technologie hun egelconcept kon versnellen, terwijl vergelijkingsbedrijven
+vaak reageerden uit angst achterop te raken.
+
+**Het vliegwiel tegenover de ondergangsspiraal**
+
+De laatste bevinding beschrijft hoe de omslag voelde voor wie erin zat. Er was
+geen enkel moment van aankondiging, geen persmoment met een nieuw programma.
+In plaats daarvan duwden de bestuurders een zwaar vliegwiel keer op keer in
+dezelfde richting, elke duw klein op zichzelf, tot de opgebouwde snelheid het
+wiel vanzelf liet doordraaien. Van buitenaf leek dat pas achteraf een
+doorbraak; van binnenuit was het een optelsom van consistente keuzes.
+
+Vergelijkingsbedrijven deden vaker het tegenovergestelde: een overname, een
+reorganisatie, een nieuwe topman met een nieuw parool, telkens gevolgd door
+een korte uitschieter en dan een terugval, een patroon dat Collins de
+ondergangsspiraal noemt. Dat verschil loopt door zijn latere werk heen, tot in
+de monografie *Turning the Flywheel*, waarin hij het vliegwielconcept toepast
+op Amazon, dat hij in 2001 zelf adviseerde toen Jeff Bezos hem uitnodigde voor
+een gesprek met het bestuur.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Niveau 5-leiderschap | De top van een leiderschapshiërarchie, gekenmerkt door persoonlijke bescheidenheid gecombineerd met een onwrikbare wil om het bedrijf te laten slagen. |
+| Eerst wie, dan wat | Eerst de juiste mensen aanstellen en de verkeerde laten gaan, pas daarna de strategische richting bepalen. |
+| Stockdale-paradox | Tegelijk vasthouden aan het vertrouwen dat het goed komt en de hardste feiten van het moment onder ogen zien, genoemd naar admiraal James Stockdale. |
+| Egelconcept | Het snijpunt van drie cirkels: waarin je wereldklasse kunt worden, wat je economische motor drijft, waar je gedreven door bent. |
+| Cultuur van discipline | Een organisatie van zelfgedisciplineerde mensen die binnen het egelconcept blijven zonder dat hiërarchie hen dwingt. |
+| Technologie als versneller | Zorgvuldig gekozen technologie die een al bestaand egelconcept sneller laat draaien, in plaats van technologie die de richting zelf bepaalt. |
+| Het vliegwiel | Het beeld van consistente, kleine duwen in dezelfde richting die samen een omslag veroorzaken die van buitenaf plotseling lijkt. |
+| De ondergangsspiraal | Het patroon van steeds nieuwe programma's, elk gevolgd door een korte uitschieter en dan een terugval. |
+| Vergelijkingsbedrijven | De bedrijven uit dezelfde bedrijfstak die niet aan het gezochte koerspatroon voldeden en dienden als tegenvoorbeeld bij elk van de elf. |
+| Het omslagpunt | Het jaar waarop het cumulatieve beursrendement van een bedrijf definitief begon af te wijken van het marktgemiddelde. |
+
+#### Waar het argument op rust
+
+De selectie van de elf bedrijven is een objectief, herhaalbaar criterium: een
+vooraf vastgelegd koerspatroon, toegepast op de volledige Fortune 500 over
+dertig jaar, met een controlegroep van vergelijkbare bedrijven uit dezelfde
+bedrijfstak. Dat is meer dan de meeste managementboeken bieden, die met een
+handjevol succesverhalen beginnen zonder te laten zien hoeveel bedrijven er
+niet aan voldeden.
+
+Wat na die selectie volgt, is minder hard. De verklarende factoren, niveau
+5-leiderschap, het egelconcept, het vliegwiel, zijn geen vooraf getoetste
+hypothesen maar patronen die het team achteraf zag terugkeren in het
+bronmateriaal over de elf bedrijven. Dat is een kwalitatieve exercitie op elf
+gevallen, uitgevoerd door onderzoekers die op het moment van coderen al wisten
+welk bedrijf tot de winnaars behoorde.
+
+Collins noemt dat laatste punt zelf in de methodologische bijlage, maar met
+een steekproef van elf is er geen statistische toets mogelijk die aangeeft
+welke van de gevonden overeenkomsten toeval is en welke verklarend. De
+overtuigingskracht van het boek zit voor een groot deel in hoe de voorbeelden
+per bedrijf worden verteld, wat iets anders is dan aangetoond verband.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar kwam van de bedrijven zelf. Circuit City, geroemd om een
+rendement van 18,5 keer de markt, ging in 2008 failliet. Fannie Mae, opgevoerd
+als voorbeeld van financiële discipline, moest in 2008 onder curatele van de
+Amerikaanse overheid worden geplaatst nadat het bedrijf zwaar bijdroeg aan de
+kredietcrisis. Wells Fargo kwam in 2016 in opspraak wegens grootschalige
+fraude met nepbankrekeningen. Verscheidene van de elf bedrijven presteerden,
+gemeten vanaf de publicatie van het boek, jarenlang slechter dan de S&P 500
+waar het boek juist aanhoudende voorsprong voor beloofde.
+
+De econoom Phil Rosenzweig werkte die tegenslag in zijn boek *The Halo Effect*
+(2007) uit tot een methodologisch bezwaar. Wie eerst het beursresultaat van
+een bedrijf kent en vervolgens leest over de cultuur, het leiderschap en de
+strategie ervan, is geneigd elk kenmerk positief te duiden zolang het
+resultaat goed is en negatief zodra het omslaat, ook als het onderliggende
+gedrag nauwelijks veranderde. Rosenzweig noemt dat het halo-effect: een groot
+deel van wat Good to Great als oorzaak van succes presenteert, is in die
+lezing achteraf toegeschreven verhaal in plaats van vooraf gemeten gedrag.
+
+Een verwant bezwaar is dat het onderzoek geen voorspelling toetst. Collins
+verklaart resultaten die al bekend waren toen het onderzoek begon; nergens
+wijst het boek vooraf een bedrijf aan waarvan te voorspellen viel dat het de
+sprong zou gaan maken. Achteraf een gemeenschappelijk patroon vinden in elf
+winnaars is iets anders dan een patroon dat vooraf onderscheid maakt tussen
+winnaars en verliezers, en de latere val van een aantal van de elf laat zien
+dat het gevonden patroon geen garantie was, ook niet voor de bedrijven waar
+het uit is afgeleid.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf de bezetting van je team los van de taken op de agenda: zitten de
+juiste mensen op de juiste plek, ongeacht welk plan er ligt.
+- Stel de drie egelvragen apart op papier, en kijk pas daarna waar ze elkaar
+overlappen.
+- Vraag in een overleg naar het meest ongemakkelijke feit dat nog niet genoemd
+is, voordat er een besluit valt.
+- Leg elk voorstel voor een nieuw programma naast wat er de afgelopen jaren al
+consistent werd volgehouden.
+
+#### Wat je hierna leest
+
+- 293. The Innovator's Dilemma. Christensen onderzoekt met een vergelijkbare
+methode van gepaarde bedrijven waarom gevestigde marktleiders juist door hun
+discipline ten onder gaan aan nieuwe technologie.
+- 257. The Everything Store. Stone beschrijft hoe Bezos het vliegwielconcept
+uit dit boek, na een eigen gesprek met Collins, tot de kern van Amazons
+strategie maakte.
+- 47. The Hard Thing About Hard Things. Horowitz zet tegenover Collins'
+rustige niveau 5-bestuurders een verslag van leiderschap onder acute crisis,
+geschreven vanuit de praktijk in plaats van vanuit onderzoek achteraf.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -68659,14 +69955,15 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 · `armoede` 26, 234, 254 · `assertiviteit` 162 · `asymmetrie` 282 · `atletiek`
 31 · `atomisme` 281 · `Auschwitz` 48 · `automatisering` 297 · `autonomie` 6,
 50 · `autoriteit` 215 · `autotelie` 200 · `barok` 216 · `basisbehoeften` 107 ·
-`bbc` 82 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsleven` 209, 293 ·
-`bedrijfssystemen` 264 · `beginners` 112 · `behoeften` 35 · `beinvloeding`
-123, 126 · `bekentenis` 60 · `belangenverstrengeling` 138 · `beleggen` 21, 64,
-144, 233, 277 · `beleid` 65 · `bemiddeling` 35 · `beroemdheden` 128 ·
-`beschadigd-bestand` 115, 130 · `beschaving` 57 · `beslissen` 55 ·
-`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
-170, 174, 209, 270, 282, 283, 293, 299 · `bestseller` 8, 37, 250 · `betekenis`
-143 · `beurs` 80 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 ·
+`bbc` 82 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 ·
+`bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 ·
+`beginners` 112 · `behoeften` 35 · `beinvloeding` 123, 126 · `bekentenis` 60 ·
+`belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351 ·
+`beleid` 65 · `bemiddeling` 35 · `beroemdheden` 128 · `beschadigd-bestand`
+115, 130 · `beschaving` 57 · `beslissen` 55 · `beslissingen` 197 · `besluiten`
+47, 59, 69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283,
+293, 299 · `bestseller` 8, 37, 250 · `betekenis` 143 · `beurs` 80 ·
+`beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 ·
 `bewustzijn` 148, 169, 200, 275, 340 · `bezit` 37 · `bias` 209 ·
 `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie` 31, 46, 189, 231, 240, 241,
 243, 247, 266, 267, 269, 320, 328 · `biohacking` 316 · `biologie` 66, 88, 89,
@@ -68676,17 +69973,17 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `brainstormen` 33 · `brieven` 292 · `broers` 10 · `budgetteren` 159, 233 ·
 `buitenlandse hulp` 221 · `burgerschap` 243 · `burn-out` 135, 207 · `cafeïne`
 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158 · `cases` 40 ·
-`cashflow` 37 · `challenger` 62 · `chaos` 74 · `chapbook` 100 · `Chinese
-geschiedenis` 219 · `christendom` 162, 201 · `chronobiologie` 326, 329 ·
-`cijfers` 39, 65 · `civilisatiekritiek` 298 · `coaching` 161, 291 ·
+`cashflow` 37 · `challenger` 62 · `chaos` 74, 347 · `chapbook` 100 · `China`
+348 · `Chinese geschiedenis` 219 · `christendom` 162, 201 · `chronobiologie`
+326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298 · `coaching` 161, 291 ·
 `cognitieve gedragstherapie` 147, 153 · `cognitieve herstructurering` 177 ·
 `cognitieve vertekening` 234 · `cognitieve-bias` 59 · `columns` 89, 90 ·
 `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156,
-162, 164, 183, 186, 193, 213, 305, 338 · `complexiteit` 170, 268, 300 ·
+162, 164, 183, 186, 193, 213, 305, 338 · `complexiteit` 170, 268, 300, 347 ·
 `concentratie` 70 · `concurrentie` 293 · `conditionering` 61 · `conflict` 35,
 42, 43, 212, 305 · `conflictbemiddeling` 304 · `conflicthantering` 271 ·
 `conformisme` 211 · `consumptiekeuzes` 299 · `content` 308 · `corruptie` 221 ·
-`creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312 · `cricket` 174 ·
+`creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349 · `cricket` 174 ·
 `crisis` 47 · `cultuur` 68, 274 · `cultuurkritiek` 54 · `cursus` 108, 130, 201
 · `cursus-in-wonderen` 102, 131 · `cynisme` 250, 319 · `dagboek` 2, 109, 224,
 286 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagelijkse
@@ -68696,135 +69993,137 @@ gewoontes` 205 · `dankbaarheid` 129 · `dataïsme` 236 · `daten` 166 · `debat
 `destructiviteit` 223 · `deugd` 247 · `diagnose` 104 · `dialoog` 335 ·
 `dichotomie van controle` 194 · `dictatuur` 221 · `dienstbaarheid` 230, 245 ·
 `diepe-tijd` 239 · `dierenzintuigen` 322 · `dierproeven` 330 ·
-`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `DISC` 156 ·
-`discipline` 12, 13, 22, 30, 106, 133, 137, 146 · `disruptie` 293 · `docenten`
-116 · `doelen` 58, 136, 158 · `doelgericht-oefenen` 50 · `doelstellingen` 256
-· `donkere-triade` 124 · `dood` 98, 169, 292 · `doorzetten` 20 ·
-`doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314 · `dromen` 52 ·
-`dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 ·
-`e-commerce` 257 · `e-mail` 70 · `e-mailmarketing` 309 · `ecologie` 298 ·
-`economie` 65, 98, 217, 251, 297 · `economische geschiedenis` 155 ·
-`educatief` 327 · `eenvoud` 170, 205 · `eenzaamheid` 7, 96, 98, 111, 288, 302
-· `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149 ·
-`eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 ·
-`eigenaarschap` 97 · `einstein` 94 · `elektriciteit` 267 · `elektrische
-auto's` 266 · `emigratie` 240 · `emotie` 137 · `emoties` 3, 43, 142, 147, 153,
-177, 330, 331 · `empathie` 35, 67, 303 · `energie` 92, 195, 291 ·
-`epigenetica` 208 · `epos` 5 · `erfenis` 39 · `erotiek` 113, 164 · `essay` 3,
-9, 21, 57, 59, 63, 64, 68, 96, 232 · `essays` 197 · `eten` 103 · `ethiek` 282,
-299 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323,
-332, 339 · `evolutionaire-psychologie` 67 · `executives` 344 · `expeditie` 36
-· `experiment` 79, 215 · `experimenten` 280 · `experimenteren` 265 ·
-`expertise` 283, 320 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 ·
-`falen` 23, 72, 75, 312 · `familie` 45, 325 · `familieconflict` 178 ·
-`familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
-`fbi` 271 · `FBI` 154 · `feedback` 41, 296 · `feiten` 43 · `feminisme` 3 ·
-`fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224,
-247, 255, 263, 292, 299 · `filosofiegeschiedenis` 269 · `financiële
-geletterdheid` 163 · `financiële markten` 268 · `financiële onafhankelijkheid`
-264 · `financiele vrijheid` 277 · `financiën` 334 · `financiering` 172 ·
-`fitnessbranche` 307 · `flow` 78, 187, 200 · `focus` 175, 197 · `fotoboek` 189
-· `frankrijk` 115 · `fysieke uitdaging` 323 · `fysiologie` 318 · `Galenus` 328
-· `gaslighting` 123 · `gastheerschap` 304 · `gebed` 83, 259 ·
-`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
-`gedrag` 21, 22, 89, 90, 138, 154, 280, 330 · `gedragsbiologie` 322, 339 ·
-`gedragsonderzoek` 302 · `gedragspatronen` 161 · `gedragspsychologie` 294 ·
-`gedragstypen` 156 · `gedragsverandering` 238, 290 · `gedragswetenschap` 166,
-209, 305 · `geduld` 21 · `geestelijke gezondheid` 193 · `gehechtheid` 166 ·
-`geheim genootschap` 202 · `geheugen` 66, 85, 175 · `gehoorzaamheid` 215 ·
-`geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159
-· `geldpsychologie` 233, 264 · `geloof` 45, 83, 201 · `geluk` 79, 93, 160,
-228, 335 · `gemeenschap` 9, 96, 304 · `geneeskunde` 49, 328 · `generaties` 114
-· `generatieve drift` 315 · `genezing` 340 · `genot en pijn` 314 · `geologie`
-239 · `geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218,
-250, 258, 298, 328 · `geschiedfilosofie` 235 · `gesprek` 43, 95, 302 ·
-`gesprekstechniek` 182, 186 · `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht`
-138 · `gewoonte` 58, 70, 76, 77, 79, 88, 97, 103, 133, 138 · `gewoontelus` 238
-· `gewoonten` 187 · `gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158,
-181, 207, 208, 224, 230, 290, 334 · `gewoontevorming` 146, 161, 168, 188, 244,
-291, 294 · `gezag` 62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318,
-323, 329, 332 · `gezondheidszorg` 313, 317 · `ggz` 104 ·
-`gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 · `goeroe` 242 ·
-`grenzen` 72, 105, 109, 120, 122, 187 · `grenzen stellen` 151, 204 · `griekse
-mythologie` 261 · `groei` 222 · `groeimentaliteit` 116 · `groepsdenken` 339 ·
-`groepsgedrag` 303 · `grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91
-· `handel` 80, 251 · `handelen` 30 · `handleiding` 112 · `hart` 86, 128 ·
-`hechting` 145, 152, 317 · `hedendaags India` 202 · `heelal` 99, 262 ·
-`helderheid` 82 · `herhaling` 125, 134 · `herkomst` 127 · `heroverwegen` 28 ·
-`hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330, 333 · `herstel` 87 ·
-`Himalaya` 191 · `hindoeïsme` 169, 199 · `hindoeïstische mythologie` 192 ·
-`Hindoeïstische mythologie` 202 · `hindoemythologie` 203 · `Hinge` 166 ·
-`historische portretten` 248 · `hofcultuur` 216 · `Hollywood` 178 ·
-`Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 ·
-`hormonen` 80, 339 · `houding` 117 · `huisvesting` 65 · `humanisme` 236 ·
-`humor` 16, 19, 26, 105, 227 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hypnose`
-123, 124, 125 · `Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269 ·
-`identiteit` 22, 115, 192, 261 · `identiteitskapitaal` 51 · `ierland` 110 ·
-`IJsland` 185 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
-`import` 20 · `india` 172, 196, 199, 242 · `India` 163, 171, 180, 189, 191,
-203, 226 · `individualisme` 9, 96 · `individualiteit` 263 ·
-`individuele-verantwoordelijkheid` 299 · `innerlijk-kind` 109 · `innovatie`
-206, 251, 293, 306 · `instagram` 129 · `internet` 60, 198 · `interview` 58 ·
-`interviews` 277, 289 · `intimiteit` 122, 145, 164, 165 · `introversie` 33 ·
-`intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270 · `invloed` 11 ·
-`Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `japan` 77, 261,
-346 · `Japan` 205, 335 · `jaren-tachtig` 139 · `jaren-twintig` 94 ·
+`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
+350 · `DISC` 156 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146 ·
+`disruptie` 293 · `docenten` 116 · `doelen` 58, 136, 158 ·
+`doelgericht-oefenen` 50 · `doelstellingen` 256 · `donkere-triade` 124 ·
+`dood` 98, 169, 292 · `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289,
+324 · `dopamine` 314 · `dromen` 52 · `dummies` 112 · `durfkapitaal` 47 ·
+`duurzaamheid` 92 · `dystopie` 61 · `e-commerce` 257 · `e-mail` 70 ·
+`e-mailmarketing` 309 · `ecologie` 298 · `economie` 65, 98, 217, 251, 297, 347
+· `economische geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205 ·
+`eenzaamheid` 7, 96, 98, 111, 288, 302 · `eerlijk` 47 · `eerlijkheid` 62 ·
+`eerste-versie` 19 · `ego` 75, 102, 149 · `eigen bedrijf` 210 · `eigen-beheer`
+107, 140, 142 · `eigen-oordeel` 58 · `eigenaarschap` 97 · `einstein` 94 ·
+`elektriciteit` 267 · `elektrische auto's` 266 · `emigratie` 240 · `emotie`
+137 · `emoties` 3, 43, 142, 147, 153, 177, 330, 331 · `empathie` 35, 67, 303 ·
+`energie` 92, 195, 291 · `epigenetica` 208 · `epos` 5 · `erfenis` 39 ·
+`erotiek` 113, 164 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 232 · `essays`
+197 · `eten` 103 · `ethiek` 282, 299 · `evangelisatie` 201 · `evolutie` 56,
+66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347 ·
+`evolutionaire-psychologie` 67 · `executives` 344 · `expeditie` 36 ·
+`experiment` 79, 215 · `experimenten` 280 · `experimenteren` 265 · `expertise`
+283, 320 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72,
+75, 312 · `familie` 45, 325 · `familieconflict` 178 · `familiegeschiedenis`
+114, 235 · `familieroman` 10 · `fantasy` 192, 203 · `fbi` 271 · `FBI` 154 ·
+`feedback` 41, 296 · `feiten` 43 · `feminisme` 3 · `fictie` 100, 115 · `film`
+41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299 ·
+`filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 · `financiële
+markten` 268, 351 · `financiële onafhankelijkheid` 264 · `financiele vrijheid`
+277 · `financiën` 334 · `financiering` 172 · `fitnessbranche` 307 · `flow` 78,
+187, 200 · `focus` 175, 197 · `fotoboek` 189 · `frankrijk` 115 · `fysieke
+uitdaging` 323 · `fysiologie` 318 · `Galenus` 328 · `gaslighting` 123 ·
+`gastheerschap` 304 · `gebed` 83, 259 · `gebruikersgedrag` 294 · `gedachten`
+148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280,
+330 · `gedragsbiologie` 322, 339 · `gedragsonderzoek` 302 · `gedragspatronen`
+161 · `gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering`
+238, 290 · `gedragswetenschap` 166, 209, 305 · `geduld` 21, 351 · `geestelijke
+gezondheid` 193 · `gehechtheid` 166 · `geheim genootschap` 202 · `geheugen`
+66, 85, 175 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176 · `geld` 21, 37,
+38, 56, 76, 121, 132, 133, 158, 159 · `geldpsychologie` 233, 264 · `geloof`
+45, 83, 201 · `geluk` 79, 93, 160, 228, 335 · `gemeenschap` 9, 96, 304 ·
+`geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315 ·
+`genezing` 340 · `genot en pijn` 314 · `geologie` 239 · `geopolitiek` 220 ·
+`geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328 ·
+`geschiedfilosofie` 235 · `gesprek` 43, 95, 302 · `gesprekstechniek` 182, 186
+· `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht` 138 · `gewoonte` 58, 70,
+76, 77, 79, 88, 97, 103, 133, 138 · `gewoontelus` 238 · `gewoonten` 187 ·
+`gewoontes` 7, 11, 13, 22, 25, 134, 135, 147, 157, 158, 181, 207, 208, 224,
+230, 290, 334 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294 · `gezag`
+62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332 ·
+`gezondheidszorg` 313, 317 · `ggz` 104 · `gijzelingsonderhandelaar` 271 ·
+`godsdienstkritiek` 341 · `goeroe` 242 · `grenzen` 72, 105, 109, 120, 122, 187
+· `grenzen stellen` 151, 204 · `griekse mythologie` 261 · `groei` 222 ·
+`groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
+`grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80, 251 ·
+`handelen` 30 · `handleiding` 112 · `hart` 86, 128 · `hechting` 145, 152, 317
+· `hedendaags India` 202 · `heelal` 99, 262 · `helderheid` 82 · `herhaling`
+125, 134 · `herkomst` 127 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327
+· `hersenonderzoek` 330, 333 · `herstel` 87 · `Himalaya` 191 · `hindoeïsme`
+169, 199 · `hindoeïstische mythologie` 192 · `Hindoeïstische mythologie` 202 ·
+`hindoemythologie` 203 · `Hinge` 166 · `historische portretten` 248 ·
+`hofcultuur` 216 · `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 ·
+`homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80, 339 · `houding` 117
+· `huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105, 227 ·
+`huwelijk` 9, 34, 165 · `Huxley` 54 · `hypnose` 123, 124, 125 · `Idaho` 45 ·
+`ideeën` 206 · `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261 ·
+`identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185 · `ik-vorm` 113 ·
+`illustraties` 109, 327 · `imitatie` 11 · `import` 20 · `india` 172, 196, 199,
+242 · `India` 163, 171, 180, 189, 191, 203, 226 · `individualisme` 9, 96 ·
+`individualiteit` 263 · `individuele-verantwoordelijkheid` 299 · `industrie`
+348 · `innerlijk-kind` 109 · `innovatie` 206, 251, 293, 306 · `instagram` 129
+· `internet` 60, 198 · `interview` 58 · `interviews` 277, 289 · `intimiteit`
+122, 145, 164, 165 · `introversie` 33 · `intuitie` 128 · `intuïtie` 214, 283,
+320 · `investeren` 270, 348 · `invloed` 11 · `Italiaanse non-fictie` 211 ·
+`Italië` 155 · `jaloezie` 19 · `japan` 77, 261, 346 · `Japan` 205, 335 ·
+`jaren negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig` 94 ·
 `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison`
-321 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman` 295 ·
-`journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285 · `jung` 143 ·
-`kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248 ·
-`kans` 64 · `kansen` 137 · `kansrekening` 282 · `kapitalisme` 298 · `karakter`
-97 · `karma` 184 · `Kasjmir` 180 · `keegan` 110 · `kennis` 81 · `kenniswerk`
-6, 50 · `kernwaarden` 245 · `keuzes` 51, 71, 72 · `kinderboek` 167 ·
-`kinderjaren` 152 · `klantcontact` 182, 186 · `klantrelaties` 246 ·
-`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
-bronnen` 286 · `klassieke tekst` 219 · `klassieker` 10, 24, 38, 48, 61, 83,
-127, 135, 144, 173, 213, 254 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
-`kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
-`klimaatverandering` 299 · `klokkenmakerij` 321 · `kolonialisme` 298 · `korea`
-111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 ·
-`kort-stuk` 19, 30 · `korte-teksten` 111 · `kosmologie` 239, 262, 281 · `koude
-oorlog` 217, 220 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272
-· `krijgskunst` 346 · `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 ·
-`kunstenaars` 312 · `kunstgeschiedenis` 241, 312 · `kunstmatige intelligentie`
-297 · `kunstmatige-intelligentie` 236, 237 · `kwaliteit` 1 · `kwantumfysica`
-208, 340 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44 · `landbouw`
-56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265
-· `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
-`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
-344 · `leidinggeven` 156 · `leren` 175, 296 · `lesmateriaal` 116 ·
-`leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150 ·
-`levenskunst` 27, 199, 216, 227 · `levenslessen` 285 · `levensloop` 91 ·
-`lezen` 18 · `lezingen` 169 · `lichaam` 80 · `lichaamstaal` 125, 126, 154,
-303, 338 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278 ·
-`lijden` 48, 73, 160, 310 · `literair` 110 · `literatuur` 49 · `logotherapie`
-48 · `Long-Island` 4 · `loopbaan` 50, 51, 150 · `losmaken` 45 ·
-`lotsbestemming` 261 · `luisteren` 24, 35, 305 · `macht` 212, 250, 263 ·
-`machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
-`magisch realisme` 261 · `management` 42, 47, 170, 183, 256 · `manifesteren`
-128, 129, 130, 131, 132, 190, 196 · `manipulatie` 123, 124, 125, 126, 212, 213
-· `mannelijkheid` 3 · `mannen` 7 · `mantelzorg` 225 · `marketing` 13, 40, 60,
-172, 183, 279, 280, 307, 308, 309 · `media` 54, 60, 100 · `meditatie` 111,
-141, 149, 169, 205, 208, 228, 230, 237, 242, 333 · `meesterschap` 296, 320 ·
-`memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185,
-191, 226, 229, 242, 289, 324, 325 · `menselijk gedrag` 155 · `mensenkennis`
-126 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
-weerbaarheid` 229, 323 · `mentorschap` 4, 285, 289, 320 · `merken` 279 ·
-`metabolisme` 313 · `metafysica` 102 · `meten` 69, 133 · `methode` 81 ·
-`microbedrijf` 40, 172 · `middelbare-leeftijd` 7 · `midlife` 324 · `militaire
-strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
-`mindfulness` 141, 147, 149, 177, 333 · `mindset` 146, 181, 188 ·
-`minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 · `mitochondriën`
-313 · `modellen` 300 · `modelleren` 139 · `moed` 44 · `moeder-en-zoon` 26 ·
-`monniksleven` 230 · `monopolie` 306 · `Monty-Python` 16 · `moraal` 9, 57, 67,
-263 · `moreel` 36 · `motivatie` 117, 139, 146, 183, 200, 207, 315 · `motoren`
-6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek` 340 · `mythologie` 73,
-143 · `mythologische fantasy` 202 · `mythologische fictie` 203 ·
-`nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258 · `naslag`
-99, 112 · `naslagwerk` 59, 225 · `nationalisme` 237 · `natuur` 191, 323 ·
-`natuurkunde` 62, 94, 240, 262, 281, 300, 326 · `navigatie` 321 · `navy seals`
-229 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97,
-100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
+321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
+`jongvolwassenenroman` 295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82,
+238, 257, 285 · `jung` 143 · `kaakontwikkeling` 332 · `Kabul` 184 ·
+`Kaïn-en-Abel` 10 · `kalmte` 248 · `kans` 64 · `kansen` 137 · `kansrekening`
+282 · `kapitalisme` 298 · `karakter` 97 · `karma` 184 · `Kasjmir` 180 ·
+`keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50 · `kernwaarden` 245 · `keuzes`
+51, 71, 72 · `kinderboek` 167 · `kinderjaren` 152 · `klantcontact` 182, 186 ·
+`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
+`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219 ·
+`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351 ·
+`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
+`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 ·
+`klokkenmakerij` 321 · `kolonialisme` 298 · `korea` 111 · `kort` 59, 99, 100,
+101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57 · `kort-stuk` 19, 30 ·
+`korte-teksten` 111 · `kosmologie` 239, 262, 281 · `koude oorlog` 217, 220 ·
+`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
+346 · `kritiek` 24, 41, 50 · `kroeg` 4 · `kunst` 11 · `kunstenaars` 312 ·
+`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
+intelligentie` 297 · `kunstmatige-intelligentie` 236, 237 · `kwaliteit` 1 ·
+`kwantumfysica` 208, 340 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44
+· `landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean
+manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
+106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218,
+222, 231, 260, 273, 344, 353 · `leidinggeven` 156 · `leren` 175, 296, 349 ·
+`lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
+`levenskeuzes` 150 · `levenskunst` 27, 199, 216, 227 · `levenslessen` 285 ·
+`levensloop` 91 · `lezen` 18 · `lezingen` 169 · `lichaam` 80 · `lichaamstaal`
+125, 126, 154, 303, 338 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 ·
+`lifestyle` 278 · `lijden` 48, 73, 160, 310 · `literair` 110 · `literatuur` 49
+· `logotherapie` 48 · `Long-Island` 4 · `loopbaan` 50, 51, 150, 349 ·
+`losmaken` 45 · `lotsbestemming` 261 · `luisteren` 24, 35, 305 · `macht` 212,
+250, 263 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen`
+155 · `magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353 ·
+`manifesteren` 128, 129, 130, 131, 132, 190, 196 · `manipulatie` 123, 124,
+125, 126, 212, 213 · `mannelijkheid` 3 · `mannen` 7 · `mantelzorg` 225 ·
+`marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309, 350 · `media` 54,
+60, 100 · `meditatie` 111, 141, 149, 169, 205, 208, 228, 230, 237, 242, 333 ·
+`meesterschap` 296, 320 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
+49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348 · `menselijk
+gedrag` 155 · `mensenkennis` 126 · `mentale gezondheid` 315 · `mentale
+helderheid` 148 · `mentale weerbaarheid` 229, 323 · `mentorschap` 4, 285, 289,
+320 · `merken` 279 · `metabolisme` 313 · `metafysica` 102 · `meten` 69, 133 ·
+`methode` 81 · `microbedrijf` 40, 172 · `middelbare-leeftijd` 7 · `midlife`
+324 · `militaire strategie` 220 · `millennials` 159 · `minderheden` 68 ·
+`mindful` 103 · `mindfulness` 141, 147, 149, 177, 333 · `mindset` 146, 181,
+188 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 ·
+`mitochondriën` 313 · `modellen` 300 · `modelleren` 139 · `moed` 44 ·
+`moeder-en-zoon` 26 · `monniksleven` 230 · `monopolie` 306 · `Monty-Python` 16
+· `moraal` 9, 57, 67, 263 · `moreel` 36 · `motivatie` 117, 139, 146, 183, 200,
+207, 315 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek` 340
+· `mythologie` 73, 143 · `mythologische fantasy` 202 · `mythologische fictie`
+203 · `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258 ·
+`naslag` 99, 112 · `naslagwerk` 59, 225 · `nationalisme` 237 · `natuur` 191,
+323 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 · `navigatie` 321 · `navy
+seals` 229 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 · `nederlands`
+93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
 `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
 `negentig dagen` 188 · `nepnieuws` 237 · `netwerken` 24, 246, 300 ·
 `neurobiologie` 119 · `neurochirurgie` 49 · `neurologie` 325 ·
@@ -68843,18 +70142,18 @@ strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
 `onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
 260, 271, 272, 305 · `ondernemen` 20, 39, 40, 47, 172 · `ondernemers` 174 ·
 `ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
-278, 289, 306, 307, 308, 312 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237
-· `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
-79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 · `onderzoeksethiek`
-215 · `onderzoekskritiek` 52 · `ongemak` 323 · `ongeneeslijke ziekte` 285 ·
-`online ondernemen` 309 · `onsterfelijkheid` 236 · `ontmoeten` 304 ·
-`ontologie` 344 · `ontslagen` 47 · `ontwikkeling` 46, 85 ·
+278, 289, 306, 307, 308, 312, 350 · `onderwijs` 6, 23, 33, 45, 63, 65, 68,
+116, 237, 349 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39,
+44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 ·
+`onderzoeksethiek` 215 · `onderzoekskritiek` 52 · `ongemak` 323 ·
+`ongeneeslijke ziekte` 285 · `online ondernemen` 309 · `onsterfelijkheid` 236
+· `ontmoeten` 304 · `ontologie` 344 · `ontslagen` 47 · `ontwikkeling` 46, 85 ·
 `ontwikkelingslanden` 234 · `onzekerheid` 268, 341 · `oordeel` 59, 69 ·
 `oorlog` 31, 57, 66 · `oorlogvoering` 218 · `opdrachten` 116 · `opgetekend` 97
 · `opgeven` 249 · `opgroeien` 4, 295 · `optimisme` 251 · `optogenetica` 331 ·
 `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `orde` 73, 74 ·
-`organisatie` 28, 41, 69 · `organisatiecultuur` 183, 273 · `organisaties` 238
-· `orthodontie` 332 · `Orwell` 54 · `oud china` 272 · `Oude Rome` 328 ·
+`organisatie` 28, 41, 69 · `organisatiecultuur` 183, 273, 353 · `organisaties`
+238 · `orthodontie` 332 · `Orwell` 54 · `oud china` 272 · `Oude Rome` 328 ·
 `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191 · `oudheid` 2, 247, 292 ·
 `outsourcen` 278 · `overdenken` 148 · `overleven` 31, 36 ·
 `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253 · `overtuiging` 280 ·
@@ -68890,12 +70189,13 @@ strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
 335 · `relatietherapie` 165 · `relativiteitstheorie` 240, 281 · `religie` 56 ·
 `REM` 52 · `renaissance` 241 · `Renaissance` 15 · `rente` 38 · `replicatie` 79
 · `retorica` 253 · `revisie` 18 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
-268, 282 · `rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid`
-178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254 · `romeinse
-oudheid` 232 · `rouw` 95 · `rouwverwerking` 204 · `ruimte en tijd` 281 ·
-`ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 · `sadisme` 223 ·
-`Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 · `samoerai` 346 ·
-`satire` 155 · `scepsis` 63 · `schaamte` 32, 44, 317 · `schaarste` 92, 249 ·
+268, 282, 351 · `rituelen` 304 · `rivier als symbool` 287 ·
+`roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114,
+115, 254 · `romeinse oudheid` 232 · `rouw` 95 · `rouwverwerking` 204 · `ruimte
+en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
+`sadisme` 223 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
+`samoerai` 346 · `Santa Fe Institute` 347 · `satire` 155 · `scepsis` 63 ·
+`schaalvergroting` 350 · `schaamte` 32, 44, 317 · `schaarste` 92, 249 ·
 `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81 ·
 `schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159 ·
 `seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie` 221 · `seminar`
@@ -68904,29 +70204,29 @@ oudheid` 232 · `rouw` 95 · `rouwverwerking` 204 · `ruimte en tijd` 281 ·
 besmetting` 303 · `sociale media` 194, 198, 204, 288 · `sociale psychologie`
 215, 280, 302 · `sociale-media` 53, 70 · `sociale-psychologie` 319 ·
 `sociologie` 300 · `software` 276 · `somberheid` 119 · `spanning` 101 ·
-`sparen` 21, 38, 159, 233 · `speedreading` 175 · `spelen` 32 · `speltheorie`
-217, 221 · `spiegelneuronen` 303 · `spiegelogie` 108 · `spieropbouw` 316 ·
-`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
-199, 242, 310 · `spirituele zoektocht` 287 · `sport` 20 · `spreekangst` 253 ·
-`spreker` 117, 134 · `staatsgreep` 220 · `stalking` 214 · `Stanford` 150 ·
-`start-ups` 306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300 ·
-`statistiek van uitzonderingen` 274 · `status` 39, 66 · `sterfelijkheid` 2,
-71, 232, 295 · `sterrenkunde` 99 · `sterven` 49, 95, 275 · `stijl` 18 ·
-`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286 ·
-`stoïcisme` 2, 30, 194, 247, 248, 292 · `stommiteit` 155 · `storytelling` 253,
-279 · `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346 ·
-`streken` 112 · `stress` 80, 87, 106, 118, 187 · `stressmanagement` 153 ·
-`structuur` 82 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen`
-171, 316 · `synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 ·
-`taal` 26, 27 · `taal en macht` 344 · `tactische empathie` 271 · `talent` 23,
-29, 274 · `taoïsme` 341 · `tarieven` 121 · `team` 42 · `teams` 273 ·
-`teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
-`technologie` 160, 288, 294, 306 · `technologiebedrijven` 293 ·
-`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297 ·
-`tegen-productiviteit` 71 · `tegenslag` 30, 111, 174 · `tekenen` 15 ·
-`tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `Texas` 5 ·
-`therapie` 51, 107, 118, 119, 120, 121, 122, 145 · `thriller` 101, 202 ·
-`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334 ·
+`sparen` 21, 38, 159, 233 · `specialisatie` 349 · `speedreading` 175 ·
+`spelen` 32 · `speltheorie` 217, 221 · `spiegelneuronen` 303 · `spiegelogie`
+108 · `spieropbouw` 316 · `spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160,
+169, 184, 190, 195, 196, 199, 242, 310 · `spirituele zoektocht` 287 · `sport`
+20, 349 · `spreekangst` 253 · `spreker` 117, 134 · `staatsgreep` 220 ·
+`stalking` 214 · `Stanford` 150 · `start-ups` 306 · `startups` 265 ·
+`statistiek` 55, 65, 69, 234, 268, 300 · `statistiek van uitzonderingen` 274 ·
+`status` 39, 66 · `sterfelijkheid` 2, 71, 232, 295 · `sterrenkunde` 99 ·
+`sterven` 49, 95, 275 · `stijl` 18 · `stoicijns` 75, 140, 142 · `stoïcijnse
+filosofie` 153, 228, 232, 286 · `stoïcisme` 2, 30, 194, 247, 248, 292 ·
+`stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
+249, 250, 260, 272, 293, 306, 346, 353 · `streken` 112 · `stress` 80, 87, 106,
+118, 187 · `stressmanagement` 153 · `structuur` 82 · `succes` 75, 76, 274 ·
+`superkrachten` 203 · `supplementen` 171, 316 · `synchronisatie` 303 ·
+`systeem` 22, 142 · `systeemtheorie` 165 · `taal` 26, 27 · `taal en macht` 344
+· `tactische empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341 · `tarieven`
+121 · `team` 42 · `teams` 273 · `teamvorming` 260 · `teamwork` 156, 256 ·
+`techniek` 1, 6, 43, 61, 92 · `technologie` 160, 288, 294, 306 ·
+`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
+`technologiekritiek` 297 · `tegen-productiviteit` 71 · `tegenslag` 30, 111,
+174 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33
+· `Texas` 5 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145 · `thriller`
+101, 202 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334 ·
 `tijdsbeleving` 326 · `timemanagement` 311 · `toekomst` 236 · `toeval` 21, 64,
 93, 137, 274 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `trauma`
 104, 119, 195, 229, 317 · `trilling` 127 · `trilogie` 202, 203, 248 ·
@@ -68934,7 +70234,7 @@ besmetting` 303 · `sociale media` 194, 198, 204, 288 · `sociale psychologie`
 `twintigers` 51 · `uitdaging-vaardigheid` 200 · `uitleg` 99, 102 · `uitleggen`
 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311 · `uitstellen` 16 ·
 `uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
-`Upanishaden` 169 · `vaardigheden` 40, 50 · `vaardigheid` 64, 296 ·
+`Upanishaden` 169 · `vaardigheden` 40, 50, 349 · `vaardigheid` 64, 296 ·
 `vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49,
 226, 324 · `vakbonden` 297 · `vakmanschap` 1, 206, 320, 346 · `variantie` 137
 · `vastgoed` 37 · `vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106,
@@ -68944,12 +70244,12 @@ besmetting` 303 · `sociale media` 194, 198, 204, 288 · `sociale psychologie`
 `vergaderingen` 276 · `vergeving` 31, 102, 120 · `verhaal` 74 · `verhaalvorm`
 135 · `verhalen` 56, 101, 110, 136, 196 · `verhalenbundel` 206 · `verhouding`
 113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132,
-182, 185, 186, 188, 246, 280, 307, 308 · `verkooptrechters` 309 · `verkopen`
-210 · `verlangen` 76, 100, 113, 130, 164 · `verlichting` 243, 287 · `verlies`
-95 · `vermaak` 61 · `vermogen` 39 · `vermogensopbouw` 163, 264, 277 ·
-`veroudering` 171 · `verpleegkunde` 225 · `verplichting` 9 · `verslaving` 18,
-238, 275, 294, 314, 324, 325 · `vertrouwen` 42, 273, 279, 319 · `vervolg` 74,
-131 · `vervreemding` 173 · `verwondering` 227 · `vier deugden` 194 ·
+182, 185, 186, 188, 246, 280, 307, 308, 350 · `verkooptrechters` 309 ·
+`verkopen` 210 · `verlangen` 76, 100, 113, 130, 164 · `verlichting` 243, 287 ·
+`verlies` 95 · `vermaak` 61 · `vermogen` 39 · `vermogensopbouw` 163, 264, 277
+· `veroudering` 171 · `verpleegkunde` 225 · `verplichting` 9 · `verslaving`
+18, 238, 275, 294, 314, 324, 325 · `vertrouwen` 42, 273, 279, 319 · `vervolg`
+74, 131 · `vervreemding` 173 · `verwondering` 227 · `vier deugden` 194 ·
 `visualisatie` 259 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding`
 86, 88, 171, 313, 316, 329, 332 · `volharding` 29 · `volledigheid` 167 ·
 `voorbeelden` 128 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55,
@@ -68957,37 +70257,37 @@ besmetting` 303 · `sociale media` 194, 198, 204, 288 · `sociale psychologie`
 `voorzichtigheid` 216 · `vorming` 224 · `vreemden` 302 · `vriendschap` 5, 7,
 114, 292, 295, 319 · `vrije tijd` 288 · `vrije wil` 339 · `vrije-tijd` 78 ·
 `vrije-wil` 10, 236 · `vrijheid` 61 · `vroeg pensioen` 264 · `vrouwenhaat` 110
-· `waardebeleggen` 144 · `waardecreatie` 246 · `waarden` 72, 142 ·
-`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322 ·
-`wall-street` 144 · `weerbaarheid` 194 · `weerstand` 12 · `welvaart` 251, 334
-· `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70, 78, 151, 252 · `werkboek`
-14, 122, 150 · `werkplek` 33, 43 · `werkwijze` 16 · `West-Point` 29 · `westen`
-67 · `western` 5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 190 ·
-`wet-van-aantrekking` 127 · `wetenschap` 63, 66, 93, 94, 328 ·
-`wetenschappers` 239 · `wetenschapsgeschiedenis` 239, 240, 321 · `wijn` 112 ·
-`wilskracht` 238 · `wiskunde` 116 · `wisselstroom` 267 · `woede` 119, 120 ·
-`woestijn` 8 · `wraak` 101 · `Yale` 215 · `yoga` 195, 242 · `young adult` 192
-· `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie` 182 · `zeereis` 36
-· `zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335 · `zelfbedrog`
-66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197 · `zelfbeheersing` 75,
-148, 212, 248, 286, 314 · `zelfbescherming` 214 · `zelfcompassie` 32 ·
-`zelfdiscipline` 2, 158, 229, 244, 311 · `zelfevaluatie` 270 ·
-`zelfexperiment` 316, 318 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83,
-117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158,
-161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190, 193,
-194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230, 255,
-259, 291, 310, 334, 338 · `zelfkennis` 258, 260 · `zelfliefde` 190, 195, 204 ·
-`zelfonderzoek` 315 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
-`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177 · `zelfsabotage` 161, 344
-· `zelfspot` 19 · `zelfstandig` 40 · `zelfstandig denken` 211 · `zelfstandig
-ondernemen` 198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 ·
-`zelfuitgegeven` 123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen`
-157, 187, 312 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225
-· `zen` 141, 346 · `zenboeddhisme` 205 · `zenuwstelsel` 87 · `zeven-stappen`
-129 · `ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201,
-237, 245, 255 · `zitten` 84 · `zorg` 96 · `zuid-afrika` 266 · `Zuid-Afrika` 26
-· `zuinigheid` 39 · `zwaar` 143 · `zwaardvechten` 346 · `zwarte gaten` 262 ·
-`zwarte-gaten` 99
+· `waardebeleggen` 144, 351 · `waardecreatie` 246 · `waarden` 72, 142 ·
+`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322 · `Wall
+Street` 351 · `wall-street` 144 · `weerbaarheid` 194 · `weerstand` 12 ·
+`welvaart` 251, 334 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70, 78,
+151, 252 · `werkboek` 14, 122, 150 · `werkplek` 33, 43 · `werkwijze` 16 ·
+`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
+`wet van aantrekking` 190 · `wet-van-aantrekking` 127 · `wetenschap` 63, 66,
+93, 94, 328 · `wetenschappers` 239 · `wetenschapsgeschiedenis` 239, 240, 321,
+347 · `wijn` 112 · `wilskracht` 238 · `wiskunde` 116 · `wisselstroom` 267 ·
+`woede` 119, 120 · `woestijn` 8 · `wraak` 101 · `Yale` 215 · `yoga` 195, 242 ·
+`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
+182 · `zakendoen` 348 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
+`zelfacceptatie` 176, 335 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107,
+108, 129, 138, 197 · `zelfbeheersing` 75, 148, 212, 248, 286, 314 ·
+`zelfbescherming` 214 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158, 229,
+244, 311 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318 · `zelfhulp` 15,
+22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150,
+151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179,
+181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210,
+211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338 · `zelfkennis` 258, 260
+· `zelfliefde` 190, 195, 204 · `zelfonderzoek` 315 · `zelfontwikkeling` 179 ·
+`zelfpraat` 161 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177 ·
+`zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfstandig` 40 · `zelfstandig
+denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig starten` 210 ·
+`zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
+`zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312 · `zelfwaarde` 168 ·
+`zelfwaardering` 121 · `zelfzorg` 109, 225 · `zen` 141, 346 · `zenboeddhisme`
+205 · `zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 ·
+`zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255 · `zitten` 84 ·
+`zorg` 96 · `zuid-afrika` 266 · `Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar`
+143 · `zwaardvechten` 346 · `zwarte gaten` 262 · `zwarte-gaten` 99
 
 ## Leesroutes
 

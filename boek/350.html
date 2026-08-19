@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ready, Fire, Aim &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Masterson stelt dat ondernemers zichzelf in de weg zitten door te lang te wachten met verkopen: wie een product eerst perfect wil maken, verliest de tijd…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-350">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">350 &middot; Geld en ondernemen</p>
+    <h1>Ready, Fire, Aim</h1>
+    <p class="lede">Michael Masterson, 2007</p>
+    <p class="stats">
+      <span><b>1405</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="350"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Masterson stelt dat ondernemers zichzelf in de weg zitten door te lang te wachten met verkopen: wie een product eerst perfect wil maken, verliest de tijd en het geld die nodig zijn om erachter te komen of iemand het wil kopen. Zijn advies is om vroeg te verkopen en het product te laten groeien op basis van wat kopers doen, niet op basis van wat de maker vermoedt. Dat principe is volgens hem maar de helft van het verhaal, want een bedrijf dat van nul naar honderd miljoen dollar omzet groeit, doorloopt vier fasen die elk een ander soort werk en een ander soort leider vragen. De vaardigheden die een fase-1-bedrijf redden, zijn precies de vaardigheden die een fase-3-bedrijf laten vastlopen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst: een weekend met ondernemers</h3>
+      <p>Het boek is ontstaan uit een retraite die Masterson organiseerde voor een groep ondernemers die allemaal ergens tussen de opstartfase en de honderd miljoen dollar omzet zaten. Hij merkte dat hun problemen niet toevallig waren, maar hoorden bij de omvang van hun bedrijf, en dat oplossingen die in de ene fase werkten in de andere fase averechts uitpakten.</p>
+      <p>Masterson zelf werkte sinds 1993 als groeistrateeg voor uitgeverijconcern Agora, dat nieuwsbrieven en boeken verkoopt over geld, gezondheid en zelfontplooiing via directe marketing. Zijn advies komt uit die praktijk: tientallen producten die hij zelf lanceerde, verkocht en weer aanpaste.</p>
+      <h3>Ready, fire, aim tegenover ready, aim, fire</h3>
+      <p>De gangbare volgorde is eerst mikken en dan pas schieten: een product uitdenken, testen, verbeteren, en pas dan verkopen. Masterson keert die volgorde om. Zijn advies is om een product te lanceren zodra het bruikbaar is, ook als het nog niet af is, en de verbetering te laten sturen door wat kopers daadwerkelijk doen in plaats van door wat de maker aanneemt dat zij willen.</p>
+      <p>Zijn argument is dat de markt sneller en eerlijker antwoord geeft dan een testpanel of een marktonderzoek. Een product dat niet verkoopt, wordt niet gered door het te verfijnen; het wordt gered door het weg te doen en iets anders te proberen. Wie eerst probeert alles kloppend te krijgen, verliest de tijd waarin hij dat had kunnen ontdekken.</p>
+      <h3>Fase 1, de kinderjaren: van nul naar een miljoen</h3>
+      <p>In de eerste fase is er volgens Masterson maar één taak die telt: iets verkopen, en wel tegen lagere kosten dan de opbrengst. Hij noemt dit de Optimal Selling Strategy: wie is de koper, welk product past bij hem, welke prijs is haalbaar en welke boodschap overtuigt. Alles wat niet direct bijdraagt aan die eerste verkoop, zoals kantoormeubilair of een uitgewerkt bedrijfsplan, mag wachten.</p>
+      <p>De vaardigheden die hier tellen zijn verkoop en copywriting: teksten die overtuigen, getest en bijgesteld op basis van de resultaten. Een oprichter die deze fase overslaat door eerst te investeren in productie of personeel, bouwt volgens Masterson een bedrijf op een fundament dat nooit is getest.</p>
+      <h3>Fase 2, de snelle groei: van een naar tien miljoen</h3>
+      <p>Zodra het eerste product verkoopt, verschuift de opgave naar uitbreiding. Masterson beschrijft dit als de overgang van één product naar een lijn van producten, en introduceert de Magic Product Cube: een raster waarmee een ondernemer nieuwe aanbiedingen bedenkt door het type product, de prijs en het bijbehorende serviceniveau te variëren rond wat al werkt.</p>
+      <p>Snelheid blijft de norm. Masterson raadt aan om een nieuw productvoorstel binnen een dag uit te werken, in de markt te zetten en aan de verkoopcijfers te laten zien of het iets wordt. Wie in deze fase weken besteedt aan besluitvorming, verliest het tempo dat de groei draagt.</p>
+      <h3>Fase 3, de puberteit: van tien naar honderd miljoen</h3>
+      <p>In deze fase, schrijft Masterson, keert de chaos die in fase 1 nog een kracht was zich tegen het bedrijf. Er zijn te veel producten, te veel mensen en te weinig structuur, en de oprichter die alles zelf bleef beslissen wordt de bottleneck. De oplossing is een organisatie bouwen: afdelingen met een duidelijke taak, elk met een klein aantal cijfers waarop maandelijks wordt afgerekend, en managers die verantwoordelijkheid dragen in plaats van alleen uitvoeren.</p>
+      <p>Hier verschuift ook het soort personeel dat nodig is. Masterson pleit voor het aantrekken van mensen met eigen ondernemersdrang, die zelf nieuwe ideeën aandragen, ook al betekent dat dat een deel van hen na verloop van tijd zelf vertrekt om iets eigens te beginnen.</p>
+      <h3>Fase 4, de volwassenheid: voorbij de honderd miljoen</h3>
+      <p>Bij honderd miljoen dollar omzet vlakt de groei vanzelf af, en Masterson stelt dat de oprichter dan een nieuwe rol moet vinden. Hij beschrijft dit als het overdragen van de dagelijkse leiding aan de mensen die in fase 3 zijn opgeleid, en het aannemen van een positie als adviseur of investeerder die alleen ingrijpt wanneer de kernprincipes van het bedrijf in het geding zijn.</p>
+      <p>Voor sommige oprichters betekent dit een fusie, een overname of de verkoop van het bedrijf. Masterson behandelt dat niet als falen maar als een logische afsluiting van een traject waarin de oorspronkelijke taak, verkopen, allang is overgenomen door anderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ready, fire, aim</td><td>Eerst lanceren, dan bijstellen op basis van wat de markt doet, in plaats van eerst perfectioneren en dan pas verkopen.</td></tr>
+          <tr><td class="term">Optimal Selling Strategy</td><td>Het raamwerk uit fase 1 waarmee koper, product, prijs en boodschap op elkaar worden afgestemd voor de eerste winstgevende verkoop.</td></tr>
+          <tr><td class="term">Magic Product Cube</td><td>Een raster van type, prijs en service waarmee in fase 2 nieuwe producten worden afgeleid van wat al verkoopt.</td></tr>
+          <tr><td class="term">De vier fasen</td><td>Kinderjaren ($0-1 miljoen), snelle groei ($1-10 miljoen), puberteit ($10-100 miljoen) en volwassenheid ($100 miljoen en hoger), elk met een ander soort werk.</td></tr>
+          <tr><td class="term">Copywriting</td><td>Het schrijven van verkooptekst die direct getest en bijgesteld wordt op basis van respons; de kernvaardigheid van fase 1.</td></tr>
+          <tr><td class="term">Split-testen</td><td>Twee versies van een aanbieding tegelijk uitproberen om aan de verkoopcijfers te zien welke werkt.</td></tr>
+          <tr><td class="term">Bottleneck-oprichter</td><td>De oprichter die in fase 3 zelf de vertraging wordt doordat elke beslissing nog via hem loopt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek. Masterson beroept zich op dertig jaar eigen ervaring met het opzetten en laten groeien van bedrijven binnen Agora, en op de vraagstukken die hij tegenkwam bij de ondernemers op zijn retraite. Er zijn geen cijfers over hoeveel bedrijven zijn aanpak volgden en hoeveel daarvan slaagden, en er is geen vergelijking met bedrijven die een andere weg kozen.</p>
+      <p>De kracht van het boek zit in de herkenbaarheid van de vier fasen voor wie een bedrijf heeft laten groeien, en in de concrete, direct toepasbare vorm van de adviezen. Dat is iets anders dan een aangetoonde oorzaak-gevolgrelatie tussen de methode en het resultaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het advies is vooral beproefd in één soort bedrijf: directe verkoop van informatieproducten via reclame en nieuwsbrieven, het domein van Agora. Of dezelfde fasering en dezelfde nadruk op verkoop vóór product ook werkt in productiebedrijven, softwarebedrijven met lange verkoopcycli of gereguleerde sectoren, laat het boek in het midden.</p>
+      <p>Zwaarder weegt wat er van diezelfde marketingfilosofie is terechtgekomen bij Agora zelf. De Amerikaanse Federal Trade Commission klaagde in 2019 verschillende Agora-onderdelen aan wegens misleidende reclame die vooral op ouderen was gericht, met beweringen over een niet-bestaand middel tegen diabetes en een verzonnen overheidsuitkering; de zaak eindigde in 2021 met een schikking en de terugbetaling van meer dan twee miljoen dollar aan bijna 35.000 klanten. Dat toont niet aan dat het boek tot fraude aanzet, maar wel dat dezelfde nadruk op snel verkopen en achteraf bijstellen, zonder even sterke nadruk op de waarheid van de claim, bij hetzelfde bedrijf tot aantoonbare schade heeft geleid.</p>
+      <p>Recensenten noemen daarnaast delen van het boek voor de hand liggend, vooral de latere fasen over management en organisatiestructuur, die weinig toevoegen aan bestaande managementliteratuur.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal in welke van de vier fasen je bedrijf zit en welke vaardigheid die fase vraagt, in plaats van vast te houden aan wat in de vorige fase werkte.</li>
+        <li>Werk een nieuw productidee binnen een dag uit tot een verkoopbare versie in plaats van weken te besteden aan verfijning voordat er een koper naar heeft gekeken.</li>
+        <li>Stel per afdeling een klein aantal cijfers vast waarop maandelijks wordt afgerekend, zodra het bedrijf te groot wordt voor overzicht door één persoon.</li>
+        <li>Ga na welke beslissingen nog altijd via jou lopen, en welke daarvan bij iemand anders horen te liggen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Zero to $100 Million in No Time Flat</i> (John Wiley &amp; Sons, 2007, later herdrukt in de Agora-reeks). "Michael Masterson" is het pseudoniem waaronder ondernemer Mark Ford zijn zakelijke boeken publiceert. Geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Masterson, achter wiens naam de ondernemer Mark Ford schuilgaat, stelt dat een bedrijf van nul naar honderd miljoen dollar omzet vier fasen doorloopt, en dat elke fase een ander soort leider nodig heeft. In de eerste fase draait alles om de eerste verkoop, in de laatste fase moet de oprichter juist leren zich terug te trekken. Wie in fase twee nog doet wat in fase een werkte, remt zijn eigen bedrijf af.</p><p>De titel verwijst naar zijn kernadvies: een product op de markt brengen voordat het af is, en het daarna bijstellen op basis van wat kopers echt doen. Masterson bouwde dertig jaar lang bedrijven binnen uitgeverijconcern Agora en schrijft vanuit die ervaring, zonder onderzoek erbij te halen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>schaalvergroting</li><li>verkoop</li><li>marketing</li><li>management</li><li>direct response</li><li>bedrijfsgroei</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="307"><a href="307.html">$100M Offers</a>. Hormozi werkt dezelfde nadruk op snel en agressief verkopen uit voor het aanbod zelf, in een latere en explicieter onderbouwde vorm.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries beschrijft een verwante volgorde van lanceren en leren, maar bouwt die uit tot een systematische methode met meetbare aannames.</li>
+          <li value="47"><a href="47.html">The Hard Thing About Hard Things</a>. Horowitz behandelt dezelfde overgang van opstartend bedrijf naar organisatie, vanuit de tegenslagen die daarbij horen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

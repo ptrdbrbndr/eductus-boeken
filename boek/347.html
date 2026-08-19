@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Complexity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Waldrop beschrijft hoe een groep wetenschappers uit uiteenlopende vakken, natuurkunde, economie, biologie en informatica, zich vanaf 1984 rond het Santa…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-347">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">347 &middot; Natuur en wetenschap</p>
+    <h1>Complexity</h1>
+    <p class="lede">M. Mitchell Waldrop, 1992</p>
+    <p class="stats">
+      <span><b>1862</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>19 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="347"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Waldrop beschrijft hoe een groep wetenschappers uit uiteenlopende vakken, natuurkunde, economie, biologie en informatica, zich vanaf 1984 rond het Santa Fe Institute verzamelde met de stelling dat complexe systemen zoals economieën, ecosystemen en het immuunsysteem een gedeelde onderliggende logica delen: zelforganisatie die ontstaat op de grens tussen orde en chaos. Die grens, de "rand van de chaos", zou de plek zijn waar aanpassing, leren en evolutie het best gedijen. Het boek presenteert dat idee als het begin van een nieuwe wetenschap die de grenzen tussen disciplines zou opheffen. Wie ertegenin wil brengen, kan wijzen op wat er van die belofte veertig jaar later concreet over is: een verzameling bruikbare technieken, geen eengemaakte theorie.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een instituut zonder gebouw</h3>
+      <p>George Cowan bracht het grootste deel van zijn werkzame leven door als natuurkundige bij het Los Alamos National Laboratory, het laboratorium waar tijdens de Tweede Wereldoorlog de atoombom werd ontwikkeld. Op zijn drieënzestigste, na zijn pensionering, begint hij samen met een kleine kring collega's, onder wie de natuurkundige Nicholas Metropolis, aan een plan voor een nieuw soort onderzoeksinstituut: een plek zonder vaste afdelingen, waar natuurkundigen, biologen, economen en informatici elkaars taal zouden leren spreken in plaats van naast elkaar te werken. In 1984 organiseert Cowan in Los Alamos een eerste bijeenkomst onder de titel <i>Emerging Syntheses in Science</i>, met de Nobelprijswinnaar natuurkunde Murray Gell-Mann als een van de aansprekende namen die het plan gewicht geven.</p>
+      <p>Het Santa Fe Institute krijgt zijn eerste onderkomen in een gehuurd voormalig kloostergebouw aan Canyon Road in Santa Fe, zonder eigen studenten, zonder vaste leerstoelen en zonder een vast programma. Wat de plek bindt is niet een gebouw of een discipline maar een overtuiging: dat de grote onopgeloste vragen in de wetenschap, van het ontstaan van het leven tot het gedrag van markten, dezelfde soort systemen betreffen en dat de bestaande vakken daar elk maar een deel van zien.</p>
+      <h3>Brian Arthur en de wet van de toenemende meeropbrengsten</h3>
+      <p>Brian Arthur, een econoom uit Ierland die aan Stanford werkte, botst al vroeg in zijn loopbaan met een van de kernaannames van de economische theorie: dat markten naar een evenwicht toe bewegen omdat meeropbrengsten afnemen naarmate iets groter wordt. Arthur ziet dat technologieën vaak het tegenovergestelde doen. Een systeem dat toevallig een voorsprong krijgt, zoals de toetsenbordindeling QWERTY of de videostandaard VHS tegenover Betamax, kan die voorsprong vergroten omdat meer gebruikers een technologie aantrekkelijker maken voor nieuwe gebruikers, ongeacht of die technologie de beste is. Hij noemt dit toenemende meeropbrengsten en betoogt dat kleine, toevallige gebeurtenissen aan het begin van zo'n proces blijvend bepalen welke technologie wint.</p>
+      <p>Het artikel waarin hij dit uitwerkt wordt jarenlang geweigerd door de gangbare economische tijdschriften, die zijn wiskunde niet vertrouwen zolang zij niet naar één enkel evenwicht convergeert. Pas als het Santa Fe Institute hem in 1988 als eerste bezetter van een leerstoel voor economie aanstelt, krijgt zijn werk een plek waar het als volwaardige economie wordt behandeld in plaats van als curiosum.</p>
+      <h3>Stuart Kauffman en orde om niet</h3>
+      <p>Stuart Kauffman, opgeleid als arts en werkzaam als theoretisch bioloog, benadert een heel andere vraag: hoe kan uit de willekeurige chemie van de vroege aarde iets zo geordends ontstaan als een levende cel. Zijn antwoord bouwt op netwerken van genen die elkaar aan- en uitschakelen, uitgewerkt in wat bekend wordt als het NK-model. Bij een laag aantal verbindingen per gen valt zo'n netwerk vanzelf terug op een klein aantal stabiele patronen, zonder dat er een ontwerp of een externe sturing aan te pas komt.</p>
+      <p>Kauffman noemt dat verschijnsel orde om niet: structuur die niet het resultaat is van natuurlijke selectie maar van de wiskundige eigenschappen van het netwerk zelf, waarna selectie pas later aangrijpt om te verfijnen. Hij werkt dat idee ook uit voor autokatalytische sets, netwerken van moleculen die elkaar wederzijds produceren, als mogelijke verklaring voor het ontstaan van leven zonder dat er eerst een zichzelf kopiërend molecuul als DNA nodig was.</p>
+      <h3>John Holland en de genetische algoritmen</h3>
+      <p>John Holland, informaticus in Michigan, vertaalt evolutie naar een rekenmethode. Zijn genetische algoritmen laten een populatie van kandidaat-oplossingen voor een probleem muteren en combineren, waarbij de sterkste combinaties de meeste nakomelingen krijgen, net als bij natuurlijke selectie. Wat Waldrop benadrukt is niet alleen de techniek maar Hollands overtuiging dat aanpassing zelf een onderwerp is dat in elk vakgebied dezelfde wiskunde volgt, van immuunsystemen tot economieën.</p>
+      <p>Later in het boek werkt Holland aan Echo, een simulatiemodel waarin agenten met eigen regels hulpbronnen verzamelen, ruilen en zich voortplanten in een gedeelde omgeving, bedoeld om te testen of eenvoudige regels op het niveau van individuen de complexe patronen kunnen opleveren die in echte ecosystemen en economieën worden waargenomen.</p>
+      <h3>Chris Langton en de rand van de chaos</h3>
+      <p>Chris Langton, die zijn wetenschappelijke loopbaan laat begint na omzwervingen als programmeur en na een zwaar ongeluk met een parachute, organiseert in 1987 in Los Alamos de eerste workshop over wat hij kunstmatig leven noemt: computerprogramma's die zich voortplanten, muteren en concurreren zonder dat er iets biologisch aan te pas komt. Zijn experimenten met cellulaire automaten, rasters van cellen die volgens simpele regels aan- of uitgaan afhankelijk van hun buren, laten zien dat het gedrag van zo'n systeem sterk verandert met één instelbare parameter: bij een lage waarde sterft het patroon snel uit, bij een hoge waarde ontstaat ruis, en in een smal gebied daartussen ontstaan patronen die zich voortplanten, botsen en blijven veranderen.</p>
+      <p>Die smalle overgangszone noemt Langton de rand van de chaos, en Waldrop maakt daar de centrale metafoor van het hele boek van: leven, aanpassing en intelligentie zouden zich precies op zo'n grens bevinden, niet in de stabiliteit en niet in de willekeur maar in de dunne strook ertussen.</p>
+      <h3>Een gezamenlijke taal die nooit helemaal ontstond</h3>
+      <p>In september 1987 organiseren de natuurkundige Philip Anderson en de economen José Scheinkman en Kenneth Arrow in Santa Fe een tiendaagse bijeenkomst waarin tien economen en tien natuurkundigen elkaars vak proberen te doorgronden. De bijeenkomst levert weinig gedeelde conclusies op maar wel een boek, <i>The Economy as an Evolving Complex System</i>, en het besluit om economie tot een van de vaste onderzoekslijnen van het instituut te maken, met Arthur als eerste bezetter van de nieuwe leerstoel die deels door Citicorp wordt gefinancierd.</p>
+      <p>Waldrop sluit het boek af zonder een uitkomst te claimen. De hoofdpersonen geloven aan het eind net zo sterk als aan het begin dat er een gezamenlijke wetenschap van complexiteit binnen bereik ligt, maar wat er op de bladzijden staat is vooral een verzameling losse doorbraken binnen aparte vakken, verbonden door een gedeelde woordenschat en een gedeeld enthousiasme, meer dan door een uitgewerkte, overkoepelende theorie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Complexiteit</td><td>Het gedrag van systemen met veel onderling afhankelijke onderdelen, waarbij het geheel patronen vertoont die niet uit de afzonderlijke onderdelen zijn af te lezen.</td></tr>
+          <tr><td class="term">Emergentie</td><td>Het verschijnen van eigenschappen op het niveau van het geheel die geen van de samenstellende delen apart bezit.</td></tr>
+          <tr><td class="term">Rand van de chaos</td><td>De smalle overgangszone tussen starre orde en volledige willekeur waarin Langtons cellulaire automaten het langst complex en veranderlijk gedrag vertonen.</td></tr>
+          <tr><td class="term">Toenemende meeropbrengsten</td><td>Arthurs term voor processen waarin een voorsprong zichzelf versterkt in plaats van afneemt, zoals bij de verspreiding van een technologische standaard.</td></tr>
+          <tr><td class="term">Orde om niet</td><td>Kauffmans term voor stabiele patronen die uit de wiskundige structuur van een netwerk ontstaan, nog voordat natuurlijke selectie iets heeft kunnen doen.</td></tr>
+          <tr><td class="term">NK-model</td><td>Kauffmans wiskundig model van een genetisch netwerk, waarin N het aantal genen is en K het aantal verbindingen per gen.</td></tr>
+          <tr><td class="term">Genetisch algoritme</td><td>Hollands rekenmethode die kandidaat-oplossingen laat muteren en combineren naar analogie van natuurlijke selectie.</td></tr>
+          <tr><td class="term">Autokatalytische set</td><td>Een netwerk van moleculen die elkaars vorming wederzijds versnellen, door Kauffman geopperd als mogelijk beginpunt van leven.</td></tr>
+          <tr><td class="term">Complex adaptief systeem</td><td>Waldrops overkoepelende term voor systemen van veel op elkaar reagerende eenheden die zich als geheel aanpassen aan hun omgeving, van mierenkolonies tot de beurs.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Waldrop is journalist met een natuurkundeachtergrond en baseert het boek op uitgebreide interviews met de hoofdpersonen eind jaren tachtig, aangevuld met bijeenkomsten die hij zelf bijwoonde. Het boek toetst de claims van de complexiteitswetenschap niet zelf, het laat zien hoe de betrokkenen tot hun ideeën kwamen en hoe zij die aan elkaar en aan buitenstaanders verkochten. Voor de losse technische onderdelen is dat onderscheid van belang: genetische algoritmen en het NK-model zijn wiskundig scherp gedefinieerd en breed toepasbaar gebleken buiten het boek om, terwijl de rand van de chaos als algemeen principe voor levende en economische systemen grotendeels een metafoor is gebleven die Waldrop overneemt zonder haar kritisch te wegen.</p>
+      <p>Het boek verscheen in 1992, aan het begin van het bestaan van het instituut, en beschrijft dus vooral verwachtingen en eerste resultaten, niet een afgeronde balans. Latere overzichten van het veld, waaronder Melanie Mitchells <i>Complexity: A Guided Tour</i> uit 2009, bevestigen dat een aantal van de hier beschreven technieken, met name genetische algoritmen en op agenten gebaseerde modellen, zich buiten Santa Fe hebben verspreid en nuttig zijn gebleken, terwijl de gehoopte overkoepelende wetenschap van complexiteit als zodanig nooit een vastomlijnd vak is geworden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar richt zich op de rand van de chaos zelf. Wat bij Langtons cellulaire automaten een precies meetbare parameter is, wordt in het boek stap voor stap een metafoor voor bijna alles: markten, evolutie, brein, geschiedenis. Latere critici binnen het veld, onder wie Melanie Mitchell, hebben erop gewezen dat het bewijs voor een universeel geldende rand van de chaos in echte biologische en economische systemen zwak is en dat de aantrekkingskracht van het idee vooral in de beeldspraak zit.</p>
+      <p>Het boek is ook geschreven als portret, niet als evaluatie. Waldrop kiest voor een handvol hoofdpersonen die hij sympathiek en overtuigd neerzet, en critici van hun werk krijgen nauwelijks een stem. Economen die Arthurs toenemende meeropbrengsten als een nuttige maar beperkte aanvulling op bestaande theorie zien in plaats van als een omwenteling, komen in het boek niet aan het woord.</p>
+      <p>Het boek is drieëndertig jaar oud en leest inmiddels ook als een document van zijn eigen tijd: de verwachting dat er binnen afzienbare tijd een eengemaakte wiskunde van complexe systemen zou ontstaan, vergelijkbaar met wat de thermodynamica voor warmte deed, is niet uitgekomen. Het Santa Fe Institute bestaat nog steeds en het vakgebied complexiteitswetenschap ook, maar als losse verzameling methoden in aparte vakken, niet als het ene nieuwe vak dat de hoofdpersonen in dit boek voor ogen hadden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij het lezen welke begrippen wiskundig gedefinieerd zijn, zoals het NK-model en het genetisch algoritme, en welke vooral beeldspraak zijn, zoals de rand van de chaos.</li>
+        <li>Leg Arthurs toenemende meeropbrengsten naast een eigen voorbeeld van een markt of platform dat won door een vroege voorsprong, niet door de beste kwaliteit.</li>
+        <li>Lees Kauffmans orde om niet als een aanvulling op natuurlijke selectie, niet als een vervanging ervan.</li>
+        <li>Wie een actuele stand van het vakgebied wil, leest Melanie Mitchells latere <i>Complexity: A Guided Tour</i> naast dit boek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Complexity: The Emerging Science at the Edge of Order and Chaos</i> (Simon &amp; Schuster, New York, 1992, 380 blz., ISBN 9780671767891); vanaf 1993 als paperback bij Touchstone (ISBN 9780671872342). Geen Nederlandse uitgave bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Waldrop portretteert de groep wetenschappers die zich vanaf 1984 rond het Santa Fe Institute verzamelt: de econoom Brian Arthur, de bioloog Stuart Kauffman, de informaticus John Holland en de kunstmatig-levenonderzoeker Chris Langton, met de natuurkundige George Cowan en Nobelprijswinnaar Murray Gell-Mann als initiatiefnemers. Elk van hen botst in zijn eigen vak op iets dat de gangbare theorie niet verklaart, en in Santa Fe vinden zij een gezamenlijke taal daarvoor: complexe systemen die zich zelf organiseren op de grens tussen orde en chaos.</p><p>Het boek volgt hen chronologisch, van de eerste bijeenkomsten in een gehuurd kloostergebouw tot de grote workshop van 1987 waarin natuurkundigen en economen elkaars vak proberen te doorgronden. Waldrop schrijft als journalist, niet als partij in het debat, maar hij deelt duidelijk het enthousiasme van zijn hoofdpersonen over wat zij als het begin van een nieuwe wetenschap zien.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>complexiteit</li><li>Santa Fe Institute</li><li>wetenschapsgeschiedenis</li><li>economie</li><li>evolutie</li><li>kunstmatig leven</li><li>chaos</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="94"><a href="94.html">Het tijdperk van onzekerheid</a>. Hürter beschrijft hoe de twintigste-eeuwse natuurkunde zelf al met onzekerheid als grondbeginsel worstelde, de voedingsbodem waarop het denken over complexiteit verder bouwt.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. Taleb werkt de onvoorspelbaarheid van complexe systemen uit voor financiële markten en trekt daar scherpere conclusies uit dan de optimistische toon van dit boek.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari beschrijft eveneens hoe grote menselijke patronen ontstaan uit talloze kleine interacties, maar dan voor de geschiedenis van de soort in plaats van voor genen en markten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
