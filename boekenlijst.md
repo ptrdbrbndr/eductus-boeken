@@ -100992,15 +100992,17 @@ het brein niets om aan te grijpen, en vijf vaste patronen binnen het bestaande
 product leveren meer op dan vrij associëren. De reclameman en de hoogleraren,
 in tegenovergestelde richting op weg naar hetzelfde doel.
 
-**De machinerie van de markt** (477, 478). 
-Twee vakhandboeken over hoe een beurs feitelijk werkt, onder de
-koersgrafieken. Harris (478) schreef het standaardwerk over
+**De machinerie van de markt** (477, 478, 499). 
+Twee vakhandboeken en één reportage over hoe een beurs feitelijk werkt, onder
+de koersgrafieken. Harris (478) schreef het standaardwerk over
 marktmicrostructuur: wie liquiditeit levert en wie haar neemt, waarom spreads
 bestaan, en hoe een order de prijs zelf beweegt. Johnson (477) beschrijft de
 uitvoeringskant die daar sinds de automatisering bovenop kwam: directe
-markttoegang, orderboeken en het in stukken knippen van grote orders. Wie wil
-begrijpen waarom een strategie die op papier werkt in de praktijk geld
-verliest, vindt hier de verklaring.
+markttoegang, orderboeken en het in stukken knippen van grote orders. Lewis
+(499) maakt er het verhaal van: flitshandelaren die deze structuur gebruiken
+om ordersnelheid in geld om te zetten, en de handelaren die daar een nieuwe
+beurs tegenover zetten. Zijn eenzijdige beeld is stevig bekritiseerd; juist
+daarom zijn de twee handboeken ernaast de moeite waard.
 
 **Ernest Chan: eerst het bedrijf, dan de strategieën** (476, 479). 
 Twee boeken van dezelfde kwantitatieve handelaar, in de volgorde waarin ze
@@ -101020,15 +101022,18 @@ past hetzelfde systematische denken toe op momentum in aandelen. De boodschap
 is tweemaal dezelfde: het rendement komt uit het volgehouden systeem, niet uit
 de voorspelling.
 
-**Backtesten zonder jezelf te bedriegen** (482, 483, 484, 485, 486). 
-Vijf boeken over de vraag die boven elke handelsstrategie hangt: is dit een
+**Backtesten zonder jezelf te bedriegen** (482, 483, 484, 485, 486, 502). 
+Zes boeken over de vraag die boven elke handelsstrategie hangt: is dit een
 patroon, of toeval dat zich als patroon voordoet. Aronson (483) toetste ruim
 zesduizend technische regels wetenschappelijk en hield er vrijwel niets aan
 over; met Masters (484) werkt hij uit hoe machine learning diezelfde toets kan
-doorstaan. Davey (482) beschrijft als praktijkman hoe overfitting eruitziet
-voordat het geld kost, López de Prado (485) legt de institutionele lat met
-methoden tegen zelfbedrog in de validatie, en Jansen (486) is het codeboek om
-het zelf na te bouwen. Lees 483 eerst; daarna is de rest gereedschap.
+doorstaan. Pardo (502) leverde het gereedschap dat het vak overnam, de
+walk-forward-analyse: telkens opnieuw testen op gegevens die het systeem nog
+nooit heeft gezien. Davey (482) beschrijft als praktijkman hoe overfitting
+eruitziet voordat het geld kost, López de Prado (485) legt de institutionele
+lat met methoden tegen zelfbedrog in de validatie, en Jansen (486) is het
+codeboek om het zelf na te bouwen. Lees 483 eerst; daarna is de rest
+gereedschap.
 
 **De handelaar tegenover zichzelf** (487, 488, 80, 137). 
 Vier boeken over de handelaar als eigen grootste risico. Douglas (487) leert
@@ -101050,22 +101055,56 @@ tussentijdse verliezen zijn te groot voor mens en contract. Penfold (492) en
 McDowell (493) vertalen dezelfde rekensommen naar overlevingsregels, met het
 risico op de ondergang van de rekening als beginpunt.
 
-**Taleb aan het werk: opties en staartrisico** (494, 495, 496). 
+**Taleb aan het werk: opties en staartrisico** (494, 495, 506, 496). 
 Natenberg (495) is het leerboek waarmee optiehandelaren het vak leren:
 volatiliteit, de grieken en waarom de verwachting al in de prijs zit. Taleb
 (494) schreef vanuit de handelspraktijk over wat er daarna komt: posities
 beheren in markten die zich niet aan de modellen houden, het vakwerk waar zijn
-latere Incerto-reeks op voortbouwt. Spitznagel (496), Talebs zakenpartner bij
-Universa, bouwt op datzelfde fundament een beleggingsfilosofie: een kleine,
-permanente verzekering tegen de crash, zodat de rest van de portefeuille
-risico kan blijven nemen. Van leerboek via praktijk naar filosofie.
+latere Incerto-reeks op voortbouwt. Sinclair (506) is de nuchterste van het
+stel: een optiepositie is pas de moeite waard als de voorsprong te benoemen en
+te berekenen valt, anders is zij een mening met hefboom. Spitznagel (496),
+Talebs zakenpartner bij Universa, bouwt op datzelfde fundament een
+beleggingsfilosofie: een kleine, permanente verzekering tegen de crash, zodat
+de rest van de portefeuille risico kan blijven nemen. Van leerboek via
+praktijk naar filosofie.
 
-**Risico gemeten op portefeuilleniveau** (497, 498). 
-Twee academische standaardwerken over risico op het niveau van de hele
+**Risico gemeten op portefeuilleniveau** (497, 507, 498). 
+Drie academische standaardwerken over risico op het niveau van de hele
 portefeuille. McNeil, Frey en Embrechts (497) behandelen de wiskunde van het
 meten zelf, van Value at Risk tot extreme-waardetheorie, inclusief de les van
-2008 dat een risicomodel kan falen op het moment dat het nodig is. Grinold en
-Kahn (498) formuleren de wet die actief vermogensbeheer beheerst: rendement
-boven de markt vraagt voorspelkracht maal het aantal onafhankelijke kansen om
-die toe te passen. Studieboeken, geen betogen, en juist daarom de maat waaraan
-de rest van dit vakgebied zich moet meten.
+2008 dat een risicomodel kan falen op het moment dat het nodig is. Meucci
+(507) behandelt de bouwkant: hoe een portefeuille wiskundig streng wordt
+samengesteld wanneer de toekomst een verdeling is in plaats van een getal.
+Grinold en Kahn (498) formuleren de wet die actief vermogensbeheer beheerst:
+rendement boven de markt vraagt voorspelkracht maal het aantal onafhankelijke
+kansen om die toe te passen. Studieboeken, geen betogen, en juist daarom de
+maat waaraan de rest van dit vakgebied zich moet meten.
+
+**Trendvolgen: het systeem, de encyclopedie en het pleidooi** (480, 500, 501). 
+Drie ingangen tot dezelfde school. Clenow (480) publiceert één
+trendvolgsysteem met alle regels en verliesjaren erbij. Kaufman (500) zet het
+naast honderden andere systemen in zijn encyclopedie, die sinds 1978 met elke
+editie meegroeit met het vak. Covel (501) levert de casestudies: de
+fondsbeheerders die er decennia van leefden, verteld door de meest overtuigde
+aanhanger van de methode, wiens selectie de mislukte volgers weglaat. Systeem,
+naslagwerk en pleidooi; wie alle drie leest, kan het pleidooi op waarde
+schatten.
+
+**Edward Thorp, van blackjack naar de Kelly-formule** (505, 504, 490). 
+Thorp (505) vertelt zelf hoe hij eerst het casino en daarna de markt versloeg
+met dezelfde wiskunde: inzetten naar de grootte van je voorsprong. Het
+verzamelwerk dat hij mee redigeerde (504) bundelt de theorie daarachter, van
+Kelly's oorspronkelijke artikel uit 1956 tot Samuelsons bezwaren. Vince (490)
+bouwde er zijn eigen variant op, Optimal f, die het wiskundige maximum opzoekt
+en daarmee laat zien waarom de praktijk vrijwel altijd voor een fractie van
+Kelly kiest. Het leven, de theorie en de grens.
+
+**Marcos López de Prado, het handboek en het college** (485, 503). 
+Twee boeken van dezelfde hoogleraar en vermogensbeheerder. Advances in
+Financial Machine Learning (485) is het dikke handboek uit 2018 waarmee hij de
+institutionele standaard zette voor machine learning zonder zelfbedrog.
+Machine Learning for Asset Managers (503) is het compacte college van twee
+jaar later: dezelfde denkwijze, teruggebracht tot de kernkeuzes en met meer
+nadruk op verklaren waaróm iets werkt in plaats van louter voorspellen. Wie
+wil weten of het vak iets voor hem is, begint bij 503; wie het wil doen, komt
+bij 485 uit.
