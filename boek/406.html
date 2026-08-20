@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No More Mr. Nice Guy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Glover stelt dat een grote groep mannen opgroeit met de overtuiging dat er iets fundamenteel mis is met hen, en dat ze die overtuiging verbergen door…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-406">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">406 &middot; Mannen, vriendschap, verbinding</p>
+    <h1>No More Mr. Nice Guy</h1>
+    <p class="lede">Robert A. Glover, 2000</p>
+    <p class="stats">
+      <span><b>1556</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="406"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Glover stelt dat een grote groep mannen opgroeit met de overtuiging dat er iets fundamenteel mis is met hen, en dat ze die overtuiging verbergen door aardig, behulpzaam en onopvallend te worden. Deze "Nice Guy" probeert liefde, seks en waardering te verdienen door aan de wensen van anderen te voldoen zonder ooit zijn eigen wensen hardop uit te spreken, in de stille hoop dat de wereld hem daarvoor beloont. Dat ruilsysteem, het <i>covert contract</i>, werkt zelden zoals gehoopt, en de opgekropte woede over het uitblijven van de beloning maakt hem uiteindelijk minder aardig dan hij zich voordoet. Glovers uitweg is niet dat een man onaardiger moet worden, maar dat hij ophoudt zichzelf te verbergen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De diagnose</h3>
+      <p>Glover beschrijft een man die zich voordoet als aardig, meegaand en zorgzaam, maar die onder die buitenkant bang is voor afwijzing en conflict. Hij vermijdt ruzie, zegt zelden nee, en meet zijn waarde af aan wat anderen van hem vinden. Zulke mannen noemt Glover "Nice Guys", met een hoofdletter, om aan te geven dat het om een patroon gaat en niet om vriendelijkheid als karaktertrek.</p>
+      <p>Het patroon keert volgens hem terug in klachten die op het eerste gezicht niets met elkaar te maken hebben: partners die zeggen dat er geen vonk is, werk dat nooit wordt afgemaakt, verslavingen aan porno, eten of werk, en een woede die zelden rechtstreeks naar buiten komt maar zich uit in stemmingswisselingen en tegenwerking.</p>
+      <h3>Waar het begint</h3>
+      <p>De oorsprong legt Glover in de kindertijd. Een jongen leert al vroeg, van een ouder die zelf tekortschiet, van een omgeving die jongensgedrag afkeurt, of simpelweg van de gewone kwetsbaarheid van het opgroeien, dat er iets mis met hem is. Die ervaring slaat neer als wat hij, met een term uit de therapeutische literatuur over schaamte, "toxic shame" noemt: niet het gevoel iets verkeerd te hebben gedaan, maar het gevoel zelf verkeerd te zijn.</p>
+      <p>Uit die schaamte ontstaat een kernovertuiging die bij vrijwel elke cliënt terugkeert: als mensen wisten wie ik werkelijk ben, zouden ze me niet meer mogen. De jongen leert die kern te verbergen achter goed gedrag, en groeit op tot een man die zichzelf voortdurend bewaakt.</p>
+      <h3>Het covert contract</h3>
+      <p>Om toch aan zijn behoeften te komen zonder zich bloot te geven, sluit de Nice Guy volgens Glover onuitgesproken ruilovereenkomsten: als ik goed genoeg ben, zal ik gemogen worden; als ik aan de behoeften van anderen voldoe zonder dat ze erom hoeven te vragen, zullen zij hetzelfde voor mij doen; als ik me altijd correct gedraag, zal alles goed met me aflopen. Geen van de betrokken partijen weet dat het contract bestaat, waardoor het ook nooit bewust wordt nagekomen.</p>
+      <p>Het gevolg is een sluimerende rekening. De Nice Guy doet, geeft en past zich aan, en registreert intussen elke keer dat er niets terugkomt. Die rekening loopt op tot ze in een uitbarsting of in stille wraak naar buiten komt, meestal tegen een persoon die niets met de oorspronkelijke belofte te maken heeft.</p>
+      <h3>Hoe het volwassen leven eruitziet</h3>
+      <p>In relaties uit het patroon zich als een man die zijn partner probeert te lezen in plaats van te vragen wat zij wil, die zelden zijn eigen seksuele wensen uitspreekt, en die bij de eerste tekenen van afkeuring inbindt. Glover wijst erop dat veel vrouwen dat gedrag niet aantrekkelijk vinden: het voortdurend inschikken oogt niet als zorgzaamheid maar als gebrek aan eigen richting.</p>
+      <p>Op het werk en in vriendschappen ziet hij dezelfde reflex terug in mannen die zichzelf overal voor beschikbaar houden door steeds ja te zeggen, en die hun irritatie pas uiten als het al te laat is. Glover noemt dat een leven dat wordt geleefd voor het oordeel van anderen in plaats van vanuit een eigen koers.</p>
+      <h3>Het herstelplan</h3>
+      <p>Het tweede deel van het boek is opgebouwd als een stappenplan. Eerst leert de lezer zijn eigen covert contracts herkennen, door bij te houden wanneer hij iets doet in de stille verwachting van iets terug. Daarna volgt wat Glover "integriteit" noemt: in elke situatie, tegenover elke persoon, dezelfde zijn, in plaats van een aangepaste versie van jezelf per publiek.</p>
+      <p>Verdere stappen zijn het terugclaimen van wat hij persoonlijke macht noemt: keuzes maken zonder eerst goedkeuring te zoeken, grenzen stellen ook als dat ongemak geeft, en risico's nemen die eerder werden vermeden uit angst voor afwijzing.</p>
+      <h3>Mannen onder mannen</h3>
+      <p>Glover hecht veel waarde aan het doorbreken van de isolatie waarin veel Nice Guys leven. Hij pleit voor een vaste kring van mannen tegenover wie iemand eerlijk kan zijn over worstelingen, in plaats van de aanpassing vol te houden die hij thuis en op het werk al gewend is. Zelf begon hij met groepstherapie voor cliënten met dit patroon en bouwde het boek voor een deel op wat daar naar boven kwam.</p>
+      <p>Die steun dient ook als correctie: andere mannen die hetzelfde patroon herkennen, prikken sneller door het aardige gedrag heen dan een partner of een collega, en geven de erkenning die de Nice Guy eerder buiten zichzelf zocht.</p>
+      <h3>Directheid, ook in seksualiteit</h3>
+      <p>In het laatste deel gaat Glover in op wat hij een overvloedmentaliteit noemt: dating en relaties benaderen vanuit de gedachte dat er genoeg mogelijkheden zijn, in plaats van vanuit de angst dat dit de enige kans is. Wie uit angst leeft, wordt volgens hem minder aantrekkelijk, doordat die angst zich vertaalt in aanpassing en klef gedrag.</p>
+      <p>Hetzelfde geldt voor seksualiteit: Glover raadt lezers aan hun verlangens rechtstreeks te benoemen in plaats van te wachten tot een partner ze raadt. Dat is voor hem geen truc om meer voor elkaar te krijgen, maar het logische vervolg op de rest van het boek: een man die zijn wensen niet meer verstopt, hoeft ze ook in bed niet te verstoppen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nice Guy Syndrome</td><td>Het patroon waarbij een man zijn ware zelf verbergt achter aardig en aangepast gedrag om liefde en goedkeuring te verdienen.</td></tr>
+          <tr><td class="term">Covert contract</td><td>Een onuitgesproken ruilovereenkomst waarin iemand iets geeft in de stille verwachting dat de ander vanzelf hetzelfde teruggeeft.</td></tr>
+          <tr><td class="term">Toxic shame</td><td>Het vroeg aangeleerde gevoel dat er iets fundamenteel mis is met jezelf, in plaats van met wat je hebt gedaan.</td></tr>
+          <tr><td class="term">Kernovertuiging</td><td>De aanname die uit die schaamte ontstaat: als mensen wisten wie ik echt ben, zouden ze me niet meer mogen.</td></tr>
+          <tr><td class="term">Integriteit</td><td>Glovers term voor dezelfde persoon zijn in elke situatie, in plaats van een aangepaste versie per publiek.</td></tr>
+          <tr><td class="term">Persoonlijke macht terugclaimen</td><td>Keuzes maken en grenzen stellen zonder eerst goedkeuring van anderen te zoeken.</td></tr>
+          <tr><td class="term">Overvloedmentaliteit</td><td>Dating en relaties benaderen vanuit de gedachte dat er genoeg mogelijkheden zijn, niet vanuit schaarste en angst.</td></tr>
+          <tr><td class="term">Mannelijke energie</td><td>Glovers weinig uitgewerkte term voor doelgerichtheid en aanwezigheid, ontleend aan de bredere taal van de mannenbeweging.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Glover werkte als huwelijks- en gezinstherapeut en ontwikkelde het begrip Nice Guy Syndrome in de praktijk, aan de hand van patronen die hij bij tientallen cliënten terugzag en die hij herkende uit zijn eigen leven. Het boek citeert geen onderzoeksliteratuur en presenteert geen gecontroleerde studies; de onderbouwing bestaat uit klinische observatie en herhaalde herkenning, niet uit meting.</p>
+      <p>De brede weerklank van het boek, dat na de eerste, kleine uitgave uitgroeide tot een internationale beweging met workshops en online gemeenschappen, is een aanwijzing dat het patroon door veel lezers wordt herkend. Herkenning is geen bewijs dat de verklaring klopt of dat het stappenplan werkt; van de effecten van zijn eigen workshops heeft Glover geen gevolgonderzoek gepubliceerd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek plakt één etiket op een brede groep klachten, van verlegenheid tot verslaving tot huwelijksproblemen, en verklaart ze allemaal vanuit dezelfde jeugdervaring. Dat maakt het aantrekkelijk als verhaal, maar het risico is dat gewone consciëntieusheid of introvertie wordt herlabeld als een syndroom dat behandeling behoeft.</p>
+      <p>De term "mannelijke energie" komt rechtstreeks uit de taal van de mythopoëtische mannenbeweging van de jaren tachtig, zonder dat Glover die herkomst benoemt of de aannames erachter bespreekt. Waar dat woord vandaan komt en wat het precies veronderstelt over mannen en vrouwen, blijft in het boek onbesproken.</p>
+      <p>Het boek richt zich vrijwel uitsluitend op heteroseksuele mannen die vrouwen willen aantrekken, en de adviezen over overvloed en aantrekkingskracht liggen dicht bij het vocabulaire van de datingindustrie die vrouwen behandelt als een resultaat dat te behalen valt. Dat gaat ten koste van de kant van het boek die over zelfkennis gaat.</p>
+      <p>Het stappenplan wordt gepresenteerd als beproefd, de ondertitel spreekt van <i>a proven plan</i>, terwijl er geen gepubliceerd onderzoek is dat dat woord dekt. Wat vaststaat is dat veel lezers zich in de beschrijving herkennen, niet dat de aanpak bij hen tot verandering heeft geleid.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd een week bij wanneer je iets voor iemand doet in de stille verwachting dat er iets voor terugkomt, en schrijf op wat je eigenlijk had willen vragen.</li>
+        <li>Formuleer één kernovertuiging over jezelf die je al lang meedraagt, en ga na op welk moment in je jeugd die is ontstaan.</li>
+        <li>Zoek een klein, vast gezelschap van mannen om eerlijk te zijn over wat er niet goed gaat, in plaats van dat alleen te dragen.</li>
+        <li>Oefen wekelijks met één directe, ongevraagde uiting van een wens, in plaats van te wachten tot iemand die raadt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>No More Mr. Nice Guy: A Proven Plan for Getting What You Want in Love, Sex, and Life</i>. Oorspronkelijk verschenen als e-boek in 2000, vanaf 2001 in paperback bij Barnes &amp; Noble Books en vanaf 2003 herdrukt bij Running Press (ISBN 9780762415335). Nederlands als <i>Nooit meer Mister Nice Guy</i> (Pumbo, 2017, e-book, ISBN 9789463451727); een vertaler wordt in de catalogusgegevens niet genoemd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Glover, huwelijks- en gezinstherapeut, beschrijft een patroon dat hij het Nice Guy Syndrome noemt: mannen die vroeg leerden dat er iets mis met hen was, en die dat sindsdien verbergen door aardig, behulpzaam en aangepast te zijn. Ze proberen liefde en waardering te verdienen zonder ooit hardop te vragen wat ze zelf willen, in de stille hoop dat de wereld hen daarvoor beloont. Dat ruilsysteem werkt zelden, en de opgekropte teleurstelling erover uit zich later in frustratie, passieve tegenwerking of verslaving.</p><p>Het boek is in eigen beheer begonnen, groeide uit tot een internationale beweging met workshops en online gemeenschappen, en bestaat uit een diagnosedeel en een herstelplan. Het rust op klinische ervaring, niet op onderzoek, en richt zich vrijwel volledig op heteroseksuele mannen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>mannelijkheid</li><li>erkenningszucht</li><li>grenzen stellen</li><li>relaties</li><li>psychotherapie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="162"><a href="162.html">Boundaries</a>. Cloud en Townsend werken de grenzen die Glover bepleit uit tot een volledig kader, los van het thema mannelijkheid.</li>
+          <li value="3"><a href="03.html">The Will to Change</a>. hooks beschrijft vanuit feministisch perspectief dezelfde onderdrukking van het mannelijk gevoelsleven die Glover als oorzaak van het Nice Guy-patroon aanwijst.</li>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller verklaren vanuit gehechtheidstheorie waarom erkenningszucht in relaties zo hardnekkig is, een lijn die Glover zelf niet trekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

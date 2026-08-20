@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Book of Beautiful Questions &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Berger stelt dat mensen bij onzekerheid instinctief naar een antwoord grijpen, terwijl een goed gestelde vraag de aannames blootlegt die aan dat antwoord…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-475">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">475 &middot; Gewoontes en denken</p>
+    <h1>The Book of Beautiful Questions</h1>
+    <p class="lede">Warren Berger, 2018</p>
+    <p class="stats">
+      <span><b>1421</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="475"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Berger stelt dat mensen bij onzekerheid instinctief naar een antwoord grijpen, terwijl een goed gestelde vraag de aannames blootlegt die aan dat antwoord ten grondslag liggen. Instinct en ervaring zijn volgens hem onbetrouwbaarder dan mensen denken, omdat ze bestaande overtuigingen bevestigen in plaats van ze te toetsen. Zijn stelling is dat wie zich oefent in het stellen van de juiste vraag bij een beslissing, een creatief probleem, een relatie en een team, op alle vier vlakken beter af is dan wie meteen het snelste antwoord zoekt. Het boek is een pleidooi voor de vraag als instrument, niet voor een vaste set antwoorden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van antwoorden naar vragen</h3>
+      <p>Berger noemt zichzelf een "questionologist", iemand die vragen bestudeert in plaats van beroepshalve antwoorden te geven, en bouwt in dit boek voort op zijn eerdere <i>A More Beautiful Question</i> uit 2014. Het boek is ingedeeld in vier delen: beslissen, creëren, verbinden en leiden, gevolgd door een slotdeel over vragen als levenshouding.</p>
+      <p>De vorm herhaalt zich door het hele boek: een kort verhaal over een persoon of bedrijf, gevolgd door een kader met concrete vragen die de lezer op de eigen situatie kan toepassen. Berger werkt daarbij met onderzoek en experts van anderen; het boek zelf doet geen eigen onderzoek.</p>
+      <h3>Beslissen</h3>
+      <p>Het eerste deel gaat over de onbetrouwbaarheid van de eerste ingeving. Berger citeert psycholoog Daniel Levitin met de waarschuwing dat een onderbuikgevoel vaker fout zit dan goed, en bouwt voort op Daniel Kahnemans WYSIATI, de neiging om te handelen alsof wat je nu voor je ziet alles is wat er te zien valt. Fysicus Arno Penzias' "halsslagadervraag" staat model voor het type vraag dat Berger aanraadt: een vraag die recht op de kern van een aanname afgaat in plaats van eromheen te draaien.</p>
+      <p>Centraal staat het onderscheid tussen de soldaat en de verkenner: de soldaat verdedigt een stelling, de verkenner wil vooral begrijpen wat er werkelijk aan de hand is. Durfkapitalist Christopher Schroeder wordt aangehaald met de vraag "wil ik liever gelijk hebben, of wil ik liever begrijpen?" Berger werkt dit uit in een drieslag van vragen: wat neig ik te geloven, waarom geloof ik dat eigenlijk, en wat als het tegendeel waar is. Een voorbeeld dat terugkeert is een baankeuze waarbij salaris en aanzien pas terzijde raken zodra iemand zich afvraagt wat hij eigenlijk probeert te bereiken.</p>
+      <h3>Creëren</h3>
+      <p>Het tweede deel behandelt creativiteit als vaardigheid die iedereen bezit maar die door opvoeding en gewoonte wordt afgeleerd. Berger gebruikt het verhaal van ontwerper David Kelley, medeoprichter van IDEO, die na een ziekte tot de overtuiging kwam dat creatief werk niet alleen voor beroepsontwerpers is maar voor iedereen die zijn werk goed wil doen.</p>
+      <p>De vragen die hij aanreikt zijn kort: wat raakt me, wat stoort me, wat ontbreekt er. Hij beschrijft ook het idee van een "schildpadhok", een afgeschermde plek en tijd zonder afleiding waarin nieuwe ideeën kunnen ontstaan, en benadrukt dat feedback nodig is om een idee verder te brengen dan het eerste opwellen ervan.</p>
+      <h3>Verbinden</h3>
+      <p>Het derde deel gaat over vragen die relaties verdiepen. Berger verwijst naar het onderzoek van psycholoog Arthur Aron, waarin twee vreemden aan de hand van zesendertig steeds persoonlijkere vragen tot een merkbaar gevoel van nabijheid komen, in een aantal gevallen zelfs tot een relatie. Hij leidt daaruit af dat gerichte vragen, opgebouwd in oplopende openheid, meer verbinding scheppen dan toevallige gesprekken.</p>
+      <p>Berger onderscheidt daarbij oprechte nieuwsgierigheid van verhoor: een vraag die om een bepaald antwoord vraagt, sluit eerder af dan dat hij opent. In een gepolariseerd gesprek stelt hij voor nieuwsgierigheid in te zetten in plaats van oordeel, en te vragen naar wat iemand drijft in plaats van naar het standpunt zelf.</p>
+      <h3>Leiden en de vraag als gewoonte</h3>
+      <p>Het vierde deel gaat over leiderschap dat stuurt via vragen in plaats van via voorgeschreven antwoorden. Berger beschrijft schooldirecteur Nadia Lopez, die op een school met veel gedragsproblemen leerlingen bevraagt in plaats van te straffen, als voorbeeld van wat hij een "visionaire helper" noemt: iemand die richting geeft en tegelijk ondersteunt, met nederigheid en nieuwsgierigheid als leidende eigenschappen in een omgeving die hij, met het gangbare bedrijfsjargon, VUCA noemt: vluchtig, onzeker, complex en ambigu.</p>
+      <p>In het slotdeel voegt Berger zijn eigen formule toe: vraag plus actie is verandering, terwijl vraag zonder actie alleen verwarring oplevert. Hij introduceert het idee van een "grote mooie vraag", een persoonlijke vraag die iemand jarenlang met zich meedraagt en die zijn richting in het leven bepaalt, en beveelt aan om een kleine set vaste vragen bij de hand te houden voor het moment dat ze nodig zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Questionologist</td><td>Bergers eigen aanduiding voor iemand die vragen bestudeert en verzamelt in plaats van beroepshalve antwoorden te geven.</td></tr>
+          <tr><td class="term">WYSIATI</td><td>Kahnemans term voor de neiging te handelen alsof wat je nu ziet alles is wat er te zien valt, waardoor snelle oordelen vaak op te weinig informatie rusten.</td></tr>
+          <tr><td class="term">Soldaat en verkenner</td><td>Het onderscheid tussen iemand die een standpunt verdedigt en iemand die vooral wil begrijpen wat er werkelijk aan de hand is.</td></tr>
+          <tr><td class="term">Halsslagadervraag</td><td>Arno Penzias' term voor een vraag die recht op de kern van een aanname afgaat in plaats van eromheen te draaien.</td></tr>
+          <tr><td class="term">Schildpadhok</td><td>Een afgeschermde plek en tijd zonder afleiding, bedoeld om nieuwe ideeën de ruimte te geven zich te vormen.</td></tr>
+          <tr><td class="term">Visionaire helper</td><td>Bergers model van leiderschap dat richting geeft en tegelijk ondersteunt, met nederigheid en nieuwsgierigheid als kern.</td></tr>
+          <tr><td class="term">VUCA</td><td>Vluchtig, onzeker, complex en ambigu: de term die Berger gebruikt voor de omgeving waarin hedendaags leiderschap plaatsvindt.</td></tr>
+          <tr><td class="term">Grote mooie vraag</td><td>Een persoonlijke vraag die iemand jarenlang met zich meedraagt en die de richting van zijn leven mede bepaalt.</td></tr>
+          <tr><td class="term">Vraag plus actie is verandering</td><td>Bergers formule dat een vraag zonder daaropvolgende actie alleen verwarring oplevert in plaats van verandering.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Berger bouwt zijn betoog per deel op één tot enkele onderzoeken van anderen: Kahnemans werk over oordeelsvorming voor het deel over beslissen, Arthur Arons onderzoek naar zesendertig vragen voor het deel over verbinden. Dat onderzoek is op zichzelf gepubliceerd en herhaald; het bekendste voorbeeld, de zesendertig vragen van Aron, is in de decennia erna vaak nagebootst, onder meer in populaire media, en de kern ervan, dat oplopende zelfonthulling nabijheid schept, wordt breed erkend.</p>
+      <p>Voor de delen over creativiteit en leiderschap steunt Berger vooral op interviews en praktijkverhalen van mensen als David Kelley en Nadia Lopez, zonder vergelijkbare onderzoeksbasis. Dat maakt die twee delen aantoonbaar zwakker onderbouwd dan de delen over beslissen en verbinden: een sterk verhaal illustreert een vraag, maar toont niet aan dat de vraag werkt bij wie het verhaal niet heeft meegemaakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek beweert dat vragen op zichzelf al iets bewerkstelligen, terwijl het onderliggende onderzoek vooral laat zien dat vragen iets blootleggen: een aanname, een blinde vlek, een verlangen. Wat er met dat blootgelegde inzicht gebeurt, hangt af van wat erna komt, en Berger erkent dat zelf met zijn formule dat een vraag zonder actie alleen verwarring oplevert, maar werkt die spanning niet consequent door de rest van het boek uit.</p>
+      <p>De vier delen zijn ongelijk onderbouwd. Beslissen en verbinden steunen op herhaald onderzoek, creëren en leiden grotendeels op losse voorbeelden die knap gekozen zijn maar niet aantonen dat de aanpak breder werkt dan bij Kelley of Lopez zelf. Een recensent noemde het boek nergens echt uitdagend, wat aansluit bij de opzet: het boek prikkelt eerder tot verder nadenken dan dat het zelf een nieuw inzicht draagt.</p>
+      <p>Voor leiderschap is het bezwaar dat vragen stellen geen vervanging is voor een besluit nemen en verantwoordelijkheid dragen wanneer het misgaat; een leider die alleen vraagt en nooit knopen doorhakt, schuift het probleem door. Berger noemt dat risico in het slotdeel, maar het komt in de rest van het boek nauwelijks terug.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vervang bij een lastige beslissing de vraag "wat moet ik doen" eerst door "wat probeer ik hier eigenlijk te bereiken".</li>
+        <li>Vraag jezelf bij een sterke overtuiging af of je liever gelijk hebt of liever begrijpt, voordat je het gesprek aangaat.</li>
+        <li>Reserveer een vaste, afleidingsvrije tijd en plek voor een probleem dat om een nieuw idee vraagt.</li>
+        <li>Bouw in een gesprek met iemand die je nog niet goed kent op van feitelijke naar persoonlijke vragen, in plaats van meteen het diepe in te gaan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The Book of Beautiful Questions: The Powerful Questions That Will Help You Decide, Create, Connect, and Lead</i> (Bloomsbury, 1 november 2018, 288 blz., ISBN 9781632869562). Vervolg op <i>A More Beautiful Question</i> (2014). Geen Nederlandse uitgave bekend; de samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Warren Berger noemt zichzelf "questionologist" en bouwt in dit boek voort op zijn eerdere <i>A More Beautiful Question</i>. Hij verzamelt ruim vierhonderd vragen, ingedeeld in vier gebieden: beslissen, creëren, verbinden en leiden, en betoogt dat een goed gestelde vraag op elk van die terreinen meer oplevert dan een snel antwoord.</p><p>Elk deel wisselt korte praktijkverhalen af met kaders vol concrete vragen om zelf te stellen, van een sollicitatiekeuze tot het leiden van een team. Het boek bouwt op onderzoek van anderen, waaronder cognitiepsychologie over besluitvorming en relatieonderzoek over verbondenheid, en presenteert dat via voorbeelden in plaats van via eigen dataverzameling.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vragen-stellen</li><li>besluitvorming</li><li>creativiteit</li><li>leiderschap</li><li>communicatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahnemans eigen werk over WYSIATI en snel oordelen, waarop Berger in het deel over beslissen rechtstreeks voortbouwt.</li>
+          <li value="28"><a href="28.html">Think Again</a>. Grant werkt de houding van de verkenner tegenover de soldaat verder uit tot een heel boek over heroverwegen.</li>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Behandelt hetzelfde terrein van het lastige gesprek, met een uitgewerkte methode in plaats van een verzameling vragen.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Voss laat zien hoe vragen in een onderhandeling niet alleen verbinden maar ook informatie winnen, in een dwingender context dan Berger beschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

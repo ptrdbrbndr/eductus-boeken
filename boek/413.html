@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Crack in Creation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Doudna en Sternberg stellen dat CRISPR-Cas9 het bewerken van DNA voor het eerst in de geschiedenis snel, goedkoop en toegankelijk genoeg heeft gemaakt om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-413">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">413 &middot; Natuur en wetenschap</p>
+    <h1>A Crack in Creation</h1>
+    <p class="lede">Jennifer Doudna en Samuel Sternberg, 2017</p>
+    <p class="stats">
+      <span><b>1444</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="413"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Doudna en Sternberg stellen dat CRISPR-Cas9 het bewerken van DNA voor het eerst in de geschiedenis snel, goedkoop en toegankelijk genoeg heeft gemaakt om buiten gespecialiseerde laboratoria te reiken, en dat die toegankelijkheid de technologie tegelijk veelbelovend en gevaarlijk maakt. Hun onderscheid tussen het bewerken van cellen van één patiënt en het bewerken van embryo's, waarvan de gevolgen overerven naar volgende generaties, vormt de kern van het boek: het eerste kan volgens hen zorgvuldig worden ontwikkeld binnen bestaande medische kaders, het tweede vraagt om een maatschappelijk gesprek voordat de wetenschap er zelf een besluit over neemt. De auteurs schrijven dit boek uitdrukkelijk vanuit de positie van makers die zich, tegen hun eigen aanvankelijke verwachting in, genoodzaakt zagen die vraag zelf op de agenda te zetten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Bacteriën met een geheugen</h3>
+      <p>Doudna vertelt hoe haar onderzoek naar RNA-moleculen haar bij CRISPR bracht, herhaalde stukken DNA in het genoom van bacteriën die stukjes virus-DNA uit eerdere infecties bevatten. Ander onderzoek had al vastgesteld dat bacteriën deze stukken gebruiken om een virus bij een volgende infectie te herkennen; wat nog ontbrak was het begrip van het eiwit dat de herkenning omzet in een fysieke ingreep op het DNA.</p>
+      <h3>De ontmoeting in San Juan</h3>
+      <p>In 2011 ontmoette Doudna op een microbiologiecongres in San Juan, Puerto Rico, Emmanuelle Charpentier, die in Umeå onderzoek deed naar het eiwit Cas9. Tijdens een wandeling door de oude stad besloten de twee samen te onderzoeken hoe dat eiwit precies werkt, een samenwerking die uitgroeide tot het onderzoek waarop de rest van het boek voortbouwt.</p>
+      <h3>Van afweermechanisme tot programmeerbaar gereedschap</h3>
+      <p>In hun in 2012 in <i>Science</i> gepubliceerde onderzoek toonden Doudna, Charpentier en collega's aan dat Cas9, gestuurd door één enkel gids-RNA, DNA op vrijwel elke gewenste plek kan doorknippen, mits die plek een kort herkenningssignaal bevat. Daarmee veranderde een bacterieel afweermechanisme in een gereedschap dat DNA in willekeurig welk organisme programmeerbaar kan bewerken.</p>
+      <p>Doudna beschrijft in het boek hoe snel het besef doordrong wat dit betekende: eerdere technieken om DNA op een gekozen plek te bewerken bestonden al, maar vroegen gespecialiseerde eiwitten per doelwit en jaren aan ontwikkeltijd per toepassing. Met CRISPR-Cas9 volstaat het aanpassen van een stukje gids-RNA, wat het bewerken van DNA binnen het bereik bracht van vrijwel elk laboratorium met basiskennis van moleculaire biologie.</p>
+      <h3>Wat het gereedschap mogelijk maakt</h3>
+      <p>Doudna en Sternberg bespreken toepassingen in de landbouw, zoals gewassen die beter bestand zijn tegen droogte of ziekte, en in de geneeskunde, waar ze wijzen op de mogelijkheid om erfelijke aandoeningen als sikkelcelziekte op celniveau te corrigeren. Ook komen zogeheten gene drives aan bod, een techniek om een genetische aanpassing sneller dan gebruikelijk door een hele populatie te verspreiden, bijvoorbeeld om malariamuggen minder besmettelijk te maken.</p>
+      <p>De auteurs bespreken ook meer speculatieve toepassingen, zoals het terugbrengen van kenmerken van uitgestorven diersoorten in nauw verwante nog levende soorten, en waarschuwen daarbij uitdrukkelijk dat wat technisch haalbaar wordt, niet automatisch wenselijk is. Die spanning tussen kunnen en moeten loopt door het hele tweede deel van het boek.</p>
+      <h3>De droom die het onderscheid scherpstelde</h3>
+      <p>Doudna beschrijft een nachtmerrie waarin een collega haar vraagt CRISPR uit te leggen aan iemand die bij nadering een varkensgezicht blijkt te hebben van Adolf Hitler, met pen en papier klaar om aantekeningen te maken. Die droom, schrijft zij, maakte haar het onderscheid duidelijk waarop de rest van het boek steunt: bewerking van cellen van één patiënt is niet overerfbaar, bewerking van embryo's, eicellen of zaadcellen wel, en dat laatste raakt niet alleen de patiënt maar de menselijke genenpoel.</p>
+      <h3>Napa, Washington en de oproep tot terughoudendheid</h3>
+      <p>Vanuit die zorg organiseerde Doudna in 2015 een besloten overleg in Napa Valley en later dat jaar de eerste internationale top over menselijk gen-bewerken in Washington. De uitkomst was een verklaring dat erfelijke bewerking van menselijke embryo's zou moeten worden ontraden totdat er breed maatschappelijk draagvlak is, zonder de woorden verbod of moratorium te gebruiken. Doudna vergelijkt dit expliciet met de Asilomar-conferentie van 1975, waar onderzoekers zelf grenzen stelden aan vroeg DNA-onderzoek.</p>
+      <p>Het boek eindigt met de erkenning dat wetenschappers dit gesprek niet alleen kunnen voeren. Doudna en Sternberg roepen op tot een voortdurend overleg tussen onderzoekers, artsen, wetgevers en het bredere publiek, en stellen uitdrukkelijk dat het laatste woord daarbij niet aan het laboratorium toekomt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">CRISPR</td><td>Herhaalde DNA-stukken in het genoom van bacteriën die stukjes virus-DNA uit eerdere infecties bewaren.</td></tr>
+          <tr><td class="term">Cas9</td><td>Het eiwit dat, gestuurd door een RNA-molecuul, DNA op een specifieke plek doorknipt.</td></tr>
+          <tr><td class="term">Gids-RNA</td><td>Het RNA-molecuul dat Cas9 naar de juiste plek in het DNA stuurt.</td></tr>
+          <tr><td class="term">Herkenningssignaal (PAM)</td><td>Het korte DNA-stukje naast de doelplek dat Cas9 nodig heeft om te herkennen waar het mag knippen.</td></tr>
+          <tr><td class="term">Somatische bewerking</td><td>Het bewerken van cellen van één patiënt, niet overerfbaar naar diens nakomelingen.</td></tr>
+          <tr><td class="term">Kiembaanbewerking</td><td>Het bewerken van embryo's, eicellen of zaadcellen, wel overerfbaar naar volgende generaties.</td></tr>
+          <tr><td class="term">Gene drive</td><td>Een techniek om een genetische aanpassing sneller dan gebruikelijk door een hele populatie te verspreiden.</td></tr>
+          <tr><td class="term">Adaptief bacterieel afweersysteem</td><td>Het vermogen van bacteriën om een eerder tegengekomen virus te herkennen en er bij een volgende infectie sneller tegen te reageren.</td></tr>
+          <tr><td class="term">Asilomar-model</td><td>De verwijzing naar de conferentie van 1975 waar onderzoekers zelf voorlopige grenzen stelden aan vroeg DNA-onderzoek, als voorbeeld voor zelfregulering door wetenschappers.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is geschreven door de onderzoeker die de kerntechniek mee ontdekte, samen met een voormalige promovendus uit haar eigen laboratorium, en steunt op het in 2012 in <i>Science</i> gepubliceerde onderzoek met naam en toenaam van betrokken onderzoekers. De hoofdstukken over de ethische en politieke gevolgen berusten op eigen deelname: Doudna organiseerde de Napa-bijeenkomst en de top in Washington zelf, wat deze passages een eerstehands karakter geeft in plaats van een verslag van buitenaf.</p>
+      <p>Tegelijk is dit geen onafhankelijk verslag van de geschiedenis van CRISPR. Het boek vertelt de ontdekking vanuit het perspectief van Doudna's laboratorium, in een periode waarin ook een octrooigeschil liep met het Broad Institute over de toepassing van CRISPR-Cas9 in cellen van planten, dieren en mensen. Dat geschil en de rol van andere onderzoeksgroepen krijgen in het boek beperkte aandacht.</p>
+      <p>Dat de kernbelofte van het boek, therapeutisch gebruik bij erfelijke ziekten, geen loze aankondiging was, bleek later: in december 2023 keurde de Amerikaanse toezichthouder FDA met Casgevy de eerste op CRISPR-Cas9 gebaseerde behandeling goed, voor patiënten met sikkelcelziekte, gevolgd door goedkeuring voor bèta-thalassemie begin 2024. Dat ligt buiten de tekst zelf, maar bevestigt de kern van de toepassing die het boek voorspelde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De grootste toets voor het boek kwam van buitenaf en na publicatie. In november 2018, ongeveer anderhalf jaar na verschijning, maakte de Chinese onderzoeker He Jiankui bekend dat hij CRISPR had gebruikt om de embryo's te bewerken waaruit een tweeling werd geboren, in directe tegenspraak met de terughoudendheid die de Napa-bijeenkomst en de top in Washington hadden bepleit. He kreeg daarvoor later een gevangenisstraf in China. Dat de door het boek beschreven consensus binnen zo korte tijd werd doorbroken, zet vraagtekens bij het vertrouwen dat de auteurs uitspreken in zelfregulering door wetenschappers.</p>
+      <p>Het boek is geschreven vanuit het perspectief van de ontdekker van de techniek, die zelf ook betrokken was bij de oprichting van biotechnologiebedrijven rond CRISPR-toepassingen. Dat maakt de overwegend hoopvolle toon over de mogelijkheden van de technologie moeilijk helemaal los te zien van het eigen zakelijke belang bij die toon, ook al benoemen de auteurs de risico's uitdrukkelijk.</p>
+      <p>Waar het boek sterk is in het uitleggen van het mechanisme en de vroege geschiedenis, blijft het spaarzaam over de bredere maatschappelijke ongelijkheid die nieuwe medische technologie doorgaans met zich meebrengt: wie er als eerste toegang toe krijgt en tegen welke prijs, komt in het boek nauwelijks aan bod. Toen Casgevy in 2023 werd goedgekeurd, ging dat gepaard met een prijs van meer dan twee miljoen dollar per behandeling, een gevolg dat in het optimisme van het boek over toegankelijkheid van de basistechniek onderbelicht blijft.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij nieuws over gen-bewerking altijd of het om somatische of om kiembaanbewerking gaat; de gevolgen en de ethische vragen verschillen daarbij fundamenteel.</li>
+        <li>Lees latere berichten over CRISPR, van de veroordeling van He Jiankui tot goedgekeurde therapieën tegen sikkelcelziekte, tegen de achtergrond van het mechanisme dat dit boek uitlegt, in plaats van als op zichzelf staand nieuws.</li>
+        <li>Wees kritisch op optimistische toekomstclaims over gentechnologie wanneer die van de ontdekkers zelf komen, en zoek onafhankelijke duiding voordat je een claim overneemt.</li>
+        <li>Vraag bij elke nieuwe toepassing van gen-bewerking niet alleen of iets werkt, maar ook wie er toegang toe krijgt en tegen welke prijs.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>A Crack in Creation: Gene Editing and the Unthinkable Power to Control Evolution</i> (Houghton Mifflin Harcourt, Boston, 281 blz., ISBN 9780544716940). Geen Nederlandse vertaling gevonden; wel is er een Nederlandse biografie van Doudna door Walter Isaacson, <i>De codekraker</i> (Lannoo, 2021), een ander boek dan dit. Doudna ontving in 2020, drie jaar na publicatie, samen met Emmanuelle Charpentier de Nobelprijs voor de Scheikunde voor het werk dat dit boek beschrijft.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Doudna beschrijft samen met haar voormalige promovendus Sternberg hoe zij als RNA-onderzoeker via een toevallige ontmoeting met Emmanuelle Charpentier in 2011 belandde bij CRISPR-Cas9, een afweersysteem van bacteriën tegen virussen dat zich liet ombouwen tot een programmeerbaar gereedschap om DNA op een gekozen plek door te knippen. Die ontdekking, gepubliceerd in 2012, maakte het bewerken van genetisch materiaal in vrijwel elk organisme sneller en goedkoper dan met eerdere technieken.</p><p>Het tweede deel van het boek gaat over de gevolgen: van gewassen en ziekten tot de vraag of en hoe menselijke embryo's bewerkt mogen worden. Doudna beschrijft een nachtmerrie die haar ertoe zette zelf het voortouw te nemen in het organiseren van wetenschappelijk overleg over de grenzen van de techniek, en het boek eindigt met een oproep tot terughoudendheid bij erfelijke toepassingen, in afwachting van breed maatschappelijk draagvlak.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biotechnologie</li><li>CRISPR</li><li>gentechnologie</li><li>ethiek</li><li>genetica</li><li>wetenschapsgeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="299"><a href="299.html">Catastrophe Ethics</a>. Rieder onderzoekt de ethiek van beslissingen met gevolgen voor toekomstige generaties, precies het probleem dat kiembaanbewerking oproept.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan pleit voor wetenschappelijke geletterdheid als bescherming tegen zowel ongefundeerde angst als ongefundeerd vertrouwen in nieuwe technologie.</li>
+          <li value="240"><a href="240.html">Einstein: His Life and Universe</a>. Isaacson's biografie van Einstein laat zien hoe een eerdere ingrijpende wetenschappelijke vondst de wereld voor een vergelijkbare morele vraag stelde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

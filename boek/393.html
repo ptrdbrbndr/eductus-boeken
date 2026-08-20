@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Right to Oblivion &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pressly betoogt dat privacy op de eerste plaats een voorwaarde is voor een leven dat de moeite waard is, en pas op de tweede plaats het juridisch recht om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-393">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">393 &middot; Geschiedenis en samenleving</p>
+    <h1>The Right to Oblivion</h1>
+    <p class="lede">Lowry Pressly, 2024</p>
+    <p class="stats">
+      <span><b>1416</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="393"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pressly betoogt dat privacy op de eerste plaats een voorwaarde is voor een leven dat de moeite waard is, en pas op de tweede plaats het juridisch recht om te bepalen wat anderen over je te weten komen. Hij onderscheidt een geheim, een feit dat bestaat maar wordt verborgen, van vergetelheid, een toestand waarin een deel van iemands leven nooit tot een vast, herhaalbaar gegeven is gemaakt. Digitale technologie bedreigt volgens hem vooral die vergetelheid: zij legt vluchtige ervaring vast tot data die blijft bestaan, doorzoekbaar en overdraagbaar, en dwingt mensen daarmee in een vaste identiteit die weinig ruimte laat voor verandering. Zonder vergetelheid, zo is zijn stelling, wordt een leven ondiep, eenzaam en onherbergzaam, omdat er geen binnenkant meer overblijft die niet al ergens is vastgelegd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De grenzen van privacy als controlerecht</h3>
+      <p>Pressly begint met de gangbare juridische opvatting van privacy, die haar behandelt als het recht om te bepalen wie welke informatie over je krijgt. Die opvatting past bij een wereld van geheimen: een dossier, een dagboek, een medisch gegeven dat je kunt afschermen of vrijgeven. Tegen surveillance die elk moment tot doorzoekbare data maakt zonder dat daar ooit een geheim aan te pas kwam, biedt dat controlerecht volgens hem weinig houvast, omdat er niets is dat iemand bewust verborgen hield.</p>
+      <p>Zijn stelling is dat het debat daardoor op het verkeerde probleem is blijven hangen: het zoekt naar regels voor wie informatie mag inzien, terwijl de eigenlijke schade zit in het bestaan van die informatie zelf, ongeacht wie haar ziet.</p>
+      <h3>Vergetelheid tegenover het geheim</h3>
+      <p>Daartegenover zet hij het begrip vergetelheid: niet het verbergen van een feit, maar het ontbreken van een vastgelegd feit om te verbergen. Een gesprek dat voorbijgaat zonder opname, een gedachte die nooit is opgeschreven, een gebaar dat niemand becommentarieert, dat zijn voorbeelden van vergetelheid. Zodra zo'n moment wordt vastgelegd, bestaat het als gegeven, ook als niemand het ooit bekijkt, en dat is voor Pressly al een verandering in wat iemands leven is.</p>
+      <h3>Geen recht om vergeten te worden</h3>
+      <p>Pressly onderscheidt zijn begrip nadrukkelijk van het in Europa bekende recht om vergeten te worden, zoals dat in de privacywetgeving van de Europese Unie bestaat. Dat recht gaat over gegevens die al bestaan, bijvoorbeeld een oud nieuwsbericht of een zoekresultaat, en geeft iemand de mogelijkheid om verwijdering ervan af te dwingen. Het veronderstelt dus precies het soort vastgelegd, doorzoekbaar gegeven dat vergetelheid in zijn opvatting nooit had mogen ontstaan.</p>
+      <p>Zijn punt is dat een recht om achteraf te laten wissen weliswaar schade beperkt, maar niets doet aan het onderliggende probleem dat vrijwel elk moment tegenwoordig als vastlegbaar wordt behandeld. Wie zich alleen op verwijderingsrechten richt, accepteert stilzwijgend dat determinatie de norm is geworden en vergetelheid de uitzondering waarvoor iemand achteraf moet knokken.</p>
+      <h3>Twee historische aanknopingspunten</h3>
+      <p>Pressly gebruikt de opschudding rond de eerste handzame camera's in 1888 om te laten zien dat mensen destijds vooral protesteerden tegen het zonder hun medeweten vastgelegd worden, zonder dat er een eigen blik of stem in dat beeld zat; dat er ook nieuwe informatie over hen bekend werd, speelde in die verontwaardiging een kleinere rol.</p>
+      <p>Diezelfde gedachte vindt hij terug in de Amerikaanse rechtszaak Pavesich tegen New England Life uit 1905, waarin een rechter in Georgia oordeelde dat het ongevraagd gebruik van iemands portret die persoon tot een object maakte. Pressly leest deze uitspraak als vroeg bewijs dat rechters het probleem al zagen zitten in het gebrek aan interpretatieve bemiddeling bij het vastleggen zelf, meer dan in de openbaarmaking op zich.</p>
+      <h3>Determinatie en vloeibaarheid van het zelf</h3>
+      <p>Centraal staat het onderscheid tussen determinatie, het proces waarbij vloeiende ervaring wordt omgezet in een vast, herhaalbaar gegeven, en de vloeibaarheid die een mens nodig heeft om zichzelf voortdurend opnieuw te kunnen interpreteren. Een algoritmisch profiel is voor Pressly het uiterste van determinatie: het legt iemand vast op wie hij tot nu toe leek te zijn, en laat weinig ruimte voor wie hij nog kan worden.</p>
+      <p>Hij illustreert dit met eigentijdse gevallen die niets met openbare blootstelling te maken hebben: de fotograaf Arne Svenson die buren door hun raam fotografeerde zonder ooit een naam te noemen, en de voyeur Gerald Foos die decennialang gasten van zijn motel bespiedde. Beide zaken tonen volgens hem dat de schade zit in het vastleggen zelf, niet in de vraag of de informatie ooit publiek werd.</p>
+      <h3>Wat vergetelheid mogelijk maakt</h3>
+      <p>In het laatste deel bouwt Pressly, met verwijzingen naar Hannah Arendt en Jorge Luis Borges, een positief argument op: vergetelheid is de ruimte waarin vertrouwen, spel en zelfontdekking kunnen ontstaan, meer dan alleen de afwezigheid van schade. Een relatie die volledig gedocumenteerd en controleerbaar is, laat volgens hem geen plaats meer voor het risico dat vertrouwen juist vereist.</p>
+      <p>Zijn slotpunt is dat een samenleving die niets meer aan het toeval van vergetelheid overlaat, mensen dwingt zichzelf te presenteren als een afgeronde, consistente figuur, terwijl een leven dat de moeite waard is juist vraagt om ruimte om onaf te blijven.</p>
+      <p>Ook relaties tussen mensen hebben volgens Pressly vergetelheid nodig. Een vriendschap of huwelijk waarin elk woord en elk gebaar traceerbaar is, laat geen ruimte meer voor het risico dat vertrouwen wezenlijk kenmerkt: iemand iets toevertrouwen zonder garantie dat het niet ooit tegen je wordt gebruikt. Waar dat risico wegvalt omdat alles al is vastgelegd, verschuift een relatie van vertrouwen naar verificatie, en dat is voor hem een verarming, ook al voelt de relatie op het eerste gezicht veiliger.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Vergetelheid</td><td>De toestand waarin een deel van het leven nooit is omgezet in een vastgelegd, doorzoekbaar gegeven.</td></tr>
+          <tr><td class="term">Geheim</td><td>Een feit dat bestaat en bekend is, maar door iemand bewust wordt achtergehouden.</td></tr>
+          <tr><td class="term">Determinatie</td><td>Het proces waarbij vloeiende, vluchtige ervaring wordt omgezet in een vast en herhaalbaar gegeven.</td></tr>
+          <tr><td class="term">Vloeibaarheid van het zelf</td><td>Het vermogen om jezelf steeds opnieuw te interpreteren zonder dat een eerdere vastlegging je daaraan bindt.</td></tr>
+          <tr><td class="term">Interpretatieve bemiddeling</td><td>De eigen blik of stem die bij het vastleggen van een moment aanwezig is, zoals bij een zelfgekozen portret.</td></tr>
+          <tr><td class="term">Recht om onbekend te zijn</td><td>Pressly's herformulering van privacy, tegenover het gangbare recht om te bepalen wat over je bekend wordt.</td></tr>
+          <tr><td class="term">Determinatie als object maken</td><td>De gedachte dat iemand vastleggen zonder diens eigen bemiddeling die persoon tot een ding voor anderen maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Pressly's argument is filosofisch en rechtshistorisch, geen empirisch onderzoek. Hij bouwt op een precedent, Pavesich tegen New England Life uit 1905, op een historisch verschijnsel, de camera-paniek van 1888, en op voorbeelden zoals de zaken-Svenson en Foos, die hij inzet om een begripsonderscheid te illustreren en niet om een oorzakelijk verband te bewijzen.</p>
+      <p>De kracht van het argument zit in de precisie van het onderscheid tussen geheim en vergetelheid, dat een echte blinde vlek in het gangbare privacydebat blootlegt. Wie op zoek is naar cijfers over psychologische schade door surveillance, vindt die hier niet; het boek werkt met begripsanalyse en illustratie, niet met metingen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Recensent Paul Dicken wijst erop dat Pressly weinig praktische aanwijzingen geeft voor hoe iemand, een bedrijf of een wetgever vergetelheid zou kunnen herstellen zodra die eenmaal verloren is; het boek is sterker in het benoemen van het probleem dan in het aandragen van een uitweg.</p>
+      <p>Dicken signaleert ook een spanning die Pressly zelf niet volledig oplost: het idee dat een onbepaald, ongrijpbaar zelf waardevol is, komt zelf voort uit een verlichtingstraditie van individuele autonomie die mede de voedingsbodem vormde voor de meet- en registratiecultuur die het boek bekritiseert.</p>
+      <p>De rechtszaak Pavesich uit 1905 is bovendien één uitspraak van één rechtbank in Georgia, en Pressly gebruikt haar als scharnierpunt voor een argument dat veel breder wil gelden dan dat ene precedent aankan. Hoeveel andere rechters uit die tijd de zaak op dezelfde manier zagen, blijft in het boek onbesproken, waardoor de historische onderbouwing dunner is dan de filosofische.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij een privacykwestie of het om een geheim gaat, iets dat je bewust verbergt, of om vergetelheid, iets dat nooit is vastgelegd.</li>
+        <li>Vraag van een dienst of apparaat of het toestaat dat je onbepaald blijft, of dat het je in een vast profiel dwingt.</li>
+        <li>Bewaar bewust een deel van het eigen leven dat niet wordt gefotografeerd, opgenomen of bijgehouden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Right to Oblivion: Privacy and the Good Life</i> (Harvard University Press, Cambridge MA, 8 oktober 2024, ISBN 9780674260528). Pressly is politiek filosoof, verbonden aan Stanford University. Het boek werd door <i>The New Yorker</i> tot een van de beste boeken van het jaar gerekend. Geen Nederlandse vertaling bekend op het moment van schrijven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pressly stelt dat het gangbare debat over privacy op een verkeerd been staat door privacy op te vatten als een recht om te bepalen wat anderen over je weten. Die opvatting werkt nog voor geheimen, feiten die bekend zijn maar worden achtergehouden, maar niet voor wat hij vergetelheid noemt: de toestand waarin bepaalde delen van een leven nooit als vastgelegd, doorzoekbaar gegeven hebben bestaan. Digitale techniek, van de camera tot de databank, is volgens hem vooral daarom ingrijpend omdat zij die vergetelheid wegneemt, niet omdat zij geheimen blootlegt.</p><p>Het boek combineert rechtshistorie, zoals een Amerikaanse rechtszaak uit 1905 over ongevraagd gebruik van een portret, met filosofen als Hannah Arendt en schrijvers als Jorge Luis Borges, om te laten zien waarom een mens een onbepaald, nog niet vastgelegd deel van zichzelf nodig heeft om te kunnen vertrouwen, spelen en zichzelf opnieuw uitvinden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>privacy</li><li>technologie</li><li>surveillance</li><li>recht</li><li>zelfontplooiing</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman beschrijft, voor een eerdere technologie, hoe eenzelfde verschuiving van ervaring naar vastgelegd, overdraagbaar beeld het publieke leven verandert.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman verzet zich net als Pressly tegen de drang om ieder deel van het leven vast te leggen en te verantwoorden.</li>
+          <li value="33"><a href="33.html">Quiet</a>. Cain verdedigt een innerlijk leven dat aan het zicht onttrokken blijft, vanuit temperament in plaats van vanuit privacyrecht.</li>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Watts beschrijft vanuit een andere traditie waarom een zelf dat niet volledig is vastgelegd, meer ruimte laat om te leven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

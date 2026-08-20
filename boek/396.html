@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clear Thinking &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Parrish stelt dat de kwaliteit van iemands leven grotendeels wordt bepaald door een klein aantal gewone momenten waarin diegene ofwel automatisch…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-396">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">396 &middot; Gewoontes en denken</p>
+    <h1>Clear Thinking</h1>
+    <p class="lede">Shane Parrish, 2023</p>
+    <p class="stats">
+      <span><b>1474</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="396"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Parrish stelt dat de kwaliteit van iemands leven grotendeels wordt bepaald door een klein aantal gewone momenten waarin diegene ofwel automatisch reageert, ofwel de ruimte tussen prikkel en reactie gebruikt om na te denken. Wie voortdurend op emotie, ego, groepsdruk of gewoonte terugvalt, laat de uitkomst over aan de omstandigheden. Wie leert die vier automatische reacties te herkennen en daar zelfkennis, zelfbeheersing en verantwoordelijkheid tegenover te zetten, krijgt volgens Parrish niet per se een makkelijker leven, maar wel een leven waarin de beslissingen echt van hemzelf zijn. De stelling staat of valt met de vraag of dat onderscheid, tussen reageren en kiezen, in de praktijk zo scherp te trekken is als het boek suggereert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De ruimte tussen prikkel en reactie</h3>
+      <p>Parrish opent met de waarneming dat de beste besluitvormers zich zelden in een hoek laten drukken. Niet omdat zij slimmer zijn dan anderen, maar omdat zij zich vaker in een positie bevinden waarin zij nog kunnen kiezen in plaats van moeten reageren. Goede positionering, schrijft hij, wint het op de lange termijn van intelligentie.</p>
+      <p>Die positionering begint bij het herkennen van het korte moment tussen een prikkel en de reactie daarop. In dat moment zit volgens Parrish de enige vrijheid die iemand werkelijk heeft, en het boek is opgebouwd rond de vraag wat dat moment vult: een automatisme of een overweging.</p>
+      <h3>Vier automatische reacties</h3>
+      <p>Parrish onderscheidt vier defaults die de ruimte tussen prikkel en reactie overnemen. De emotiedefault laat iemand handelen vanuit het gevoel van het moment in plaats van vanuit de feiten. De ego-default verdedigt het zelfbeeld zodra dat wordt aangevallen, ook als de verdediging de zaak zelf schaadt. De sociale default volgt wat de omgeving doet of verwacht, ook als dat tegen het eigen oordeel ingaat. De traagheidsdefault houdt vast aan wat al gebeurt, simpelweg omdat veranderen moeite kost.</p>
+      <p>Geen van de vier is op zichzelf een fout, schrijft Parrish: ze zijn evolutionair nuttig gebleken en besparen energie. Het probleem ontstaat wanneer ze de plaats innemen van een afweging die de situatie eigenlijk vereist, en wanneer meerdere defaults tegelijk spelen, versterken ze elkaar.</p>
+      <h3>Vier eigenschappen die er tegenover staan</h3>
+      <p>Tegenover de vier defaults zet Parrish vier eigenschappen die hij zelfverantwoordelijkheid, zelfkennis, zelfbeheersing en zelfvertrouwen noemt. Zelfverantwoordelijkheid betekent de uitkomst van een situatie toeschrijven aan het eigen aandeel voordat er naar de omstandigheden wordt gewezen. Zelfkennis betekent weten aan welke defaults iemand persoonlijk gevoelig is, in plaats van aan te nemen dat het probleem zich wel vanzelf aandient.</p>
+      <p>Zelfbeheersing is het vermogen een emotie te voelen zonder er meteen naar te handelen, en zelfvertrouwen omschrijft Parrish niet als overtuigd zijn van het eigen gelijk, maar als de rust om ongelijk te kunnen toegeven zonder het gevoel van eigenwaarde te verliezen. De vier eigenschappen werken volgens hem samen: zonder zelfkennis blijft zelfbeheersing gokwerk, en zonder zelfvertrouwen wordt zelfverantwoordelijkheid al snel zelfverwijt.</p>
+      <h3>Een vaste volgorde om te beslissen</h3>
+      <p>Voor beslissingen die er echt toe doen, biedt het boek een volgorde van vijf stappen: het probleem helder krijgen, mogelijke oplossingen verkennen zonder ze meteen te beoordelen, de opties toetsen aan wat Parrish hoogwaardige informatie noemt, de knoop doorhakken met oog voor de mate waarin de beslissing omkeerbaar is, en achteraf niet het resultaat maar het proces beoordelen.</p>
+      <p>Die laatste stap krijgt nadruk. Een goede beslissing kan toch slecht uitpakken door pech, en een slechte beslissing kan toch goed uitpakken door geluk. Wie alleen naar de uitkomst kijkt, leert daar volgens Parrish weinig van en herhaalt op termijn dezelfde fouten.</p>
+      <h3>Marge en maatstaf</h3>
+      <p>Twee begrippen dragen het praktische deel van het boek. De veiligheidsmarge is het verschil tussen wat iemand verwacht dat er gebeurt en wat er in het slechtste geval kan gebeuren; Parrish raadt aan die marge zo breed te maken dat zij ook een tegenslag kan opvangen die twee keer zo groot is als wat er nu wordt gevreesd.</p>
+      <p>De tweede is de standaard waaraan iemand zichzelf meet. Die standaard stijgt volgens Parrish niet door harder je best te doen, maar door voorbeelden te kiezen die de lat feitelijk hoger leggen: mensen wier gedrag laat zien wat er mogelijk is, waardoor het eigen gedrag daar vanzelf naartoe buigt.</p>
+      <h3>Fouten herstellen</h3>
+      <p>Voor het moment waarop het toch misgaat, geeft Parrish een vaste volgorde: de eigen rol erkennen, uitzoeken wat er te leren valt, een concrete aanpassing voor de volgende keer vastleggen, en waar mogelijk de schade herstellen. Hij benadrukt dat de eerste stap losstaat van schuld toegeven aan anderen; het gaat om het eigen aandeel, ook als dat aandeel klein is.</p>
+      <p>Wie deze volgorde overslaat en meteen naar uitleg of verdediging grijpt, herhaalt volgens Parrish dezelfde fout in een andere vorm, omdat de aandacht dan naar het eigen aanzien gaat in plaats van naar wat er werkelijk is misgegaan.</p>
+      <h3>Willen wat de moeite waard is</h3>
+      <p>Het laatste deel van het boek verschuift van hoe iemand beslist naar wat er de moeite van het beslissen waard is. Parrish waarschuwt voor doelen die vooral zijn overgenomen van de omgeving: een functie, een bezit of een status die aantrekkelijk lijkt omdat anderen ernaar streven, zonder dat is nagegaan of het ook past bij de eigen maatstaven.</p>
+      <p>Hij pleit ervoor om vooraf te bepalen wat succes betekent voordat de uitkomst zich aandient, omdat de sociale en ego-defaults uit eerdere hoofdstukken juist op dat punt het hardst werken: er is een sterke neiging om achteraf het bereikte gelijk te stellen aan het gewenste.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Default</td><td>Een automatische reactie die de ruimte tussen prikkel en handelen overneemt zonder tussenkomst van overweging.</td></tr>
+          <tr><td class="term">Emotiedefault</td><td>Handelen vanuit het gevoel van het moment in plaats van vanuit de feiten van de situatie.</td></tr>
+          <tr><td class="term">Ego-default</td><td>Het zelfbeeld verdedigen zodra het wordt aangevallen, ook wanneer die verdediging de zaak zelf schaadt.</td></tr>
+          <tr><td class="term">Sociale default</td><td>Doen wat de omgeving doet of verwacht, ook als dat tegen het eigen oordeel ingaat.</td></tr>
+          <tr><td class="term">Traagheidsdefault</td><td>Vasthouden aan de bestaande gang van zaken omdat veranderen moeite kost.</td></tr>
+          <tr><td class="term">Zelfverantwoordelijkheid</td><td>De uitkomst van een situatie eerst aan het eigen aandeel toeschrijven, voor de omstandigheden de schuld krijgen.</td></tr>
+          <tr><td class="term">Veiligheidsmarge</td><td>Het verschil tussen de verwachte uitkomst en wat er in het slechtste geval kan gebeuren.</td></tr>
+          <tr><td class="term">Standaard</td><td>De maatstaf waaraan iemand zichzelf meet, die volgens Parrish stijgt door de keuze van voorbeelden en niet door enkel harder werken.</td></tr>
+          <tr><td class="term">Vier-stappenherstel</td><td>De volgorde na een fout: eigen rol erkennen, leren, aanpassing vastleggen, schade herstellen waar dat kan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Parrish presenteert geen eigen onderzoek. Het boek bouwt op gesprekken die hij als host van The Knowledge Project met beleggers, sporters, wetenschappers en bedrijfsleiders voerde, aangevuld met de gangbare literatuur over oordeelsvorming en gedragspsychologie waar Farnam Street al jaren over schrijft.</p>
+      <p>De vier defaults zijn Parrish' eigen indeling en geen classificatie die zo terugkomt in de vakliteratuur over cognitieve psychologie; ze functioneren als een geheugensteun, niet als een experimenteel bevestigde taxonomie. De voorbeelden in het boek zijn overwegend anekdotisch: een investeringsbeslissing hier, een gesprek met een topsporter daar, zonder dat systematisch wordt nagegaan hoe vaak de aanpak ook faalt.</p>
+      <p>Het decisieproces in vijf stappen sluit aan bij bredere adviesliteratuur over probleemoplossing, maar Parrish onderbouwt niet met cijfers hoeveel beter beslissingen uitpakken wanneer de stappen daadwerkelijk worden gevolgd. De claim rust op de innerlijke logica van het model en op de ervaring van de mensen die hij interviewde, niet op een vergelijkende toets.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek voegt weinig nieuws toe aan wat er al over besluitvorming en gedragspsychologie bekend is; recensenten noemen het vooral een heldere synthese van bestaand materiaal, samengebracht in een format dat makkelijker leest dan de onderliggende bronnen zelf.</p>
+      <p>De vierdeling in defaults oogt overzichtelijk, maar juist die overzichtelijkheid maakt haar kwetsbaar: vrijwel elk voorbeeld van slecht handelen is achteraf aan een van de vier te koppelen, wat een kader lastig te falsifiëren maakt. Het boek biedt geen manier om vooraf te bepalen welke default in een gegeven situatie de overhand zal krijgen.</p>
+      <p>Het slotdeel, dat van beslissen overgaat naar de vraag wat de moeite van het willen waard is, blijft dichter bij levensbeschouwing dan bij het praktische, stapsgewijze karakter van de rest van het boek, en sluit daardoor minder scherp aan bij de methode die de eerdere hoofdstukken opbouwen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf een probleem eerst in eigen woorden voordat je naar oplossingen zoekt.</li>
+        <li>Bepaal bij een belangrijke keuze de veiligheidsmarge en maak die twee keer zo breed als de tegenslag die je nu voor mogelijk houdt.</li>
+        <li>Kies bewust een paar mensen als maatstaf voor gedrag waar je naartoe wilt groeien.</li>
+        <li>Beoordeel een beslissing achteraf op het proces waarmee ze tot stand kwam, niet alleen op de uitkomst.</li>
+        <li>Leg voor een belangrijk doel vooraf vast wat succes betekent, voordat de uitkomst bekend is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Clear Thinking: Turning Ordinary Moments into Extraordinary Results</i> (Portfolio, 2023, 304 blz., ISBN 9780593086117). Nederlands als <i>Clear Thinking</i> bij Business Contact, vertaald door Vanja Walsmit (2024, 312 blz., ISBN 9789047017868).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Shane Parrish, oprichter van het blog en podcastplatform Farnam Street, betoogt dat uitzonderlijke resultaten zelden uit uitzonderlijke momenten komen. Ze komen uit gewone momenten die iemand net iets beter afhandelt dan de omgeving verwacht: het moment waarop een e-mail binnenkomt die om een snel antwoord vraagt, het moment waarop een collega tegenspreekt, het moment waarop een deal te mooi lijkt om waar te zijn. In die momenten neemt het brein volgens Parrish standaard de kortste weg, en dat noemt hij een default.</p><p>Het boek beschrijft vier van die automatische reacties en de tegenovergestelde eigenschappen die ze afremmen, gevolgd door een werkwijze voor het nemen van beslissingen en het bewaken van een veiligheidsmarge. Parrish werkt zonder eigen onderzoek; hij bouwt voort op gesprekken die hij via zijn podcast voerde met beleggers, sporters en operators, en op de bekende literatuur over oordeelsvorming.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>besluitvorming</li><li>gewoontevorming</li><li>zelfbeheersing</li><li>denkfouten</li><li>standaarden</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman levert het onderliggende onderzoek naar de denkfouten die Parrish in zijn vier defaults samenvat.</li>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Dobelli behandelt dezelfde denkfouten in kortere, losse hoofdstukken zonder Parrish' overkoepelende kader.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday werkt de omgang met tegenslag uit vanuit de Stoa, waar Parrish vanuit besluitvorming vertrekt.</li>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel laat zien hoe dezelfde soort standaarden en marges zich vertalen naar geldbeslissingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

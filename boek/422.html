@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Black Box Thinking &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Syed betoogt dat vooruitgang niet ontstaat door feilloosheid maar door hoe een systeem met fouten omgaat: een gesloten lus, waarin falen wordt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-422">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">422 &middot; Gewoontes en denken</p>
+    <h1>Black Box Thinking</h1>
+    <p class="lede">Matthew Syed, 2015</p>
+    <p class="stats">
+      <span><b>1453</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="422"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Syed betoogt dat vooruitgang niet ontstaat door feilloosheid maar door hoe een systeem met fouten omgaat: een gesloten lus, waarin falen wordt weggeredeneerd of verzwegen, herhaalt dezelfde fout eindeloos, terwijl een open lus, waarin falen systematisch wordt vastgelegd en onderzocht, elke misser omzet in een kleine correctie. Het verschil tussen de luchtvaart, die vrijwel elk ongeval grondig onderzoekt, en de gezondheidszorg, waar vermijdbare sterfte lang onbesproken bleef, is voor Syed geen verschil in de mensen die er werken maar in de cultuur die fouten wel of niet mag laten zien. Wie hier iets tegenin wil brengen, kan zich afvragen of één psychologisch mechanisme, cognitieve dissonantie, werkelijk zo uiteenlopende sectoren als luchtvaart, strafrecht en topsport op dezelfde manier verklaart.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee sterfgevallen, twee soorten falen</h3>
+      <p>Het boek opent met de zaak van Elaine Bromiley, die in 2005 tijdens een geplande neusoperatie in ademnood raakte doordat het anesthesieteam bleef vasthouden aan een mislukte intubatiepoging, terwijl twee verpleegkundigen onafhankelijk van elkaar een noodtracheotomie voorstelden die niet werd overwogen. Ze overleed dertien dagen later aan zuurstofgebrek in de hersenen. Haar man Martin Bromiley, zelf verkeersvlieger, liet een onafhankelijk onderzoek uitvoeren zoals dat in de luchtvaart standaard is, iets wat in de Britse gezondheidszorg op dat moment ongebruikelijk was.</p>
+      <p>Syed zet die zaak naast de manier waarop de luchtvaart met ongevallen omgaat: elk toestel draagt twee zwarte dozen, voor vluchtgegevens en cockpitgeluid, onderzoek naar een ongeval is verplicht en onafhankelijk, en piloten die zelf een bijna-fout melden lopen doorgaans geen sanctie op. Die combinatie van verplichte data en straffeloos melden noemt hij een open lus, tegenover de gesloten lus van sectoren waar een fout eerst en vooral een aansprakelijkheidsrisico is.</p>
+      <h3>Waarom fouten worden weggeredeneerd</h3>
+      <p>Syed verklaart de weerstand tegen het erkennen van fouten met het begrip cognitieve dissonantie, ontwikkeld door psycholoog Leon Festinger. Hij illustreert het met Festingers onderzoek naar een Amerikaanse sekte die de ondergang van de wereld op een vaste datum had voorspeld: toen die datum ongemerkt voorbijging, verlieten de leden hun geloof niet, maar werden ze juist overtuigder, met de verklaring dat hun standvastigheid de wereld had gered.</p>
+      <p>Dat mechanisme koppelt hij aan het Amerikaanse strafrecht, met de zaak van Juan Rivera, die in 1992 werd veroordeeld voor moord en verkrachting en pas dertien jaar later door DNA-bewijs werd ontlast, waarna het nog zes jaar duurde voor zijn vrijlating. Syed laat zien hoe aanklagers DNA-bewijs vóór de veroordeling als het sterkste bewijsmiddel behandelen en er na de veroordeling juist wantrouwig tegenover staan zodra het diezelfde veroordeling ondermijnt.</p>
+      <h3>Falen als bouwsteen: evolutie en innovatie</h3>
+      <p>Om te laten zien dat vooruitgang zelden in één sprong ontstaat, gebruikt Syed de evolutietheorie als model voor beproeven op grote schaal: variatie en selectie zonder vooropgezet plan, waarbij mislukte varianten simpelweg verdwijnen en de rest zich opstapelt.</p>
+      <p>Zijn voorbeeld uit de techniek is James Dyson, die 5.127 prototypes bouwde voordat zijn cycloonstofzuiger werkte. Elke mislukte versie leverde volgens Syed specifieke informatie op over wat niet werkte, informatie die een ontwerp op de tekentafel niet had kunnen geven. Dat plaatst hij tegenover het beeld van de plotselinge inval als bron van innovatie: de inval was het begin, niet het eind, van het proces.</p>
+      <h3>Kleine verbeteringen die zich opstapelen</h3>
+      <p>Bij de Britse wielerbond onder leiding van Dave Brailsford beschrijft Syed hoe honderden kleine, op zichzelf verwaarloosbare aanpassingen, van de hygiëne op de bus tot het exacte kussen waarop een renner slaapt, samen tot dominantie op het hoogste niveau leidden. Marginale winst werkt volgens hem alleen als een team eerlijk vaststelt waar het nog tekortschiet, wat dezelfde bereidheid tot zelfonderzoek vraagt als het erkennen van een fout.</p>
+      <p>Als tegenhanger van de mythe van aangeboren talent citeert hij David Beckham, die zijn vermogen om vrije trappen te scoren toeschreef aan duizenden mislukte pogingen vanaf zijn zesde: "als mensen over mijn vrije trappen praten, hebben ze het over de doelpunten, maar als ik eraan denk, denk ik aan alle missers."</p>
+      <h3>Verhalen die het falen wegpoetsen</h3>
+      <p>Syed wijst op de neiging om succes achteraf te vertellen als een rechte lijn, waarbij mislukte tussenstappen uit het verhaal verdwijnen zodra het eindresultaat bekend is. Die vertekening, die hij bij bedrijfsverslagen en autobiografieën herkent, maakt het voor buitenstaanders moeilijker te zien hoeveel falen aan een resultaat voorafging, en voedt de illusie dat succesvolle mensen zelden mis grepen.</p>
+      <p>Dezelfde vertekening ziet hij terug in hoe organisaties eigen mislukkingen documenteren: incidenten worden vaak beschreven op een manier die de betrokkenen het minste blaam geeft, wat het voor de volgende persoon in dezelfde situatie moeilijker maakt te herkennen wat er precies misging.</p>
+      <h3>Wat een lerend systeem anders doet</h3>
+      <p>In de slothoofdstukken zet Syed de kenmerken van een open lus op een rij: fouten worden verplicht en veilig gemeld, de melder wordt niet gestraft voor het melden zelf, gegevens worden onafhankelijk onderzocht, en de uitkomst wordt breed gedeeld in plaats van intern gehouden. Hij benadrukt dat dit geen kwestie is van betere mensen aannemen, maar van een systeem bouwen waarin eerlijkheid over fouten niet tegen het eigenbelang van de melder ingaat.</p>
+      <p>Hij eindigt met de constatering dat een groeimindset op individueel niveau, het idee dat vaardigheid door oefening toeneemt, weinig oplevert zolang de omgeving eromheen fouten blijft afstraffen; het systeem moet volgens hem meebewegen, niet alleen de instelling van het individu.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gesloten lus</td><td>Een systeem dat foutinformatie negeert of verbergt, waardoor dezelfde fout zich blijft herhalen.</td></tr>
+          <tr><td class="term">Open lus</td><td>Een systeem dat fouten systematisch vastlegt, onderzoekt en gebruikt om het eigen gedrag bij te sturen.</td></tr>
+          <tr><td class="term">Cognitieve dissonantie</td><td>De innerlijke spanning die ontstaat wanneer nieuw bewijs een bestaande overtuiging tegenspreekt, en die mensen vaak oplossen door het bewijs te ontkennen.</td></tr>
+          <tr><td class="term">Marginale winst</td><td>De optelsom van kleine, op zichzelf verwaarloosbare verbeteringen die samen een groot verschil maken.</td></tr>
+          <tr><td class="term">Groeimindset</td><td>De overtuiging, ontleend aan Carol Dweck, dat vaardigheid door inspanning toeneemt in plaats van vaststaat.</td></tr>
+          <tr><td class="term">Narratieve vertekening</td><td>De neiging om een succesverhaal achteraf te vertellen als een rechte lijn, waarbij mislukte tussenstappen wegvallen.</td></tr>
+          <tr><td class="term">Variatie en selectie</td><td>Het evolutionaire model van vooruitgang zonder vooropgezet plan, waarbij mislukte varianten simpelweg wegvallen.</td></tr>
+          <tr><td class="term">Zwarte doos</td><td>De vluchtrecorder die in de luchtvaart elk ongeval reconstrueerbaar maakt, het beeldmerk waaraan het boek zijn titel ontleent.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Syed onderbouwt zijn these met een mengeling van casuïstiek en gepubliceerd onderzoek. De zaak-Bromiley steunt op het officiële onderzoeksrapport dat na haar overlijden is opgesteld, en de luchtvaartstatistieken over dalende ongevalscijfers zijn breed gedocumenteerd. Het psychologische fundament, cognitieve dissonantie, gaat terug op Festingers klassieke onderzoek uit de jaren vijftig, dat in de sociale psychologie een gevestigde plaats heeft, al is het oorspronkelijke onderzoek klein van opzet en moeilijk exact te herhalen.</p>
+      <p>Voor marginale winst en groeimindset citeert hij het werk van respectievelijk de Britse wielerbond en Carol Dweck, in beide gevallen resultaten die breed erkend worden maar waarvan de overdraagbaarheid naar andere sectoren dan sport en onderwijs niet apart is onderzocht in dit boek. De zaak-Rivera en andere strafzaken zijn gedocumenteerd via rechtbankverslagen en het werk van organisaties die dit soort dossiers heropenen.</p>
+      <p>Wat ontbreekt, is een systematische vergelijking tussen sectoren die aantoont dat het verschil in foutcultuur werkelijk het grootste deel van het verschil in uitkomst verklaart, los van andere factoren zoals regelgeving, aansprakelijkheidsrecht en beschikbare middelen. Syed redeneert vooral van casus naar principe, niet andersom.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste makke is dat één mechanisme, cognitieve dissonantie, wordt ingezet om zeer uiteenlopende mislukkingen te verklaren: een medisch incident, een gerechtelijke dwaling en een sportnederlaag hebben elk hun eigen instituties, prikkels en machtsverhoudingen, die in het boek ondergeschikt raken aan het overkoepelende verhaal over foutcultuur.</p>
+      <p>De luchtvaart wordt bovendien behandeld als een bijna ideaal open systeem, terwijl de sector ook eigen incidenten kent van vertraagde of onderdrukte veiligheidsinformatie; het contrast tussen luchtvaart en zorg overtuigt op het eerste gezicht, maar is minder zwart-wit dan het boek suggereert.</p>
+      <p>Waar het boek van casus naar principe redeneert, ontbreekt een stevige toets of dezelfde open-lusaanpak in elke context evenveel oplevert. Organisaties die marginale winst toepassen zonder de onderliggende cultuurverandering, blijven in het boek onbesproken, terwijl dat een voor de hand liggende valkuil is voor lezers die alleen de methode overnemen en de cultuur erachter negeren.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg bij een mislukking eerst vast wat er feitelijk gebeurde, los van wie erop aangesproken kan worden.</li>
+        <li>Beloon in een team het melden van een bijna-fout, niet alleen het voorkomen ervan.</li>
+        <li>Zoek bij een succesverhaal, eigen of andermans, naar de mislukte pogingen die eraan voorafgingen voordat je de uitkomst als onvermijdelijk beschouwt.</li>
+        <li>Vraag bij een organisatorische verandering niet alleen welke kleine verbeteringen mogelijk zijn, maar ook of de cultuur eerlijkheid over falen toelaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Brits als <i>Black Box Thinking: Marginal Gains and the Secrets of High Performance</i> (John Murray, 2015); Amerikaans als <i>Black Box Thinking: Why Most People Never Learn from Their Mistakes, But Some Do</i> (Portfolio, 2015). Nederlands als <i>Black Box-denken: maak van je fouten een succes</i>, bij A.W. Bruna (ISBN 9789021560540).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Syed, voormalig tafeltennisser voor Groot-Brittannië, opent met de dood van Elaine Bromiley in 2005 tijdens een routine-operatie: het team verloor de tijd aan een vastgelopen procedure voor de luchtweg terwijl verpleegkundigen alternatieven aandroegen die genegeerd werden. Hij zet dat naast de luchtvaart, waar elk ongeval verplicht onderzocht wordt met data uit de zwarte doos en waar meldingen van bijna-fouten worden beloond in plaats van bestraft.</p><p>Zijn stelling is dat sectoren verschillen in de mate waarin ze fouten als informatie behandelen in plaats van als schuldvraag, en dat dat verschil te herleiden is tot psychologische mechanismen als cognitieve dissonantie, die net zo hard spelen bij een chirurg als bij topsporters, bedrijven en het strafrecht.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>falen</li><li>foutcultuur</li><li>luchtvaart</li><li>gezondheidszorg</li><li>leren</li><li>organisaties</li><li>topsport</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="23"><a href="23.html">Mindset</a>. Dweck levert het onderliggende begrip groeimindset dat Syed op organisaties toepast.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft de cognitieve mechanismen die verklaren waarom mensen bewijs tegen hun eigen oordeel afwijzen.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. Taleb benadert onvoorspelbaarheid en fouten vanuit een ander vak, de financiële markten, met een vergelijkbare aandacht voor wat een systeem robuust maakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

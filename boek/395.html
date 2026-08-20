@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Money Unlocked &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="John Lee stelt dat de meeste mensen niet arm blijven doordat ze te weinig verdienen, maar doordat ze een aangeleerde manier van omgaan met geld hebben…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-395">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">395 &middot; Geld en ondernemen</p>
+    <h1>Money Unlocked</h1>
+    <p class="lede">John Lee, 2026</p>
+    <p class="stats">
+      <span><b>1493</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="395"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>John Lee stelt dat de meeste mensen niet arm blijven doordat ze te weinig verdienen, maar doordat ze een aangeleerde manier van omgaan met geld hebben meegekregen die hen klein houdt: angst om te vragen wat iets waard is, onduidelijkheid over wat vermogen eigenlijk is, en een stelsel gewoontes rond geld dat hun nooit is uitgelegd. Zijn oplossing is een vaste verdeling van elk inkomen die hij de 30/30/30/10-strategie noemt, samen met het onderscheid tussen inkomen, vermogen en financiële vrijheid en met de manier waarop hij zegt dat vermogende mensen naar risico en hefboom kijken. De inzet is dat vermogen opbouwen te leren valt zoals een vaardigheid, en geen kwestie is van geluk, afkomst of talent. Wie daar iets tegenover wil zetten, kan vragen of één vaste verdeling voor ieder inkomen en iedere levensfase evenveel opgaat, en of de nadruk op mindset niet verhult dat concrete, doorgerekende stappen grotendeels ontbreken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een aangeleerde relatie met geld</h3>
+      <p>Lee opent bij het gevoel, niet bij het rekenwerk. Volgens de beschrijvingen die de uitgever van het boek geeft, benoemt hij de innerlijke patronen die maken dat capabele mensen zichzelf klein houden rond geld: te weinig vragen, schaamte over schulden, het vermijden van het onderwerp in het gezin waarin iemand opgroeide. Die patronen zijn volgens hem aangeleerd en dus ook af te leren, en het boek behandelt ze als het eerste obstakel, vóór er over strategie gesproken kan worden.</p>
+      <p>Die insteek verklaart ook de ondertitel. Maken, houden en vermenigvuldigen zijn drie afzonderlijke vaardigheden die in zijn ogen zelden samen worden onderwezen: mensen die goed kunnen verdienen, houden het geld vaak niet vast, en wie het wel vasthoudt, weet het niet altijd te laten groeien.</p>
+      <h3>Inkomen, vermogen en vrijheid uit elkaar gehaald</h3>
+      <p>Een terugkerend onderscheid is dat tussen inkomen, vermogen en financiële vrijheid. Inkomen is wat er binnenkomt zolang iemand werkt, vermogen is wat er overblijft als dat werk stopt, en financiële vrijheid is het punt waarop vermogen het leven draagt zonder dat er nog gewerkt hoeft te worden. Lee gebruikt dat onderscheid om uit te leggen waarom een hoog salaris niet automatisch tot vermogen leidt: wie evenveel uitgeeft als er binnenkomt, blijft op het eerste niveau steken, ongeacht de hoogte van dat inkomen.</p>
+      <h3>Hoe geld ontstaat en beweegt</h3>
+      <p>Een deel van het boek behandelt wat de uitgever "de wetenschap van geld" noemt: hoe geld wordt gecreëerd, hoe het door een economie beweegt, en waarom de meeste mensen daar volgens Lee nooit iets over leren. Het doel van dat deel is niet economische theorie op zich, maar de lezer een kader geven waarmee latere keuzes over sparen, lenen en investeren te begrijpen zijn in plaats van uit angst of onwetendheid genomen te worden.</p>
+      <h3>De 30/30/30/10-strategie</h3>
+      <p>De kern van het praktische deel is een vaste verdeling van ieder bedrag dat binnenkomt, die Lee de 30/30/30/10-strategie noemt en die naar eigen zeggen beschermt, stabiliseert en uiteindelijk vrijmaakt. In het beschikbare materiaal, publieksbeschrijvingen van de uitgever en de boekhandels die het boek voeren, wordt niet gespecificeerd welke vier bestemmingen achter de vier getallen schuilgaan. Het is een raamwerk voor consequente verdeling, geen los advies per situatie.</p>
+      <h3>Risico, hefboom en kans</h3>
+      <p>Lee besteedt een deel van het boek aan wat hij ziet als het denkpatroon van vermogende mensen tegenover risico, hefboom en kans. Waar de meeste mensen risico als iets zien om te vermijden, behandelt hij het als iets om te wegen en te begrenzen, en hefboom, het gebruik van geleend geld of andermans tijd om een uitkomst te vergroten, als een instrument dat om discipline vraagt in plaats van om lef alleen.</p>
+      <h3>De auteur als eigen bewijsstuk</h3>
+      <p>Lee onderbouwt zijn stellingen grotendeels met zijn eigen levensloop. Hij groeide op in de keuken van het afhaalrestaurant van zijn ouders in Noord-Engeland, begon op zijn twintigste in vastgoed en was op zijn zevenentwintigste zelfgemaakt miljonair. Later richtte hij Wealth Dragons op, een bedrijf voor opleiding en coaching in vastgoed en ondernemerschap, en schreef hij eerder <i>The Wealth Dragon Way</i>. Hij heeft podia gedeeld met bekende sprekers uit dezelfde wereld, onder wie Richard Branson en Alan Sugar, en noemt zelf dat hij inmiddels ondernemers, bestuurders, sporters en bekende cliënten coacht over het behouden en laten groeien van hun vermogen.</p>
+      <p>Die geschiedenis functioneert in het boek als illustratie van de eigen methode, niet als een onderzoek naar de vraag of die methode bij lezers in een andere uitgangspositie, zonder zijn netwerk of zijn beginkapitaal in vastgoed, hetzelfde resultaat oplevert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">30/30/30/10-strategie</td><td>De vaste verdeling van elk inkomen die volgens Lee financiën beschermt, stabiliseert en uiteindelijk vrijmaakt; de precieze bestemming van elk deel wordt in het beschikbare bronmateriaal niet toegelicht.</td></tr>
+          <tr><td class="term">Inkomen</td><td>Wat er binnenkomt zolang iemand werkt, en volgens Lee het niveau waarop de meeste mensen blijven steken.</td></tr>
+          <tr><td class="term">Vermogen</td><td>Wat overblijft als het werk stopt, het tweede niveau in Lees onderscheid tussen verdienen en bezitten.</td></tr>
+          <tr><td class="term">Financiële vrijheid</td><td>Het punt waarop vermogen het leven draagt zonder dat er nog gewerkt hoeft te worden.</td></tr>
+          <tr><td class="term">De wetenschap van geld</td><td>Lees aanduiding voor hoe geld ontstaat en door een economie beweegt, als kader voor latere keuzes over sparen en lenen.</td></tr>
+          <tr><td class="term">Hefboom</td><td>Het gebruik van geleend geld of andermans tijd om een uitkomst te vergroten, door Lee voorgesteld als instrument dat discipline vraagt.</td></tr>
+          <tr><td class="term">Interne patronen</td><td>De aangeleerde gewoonten rond angst, schaamte en te weinig vragen die volgens Lee capabele mensen financieel klein houden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust vrijwel volledig op de levensloop en de zakelijke ervaring van de auteur zelf: zijn eigen carrière in vastgoed, de bedrijven die hij heeft opgebouwd, en het coachen van ondernemers en bekende cliënten dat daaruit is voortgekomen. Uit het beschikbare bronmateriaal, publieksbeschrijvingen van de uitgever en verkooppagina's, blijkt niet dat er onderzoek, cijfers uit een steekproef of een vergelijking met andere aanpakken in het boek zijn opgenomen.</p>
+      <p>De status van bestseller van de New York Times zegt iets over verkoopaantallen in een bepaalde week, niet over de kwaliteit of houdbaarheid van de inhoud. Hetzelfde geldt voor de aanbeveling van Jim Kwik op de omslag, die als promotietekst is bedoeld en niet als onafhankelijke beoordeling.</p>
+      <p>Twee maanden na verschijnen is er nog geen bespreking van een gevestigd vakblad gevonden. De enige beschikbare lezersreacties komen van een klein aantal beoordelingen op Goodreads, te weinig om conclusies aan te verbinden over hoe het boek breder wordt ontvangen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste inhoudelijke onduidelijkheid zit in de 30/30/30/10-strategie zelf. Het boek wordt overal aangeprezen met die naam, maar geen van de geraadpleegde bronnen, uitgever, boekhandels, recensies, noemt welke vier bestemmingen achter de vier getallen zitten. Zonder die invulling is niet te beoordelen of de verdeling voor uiteenlopende inkomens en levensfases werkt, en de aanprijzing blijft daardoor voor een deel een belofte.</p>
+      <p>De weinige lezersreacties die er zijn, spreken elkaar op een herkenbare manier tegen. Sommigen noemen de toon toegankelijk en waarderen de nadruk op mindset, anderen vonden het boek herhalend en hadden liever concrete, doorgerekende stappen gezien dan motiverende taal over patronen en overtuigingen. Dat is dezelfde spanning die in de meeste boeken uit dit genre terugkeert: een sterk verhaal over de eigen doorbraak vervangt niet vanzelf een uitgewerkte methode voor een lezer in een andere uitgangspositie.</p>
+      <p>Het boek plaatst zich in een overvolle rubriek van door ondernemers geschreven geldboeken die de eigen doorbraak veralgemeniseren tot een les voor iedereen. Waar boeken als <i>The Psychology of Money</i> hun stellingen expliciet aan gedragspsychologie en lange reeksen voorbeelden toetsen, steunt dit boek vrijwel volledig op het eigen verhaal van de auteur, wat de reikwijdte van de claims beperkt tot wat één levensloop kan onderbouwen.</p>
+      <p>Ook de weg naar het beginkapitaal blijft onderbelicht. Lee begon zijn vastgoedcarrière op zijn twintigste, een leeftijd waarop de meeste lezers nog geen aanbetaling voor een eerste pand kunnen opbrengen, en het boek maakt niet duidelijk hoe hij aan dat eerste kapitaal kwam. Zonder dat gegeven is lastig te beoordelen hoeveel van zijn latere resultaat aan de methode ligt en hoeveel aan een gunstig vertrekpunt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek voordat je de 30/30/30/10-verdeling volgt eerst uit welke vier bestemmingen de auteur eraan koppelt, want de gangbare beschrijvingen van het boek noemen alleen dat de verdeling beschermt, stabiliseert en vrijmaakt, niet de categorieën zelf.</li>
+        <li>Leg het onderscheid tussen inkomen, vermogen en financiële vrijheid naast de eigen situatie: bepaal op welk van de drie niveaus je nu zit voordat je een strategie voor het volgende niveau kiest.</li>
+        <li>Vergelijk uitspraken over risico en hefboom met een boek dat op een langere en beter gedocumenteerde trackrecord rust, zoals Graham, voordat je ze op eigen beslissingen toepast.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>How to Make It, Keep It and Multiply It</i>, Hay House Business, mei 2026 (paperback, 256 blz., ISBN 9798318604126); ook als ebook en als audioboek, ingesproken door de auteur zelf. Britse editie bij Hay House UK. Haalde de bestsellerlijst van de New York Times. Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>John Lee, medeoprichter van het bedrijf Wealth Dragons en zelf op zijn zevenentwintigste miljonair geworden met vastgoed, betoogt dat vermogen opbouwen een aan te leren vaardigheid is en geen kwestie van hard werken alleen. Hij maakt onderscheid tussen inkomen, vermogen en financiële vrijheid, legt uit hoe geld volgens hem ontstaat en beweegt, en werkt een vaste verdeling van elk inkomen uit die hij de 30/30/30/10-strategie noemt.</p><p>Het boek verscheen in mei 2026 bij Hay House Business en haalde de bestsellerlijst van de New York Times. Onafhankelijke recensies van vakbladen ontbreken vooralsnog; de weinige lezersreacties die er wel zijn, prijzen de toegankelijke toon en noemen tegelijk herhaling en een gebrek aan uitgewerkte, cijfermatige stappen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>financiën</li><li>geldmindset</li><li>vermogen opbouwen</li><li>ondernemerschap</li><li>persoonlijke financiën</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel onderbouwt vergelijkbare uitspraken over geldgedrag met gedragspsychologie en een lange reeks voorbeelden, waar dit boek vooral op de eigen levensloop van de auteur steunt.</li>
+          <li value="132"><a href="132.html">You Are a Badass at Making Money</a>. Sincero werkt vanuit dezelfde overtuiging dat een geldmindset eerst op orde moet zijn voordat strategie helpt, in een nog persoonlijker en informelere toon.</li>
+          <li value="277"><a href="277.html">Money: Master the Game</a>. Robbins bouwt een vergelijkbaar boek van ondernemerservaring en interviews met vermogende mensen, op een grotere schaal en met meer bronnen dan hier beschikbaar zijn.</li>
+          <li value="351"><a href="351.html">The Intelligent Investor</a>. Graham biedt het tegenwicht van een uitgewerkte, decennialang beproefde methode voor risico en rendement, tegenover de kortere geschiedenis van dit boek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

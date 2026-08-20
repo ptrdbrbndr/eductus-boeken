@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond Belief &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Eyal betoogt dat de meeste beperkingen die mensen ervaren niet in hun omstandigheden zitten maar in overtuigingen die zij voor onwrikbare feiten houden.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-469">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">469 &middot; Gewoontes en denken</p>
+    <h1>Beyond Belief</h1>
+    <p class="lede">Nir Eyal met Julie Li, 2026</p>
+    <p class="stats">
+      <span><b>1815</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="469"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Eyal betoogt dat de meeste beperkingen die mensen ervaren niet in hun omstandigheden zitten maar in overtuigingen die zij voor onwrikbare feiten houden. Een overtuiging is volgens hem geen eigenschap maar een hypothese, en drie mechanismen, aandacht, verwachting en het gevoel van controle, bepalen hoe die hypothese zichzelf waarmaakt. Wie gelooft slecht te zijn in netwerken, ziet de kansen niet meer die een ander wel opmerkt, en bevestigt zo zijn eigen aanname. De inzet van het boek is dat mensen hun overtuigingen kunnen behandelen als iets om te toetsen in plaats van als een gegeven, zonder dat daarmee alle grenzen wegvallen die het lichaam en de wereld werkelijk stellen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De motivatiedriehoek</h3>
+      <p>Eyal opent met een vraag die zijn eerdere boeken onbeantwoord lieten: waarom passen mensen instrumenten die hun gedrag zouden moeten sturen, zoals een agenda of een appblokkade, in de praktijk zo weinig toe? Zijn antwoord is dat gedrag pas verandert als er behalve een duidelijk voordeel ook een geloof bijkomt dat het voor deze persoon gaat werken. Hij noemt dat de motivatiedriehoek van gedrag, baat en geloof, en stelt dat het derde punt in zelfhulpboeken meestal wordt overgeslagen.</p>
+      <p>Een overtuiging plaatst hij daarbij tussen een feit, dat te toetsen valt, en een geloofsartikel, dat geen toetsing verdraagt. Een overtuiging zit daartussenin: iemand behandelt haar als waar zonder haar te onderzoeken, terwijl dat onderzoek wel mogelijk is. Dat maakt overtuigingen volgens Eyal tot het enige aangrijpingspunt dat zowel beïnvloedbaar als betrouwbaar genoeg is om ermee te werken.</p>
+      <h3>Aandacht: geloven is zien</h3>
+      <p>Het eerste mechanisme is aandacht. Eyal beschrijft bevestigingsbias niet als een denkfout die uitgeroeid moet worden, maar als het aandachtssysteem dat doet waarvoor het bedoeld is: het beeld bevestigen dat er al ligt. Hij verwijst naar onderzoek van psycholoog Richard Wiseman naar mensen die zichzelf gelukkig noemen en mensen die zichzelf pechvogel noemen. Het verschil zat niet in het aantal kansen dat zich voordeed, maar in de breedte van de aandacht: wie zich openstelt voor toeval ziet meer van wat er al die tijd voorbijkwam.</p>
+      <p>Diezelfde breedte van aandacht verklaart volgens Eyal ook ondernemersalertheid, het vermogen om een opening te zien waar een ander een probleem ziet. Hij bespreekt Anne Mahlum, die dakloze mensen niet in de eerste plaats als hulpbehoevend zag maar als mensen met onaangeboorde capaciteit, en daaruit een organisatie opbouwde. Wie eenmaal gelooft dat ergens iets te vinden is, gaat er onwillekeurig naar zoeken.</p>
+      <h3>Verwachting: hoe het lichaam meebeweegt</h3>
+      <p>Het tweede mechanisme is verwachting, en hier verlaat Eyal het terrein van de gewone gedragspsychologie voor placebo-onderzoek. Hij citeert het werk van Ted Kaptchuk, die liet zien dat een placebobehandeling ook werkt wanneer de deelnemer weet dat het een placebo is, zolang het ritueel van innemen intact blijft. Verwachting stuurt in die lezing niet alleen wat iemand voelt, maar meetbare lichamelijke uitkomsten.</p>
+      <p>Aan de andere kant van diezelfde mechaniek staat het nocebo-effect: de verwachting van schade die schade veroorzaakt. Eyal bespreekt chronische pijn die aanhoudt lang nadat het weefsel genezen is, wat hij neuroplastische pijn noemt, een alarmsysteem dat is blijven hangen. Hij beschrijft mensen die van die pijn afkwamen door de dreiging waarop het lichaam nog reageerde opnieuw te leren inschatten, niet door de pijn te negeren.</p>
+      <h3>Gevoel van controle: aangeleerde hulpeloosheid en het tegendeel</h3>
+      <p>Het derde mechanisme is agency, het gevoel dat eigen handelen ertoe doet. Eyal grijpt terug op het experiment van Curt Richter met ratten in een emmer water: ratten die eerst gered werden en daarna opnieuw in het water gezet, zwommen veel langer door dan ratten die dat geen enkele keer hadden meegemaakt. Wat het verschil maakte was niet de fysieke conditie van het dier, maar of het eerder had ervaren dat volhouden ergens toe leidde.</p>
+      <p>Bij mensen illustreert hij dat met Dashrath Manjhi, die tweeëntwintig jaar met hamer en beitel een pad door een berg hakte nadat zijn vrouw was overleden doordat een omweg haar te laat bij een dokter bracht, en met David Fajgenbaum, die na de diagnose van een zeldzame ziekte zelf onderzoek ging doen in plaats van op een behandeling te wachten en zo een bestaand middel vond dat hem in remissie bracht. Beide gevallen zijn uitzonderlijk, en Eyal gebruikt ze om te laten zien wat er mogelijk is als hulpeloosheid niet als uitgangspunt wordt genomen, niet als bewijs dat het voor iedereen zo werkt.</p>
+      <h3>Ritueel, label en het gevaar van een vaste identiteit</h3>
+      <p>Een apart hoofdstuk gaat over gebed en ritueel, die Eyal niet verklaart vanuit een bovennatuurlijke werking maar vanuit dezelfde verwachtingsmechanismen als de placebo. Niet de inhoud van het ritueel werkt volgens hem, maar de herhaling en de overtuiging die eraan wordt toegekend.</p>
+      <p>Daarnaast waarschuwt hij voor wat hij identiteitsfixatie noemt: het verschil tussen "ik voel me op dit moment angstig" en "ik ben een angstig mens". Het eerste beschrijft een toestand, het tweede sluit toekomstige mogelijkheden af. Labels die op zichzelf bedoeld zijn om iemand te helpen, zoals een diagnose, kunnen volgens hem in een identiteit veranderen die zwaarder weegt dan de klacht waarvoor ze werden gesteld.</p>
+      <h3>Mentaal contrasteren tegenover louter positief denken</h3>
+      <p>Eyal zet zich uitdrukkelijk af tegen eenvoudig positief denken. Hij beroept zich op het werk van psycholoog Gabriele Oettingen naar mentaal contrasteren: een gewenste uitkomst voorstellen en direct daarna het obstakel dat in de weg staat, in plaats van alleen het resultaat te visualiseren. Onderzoek van Oettingen laat zien dat mensen die alleen het succes voor zich zien, minder energie in de uitvoering steken dan mensen die het obstakel er meteen naast zetten.</p>
+      <p>Dat plaatst het boek dichter bij gedragswetenschap dan bij manifestatieliteratuur, al blijft de grens dun: ook Eyal spoort de lezer aan om een gewenst zelfbeeld te kiezen, met als verschil dat hij dat zelfbeeld wil toetsen aan concrete pogingen in plaats van het te herhalen.</p>
+      <h3>De overtuiging als hypothese</h3>
+      <p>De praktische kern die telkens terugkeert is dat een overtuiging behandeld moet worden als een hypothese en niet als een feit. Eyal stelt voor één vermeden taak te kiezen en die met oprechte nieuwsgierigheid uit te voeren, puur om gegevens te verzamelen over wat er werkelijk gebeurt, in plaats van de poging meteen te laden met de eis dat het hele leven ervan verandert.</p>
+      <p>Ieder hoofdstuk sluit af met een omslag van wat hij een beperkende overtuiging noemt naar een bevrijdende overtuiging, met een korte, concrete formulering van beide. Die opbouw maakt het boek makkelijk doorbladerbaar, en tegelijk voorspelbaar zodra de lezer het patroon eenmaal doorheeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Motivatiedriehoek</td><td>Het drietal gedrag, baat en geloof; zonder het derde punt blijft een instrument volgens Eyal ongebruikt, hoe groot de baat ook is.</td></tr>
+          <tr><td class="term">Bevestigingsbias ("geloven is zien")</td><td>De neiging van de aandacht om te bevestigen wat al voor waar wordt gehouden, waardoor een overtuiging zichzelf in stand houdt.</td></tr>
+          <tr><td class="term">Ondernemersalertheid</td><td>Het vermogen om een opening te zien waar een ander alleen een probleem ziet, afhankelijk van hoe breed iemand zijn aandacht al openzet.</td></tr>
+          <tr><td class="term">Nocebo-effect</td><td>De verwachting van schade die daadwerkelijk lichamelijke klachten veroorzaakt, de tegenhanger van het placebo-effect.</td></tr>
+          <tr><td class="term">Neuroplastische pijn</td><td>Pijn die aanhoudt nadat het weefsel genezen is, doordat het zenuwstelsel het alarm is blijven afgeven.</td></tr>
+          <tr><td class="term">Locus of control</td><td>Het onderscheid tussen geloven dat uitkomsten van eigen handelen afhangen en geloven dat ze van geluk of lot afhangen.</td></tr>
+          <tr><td class="term">Identiteitsfixatie</td><td>De verschuiving van een tijdelijke toestand ("ik voel me angstig") naar een vaste eigenschap ("ik ben een angstig mens").</td></tr>
+          <tr><td class="term">Mentaal contrasteren</td><td>Een gewenste uitkomst voorstellen en er direct het obstakel naast zetten, als tegenwicht tegen louter wensdenken.</td></tr>
+          <tr><td class="term">Beperkende versus bevrijdende overtuiging</td><td>Het vaste besluit van elk hoofdstuk: dezelfde situatie herschreven van een aanname die tegenhoudt naar een aanname die toetsbaar is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Eyal put uit twee soorten bronnen die niet gelijk wegen. Aan de ene kant staat gepubliceerd onderzoek met naam en toenaam: het placebowerk van Ted Kaptchuk, het gelukonderzoek van Richard Wiseman, het experiment van Curt Richter met ratten, het werk van Gabriele Oettingen naar mentaal contrasteren. Die studies zijn zelf te vinden en gaan over herhaalbare effecten, ook al verschilt de sterkte van het effect per onderwerp.</p>
+      <p>Aan de andere kant staan individuele gevallen als Dashrath Manjhi, David Fajgenbaum en Anne Mahlum, die het boek gebruikt om te laten zien wat mogelijk is en niet om een gemiddeld effect aan te tonen. Zulke gevallen bewijzen dat een uitkomst kan voorkomen, niet dat een overtuiging die uitkomst waarschijnlijk maakt voor wie het boek leest. Eyal vermengt beide soorten bewijs zonder dat verschil telkens hardop te benoemen, en dat is precies het risico van een boek dat zich in de ondertitel wetenschappelijk noemt.</p>
+      <p>Het boek verscheen in maart 2026, kort voor het schrijven van deze samenvatting, waardoor er nog geen bespreking in vakbladen bestaat. De duiding hier steunt op de eigen beschrijving van het boek en op lezersrecensies, niet op een volledige eigen lezing van de tekst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de ondertitel meer belooft dan de inhoud waarmaakt. "Wetenschap" en "doorbraakresultaten" wekken de indruk van nieuwe bevindingen, terwijl het boek vooral bestaand onderzoek uit de psychologie samenbrengt onder één overkoepelend begrip. Dat is op zichzelf een verdedigbare aanpak, maar geen wetenschappelijke doorbraak.</p>
+      <p>Een recensent wijst erop dat de voorbeelden op sommige plaatsen meer naar motivatieverhalen neigen dan naar onderbouwd bewijs, vooral in de hoofdstukken over agency, waar één opvallend geval, zoals Manjhi's berg of Fajgenbaums ziekte, de indruk van een algemene wetmatigheid moet dragen. Dezelfde recensent noemt de opbouw herhalend wanneer het boek in één keer wordt doorgelezen: elk hoofdstuk keert terug naar dezelfde driedeling en dezelfde omslag van beperkend naar bevrijdend.</p>
+      <p>Verder blijft de winst die het boek belooft bescheiden vergeleken met de ondertitel: geen plotselinge omslag, maar een stapsgewijze bijstelling van aannames, die vooral iets oplevert voor lezers die al bekend zijn met zelfhulpmethoden en tegen een plafond zijn gelopen. Wie voor het eerst met dit onderwerp in aanraking komt, mist misschien de basis om het verschil tussen een geloofsartikel en een toetsbare overtuiging scherp te trekken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies één vermeden taak en voer die uit met de vraag wat er werkelijk gebeurt, niet met de eis dat de poging meteen alles verandert.</li>
+        <li>Schrijf bij een terugkerende aanname over jezelf op of het een waarneming van dit moment is of een uitspraak over wie je bent.</li>
+        <li>Zet bij een doel dat je voor ogen hebt meteen het obstakel ernaast dat de uitvoering in de weg staat, in plaats van alleen de uitkomst te visualiseren.</li>
+        <li>Ga na of een instrument dat je al gebruikt, zoals een agenda of een blokkade-app, blijft liggen omdat het geloof ontbreekt dat het voor jou gaat werken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Beyond Belief: The Science-Backed Way to Stop Limiting Yourself and Achieve Extraordinary Results</i> (Portfolio/Penguin Random House, 10 maart 2026, 304 blz., ISBN 9780593852033). Geen Nederlandse uitgave bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eyal, eerder auteur van <i>Hooked</i> en <i>Indistractable</i>, stelt dat mensen niet vastlopen door gebrek aan kennis of aan wilskracht, maar door overtuigingen over zichzelf die zij voor feiten aanzien. Wie denkt "ik ben nu eenmaal niet gedisciplineerd" behandelt een aanname als een eigenschap, en stopt daarmee met toetsen of het klopt.</p><p>Hij onderscheidt drie mechanismen waarlangs een overtuiging de werkelijkheid stuurt: aandacht, verwachting en het gevoel van controle. De voorbeelden lopen van pijnonderzoek en placebowerking tot ondernemers die kansen zien waar anderen niets zien.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychologie</li><li>gedragswetenschap</li><li>overtuigingen</li><li>motivatie</li><li>placebo</li><li>gedragsverandering</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="23"><a href="23.html">Mindset</a>. Dweck onderzoekt met haar onderscheid tussen fixed en growth mindset dezelfde vraag of een eigenschap een gegeven is of een aanname, met een steviger onderzoeksbasis dan Eyal biedt.</li>
+          <li value="310"><a href="310.html">Don't Believe Everything You Think</a>. Nguyen bestrijdt vanuit een andere hoek dezelfde gewoonte om een gedachte voor een feit aan te zien, met minder verwijzing naar onderzoek en meer naar meditatieve traditie.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman levert het bredere kader voor de aandachtsmechanismen die Eyal in het klein toepast, met name hoe snel oordelen de aandacht sturen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

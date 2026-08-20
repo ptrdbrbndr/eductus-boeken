@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power: Why Some People Have It and Others Don't &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pfeffer stelt dat macht in organisaties zwaarder weegt dan prestatie voor wie carrière wil maken, en dat het wijdverbreide geloof in een rechtvaardige…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-388">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">388 &middot; Vrij denken en manipulatie</p>
+    <h1>Power: Why Some People Have It and Others Don't</h1>
+    <p class="lede">Jeffrey Pfeffer, 2010</p>
+    <p class="stats">
+      <span><b>1474</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="388"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pfeffer stelt dat macht in organisaties zwaarder weegt dan prestatie voor wie carrière wil maken, en dat het wijdverbreide geloof in een rechtvaardige wereld, waarin goed werk vanzelf wordt gezien en beloond, mensen weerloos maakt tegen collega's die wél actief aan hun positie bouwen. Macht komt volgens hem niet automatisch bij de beste werknemer terecht, maar bij wie zichtbaar is, een netwerk met de juiste centrale plekken heeft en een reputatie die zichzelf in stand houdt zodra zij eenmaal staat. Het boek beschrijft dat proces zonder de troost dat het anders zou moeten, en behandelt macht als een vaardigheid die te leren is, niet als een karaktertrek die je wel of niet hebt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het geloof in een rechtvaardige wereld</h3>
+      <p>Pfeffer opent met de aanname die volgens hem de meeste loopbanen ondermijnt: het idee dat een organisatie een meritocratie is, waarin wie het hardst werkt en het best presteert vanzelf wordt opgemerkt en bevorderd. Uit zijn eigen onderzoek en dat van anderen blijkt die aanname regelmatig onjuist. Een onderzoek van David Schoorman onder 354 administratieve medewerkers liet zien dat beoordelingen van prestatie sterker samenhingen met de relatie tussen beoordelaar en beoordeelde dan met objectieve productiecijfers.</p>
+      <p>Zijn cursus aan Stanford, "Paths to Power", is opgezet om studenten dat besef bij te brengen voordat zij het op de harde manier leren. Wie ervan uitgaat dat de organisatie hem vanzelf beloont, doet volgens Pfeffer niets om zijn positie te verstevigen, en is dan verrast wanneer een collega met minder verdienste toch de promotie krijgt.</p>
+      <h3>Persoonlijke eigenschappen die macht opbouwen</h3>
+      <p>Pfeffer noemt zeven eigenschappen die machtsopbouw vergemakkelijken: ambitie, energie, focus, zelfkennis, zelfvertrouwen, empathie en het vermogen om conflict te verdragen. Energie en zelfvertrouwen werken volgens hem deels als een zichzelf waarmakende voorspelling: iemand die zich zeker gedraagt, wordt eerder als bekwaam ingeschat, ook voordat daar bewijs voor is. Hij verwijst naar het mere-exposure-effect van psycholoog Robert Zajonc, waarin herhaalde blootstelling aan iets of iemand de waardering ervoor verhoogt, als verklaring voor waarom zichtbaarheid op zichzelf al werkt.</p>
+      <p>Focus betekent hier vooral specialisatie: een duidelijk herkenbaar terrein waarop iemand de gewaardeerde deskundige is, in plaats van een brede maar vlakke inzetbaarheid. Conflictbestendigheid, het vermogen om voor eigen belang op te komen zonder de goedkeuring van iedereen na te jagen, noemt hij de eigenschap die de meeste van zijn studenten het lastigst vinden.</p>
+      <h3>Een startpositie kiezen en opvallen</h3>
+      <p>Voor wie nog moet beginnen bespreekt Pfeffer de keuze van de eerste functie en afdeling. Hij illustreert met de geschiedenis van General Motors en Ford, waar financiële afdelingen respectievelijk de "Whiz Kids" jarenlang de weg naar de top vormden, tegenover Pacific Gas and Electric, waar de macht in dezelfde periode van de technische naar de juridische afdeling verschoof. Wie carrière wil maken, doet er volgens hem goed aan te achterhalen welke afdeling in een organisatie feitelijk de besluiten stuurt, in plaats van de afdeling te kiezen die op papier het meest voor de hand ligt.</p>
+      <p>Hij beschrijft ook hoe opvallen soms betekent dat iemand een regel bewust breekt of een verwachting negeert. Voorbeelden zijn Lyndon Johnson, die als jong senaatslid de persoonlijke drijfveren van collega-senatoren in kaart bracht in plaats van alleen hun stemgedrag, en Barack Obama, die vroeg in zijn senaatscarrière actief mentorschap zocht bij gevestigde collega's in plaats van af te wachten tot dat werd aangeboden.</p>
+      <h3>Hulpbronnen en netwerken</h3>
+      <p>Waar geen voor de hand liggende hulpbron voorhanden is, adviseert Pfeffer om er een te creëren: een project op te zetten, informatie te verzamelen die niemand anders heeft, of een taak op zich te nemen die niemand wil maar die zichtbaar wordt zodra zij goed wordt uitgevoerd. Frank Stanton, president van CBS, bouwde zijn positie mede op door stelselmatig gegevens te verzamelen waarop anderen in de organisatie afhankelijk werden van hem.</p>
+      <p>Bij netwerken benadrukt hij het belang van een centrale plek, waar informatie via meerdere routes samenkomt, boven een groot maar los netwerk. Consultant Keith Ferrazzi hield jarenlang een vaste jaarlijkse afspraak met een topbestuurder van Deloitte in stand, niet om een concrete gunst te vragen maar om zichtbaar en beschikbaar te blijven. Pfeffer noemt ook het vragen om hulp als tactiek: wie om een gunst wordt gevraagd, gaat de vrager daardoor vaker waarderen, niet minder.</p>
+      <h3>Spreken en handelen met macht</h3>
+      <p>Een apart hoofdstuk gaat over hoe macht wordt uitgestraald in gedrag: iemand onderbreken tijdens een vergadering wordt eerder gelezen als gezag dan als onbeleefdheid, en argumenten die in een lijst van drie worden gepresenteerd klinken overtuigender dan dezelfde argumenten los. Pfeffer bespreekt ook hoe eerste indrukken hardnekkig zijn en latere feiten overleven: wie zich eenmaal met gezag heeft gepresenteerd, krijgt het voordeel van de twijfel bij volgende beoordelingen.</p>
+      <h3>Tegenstand overleven en macht verliezen</h3>
+      <p>De laatste hoofdstukken behandelen wat macht kost en hoe zij verloren gaat. Pfeffer bespreekt casussen als die van luitenant-kolonel Oliver North en president Clinton om te laten zien hoe mensen met veel macht toch tegenstand overwinnen of er juist aan onderuitgaan. Overmoed, het te letterlijk nemen van andermans woorden, ongeduld met de plichten die bij een positie horen en het uitblijven van aanpassing aan veranderde omstandigheden noemt hij de meest voorkomende oorzaken van machtsverlies.</p>
+      <p>Hij sluit af met de vraag of machtsdynamiek de organisatie zelf iets oplevert, en concludeert dat interne politiek de tevredenheid van medewerkers schaadt, terwijl hiërarchie zelf, gezien hoe consequent zij in mensen- en dierensamenlevingen terugkeert, kennelijk onvermijdelijk is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Rechtvaardige-wereld-denkbeeld</td><td>De aanname dat een organisatie prestatie automatisch herkent en beloont, die Pfeffer als het grootste obstakel voor machtsopbouw beschouwt.</td></tr>
+          <tr><td class="term">Zelfpromotie-dilemma</td><td>De spanning tussen de noodzaak om zichtbaar te zijn en de sociale afkeer van opscheppen, die volgens Pfeffer met de juiste vorm te overbruggen is.</td></tr>
+          <tr><td class="term">Netwerkcentraliteit</td><td>De positie in een netwerk waar informatie uit meerdere richtingen samenkomt, belangrijker dan het aantal contacten op zich.</td></tr>
+          <tr><td class="term">Reputatie als zichzelf bevestigende voorspelling</td><td>Het verschijnsel dat een eenmaal gevestigde reputatie latere waarnemingen kleurt, ook als die reputatie niet meer op feiten berust.</td></tr>
+          <tr><td class="term">Mere-exposure-effect</td><td>De bevinding van psycholoog Robert Zajonc dat herhaalde blootstelling aan een persoon of zaak de waardering ervoor verhoogt, los van inhoud.</td></tr>
+          <tr><td class="term">Conflictbestendigheid</td><td>Het vermogen om voor eigen belang op te komen en spanning te verdragen, een van de zeven eigenschappen die Pfeffer aan machtige mensen toeschrijft.</td></tr>
+          <tr><td class="term">Focus</td><td>Specialisatie op een herkenbaar terrein, die volgens Pfeffer meer macht oplevert dan brede maar oppervlakkige inzetbaarheid.</td></tr>
+          <tr><td class="term">De prijs van macht</td><td>Pfeffers term voor wat machtsopbouw kost aan tijd, gezondheid en persoonlijke verhoudingen, besproken in het voorlaatste hoofdstuk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Pfeffer is hoogleraar organisatiegedrag aan Stanford en onderbouwt het boek met onderzoek uit zijn eigen vakgebied, onder meer het werk van David Schoorman naar de zwakke samenhang tussen prestatie en beoordeling, en het onderzoek van socioloog Neil Fligstein naar de achtergrond van Amerikaanse topbestuurders tussen 1919 en 1979, dat verschuivingen in de weg naar de top blootlegt. Dat is toetsbaar materiaal uit vakliteratuur, geen losse anekdote.</p>
+      <p>Het grootste deel van de overtuigingskracht komt echter uit praktijkvoorbeelden van individuele bestuurders en politici: Johnson, Obama, Stanton, Ferrazzi. Die voorbeelden illustreren een mechanisme, maar bewijzen niet dat het toepassen van dezelfde tactiek bij een willekeurige lezer tot macht leidt. Pfeffer erkent dat zelf door telkens te herhalen dat de tactieken werken "vaak", niet gegarandeerd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is uitdrukkelijk beschrijvend, niet voorschrijvend in morele zin: Pfeffer legt uit hoe macht werkt, niet hoe zij zou moeten werken, en zegt dat zelf ook zo. Dat maakt sommige adviezen ongemakkelijk, zoals het aanraden om bewust regels te breken of tegenstanders te neutraliseren door ze een belang in je succes te geven. Wie een ethisch kader zoekt voor het gebruik van macht, vindt dat nauwelijks.</p>
+      <p>De voorbeelden komen vrijwel allemaal uit de top van grote Amerikaanse bedrijven en de politiek, een omgeving met veel zichtbaarheid en veel speelruimte voor zelfpromotie. Of dezelfde tactieken op een gemiddelde werkvloer met een kleiner team en minder zichtbaarheid net zo goed werken, laat het boek in het midden.</p>
+      <p>Pfeffer citeert onderzoek ter ondersteuning van een these die hij al had voordat hij het boek schreef, zijn eigen jarenlange cursus. Tegenvoorbeelden, situaties waarin zelfpromotie averechts werkte of waarin prestatie wél de doorslag gaf, komen nauwelijks aan bod, waardoor het patroon overtuigender oogt dan de onderliggende gegevens rechtvaardigen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng in kaart welke afdeling in je organisatie feitelijk de besluiten stuurt, en toets of je eigen functie daar dicht bij zit.</li>
+        <li>Zoek een terrein waarop jij de aangewezen deskundige bent, in plaats van overal een beetje bruikbaar te zijn.</li>
+        <li>Vraag iemand met meer ervaring om een concreet advies in plaats van te wachten tot mentorschap wordt aangeboden.</li>
+        <li>Leg vast wat je hebt bijgedragen aan een project voordat de herinnering eraan vervaagt, zodat je het bij een beoordeling kunt terugvinden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">HarperBusiness/HarperCollins, New York, 2010 (288 blz., ISBN 978-0-06-178908-3). Gebaseerd op de cursus "Paths to Power" die Pfeffer al decennia geeft aan de Stanford Graduate School of Business. Geen Nederlandse uitgave bekend; deze samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pfeffer geeft al tientallen jaren de cursus "Paths to Power" aan Stanford en bundelt in dit boek wat daaruit komt: een nuchtere, soms ongemakkelijke beschrijving van hoe macht in organisaties werkelijk wordt verworven. Zijn stelling is dat de meeste mensen geloven in een rechtvaardige wereld waarin hard werken en talent vanzelf worden beloond, en dat dat geloof hen kwetsbaar maakt. Wie macht wil, moet volgens hem leren hoe zichtbaarheid, netwerken en reputatie werken, los van de vraag of dat rechtvaardig aanvoelt.</p><p>Het boek bespreekt persoonlijke eigenschappen die macht opbouwen, hoe iemand een startpositie kiest en soms bewust regels breekt om op te vallen, hoe hulpbronnen en netwerken worden gebouwd, en hoe macht wordt vastgehouden of verloren. Pfeffer werkt met onderzoek uit de organisatiepsychologie én met voorbeelden van bekende bestuurders en politici, en eindigt met een hoofdstuk over de prijs die macht vraagt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>macht</li><li>carrière</li><li>organisaties</li><li>netwerken</li><li>reputatie</li><li>zelfpromotie</li><li>Stanford</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="250"><a href="250.html">The 48 Laws of Power</a>. Greene beschrijft dezelfde machtsmechanismen als historische wetten met een scherpere, minder empirische toonzetting dan Pfeffer.</li>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini onderzoekt de overtuigingstechnieken die Pfeffer als praktijkervaring beschrijft, met experimenteel onderzoek als basis.</li>
+          <li value="258"><a href="258.html">The Laws of Human Nature</a>. Greenes latere boek plaatst machtsgedrag in een bredere psychologie van mensen, waar Pfeffer zich tot de werkvloer beperkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

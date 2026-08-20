@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buy Back Your Time &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Martell stelt dat de enige grens aan de groei van een onderneming de tijd van de oprichter is, en dat oprichters die grens zelf in stand houden door werk…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-434">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">434 &middot; Geld en ondernemen</p>
+    <h1>Buy Back Your Time</h1>
+    <p class="lede">Dan Martell, 2023</p>
+    <p class="stats">
+      <span><b>1907</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="434"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Martell stelt dat de enige grens aan de groei van een onderneming de tijd van de oprichter is, en dat oprichters die grens zelf in stand houden door werk vast te houden dat een ander goedkoper en net zo goed kan doen. Zijn oplossing is een rekensom: bepaal wat een uur van de eigen tijd waard is, deel dat bedrag door vier, en huur voor dat bedrag mensen in die het werk onder die drempel overnemen. Wie dat volhoudt, koopt volgens hem stap voor stap zijn eigen tijd terug en verschuift van iemand die tijd voor geld ruilt naar iemand die geld inzet om een bedrijf te bouwen dat ook zonder hem draait. Het boek is geschreven voor ondernemers met personeel en omzet, niet voor wie nog moet beginnen, en de belofte staat of valt met de aanname dat er geld is om mensen mee in te huren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie manieren om te handelen</h3>
+      <p>Martell opent met een indeling van drie niveaus waarop iemand met zijn tijd kan handelen. Op het eerste niveau ruilt iemand tijd voor geld: het loon van een werknemer, het uurtarief van een zzp'er. Op het tweede niveau ruilt iemand geld voor tijd, door taken te delegeren aan personeel of leveranciers en zo uren vrij te maken. Op het derde niveau ruilt iemand geld voor meer geld, door dat vrijgemaakte kapitaal en die vrijgemaakte tijd in te zetten voor overnames, investeringen of nieuwe bedrijfsonderdelen.</p>
+      <p>Zijn eigen loopbaan dient als voorbeeld. Hij richtte tussen 2004 en 2013 drie softwarebedrijven op, Spheric Technologies, Flowtown en Clarity, verkocht ze alle drie, en werd daarna investeerder en coach voor SaaS-oprichters via SaaS Academy. Die opeenvolging is voor hem het bewijs dat de overstap van het eerste naar het derde niveau te leren valt.</p>
+      <h3>De DRIP-matrix: waar de uren heen gaan</h3>
+      <p>Om te bepalen welke taken een ondernemer moet loslaten, laat Martell een matrix invullen met twee assen: hoeveel geld een taak oplevert en hoeveel energie zij kost. Taken die weinig opleveren en veel energie kosten vallen onder Delegation en moeten als eerste weg. Taken die veel opleveren maar evenveel energie kosten vallen onder Replacement en moeten uiteindelijk aan iemand anders overgaan. Taken die weinig opleveren maar energie geven vallen onder Investment, zoals een cursus volgen of een netwerk onderhouden. Taken die veel opleveren en energie geven vallen onder Production, en zijn het enige waar een oprichter zijn tijd aan zou moeten besteden.</p>
+      <p>De matrix dwingt tot een keuze die volgens Martell de meeste oprichters vermijden: erkennen dat een taak waar zij goed in zijn, niet hetzelfde is als een taak die zij zouden moeten doen. Hij noemt als voorbeeld klantenservice bellen, iets waar een oprichter vaak in uitblinkt en tegelijk het duurste werk is dat hij op zich kan nemen.</p>
+      <h3>De Buyback Rate en de Buyback Loop</h3>
+      <p>Martell rekent voor hoe iemand zijn eigen tijd in geld uitdrukt. Deel het jaarinkomen door tweeduizend werkuren, dat levert het uurtarief op, en deel dat uurtarief weer door vier. De uitkomst is de Buyback Rate: elke taak die voor minder dan dat bedrag door iemand anders gedaan kan worden, moet worden overgedragen. Hij deelt door vier omdat hij wil dat het inhuren zichzelf minstens vier keer terugbetaalt, in tijd of in resultaat.</p>
+      <p>Rond dat getal bouwt hij de Buyback Loop, een cyclus in drie stappen. Eerst een audit: een week lang bijhouden waar de uren heen gaan en welke taken onder de Buyback Rate vallen. Dan de overdracht: de taak vastleggen en aan iemand anders geven, met geld of met een medewerker. Ten slotte de invulling: de vrijgekomen tijd bewust vullen met werk dat wel geld oplevert of energie geeft, in plaats van de agenda vanzelf te laten volstromen.</p>
+      <h3>Vijf gewoontes die delegeren tegenhouden</h3>
+      <p>Een groot deel van het boek gaat niet over systemen maar over het gedrag dat delegeren in de weg zit. Martell onderscheidt vijf types, die hij Time Assassins noemt. De Uitsteller stelt de overdracht van een taak telkens uit tot er weer geen tijd voor is. De Speed Demon doet het zelf omdat hij denkt sneller te zijn dan iemand inwerken. De Controleur geeft een taak wel weg maar blijft meekijken en corrigeren, waardoor de tijdwinst verdwijnt. De Spaarder wil het salaris van een extra medewerker niet uitgeven, ook als de rekensom al aantoont dat het uit kan. De Zelfmedicineerder gebruikt het werk zelf als afleiding van ongemak thuis of in het bedrijf, en wil de taak eigenlijk niet kwijt.</p>
+      <p>Martell herkent zichzelf in meerdere van die types en beschrijft hoe hij er in zijn eigen bedrijven tegenaan liep. De herkenning is bedoeld als opstap naar de rest van het boek: wie niet eerst ziet welk type hij is, voert de matrix en de Buyback Loop volgens hem niet vol.</p>
+      <h3>De Replacement Ladder: jezelf in stappen uitbreiden</h3>
+      <p>Voor het delegeren zelf beschrijft Martell een vaste volgorde van aanwervingen, de Replacement Ladder. De eerste stap is een uitvoerend assistent die agenda en inbox overneemt. Daarna volgen naar zijn indeling functies voor operationeel werk, dan voor het leidinggeven aan een team, en uiteindelijk een directeur die het bedrijf runt terwijl de oprichter zich op nieuwe plannen richt. Elke trede haalt volgens hem een vaste laag taken van de oprichter af, in een volgorde die hij aanraadt aan te houden in plaats van meteen de duurste functie te werven.</p>
+      <p>Naast de ladder beschrijft hij het vastleggen van eigen werkwijzen in playbooks: korte, stapsgewijze beschrijvingen of video's van hoe een taak precies wordt gedaan, gemaakt voordat iemand wordt aangenomen om die taak over te nemen. Zonder playbook is overdracht volgens hem het doorgeven van verwarring in plaats van werk.</p>
+      <h3>Aannemen volgens de Test-First-methode</h3>
+      <p>Voor het aannemen zelf wijst Martell het gebruikelijke traject af, waarin een cv en een gesprek bepalen wie het wordt. Bij zijn Test-First-methode voert de kandidaat eerst een betaalde proefopdracht uit die op de werkelijke taak lijkt, voordat er over een vast contract wordt gesproken. Pas wie die proef goed doorstaat, komt in aanmerking voor een aanstelling. Het argument is dat een gesprek voorspelt hoe iemand overkomt, en een proefopdracht voorspelt hoe iemand werkt.</p>
+      <p>Hij beschrijft daarnaast een manier van leidinggeven waarin een medewerker een duidelijk resultaat krijgt om naartoe te werken in plaats van een lijst taken, met de voortgang gevolgd in vaste gesprekken. Wie zo werkt, hoeft volgens Martell minder te corrigeren op de manier waarop het werk gebeurt, zolang het resultaat klopt.</p>
+      <h3>De perfecte week en het 10x-visioen</h3>
+      <p>In de laatste hoofdstukken keert het boek terug naar de agenda van de oprichter zelf. Martell laat de lezer een week indelen in blokken voor diep werk, voor overleg, voor herstel en voor administratie, met als uitgangspunt dat energie net zo goed ingepland moet worden als afspraken. Daarnaast beschrijft hij vier tijdshacks: de agenda een week vooruit al indelen, taken bundelen in plaats van ze verspreid over de dag te doen, terugkerende overleggen periodiek schrappen, en één vaste dag zonder vergaderingen vrijhouden.</p>
+      <p>Het boek eindigt met wat Martell het 10x-visioen noemt: een beschrijving van het bedrijf en het leven van de oprichter tien jaar vooruit, geschreven alsof het al werkelijkheid is. Dat visioen dient als toets voor elke beslissing die met de eerdere hoofdstukken wordt genomen, over wie er wordt aangenomen en welke taken worden losgelaten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Buyback Principle</td><td>Het uitgangspunt dat tijd terug te kopen is door taken onder een vaste prijsdrempel over te dragen aan anderen.</td></tr>
+          <tr><td class="term">DRIP-matrix</td><td>Indeling van taken naar opbrengst en energie in vier vakken: Delegation, Replacement, Investment en Production.</td></tr>
+          <tr><td class="term">Buyback Rate</td><td>Het jaarinkomen gedeeld door tweeduizend uur en dat weer door vier; de prijsdrempel waaronder een taak wordt overgedragen.</td></tr>
+          <tr><td class="term">Buyback Loop</td><td>De cyclus van audit, overdracht en invulling waarmee vrijgemaakte tijd steeds opnieuw wordt gevuld met waardevoller werk.</td></tr>
+          <tr><td class="term">De drie handelsniveaus</td><td>Tijd voor geld, geld voor tijd, en geld voor meer geld: de opeenvolgende stadia waarin een ondernemer volgens Martell werkt.</td></tr>
+          <tr><td class="term">Time Assassins</td><td>Vijf gedragspatronen, van uitstellen tot blijven controleren, die delegeren in de praktijk tegenhouden.</td></tr>
+          <tr><td class="term">Replacement Ladder</td><td>Een vaste volgorde van aanwervingen, van uitvoerend assistent tot directeur, waarmee taken trapsgewijs van de oprichter afgaan.</td></tr>
+          <tr><td class="term">Playbook</td><td>Een stapsgewijze beschrijving of video van een taak, gemaakt voordat iemand wordt aangenomen om haar over te nemen.</td></tr>
+          <tr><td class="term">Test-First-methode</td><td>Aannameprocedure waarbij een kandidaat eerst een betaalde proefopdracht uitvoert voordat er over een contract wordt gesproken.</td></tr>
+          <tr><td class="term">10x-visioen</td><td>Een beschrijving van het bedrijf en het leven van de oprichter tien jaar vooruit, gebruikt als toets bij beslissingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bouwt niet op onderzoek maar op de eigen loopbaan van de schrijver en op wat hij bij klanten van zijn coachingbedrijf SaaS Academy heeft gezien. Er staan geen verwijzingen naar studies over delegeren, tijdmanagement of ondernemerschap, en de cijfers die worden genoemd, zoals de deling door vier bij de Buyback Rate, zijn een vuistregel die Martell zelf heeft bedacht en niet extern is getoetst.</p>
+      <p>Wat het boek wel biedt, is een gedetailleerd verslag van drie eigen bedrijven die zijn opgericht, opgeschaald en verkocht, aangevuld met voorbeelden van coachingklanten die anoniem of bij voornaam worden genoemd. Die voorbeelden zijn illustraties bij een systeem, geen steekproef waarmee te toetsen valt hoe vaak het systeem ook mislukt bij wie het probeert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek generaliseert vanuit één geslaagde loopbaan. Martell verkocht drie bedrijven, bouwde een netwerk van investeerders op en had daardoor toegang tot kapitaal en kandidaten die niet elke ondernemer heeft. Wie geen marge heeft om een assistent van vijftig euro per uur in te huren, kan de rekensom van de Buyback Rate wel maken maar niet uitvoeren, en het boek besteedt weinig aandacht aan die grens.</p>
+      <p>De deling door vier bij de Buyback Rate oogt preciezer dan zij is. Martell legt uit waarom hij die verhouding aanhoudt, maar levert geen gegevens waaruit blijkt dat vier de juiste factor is en niet drie of vijf. Het blijft een vuistregel zonder onderbouwing buiten zijn eigen ervaring.</p>
+      <p>Het boek richt zich uitdrukkelijk op oprichters met personeel en omzet, en dat maakt het minder bruikbaar voor wie nog moet beginnen of alleen werkt. Een zzp'er zonder personeel kan de DRIP-matrix invullen, maar mist de tweede stap van de Buyback Loop: er is niemand om de taak aan over te dragen.</p>
+      <p>De laatste hoofdstukken leunen sterk op het verhaal van één coachingklant die naar eigen zeggen na het toepassen van het systeem nog twee uur per dag werkt. Dat voorbeeld staat zonder tegenvoorbeeld in het boek en wekt de indruk van een resultaat dat voor de meeste lezers niet haalbaar is, ook niet met dezelfde inspanning.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd een week bij hoeveel tijd elke taak kost en wat zij oplevert, en zet ze in de vier vakken van de DRIP-matrix.</li>
+        <li>Bereken de eigen Buyback Rate: jaarinkomen gedeeld door tweeduizend, gedeeld door vier.</li>
+        <li>Leg een taak vast in een kort stappenplan of een video voordat iemand wordt aangenomen om haar over te nemen.</li>
+        <li>Geef bij een proefopdracht dezelfde taak die de functie straks vraagt, en beoordeel het resultaat voordat er over een contract wordt gesproken.</li>
+        <li>Schrijf een beschrijving van het bedrijf over tien jaar, en toets nieuwe beslissingen daaraan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk bij Portfolio/Penguin Random House, 17 januari 2023, hardcover, 272 blz., ISBN 9780593422977, met als ondertitel <i>Get Unstuck, Reclaim Your Freedom, and Build Your Empire</i>. Nederlandse editie <i>Buy Back Your Time</i> bij Kosmos Uitgevers, 11 februari 2026, paperback, 288 blz., ISBN 9789043941716.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dan Martell, die tussen 2004 en 2013 drie softwarebedrijven oprichtte en verkocht, stelt in dit boek dat oprichters zelf de grootste hindernis zijn voor de groei van hun bedrijf, doordat zij werk vasthouden dat een ander goedkoper kan doen. Hij geeft daar een rekenmethode bij, de Buyback Rate, om te bepalen welke taken het waard zijn om uit te besteden, en een matrix om uit te zoeken welke taken energie geven en welke haar kosten.</p><p>Het boek is opgebouwd rond systemen: een vaste volgorde van aanwervingen, een proefopdracht in plaats van een sollicitatiegesprek, en een vaste indeling van de werkweek. Het richt zich op ondernemers die al personeel en omzet hebben, niet op wie nog moet beginnen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>delegeren</li><li>tijdmanagement</li><li>schaalgroei</li><li>SaaS</li><li>leiderschap</li><li>productiviteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="278"><a href="278.html">The 4-Hour Workweek</a>. Ferriss stelt een vergelijkbare vraag over delegeren en uitbesteden centraal, tien jaar eerder en met een radicalere ondertoon.</li>
+          <li value="40"><a href="40.html">The $100 Startup</a>. Guillebeau beschrijft de fase waarin Martells boek nog niet begint: hoe een bedrijf zonder personeel wordt opgestart.</li>
+          <li value="151"><a href="151.html">Essentialism</a>. McKeown werkt de vraag wat werkelijk de moeite waard is uit tot een breder principe, waar Martells DRIP-matrix een toegepaste versie van is.</li>
+          <li value="307"><a href="307.html">$100M Offers</a>. Hormozi's boek behoort tot hetzelfde genre praktijkboeken van ondernemers-coaches, met dezelfde nadruk op eigen resultaat als bewijs.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Tree That Bends &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="White stelt dat mensen onder aanhoudende prestatiedruk twee strategieën beproeven die allebei mislukken: verzet, waarbij ze tegen de eigen vermoeidheid en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-460">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">460 &middot; Moed en karakter</p>
+    <h1>The Tree That Bends</h1>
+    <p class="lede">Ross G. White, 2024</p>
+    <p class="stats">
+      <span><b>1411</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="460"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>White stelt dat mensen onder aanhoudende prestatiedruk twee strategieën beproeven die allebei mislukken: verzet, waarbij ze tegen de eigen vermoeidheid en twijfel in blijven vechten tot ze breken, en vermijding, waarbij ze de druk ontlopen en daarmee ook het werk dat ertoe doet. Zijn alternatief, psychologische flexibiliteit, is het vermogen om ongemakkelijke gedachten en gevoelens toe te laten zonder dat ze het gedrag overnemen, en om vandaaruit te blijven kiezen voor wat iemand werkelijk belangrijk vindt. Die flexibiliteit is volgens hem te trainen en geen aangeboren eigenschap van een select aantal mensen die van nature goed tegen druk kunnen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het Oost-Afrikaanse spreekwoord</h3>
+      <p>White opent met het spreekwoord waaraan de titel is ontleend: de wind breekt niet de boom die buigt. Hij zet dat tegenover twee reacties die hij bij zijn cliënten voortdurend tegenkomt: de starre boom die blijft rechtop staan tot hij breekt, en de boom die zomaar meewaait zonder wortels te houden. Beide zijn volgens hem geen echte flexibiliteit.</p>
+      <p>Als klinisch psycholoog met ervaring bij topsporters en professionals onder hoge druk herkent hij bij hen een patroon van doorzetten tot uitputting, gevolgd door een crisis die hen dwingt te stoppen. Zijn boek wil laten zien hoe het ook anders kan, zonder in te leveren op de wens om te presteren, en richt zich daarmee expliciet niet alleen op mensen met een burn-out maar ook op wie daar nog voor staat.</p>
+      <h3>Acceptance and commitment therapy als grondslag</h3>
+      <p>Het boek bouwt op acceptance and commitment therapy (ACT), een benadering uit de klinische psychologie die White meer dan vijftien jaar in de praktijk brengt. ACT onderscheidt vaardigheden die samen psychologische flexibiliteit vormen: het toelaten van moeilijke gevoelens in plaats van ze te bestrijden, het loskoppelen van een gedachte van de actie die ze lijkt voor te schrijven, aanwezig blijven in het huidige moment, en handelen vanuit persoonlijke waarden in plaats van vanuit angst of dwang.</p>
+      <p>White past dat model toe op mensen die geen therapie zoeken maar wel voortdurend onder druk staan: leidinggevenden, sporters, ouders met een veeleisende baan. Hij gebruikt geen klinisch jargon maar herschrijft de vaardigheden in alledaagse taal en oefeningen, met als leidraad dat elke vaardigheid apart te oefenen is voordat iemand ze in combinatie gebruikt.</p>
+      <h3>Gevoelens toelaten in plaats van bestrijden</h3>
+      <p>Een terugkerend thema is dat het onderdrukken van ongemak, zoals faalangst of twijfel voor een belangrijk moment, dat ongemak juist versterkt. White beschrijft cliënten uit sport en bedrijfsleven die pas beter gingen presteren toen ze leerden de spanning te benoemen en erbij te blijven in plaats van haar weg te drukken.</p>
+      <p>Dat toelaten is bij hem geen berusting. Het doel is niet dat het ongemak verdwijnt, maar dat het niet langer de doorslag geeft in wat iemand doet. Hij plaatst hier ook cognitieve defusie naast acceptatie: niet alleen het gevoel zelf toelaten, maar ook de gedachte erover, bijvoorbeeld 'ik ga dit verpesten', herkennen als een gedachte en niet als een voorspelling.</p>
+      <h3>Aanwezig blijven en het zelf op afstand</h3>
+      <p>White besteedt een apart deel aan het vermogen om bij het huidige moment te blijven in plaats van vooruit te lopen op een mislukking of terug te kijken op een eerdere fout. Hij geeft ademhalings- en aandachtsoefeningen die uit de klinische ACT-praktijk komen, aangepast voor gebruik vlak voor of tijdens een belangrijk moment, zoals een wedstrijd of een presentatie.</p>
+      <p>Daarnaast beschrijft hij hoe mensen zich vereenzelvigen met een enkel etiket, zoals 'de mislukkeling' of 'de winnaar', en hoe dat etiket vervolgens bepaalt wat iemand nog voor mogelijk houdt. Door zichzelf te zien als degene die de gedachten en gevoelens waarneemt, in plaats van als de gedachten en gevoelens zelf, ontstaat er volgens hem ruimte om anders te reageren.</p>
+      <h3>Waardegericht handelen onder druk</h3>
+      <p>White onderscheidt waarden van doelen: een doel is een aanwijsbaar resultaat, een waarde is een richting die nooit af is. Onder hoge druk raken mensen volgens hem het contact met hun waarden kwijt en laten ze zich in plaats daarvan sturen door de angst om te falen.</p>
+      <p>Hij geeft oefeningen om waarden expliciet te maken en er in het dagelijks handelen naar terug te keren, ook als een situatie oncomfortabel is. Dat verbindt psychologische flexibiliteit met duurzame motivatie: iemand die uit waarden handelt, houdt het langer vol dan iemand die alleen op angst voor mislukking vaart. Bij topsporters die hij begeleidde, zag hij dat de overstap van een resultaatgerichte naar een waardegerichte insteek niet leidde tot minder ambitie, maar tot een steviger fundament onder diezelfde ambitie.</p>
+      <h3>Van overleven naar floreren</h3>
+      <p>In het laatste deel plaatst White zijn model tegenover de cultuur van permanente prestatiedruk waarin volgens hem veel van zijn cliënten leven. Hij beschrijft burn-out niet als een gebrek aan wilskracht maar als het gevolg van star omgaan met onvermijdelijke tegenslag, in combinatie met een omgeving die geen falen toestaat.</p>
+      <p>Het slothoofdstuk brengt de eerdere vaardigheden samen in een aanpak voor langere trajecten: presteren zonder de eigen draagkracht te verwaarlozen, met terugkerende, kleine aanpassingen in plaats van een eenmalige omslag.</p>
+      <h3>Ontvangst</h3>
+      <p>Het boek kreeg een gemengd onthaal. Lezers die het waarderen, prijzen vooral dat de klinische stof via herkenbare verhalen en persoonlijke ervaringen wordt gebracht in plaats van als opsomming van onderzoek. Kritische lezers vonden het juist herhalend en weinig oorspronkelijk ten opzichte van bestaande ACT-literatuur, met als scherpste opmerking dat de inhoud eerder in een vakartikel had gepast dan in een boek van bijna vierhonderd bladzijden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Psychologische flexibiliteit</td><td>Het vermogen ongemakkelijke gedachten en gevoelens toe te laten zonder dat ze het gedrag overnemen.</td></tr>
+          <tr><td class="term">Acceptance and commitment therapy (ACT)</td><td>De klinische benadering waarop het boek is gebaseerd.</td></tr>
+          <tr><td class="term">Acceptatie</td><td>Het toelaten van een moeilijk gevoel in plaats van het te bestrijden of te vermijden.</td></tr>
+          <tr><td class="term">Loskoppeling van een gedachte</td><td>Een gedachte losmaken van de actie die ze lijkt voor te schrijven.</td></tr>
+          <tr><td class="term">Waardegericht handelen</td><td>Gedrag kiezen op basis van wat iemand belangrijk vindt, los van angst voor de uitkomst.</td></tr>
+          <tr><td class="term">Aanwezig blijven</td><td>De aandacht richten op het huidige moment in plaats van op piekeren over verleden of toekomst.</td></tr>
+          <tr><td class="term">Starheid</td><td>Het vasthouden aan een reactie of overtuiging tot die breekt onder de druk.</td></tr>
+          <tr><td class="term">Het zelf als waarnemer</td><td>Jezelf zien als degene die gedachten en gevoelens opmerkt, in plaats van als de gedachten en gevoelens zelf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>White is klinisch psycholoog en hoogleraar aan Queen's University Belfast en bouwt zijn model op de klinische ACT-literatuur, die in gecontroleerde studies bij uiteenlopende groepen effecten laat zien op vermijdingsgedrag en welbevinden. Voor de toepassing bij topsporters en professionals leunt hij vooral op eigen praktijkervaring en casuïstiek uit meer dan vijftien jaar klinisch werk, niet op gepubliceerd onderzoek naar die specifieke groepen.</p>
+      <p>Het boek citeert geen cijfers over hoe vaak zijn aanpak bij zijn eigen cliënten werkt en presenteert vooral individuele voorbeelden. Dat maakt het overtuigend als illustratie van hoe de aanpak eruitziet, maar niet als bewijs van hoe vaak ze aanslaat. De onderliggende ACT-bevindingen over defusie en waardegericht handelen komen bovendien vooral uit onderzoek bij mensen met klinische klachten zoals depressie en angst, en zijn niet apart getoetst bij de gezonde, hoogpresterende groep waarover dit boek vooral gaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek onderscheidt zich inhoudelijk nauwelijks van eerdere populaire ACT-boeken en van verwante literatuur over mentale weerbaarheid; de toegevoegde waarde zit vooral in de toespitsing op topsport en professionele prestatiedruk, een terrein waarop White zelf ervaring heeft.</p>
+      <p>Zoals bij veel praktijkgerichte zelfhulpboeken blijft onduidelijk voor welk deel van de lezers de aanpak niet aanslaat: het boek beschrijft vooral geslaagde trajecten uit zijn eigen praktijk, niet de gevallen waarin cliënten na de begeleiding evenveel moeite bleven houden met loslaten of aanwezig blijven.</p>
+      <p>De overkoepelende metafoor, de boom die buigt, verklaart weinig over de vraag hoever iemand kan buigen voordat de druk zelf het probleem is; over de grens tussen een prestatiecultuur die met een flexibelere houding te doorstaan is en een omgeving die feitelijk schadelijk is, laat het boek zich nauwelijks uit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Benoem een lastig gevoel met een kort woord in plaats van het weg te drukken of te verklaren.</li>
+        <li>Vraag jezelf bij een moeilijke beslissing af welke waarde erachter zit, niet alleen wat de kans op slagen is.</li>
+        <li>Merk op wanneer je star vasthoudt aan een aanpak die niet meer werkt, en kies bewust een alternatief.</li>
+        <li>Beschrijf een terugkerende negatieve gedachte over jezelf als gedachte, niet als feit, door er 'ik heb de gedachte dat...' voor te zetten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>How a Flexible Mind Can Help You Thrive</i> (Quercus, Londen, 29 augustus 2024, 384 blz., ISBN 9781529429992). Geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ross White, hoogleraar klinische psychologie aan Queen's University Belfast en al meer dan vijftien jaar therapeut binnen acceptance and commitment therapy (ACT), ontleent de titel aan een Oost-Afrikaans spreekwoord: de wind breekt niet de boom die buigt. Hij gebruikt dat beeld voor wat hij psychologische flexibiliteit noemt: het vermogen om aanwezig te blijven bij een moeilijke situatie, er niet krampachtig tegenin te gaan en toch bij de eigen koers te blijven.</p><p>White bouwt het boek op rond de ACT-benadering waarmee hij ook topsporters en professionals onder hoge druk begeleidt, en illustreert de theorie met casussen uit die praktijk. Het is een populaire vertaling van een benadering die in de klinische psychologie al decennia wordt onderzocht, toegesneden op mensen die geen therapie zoeken maar wel onder aanhoudende druk staan. Recensenten prezen de toegankelijkheid, maar noemden het boek ook wel herhalend ten opzichte van bestaande ACT-literatuur.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychologische flexibiliteit</li><li>acceptance and commitment therapy</li><li>veerkracht</li><li>topsport</li><li>klinische psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="372"><a href="372.html">Do Hard Things</a>. Magness onderzoekt vanuit sportprestatie een vergelijkbaar onderscheid tussen doorzetten en verstandig aanpassen onder druk.</li>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Watts benadert dezelfde onthechting van uitkomsten vanuit een andere, minder klinische traditie.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday werkt een verwante gedachte uit: een obstakel ombuigen in plaats van ertegen te vechten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

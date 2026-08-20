@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Read a Book &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Adler betoogt dat lezen een vaardigheid is met oplopende niveaus, van het simpele ontcijferen van letters tot het actief bevragen van een boek dat meer…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-420">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">420 &middot; Werk en aandacht</p>
+    <h1>How to Read a Book</h1>
+    <p class="lede">Mortimer J. Adler en Charles Van Doren, 1972</p>
+    <p class="stats">
+      <span><b>1657</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="420"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Adler betoogt dat lezen een vaardigheid is met oplopende niveaus, van het simpele ontcijferen van letters tot het actief bevragen van een boek dat meer weet dan de lezer zelf, en dat de meeste mensen na hun schooltijd op het laagste niveau blijven hangen. Wie een boek analytisch leest, moet de opbouw blootleggen, de kernbegrippen van de auteur precies leren gebruiken en pas daarna oordelen of hij het ermee eens is. De hoogste vorm, syntopisch lezen, zet meerdere boeken over hetzelfde onderwerp naast elkaar tot een gesprek dat de afzonderlijke auteurs nooit hebben gevoerd. Wie hier iets tegenin wil brengen, kan zich afvragen of zoveel systematiek nodig is om iets te doen dat de meeste lezers hun hele leven al doen zonder erover na te denken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De lezer als actieve partij</h3>
+      <p>Adler opent met een vergelijking tussen lezen en honkbal: een goede vanger vraagt evenveel vaardigheid als een goede werper, ook al oogst alleen de werper de aandacht. Een schrijver werpt zijn boodschap, en de lezer moet hem opvangen door zich in te spannen, niet door passief te ondergaan wat er staat. Adler wijt de achteruitgang van serieus lezen aan radio, film en later televisie, media die informatie voorkauwen in plaats van vragen open te laten.</p>
+      <p>Zijn onderscheid tussen inlichting en verlichting loopt door het hele boek. Een krant of een handleiding vergroot alleen wat je al wist; een boek dat je uitdaagt, vergroot je begrip zelf. Voor dat tweede soort boek is passief lezen niet genoeg.</p>
+      <h3>Vier niveaus, opeenvolgend opgebouwd</h3>
+      <p>Het boek onderscheidt elementaire lectuur, waarbij een lezer begrijpt wat er op de pagina staat, inspecterende lectuur, gericht op wat een boek in korte tijd prijsgeeft, analytische lectuur, waarbij een lezer een boek grondig doorwerkt zonder tijdsdruk, en syntopische lectuur, waarbij meerdere boeken over hetzelfde onderwerp samen worden gelezen. Elk niveau bevat het vorige en voegt er een taak aan toe; syntopische lectuur veronderstelt dat een lezer een boek al analytisch kan doorgronden.</p>
+      <p>Adler benadrukt dat de meeste volwassenen na school nooit voorbij het eerste niveau komen, niet omdat ze niet kunnen lezen, maar omdat niemand hun de volgende niveaus heeft geleerd. Middelbare scholen en zelfs universiteiten richten zich volgens hem vooral op elementaire lectuur en laten de rest aan toeval over.</p>
+      <h3>Inspecterend lezen: snel en gestructureerd</h3>
+      <p>Voor het tweede niveau geeft Adler een vaste reeks stappen: bekijk eerst de titelpagina en het voorwoord, lees de inhoudsopgave, zoek trefwoorden op in het register, lees de flaptekst, en blader door een paar sleutelhoofdstukken. Dat noemt hij systematisch doorbladeren, bedoeld om in een kwartier te weten waar een boek over gaat en of grondiger lezen de moeite waard is.</p>
+      <p>Daarnaast staat wat hij oppervlakkig lezen noemt: een moeilijk boek in één ruk doorlezen zonder te blijven hangen bij elke onbegrepen zin. Wie de eerste keer blijft steken bij elk obstakel, raakt het overzicht kwijt; een tweede keer lezen, na een eerste snelle doorgang, levert volgens hem meer op dan traag ploegen door een tekst die zich nog niet laat kennen.</p>
+      <h3>Analytisch lezen: een boek doorgronden</h3>
+      <p>Het middendeel van het boek geeft de regels voor grondig lezen. Eerst moet een lezer het boek pigeonholen: vaststellen wat voor soort boek het is en waarover het gaat, in een enkele zin. Daarna volgt wat Adler röntgenen noemt, het blootleggen van de opbouw in hoofddelen en de vraag die elk deel beantwoordt.</p>
+      <p>Vervolgens moet de lezer tot een akkoord komen met de auteur over diens kernwoorden, omdat hetzelfde woord bij dezelfde auteur op verschillende plekken iets anders kan betekenen en verwarring tussen het woord en het begrip een lezer op het verkeerde spoor zet. Uit de belangrijkste zinnen van een boek moet de lezer de kernstellingen van de auteur halen en nagaan met welke argumenten die worden onderbouwd, om ten slotte vast te stellen welke problemen de auteur zelf als opgelost beschouwt en welke niet.</p>
+      <h3>Eerlijk oordelen over een boek</h3>
+      <p>Adler wijdt een apart deel aan het recht om het oneens te zijn met een auteur, met één harde voorwaarde: pas als een lezer kan zeggen "ik begrijp het", mag hij zeggen "ik ben het ermee oneens". Wie een boek bekritiseert zonder het eerst volledig te doorgronden, oordeelt niet over het boek maar over zijn eigen misverstand.</p>
+      <p>Voor wie het wel oneens is, geeft hij vier mogelijke bezwaren: de auteur is onvoldoende geïnformeerd, verkeerd geïnformeerd, onlogisch, of zijn analyse is onvolledig. Zonder een van die vier gronden is onenigheid volgens Adler geen inhoudelijk verschil van mening maar smaak, waarover geen zinnig gesprek te voeren valt.</p>
+      <h3>Verschillende boeken, verschillende aanpak</h3>
+      <p>Een apart deel behandelt hoe de regels verschuiven per soort boek. Praktische boeken, gericht op handelen in plaats van weten, vragen om een extra vraag: welk doel stelt de auteur voor en welke middelen beveelt hij aan. Verhalend werk vraagt juist om geen kernwoorden en argumenten te zoeken die er niet zijn, maar om de ervaring van het verhaal toe te laten voordat er geanalyseerd wordt.</p>
+      <p>Adler en Van Doren wijden losse hoofdstukken aan het lezen van geschiedenis, natuurwetenschap en wiskunde, filosofie en sociale wetenschappen, telkens met de vraag welke aanpassing van de basisregels dat vakgebied vergt.</p>
+      <h3>Syntopisch lezen: boeken met elkaar in gesprek brengen</h3>
+      <p>Het hoogste niveau zet meerdere boeken over dezelfde vraag naast elkaar. De lezer stelt eerst een leeslijst samen, bepaalt met inspecterend lezen welke passages relevant zijn, en brengt de auteurs vervolgens tot een gemeenschappelijke woordenschat, ook als zij zelf nooit hetzelfde woord voor hetzelfde begrip gebruikten. Daarna formuleert de lezer een reeks vragen die voor elke auteur beantwoordbaar is en legt hun antwoorden naast elkaar, ook waar de auteurs elkaar nooit hebben gelezen.</p>
+      <p>Adler had dit zelf op grote schaal gedaan als hoofdredacteur van de <i>Great Books of the Western World</i> voor Encyclopaedia Britannica, waarvoor hij de Syntopicon samenstelde, een register van 102 grote ideeën met verwijzingen naar honderden klassieke teksten. Syntopisch lezen is in dit boek de methode die daaraan ten grondslag ligt, teruggebracht tot een procedure die een individuele lezer op een kleinere vraag kan toepassen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Elementaire lectuur</td><td>Het eerste niveau: begrijpen wat er letterlijk op de pagina staat.</td></tr>
+          <tr><td class="term">Inspecterende lectuur</td><td>Systematisch doorbladeren en snel doorlezen om in korte tijd te bepalen waar een boek over gaat.</td></tr>
+          <tr><td class="term">Analytische lectuur</td><td>Grondig, tijdsonafhankelijk lezen waarbij de lezer de opbouw en de argumenten van een boek blootlegt.</td></tr>
+          <tr><td class="term">Syntopische lectuur</td><td>Meerdere boeken over hetzelfde onderwerp met elkaar vergelijken alsof de auteurs een gesprek voeren.</td></tr>
+          <tr><td class="term">Pigeonholen</td><td>Een boek in een enkele zin vaststellen naar soort en onderwerp, als eerste stap van analytisch lezen.</td></tr>
+          <tr><td class="term">Röntgenen</td><td>De opbouw van een boek blootleggen in hoofddelen en de vraag die elk deel beantwoordt.</td></tr>
+          <tr><td class="term">Tot een akkoord komen</td><td>Vaststellen wat een auteur met zijn kernwoorden precies bedoelt, om woord en begrip niet te verwarren.</td></tr>
+          <tr><td class="term">Syntopicon</td><td>Het register van 102 grote ideeën dat Adler samenstelde voor de Great Books of the Western World, de praktijk achter syntopisch lezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is geen onderzoeksrapport maar een leer- en methodeboek, gebouwd op decennia onderwijservaring. Adler doceerde vanaf de jaren dertig aan de universiteit van Chicago in het programma General Honors, waarin studenten klassieke teksten in kleine groepen doornamen zonder secundaire literatuur, en leidde later jarenlang leesgroepen voor volwassenen volgens dezelfde methode.</p>
+      <p>De herziening van 1972 met Van Doren voegde nieuwe voorbeelden toe en werkte het hoofdstuk over syntopische lectuur verder uit, maar liet het onderliggende systeem intact. Empirisch leesonderzoek uit de cognitieve psychologie, dat zich vooral na de jaren tachtig ontwikkelde, wordt in het boek niet aangehaald: de regels zijn afgeleid van eigen onderwijservaring en van een lange traditie van klassieke retorica en scholastieke tekstanalyse, niet uit gecontroleerde studies naar leesgedrag.</p>
+      <p>Sterk punt is dat de methode intern consistent is en zich laat uitproberen: een lezer kan de stappen op een willekeurig boek toepassen en nagaan of ze iets opleveren. Dat is een ander soort bewijs dan een getal uit een experiment, maar niet zonder waarde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste makke is dat de regels een canon veronderstellen die de moeite van zoveel systematiek waard is. Adler richt zijn methode vooral op wat hij "grote boeken" noemt, teksten die na herlezing meer opleveren, en zijn eigen selectie daarvan bestaat overwegend uit westerse, door mannen geschreven klassieken. Voor een groot deel van wat mensen daadwerkelijk lezen is de hele procedure zwaarder gereedschap dan nodig.</p>
+      <p>De opsomming van regels, met genummerde stappen voor pigeonholen, röntgenen en tot een akkoord komen, werkt schematisch en kan een lezer het gevoel geven een formulier in te vullen in plaats van een boek te lezen. Adler erkent dat ervaren lezers de stappen door elkaar en deels onbewust uitvoeren, maar de tekst zelf leest vaak als een instructiehandleiding.</p>
+      <p>Syntopisch lezen, het hoogste niveau, vraagt om toegang tot en tijd voor meerdere boeken tegelijk en is voor de meeste lezers buiten een studie- of onderzoekscontext nauwelijks haalbaar. De hoofdstukken over het lezen van wetenschap, wiskunde en sociale wetenschappen zijn bovendien beknopter en algemener dan het uitgewerkte systeem voor analytisch lezen, alsof de auteurs daar zelf minder houvast hadden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Blader een nieuw, veeleisend boek eerst systematisch door: titelpagina, voorwoord, inhoudsopgave, register en een paar sleutelhoofdstukken, voordat je het van voor naar achter leest.</li>
+        <li>Schrijf de kern van een boek in een of twee zinnen op voordat je er een oordeel over velt.</li>
+        <li>Noteer bij een lastig begrip van de auteur wat het woord op de ene plek betekent en of dat op een andere plek verschuift.</li>
+        <li>Zeg pas "ik ben het oneens" nadat je hebt uitgelegd wat de auteur precies beweert, en benoem welke van de vier gronden, onvoldoende informatie, verkeerde informatie, onlogisch redeneren of een onvolledige analyse, je bezwaar draagt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>How to Read a Book</i> (Simon &amp; Schuster, 1940), geschreven door Adler alleen. In 1972 grondig herzien en uitgebreid samen met Charles Van Doren tot <i>How to Read a Book: The Classic Guide to Intelligent Reading</i>, de editie waarop deze samenvatting is gebaseerd. Geen bevestigde Nederlandse vertaling gevonden. De titel in de brondata luidde "how to read a good book"; met voldoende zekerheid gaat het hier om deze klassieker, er bestaat geen ander bekend boek met precies die titel.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Adler stelt dat de meeste volwassenen na de schoolbanken op hetzelfde leesniveau blijven hangen: ze kunnen woorden ontcijferen maar niet meer met een boek worstelen dat meer eist dan ze al weten. Het boek onderscheidt vier oplopende niveaus van lezen, van elementaire lectuur tot syntopische lectuur, en geeft voor het middelste en zwaarste niveau, analytisch lezen, een reeks concrete stappen om een boek te doorgronden voordat je er een oordeel over velt.</p><p>De herziening uit 1972 met Van Doren voegde nieuwe voorbeelden toe en werkte het slothoofdstuk over syntopisch lezen verder uit, de methode waarmee Adler eerder als hoofdredacteur de Syntopicon had samengesteld voor de Great Books of the Western World.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>lezen</li><li>studietechniek</li><li>kritisch denken</li><li>aantekeningen maken</li><li>non-fictie</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport werkt uit wat er aan aandacht en concentratie nodig is om het soort veeleisend lezen vol te houden dat Adler analytisch noemt.</li>
+          <li value="81"><a href="81.html">Building a Second Brain</a>. Forte behandelt het bijhouden en herbruikbaar maken van aantekeningen, een praktisch vervolg op wat hier bij het boek zelf stopt.</li>
+          <li value="28"><a href="28.html">Think Again</a>. Grant beschrijft de intellectuele bereidheid om een eigen oordeel te herzien, precies de houding die Adler vraagt voordat een lezer mag zeggen het oneens te zijn.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

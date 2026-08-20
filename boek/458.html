@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Upside of Stress &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="McGonigal betoogt dat de gangbare aanname, dat stress het lichaam en de gezondheid ondermijnt, voor een groot deel op een zelfvervullende overtuiging…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-458">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">458 &middot; Brein en lichaam</p>
+    <h1>The Upside of Stress</h1>
+    <p class="lede">Kelly McGonigal, 2015</p>
+    <p class="stats">
+      <span><b>1400</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="458"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>McGonigal betoogt dat de gangbare aanname, dat stress het lichaam en de gezondheid ondermijnt, voor een groot deel op een zelfvervullende overtuiging berust: niet de spanning zelf is het probleem, maar de manier waarop iemand die spanning interpreteert en er vervolgens mee omgaat. Het lichaam kent volgens haar niet één stressreactie maar meerdere, waaronder een reactie die de aandacht scherpt en het lichaam op actie voorbereidt, en een reactie die mensen naar elkaar toe drijft in plaats van uit elkaar. Wie leert stress te zien als voorbereiding in plaats van bedreiging, verschuift dat fysiologische patroon daadwerkelijk, niet alleen de beleving ervan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De omslag van vijand naar bondgenoot</h3>
+      <p>McGonigal beschrijft hoe zij zelf jarenlang stress als iets te bestrijden behandelde, in lezingen en in haar eerdere boek over wilskracht, en hoe ze die boodschap in 2013 op een TED-podium in het openbaar terugnam. De aanleiding voor de omslag is een onderzoek dat zij tegenkwam waarin niet de hoeveelheid stress het sterkste voorspelde wie er ziek werd, maar de overtuiging dat stress schadelijk is.</p>
+      <p>Die vondst zet de toon voor het hele boek: niet de spanning zelf is het probleem, maar de manier waarop iemand die spanning interpreteert en er vervolgens mee omgaat.</p>
+      <h3>Drie lichamelijke reacties op druk</h3>
+      <p>Het lichaam kent volgens McGonigal niet één stressreactie maar meerdere. De vecht-of-vluchtreactie is de bekendste, gericht op onmiddellijk gevaar. De uitdagingsreactie treedt op wanneer iemand zich voorbereid voelt op een lastige taak, zoals een examen of een optreden, verhoogt de hartslag zonder de bloedvaten te vernauwen, en brengt het lichaam dichter bij een staat van paraatheid dan bij angst.</p>
+      <p>De zorg-en-verbindreactie, tend-and-befriend, is de derde: onder druk zoeken mensen elkaar op en zorgen ze voor anderen, aangestuurd door oxytocine. McGonigal noemt oxytocine niet alleen een knuffelhormoon maar ook een stresshormoon, dat het hart helpt herstellen van schade en angstcircuits in de hersenen dempt.</p>
+      <h3>De stressmindsetinterventie van Alia Crum</h3>
+      <p>Centraal staat onderzoek van psycholoog Alia Crum, die deelnemers voorafgaand aan een stressvolle taak liet zien dat stress voorbereidend werkt in plaats van ondermijnend. Deelnemers die deze korte instructie kregen, vertoonden een fysiologisch patroon dat dichter bij de uitdagingsreactie lag dan bij de bedreigingsreactie, en presteerden op sommige taken beter.</p>
+      <p>McGonigal leidt daaruit af dat de mindset waarmee iemand stress tegemoet treedt, het lichamelijke antwoord daadwerkelijk kan verschuiven, niet alleen de beleving ervan.</p>
+      <h3>De omstreden bevolkingsstudie</h3>
+      <p>Het meest aangehaalde bewijs in het boek is een Amerikaans onderzoek onder bijna 30.000 volwassenen, uitgevoerd door Abiola Keller en collega's aan de universiteit van Wisconsin-Madison en gepubliceerd in 2012. Uit gegevens van de National Health Interview Survey uit 1998, gekoppeld aan sterftecijfers tot 2006, bleek dat mensen die veel stress rapporteerden én geloofden dat die stress hun gezondheid ernstig schaadde, een 43 procent hoger risico op vroegtijdig overlijden hadden dan mensen met evenveel stress die dat geloof niet hadden.</p>
+      <p>McGonigal rekent dat door naar een schatting van 182.000 vroegtijdige sterfgevallen in de onderzoeksperiode die volgens haar samenhingen met het geloof dat stress schadelijk is, niet met de stress zelf.</p>
+      <h3>De bredere reappraisal-traditie</h3>
+      <p>De mindsetinterventie van Crum staat niet op zichzelf. McGonigal plaatst haar in een onderzoekslijn naar het herwaarderen van lichamelijke opwinding, waarvan een veelgeciteerd voorbeeld het werk is van psycholoog Jeremy Jamieson en collega's: studenten die zich voorbereidden op de GRE, een gestandaardiseerde toelatingstoets, kregen de instructie dat een bonzend hart en klamme handen hun voorbereidden op de toets in plaats van hen te ondermijnen, en scoorden daarna beter op het wiskundeonderdeel dan studenten die geen of een andere instructie kregen.</p>
+      <p>Die lijn van onderzoek onderbouwt McGonigals stelling dat de interpretatie van lichamelijke signalen, niet alleen de signalen zelf, meetelt in hoe iemand onder druk presteert.</p>
+      <h3>Zingeving en groei onder druk</h3>
+      <p>In het tweede deel van het boek gaat het minder over fysiologie en meer over betekenis. McGonigal beschrijft posttraumatische groei, het verschijnsel dat mensen na een zware periode soms meer veerkracht, dieper contact met anderen of een scherper gevoel voor wat ertoe doet overhouden. Ze citeert daarbij onderzoek waarin een grote meerderheid van mensen die een ingrijpende gebeurtenis meemaakten, achteraf ten minste één zo'n positieve verschuiving rapporteert.</p>
+      <p>Ze benadrukt dat dit geen vrijbrief is om tegenslag te bagatelliseren: groei ontstaat niet in plaats van de erkenning van pijn, maar naast en na die erkenning. Een aparte paragraaf gaat over het delen van het eigen verhaal na een moeilijke periode, wat ze verbindt aan de zorg-en-verbindreactie: vertellen wat er is gebeurd, is bij haar zelf al een vorm van verbinding zoeken.</p>
+      <h3>Oefeningen</h3>
+      <p>Het slot van het boek bestaat uit korte oefeningen: het benoemen van een stressreactie als voorbereiding in plaats van bedreiging, het gebruiken van fysieke opwinding als brandstof voor een uitdagingsreactie, en het zoeken van contact met anderen als reactie op druk in plaats van isolatie. McGonigal geeft daarbij expliciet aan dat de oefeningen bedoeld zijn voor kortdurende, doelgerichte stress en niet als vervanging van hulp bij chronische overbelasting.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Uitdagingsreactie</td><td>Fysiologisch patroon dat de aandacht scherpt en het lichaam op actie voorbereidt.</td></tr>
+          <tr><td class="term">Vecht-of-vluchtreactie</td><td>De reactie op onmiddellijk gevaar, gericht op afweer of ontsnapping.</td></tr>
+          <tr><td class="term">Zorg-en-verbindreactie</td><td>Reactie waarin druk mensen naar elkaar toe drijft in plaats van uiteen, aangestuurd door oxytocine.</td></tr>
+          <tr><td class="term">Oxytocine</td><td>Hormoon dat vrijkomt bij stress en zowel empathie als hartherstel bevordert.</td></tr>
+          <tr><td class="term">Stressmindset</td><td>De overtuiging dat stress voorbereidend dan wel ondermijnend werkt, die het lichamelijke antwoord meebepaalt.</td></tr>
+          <tr><td class="term">Herwaardering van opwinding</td><td>Het heretiketteren van hartkloppingen en gespannen spieren als voorbereiding in plaats van paniek.</td></tr>
+          <tr><td class="term">Posttraumatische groei</td><td>De veerkracht en herwaardering die soms volgen op een zware periode.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>McGonigal is gezondheidspsycholoog aan Stanford en bouwt haar drieledige model van stressreacties op fysiologisch onderzoek naar hartslag, bloedvatvernauwing en hormonen, onder meer van de mindsetonderzoeken van Alia Crum naar de herwaardering van lichamelijke opwinding. Die experimenten zijn klein van omvang maar gecontroleerd. Voor het onderscheid tussen de vecht-of-vluchtreactie, de uitdagingsreactie en de zorg-en-verbindreactie steunt zij op decennia oud werk van onder meer Walter Cannon en, voor de zorg-en-verbindreactie specifiek, op de theorie die psycholoog Shelley Taylor in 2000 voor het eerst beschreef.</p>
+      <p>Het zwaarste bewijsstuk, de bevolkingsstudie van Keller en collega's, is een prospectief cohortonderzoek met een grote steekproef en een harde uitkomstmaat, sterfte, wat het overtuigend maakt. Het is tegelijk een observationele, correlationele studie: de onderzoekers maten alleen wie wat rapporteerde en wie later overleed, zonder dat iemand experimenteel aan een andere overtuiging over stress werd blootgesteld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op precies die bevolkingsstudie. Een bespreking in Scientific American wees erop dat de studie alleen laat zien dat het geloof dat stress schadelijk is, samenhangt met een hoger sterfterisico, niet dat dat geloof de oorzaak is. Mensen die denken dat stress hen ziek maakt, kunnen om andere redenen al minder gezond zijn, of ziekte kan hen ertoe brengen hun stress als schadelijker te beoordelen, wat de causale richting omdraait.</p>
+      <p>McGonigal presenteert de 43 procent en de 182.000 sterfgevallen met een stelligheid die de causale claim groter laat lijken dan de onderliggende, correlationele data toestaan. De experimentele mindsetstudies van Crum en Jamieson zijn kleinschaliger en laten wel verschuivingen in fysiologie en prestatie zien, maar die effecten zijn bescheiden. Een meta-analyse uit 2024, die 44 effectgroottes uit gerandomiseerd onderzoek bundelde, ná het verschijnen van dit boek gepubliceerd, bevestigt dat dit soort herwaarderingsinterventies de prestatie gemiddeld verbeteren, maar met een klein effect en niet als vervanging van andere maatregelen.</p>
+      <p>Verder besteedt het boek weinig aandacht aan chronische, langdurige stress zonder uitzicht op herstel, zoals armoede of een onveilige werkomgeving, waarbij een andere mindset weinig verandert aan de onderliggende omstandigheden. Wie voortdurend in een situatie zit die feitelijk gevaarlijk of uitputtend is, heeft aan een andere interpretatie van het eigen hartkloppen weinig genoeg.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Benoem een lichamelijke stressreactie hardop als voorbereiding, bijvoorbeeld: mijn hart klopt omdat het mij van energie voorziet.</li>
+        <li>Zoek bij spanning contact met iemand anders in plaats van je terug te trekken.</li>
+        <li>Vraag je bij een spannende gebeurtenis af waarom die je iets kan schelen, in plaats van alleen hoe je ervanaf komt.</li>
+        <li>Onderscheid kortdurende, doelgerichte stress van aanhoudende stress zonder herstelmomenten; het boek gaat vooral over de eerste.</li>
+        <li>Vertel iemand anders wat er speelt in plaats van het alleen bij jezelf te houden; dat activeert volgens het boek zelf al de zorg-en-verbindreactie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Why Stress Is Good for You, and How to Get Good at It</i> (Avery, New York, 2015, ISBN 9781583335620). Nederlands als <i>Sterker met stress: waarom stress goed voor je is en hoe je er goed in wordt</i> (Nieuwezijds, 2015, ISBN 9789057124419).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>McGonigal, gezondheidspsycholoog aan Stanford, keert in dit boek haar eigen eerdere boodschap om. Waar zij stress eerder als tegenstander behandelde, betoogt zij hier dat de schade niet van stress zelf komt maar van het geloof dat stress schadelijk is. Ze onderscheidt drie lichamelijke reacties op druk: de vecht-of-vluchtreactie, de uitdagingsreactie die de aandacht scherpt, en de zorg-en-verbindreactie waarin het lichaam oxytocine aanmaakt en mensen naar elkaar toe drijft.</p><p>Kern van het boek is de stressmindsetinterventie van onderzoeker Alia Crum: mensen die leren stress te zien als voorbereiding in plaats van bedreiging, vertonen een ander fysiologisch patroon en presteren op sommige taken beter. McGonigal onderbouwt haar these ook met een grote, deels omstreden bevolkingsstudie waarin niet stress zelf maar het geloof dat stress schadelijk is samenhing met een verhoogd sterfterisico; die studie is correlationeel en de causale claim is later bekritiseerd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stress</li><li>fysiologie</li><li>mindset</li><li>gezondheidspsychologie</li><li>Stanford</li><li>oxytocine</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="333"><a href="333.html">Altered Traits</a>. Goleman en Davidson laten via hersenonderzoek zien wat langdurige meditatiebeoefening met stressregulatie doet, met een steviger onderzoeksbasis dan McGonigals bevolkingsstudie.</li>
+          <li value="339"><a href="339.html">Behave</a>. Sapolsky beschrijft uitvoeriger en behoudender wat stresshormonen in lichaam en hersenen daadwerkelijk doen.</li>
+          <li value="372"><a href="372.html">Do Hard Things</a>. Magness onderzoekt vanuit sportprestatie hetzelfde onderscheid tussen een bedreigende en een voorbereidende interpretatie van druk.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

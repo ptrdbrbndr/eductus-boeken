@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Spending Money &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Housel stelt dat rijkdom opbouwen en geld goed besteden twee verschillende vaardigheden zijn en dat wie de eerste beheerst niet vanzelf de tweede…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-463">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">463 &middot; Geld en ondernemen</p>
+    <h1>The Art of Spending Money</h1>
+    <p class="lede">Morgan Housel, 2025</p>
+    <p class="stats">
+      <span><b>1577</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="463"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Housel stelt dat rijkdom opbouwen en geld goed besteden twee verschillende vaardigheden zijn en dat wie de eerste beheerst niet vanzelf de tweede beheerst. Er bestaat volgens hem een overvloed aan advies over sparen en beleggen en nauwelijks iets over wat iemand met geld moet doen zodra het er is. Zijn antwoord is dat besteden geen rekensom is maar een psychologische opgave: mensen geven geld uit om indruk te maken terwijl zij denken dat zij het uitgeven om gelukkig te worden, en het verschil tussen die twee bepaalt volgens hem of geld een leven verruimt of juist beknelt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee manieren om geld te besteden</h3>
+      <p>Housel opent met het onderscheid tussen nut en status. Een uitgave levert nut als zij het leven van de koper zelf verbetert, ongeacht wie het ziet; zij levert status als de waarde ervan afhangt van de blik van anderen. Beide soorten uitgaven voelen voor de koper op het moment van kopen vaak hetzelfde aan, en dat maakt ze volgens hem lastig uit elkaar te houden.</p>
+      <p>Zijn punt is niet dat statusuitgaven verboden zouden moeten worden, maar dat zij een andere rekening presenteren. Nutsuitgaven leveren een tevredenheid die blijft hangen ook als niemand toekijkt; statusuitgaven vragen om herhaling zodra de vergelijking met anderen verschuift, en die vergelijking verschuift altijd.</p>
+      <h3>Rijk zijn en welvarend zijn</h3>
+      <p>Een terugkerend onderscheid in het boek is dat tussen rijk en welvarend. Rijk zijn is voor Housel zichtbaar: een groot huis, een nieuwe auto, kleding die opvalt. Welvarend zijn is onzichtbaar en bestaat uit wat er ligt te wachten, spaargeld, weinig schuld, de mogelijkheid om nee te zeggen tegen een baan of een investering die niet bevalt.</p>
+      <p>Omdat welvaart onzichtbaar is, wordt zij nooit beloond met erkenning op het moment zelf. Wie geld opzij zet in plaats van uitgeeft, ziet daar niets van terug behalve de wetenschap dat de keuze gemaakt is, en Housel noemt dat de reden waarom mensen met een goed inkomen toch aan het einde van hun leven weinig hebben overgehouden: de zichtbare kant van geld wordt steeds beloond en de onzichtbare kant nooit.</p>
+      <h3>De aantrekkingskracht van erkenning</h3>
+      <p>Housel bouwt daarop voort met een hoofdstuk over de wens om indruk te maken. De behoefte aan erkenning is voor hem geen zwakte maar een basisdrift, en het probleem is niet dat mensen erkenning zoeken maar dat zij er de verkeerde prijs voor betalen: bezit in plaats van gedrag.</p>
+      <p>De uitweg die hij aandraagt is dat onafhankelijkheid van de blik van anderen zelf een vorm van rendement is. Wie zich niets meer hoeft aan te trekken van wat anderen van zijn uitgaven vinden, wint een vrijheid die zich net als spaargeld opstapelt, met dit verschil dat er geen bezit tegenover staat dat weer kan verdwijnen.</p>
+      <h3>Sociale schuld</h3>
+      <p>Onder de noemer sociale schuld beschrijft Housel de verplichtingen die uit een levensstijl voortvloeien zonder dat iemand ze bewust is aangegaan: het bruiloftscadeau dat bij de kring hoort, de buurt die om een bepaald soort huis vraagt, de vriendenkring die een bepaald soort vakantie verwacht. Die schuld staat nergens genoteerd en drukt toch net zo zwaar als een lening.</p>
+      <p>Zijn advies is niet om aan die verplichtingen te ontsnappen, wat volgens hem meestal niet lukt, maar om ze te herkennen als keuze in plaats van als vanzelfsprekendheid, zodat iemand weet waarvoor hij eigenlijk betaalt.</p>
+      <h3>Spreadsheets voelen niets</h3>
+      <p>Een van de scherpere hoofdstukken keert zich tegen de gedachte dat de beste financiële beslissing altijd de wiskundig optimale is. Een spreadsheet kent geen angst, geen spijt en geen vermoeidheid, en een plan dat op papier het beste rendement geeft maar dat niemand volhoudt, levert in de praktijk minder op dan een plan met mindere cijfers dat wel wordt volgehouden.</p>
+      <p>Housel gebruikt dat argument om terughoudendheid te verdedigen die zich niet met een rekenmodel laat verantwoorden, zoals een groter noodfonds dan strikt nodig is, of een huis dat lager geprijsd is dan de bank zou toestaan. De marge die overblijft is voor hem geen verspilling maar de ruimte die een plan overleefbaar maakt.</p>
+      <h3>Wat kinderen zien</h3>
+      <p>Housel besteedt een hoofdstuk aan wat kinderen van het geldgedrag van hun ouders overnemen. Niet de lessen die ouders uitspreken blijven hangen, stelt hij, maar het gedrag dat kinderen dagelijks meemaken: hoe er over geld gepraat wordt aan tafel, of aankopen gepaard gaan met spanning of met gemak, wat er gebeurt als iets kapotgaat.</p>
+      <p>Daaruit volgt zijn waarschuwing voor twee uitersten die in zijn ogen even schadelijk zijn: een jeugd met zoveel overvloed dat een kind nooit grenzen ervaart, en een jeugd met zoveel schaarste dat een kind grenzen alleen nog als dreiging kent.</p>
+      <h3>Geluk als afwezigheid van tekort</h3>
+      <p>Het boek sluit af waar het begon, bij de vraag wat geld eigenlijk oplevert. Housels antwoord is dat geluk niet ontstaat uit wat iemand bezit maar uit de afstand tussen wat iemand heeft en wat iemand wil, en dat die afstand door aankopen zelden kleiner wordt omdat de wens meebeweegt met het bezit.</p>
+      <p>De mensen die hij het gelukkigst noemt, zijn niet degenen met het meeste geld maar degenen die zijn opgehouden er voortdurend over na te denken: geld doet voor hen zijn werk op de achtergrond, als middel voor onafhankelijkheid en tijd met mensen die ertoe doen, zonder dat het de plaats inneemt van een doel op zich.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nut versus status</td><td>Housels basisonderscheid tussen uitgaven die het leven van de koper zelf verbeteren en uitgaven waarvan de waarde afhangt van wie ze ziet.</td></tr>
+          <tr><td class="term">Rijk versus welvarend</td><td>Rijk is het zichtbare bezit, welvarend is de onzichtbare reserve en de vrijheid om nee te zeggen die daaruit voortkomt.</td></tr>
+          <tr><td class="term">Sociale schuld</td><td>De ongeschreven financiële verplichtingen die uit een levensstijl of vriendenkring voortvloeien zonder dat iemand ze bewust is aangegaan.</td></tr>
+          <tr><td class="term">Frugaliteitstraagheid</td><td>De gewoonte om jarenlang spaarzaam te leven, die na het bereiken van financiële zekerheid moeilijk is af te leren.</td></tr>
+          <tr><td class="term">Mentale liquiditeit</td><td>Het vermogen om een overtuiging over geld los te laten zodra de omstandigheden veranderd zijn, in plaats van eraan vast te houden uit gewoonte.</td></tr>
+          <tr><td class="term">Onafhankelijkheid</td><td>De zeggenschap over de eigen tijd en beslissingen, die Housel als het uiteindelijke doel van geld beschouwt in plaats van bezit.</td></tr>
+          <tr><td class="term">Aandacht als grondstof</td><td>Zijn beschrijving van hoe reclame en sociale media de aandacht sturen naar uitgaven die niet uit een eigen behoefte voortkomen.</td></tr>
+          <tr><td class="term">Spijtgevoeligheid</td><td>De mate waarin iemand toekomstige spijt laat meewegen in een uitgave, die volgens Housel net zo reëel is als een verwacht rendement.</td></tr>
+          <tr><td class="term">Tevredenheid als afstand</td><td>Zijn omschrijving van tevredenheid als de afstand tussen wat iemand heeft en wat iemand wil, die door meer bezit zelden kleiner wordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek werkt net als <i>The Psychology of Money</i> met korte hoofdstukken die elk op één idee draaien, onderbouwd met anekdotes over bekende en minder bekende mensen, citaten van andere schrijvers en Housels eigen waarnemingen. Er staan geen tabellen, geen vragenlijstonderzoek en geen cijfers uit een steekproef in; de argumentatie steunt op de overtuigingskracht van het voorbeeld, niet op herhaalbare metingen.</p>
+      <p>Voor zover er onderbouwing van buitenaf te vinden is, ligt die vooral in gedragseconomisch werk over hedonische aanpassing, het verschijnsel dat mensen zich snel aan een hogere levensstandaard aanpassen waardoor het effect ervan op tevredenheid wegebt. Housel citeert dat soort onderzoek niet stelselmatig, maar zijn beweringen over de afstand tussen bezit en wens sluiten er wel op aan.</p>
+      <p>Recensenten wijzen erop dat de voorbeelden overwegend afkomstig zijn van vermogende, veelal mannelijke ondernemers en beleggers, wat de reikwijdte van de lessen beperkt voor lezers wier financiële situatie daar ver van afstaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest gehoorde bezwaar is dat het boek dicht bij zijn voorganger blijft staan. Waar <i>The Psychology of Money</i> over opbouwen ging, herhaalt dit boek een deel van dezelfde ideeën, zoals de nadruk op gedrag boven rekenwerk en op tevredenheid boven optimalisatie, nu toegepast op besteden in plaats van op sparen. Lezers die het eerste boek goed kennen, treffen minder nieuws aan dan de titel belooft.</p>
+      <p>De onderbouwing steunt zwaar op anekdote en weinig op harde gegevens. Waar Housel in zijn eerdere werk nog leunde op beursgeschiedenis die zich laat narekenen, is dit boek psychologischer van aard en daardoor moeilijker te toetsen: de stelling dat mensen het gelukkigst zijn zodra zij stoppen met nadenken over geld, is aannemelijk maar niet aangetoond.</p>
+      <p>De keuze van voorbeelden is smal. De hoofdpersonen in de anekdotes zijn overwegend vermogende ondernemers en beleggers, en het boek gaat nauwelijks in op uitgavenbeslissingen onder financiële druk, waar de marge om te kiezen tussen nut en status veel kleiner is dan het boek soms laat doorschemeren.</p>
+      <p>Ten slotte biedt het boek bewust geen stappenplan. Wie een concreet budget of een spaarschema zoekt, moet elders zijn; Housel beschrijft een houding, geen methode, en dat is een keuze waar de lezer vooraf van op de hoogte moet zijn.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga voor een grote uitgave na of de waarde ervan blijft bestaan als niemand hem ziet.</li>
+        <li>Schrijf op welke verplichtingen in je uitgavenpatroon uit je eigen keuze voortkomen en welke uit de verwachting van je omgeving.</li>
+        <li>Bekijk je spaargedrag niet als doel op zich, maar als de aankoop van onafhankelijkheid, en vraag jezelf af hoeveel daarvan genoeg is.</li>
+        <li>Let bij je kinderen op wat zij aan gedrag rond geld zien, niet op wat je hun erover vertelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Simple Choices for a Richer Life</i> (Portfolio, 7 oktober 2025, 256 blz., ISBN 9780593716625). Nederlands als <i>The Art of Spending Money</i>, ondertitel "Simpele keuzes voor een rijker leven" (Kosmos Uitgevers, 240 blz., ISBN 9789043940221); de Engelse titel is behouden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Housel schreef eerder <i>The Psychology of Money</i> over het opbouwen van vermogen; dit boek gaat over wat daarna komt, het uitgeven ervan. Zijn stelling is dat sparen en beleggen een andere vaardigheid zijn dan geld goed besteden, en dat mensen die de eerste onder de knie hebben bij de tweede vaak vastlopen. Hij onderscheidt uitgaven die nut leveren van uitgaven die vooral status tonen, en laat zien hoe de twee zich vermommen als elkaar.</p><p>Het boek bestaat uit eenentwintig korte hoofdstukken, elk rond één idee: de onzichtbaarheid van echte welvaart, de sociale verplichtingen die uitgavenpatronen sturen, wat kinderen van het geldgedrag van hun ouders overnemen. Net als in zijn eerdere boek werkt Housel met anekdotes en korte redeneringen in plaats van met onderzoek of rekenmodellen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geld</li><li>uitgeven</li><li>status</li><li>tevredenheid</li><li>psychologie</li><li>consumptie</li><li>vermogen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housels eerdere boek over het opbouwen van geld; dit boek is er uitdrukkelijk het vervolg op, nu over het uitgeven ervan.</li>
+          <li value="39"><a href="39.html">The Millionaire Next Door</a>. Stanley en Danko onderzochten het onderscheid tussen rijk lijken en vermogend zijn empirisch, waar Housel het essayistisch beschrijft.</li>
+          <li value="334"><a href="334.html">The 5 Types of Wealth</a>. Bloom plaatst geld als een van meerdere soorten rijkdom naast tijd, gezondheid en relaties, een verbreding van hetzelfde punt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Surrounded by Psychopaths &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Erikson stelt dat een klein deel van de mensen in iemands omgeving, hij noemt twee tot vier procent, structureel zonder empathie, berouw of geweten…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-429">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">429 &middot; Vrij denken en manipulatie</p>
+    <h1>Surrounded by Psychopaths</h1>
+    <p class="lede">Thomas Erikson, 2018</p>
+    <p class="stats">
+      <span><b>1576</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="429"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Erikson stelt dat een klein deel van de mensen in iemands omgeving, hij noemt twee tot vier procent, structureel zonder empathie, berouw of geweten handelt en de mensen om zich heen daarvoor gebruikt, van de eigen huiskamer tot de directiekamer. Wie de tactieken van zo iemand herkent, liefdebombardement, het verdraaien van de werkelijkheid, het stilzwijgen als straf, kan zich er volgens hem tegen wapenen. Het boek voegt dat klinische spoor samen met het kleurenmodel uit zijn vorige boek: elke kleur zou op een eigen manier worden bespeeld. De inzet is zelfbescherming door herkenning, geen diagnose, al zakt de tekst herhaaldelijk terug in het woord "psychopaat" voor gedrag dat ver onder de drempel blijft die het boek zelf aanhaalt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een tweede boek over dezelfde kleuren</h3>
+      <p>Erikson opent met de stelling dat manipulatieve mensen overal voorkomen, van alledaagse situaties tot directiekamers en overheidsinstellingen, en dat de meeste slachtoffers hun eigen ervaring pas laat herkennen. Hij bouwt daarbij voort op het rood-geel-groen-blauwmodel uit <i>Surrounded by Idiots</i>, en veronderstelt dat de lezer dat al kent.</p>
+      <p>Net als in het eerdere boek zijn de voorbeelden anekdotisch: herkenbare scènes uit een kantoor, een relatie of een familie, opgebouwd rond een manipulator en een doelwit. Wetenschappelijk onderzoek van eigen hand levert het boek niet.</p>
+      <h3>De klinische lat: Hares checklist</h3>
+      <p>Erikson introduceert de Psychopathy Checklist-Revised van de Canadese onderzoeker Robert Hare, een instrument met twintig kenmerken, van oppervlakkige charme tot een parasitaire levensstijl, die elk met nul, één of twee punten worden gescoord. De klinische drempel voor psychopathie ligt bij een score van rond de dertig van de veertig, in Groot-Brittannië wordt vaker een grens van vijfentwintig gehanteerd.</p>
+      <p>Erikson zet daar zijn eigen schatting naast, dat twee tot vier procent van de bevolking aan dat profiel voldoet. Dat percentage ligt aan de hoge kant van wat in de vakliteratuur wordt genoemd, waar cijfers van rond het ene procent van de mannen en een fractie daarvan bij vrouwen gangbaarder zijn. Nergens in het boek wordt de checklist op een van de beschreven voorbeeldpersonen toegepast.</p>
+      <h3>Wat een manipulator doet</h3>
+      <p>Het middendeel loopt de tactieken langs die volgens Erikson typerend zijn. Liefdebombardement is het overladen met aandacht aan het begin van een relatie, gevolgd door het geleidelijk intrekken ervan. Wisselende beloning is het willekeurig afwisselen van lof en afwijzing, waardoor het doelwit zich blijft inspannen om de gunst terug te winnen. Beloond toegeven houdt in dat onaangenaam gedrag stopt zodra het doelwit toegeeft, wat toegeven aanleert.</p>
+      <p>Daarnaast beschrijft hij het rookgordijn, waarbij de manipulator de aandacht verlegt naar een fout van het doelwit zelf, het driehoeksdrama, waarbij een derde persoon wordt ingezet om jaloezie of onzekerheid te voeden, gaslighting, waarbij de manipulator de eigen waarneming van het doelwit in twijfel trekt, en de stille behandeling als vorm van straf.</p>
+      <h3>Elke kleur zijn eigen valkuil</h3>
+      <p>Het boek koppelt die tactieken terug aan het kleurenmodel. Een sociale gele persoon wordt volgens Erikson vooral geïsoleerd, door de manipulator die diens vriendschappen ondermijnt zodat er niemand overblijft om op terug te vallen. Een zorgzame groene persoon wordt uitgeput door het slachtoffer te spelen, waar de groene reflex is om te blijven helpen, ook financieel.</p>
+      <p>Een nauwgezette blauwe persoon wordt aangevallen op de eigen geloofwaardigheid, met details die worden verdraaid tot die persoon aan zijn eigen geheugen twijfelt. Een dominante rode persoon wordt uitgedaagd op het eigen terrein, in een machtsstrijd die de manipulator uiteindelijk wint door geen grenzen te erkennen. Het boek erkent hier tegelijk dat psychopathie in de inleiding als iets buiten het kleurenspectrum werd neergezet en verderop toch als een verzameling kleurgebonden trekken wordt behandeld, zonder dat die tegenstelling wordt opgelost.</p>
+      <h3>Het verzet: scripts en de gebroken plaat</h3>
+      <p>Het laatste deel biedt uitgeschreven zinnen om grenzen te stellen. De vierstappenformule volgt een vast patroon: het gedrag benoemen, het eigen gevoel erbij noemen, een voorwaarde stellen en het gewenste gevolg uitspreken. De gebroken-plaat-techniek houdt in dat iemand een enkele zin blijft herhalen zonder zich te laten meeslepen in een welles-nietesdiscussie, ook als de manipulator van onderwerp verandert.</p>
+      <p>Erikson raadt daarnaast aan de eigen zwakke plek te kennen: wie zichzelf vooral als groen herkent, moet volgens hem extra alert zijn op het slachtofferverhaal van een ander, en wie zichzelf als geel herkent op complimenten die te snel komen.</p>
+      <h3>Wanneer het geen zin meer heeft</h3>
+      <p>Het slotdeel gaat over de grens van wat te repareren valt. Bij een echte psychopaat, in de klinische betekenis die het boek eerder introduceerde, is therapie volgens Erikson doorgaans niet effectief, omdat de persoon geen aanleiding voelt om te veranderen. Zijn advies is dan het contact te beperken of te verbreken in plaats van te blijven proberen het gedrag bij te sturen.</p>
+      <p>Dat advies wordt gegeven zonder onderscheid naar de situatie van de lezer: een collega laat zich makkelijker vermijden dan een gezinslid van wie iemand financieel afhankelijk is, en het boek biedt voor dat verschil geen uitgewerkt alternatief.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Psychopathie (klinisch)</td><td>Een persoonlijkheidsprofiel met een blijvend gebrek aan empathie, berouw en geweten, vastgesteld met een gestandaardiseerd instrument en niet met een indruk uit één ontmoeting.</td></tr>
+          <tr><td class="term">Hare Psychopathy Checklist-Revised (PCL-R)</td><td>Het twintigpuntsinstrument van Robert Hare waarmee elk kenmerk met nul, één of twee wordt gescoord, met een klinische drempel van doorgaans rond de dertig van de veertig.</td></tr>
+          <tr><td class="term">Liefdebombardement</td><td>Overweldigende aandacht en complimenten aan het begin van een relatie, gevolgd door het geleidelijk intrekken ervan.</td></tr>
+          <tr><td class="term">Wisselende beloning</td><td>Het onvoorspelbaar afwisselen van lof en afwijzing, waardoor het doelwit zich extra blijft inspannen.</td></tr>
+          <tr><td class="term">Gaslighting</td><td>Het stelselmatig in twijfel trekken van iemands waarneming of geheugen, zodat die persoon aan zichzelf gaat twijfelen.</td></tr>
+          <tr><td class="term">Driehoeksdrama</td><td>Het inzetten van een derde persoon om jaloezie of onzekerheid bij het doelwit op te wekken.</td></tr>
+          <tr><td class="term">Rookgordijn</td><td>Het verleggen van de aandacht naar een fout of tekortkoming van het doelwit zelf, om eigen gedrag aan het zicht te onttrekken.</td></tr>
+          <tr><td class="term">Vierstappenformule</td><td>De aanbevolen zinsopbouw om grenzen te stellen: gedrag benoemen, eigen gevoel noemen, voorwaarde stellen, gevolg uitspreken.</td></tr>
+          <tr><td class="term">Gebroken-plaat-techniek</td><td>Eén zin blijven herhalen in een lastig gesprek, zonder mee te gaan in een welles-nietesdiscussie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee ongelijke bronnen. Voor de klinische kant leunt Erikson op de Psychopathy Checklist-Revised van Robert Hare, een instrument dat in de forensische psychologie wordt gebruikt en waarvan de opzet nazoekbaar is. Voor de rest, de tactieken, de voorbeelden en de koppeling aan de kleuren, gaat het net als in <i>Surrounded by Idiots</i> om anekdotes uit zijn werk als trainer en spreker, zonder vragenlijst, zonder gegevens over een grotere groep en zonder dat de checklist ooit op een van de voorbeeldpersonen wordt toegepast.</p>
+      <p>Het kleurenmodel zelf is de populaire bewerking van DISC die ook aan zijn eerdere boek ten grondslag ligt, en dat model wordt in de vakliteratuur niet als betrouwbaar en voorspellend beschouwd. Waar het boek klinisch instrument en kleurenmodel samenvoegt, wordt de herkomst van elke bewering onduidelijker: een lezer kan niet meer zien of een claim van Hare komt, van Erikson zelf, of van de combinatie die hij ertussen maakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is de afstand tussen de klinische drempel die het boek zelf citeert en het gebruik van het woord "psychopaat" in de rest van de tekst. Een score van rond de dertig van de veertig op Hares lijst is iets anders dan een collega die eigenbelang voorop stelt of een partner die een keer liegt, maar het boek behandelt beide vaak in dezelfde toon en met dezelfde term. Dat risico is inherent aan het opzetten van een boek voor een breed publiek rond een klinische diagnose: het woord wordt losser dan de diagnose zelf, en de lezer die het boek dichtklapt, heeft een label gekregen zonder de meetlat waarmee dat label is toegekend.</p>
+      <p>Er zit bovendien een innerlijke tegenstrijdigheid in de opzet. De inleiding presenteert psychopathie als iets dat los staat van het kleurenspectrum, een aparte categorie, maar de latere hoofdstukken behandelen manipulatie juist als een verzameling trekken die per kleur verschilt. Beide claims kunnen niet tegelijk kloppen zonder nadere uitleg, en die uitleg ontbreekt.</p>
+      <p>Zoals bij <i>Surrounded by Idiots</i> geldt ook hier dat Erikson geen opleiding in de psychologie heeft en zich niettemin als gedragsexpert presenteert, terwijl het onderliggende kleurenmodel door vakgenoten wordt gerekend tot dezelfde categorie als een horoscoop: breed genoeg geformuleerd om bij vrijwel iedereen een herkenningspunt te vinden. Het advies aan het einde, contact beperken of verbreken, is bovendien voor iedereen met dezelfde stelligheid geformuleerd, terwijl de praktische ruimte om dat te doen sterk verschilt tussen een vervelende collega en een gezinslid van wie iemand afhankelijk is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het woord psychopaat niet als etiket voor een collega of partner die irriteert; de klinische drempel die het boek zelf noemt ligt veel hoger dan de meeste beschreven situaties.</li>
+        <li>Let bij een lastig gesprek op het patroon, niet op de diagnose: noteer wanneer het gesprek verschuift van een feit naar schuldgevoel bij jou.</li>
+        <li>Oefen de vierstappenformule eerst in een neutrale situatie voordat je hem gebruikt bij iemand die al gewend is de regie te nemen.</li>
+        <li>Zoek bij herhaald grensoverschrijdend gedrag, zeker bij financiële of relationele afhankelijkheid, hulp buiten het boek in plaats van zelf te bepalen of iemand een psychopaat is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Zweeds als <i>Omgiven av psykopater: så undviker du att bli utnyttjad av andra</i> (Bokförlaget Forum, 2018, 271 blz., ISBN 9789137153063). De Engelse vertaling verscheen in 2019 als <i>Surrounded by Psychopaths: How to Protect Yourself from Being Manipulated and Exploited in Business (and in Life)</i> bij St. Martin's Essentials in de Verenigde Staten; de Britse uitgave bij Vermilion voert een afwijkende ondertitel, <i>How to Stop Being Exploited by Others</i>. Nederlandse editie als <i>Omringd door psychopaten</i>, sinds 2021 bij HarperCollins Holland (1e druk, 320 blz., ISBN 9789402708813); de gevonden catalogusgegevens noemen geen vertaler bij naam. Het boek is het tweede deel in de <i>Surrounded by Idiots</i>-reeks.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thomas Erikson bouwt in dit vervolg op <i>Surrounded by Idiots</i> (nr 156) zijn kleurenmodel om tot een gids tegen manipulatie. Hij stelt dat een klein deel van de mensen om ons heen, naar zijn schatting twee tot vier procent, structureel zonder empathie of berouw handelt en anderen daarvoor gebruikt, op kantoor net zo goed als thuis. Het boek beschrijft tactieken als liefdebombardement, gaslighting, de stille behandeling en driehoeksdrama, en geeft scripts om er weerstand aan te bieden, waaronder een vaste vierstappenformule en de zogeheten gebroken-plaat-techniek.</p><p>Erikson heeft, net als bij zijn eerdere boek, geen opleiding in de psychologie en presenteert zich als gedragsexpert op grond van zijn werk als trainer en spreker. Hij citeert wel een echt klinisch instrument, de Psychopathy Checklist van de Canadese onderzoeker Robert Hare, maar past die nergens systematisch toe, en het woord "psychopaat" wordt in de rest van het boek losser gebruikt dan de klinische drempel die hij zelf aanhaalt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychopathie</li><li>manipulatie</li><li>DISC</li><li>zelfhulp</li><li>grenzen stellen</li><li>populaire psychologie</li><li>giftige relaties</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="156"><a href="156.html">Surrounded by Idiots</a>. Het eerdere boek van dezelfde auteur waarop dit boek zijn kleurenmodel baseert; wie de kritiek op DISC daar leest, herkent dezelfde zwakte hier.</li>
+          <li value="214"><a href="214.html">The Gift of Fear</a>. De Becker onderbouwt hetzelfde thema, gevaar herkennen aan gedrag, met eigen werk als veiligheidsadviseur in plaats van met een overgenomen checklist.</li>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini beschrijft overtuigingstechnieken die met dit boek overlappen, maar dan met herhaald experimenteel onderzoek als grondslag.</li>
+          <li value="33"><a href="33.html">Quiet</a>. Cain bespreekt temperament en persoonlijkheid met wel te toetsen onderzoek, als tegenwicht tegen het ongevalideerde kleurenmodel hier.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>If Nietzsche Were a Narwhal &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gregg stelt dat de menselijke eigenschappen die doorgaans als bewijs van onze superioriteit gelden, vooruitziend denken, abstracte moraal, doodsbesef,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-383">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">383 &middot; Natuur en wetenschap</p>
+    <h1>If Nietzsche Were a Narwhal</h1>
+    <p class="lede">Justin Gregg, 2022</p>
+    <p class="stats">
+      <span><b>1420</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="383"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gregg stelt dat de menselijke eigenschappen die doorgaans als bewijs van onze superioriteit gelden, vooruitziend denken, abstracte moraal, doodsbesef, symbolische taal, dezelfde eigenschappen zijn die de mens in staat stellen tot kernwapens, genocide en de aantasting van het eigen leefmilieu op een schaal die geen ander dier ooit heeft bereikt. Dieren zoals de narwal missen die vermogens en hebben er geen vergelijkbare zelfvernietiging voor teruggekregen. Zijn stelling is niet dat intelligentie waardeloos is, maar dat de manier waarop wij intelligentie meten, aan onszelf ontleend, ons blind maakt voor de prijs die zij kost.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De narwal van Nietzsche</h3>
+      <p>Gregg opent met een citaat van Nietzsche uit <i>Der Wanderer und sein Schatten</i>, waarin de mens wordt omschreven als het dier dat, anders dan andere dieren, geen vaststaande natuur heeft en zichzelf daarom telkens opnieuw moet uitvinden. Andere dieren, zoals de narwal, weten simpelweg wat ze zijn en hoeven daar niet over na te denken.</p>
+      <p>Gregg leest dat citaat niet als lof maar als een aanwijzing voor een last. Elk hoofdstuk stelt daarna dezelfde vraag opnieuw: wat kost het een dier om precies dát te missen wat de mens heeft, en wat wint het daarmee terug?</p>
+      <h3>Vooruitziend vermogen</h3>
+      <p>Mensen kunnen ver vooruitplannen, wat volgens Gregg de basis is van landbouw, medicijnen en pensioenstelsels, maar ook van kernwapenarsenalen die decennialang worden onderhouden voor een dreiging die zich misschien nooit voordoet. Dieren leven overwegend in het moment en plannen hooguit voor de eerstvolgende winter.</p>
+      <p>Dat korte tijdsbestek beschermt hen tegen een specifiek soort dwaasheid: geen enkel dier heeft ooit een voorraad grondstoffen uitgeput ten koste van zijn eigen leefgebied over meerdere generaties, terwijl de mens dat wereldwijd doet, met precies het vooruitziend vermogen waarmee hij zichzelf onderscheidt.</p>
+      <p>Klimaatverandering noemt Gregg het duidelijkste voorbeeld. Dat fossiele brandstoffen op lange termijn schade aanrichten, is al decennia bekend, maar diezelfde vooruitziende blik blijkt niet sterk genoeg om het gedrag op de korte termijn bij te sturen. Geen enkele andere diersoort heeft ooit een vergelijkbare, wereldwijde verandering van het eigen leefklimaat veroorzaakt.</p>
+      <h3>Moraal en proto-moraal bij dieren</h3>
+      <p>Gregg bespreekt het experiment dat Sarah Brosnan en Frans de Waal in 2003 publiceerden: kapucijneraapjes die een fiche inleverden kregen daarvoor een stukje komkommer, tot een van de twee dieren in plaats daarvan een druif kreeg, een veel geliefdere beloning. Het dier dat nog komkommer kreeg, weigerde vaak zijn fiche in te leveren of gooide de komkommer terug. Gregg leest dat als een vorm van rechtvaardigheidsgevoel die niet op abstracte principes steunt maar op een directe vergelijking met de buur.</p>
+      <p>Het onderscheid met menselijke moraal is dat mensen hun oordeel kunnen loskoppelen van de directe situatie en onderbrengen in een ideologie. Die abstractie maakt het mogelijk om moord op grote schaal moreel te rechtvaardigen, zolang het slachtoffer buiten de eigen morele categorie valt, iets waartoe geen dier in staat is gebleken.</p>
+      <p>Dodelijk geweld tussen groepen komt overigens niet alleen bij mensen voor: Gregg wijst op de gewelddadige raids tussen groepen chimpansees die Jane Goodall in Gombe documenteerde. Het verschil zit voor hem niet in het geweld zelf maar in de schaal en de rechtvaardiging: mensen kunnen geweld tegen miljoenen onbekenden tegelijk organiseren en moreel verantwoorden met een idee, iets waartoe geen chimpansee in staat is.</p>
+      <h3>Doodsbesef</h3>
+      <p>Mensen weten dat ze zullen sterven en dragen dat besef hun hele leven mee. Gregg noemt dat doodswijsheid en wijst op de kunst, religie en filosofie die eruit voortkomen, maar ook op de angst en het geweld die ermee samenhangen: onderzoek naar zogeheten terreurbeheersing laat zien dat herinnering aan de eigen sterfelijkheid mensen strenger maakt tegenover wie anders denkt of gelooft.</p>
+      <p>Dieren vertonen wel rouw, olifanten die bij de resten van soortgenoten blijven, orka's die een dode kalf wekenlang met zich meedragen, maar niet het aanhoudende, abstracte besef dat het eigen einde ooit komt. Gregg stelt dat dit hun juist bespaart wat bij mensen tot religieus geweld en existentiële angst kan leiden.</p>
+      <h3>Taal en misleiding</h3>
+      <p>Symbolische taal stelt mensen in staat om over dingen te spreken die niet aanwezig zijn, wat vooruitplannen en samenwerking op grote schaal mogelijk maakt. Dezelfde eigenschap maakt ook grootschalige propaganda en systematische misleiding mogelijk: dieren kunnen wel signalen vervalsen, zoals een vogel die een loos alarm slaakt om voedsel te bemachtigen, maar niet een verhaal opbouwen over een verleden of een toekomst die niet heeft bestaan.</p>
+      <p>Gregg trekt de lijn door naar massamedia en desinformatie als een rechtstreeks gevolg van hetzelfde vermogen dat de mens zijn grootste culturele prestaties gaf.</p>
+      <h3>De narwal als tegenbeeld</h3>
+      <p>In het slothoofdstuk keert de narwal terug, niet als een dier zonder enig innerlijk leven, maar als voorbeeld van een soort die zonder abstracte planning, moraal of doodsbesef al miljoenen jaren functioneert zonder zijn eigen leefomgeving op het spel te zetten. Gregg gebruikt het dier niet als ideaal om naar terug te keren, dat kan een mens toch niet, maar als correctie op het idee dat meer cognitieve complexiteit vanzelfsprekend beter is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Doodswijsheid</td><td>Het aanhoudende besef van de eigen sterfelijkheid, volgens Gregg bron van zowel kunst als religieus geweld.</td></tr>
+          <tr><td class="term">Proto-moraal</td><td>Een rechtvaardigheidsgevoel dat direct aan een situatie is gekoppeld, zoals bij de kapucijneraapjes van De Waal, zonder de abstractie van menselijke ideologie.</td></tr>
+          <tr><td class="term">Vooruitziend vermogen</td><td>Het kunnen plannen voor gebeurtenissen die nog niet hebben plaatsgevonden, bij de mens uitgebreid tot decennia vooruit.</td></tr>
+          <tr><td class="term">Symbolische taal</td><td>Het vermogen om te spreken over wat niet aanwezig is, grondslag van zowel samenwerking als grootschalige misleiding.</td></tr>
+          <tr><td class="term">Terreurbeheersing</td><td>Onderzoekslijn die laat zien dat herinnering aan de eigen sterfelijkheid mensen strenger maakt tegenover andersdenkenden.</td></tr>
+          <tr><td class="term">Antropocentrische maatstaf</td><td>Greggs term voor het meten van intelligentie aan de hand van wat de mens zelf kan, waardoor dieren stelselmatig als minder verschijnen.</td></tr>
+          <tr><td class="term">Gombe-oorlogen</td><td>De dodelijke raids tussen groepen chimpansees die Jane Goodall documenteerde, door Gregg aangehaald als bewijs dat groepsgeweld niet alleen bij mensen voorkomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gregg is zelf onderzoeker dolfijnencommunicatie en bouwt zijn boek op gepubliceerd, vaak collegiaal getoetst onderzoek naar dierlijke cognitie: De Waals experimenten met kapucijnerapen, waarnemingen van rouw bij olifanten en orka's, en studies naar vogelcommunicatie en misleiding. Voor het menselijke deel van zijn argument leunt hij op de literatuur over terreurbeheersing en op geschiedschrijving over genocide en massavernietigingswapens.</p>
+      <p>De empirische kern, wat dieren wel en niet kunnen, is stevig onderbouwd en aan te wijzen in vakliteratuur. De filosofische stap, dat het ontbreken van die vermogens dieren per saldo iets oplevert, is een interpretatie van Gregg zelf en geen bevinding die rechtstreeks uit de onderliggende studies volgt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het narwal in de titel krijgt weinig eigen aandacht: het dier fungeert vooral als beeld voor Nietzsches gedachte en wordt zelf nauwelijks onderzocht, terwijl andere diersoorten, kapucijnerapen, kraaien, olifanten, het meeste bewijsmateriaal leveren. Wie een boek over narwals verwacht, leest vooral een boek over de grenzen van menselijke intelligentie met de narwal als kapstok.</p>
+      <p>De centrale claim dat intelligentie niet vanzelfsprekend gunstig is, hangt af van de definitie van gunstig. In termen van populatieomvang en verspreiding over de aarde is de mens een van de meest succesvolle soorten ooit, en Gregg besteedt weinig aandacht aan de vraag of dat succes de risico's die hij beschrijft compenseert.</p>
+      <p>Ten slotte ligt vergelijkend onderzoek tussen soorten gevoelig voor projectie: het is verleidelijk om dierlijk gedrag te lezen als rechtvaardigheid of rouw omdat het op menselijke categorieën lijkt, terwijl onduidelijk blijft of het dier iets vergelijkbaars ervaart. Gregg is zich daarvan bewust en formuleert voorzichtig, maar de algemene lijn van het boek buigt toch geregeld naar de meer sprekende lezing.</p>
+      <p>De keuze van voorbeelden is ook sturend in een andere richting. Dieren die zelf gewelddadig gedrag vertonen dat dicht bij menselijke wreedheid komt, zoals infanticide bij dolfijnen, een verschijnsel dat Gregg uit eigen vakgebied kent, krijgen minder ruimte dan de vergelijkingen die de mens ongunstig afzetten tegen een vredig dier.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een claim over menselijke uitzonderlijkheid na of die op een vergelijking met dieren berust, en zo ja, met welke soort en welk gedrag.</li>
+        <li>Onderscheid bij eigen langetermijnplannen of ze op voorzorg berusten of op een risico dat verder vooruitschuift dan iemand kan overzien.</li>
+        <li>Let bij nieuws over moreel geweld op de rol van abstractie: categorieën die het slachtoffer buiten de eigen morele kring plaatsen.</li>
+        <li>Zoek bij een vergelijking tussen mens en dier ook naar het tegenvoorbeeld: gedrag bij dieren dat evenmin vleiend is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>If Nietzsche Were a Narwhal: What Animal Intelligence Reveals About Human Stupidity</i> (Little, Brown and Company, 2022). Geen Nederlandse uitgave gevonden; deze samenvatting gaat over de Engelse editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gregg, gedragsbioloog gespecialiseerd in de communicatie van dolfijnen, neemt een zin van Nietzsche als vertrekpunt: de mens is het enige dier dat zelf moet uitvinden wat hij is, omdat hij, anders dan een narwal, geen vaste natuur heeft om op terug te vallen. Gregg draait die gedachte om en vraagt zich af of dat gebrek aan een vaste natuur werkelijk een voordeel is.</p><p>In zeven hoofdstukken zet hij telkens een menselijke eigenschap die als bewijs van onze superioriteit geldt, vooruitziend vermogen, moraal, doodsbesef, taal, naast het gedrag van dieren die dat vermogen missen en er opvallend goed mee wegkomen. Zijn conclusie is dat intelligentie zoals wij die waarderen minstens zo veel schade als voordeel oplevert.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dierlijke-cognitie</li><li>evolutie</li><li>filosofie</li><li>intelligentie</li><li>gedrag</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="322"><a href="322.html">An Immense World</a>. Yong beschrijft uitgebreider hoe dieren de wereld waarnemen, en vult daarmee de zintuiglijke kant aan die Gregg vooral cognitief benadert.</li>
+          <li value="66"><a href="66.html">The Folly of Fools</a>. Trivers onderzoekt zelfbedrog bij mensen vanuit dezelfde evolutionaire hoek als Gregg, maar dan gericht op de functie van misleiding binnen de eigen soort.</li>
+          <li value="339"><a href="339.html">Behave</a>. Sapolsky levert het bredere biologische kader voor menselijk gedrag waarin Greggs vergelijkingen met dieren passen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shaolin: How to Win Without Fighting &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Moestl stelt dat de kracht van de Shaolin-monniken niet in hun vechtkunst zit maar in een manier van denken die hen in staat stelt de meeste confrontaties…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-389">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">389 &middot; Moed en karakter</p>
+    <h1>Shaolin: How to Win Without Fighting</h1>
+    <p class="lede">Bernhard Moestl, 2008</p>
+    <p class="stats">
+      <span><b>1461</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="389"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Moestl stelt dat de kracht van de Shaolin-monniken niet in hun vechtkunst zit maar in een manier van denken die hen in staat stelt de meeste confrontaties te vermijden voordat ze beginnen. Wie leert stil te staan bij het huidige moment, kalm te blijven onder druk, vastberaden te kiezen in plaats van te aarzelen en zich niet te laten meeslepen door hebzucht of ego, hoeft zijn gelijk niet meer met kracht te bevechten: die persoon wint doordat anderen de confrontatie zelf niet meer zoeken. Het boek presenteert dat als een leerbare vaardigheid in dertien stappen, opgebouwd uit wat Moestl bij de monniken in Henan heeft gezien en zelf heeft geoefend.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een westerling bij de monniken</h3>
+      <p>Moestl beschrijft zijn tijd in de Shaolin-tempel als leerling tussen leerlingen, met vroege ochtenden, herhaling zonder uitleg en een discipline die weinig ruimte laat voor twijfel. Zijn eerste aanname, dat het hem om vechttechniek te doen zou zijn, verdwijnt al snel: de monniken trainen hun lichaam als gevolg van hun training van de geest, niet andersom.</p>
+      <p>Die omkering vormt het uitgangspunt van het boek. Waar westerse zelfhulp vaak begint bij gedrag en gewoonte, begint Moestl bij de innerlijke houding, en leidt hij het gedrag daaruit af.</p>
+      <p>Moestl was voor dit boek al jaren actief als reisleider gespecialiseerd in Oost-Europa en Azië en werkte later als managementtrainer, onder meer met lessen over leiderschap en communicatie aan de Donau-universiteit Krems. Die achtergrond kleurt de toon van het boek: het richt zich uitdrukkelijk op lezers in een westerse werk- en leefomgeving, en vertaalt de tempelervaring steeds terug naar herkenbare situaties op kantoor of in een team.</p>
+      <h3>Het huidige moment en aandacht</h3>
+      <p>De eerste principes gaan over aanwezigheid: het huidige moment aanvaarden zonder er een oordeel aan te hangen, en aandacht cultiveren in alledaagse handelingen als lopen, eten of schoonmaken. Moestl citeert de Shaolin-gedachte dat er weinig mensen zijn die handelen en veel die enkel reageren, en dat wie leert waar te nemen voordat hij reageert, al een voorsprong heeft in elk conflict.</p>
+      <h3>Vastberadenheid, onthechting en kalmte</h3>
+      <p>Een volgend cluster principes gaat over de energie die verloren gaat aan halfslachtigheid. Vastberadenheid betekent voor Moestl dat je iets volledig doet of volledig laat, omdat een half begonnen plan energie opslokt zonder iets op te leveren. Onthechting waarschuwt tegen hebzucht: wie ergens te veel aan hangt, maakt zichzelf kwetsbaar voor wie dat weet uit te buiten.</p>
+      <p>Kalmte is het principe dat het dichtst bij vechtkunst blijft: woede maakt volgens Moestl de geest onbetrouwbaar, en wie eerst ademhaalt voordat hij reageert, houdt de controle die een boze tegenstander juist kwijtraakt.</p>
+      <h3>Traagheid, navolging en de juiste gelegenheid</h3>
+      <p>Traagheid is bij Moestl geen tekortkoming maar een tegenwicht tegen een cultuur die snelheid beloont zonder zich af te vragen wat die snelheid kost. Navolging beschrijft hij als de gemakkelijkste, zij het niet de nobelste, manier om te leren: nadenken is nobeler, ervaring is pijnlijker, maar imitatie werkt het snelst. Bij het principe van de gelegenheid gaat het om een vast doel met een flexibele weg ernaartoe: wie te star aan een plan vasthoudt, mist de opening die zich onderweg voordoet.</p>
+      <p>Als illustratie gebruikt Moestl een gangbare situatie uit zijn trainingspraktijk: een manager die een reorganisatie tot in detail heeft voorbereid en vasthoudt aan dat draaiboek zodra de omstandigheden veranderen, terwijl een collega met hetzelfde doel voor ogen tussentijds van aanpak wisselt en daardoor eerder aankomt. Het doel staat vast, de route niet, en wie dat verwart raakt volgens hem sneller vermoeid dan wie het onderscheid bewaart.</p>
+      <h3>Toegeven, superioriteit en loslaten</h3>
+      <p>Toegeven is het principe dat zachtheid het wint van hardheid, met het beeld van het rieten riet dat een storm doorstaat terwijl de stugge boom breekt. Superioriteit gaat niet over overheersing maar over een reputatie die confrontatie overbodig maakt: wie bekendstaat als sterk, hoeft zijn kracht zelden te tonen. Loslaten waarschuwt tegen het vasthouden aan aannames en gewoonten die niet meer bij de situatie passen, en vraagt om elke situatie zo veel mogelijk zonder vooroordeel te bekijken.</p>
+      <h3>Zelfkennis en gemeenschap</h3>
+      <p>De laatste twee principes verbinden het individu weer met de groep. Zelfkennis betekent voor Moestl dat iemand niet afhankelijk is van andermans lof of kritiek om te weten wie hij is. Gemeenschap sluit het boek af met de gedachte dat leiderschap geen macht over anderen is maar de gelegenheid om samen een doel te bereiken: leiding geven betekent verantwoordelijkheid nemen, erkenning geven en samen winnen.</p>
+      <p>Elk van de dertien hoofdstukken eindigt met een korte oefening waarmee de lezer het principe op de eigen situatie toepast, en met een citaat dat de gedachte samenvat. Die vaste opbouw, uitleg, modern voorbeeld en oefening, maakt het boek meer een werkboek dan een doorlopend betoog, en verklaart waarom het in Duitsland en later in Engelse vertaling ook buiten de zelfhulpmarkt in trainingen en workshops is gebruikt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het huidige moment</td><td>Het principe om de situatie te aanvaarden zoals zij is, zonder er meteen een waardeoordeel aan te hangen.</td></tr>
+          <tr><td class="term">Vastberadenheid</td><td>Iets volledig doen of volledig laten, omdat een halfslachtige poging energie kost zonder resultaat.</td></tr>
+          <tr><td class="term">Onthechting</td><td>Niet te veel hechten aan bezit of uitkomst, om onaantastbaar te blijven voor wie die gehechtheid zou willen uitbuiten.</td></tr>
+          <tr><td class="term">Kalmte</td><td>Het bewust vertragen van de eigen reactie, omdat woede het overzicht wegneemt dat nodig is om een conflict te winnen.</td></tr>
+          <tr><td class="term">Traagheid</td><td>Het bewust afremmen van het eigen tempo als tegenwicht tegen een omgeving die snelheid als vanzelfsprekend goed behandelt.</td></tr>
+          <tr><td class="term">Gelegenheid</td><td>Een vast doel met een flexibele weg ernaartoe, waarbij de route mag wisselen zolang het doel overeind blijft.</td></tr>
+          <tr><td class="term">Toegeven</td><td>De gedachte dat zachtheid en meebuigen op lange termijn sterker zijn dan starre hardheid.</td></tr>
+          <tr><td class="term">Superioriteit</td><td>Een reputatie opbouwen die een confrontatie overbodig maakt, in plaats van een confrontatie aangaan om die reputatie te bewijzen.</td></tr>
+          <tr><td class="term">Loslaten</td><td>Aannames en gewoonten herzien die niet meer bij de actuele situatie passen, in plaats van eraan vast te houden uit gewoonte.</td></tr>
+          <tr><td class="term">Gemeenschap</td><td>Leiderschap opgevat als een gedeeld doel bereiken in plaats van macht over anderen uitoefenen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is geen studie naar de geschiedenis of de leer van het Shaolin-boeddhisme, en Moestl citeert geen bronnen, geschriften of monniken bij naam ter onderbouwing van de dertien principes. De onderbouwing bestaat uit zijn eigen verblijf en training in de tempel, aangevuld met moderne voorbeelden uit het bedrijfsleven en het dagelijks leven die de principes moeten illustreren.</p>
+      <p>Dat maakt het boek een verslag van persoonlijke ervaring en toepassing, in de traditie van westerse managementboeken die oosterse wijsheid excerperen, en niet een bron voor wie wil weten wat de Shaolin-traditie zelf leert of hoe representatief deze dertien principes voor die traditie zijn.</p>
+      <p>De verkoopcijfers zijn wel navolgbaar: Moestl wordt door zijn uitgevers omschreven als een van de best verkopende Duitstalige non-fictieauteurs, met vertalingen in veertien talen en volgens eigen opgave honderden weken op internationale bestsellerlijsten. Dat zegt iets over het bereik van het boek, niets over de juistheid van de claims erin.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De grootste zwakte is de afwezigheid van elke verifieerbare bron. De dertien principes worden gepresenteerd als eeuwenoude Shaolin-wijsheid, maar geen enkele wordt herleid tot een geschrift, een naam of een periode; ze zijn even goed te lezen als hedendaags zelfhulpadvies met een Chinees etiket.</p>
+      <p>Moestl publiceerde na dit boek een reeks nauw verwante titels, waaronder <i>Das Shaolin-Prinzip</i> en <i>Siegen wie ein Shaolin</i>, die grotendeels dezelfde denkbeelden herverpakken. Dat roept de vraag op of de dertien principes de inhoudelijke kern zijn of vooral een verkoopbaar format.</p>
+      <p>De tempel die model staat voor de authenticiteit van het boek is bovendien zelf omstreden: de hoofdabt van de Shaolin-tempel in Henan werd in 2025 door de Chinese boeddhistische autoriteiten geschorst wegens verduistering en wangedrag, na jaren van kritiek op de omvorming van de tempel tot een commercieel merk met eigen bedrijven, films en trainingsprogramma's voor buitenlanders. Dat weerlegt de inhoud van het boek niet, maar zet wel een kanttekening bij het beeld van een ongerepte, tijdloze bron van wijsheid waarop de titel leunt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies bij een volgend project vooraf of je volledig gaat of niet begint, in plaats van een half besluit te nemen.</li>
+        <li>Adem drie keer voordat je op een boze e-mail of opmerking reageert, en schrijf pas daarna je antwoord.</li>
+        <li>Noteer een week lang wanneer je handelt uit eigen initiatief en wanneer je enkel reageert op wat er gebeurt.</li>
+        <li>Bouw aan een reputatie op één terrein waarop mensen weten dat ze je niet hoeven te testen.</li>
+        <li>Schrijf bij een vastgelopen plan het doel en de gevolgde route apart op, en ga na of het de route is die vastzit of het doel zelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Duits als <i>Shaolin: Du musst nicht kämpfen, um zu siegen!</i> (Knaur, München, 2008, ISBN 3-426-78398-3), bekroond met de Buchliebling-prijs 2009 in de categorie Gezondheid en Vrije Tijd. Engels vertaald als <i>Shaolin: How to Win Without Fighting</i>, later heruitgegeven als <i>Shaolin: How to Win Without Conflict</i> (Pan Macmillan/Bluebird, Londen, 25 april 2024, 320 blz., ISBN 978-1-035-04221-0). Geen Nederlandse vertaling van deze titel bekend; Moestl publiceerde later verwante titels als <i>Das Shaolin-Prinzip</i> en <i>Siegen wie ein Shaolin</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Moestl, Oostenrijks fotograaf, reisleider en managementtrainer, trok naar de Shaolin-tempel in de Chinese provincie Henan om bij de monniken te leven en te trainen. Zijn conclusie verrast hemzelf: het geheim van de monniken zit niet in hun vechttechniek maar in hun manier van denken. Wie zijn geest heeft leren beheersen, hoeft zelden nog te vechten, omdat de meeste conflicten al voorbij zijn voordat zij fysiek worden.</p><p>Het boek destilleert die denkwijze tot dertien levensprincipes, van vastberadenheid en kalmte tot loslaten en gemeenschap, elk met een korte uitleg, een moderne illustratie en een oefening. Het is geschreven als praktisch zelfhulpboek en niet als studie naar de geschiedenis of de leer van het Shaolin-boeddhisme.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Shaolin</li><li>zelfbeheersing</li><li>kalmte</li><li>Chinese-filosofie</li><li>leiderschap</li><li>zelfhulp</li><li>vechtkunst</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday werkt vanuit de Stoa een vergelijkbare gedachte uit: een obstakel verandert van aard zodra je je reactie erop beheerst.</li>
+          <li value="346"><a href="346.html">The Book of Five Rings</a>. Musashi schrijft vanuit de vechtkunst zelf over dezelfde verschuiving van techniek naar geesteshouding, driehonderd jaar eerder.</li>
+          <li value="272"><a href="272.html">The Art of War</a>. Sun Tzu behandelt het overwinnen zonder strijd al als strategisch ideaal, waar Moestl het als persoonlijke levenshouding uitwerkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

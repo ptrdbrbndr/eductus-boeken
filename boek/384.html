@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rape of the Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Meerloo stelt dat totalitaire regimes het zelfstandig oordeel van mensen systematisch kunnen breken door een combinatie van isolatie, geconditioneerde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-384">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">384 &middot; Vrij denken en manipulatie</p>
+    <h1>The Rape of the Mind</h1>
+    <p class="lede">Joost A.M. Meerloo, 1956</p>
+    <p class="stats">
+      <span><b>1429</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="384"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Meerloo stelt dat totalitaire regimes het zelfstandig oordeel van mensen systematisch kunnen breken door een combinatie van isolatie, geconditioneerde herhaling en uitputting, tot het slachtoffer een opgelegde werkelijkheid niet langer als opgelegd ervaart maar als eigen overtuiging. Hij noemt dat proces menticide, letterlijk het doden van de geest, en onderscheidt het van gewone overtuiging doordat het de innerlijke twijfel zelf wegneemt in plaats van te overtuigen met argumenten. Zijn waarschuwing reikt verder dan totalitaire staten: dezelfde technieken duiken volgens hem, in afgezwakte vorm, ook op in reclame en politieke massacommunicatie binnen vrije samenlevingen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Menticide als nieuw woord voor een oud kwaad</h3>
+      <p>Meerloo muntte de term menticide naar analogie van genocide: geen fysieke maar een geestelijke vernietiging, gericht op het uitwissen van het zelfstandig oordeel van een individu of een volk. Hij baseerde het begrip op eigen ervaring in het Nederlandse verzet tijdens de Duitse bezetting en op zijn latere werk als psychiater met Amerikaanse militairen.</p>
+      <p>Meerloo was zelf arts in het Nederlandse leger toen de Wehrmacht het land binnenviel. Na de capitulatie in mei 1940 sloot hij zich aan bij het verzet, werd rond 1942 kort door de Duitsers gevangengezet op verdenking van verzetsactiviteiten en ontkwam via België naar Engeland, waar hij tot het eind van de oorlog hoofd was van de psychologische afdeling van het Nederlandse leger in ballingschap. Die ervaring, van dichtbij zien hoe angst en isolatie iemands oordeel ondermijnen, vormt de ondertoon van het hele boek.</p>
+      <p>Het bekendste geval dat hij bespreekt is kolonel Frank Schwable, een Amerikaanse officier die tijdens de Koreaanse Oorlog in Chinese gevangenschap een bekentenis aflegde over het gebruik van biologische wapens die niet had plaatsgevonden. Meerloo gebruikt die zaak om te laten zien hoe ver het proces kan gaan: Schwable geloofde na verloop van tijd zelf een deel van wat hij had bekend.</p>
+      <h3>Pavlov toegepast op de mens</h3>
+      <p>Een centraal hoofdstuk vertaalt Pavlovs onderzoek naar geconditioneerde reflexen bij honden naar de mens. Waar een hond leert speeksel af te scheiden bij een bel die eerder samen met voedsel klonk, leert een mens volgens Meerloo een emotionele reactie koppelen aan een woord of symbool dat herhaaldelijk samen met straf of beloning wordt aangeboden.</p>
+      <p>Politieke systemen zetten dat mechanisme volgens hem doelbewust in: vaste leuzen, herhaalde vijandbeelden en rituele bijeenkomsten werken niet in de eerste plaats door de inhoud van wat er gezegd wordt, maar door de herhaling zelf, die op den duur een reflex wordt die aan bewuste toetsing ontsnapt.</p>
+      <h3>Waarom mensen toegeven</h3>
+      <p>Meerloo besteedt een apart hoofdstuk aan de vraag waarom mensen uiteindelijk bekennen wat niet waar is. Isolatie ondermijnt volgens hem het gevoel van tijd en van een eigen, stabiele identiteit, en uitputting maakt weerstand steeds duurder. In die toestand wordt de ondervrager de enige bron van contact en van een uitweg, wat een afhankelijkheid schept die op de relatie tussen een kind en een ouder gaat lijken.</p>
+      <p>Bekennen wordt dan niet langer ervaren als overgave maar als de enige manier om het contact en de eigen samenhang te behouden. Meerloo benadrukt dat dit geen zwakte van karakter is: onder voldoende druk en isolatie is vrijwel iedereen daartoe te brengen.</p>
+      <h3>Van showproces tot straatpropaganda</h3>
+      <p>Meerloo trekt de lijn door naar de Sovjet-showprocessen uit de jaren dertig, waarin hooggeplaatste partijleden voor de rechtbank misdaden bekenden die achteraf niet aannemelijk blijken. Hij leest die bekentenissen niet als toneel maar als het eindresultaat van hetzelfde proces dat hij bij Schwable beschrijft, over maanden opgebouwd in plaats van in enkele weken.</p>
+      <p>Vervolgens verlegt hij de aandacht naar democratische samenlevingen. Reclame en politieke campagnes gebruiken volgens hem verwante middelen, herhaling, associatie, het scheppen van een wij-gevoel tegenover een buitenstaander, zonder de dwang van gevangenschap. Hij waarschuwt met name voor de McCarthy-periode in de Verenigde Staten, waarin verdachtmaking zelf al als bewijs ging gelden.</p>
+      <p>Het onderscheid dat hij daarbij aanhoudt is de mate van dwang, niet de aard van de techniek. Een showproces en een reclamecampagne werken volgens hem met dezelfde bouwstenen van herhaling en associatie; wat verschilt is dat de gevangene geen kant op kan en de consument in theorie wel, al erkent Meerloo dat die vrijheid in de praktijk vaak theoretisch blijft zodra herhaling lang genoeg doorgaat.</p>
+      <h3>Wat weerstand biedt</h3>
+      <p>Het laatste deel van het boek gaat over bescherming. Meerloo noemt onderwijs dat mensen leert zelfstandig te twijfelen in plaats van feiten te stapelen, contact met een bredere werkelijkheid buiten de groep die de boodschap verspreidt, en humor, die volgens hem een van de weinige reacties is die een geconditioneerde reflex kan doorbreken doordat ze afstand schept.</p>
+      <p>Hij besluit met de waarschuwing dat vrijheid van denken geen vaststaand bezit is maar iets dat voortdurend onderhoud vraagt, en dat de technieken die hij beschrijft niet beperkt zijn tot dictaturen: elke samenleving die massacommunicatie gebruikt, beschikt over hetzelfde gereedschap.</p>
+      <p>Meerloo pleit in dit deel ook voor kleinschalig, direct contact als tegenwicht: een gesprek van mens tot mens, waarin iemand kan doorvragen en tegenspreken, doorbreekt volgens hem het effect van eenrichtingsverkeer via radio, krant of massabijeenkomst. Wie alleen boodschappen ontvangt zonder de mogelijkheid ze te bevragen, mist de wrijving die een geconditioneerde reflex normaal gesproken zou tegenhouden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Menticide</td><td>Meerloo's term voor de systematische vernietiging van het zelfstandig oordeel, naar analogie van genocide.</td></tr>
+          <tr><td class="term">Geconditioneerde reflex</td><td>Een emotionele reactie die door herhaalde koppeling aan een woord of symbool aan bewuste toetsing ontsnapt, ontleend aan Pavlov.</td></tr>
+          <tr><td class="term">Valse bekentenis</td><td>Een bekentenis die het slachtoffer na verloop van tijd zelf gaat geloven, geïllustreerd met de zaak van kolonel Schwable.</td></tr>
+          <tr><td class="term">Isolatietechniek</td><td>Het afsnijden van tijdsbesef en sociaal contact, waardoor weerstand tegen een opgelegde werkelijkheid afneemt.</td></tr>
+          <tr><td class="term">Ondervragersafhankelijkheid</td><td>De bijna kind-ouderrelatie die ontstaat wanneer de ondervrager de enige bron van contact wordt.</td></tr>
+          <tr><td class="term">Showproces</td><td>De publieke bekentenis van verzonnen misdaden, door Meerloo gelezen als eindresultaat van menticide en niet als toneel.</td></tr>
+          <tr><td class="term">Massaconditionering</td><td>De toepassing van geconditioneerde reflexen op grote groepen tegelijk, via herhaalde leuzen, symbolen en bijeenkomsten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Meerloo bouwt zijn boek op klinische ervaring: eigen herinneringen aan het verzet, gesprekken met teruggekeerde Korea-veteranen, en de openbare getuigenis van Schwable. Daarnaast citeert hij Pavlovs experimenteel werk uit de eerste helft van de twintigste eeuw en historisch materiaal over de Sovjet-showprocessen.</p>
+      <p>Het boek verscheen in 1956, voor de experimentele sociale psychologie van gehoorzaamheid en groepsdruk goed op gang was, Milgrams bekendste experimenten dateren van begin jaren zestig. Meerloo generaliseert dus vanuit casuïstiek en klinische indruk, niet vanuit gecontroleerd onderzoek naar de omvang of de precieze voorwaarden van het effect dat hij beschrijft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De term menticide is nooit een erkend begrip in de klinische psychiatrie geworden en blijft buiten de gangbare classificaties staan. Dat maakt het bruikbaar als beeldspraak, maar minder geschikt om precies te zeggen waar overtuiging ophoudt en menticide begint. Het boek zelf trekt die grens ook niet scherp.</p>
+      <p>Het is geschreven in het klimaat van de Koude Oorlog en de McCarthy-periode, en dat kleurt de toon: bijna elke vorm van georganiseerde beïnvloeding komt in beeld als potentieel gevaarlijk, van reclame tot politieke campagnevoering, zonder dat altijd wordt aangegeven wat het onderscheidt van doodgewone overtuiging.</p>
+      <p>In latere decennia is de term losgeraakt van Meerloo's zorgvuldige omschrijving en gebruikt in samenzweringsliteratuur om willekeurige tegenstanders te beschuldigen van hersenspoeling. Dat is Meerloo zelf niet aan te rekenen, maar het laat zien hoe gemakkelijk een begrip dat op reële klinische gevallen steunt, kan worden losgetrokken van die basis zodra het eenmaal een gangbaar woord is geworden.</p>
+      <p>Het onderscheid tussen dwang en vrije instemming, waarop Meerloo's eigen relativering van reclame ten opzichte van een showproces steunt, wordt in het boek zelf niet scherp gemaakt. Als herhaling alleen al voldoende is om een reflex te vestigen, zoals hij bij Pavlov beschrijft, blijft onduidelijk waarom de consument in een vrije samenleving wel aan die reflex zou kunnen ontsnappen en de gevangene niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let op langdurige isolatie en verlies van tijdsbesef als vroege signalen bij jezelf of bij anderen, los van de vraag of er sprake is van opzet.</li>
+        <li>Zoek bewust contact buiten de groep die een boodschap verspreidt, als toets of een overtuiging standhoudt buiten die kring.</li>
+        <li>Wantrouw herhaalde leuzen die een reactie oproepen voordat er nagedacht is, en probeer de reactie te benoemen voordat je hem volgt.</li>
+        <li>Onderscheid bij een overtuigingspoging de inhoud van het argument van de herhaling ervan, en vraag je af of je zonder de herhaling nog zou meegaan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Rape of the Mind: The Psychology of Thought Control, Menticide, and Brainwashing</i> (World Publishing Company, 1956). Nederlands vertaald als <i>De mishandeling van het denken</i> (2021) en, in nieuwe vertaling, als <i>Hersenspoeling: de psychologie van gedachtenbeïnvloeding</i> (Maatkamp, 2024).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Meerloo schreef dit boek als Nederlandse psychiater die de Duitse bezetting had meegemaakt en na de oorlog in de Verenigde Staten Koreagangers behandelde die als krijgsgevangene een bekentenis hadden afgelegd die ze zelf niet meer als vals herkenden. Voor dat proces muntte hij het woord menticide: de systematische vernietiging van het zelfstandig oordeel.</p><p>Het boek beschrijft de technieken waarmee totalitaire regimes dat voor elkaar krijgen, isolatie, geconditioneerde herhaling, uitputting, en waarschuwt dat democratische samenlevingen niet immuun zijn: reclame en politieke propaganda werken volgens Meerloo met verwante middelen, alleen minder dwingend.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hersenspoeling</li><li>propaganda</li><li>totalitarisme</li><li>psychologie</li><li>koude-oorlog</li><li>manipulatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Milgram onderzoekt experimenteel wat Meerloo klinisch beschrijft: hoe ver gehoorzaamheid aan een autoriteit gaat.</li>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. Holiday laat zien hoe verwante technieken van herhaling en framing binnen de hedendaagse media werken, zonder de dwang van gevangenschap.</li>
+          <li value="223"><a href="223.html">The Anatomy of Human Destructiveness</a>. Fromm zoekt net als Meerloo een verklaring voor georganiseerd kwaad, maar dan vanuit het karakter van de dader in plaats van de psychologie van het slachtoffer.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

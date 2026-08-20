@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Body: A Guide for Occupants &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bryson's stelling, voor zover een verzamelwerk als dit er een heeft, is dat het lichaam een samenstel van processen is dat voortdurend op de rand van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-412">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">412 &middot; Brein en lichaam</p>
+    <h1>The Body: A Guide for Occupants</h1>
+    <p class="lede">Bill Bryson, 2019</p>
+    <p class="stats">
+      <span><b>1474</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="412"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bryson's stelling, voor zover een verzamelwerk als dit er een heeft, is dat het lichaam een samenstel van processen is dat voortdurend op de rand van falen functioneert en dat vrijwel niemand beseft hoeveel er dagelijks moet kloppen om iemand rechtop, ademend en denkend te houden. Hij zet daar de geschiedenis van de geneeskunde tegenover: pas de laatste anderhalve eeuw is een deel van die processen goed genoeg begrepen om er doelgericht op in te grijpen, en veel van wat nu vanzelfsprekend lijkt, kwam tot stand via toeval, koppigheid en soms schadelijke omwegen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een reisgids voor de eigen bewoner</h3>
+      <p>Bryson opent met de constatering dat de meeste mensen minder weten over hun eigen lichaam dan over de auto die ze besturen, en zet dat boek op als een reisgids voor wie toevallig in dit lichaam woont. Elk hoofdstuk behandelt een orgaan of stelsel en combineert de werking ervan met de geschiedenis van de ontdekking, opgebouwd uit interviews met artsen en onderzoekers en uit bestaande vakliteratuur.</p>
+      <p>Die opzet is dezelfde als in <i>A Short History of Nearly Everything</i>: geen doorlopend betoog, maar een reeks onderwerpen die elk op zichzelf staan en die vooral bijeengehouden worden door Bryson's stem en zijn voorkeur voor het merkwaardige detail boven het volledige overzicht.</p>
+      <h3>Bouwstof: huid, cellen en de microbiële medebewoners</h3>
+      <p>De eerste hoofdstukken gaan over de huid als grootste orgaan en over het microbioom, de biljoenen bacteriën die op en in het lichaam leven en meewerken aan spijsvertering en afweer zonder dat de gastheer daar iets van merkt. Bryson beschrijft hoe lang de wetenschap deze bacteriën vooral als bedreiging zag, voordat duidelijk werd hoezeer het lichaam op ze leunt.</p>
+      <p>Hij besteedt ook aandacht aan hoeveel lichaamscellen er voortdurend afsterven en vervangen worden, en aan hoe weinig een mens daarvan merkt: de huid, het bloed en de wand van de darm vernieuwen zich in een tempo dat de meeste lezers zich niet realiseren, terwijl het gevoel van een vast, ongewijzigd lichaam intact blijft.</p>
+      <h3>Het hoofd: hersenen, ogen en oren</h3>
+      <p>In het middendeel over het hoofd bespreekt Bryson hoe zintuiglijke informatie wordt verwerkt en hoeveel daarvan nog niet begrepen wordt, ook door specialisten. Hij vertelt de geschiedenis van ingrepen als de lobotomie, uitgevoerd door artsen als Egas Moniz en later op grote schaal door Walter Freeman, als voorbeeld van hoe onvolledig begrip tot ingrijpende en soms onomkeerbare behandelingen leidde.</p>
+      <p>Bij het gehoor en het gezichtsvermogen laat hij zien hoe kwetsbaar en tegelijk hoe aanpasbaar de zintuigen zijn: een oog dat via een lange keten van chemische stappen licht omzet in een signaal, en een oor dat trillingen van luchtdruk vertaalt naar geluid, allebei systemen die pas laat in de negentiende en twintigste eeuw goed werden doorgrond.</p>
+      <h3>Binnenwerk: hart, longen, bloed en afweer</h3>
+      <p>Bryson behandelt de ontdekking van bloedgroepen door Karl Landsteiner rond 1900, waarmee bloedtransfusie voor het eerst veilig kon worden toegepast, en de geschiedenis van scheurbuik en de rol van vitamine C, teruggaand op het achttiende-eeuwse experiment van scheepsarts James Lind. Het immuunsysteem beschrijft hij als een geheugen dat een eerder tegengekomen ziekteverwekker herkent en er de tweede keer sneller op reageert.</p>
+      <p>Over de longen en het hart schrijft hij hoe traag en met hoeveel omwegen de geneeskunde begreep dat bloed in een gesloten kringloop rondgaat, een inzicht dat pas in de zeventiende eeuw door William Harvey werd vastgesteld, lang nadat chirurgen al ingrepen op hart en bloedvaten pleegden zonder dat basisprincipe te kennen.</p>
+      <h3>Spijsvertering en voortplanting</h3>
+      <p>In de hoofdstukken over de ingewanden en de voortplantingsorganen combineert Bryson fysiologie met de vaak ongemakkelijke geschiedenis van hoe artsen deze onderwerpen eeuwenlang benaderden, inclusief misvattingen die tot ver in de twintigste eeuw stand hielden. Hij besteedt aandacht aan hoe laat vrouwenlichamen in de medische wetenschap serieus als onderzoeksobject werden behandeld, met als gevolg dat basiskennis op dit terrein nog altijd onvollediger is dan op andere terreinen van de fysiologie.</p>
+      <h3>Pijn, slaap en ziekte</h3>
+      <p>Bryson bespreekt uitstralende pijn, waarbij een lichaam pijn ergens anders voelt dan waar de oorzaak zit, en het placebo-effect, de verbetering die kan optreden door de verwachting van een behandeling, los van de werkzame stof zelf. Bij het hoofdstuk over ziekte gaat hij in op de introductie van antisepsis door Ignaz Semmelweis en Joseph Lister, die pas laat en na veel weerstand werd geaccepteerd.</p>
+      <p>Het slaaphoofdstuk raakt kort aan onderzoek dat ook elders in de wetenschapsjournalistiek over slaap wordt aangehaald, over de gevolgen van chronisch slaaptekort voor geheugen en afweer, zonder dat onderwerp zelf uitputtend te behandelen.</p>
+      <h3>Het einde: geneeskunde en sterven</h3>
+      <p>Het boek sluit af met de introductie van anesthesie, voor het eerst publiekelijk gedemonstreerd in Boston in 1846, als keerpunt waarna chirurgie voor het eerst behapbaar werd voor de patiënt, en met een nuchtere beschouwing van veroudering en sterven als het onvermijdelijke laatste hoofdstuk van elk lichaam. Bryson besluit niet met een les, maar met de constatering dat een lichaam dat tachtig jaar functioneert zonder handleiding en zonder reserveonderdelen, op zichzelf al een prestatie is die te weinig aandacht krijgt zolang het goed gaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Microbioom</td><td>De biljoenen bacteriën die op en in het lichaam leven en meewerken aan spijsvertering en afweer.</td></tr>
+          <tr><td class="term">Homeostase</td><td>Het voortdurend bijsturen van lichaamsprocessen om een inwendig evenwicht te bewaren.</td></tr>
+          <tr><td class="term">Uitstralende pijn</td><td>Pijn die ergens anders in het lichaam wordt gevoeld dan waar de eigenlijke oorzaak zit.</td></tr>
+          <tr><td class="term">Immunologisch geheugen</td><td>Het vermogen van het afweersysteem om een eerder tegengekomen ziekteverwekker te herkennen en er sneller op te reageren.</td></tr>
+          <tr><td class="term">Antisepsis</td><td>De negentiende-eeuwse ontdekking dat onzichtbare kiemen infecties veroorzaken en dat hygiëne ze kan tegenhouden.</td></tr>
+          <tr><td class="term">Anesthesie</td><td>Verdoving die operaties pijnloos maakte, voor het eerst publiekelijk gedemonstreerd in 1846.</td></tr>
+          <tr><td class="term">Placebo-effect</td><td>Verbetering die optreedt door de verwachting van een behandeling, los van de werkzame stof.</td></tr>
+          <tr><td class="term">Celvernieuwing</td><td>Het voortdurend afsterven en vervangen van lichaamscellen, waardoor delen van het lichaam feitelijk steeds opnieuw worden opgebouwd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bryson doet geen eigen onderzoek. Hij bouwt het boek op interviews met artsen en wetenschappers, op bestaande vakliteratuur en op historische bronnen over de ontwikkeling van de geneeskunde, en noemt daarbij regelmatig namen en jaartallen van de onderzoekers die hij bespreekt. Dat maakt het boek eerder een synthese voor een breed publiek dan een oorspronkelijke bijdrage aan de wetenschap.</p>
+      <p>Recensenten met een medische achtergrond noemden het boek over het geheel betrouwbaar, maar wezen op enkele concrete missers: een verwarring tussen de thalamus en de hypothalamus bij de verwerking van zintuiglijke informatie, een onjuiste uitleg van de gramkleuring, die niets met antilichamen te maken heeft zoals het boek suggereert, en een verwarrende passage over nierfalen en hoge bloeddruk.</p>
+      <p>Bij een boek dat tientallen deelgebieden van de geneeskunde in kort bestek behandelt, is de betrouwbaarheid afhankelijk van hoe goed elk hoofdstuk apart is nagelopen, en de gevonden fouten laten zien dat dit niet overal even grondig is gebeurd. Voor de geschiedschrijving in het boek, namen als Landsteiner, Lind, Semmelweis en Harvey, geldt dat wel, die episodes zijn breed gedocumenteerd en komen bij Bryson in grote lijnen overeen met de gangbare wetenschapsgeschiedenis.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste tekortkoming is de breedte zelf: met tientallen onderwerpen in één boek krijgt geen enkel onderdeel de ruimte voor nuance, en anekdote krijgt vaak evenveel gewicht als bevinding. Voor wie een van de behandelde onderwerpen al kent, vallen de vereenvoudigingen sneller op dan de rest van het boek doet vermoeden.</p>
+      <p>Verscheidene recensenten misten in dit boek de verhalende greep en het eigen betoog die <i>A Short History of Nearly Everything</i> droegen; hier krijgt de lezer eerder een opeenvolging van korte, losse onderwerpen dan een verhaal met een duidelijke lijn. Een recensent van NPR verwoordde dat als een boek dat de eigenzinnige toon van Bryson's eerdere werk mist en dichter bij een naslagwerk komt dan bij een verhaal.</p>
+      <p>De gevonden fouten, van de thalamus-verwisseling tot de gramkleuring, zijn op zichzelf klein, maar ondermijnen het gezag van een boek dat zich als betrouwbare gids presenteert. Net als bij Bryson's eerdere wetenschapsboek is dit het soort feitelijke slordigheid die pas na publicatie door vakgenoten wordt opgemerkt en gecorrigeerd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als overzicht om te ontdekken welke onderwerpen verdere verdieping verdienen, niet als laatste woord op een specifiek medisch punt.</li>
+        <li>Toets een concrete medische claim die je onthoudt aan een actuele bron voordat je erop vertrouwt, zeker bij cijfers en verklaringen die je zelf wilt doorvertellen.</li>
+        <li>Lees de historische hoofdstukken, over antisepsis, anesthesie en bloedgroepen, als voorbeeld van hoe traag geaccepteerde kennis soms tot stand komt, ook wanneer het bewijs al voorhanden is.</li>
+        <li>Sla bij een tweede keer lezen gerust hoofdstukken over, het boek is niet geschreven om in volgorde gelezen te worden en elk hoofdstuk staat op zichzelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Doubleday, New York, 464 blz., ISBN 9780385539302. Nederlands als <i>Het lichaam: een reisgids</i> (Atlas Contact, 2019), vertaald door Albert Witteveen en Jan Willem Reitsma, gelijktijdig met de Engelse editie verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bryson doorloopt het menselijke lichaam van kop tot teen, huid, brein, hart, longen, ingewanden, voortplanting, en gebruikt bij elk onderdeel een historisch verhaal om uit te leggen hoe artsen en onderzoekers ontdekten wat er eigenlijk gebeurt. Het is zijn tweede grote werk van wetenschapsjournalistiek na <i>A Short History of Nearly Everything</i> uit 2003, met dezelfde methode: geen eigen onderzoek, maar het samenbrengen van bestaande kennis in een lopend, toegankelijk verhaal.</p><p>De toon is nuchter en vaak licht ironisch over hoe weinig vanzelfsprekend het is dat een lichaam blijft functioneren. Reviewers prezen de leesbaarheid en de breedte van het overzicht, en wezen tegelijk op enkele feitelijke missers die bij een dergelijk brede greep op de stof moeilijk te vermijden lijken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>anatomie</li><li>wetenschapsjournalistiek</li><li>geschiedenis van de geneeskunde</li><li>fysiologie</li><li>gezondheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="239"><a href="239.html">A Short History of Nearly Everything</a>. Bryson's eerdere boek over de natuurwetenschappen, met dezelfde werkwijze van geschiedenis en synthese, nu toegepast op het heelal in plaats van het lichaam.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker werkt één onderwerp dat Bryson slechts aanraakt, slaap, uit tot een boek met een eigen, doorlopend argument.</li>
+          <li value="322"><a href="322.html">An Immense World</a>. Yong onderzoekt zintuigen bij dieren met dezelfde toegankelijke schrijfstijl, maar met een scherpere focus en meer diepgang per onderwerp.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

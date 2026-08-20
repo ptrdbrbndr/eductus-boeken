@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Other Side of Change &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Shankar betoogt dat een ingrijpende, ongewilde verandering niet in de eerste plaats iets is om te doorstaan, maar een gelegenheid waarin iemand voor het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-467">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">467 &middot; Moed en karakter</p>
+    <h1>The Other Side of Change</h1>
+    <p class="lede">Maya Shankar, 2026</p>
+    <p class="stats">
+      <span><b>1466</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="467"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Shankar betoogt dat een ingrijpende, ongewilde verandering niet in de eerste plaats iets is om te doorstaan, maar een gelegenheid waarin iemand voor het eerst kan zien uit welke onderdelen zijn identiteit werkelijk bestaat. Zolang het leven de gebruikelijke vorm houdt, blijft die vraag onzichtbaar; pas wanneer een rol, een lichaam of een toekomst wegvalt, wordt duidelijk wat daaronder lag. Haar stelling, opgebouwd uit gesprekken met mensen die een beroerte, een verlies, een ontslag of een gevangenisstraf doormaakten, is dat de persoon die na zo'n breuk overblijft niet per se een verarmde versie is van wie er eerst was, en soms een vollediger versie. Wie dat betwist, kan wijzen op veranderingen die niemand verrijken en op het risico dat het boek tegenslag te snel in winst omzet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een violiste die haar instrument verliest</h3>
+      <p>Shankar opent met haar eigen geschiedenis. Als kind speelde zij op eigen initiatief voor wie het maar wilde horen bij Juilliard, werd zij opgeleid door Itzhak Perlman en won zij concertconcoursen, tot zij op vijftienjarige leeftijd tijdens een zomercursus haar pink overstrekte op één noot. Zij bleef wekenlang doorspelen ondanks de pijn, uit onwil het te accepteren, tot een arts het loopbaanbeëindigende karakter van de blessure bevestigde. Die ervaring, het verlies van het enige wat haar jeugd tot dan toe had gevormd, is de aanleiding voor het boek en niet louter een anekdote vooraf.</p>
+      <h3>Zeven mensen, zeven breuken</h3>
+      <p>Het boek is opgebouwd rond zeven hoofdpersonen die Shankar voor haar podcast <i>A Slight Change of Plans</i> heeft gesproken en voor dit boek opnieuw heeft benaderd. Onder hen is Olivia, een studente-topsporter die een hersenstamberoerte kreeg en na haar herstel opnieuw moest bepalen wie zij was zonder de sport die haar dagen had ingedeeld. Een ander hoofdstuk volgt iemand die betrokken raakte bij een ongeval waarbij een kind gewond raakte, en het schuldgevoel dat vervolgens jarenlang aanhield. Verdere hoofdstukken behandelen werkloosheid, rouw om een dierbare en een gevangenisstraf. Elk hoofdstuk volgt hetzelfde stramien: eerst het verhaal, dan het onderliggende psychologische mechanisme, dan een handreiking voor de lezer.</p>
+      <p>Shankar kende de meeste hoofdpersonen al jaren voor zij aan het boek begon, uit haar werk aan de podcast. Dat geeft haar toegang tot een langere lijn in hun verhaal dan een eenmalig interview zou opleveren: zij kan laten zien hoe iemand een half jaar na de gebeurtenis over de eigen situatie sprak, en hoe dat twee jaar later klonk.</p>
+      <h3>Identiteit als optelsom van rollen</h3>
+      <p>De kern van Shankars argument is dat mensen hun identiteit vaak ophangen aan één rol, zoals sporter, ouder of kostwinner, en dat die rol dan het enige aanknopingspunt wordt van waaruit zij zichzelf herkennen. Wie zijn identiteit zo stevig aan één rol bindt, bouwt volgens haar een zelfbeeld dat breekt zodra die rol wegvalt. Zij pleit voor een identiteit die uit meerdere, minder onderling verbonden onderdelen bestaat, in plaats van onthechting van elke rol op zich, zodat het verlies van één onderdeel niet het hele gebouw meesleept.</p>
+      <h3>Piekeren tegenover verwerken</h3>
+      <p>Een terugkerend onderscheid is dat tussen piekeren en verwerken. Piekeren is voor Shankar het herhaaldelijk doorlopen van dezelfde gedachte zonder dat er iets vordert, een lus die de indruk van nadenken wekt zonder de functie ervan te vervullen. Verwerken beweegt wel, ook als het traag gaat, en herkent zij aan kleine verschuivingen in hoe iemand over de gebeurtenis vertelt van de ene week op de andere. Schuldgevoel krijgt in dat kader een aparte behandeling: nuttig zolang het tot een handeling leidt, een lus zodra het dat niet meer doet.</p>
+      <h3>De stilstand na de klap</h3>
+      <p>Shankar beschrijft een fase die op vrijwel elk van de zeven verhalen volgt: een periode waarin de eerste schok voorbij is maar er nog geen nieuwe richting is gevonden, en waarin de betrokkene zich vastgelopen voelt zonder een duidelijke volgende stap. Zij normaliseert die fase als een verwacht onderdeel van het proces in plaats van als falen, en waarschuwt tegen de neiging om er met geweld doorheen te willen.</p>
+      <h3>Wat er overblijft</h3>
+      <p>In het slot brengt Shankar de zeven verhalen samen tot de stelling die het boek zijn titel geeft: wie door een ingrijpende verandering komt, keert aan de andere kant niet terug naar de oude staat, en is evenmin louter beschadigd. Zij formuleert dat voorzichtig, met erkenning dat sommige van haar hoofdpersonen jaren nodig hadden en dat het resultaat bij niemand een opgeruimd slot oplevert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Identiteitsverankering</td><td>Het te stevig vastleggen van de eigen identiteit aan één rol, waardoor het verlies van die rol het zelfbeeld breekt.</td></tr>
+          <tr><td class="term">Piekeren</td><td>Het herhaald doorlopen van dezelfde gedachte zonder dat de situatie of het inzicht vordert.</td></tr>
+          <tr><td class="term">Verwerken</td><td>Een geleidelijke verschuiving in hoe iemand over een gebeurtenis vertelt, merkbaar over weken of maanden.</td></tr>
+          <tr><td class="term">Functioneel schuldgevoel</td><td>Schuld die tot een concrete handeling leidt, tegenover schuld die een lus wordt zonder uitweg.</td></tr>
+          <tr><td class="term">De stilstand na de klap</td><td>De fase na de eerste schok waarin de oude situatie is verdwenen en een nieuwe richting nog ontbreekt.</td></tr>
+          <tr><td class="term">Posttraumatische groei</td><td>De gedachte dat een ingrijpende gebeurtenis niet alleen schade toebrengt, maar ook een verandering in zelfbeeld kan opleveren die zonder de gebeurtenis niet was ontstaan.</td></tr>
+          <tr><td class="term">Rolidentiteit</td><td>Het deel van iemands zelfbeeld dat aan een specifieke functie of positie is opgehangen, zoals sporter of kostwinner.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is opgebouwd uit lange, herhaalde gesprekken die Shankar voor haar podcast voerde en voor het boek heeft uitgediept, aangevuld met haar achtergrond als cognitiewetenschapper. Dat levert diepte op in elk van de zeven verhalen, verzameld over jaren en met toestemming van de betrokkenen om details te gebruiken die niet in de podcastaflevering zelf voorkwamen.</p>
+      <p>Tegelijk blijft de reikwijdte klein: zeven mensen, door haarzelf geselecteerd omdat hun verhaal een psychologisch principe illustreert. Het boek citeert onderzoekslijnen niet uitgebreid en bouwt zijn argument vooral op de innerlijke logica van de verhalen zelf, aangevuld met principes uit de cognitieve wetenschap die zij noemt zonder ze telkens aan een publicatie te koppelen.</p>
+      <p>Haar eigen geschiedenis, van Juilliard via Yale, Oxford en het Witte Huis naar Google, geeft haar gezag als verteller en als wetenschapper, maar is ook een ongewoon gunstige uitkomst van een ingrijpende verandering. Dat zij zelf van een blessure naar een tweede loopbaan op het hoogste niveau kwam, zegt weinig over wat een lezer met minder hulpbronnen aan het boek kan overhouden.</p>
+      <p>Het boek werd bij verschijnen een bestseller van de <i>New York Times</i> en kreeg lovende aanbevelingen van onder anderen Brené Brown en Malcolm Gladwell op het omslag. Dat zijn schrijvers uit hetzelfde genre die elkaars werk aanbevelen, geen onafhankelijke beoordelaars, en de vermelding zegt dus meer over het netwerk waarin het boek verschijnt dan over de onderbouwing ervan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het belangrijkste bezwaar is dat de zeven geselecteerde verhalen bijna zonder uitzondering ergens uitkomen. Een boek dat mensen zoekt bij wie een breuk uiteindelijk iets opleverde, loopt het risico de uitzondering tot regel te maken en voorbij te gaan aan veranderingen die vooral verlies blijven, zonder compenserende groei.</p>
+      <p>Een tweede bezwaar betreft de formule zelf: verhaal, principe, advies, in elk hoofdstuk herhaald. Dat maakt het boek voorspelbaar in de opbouw, ook als de inhoud van hoofdstuk tot hoofdstuk wisselt, en het dwingt soms een psychologisch principe in een verhaal dat net zo goed zonder die duiding had kunnen staan.</p>
+      <p>Ten derde onderbouwt Shankar de begrippen die zij gebruikt, zoals piekeren tegenover verwerken, met haar eigen waarneming in de gesprekken en niet met een verwijzing naar de onderzoekstraditie waaruit die begrippen stammen. Voor een cognitiewetenschapper is dat een opvallende keuze, die het boek dichter bij memoir en journalistiek plaatst dan bij een populairwetenschappelijk overzicht.</p>
+      <p>Het begrip posttraumatische groei, waarop het slot van het boek leunt, is in de vakliteratuur zelf omstreden. Onderzoekers die het langjarig hebben gevolgd, wijzen erop dat mensen vaak groei rapporteren die niet terug te vinden is in onafhankelijk gemeten persoonlijkheid of gedrag, en dat het gevoel van groei soms eerder een verhaal is dat iemand over de eigen ervaring vertelt dan een aantoonbare verandering. Shankar vermeldt die discussie niet en presenteert de groei die haar hoofdpersonen beschrijven als vaststaand gegeven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf jezelf in vijf woorden en ga na hoeveel daarvan aan één rol vastzitten die morgen zou kunnen wegvallen.</li>
+        <li>Onderscheid bij een terugkerende gedachte of zij vooruit beweegt of dezelfde lus herhaalt, en schrijf op wat er in de afgelopen week is veranderd.</li>
+        <li>Vraag bij een schuldgevoel welke concrete handeling eruit volgt; volgt er geen, benoem het dan als lus in plaats van als leidraad.</li>
+        <li>Geef de fase van stilstand na een klap een naam en een verwachte duur, in plaats van haar als falen te zien.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The Other Side of Change: Who We Become When Life Makes Other Plans</i> (Riverhead Books, 13 januari 2026, 256 blz., ISBN 9780593713686). Geen Nederlandse vertaling gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Shankar was een aankomend concertviolist, opgeleid door Itzhak Perlman aan Juilliard, tot een blessure aan haar pink op haar vijftiende een einde maakte aan die loopbaan. Zij schakelde over naar de cognitiewetenschap, promoveerde als Rhodes Scholar in Oxford en bouwde onder de regering-Obama het team voor gedragswetenschap van het Witte Huis op. Vanuit die eigen ervaring met een ongewilde verandering ging zij op zoek naar mensen die vergelijkbare omwentelingen hadden doorgemaakt, en dat leverde de zeven levensverhalen op waarop dit boek is gebouwd.</p><p>Elk hoofdstuk volgt één persoon door een ingrijpende gebeurtenis, van een beroerte bij een studente-topsporter tot het verlies van een dierbare, en verbindt dat verhaal met een psychologisch principe en een concrete handreiking. Shankar stelt de vraag niet als hoe iemand een verandering overleeft, maar als wie hij wordt aan de andere kant ervan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>verandering</li><li>identiteit</li><li>cognitieve wetenschap</li><li>rouw</li><li>veerkracht</li><li>psychologie</li><li>persoonlijke ontwikkeling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="375"><a href="375.html">Master of Change</a>. Stulberg behandelt hetzelfde terrein van ingrijpende verandering, met meer nadruk op vaste routines en minder op individuele levensverhalen.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl beschrijft onder extremere omstandigheden dezelfde vraag naar wie iemand wordt onder dwang, vanuit eigen ervaring in plaats van interviews.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman plaatst de eindigheid die in Shankars verhalen doorklinkt in een breder kader van tijd en sterfelijkheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

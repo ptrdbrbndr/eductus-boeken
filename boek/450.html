@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Strategy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dixit en Nalebuff betogen dat strategisch denken geen aangeboren talent is maar een vak met een beperkt aantal grondregels, en dat wie ze kent vrijwel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-450">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">450 &middot; Gewoontes en denken</p>
+    <h1>The Art of Strategy</h1>
+    <p class="lede">Avinash K. Dixit en Barry J. Nalebuff, 2008</p>
+    <p class="stats">
+      <span><b>1462</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="450"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dixit en Nalebuff betogen dat strategisch denken geen aangeboren talent is maar een vak met een beperkt aantal grondregels, en dat wie ze kent vrijwel elke situatie waarin de uitkomst van je eigen keuze afhangt van de keuze van een ander opnieuw leert lezen: onderhandelingen, veilingen, bedrijfsrivaliteit, verkiezingen en zelfs opvoeding. Hun stelling is dat de wiskunde van de speltheorie zelf voor de lezer overbodig is; wat overblijft en wat werkt, is de manier van kijken die eronder zit. Wie dat overneemt, ziet sneller waar een dreigement loos is, waar een belofte geloofwaardig gemaakt moet worden en welke zet de tegenstander al klaar heeft liggen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Tien verhalen als opening</h3>
+      <p>Het boek opent met een reeks korte casussen, elk niet langer dan een bladzijde, die samen laten zien hoe wijdverspreid strategisch gedrag is: een dreigement dat wel of niet wordt uitgevoerd, een belofte die pas overtuigt als ze iets kost, een zet die alleen werkt omdat de tegenstander hem verwacht. Die verzameling functioneert als een soort proeftuin: geen van de verhalen wordt in het eerste hoofdstuk al opgelost, maar elk keert later terug zodra het bijbehorende gereedschap is uitgelegd.</p>
+      <p>De opzet maakt meteen duidelijk voor wie het boek is geschreven. Niet voor wie speltheorie als vak wil studeren, maar voor wie in vergaderingen, onderhandelingen en concurrentiestrijd sneller wil zien welk spel er eigenlijk wordt gespeeld.</p>
+      <h3>Terugwaarts redeneren</h3>
+      <p>De eerste vaste techniek is terugwaartse redenering: begin bij de laatste zet, bepaal wat daar de beste keuze is, en werk vandaaruit terug naar het begin. Bij schaken is dat een eindspel dat je van achteren naar voren doorrekent; in het boek wordt dezelfde logica toegepast op onderhandelingen en op bedrijven die overwegen een markt te betreden.</p>
+      <p>Het effect van die methode is dat een dreigement of een concessie pas telt als die ook aan het einde van de keten nog voordelig is om uit te voeren. Een dreigement dat de dreiger zelf schade toebrengt zodra hij hem waarmaakt, is volgens Dixit en Nalebuff geen dreigement maar bluf, en een tegenstander die terugredeneert prikt daar doorheen.</p>
+      <h3>Het gevangenendilemma en de herhaalde ontmoeting</h3>
+      <p>In het hoofdstuk over het gevangenendilemma bespreken de auteurs de vraag waarom twee partijen die er samen beter van worden als ze allebei meewerken, toch vaak allebei kiezen voor het eigen belang. Hun antwoord ligt in de herhaling: zodra dezelfde partijen elkaar blijven tegenkomen, verandert de rekensom, omdat wraak en beloning voortaan ook meetellen.</p>
+      <p>Ze bespreken daarbij Robert Axelrods computertoernooien uit de jaren tachtig, waarin de eenvoudige regel tit-for-tat, eerst meewerken en daarna doen wat de ander de vorige keer deed, het steeds won van veel ingewikkelder programma's (zie nr. 453 voor het boek waarin Axelrod dat onderzoek zelf beschrijft). Dixit en Nalebuff gebruiken dat resultaat om te laten zien dat eenvoud en voorspelbaarheid in herhaald contact meer opleveren dan sluwheid.</p>
+      <h3>Een mooi evenwicht</h3>
+      <p>Het vierde hoofdstuk, met een titel die verwijst naar de film over John Nash, legt uit wat een Nash-evenwicht is: een situatie waarin geen van de spelers nog voordeel heeft bij een andere keuze, gegeven wat de ander doet. Dat evenwicht hoeft niet de beste uitkomst voor iedereen samen te zijn, wat volgens de auteurs precies de reden is waarom het gevangenendilemma pijnlijk blijft ook als iedereen volkomen rationeel handelt.</p>
+      <p>Ze laten ook zien dat een spel meerdere evenwichten kan hebben, en dat welk evenwicht er in de praktijk uitkomt vaak afhangt van gewoonte, cultuur of een toevallig precedent, niet van de wiskunde alleen.</p>
+      <h3>Strategische zetten en geloofwaardigheid</h3>
+      <p>Een deel van het boek gaat over hoe je een dreigement of een belofte geloofwaardig maakt. Het klassieke voorbeeld dat de auteurs aanhalen is Hernán Cortés, die bij aankomst in Mexico zijn eigen schepen liet verbranden: door de terugtocht onmogelijk te maken, maakte hij het vechten voor zijn mannen tot de enige optie, en dat wisten zijn tegenstanders.</p>
+      <p>Dezelfde logica, schrijven Dixit en Nalebuff, werkt in bedrijven die welbewust hun eigen alternatieven inperken om een onderhandelingspositie te versterken, en in het afschrikkingsbeleid van de Koude Oorlog, waar een dreigement pas werkte als de tegenstander geloofde dat je hem echt zou uitvoeren.</p>
+      <h3>Een geschiedenis van Nobelprijzen</h3>
+      <p>Na het tweede deel van het boek volgt een kort intermezzo over de Nobelprijs voor de economie, die volgens de auteurs een verborgen geschiedenis van de speltheorie zelf vertelt: John Nash, Reinhard Selten en John Harsanyi kregen hem in 1994 voor hun werk aan speltheoretische evenwichten, en Thomas Schelling en Robert Aumann in 2005 voor hun werk aan conflict en samenwerking.</p>
+      <p>Dixit en Nalebuff gebruiken dat intermezzo om aan te geven dat wat in hun boek als vuistregel wordt gepresenteerd, in de vakliteratuur decennia van formeel werk vertegenwoordigt.</p>
+      <h3>Veilingen, onderhandelen, stemmen en incentives</h3>
+      <p>Het laatste deel van het boek werkt de bouwstenen uit voor concrete terreinen: hoe een veiling zo ontworpen wordt dat bieders eerlijk bieden, hoe je in een onderhandeling een eerlijk deel van de gezamenlijke winst binnenhaalt, waarom stemsystemen tot uitkomsten kunnen leiden die niemand als beste zou kiezen, en hoe je een contract zo opstelt dat de andere partij vanzelf het gewenste gedrag vertoont.</p>
+      <p>De hoofdstukken zijn losser gekoppeld dan de eerdere delen en werken elk met eigen voorbeelden, van tweedeprijsveilingen tot de manier waarop een verkoper een prijs in tweeën knipt om een klant het gevoel van een koopje te geven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dominante strategie</td><td>Een zet die voor een speler de beste is ongeacht wat de tegenstander doet.</td></tr>
+          <tr><td class="term">Terugwaartse redenering</td><td>Denken vanaf de laatste zet naar de eerste, om te bepalen welke vroege zet uiteindelijk het beste uitpakt.</td></tr>
+          <tr><td class="term">Nash-evenwicht</td><td>Een uitkomst waarin geen enkele speler baat heeft bij een andere keuze, gegeven de keuzes van de anderen.</td></tr>
+          <tr><td class="term">Gevangenendilemma</td><td>Een spel waarin beide spelers beter af zijn met samenwerking, maar waarin ieder afzonderlijk baat heeft bij verraad.</td></tr>
+          <tr><td class="term">Tit-for-tat</td><td>De strategie om eerst mee te werken en daarna te herhalen wat de ander de vorige ronde deed.</td></tr>
+          <tr><td class="term">Geloofwaardige toezegging</td><td>Een dreigement of belofte die pas overtuigt als hij ook nog voordelig is om echt uit te voeren.</td></tr>
+          <tr><td class="term">Gemengde strategie</td><td>Een keuze die willekeurig tussen opties wisselt, zodat de tegenstander niet kan voorspellen wat er komt.</td></tr>
+          <tr><td class="term">Brinkmanship</td><td>Het bewust laten oplopen van een risico tot vlak bij de rand, om de tegenstander eerder te laten toegeven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bewijst weinig in de zin van eigen onderzoek. Dixit en Nalebuff vertalen bestaande, decennialang beproefde speltheorie, van Nash tot Schelling tot Axelrod, naar verhalen die de onderliggende logica invoelbaar maken. Waar mogelijk gebruiken ze historische of zakelijke voorbeelden die zelf goed gedocumenteerd zijn, zoals Cortés' verbrande schepen of Axelrods computertoernooien, en waar dat niet lukt vallen ze terug op vereenvoudigde gevallen die vooral illustreren en niet aantonen.</p>
+      <p>Hun eigen gezag ligt in het vak zelf: Dixit publiceerde grondleggend werk over markttoetreding en dreigementen, Nalebuff schreef eerder met Adam Brandenburger over speltheorie in het bedrijfsleven. Dat maakt de vertaling betrouwbaar, maar het boek zelf toetst zijn eigen claims niet aan data; het legt uit wat de speltheorie voorspelt en laat zien waar dat in de praktijk klopt, zonder systematisch te onderzoeken waar het misgaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek veronderstelt bijna overal dat spelers hun eigen voorkeuren kennen en er consistent naar handelen. Onderzoek naar gedragseconomie, onder meer van Daniel Kahneman, laat zien dat mensen in werkelijkheid vaak afwijken van wat een rationele speler zou doen: ze zijn gevoelig voor verlies, laten zich leiden door hoe een keuze wordt gepresenteerd, en onthouden eerdere onrechtvaardigheid langer dan de wiskunde voorspelt. Dixit en Nalebuff noemen dat probleem, maar werken het niet uit; hun vuistregels gaan uit van een tegenstander die zich aan het model houdt.</p>
+      <p>De vele losse voorbeelden werken verhelderend, maar ze zijn ook selectief. Een anekdote die precies past bij het punt dat wordt gemaakt, bewijst niet dat het patroon zich in de meeste vergelijkbare situaties ook zo voordoet, en het boek geeft zelden gevallen waarin dezelfde zet juist mislukte. Ten slotte blijft de wiskunde er om didactische redenen grotendeels buiten: wie de theorie echt wil kunnen toepassen op een eigen, ingewikkelder situatie dan de voorbeelden, heeft er uiteindelijk toch een leerboek met formules bij nodig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elk dreigement of je het zelf nog zou uitvoeren op het moment dat het aankomt.</li>
+        <li>Zoek in een onderhandeling eerst naar de laatste zet en redeneer van daaruit terug.</li>
+        <li>Maak een toezegging onomkeerbaar als je wilt dat de ander hem gelooft.</li>
+        <li>Kijk bij herhaald contact met dezelfde partij naar wat een eenvoudige, voorspelbare reactie op lange termijn oplevert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Art of Strategy: A Game Theorist's Guide to Success in Business and Life</i> (W.W. Norton, 2008), een herschreven en verbrede opvolger van hun eerdere <i>Thinking Strategically</i> (1991). Geen Nederlandse vertaling gevonden; deze samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dixit, econoom aan Princeton, en Nalebuff, hoogleraar aan de Yale School of Management, schreven met dit boek een bredere en toegankelijker opvolger van hun studieboek <i>Thinking Strategically</i> uit 1991. Ze bouwen het op rond situaties waarin de uitkomst van je eigen keuze afhangt van wat een ander kiest: onderhandelen over een auto, een prijzenoorlog tussen winkelketens, een dreigement in de Koude Oorlog, een sollicitatiegesprek. Elk voorbeeld dient om een van de vaste bouwstenen van de speltheorie te tonen, van terugwaartse redenering tot het gevangenendilemma.</p><p>Het boek bevat vrijwel geen formules. Dixit en Nalebuff vertalen de wiskunde van John Nash, Thomas Schelling en Robert Axelrod naar verhalen en vuistregels, met een apart hoofdstuk over de geschiedenis van de Nobelprijs voor de economie als eerbetoon aan de vakgenoten op wier werk zij voortbouwen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>speltheorie</li><li>strategie</li><li>besluitvorming</li><li>onderhandelen</li><li>economie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="217"><a href="217.html">The Strategy of Conflict</a>. Schellings boek is de theoretische bron waarop Dixit en Nalebuff bij geloofwaardige dreigementen en brinkmanship voortbouwen.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Voss werkt de onderhandelingskant praktischer uit, met technieken voor wie niet aan de speltheorie zelf wil beginnen.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman laat zien waar de rationele speler uit dit boek in de praktijk juist niet standhoudt.</li>
+          <li value="453"><a href="453.html">The Evolution of Cooperation</a>. Axelrods eigen verslag van het computertoernooi waar Dixit en Nalebuff in hun hoofdstuk over het gevangenendilemma naar verwijzen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

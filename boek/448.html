@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The ONE Thing &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Keller en Papasan stellen dat buitengewone resultaten niet voortkomen uit het tegelijk najagen van veel doelen, maar uit het steeds opnieuw vaststellen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-448">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">448 &middot; Werk en aandacht</p>
+    <h1>The ONE Thing</h1>
+    <p class="lede">Gary Keller met Jay Papasan, 2013</p>
+    <p class="stats">
+      <span><b>1462</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="448"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Keller en Papasan stellen dat buitengewone resultaten niet voortkomen uit het tegelijk najagen van veel doelen, maar uit het steeds opnieuw vaststellen van de ene handeling die op dit moment het meeste oplevert en de rest overbodig of makkelijker maakt. Die handeling vinden ze met de focusvraag: wat is het ene ding dat ik kan doen zodat door het te doen al het andere makkelijker of overbodig wordt. Succes is volgens hen een opeenstapeling van goed gekozen, opeenvolgende ene dingen, vergelijkbaar met een rij dominostenen waarin de eerste steen de volgende omvergooit.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Zes leugens over productiviteit</h3>
+      <p>Het boek opent met wat de auteurs zes leugens noemen die mensen bij hun werk in de weg zitten: dat alles even belangrijk is, dat multitasken werkt, dat succes een gedisciplineerd leven vereist, dat wilskracht altijd beschikbaar is, dat een gebalanceerd leven nodig is, en dat groot denken gevaarlijk of arrogant is. Elke leugen krijgt een eigen hoofdstuk waarin Keller uitlegt waarom hij mensen afleidt van hun ene ding.</p>
+      <p>De structuur van het boek volgt uit deze zes hoofdstukken: eerst wordt afgebroken wat volgens de auteurs mensen tegenhoudt, daarna wordt de focusvraag als alternatief opgebouwd.</p>
+      <h3>De focusvraag</h3>
+      <p>Het centrale instrument is de focusvraag, in twee vormen. De grote vorm richt zich op de lange termijn: wat is het ene ding dat ik kan doen voor mijn leven zodat al het andere makkelijker of overbodig wordt. De kleine vorm richt zich op het huidige moment: wat is het ene ding dat ik nu kan doen.</p>
+      <p>Keller noemt dit doelen stellen tot aan nu: van een droom voor ooit terugrekenen naar een doel over vijf jaar, een jaar, een maand, een week, tot aan de taak van vandaag. Elke stap moet volgens hem aansluiten bij de stap erboven, zodat de taak van vandaag rechtstreeks te herleiden is tot de verste ambitie.</p>
+      <h3>Het domino-effect</h3>
+      <p>Als beeld voor die opeenstapeling gebruikt Keller de dominosteen: een steen kan er een omvergooien die tot vijftig procent groter is, en een reeks van zulke stenen bouwt zich exponentieel op tot een omvang die met het blote oog niet meer voorstelbaar is. Het ene ding is in dat beeld de eerste steen, klein genoeg om aan te pakken en tegelijk de sleutel tot de rest van de rij.</p>
+      <p>De metafoor moet vooral geruststellen: wie zich afvraagt hoe een klein begin tot iets groots kan leiden, ziet in het beeld dat de opbouw niet lineair optelt maar versnelt. Wat de metafoor niet laat zien, is dat een echt leven zelden uit één opgestelde rij bestaat.</p>
+      <h3>Discipline als gewoonte, niet als eigenschap</h3>
+      <p>Tegenover de leugen dat succes een gedisciplineerd leven vereist, zet Keller de gedachte dat discipline niet iets is wat iemand permanent bezit maar een gewoonte die zich, eenmaal aangeleerd, zelf onderhoudt. Hij verwijst naar onderzoek dat een nieuwe gewoonte gemiddeld rond de zesenzestig dagen kost om zich vast te zetten, ruim langer dan de populaire claim van eenentwintig dagen, en adviseert daarom één gewoonte tegelijk aan te leren in plaats van meerdere tegelijk te forceren.</p>
+      <p>Wilskracht behandelt hij als een uitputbare hulpbron: hij raadt aan de belangrijkste taak vroeg op de dag te doen, voordat beslissingen door de dag heen de wilskracht hebben opgebruikt.</p>
+      <h3>Tegenwicht in plaats van balans</h3>
+      <p>De leugen van het gebalanceerde leven vervangt Keller door wat hij tegenwicht noemt: geen gelijke verdeling van tijd over alle levensgebieden, maar tijdelijk voorrang geven aan het ene ding, ten koste van andere gebieden, om daarna terug te keren en het evenwicht te herstellen. Balans, schrijft hij, houdt mensen in het midden vast en daarmee weg van uitersten waar de grootste resultaten zitten.</p>
+      <p>In de praktijk vertaalt hij dit naar tijdblokkering: een vast, beschermd tijdvak in de agenda reserveren voor het ene ding, voordat andere afspraken die tijd innemen.</p>
+      <h3>Groot denken</h3>
+      <p>De laatste leugen, dat groot denken gevaarlijk of onbescheiden is, weerlegt Keller met het argument dat mensen hun eigen plafond onderschatten uit angst voor mislukking of afwijzing. Hij pleit voor doelen die ongemakkelijk groot aanvoelen, gevolgd door de focusvraag om ze terug te brengen tot een haalbare eerste stap.</p>
+      <h3>De oorsprong: een vastgoedbedrijf in de problemen</h3>
+      <p>Keller plaatst de kern van het boek in zijn eigen bedrijf. In de jaren negentig, toen Keller Williams in zwaar weer zat, dwong hij zichzelf en zijn management om te bepalen welke ene activiteit het bedrijf overeind zou houden en al het overige daaraan ondergeschikt te maken. Het boek presenteert de focusvraag als de veralgemening van die ervaring, en veel voorbeelden in het boek komen uit het netwerk van agenten van zijn eigen onderneming.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De focusvraag</td><td>Wat is het ene ding dat ik kan doen zodat door het te doen al het andere makkelijker of overbodig wordt, in een grote en een kleine vorm.</td></tr>
+          <tr><td class="term">Het domino-effect</td><td>Het beeld van een reeks dominostenen die elk een grotere steen omvergooien, als illustratie van hoe één gerichte handeling zich opbouwt.</td></tr>
+          <tr><td class="term">Zes leugens</td><td>De zes aannames die volgens Keller productiviteit ondermijnen: gelijk belang, multitasken, discipline, wilskracht, balans en de angst voor groot denken.</td></tr>
+          <tr><td class="term">Doelen stellen tot aan nu</td><td>Het terugrekenen van een droom voor ooit naar doelen over vijf jaar, een jaar, een maand, een week en de taak van vandaag.</td></tr>
+          <tr><td class="term">Tegenwicht</td><td>Tijdelijk voorrang geven aan het ene ding ten koste van andere levensgebieden, in plaats van ze voortdurend gelijk te verdelen.</td></tr>
+          <tr><td class="term">Tijdblokkering</td><td>Een vast, beschermd tijdvak in de agenda reserveren voor het ene ding, vóór andere afspraken die tijd kunnen opeisen.</td></tr>
+          <tr><td class="term">Succesgewoonte</td><td>Het ene ding elke dag tot een vaste gewoonte maken, zodat de uitvoering ervan niet langer op wilskracht hoeft te steunen.</td></tr>
+          <tr><td class="term">Groot denken</td><td>Doelen stellen die ongemakkelijk groot aanvoelen, als tegenwicht tegen de neiging het eigen plafond te onderschatten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het zwaartepunt van het boek ligt bij Kellers eigen bedrijf. Keller Williams kwam in de jaren negentig in de problemen, en de focusvraag wordt gepresenteerd als de les die hij daaruit trok en later veralgemeende. Veel van de voorbeelden van geslaagde toepassing komen uit het netwerk van agenten van diezelfde onderneming, wat de voorbeelden minder onafhankelijk maakt dan ze ogen.</p>
+      <p>Daarnaast citeert het boek onderzoek op een aantal specifieke punten: de doelstellingstheorie van Locke en Latham voor het effect van scherp geformuleerde doelen, en een studie naar de tijd die een nieuwe gewoonte nodig heeft om zich vast te zetten, gemiddeld rond de zesenzestig dagen. Die verwijzingen onderbouwen afzonderlijke stappen, maar het overkoepelende domino-beeld en de claim dat één ding de sleutel tot al het overige is, worden nergens met onderzoek gestaafd en blijven een metafoor.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de domino-metafoor zelf. Het beeld suggereert een rechte, voorspelbare keten waarin de ene stap de volgende vanzelf in gang zet, terwijl prioriteren in de praktijk zelden zo lineair verloopt: er lopen meerdere verplichtingen tegelijk, doelen verschuiven, en wat op de ene dag het ene ding is, is dat de volgende dag door een onvoorziene gebeurtenis niet meer. De metafoor maakt succes overzichtelijker dan de ervaring van de meeste lezers.</p>
+      <p>Het boek leunt zwaar op het voorbeeld van al succesvolle mensen en van Kellers eigen bedrijf, zonder de gevallen te bespreken waarin een smalle focus op één doel juist averechts werkte, bijvoorbeeld doordat andere verplichtingen daardoor onhoudbaar achterbleven. Dat is een gebruikelijke vorm van selectie in dit genre, maar hier extra zichtbaar omdat de auteur zelf de belangrijkste bron van voorbeelden is.</p>
+      <p>Ook de toepassing van het Pareto-principe wordt verder doorgetrokken dan het oorspronkelijke idee draagt: van tachtig-twintig naar een reeks van steeds kleinere twintig procenten tot er één taak overblijft, is een rekenkundige truc en geen aangetoonde wetmatigheid. Ten slotte veronderstelt de hele opbouw van doelen tot aan nu een planbaarheid van het leven die in een baan met vaste doelstellingen beter past dan in een bestaan met zorgtaken, gezondheidsproblemen of ander werk dat zich niet naar één ladder laat schikken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer voor je belangrijkste project de focusvraag expliciet op papier: wat is het ene ding waardoor al het andere makkelijker of overbodig wordt.</li>
+        <li>Blokkeer een vast tijdvak in je agenda voor dat ene ding, voordat andere afspraken die tijd innemen.</li>
+        <li>Werk een doel voor over vijf jaar terug naar wat je er deze maand, deze week en vandaag concreet voor kunt doen.</li>
+        <li>Ga na welke taak je deze week bewust kunt laten liggen omdat hij niet bijdraagt aan je ene ding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The ONE Thing: The Surprisingly Simple Truth Behind Extraordinary Results</i> (Bard Press, 2013). Nederlands als <i>1 Ding</i> (Xander Uitgevers, ISBN 9789401601344, 2013).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Keller, medeoprichter van de Amerikaanse vastgoedketen Keller Williams, betoogt samen met Papasan dat buitengewone resultaten voortkomen uit één herhaalde vraag: wat is het ene ding dat ik nu kan doen zodat al het andere daardoor makkelijker of overbodig wordt. Rond die focusvraag bouwen zij een systeem van doelen die van een verre toekomst worden teruggerekend naar de taak van vandaag.</p><p>Het boek opent met zes wat het "leugens" noemt die productiviteit in de weg staan, van het idee dat alles even belangrijk is tot het geloof dat een gebalanceerd leven de norm moet zijn, en werkt elke leugen in een apart hoofdstuk om.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>focus</li><li>productiviteit</li><li>prioriteren</li><li>doelen stellen</li><li>timemanagement</li><li>vastgoed</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport werkt de aandacht die het ene ding vraagt verder uit tot een praktijk van geconcentreerd werken, met meer oog voor de omgeving die dat mogelijk maakt.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman zet tegenover Kellers ladder van doelen een nuchterder blik op hoeveel van het leven zich sowieso niet naar plannen laat schikken.</li>
+          <li value="151"><a href="151.html">Essentialism</a>. McKeown behandelt dezelfde keuze voor minder, maar bouwt zijn systeem meer op afwegen en minder op één lineaire keten.</li>
+          <li value="256"><a href="256.html">Measure What Matters</a>. Doerr laat zien hoe een verwante gedachte, doelen die richting geven aan dagelijks werk, in bedrijven als systeem is uitgewerkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

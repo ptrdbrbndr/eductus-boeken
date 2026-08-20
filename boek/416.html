@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Being Mortal &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek betoogt dat de moderne geneeskunde uitblinkt in het bestrijden van ziekte maar tekortschiet in de omgang met sterfelijkheid, omdat ze veiligheid…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-416">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">416 &middot; Levenskunst</p>
+    <h1>Being Mortal</h1>
+    <p class="lede">Atul Gawande, 2014</p>
+    <p class="stats">
+      <span><b>1403</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="416"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek betoogt dat de moderne geneeskunde uitblinkt in het bestrijden van ziekte maar tekortschiet in de omgang met sterfelijkheid, omdat ze veiligheid en langer leven behandelt als het enige doel en zelden vraagt wat een patiënt nog met de resterende tijd wil. Gawande stelt dat verpleeghuizen doorgaans zijn ingericht rond veiligheid en controle in plaats van rond een leven dat de moeite waard is, en dat artsen liever een nieuwe behandeling aanbieden dan het gesprek voeren over wat iemand aan het einde nog belangrijk vindt. Wie dat wil weerleggen, moet aantonen dat de voorbeelden van verpleeghuizen en behandeltrajecten die hij aanhaalt uitzonderingen zijn, of dat vroege gesprekken over het levenseinde de uitkomsten niet werkelijk verbeteren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Ouder worden zonder de familie die er vroeger was</h3>
+      <p>Gawande begint bij twee grootouderfiguren: zijn eigen grootvader in India, die tot op hoge leeftijd in een groot gezin bleef wonen en werken, en Alice Hobson, de grootmoeder van zijn vrouw in de Verenigde Staten, die zelfstandig bleef wonen tot vallen en geheugenverlies dat onhoudbaar maakten. Dat contrast gebruikt hij om te laten zien dat de vertrouwde zorg door meerdere generaties in één huis grotendeels is verdwenen, zonder dat daarvoor een gelijkwaardig alternatief in de plaats kwam, alleen een keten van instellingen.</p>
+      <p>Het tweede hoofdstuk beschrijft hoe lichaam en brein feitelijk verouderen: botten die dunner worden, spieren die massa verliezen, bloedvaten die stugger worden. Gawande benadrukt dat de geneeskunde die achteruitgang kan vertragen maar niet stoppen, en dat veel artsen daar zelf slecht op zijn voorbereid omdat hun opleiding vooral over genezen gaat.</p>
+      <h3>Het verpleeghuis en zijn drie plagen</h3>
+      <p>Via Alice Hobsons verhuizing naar een verzorgingshuis en later een verpleeghuis onderzoekt Gawande hoe die instellingen zijn ontstaan: niet vanuit een visie op een goed leven voor ouderen, maar als bijproduct van ziekenhuizen die bedden nodig hadden voor acute patiënten. Hij introduceert het werk van arts Bill Thomas, die de gangbare verpleeghuiszorg omschreef als een strijd tegen drie plagen: verveling, eenzaamheid en hulpeloosheid.</p>
+      <p>Thomas' antwoord was de Eden Alternative: hij bracht honden, katten, vogels, planten en een kinderdagverblijf het verpleeghuis in, zodat bewoners weer voor iets of iemand konden zorgen. Onderzoek dat Gawande aanhaalt, liet zien dat bewoners van zulke instellingen minder medicatie nodig hadden, waaronder antipsychotica, en een lager sterftecijfer hadden dan in vergelijkbare traditionele verpleeghuizen.</p>
+      <h3>Assisted living en de druk om weer veiligheid voorop te stellen</h3>
+      <p>Gawande vertelt de geschiedenis van assisted living via Keren Brown Wilson, die voor haar eigen moeder een woonvorm zocht met hulp zonder verlies van privacy en zelfstandigheid. De eerste versies van dat concept lieten zien dat het kon: meer autonomie zonder dat de gezondheid van bewoners eronder leed. Naarmate assisted living populairder werd, schoof het volgens Gawande op naar dezelfde nadruk op veiligheid en aansprakelijkheid die het oorspronkelijk wilde vermijden, tot het voor veel bewoners weer een tussenstap naar het verpleeghuis werd in plaats van een alternatief ervoor.</p>
+      <h3>Wat mensen aan het einde belangrijk vinden</h3>
+      <p>Het middendeel introduceert palliatief arts Susan Block, die met patiënten en families een vast gesprek voert: wat ze het meest vrezen, welke afwegingen ze wel en niet willen maken, en wat voor hen een dag de moeite waard maakt. Gawande stelt die vragen tegenover de gangbare gang van zaken, waarin een arts de volgende behandeloptie aanbiedt zonder eerst te vragen wat de patiënt daarmee wil bereiken.</p>
+      <p>Als tegenvoorbeeld beschrijft hij La Crosse, Wisconsin, waar ziekenhuizen en zorginstellingen systematisch zijn gaan aandringen op schriftelijke wilsverklaringen. Het aandeel inwoners met zo'n verklaring bij overlijden steeg volgens de cijfers die hij aanhaalt van vijftien naar vijfentachtig procent, en de zorgkosten in de laatste levensfase lagen er ongeveer op de helft van het landelijk gemiddelde, zonder dat mensen korter leefden.</p>
+      <h3>De laatste maanden van zijn vader</h3>
+      <p>Het slothoofdstuk verlaat de derde persoon en volgt de ziekte en het overlijden van Gawandes eigen vader, eveneens chirurg, na de diagnose van een tumor aan het ruggenmerg. Gawande beschrijft hoe moeilijk het voor hemzelf was om als zoon en als arts tegelijk de vragen te stellen die hij in de rest van het boek aanbeveelt, en hoe zijn vader er uiteindelijk voor koos om een deel van de nog mogelijke behandeling te laten voor wat die was, om zijn laatste maanden helder en bij zijn gezin door te brengen in plaats van verzwakt door verdere ingrepen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Assisted living</td><td>Een woonvorm tussen zelfstandig wonen en het verpleeghuis in, oorspronkelijk bedoeld om hulp te bieden zonder privacy en zelfstandigheid op te geven.</td></tr>
+          <tr><td class="term">De drie plagen</td><td>Bill Thomas' term voor verveling, eenzaamheid en hulpeloosheid als de kern van wat er mis is met traditionele verpleeghuiszorg.</td></tr>
+          <tr><td class="term">Eden Alternative</td><td>Het programma van Bill Thomas waarin dieren, planten en kinderen het verpleeghuis in werden gebracht om bewoners weer een taak te geven.</td></tr>
+          <tr><td class="term">Palliatieve zorg</td><td>Zorg die niet gericht is op genezing maar op het comfortabel houden van iemand met een levensbedreigende ziekte.</td></tr>
+          <tr><td class="term">Wilsverklaring</td><td>Een schriftelijk vastgelegde keuze over welke behandelingen iemand nog wel en niet wil als hij dat zelf niet meer kan aangeven.</td></tr>
+          <tr><td class="term">Hospice</td><td>Zorg gericht op de laatste levensfase, waarbij het doel verschuift van levensverlenging naar comfort.</td></tr>
+          <tr><td class="term">Het gesprek van Susan Block</td><td>Haar vaste set vragen naar iemands angsten, grenzen en wat een dag de moeite waard maakt, als alternatief voor het aanbieden van de volgende behandeling.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bouwt op drie soorten materiaal. Ten eerste Gawandes eigen ervaring als chirurg en de gesprekken die hij voor het boek voerde met patiënten, families en zorgverleners, wat sterk is voor het invoelbaar maken van wat er in verpleeghuizen en ziekenhuizen gebeurt, maar per definitie een selectie van voorbeelden blijft.</p>
+      <p>Ten tweede aangehaald onderzoek naar concrete interventies, zoals de cijfers over de Eden Alternative en het lagere medicatiegebruik en sterftecijfer die daarbij horen, en de cijfers over La Crosse, Wisconsin. Dat zijn observationele vergelijkingen tussen instellingen of gemeenschappen, geen gerandomiseerde proeven, en de verschillen kunnen deels samenhangen met de wijkbevolking en de betrokken instellingen zelf, iets wat Gawande niet uitgebreid bespreekt.</p>
+      <p>Ten derde de bredere hospice- en palliatieve-zorgliteratuur, waaronder onderzoek waarin patiënten met vergevorderde longkanker die vroeg palliatieve zorg kregen naast standaardbehandeling, gemiddeld minder agressieve zorg aan het einde van hun leven kregen én iets langer leefden dan de groep die alleen standaardbehandeling kreeg. Dat is een van de sterkere aanwijzingen in het boek, juist omdat de uitkomst tegen de intuïtie ingaat dat minder agressief behandelen altijd tot korter leven leidt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is vooral opgebouwd rond voorbeelden die de stelling van Gawande ondersteunen: verpleeghuizen en gesprekken die goed uitpakken krijgen ruim baan, terwijl minder geslaagde pogingen om zorg menselijker te maken nauwelijks aan bod komen. Dat maakt het overtuigend als betoog, maar minder een neutrale inventarisatie van wat er in de praktijk wel en niet werkt.</p>
+      <p>Een tweede punt is dat de Amerikaanse context waarin het boek speelt, met een verzekeringsstelsel en een geschiedenis van verpleeghuiszorg die niet zomaar naar andere landen overzet, het moeilijk maakt om de cijfers over kosten en wilsverklaringen zonder meer naar een andere gezondheidszorg te vertalen.</p>
+      <p>Verder blijft de vraag onbeantwoord wat er gebeurt met patiënten en families voor wie de gesprekken die Gawande aanbeveelt niet tot een aanvaardbaar antwoord leiden, bijvoorbeeld omdat de familie het onderling oneens is of omdat iemand tot het laatst wil blijven vechten. Het boek erkent die spanning wel, maar werkt vooral de gevallen uit waarin een duidelijk gesprek tot rust en een gedragen besluit leidt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een ernstige diagnose niet alleen naar de behandelopties, maar naar wat de arts verwacht dat een dag er over een half jaar met en zonder die behandeling uitziet.</li>
+        <li>Leg voor jezelf en naaste familie vast wat voor jou een dag de moeite waard maakt en welke grenzen je daarbij stelt, voordat een crisis die vraag met spoed stelt.</li>
+        <li>Beoordeel een verpleeghuis niet alleen op veiligheid en verzorging, maar op wat bewoners er te doen hebben en voor wie of wat ze nog kunnen zorgen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Being Mortal: Medicine and What Matters in the End</i> (Metropolitan Books/Henry Holt, New York, 2014). Nederlands als <i>Sterfelijk zijn: geneeskunde en wat er uiteindelijk toe doet</i>, vertaald door Marceline Blangé, bij Nieuwezijds (2015, ISBN 9789057124389).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gawande, chirurg en hoogleraar aan Harvard, onderzoekt hoe de geneeskunde is gaan omgaan met ouderdom en het levenseinde, en waarom die omgang volgens hem tekortschiet. Hij begint bij zijn eigen grootouders en bij patiënten die hij als chirurg behandelde, en breidt dat uit naar verpleeghuizen, hospices en de gesprekken die artsen wel en niet voeren over wat een patiënt nog wil van de tijd die rest. Het slothoofdstuk gaat over de laatste maanden van zijn eigen vader, die zelf arts was en een tumor aan het ruggenmerg kreeg.</p><p>Het boek pleit niet tegen behandelen, maar tegen behandelen zonder eerst te vragen wat de patiënt daarmee wil bereiken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sterfelijkheid</li><li>ouderdom</li><li>palliatieve zorg</li><li>hospice</li><li>medische ethiek</li><li>verpleeghuis</li><li>het gesprek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="49"><a href="49.html">When Breath Becomes Air</a>. Kalanithi beschrijft van binnenuit wat Gawande van buitenaf onderzoekt: hoe een arts zelf de diagnose krijgt die hij bij anderen behandelt.</li>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Seneca redeneert vanuit de filosofie naar dezelfde vraag die Gawande vanuit de geneeskunde stelt: wat een leven de moeite waard maakt als de tijd beperkt is.</li>
+          <li value="285"><a href="285.html">Tuesdays with Morrie</a>. Albom laat in gesprekken met een stervende hoogleraar zien wat Gawande als ideaal beschrijft: iemand die tot het einde helder blijft over wat nog telt.</li>
+          <li value="104"><a href="104.html">Oud zeer</a>. Bakker beschrijft ouder worden en verlies vanuit de eigen praktijk als arts, met dezelfde nadruk op nuchter kijken naar wat achteruitgang met iemand doet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

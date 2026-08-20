@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 10X Rule &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Cardones boek draait om één rekenregel: stel een doel dat tien keer groter is dan wat redelijk lijkt, en lever daar tien keer zoveel actie voor als je…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-427">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">427 &middot; Geld en ondernemen</p>
+    <h1>The 10X Rule</h1>
+    <p class="lede">Grant Cardone, 2011</p>
+    <p class="stats">
+      <span><b>1474</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="427"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Cardones boek draait om één rekenregel: stel een doel dat tien keer groter is dan wat redelijk lijkt, en lever daar tien keer zoveel actie voor als je denkt dat nodig is. Wie normale doelen stelt en er normaal veel moeite voor doet, eindigt volgens hem op de plek waar de meeste mensen eindigen, namelijk nergens, want de markt beloont alleen wie opvalt. Falen komt in zijn analyse niet doordat mensen te veel willen, maar doordat ze de hoeveelheid actie onderschatten die nodig is om iets te bereiken en genoegen nemen met inspanning die op papier redelijk oogt. De 10X-regel is zijn antwoord: denk in doel en in tempo tegelijk een orde van grootte groter dan gebruikelijk.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van de dealer in Louisiana tot trainer</h3>
+      <p>Cardone groeide op in Lake Charles, Louisiana, en verloor zijn vader toen hij tien was. In zijn twintiger jaren raakte hij, terwijl hij auto's verkocht, verslaafd aan drugs. Op zijn vijfentwintigste ging hij in een afkickkliniek, en binnen vijf jaar daarna was hij miljonair. Hij begon met een verkooptrainingsbureau en bouwde daarna met Cardone Capital een vastgoedbedrijf op dat inmiddels voor miljarden aan appartementencomplexen bezit.</p>
+      <p>Het boek is geen memoires, maar die geschiedenis is wel de enige aangevoerde bewijsvoering: gewone inspanning leverde hem gewone resultaten op, en pas toen hij zijn doelen en zijn tempo drastisch verhoogde, veranderde de uitkomst.</p>
+      <h3>De regel zelf</h3>
+      <p>De 10X-regel bestaat uit twee stappen die volgens Cardone alleen samen werken. Eerst het doel: vermenigvuldig wat redelijk lijkt met tien, want een doel dat binnen bereik voelt, roept vanzelf een gemiddelde inspanning op. Daarna de actie: lever niet iets meer dan gepland, maar tien keer zoveel als de eerste inschatting, omdat vrijwel iedereen de werkelijke hoeveelheid werk voor een doel onderschat.</p>
+      <p>Hij benadrukt dat de twee stappen niet los van elkaar staan. Een groot doel zonder overeenkomstige actie levert teleurstelling op, en veel actie zonder een groot doel levert alleen uitputting op zonder resultaat dat ertoe doet.</p>
+      <h3>Vier gradaties van actie</h3>
+      <p>Cardone onderscheidt vier niveaus: geen actie, terugtrekken, gemiddelde actie en massale actie. Geen actie is stilstand; terugtrekken is een stap terug zetten en dat verantwoorden met redenen waarom het doel toch niet haalbaar was; gemiddelde actie is wat de meeste mensen doen en wat volgens hem tot gemiddelde, dus onbevredigende resultaten leidt.</p>
+      <p>Alleen de vierde gradatie, massale actie, acht hij in staat om uitzonderlijke resultaten op te leveren. Hij omschrijft dat als doorgaan tot het doel bereikt is, ook nadat de eerste inschatting van de benodigde inspanning allang overschreden is.</p>
+      <h3>Onredelijk en geobsedeerd</h3>
+      <p>Een terugkerend advies is om onredelijk te zijn: doelbewust meer te doen dan de omgeving gepast vindt, omdat wat de omgeving redelijk noemt volgens hem meestal samenvalt met wat tot niets bijzonders leidt. Ook obsessie, in het dagelijks taalgebruik een gebrek, herwaardeert hij tot een noodzakelijke eigenschap: een aanhoudende, bijna dwangmatige gerichtheid op één doel die nodig is om de vierde gradatie van actie vol te houden.</p>
+      <p>Kritiek van anderen ziet hij daarbij niet als een halt-teken maar als een teken dat je opvalt; wie niemand tegen de haren instrijkt, doet volgens hem waarschijnlijk te weinig.</p>
+      <h3>Succes als plicht, concurrentie als iets voor bangeriken</h3>
+      <p>In het hoofdstuk "Success Is Your Duty" stelt Cardone dat succes nastreven geen keuze is maar een verplichting, tegenover jezelf en tegenover de mensen die van je afhankelijk zijn. Wie zich onder zijn niveau gedraagt, ontneemt volgens die redenering ook anderen iets.</p>
+      <p>In het hoofdstuk "Competition Is for Sissies" keert hij zich tegen het idee dat concurreren gezond zou zijn. Wie constant naar concurrenten kijkt, kopieert volgens hem alleen wat er al is; wie een eigen aanpak schept en die met massale actie doorzet, hoeft zich met de concurrentie niet meer te meten.</p>
+      <h3>Angst en zichtbaarheid</h3>
+      <p>Angst leest Cardone niet als een signaal om te stoppen, maar als een teken dat je iets doet dat ertoe doet; hij raadt aan er juist naartoe te bewegen in plaats van eromheen. In de zakelijke hoofdstukken werkt hij dat uit tot een stelling over ondernemingen: niet een ontevreden klant is het grootste gevaar voor een bedrijf, maar onbekendheid.</p>
+      <p>Een bedrijf dat niemand kent, verliest volgens hem sneller dan een bedrijf met af en toe een klacht, en daarom pleit hij voor voortdurende, haast opdringerige zichtbaarheid: aanwezig zijn op elk kanaal waar een klant zou kunnen kijken.</p>
+      <h3>Doelgroep en ontvangst</h3>
+      <p><i>The 10X Rule</i> verscheen in 2011 en groeide uit tot een blijvende bestseller in de wereld van verkooptrainingen en vastgoedbeleggers, mede doordat Cardone het boek zelf jarenlang als lesmateriaal gebruikte op zijn eigen seminars en op zijn platform Cardone University. Het is in meerdere talen vertaald, al niet in het Nederlands, en wordt buiten de sales- en beleggerswereld minder gelezen dan binnen die kringen.</p>
+      <p>Dat publiek verklaart mede de toon: het boek richt zich op mensen die al overtuigd zijn dat harder werken de weg naar rijkdom is, en besteedt weinig ruimte aan lezers die met die aanname niet beginnen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">10X-regel</td><td>Stel een doel dat tien keer groter is dan wat redelijk lijkt, en lever daarvoor tien keer zoveel actie als de eerste inschatting.</td></tr>
+          <tr><td class="term">Vier gradaties van actie</td><td>Geen actie, terugtrekken, gemiddelde actie en massale actie; alleen de laatste leidt volgens Cardone tot uitzonderlijke resultaten.</td></tr>
+          <tr><td class="term">Massale actie</td><td>Doorgaan met inspanning tot het doel bereikt is, ook nadat de aanvankelijke inschatting van de benodigde moeite is overschreden.</td></tr>
+          <tr><td class="term">Onredelijk zijn</td><td>Doelbewust meer doen dan de omgeving gepast of realistisch vindt.</td></tr>
+          <tr><td class="term">Obsessie</td><td>De aanhoudende, bijna dwangmatige gerichtheid op één doel, door Cardone herwaardeerd van gebrek tot noodzakelijke eigenschap.</td></tr>
+          <tr><td class="term">Succes als plicht</td><td>De stelling uit hoofdstuk vier dat succes nastreven een verplichting is tegenover jezelf en de mensen die van je afhankelijk zijn.</td></tr>
+          <tr><td class="term">Concurrentie is voor bangeriken</td><td>De titel van hoofdstuk tien: wie zich aan concurrenten spiegelt, kopieert alleen; wie een eigen aanpak schept, hoeft niet te concurreren.</td></tr>
+          <tr><td class="term">Obscuriteit</td><td>Onbekendheid van een bedrijf bij het publiek, door Cardone aangewezen als groter gevaar dan een ontevreden klant.</td></tr>
+          <tr><td class="term">Gemiddelde actie</td><td>De inspanning die de meeste mensen leveren en die volgens Cardone stelselmatig tot gemiddelde, onbevredigende resultaten leidt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek, geen cijfers uit een steekproef en geen verwijzingen naar bronnen buiten de schrijver zelf. De enige aangevoerde bewijsvoering is zijn eigen levensloop: verslaving en gemiddelde resultaten op de verkoopvloer, gevolgd door een omslag naar massale actie en een miljoenenvermogen binnen vijf jaar na zijn afkickkliniek. Daarnaast beroept hij zich op ervaringen uit zijn eigen verkooptrainingen, zonder die met gegevens te onderbouwen.</p>
+      <p>Dat maakt het boek een getuigenis, niet een studie. Eén geval, hoe overtuigend verteld ook, laat niet zien hoe vaak de aanpak niet werkt of bij wie hij averechts uitpakt; daarover zwijgt de tekst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de redenering op één succesvolle uitkomst rust die tot algemene wet wordt verheven. Wie tien keer zo hard werkt aan tien keer zo grote doelen, hoeft geen tien keer zo veel resultaat te boeken; marktomstandigheden, startkapitaal, gezondheid en geluk komen in het boek nauwelijks aan bod, terwijl ze net zo goed bepalen of massale actie tot succes leidt of tot uitputting.</p>
+      <p>Het wereldbeeld is bovendien binair: winnen of verliezen, domineren of overwoekerd worden, met weinig ruimte voor duurzame inzet of een leven naast het werk. Verschillende samenvattingen en recensies wijzen erop dat de tekst zichzelf herhaalt: dezelfde oproep tot meer actie keert in bijna elk hoofdstuk terug in een andere verpakking.</p>
+      <p>Er is ook een belangenkwestie. Cardone verkoopt naast dit boek verkooptrainingen en aandelen in zijn eigen vastgoedfondsen, waarin hij dezelfde retoriek van grote doelen en grote actie gebruikte om hoge rendementen in het vooruitzicht te stellen. Toezichthouder SEC liet hem in 2018 een geprojecteerd jaarrendement van vijftien procent uit de aanbiedingsdocumenten van Cardone Equity Fund V schrappen omdat daar geen redelijke onderbouwing voor was; een rechtszaak die hem verwijt dat cijfer nadien elders te zijn blijven promoten zonder de bijbehorende kosten volledig te vermelden, werd na een eerdere afwijzing in 2023 in hoger beroep in 2025 hersteld. Dat zet vraagtekens bij de geloofwaardigheid van iemand die lezers aanspoort tot grote, onredelijke stappen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vermenigvuldig een bestaand doel bewust met tien en kijk wat er in de planning verandert.</li>
+        <li>Houd een week bij welke van de vier gradaties van actie je bij een lopende taak daadwerkelijk inzet.</li>
+        <li>Ga bij een investeringsvoorstel met een geprojecteerd rendement na waar dat cijfer op berust voordat je het aanneemt.</li>
+        <li>Vraag bij een tegenvallend resultaat eerst wat er aan actie ontbrak, voordat je naar de omstandigheden wijst.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The 10X Rule: The Only Difference Between Success and Failure</i> (Wiley, 2011, ISBN 9780470627600). Geen Nederlandse vertaling verschenen; Nederlandse boekhandels als Bol.com en Managementboek.nl voeren alleen de Engelstalige editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Cardone verkocht op zijn vijfentwintigste, net uit een afkickkliniek, auto's op een dealer in Louisiana en was binnen vijf jaar miljonair. Uit die ervaring destilleert hij de 10X-regel: stel een doel dat tien keer groter is dan wat redelijk lijkt, en lever daarvoor tien keer zoveel actie als je denkt dat nodig is. Wie normale doelen stelt en er een gemiddelde hoeveelheid moeite voor doet, eindigt volgens hem op de plek waar de meeste mensen eindigen.</p><p>Het boek onderscheidt vier gradaties van actie, van niets doen tot massale actie, en wijdt aparte hoofdstukken aan de stelling dat succes een plicht is en dat concurreren iets voor bangeriken is. Er staat geen onderzoek in; de onderbouwing is zijn eigen levensverhaal en de ervaring van zijn verkooptrainingen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>verkoop</li><li>motivatie</li><li>doelen stellen</li><li>actie</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="133"><a href="133.html">The Compound Effect</a>. Hardy pleit voor consistente kleine stappen in plaats van massale actie, en biedt daarmee een ander tempo voor hetzelfde soort doel.</li>
+          <li value="158"><a href="158.html">No Excuses!</a>. Tracy werkt dezelfde nadruk op discipline en directe actie uit, zonder de nadruk op een factor tien.</li>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Hill leverde decennia eerder de blauwdruk voor het genre waarin een obsessief doel en volgehouden actie tot rijkdom leiden.</li>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth onderzoekt volgehouden inzet wel empirisch, en laat daarmee zien hoe mager de onderbouwing van Cardones boek is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

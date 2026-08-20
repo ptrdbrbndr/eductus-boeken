@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 50th Law &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Robert Greene en Curtis Jackson, bekend als 50 Cent, stellen dat angst de grondstof is waarop de meeste mislukkingen berusten en dat wie zich ervan…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-440">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">440 &middot; Vrij denken en manipulatie</p>
+    <h1>The 50th Law</h1>
+    <p class="lede">Robert Greene en 50 Cent (Curtis Jackson), 2009</p>
+    <p class="stats">
+      <span><b>1645</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="440"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Robert Greene en Curtis Jackson, bekend als 50 Cent, stellen dat angst de grondstof is waarop de meeste mislukkingen berusten en dat wie zich ervan bevrijdt een voorsprong heeft die talent of opleiding niet geven. Jacksons weg van drugshandel in South Jamaica, Queens, via negen kogels die hij in 2000 overleefde, naar platenverkoop en een belang in Vitaminwater dient in het boek als het bewijsmateriaal, en Greene legt daar telkens een historische figuur naast: Napoleon, Lincoln, Socrates. De wet uit de titel staat niet in <i>The 48 Laws of Power</i> en is er ook geen aanvulling op, maar is volgens de auteurs de voorwaarde waaronder die achtenveertig pas werken: zonder de angst te overwinnen blijft elke andere wet theorie. Wie tegenwerpt dat een gewapend bestaan in de drugshandel een smalle basis is voor een algemene les over angst, krijgt daarop in het boek zelf geen weerwoord.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee stemmen in één boek</h3>
+      <p>Greene ontmoette Jackson in de winter van 2006, nadat een gezamenlijke kennis had gewezen op de overeenkomst tussen de straatstrategieën uit Jacksons jeugd en de patronen die Greene in <i>The 48 Laws of Power</i> had beschreven. Jackson noemde dat boek zelf al jaren zijn handboek. Uit de gesprekken die volgden ontstond de opzet: elk van de tien hoofdstukken opent met een scène uit Jacksons leven en werkt van daaruit toe naar een bredere les, onderbouwd met historische voorbeelden die Greene aandraagt.</p>
+      <p>De twee stemmen blijven door het boek heen te onderscheiden. Passages in de ik-vorm van Jackson wisselen af met stukken waarin Greene aan het woord is en een figuur uit de geschiedenis analyseert. Een aparte verantwoording die precies aangeeft wie welk stuk schreef, ontbreekt.</p>
+      <h3>Geschoten en teruggekomen</h3>
+      <p>Het boek keert telkens terug naar 24 mei 2000, toen Jackson voor de deur van zijn grootmoeder in Queens negenmaal werd beschoten en op het nippertje overleefde. Het hoofdstuk over wat de auteurs Intense Realism noemen, het zonder wensdenken bekijken van mensen en situaties, gebruikt die gebeurtenis als kern: wie de aanslag en de maanden herstel daarna helder onder ogen zag in plaats van te verdringen, kon volgens het boek weer verder.</p>
+      <p>Columbia Records, waar Jackson op dat moment onder contract stond, liet hem na het schietincident vallen. Het boek behandelt dat niet als tegenslag zonder gevolg maar als het moment waarop de rest van het verhaal begint.</p>
+      <h3>Een jeugd zonder bescherming</h3>
+      <p>Jacksons moeder, Sabrina Jackson, verkocht drugs en werd vermoord toen hij acht jaar was; hij groeide daarna op bij zijn grootouders. Rond zijn twaalfde begon hij zelf in drugs te handelen. Het boek beschrijft die jaren niet als excuus maar als leerschool: wie op straat overleeft, moet leren improviseren met wat voorhanden is en kansen zien waar anderen alleen risico zien, de kern van de hoofdstukken over zelfredzaamheid en opportunisme.</p>
+      <p>Het is ook het deel van het boek waarin de herkomst van de titel het duidelijkst wordt. Jacksons bijnaam 50 Cent verwijst naar een van de eerdere straatcriminelen die hij bewonderde; de auteurs gebruiken die naam voor de wet die zij aan Greenes eerdere achtenveertig toevoegen.</p>
+      <h3>Van afwijzing naar comeback</h3>
+      <p>Na het verlies van zijn platencontract bleef Jackson mixtapes maken en op straat verspreiden. Eminem en Dr. Dre werden erdoor bereikt en tekenden hem in 2002 bij hun label; het debuutalbum <i>Get Rich or Die Tryin'</i> verscheen in 2003 en verkocht in het eerste jaar meer dan zes miljoen exemplaren in de Verenigde Staten. De hoofdstukken over berekende voortstuwing en agressie gebruiken die comeback als illustratie van hoe tempo vasthouden en tegenstanders geen ruimte geven tot resultaat leidt.</p>
+      <p>Het boek vermeldt de steun van Eminem en Dr. Dre als feit, maar rekent haar niet mee bij de les over zelfredzaamheid die in dezelfde hoofdstukken wordt getrokken.</p>
+      <h3>De zakenman: Vitaminwater en G-Unit</h3>
+      <p>Een later hoofdstuk behandelt Jacksons zakelijke kant. Hij investeerde in het drankenmerk Vitaminwater met een belang in aandelen in plaats van met contant geld, in ruil voor promotie; toen Coca-Cola de eigenaar Glacéau in 2007 overnam, leverde dat belang hem naar verluidt ruim honderd miljoen dollar op. Daarnaast bouwde hij het kledingmerk en platenlabel G-Unit op. Het boek gebruikt beide als voorbeeld van opportunisme en van wat de auteurs autoriteit noemen: gezag dat ontstaat door zelfverzekerd optreden, los van een formele positie in een bedrijf.</p>
+      <p>Details over de precieze voorwaarden van de Vitaminwater-deal staan niet in het boek zelf; het cijfer van honderd miljoen dollar is via de pers bekend geworden en wordt door de auteurs overgenomen zonder bron.</p>
+      <h3>Napoleon, Machiavelli en de klassieken als tegenwicht</h3>
+      <p>Naast Jacksons leven zet Greene telkens een figuur uit de geschiedenis: Napoleon die zijn troepen tot uitputtend tempo dwong, Abraham Lincoln die zijn twijfel voor het publiek verborg, Socrates die zijn dood niet ontweek, Malcolm X en James Baldwin die publieke vijandschap incasseerden zonder terug te deinzen. Machiavelli komt terug als de auteur wiens werk Greene het vaakst als spiegel gebruikt: Jacksons straatstrategieën, zo stellen de auteurs, zijn wat Machiavelli bij renaissancevorsten beschreef, in een andere eeuw en een andere klasse.</p>
+      <p>Die combinatie is het handelsmerk van het boek: een levend voorbeeld uit de hedendaagse popcultuur naast eeuwenoude portretten, zonder dat een van beide de ander illustreert in de klassieke zin van een these die met bronnen wordt gestaafd.</p>
+      <h3>Meesterschap en het Sublieme</h3>
+      <p>De laatste hoofdstukken behandelen meesterschap, de staat waarin een vaardigheid na jaren oefening intuïtief aanvoelt, en wat de auteurs het Sublieme noemen: het besef van de eigen sterfelijkheid dat de blik verruimt voorbij de dagelijkse zorgen. Greene werkte het eerste onderwerp drie jaar later verder uit in zijn eigen boek <i>Mastery</i>; hier staat het nog in dienst van het bredere thema angst.</p>
+      <p>Het boek sluit af waar het begon, bij de schietpartij van 2000, en herhaalt dat de confrontatie met de dood niet het einde van Jacksons verhaal was maar het punt waarop de rest ervan mogelijk werd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Intense Realism</td><td>Mensen en situaties bekijken zoals ze zijn, zonder de wensdenkerij die angst en hoop er meestal overheen leggen.</td></tr>
+          <tr><td class="term">Zelfredzaamheid</td><td>Niet afhankelijk zijn van de goedkeuring of de steun van anderen om te handelen.</td></tr>
+          <tr><td class="term">Opportunisme</td><td>Kansen herkennen in onzekerheid en toeval, en die ombuigen naar eigen voordeel.</td></tr>
+          <tr><td class="term">Berekende voortstuwing</td><td>Het eigen tempo van handelen bewust vasthouden, zodat een tegenstander geen ruimte krijgt zich te herstellen.</td></tr>
+          <tr><td class="term">Autoriteit</td><td>Het gezag dat ontstaat door zelfverzekerd optreden, los van een formele functie of titel.</td></tr>
+          <tr><td class="term">Meesterschap</td><td>De staat waarin een vaardigheid na jaren oefening intuïtief aanvoelt in plaats van bewust toegepast te worden.</td></tr>
+          <tr><td class="term">Het Sublieme</td><td>Het besef van de eigen sterfelijkheid dat volgens de auteurs de blik verruimt voorbij dagelijkse zorgen.</td></tr>
+          <tr><td class="term">De vijftigste wet</td><td>De titelgevende term voor angsteloosheid als de voorwaarde waaronder de achtenveertig eerdere wetten van macht pas werken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee soorten materiaal die niet dezelfde status hebben. Het eerste is Jacksons eigen levensverhaal, waarvan de grote lijnen, de schietpartij in 2000, het verbroken platencontract, de doorbraak via Eminem en Dr. Dre, de Vitaminwater-deal, ook buiten het boek in de pers zijn terug te vinden en dus controleerbaar zijn. Het tweede is de interpretatie die daaraan wordt gegeven, dat angsteloosheid de verklarende factor achter dat succes is, en die interpretatie steunt uitsluitend op het eigen relaas van de auteurs.</p>
+      <p>Voor de historische voorbeelden geldt dezelfde werkwijze als in Greenes eerdere boeken: korte portretten van Napoleon, Lincoln, Socrates en anderen, gekozen omdat ze bij het punt van dat hoofdstuk passen, zonder voetnoten of verwijzing naar bronnen waarop een lezer verder kan zoeken. Wetenschappelijk onderzoek naar angst, besluitvorming of ondernemerschap komt in het boek niet voor.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is de opbouw van de redenering zelf. Het boek presenteert het overleven van armoede en geweld als de bron van Jacksons latere succes, maar noemt niemand die in dezelfde straten met dezelfde omstandigheden opgroeide en niet slaagde. Zonder dat tegenvoorbeeld is niet vast te stellen of angsteloosheid de verklaring is of dat het boek een uitzonderlijk verhaal achteraf een algemene les laat dragen.</p>
+      <p>Een tweede punt is de spanning binnen het boek zelf. Zelfredzaamheid wordt als kernbegrip gepresenteerd, terwijl Jacksons eigen doorbraak samenviel met het moment waarop Eminem en Dr. Dre hem tekenden nadat Columbia hem had laten vallen. Die steun staat gewoon in het boek, maar wordt niet meegewogen als iets dat de these over zelfredzaamheid nuanceert.</p>
+      <p>Een derde punt is de overdracht van straatethiek naar zakendoen. Agressie en het uitbuiten van de zwakte van een tegenstander worden in de hoofdstukken over Jacksons drugsjaren beschreven als vaardigheden die later in de muziekindustrie hun vruchten afwierpen, zonder dat het boek de juridische of morele kosten van die jaren zelf apart weegt.</p>
+      <p>Ten slotte blijft onduidelijk welke passages van Jackson zelf komen en welke door Greene zijn geformuleerd op basis van gesprekken. Een verantwoording die dat onderscheid maakt ontbreekt, waardoor een lezer de biografische delen niet kan wegen zoals hij dat bij een memoir met één schrijver wel zou kunnen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf bij een eigen tegenslag eerst wat er feitelijk is gebeurd, los van de angst die je erover voelt.</li>
+        <li>Ga na wie je heeft geholpen bij een doorbraak die je aan jezelf toeschrijft, en noteer wat die hulp concreet inhield.</li>
+        <li>Zoek in je eigen omgeving iemand met jarenlange ervaring in een vak en vraag naar het moment waarop de vaardigheid intuïtief aanvoelde.</li>
+        <li>Lees een van de historische portretten uit het boek na in een biografie en toets of de details kloppen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The 50th Law</i> (HarperStudio, 8 september 2009, gebonden, 291 blz., ISBN 9780061774607). Nederlands als <i>Wetten van succes</i> (Meulenhoff, september 2010, 270 blz., ISBN 9789029086349); de uitgever noemt geen vertaler.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Robert Greene, bekend van <i>The 48 Laws of Power</i>, schreef dit boek samen met de rapper 50 Cent, wiens burgerlijke naam Curtis Jackson is. Elk van de tien hoofdstukken begint met een aflevering uit Jacksons leven, van drugshandel in South Jamaica tot de negen kogels die hij in 2000 overleefde en het zakelijk succes dat daarna kwam, en breidt van daaruit uit naar historische figuren als Napoleon en Socrates.</p><p>De rode draad is angst, en de stelling dat wie haar onder ogen ziet in plaats van eromheen leeft, een voorsprong heeft op wie haar vermijdt. Het boek staat in dezelfde reeks als Greenes eerdere wetten-boeken maar leunt zwaarder op één levensverhaal dan op verspreide geschiedenis.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>macht</li><li>angst</li><li>autobiografie</li><li>strategie</li><li>hiphop</li><li>geschiedenis</li><li>zelfvertrouwen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="250"><a href="250.html">The 48 Laws of Power</a>. De wet uit deze titel presenteert zich als voorwaarde onder de achtenveertig wetten van dit eerdere boek; wie ze naast elkaar leest ziet dat Greenes methode van historische portretten dezelfde blijft, ook met een co-auteur.</li>
+          <li value="258"><a href="258.html">The Laws of Human Nature</a>. Geeft de psychologische onderbouwing waar dit boek als toepassing op leunt: waarom mensen op angst en op de blik van anderen reageren zoals ze doen.</li>
+          <li value="320"><a href="320.html">Mastery</a>. Greenes eigen uitwerking van het meesterschap-hoofdstuk uit dit boek, drie jaar later en zonder de biografie van een co-auteur als kader.</li>
+          <li value="229"><a href="229.html">Can't Hurt Me</a>. Goggins vertelt een vergelijkbaar verhaal van armoede naar zelfdiscipline, maar zonder Greenes historische apparaat en zonder mede-auteur.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

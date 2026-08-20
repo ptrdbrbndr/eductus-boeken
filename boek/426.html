@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super Thinking &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Weinberg en McCann betogen dat een beperkt aantal terugkerende denkmodellen, ontleend aan vakgebieden die op het eerste gezicht weinig met elkaar te maken…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-426">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">426 &middot; Gewoontes en denken</p>
+    <h1>Super Thinking</h1>
+    <p class="lede">Gabriel Weinberg en Lauren McCann, 2019</p>
+    <p class="stats">
+      <span><b>1646</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="426"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Weinberg en McCann betogen dat een beperkt aantal terugkerende denkmodellen, ontleend aan vakgebieden die op het eerste gezicht weinig met elkaar te maken hebben, in vrijwel elke situatie bruikbaar is en dat wie er genoeg van kent minder vaak dezelfde fout herhaalt. Het boek stelt zich daarmee niet op als een theorie over hoe mensen denken, maar als een verzameling gereedschap dat op vrijwel elk probleem is toe te passen, van een individuele beslissing tot het besturen van een organisatie. De keerzijde van die breedte is dat het boek nauwelijks onderscheid maakt tussen een streng getoetste wet en een populaire vuistregel: beide krijgen dezelfde bladzijde en dezelfde toon.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Minder vaak ongelijk hebben</h3>
+      <p>Het eerste hoofdstuk behandelt modellen om redeneerfouten te herkennen voordat ze tot een verkeerde beslissing leiden. Eerste principes houdt in dat een probleem wordt teruggebracht tot de kleinste aannames waarvan de juistheid vaststaat, in plaats van voort te bouwen op een bestaande maar ongetoetste gewoonte. Ockhams scheermes stelt de eenvoudigste verklaring voorop die de feiten dekt, en Hanlons scheermes waarschuwt tegen het toeschrijven aan kwade opzet van wat net zo goed slordigheid kan zijn.</p>
+      <p>Daarnaast bespreken de auteurs bevestigingsbias, de neiging om nieuwe informatie zo te lezen dat ze een bestaande overtuiging bevestigt, en de filterbubbel, waarin algoritmes die neiging versterken door vooral te tonen wat een gebruiker al gelooft. Als tegenwicht noemen ze de advocaat van de duivel: het bewust innemen van de tegenpositie om een eigen redenering te toetsen.</p>
+      <h3>Wat er mis kan gaan</h3>
+      <p>Het tweede hoofdstuk gaat over onbedoelde gevolgen. De tragedie van de meent beschrijft hoe een gedeelde hulpbron uitgeput raakt zodra elk individu haar naar eigen belang gebruikt zonder rekening te houden met het geheel, en het principaal-agentprobleem beschrijft hoe iemand die voor een ander handelt, zoals een bestuurder voor aandeelhouders, zijn eigen belang kan laten meewegen ten koste van wie hij vertegenwoordigt.</p>
+      <p>De wet van Goodhart stelt dat een maatstaf die tot doel wordt gemaakt, ophoudt een goede maatstaf te zijn, omdat mensen zich op het meten gaan richten in plaats van op de onderliggende zaak. De wet van Murphy, dat wat mis kan gaan ook mis zal gaan, gebruiken de auteurs niet als grap maar als aansporing om vooraf na te denken over foutmarges en reservescenario's.</p>
+      <h3>Tijd besteden</h3>
+      <p>Het derde hoofdstuk gaat over prioriteren. Het beginsel van Pareto stelt dat een klein deel van de inspanningen doorgaans het grootste deel van het resultaat oplevert, en opportuniteitskosten wijzen erop dat elke keuze de waarde van het beste alternatief kost, ook als dat alternatief nooit expliciet wordt overwogen.</p>
+      <p>De verzonken-kostenfout beschrijft de neiging om door te gaan met iets omdat er al tijd of geld in is gestoken, ook als dat eerdere bedrag niet meer terug te halen is en dus geen rol zou moeten spelen in de beslissing om door te gaan. Verlies-aversie, de sterkere emotionele impact van een verlies dan van een even grote winst, verklaart volgens de auteurs waarom die fout zo hardnekkig is.</p>
+      <h3>Systemen die zichzelf voeden</h3>
+      <p>Het vierde hoofdstuk ontleent modellen aan de natuurkunde en de biologie om te beschrijven hoe organisaties en gewoonten zich gedragen. Het vliegwiel staat voor een systeem dat aanvankelijk veel kracht kost om in beweging te krijgen, maar dat daarna zijn eigen momentum aanhoudt, en kritieke massa beschrijft het punt waarop een groeiend systeem zichzelf verder voortstuwt zonder extra externe duw.</p>
+      <p>Entropie, ontleend aan de thermodynamica, staat hier voor de neiging van elk systeem om zonder onderhoud te vervallen tot wanorde, en de technologie-adoptielevenscyclus beschrijft hoe een nieuw product achtereenvolgens vernieuwers, vroege gebruikers, de meerderheid en achterblijvers bereikt, met een kloof daartussen die niet elk product overbrugt.</p>
+      <h3>Statistiek en bedrog</h3>
+      <p>Het vijfde hoofdstuk waarschuwt voor de manieren waarop cijfers misleiden. Correlatie is geen oorzakelijk verband: twee grootheden die samen bewegen, hoeven elkaar niet te veroorzaken, en kunnen allebei het gevolg zijn van een derde factor. Overlevingsbias ontstaat wanneer alleen de succesvolle gevallen zichtbaar blijven, zoals bedrijven die een crisis overleefden, terwijl de mislukte gevallen uit het zicht verdwijnen en zo het beeld van wat succes verklaart vertekenen.</p>
+      <p>Selectiebias beschrijft een steekproef die door de manier van verzamelen al bevooroordeeld is voordat er iets gemeten wordt, en statistische significantie geeft aan hoe onwaarschijnlijk het is dat een gevonden verschil op toeval berust, zonder op zichzelf iets te zeggen over hoe belangrijk dat verschil in de praktijk is.</p>
+      <h3>Beslissen en onderhandelen</h3>
+      <p>De hoofdstukken zes en zeven behandelen respectievelijk individuele beslissingen en situaties met meerdere partijen. Een beslisboom brengt de mogelijke keuzes en hun gevolgen in kaart, en het zwarte-zwaanscenario van een gebeurtenis die extreem onwaarschijnlijk leek totdat ze zich voordeed, is reden om plannen te toetsen op wat ze niet voorzien in plaats van alleen op wat ze wel voorzien.</p>
+      <p>In het hoofdstuk over conflict bespreken de auteurs het dilemma van de gevangene, waarin twee partijen beter af zouden zijn met samenwerking maar toch voor eigen belang kiezen uit wantrouwen in de ander, naast de overtuigingsprincipes van de psycholoog Robert Cialdini: wederkerigheid, sociale bewijskracht, schaarste en autoriteit als hefbomen waarmee de ene partij de andere beïnvloedt.</p>
+      <h3>Mensen en markt</h3>
+      <p>De laatste twee hoofdstukken gaan over het aansturen van mensen en het opbouwen van een onderneming. Het Peter-principe stelt dat iemand in een hiërarchie wordt bevorderd tot op het niveau waarop hij niet langer competent is, omdat promotie beloont wat iemand tot dan toe deed en niet wat de nieuwe functie vraagt, en het Dunning-Kruger-effect beschrijft hoe beginners hun eigen kunnen structureel overschatten terwijl gevorderden het eerder onderschatten.</p>
+      <p>Bij het bouwen van een bedrijf noemen de auteurs de slotgracht, het duurzame concurrentievoordeel dat een onderneming tegen navolgers beschermt, en disruptieve innovatie, waarbij een aanvankelijk eenvoudiger en goedkoper product een gevestigde markt van onderaf verovert doordat gevestigde partijen de laagste marktsegmenten links laten liggen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Eerste principes</td><td>Een probleem terugbrengen tot de kleinste aannames waarvan de juistheid vaststaat, in plaats van voort te bouwen op een ongetoetste gewoonte.</td></tr>
+          <tr><td class="term">Ockhams scheermes</td><td>Bij twee verklaringen die de feiten even goed dekken, verdient de eenvoudigste de voorkeur.</td></tr>
+          <tr><td class="term">Hanlons scheermes</td><td>Schrijf iets niet toe aan kwade opzet als slordigheid of onwetendheid het net zo goed verklaren.</td></tr>
+          <tr><td class="term">De wet van Goodhart</td><td>Een maatstaf die tot doel wordt gemaakt, houdt op een goede maatstaf te zijn, omdat mensen op het meten gaan sturen.</td></tr>
+          <tr><td class="term">De verzonken-kostenfout</td><td>De neiging om door te gaan met iets vanwege reeds gemaakte kosten, terwijl die kosten niet meer terug te halen zijn.</td></tr>
+          <tr><td class="term">Het vliegwiel</td><td>Een systeem dat aanvankelijk veel kracht kost om in beweging te krijgen, maar daarna zijn eigen momentum aanhoudt.</td></tr>
+          <tr><td class="term">Overlevingsbias</td><td>Een beeld van succes dat vertekend raakt doordat alleen de succesvolle gevallen zichtbaar blijven en de mislukte gevallen uit het zicht verdwijnen.</td></tr>
+          <tr><td class="term">Het Peter-principe</td><td>Iemand in een hiërarchie wordt bevorderd tot op het niveau waarop hij niet langer competent is.</td></tr>
+          <tr><td class="term">De slotgracht</td><td>Het duurzame concurrentievoordeel dat een onderneming beschermt tegen navolgers die haar product simpelweg kopiëren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is geen verslag van eigen onderzoek maar een naslagwerk dat bestaand werk uit uiteenlopende vakgebieden bijeenbrengt: speltheorie gaat terug op von Neumann en Schelling, de overtuigingsprincipes op decennialang onderzoek van Cialdini, en de statistische begrippen zijn vaststaand studiemateriaal. De autoriteit van het boek ligt in de juistheid van de weergave van elk model, niet in nieuw bewijs.</p>
+      <p>Weinberg bouwde als oprichter van DuckDuckGo een eigen bedrijf op, en McCann ontwierp bijna tien jaar lang klinische trials bij GlaxoSmithKline; die achtergrond verklaart waarom het boek sterk is in het combineren van bedrijfskundige en statistische modellen, en minder diep gaat op filosofische of geesteswetenschappelijke tradities.</p>
+      <p>Met ruim driehonderd modellen op iets meer dan vierhonderd bladzijden krijgt elk model gemiddeld een bladzijde of twee. Dat is genoeg om een model te herkennen zodra het zich in de praktijk voordoet, maar te weinig om de grenzen en uitzonderingen ervan te doorgronden; daarvoor verwijzen de auteurs zelf naar de oorspronkelijke bronnen in de eindnoten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek behandelt een strikt statistisch begrip als significantie, een economische wet als die van Goodhart, en een informele bedrijfsterm als de slotgracht in dezelfde toon en op dezelfde bladzijde-omvang, zonder de lezer te laten zien welk van de drie op harde toetsing rust en welk vooral een handige samenvatting van ervaring is.</p>
+      <p>De breedte van driehonderd modellen is tegelijk de zwakte van het boek: wie het van kaft tot kaft leest, onthoudt labels voor verschijnselen zonder de oefening te krijgen om te herkennen wanneer een model wel en wanneer het niet van toepassing is, en dat onderscheid is precies waar goed gebruik van een denkmodel om draait.</p>
+      <p>De vorm, met korte hoofdstukken, vette kernbegrippen en een managementboek-achtige toon, past oncomfortabel bij bronnen als speltheorie en klinische statistiek die in hun oorspronkelijke context met veel meer voorbehoud worden gebracht dan hier het geval is.</p>
+      <p>Ten slotte is de selectie van modellen zelf een keuze van de auteurs, gekleurd door hun eigen achtergrond in technologie en statistiek: modellen uit bijvoorbeeld de rechtsgeleerdheid of de antropologie komen nauwelijks aan bod, wat de indruk van een volledig systeem wekt terwijl het om een persoonlijke selectie gaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf bij een concrete beslissing op welk van de modellen uit dit boek relevant is, in plaats van de lijst uit je hoofd te leren.</li>
+        <li>Ga bij een opvallende 'wet' of 'principe' na of de bron een getoetst onderzoek is of een vuistregel uit de praktijk, en behandel beide niet hetzelfde.</li>
+        <li>Gebruik het register achterin als naslagwerk bij een specifiek probleem, niet als leesboek van voor naar achter.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Super Thinking: The Big Book of Mental Models</i> (Portfolio/Penguin Random House, 2019); in het Verenigd Koninkrijk verscheen het als <i>Super Thinking: Upgrade Your Reasoning and Make Better Decisions with Mental Models</i> (Penguin Business). Geen Nederlandse vertaling gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Weinberg, oprichter van de zoekmachine DuckDuckGo, en McCann, statistica en voormalig ontwerper van klinische trials bij GlaxoSmithKline, verzamelden voor dit boek meer dan driehonderd denkmodellen uit vakgebieden als natuurkunde, biologie, statistiek, speltheorie en ondernemerschap. Het boek presenteert zichzelf niet als nieuwe theorie maar als naslagwerk: elk model krijgt een korte, feitelijke uitleg met een voorbeeld, verdeeld over negen hoofdstukken die elk een ander type probleem behandelen.</p><p>De onderliggende aanname, ontleend aan de belegger Charlie Munger, is dat één model altijd een blinde vlek overhoudt en dat pas een combinatie van modellen uit verschillende vakgebieden een situatie van genoeg kanten laat zien.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>denkmodellen</li><li>besluitvorming</li><li>gedragseconomie</li><li>strategie</li><li>naslagwerk</li><li>statistiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman werkt een deel van de statistische denkfouten die hier kort worden aangestipt in veel groter detail uit, met de eigen onderzoeksdata erbij.</li>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Dobelli behandelt een vergelijkbare catalogus van denkfouten in kortere, losstaande hoofdstukken zonder de bredere modellenverzameling van dit boek.</li>
+          <li value="270"><a href="270.html">Principles</a>. Dalio bouwt een eigen stelsel van beslisregels op vanuit de beleggingspraktijk, waar dit boek modellen uit bestaande vakgebieden verzamelt.</li>
+          <li value="349"><a href="349.html">Range</a>. Epstein onderbouwt met onderzoek waarom breed inzetbare kennis uit meerdere vakgebieden, het uitgangspunt van dit boek, in de praktijk vaak beter werkt dan vroege specialisatie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

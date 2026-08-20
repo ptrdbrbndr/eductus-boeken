@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Total Money Makeover &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ramsey stelt dat schulden aflossen en vermogen opbouwen vooral een kwestie van gedrag zijn en pas op de tweede plaats een rekensom. Zijn zeven baby steps…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-464">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">464 &middot; Geld en ondernemen</p>
+    <h1>The Total Money Makeover</h1>
+    <p class="lede">Dave Ramsey, 2003</p>
+    <p class="stats">
+      <span><b>1633</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="464"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ramsey stelt dat schulden aflossen en vermogen opbouwen vooral een kwestie van gedrag zijn en pas op de tweede plaats een rekensom. Zijn zeven baby steps leiden een huishouden in vaste volgorde van een kleine buffer via schuldenvrij naar pensioen en vermogen, en hij houdt aan die volgorde vast ook wanneer een andere aanpak wiskundig voordeliger zou zijn. Zijn stelling is dat mensen niet vooral falen door gebrek aan kennis over rente en rendement, maar door gewoonten en overtuigingen over geld die met een strak stappenplan en aanhoudende druk te doorbreken zijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het eigen faillissement als vertrekpunt</h3>
+      <p>Ramsey vertelt zijn eigen geschiedenis als het fundament van het boek. Op zijn zesentwintigste had hij met geleend geld een vastgoedportefeuille van ongeveer vier miljoen dollar opgebouwd. Toen de bank die zijn kortlopende leningen had verstrekt werd verkocht, eiste de nieuwe eigenaar in korte tijd ruim een miljoen dollar terug, en een tweede geldschieter volgde met een claim van nog eens acht ton. In 1988, op zijn achtentwintigste, ging hij failliet.</p>
+      <p>Volgens zijn eigen weergave stond op de dag van het faillissement een deurwaarder voor de deur om ook het ledikantje van zijn baby mee te nemen. Die episode gebruikt hij niet als anekdote maar als bewijsstuk: schuld voelde voor hem als een neutraal instrument tot het moment dat een geldschieter besloot de voorwaarden te wijzigen, en daaruit trekt hij de les die het hele boek draagt, dat schuld altijd de macht bij de uitlener legt.</p>
+      <h3>Baby Step 1 en 2: de kleine buffer en de sneeuwbal</h3>
+      <p>De eerste stap is het opzijzetten van duizend dollar als startbuffer, bewust klein gehouden zodat het snel lukt. De tweede stap is het aflossen van alle schulden behalve de hypotheek, in een vaste volgorde: van de kleinste schuld naar de grootste, ongeacht de rente die erop staat. Dat is de sneeuwbalmethode waar het boek het bekendst om is.</p>
+      <p>Ramsey erkent zelf dat het rekenkundig voordeliger is om eerst de schuld met de hoogste rente af te lossen, de zogeheten lawinemethode. Zijn verdediging is dat een schuldenaar niet in de eerste plaats een rekenprobleem heeft maar een motivatieprobleem, en dat het snel wegstrepen van een hele schuld, ook een kleine, het doorzettingsvermogen levert om door te gaan tot de laatste schuld weg is.</p>
+      <h3>Baby Step 3 tot 7: van reserve naar vermogen</h3>
+      <p>Zodra alle schulden weg zijn, groeit de startbuffer in stap drie uit tot drie tot zes maanden aan vaste lasten. Stap vier is vijftien procent van het huishoudinkomen beleggen voor het pensioen, stap vijf een studiefonds voor de kinderen, en stap zes het versneld aflossen van de hypotheek.</p>
+      <p>Stap zeven, vermogen opbouwen en weggeven, heeft geen eindpunt: wie hier is aanbeland heeft volgens Ramsey de vrijheid om te geven zonder de eigen zekerheid in gevaar te brengen. Elke stap veronderstelt dat de vorige volledig is afgerond voordat de volgende begint; parallel sparen en aflossen wijst hij nadrukkelijk af.</p>
+      <h3>Gazelle intensity: schulden aflossen als overlevingsdrift</h3>
+      <p>Ramsey noemt de houding die de sneeuwbal moet aandrijven "gazelle intensity", naar het beeld van een gazelle die een op vlees beluste roofdier op de hielen heeft: geen halve inzet, geen uitstel, wel bijbanen, verkoop van bezittingen en een tijdelijk uiterst sober leven tot de schuld weg is.</p>
+      <p>Die urgentie is bedoeld als tijdelijk, niet als permanente levensstijl, en Ramsey benadrukt dat de intensiteit stopt zodra stap twee is afgerond. Het boek behandelt de periode van gazelle intensity als een investering in vrijheid later, vergelijkbaar met een sprint die na de finish niet wordt volgehouden.</p>
+      <h3>Regels over schuld die geen uitzondering kennen</h3>
+      <p>Ramsey behandelt een reeks vormen van schuld die in de gangbare financiële wereld als normaal gelden en wijst ze stuk voor stuk af: creditcards, ook als ze volledig worden afbetaald, autoleningen, studieleningen en hypotheekconstructies met een lage aanbetaling. Zijn norm voor een hypotheek is een vaste lening van vijftien jaar met een maandlast van niet meer dan een kwart van het netto-inkomen.</p>
+      <p>De reden die hij geeft is niet alleen rekenkundig maar gedragsmatig: elke vorm van beschikbaar krediet verlaagt volgens hem de drempel om uit te geven, ook bij mensen die zichzelf voor gedisciplineerd houden, en de enige zekere manier om dat effect te vermijden is het krediet zelf weg te nemen.</p>
+      <h3>Getuigenissen en de schuldenvrij-gil</h3>
+      <p>Het boek is doorspekt met korte verhalen van luisteraars van Ramseys radioprogramma die de stappen hebben doorlopen, van een stel dat een tweede baan nam om een studieschuld af te lossen tot een gezin dat het huis verkocht om onder een te grote hypotheek uit te komen. Op zijn show bellen luisteraars die schuldenvrij zijn geworden om dat live uit te roepen, de zogeheten "debt-free scream", en die traditie werkt in het boek door als bewijs dat het stappenplan bij gewone mensen aanslaat.</p>
+      <p>De toon is die van een prediker meer dan die van een adviseur: kort, direct, met morele stelligheid over wat verstandig gedrag is. Dat maakt het boek makkelijk te volgen en tegelijk weinig geneigd tot nuance over de omstandigheden waarin lezers met dit plan aan de slag gaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Baby Steps</td><td>De zeven vaste stappen waarlangs een huishouden van schuld naar vermogen beweegt, elk pas te beginnen als de vorige volledig is afgerond.</td></tr>
+          <tr><td class="term">Sneeuwbalmethode</td><td>Schulden aflossen van de kleinste naar de grootste, ongeacht de rente, om snel zichtbare overwinningen te boeken.</td></tr>
+          <tr><td class="term">Lawinemethode</td><td>Het rekenkundig voordeligere alternatief, schulden aflossen van de hoogste naar de laagste rente, dat Ramsey afwijst omdat het minder snel motiveert.</td></tr>
+          <tr><td class="term">Gazelle intensity</td><td>De tijdelijke, uiterste inzet waarmee Ramsey aanraadt schulden af te lossen, vergeleken met een gazelle die op de vlucht is voor een roofdier.</td></tr>
+          <tr><td class="term">Startbuffer</td><td>De eerste duizend dollar die apart wordt gezet voordat het schuldaflossen begint, bewust klein gehouden voor snel resultaat.</td></tr>
+          <tr><td class="term">Volledige noodreserve</td><td>Drie tot zes maanden aan vaste lasten die pas na het wegwerken van alle schulden wordt opgebouwd.</td></tr>
+          <tr><td class="term">Debt-free scream</td><td>Het live uitroepen op Ramseys radioprogramma door luisteraars die hun laatste schuld hebben afbetaald.</td></tr>
+          <tr><td class="term">Financial Peace University</td><td>De cursus die Ramsey naast het boek aanbiedt en waarnaar hij regelmatig verwijst als vervolgstap.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat vrijwel volledig uit Ramseys eigen ervaring en uit getuigenissen van luisteraars van zijn radioprogramma. Er staat geen onderzoek in het boek naar het percentage mensen dat het plan daadwerkelijk voltooit, en de voorbeelden zijn geselecteerd omdat ze slaagden, niet als steekproef.</p>
+      <p>Voor het kernargument achter de sneeuwbalmethode, dat kleine overwinningen de motivatie voeden om door te gaan, bestaat wel later academisch onderzoek. David Gal en Blakeley McShane publiceerden in 2012 in het Journal of Marketing Research een studie op basis van gegevens van zesduizend mensen in een schuldsaneringstraject, waaruit bleek dat het aantal afgesloten rekeningen de kans op volledige schuldaflossing beter voorspelde dan het bedrag dat daarbij werd afgelost. Dat onderzoek gaat over schuldsanering via een extern traject en niet over Ramseys methode zelf, maar het ondersteunt wel de gedragsredenering waarop de sneeuwbalmethode stoelt.</p>
+      <p>Zijn aanname dat een belegger gemiddeld twaalf procent rendement per jaar kan verwachten, gebruikt hij herhaaldelijk om de baby steps door te rekenen. Dat cijfer ligt boven het langjarig gemiddelde van de Amerikaanse aandelenmarkt na inflatie, dat door de meeste analisten dichter bij zeven tot tien procent wordt gelegd, en het is voor kritische lezers het meest aangevochten getal in het boek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar is precies het punt dat Ramsey zelf toegeeft: de sneeuwbalmethode is niet de rekenkundig voordeligste manier om van schuld af te komen. Wie zijn duurste schuld laat liggen omdat die toevallig ook de grootste is, betaalt in de tussentijd meer rente dan nodig, en bij een groot verschil in rentepercentages kan dat over de looptijd flink oplopen. Ramseys weerwoord, dat de meeste mensen de lawinemethode nooit afmaken en de sneeuwbalmethode wel, is aannemelijk maar in het boek zelf niet met eigen cijfers onderbouwd.</p>
+      <p>Zijn aanname van twaalf procent rendement wordt door financieel planners breed bekritiseerd als te optimistisch, zeker zodra beheerkosten, belasting en inflatie worden meegerekend. Omdat die aanname de tijdlijnen in het boek bepaalt waarin lezers hun pensioen of studiefonds zien groeien, werkt een te hoog verwacht rendement door in te optimistische verwachtingen over elke volgende stap.</p>
+      <p>Het volgorde-dogma van de baby steps houdt weinig rekening met individuele omstandigheden. Wie een werkgever heeft die pensioenbijdragen matcht, laat bij het strikt volgen van de stappen gratis geld liggen zolang stap twee nog niet is afgerond, en het volledige verbod op elke vorm van krediet, ook een creditcard die maandelijks wordt afbetaald voor de punten of de fraudebescherming, gaat voorbij aan huishoudens die daar wel verstandig mee omgaan.</p>
+      <p>Ten slotte is de toon van het boek moraliserend: wie zich niet aan het plan houdt, wordt weggezet als ongedisciplineerd, zonder veel ruimte voor structurele oorzaken van schuld zoals medische kosten, een laag inkomen of een woningmarkt die voor een aanbetaling van twintig procent geen ruimte laat. Het boek spreekt tot een gezin met een regelmatig inkomen dat vooral zijn gedrag moet bijstellen, en minder tot huishoudens waarvoor dat gedrag niet de kern van het probleem is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zet eerst duizend dollar apart voordat je aan schulden begint af te lossen, ook als dat rekenkundig niet de snelste weg is.</li>
+        <li>Rangschik je schulden van klein naar groot en los ze in die volgorde af, met het minimum op de rest.</li>
+        <li>Ga na welke lopende schuld je toestaat waar geen uitzondering voor zou moeten gelden, zoals een creditcard die je maandelijks voor het gemak gebruikt.</li>
+        <li>Reken zelf na wat een lager verwacht rendement dan twaalf procent betekent voor je pensioen- en studiefondsplanning.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>A Proven Plan for Financial Fitness</i> (Thomas Nelson, 2003, ca. 240 blz.); herziene en uitgebreide drukken verschenen in 2007, 2013 en als "Classic Edition" in 2022. Geen Nederlandse vertaling; het boek circuleert in het Engels.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ramsey beschrijft een vast stappenplan van zeven "baby steps" waarmee een huishouden van schulden naar vermogen beweegt: van een kleine startbuffer via het aflossen van alle schulden behalve de hypotheek naar een volledige noodreserve, pensioensparen, een studiefonds voor de kinderen, een afbetaalde hypotheek en ten slotte vermogen opbouwen en weggeven. De volgorde ligt vast en Ramsey staat geen uitzonderingen toe, ook niet als een andere volgorde rekenkundig voordeliger zou zijn.</p><p>Het boek is doordrenkt van zijn eigen geschiedenis: op zijn zesentwintigste bezat hij een vastgoedportefeuille van enkele miljoenen dollars, twee jaar later ging hij failliet toen banken zijn kortlopende leningen opeisten. Die ervaring is de reden dat hij schuld niet als neutraal gereedschap behandelt maar als iets om radicaal te vermijden, en het boek leunt zwaar op getuigenissen van luisteraars van zijn radioprogramma die hun schuld hebben afbetaald.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geld</li><li>schulden</li><li>budgetteren</li><li>sparen</li><li>financiële-discipline</li><li>Verenigde-Staten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="159"><a href="159.html">Broke Millennial</a>. Lowry behandelt hetzelfde beginpunt van schuld en spaargewoonte, maar met meer ruimte voor de omstandigheden van individuele lezers dan Ramseys ene vaste volgorde toelaat.</li>
+          <li value="233"><a href="233.html">I Will Teach You to Be Rich</a>. Sethi vertrekt vanuit dezelfde wens om geldzaken te automatiseren, maar staat naast zijn eigen systeem ook andere wegen toe.</li>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel onderbouwt met historisch materiaal waarom gedrag bij geld zwaarder weegt dan rekenkunde, het argument dat Ramsey vooral uit eigen ervaring put.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

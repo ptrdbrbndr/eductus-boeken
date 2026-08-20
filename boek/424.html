@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Predictably Irrational &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ariely betoogt dat de irrationele keuzes die mensen maken een vast patroon volgen en zich daardoor laten voorspellen zodra de onderliggende mechanismen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-424">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">424 &middot; Gewoontes en denken</p>
+    <h1>Predictably Irrational</h1>
+    <p class="lede">Dan Ariely, 2008</p>
+    <p class="stats">
+      <span><b>1891</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="424"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ariely betoogt dat de irrationele keuzes die mensen maken een vast patroon volgen en zich daardoor laten voorspellen zodra de onderliggende mechanismen bekend zijn: hoe een prijs relatief wordt beoordeeld, hoe nul een andere aantrekkingskracht heeft dan een laag bedrag, hoe bezit een voorwerp meteen meer waard maakt voor wie het al heeft. Het boek behandelt de klassieke aanname dat mensen hun eigen belang koel afwegen als onvolledig: irrationaliteit is systematisch, en wie de patronen kent, kan ze inzetten of erop anticiperen. Wie vasthoudt aan het beeld van de rekenende burger moet verklaren waarom dezelfde afwijkingen bij vrijwel elke proefpersoon in dezelfde richting optreden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een brandwondenafdeling als aanleiding</h3>
+      <p>Ariely raakte als achttienjarige lid van een jeugdbeweging in Israël ernstig verbrand toen een magnesiumfakkel explodeerde. Zeventig procent van zijn lichaam liep derdegraads brandwonden op, en de behandeling die volgde duurde jaren, met dagelijkse verbandwissels die pijnlijker waren dan de wonden zelf.</p>
+      <p>Verplegers verwijderden het verband snel en met veel pijn tegelijk, omdat ze aannamen dat een korte, hevige pijn beter te verdragen was dan een lange, milde. Ariely, die na zijn behandeling zelf onderzoek ging doen naar pijnbeleving, vond het tegendeel: langzamer verband wisselen deed patiënten minder lijden. Die ervaring, dat een aanname over menselijk gedrag onjuist kan zijn zonder dat iemand haar ooit toetst, vormt het motief van de rest van het boek.</p>
+      <h3>Relativiteit en het lokaas</h3>
+      <p>Ariely laat aan zijn studenten drie abonnementen op <i>The Economist</i> zien: alleen online voor 59 dollar, alleen op papier voor 125 dollar, en papier plus online eveneens voor 125 dollar. Zestien procent kiest voor online, niemand voor papier alleen, en vierentachtig procent voor de combinatie. Haalt hij de papieren optie weg, dan kiest tweederde alsnog voor online. De optie die niemand wilde, bepaalde toch de uitkomst: ze functioneerde als lokaas waarmee de combinatie ineens een koopje leek.</p>
+      <p>Een tweede experiment laat zien hoe een prijs eenmaal vastgesteld blijft doorwerken. Studenten schrijven de laatste twee cijfers van hun sofinummer op en bieden vervolgens op wijn, chocolade en een toetsenbord. Studenten met hoge cijfers boden stelselmatig meer dan studenten met lage cijfers, terwijl het sofinummer niets met de waarde van de spullen te maken had. Ariely noemt dit arbitraire coherentie: een willekeurig eerste getal werkt daarna als anker voor alle volgende oordelen over dezelfde categorie.</p>
+      <h3>De aantrekkingskracht van nul</h3>
+      <p>In een kraam op een winkelcentrum verkoopt Ariely een Lindt-truffel voor vijftien dollarcent en een Hershey's Kiss voor één cent. Tachtig procent van de klanten kiest de duurdere, betere truffel, want het prijsverschil is klein. Verlaagt hij beide prijzen met een cent, zodat de truffel veertien cent kost en de Kiss gratis is, dan kiest tachtig procent juist de Kiss, ook al blijft het prijsverschil precies hetzelfde ene dollarcent.</p>
+      <p>Zijn verklaring is dat nul geen laag bedrag is maar een andere categorie: bij een prijs, hoe klein ook, weegt iemand de kosten tegen de baten af, terwijl gratis dat hele afwegingsproces uitschakelt en de aankoop een zekerheid zonder nadeel lijkt.</p>
+      <h3>Sociale normen tegenover marktnormen</h3>
+      <p>Ariely bespreekt een onderzoek onder gepensioneerde advocaten van de Amerikaanse ouderenorganisatie AARP. Gevraagd om ouderen te helpen tegen een verlaagd tarief van dertig dollar per uur, weigerden de meesten. Gevraagd om diezelfde hulp gratis te geven, zegden veel meer advocaten toe. Zodra er geld in het spel komt, redeneert iemand als op een markt en weegt hij het bedrag af tegen zijn tijd; zonder geld redeneert hij vanuit een sociale norm van behulpzaamheid, en die norm levert meer op dan een klein bedrag.</p>
+      <p>Hetzelfde mechanisme verklaart waarom het aanbieden van geld voor een etentje bij de schoonmoeder een belediging is terwijl een fles wijn wordt gewaardeerd: geld verplaatst de relatie van het sociale domein naar het marktdomein, en die verplaatsing is niet zonder kosten terug te draaien.</p>
+      <h3>Opwinding, uitstel en zelfcontrole</h3>
+      <p>In een experiment aan de universiteit van Californië in Berkeley beantwoordden vijfendertig mannelijke studenten vragen over hun bereidheid tot riskant of grensoverschrijdend seksueel gedrag, eerst in kalme toestand en later terwijl ze zelf voor seksuele opwinding zorgden. In opgewonden toestand schatten de deelnemers zichzelf aanzienlijk eerder bereid tot gedrag dat ze in kalme toestand afwezen. Ariely trekt daaruit de conclusie dat mensen in een emotionele toestand hun eigen gedrag in een andere toestand systematisch verkeerd voorspellen.</p>
+      <p>Een tweede experiment, met studenten van een cursus productontwerp aan het MIT, onderzocht uitstelgedrag. Studenten die zelf een spreiding van deadlines voor drie opdrachten mochten kiezen, deden het slechter dan studenten aan wie de docent gelijkmatig gespreide deadlines oplegde, en beter dan studenten die alle vrijheid kregen en zelf één deadline aan het einde van het semester mochten kiezen. Wie zichzelf mag binden, doet dat dus wel, maar minder streng dan wanneer een ander de grens stelt.</p>
+      <h3>Bezit en het openhouden van deuren</h3>
+      <p>Elk jaar loot Duke University basketbaltickets onder studenten die weken in tenten hebben gekampeerd. Ariely en zijn collega Ziv Carmon vroegen loters die geen kaart wonnen wat ze maximaal wilden betalen, en loters die wel wonnen voor welk bedrag ze hun kaart zouden verkopen. De niet-winnaars noemden een mediaan van ongeveer 175 dollar, de winnaars een mediaan van ongeveer 2400 dollar, voor exact hetzelfde ticket. Het enige verschil tussen beide groepen was de uitslag van de loting, en toch veranderde die uitslag de waarde van het ticket in de ogen van de eigenaar met een factor veertien.</p>
+      <p>In een tweede experiment liet Ariely proefpersonen een computerspel spelen met drie deuren die na een tijd zonder bezoek dichtgingen en geld opleverden achter elke deur. Ook toen bekend was welke deur het meest opleverde, bleven spelers geld en tijd steken in het openhouden van de andere twee deuren, puur om de optie niet te verliezen. Beide experimenten laten zien dat mensen een prijs betalen om iets te behouden of open te houden, ook wanneer die keuze hen aantoonbaar iets kost.</p>
+      <h3>Verwachting en placebo</h3>
+      <p>In een proeflokaal van het MIT liet Ariely studenten bier proeven, één glas gewone Budweiser en één glas Budweiser met een druppel balsamico-azijn. Studenten die vooraf niet wisten welk glas de azijn bevatte, gaven het azijnbier vaak de voorkeur. Studenten die het van tevoren wel wisten, kozen bijna altijd voor het gewone bier, ook al proefden ze exact dezelfde vloeistof. De verwachting veranderde de smaakervaring zelf, niet alleen het oordeel achteraf.</p>
+      <p>Bij een placebo-experiment met pijnstillers kregen proefpersonen een nepmedicijn tegen elektrische schokken toegediend, voor de helft omschreven als een duur middel en voor de andere helft als een goedkoop. De duur omschreven placebo verminderde de pijn sterker, hoewel beide pillen identiek en werkzaam noch actief waren. Ariely plaatst dat naast de geschiedenis van de nepoperatie tegen angina pectoris uit de jaren vijftig, waarbij het dichtbinden van een borstslagader evenveel baat gaf als de operatie zelf: het geloof in een behandeling kan een deel van het effect ervan verklaren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Relativiteit</td><td>Mensen beoordelen de waarde van iets niet op zichzelf, maar in vergelijking met een nabijgelegen referentiepunt.</td></tr>
+          <tr><td class="term">Lokaasoptie</td><td>Een derde keuze die zelf oninteressant is, maar de keuze tussen de andere twee opties in een voorspelbare richting stuurt.</td></tr>
+          <tr><td class="term">Arbitraire coherentie</td><td>Een eerste prijs die willekeurig tot stand komt, werkt daarna consistent door als anker voor latere prijsoordelen in dezelfde categorie.</td></tr>
+          <tr><td class="term">Het nulkosteneffect</td><td>Gratis schakelt de gebruikelijke afweging tussen kosten en baten uit en levert een aantrekkingskracht op die niet in verhouding staat tot een laag bedrag.</td></tr>
+          <tr><td class="term">Sociale normen tegenover marktnormen</td><td>Handelingen die onder een norm van behulpzaamheid gebeuren, veranderen van karakter zodra er een geldbedrag aan wordt gekoppeld.</td></tr>
+          <tr><td class="term">Het bezitseffect</td><td>Zodra iemand iets bezit, waardeert hij het aanzienlijk hoger dan een vergelijkbare persoon die het nog niet bezit.</td></tr>
+          <tr><td class="term">Deuren openhouden</td><td>De neiging om tijd of geld te besteden aan het in stand houden van een optie, ook als die optie objectief niets meer oplevert.</td></tr>
+          <tr><td class="term">Het verwachtingseffect</td><td>Wat iemand van tevoren gelooft te zullen ervaren, verandert de ervaring zelf en niet alleen het oordeel erover.</td></tr>
+          <tr><td class="term">Placebo</td><td>Een werkeloze behandeling die door het geloof van de patiënt erin toch een meetbaar effect op klachten kan hebben.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt vrijwel volledig op gecontroleerde experimenten die Ariely zelf of samen met collega's uitvoerde, meestal met studenten van MIT, Berkeley of Duke als proefpersonen. Dat levert interne geldigheid op: de omstandigheden zijn gestandaardiseerd en de uitkomsten herhalen zich binnen dezelfde populatie. Het levert tegelijk een smalle steekproef op, want studenten aan elite-universiteiten zijn jong, hoogopgeleid en niet representatief voor de bevolking als geheel.</p>
+      <p>Sommige experimenten zijn groot en robuust, zoals de loting om basketbaltickets, waarbij de aselecte toewijzing van de loting zelf als controlegroep dient. Andere zijn klein, zoals het opwindingsexperiment met vijfendertig mannelijke studenten die zelfgerapporteerde, hypothetische vragen beantwoordden, zonder vrouwelijke deelnemers en zonder gedrag dat werkelijk werd waargenomen. Ariely generaliseert die uitkomst in het boek naar emotie in het algemeen, een stap die het experiment zelf niet dekt.</p>
+      <p>Van geen van de experimenten in dit boek is vastgesteld dat de onderliggende data gemanipuleerd zijn. Wel is relevant dat Ariely in 2021 in opspraak kwam rond een ander, later onderzoek: een veldstudie over eerlijkheid bij een verzekeraar, gepubliceerd in 2012 samen met onder anderen Francesca Gino, bleek volgens forensisch dataonderzoek van de blog Data Colada te steunen op gemanipuleerde gegevens. Harvard ontnam Gino later haar aanstelling wegens onderzoeksfraude in ander werk; Ariely ontkende zelf verantwoordelijkheid voor de manipulatie. Die zaak gaat niet over <i>Predictably Irrational</i>, maar ze is een reden om Ariely's latere claims over onderzoek, ook in vervolgboeken, niet zonder meer op gezag aan te nemen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de reikwijdte van de conclusies. Studenten van gerenommeerde Amerikaanse universiteiten zijn in gedragswetenschappelijk onderzoek een veelgebruikte maar smalle groep, en Ariely benoemt dat zelf zelden expliciet wanneer hij van een experiment naar een uitspraak over 'mensen' in het algemeen springt.</p>
+      <p>Het opwindingsexperiment is het meest kwetsbare onderdeel: vijfendertig deelnemers, allemaal mannen, zelfgerapporteerd, over hypothetisch gedrag. Dat een dergelijk experiment een heel hoofdstuk draagt over de invloed van emotie op besluitvorming in bredere zin, is een grotere stap dan de data toestaan.</p>
+      <p>Ariely schrijft toegankelijk en anekdotisch, met de statistische onderbouwing weggestopt in eindnoten. Dat maakt het boek leesbaar, maar moeilijk te controleren zonder die eindnoten apart op te zoeken.</p>
+      <p>Economen buiten de gedragseconomie wijzen erop dat sommige patronen ook te verklaren zijn als redelijke vuistregel onder onzekerheid: een anker gebruiken bij gebrek aan directe informatie is niet per definitie irrationeel, ook al is de uitkomst gevoelig voor een willekeurig startpunt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een keuze uit drie opties na of een van de drie er vooral staat om de andere twee aantrekkelijker te maken.</li>
+        <li>Noteer voordat je een bod doet of onderhandelt welk getal als eerste in het gesprek viel, en of dat getal iets met de werkelijke waarde te maken heeft.</li>
+        <li>Wees extra alert bij een aanbod dat gratis is in plaats van goedkoop: vraag of je het ook zou nemen tegen een klein bedrag.</li>
+        <li>Leg voor een grote uitgave of afspraak van tevoren een vaste regel vast, in plaats van te vertrouwen op je zelfbeheersing op het moment zelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Predictably Irrational: The Hidden Forces That Shape Our Decisions</i> (HarperCollins, 2008); in 2010 verscheen bij Harper Perennial een herziene en uitgebreide editie. Nederlands als <i>Volkomen onlogisch</i> bij Business Contact (2012, ISBN 9789047005599).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ariely, hoogleraar gedragseconomie, beschrijft een reeks laboratoriumexperimenten waarin proefpersonen keer op keer dezelfde afwijkingen van het rationele keuzemodel laten zien. Ze laten hun prijsoordeel sturen door een willekeurig eerste getal, ze kiezen anders zodra iets gratis is in plaats van goedkoop, en ze waarderen een voorwerp hoger zodra het van hen is. De rode draad is dat deze afwijkingen zich herhalen op een voorspelbare manier, wat ze onderscheidt van toevallige vergissingen.</p><p>Het boek opent met Ariely's eigen geschiedenis: als achttienjarige raakte hij ernstig verbrand bij een ongeluk met een magnesiumfakkel, en de jarenlange behandeling die volgde bracht hem bij vragen over pijn, keuze en gewoonte die de rest van het boek blijven terugkeren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gedragseconomie</li><li>psychologie</li><li>besluitvorming</li><li>prijzen</li><li>irrationaliteit</li><li>experimenten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman werkt het onderliggende onderscheid tussen twee denksystemen uit dat bij Ariely's experimenten steeds als verklaring meeloopt.</li>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Dobelli behandelt veel van dezelfde denkfouten in kortere vorm en zonder de eigen experimenten die Ariely wel aandraagt.</li>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini beschrijft vanuit de marketingpraktijk hoe sociale mechanismen als wederkerigheid bewust worden ingezet, waar Ariely vooral het lababoratoriumexperiment centraal stelt.</li>
+          <li value="69"><a href="69.html">Ruis</a>. Kahneman, Sibony en Sunstein onderzoeken een verwante bron van fouten, niet de systematische afwijking maar de willekeurige ruis tussen beoordelaars.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

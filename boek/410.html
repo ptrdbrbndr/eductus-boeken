@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>the hero with a thousand faces &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Campbell stelt dat alle heldenverhalen ter wereld, van scheppingsmythen tot sprookjes, in wezen één en hetzelfde verhaal navertellen, dat hij de monomythe…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-410">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">410 &middot; Brein en lichaam</p>
+    <h1>the hero with a thousand faces</h1>
+    <p class="lede">Joseph Campbell, 1949</p>
+    <p class="stats">
+      <span><b>1713</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="410"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Campbell stelt dat alle heldenverhalen ter wereld, van scheppingsmythen tot sprookjes, in wezen één en hetzelfde verhaal navertellen, dat hij de monomythe noemt: een held verlaat de vertrouwde wereld, doorstaat beproevingen in een gebied van bovennatuurlijke kracht, en keert terug met iets dat de eigen gemeenschap ten goede komt. Onder de duizend verschillende gezichten van Osiris, Boeddha, Prometheus, Mozes en talloze naamloze sprookjesfiguren herkent hij telkens dezelfde structuur van vertrek, initiatie en terugkeer. Die structuur is voor Campbell geen toevallige gelijkenis maar een uitdrukking van hetzelfde psychologische rijpingsproces dat zich in iedere mens afspeelt. Wie dat patroon overal aantreft, kan het lezen als aanwijzing voor een gedeelde menselijke psyche, of als het resultaat van een methode die vooral vindt wat zij vooraf al zocht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Eén verhaal, ontelbare vermommingen</h3>
+      <p>Campbell opent met de stelling dat mythen van over de hele wereld, ondanks grote verschillen in personages, goden en decors, telkens dezelfde onderliggende reis vertellen. De term monomythe leent hij van een enkel woord uit James Joyce's <i>Finnegans Wake</i>, en hij gebruikt hem om aan te geven dat achter de duizend gezichten van de held één en hetzelfde gezicht schuilgaat.</p>
+      <p>Het boek is geen geschiedenis van mythologie en geen overzicht per cultuur. Campbell haalt zijn voorbeelden door elkaar uit de Griekse, Egyptische, bijbelse, Indiase, Polynesische en Noord-Amerikaanse overlevering, juist omdat hij wil laten zien dat de volgorde van gebeurtenissen los van elke afzonderlijke cultuur hetzelfde blijft.</p>
+      <h3>Vertrek: de roep en de drempel</h3>
+      <p>De reis begint met wat Campbell de roep tot avontuur noemt: een gebeurtenis die de held uit zijn vertrouwde wereld haalt, vaak door toeval, een boodschapper of een dier dat de weg wijst. Wie de roep afslaat, blijft achter in stilstand; wie hem aanvaardt, ontmoet een figuur die bovennatuurlijke hulp biedt, een mentor of beschermer die hem uitrust voor wat komt.</p>
+      <p>Daarna volgt het oversteken van de drempel, bewaakt door een drempelwachter die de grens tussen de bekende wereld en het gebied van beproeving markeert. Vanaf dat punt gelden de gewone regels niet meer, en de held begeeft zich in wat Campbell het gebied van bovennatuurlijk wonder noemt.</p>
+      <h3>Initiatie: de weg van beproevingen</h3>
+      <p>In het tweede deel doorstaat de held een reeks beproevingen, ontmoet hij bondgenoten en verleiders, en bereikt hij een diepste punt, vaak in de vorm van een symbolische dood of een afdaling in een duistere ruimte. Op dat laagste punt vindt de belangrijkste ontmoeting plaats, met een vaderfiguur, een godin of een andere gestalte die de held de gave verschaft waarvoor de hele reis was ondernomen.</p>
+      <p>Campbell beschrijft die gave, de boon, wisselend als kennis, een voorwerp, onsterfelijkheid of eenvoudig inzicht, en benadrukt dat de vorm ervan per verhaal verschilt terwijl de functie steeds hetzelfde is: iets dat de held meeneemt terug naar de wereld waaruit hij vertrok.</p>
+      <h3>Terugkeer: de gave gebruiken</h3>
+      <p>Het derde deel behandelt de terugkeer, die volgens Campbell zelden vanzelf gaat. Sommige helden weigeren terug te keren en moeten worden gehaald of gejaagd; andere ontsnappen met de gave, achterna gezeten door de machten van het gebied dat zij verlaten. Pas met de terugkeer over de laatste drempel kan de held zijn gave ten dienste stellen van de gemeenschap waaruit hij vertrok.</p>
+      <p>De cyclus sluit met wat Campbell de vrijheid om te leven noemt, een staat waarin de held niet langer wordt voortgedreven door angst of verlangen maar in het gewone leven kan handelen vanuit wat hij onderweg heeft gevonden. Die laatste stap wordt in zijn boek het minst uitgewerkt, ook al noemt hij haar het eigenlijke doel van de hele reis.</p>
+      <h3>Freud, Jung en de antropologie van de overgangsrite</h3>
+      <p>Voor zijn interpretatie van de afzonderlijke episodes leunt Campbell op drie bronnen. Van Freud neemt hij de gedachte over dat mythen, net als dromen, verhulde uitdrukkingen zijn van onbewuste driften en familieverhoudingen. Van Jung neemt hij het idee over dat bepaalde beelden, de archetypen, in ieder mens en in elke cultuur op vergelijkbare wijze opduiken vanuit een gedeeld, collectief onbewuste.</p>
+      <p>Van de antropoloog Arnold van Gennep neemt hij het driedelige schema van overgangsriten over, afscheiding, overgang en terugkeer, dat hij op de heldenreis projecteert. Die combinatie maakt het boek tegelijk psychologisch en antropologisch van toon, zonder dat Campbell zich aan één van beide disciplines bindt of hun onderlinge spanningen bespreekt.</p>
+      <h3>De reis als beeld van innerlijke rijping</h3>
+      <p>Onder de mythologische laag ligt bij Campbell voortdurend een psychologische lezing. De gebieden van beproeving, de monsters en de gidsen zijn voor hem projecties van krachten die zich ook in de individuele psyche afspelen: angst, verlangen, het gezag van de ouders, de eigen dood. De heldenreis is in die lezing een beeld van het proces waarin iemand zijn kinderlijke afhankelijkheid achter zich laat en een eigen, volwassen verhouding tot de wereld opbouwt.</p>
+      <p>Die uitleg maakt van elk mythisch verhaal tegelijk een verhaal over een uitwendig avontuur en over een innerlijke overgang, en het is deze dubbele laag die het boek verbindt met de Jungiaanse individuatietheorie waarop het leunt zonder haar stap voor stap te herhalen.</p>
+      <h3>Van boek tot verhaalformule</h3>
+      <p>De invloed van het boek loopt vooral via de verhalende cultuur van na de publicatie. George Lucas heeft in interviews erkend dat hij Campbells schema bewust gebruikte bij het schrijven van <i>Star Wars</i>, en filmschrijver Christopher Vogler zette de monomythe in 1992 om in een praktische handleiding voor scenarioschrijvers, <i>The Writer's Journey</i>, die in de Amerikaanse filmindustrie op grote schaal is gebruikt.</p>
+      <p>Daardoor is de vraag naar de universaliteit van het patroon inmiddels lastiger te beantwoorden dan in 1949. Verhalen die decennia na Campbell zijn geschreven, volgen zijn schema vaak omdat scenarioschrijvers het opzettelijk toepassen, niet omdat het patroon zich onafhankelijk van zijn boek in de menselijke verbeelding blijft vormen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Monomythe</td><td>Campbells term voor de ene onderliggende heldenreis die hij achter alle afzonderlijke mythen en sprookjes meent te herkennen.</td></tr>
+          <tr><td class="term">Roep tot avontuur</td><td>De gebeurtenis die de held uit zijn vertrouwde wereld haalt en de reis in gang zet.</td></tr>
+          <tr><td class="term">Drempelwachter</td><td>De figuur die de grens bewaakt tussen de bekende wereld en het gebied van beproeving.</td></tr>
+          <tr><td class="term">Bovennatuurlijke hulp</td><td>De mentor- of beschermersfiguur die de held voor de reis uitrust met kennis of middelen.</td></tr>
+          <tr><td class="term">Initiatie</td><td>Het middendeel van de reis, met beproevingen, een diepste punt en de ontmoeting waarin de held zijn gave krijgt.</td></tr>
+          <tr><td class="term">De gave</td><td>Wat de held aan het einde van de initiatie verwerft en meeneemt terug naar zijn gemeenschap, ook wel de boon genoemd.</td></tr>
+          <tr><td class="term">Terugkeer</td><td>De laatste fase, waarin de held de drempel weer oversteekt en zijn gave ten dienste stelt van de wereld waaruit hij vertrok.</td></tr>
+          <tr><td class="term">Archetype</td><td>Een beeld dat volgens de Jungiaanse theorie waarop Campbell steunt in vergelijkbare vorm in alle culturen opduikt vanuit een gedeeld onbewuste.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Campbells onderbouwing bestaat uit een lange reeks voorbeelden, niet uit een systematisch onderzochte steekproef van mythen. Hij kiest verhalen uit uiteenlopende tradities die zijn schema illustreren, van de Egyptische Osirismythe tot Noord-Amerikaanse scheppingsverhalen en de levens van Boeddha en Christus, en legt ze naast elkaar zonder aan te geven hoeveel mythen hij heeft overwogen of hoe representatief zijn selectie is voor de tradities waaruit hij put.</p>
+      <p>Dat is geen verborgen gebrek: Campbell was geen antropoloog en presenteerde zijn boek ook niet als veldonderzoek, maar als een vergelijkende, essayistische synthese. De kracht van het boek zit in de herkenbaarheid van het patroon over een groot aantal voorbeelden heen, niet in een toetsbare claim over hoeveel procent van de wereldmythologie erin past.</p>
+      <p>Latere, meer systematische vergelijkingen van mythecorpora, zoals die van folkloristen die grote verzamelingen verhalen met vaste classificatiesystemen hebben doorgelicht, laten zien dat lang niet alle heldenverhalen de volledige monomythe volgen en dat de fasen die Campbell benoemt, in de praktijk vaak worden overgeslagen, verkort of in een andere volgorde voorkomen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het kernbezwaar tegen het boek is methodisch. Campbell zoekt in elke mythe naar de fasen van zijn schema en vindt ze ook, maar wie van tevoren weet welk patroon hij zoekt, kan vrijwel elk verhaal er met enige welwillendheid onder laten vallen. Wat er in een concrete mythe niet in past, wordt bij hem doorgaans weggelaten of ondergeschikt gemaakt aan het onderdeel dat wel past, waardoor de gevonden overeenkomst deels het resultaat is van de manier van zoeken.</p>
+      <p>Aan die selectie zit een prijs die vooral latere critici hebben benoemd. Door verhalen uit sterk verschillende culturen op één lijn te leggen, veegt de vergelijkende methode weg wat elk verhaal juist aan zijn eigen samenleving, ritueel en geschiedenis ontleent: wie de weduwe van Osiris, een noordwestkust-indiaanse initiatievertelling en het leven van Boeddha op dezelfde structuur terugbrengt, laat zien wat ze gemeen hebben en verliest tegelijk zicht op waarom ze juist in hun eigen omgeving zo en niet anders werden verteld.</p>
+      <p>Academische antropologen en folkloristen hebben Campbells monomythe daarom grotendeels afgewezen als een schema dat meer zegt over de twintigste-eeuwse westerse belangstelling voor een universele, individuele zoektocht dan over de mythen zelf. Het idee dat een held alleen vertrekt, op eigen kracht een beloning verovert en die aan een wachtende gemeenschap teruggeeft, weerspiegelt een individualistisch verhaalideaal dat niet in elke cultuur de manier is waarop heldhaftigheid wordt verteld.</p>
+      <p>Een laatste bezwaar betreft de rol van vrouwen in het boek. De held is bij Campbell in de praktijk vrijwel steeds man, en waar vrouwelijke figuren voorkomen, zijn dat doorgaans de godin, de verleidster of de gave zelf, niet de reiziger. Latere schrijvers, onder wie Campbell zelf in interviews, hebben geprobeerd een eigen reis voor de vrouwelijke hoofdpersoon te schetsen, maar dat vraagstuk krijgt in dit boek zelf nauwelijks aandacht.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de indeling in Vertrek, Initiatie en Terugkeer als een kaart om verhalen te ordenen, niet als een uitspraak over wat een mythe werkelijk betekent.</li>
+        <li>Noteer bij elk voorbeeld dat Campbell aanhaalt welke delen van het oorspronkelijke verhaal hij weglaat, en vraag waarom.</li>
+        <li>Leg het schema naast een concreet verhaal uit je eigen cultuur en ga na op welke punten het past en op welke niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Hero with a Thousand Faces</i> (Pantheon Books voor de Bollingen Foundation, 1949, als deel XVII van de Bollingen Series), herziene tweede editie 1968 bij Princeton University Press. Nederlands als <i>De held met de duizend gezichten: de archetypische reis van de held in mythen en verhalen</i>, Ankh-Hermes, herziene vertaling 2020 (eerdere Nederlandse editie bij Uitgeverij Contact, 1990).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Campbell stelt dat heldenverhalen van over de hele wereld, van Egyptische en Griekse mythen tot Noord-Amerikaanse en Polynesische overleveringen, dezelfde onderliggende reis volgen: vertrek uit de vertrouwde wereld, beproevingen in een gebied van bovennatuurlijke kracht, en terugkeer met een gave voor de eigen gemeenschap. Hij noemt dat patroon de monomythe en leunt daarbij op Freuds droomduiding, Jungs archetypen en de overgangsriten die de antropoloog Arnold van Gennep beschreef.</p><p>Het boek zelf bleef decennialang vooral in academische en therapeutische kring gelezen, tot filmmaker George Lucas het schema gebruikte voor <i>Star Wars</i> en scenarioschrijver Christopher Vogler het in 1992 omzette in een handleiding voor Hollywood. Sindsdien is de heldenreis een vast onderdeel van de verhalende cultuur geworden, wat de vraag oproept of het patroon een universele menselijke structuur weerspiegelt of vooral een structuur die schrijvers er sindsdien bewust inleggen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vergelijkende mythologie</li><li>heldenreis</li><li>monomythe</li><li>archetypen</li><li>jungiaanse psychologie</li><li>verhaalstructuur</li><li>antropologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="409"><a href="409.html">Ego and Archetype</a>. Edinger werkt dezelfde overgang van onbewuste eenheid naar bewuste verhouding uit als klinisch model, zonder de vergelijkende mythologie die bij Campbell centraal staat.</li>
+          <li value="360"><a href="360.html">Archetypen</a>. Jungs eigen boek over archetypen, de theorie van het collectieve onbewuste waarop Campbells lezing van mythen leunt.</li>
+          <li value="143"><a href="143.html">Maps of Meaning</a>. Peterson bouwt op dezelfde combinatie van mythologie en Jungiaanse psychologie voort, in een eigen en uitgebreider betoog.</li>
+          <li value="8"><a href="08.html">De alchemist</a>. Coelho's fabel volgt zelf de vorm van vertrek, beproeving en terugkeer die Campbell beschrijft, en laat zien hoe het patroon in eigentijdse fictie werkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

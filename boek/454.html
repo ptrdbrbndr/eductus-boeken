@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prisoner's Dilemma &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Poundstone betoogt dat de speltheorie van John von Neumann niet zomaar een wiskundig hulpmiddel was, maar het denkkader werd waarmee een generatie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-454">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">454 &middot; Geschiedenis en samenleving</p>
+    <h1>Prisoner's Dilemma</h1>
+    <p class="lede">William Poundstone, 1992</p>
+    <p class="stats">
+      <span><b>1432</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="454"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Poundstone betoogt dat de speltheorie van John von Neumann niet zomaar een wiskundig hulpmiddel was, maar het denkkader werd waarmee een generatie strategen de kernwapenwedloop begreep en vormgaf. Het minimax-theorema, dat voor tweepersoons nulsomspellen een rationele, veilige strategie garandeert, gaf de illusie dat een oorlog tussen twee grootmachten net zo doorrekenbaar was als een pokerspel. Het dilemma van de gevangene ondermijnt diezelfde illusie: het laat zien dat twee volstrekt rationele spelers elkaar met open ogen in een uitkomst kunnen manoeuvreren die voor beiden slechter is dan samenwerking. Het boek stelt dat deze twee inzichten, de een geruststellend en de ander verontrustend, in dezelfde RAND-gangen zijn ontstaan en tot op vandaag naast elkaar blijven bestaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een pokertafel als beginpunt</h3>
+      <p>Poundstone opent met het verhaal dat von Neumann tot speltheorie bracht: het observeren van bluf aan een pokertafel. Anders dan schaken, waarin geen verborgen informatie zit, draait poker om misleiding, en von Neumann wilde weten of daar wiskunde op te zetten viel. Dat leidde in 1928 tot zijn eerste bewijs van het minimax-theorema, jaren voordat het onderwerp een naam kreeg.</p>
+      <h3>Von Neumann: wonderkind en manager van instituten</h3>
+      <p>Een groot deel van het boek is biografie. Von Neumann groeide op in Boedapest, publiceerde als tiener al wiskundig werk, werkte in Göttingen en Princeton, en gold als een van de weinige mensen die zowel zuivere wiskunde als praktische techniek beheersten. Poundstone beschrijft zijn rol bij de ontwikkeling van de digitale computer en bij het Manhattan-project, waar hij rekenwerk deed voor de implosie-ontsteking van de plutoniumbom.</p>
+      <p>Uit die episodes ontstaat een beeld van een man die problemen benaderde als spellen met winnaars en verliezers, ook buiten de wiskunde: hij stond bekend als voorstander van een harde, vroege confrontatie met de Sovjet-Unie, een positie die het boek expliciet aan zijn speltheoretische denken koppelt.</p>
+      <p>Poundstone volgt von Neumann tot aan zijn benoeming in de Amerikaanse Atoomenergiecommissie in 1955 en zijn dood aan kanker in 1957, op drieënvijftigjarige leeftijd. De laatste maanden liet hij zich in een rolstoel naar de vergaderingen van de commissie brengen; het boek gebruikt dat beeld om te laten zien hoe nauw zijn wiskundige nalatenschap en zijn rol in het kernwapenbeleid met elkaar verweven bleven tot aan zijn dood.</p>
+      <h3>De RAND Corporation</h3>
+      <p>Het middendeel verlegt de aandacht naar RAND, opgericht na de Tweede Wereldoorlog door de Amerikaanse luchtmacht en Douglas Aircraft om strategische studies te doen over een mogelijke kernoorlog. Von Neumann was er adviseur, en RAND werd het instituut waar speltheorie van academische curiositeit tot beleidsinstrument werd.</p>
+      <p>Poundstone beschrijft de cultuur van het instituut: jonge wiskundigen en economen die abstracte spellen ontwierpen om militaire dilemma's te doorgronden, in een sfeer waarin een kernoorlog als reëel scenario werd doorgerekend in plaats van vermeden onderwerp te zijn.</p>
+      <h3>1950 en de geboorte van het dilemma</h3>
+      <p>De kern van het boek is de reconstructie van het experiment dat Merrill Flood en Melvin Dresher in 1950 bij RAND deden: twee spelers, elk met twee keuzes, in een spel waarin individueel rationeel gedrag tot een gezamenlijk slechtere uitkomst leidt dan samenwerking zou opleveren. Albert Tucker gaf het spel, toen hij het aan psychologiestudenten uitlegde, de vorm van twee verdachten die apart worden verhoord, en daarmee de naam die beklijfde.</p>
+      <p>Poundstone legt uit waarom dit spel zoveel weerklank vond: het toont een situatie waarin de speltheorie van von Neumann, die voor nulsomspellen een eenduidige oplossing garandeert, het antwoord schuldig blijft. Bij het dilemma van de gevangene bestaat geen enkele uitkomst die tegelijk stabiel is en voor beide spelers het beste oplevert.</p>
+      <p>Poundstone beschrijft ook het experiment waarmee Flood en Dresher hun spel meteen toetsten: zij lieten twee RAND-collega's, de econoom Armen Alchian en de wiskundige John Williams, honderd ronden tegen elkaar spelen en tekenden bij elke ronde hun commentaar op. Williams en Alchian kozen in ruim de helft van de ronden voor samenwerking in plaats van voor de uitkomst die de zuivere speltheorie voorschrijft. Toen Flood en Dresher hun bevindingen aan John Nash voorlegden, wees hij erop dat dit niets zegt over het eenmalige spel: dat ervaren spelers in een herhaald spel niet voor voortdurend verraad kiezen, betekent niet dat verraad in een spel zonder vervolg irrationeel zou zijn.</p>
+      <h3>Van laboratoriumspel naar kernwapenwedloop</h3>
+      <p>Het boek legt vervolgens de brug naar de nucleaire strategie. De wapenwedloop tussen de Verenigde Staten en de Sovjet-Unie wordt door strategen van die tijd, onder wie Herman Kahn, herkend als een dilemma van de gevangene op wereldschaal: beide partijen zijn beter af als geen van beide bewapent, maar eenzijdig ontwapenen is voor elke partij afzonderlijk het slechtste scenario.</p>
+      <p>Poundstone bespreekt ook het verwante spel <i>chicken</i>, waarin twee bestuurders recht op elkaar afrijden en geen van beide als eerste wil uitwijken, als tweede model voor confrontaties waarin geen van beide partijen wil toegeven zonder gezichtsverlies.</p>
+      <h3>Herhaling en de opkomst van samenwerking</h3>
+      <p>In het slotdeel bespreekt Poundstone hoe latere onderzoekers, met name Robert Axelrod met zijn computertoernooien uit de jaren tachtig, ontdekten dat het dilemma van de gevangene er anders uitziet wanneer het niet eenmalig maar herhaald wordt gespeeld. Bij herhaling loont een eenvoudige strategie van wederkerigheid, bekend als <i>tit for tat</i>, beter dan voortdurend uitbuiten.</p>
+      <p>Dat gegeven relativeert de sombere lezing van het spel: onder de juiste voorwaarden, met herhaling en zichtbaarheid van elkaars gedrag, kan samenwerking wél de rationele uitkomst worden. Poundstone laat de vraag open of de kernwapenwedloop aan die voorwaarden voldeed.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nulsomspel</td><td>Een spel waarin de winst van de ene speler exact de verlies van de andere is, zodat de totale uitkomst altijd nul is.</td></tr>
+          <tr><td class="term">Minimax-theorema</td><td>Von Neumanns bewijs dat elk tweepersoons nulsomspel een strategie kent waarmee een speler zijn slechtst mogelijke uitkomst minimaliseert.</td></tr>
+          <tr><td class="term">Dilemma van de gevangene</td><td>Een spel waarin twee spelers die niet mogen overleggen, door ieder voor zich rationeel te kiezen, samen slechter af zijn dan bij samenwerking.</td></tr>
+          <tr><td class="term">Chicken</td><td>Een confrontatiespel waarin beide spelers rechtdoor blijven rijden zolang de ander niet toegeeft, met een ramp als uitkomst wanneer niemand wijkt.</td></tr>
+          <tr><td class="term">Gemengde strategie</td><td>Een strategie waarbij een speler tussen zijn opties loot volgens vaste kansen, gebruikt wanneer geen enkele vaste keuze de beste is.</td></tr>
+          <tr><td class="term">Tit for tat</td><td>Een strategie in herhaalde spellen die begint met samenwerken en daarna precies doet wat de tegenspeler de vorige ronde deed.</td></tr>
+          <tr><td class="term">Rationele speler</td><td>In de speltheorie een speler die zijn eigen uitkomst consequent en zonder fouten maximaliseert, ongeacht morele overwegingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is gebaseerd op gepubliceerde bronnen, interviews met tijdgenoten van von Neumann en RAND-archiefmateriaal, en is geen wiskundig leerboek maar een journalistieke reconstructie. De wiskundige kern, het minimax-theorema en de uitwerking van het dilemma van de gevangene, is onomstreden en breed gedocumenteerd in de vakliteratuur waar Poundstone naar verwijst.</p>
+      <p>Minder hard is de doorvertaling naar de nucleaire strategie. Dat strategen bij RAND en elders in speltheoretische termen over de wapenwedloop dachten, is aantoonbaar; of die wedloop zich werkelijk gedroeg zoals het model voorspelt, is een interpretatie die het boek aannemelijk maakt met historische episodes, niet met een sluitende toets.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de reikwijdte van het minimax-theorema zelf: het geldt strikt voor tweepersoons nulsomspellen, terwijl vrijwel geen enkel reëel conflict, ook de kernwapenwedloop niet, zuiver nulsom is. Beide grootmachten hadden gedeeld belang bij het voorkomen van een oorlog, wat de nulsomanalogie eerder een metafoor dan een model maakt, en Poundstone erkent dat zelf pas laat in het boek.</p>
+      <p>Verder veronderstelt het hele apparaat spelers die volledig rationeel zijn en elkaars uitbetalingen kennen, een aanname die voor pokerspelers bij RAND werkte en voor regeringsleiders onder tijdsdruk en gebrekkige informatie veel minder. Het boek benoemt dit probleem, maar laat de vraag onbeantwoord hoe zwaar dat de historische toepassing ondermijnt.</p>
+      <p>Ten slotte is de compositie van het boek, biografie, speltheoriegeschiedenis en Koude Oorlog-verhaal in elkaar geschoven, soms meer sfeertekening dan argument: von Neumanns persoonlijke voorkeur voor een harde confrontatiepolitiek wordt gesuggereerd als voortvloeisel uit zijn speltheoretisch denken, terwijl het net zo goed een onafhankelijke politieke overtuiging kan zijn geweest.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Herken bij een conflict eerst of het echt een nulsomspel is, waarin de een alleen wint wat de ander verliest, of dat er ook gedeeld belang in zit.</li>
+        <li>Ga bij een schijnbaar vastgelopen onderhandeling na of er een zadelpunt bestaat, een zet die veilig is ongeacht wat de ander doet, voordat je naar een gok grijpt.</li>
+        <li>Lees bij een herhaald conflict, met dezelfde partij over langere tijd, de kans op samenwerking anders dan bij een eenmalige confrontatie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>John von Neumann, Game Theory, and the Puzzle of the Bomb</i> (Doubleday, 1992; Oxford University Press-editie eveneens 1992). Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Poundstone vlecht drie verhalen ineen: een biografie van de Hongaars-Amerikaanse wiskundige John von Neumann, een geschiedenis van de speltheorie die hij mede grondvestte, en een portret van de RAND Corporation, de denktank waar in 1950 het dilemma van de gevangene werd bedacht dat het boek zijn titel geeft. Von Neumann bewees het minimax-theorema, schreef met Oskar Morgenstern <i>Theory of Games and Economic Behavior</i> (1944) en droeg bij aan de bouw van de atoombom; het boek laat zien hoe die drie sporen in zijn werk samenkomen.</p><p>Het dilemma van de gevangene zelf, een spel waarin twee spelers die niet met elkaar mogen overleggen er samen slechter van worden als beiden hun eigen belang volgen, werd in 1950 geformuleerd door Merrill Flood en Melvin Dresher en kreeg zijn naam van Albert Tucker. Poundstone gebruikt het spel als lens voor de kernwapenwedloop tussen de Verenigde Staten en de Sovjet-Unie, en voor de vraag of speltheorie de wedloop verklaart, rechtvaardigt of juist tegenhoudt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>speltheorie</li><li>koude oorlog</li><li>wiskunde</li><li>biografie</li><li>RAND</li><li>kernwapens</li><li>rationaliteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="217"><a href="217.html">The Strategy of Conflict</a>. Schelling werkt het overkoepelende idee, conflict als een spel met gedeelde én tegengestelde belangen, uit tot een eigen strategische theorie.</li>
+          <li value="456"><a href="456.html">The Compleat Strategyst</a>. Williams' RAND-primer legt uit hoe het minimax-theorema en gemengde strategieën wiskundig werken, zonder de geschiedenis eromheen.</li>
+          <li value="220"><a href="220.html">Coup d'État</a>. Luttwak beschrijft hoe machtswisselingen in de praktijk verlopen, als tegenwicht bij het abstracte model van rationele spelers.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

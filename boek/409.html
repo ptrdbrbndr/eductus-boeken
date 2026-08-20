@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ego and Archetype &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Edinger stelt dat de menselijke psyche zich ontwikkelt volgens een vast patroon van scheiding en hereniging tussen het ego en wat Jung het Zelf noemde, de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-409">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">409 &middot; Brein en lichaam</p>
+    <h1>Ego and Archetype</h1>
+    <p class="lede">Edward F. Edinger, 1972</p>
+    <p class="stats">
+      <span><b>1836</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="409"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Edinger stelt dat de menselijke psyche zich ontwikkelt volgens een vast patroon van scheiding en hereniging tussen het ego en wat Jung het Zelf noemde, de ordenende kern van de hele psyche. In de eerste levenshelft wisselen inflatie, waarin het ego zich met die kern vereenzelvigt, en vervreemding, waarin het die kern kwijtraakt, elkaar af. Religieuze verhalen als de zondeval, het boek Job en het leven van Christus zijn voor Edinger geen historische berichten maar symbolische beschrijvingen van dat proces. Individuatie, de bewuste verhouding tussen ego en Zelf, ontstaat wanneer iemand dat patroon leert herkennen in plaats van het enkel te ondergaan. Wie geen religieus wereldbeeld meer heeft, moet dat proces volgens Edinger alleen doorlopen, zonder het kader dat kerk of traditie vroeger bood.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek uit de praktijk van de analyticus</h3>
+      <p>Edinger schreef <i>Ego and Archetype</i> als medeoprichter en jarenlang bestuurslid van de C. G. Jung Foundation for Analytical Psychology in New York, waar het boek in 1972 ook verscheen als deel van haar eigen reeks. Het komt voort uit lezingen die hij gaf aan analytici in opleiding, en dat is aan de opzet te merken: het boek probeert Jungs eigen, verspreide werk over individuatie samen te vatten tot een doorlopend model, met een vaste terminologie die latere Jungiaanse auteurs is blijven gebruiken.</p>
+      <p>Waar Jung zelf vaak associatief schrijft en van onderwerp naar onderwerp beweegt, werkt Edinger toe naar een cyclus met een paar terugkerende stations. Dat maakt het boek geschikter als naslagwerk dan Jungs eigen geschriften, en het verklaart ook waarom het decennia na verschijnen nog in de opleiding van Jungiaanse analytici wordt gebruikt.</p>
+      <h3>Inflatie en vervreemding als de twee polen</h3>
+      <p>De kern van het boek is een cyclus die Edinger de psychische levenscyclus noemt. In de eerste levenshelft ervaart een mens beurtelings twee toestanden. Inflatie is het moment waarop het ego zich vereenzelvigt met het Zelf, de ordenende kern van de psyche die groter is dan het ego zelf, en zich daardoor gedraagt alsof het meer vermag of meer waard is dan een mens toekomt. Vervreemding is het omgekeerde: het ego verliest het contact met die kern en blijft achter met een gevoel van leegte en zinloosheid, of, in de negatieve variant van inflatie, met een overdreven schuldgevoel waarin het zich met het lijden zelf vereenzelvigt.</p>
+      <p>Beide toestanden zijn volgens Edinger onvermijdelijke stadia, geen fouten die te vermijden zijn. Pas wanneer er een derde verhouding ontstaat, waarin ego en Zelf elkaar herkennen zonder dat het een het ander opslokt, spreekt hij van een bewuste ego-Zelf-as. Dat noemt hij individuatie: geen afwezigheid van inflatie en vervreemding, maar een voortdurend gesprek tussen beide polen.</p>
+      <h3>De zondeval als beeld van het uiteenvallen</h3>
+      <p>Om die cyclus te illustreren leest Edinger religieuze teksten niet als geschiedenis maar als symbolische verslagen van iets dat zich in de psyche afspeelt. Het verhaal van Adam en Eva in het paradijs leest hij als beeld van de oorspronkelijke staat waarin ego en Zelf nog niet gescheiden zijn: de mens leeft in onbewuste eenheid met zijn oorsprong, zonder besef van een eigen, afzonderlijk bestaan. Het eten van de boom van kennis van goed en kwaad is dan het moment waarop het ego zich losmaakt van die eenheid en zich bewust wordt van zichzelf als apart wezen.</p>
+      <p>De verdrijving uit het paradijs die daarop volgt, is voor Edinger het beeld van de vervreemding die bij die scheiding hoort: het besef van goed en kwaad, van naaktheid en schaamte, van sterfelijkheid. Dat de mens niet vrijwillig teruggaat en dat de weg terug wordt bewaakt, leest hij als een uitspraak over de onomkeerbaarheid van bewustwording: eenmaal ontstaan, valt het ego niet meer terug in de oorspronkelijke, onbewuste eenheid.</p>
+      <h3>Job en de doorbraak door het lijden</h3>
+      <p>Het boek Job krijgt een eigen hoofdstuk als voorbeeld van wat Edinger een doorbraak noemt: het moment waarop vervreemding omslaat in een rechtstreekse confrontatie met het Zelf. Job verliest bezit, kinderen en gezondheid zonder dat zijn eigen gedrag dat verklaart, en zijn vrienden proberen hem te overtuigen dat hij toch iets verkeerd gedaan moet hebben. Job weigert die uitleg en eist in plaats daarvan een antwoord van God zelf.</p>
+      <p>Dat antwoord komt, in de vorm van een lange toespraak uit een storm, die geen van Jobs vragen rechtstreeks beantwoordt maar hem confronteert met de omvang en het raadsel van de schepping. Edinger leest die episode als het moment waarop het ego, door vast te houden aan zijn eigen ervaring in plaats van zich te schikken naar een pasklare verklaring, oog in oog komt te staan met een macht die groter is dan het kan begrijpen. Dat de tekst eindigt met herstel van Jobs bezit, leest hij niet als beloning voor gehoorzaamheid maar als teken dat de confrontatie zelf iets in de verhouding tussen ego en Zelf herstelt.</p>
+      <h3>Christus als beeld van het geïndividueerde ego</h3>
+      <p>In het christelijke verhaal ziet Edinger een volgende stap. Christus is voor hem een symbool van het Zelf dat mens wordt, en het kruis is het beeld van de spanning die dat meebrengt: een figuur die de volle last van het menselijke bestaan draagt zonder de verbinding met zijn goddelijke oorsprong te verliezen. Waar Job de confrontatie met een Zelf ondergaat dat hem vreemd blijft, belichaamt Christus in zijn lezing juist de verzoening tussen beide.</p>
+      <p>Edinger benadrukt daarbij dat het hem niet om een geloofsuitspraak gaat maar om een psychologische lezing: het verhaal beschrijft een innerlijk proces dat zich, in zijn ogen, in elke mens kan voltrekken, ongeacht of iemand het christelijk geloof aanhangt. Die stap, van een historische of theologische claim naar een psychologisch beeld dat voor iedereen geldig zou zijn, is meteen het punt waarop het boek de meeste weerstand oproept.</p>
+      <h3>Individuatie zonder gedeeld kader</h3>
+      <p>Het tweede deel van het boek verlaat de oude teksten en richt zich op de eigen tijd. Waar vroegere generaties een kant-en-klaar symbolisch kader hadden in kerk, ritueel en gedeelde mythologie, ontbreekt dat volgens Edinger voor de moderne mens goeddeels. Het gevolg is dat de psychische levenscyclus niet langer door een collectief systeem wordt opgevangen en dat ieder voor zich, vaak zonder taal ervoor, door inflatie en vervreemding heen moet.</p>
+      <p>Individuatie wordt in die situatie geen keuze onder andere maar een noodzaak: bij gebrek aan een collectief antwoord op de vraag naar zin, moet de enkeling die vraag zelf dragen. Edinger ziet daarin de reden waarom Jungiaanse analyse in de twintigste eeuw kon opkomen als praktijk: als een weg om het proces dat religie vroeger droeg, opnieuw bewust te doorlopen.</p>
+      <h3>Symptomen als symbolen lezen</h3>
+      <p>Voor de klinische praktijk trekt Edinger daaruit een concrete consequentie. Een analyticus die een cliënt hoort spreken over grootheidsgevoelens of over zinloosheid, moet die niet alleen persoonlijk en biografisch verklaren maar ook herkennen als bekende stadia van de cyclus: inflatie of vervreemding in een nieuwe vorm. Die dubbele blik, tegelijk persoonlijk en archetypisch, is wat hij van analytici in opleiding vraagt en wat het boek wil overdragen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ego-Zelf-as</td><td>De verbinding tussen het bewuste ego en het Zelf, intact wanneer beide met elkaar in gesprek blijven en beschadigd bij inflatie of vervreemding.</td></tr>
+          <tr><td class="term">Het Zelf</td><td>De archetypische kern van de hele psyche, bewust en onbewust samen, die het ego overstijgt en er tegelijk de oorsprong van is.</td></tr>
+          <tr><td class="term">Inflatie</td><td>De toestand waarin het ego zich vereenzelvigt met het Zelf en zich groter, beter of schuldiger voelt dan een mens toekomt.</td></tr>
+          <tr><td class="term">Vervreemding</td><td>De toestand waarin het ego het contact met het Zelf verliest en achterblijft met leegte of zinloosheid.</td></tr>
+          <tr><td class="term">Individuatie</td><td>De bewuste, blijvende verhouding tussen ego en Zelf waarin geen van beide de ander opslokt.</td></tr>
+          <tr><td class="term">Psychische levenscyclus</td><td>Het terugkerende patroon van inflatie, vervreemding en, idealiter, bewuste verzoening dat de eerste levenshelft kenmerkt.</td></tr>
+          <tr><td class="term">Doorbraak</td><td>Het moment waarop vervreemding omslaat in een rechtstreekse, ingrijpende confrontatie met het Zelf, zoals bij Job.</td></tr>
+          <tr><td class="term">Religieuze functie van de psyche</td><td>Edingers term voor het vermogen van de psyche om zelf, los van een kerkelijk instituut, betekenis en verhouding tot iets groters te vormen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Edinger onderbouwt zijn model niet met klinische cijfers of onderzoeksgegevens. Zijn materiaal bestaat uit Jungs eigen theorie van het collectieve onbewuste en de archetypen, die hij als uitgangspunt neemt in plaats van als iets om te toetsen, en uit een selectie religieuze en mythologische teksten die hij symbolisch interpreteert: Genesis, het boek Job, de evangeliën, en verspreid ook alchemistische beelden. De aantrekkingskracht van het boek zit in de systematiek waarmee die teksten op elkaar worden gelegd, niet in een onafhankelijke toets van de onderliggende aannames.</p>
+      <p>Wat als bewijs wordt aangevoerd is dus vooral interne samenhang: aanvaard je Jungs begrip van het Zelf, dan laat het cyclische patroon van inflatie en vervreemding zich in de aangehaalde teksten herkennen, en herkennen therapeuten het patroon ook bij hun cliënten. Dat tweede punt, de klinische herkenning, is de sterkste vorm van onderbouwing die het boek biedt, en die berust op de ervaring van individuele behandelaars, niet op systematisch, herhaalbaar onderzoek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar raakt de bouw van het hele argument. Het Zelf is in dit boek tegelijk de verklaring voor inflatie, voor vervreemding en voor de oplossing van beide, en een begrip dat zoveel werk moet verzetten zonder zelf onafhankelijk vastgesteld te kunnen worden, is moeilijk te weerleggen en daarmee ook moeilijk hard te maken. Wat niet bij het ene stadium past, wordt met een kleine verschuiving vaak toch bij het model getrokken.</p>
+      <p>Een tweede bezwaar betreft de stap van psychologie naar theologie. Edinger stelt dat zijn lezing van Christus als beeld van het Zelf los staat van een geloofsclaim, maar de tekst zelf spreekt regelmatig over het Zelf op een manier die niet goed van een Godsbegrip te onderscheiden is. Dat maakt het boek voor gelovige lezers een herduiding van hun geloof tot psychologie, en voor niet-gelovige lezers een psychologie die zich met theologische taal bekleedt.</p>
+      <p>Ten derde put Edinger vrijwel uitsluitend uit de joods-christelijke overlevering terwijl hij een patroon beschrijft dat hij als algemeen menselijk voorstelt. Andere religieuze tradities komen nauwelijks aan bod, en de keuze voor Genesis, Job en de evangeliën ligt eerder voor de hand vanuit zijn eigen achtergrond dan dat zij als representatieve steekproef is verantwoord. Dat is dezelfde zwakte die ook Campbells vergelijkende mythologie treft: een patroon dat vooraf vaststaat, wordt bevestigd door het materiaal dat er het best bij past.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees deel een, over inflatie en vervreemding, eerst apart van de religieuze voorbeelden om het model op zichzelf te kunnen beoordelen.</li>
+        <li>Ga bij elk hoofdstuk na of Edinger een psychologische claim doet of een claim over wat waar is, en houd die twee uit elkaar.</li>
+        <li>Leg het boek naast Jungs eigen <i>Archetypen</i> om te zien wat Edinger toevoegt en wat hij vereenvoudigt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Ego and Archetype: Individuation and the Religious Function of the Psyche</i> (Putnam voor de C. G. Jung Foundation for Analytical Psychology, New York, 1972, in de reeks C. G. Jung Foundation Books). Herdrukt bij Penguin (1973) en tegenwoordig bij Shambhala (ISBN 9780877735762). Geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Edward Edinger, mede-oprichter van de C. G. Jung Foundation for Analytical Psychology in New York, schreef dit boek als uitwerking van lezingen aan analytici in opleiding. Hij zet Jungs losse aantekeningen over individuatie om in een doorlopend model: de psyche doorloopt een cyclus van inflatie, waarin het ego zich vereenzelvigt met het Zelf, en vervreemding, waarin het dat contact verliest, tot er een bewuste as tussen beide ontstaat.</p><p>Om dat proces te illustreren leest Edinger religieuze teksten als Genesis, het boek Job en de evangeliën niet als geschiedenis maar als symbolische verslagen van die innerlijke beweging. Het boek geldt sinds de verschijning als een van de meest gebruikte inleidingen in de opleiding van Jungiaanse analytici.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>jungiaanse psychologie</li><li>individuatie</li><li>archetypen</li><li>ego en zelf</li><li>religieuze symboliek</li><li>psychoanalyse</li><li>mythologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="360"><a href="360.html">Archetypen</a>. Jungs eigen boek over archetypen en het collectieve onbewuste, het materiaal waarop Edingers hele model is gebouwd.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De inleiding die Jung met zijn naaste leerlingen samenstelde, toegankelijker dan Edingers systematisering en met meer eigen twijfel.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl zoekt zin onder omstandigheden die geen symbolisch kader meer bieden, de situatie die Edinger voor de moderne mens in het algemeen beschrijft.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschrijft dezelfde overgang van onbewustheid naar een nieuwe verhouding tot het grotere, maar als terugkerend verhaalpatroon in mythen wereldwijd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

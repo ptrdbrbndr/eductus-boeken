@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Expectation Effect &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Robson stelt dat het brein voortdurend voorspellingen doet over wat er gaat gebeuren, en dat die voorspelling het waargenomen resultaat mede vormt in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-387">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">387 &middot; Brein en lichaam</p>
+    <h1>The Expectation Effect</h1>
+    <p class="lede">David Robson, 2022</p>
+    <p class="stats">
+      <span><b>1561</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="387"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Robson stelt dat het brein voortdurend voorspellingen doet over wat er gaat gebeuren, en dat die voorspelling het waargenomen resultaat mede vormt in plaats van er neutraal op te wachten. Een pijnprikkel doet meer pijn als iemand een hoge pijnscore verwacht, een neppil geneest reëel als de patiënt gelooft dat hij echt is, en een vermoeiende nacht voelt zwaarder als iemand denkt slecht geslapen te hebben, ook wanneer objectieve metingen dat niet bevestigen. Robson trekt daaruit de conclusie dat mindset geen bijzaak is naast de fysiologie maar er een onderdeel van, met gevolgen voor hoeveel pijn iemand voelt tijdens sporten, hoe snel iemand herstelt van een operatie en hoe oud iemand wordt. Wie dat betwist, wijst erop dat een verwachting nooit een gebroken been zet, en dat het onderscheid tussen wat verwachting verandert en wat zij alleen anders laat voelen in het boek soms vervaagt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het brein als voorspellingsmachine</h3>
+      <p>Robson opent met het model van predictive processing: het brein wacht in dit model niet passief op zintuiglijke signalen, maar stuurt voortdurend voorspellingen naar beneden en vergelijkt die met wat binnenkomt. Waarneming is in dit model het resultaat van die vergelijking en niet van de rauwe data alleen, waardoor een verwachting het uiteindelijke gevoel of oordeel kan kleuren nog voor iemand zich daarvan bewust is.</p>
+      <p>Dat uitgangspunt is niet Robsons eigen vondst; hij bouwt op werk van onder meer neurowetenschappers als Anil Seth en Lisa Feldman Barrett, die het brein als actief voorspellend orgaan beschrijven in plaats van als een camera die de wereld doorgeeft.</p>
+      <h3>Placebo als eerlijke leugen</h3>
+      <p>In het hoofdstuk over de placebo, dat hij <i>A Pious Fraud</i> noemt naar een negentiende-eeuwse arts die neppillen aanprees, bespreekt Robson onderzoek naar open-label placebo van onder meer Ted Kaptchuk: patiënten kregen te horen dat de pillen die zij kregen nep waren, en voelden desondanks minder klachten dan een groep die niets kreeg. Dat wijst er volgens hem op dat het ritueel van het innemen zelf een deel van het effect draagt, los van misleiding.</p>
+      <p>Hij bespreekt ook de milkshake-proef van Alia Crum, waarin dezelfde drank van 380 calorieën werd geserveerd met het etiket van een dieetshake van 140 calorieën of een indulgente shake van 620 calorieën: bij het etiket met het hogere getal daalde het hongerhormoon ghreline sterker, alsof het lichaam op het etiket reageerde en niet alleen op de drank.</p>
+      <h3>De nocebo-kant: verwachting die schaadt</h3>
+      <p>Het hoofdstuk <i>Do No Harm</i> keert de placebo om. Robson bespreekt bijwerkingen die optreden bij nepmedicatie omdat patiënten ze verwachten, en de bijsluiter zelf als bron van klachten. Als sterkste voorbeeld gebruikt hij het Sudden Unexpected Nocturnal Death Syndrome onder Hmong-vluchtelingen in de Verenigde Staten vanaf eind jaren zeventig: mannen stierven in hun slaap zonder medische verklaring, in een gemeenschap waar het geloof in een nachtgeest die op de borst gaat zitten wijdverbreid was.</p>
+      <p>Antropologe Shelley Adler bracht na jarenlang onderzoek naar voren dat slaapverlamming, gecombineerd met de overtuiging dat die geest dodelijk kon zijn, bij de kwetsbaarste mannen kan hebben bijgedragen aan hartstilstand. Robson gebruikt dat voorbeeld om te laten zien hoe ver een nocebo-effect kan reiken, zonder te beweren dat overtuiging de enige verklaring is.</p>
+      <h3>Groepen en besmettelijke verwachting</h3>
+      <p>In <i>The Origins of Mass Hysteria</i> beschrijft Robson uitbraken van lichamelijke klachten die zich razendsnel door een school of fabriek verspreiden zonder aanwijsbare gifstof of ziekteverwekker, van middeleeuwse dansmanie tot moderne gevallen van collectieve flauwtes. De verklaring die hij aanhoudt is dat de verwachting van ziekte zich via sociale nabijheid verspreidt zoals een gerucht, en dat angst voor een dreiging het lichaam symptomen laat produceren die op die dreiging lijken.</p>
+      <h3>Pijn, inspanning en voeding</h3>
+      <p>In de hoofdstukken over sport en voeding werkt hij uit hoe de framing van een inspanning het gevoel van vermoeidheid verandert. Hij citeert de studie van Crum en Ellen Langer onder kamermeisjes van een hotel: de ene groep kreeg te horen dat hun werk al aan de beweegnorm van de Surgeon General voldeed, de andere groep kreeg die informatie niet, terwijl beide groepen hetzelfde werk bleven doen. Na vier weken waren gewicht, bloeddruk en middelomtrek in de eerste groep gedaald en in de tweede niet.</p>
+      <p>Bij voeding bespreekt hij onderzoek waarin mensen die dachten een calorierijke maaltijd te hebben gegeten, zich verzadigder voelden dan mensen die dezelfde maaltijd kregen met een lager caloriegetal erbij, wat volgens hem laat zien dat een deel van verzadiging door verwachting wordt gestuurd en niet alleen door de maaltijd zelf.</p>
+      <h3>Ouder worden als verwachting</h3>
+      <p>Het laatste deel van het boek gaat over de verwachtingen die mensen over hun eigen veroudering hebben. Robson citeert de langlopende studie van Becca Levy, die deelnemers uit de Ohio Longitudinal Study of Aging and Retirement volgde en vond dat wie op middelbare leeftijd positiever over ouder worden dacht, gemiddeld ruim zeven jaar langer leefde dan wie negatiever dacht, ook na correctie voor gezondheid en sociaaleconomische status bij aanvang.</p>
+      <p>Hij combineert dat met Ellen Langers oudere <i>counterclockwise</i>-experiment uit 1979, waarin een groep bejaarde mannen een week doorbracht in een omgeving die was ingericht als 1959: na die week waren grip, gehoor, geheugen en houding op een aantal maten verbeterd ten opzichte van een controlegroep die alleen herinneringen ophaalde zonder de omgeving te veranderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Predictive processing</td><td>Het model dat het brein ziet als orgaan dat voortdurend voorspellingen genereert en toetst aan binnenkomende prikkels, in plaats van die prikkels neutraal te registreren.</td></tr>
+          <tr><td class="term">Open-label placebo</td><td>Een placebo die als nep wordt aangekondigd en toch effect blijkt te hebben, wat wijst op een werkzaam bestanddeel in het ritueel zelf.</td></tr>
+          <tr><td class="term">Nocebo-effect</td><td>De schadelijke tegenhanger van het placebo-effect: klachten die ontstaan of verergeren omdat iemand ze verwacht.</td></tr>
+          <tr><td class="term">Sudden Unexpected Nocturnal Death Syndrome</td><td>Onverklaarde sterfte tijdens de slaap, door Robson gebruikt als uiterste voorbeeld van hoe ver een nocebo-effect kan reiken.</td></tr>
+          <tr><td class="term">Mindset-interventie</td><td>Een korte aanpassing van de framing van een situatie, zoals bij Crums onderzoek onder kamermeisjes, zonder dat het onderliggende gedrag verandert.</td></tr>
+          <tr><td class="term">Stressmindset</td><td>De overtuiging dat stress schadelijk dan wel bevorderlijk is, die volgens het onderzoek dat Robson aanhaalt meebepaalt hoe het lichaam op stress reageert.</td></tr>
+          <tr><td class="term">Zelfperceptie van veroudering</td><td>Het beeld dat iemand van zijn eigen ouder worden heeft, door Levy gemeten en gekoppeld aan latere levensduur.</td></tr>
+          <tr><td class="term">Massahysterie</td><td>Het razendsnel verspreiden van lichamelijke klachten binnen een groep zonder aanwijsbare fysieke oorzaak, ook collectieve psychogene ziekte genoemd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Robson bouwt op een reeks afzonderlijk gepubliceerde en herhaaldelijk geciteerde studies: het open-label placebo-onderzoek van Kaptchuk, de kamermeisjesstudie en de milkshake-studie van Crum, en de veroudering-studie van Levy op basis van een cohort dat decennialang is gevolgd. Dat zijn stuk voor stuk peer-reviewed publicaties met een voor dit vakgebied redelijke omvang, en de kamermeisjesstudie en de Levy-studie zijn in latere onderzoeken op hoofdlijnen herhaald.</p>
+      <p>Zwakker is de manier waarop hij losse studies naast elkaar zet tot één doorlopend verhaal over de macht van verwachting, zonder telkens te vermelden hoe groot het gevonden effect was en hoe vaak een replicatie is geprobeerd. Bij de Hmong-sterfgevallen erkent hij zelf dat de verklaring van Adler een interpretatie is en geen bewezen oorzaak, wat eerlijker is dan bij een aantal andere voorbeelden waar die voorzichtigheid ontbreekt.</p>
+      <p>De placebo- en mindsetliteratuur kent bovendien een publicatiebias richting positieve, opvallende resultaten, en een aantal kleinere mindsetstudies uit de jaren tien is bij grootschalige replicatiepogingen kleiner gebleken dan aanvankelijk gerapporteerd. Robson noemt dat probleem in algemene termen, maar toetst zijn eigen voorbeelden er niet stuk voor stuk aan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek balanceert voortdurend tussen twee beweringen die niet hetzelfde zijn: dat verwachting het gevoel van een ervaring verandert, en dat verwachting de fysieke uitkomst verandert. Bij pijn en vermoeidheid is dat onderscheid vaak lastig te maken en misschien ook niet nodig, maar bij voorbeelden als kanker of blijvend letsel zou het verschil er wel toe doen, en Robson trekt zijn claims daar voorzichtiger door dan de hoofdstuktitels suggereren.</p>
+      <p>De titel belooft meer dan de inhoud waarmaakt: hoe je mindset je wereld verandert klinkt als een aanspraak op controle die het boek zelf nuanceert, want geen van de aangehaalde onderzoeken laat zien dat verwachting een ziekte geneest die zonder die verwachting niet zou genezen. Lezers die het boek als vervanging van medische behandeling zouden lezen, vinden daar zelf geen steun voor, maar de toon van sommige hoofdstukken nodigt daar wel toe uit.</p>
+      <p>Robson is journalist en geen onderzoeker, en dat is aan de opbouw te merken: elk hoofdstuk draait om een sterk verhaal met een duidelijke afloop, terwijl de studies waarop dat verhaal rust vaak kleiner en voorlopiger zijn dan de vertelling doet vermoeden. Tegenstudies of grotere onderzoeken die een effect kleiner vinden dan het origineel, komen in vergelijking met de kleurrijke voorbeelden weinig aan bod.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let bij een uitleg die je over pijn, herstel of vermoeidheid krijgt op de woorden waarmee die uitleg is ingekleed, en vraag of een neutralere framing hetzelfde feit anders zou laten voelen.</li>
+        <li>Zoek bij structurele vermoeidheid of pijn eerst een medische verklaring, en gebruik framing als aanvulling op behandeling, niet als vervanging ervan.</li>
+        <li>Ga bij berichten over een opvallend sterk mindset-effect na of de studie is herhaald, voor je het als vaststaand feit doorvertelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Expectation Effect: How Your Mindset Can Change Your World</i>, gelijktijdig verschenen bij Canongate Books (Londen, ISBN 9781838853303) en Henry Holt (New York, ISBN 9781250827630), 2022. Geen Nederlandse vertaling; de samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Robson, wetenschapsjournalist, zet uiteen hoe verwachting fysiologie kleurt: een neppil die als nep is aangekondigd werkt nog steeds, een drankje voelt vullender als het etiket meer calorieën belooft, en wie positiever over zijn eigen veroudering denkt leeft in een langlopend onderzoek gemiddeld jaren langer. Hij bouwt dat op uit onderzoek naar placebo, nocebo, massahysterie, sport, voeding en veroudering, en eindigt bij een van de heftigste voorbeelden die er zijn: onverklaarde sterfgevallen in de slaap onder Hmong-vluchtelingen.</p><p>Het boek werd goed ontvangen in de wetenschapsjournalistiek en won in 2022 een prijs van de British Psychological Society. De onderliggende studies zijn overwegend degelijk, maar Robson schakelt soms snel van een verandering in hoe iets voelt naar een verandering in wat er werkelijk gebeurt, een onderscheid dat niet bij elk voorbeeld even scherp blijft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>placebo</li><li>mindset</li><li>verwachting</li><li>psychologie</li><li>wetenschapsjournalistiek</li><li>veroudering</li><li>stress</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="23"><a href="23.html">Mindset</a>. Dweck onderzoekt een verwante vorm van verwachting, namelijk het geloof over de eigen ontwikkelbaarheid, met een eigen en deels betwiste onderzoekslijn.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft het bredere systeem van snelle oordelen waarin de voorspellingen die Robson bespreekt tot stand komen.</li>
+          <li value="333"><a href="333.html">Altered Traits</a>. Goleman en Davidson laten zien wat gerichte training met het zenuwstelsel doet, een ander soort ingreep dan de korte framing die Robson centraal stelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

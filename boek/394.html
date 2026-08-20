@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tao Te Ching &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Tao Te Ching stelt dat wie zich voegt naar de Tao, de onnoembare gang van de dingen, met minder ingrijpen meer bereikt. De tekst noemt dat wu wei:…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-394">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">394 &middot; Levenskunst</p>
+    <h1>Tao Te Ching</h1>
+    <p class="lede">Laozi (toegeschreven), traditioneel 6e eeuw v.Chr., tekst vermoedelijk 4e&ndash;3e eeuw v.Chr.</p>
+    <p class="stats">
+      <span><b>1410</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="394"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Tao Te Ching stelt dat wie zich voegt naar de Tao, de onnoembare gang van de dingen, met minder ingrijpen meer bereikt. De tekst noemt dat wu wei: handelen zonder de natuurlijke loop van zaken te forceren, toegepast op het bestuur van een rijk en op het gedrag van een mens tegelijk. Een heerser die zich terughoudt, laat een volk zichzelf ordenen; wie zich niet vastklampt aan macht, bezit of gelijk, behoudt veerkracht, zoals water dat zich om een steen buigt en de steen op termijn uitholt. Wie hier iets tegenover wil zetten, kan wijzen op de eeuwen waarin juist wetten en instituties orde hebben gebracht die deze tekst nergens uitwerkt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een auteur van wie het bestaan onzeker is</h3>
+      <p>De vroegste levensbeschrijving van Laozi staat in de <i>Shiji</i> van Sima Qian, uit de eerste eeuw v.Chr., zowat driehonderd jaar na zijn veronderstelde levenstijd. Sima Qian voegt daar zelf al drie strijdige verhalen samen: Laozi als archivaris aan het hof van de Zhou die Confucius ontmoette, Laozi als een andere, latere geleerde, en Laozi als iemand die honderdzestig jaar oud werd. Aan het slot trekt hij naar het westen, dicteert de tekst aan de poortwachter Yin Xi en verdwijnt.</p>
+      <p>Moderne filologie plaatst de tekst zoals wij die kennen later dan de traditie beweert, in de vierde of derde eeuw v.Chr., op grond van rijmschema's en woordenschat die jonger zijn dan de <i>Shijing</i> en ouder dan de <i>Zhuangzi</i>. Bamboestroken uit een graf bij Guodian, rond 300 v.Chr., en zijden manuscripten uit Mawangdui, 168 v.Chr., bevatten een tekst die dicht bij de huidige staat komt, in afwijkende volgorde en zonder een derde van de huidige hoofdstukken. Beide vondsten tonen dat de tekst eeuwen voor de oudste overgeleverde edities in omloop was, maar lossen de vraag naar één auteur niet op: de gangbare opvatting is dat de Tao Te Ching een verzameling spreuken is die generaties lang is aangegroeid.</p>
+      <h3>De Tao die zich niet laat noemen</h3>
+      <p>Het eerste hoofdstuk zet de toon voor de rest: de Tao die uitgesproken kan worden is niet de eeuwige Tao, de naam die genoemd kan worden is niet de eeuwige naam. Het naamloze is het begin van hemel en aarde, het genoemde is de moeder van de tienduizend dingen. Wat er ook over de Tao gezegd wordt, is daarmee al een verkleining ervan.</p>
+      <p>Die opening is de werkwijze van het hele boek. De tekst bouwt geen argument van stelling naar bewijs, maar herhaalt hetzelfde inzicht in steeds andere beelden: water, de vallei, het ongehouwen blok hout, het pasgeboren kind.</p>
+      <h3>Wu wei: handelen zonder te forceren</h3>
+      <p>Wu wei is meer dan letterlijk niets doen: het is handelen zonder in te gaan tegen de eigen aard van de dingen, ziran, het vanzelf-zo-zijn. Hoofdstuk 57 past dat toe op bestuur: hoe meer verboden en wapens, hoe armer het volk; doe ik niets, dan hervormt het volk zich vanzelf.</p>
+      <p>Daar staat een impliciete kritiek op het confucianistische programma tegenover, dat actieve deugdbeoefening en rituelen (li) voorschrijft. Hoofdstuk 18 stelt dat menslievendheid en rechtvaardigheid pas opkwamen toen de grote Tao verlaten werd, wat de tekst als een symptoom van verval leest en niet als een remedie ertegen.</p>
+      <h3>Het zachte dat het harde overwint</h3>
+      <p>Hoofdstuk 78 stelt vast dat niets onder de hemel zachter en zwakker is dan water, en niets beter in staat om het harde en sterke aan te tasten. De wereld weet dat het zwakke het sterke overwint, maar niemand weet het in de praktijk te brengen. Water zoekt de lage plaatsen die iedereen vermijdt en holt intussen de steen uit.</p>
+      <p>Diezelfde omkering keert terug in de vallei, de vrouwelijke figuur en het ongehouwen blok, pu: wat leeg en onbewerkt is, krijgt in de tekst meer gewicht dan wat vol en afgewerkt is. Wie zich klein houdt, blijft heel; wie zich buigt, blijft recht.</p>
+      <h3>De kleine staat en de drie schatten</h3>
+      <p>Hoofdstuk 80 schetst een politiek ideaal van een kleine staat met weinig inwoners, waar werktuigen ongebruikt blijven, niemand ver reist, en de bewoners zo tevreden zijn met eten, kleding en gewoonten dat zij, ook al horen zij honden blaffen in het buurdorp, hun leven lang niet naar elkaar toe gaan. Hoofdstuk 31 noemt wapens onheilspellend gereedschap en stelt dat een overwinning met rouwrituelen herdacht hoort te worden, niet met een feest.</p>
+      <p>Hoofdstuk 67 noemt drie schatten om vast te houden: mededogen, spaarzaamheid, en het niet willen voorgaan op de wereld. Uit mededogen komt moed, uit spaarzaamheid komt gulheid, uit terughoudendheid komt leiderschap. De wijze, shengren, stelt zichzelf achteraan en blijkt daardoor vooraan te staan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tao (Dao)</td><td>De onnoembare oorsprong en gang van alle dingen, die niet in taal is te vangen zonder haar te verkleinen.</td></tr>
+          <tr><td class="term">De (Te)</td><td>De innerlijke gesteldheid of het vermogen waarmee de Tao zich in een mens of ding laat gelden.</td></tr>
+          <tr><td class="term">Wu wei</td><td>Handelen zonder tegen de natuurlijke gang van zaken in te gaan, geen letterlijk niets-doen.</td></tr>
+          <tr><td class="term">Ziran</td><td>Het vanzelf-zo-zijn: de eigen aard van iets, ongestuurd door ingrijpen van buitenaf.</td></tr>
+          <tr><td class="term">Pu</td><td>Het ongehouwen blok hout, het beeld voor onbewerkte, ongevormde mogelijkheid.</td></tr>
+          <tr><td class="term">Yin en yang</td><td>Complementaire tegenstellingen die elkaar oproepen en om beurten overheersen.</td></tr>
+          <tr><td class="term">Wanwu</td><td>De tienduizend dingen: de aanduiding voor de veelheid van al het bestaande dat uit de Tao voortkomt.</td></tr>
+          <tr><td class="term">De drie schatten (san bao)</td><td>Mededogen, spaarzaamheid en het niet willen voorgaan, genoemd in hoofdstuk 67.</td></tr>
+          <tr><td class="term">Shengren</td><td>De wijze, de exemplarische figuur die wu wei belichaamt en zich op de achtergrond houdt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De tekst levert geen argument in de gebruikelijke zin. Er is geen waarneming die wordt uitgewerkt tot een conclusie, geen tegenwerping die wordt weerlegd. Elk hoofdstuk stelt een inzicht vast in een beeld of een paradox en laat het daarbij; de overtuigingskracht zit in herhaling over eenentachtig hoofdstukken, niet in een keten van redenen.</p>
+      <p>Wat aan onderbouwing bestaat is indirect: de vondsten van Guodian en Mawangdui tonen dat de tekst al voor 300 v.Chr. gezaghebbend genoeg was om iemand mee te geven in een graf, en latere commentaren zoals dat van Wang Bi hebben eeuwenlang bepaald hoe zij gelezen werd. Dat documenteert de overlevering, niet de juistheid van wat zij over bestuur of wu wei beweert; concrete claims zoals het ideaal van de kleine geïsoleerde staat in hoofdstuk 80 staan er zonder enige toets.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het centrale beeld, het zachte dat het harde overwint, verklaart bijna elke uitkomst achteraf: slaagt iets, dan was het wu wei, mislukt iets, dan was er te veel geforceerd. Sinologen wijzen erop dat het principe daardoor nauwelijks te weerleggen is.</p>
+      <p>Het politieke ideaal van hoofdstuk 80, kleine, van elkaar afgesloten gemeenschappen zonder reizen of handel, weegt niet af wat zulke afzondering kost aan veerkracht bij misoogst of ziekte; de tekst beschrijft alleen wat zij beschermt tegen begeerte en conflict.</p>
+      <p>Er is geen vaststaande brontekst. Guodian, Mawangdui en de latere, door Wang Bi geredigeerde versie die de meeste vertalingen volgen, verschillen in hoofdstukvolgorde en formulering, waardoor elke uitspraak over wat Laozi precies bedoelde zekerheid projecteert op een tekst waarvan het ontstaan niet te reconstrueren is.</p>
+      <p>Veel populaire westerse edities zijn geen vertaling uit het Chinees maar een parafrase. De meest verkochte Engelse versie, die van Stephen Mitchell (1988), is daarvan het bekendste voorbeeld: Mitchell leest zelf geen Chinees en werkte van bestaande vertalingen; sinologen hebben hem verweten regels weg te laten en zelf toe te voegen, en er boeddhistische en christelijke ideeën in te lezen die in het origineel niet voorkomen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees niet naar een conclusie toe, maar één of twee hoofdstukken per keer, en laat de tegenspraak tussen hoofdstukken staan.</li>
+        <li>Ga bij een editie na wie vertaald heeft en uit welke taal, en vergelijk bij twijfel twee vertalingen van hetzelfde hoofdstuk.</li>
+        <li>Beproef wu wei als de vraag welke stap achterwege kan blijven zonder dat de zaak slechter wordt.</li>
+        <li>Lees hoofdstuk 80 als gedachte-experiment over wat een gemeenschap wint en verliest bij volledige beperking van reizen en handel, niet als beleidsvoorstel.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Chinees <i>Dao De Jing</i>. Van dit werk bestaan tientallen Engelse en Nederlandse edities; deze samenvatting volgt de Nederlandse vertaling van sinoloog Kristofer Schipper, <i>Het boek van de Tao en de innerlijke kracht</i> (Augustus, 2010), rechtstreeks uit het Chinees en met inleiding en toelichting. De meest verkochte Engelse editie is <i>Tao Te Ching: A New English Version</i> van Stephen Mitchell (Harper &amp; Row, 1988), een vrije, veelgebruikte hertaling waarvan de vertaler zelf geen Chinees leest.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Tao Te Ching is een van de kortste en meest vertaalde teksten uit de wereldliteratuur: eenentachtig korte hoofdstukken, samen nog geen zesduizend Chinese tekens, toegeschreven aan Laozi, een figuur van wie niet vaststaat dat hij heeft bestaan. De tekst spreekt in beelden en paradoxen in plaats van in redeneringen: de Tao die genoemd kan worden is niet de eeuwige Tao, het zachte overwint het harde, wie zich terugtrekt blijft heel.</p><p>Kern is wu wei, handelen zonder tegen de natuurlijke gang van de dingen in te gaan, toegepast op het bestuur van een rijk zoals op het gedrag van een mens. Archeologische vondsten van bamboestroken (Guodian, rond 300 v.Chr.) en zijden manuscripten (Mawangdui, 168 v.Chr.) tonen dat een tekst die dicht bij de huidige staat komt, al eeuwen voor de vroegst overgeleverde edities in omloop was, zonder dat daarmee vaststaat wie haar schreef.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>taoïsme</li><li>Chinese filosofie</li><li>wu wei</li><li>yin-yang</li><li>klassieke tekst</li><li>politieke filosofie</li><li>aforismen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius oefent zich net als deze tekst in het loslaten van wat niet in zijn macht ligt, maar bouwt dat op uit een uitgewerkte Stoïsche leer in plaats van op beelden en paradoxen.</li>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Seneca redeneert net als Laozi over onthechting en over wat werkelijk nodig is, maar doet dat in doorwrochte brieven met een opgebouwd argument in plaats van korte, herhaalde spreuken.</li>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Alan Watts bouwt zijn eigen boek op dezelfde taoïstische gedachte dat vastgrijpen naar zekerheid de onrust juist voedt, nu toegesneden op een westerse lezer.</li>
+          <li value="346"><a href="346.html">The Book of Five Rings</a>. Musashi schrijft vanuit een andere Aziatische traditie over hetzelfde soort ongedwongen, aan de situatie aangepast handelen, maar dan toegespitst op het zwaardgevecht.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

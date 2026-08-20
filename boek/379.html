@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wabi Sabi &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kempton stelt dat het Westerse ideaal van perfectie mensen uitput en vervreemdt van wat er werkelijk is, en dat de Japanse esthetische traditie van wabi…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-379">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">379 &middot; Levenskunst</p>
+    <h1>Wabi Sabi</h1>
+    <p class="lede">Beth Kempton, 2018</p>
+    <p class="stats">
+      <span><b>1414</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="379"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kempton stelt dat het Westerse ideaal van perfectie mensen uitput en vervreemdt van wat er werkelijk is, en dat de Japanse esthetische traditie van wabi sabi, de waardering voor het onvolmaakte, het vergankelijke en het onvoltooide, een bruikbaar tegenwicht biedt. Schoonheid zit voor haar niet in wat perfect en blijvend is, maar juist in wat gebarsten, verouderd of tijdelijk is, en het aanvaarden daarvan zou minder angst voor falen en minder jacht op controle opleveren. Wie daar tegenover zet dat een cultuurbegrip niet zomaar naar een ander leven te vertalen valt, wijst op een grens die het boek zelf grotendeels onbesproken laat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee woorden die één werden</h3>
+      <p>Kempton begint bij de taal. Wabi betekende oorspronkelijk de somberheid van een teruggetrokken bestaan in de natuur, ver van het hofleven; sabi betekende verweking, kilte, het effect van tijd op een voorwerp. Beide woorden droegen eeuwenlang een negatieve klank, tot ze vanaf de veertiende eeuw geleidelijk een esthetische waardering kregen: het isolement van wabi werd rust, de aftakeling van sabi werd karakter.</p>
+      <p>Pas in de twintigste eeuw versmolten de twee tot het samengestelde begrip wabi sabi, dat sindsdien wordt gebruikt voor schoonheid die onvolmaakt, vergankelijk en onvoltooid is. Kempton benadrukt dat er geen sluitende Nederlandse of Engelse vertaling bestaat en dat elke omschrijving een vereenvoudiging is.</p>
+      <h3>De theeceremonie als oorsprong</h3>
+      <p>De praktische bron van het begrip legt Kempton bij de theemeester Sen no Rikyu, die in de zestiende eeuw de theeceremonie hervormde door dure Chinese voorwerpen te vervangen door ruw, asymmetrisch aardewerk en een eenvoudige rieten hut. Rikyu bracht daarmee de zenboeddhistische aandacht voor het moment en voor onthechting van bezit rechtstreeks in de vormgeving van de ceremonie.</p>
+      <p>Kempton beschrijft de vier grondbeginselen die aan die ceremonie ten grondslag liggen: harmonie, respect, zuiverheid en rust. Zij gebruikt ze in het boek breder dan alleen voor de theekamer, als toetssteen voor hoe een ruimte, een gesprek of een dag is ingericht.</p>
+      <h3>Het huis vereenvoudigen</h3>
+      <p>In het eerste toepassingsdeel gaat het om de fysieke omgeving. Kempton pleit voor minder spullen en meer ruimte voor voorwerpen met sporen van gebruik, zoals een gebarsten kom of een verkleurde plank, in plaats van voor de gladde nieuwheid die winkels verkopen. Ze beschrijft dat als een verschuiving van bezit als statussymbool naar bezit als iets waarmee een geschiedenis wordt bewaard.</p>
+      <p>Diezelfde blik past ze toe op het lichaam en op ouder worden: rimpels en littekens krijgen in haar betoog dezelfde status als een verweerde houten balk, tekens van tijd die iets toevoegen in plaats van iets afnemen.</p>
+      <h3>Aanvaarding en falen</h3>
+      <p>Het middendeel van het boek gaat over acceptatie van wat niet naar wens loopt. Kempton behandelt tegenslag en falen niet als iets om te overwinnen maar als iets om anders te framen, met vergankelijkheid als uitgangspunt: als niets blijvend is, is ook een mislukking geen eindpunt maar een fase.</p>
+      <p>Ze werkt dat uit voor werk en loopbaan, waar ze aanraadt vooruitgang niet aan een vast eindpunt te meten maar aan de weg zelf, en voor relaties, waar ze onvolkomenheid bij anderen voorstelt als iets om te waarderen in plaats van te corrigeren.</p>
+      <h3>Relaties en werk</h3>
+      <p>In het hoofdstuk over relaties past Kempton de vier theeceremoniebeginselen, harmonie, respect, zuiverheid en rust, toe op de omgang met anderen. Ze pleit voor het waarderen van de eigenaardigheden van een partner of vriend als iets vergelijkbaars met de onregelmatigheid van een handgemaakte kom, in plaats van als iets dat rechtgezet moet worden.</p>
+      <p>Voor werk stelt ze de gangbare loopbaanmaatstaven, een vaste functietitel, een lineaire opgaande lijn, tegenover een opvatting van werk als iets dat net als een seizoen komt en gaat. Ze raadt aan de eigen loopbaan te beoordelen op wat de weg er tot nu toe aan heeft toegevoegd, in plaats van uitsluitend op de afstand tot een vooraf bepaald doel.</p>
+      <h3>Leven met de seizoenen</h3>
+      <p>Een terugkerend thema is de aandacht voor natuurlijke cycli: de seizoenen, het weer, het verstrijken van een dag. Kempton beschrijft Japanse gewoontes om die cycli te markeren, van seizoensgebonden voedsel tot het bewust stilstaan bij bloesem die maar kort bloeit, als oefening in het opmerken van iets voordat het voorbij is.</p>
+      <p>Die aandacht voor het voorbijgaande loopt door tot het slothoofdstuk, waarin Kempton de losse thema's samenbrengt tot een levenshouding: minder vasthouden aan hoe iets zou moeten zijn, en meer aandacht voor hoe het is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wabi</td><td>Oorspronkelijk de somberheid van een afgezonderd bestaan in de natuur, later de esthetische waardering voor eenvoud en soberheid.</td></tr>
+          <tr><td class="term">Sabi</td><td>Oorspronkelijk verwering en kilte, later de esthetische waardering voor de sporen die tijd op een voorwerp achterlaat.</td></tr>
+          <tr><td class="term">Wabi sabi</td><td>Het samengestelde begrip voor schoonheid die onvolmaakt, vergankelijk en onvoltooid is, ontstaan in de twintigste eeuw.</td></tr>
+          <tr><td class="term">Wa, kei, sei, jaku</td><td>De vier grondbeginselen van de theeceremonie, harmonie, respect, zuiverheid en rust, die Kempton breder toepast dan alleen op thee.</td></tr>
+          <tr><td class="term">Chanoyu</td><td>De Japanse theeceremonie waarin Sen no Rikyu de wabi-esthetiek vormgaf met eenvoudig aardewerk en een sobere ruimte.</td></tr>
+          <tr><td class="term">Vergankelijkheid</td><td>Het besef dat niets blijvend is, dat Kempton als grondhouding voorstelt bij het aanvaarden van falen en verlies.</td></tr>
+          <tr><td class="term">Sporen van gebruik</td><td>Zichtbare tekens van tijd en gebruik op een voorwerp of lichaam, die in wabi sabi als waarde gelden in plaats van als gebrek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Kempton onderbouwt het boek met haar eigen jarenlange ervaring in Japan, waar zij Japanse studies volgde, als tolk en cultuurbemiddelaar werkte en ambachten beoefende als papier maken, bloemschikken, kalligrafie en de theeceremonie. Voor de geschiedenis van wabi en sabi als aparte begrippen steunt ze op gangbare Japanologische bronnen over de taalontwikkeling sinds de veertiende eeuw en op de overgeleverde geschiedenis van Sen no Rikyu.</p>
+      <p>Voor de toepassing op een westers dagelijks leven, het huis, de loopbaan, de relatie, levert ze geen onderzoek maar persoonlijke voorbeelden en coachingservaring uit haar eigen praktijk. Dat maakt het onderscheid tussen wat historisch is vastgesteld over wabi sabi als esthetisch begrip en wat Kempton er zelf als levensles van maakt, een onderscheid dat de lezer zelf moet blijven maken.</p>
+      <p>Het boek is sinds 2018 in tientallen talen vertaald en Kempton heeft er sindsdien meerdere Japan-geïnspireerde boeken op laten volgen. Dat succes zegt iets over hoe breed het onderwerp aansloeg, niet over de juistheid van de vertaalslag die zij van esthetiek naar levenshouding maakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat een esthetisch begrip, oorspronkelijk ontwikkeld voor de beoordeling van voorwerpen, theekommen, een tuin, een gebouw, in dit boek wordt opgerekt tot een algemene levenshouding voor falen, rouw en zelfacceptatie. Die overgang wordt nergens expliciet verantwoord; het boek veronderstelt dat wat voor een gebarsten kom geldt, ook voor een mislukte carrière geldt, zonder dat verschil te bespreken.</p>
+      <p>Critici binnen de Japanologie wijzen er daarnaast op dat wabi sabi in de westerse zelfhulpmarkt van de laatste decennia is losgezongen van zijn functie in een specifieke esthetische en religieuze praktijk, de theeceremonie en het zenboeddhisme, en is herverpakt als een algemeen inzetbaar geluksrecept. Kempton doet daar zelf actief aan mee door het begrip toe te passen op vrijwel elk levensdomein.</p>
+      <p>Het boek benoemt eigen tegenwerpingen nauwelijks. Er is geen hoofdstuk dat de grenzen van de vergelijking tussen een voorwerp en een mensenleven onderzoekt, en het slotdeel keert vooral terug naar bevestiging van wat eerder al is gezegd, wat de laatste hoofdstukken minder toevoegen laat dan de eerdere.</p>
+      <p>Ten slotte blijft onduidelijk hoever de vertaalslag naar het Westen reikt. Kempton schrijft voor een lezer die het begrip nog niet kent en legt daarom veel uit over Japan zelf, terwijl het eigenlijke advies, minder perfectionisme, meer aandacht voor wat er al is, ook zonder dat culturele omhulsel te geven was. Dat maakt het boek deels een inleiding in Japanse esthetiek en deels een zelfhulpboek, zonder dat die twee lagen altijd samenvallen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bewaar één voorwerp met zichtbare sporen van gebruik zichtbaar in huis, in plaats van het te vervangen of te verstoppen.</li>
+        <li>Beschrijf een recente tegenslag in twee zinnen: wat er gebeurde, en wat er, los van het gewenste resultaat, nog wel is overgebleven.</li>
+        <li>Kies een terugkerend seizoensmoment, zoals de eerste kou of de eerste bloesem, en leg vast wanneer je het dit jaar opmerkte.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Voluit <i>Wabi Sabi: Japanese Wisdom for a Perfectly Imperfect Life</i> (Piatkus, Londen, 2018, ook verschenen bij HarperOne, ISBN 9780062905154). Nederlands als <i>Wabi sabi: de Japanse wijsheid voor een perfect imperfect leven</i> bij Lev/A.W. Bruna (2018, ISBN 9789400510456).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kempton, Japanoloog en jarenlang actief als tolk en cultuurbemiddelaar in Japan, herleidt wabi sabi naar zijn oorsprong in de theeceremonie van de zestiende-eeuwse theemeester Sen no Rikyu en naar de zenboeddhistische aandacht voor vergankelijkheid waaruit die ceremonie voortkomt. Ze onderscheidt de oorspronkelijk aparte woorden wabi, de eenvoud van het alleen zijn, en sabi, de schoonheid van veroudering, en laat zien hoe ze in de loop van eeuwen tot één begrip zijn samengesmolten.</p><p>Van die oorsprong beweegt ze naar toepassing op het leven van de lezer: op het huis, op werk, op relaties en op het aanvaarden van ouder worden. Het boek biedt geen theorie over Japan maar een geleidelijke oefening in minder perfectionisme, opgebouwd uit persoonlijke ervaring en Japanse ambachten die Kempton zelf beoefende, van papier maken tot de theeceremonie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wabi-sabi</li><li>Japan</li><li>onvolmaaktheid</li><li>vergankelijkheid</li><li>eenvoud</li><li>theeceremonie</li><li>zenboeddhisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="77"><a href="77.html">Ikigai</a>. García en Miralles zoeken op vergelijkbare wijze in een Japans begrip een tegenwicht tegen westerse haast, toegespitst op werk en levensduur in plaats van op esthetiek.</li>
+          <li value="205"><a href="205.html">Zen: The Art of Simple Living</a>. Masuno werkt vanuit dezelfde zenboeddhistische bron een praktijk uit voor het dagelijks huishouden in plaats van voor de levenshouding in het algemeen.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown onderbouwt de waardering voor onvolmaaktheid met interviewonderzoek, waar Kempton bij persoonlijke ervaring en ambachtstraditie blijft.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman werkt de eindigheid die bij Kempton impliciet blijft, expliciet uit tot een levenshouding tegenover een beperkt aantal weken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

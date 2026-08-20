@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Psycho-Cybernetics &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Maltz stelt dat een mens niet handelt in overeenstemming met de werkelijkheid, maar met het beeld dat hij van zichzelf heeft, en dat dit zelfbeeld de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-411">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">411 &middot; Gewoontes en denken</p>
+    <h1>Psycho-Cybernetics</h1>
+    <p class="lede">Maxwell Maltz, 1960</p>
+    <p class="stats">
+      <span><b>1536</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="411"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Maltz stelt dat een mens niet handelt in overeenstemming met de werkelijkheid, maar met het beeld dat hij van zichzelf heeft, en dat dit zelfbeeld de feitelijke grens is van wat iemand voor zichzelf mogelijk acht, los van talent of omstandigheden. Zijn hersenen en zenuwstelsel werken daarbij als een doelzoekend mechanisme dat onbewust corrigeert richting het doel dat het zelfbeeld voorschrijft, op dezelfde manier waarop een torpedo zijn koers bijstelt aan de hand van feedback. Wie dus zijn zelfbeeld verandert, verandert volgens hem niet zijn motivatie maar de instelling van het hele mechanisme, en dat is volgens Maltz de enige plek waar blijvende verandering begint.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De ontdekking in de spreekkamer</h3>
+      <p>Maltz beschrijft hoe hij als plastisch chirurg patiënten opereerde die zich schaamden voor een misvormde neus of een litteken. Bij de meesten verdween de schaamte zodra het gezicht was gecorrigeerd. Bij een ander deel bleef die schaamte onveranderd aanwezig, alsof de operatie niet had plaatsgevonden.</p>
+      <p>Dat verschil kon hij niet verklaren vanuit de chirurgie zelf. Zijn conclusie was dat het gezicht nooit het echte aangrijpingspunt was geweest: patiënten bij wie het zelfbeeld meeveranderde, gingen zich anders gedragen, en patiënten bij wie dat zelfbeeld vastzat, bleven zich gedragen als voorheen. Die waarneming is het uitgangspunt van het hele boek.</p>
+      <h3>Het beeld van de cybernetica</h3>
+      <p>Maltz gebruikt de term cybernetica, kort daarvoor door Norbert Wiener geïntroduceerd voor zelfsturende systemen zoals geleide raketten, als beeld voor de menselijke geest. Zo'n systeem heeft geen vaste route, maar corrigeert doorlopend de afwijking tussen zijn huidige positie en het doel, tot het doel is bereikt.</p>
+      <p>Op dezelfde manier zou het zenuwstelsel werken: het ontvangt terugkoppeling over resultaten en stuurt gedrag bij, zonder dat er bewust over wordt nagedacht. Het beeld is een analogie, geen technische verklaring; Maltz gebruikt het om aannemelijk te maken dat gedrag zich automatisch aanpast aan een ingesteld doel, in plaats van dat het steeds opnieuw met wilskracht wordt afgedwongen.</p>
+      <h3>Zelfbeeld als de werkelijke grens</h3>
+      <p>De kern van het boek is dat ieder mens een innerlijk beeld van zichzelf met zich meedraagt, opgebouwd uit eerdere ervaringen en de reacties van anderen daarop, en dat dit beeld als een waarheid wordt behandeld, ook wanneer het dat niet is. Iemand die zichzelf als onhandig ziet, gedraagt zich onhandig, ook in situaties waarin hij dat niet zou hoeven zijn.</p>
+      <p>Voor Maltz is dit geen kwestie van motivatie of positief denken in de gewone zin, maar van instelling: net zoals een thermostaat een temperatuur aanhoudt, houdt het zelfbeeld een niveau van functioneren aan. Nieuwe inspanning zonder verandering van dat niveau leidt volgens hem terug naar hetzelfde punt.</p>
+      <h3>Succesmechanisme en faalmechanisme</h3>
+      <p>Maltz onderscheidt twee standen van hetzelfde mechanisme. Het succesmechanisme richt zich op een doel en corrigeert fouten onderweg zonder ze als bewijs van onvermogen te zien. Het faalmechanisme doet in wezen hetzelfde, maar dan gericht op een doel van tekortschieten, waarbij fouten worden gelezen als bevestiging van het zelfbeeld.</p>
+      <p>Het verschil zit niet in de aanwezigheid van fouten, die maakt iedereen, maar in wat er met de terugkoppeling gebeurt. Bij het succesmechanisme is een fout informatie om de koers bij te stellen; bij het faalmechanisme is een fout een oordeel over de persoon.</p>
+      <h3>Verbeelding als oefenruimte</h3>
+      <p>Omdat het zenuwstelsel volgens Maltz reageert op voorstellingen en niet alleen op feitelijke gebeurtenissen, kan geoefend worden zonder de situatie zelf. Hij beschrijft een dagelijkse oefening waarbij iemand ontspannen, in detail en herhaald een handeling voor zich ziet zoals hij die wil uitvoeren, wat hij het theater van de geest noemt.</p>
+      <p>Die ontspanning is voor hem geen bijzaak: geforceerde wilskracht werkt volgens hem averechts, omdat het mechanisme dan juist wordt gestoord in plaats van bijgestuurd. Wie te veel zijn best doet, krijgt eerder het tegenovergestelde resultaat dan wie zich losjes op het doel richt en het verdere aan het mechanisme overlaat.</p>
+      <h3>Emotioneel litteken en de-hypnose van valse overtuigingen</h3>
+      <p>Maltz gebruikt de term emotioneel litteken voor negatieve ervaringen die zijn blijven zitten en die het zelfbeeld blijven kleuren lang nadat de oorspronkelijke aanleiding voorbij is. Zulke overtuigingen zijn volgens hem vaak op jonge leeftijd ontstaan en nooit meer getoetst, wat hij vergelijkt met een soort zelfhypnose.</p>
+      <p>Zijn voorgestelde tegenwicht is niet het wegredeneren van het litteken, maar het herhaald voor ogen houden van een ander, geloofwaardig zelfbeeld, tot dat beeld de rol van de oude overtuiging overneemt.</p>
+      <h3>Het winnende gevoel</h3>
+      <p>In de slothoofdstukken beschrijft Maltz een innerlijke staat die hij het winnende gevoel noemt: niet euforie, maar een rustige zekerheid die ontstaat wanneer het zelfbeeld en het gedrag met elkaar overeenkomen. Hij besluit met de stelling dat wie op die manier leeft, minder energie kwijt is aan het bestrijden van zichzelf en er meer overhoudt voor het leven zelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zelfbeeld</td><td>Het innerlijke beeld dat iemand van zichzelf heeft en dat als grens werkt voor wat hij voor zichzelf mogelijk acht.</td></tr>
+          <tr><td class="term">Succesmechanisme</td><td>De stand van het zenuwstelsel waarin fouten als bijsturing worden gebruikt op weg naar een doel.</td></tr>
+          <tr><td class="term">Faalmechanisme</td><td>Dezelfde besturing, maar gericht op een doel van tekortschieten, waarbij fouten als oordeel over de persoon worden gelezen.</td></tr>
+          <tr><td class="term">Cybernetische analogie</td><td>Het beeld van het zenuwstelsel als zelfsturend systeem dat, net als een geleide raket, zijn koers bijstelt op basis van terugkoppeling.</td></tr>
+          <tr><td class="term">Theater van de geest</td><td>De ontspannen, herhaalde verbeeldingsoefening waarmee Maltz voorstelt een gewenst gedrag vooraf te oefenen.</td></tr>
+          <tr><td class="term">Emotioneel litteken</td><td>Een negatieve ervaring die is blijven hangen en het zelfbeeld blijft kleuren nadat de aanleiding voorbij is.</td></tr>
+          <tr><td class="term">De-hypnose van valse overtuigingen</td><td>Het loslaten van vroeg gevormde, nooit getoetste overtuigingen over zichzelf, door ze te vervangen door een ander zelfbeeld.</td></tr>
+          <tr><td class="term">Ontspannen inspanning</td><td>Het idee dat geforceerde wilskracht het mechanisme stoort, en dat een losse gerichtheid op het doel beter werkt.</td></tr>
+          <tr><td class="term">Winnende gevoel</td><td>De rustige zekerheid die ontstaat wanneer zelfbeeld en gedrag met elkaar overeenkomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Maltz bouwt zijn boek op de eigen praktijk als chirurg en op brieven en gesprekken met patiënten en lezers, niet op gecontroleerd onderzoek. De cybernetica van Norbert Wiener, in 1948 gepubliceerd, was op het moment van schrijven actuele wetenschap over besturingssystemen, maar Maltz gebruikt haar als beeldspraak voor de menselijke geest, niet als een aangetoond werkingsmechanisme van het zenuwstelsel.</p>
+      <p>Zijn stelling dat het zenuwstelsel nauwelijks onderscheid maakt tussen een werkelijk beleefde en een levendig voorgestelde ervaring, wordt in het boek niet met onderzoek onderbouwd. Latere sportpsychologie heeft wel aangetoond dat mentale training een meetbaar effect kan hebben op prestatie, maar met beperkingen en voorwaarden die Maltz niet noemt; het is geen bevestiging van zijn bredere claim dat verbeelding gedrag op de meeste terreinen van het leven op dezelfde manier verandert.</p>
+      <p>Het boek zelf werd, mede dankzij de vele herdrukken, een van de meest verkochte zelfhulpboeken van de twintigste eeuw en wordt door latere auteurs op het gebied van cognitieve gedragstherapie en sportpsychologie genoemd als vroege bron. Die invloed zegt iets over het bereik van het boek, niet over de juistheid van de onderliggende claims.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is geschreven vóór de cognitieve gedragstherapie als vakgebied bestond, en Maltz was chirurg, geen psycholoog of onderzoeker. Zijn claims over hoe het zenuwstelsel werkt, zijn aannames, gepresenteerd met het gezag van een medische titel maar zonder de toetsing die de latere psychologie daaraan wel onderwierp.</p>
+      <p>Het zelfbeeld is bij Maltz een verklaring die vrijwel elk gedrag kan dekken: slaagt iemand, dan klopte het zelfbeeld; faalt iemand, dan zat het zelfbeeld nog in de weg. Zo'n redenering is moeilijk te weerleggen, wat eerder op een zwakte dan op een sterkte van de theorie wijst.</p>
+      <p>Het bekendste voorbeeld van hoe los dit boek van toetsing staat, is de bewering in het voorwoord dat het "minimaal ongeveer 21 dagen" duurt om een nieuw zelfbeeld te laten doordringen, een observatie die Maltz baseerde op de tijd die zijn patiënten nodig hadden om aan een nieuw gezicht te wennen. Die losse opmerking is in de decennia daarna versimpeld tot de bewering dat het "21 dagen duurt om een gewoonte te vormen", een stelling die in 2009 door onderzoek van Phillippa Lally aan het University College London werd weerlegd: de gemeten tijd om een nieuwe gewoonte automatisch te laten worden liep uiteen van 18 tot 254 dagen, met een gemiddelde van 66 dagen.</p>
+      <p>Ten slotte is onduidelijk wat precies onder Maltz' naam circuleert. Na zijn dood in 1975 zijn er edities verschenen met toegevoegde hoofdstukken van andere auteurs, waardoor lezers van recentere drukken niet zonder meer weten welk deel van de tekst van Maltz zelf is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf het gedrag dat je wilt veranderen niet als een tekort aan wilskracht, maar ga na welk zelfbeeld eronder ligt.</li>
+        <li>Oefen een lastige situatie vooraf ontspannen en in detail voor jezelf, in plaats van je er gespannen op voor te bereiden.</li>
+        <li>Lees een fout na als informatie voor bijsturing, en schrijf apart op welk oordeel over jezelf je eraan toevoegt.</li>
+        <li>Verwacht geen vaste termijn van 21 dagen; ga uit van een periode die per gewoonte en per persoon sterk kan verschillen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Psycho-Cybernetics: A New Way to Get More Living Out of Life</i> (Prentice-Hall, Englewood Cliffs). Geen officiële Nederlandse vertaling gevonden. Na Maltz' dood in 1975 verschenen bewerkte edities zoals <i>Psycho-Cybernetics 2000</i> en, samen met Dan Kennedy, <i>The New Psycho-Cybernetics</i> (2001), met toegevoegde tekst die niet van Maltz zelf is; deze samenvatting volgt de oorspronkelijke editie uit 1960.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Maltz was plastisch chirurg en merkte dat een deel van zijn patiënten na een geslaagde correctie van hun gezicht bleef aanvoelen, denken en handelen alsof zij nog steeds ontsierd waren. Andere patiënten met een blijvend litteken bleven daarentegen zelfverzekerd. Daaruit trok hij de conclusie dat niet het gezicht bepaalt hoe iemand zich gedraagt, maar het beeld dat iemand van zichzelf heeft.</p><p>Hij leende het woord cybernetica van de besturingstechniek en beschreef de hersenen als een stuurmechanisme dat, net als een zoekende raket, voortdurend zijn koers bijstelt aan de hand van een doel. Wordt dat doel gevoed door een zelfbeeld van iemand die faalt, dan stuurt het mechanisme daar automatisch naartoe. Verander het zelfbeeld, is zijn stelling, en het gedrag verandert vanzelf mee.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfbeeld</li><li>zelfhulp</li><li>visualisatie</li><li>gewoontevorming</li><li>cybernetica</li><li>plastische chirurgie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. Peale's boek uit 1952 is de voorganger in dezelfde traditie van positief denken en laat zien waar Maltz' cybernetische inkleding van afwijkt.</li>
+          <li value="259"><a href="259.html">The Power of Your Subconscious Mind</a>. Murphy werkt vanuit dezelfde jaren en hetzelfde uitgangspunt dat de geest het gedrag stuurt, maar dan met het onderbewuste in plaats van het zelfbeeld als sleutel.</li>
+          <li value="23"><a href="23.html">Mindset</a>. Dweck onderzoekt decennia later met echte data een verwant onderscheid tussen vaste en veranderlijke zelfbeelden, en laat zien wat daarvan overeind blijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

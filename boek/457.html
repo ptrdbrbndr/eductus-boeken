@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emotional Agility &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Susan David betoogt dat de twee gangbare reacties op een lastig gevoel, het wegstoppen ervan en het erin blijven hangen, allebei op dezelfde fout…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-457">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">457 &middot; Moed en karakter</p>
+    <h1>Emotional Agility</h1>
+    <p class="lede">Susan David, 2016</p>
+    <p class="stats">
+      <span><b>1508</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="457"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Susan David betoogt dat de twee gangbare reacties op een lastig gevoel, het wegstoppen ervan en het erin blijven hangen, allebei op dezelfde fout berusten: het gevoel wordt behandeld als een feit waarnaar gehandeld moet worden, in plaats van als een boodschap die eerst onderzocht kan worden. Emotionele behendigheid is bij haar het vermogen om een emotie te herkennen en te benoemen zonder haar meteen om te zetten in gedrag, en vervolgens een handeling te kiezen die aansluit bij wat iemand werkelijk belangrijk vindt. Dat is geen kwestie van positief denken of van het wegredeneren van ongemak, want negatieve emoties bevatten volgens haar informatie die verloren gaat zodra ze worden vermeden of gesust.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>"Susie is fine"</h3>
+      <p>Het boek opent met de ziekte en dood van haar vader, die overleed aan kanker toen David zestien was. In het gezin ontstond de afspraak dat alles gewoon doorging: er werd nauwelijks over gesproken, en op de vraag hoe het met haar ging antwoordde David steevast dat het goed ging. Een lerares gaf haar op school een schrift om in te schrijven wat ze niet hardop zei, en dat schrift werd voor David het eerste bewijs dat een gevoel niet verdwijnt door het te negeren.</p>
+      <p>Die jeugdervaring vormt de aanleiding voor haar latere werk als psycholoog aan Harvard Medical School, waar zij onderzoek deed naar emoties, prestatie en verandering. Een artikel dat zij daarover schreef voor Harvard Business Review werd door de redactie uitgeroepen tot Management Idea of the Year en een kwart miljoen keer gedownload, wat de aanzet werd voor dit boek.</p>
+      <h3>Bottling en brooding</h3>
+      <p>David onderscheidt twee ontsporingen in de omgang met een lastig gevoel. Bottlen is het wegduwen en negeren van een emotie in de hoop dat ze vanzelf verdwijnt; op termijn keert het weggestopte gevoel terug in een onverwachte uitbarsting of in lichamelijke klachten. Broeden is het tegenovergestelde: erin blijven hangen, het steeds opnieuw doorlopen van wat er gebeurd is of nog kan gebeuren, zonder dat er iets verandert.</p>
+      <p>Beide reacties houden iemand vast aan het gevoel in plaats van eraan voorbij te helpen. David noemt dit vastgehaakt raken: het gevoel of de gedachte krijgt de regie over het gedrag, alsof het een feit is in plaats van een tijdelijke toestand.</p>
+      <h3>Vier vaardigheden</h3>
+      <p>Tegenover bottlen en broeden zet zij een volgorde van vier vaardigheden. Show up is het onder ogen zien van een gevoel met nieuwsgierigheid in plaats van oordeel, ook als dat gevoel ongemakkelijk is. Step out is de stap waarin iemand zich losmaakt van de gedachte of het gevoel en het bekijkt als iets wat voorbijgaat, in plaats van als een instructie om naar te handelen.</p>
+      <p>Walk your why is de stap waarin iemand teruggaat naar de eigen waarden, niet naar doelen, om te bepalen wat de volgende handeling moet dienen. Move on is ten slotte het omzetten daarvan in een kleine aanpassing, een tiny tweak, die vaak beter vol te houden is dan een groot voornemen.</p>
+      <h3>Waarden versus doelen</h3>
+      <p>Een terugkerend onderscheid is dat tussen waarden en doelen. Een doel is af te vinken, zoals een promotie of een marathon; een waarde is een richting, zoals zorgzaamheid of nieuwsgierigheid, die nooit voltooid is. David waarschuwt voor wat zij valse waarden noemt: aannames over wat je zou moeten willen, overgenomen van ouders, cultuur of werk, die bij nader onderzoek niet de eigen waarden blijken te zijn.</p>
+      <p>Ter illustratie beschrijft zij cliënten die een carrière najagen omdat die van hun ouders wordt verwacht, en die pas rust vinden zodra ze het onderscheid zien tussen wat ze zouden moeten willen en wat ze werkelijk willen.</p>
+      <h3>Emotionele rigiditeit</h3>
+      <p>David plaatst haar model tegenover wat zij emotionele rigiditeit noemt: het onveranderlijk vasthouden aan dezelfde reactie op een gevoel, ongeacht de situatie. Onderzoek waarnaar zij verwijst brengt die starheid in verband met een verhoogd risico op depressieve klachten en angst, terwijl het vermogen om per situatie een andere, passende reactie te kiezen samenhangt met beter functioneren op werk en in relaties.</p>
+      <p>Ze onderscheidt dat nadrukkelijk van opgewektheid. Een gevoel toelaten betekent bij haar niet dat het prettig moet aanvoelen of snel voorbij hoeft te gaan; het gaat om de vraag of het gevoel de enige stem is die nog gehoord wordt, of dat er ruimte overblijft om ook de eigen waarden te laten meewegen.</p>
+      <h3>Toepassing op werk en opvoeding</h3>
+      <p>In het tweede deel van het boek past David het model toe op de werkvloer en op het gezin. Op het werk beschrijft zij organisaties die te veel op positiviteit sturen, wat volgens haar leidt tot een cultuur waarin tegenvallers worden weggemoffeld in plaats van benoemd; medewerkers die twijfel of onvrede niet mogen uiten, dragen die last volgens haar alsnog mee, alleen onzichtbaar. Bij opvoeding waarschuwt zij ouders die hun kind willen behoeden voor elk naar gevoel, want een kind dat nooit boos, bang of verdrietig mag zijn, leert niet dat die gevoelens te doorstaan zijn.</p>
+      <p>Ze pleit voor emotionele behendigheid als groepseigenschap: teams en gezinnen waarin het benoemen van een lastig gevoel niet als zwakte geldt maar als een stap die tot een betere beslissing leidt. Een leidinggevende die zijn eigen twijfel benoemt voordat hij een besluit neemt, geeft daarmee volgens David toestemming aan anderen om hetzelfde te doen.</p>
+      <h3>De grondslag: acceptance and commitment therapy</h3>
+      <p>Het model van David bouwt op de acceptance and commitment therapy (ACT) van psycholoog Steven Hayes, die al in de jaren negentig liet zien dat het bestrijden van een gedachte haar vaak sterker maakt, en dat afstand nemen effectiever is dan verdringen. David past die klinische inzichten toe op een breder publiek van werkenden en ouders, zonder dat aandeel in het boek zelf scherp te benoemen.</p>
+      <p>Gecontroleerd onderzoek naar ACT laat zien dat afstand nemen van gedachten en waardegericht handelen depressieve klachten en vermijdingsgedrag kunnen verminderen. David citeert dat onderzoek als onderbouwing voor haar model, ook al is haar eigen vierstappenvolgorde als geheel nooit apart in een gecontroleerde studie getoetst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hooked (vastgehaakt)</td><td>De toestand waarin een gevoel of gedachte de regie over het gedrag overneemt.</td></tr>
+          <tr><td class="term">Bottling</td><td>Het wegstoppen van een emotie in de hoop dat ze vanzelf verdwijnt.</td></tr>
+          <tr><td class="term">Brooding</td><td>Blijven hangen in en herhalen van een gevoel zonder dat er iets verandert.</td></tr>
+          <tr><td class="term">Show up</td><td>Het gevoel onder ogen zien met nieuwsgierigheid in plaats van oordeel.</td></tr>
+          <tr><td class="term">Step out</td><td>Afstand nemen van een gedachte of gevoel door het als voorbijgaand te zien.</td></tr>
+          <tr><td class="term">Walk your why</td><td>Teruggaan naar de eigen waarden om de volgende handeling te bepalen.</td></tr>
+          <tr><td class="term">Move on</td><td>De waarde omzetten in een kleine, haalbare aanpassing.</td></tr>
+          <tr><td class="term">Valse waarden</td><td>Aangeleerde aannames over wat je zou moeten willen, die bij onderzoek niet de eigen waarden blijken te zijn.</td></tr>
+          <tr><td class="term">Emotionele rigiditeit</td><td>Het onveranderlijk vasthouden aan dezelfde reactie op een gevoel, ongeacht wat de situatie vraagt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>David werkte als psycholoog aan Harvard Medical School, waar zij mede-oprichter is van het Institute of Coaching, en promoveerde aan de universiteit van Melbourne in de psychologie van emoties. Het boek citeert overwegend onderzoek van anderen: de acceptance and commitment therapy van Hayes, onderzoek naar expressief schrijven, en literatuur over waardegericht handelen op de werkvloer.</p>
+      <p>Wat ontbreekt, is een eigen onderzoek dat de vierstappenvolgorde als samenhangend geheel toetst. De losse onderdelen, zoals afstand nemen van gedachten en waardegericht handelen, zijn in de klinische ACT-literatuur apart onderzocht met gecontroleerde studies, maar David presenteert het pakket vooral via casuïstiek uit haar eigen coachingspraktijk.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het model grotendeels een populaire, laagdrempelige verpakking is van bestaande klinische inzichten uit ACT, zonder dat het boek dat aandeel scherp afbakent. Wie de originele ACT-literatuur van Hayes kent, herkent Show up en Step out vrijwel één op één terug.</p>
+      <p>De casussen zijn stuk voor stuk overtuigend verteld, maar het zijn coachingservaringen, gekozen om het model te illustreren, niet een steekproef waarmee te toetsen valt hoe vaak het model niet werkt. Het onderscheid tussen een echte waarde en een valse waarde klinkt intuïtief maar blijft in de praktijk lastig vast te stellen: David geeft geen toets waarmee een lezer het verschil zelf kan narekenen.</p>
+      <p>Verder krijgt bottling in het boek meer aandacht dan brooding, terwijl piekeren en rumineren in de klinische literatuur minstens zo veel schade aanrichten. Het hoofdstuk over opvoeding leunt daarnaast sterk op David's eigen ervaring als moeder en therapeut, met weinig verwijzing naar ontwikkelingspsychologisch onderzoek dat de gevolgen van vroege emotieregulatie op langere termijn volgt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf bij een lastig gevoel eerst op wát er gebeurt, in plaats van wat het volgens jou betekent.</li>
+        <li>Benoem het gevoel in één woord voordat je een handeling kiest.</li>
+        <li>Vraag bij een besluit niet wat je zou moeten willen, maar welke waarde erachter zit.</li>
+        <li>Kies één kleine aanpassing die bij die waarde past, in plaats van een groot voornemen.</li>
+        <li>Let bij jezelf op of je een gevoel wegduwt of er juist in blijft hangen, voordat je een volgende stap zet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Get Unstuck, Embrace Change, and Thrive in Work and Life</i> (Avery, New York, 2016, ISBN 9781592407494). Nederlands als <i>Emotionele flexibiliteit: laat los, omarm verandering en bloei op in je werk en je leven</i>, vertaald door Elisabeth van Borselen (Boekerij, 2017, 288 blz., ISBN 9789022577677).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Susan David, psycholoog verbonden aan Harvard Medical School, groeide dit boek uit een artikel voor Harvard Business Review dat de redactie uitriep tot Management Idea of the Year. Haar these: het wegstoppen van een lastig gevoel en het erin blijven hangen werken allebei averechts, omdat beide het gevoel behandelen als een feit waarnaar gehandeld moet worden. Emotionele behendigheid is bij haar het vermogen om een emotie te herkennen zonder dat hij het gedrag overneemt, gevolgd door een handeling die aansluit bij de eigen waarden.</p><p>David werkt met vier vaardigheden: het gevoel onder ogen zien, er afstand van nemen, teruggaan naar de eigen waarden en dat omzetten in een kleine aanpassing. Het model bouwt op de acceptance and commitment therapy uit de klinische psychologie en wordt vooral met casussen uit haar eigen coachingspraktijk onderbouwd, niet met een eigen gecontroleerd onderzoek naar de vier stappen als geheel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychologie</li><li>emoties</li><li>waarden</li><li>gedragsverandering</li><li>Harvard</li><li>acceptance and commitment therapy</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="373"><a href="373.html">13 Things Mentally Strong People Don't Do</a>. Morin beschrijft vanuit dezelfde hoek welk gedrag mentale weerbaarheid ondermijnt, in een praktischer, korter register.</li>
+          <li value="333"><a href="333.html">Altered Traits</a>. Goleman en Davidson onderzoeken met hersenonderzoek wat meditatie werkelijk doet met emotieregulatie, met een steviger onderzoeksbasis dan David voor haar eigen model geeft.</li>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Watts beschrijft dezelfde beweging van vermijden naar toelaten vanuit een andere, oosters geïnspireerde traditie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

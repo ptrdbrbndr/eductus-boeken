@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Happy Pocket Full of Money &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gikandi stelt dat welvaart geen kwestie is van harder werken of slimmer beleggen, maar van een innerlijke gesteldheid die hij welvaartsbewustzijn noemt:…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-433">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">433 &middot; Positief denken en manifesteren</p>
+    <h1>A Happy Pocket Full of Money</h1>
+    <p class="lede">David Cameron Gikandi, 2001</p>
+    <p class="stats">
+      <span><b>1405</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="433"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gikandi stelt dat welvaart geen kwestie is van harder werken of slimmer beleggen, maar van een innerlijke gesteldheid die hij welvaartsbewustzijn noemt: een combinatie van dankbaarheid, het gevoel al genoeg te zijn en het vertrouwen dat geld toestroomt zodra de innerlijke weerstand ertegen wegvalt. Hij onderbouwt dat met een lezing van de kwantumfysica die de werkelijkheid voorstelt als een veld van mogelijkheden dat wordt vormgegeven door aandacht en verwachting. De inzet van het boek is dat geluk en geld dezelfde bron hebben en dat wie het eerste vindt, het tweede erbij krijgt. Wat daar tegenover te zetten valt, is de vraag of blijdschap ooit een rekening heeft betaald.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee soorten vrijheid</h3>
+      <p>Gikandi opent met een onderscheid tussen uiterlijke vrijheid, genoeg inkomen voor de gewenste levensstijl, en innerlijke vrijheid, rust ongeacht de stand van de bankrekening. Zijn stelling is dat de meeste boeken over geld alleen het eerste behandelen en het tweede aan het toeval overlaten, terwijl juist dat tweede volgens hem de voorwaarde is waaronder het eerste zich gemakkelijker aandient.</p>
+      <p>Die volgorde, eerst de innerlijke staat en dan pas het resultaat, keert in bijna elk hoofdstuk terug en vormt de kern van zijn methode.</p>
+      <h3>Geld als energie</h3>
+      <p>Het middendeel introduceert wat Gikandi het veld noemt: de gedachte dat de werkelijkheid op het diepste niveau bestaat uit energie en mogelijkheid, en dat aandacht en verwachting daarin een vorm laten ontstaan. Hij verwijst daarvoor los naar begrippen uit de kwantumfysica, zonder vergelijkingen of experimenten aan te halen, en vertaalt die rechtstreeks naar de uitspraak dat overvloed al aanwezig is en alleen nog opgemerkt hoeft te worden.</p>
+      <p>Een recensent van Kirkus Reviews noemde deze mix van natuurkunde en mystiek een "chimerical mishmash", een grillig allegaartje, en wees erop dat het boek de werkelijkheid voorstelt als een schitterend, onderling verbonden energieveld van oneindige mogelijkheid zonder dat verder te onderbouwen.</p>
+      <h3>Ontvangst en verspreiding</h3>
+      <p>Het boek begon als eigen uitgave van Gikandi, die zichzelf typeert als "esoteric information curator and publisher" en niet als goeroe. In die vorm bereikte het een beperkt publiek van lezers binnen de wet-van-aantrekkingsbeweging, tot Rhonda Byrne het las voor de voorbereiding van <i>The Secret</i>.</p>
+      <p>Na dat succes volgden grotere drukken en, vanaf ongeveer 2010, een uitgebreide studie-editie met werkboekmateriaal van Bob Doyle, zelf auteur binnen dezelfde stroming. Die editie voegt oefeningen en reflectievragen toe aan de oorspronkelijke tekst, maar laat de kern van het betoog ongewijzigd.</p>
+      <h3>Welvaartsbewustzijn opbouwen</h3>
+      <p>Concreter wordt het boek in de oefeningen: een dagelijkse dankbaarheidspraktijk, visualisatie van het gewenste resultaat, het herformuleren van tekortzinnen als "ik kan het me niet veroorloven" naar zinnen die overvloed veronderstellen, en bevestigingen als "ik ben welvaart, ik ben overvloed, ik ben vreugde", die de lezer wordt aangeraden hardop te herhalen.</p>
+      <p>Geven krijgt daarbij een aparte plaats: Gikandi stelt dat vrijgevigheid welvaart niet vermindert maar vermeerdert, omdat het de innerlijke overtuiging bevestigt dat er genoeg is. Hij onderscheidt daarbij geven uit overtuiging van geven uit schuldgevoel of sociale druk, en stelt dat alleen het eerste de gewenste uitwerking zou hebben, zonder dat verschil verder meetbaar te maken.</p>
+      <h3>Geld en relaties</h3>
+      <p>Een kort deel behandelt geldconflicten tussen partners, die Gikandi terugvoert op onderliggende kwesties van controle, veiligheid en eigenwaarde in plaats van op het bedrag zelf. Wie zijn eigenwaarde aan zijn banksaldo verbindt, brengt die onzekerheid volgens hem automatisch mee in de relatie.</p>
+      <p>Zijn advies is om binnen een relatie eerst het gesprek te voeren over wat geld voor ieder van beide partners betekent, voor het gesprek gaat over concrete bedragen en budgetten. Pas als die onderliggende betekenis boven tafel is, kan een gesprek over uitgaven volgens hem zonder onnodige spanning verlopen.</p>
+      <h3>De weg naar The Secret</h3>
+      <p>Het boek trok de aandacht van Rhonda Byrne, die Gikandi vroeg als creatief consulent aan haar film en boek <i>The Secret</i> (2006) mee te werken. Latere edities van A Happy Pocket Full of Money verwijzen daar uitdrukkelijk naar en verschenen mede daardoor bij grotere uitgeverijen, met een uitgebreide studie-editie inclusief werkboekmateriaal van Bob Doyle.</p>
+      <p>Die herkomst plaatst het boek nadrukkelijk in de stroming van de wet van de aantrekkingskracht, waarvan het net als andere titels in die traditie de aanname deelt dat innerlijke overtuiging de uiterlijke omstandigheden mede bepaalt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Welvaartsbewustzijn</td><td>De innerlijke combinatie van dankbaarheid en vertrouwen die volgens Gikandi geld toestroom laat vinden.</td></tr>
+          <tr><td class="term">Uiterlijke vrijheid</td><td>Genoeg inkomen voor de gewenste levensstijl, het doel waar de meeste geldboeken zich volgens hem toe beperken.</td></tr>
+          <tr><td class="term">Innerlijke vrijheid</td><td>Rust ongeacht de stand van de bankrekening, de voorwaarde die Gikandi vóór uiterlijke vrijheid plaatst.</td></tr>
+          <tr><td class="term">Het veld</td><td>Zijn aanduiding voor de werkelijkheid als een energie van oneindige mogelijkheid die door aandacht vorm krijgt.</td></tr>
+          <tr><td class="term">Bevestigingen</td><td>Kort herhaalde zinnen als "ik ben welvaart" die de innerlijke overtuiging van overvloed moeten versterken.</td></tr>
+          <tr><td class="term">Geven als vermenigvuldiger</td><td>De gedachte dat vrijgevigheid welvaart niet vermindert maar bevestigt en daarmee vermeerdert.</td></tr>
+          <tr><td class="term">Wet van de aantrekkingskracht</td><td>De bredere stroming waarin het boek staat: de aanname dat gelijksoortige gedachten en omstandigheden elkaar aantrekken.</td></tr>
+          <tr><td class="term">Esoteric information curator</td><td>De term waarmee Gikandi zichzelf omschrijft: geen leraar met een eigen leer, maar iemand die bestaande spirituele bronnen samenbrengt en toegankelijk maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek, geen cijfers over lezers bij wie de methode werkte en geen vergelijking met mensen die dezelfde stappen zetten zonder resultaat. De onderbouwing bestaat uit een lezing van kwantumfysica die in eigen woorden wordt vertaald naar uitspraken over geld, zonder dat er een natuurkundige bron voor die vertaalslag wordt aangehaald.</p>
+      <p>Wat als bewijs wordt aangedragen, is vooral de eigen loopbaan van de auteur als vastgoedondernemer in Kenia en de erkenning die het boek kreeg doordat het aan de basis lag van <i>The Secret</i>. Beide zijn geen toetsing van de onderliggende claim, maar een teken van de populariteit ervan.</p>
+      <p>Ook de aanhalingen uit de natuurkunde blijven zonder bronvermelding die een lezer zelf kan naslaan: er wordt verwezen naar wat kwantumfysici zouden hebben ontdekt over een veld van mogelijkheden, zonder naam van een specifieke wetenschapper, publicatie of experiment. Dat maakt het voor een lezer onmogelijk om de claim te herleiden tot iets buiten het boek zelf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Kirkus Reviews vatte het centrale bezwaar samen met twee vragen: moeten mensen die geloven dat geld vanzelf zal binnenkomen, huizen en andere zaken kopen die ze zich eigenlijk niet kunnen veroorloven, en betaalt blijdschap de rekeningen? Het antwoord van de recensent luidde: waarschijnlijk niet, al kan de boodschap voor sommige lezers inspirerend zijn.</p>
+      <p>Het gebruik van kwantumfysica is los verbonden aan wat de theorie feitelijk beschrijft. Het boek gebruikt woorden als veld en energie in een betekenis die in de natuurkunde zelf niet bestaat, en maakt nergens een claim die te toetsen of te weerleggen is: als welvaart uitblijft, is dat binnen het boek altijd te herleiden tot onvoldoende innerlijke overtuiging, nooit tot een tekort in de methode zelf.</p>
+      <p>Ten slotte staat het boek in een genre, de wet van de aantrekkingskracht, waarvan de centrale claim door natuurkundigen en psychologen breed wordt afgewezen wegens gebrek aan toetsbaar bewijs. Dat het boek als serieuze consulentschap bijdroeg aan <i>The Secret</i>, zegt iets over de omvang van die stroming en niets over de juistheid ervan.</p>
+      <p>De voorbeelden in het boek zijn bovendien geselecteerd op een goede afloop: mensen bij wie visualisatie en dankbaarheid samenvielen met financieel herstel of groei. Van lezers die dezelfde oefeningen deden zonder dat hun situatie verbeterde, is in het boek geen sprake, terwijl die groep bij een claim die voor iedereen zou moeten werken, minstens zo veel over de methode zou vertellen als de succesverhalen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Voer een week een dankbaarheidslijst bij, en beoordeel apart of dat de eigen stemming verandert en of het de rekeningen verandert.</li>
+        <li>Scheid het gevoel van innerlijke rust van feitelijke financiële beslissingen: gebruik het een niet als vervanging voor het ander.</li>
+        <li>Wees terughoudend met een aankoop of lening die uitsluitend rust op vertrouwen dat het geld later vanzelf komt.</li>
+        <li>Leg naast een bevestiging als "ik ben welvaart" een concreet plan, en ga na of het plan of de bevestiging het werk doet.</li>
+        <li>Voer het gesprek over geld binnen een relatie eerst over de betekenis ervan, controle, veiligheid, eigenwaarde, voor er over een concreet budget wordt gesproken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk zelf uitgegeven door de auteur; de meeste bronnen noemen 2001 als eerste jaar van verschijnen. Een op grotere schaal verspreide druk kwam in 2008 uit bij Xlibris (235 blz.). Latere, uitgebreide edities met studiemateriaal van Bob Doyle verschenen bij Hampton Roads/Hierophant Publishing, onder meer als <i>A Happy Pocket Full of Money, Expanded Study Edition</i> (ISBN 9781571747365). Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gikandi, een Keniaanse vastgoedondernemer die zichzelf geen goeroe maar "verzamelaar en uitgever van esoterische kennis" noemt, betoogt dat geld in wezen energie is en dat welvaart voortkomt uit een innerlijke staat van overvloed, niet uit harder werken. Het boek combineert citaten uit oudere welvaartsliteratuur met losse verwijzingen naar kwantumfysica om te onderbouwen dat gedachten en gevoelens de werkelijkheid mede vormgeven.</p><p>Het boek maakte Gikandi bekend als creatief consulent van de film <i>The Secret</i> (2006), waarna latere edities uitdrukkelijk in dat rijtje worden gepositioneerd, tussen bevestigingen als "Ik ben welvaart, ik ben overvloed, ik ben vreugde" in.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wet-van-aantrekking</li><li>manifesteren</li><li>geld</li><li>kwantumfysica</li><li>welvaartsbewustzijn</li><li>dankbaarheid</li><li>The Secret</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="127"><a href="127.html">The Law of Attraction</a>. Atkinson formuleerde het oudere gedachtegoed waarop dit boek voortbouwt, ruim een eeuw eerder en zonder de kwantumfysica erbij te halen.</li>
+          <li value="128"><a href="128.html">Leer manifesteren zoals Oprah Winfrey en J.K. Rowling</a>. De Pape beschrijft dezelfde stroming vanuit persoonlijke gesprekken met beoefenaars in plaats van vanuit natuurkundige beeldspraak.</li>
+          <li value="129"><a href="129.html">Manifest</a>. Nafousi behandelt manifesteren als praktijk voor een breder publiek, met minder nadruk op geld specifiek.</li>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Hill legt de oudere traditie van gedachten en welvaart vast waarop dit boek en de latere manifesteerliteratuur voortbouwen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

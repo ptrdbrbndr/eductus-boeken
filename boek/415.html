@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lifespan &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek betoogt dat veroudering geen onvermijdelijk lot is maar een op zichzelf staande ziekte met één onderliggende oorzaak: het verlies van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-415">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">415 &middot; Brein en lichaam</p>
+    <h1>Lifespan</h1>
+    <p class="lede">David A. Sinclair, met Matthew D. LaPlante, 2019</p>
+    <p class="stats">
+      <span><b>1449</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="415"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek betoogt dat veroudering geen onvermijdelijk lot is maar een op zichzelf staande ziekte met één onderliggende oorzaak: het verlies van epigenetische informatie waardoor cellen vergeten welk celtype ze horen te zijn. Sinclair redeneert dat als veroudering een ziekte is, ze net als andere ziekten te behandelen valt, en hij bepleit dat de geneeskunde en de regelgeving veroudering ook zo zouden moeten erkennen in plaats van losse ouderdomsziekten apart te bestrijden. Wie dat wil weerleggen, moet aantonen dat het verlies van epigenetische informatie niet de gemeenschappelijke oorzaak is die Sinclair ervan maakt, of dat de middelen die hij noemt bij muizen wel maar bij mensen niet dezelfde weg afleggen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat veroudering is</h3>
+      <p>Sinclair opent met zijn informatietheorie van veroudering: DNA bevat digitale informatie die zelden verandert, maar de epigenetische laag daarboven, de chemische en eiwitmarkeringen die bepalen welke genen in een cel actief zijn, raakt na verloop van tijd in de war. Een huidcel die epigenetische sturing verliest, gaat zich minder als huidcel en meer als een ongedifferentieerde cel gedragen, en dat verlies van celidentiteit is voor hem de kern van wat veroudering is. Hij vergelijkt het met krassen op een cd: de muziek staat er nog, de leeskop kan het alleen niet meer goed aflezen.</p>
+      <p>Om dat model te onderbouwen, beschrijft hij een experiment uit zijn eigen laboratorium waarin het kunstmatig aanbrengen van dubbelstrengs DNA-breuken bij muizen versneld tot grijs haar, vertraagde wondheling en andere tekenen van veroudering leidde, wat hij aandraagt als bewijs dat het reparatiesysteem van de cel zelf de epigenetische chaos veroorzaakt.</p>
+      <h3>Sirtuïnen en de overlevingsschakelaar</h3>
+      <p>Het tweede deel gaat over sirtuïnen, een familie van eiwitten die Sinclair al vroeg in zijn carrière bij gist onderzocht en die volgens hem als bewakers van de epigenetische orde functioneren. Sirtuïnen hebben de stof NAD+ nodig om te werken, en NAD+-niveaus dalen aantoonbaar met de leeftijd. Daaruit leidt hij af dat het aanvullen van NAD+, via voorlopers als NMN of NR, de sirtuïnen weer op gang kan helpen.</p>
+      <p>Hij koppelt daaraan de overlevingsschakelaar, zijn term voor een oud evolutionair mechanisme dat een cel onder stress, zoals honger of kou, tijdelijk van voortplanting naar overleving en reparatie laat schakelen. Calorierestrictie, vasten en koude blootstelling zouden diezelfde schakelaar activeren, en stoffen als resveratrol zouden hetzelfde effect nabootsen zonder dat iemand daadwerkelijk moet vasten.</p>
+      <h3>Wat bij muizen werkt</h3>
+      <p>Het derde deel loopt de belangrijkste experimenten uit zijn eigen lab en dat van anderen langs: resveratrol dat zwaarlijvige muizen langer liet leven, NMN dat bij oudere muizen spierfunctie en insulinegevoeligheid verbeterde, en gedeeltelijke celherprogrammering met de Yamanaka-factoren die bij muizen tekenen van veroudering deels terugdraaide. Sinclair benadrukt telkens dat dit dierstudies zijn en dat de vertaling naar de mens nog moet gebeuren, maar de toon van het hoofdstuk is optimistisch over hoe snel die vertaling zal volgen.</p>
+      <h3>Een wereld zonder ouderdomsziekten</h3>
+      <p>In het vierde deel schetst Sinclair een toekomst waarin veroudering als ziekte wordt erkend door regelgevende instanties zoals de Amerikaanse FDA, zodat middelen tegen veroudering zelf goedgekeurd kunnen worden in plaats van pas na de diagnose van een specifieke ouderdomsziekte. Hij bespreekt ook technologie die hij verder in de toekomst plaatst, zoals volledige celherprogrammering en het meten van biomarkers om de biologische leeftijd vast te stellen, en verbindt dat met een pleidooi om veroudering te gaan zien als iets dat mensen zelf kunnen beïnvloeden.</p>
+      <h3>Wat er nu al te doen valt</h3>
+      <p>Naast de toekomstgerichte hoofdstukken beschrijft Sinclair ook zijn eigen dagelijkse regime: hij eet doorgaans één maaltijd minder, beperkt suiker en rood vlees, sport regelmatig en wisselt af met sauna en koude blootstelling, in de veronderstelling dat die matige stress de overlevingsschakelaar activeert. Van deze leefstijlkeuzes, calorierestrictie, vasten en beweging voorop, bestaat bij mensen aanmerkelijk meer onderzoek dan bij de supplementen die hij ook slikt en aanbeveelt, en Sinclair maakt dat onderscheid in het boek zelf niet altijd scherp.</p>
+      <h3>Gevolgen voor de samenleving</h3>
+      <p>Het laatste deel verlaat het laboratorium en kijkt naar wat een veel langer en gezonder leven betekent voor pensioenstelsels, arbeidsmarkt en ongelijkheid. Sinclair erkent dat dure levensverlengende behandelingen eerst bij de rijksten terechtkomen, en bepleit dat de samenleving zich daar nu al op moet voorbereiden in plaats van de vraag te laten liggen tot de technologie er is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Informatietheorie van veroudering</td><td>Sinclairs stelling dat veroudering ontstaat door verlies van epigenetische informatie, niet door schade aan het DNA zelf.</td></tr>
+          <tr><td class="term">Epigenetische ruis</td><td>De opeenstapeling van foutieve of vervaagde chemische markeringen op het DNA die celidentiteit doet vervagen.</td></tr>
+          <tr><td class="term">Sirtuïnen</td><td>Een familie van eiwitten die volgens Sinclair de epigenetische stabiliteit van een cel bewaken en op NAD+ draaien.</td></tr>
+          <tr><td class="term">NAD+</td><td>Een stof die nodig is om sirtuïnen te laten werken en waarvan het niveau met de leeftijd daalt.</td></tr>
+          <tr><td class="term">Overlevingsschakelaar</td><td>Sinclairs term voor het mechanisme waarmee een cel onder stress van voortplanting naar reparatie overschakelt.</td></tr>
+          <tr><td class="term">Yamanaka-factoren</td><td>Vier eiwitten die een volwassen cel terug kunnen zetten naar een jongere staat, door Sinclair gebruikt om gedeeltelijke celherprogrammering te beschrijven.</td></tr>
+          <tr><td class="term">Biologische leeftijd</td><td>De leeftijd van het lichaam zoals die uit epigenetische en andere biomarkers is af te lezen, los van de kalenderleeftijd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek combineert drie soorten bronnen die niet even sterk zijn. Het meeste experimentele werk, waaronder Sinclairs eigen studies naar resveratrol, NMN en DNA-breuken bij muizen, komt uit dierproeven met relatief kleine aantallen dieren, vaak uit zijn eigen laboratorium of dat van directe medewerkers. Dat is normale wetenschappelijke praktijk, maar het maakt de resultaten afhankelijker van herhaling door onafhankelijke groepen dan het boek zelf laat doorschemeren.</p>
+      <p>Juist op dat punt zit een bekend knelpunt: pogingen van andere laboratoria om de levensverlengende effecten van resveratrol bij muizen te herhalen, zijn vanaf het midden van de jaren 2000 wisselend uitgepakt, en een deel van latere studies vond geen of een veel kleiner effect dan de oorspronkelijke publicaties. Sinclair bespreekt die geschiedenis in het boek zelf, maar plaatst het vooral als een obstakel dat inmiddels overwonnen is, niet als een onopgeloste vraag.</p>
+      <p>Voor de mens is het bewijs dunner dan het boek suggereert. Klinische studies naar NMN en resveratrol bij mensen bestonden ten tijde van publicatie vooral uit kleine, kortlopende onderzoeken naar veiligheid en tussentijdse waarden zoals bloedsuiker, niet naar levensduur of het uitstellen van ouderdomsziekten. Sinclair is daar deels open over, maar de hoofdstukken die de menselijke toepassing bespreken lezen stelliger dan die kanttekening rechtvaardigt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De meest uitgewerkte tegenspraak komt van Charles Brenner, hoogleraar biochemie die zelf onderzoek doet naar NAD+-metabolisme. Brenner betoogt dat Sinclair sirtuïnen en resveratrol al twee decennia overschat, en wijst erop dat een deel van het meetmodel waarmee resveratrol als sirtuïne-activator werd aangetoond volgens later onderzoek, waaronder werk van Brenner zelf, een meetartefact was: de stof lijkt sirtuïnen te activeren door hoe de proef is opgezet, niet doordat ze dat in een levende cel daadwerkelijk doet.</p>
+      <p>Brenner wijst ook op wat het boek weglaat: gedeeltelijke celherprogrammering met de Yamanaka-factoren, die <i>Lifespan</i> als een van de veelbelovende technieken beschrijft, is in ander onderzoek in verband gebracht met een verhoogd risico op tumoren bij de behandelde dieren, iets wat in het boek niet aan bod komt.</p>
+      <p>Een breder punt, ook los van Brenners kritiek, is dat de stelligste zinnen in het boek, zoals dat veroudering te behandelen is als elke andere ziekte, verder gaan dan de aangehaalde dierstudies dragen. Het boek verschijnt bovendien in een periode waarin Sinclair zelf betrokken is bij bedrijven die supplementen en diagnostiek op dit terrein verkopen, wat het onderzoek op zichzelf niet ongeldig maakt maar wel meeweegt bij het lezen van de stelligste passages.</p>
+      <p>Wat overeind blijft, is dat de informatietheorie van veroudering een samenhangend en op zichzelf staand model biedt dat andere onderzoekers als hypothese serieus nemen, ook als zij de toepassing op mensen voorbarig vinden. Het onderscheid tussen het model als wetenschappelijk idee en de beloften die eromheen worden gedaan, is waar de lezer zelf op moet letten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees claims over resveratrol en NMN als afkomstig uit dierstudies, ook waar het boek ze in dezelfde zin noemt als menselijke gezondheid.</li>
+        <li>Ga na of een genoemd onderzoek door een onafhankelijk laboratorium is herhaald voordat je een supplement daarop baseert; bij resveratrol is die herhaling meermaals mislukt.</li>
+        <li>Neem calorierestrictie, vasten en koude blootstelling als de interventies met het meeste onderzoek bij mensen, in tegenstelling tot de nieuwere stoffen die het boek bespreekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Lifespan: Why We Age – and Why We Don't Have To</i> (Atria Books, New York, 2019, 432 blz.). Nederlands als <i>Langer gezond leven</i>, vertaald door George Pape, bij Unieboek | Het Spectrum (17 oktober 2019, ISBN 9789000360093).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sinclair, hoogleraar genetica aan Harvard, presenteert veroudering niet als een onvermijdelijk proces maar als een ziekte die in principe te behandelen is. Zijn informatietheorie van veroudering stelt dat cellen na verloop van tijd niet zozeer genetische informatie verliezen als wel de epigenetische aansturing kwijtraken die bepaalt welke genen aan en uit staan, vergelijkbaar met krassen op een cd die de muziek zelf niet wissen maar wel onleesbaar maken. Vanuit dat model bespreekt hij ingrepen die op muizen zijn getest, van calorierestrictie tot stoffen als resveratrol en NMN, en een toekomstbeeld waarin veroudering met medicijnen wordt afgeremd.</p><p>Het boek is uitgesproken optimistisch over hoe snel die wetenschap naar de mens overgaat, en dat optimisme is precies het punt waarop andere onderzoekers in het veld het hardst tegenspreken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>veroudering</li><li>epigenetica</li><li>sirtuïnen</li><li>NAD+</li><li>longevity</li><li>onderzoekskritiek</li><li>gezondheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman verklaart waarom een goed verteld verhaal met een samenhangend mechanisme overtuigender aanvoelt dan de losse, wisselende gegevens waarop het werkelijk rust.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker laat bij een ander onderwerp dezelfde spanning zien tussen stellige claims en dierstudies of observationeel werk dat minder hard is dan de toon doet vermoeden.</li>
+          <li value="329"><a href="329.html">The Circadian Code</a>. Panda benadert het lichaam vanuit een ander mechanisme, het circadiane ritme, en is voorzichtiger over wat er al bij mensen is aangetoond.</li>
+          <li value="88"><a href="88.html">Gewoontedieren</a>. Brendborg bespreekt veroudering bij andere diersoorten vanuit dezelfde biologie, met meer nadruk op wat nog onzeker is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

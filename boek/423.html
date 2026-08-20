@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antifragile &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Taleb stelt dat er voor kwetsbaarheid en robuustheid wel woorden bestaan maar niet voor het derde geval, dingen die juist sterker worden van schokken,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-423">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">423 &middot; Gewoontes en denken</p>
+    <h1>Antifragile</h1>
+    <p class="lede">Nassim Nicholas Taleb, 2012</p>
+    <p class="stats">
+      <span><b>1596</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="423"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Taleb stelt dat er voor kwetsbaarheid en robuustheid wel woorden bestaan maar niet voor het derde geval, dingen die juist sterker worden van schokken, willekeur en stress, en dat dat gat in de taal een gat in het denken verraadt: instellingen, lichamen en systemen worden stelselmatig ontworpen om schokken te weren in plaats van ervan te profiteren. Zijn centrale advies is niet om onzekerheid te voorspellen, wat volgens hem grotendeels onmogelijk is, maar om zo in te richten dat blootstelling aan wanorde meer oplevert dan kost: kleine, omkeerbare experimenten met een beperkt neerwaarts risico en een onbeperkt opwaarts potentieel. Wie hier iets tegenin wil brengen, kan wijzen op hoeveel van het boek bestaat uit het herhalen van dat ene inzicht in steeds nieuwe domeinen, zonder dat elk domein evenveel bewijs krijgt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een woord dat ontbrak</h3>
+      <p>Taleb opent met de constatering dat het Engels, en de meeste andere talen, wel een woord hebben voor kwetsbaar en voor robuust, maar niet voor het tegenovergestelde van kwetsbaar: iets dat beter wordt van schokken in plaats van er alleen bestand tegen te zijn. Hij muntte daarvoor het woord antifragiel, en illustreert het onderscheid met een drieluik uit de mythologie: Damocles, met een zwaard aan een paardenhaar boven zijn hoofd, staat voor het kwetsbare, de feniks, die na vernietiging exact terugkeert naar dezelfde vorm, voor het robuuste, en de veelkoppige Hydra, die op elke afgehakte kop met twee nieuwe reageert, voor het antifragiele.</p>
+      <p>Dat onderscheid is voor Taleb meer dan een woordspel. Een glazen voorwerp is kwetsbaar, een stalen blok is robuust, en een spier of het immuunsysteem is antifragiel: ze worden functioneel sterker door precies het soort belasting dat een kwetsbaar object zou breken, tot een bepaalde grens.</p>
+      <h3>Mediocristan en Extremistan</h3>
+      <p>Taleb herneemt het onderscheid uit <i>The Black Swan</i> tussen Mediocristan, waar individuele gebeurtenissen het totaal nauwelijks kunnen verstoren, zoals lichaamslengte in een bevolking, en Extremistan, waar één uitzonderlijke gebeurtenis de uitkomst domineert, zoals vermogens of beurskoersen. Systemen in Extremistan zijn volgens hem structureel gevoeliger voor onvoorspelbare schokken, en juist daar loont het om antifragiel ingericht te zijn.</p>
+      <p>Fragiliteit definieert hij hier als een ongunstige asymmetrie: meer te verliezen dan te winnen bij onzekerheid. Antifragiliteit is de omgekeerde asymmetrie, meer te winnen dan te verliezen, ongeacht of de uitkomst zelf te voorspellen is.</p>
+      <h3>De barbell-strategie</h3>
+      <p>Zijn praktische kernadvies is wat hij de barbell-strategie noemt: vermijd het midden van het risicospectrum en combineer in plaats daarvan een groot deel extreem veilig met een klein deel extreem speculatief. In financiële termen: het grootste deel van een vermogen in vrijwel risicovrije middelen, en een klein deel in zeer risicovolle posities met een beperkt, vooraf bekend neerwaarts risico en een onbeperkt opwaarts potentieel, zoals opties.</p>
+      <p>Hij haalt dit principe ook buiten de financiën aan, bij de Romeinse stoïcijn Seneca, die zijn eigen fortuin en status behandelde alsof hij ze al kwijt was, zodat een tegenslag hem, in zijn eigen woorden, niets kostte dat hij niet al bij voorbaat had losgelaten. Wie zijn verlies vooraf begrenst, wint volgens Taleb de vrijheid om de rest van het leven op onzekerheid te laten profiteren.</p>
+      <h3>Via negativa: vooruitgang door weglaten</h3>
+      <p>Taleb pleit voor wat hij via negativa noemt, verbetering door iets weg te halen in plaats van iets toe te voegen: minder suiker in plaats van een nieuw medicijn, minder schuld in plaats van een nieuwe financiële constructie, minder overbodige regels in plaats van een extra laag beleid. Weglaten heeft volgens hem een gunstiger risicoprofiel dan toevoegen, omdat een nieuwe ingreep altijd onvoorziene neveneffecten met zich meebrengt, terwijl het wegnemen van iets schadelijks zelden zulke verrassingen oplevert.</p>
+      <p>Dat verbindt hij met wat hij iatrogenese noemt, schade die door de ingreep zelf wordt veroorzaakt in plaats van door de kwaal die ze moest verhelpen, een term die hij uit de geneeskunde leent maar breed toepast op beleid en management.</p>
+      <h3>Blootstelling boven kennis: optionaliteit</h3>
+      <p>Een terugkerend thema is dat blootstelling aan een groot aantal kleine, goedkope pogingen vaak meer oplevert dan een enkele, zorgvuldig geplande ingreep, omdat een mislukte poging weinig kost en een geslaagde poging een onbegrensde opbrengst kan geven. Taleb noemt dat optionaliteit: het recht om van een gunstige uitkomst te profiteren zonder verplicht te zijn de ongunstige te aanvaarden.</p>
+      <p>Hij illustreert dit met de geschiedenis van technologische vooruitgang, die volgens hem vaker voortkomt uit toevallig, doelloos experimenteren dat achteraf een verklaring krijgt dan uit vooraf geplande, op theorie gebaseerde ontwikkeling. Wetenschap loopt in zijn lezing vaker achter de praktijk aan dan andersom.</p>
+      <h3>Skin in the game</h3>
+      <p>In het laatste deel van het boek behandelt Taleb het beginsel dat iemand die beslist ook de gevolgen van zijn beslissing moet dragen. Hij citeert de wetten van Hammurabi, die stelden dat een bouwer die een huis liet instorten waardoor de eigenaar omkwam, zelf ter dood werd gebracht, als een vroeg voorbeeld van een systeem dat de asymmetrie tussen wie beslist en wie het risico draagt wegnam.</p>
+      <p>Taleb past dat toe op moderne bestuurders en bankiers die volgens hem wel van winst profiteren maar zelden persoonlijk voor verlies opdraaien, wat hij als een fundamentele bron van fragiliteit in het financiële stelsel beschouwt. Dit onderwerp werkte hij zes jaar later uit tot een eigen boek, <i>Skin in the Game</i>.</p>
+      <h3>Wat overleeft: de Lindy-toets</h3>
+      <p>Taleb sluit af met wat bekendstaat als het Lindy-effect: bij niet aan bederf onderhevige zaken, zoals ideeën, boeken of instituties, voorspelt de tijd die iets al heeft overleefd de tijd die het nog zal overleven. Een boek dat veertig jaar in druk is gebleven, heeft een langere verwachte toekomst dan een boek dat vorige maand verscheen, simpelweg omdat het al veertig jaar aan vervanging heeft weerstaan.</p>
+      <p>Daarmee eindigt het boek op hetzelfde punt als waar het begon: niet voorspellen wat er gaat gebeuren, maar inrichten wat er kan overleven, en vertrouwen op wat door tijd en gebruik al is getest boven wat in theorie het beste lijkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Antifragiel</td><td>Wat sterker wordt van schokken, willekeur en stress, in plaats van ze alleen te doorstaan; het woord dat Taleb muntte omdat een bestaand equivalent ontbrak.</td></tr>
+          <tr><td class="term">Mediocristan en Extremistan</td><td>Het onderscheid tussen domeinen waar losse gebeurtenissen het totaal nauwelijks raken en domeinen waar één uitschieter de uitkomst domineert.</td></tr>
+          <tr><td class="term">Barbell-strategie</td><td>Het combineren van een groot, vrijwel risicovrij deel met een klein, zeer risicovol deel, met vermijding van het midden.</td></tr>
+          <tr><td class="term">Via negativa</td><td>Vooruitgang door iets schadelijks weg te halen in plaats van er iets nieuws aan toe te voegen.</td></tr>
+          <tr><td class="term">Iatrogenese</td><td>Schade die door een ingreep zelf wordt veroorzaakt, los van de kwaal die de ingreep moest verhelpen.</td></tr>
+          <tr><td class="term">Optionaliteit</td><td>Het recht om van een gunstige uitkomst te profiteren zonder verplicht te zijn de ongunstige te aanvaarden.</td></tr>
+          <tr><td class="term">Skin in the game</td><td>Het principe dat wie een beslissing neemt, ook zelf de gevolgen ervan moet dragen.</td></tr>
+          <tr><td class="term">Lindy-effect</td><td>Bij niet-bederfelijke zaken voorspelt de tijd die iets al heeft overleefd de tijd die het nog zal overleven.</td></tr>
+          <tr><td class="term">Fragiliteit als asymmetrie</td><td>Meer te verliezen dan te winnen bij blootstelling aan onzekerheid; het spiegelbeeld van antifragiliteit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Taleb werkt niet met een steekproef of een experiment maar met een verzameling voorbeelden uit uiteenlopende domeinen: financiële markten, waar hij zelf jarenlang als optiehandelaar werkte, geneeskunde, mythologie, klassieke filosofie en techniekgeschiedenis. Zijn eigen beroepservaring met staartrisico's in de handel vormt de kern waaromheen de rest van het betoog is opgebouwd.</p>
+      <p>Voor de wiskundige kant, met name de asymmetrie tussen verlies en winst bij opties, verwijst hij naar zijn eigen eerdere academische werk over risicobeheer, dat in de financiële wiskunde een erkende plek heeft. De historische en mythologische voorbeelden, van Hammurabi tot Seneca, zijn illustratief bedoeld en worden niet met bronnen in de gebruikelijke academische zin onderbouwd.</p>
+      <p>Het Lindy-effect zelf rust op een wiskundige eigenschap van bepaalde kansverdelingen en is voor die categorie zaken aantoonbaar; Taleb breidt het echter uit naar domeinen, zoals instituties en ideeën, waar de onderliggende aanname minder streng is getoetst dan bij de oorspronkelijke wiskundige toepassing.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste tekortkoming is dat het boek zijn eigen sterkste instrument, gevoeligheid voor domeinen die zich niet aan de aannames houden, zelden op zichzelf toepast. Talebs stellige toon en de brede reikwijdte van zijn claims, van geneeskunde tot opvoeding tot bestuur, maken het moeilijk te zien welke waarneming hem ongelijk zou geven.</p>
+      <p>Critici uit de financiële wiskunde erkennen de kern van de barbell-strategie als bruikbaar advies onder specifieke omstandigheden, maar wijzen erop dat Taleb de mate waarin markten daadwerkelijk in Extremistan vallen soms overschat, en dat de aanbevolen strategie in de praktijk lagere rendementen kan opleveren dan een gespreide aanpak, afhankelijk van de precieze periode en marktomstandigheden.</p>
+      <p>De polemische stijl, met terugkerende steken naar academici, bureaucraten en wat hij "fragilista's" noemt, versterkt de retorische kracht van het boek maar maakt het moeilijker de empirische claims te scheiden van de persoonlijke afrekening die eronder zit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begrens bij een nieuwe onderneming of investering vooraf het maximale verlies, en laat de bovenkant open.</li>
+        <li>Vraag bij een voorgestelde ingreep, in beleid of in de eigen gezondheid, eerst wat je kunt weglaten voordat je iets toevoegt.</li>
+        <li>Ga bij een beslissing na wie de gevolgen ervan draagt; als dat niet de beslisser zelf is, is het risico voor een ander onzichtbaar gemaakt.</li>
+        <li>Toets een claim of instelling niet alleen op actuele argumenten maar ook op hoe lang ze al bestaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Voluit <i>Antifragile: Things That Gain from Disorder</i> (Random House, 2012), het vierde deel van Talebs vijfdelige <i>Incerto</i>-reeks. Nederlands als <i>Antifragiel</i>, sinds 2013 bij Nieuwezijds, in latere drukken vertaald door Brenda Mudde en Jonas de Vries (ISBN 9789057125171).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Taleb voert een nieuw woord in voor iets waarvoor het Engels, naar zijn zeggen, geen bestaand woord had: antifragiel, het tegenovergestelde van kwetsbaar. Waar een kwetsbaar object schade oploopt door schokken en een robuust object ze doorstaat zonder verandering, wordt iets antifragiels er sterker van, zoals een spier die groeit door de belasting die haar even beschadigt.</p><p>Het boek, deel vier van de Incerto-reeks na <i>Fooled by Randomness</i> en <i>The Black Swan</i>, past dat onderscheid toe op geneeskunde, financiën, politiek en persoonlijke risico's, met de barbell-strategie als praktisch advies: combineer extreme veiligheid met een klein aandeel extreem risico, en vermijd het midden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>risico</li><li>onzekerheid</li><li>complexiteit</li><li>besluitvorming</li><li>stoïcijnse filosofie</li><li>economie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Fooled by Randomness is het eerste deel van de Incerto-reeks en introduceert het denken over toeval waarop dit boek voortbouwt.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. The Black Swan werkt Mediocristan en Extremistan uit, het onderscheid dat Antifragile als bekend veronderstelt.</li>
+          <li value="282"><a href="282.html">Skin in the Game</a>. Skin in the Game werkt het laatste hoofdstuk van dit boek uit tot een zelfstandig betoog over verantwoordelijkheid en risico.</li>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Seneca's eigen tekst over de kortheid van het leven laat zien waar Talebs barbell-voorbeeld vandaan komt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

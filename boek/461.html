@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Practice of Groundedness &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Stulberg betoogt dat een cultuur van permanente zelfoptimalisatie, die hij heroic individualism noemt, mensen niet alleen uitput maar op termijn ook…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-461">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">461 &middot; Levenskunst</p>
+    <h1>The Practice of Groundedness</h1>
+    <p class="lede">Brad Stulberg, 2021</p>
+    <p class="stats">
+      <span><b>1413</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="461"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Stulberg betoogt dat een cultuur van permanente zelfoptimalisatie, die hij heroic individualism noemt, mensen niet alleen uitput maar op termijn ook minder laat presteren, omdat succes voortdurend wordt afgemeten aan zichtbare, meetbare uitkomsten en vergelijking met anderen. Zijn alternatief is groundedness: een stabiele, intern verankerde basis, opgebouwd uit zes praktijken, aanvaarding, aanwezigheid, geduld, kwetsbaarheid, verbondenheid en beweging, van waaruit iemand duurzaam kan werken zonder de eigen draagkracht te verwaarlozen. Wie zich vastklampt aan een uitkomst, wordt breekbaar zodra die uitblijft; wie zich richt op het onderliggende proces, blijft weerbaarder.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Heroic individualism</h3>
+      <p>Stulberg opent met een diagnose van wat hij heroic individualism noemt: een cultuur waarin succes wordt gemeten aan voortdurende, zichtbare prestatie, waarin rust als verspilde tijd geldt en waarin mensen zichzelf voortdurend vergelijken met anderen. Hij beschrijft cliënten uit zijn coachingspraktijk, van topsporters tot bestuurders, die ondanks het behalen van hun doelen een aanhoudend gevoel van tekortschieten overhouden.</p>
+      <p>Zijn stelling is dat deze houding niet alleen uitputtend is maar ook averechts werkt: mensen die zichzelf voortdurend opjagen, presteren op termijn slechter dan mensen die van een stabielere basis werken. Die basis noemt hij groundedness. Hij ontleent de term aan zijn werk met sporters die pas op hun best presteerden zodra ze niet langer bij elke tegenslag hun hele zelfbeeld op het spel voelden staan.</p>
+      <h3>Aanvaarding</h3>
+      <p>De eerste praktijk is het aanvaarden van de situatie zoals die nu is, als voorwaarde om vooruit te komen. Stulberg onderscheidt aanvaarding van berusting: het gaat niet om het opgeven van ambitie maar om het onder ogen zien van de feiten voordat je erop reageert.</p>
+      <p>Hij verbindt dit met onderzoek naar acceptance and commitment therapy en met stoïcijnse bronnen, en illustreert het met sporters die pas herstelden van een blessure toen ze de blessure onder ogen zagen in plaats van tegen de realiteit te vechten. Weerstand tegen wat al gebeurd is, kost volgens hem energie die dan niet meer beschikbaar is voor het daadwerkelijke herstel of de volgende stap, iets wat hij ook terugziet bij cliënten die een tegenvallende beoordeling of een verloren opdracht wekenlang blijven bestrijden in plaats van er iets van te leren.</p>
+      <h3>Aanwezigheid en geduld</h3>
+      <p>De tweede en derde praktijk, aanwezigheid en geduld, gaan over aandacht en tempo. Aanwezigheid is het vermogen om de aandacht te richten op wat er nu gebeurt in plaats van op een volgende stap of een vergelijking met anderen; Stulberg beschrijft hoe voortdurende afleiding en multitasken dat vermogen ondermijnen, en hoe een gefragmenteerde aandacht mensen het gevoel geeft overal een beetje mee bezig te zijn en nergens volledig.</p>
+      <p>Geduld verzet zich tegen de aanname dat vooruitgang lineair verloopt. Stulberg beschrijft onderzoek naar hoe leren en herstel in golven verlopen, met periodes van stilstand die nodig zijn voordat een sprong volgt, en waarschuwt voor het opgeven net voordat zo'n sprong zich aandient, omdat de opbouw eronder van buitenaf niet te zien is.</p>
+      <h3>Kwetsbaarheid</h3>
+      <p>De vierde praktijk is het tonen van kwetsbaarheid: het erkennen van twijfel, angst of onvermogen tegenover anderen in plaats van een gepolijst zelfbeeld op te houden. Stulberg stelt dat het verbergen van kwetsbaarheid op termijn meer energie kost dan het benoemen ervan, en dat het een voorwaarde is voor het vertrouwen dat sterke samenwerking mogelijk maakt.</p>
+      <p>Hij onderscheidt dit nadrukkelijk van klagen of van kwetsbaarheid als performance: het gaat om een gerichte, eerlijke uitspraak tegenover mensen die er iets mee kunnen, niet om het voortdurend delen van elk ongemak met iedereen.</p>
+      <h3>Verbondenheid en beweging</h3>
+      <p>De vijfde praktijk, verbondenheid, gaat over het opbouwen van hechte relaties in plaats van een netwerk van oppervlakkige, functionele contacten. Stulberg citeert onderzoek dat aanhoudende eenzaamheid net zo schadelijk is voor de gezondheid als roken, en pleit voor een klein aantal diepe verbindingen boven een groot, los netwerk. Hij waarschuwt met name voor het type netwerk dat opgebouwd is rond wederzijds nut, omdat dat wegvalt zodra iemand niets meer te bieden heeft.</p>
+      <p>De zesde praktijk, beweging, gaat over lichamelijke inspanning als manier om het lichaam te reguleren en de geest te gronden, niet primair om prestaties te leveren. Stulberg sluit daarmee de cirkel naar zijn eigen achtergrond in sport- en prestatiewetenschap: wie zijn lichaam nooit belast, mist volgens hem ook de fysieke basis waarop geestelijke veerkracht rust.</p>
+      <h3>Herkomst uit de sportwetenschap</h3>
+      <p>Stulbergs eerdere boek <i>Peak Performance</i>, geschreven met onderzoeker Steve Magness, draait om de formule dat groei ontstaat uit stress gevolgd door voldoende herstel, en dat groei uitblijft als een van beide ontbreekt. In <i>The Practice of Groundedness</i> herkent men diezelfde logica terug, nu toegepast op het hele leven in plaats van op training alleen: groundedness is bij hem het herstel dat de inspanning van ambitie en prestatie kan dragen.</p>
+      <p>Dat verklaart ook waarom beweging als zesde praktijk in het rijtje staat naast psychologisch klinkende praktijken als kwetsbaarheid en verbondenheid: voor Stulberg is het lichamelijke net zo bepalend voor veerkracht als het mentale, een uitgangspunt dat rechtstreeks uit zijn sportwetenschappelijke achtergrond komt.</p>
+      <h3>Van uitkomst naar proces</h3>
+      <p>In het laatste deel brengt Stulberg de zes praktijken samen in de aanbeveling om de aandacht te verleggen van uitkomsten naar het proces: wie zich vastklampt aan een resultaat, wordt breekbaar zodra dat resultaat uitblijft, terwijl wie zich richt op het onderliggende proces, weerbaarder blijft ongeacht de uitkomst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Heroic individualism</td><td>De cultuur van permanente zelfoptimalisatie en vergelijking waarin succes alleen aan zichtbare prestatie wordt afgemeten.</td></tr>
+          <tr><td class="term">Groundedness</td><td>De stabiele, intern verankerde basis van waaruit iemand volgens Stulberg duurzaam kan presteren.</td></tr>
+          <tr><td class="term">Aanvaarding</td><td>De situatie onder ogen zien zoals die is, als voorwaarde om te handelen, zonder berusting te zijn.</td></tr>
+          <tr><td class="term">Aanwezigheid</td><td>De aandacht richten op het huidige moment in plaats van op vergelijking of een volgende stap.</td></tr>
+          <tr><td class="term">Geduld</td><td>Het accepteren dat vooruitgang niet lineair verloopt en periodes van stilstand nodig heeft.</td></tr>
+          <tr><td class="term">Kwetsbaarheid</td><td>Het erkennen van twijfel en onvermogen tegenover anderen in plaats van een gepolijst zelfbeeld.</td></tr>
+          <tr><td class="term">Diepe verbondenheid</td><td>Een klein aantal hechte relaties, tegenover een groot maar oppervlakkig netwerk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Stulberg heeft een achtergrond in sport- en prestatiewetenschap en werkte eerder samen met onderzoeker Steve Magness aan <i>Peak Performance</i>. In dit boek combineert hij gepubliceerd onderzoek, onder meer naar acceptance and commitment therapy, eenzaamheid en herstelcycli bij sporters, met stoïcijnse en boeddhistische bronnen en met casussen uit zijn eigen coachingspraktijk.</p>
+      <p>De zes praktijken zijn elk afzonderlijk onderbouwd met bestaand onderzoek uit hun eigen vakgebied. Het geheel, de zes praktijken als samenhangend programma voor groundedness, is een eigen synthese van Stulberg en is als zodanig niet in een gecontroleerde studie getoetst. Voor sommige onderdelen, zoals de schadelijkheid van eenzaamheid, is de onderzoeksbasis breed en herhaald bevestigd; voor andere, zoals de precieze rol van geduld bij herstel, is de basis dunner en leunt Stulberg sterker op afzonderlijke studies en eigen ervaring.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de zes praktijken losstaande onderzoekslijnen bijeenbrengen die niet voor dit doel zijn opgezet: onderzoek naar eenzaamheid, naar acceptance and commitment therapy en naar herstelcycli bij sporters wordt hier naast elkaar gelegd om één programma te onderbouwen, zonder dat de combinatie zelf is getoetst.</p>
+      <p>De diagnose van heroic individualism is herkenbaar maar weinig scherp afgebakend: het boek benoemt de cultuur ruim, met weinig aandacht voor wie er structureel geen keuze heeft om zich eraan te onttrekken, bijvoorbeeld door economische druk. De cliënten in de voorbeelden zijn bijna zonder uitzondering mensen met een zekere mate van vrijheid over de eigen agenda, zoals ondernemers, sporters en kenniswerkers, en het boek problematiseert dat perspectief niet.</p>
+      <p>Stulberg schreef twee jaar later <i>Master of Change</i>, dat zich toespitst op omgaan met verandering; wie beide boeken leest, ziet dat een deel van de praktijken, met name aanvaarding en aanwezigheid, in het latere boek opnieuw en uitgebreider wordt behandeld, wat de indruk wekt dat dit eerdere boek eerder een aanzet dan een afgerond geheel was.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf een probleem eerst feitelijk voordat je een reactie kiest, zonder het meteen te beoordelen.</li>
+        <li>Kies bij het plannen van een project bewust rustmomenten in, in plaats van ze pas te nemen als je uitgeput bent.</li>
+        <li>Vraag jezelf af hoeveel mensen je zou kunnen bellen met slecht nieuws, en investeer gericht in dat aantal.</li>
+        <li>Richt de aandacht bij een prestatie op het proces dat eraan voorafging in plaats van op het resultaat.</li>
+        <li>Bouw een vast moment van lichaamsbeweging in je week in, los van een prestatiedoel.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>A Transformative Path to Success That Feeds, Not Crushes, Your Soul</i> (Portfolio/Penguin, New York, 2021, ISBN 9780593329894). Geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Brad Stulberg, die eerder met Steve Magness <i>Peak Performance</i> schreef, keert zich in dit boek tegen wat hij heroic individualism noemt: de opvatting dat succes voortkomt uit permanente zelfoptimalisatie, vergelijking met anderen en het idee dat meetbare prestatie de enige maatstaf van waarde is. Hij beschrijft zes praktijken die daar tegenover staan: aanvaarding, aanwezigheid, geduld, kwetsbaarheid, verbondenheid en beweging.</p><p>Het boek combineert onderzoek uit de sport- en prestatiepsychologie, Stulbergs eigen achtergrond, met stoïcijnse en boeddhistische bronnen. Stulberg schreef in 2023 met <i>Master of Change</i> (nr. 375 in deze lijst) een later boek dat zich specifiek op omgaan met verandering richt; dit eerdere boek is breder en gaat over de grondhouding van waaruit iemand duurzaam kan presteren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>prestatiecultuur</li><li>veerkracht</li><li>waarden</li><li>aandacht</li><li>gemeenschap</li><li>sportwetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="375"><a href="375.html">Master of Change</a>. Master of Change is Stulbergs latere boek, dat zich specifiek richt op omgaan met verandering en een deel van dezelfde praktijken verder uitwerkt.</li>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Watts beschrijft vanuit een andere traditie dezelfde onthechting van uitkomsten die Stulberg aanvaarding noemt.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman werkt de eindigheid van tijd uit tot een vergelijkbaar pleidooi tegen het najagen van steeds meer.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>King, Warrior, Magician, Lover &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Moore en Gillette stellen dat mannelijke volwassenheid steunt op vier psychische grondvormen die zij ontlenen aan Jungs archetypenleer: de Koning die orde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-407">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">407 &middot; Mannen, vriendschap, verbinding</p>
+    <h1>King, Warrior, Magician, Lover</h1>
+    <p class="lede">Robert Moore en Douglas Gillette, 1990</p>
+    <p class="stats">
+      <span><b>1426</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="407"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Moore en Gillette stellen dat mannelijke volwassenheid steunt op vier psychische grondvormen die zij ontlenen aan Jungs archetypenleer: de Koning die orde en zegen brengt, de Krijger die grenzen bewaakt en handelt, de Magiër die inzicht en vaardigheid bezit, en de Minnaar die verbinding en gevoel voor het leven levert. Zonder een initiatie die deze volwassen vormen toegankelijk maakt, blijft een man hangen in kinderlijke varianten ervan, of kantelt de energie om in een tirannieke, wrede of manipulatieve schaduw. Herstel van mannelijkheid is voor hen dus geen terugkeer naar overheersing, maar het leren beheersen van krachten die, onbewust, evengoed vernietigend als opbouwend werken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vier archetypen van mature mannelijkheid</h3>
+      <p>Moore, hoogleraar psychologie en religie aan het Chicago Theological Seminary, en Gillette, medeoprichter van een instituut voor wereldspiritualiteit, nemen als uitgangspunt Jungs onderscheid tussen het persoonlijke onbewuste en een collectief onbewuste met terugkerende patronen, archetypen, die zich in mythen, dromen en gedrag laten herkennen. Voor mannelijkheid onderscheiden zij er vier: Koning, Krijger, Magiër en Minnaar.</p>
+      <p>Elk archetype staat voor een vorm van energie in plaats van een rol of een karaktertrek. De Koning ordent en zegent, de Krijger handelt met discipline die aan een doel dient, de Magiër doorziet en beheerst processen die voor anderen verborgen blijven, en de Minnaar voelt zich verbonden met het leven, de zintuigen en andere mensen. Een volwassen man beschikt volgens de auteurs over alle vier, in wisselende verhouding.</p>
+      <h3>De bipolaire schaduw</h3>
+      <p>Elk archetype kan volgens Moore en Gillette op twee manieren ontsporen, een actieve en een passieve pool, die zij samen de bipolaire schaduw noemen. De Koning ontspoort naar de Tiran, die vernietigt wat hem bedreigt, of naar de Zwakkeling, die zich aan niemand durft te binden en zijn gezag afstaat. De Krijger valt uiteen in de Sadist, die macht gebruikt om te kwetsen, en de Masochist, die misbruik te lang verdraagt en dan pas explodeert.</p>
+      <p>Bij de Magiër herkennen zij de Manipulator, die kennis inzet om anderen te sturen zonder dat die het merken, tegenover de Onschuldige die zich onwetend houdt om geen verantwoordelijkheid te dragen. Bij de Minnaar staat de Verslaafde Minnaar, die zich verliest in gevoel en genot, tegenover de Onmachtige Minnaar, die zich uit angst heeft afgesloten van gevoel en genot. Elke schaduwvorm is voor hen een teken dat het archetype wel aanwezig is, maar niet volgroeid.</p>
+      <h3>Jongenspsychologie</h3>
+      <p>Tegenover de vier volwassen archetypen zetten de auteurs vier onvolgroeide, kinderlijke vormen: het Goddelijk Kind, het Oedipale Kind, de Trickster en de Held. Deze patronen zijn op zichzelf niet fout, ze horen bij de jeugd, maar worden problematisch wanneer een volwassen man erin blijft hangen omdat de overgang naar de volwassen vorm hem nooit is gegeven.</p>
+      <p>De Held is daarbij de belangrijkste tussenfase: een jongen die leert zichzelf te overwinnen en grenzen te verleggen, maar die, zonder initiatie, blijft vastzitten in een mannelijkheid die zich bewijst door risico en overwinning in plaats van door de rustiger, dienende functie van de Koning.</p>
+      <h3>Het gemis aan initiatie</h3>
+      <p>De kern van het boek is dat de westerse samenleving de rituelen kwijt is die jongens vroeger, onder begeleiding van oudere mannen, lieten overgaan van jongenspsychologie naar de volwassen archetypen. Moore en Gillette wijzen op initiatiepraktijken bij inheemse volken en op oudere mythen als voorbeelden van zulke overgangen, waarin een jongen figuurlijk moet sterven aan zijn kinderlijke zelfbeeld om als man te herrijzen.</p>
+      <p>Zonder die begeleiding groeien jongens volgens hen op zonder mannelijke voorbeelden die hun eigen jongensenergie hebben doorleefd, en blijven zij als volwassenen aangewezen op de schaduwvormen of op de onvolgroeide patronen uit de vorige fase.</p>
+      <h3>De Koning als ordenend centrum</h3>
+      <p>Onder de vier archetypen krijgt de Koning de meeste aandacht, als het centrale ordeningsprincipe waar de andere drie zich toe verhouden. Een Koning zegent: hij erkent het werk en de waarde van anderen, in plaats van hen voortdurend te moeten overtreffen. Moore en Gillette noemen dat de zegenende functie, en stellen dat veel mannen hun hele leven op zoek blijven naar een vader, leraar of chef die hen op die manier heeft gezien.</p>
+      <p>Waar de Koning ontbreekt, ontstaat volgens hen een leegte die de andere archetypen niet kunnen vullen: een Krijger zonder Koning vecht zonder doel, een Magiër zonder Koning gebruikt kennis voor zichzelf, en een Minnaar zonder Koning verliest zich in gevoel zonder richting.</p>
+      <h3>Herstel als gerichte oefening</h3>
+      <p>Het boek eindigt niet met een concreet stappenplan, dat volgt pas in de latere, aparte delen die Moore en Gillette aan elk archetype wijdden. Wel geven zij een richting aan: een man leert zijn archetypen kennen door de schaduwvormen bij zichzelf te herkennen, door mannelijke voorbeelden te zoeken die de volwassen energie tonen, en door bewust te kiezen voor de dienende functie van elk archetype in plaats van de destructieve.</p>
+      <p>Die stap, van schaduw naar volwassen vorm, noemen zij geen kwestie van harder proberen maar van innerlijk werk: het onder ogen zien van de eigen Tiran, Sadist, Manipulator of Verslaafde voordat die vorm zich in gedrag naar anderen ontlaadt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Archetype</td><td>Een terugkerend patroon uit het collectieve onbewuste dat zich in mythen, dromen en gedrag laat herkennen, een begrip dat de auteurs rechtstreeks van Jung overnemen.</td></tr>
+          <tr><td class="term">Koning</td><td>Het archetype van orde, zegen en vruchtbaar gezag, dat de andere drie archetypen richting geeft.</td></tr>
+          <tr><td class="term">Krijger</td><td>Het archetype van discipline en handelen dat aan een doel buiten zichzelf dient.</td></tr>
+          <tr><td class="term">Magiër</td><td>Het archetype van inzicht, vaardigheid en het beheersen van processen die voor anderen verborgen blijven.</td></tr>
+          <tr><td class="term">Minnaar</td><td>Het archetype van verbinding, zintuiglijkheid en gevoel voor het leven.</td></tr>
+          <tr><td class="term">Bipolaire schaduw</td><td>De twee ontsporingsvormen van elk archetype, een actieve en een passieve, die ontstaan wanneer het archetype niet volgroeid is.</td></tr>
+          <tr><td class="term">Zegenende functie</td><td>Het vermogen van de Koning om het werk en de waarde van een ander te erkennen zonder eigen belang.</td></tr>
+          <tr><td class="term">Jongenspsychologie</td><td>Het geheel van onvolgroeide patronen, Goddelijk Kind, Oedipaal Kind, Trickster en Held, waarin een man kan blijven steken zonder initiatie.</td></tr>
+          <tr><td class="term">Initiatie</td><td>Het rituele proces waarin een jongen onder begeleiding van oudere mannen overgaat naar de volwassen archetypen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is geen empirisch onderzoek en presenteert zich ook niet zo. De onderbouwing bestaat uit Moore's klinische ervaring als jungiaans analyticus, uit Gillette's kennis van mythologie, en uit een vergelijking van mythen en initiatieverhalen uit uiteenlopende culturen die de auteurs als aanwijzing voor een gedeeld, algemeen patroon lezen.</p>
+      <p>Zulke vergelijkende mythologie kan een terugkerend motief aannemelijk maken, maar toetst niet of het motief inderdaad een aangeboren psychische structuur weerspiegelt, zoals de jungiaanse archetypenleer veronderstelt, of eerder een cultureel patroon dat zich makkelijk laat overdragen. Het boek maakt dat onderscheid zelf niet en behandelt de archetypen als een gegeven werkelijkheid.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar raakt de jungiaanse archetypenleer zelf: archetypen zijn per definitie niet rechtstreeks waarneembaar, alleen hun uitingen zijn dat, waardoor de theorie zich moeilijk laat toetsen of weerleggen. Wat aan het patroon niet past, kan altijd worden verklaard als een vermengde of onvolgroeide vorm van het archetype, zonder dat het archetype zelf ter discussie komt.</p>
+      <p>De indeling in precies vier archetypen met elk twee schaduwpolen oogt overzichtelijk, maar de auteurs geven geen criterium waarom het er vier zijn en niet drie of zes; andere jungianen komen tot andere indelingen van mannelijke energie.</p>
+      <p>Het boek veronderstelt een vaste, algemeen geldige mannelijke psychologie die los zou staan van cultuur en tijd, een aanname die door latere gender- en cultuurwetenschappers is bekritiseerd als essentialistisch: zij wijzen erop dat wat als "mannelijk" geldt sterk verschilt tussen samenlevingen en periodes, terwijl het boek dat verschil wegschrijft onder de noemer van gedeelde archetypen.</p>
+      <p>Het boek verschijnt in het verlengde van de mythopoëtische mannenbeweging rond Robert Bly, die destijds ook kritiek kreeg omdat zij mannelijke en vrouwelijke eigenschappen scherp van elkaar scheidde en initiatie voorstelde als oplossing voor problemen die evengoed maatschappelijk en economisch van aard waren.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Herken bij een eigen uitbarsting of terugtrekking welke schaduwvorm, Tiran, Sadist, Manipulator of Verslaafde, dan wel Zwakkeling, Masochist, Onschuldige of Onmachtige, het dichtst in de buurt komt.</li>
+        <li>Ga na wie in je leven de zegenende functie van de Koning heeft vervuld, en wie die nooit heeft vervuld.</li>
+        <li>Onderscheid bij een besluit of het uit de Krijger komt, gericht op een doel buiten jezelf, of uit de Held, gericht op eigen overwinning.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>King, Warrior, Magician, Lover: Rediscovering the Archetypes of the Mature Masculine</i> (HarperSanFrancisco, 1990, 192 blz., ISBN 9780062505972). Eerste deel van een reeks die Moore en Gillette later uitbreidden met aparte delen over elk archetype afzonderlijk. Geen bevestigde Nederlandse vertaling; de Nederlandse boekhandel voert de Engelse editie. Deze samenvatting is op de Engelse tekst gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Moore, jungiaans analyticus, en Gillette, mythograaf, onderscheiden vier archetypen van volwassen mannelijkheid: de Koning, de Krijger, de Magiër en de Minnaar. Elk archetype levert een vorm van psychische energie die een man nodig heeft: ordenend, handelend, doorziend en verbindend. Zonder toegang tot die volwassen vormen valt een man terug op kinderlijke varianten ervan, of slaat de energie om in een destructieve schaduwkant.</p><p>Het boek verscheen in 1990, aan het eind van de mythopoëtische mannenbeweging die ook Robert Bly's <i>Iron John</i> voortbracht, en bouwt op Jungs archetypenleer. Moore en Gillette stellen dat de westerse samenleving de initiatierituelen kwijt is die jongens vroeger toegang gaven tot deze volwassen archetypen, en dat veel mannen daardoor blijven steken in wat zij jongenspsychologie noemen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>archetypen</li><li>Jungiaanse psychologie</li><li>mannelijkheid</li><li>mythologie</li><li>mannenbeweging</li><li>initiatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. Jung en zijn naaste leerlingen leggen hier het bredere kader van archetypen en het collectieve onbewuste uit waarop Moore en Gillette hun vier mannelijke archetypen enten.</li>
+          <li value="360"><a href="360.html">Archetypen</a>. Jungs eigen behandeling van archetypen laat zien hoe ruim en minder strak ingedeeld het begrip bij de bron zelf nog is, tegenover de vaste indeling in vieren die Moore en Gillette ervan maken.</li>
+          <li value="143"><a href="143.html">Maps of Meaning</a>. Peterson bouwt eveneens op jungiaanse archetypen en mythologie voort, maar werkt het materiaal uit tot een breder, filosofisch getint betoog.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

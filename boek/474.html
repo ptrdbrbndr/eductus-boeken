@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rule Breaker Investing &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gardner betoogt dat de gangbare beursregels, laag kopen en hoog verkopen, breed spreiden en periodiek herbalanceren, averechts werken voor wie de markt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-474">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">474 &middot; Geld en ondernemen</p>
+    <h1>Rule Breaker Investing</h1>
+    <p class="lede">David Gardner, 2025</p>
+    <p class="stats">
+      <span><b>1510</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="474"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gardner betoogt dat de gangbare beursregels, laag kopen en hoog verkopen, breed spreiden en periodiek herbalanceren, averechts werken voor wie de markt wil verslaan. Zijn alternatief is aandelen kopen die er al duur en riskant uitzien omdat ze marktleider zijn in een net ontstane sector, ze vervolgens jarenlang vasthouden, nieuw geld bijstorten in de posities die het al goed doen in plaats van in de achterblijvers, en zelden verkopen. Het boek presenteert dat niet als truc voor snel rendement maar als tegenovergestelde manier van omgaan met onzekerheid: waar de meeste beleggers risico beperken door te spreiden en te verkopen zodra het spannend wordt, stelt Gardner voor het risico juist op te zoeken bij bedrijven die de toekomst vormgeven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Dertig jaar en zeven honderdvoudigers</h3>
+      <p>Gardner opent met zijn eigen staat van dienst. Sinds hij in 1993 samen met zijn broer Tom The Motley Fool oprichtte, zegt hij zeven aandelen te hebben aangeraden die uiteindelijk honderd keer de aankoopprijs waard werden, onder meer Amazon, Netflix, Nvidia en Tesla. Dat plaatst het boek nadrukkelijk als het sluitstuk van een loopbaan, niet als introductie voor een beginner.</p>
+      <p>Het boek bouwt op een eerder werk dat hij in 1998 met zijn broer schreef, <i>Rule Breakers, Rule Makers</i>, en herwerkt dat gedachtegoed tot een strakkere structuur van drie keer zes: zes gewoontes voor de belegger zelf, zes kenmerken om in een aandeel te herkennen en zes principes voor het beheer van de portefeuille als geheel.</p>
+      <h3>Zes gewoontes van de belegger</h3>
+      <p>De eerste reeks gaat over gedrag. Laat winnaars ver doorlopen is de eerste gewoonte: een stijgend aandeel vroeg verkopen uit voorzichtigheid kost volgens Gardner op termijn meer dan een verlies. De tweede is voeg toe, verdubbel niet: nieuw geld gaat naar posities die het al goed doen, niet naar verliezers in de hoop op een gemiddelde inkoopprijs, wat hij omschrijft als de bloemen water geven in plaats van het onkruid.</p>
+      <p>De derde gewoonte is een aandeel minstens drie jaar vasthouden. De vierde verwijst naar wat hij de vier pijlers van bewust kapitalisme noemt: een hoger doel, aandacht voor alle belanghebbenden, bewust leiderschap en een cultuur die daarbij past. De vijfde is een nieuwe positie nooit groter maken dan vijf procent van de portefeuille. De zesde is het streven naar zestig procent nauwkeurigheid: bij minstens zes van de tien keuzes de markt verslaan, gemeten over ten minste drie jaar. Gardner erkent daarbij zelf dat hij dat percentage in de praktijk zelden haalt.</p>
+      <h3>Zes kenmerken van het aandeel</h3>
+      <p>De tweede reeks beschrijft waar Gardner naar zoekt in een bedrijf. Marktleider en eerste in een belangrijke, net ontstane sector is het eerste kenmerk, met zijn eigen beeld erbij: als je niet de leidende hond bent, verandert het uitzicht nooit. Het tweede is een duurzaam voordeel dat concurrenten buiten de deur houdt, zoals een octrooi, een visionaire leiding of een positie die niet te kopiëren is; hij noemt Etsy als voorbeeld van een bedrijf dat iets verkoopt wat je nergens anders vindt, tegenover Amazon dat vooral handelswaar verkoopt.</p>
+      <p>Het derde kenmerk is tegen de intuïtie in: koersen die al fors gestegen zijn. Gardner wijst erop dat Amazon al verdubbeld was voordat hij het aanraadde, en dat het aandeel daarna nog veel verder steeg. Het vierde kenmerk is goed, vaak door de oprichter zelf gevoerd management, met Nvidia's Jensen Huang als voorbeeld van een leider die decennia aanblijft in plaats van een paar jaar. Het vijfde is een sterk merk met klantentrouw, met Apple als voorbeeld. Het zesde is dat financiële media het aandeel te duur noemen: die scepsis houdt volgens Gardner andere beleggers aan de zijlijn, en de koers klimt vervolgens langs wat hij de muur van twijfel noemt, terwijl de sceptici geleidelijk zelf aandeelhouder worden.</p>
+      <h3>Zes principes van de portefeuille</h3>
+      <p>De derde reeks gaat over het geheel van de portefeuille. Laat de portefeuille je beste visie op de toekomst weerspiegelen is het eerste principe: geld gaat naar bedrijven waarvan je de wereld die ze bouwen ook zelf wilt. Het tweede is het doel van de portefeuille benoemen en vaststellen of er nog geld bijkomt of niet, wat het beheer wezenlijk verandert. Het derde is de gelijke startlijn: bij de start evenveel kapitaal aan elke positie toewijzen, in de praktijk verspreid over ongeveer twintig aandelen.</p>
+      <p>Het vierde principe is het eigen slaapgetal bepalen, het maximale aandeel van de portefeuille in één positie waarbij je nog rustig slaapt. Het vijfde is dat je, anders dan bij een weddenschap, gedurende de hele race geld kunt blijven inzetten, en dus nieuw kapitaal naar de posities kunt sturen die zich al bewijzen. Het zesde is de portefeuille elk kwartaal herzien op percentages, niet dagelijks of wekelijks op koersen.</p>
+      <h3>Het bewijs uit eigen kraam</h3>
+      <p>Het boek onderbouwt deze regels vrijwel volledig met Gardners eigen geschiedenis: zijn nieuwsbrief- en abonnementendiensten bij The Motley Fool, waar hij maandelijks een paar aandelen aanraadt, en de zeven genoemde honderdvoudigers als bewijs dat de methode werkt. Losse, fictieve scènes wisselen de uitleg af, in een stijl die vaker vergeleken wordt met Peter Lynch's <i>One Up on Wall Street</i>: toegankelijk, optimistisch en gebouwd op het idee dat een gewone belegger uitzonderlijke bedrijven kan herkennen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Honderdvoudiger</td><td>Een aandeel dat honderd keer de aankoopprijs waard wordt; Gardner claimt er zeven te hebben gekozen in dertig jaar.</td></tr>
+          <tr><td class="term">Top dog en first mover</td><td>Marktleider en eerste beweger in een belangrijke, nog jonge sector; het eerste kenmerk waarop Gardner een aandeel beoordeelt.</td></tr>
+          <tr><td class="term">Voeg toe, verdubbel niet</td><td>Nieuw kapitaal naar de posities sturen die het al goed doen, in plaats van bijkopen bij een verliezer om de gemiddelde prijs te verlagen.</td></tr>
+          <tr><td class="term">Gelijke startlijn</td><td>Elke positie bij aanvang evenveel kapitaal toewijzen, zodat de resultaten later het onderscheid maken en niet de eerste inleg.</td></tr>
+          <tr><td class="term">Slaapgetal</td><td>Het maximale aandeel van de portefeuille in één positie waarbij de belegger nog rustig kan slapen; de persoonlijke grens voor herbalanceren.</td></tr>
+          <tr><td class="term">Muur van twijfel</td><td>De koersstijging die volgt nadat financiële media een aandeel te duur hebben genoemd en sceptici geleidelijk alsnog instappen.</td></tr>
+          <tr><td class="term">Bewust kapitalisme</td><td>De vier pijlers hoger doel, belanghebbenden, bewust leiderschap en cultuur, die Gardner als kenmerk van gezonde bedrijven hanteert.</td></tr>
+          <tr><td class="term">Zestig procent nauwkeurigheid</td><td>Het streven om bij zes van de tien aandelenkeuzes de markt te verslaan, gemeten over een periode van minstens drie jaar.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert als bewijs vooral Gardners eigen resultaten: de claim van zeven honderdvoudigers in dertig jaar bij The Motley Fool, met naam en toenaam voor Amazon, Netflix, Nvidia en Tesla. Onafhankelijke waarnemers bevestigen dat de aanbevelingen van zijn diensten de markt in veel gemeten periodes hebben verslagen, maar wijzen ook op de moeilijkheid om dat sluitend te meten: hoe een dienst omgaat met aandelen die worden overgenomen, van de beurs gehaald of stilletjes losgelaten, bepaalt mede het eindcijfer.</p>
+      <p>Het boek zelf citeert geen onafhankelijke, geauditeerde rendementscijfers en geen wetenschappelijke studies naar de zes gewoontes, kenmerken of principes; de onderbouwing bestaat uit Gardners eigen ervaring, aangevuld met fictieve scènes ter illustratie. Dat is een andere soort bewijs dan een gecontroleerde vergelijking met de brede markt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is selectie: het boek noemt de zeven honderdvoudigers bij naam, maar niet de aandelen uit dertig jaar aanbevelingen die verloren, stagneerden of gewoon gemiddeld presteerden. Bij een dienst die maandelijks nieuwe aandelen aanraadt, loopt de verdeling van uitkomsten uiteen, en een boek dat zich op de uitschieters concentreert, laat zien wat er kan lukken zonder te laten zien hoe vaak het niet lukt.</p>
+      <p>De zes kenmerken van een aandeel zijn bovendien makkelijker terug te vinden achteraf dan vooraf te herkennen: dat Amazon al verdubbeld was voor het duizendvoudigde, is een feit dat pas betekenis krijgt met de kennis van wat er daarna gebeurde. Op het moment zelf zagen talloze andere bedrijven er precies zo uit, marktleider, duur, met een visionaire oprichter, en werden geen Amazon. Gardner erkent zelf dat hij zijn eigen doel van zestig procent nauwkeurigheid zelden haalt, wat de grens van de methode eerlijker toont dan de zeven honderdvoudigers dat doen.</p>
+      <p>Ten slotte is het boek niet los te zien van Gardners onderneming: hij verdient aan de betaalde nieuwsbrieven die dezelfde aanpak toepassen, en het boek functioneert mede als aanbeveling voor die diensten. Dat maakt de claims niet automatisch onwaar, maar wel iets om bij de beoordeling mee te wegen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal voor een nieuwe positie vooraf het eigen slaapgetal, en verhoog het belang daarna niet zonder dat opnieuw te overwegen.</li>
+        <li>Stuur nieuw spaargeld naar de posities die het al goed doen, in plaats van bij te kopen om een verlies te middelen.</li>
+        <li>Herzie de portefeuille op vaste kwartaalmomenten en kijk naar percentages, niet naar dagelijkse koersbewegingen.</li>
+        <li>Vraag van een kandidaat-aandeel eerst of het marktleider of eerste is in een net ontstane sector, voordat de huidige koers meeweegt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Rule Breaker Investing: How to Pick the Best Stocks of the Future and Build Lasting Wealth</i> (Harriman House, 16 september 2025, 256 blz., ISBN 9781804091210; Britse editie via Pan Macmillan, ISBN 9781804091821). Geen Nederlandse uitgave bekend; de samenvatting hier is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Gardner, medeoprichter van The Motley Fool en zelfbenoemd "Chief Rule Breaker", noemt dit na ruim dertig jaar aandelen selecteren zijn laatste boek over de beurs. Hij claimt in die dertig jaar zeven aandelen te hebben gekozen die honderd keer hun aankoopprijs waard werden, onder meer Amazon, Netflix, Nvidia en Tesla, en bouwt het boek op rond drie reeksen van zes: zes gewoontes van de belegger, zes kenmerken van het aandeel en zes principes van de portefeuille.</p><p>De kern van het boek is een verzet tegen de gangbare beursregel om laag te kopen en hoog te verkopen. Gardner stelt dat de beste aandelen er juist duur uitzien wanneer je ze koopt, en dat vasthouden aan winnaars meer oplevert dan vroegtijdig verkopen uit voorzichtigheid.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>aandelen</li><li>groeiaandelen</li><li>Motley Fool</li><li>portefeuille</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="144"><a href="144.html">Margin of Safety</a>. Klarman verdedigt vanuit de tegenovergestelde traditie: veiligheidsmarge en ondergewaardeerde aandelen in plaats van duur en snelgroeiend.</li>
+          <li value="21"><a href="21.html">The Psychology of Money</a>. Housel plaatst het aanhouden van winnaars in een breder verhaal over gedrag en geduld bij geld.</li>
+          <li value="270"><a href="270.html">Principles</a>. Dalio werkt een eigen stelsel van regels voor beslissingen uit, met dezelfde behoefte aan een vast systeem maar over een breder terrein dan aandelen.</li>
+          <li value="306"><a href="306.html">Zero to One</a>. Thiel beschrijft vanuit durfkapitaal dezelfde voorkeur voor marktleiders die een nieuw terrein als eerste claimen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

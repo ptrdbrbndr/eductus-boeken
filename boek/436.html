@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On Philosophical Style &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Blanshard stelt dat onhelderheid in filosofisch proza geen bijverschijnsel is van een moeilijk onderwerp, maar een tekortkoming die tegen het doel van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-436">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">436 &middot; Gewoontes en denken</p>
+    <h1>On Philosophical Style</h1>
+    <p class="lede">Brand Blanshard, 1954</p>
+    <p class="stats">
+      <span><b>1198</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="436"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Blanshard stelt dat onhelderheid in filosofisch proza geen bijverschijnsel is van een moeilijk onderwerp, maar een tekortkoming die tegen het doel van filosofie zelf ingaat: het ophelderen van begrippen. Wie schrijft dat de lezer niet kan volgen, heeft volgens hem het denkwerk zelf niet afgemaakt, en diepzinnigheid is geen excuus voor duisternis. Zijn tegenstelling is scherp genoeg om weerwoord uit te lokken: er zijn gedachten die zich niet in eenvoudige zinnen laten persen zonder iets van hun betekenis te verliezen, en niet elke schrijver die moeilijk leest, doet dat uit onvermogen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een lezing over stijl</h3>
+      <p>Blanshard hield de tekst in 1953 als de Adamson-lezing aan de universiteit van Manchester en liet haar in 1954 verschijnen bij Manchester University Press, gelijktijdig bij Indiana University Press. Het boekje beslaat negenenzestig bladzijden en is eerder een lang essay dan een verhandeling. Blanshard was zelf geen stilist die om zijn proza bekendstond, maar een filosoof uit de rationalistische traditie die de nauwkeurigheid van het Britse idealisme deelde zonder de duisternis ervan te accepteren.</p>
+      <h3>De ladder van zeven schrijvers</h3>
+      <p>Om te laten zien wat helderheid inhoudt, laat Blanshard zeven auteurs dezelfde zin schrijven: dat een man genaamd André is opgehangen. Swift, Macaulay en Shaw zeggen naar zijn zeggen gewoon dat André werd opgehangen. Bradley zegt dat hij gedood werd, Bosanquet dat hij stierf, wat de zaak al lichtjes vervaagt zonder haar te verhullen. Kant zou volgens Blanshard schrijven dat zijn sterfelijk bestaan tot een einde kwam, en Hegel dat een eindige bepaling van het oneindige door haar eigen ontkenning nader werd bepaald.</p>
+      <p>Het voorbeeld werkt als een schaal, van de kortste zin naar de meest vervreemde formulering van hetzelfde feit. Blanshard gebruikt het niet om Kant en Hegel belachelijk te maken, maar om te laten zien dat dezelfde inhoud met evenveel woorden op steeds grotere afstand van de lezer gezet kan worden, tot de zin niet meer naar de gebeurtenis verwijst maar naar het begrippenstelsel van de schrijver.</p>
+      <h3>Twee getuigen tegen Kant en Hegel</h3>
+      <p>Blanshard citeert Lord Macaulay, die de Kritik der reinen Vernunft van Kant onbegrijpelijk noemde en de tekst vergeleek met Sanskriet: een boek dat hij met inspanning las zonder de zinnen daadwerkelijk te doorgronden. Hij citeert ook Hans Reichenbach, die een passage uit Hegels Philosophy of History ongerijmd en hopeloos noemde en zich hardop afvroeg of de zin bedoelde dat menselijke lichamen uit abstracte vermogens bestaan.</p>
+      <p>Beide getuigen zijn zelf gezaghebbende lezers, geen buitenstaanders die de filosofie niet begrijpen. Dat is Blanshards punt: onhelderheid overleeft niet omdat lezers te dom zijn, maar omdat schrijvers en hun navolgers duisternis voor diepte zijn gaan aanzien.</p>
+      <h3>Stijl als een kwestie van geest</h3>
+      <p>Zijn conclusie gaat verder dan een advies over zinsbouw. Het probleem van stijl is volgens Blanshard niet in de eerste plaats een probleem van woorden en zinnen, maar van het hebben van de juiste soort geest: wie helder denkt, kan dat in de meeste gevallen ook helder opschrijven, en wie onhelder schrijft, heeft meestal iets in het denken zelf nog niet afgerond. Hij citeert daarbij Miltons uitspraak dat wie een waar gedicht wil schrijven, zelf een waar gedicht moet zijn, en past die eis toe op het filosofische proza: goed schrijven is verwant aan een goed gevoerd leven.</p>
+      <h3>Ontvangst en tegenspraak</h3>
+      <p>De lezing werd bij verschijnen geprezen, onder meer in een bespreking van T.M. Knox in The Philosophical Quarterly in 1955, en geldt sindsdien als een van de weinige klassieke teksten over filosofisch schrijven. Knox plaatste er wel een kanttekening bij: Blanshards pleidooi voor helderheid onderschat volgens hem de rol van metafoor en beeld, die soms filosofische diepte overbrengen die zich niet in kale zinnen laat vangen.</p>
+      <p>De discussie is nadien voortgezet. In 1994 verdedigde Chris Herrera Blanshards positie tegen de filosoof John Smith, die had betoogd dat Blanshard de lezer te veel ontziet: een tekst is voor Smith pas onhelder als vaststaat wat een lezer redelijkerwijs aan voorkennis mag meebrengen, en die vraag laat Blanshard volgens hem onbeantwoord.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Helderheid</td><td>De eigenschap die Blanshard als voorwaarde stelt voor goed filosofisch proza: een zin die haar betekenis aan de lezer overdraagt zonder inspanning te vragen die niets met de zaak zelf te maken heeft.</td></tr>
+          <tr><td class="term">Obscuriteit</td><td>De tegenhanger van helderheid, die Blanshard niet als onvermijdelijk gevolg van moeilijke onderwerpen beschouwt maar als een tekortkoming van de schrijver.</td></tr>
+          <tr><td class="term">Diepzinnigheid</td><td>De eigenschap die vaak als excuus voor onhelder proza wordt aangevoerd, terwijl Blanshard haar juist zonder helderheid onbereikbaar acht.</td></tr>
+          <tr><td class="term">De juiste soort geest</td><td>Blanshards these dat stijl geen kwestie van losse technieken is, maar van hoe iemand denkt voordat hij begint te schrijven.</td></tr>
+          <tr><td class="term">Een waar gedicht zijn</td><td>De eis, ontleend aan Milton, dat wie goed wil schrijven eerst zelf de kwaliteit moet bezitten die hij op papier wil overbrengen.</td></tr>
+          <tr><td class="term">De ladder van zeven schrijvers</td><td>Blanshards voorbeeld waarin dezelfde ophanging door zeven auteurs in oplopend ondoorzichtige taal wordt weergegeven, van Swift tot Hegel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Blanshard bewijst zijn stelling niet met onderzoek maar met literaire kritiek: hij laat zien wat er met dezelfde inhoud gebeurt in de handen van verschillende schrijvers, en citeert gezaghebbende lezers als Macaulay en Reichenbach om te laten zien dat de onbegrijpelijkheid van Kant en Hegel niet zijn eigen mening is. Dat maakt het betoog overtuigend voor wie de aangehaalde passages herkent, en minder dwingend voor wie ze niet kent.</p>
+      <p>Wat ontbreekt, is een systematische toets: Blanshard citeert geen doorsnee van filosofisch proza en laat niet zien hoe vaak onhelderheid werkelijk uit onvermogen voortkomt in plaats van uit de aard van het onderwerp. Zijn bewijs is illustratief, geen steekproef.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat van Knox: door helderheid tot voorwaarde te maken, dreigt Blanshard passages af te wijzen die filosofisch iets doen wat een kale zin niet kan, namelijk met beeldspraak een gedachte oproepen die zich nog niet in een definitie laat vangen. Hegel en de latere fenomenologen worden juist om die reden gelezen, en Blanshards maatstaf zou een deel van hun werk als mislukt proza classificeren zonder de vraag te stellen of eenvoudiger taal dezelfde gedachte had kunnen dragen.</p>
+      <p>Het tweede bezwaar, van Smith en besproken door Herrera, is dat Blanshard de verantwoordelijkheid te eenzijdig bij de schrijver legt. Een tekst is voor een lezer zonder voorkennis van een vakgebied bijna per definitie onhelder, en Blanshard werkt niet uit welke voorbereiding hij van zijn lezer verwacht voordat hij een schrijver onhelder mag noemen. Ten slotte is het boekje zelf een lezing en geen verhandeling: het bouwt zijn stelling niet stap voor stap op, maar illustreert haar, waardoor tegenwerpingen die niet in het voorbeeld van André passen, onbesproken blijven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Herschrijf een moeilijke eigen zin in de kortst mogelijke woorden en kijk of de gedachte overeind blijft.</li>
+        <li>Vraag bij een onbegrijpelijke passage niet meteen of de lezer tekortschiet, maar of de schrijver het denkwerk heeft afgemaakt.</li>
+        <li>Leg Blanshards ladder van zeven schrijvers naast een eigen tekst en bepaal waar die tekst op de schaal staat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk de Adamson Lecture aan de University of Manchester (1953), gepubliceerd als <i>On Philosophical Style</i> (Manchester University Press en gelijktijdig Indiana University Press, 1954, 69 blz.). Latere heruitgaven bij Greenwood Press (1969) en Paul Dry Books (2003, ISBN 9781890318536). Geen Nederlandse vertaling gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Brand Blanshard hield deze tekst in 1953 als lezing aan de universiteit van Manchester en publiceerde haar een jaar later als dun boekje. Zijn stelling is dat diepzinnigheid en helderheid geen tegenstrijdige eigenschappen zijn: filosofen die onhelder schrijven zitten hun eigen vak in de weg, want filosofie bestaat bij de gratie van het ophelderen van begrippen, en wie zelf niet helder is, kan dat werk niet doen.</p><p>Blanshard onderbouwt dit met een voorbeeld dat sindsdien vaak wordt aangehaald: hij laat zeven schrijvers dezelfde gebeurtenis, de ophanging van een man genaamd André, in eigen woorden weergeven, van de kale directheid van Jonathan Swift tot de wollige omschrijving van Hegel. Het boekje is kort en wordt nog steeds gelezen als een van de weinige klassieke teksten over filosofisch schrijven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>schrijven</li><li>stijl</li><li>helderheid</li><li>taal</li><li>lezing</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="18"><a href="18.html">On Writing</a>. King behandelt schrijven als ambacht vanuit een heel ander genre, maar deelt de eis dat heldere zinnen uit helder denken voortkomen.</li>
+          <li value="82"><a href="82.html">The Art of Explanation</a>. Atkins werkt dezelfde eis uit voor uitleg in de journalistiek, met concrete technieken die Blanshard bij filosofen niet aanreikt.</li>
+          <li value="59"><a href="59.html">The Art of Thinking Clearly</a>. Dobelli beschrijft de denkfouten die aan onheldere argumenten ten grondslag liggen, waar Blanshard zich vooral op de taal zelf richt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

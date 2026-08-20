@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Evolution of Cooperation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Axelrod betoogt dat samenwerking tussen partijen die alleen hun eigen belang nastreven, kan ontstaan zonder centraal gezag, zonder verwantschap en zonder…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-453">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">453 &middot; Geschiedenis en samenleving</p>
+    <h1>The Evolution of Cooperation</h1>
+    <p class="lede">Robert Axelrod, 1984</p>
+    <p class="stats">
+      <span><b>1737</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="453"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Axelrod betoogt dat samenwerking tussen partijen die alleen hun eigen belang nastreven, kan ontstaan zonder centraal gezag, zonder verwantschap en zonder dat de partijen elkaar aardig vinden, zolang zij elkaar vaak genoeg blijven tegenkomen en het einde van die reeks ontmoetingen onzeker genoeg blijft. Zijn stelling, gebouwd op een computertoernooi waarin de eenvoudigste strategie het van de ingewikkeldste won, is dat wederkerigheid, eerst meewerken en daarna doen wat de ander deed, voldoende is om samenwerking te laten ontstaan en zich te laten handhaven, van loopgraven tot bacteriën.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een computertoernooi als experiment</h3>
+      <p>Axelrod nodigde speltheoretici, economen, psychologen en biologen uit om een computerprogramma in te sturen voor het herhaalde gevangenendilemma: bij wederzijdse medewerking kregen beide spelers drie punten, bij wederzijds verraad ieder één punt, en als de een meewerkte en de ander verried kreeg de verrader vijf punten en de ander niets. Elk programma speelde tegen elk ander programma ongeveer tweehonderd ronden achter elkaar, in een eerste ronde met veertien inzendingen en een tweede, na publicatie van de eerste resultaten, met tweeënzestig.</p>
+      <p>Het toernooi was geen gedachte-experiment maar een feitelijke competitie tussen werkende programma's, met een winnaar die uit de opgetelde punten volgde. Dat onderscheidt het boek van veel speltheoretische literatuur die bij de wiskundige afleiding blijft staan.</p>
+      <h3>Tit-for-tat wint, twee keer</h3>
+      <p>De winnaar van beide toernooien was tit-for-tat, ingezonden door de Canadese psycholoog Anatol Rapoport: een programma van vier regels code dat in de eerste ronde meewerkt en daarna simpelweg herhaalt wat de tegenstander de vorige ronde deed. Het versloeg daarmee inzendingen die pogingen deden tot bluf, verraad na vertrouwen of ingewikkelde patroonherkenning.</p>
+      <p>Axelrod benadrukt dat tit-for-tat in geen enkele individuele confrontatie meer punten haalde dan zijn tegenstander; het kon per definitie nooit winnen van een ander programma, alleen er gelijk mee spelen of eraan verliezen. Het won het toernooi doordat het over alle confrontaties samen consequent goed scoorde, niet doordat het elke tegenstander te slim af was.</p>
+      <h3>Vier eigenschappen van een winnende regel</h3>
+      <p>Uit de vergelijking van de inzendingen destilleert Axelrod vier eigenschappen die de succesvolle strategieën gemeen hadden. Ze waren aardig, ze begonnen nooit zelf met verraad; ze waren vergeldend, ze lieten verraad niet ongestraft; ze waren vergevingsgezind, ze keerden na één vergelding weer terug naar medewerking zodra de ander dat ook deed; en ze waren duidelijk, hun gedrag was voor de tegenstander snel te doorzien.</p>
+      <p>Programma's die aan een van die vier eigenschappen ontbraken, presteerden op lange termijn slechter, ook als ze in een enkele confrontatie slimmer leken. Axelrod leest daarin een les die verder gaat dan het toernooi: onvoorspelbaarheid en achterdocht lonen op korte termijn en kosten op lange termijn.</p>
+      <h3>De loopgraven van de Eerste Wereldoorlog</h3>
+      <p>Om te laten zien dat het patroon niet tot computers beperkt blijft, bespreekt Axelrod het zogeheten live-and-let-live-systeem dat zich spontaan ontwikkelde tussen Britse, Franse en Duitse soldaten aan het westelijk front. Hij bouwt dat hoofdstuk op het werk van de Britse historicus Tony Ashworth, die uit dagboeken, brieven en herinneringen van soldaten uit vrijwel alle Britse divisies reconstrueerde hoe eenheden die elkaar dag na dag in dezelfde loopgraven tegenkwamen, langzaam een stilzwijgende afspraak ontwikkelden om elkaar niet dodelijk te beschieten.</p>
+      <p>Wat het systeem volgens Axelrod liet werken, was dezelfde herhaling die in het toernooi telde: dezelfde eenheden bleven wekenlang tegenover elkaar liggen, waardoor vergelding op een schending voorspelbaar en onmiddellijk volgde. Het legercommando doorbrak het patroon uiteindelijk met verplichte patrouilles en aanvallen die eenheden dwongen elkaar daadwerkelijk te doden, waarmee de herhaling en dus de stilzwijgende afspraak werd afgebroken.</p>
+      <h3>Van politiek naar biologie</h3>
+      <p>Axelrod werkte samen met de evolutiebioloog W.D. Hamilton om de bevindingen door te trekken naar niet-menselijke organismen; hun gezamenlijke artikel in Science uit 1981 vormt de basis van een van de latere hoofdstukken. De centrale vraag daar is niet of dieren of bacteriën redeneren, dat doen ze niet, maar of natuurlijke selectie een wederkerige strategie als tit-for-tat kan laten ontstaan en handhaven in een populatie die verder uit egoïstische organismen bestaat.</p>
+      <p>Het antwoord dat Axelrod en Hamilton geven is dat wederkerig altruïsme, hulp die op termijn wordt terugbetaald, zich onder de juiste omstandigheden kan handhaven zonder verwantschap tussen de betrokken organismen, in tegenstelling tot verwantschapsselectie, waarbij organismen elkaar helpen omdat ze deels dezelfde genen delen. Ze noemen voorbeelden van symbiose tussen ongelijksoortige organismen als illustratie, zonder te claimen dat elk geval van samenwerking in de natuur zo verklaard kan worden.</p>
+      <h3>De schaduw van de toekomst</h3>
+      <p>Axelrod vat de voorwaarde voor dat alles samen in wat hij de schaduw van de toekomst noemt: samenwerking op basis van wederkerigheid ontstaat alleen als de kans dat dezelfde partijen elkaar blijven tegenkomen groot genoeg is en het gewicht dat ze aan toekomstige ontmoetingen toekennen zwaar genoeg. Verkort die schaduw, bijvoorbeeld door een laatste ontmoeting aan te kondigen, en de prikkel om te verraden neemt toe.</p>
+      <p>Hij gebruikt dat inzicht om aanbevelingen te doen voor beleid: instituties en verdragen die het aantal toekomstige contactmomenten tussen partijen vergroten of voorspelbaarder maken, zoals herhaalde onderhandelingsrondes in plaats van eenmalige akkoorden, zouden volgens hem samenwerking waarschijnlijker maken, ook tussen partijen die elkaar wantrouwen.</p>
+      <h3>Latere nuances: ruis en de Pavlov-strategie</h3>
+      <p>Na de publicatie van het boek onderzochten andere wetenschappers, onder wie Martin Nowak en Karl Sigmund, hoe tit-for-tat presteert wanneer er ruis in het spel zit, dat wil zeggen wanneer een speler per ongeluk verraadt terwijl hij wilde meewerken. In dat geval kunnen twee tit-for-tat-spelers in een uitputtende reeks over-en-weer-vergeldingen belanden, omdat geen van beide de fout kan corrigeren zonder zelf een keer extra te vergeven.</p>
+      <p>Onder die omstandigheden bleken varianten die iets vergevingsgezinder zijn dan strikte tit-for-tat, of de zogeheten Pavlov-strategie, die van keuze wisselt zodra de vorige zet slecht uitpakte, het in sommige situaties beter te doen. Latere heranalyses van de toernooidata hebben bovendien laten zien dat de uitkomst gevoeliger is voor de precieze samenstelling van de deelnemersgroep dan Axelrods oorspronkelijke, stellig geformuleerde conclusie liet vermoeden: tit-for-tat wint niet onder alle omstandigheden, het won dit specifieke toernooi tegen deze specifieke tegenstanders.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Iteratief gevangenendilemma</td><td>Het gevangenendilemma gespeeld in een reeks herhaalde ontmoetingen tussen dezelfde twee spelers, waardoor eerder gedrag latere zetten beïnvloedt.</td></tr>
+          <tr><td class="term">Tit-for-tat</td><td>De strategie om de eerste ronde mee te werken en daarna te herhalen wat de tegenstander de vorige ronde deed.</td></tr>
+          <tr><td class="term">Schaduw van de toekomst</td><td>Het gewicht dat spelers toekennen aan de kans op toekomstige ontmoetingen, bepalend voor of samenwerking loont.</td></tr>
+          <tr><td class="term">Wederkerig altruïsme</td><td>Hulp die op termijn wordt terugbetaald, zonder dat de betrokkenen verwant hoeven te zijn.</td></tr>
+          <tr><td class="term">Verwantschapsselectie</td><td>Het evolutionaire mechanisme waarbij organismen elkaar helpen omdat ze deels dezelfde genen delen, los van wederkerigheid.</td></tr>
+          <tr><td class="term">Live-and-let-live-systeem</td><td>De stilzwijgende afspraak tussen loopgraafeenheden in de Eerste Wereldoorlog om elkaar niet dodelijk te beschieten.</td></tr>
+          <tr><td class="term">Ruis</td><td>Een onbedoelde fout in de uitvoering van een gekozen zet, die een speler laat verraden terwijl hij wilde meewerken.</td></tr>
+          <tr><td class="term">Pavlov-strategie</td><td>Een strategie die van keuze wisselt zodra de vorige zet een slechte uitkomst opleverde en anders bij de vorige keuze blijft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie verschillende soorten grond. Het toernooi zelf is harde, natrekbare data: veertien en later tweeënzestig echte programma's, ingestuurd door naam en instelling, met een vaste puntentelling en een winnaar die uit de uitkomst volgt, niet uit Axelrods interpretatie. Dat deel van het boek is het stevigst onderbouwde deel.</p>
+      <p>Het hoofdstuk over de loopgraven steunt niet op eigen archiefonderzoek van Axelrod maar op het werk van historicus Tony Ashworth, die dagboeken, brieven en herinneringen van soldaten uit vrijwel alle Britse divisies aan het westelijk front analyseerde. Axelrod voegt daar de speltheoretische verklaring aan toe; de historische feiten zelf zijn Ashworths werk, en Axelrods interpretatie ervan is één lezing van dat materiaal, niet de enige.</p>
+      <p>De biologische uitbreiding, geschreven met Hamilton, verscheen eerst als apart, door vakgenoten beoordeeld artikel in Science voordat het in het boek werd opgenomen, wat het tot het meest formeel getoetste onderdeel maakt. Axelrods eigen gezag als politicoloog met een wiskundeachtergrond, en zijn latere MacArthur-beurs en National Medal of Science, veranderen niets aan het feit dat het toernooi een steekproef van deelnemers uit 1980 is en geen laboratoriumproef die onder alle omstandigheden hetzelfde resultaat geeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen het boek betreft de stelligheid van de conclusie. Axelrod presenteert tit-for-tat als bijna universeel de beste strategie, terwijl het toernooi in werkelijkheid laat zien dat het de beste strategie was tegen deze specifieke verzameling van tweeënzestig inzendingen in 1980. Latere heranalyses van dezelfde toernooidata en nieuwe simulaties met andere deelnemersgroepen laten zien dat andere, vergevingsgezindere varianten het onder veel omstandigheden beter doen, vooral zodra er ruis in het spel zit.</p>
+      <p>Dat laatste punt is meer dan een technisch detail. Onderzoek van onder anderen Martin Nowak en Karl Sigmund toont dat strikte tit-for-tat kwetsbaar is voor een enkele fout: twee tit-for-tat-spelers die per ongeluk verraden, kunnen in een reeks van wederzijdse vergeldingen blijven hangen waar geen van beide nog uitkomt. In situaties waarin fouten onvermijdelijk zijn, wat in de echte wereld eerder regel dan uitzondering is, presteren mildere varianten beter dan de strikte regel die het boek beroemd maakte.</p>
+      <p>Ook de overstap naar de geschiedenis en de biologie roept vragen op. Het loopgravenvoorbeeld is overtuigend maar op maat gekozen: Axelrod bespreekt geen gevallen waarin herhaald contact tussen vijandelijke partijen juist niet tot samenwerking leidde. En de biologische toepassing, hoe zorgvuldig ook met Hamilton uitgewerkt, veronderstelt dat organismen elkaar herhaaldelijk herkennen en zich hun eerdere gedrag herinneren, een voorwaarde die voor veel soorten niet vanzelfsprekend is. Het boek zelf erkent die grens wel, maar latere populaire lezingen van zijn werk hebben tit-for-tat vaker als een universele natuurwet gepresenteerd dan Axelrods eigen, voorzichtiger geformuleerde claims rechtvaardigen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kijk bij herhaald contact met dezelfde partij niet naar de beste zet in dit ene geval, maar naar welke regel op lange termijn het meest oplevert.</li>
+        <li>Vergroot in een samenwerking die vastloopt de kans op toekomstige ontmoetingen, bijvoorbeeld door van eenmalige naar herhaalde afspraken over te stappen.</li>
+        <li>Bouw in een eigen wederkerige strategie ruimte in voor fouten, in plaats van elke misstap onmiddellijk en volledig te vergelden.</li>
+        <li>Wees terughoudend met het vertalen van één toernooiresultaat naar een algemene wet, ook als de uitkomst overtuigend oogt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Basic Books, New York (1984); herziene editie 2006. Nederlands als <i>De evolutie van samenwerking</i> (Uitgeverij Contact, Amsterdam, 1990).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Axelrod, politicoloog aan de University of Michigan, organiseerde begin jaren tachtig een computertoernooi waarin door vakgenoten ingezonden programma's het herhaalde gevangenendilemma tegen elkaar speelden. De eenvoudigste inzending, tit-for-tat, won twee toernooien op rij van veel ingewikkelder tegenstanders, en dat resultaat vormt de kern van het boek.</p><p>Axelrod breidt de conclusie daarna uit naar de geschiedenis, met het informele bestand tussen Britse en Duitse soldaten in de loopgraven van de Eerste Wereldoorlog als voorbeeld, en naar de biologie, in samenwerking met evolutiebioloog W.D. Hamilton, om te laten zien dat dezelfde logica samenwerking tussen bacteriën tot primaten kan verklaren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>speltheorie</li><li>evolutiebiologie</li><li>samenwerking</li><li>gevangenendilemma</li><li>politicologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="217"><a href="217.html">The Strategy of Conflict</a>. Schellings werk over dreigementen en geloofwaardigheid vormt de bredere speltheoretische achtergrond waartegen Axelrods toernooi moet worden gelezen.</li>
+          <li value="66"><a href="66.html">The Folly of Fools</a>. Trivers introduceerde het begrip wederkerig altruïsme waarop Axelrod en Hamilton voortbouwen, uitgewerkt vanuit een evolutiebiologisch perspectief.</li>
+          <li value="339"><a href="339.html">Behave</a>. Sapolsky plaatst samenwerking en agressie in de bredere biologie van gedrag, met meer ruimte voor de complicaties die Axelrods model vereenvoudigt.</li>
+          <li value="450"><a href="450.html">The Art of Strategy</a>. Dixit en Nalebuff bespreken hetzelfde toernooi in hun hoofdstuk over het gevangenendilemma, als voorbeeld binnen een bredere inleiding in de speltheorie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

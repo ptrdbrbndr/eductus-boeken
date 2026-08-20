@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set Boundaries, Find Peace &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tawwab betoogt dat chronische uitputting, wrok en het gevoel dat een leven niet van jezelf is, zelden voortkomen uit de mensen om je heen, maar uit het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-466">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">466 &middot; Samenwerken en gesprek</p>
+    <h1>Set Boundaries, Find Peace</h1>
+    <p class="lede">Nedra Glover Tawwab, 2021</p>
+    <p class="stats">
+      <span><b>1523</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="466"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tawwab betoogt dat chronische uitputting, wrok en het gevoel dat een leven niet van jezelf is, zelden voortkomen uit de mensen om je heen, maar uit het onvermogen om aan te geven wat wel en niet acceptabel is. Wie geen grens stelt, leert zijn omgeving zonder het te willen dat alles kan, en betaalt daarvoor in stilte: met irritatie die zich opstapelt, met relaties die schuren, met een agenda die op de voorwaarden van anderen wordt gevuld. Haar stelling is dat een grens geen afwijzing van de ander is, maar de voorwaarde waaronder nabijheid houdbaar blijft. Wie dat betwist, kan wijzen op mensen voor wie onvoorwaardelijke toewijding juist de kern van een relatie vormt, en op de vraag wanneer een grens zelf een muur wordt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat een grens is, en wat zij niet is</h3>
+      <p>Tawwab omschrijft een grens als een verwachting of behoefte die iemand aan een relatie stelt, uitgesproken of onuitgesproken, en onderscheidt drie patronen. Poreuze grenzen zijn vaag en makkelijk te doorbreken: wie ze heeft, zegt zelden nee, deelt te veel en voelt zich verantwoordelijk voor het geluk van de ander. Rigide grenzen doen het omgekeerde: zij sluiten iedereen buiten, staan geen uitzondering toe en beschermen tegen kwetsbaarheid door afstand te scheppen. Een gezonde grens ligt daartussenin en is het resultaat van zelfkennis: weten wat je aankunt, en dat kunnen zeggen.</p>
+      <p>Zij benadrukt dat een grens in de eerste plaats vastlegt wat iemand zelf nodig heeft om zonder wrok in een relatie te blijven, en pas in tweede instantie iets over de ander zegt. Wie voortdurend toegeeft uit angst voor conflict, bouwt volgens haar juist het conflict op dat hij probeert te vermijden, in de vorm van sluimerende ergernis die zich op een ander moment ontlaadt.</p>
+      <h3>De prijs van het ontbreken van grenzen</h3>
+      <p>Voordat zij uitlegt hoe een grens te stellen is, laat Tawwab zien wat het ontbreken ervan kost. Zij noemt burn-out, wrok en angst als de gebruikelijke uitkomst van een leven waarin de behoeften van anderen stelselmatig voorrang krijgen. Aan de hand van cliënten zoals Kim, een net getrouwde vrouw die zichzelf tot de beste vriendin, dochter, collega en echtgenote tegelijk had gemaakt, laat zij zien hoe die overbelasting zich in kleine stappen opbouwt: een stapeling van momenten waarop nee zeggen onaardig of egoïstisch voelde.</p>
+      <h3>Zes gebieden waarop een grens ligt</h3>
+      <p>De kern van het boek is een indeling in zes soorten grenzen: fysiek, over ruimte en aanraking; seksueel, over wat wel en niet gewenst is in intimiteit; intellectueel, over hoe met ideeën en meningen wordt omgegaan; emotioneel, over hoeveel van iemands gevoelsleven wordt gedeeld en gedragen; materieel, over bezit en geld; en tijd, over hoe de agenda wordt bewaakt. Voor elk gebied geeft zij herkenbare voorbeelden van overschrijding, van een collega die ongevraagd advies geeft tot een familielid dat verwacht dat iemand altijd beschikbaar is.</p>
+      <h3>Waarom grenzen ontbreken</h3>
+      <p>Tawwab zoekt de oorsprong van poreuze grenzen in de vroege omgeving: gezinnen waarin gehoorzaamheid meer werd beloond dan een eigen mening, of waarin een kind al vroeg de zorg voor een ouder, broer of zus op zich moest nemen. Wie op die manier leerde dat zijn eigen behoefte er minder toe deed, neemt die overtuiging mee de volwassenheid in, en herkent een grens dan eerder als een aanval dan als een uitspraak over zichzelf.</p>
+      <h3>Een grens uitspreken</h3>
+      <p>Het praktische middendeel geeft een vaste opbouw voor het gesprek: benoem wat er gebeurt, zeg wat je nodig hebt, en geef aan wat er gebeurt als de grens niet wordt gerespecteerd. Tawwab werkt met concrete formuleringen die meestal met "ik" beginnen, en waarschuwt voor het inleiden van een grens met een verontschuldiging, omdat dat de indruk wekt dat er iets te vergoelijken valt. Herhaling hoort erbij: een grens wordt zelden in één keer aanvaard en moet soms meerdere keren op dezelfde toon worden herhaald voordat zij standhoudt.</p>
+      <h3>Toepassing op familie, relatie, werk en sociale media</h3>
+      <p>Het tweede deel van het boek loopt de terreinen af waar grenzen het moeilijkst liggen. Bij familie gaat het om het loskomen van rollen die al in de kindertijd zijn toegewezen, bij een liefdesrelatie om het onderscheid tussen compromis en zelfverlies, bij werk om het bewaken van tijd tegenover een cultuur van permanente bereikbaarheid. Het hoofdstuk over sociale media behandelt een terrein dat in oudere boeken over grenzen ontbreekt: wat iemand deelt, met wie, en wat een reactie van anderen met de eigen grenzen doet.</p>
+      <h3>Grenzen na trauma</h3>
+      <p>Een apart hoofdstuk gaat over de relatie tussen grenzen en eerder doorgemaakt trauma. Tawwab stelt dat een lichaam dat ooit geen zeggenschap had over wat ermee gebeurde, een grens kan ervaren als een luxe in plaats van een recht, en dat therapie soms nodig is voordat het stellen van een grens uit zichzelf lukt. Zij is daarin voorzichtiger dan in de rest van het boek en verwijst expliciet naar professionele hulp in plaats van een oefening voor te schrijven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Poreuze grens</td><td>Een vage of afwezige grens waardoor iemand moeilijk nee zegt en zich verantwoordelijk voelt voor het welzijn van anderen.</td></tr>
+          <tr><td class="term">Rigide grens</td><td>Een grens die niemand doorlaat en die vooral beschermt tegen kwetsbaarheid, ten koste van nabijheid.</td></tr>
+          <tr><td class="term">Gezonde grens</td><td>Een grens die uit zelfkennis voortkomt en duidelijk maakt wat iemand nodig heeft zonder de relatie op te geven.</td></tr>
+          <tr><td class="term">De zes soorten grenzen</td><td>Tawwabs indeling in fysieke, seksuele, intellectuele, emotionele, materiële en tijdgebonden grenzen.</td></tr>
+          <tr><td class="term">Grensschending</td><td>Elk moment waarop een uitgesproken of onuitgesproken grens wordt genegeerd of getest.</td></tr>
+          <tr><td class="term">Ik-taal</td><td>De aanbevolen formulering van een grens vanuit de eigen behoefte, zonder verwijt aan de ander.</td></tr>
+          <tr><td class="term">Overbelasting</td><td>De opeenstapeling van verplichtingen die ontstaat wanneer nee zeggen als onaardig wordt ervaren.</td></tr>
+          <tr><td class="term">Codependentie</td><td>Het patroon waarin iemands eigenwaarde afhangt van het oplossen van andermans problemen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de klinische ervaring van de auteur, niet op een onderzoek met een steekproef of een controlegroep. Tawwab werkt vanuit cognitieve gedragstherapie en illustreert vrijwel elk punt met een korte, herkenbare casus uit haar praktijk, met veranderde namen en details. Dat maakt de tekst concreet en toepasbaar, maar ook afkomstig uit één enkele bron: alles wat het boek beweert over wat werkt, komt van één therapeut en haar caseload.</p>
+      <p>Zij verwijst af en toe naar bredere begrippen uit de klinische psychologie, zoals codependentie en trauma, zonder daarbij onderzoek te citeren of een notenapparaat te geven. Voor lezers die de herkomst van een begrip willen natrekken, biedt het boek geen ingang; het is geschreven om te gebruiken, niet om te verifiëren.</p>
+      <p>De populariteit van het boek zelf is intussen wel een gegeven: het werd een bestseller van de <i>New York Times</i> en is in tientallen talen vertaald, wat aangeeft dat de indeling en de taal die Tawwab aanreikt bij een breed publiek aansluiten. Dat zegt iets over herkenbaarheid, niet over werkzaamheid op langere termijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op de eenzijdigheid van het perspectief. Het boek behandelt uitgebreid hoe iemand zijn eigen grenzen herkent en uitspreekt, en nauwelijks hoe diezelfde persoon de grenzen van een ander hoort te respecteren. Daardoor kan het lezen als een instrument om zelf meer ruimte te claimen, zonder de wederkerigheid die het boek zelf als voorwaarde voor een gezonde relatie noemt.</p>
+      <p>Een tweede bezwaar geldt de individualisering van problemen die deels buiten het individu liggen. Wanneer overwerk, financiële druk of familieverplichtingen worden herleid tot een gebrek aan persoonlijke grenzen, verdwijnt de rol van bijvoorbeeld een werkgever die overuren normaliseert of een economie waarin twee inkomens nodig zijn. Tawwab benoemt die structurele kant nauwelijks, terwijl een deel van haar lezers juist in die omstandigheden vastzit.</p>
+      <p>Ten derde blijft het boek stil over wat er gebeurt als een grens averechts werkt: relaties die eindigen, woede die toeneemt in plaats van afneemt, of een omgeving die een grens beantwoordt met escalatie in plaats van aanpassing. Het boek gaat ervan uit dat een consequent uitgesproken grens op termijn resultaat oplevert, en besteedt weinig aandacht aan de gevallen waarin dat niet zo is.</p>
+      <p>Ten slotte is de toon instructief en herhalend: dezelfde stappen, formuleringen en waarschuwingen keren in elk hoofdstuk terug, toegepast op een nieuw terrein. Voor wie het boek in één keer leest, is dat voorspelbaar; als naslagwerk waarin je het hoofdstuk over werk of familie apart opzoekt, werkt diezelfde herhaling in het voordeel van de lezer.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng voor een week in kaart op welke momenten je iets doet dat je eigenlijk niet wilt, en noteer per moment welk van de zes soorten grenzen daar in het geding is.</li>
+        <li>Formuleer een grens in de ik-vorm, zonder verontschuldiging vooraf, en oefen de zin hardop voordat je hem uitspreekt.</li>
+        <li>Ga na of een grens al eerder is uitgesproken en genegeerd; herhaal haar dan met dezelfde woorden in plaats van met een uitgebreidere uitleg.</li>
+        <li>Bepaal vooraf wat er gebeurt als de grens niet wordt gerespecteerd, en voer die consequentie ook uit.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Set Boundaries, Find Peace: A Guide to Reclaiming Yourself</i> (TarcherPerigee, 30 maart 2021, 304 blz., ISBN 9780593192092). Nederlands als <i>Gezonde grenzen</i>, vertaald door Ruud van der Plassche, sinds 7 september 2021 bij HarperCollins Holland (304 blz., ISBN 9789402708134).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tawwab, ruim vijftien jaar praktiserend therapeut en maatschappelijk werker, schrijft vanuit de spreekkamer. Zij onderscheidt drie manieren waarop mensen zich tot anderen verhouden: poreuze grenzen die zich moeilijk laten afbakenen, rigide grenzen die niemand toelaten, en gezonde grenzen die aangeven wat iemand nodig heeft zonder de ander weg te duwen. Het boek werkt dat onderscheid uit in zes gebieden: fysiek, seksueel, intellectueel, emotioneel, materieel en tijd.</p><p>Het tweede deel past die indeling toe op familie, liefdesrelaties, vriendschap, werk en sociale media. Tawwab combineert korte casussen uit haar praktijk met concrete zinnen die een lezer kan overnemen, en besteedt een apart hoofdstuk aan de vraag wat een grens met eerder doorgemaakt trauma te maken heeft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>grenzen</li><li>zelfzorg</li><li>relaties</li><li>therapie</li><li>communicatie</li><li>familie</li><li>werk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="162"><a href="162.html">Boundaries</a>. Cloud en Townsend behandelen hetzelfde onderwerp vanuit een christelijk kader en werken de gevolgen van een grens uitgebreider uit dan Tawwab doet.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenberg geeft een taal om een grens te formuleren zonder verwijt, waar Tawwab vooral het wat en niet het hoe van de zin uitwerkt.</li>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Brown onderzoekt de schaamte die het uitspreken van een grens in de weg zit, een laag die Tawwab veronderstelt maar niet apart behandelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

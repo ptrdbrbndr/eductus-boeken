@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twilight of the Idols, or, How to Philosophize with a Hammer &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nietzsche betoogt dat de "ware wereld" achter de zichtbare, veranderlijke wereld, of dat nu Plato's rijk van de ideeën is, het christelijke hiernamaals of…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-391">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">391 &middot; Levenskunst</p>
+    <h1>Twilight of the Idols, or, How to Philosophize with a Hammer</h1>
+    <p class="lede">Friedrich Nietzsche, 1889 (geschreven 1888)</p>
+    <p class="stats">
+      <span><b>1216</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="391"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nietzsche betoogt dat de "ware wereld" achter de zichtbare, veranderlijke wereld, of dat nu Plato's rijk van de ideeën is, het christelijke hiernamaals of Kants ding op zich, een fictie is, verzonnen door mensen die het leven zoals het is, met zijn lijden en toeval, niet konden verdragen. Moraal die zich op die ware wereld beroept, noemt hij tegennatuur: geen tijdloze waarheid maar een symptoom van verval, van een levenskracht die zichzelf niet meer kan bevestigen. Zijn methode om dat bloot te leggen noemt hij filosoferen met de hamer, niet om alles kapot te slaan maar om, kloppend, te beluisteren wat hol klinkt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een oorlogsverklaring in aforismen</h3>
+      <p>Het boek opent met "Spreuken en pijlen", vierenveertig korte aforismen die de toon zetten: puntig, provocerend, zonder argumentatie die eraan voorafgaat. Een van de bekendste luidt dat wat ons niet doodt ons sterker maakt. Nietzsche presenteert het geheel in zijn voorwoord als een "grote oorlogsverklaring" aan afgoden die hij liever met een hamer beklopt dan met een beitel bewerkt, om te horen welke hol zijn.</p>
+      <h3>Het probleem-Socrates en de rede in de filosofie</h3>
+      <p>In de twee volgende hoofdstukken richt Nietzsche zich op wat hij als de bron van het probleem ziet: Socrates' overtuiging dat rede, deugd en geluk noodzakelijk samenvallen, en de filosofische gewoonte om het zintuiglijke, veranderlijke leven te wantrouwen ten gunste van een onveranderlijk, zuiver begrip erachter. Voor Nietzsche verraadt beide een gebrek aan levenslust, een instinctieve afkeer van het bestaan die zich vermomt als objectieve waarheid.</p>
+      <h3>Hoe de "ware wereld" eindelijk een fabel werd</h3>
+      <p>In een van de kortste en meest geciteerde hoofdstukken schetst Nietzsche in zes stappen hoe het begrip van een ware wereld, ooit bereikbaar voor de wijze, geleidelijk onbereikbaar, onbewijsbaar en ten slotte overbodig wordt, tot alleen de vraag overblijft wie er nog behoefte aan heeft. Het hoofdstuk eindigt met de woorden "INCIPIT ZARATHUSTRA": hier begint zijn eigen filosofie, die zonder die ware wereld verder moet.</p>
+      <h3>Moraal als tegennatuur en de vier grote dwalingen</h3>
+      <p>Nietzsche verzet zich tegen de gedachte dat hartstochten moeten worden uitgeroeid, zoals het christendom volgens hem doet, en pleit in plaats daarvan voor het vergeestelijken ervan; hij vergelijkt de christelijke aanpak met een tandarts die liever de tand trekt dan hem behandelt.</p>
+      <p>Daarna ontleedt hij vier fouten die volgens hem aan het morele denken ten grondslag liggen: het omkeren van oorzaak en gevolg, het toeschrijven van menselijke bedoeling aan de natuur, de uitvinding van de vrije wil om mensen verantwoordelijk en dus straf- en schuldbaar te kunnen maken, en de morele veroordeling die daaruit volgt. Moraal is voor hem zo vooral een middel om mensen te beheersen, verpakt als eeuwige waarheid.</p>
+      <h3>Verbeteraars, Duitsers en tijdgenoten</h3>
+      <p>Nietzsche bespreekt twee historische pogingen om de mens te "verbeteren": de christelijke bekering, die volgens hem vooral ellende voortbrengt, en het Indiase kastenstelsel, dat mensen tot onaanraakbaren degradeert. Aansluitend levert hij kritiek op wat hij de Duitse cultuur van zijn tijd noemt, die volgens hem politiek boven geest stelt en hoger onderwijs democratiseert ten koste van het niveau ervan.</p>
+      <p>In het langste hoofdstuk, "Schermutselingen van een ontijdige", vuurt hij korte, psychologisch bedoelde oordelen af op tijdgenoten en instellingen, van schrijvers tot de Engelse moraalfilosofie.</p>
+      <h3>Wat ik aan de Ouden dank</h3>
+      <p>Het boek sluit af met een hoofdstuk waarin Nietzsche, opgeleid als classicus, afstand neemt van Plato maar zijn bewondering uitspreekt voor de Dionysische mysteriën en de Romeinse stijl. Tegenover Plato's "moraal boven het leven" zet hij het begrip van de eeuwige wederkeer als bevestiging van het bestaan inclusief zijn lijden, en een hulde aan schrijvers als Thucydides en de sofisten die hij tegenover Plato plaatst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Afgoden</td><td>Overtuigingen die als vanzelfsprekend en onaantastbaar gelden, en die Nietzsche wil beproeven door ze kloppend te testen.</td></tr>
+          <tr><td class="term">Filosoferen met de hamer</td><td>Zijn methode om gevestigde overtuigingen niet meteen te verpletteren maar eerst te beluisteren of ze hol klinken.</td></tr>
+          <tr><td class="term">De ware-wereld-these</td><td>De gedachte, in zes stappen ontleed, dat het begrip van een wereld achter de zichtbare wereld geleidelijk onbereikbaar en ten slotte overbodig werd.</td></tr>
+          <tr><td class="term">Decadentie</td><td>Nietzsches term voor een verval van levenskracht dat zich vermomt als moreel of filosofisch inzicht.</td></tr>
+          <tr><td class="term">De vier grote dwalingen</td><td>Omkering van oorzaak en gevolg, toeschrijven van bedoeling aan de natuur, de uitvinding van de vrije wil, en de morele veroordeling die daaruit volgt.</td></tr>
+          <tr><td class="term">Vergeestelijking van de hartstochten</td><td>Zijn alternatief voor het uitroeien van hartstochten: ze niet wegsnijden maar tot iets hogers ombuigen.</td></tr>
+          <tr><td class="term">Eeuwige wederkeer</td><td>De gedachte dat het leven bevestigd moet worden alsof het zich eindeloos zou herhalen, met al zijn lijden inbegrepen.</td></tr>
+          <tr><td class="term">Transvaluatie van waarden</td><td>Zijn project om gevestigde waardeoordelen niet te verfijnen maar radicaal te herwaarderen vanaf de grond.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen argumentatie in de klassieke zin, maar een reeks beweringen in aforisme- en essayvorm die op elkaar voortbouwen zonder systematisch te worden verdedigd. Nietzsche was classicus van opleiding, en het hoofdstuk over wat hij aan de Ouden dankt steunt op die filologische kennis; de rest van het boek steunt vooral op zijn eigen psychologische diagnosestelling, gepresenteerd met grote stelligheid maar zonder toetsbaar bewijs.</p>
+      <p>Het is geschreven in negen dagen, op het hoogtepunt van zijn productiviteit in 1888, enkele maanden voordat hij in januari 1889 in Turijn instortte en nooit meer helder zou schrijven. Die timing verklaart niets over de inhoud, maar wel over de ongewone dichtheid en felheid van de tekst, die zelfs voor Nietzsches doen opvalt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Grote delen van het boek, met name "Schermutselingen van een ontijdige", bestaan uit korte, felle oordelen die eerder beweren dan beargumenteren: meer dan honderd losse uitspraken over Duitsers, ruim veertig over vrouwen en meer dan twintig over Engelsen, zonder dat daar telkens een redenering aan voorafgaat. Dat maakt het boek retorisch fel en filosofisch aanvechtbaar op dezelfde bladzijden.</p>
+      <p>De "vier grote dwalingen" nemen de vrije wil zonder veel omhaal weg, maar Nietzsche werkt niet uit wat er dan overblijft van verantwoordelijkheid of van zijn eigen aansporing om het leven actief te bevestigen; die spanning tussen determinisme en zelfoverstijging lost het boek niet op.</p>
+      <p>Nietzsches nalatenschap werd na zijn dood beheerd door zijn zuster Elisabeth Förster-Nietzsche, die banden had met Duits-nationalistische en antisemitische kringen en zijn werk in die richting presenteerde, wat decennia later door het nationaalsocialisme werd misbruikt. Dit boek zelf hekelt Duits nationalisme en antisemitisme met zoveel woorden in het hoofdstuk over wat de Duitsers missen, wat de latere toe-eigening des te schrijnender maakt, maar het verklaart ook waarom lezers dit boek soms nog altijd met een vooroordeel benaderen dat de tekst zelf tegenspreekt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees "Hoe de ware wereld eindelijk een fabel werd" een paar keer na elkaar; de zes stappen zijn kort genoeg om in één keer te overzien en onthullen de opbouw van het hele boek.</li>
+        <li>Leg een aforisme uit "Spreuken en pijlen" naast een van Marcus Aurelius' <i>Overpeinzingen</i> om te zien hoe twee schrijvers dezelfde vorm voor een tegengestelde levenshouding gebruiken.</li>
+        <li>Zoek bij een stellige uitspraak in "Schermutselingen van een ontijdige" op wie of wat er precies wordt bedoeld, voordat je de uitspraak overneemt of verwerpt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Duits als <i>Götzen-Dämmerung, oder, Wie man mit dem Hammer philosophiert</i>, geschreven tussen 26 augustus en 3 september 1888 in Sils-Maria, verschenen begin 1889 bij C.G. Naumann, Leipzig. Engels onder meer vertaald door R.J. Hollingdale (Penguin Classics, 1968) en Walter Kaufmann. Nederlands als <i>Afgodenschemering, of hoe men met de hamer filosofeert</i>, vertaald door Hans Driessen (De Arbeiderspers, Nietzsche-bibliotheek, herziene editie 2007).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nietzsche schreef dit boek in negen dagen, kort voordat hij op 3 januari 1889 in Turijn instortte en nooit meer helder zou schrijven. Hij bedoelde het als korte, felle inleiding op zijn hele denken, gericht tegen wat hij de "afgoden" van zijn tijd noemt: overtuigingen die als vanzelfsprekend gelden en die hij wil beproeven door er, zoals een beeldhouwer op hol metaal, mee te kloppen om te horen of ze hol klinken.</p><p>Het boek bestaat uit een reeks korte hoofdstukken, van een verzameling aforismen tot essayistische aanvallen op Socrates, op de christelijke moraal en op wat hij de Duitse cultuur van zijn tijd vindt, en sluit af met een korte hulde aan de Grieken en Romeinen die hij tegenover die cultuur zet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>Nietzsche</li><li>aforismen</li><li>moraalkritiek</li><li>christendom</li><li>19e-eeuws-Duitsland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="263"><a href="263.html">Beyond Good and Evil</a>. Beyond Good and Evil is twee jaar eerder geschreven en werkt dezelfde kritiek op moraal breder en systematischer uit.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius vertegenwoordigt vrijwel alles waar Nietzsche zich tegen verzet: onderwerping aan een rationele orde in plaats van bevestiging van het eigen leven.</li>
+          <li value="216"><a href="216.html">The Art of Worldly Wisdom</a>. Gracián werkt drie eeuwen eerder met dezelfde beknopte, aforistische vorm, maar in dienst van sociale sluwheid in plaats van filosofische omwenteling.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

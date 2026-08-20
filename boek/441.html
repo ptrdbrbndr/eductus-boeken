@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Inner Game of Tennis &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gallwey stelt dat de meeste fouten op de tennisbaan niet ontstaan door gebrek aan techniek, maar door de bemoeienis van het bewuste, oordelende deel van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-441">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">441 &middot; Brein en lichaam</p>
+    <h1>The Inner Game of Tennis</h1>
+    <p class="lede">W. Timothy Gallwey, 1974</p>
+    <p class="stats">
+      <span><b>1846</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="441"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gallwey stelt dat de meeste fouten op de tennisbaan niet ontstaan door gebrek aan techniek, maar door de bemoeienis van het bewuste, oordelende deel van de geest met een lichaam dat de slag al kan uitvoeren. Hij noemt dat oordelende deel Self 1 en het handelende deel Self 2, en zijn stelling is dat vooruitgang niet komt van harder proberen of meer instructie, maar van het wegnemen van de storing die Self 1 veroorzaakt: het voortdurend becommentariëren, corrigeren en veroordelen van elke slag. Wie leert waarnemen zonder te oordelen, geeft Self 2 de ruimte om te doen wat het lichaam al kan. Daar valt tegenin te brengen dat de scheiding tussen een tellende en een handelende geest een beeld is en geen verklaring, en dat het boek zelf weinig aanwijzingen geeft om die twee scherp uit elkaar te houden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het buitenspel en het binnenspel</h3>
+      <p>De inleiding zet het onderscheid neer waarop de rest van het boek voortbouwt. Elk spel bestaat volgens Gallwey uit een buitenspel, gericht op de tegenstander en een uitslag, en een binnenspel, dat zich afspeelt in het hoofd van de speler en gaat over concentratie, zenuwen, twijfel en zelfveroordeling. Zijn stelling is dat geen enkele hoeveelheid technische instructie helpt zolang dat binnenspel niet is opgelost, en dat winst in het binnenspel blijvende waarde heeft, ook buiten de baan.</p>
+      <h3>De ontdekking van Self 1 en Self 2</h3>
+      <p>Gallwey beschrijft zichzelf als een leraar die aanvankelijk evenveel uitlegde als zijn collega's, tot hij bij toeval ontdekte dat fouten die hij zag maar niet benoemde zichzelf oplosten. Bij een leerling die hij Dorothy noemt, ziet hij hoe een vriendelijke aanwijzing over haar doorzwaai haar arm juist doet verstrakken. Bij een absolute beginner, Paul, laat hij alle uitleg achterwege en vraagt hij hem alleen een voorgedane slag te imiteren. Paul haalt een bijna foutloze voorhand, op de voeten na, het enige waar hij bewust aan probeerde te denken.</p>
+      <p>Uit die twee lessen leidt Gallwey een model af: er is een stem die instrueert en oordeelt, en er is een lichaam dat, met rust gelaten, al veel kan. Hij noemt de instruerende stem Self 1 en het handelende lichaam Self 2, en stelt dat vrijwel alle problemen op de baan voortkomen uit wantrouwen van Self 1 tegenover Self 2.</p>
+      <h3>Oordelen loslaten</h3>
+      <p>Aan de hand van een fictieve wedstrijd tussen twee spelers en een scheidsrechter laat Gallwey zien wat oordelen toevoegt aan een gebeurtenis die op zichzelf neutraal is: dezelfde misslag wordt door de ene speler "slecht" genoemd en door de andere "goed", terwijl de scheidsrechter de bal alleen maar buiten verklaart. Dat etiket, stelt hij, is niet een eigenschap van de slag maar een reactie van de speler, en die reactie zet een keten in gang van piekeren, corrigeren en te hard proberen.</p>
+      <p>Zijn tegenvoorstel is niet-oordelende waarneming: een fout benoemen als feit, "de bal ging in het net", zonder er een etiket als "slecht" of "weer een terrible service" aan te hangen. Hij vergelijkt een tennisslag met een rozenknop, die niemand "onvolgroeid" noemt terwijl hij nog moet openen, en stelt dat vaardigheden zich op dezelfde manier ontwikkelen zodra het oordeel wegvalt.</p>
+      <h3>Self 2 programmeren en vertrouwen</h3>
+      <p>Gallwey werkt het beeld van Self 2 uit als een systeem dat door beelden en gevoelens leert, en dat door woorden juist wordt gehinderd. In plaats van een correctie in te spreken ("raak de bal verder naar voren"), stelt hij voor de gewenste beweging voor te doen of voor te stellen en het lichaam te laten nadoen. Hij illustreert dit met een moment waarop hij tijdens het serveren op het geluid van de bal ging letten in plaats van op de techniek, waarna zijn service, zonder dat hij wist waarom, beter werd.</p>
+      <p>De consequentie die hij daaruit trekt, noemt hij vertrouwen: Self 1 moet de opdracht geven en dan wegblijven, in plaats van bij elke slag te controleren of de opdracht goed wordt uitgevoerd. Naarmate dat vertrouwen groeit, neemt volgens hem ook de kwaliteit van de uitvoering toe, niet doordat er meer wordt gestuurd, maar doordat er minder wordt gestoord.</p>
+      <h3>Concentratie: de naden van de bal</h3>
+      <p>Voor het vasthouden van aandacht raadt Gallwey aan iets te zoeken dat subtiel genoeg is om het hoofd op te vullen zonder het over te belasten, zoals het patroon van de naden van een draaiende bal of het exacte geluid van het racketcontact. Hij haalt een verhaal uit de bhaktiyoga aan over een zoeker die niet tot rust kon komen tijdens meditatie tot hij zich mocht concentreren op iets waar hij al van hield, zijn stier, en zo ver in die concentratie opging dat hij de kamer niet meer uit kon.</p>
+      <p>Die anekdote gebruikt hij om te beargumenteren dat concentratie geen inspanning is maar een vorm van interesse: hoe meer een speler de bal, het geluid of het gevoel van het racket leert kennen, hoe minder ruimte er overblijft voor het malende commentaar van Self 1.</p>
+      <h3>Winnen als samenwerking</h3>
+      <p>In een gesprek met zijn vader, die hem ooit met competitie in aanraking bracht, komt Gallwey tot de gevolgtrekking dat een surfer de grootste golf opzoekt niet ondanks de weerstand die ze biedt, maar om die weerstand: alleen een zware golf dwingt het uiterste af. Hij past dat toe op tennis: de tegenstander is niet een vijand maar degene die de hindernissen levert waarmee een speler zijn eigen grens kan vinden, en precies daarom is fel spelen tegen iemands zwakke backhand geen onsportief gedrag maar de manier om die backhand te laten groeien.</p>
+      <p>Om de motieven achter het spel te ontleden, geeft Gallwey een indeling van verborgen "spelen binnen het spel": Good-o, gericht op prestatie of overwinning, Friends-o, gericht op erbij horen, en Health-o-Fun-o, gericht op gezondheid of plezier. Zijn punt is dat spanning vaak ontstaat doordat een speler zich niet bewust is welk van die spelen hij eigenlijk speelt.</p>
+      <h3>Loslaten voorbij de baan</h3>
+      <p>In het laatste deel verbreedt Gallwey het begrip loslaten naar buiten de sport. Hij vertelt over een nacht waarin zijn auto in de sneeuw vast kwam te zitten op een verlaten weg in Maine, en hoe hij, nadat hij de mogelijkheid van bevriezen onder ogen had gezien en geaccepteerd, veertig minuten kon rennen zonder vermoeidheid. Die ervaring gebruikt hij als het scherpste voorbeeld van wat hij het laten varen van de greep op de uitkomst noemt, dezelfde beweging die hij op kleinere schaal terugziet in een speler die, zonder iets te verliezen te hebben, alles geeft.</p>
+      <p>Het boek sluit af met de stelling dat het binnenspel niet aan tennis gebonden is: wie leert waarnemen zonder oordeel en vertrouwen zonder controle, oefent een vaardigheid die zich volgens Gallwey op elk terrein laat toepassen waar mens en handeling samenkomen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Self 1</td><td>Het bewuste, oordelende deel van de geest dat instructies geeft, corrigeert en elke slag evalueert.</td></tr>
+          <tr><td class="term">Self 2</td><td>Het lichaam met zijn onbewuste, als een computer werkende leervermogen, dat de slag daadwerkelijk uitvoert.</td></tr>
+          <tr><td class="term">Storing</td><td>De mate waarin Self 1 het handelen van Self 2 in de weg zit door te veel te sturen of te veroordelen.</td></tr>
+          <tr><td class="term">Niet-oordelende waarneming</td><td>Een gebeurtenis beschrijven zoals ze is, zonder er een etiket als "goed" of "slecht" aan toe te voegen.</td></tr>
+          <tr><td class="term">Programmeren</td><td>Self 2 een beeld, gevoel of geluid meegeven in plaats van een verbale instructie, als manier om te leren.</td></tr>
+          <tr><td class="term">Vertrouwen</td><td>Self 1 laten toe dat Self 2 de slag zelfstandig uitvoert, zonder tijdens de beweging in te grijpen.</td></tr>
+          <tr><td class="term">Ontspannen concentratie</td><td>Aandacht die vasthoudt zonder spanning, het doel van wat Gallwey het binnenspel noemt.</td></tr>
+          <tr><td class="term">Het buitenspel en het binnenspel</td><td>De wedstrijd tegen de tegenstander tegenover de wedstrijd tegen de eigen gewoontes van de geest.</td></tr>
+          <tr><td class="term">Good-o, Friends-o, Health-o-Fun-o</td><td>Gallweys indeling van de verborgen motieven, van presteren tot erbij horen tot plezier, waarmee mensen daadwerkelijk tennissen.</td></tr>
+          <tr><td class="term">Loslaten</td><td>Het opgeven van de greep op de uitkomst, waardoor de energie vrijkomt die anders in twijfel en controle gaat zitten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gallwey schrijft als lesgevende tennisprofessional, niet als onderzoeker. De basis van het boek zijn eigen lesobservaties, zoals de gevallen van Dorothy en Paul, en persoonlijke ervaringen op de baan en daarbuiten. Er wordt geen studie, meting of vergelijkingsgroep aangehaald; de aanspraak op geldigheid rust op herkenbaarheid, niet op toetsing.</p>
+      <p>Voor zijn kader over aandacht en niet-ingrijpen leunt Gallwey op Aziatische bronnen: hij citeert D.T. Suzuki's voorwoord bij <i>Zen in the Art of Archery</i> over de boogschutter die zonder opzet raak schiet, en gebruikt begrippen uit bhaktiyoga en karmayoga voor concentratie en onthechting. Dat zijn tradities met een eigen, niet-empirische manier van geldig verklaren, en Gallwey vertaalt ze naar tennis zonder ze verder te onderbouwen. De latere invloed van het boek op coachingsmethodes, waaronder het GROW-model in de managementliteratuur, is een teken dat het idee aansloeg, geen bewijs dat het klopt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar betreft de status van Self 1 en Self 2 zelf. Het is een beeld, geen mechanisme, en het boek gebruikt het op een manier die zichzelf moeilijk kan weerleggen: lukt een slag niet, dan was Self 1 te dominant, lukt hij wel, dan kreeg Self 2 de ruimte. Een verklaring die elke uitkomst achteraf kan verantwoorden, verklaart weinig.</p>
+      <p>De voorbeelden zijn stuk voor stuk gedenkwaardige eenmalige gevallen, opgetekend door de auteur zelf, zonder dat vermeld wordt hoe vaak eenzelfde aanpak niet werkte. Van Dorothy en Paul horen we niets meer na hun ene vermelde les.</p>
+      <p>Ten slotte wordt de overstap van tennis naar "elke vaardigheid" beweerd, maar in dit boek niet aangetoond: het bewijs blijft beperkt tot de baan. Gallwey erkende die beperking impliciet door later aparte delen te schrijven over golf, muziek en werk, wat suggereert dat de overdracht minder vanzelfsprekend is dan de inleiding van dit boek doet voorkomen. Ook het verhaal over de nacht in de sneeuw is aangrijpend, maar het toont een reactie op doodsangst, niet iets over tennis, en de plaatsing ervan als bewijs voor loslaten is eerder retorisch dan redenerend.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf een mislukte slag of poging feitelijk, wat er gebeurde en waar, zonder er een oordeel als "slecht" aan te hangen.</li>
+        <li>Vervang een verbale correctie door een beeld: roep de gewenste beweging voor je op en laat het lichaam die nadoen, zonder tussentijds bij te sturen.</li>
+        <li>Richt de aandacht tijdens een handeling op iets subtiels en waarneembaars, zoals een geluid of een detail, om het aanhoudende commentaar in het hoofd te laten verstommen.</li>
+        <li>Ga na welk spel je eigenlijk speelt: gaat het om presteren, om erbij horen of om plezier, en stem je verwachtingen daarop af.</li>
+        <li>Geef bij een handeling de volle inzet en laat de zorg over de uitkomst los, want die hangt voor een deel af van omstandigheden die niet te sturen zijn.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk verschenen bij Random House, New York (1974), zonder ondertitel. Latere Amerikaanse edities bij Random House verschijnen als <i>The Inner Game of Tennis: The Classic Guide to the Mental Side of Peak Performance</i>. In 2024 kwam een vijftigste-verjaardagseditie uit bij Random House.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gallwey was tennisleraar en captain van het tennisteam van Harvard toen hij merkte dat zijn beste lessen ontstonden op momenten waarop hij zijn leerlingen juist minder uitleg gaf. Wie voortdurend wordt gecorrigeerd, voert volgens hem twee gesprekken tegelijk: een bewust deel dat instructies geeft en een lichaam dat probeert te gehoorzamen. Dat tweede deel werkt beter zonder het eerste. Hij noemt het instruerende deel Self 1 en het uitvoerende deel Self 2, en het boek gaat over het laten staken van de bemoeienis van Self 1, zodat Self 2 kan doen waartoe het al in staat is.</p><p>Tennis is het voorbeeld, niet het onderwerp. Gallwey herhaalt dat waarnemen zonder oordeel, vertrouwen zonder ingrijpen en concentratie zonder inspanning zich net zo goed lenen voor een instrument, een gesprek of een beroep. Die bredere claim maakte van het boek de aanzet tot latere delen over golf, muziek en werk, en tot een coachingsmethode die er later uit voortkwam.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sportpsychologie</li><li>concentratie</li><li>coaching</li><li>zelfvertrouwen</li><li>leren</li><li>aandacht</li><li>zen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1"><a href="01.html">Zen en de kunst van het motoronderhoud</a>. Pirsig zoekt in het onderhoud van een motor hetzelfde soort aandacht dat Gallwey op de tennisbaan beschrijft: kwaliteit die zich toont zodra oordeel en haast wegvallen.</li>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport werkt de aandachtstoestand die Gallwey op de baan beschrijft uit tot een werkmethode, met dezelfde nadruk op ononderbroken concentratie.</li>
+          <li value="78"><a href="78.html">Finding Flow</a>. Csikszentmihalyi beschrijft de toestand die Gallwey "uit je hoofd spelen" noemt als flow, met een uitgebreider onderzoekskader eromheen.</li>
+          <li value="320"><a href="320.html">Mastery</a>. Greene beschrijft de weg naar vaardigheid als een proces van jaren; Gallweys boek gaat over de mentale voorwaarde die dat proces per moment mogelijk maakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
