@@ -93446,11 +93446,15 @@ Pirsig en Crawford gaan beide over motoren en over de vraag waarom sleutelen
 iets doet met je hoofd. Crawford verwijst zelf naar Pirsig. Wie er één leest,
 mist de helft van het gesprek.
 
-**Vaders en zoons** (1, 3, 4, 5, 10). 
+**Vaders en zoons** (1, 3, 4, 5, 10, 173). 
 In 1 rijdt de vader met zijn zoon mee en kan hij hem niet bereiken. In 4 is de
 vader alleen een stem op de radio. In 5 durft Call niet te zeggen dat Newt van
 hem is, en in 10 is het uitblijven van een vaderlijke zegen het motief dat
-zich een generatie later herhaalt. Titel 3 legt daar de verklaring naast.
+zich een generatie later herhaalt. In 173 wordt de relatie op de proef gesteld
+zodra Gregor, die met zijn salaris de schuld van zijn vader afbetaalt, niet
+meer kan werken: zijn waarde voor het gezin blijkt dan letterlijk zijn
+verdiencapaciteit te zijn geweest. Titel 3 legt de verklaring naast de andere
+vijf.
 
 **Vriendschap als onderhoud** (3, 5, 7). 
 Baker organiseert het expliciet met een wekelijkse afspraak. McMurtry laat
@@ -93501,11 +93505,14 @@ twaalfjarige, met cijfers erbij en met een debat over oorzaak dat nog niet is
 afgelopen. Achter elkaar gelezen laat 54 zien wat 53 niet meer hoeft uit te
 leggen.
 
-**Wie zich durft te laten zien** (3, 32, 44). 
+**Wie zich durft te laten zien** (3, 32, 44, 470). 
 Brown onderzocht schaamte en kwam uit bij kwetsbaarheid als voorwaarde voor
-moed; 32 is de korte versie, 44 de uitgewerkte. hooks beschrijft in 3 waarom
-dat voor mannen extra moeilijk is gemaakt, met woede als de enige emotie die
-overbleef. De drie samen zijn één argument uit twee heel verschillende hoeken.
+moed; 32 is de korte versie, 44 de uitgewerkte, en 470 gaat over wat er na de
+val gebeurt, niet het vallen zelf maar het verhaal dat iemand zichzelf erover
+vertelt. hooks beschrijft in 3 waarom kwetsbaarheid voor mannen extra moeilijk
+is gemaakt, met woede als de enige emotie die overbleef. De vier samen zijn
+één argument uit twee heel verschillende hoeken, uitgewerkt over drie boeken
+van dezelfde onderzoeker.
 
 **Wie richt je denken in** (58, 60, 61, 63). 
 Hill noemt het drift: wie niet zelf beslist, laat de omgeving beslissen.
@@ -93530,8 +93537,148 @@ vier stellen dezelfde vraag: welke uitkomst zou hierbij horen, en is die
 uitkomst er ook. Saad is de meest polemische van de vier en het beste te lezen
 met tegenspraak ernaast.
 
-**Talent bestaat niet zoals je denkt** (22, 23, 29, 50). 
+**Talent bestaat niet zoals je denkt** (22, 23, 29, 50, 376). 
 Dweck begint bij de overtuiging over eigen vermogen, Duckworth meet wie
 volhoudt, Clear bouwt het systeem eronder, en Newport draait de loopbaanvraag
-om: eerst goed worden, dan gaan houden van het werk. De vier overlappen sterk.
-Wie er één kiest, neemt 22 voor de praktijk en 23 voor de reden.
+om: eerst goed worden, dan gaan houden van het werk. Colvin voegt de
+onderzoeksbasis toe die de andere drie als vaststaand aannemen: het werk van
+psycholoog K. Anders Ericsson naar deliberate practice, een specifieke en
+veeleisende vorm van oefenen die volgens Colvin het verschil maakt dat mensen
+aan talent toeschrijven. De vijf overlappen sterk. Wie er één kiest, neemt 22
+voor de praktijk en 23 voor de reden.
+
+**Jung in zijn eigen woorden** (357, 358, 359, 360, 361, 362). 
+Het Rode Boek (359) is het onbewerkte materiaal uit de jaren na de breuk met
+Freud, opgetekend en geschilderd, nooit voor publicatie bedoeld.
+Psychologische typen (361), Archetypen (360) en Synchroniciteit (362) zijn de
+theorie die Jung daaruit heeft opgebouwd, drie verschillende hoeken op
+hetzelfde onbewuste. De mens en zijn symbolen (357) en Herinneringen, dromen,
+gedachten (358) schreef hij aan het einde van zijn leven, het eerste voor een
+algemeen publiek en het tweede als verslag van zijn eigen innerlijke weg. Wie
+bij het begin wil beginnen leest 359 eerst, in de wetenschap dat de volgorde
+van schrijven niet de volgorde van publiceren is.
+
+**Wat er van Jungs archetypen is gemaakt** (410, 409, 407, 408, 404, 143). 
+Vier van deze zes auteurs zijn zelf Jungiaans analytici en bouwen rechtstreeks
+voort op zijn archetypenleer. Campbell (410) trekt die leer breed open tot één
+verhaalpatroon achter alle mythologie, Edinger (409) werkt haar uit tot een
+klinisch model van ego en Zelf, en Moore bouwt met Gillette (407) en apart
+(404) een eigen lijn: eerst de vier archetypen van volwassen mannelijkheid,
+dan een lezing van menselijk kwaad als onbewuste grandiositeit. Johnson (408)
+leest de middeleeuwse Parzival-legende als kaart van diezelfde mannelijke
+wond. Petersons Maps of Meaning (143) is het academische fundament waarop zijn
+latere, populairdere boeken steunen, en de enige titel hier die niet uit de
+klinische praktijk komt.
+
+**Krijgskunst uit drie beschavingen** (272, 219, 218, 346, 462). 
+Sun Tzu (272), de Zesendertig Stratagemen (219), Napoleon's maximes (218) en
+Musashi's Boek van de vijf ringen (346) komen uit verschillende tijden en
+culturen, van het China van de Strijdende Staten tot negentiende-eeuws
+Frankrijk, en zijn geschreven door of toegeschreven aan mensen die zelf
+vochten. Musashi's Dokkodo (462), eenentwintig regels die hij een week voor
+zijn dood optekende, is geen strategieleer meer maar het testament waarin
+dezelfde discipline op het eigen leven wordt toegepast. Wie de vier
+krijgstractaten leest, ziet hetzelfde beginsel terugkeren onder een andere
+naam: weten wat de tegenstander denkt te weten weegt zwaarder dan aantallen.
+
+**De techniek van de macht, zonder ideologie** (220, 221). 
+Luttwak schrijft in 220 een instructiehandleiding voor wie een staatsgreep wil
+plegen, met de nadruk op techniek en timing in plaats van op volksmobilisatie.
+Bueno de Mesquita en Smith beschrijven in 221 hetzelfde probleem van de andere
+kant: hoe een zittende leider zijn positie behoudt door de kleine groep
+tevreden te houden die hem daadwerkelijk aan de macht houdt. Beide boeken
+laten ideologie links liggen en herleiden macht tot een klein aantal
+structurele knoppen.
+
+**Robert Greene, vijf keer macht** (212, 250, 258, 381, 440). 
+Greene behandelt macht telkens in een ander domein: oorlog en conflict in 212,
+het verwerven en behouden van macht in 250, de terugkerende patronen van
+menselijk gedrag in 258, verleiding als techniek in 381, en angst als
+grondstof voor mislukking in 440, dat hij samen met 50 Cent schreef. De opbouw
+is in alle vijf gelijk, een raamwerk gedestilleerd uit honderden historische
+en biografische voorbeelden, en wie er één kent herkent de methode in de rest.
+
+**Morgan Housel, drie keer geldgedrag** (21, 425, 463). 
+Housel schreef eerst over het opbouwen van vermogen (21), daarna over de
+patronen in menselijk gedrag die zich generatie na generatie herhalen (425),
+en ten slotte over wat er na het opbouwen komt: geld uitgeven zonder dat het
+een nieuwe bron van ongeluk wordt (463). Sparen en beleggen is volgens hem een
+andere vaardigheid dan besteden, en dat is precies het gat dat 463 vult ten
+opzichte van 21.
+
+**Wat overgave niet is** (149, 435, 341, 377, 431). 
+Tolle beschrijft in 149 het lijden dat ontstaat uit vereenzelviging met de
+denkende geest, en trekt die redenering acht jaar later in 435 door naar de
+mensheid als collectief. Watts had in 1951 al een scherp onderscheid
+klaarliggen: pijn is wat er nu gebeurt, angst is de gedachte aan pijn die nog
+moet komen. Singer beschrijft in 377 dezelfde innerlijke stem als Tolle, en in
+431 het praktijkexperiment waarin hij jarenlang deed wat het leven hem
+voorlegde in plaats van wat hij zelf wilde. Vijf auteurs, één claim: het
+probleem zit niet in de omstandigheden maar in de stem die erover commentaar
+geeft.
+
+**Vooruitgang: twee lezingen van dezelfde geschiedenis** (251, 298). 
+Ridley leest in 251 dezelfde vijfduizend jaar geschiedenis als McDonald in
+298, en komt tot het tegenovergestelde oordeel. Voor Ridley is welvaart een
+gestage opbrengst van ruilhandel en specialisatie sinds de prehistorie. Voor
+McDonald is vooruitgang een verhaal waarmee samenlevingen al net zo lang
+rechtvaardigen dat ze meer aan de aarde en aan andere mensen onttrekken dan ze
+teruggeven. Beide boeken gebruiken dezelfde feiten, alleen de maatstaf
+verschilt.
+
+**Speltheorie: van inleiding tot toepassing** (217, 450, 451, 452, 453, 454, 455, 456). 
+Acht boeken over hetzelfde vak, met een natuurlijke leesvolgorde: 452 is de
+striplezing voor wie nog niets weet, 450 en 451 zijn de toegankelijke
+inleidingen daarna. 456 legt met niet meer dan schoolrekenen uit wat in 1954
+nog vrijwel uitsluitend toegankelijk was voor specialisten, en 217, Schellings
+klassieker uit 1960 over onderhandelen en dreigen als varianten van hetzelfde
+probleem, is het andere fundament. 453 (Axelrod) en 454 (Poundstone) zijn de
+twee bekendste toepassingen uit de Koude Oorlog, en 455 laat zien hoe
+hetzelfde model nu wordt gebruikt om politieke uitkomsten te voorspellen.
+
+**De mythe van mentale hardheid** (372, 373, 457, 458, 461). 
+Vijf auteurs vallen hetzelfde beeld aan: dat mentale kracht bestaat uit een
+hard gezicht en het wegslikken van elk teken van zwakte. Magness (372) laat
+zien dat die gevel het onder echte druk begeeft. Morin (373) beschrijft
+mentale kracht juist als wat iemand laat, zelfmedelijden, piekeren, de
+goedkeuring van anderen najagen. David (457) en McGonigal (458) voegen toe dat
+het wegstoppen of het bestrijden van een gevoel dezelfde vergissing is als het
+gevoel zelf als een feit behandelen. Stulberg (461) zet daar heroic
+individualism tegenover, de aanname dat succes uit permanente
+zelfoptimalisatie komt.
+
+**Manipuleren: wat er wetenschappelijk over bekend is** (215, 280, 384). 
+Drie boeken, drie tradities, één vraag: hoe krijgt de een de ander zover.
+Milgram (215) beschrijft het experiment uit 1961 waarin gewone proefpersonen
+een onbekende pijn bleven toedienen zodra een gezaghebbende dat opdroeg.
+Cialdini (280) verliet zijn laboratorium voor verkooptrainingen en
+fondsenwerving en kwam terug met zes hefbomen waarmee beroepsovertuigers
+werken. Meerloo (384) schreef als psychiater die de Duitse bezetting had
+meegemaakt en na de oorlog Koreagangers behandelde die een afgedwongen
+bekentenis niet meer als vals herkenden. Alle drie zijn gebaseerd op onderzoek
+of documentatie, niet op beweringen zonder bron.
+
+**Donkere psychologie: drie keer hetzelfde boek** (123, 124, 125). 
+Deze drie titels, toegeschreven aan drie verschillende namen, behandelen
+dezelfde onderwerpen in nagenoeg dezelfde volgorde: de donkere triade,
+lichaamstaal, hypnose, neurolinguïstisch programmeren, gaslighting. 125 blijft
+van de drie het dichtst bij de belofte op de omslag. Wie een van de drie heeft
+gelezen, heeft in essentie de andere twee ook gelezen.
+
+**Het zelfbeeld als plafond** (411, 439, 161, 148). 
+Vier boeken, veertig jaar uit elkaar, met dezelfde claim: niet de
+werkelijkheid begrenst wat iemand voor mogelijk houdt, maar het beeld dat hij
+van zichzelf heeft. Maltz (411), plastisch chirurg, zag dat patiënten na een
+geslaagde ingreep zich soms bleven gedragen alsof niets veranderd was.
+Helmstetter (439) legt de nadruk op de zinnen die iemand in stilte tegen
+zichzelf zegt, Bishop (161) op drie onbewuste conclusies uit de kindertijd, en
+Khan (148) op de ongerichte gedachtestroom die zich met gezag voordoet, ook
+als hij het mis heeft.
+
+**Dopamine: de scheikunde van verlangen** (314, 418). 
+Lembke (314) beschrijft het brein als een wip die naar balans zoekt: elke
+opleving van genot wordt gevolgd door een even grote tegenreactie, en bij
+herhaling verschuift het rustpunt richting onbehagen. Lieberman en Long (418)
+zetten daar de andere helft naast: dopamine is niet de stof van genot maar van
+verlangen, ze komt vrij bij het vooruitzicht van iets nieuws en niet bij het
+hebben ervan. Samen verklaren de twee boeken waarom meer nooit genoeg is.
