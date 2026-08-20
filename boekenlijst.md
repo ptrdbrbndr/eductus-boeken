@@ -93655,10 +93655,14 @@ opbouwen` 395 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171, 387, 415
 
 Lijnen die door meer dan één titel heen lopen.
 
-**Werken met je handen als denkoefening** (1, 6). 
+**Werken met je handen als denkoefening** (1, 6, 390). 
 Pirsig en Crawford gaan beide over motoren en over de vraag waarom sleutelen
-iets doet met je hoofd. Crawford verwijst zelf naar Pirsig. Wie er één leest,
-mist de helft van het gesprek.
+iets doet met je hoofd. Crawford verwijst zelf naar Pirsig. Weil (390) is de
+oudste en zwaarste stem in dit gesprek: zij verruilde in de jaren dertig een
+jaar lang de filosofie voor het werk in een autofabriek, en in haar essays is
+aandacht, zuiver gericht op iets buiten jezelf, de hoogste vorm van
+welwillendheid die een mens kan opbrengen. Wie er één leest, mist het grootste
+deel van het gesprek.
 
 **Vaders en zoons** (1, 3, 4, 5, 10, 173). 
 In 1 rijdt de vader met zijn zoon mee en kan hij hem niet bereiken. In 4 is de
@@ -93675,11 +93679,15 @@ Baker organiseert het expliciet met een wekelijkse afspraak. McMurtry laat
 zien wat veertig jaar samen optrekken oplevert en wat het kost. hooks legt uit
 waarom mannen daar zo slecht in worden gemaakt.
 
-**Wat maakt een leven de moeite waard** (2, 8, 9, 48). 
+**Wat maakt een leven de moeite waard** (2, 8, 9, 48, 160). 
 Marcus Aurelius antwoordt met plicht en zelfbeheersing, Coelho met het volgen
-van je droom, Brooks met het aangaan van bindingen, en Frankl met zin die zich
-pas laat zien in wat iemand te dragen krijgt. Vier onverenigbare antwoorden op
-één vraag, en daarom naast elkaar het interessantst.
+van je droom, David Brooks met het aangaan van bindingen, en Frankl met zin
+die zich pas laat zien in wat iemand te dragen krijgt. Arthur Brooks (160)
+geeft een vijfde antwoord, gericht aan wie naar elke buitenmaatstaf geslaagd
+is en zich toch leeg voelt: houd op de vraag als een oplosbaar probleem te
+behandelen, en leer de onbeantwoordbare vragen van liefde, roeping en lijden
+te verdragen. Vijf onverenigbare antwoorden op één vraag, en daarom naast
+elkaar het interessantst.
 
 **De weerstand tegen je eigen werk** (12, 13, 14, 16, 19). 
 Pressfield geeft die weerstand een naam en zet er een dagelijkse
@@ -93819,16 +93827,20 @@ een nieuwe bron van ongeluk wordt (463). Sparen en beleggen is volgens hem een
 andere vaardigheid dan besteden, en dat is precies het gat dat 463 vult ten
 opzichte van 21.
 
-**Wat overgave niet is** (149, 435, 341, 377, 431). 
+**Wat overgave niet is** (149, 435, 341, 377, 431, 310, 449). 
 Tolle beschrijft in 149 het lijden dat ontstaat uit vereenzelviging met de
 denkende geest, en trekt die redenering acht jaar later in 435 door naar de
 mensheid als collectief. Watts had in 1951 al een scherp onderscheid
 klaarliggen: pijn is wat er nu gebeurt, angst is de gedachte aan pijn die nog
 moet komen. Singer beschrijft in 377 dezelfde innerlijke stem als Tolle, en in
 431 het praktijkexperiment waarin hij jarenlang deed wat het leven hem
-voorlegde in plaats van wat hij zelf wilde. Vijf auteurs, één claim: het
-probleem zit niet in de omstandigheden maar in de stem die erover commentaar
-geeft.
+voorlegde in plaats van wat hij zelf wilde. Nguyen (310) bouwt dezelfde claim
+op het gedachtegoed van Sydney Banks: lijden komt niet uit omstandigheden maar
+uit het geloven van de gedachten erover. Hawkins (449) voegt er een techniek
+aan toe, een emotie voluit toelaten tot zij vanzelf oplost, plus een
+bewustzijnsschaal van 1 tot 1000 die verder nergens op steunt. Zeven boeken,
+één claim: het probleem zit niet in de omstandigheden maar in de stem die
+erover commentaar geeft.
 
 **Vooruitgang: twee lezingen van dezelfde geschiedenis** (251, 298). 
 Ridley leest in 251 dezelfde vijfduizend jaar geschiedenis als McDonald in
@@ -93878,15 +93890,18 @@ lichaamstaal, hypnose, neurolinguïstisch programmeren, gaslighting. 125 blijft
 van de drie het dichtst bij de belofte op de omslag. Wie een van de drie heeft
 gelezen, heeft in essentie de andere twee ook gelezen.
 
-**Het zelfbeeld als plafond** (411, 439, 161, 148). 
-Vier boeken, veertig jaar uit elkaar, met dezelfde claim: niet de
-werkelijkheid begrenst wat iemand voor mogelijk houdt, maar het beeld dat hij
-van zichzelf heeft. Maltz (411), plastisch chirurg, zag dat patiënten na een
-geslaagde ingreep zich soms bleven gedragen alsof niets veranderd was.
-Helmstetter (439) legt de nadruk op de zinnen die iemand in stilte tegen
-zichzelf zegt, Bishop (161) op drie onbewuste conclusies uit de kindertijd, en
-Khan (148) op de ongerichte gedachtestroom die zich met gezag voordoet, ook
-als hij het mis heeft.
+**Het zelfbeeld als plafond** (411, 439, 161, 148, 344). 
+Vijf boeken met dezelfde claim: niet de werkelijkheid begrenst wat iemand voor
+mogelijk houdt, maar het beeld dat hij van zichzelf heeft. Maltz (411),
+plastisch chirurg, zag dat patiënten na een geslaagde ingreep zich soms bleven
+gedragen alsof niets veranderd was. Helmstetter (439) legt de nadruk op de
+zinnen die iemand in stilte tegen zichzelf zegt, Bishop (161) op drie
+onbewuste conclusies uit de kindertijd, en Khan (148) op de ongerichte
+gedachtestroom die zich met gezag voordoet, ook als hij het mis heeft. Goss
+(344) brengt dezelfde claim naar de bestuurskamer: iedereen die ooit succes
+had, draagt een onbewuste winnende strategie mee die precies daardoor de grens
+van het mogelijke bepaalt, en die eerst uitgeschreven en afgedankt moet worden
+voordat er iets onmogelijks kan gebeuren.
 
 **Dopamine: de scheikunde van verlangen** (314, 418). 
 Lembke (314) beschrijft het brein als een wip die naar balans zoekt: elke
@@ -94005,13 +94020,15 @@ bij Bezos en Amazon, Ashlee Vance bij Musk, SpaceX en Tesla. Beide boeken
 tonen dezelfde spanning, bewondering voor wat er werd gebouwd naast een
 portret van wat dat aan mensen heeft gekost.
 
-**Seneca: bron en twee latere bewerkingen** (232, 292, 194, 459). 
+**Seneca: bron en drie latere bewerkingen** (232, 292, 194, 459, 140). 
 Seneca schreef On the Shortness of Life als essay aan zijn schoonvader en
 Letters from a Stoic als briefwisseling met zijn vriend Lucilius, allebei
 zonder stappenplan, alleen met het onderscheid tussen wat wel en niet in je
 macht ligt. Mulligan en Salzgeber herschrijven diezelfde regel, uit Seneca,
 Epictetus en Marcus Aurelius, tot een hedendaagse handleiding met dagelijkse
-oefeningen. Wie de twee klassieke teksten eerst leest, ziet in de twee moderne
+oefeningen. Foroux (140) doet in kort bestek en in eigen beheer hetzelfde,
+stoïcijnse gedachten toegepast op uitstel, angst en het oordeel van anderen.
+Wie de twee klassieke teksten eerst leest, ziet in de drie moderne bewerkingen
 wat erbij is gekomen en wat verloren is gegaan.
 
 **Manifesteren in het Instagram-tijdperk** (128, 129, 130, 131, 132, 190, 195, 433, 108). 
@@ -94023,13 +94040,16 @@ King, dankbaarheid bij Nafousi, kwantumfysica bij Gikandi, spiegeling bij De
 Ridder, maar de claim gaat telkens terug op de honderd jaar oudere bronlijn
 elders in deze lijst. Wie er twee leest, heeft het genre gezien.
 
-**De honderdjarige bronlijn van het positief denken** (127, 76, 83, 259, 380). 
-Vijf boeken op een rij van 1906 tot 1991 laten zien waar het moderne
-manifesteren vandaan komt: Atkinson introduceert de gedachte als trilling,
-Hill bouwt er dertien stappen naar rijkdom omheen, Peale verchristelijkt het
-tot positief denken, Murphy herleidt het tot het onderbewuste, en Hay koppelt
-het aan affirmaties en zelfliefde. Achter elkaar gelezen is dit dezelfde
-claim, tachtig jaar lang doorgegeven zonder dat er onderbouwing bij kwam.
+**De honderdjarige bronlijn van het positief denken** (127, 378, 76, 83, 259, 380). 
+Zes boeken op een rij van 1906 tot 1991 laten zien waar het moderne
+manifesteren vandaan komt: Atkinson introduceert de gedachte als trilling, het
+anonieme Kybalion uit 1908 (378), dat achter het pseudoniem Three Initiates
+schuilgaat en vaak aan diezelfde Atkinson wordt toegeschreven, verpakt
+dezelfde claim als eeuwenoude Hermetische geheimleer, Hill bouwt er dertien
+stappen naar rijkdom omheen, Peale verchristelijkt het tot positief denken,
+Murphy herleidt het tot het onderbewuste, en Hay koppelt het aan affirmaties
+en zelfliefde. Achter elkaar gelezen is dit dezelfde claim, generaties lang
+doorgegeven zonder dat er onderbouwing bij kwam.
 
 **Kwantumfysica als lener voor bewustzijnsclaims** (208, 340, 432). 
 Drie boeken lenen taal van de kwantumfysica om een claim te onderbouwen die
@@ -94072,14 +94092,18 @@ toegankelijk verhaal, eerst over het heelal en de aarde, daarna over het
 lichaam dat die kennis leest. Dezelfde nuchtere, licht ironische toon over hoe
 onwaarschijnlijk het is dat iets van dit alles werkt.
 
-**Het brein verklaart gedrag, van vlieg tot patiënt** (330, 331, 339, 414). 
-Vier neurowetenschappers verklaren gedrag van onder naar boven, elk op een
-ander niveau: Anderson vindt emotiecircuits terug bij fruitvliegen en muizen,
+**Het brein verklaart gedrag, van vlieg tot patiënt** (330, 331, 339, 414, 80). 
+Vijf onderzoekers verklaren gedrag van onder naar boven, elk op een ander
+niveau: Anderson vindt emotiecircuits terug bij fruitvliegen en muizen,
 Deisseroth koppelt psychiatrische patiëntverhalen aan specifieke
 hersencircuits die hij zelf blootlegt, Sapolsky werkt van een handeling terug
 naar hormonen, jeugd, genen en evolutie, en Jandial laat vanuit de
-operatiekamer zien hoe het brein zich na schade herstelt. Vier ingangen tot
-dezelfde vraag: waar in het lichaam ontstaat wat we gedrag noemen.
+operatiekamer zien hoe het brein zich na schade herstelt. Coates (80), die
+eerst derivatenhandelaar was en daarna neurowetenschapper werd, voegt de
+handelsvloer toe: testosteron stijgt bij winst en verschuift de
+risicobereidheid zelf, cortisol doet bij aanhoudende onzekerheid het
+omgekeerde. Vijf ingangen tot dezelfde vraag: waar in het lichaam ontstaat wat
+we gedrag noemen.
 
 **Veranderde bewustzijnstoestanden, nuchter bekeken** (333, 401, 275). 
 Drie nuchtere blikken op praktijken die vaak met overdreven beloftes worden
@@ -94106,12 +94130,14 @@ overigens stelliger presenteert dan latere kritiek toelaat. Vier metingen, één
 claim: er ligt een meetbaar, onderbenut systeem onder de klachten die de
 spreekkamer als losse diagnoses behandelt.
 
-**Oosterse tradities, vertaald voor een westers publiek** (169, 242, 111, 205, 230, 287). 
-Vijf vertalingen van een oosterse traditie naar een westers publiek, elk via
+**Oosterse tradities, vertaald voor een westers publiek** (169, 242, 111, 205, 230, 379, 287). 
+Zes vertalingen van een oosterse traditie naar een westers publiek, elk via
 een andere vorm: Osho's lezingen over de Ishavasya Upanishad, Yogananda's
 memoir over kriya yoga vol wonderverhalen, Sunims Koreaans-boeddhistische
-troostteksten, Masuno's honderd Japans-zenboeddhistische dagoefeningen, en
-Shetty's ashram-jaren omgezet in een programma van loslaten, groeien en geven.
+troostteksten, Masuno's honderd Japans-zenboeddhistische dagoefeningen,
+Shetty's ashram-jaren omgezet in een programma van loslaten, groeien en geven,
+en Kemptons gids (379) over wabi sabi, de Japanse waardering voor het
+onvolmaakte en vergankelijke, herleid tot de theeceremonie van Sen no Rikyu.
 Hesses roman Siddhartha is de literaire tegenhanger van diezelfde beweging,
 geschreven een eeuw eerder door een Duitse auteur die van de Boeddha een
 personage maakte dat zijn eigen weg zoekt in plaats van een leer te volgen.
@@ -94314,12 +94340,15 @@ niemand zich afvraagt waarom ze plaatsvinden, en Minson laat zien welke
 taalkeuzes bepalen of een meningsverschil escaleert of niet. Vier facetten van
 hetzelfde onderwerp, verbinding, elk met een eigen onderzoekslijn erachter.
 
-**Grenzen stellen, van kerk naar spreekkamer** (162, 466). 
+**Grenzen stellen, van kerk naar spreekkamer** (162, 466, 109). 
 Cloud en Townsend plaatsen grenzen stellen in 1992 in een christelijk kader,
 als rentmeesterschap over het leven dat God iemand toevertrouwde, en Tawwab
 herschrijft dezelfde kernvraag, wanneer ja en wanneer nee, in 2021 seculier en
-vanuit haar eigen praktijk als therapeut. Bijna dertig jaar en een heel ander
-vocabulaire tussen twee boeken met hetzelfde argument: een grens die ontbreekt
+vanuit haar eigen praktijk als therapeut. Mouton (109) maakt er in 2024 een
+dagelijkse oefening van: zelfzorg als het dagelijks nagaan hoe je je voelt en
+waar je grens ligt, met de stelling dat dit geen egoïsme is maar de voorwaarde
+om er voor anderen te kunnen zijn. Drie boeken, dertig jaar en heel
+verschillende vocabulaires, met hetzelfde argument: een grens die ontbreekt
 dient uiteindelijk niemand.
 
 **Nederlandse essays over de leegte na het individu** (96, 98). 
@@ -94356,14 +94385,17 @@ naar geweldig sprongen. Beide boeken werden managementklassiekers, en van
 beide gingen achteraf een aantal van de onderzochte bedrijven zelf ten onder,
 wat de vraag oproept hoeveel van de verklaring standhoudt.
 
-**Bootstrappen zonder kapitaal** (40, 350, 198, 369). 
-Vier gidsen voor ondernemen met weinig kapitaal, gebouwd op eigen praktijk in
+**Bootstrappen zonder kapitaal** (40, 350, 198, 369, 172, 210). 
+Zes gidsen voor ondernemen met weinig kapitaal, gebouwd op eigen praktijk in
 plaats van onderzoek: Guillebeau verzamelde vijftig bedrijven die met minder
 dan duizend dollar begonnen, Masterson adviseert een product te verkopen
 voordat het af is, Vaynerchuk bouwde van een familiewijnwinkel een videomerk,
 en Pulizzi draait de volgorde om door eerst een publiek op te bouwen en pas
-daarna te bepalen wat je verkoopt. Vier varianten van hetzelfde advies: begin
-klein, verkoop vroeg, en laat het businessplan achterwege.
+daarna te bepalen wat je verkoopt. Choubey, Chaturvedi en Chaturvedi (172)
+schrijven dezelfde soort gids voor de kleinere steden van India, waar de
+meeste microbedrijven ontstaan, en Graorovski (210) perst het beginnen samen
+tot een vaste volgorde van vijf dagen. Zes varianten van hetzelfde advies:
+begin klein, verkoop vroeg, en laat het businessplan achterwege.
 
 **Geven als verdienmodel** (245, 246). 
 Carmichael en Burg met Mann zetten allebei dienstbaarheid tegenover
@@ -94431,15 +94463,18 @@ haar promotie in Cambridge met het verlies van haar familie als gedeelde
 werkelijkheid. Twee memoires over dezelfde prijs: leren denken buiten het
 wereldbeeld waarin je bent grootgebracht kost de wereld die je grootbracht.
 
-**Beter beslissen, vijf recente denkkaders** (396, 426, 422, 209, 28). 
-Vijf recente boeken bieden elk een eigen kader om beter te beslissen: Parrish
+**Beter beslissen, vijf recente denkkaders** (396, 426, 422, 209, 28, 475). 
+Zes recente boeken bieden elk een eigen kader om beter te beslissen: Parrish
 beschrijft vier automatische reacties en wat daar tegenover staat, Weinberg en
 McCann verzamelden driehonderd denkmodellen uit verschillende vakgebieden als
 naslagwerk, Syed laat zien welke cultuur fouten omzet in correcties in plaats
 van ze te verzwijgen, Walsh onderscheidt het dovemansoor van de blinde vlek,
 en Grant pleit voor overtuigingen als gereedschap in plaats van als bezit.
-Vijf naslagwerken voor dezelfde vaardigheid, zonder dat een van de vijf zich
-aan een ander vakgebied of onderzoekslijn bindt.
+Berger (475) voegt het vragende kader toe: ruim vierhonderd vragen, geordend
+op beslissen, creëren, verbinden en leiden, vanuit de stelling dat een goede
+vraag de aannames blootlegt waarop een te snel antwoord rust. Zes naslagwerken
+voor dezelfde vaardigheid, zonder dat een ervan zich aan een ander vakgebied
+of onderzoekslijn bindt.
 
 **Verwachting stuurt de werkelijkheid** (387, 424). 
 Robson laat zien dat een verwachting fysiologie zelf kleurt, van pijnbeleving
@@ -94500,3 +94535,656 @@ voor mislukking in 440, dat hij samen met 50 Cent schreef, en meesterschap als
 traject in 320. De opbouw is in alle zes gelijk, een raamwerk gedestilleerd
 uit honderden historische en biografische voorbeelden, en wie er één kent
 herkent de methode in de rest.
+
+**Will Durant, het begin en het slot** (269, 57). 
+Twee boeken van dezelfde auteur, ruim veertig jaar uit elkaar. The Story of
+Philosophy (269) uit 1926 maakte Durant beroemd als de man die filosofie
+leesbaar maakte door bij het leven van de denkers te beginnen. Daarna schreef
+hij met zijn vrouw Ariel een elfdelige wereldgeschiedenis, en The Lessons of
+History (57) uit 1968 is het dunne slotessay waarin het echtpaar opschrijft
+wat al die arbeid aan bruikbare lessen heeft opgeleverd. Beginpunt en eindpunt
+van hetzelfde schrijversleven.
+
+**Hoe een vaardigheid erin komt** (376, 296, 397, 175). 
+Colvin (376) bracht het onderzoek naar deliberate practice naar het grote
+publiek: de kwaliteit van de oefening bepaalt wie de top haalt, aanleg veel
+minder. Drie latere boeken werken datzelfde terrein elk anders uit. Young
+(296) herleidt vooruitgang tot drie voorwaarden: een goed voorbeeld, oefening
+van het juiste soort en feedback die klopt. Velasquez (397) beschrijft het
+biologische proces onder het leren en welke eisen oefening moet vervullen om
+het in gang te zetten. Kwik (175) is de populairste en lichtste van de vier,
+met zijn eigen geschiedenis van hersenletsel als voornaamste bewijs.
+
+**Twee oprichters over de vraag of het vak te noteren valt** (270, 47). 
+Dalio (270) en Horowitz (47) leidden allebei een bedrijf door zware jaren en
+schreven daarna op wat ze hadden geleerd, met tegengestelde conclusies. Dalio
+stelt dat vrijwel elk probleem een herhaling is van een eerder opgelost
+probleem, en legde daarom alles vast in principes die systematisch toe te
+passen zijn. Horowitz stelt dat de beslissingen die een bedrijf maken of
+breken juist vallen op momenten waarvoor geen recept bestaat: ontslagronden,
+een vriend degraderen, doorgaan zonder goede optie. Wie beide leest, moet
+kiezen wiens ervaring hij gelooft.
+
+**Het oprichtersverhaal, van binnen en van buiten** (20, 257, 266). 
+Knight (20) vertelt zelf hoe Nike achttien jaar lang bijna omviel voordat het
+naar de beurs ging: elke groeispurt betaald met geleend geld. Stone (257) en
+Vance (266) reconstrueren als journalisten hetzelfde soort verhaal over Bezos
+en Musk, met honderden gesprekken als materiaal. Naast elkaar gelezen tonen ze
+wat elk perspectief oplevert: de oprichter weet hoe de angst voelde, de
+journalist mag ook opschrijven wat de oprichter liever weglaat.
+
+**De roman tegen de uitzonderlijke man** (254, 284, 235). 
+Drie klassiekers testen dezelfde gedachte, dat een uitzonderlijk mens boven de
+gewone regels staat, en breken haar op drie schaalgroottes af. Raskolnikov
+(254) rekent zich het recht toe te doden en ontdekt dat zijn theorie hem niet
+beschermt tegen wat de daad met hem doet. Gatsby (284) bouwt een fortuin en
+een zelfgekozen naam om vijf verloren jaren terug te draaien, en blijft holler
+achter dan iedereen om hem heen. Tolstoj (235) neemt de grootste maat: zelfs
+Napoleon stuurt de geschiedenis niet, hij wordt erdoor meegevoerd terwijl de
+geschiedschrijving hem de regie toedicht.
+
+**De mythe als bouwtekening** (410, 261). 
+Campbell (410) stelt dat alle heldenverhalen ter wereld hetzelfde patroon
+navertellen: vertrek, beproeving in een vreemd gebied, terugkeer. Murakami
+(261) laat zien hoe dat patroon in een hedendaagse roman werkt: de
+vijftienjarige Kafka Tamura krijgt van zijn vader een voorspelling mee die
+rechtstreeks aan de Oedipusmythe doet denken, loopt weg van huis en komt door
+zijn vlucht juist bij de mensen uit die voorspelling terecht. Wie Campbell
+heeft gelezen, herkent bij Murakami elke stap, en ziet ook waar hij er bewust
+van afwijkt.
+
+**De ontkende dood** (405, 416, 95). 
+Becker (405) stelt dat cultuur en persoonlijke ambitie grotendeels afweer zijn
+tegen een doodsangst die niemand voortdurend kan verdragen; hij schreef het
+boek terwijl hij zelf terminaal ziek was. Gawande (416) laat zien hoe die
+afweer er in de geneeskunde uitziet: een zorgstelsel dat langer leven als
+enige doel behandelt en zelden vraagt wat een patiënt met de resterende tijd
+wil. Yalom (95), die zijn hele werkzame leven over doodsangst schreef, doet
+tegen de negentig verslag van de fase waarin de theorie op hemzelf van
+toepassing wordt.
+
+**Het spel met de verborgen agenda** (213, 406). 
+Berne (213) beschreef in 1964 het algemene mechanisme: vaste reeksen
+transacties met een verborgen agenda, onbewust gespeeld om erkenning te
+oogsten en een vroeg gevormd zelfbeeld bevestigd te krijgen. Glover (406)
+beschrijft ruim dertig jaar later één zo'n spel in klinisch detail: de aardige
+man die liefde en waardering probeert te verdienen zonder er ooit hardop om te
+vragen, en die zich bedrogen voelt als de onuitgesproken afspraak niet wordt
+nagekomen. Het tweede boek is de uitvergroting van wat het eerste in het
+algemeen benoemt.
+
+**Het snelle oordeel serieus genomen** (283, 214). 
+Gladwell (283) verzamelt gevallen waarin een oordeel van enkele seconden net
+zo goed of beter bleek dan lang wikken en wegen, met de kanttekening dat
+hetzelfde snelle oordeel door vooroordelen kan worden vertekend. De Becker
+(214) past die waarneming toe op het terrein waar de inzet het hoogst is:
+angst bij dreigend gevaar is onbewuste waarneming van concrete signalen,
+sneller dan het redeneren, en wie haar wegredeneert omdat ze onbeleefd of
+overdreven aanvoelt, zet zich bloot aan precies het gevaar waarvoor ze
+waarschuwt.
+
+**Wilskracht: de spier en het systeem** (382, 238, 22). 
+Baumeister en Tierney (382) stellen dat zelfbeheersing een uitputbare voorraad
+is die als een spier vermoeid raakt; hun ego-depletie-onderzoek bleek later
+moeilijk te herhalen. Duhigg (238) nam de spiermetafoor over en behandelt
+wilskracht binnen zijn gewoontelus als iets dat te trainen valt. Clear (22)
+trekt de conclusie die de hele discussie omzeilt: richt omgeving en systeem zo
+in dat er nauwelijks wilskracht nodig is. Drie posities rond dezelfde hefboom,
+en de derde is stilzwijgend een oordeel over de eerste.
+
+**Spreken zodat het aankomt** (438, 253, 82). 
+Drie leerscholen voor hetzelfde vak. Heinrichs (438) herschrijft de klassieke
+retorica van Aristoteles: ethos, pathos en logos als gereedschap voor wie een
+uitkomst wil bereiken in plaats van een ruzie te winnen. Gallo (253)
+destilleert negen aanwijzingen uit honderden TED-talks, met emotie en verhaal
+voorop. Atkins (82) komt van de redactievloer van de BBC en legt de nadruk op
+voorbereiding: verzamelen, meedogenloos schrappen, ordenen, en pas dan
+formuleren. Podium, redenaarskunst en redactielokaal, met opvallend veel
+overlap in de conclusies.
+
+**Het individu in te grote systemen** (299, 392, 393). 
+Drie hedendaagse academische filosofen, elk over één mechanisme waarmee
+grootschalige systemen het persoonlijke leven binnendringen. Rieder (299)
+behandelt de optelsom: wat moet één mens tegenover problemen die pas ontstaan
+als miljarden handelingen bij elkaar worden geteld. Nguyen (392) behandelt de
+score: meetsystemen die in instellingen permanent en verplicht worden en de
+moeilijk meetbare waarden verdringen. Pressly (393) behandelt de registratie:
+een leven dat volledig als doorzoekbaar gegeven bestaat, verliest de
+vergetelheid die zelfontplooiing nodig heeft.
+
+**Meten: het instrument en de prijs** (256, 392). 
+Doerr (256) schreef de handleiding voor sturen op meetbare doelen: het
+OKR-stelsel dat van Intel via Google de standaard werd, met scherpe doelen en
+zichtbare voortgang als kern van een goede organisatie. Nguyen (392)
+beschrijft wat diezelfde scores aanrichten zodra ze permanent en verplicht
+worden: ze verdringen de waarden die zich niet laten tellen. De twee boeken
+spreken elkaar niet rechtstreeks tegen, en juist daarom is het paar de moeite
+waard: wie OKR's invoert, kan bij Nguyen nalezen welke rekening er later komt.
+
+**Introversie: van typologie tot aanklacht** (361, 33). 
+De begrippen introversie en extraversie komen uit Jungs Psychologische typen
+(361) van 1921: twee richtingen waarin psychische energie kan stromen, zonder
+rangorde. Cain (33) beschrijft negentig jaar later wat er gebeurde toen de
+Amerikaanse cultuur één van beide grondhoudingen tot norm verhief:
+kantoortuinen, groepswerk op school en sollicitatiegesprekken die
+spreekvaardigheid meten, terwijl het onderzoek laat zien dat een derde tot de
+helft van de mensen anders in elkaar zit.
+
+**Jong sterven, het verslag en de roman** (49, 295). 
+Kalanithi (49) schreef stervend aan longkanker op dat de waarde van een leven
+zich niet in jaren laat uitdrukken. Green (295) laat twee tieners met kanker
+dezelfde conclusie bevechten in romanvorm: Hazel verzet zich tegen het idee
+dat een kort leven pas telt als het een spoor nalaat. Het verslag en de roman
+verschillen in alles behalve de kernvraag, en wie ze naast elkaar leest ziet
+dat de roman dingen hardop kan laten zeggen die in een memoir gemaakt zouden
+klinken.
+
+**Van groeimentaliteit naar leslokaal** (23, 116). 
+Dweck (23) leverde de theorie: wie vermogen als groeibaar ziet, leest een
+tegenvaller als informatie in plaats van als vonnis. Boaler, Munson en
+Williams (116) bouwden er lesmateriaal op, een reeks die de groeimentaliteit
+in de titel draagt en wiskunde aanbiedt als een klein aantal verbonden ideeën
+om te onderzoeken in plaats van methoden om uit het hoofd te leren. Theorie en
+klaslokaal, en daarmee ook een toets: hier is te zien wat er van het idee
+overblijft zodra het les wordt.
+
+**Het ontbrekende stuk** (167, 165). 
+Silversteins prentenboek (167) laat een wezen zoeken naar het stuk dat het
+compleet moet maken, om te ontdekken dat het passende stuk precies de
+eigenschappen wegneemt waarmee het onderweg plezier had. Schnarch (165) zegt
+hetzelfde vanuit dertig jaar relatietherapie: wie een partner gebruikt om
+zichzelf compleet te maken, verliest het vermogen zichzelf te blijven bij de
+ander, en juist dat vermogen houdt passie op de lange termijn in leven. De
+fabel van honderd bladzijden en het therapieboek komen op dezelfde conclusie
+uit.
+
+**De goede werkdag, gemeten** (200, 472). 
+Twee onderzoekslijnen die het innerlijk werkleven stelselmatig hebben gemeten.
+Csikszentmihalyi (200) liet mensen op willekeurige momenten vastleggen wat ze
+deden en hoe dat voelde, en vond flow: opgaan in een taak met een duidelijk
+doel, directe terugkoppeling en een uitdaging die net past. Amabile en Kramer
+(472) lieten 238 kenniswerkers elke werkdag een dagboek invullen en vonden in
+bijna twaalfduizend aantekeningen één sterkste voorspeller van een goede dag:
+merkbare vooruitgang in werk dat ertoe doet. Twee antwoorden, allebei uit
+metingen in plaats van meningen.
+
+**Wat een leider aanricht: verhaal tegenover onderzoek** (273, 468). 
+Hetzelfde onderwerp met twee soorten bewijs. Sinek (273) bouwt op een
+waarneming uit het Marine Corps en op de biologie van vertrouwen, met veel
+stelligheid en weinig weerwoord. Galinsky (468), hoogleraar met meer dan
+driehonderd wetenschappelijke artikelen achter zijn naam, zet inspireren en
+irriteren op dezelfde as: dezelfde leider die een team meesleept kan het
+diezelfde week verlammen, en het verschil zit in benoembaar, aan te leren
+gedrag. Wie Sinek overtuigend vond, kan bij Galinsky nagaan welk deel het
+onderzoek overleeft.
+
+**Een cursus in wonderen, twee Nederlandse ingangen** (102, 131). 
+Twee Nederlandse boeken die op hetzelfde bronwerk rusten, Een cursus in
+wonderen, het omvangrijke spirituele geschrift dat Helen Schucman tussen 1965
+en 1972 optekende. Glaudemans (102), vertaler van de Cursus, legt het
+denksysteem uit: ego, vergeving, en het wonder als verschuiving in waarneming.
+Welten (131) gebruikt diezelfde begrippen in een manifesteercursus van angst
+naar liefde. Wie 131 leest en wil weten waar de termen vandaan komen, vindt in
+102 de uitleg van de bron.
+
+**Zelfliefde, drie generaties** (380, 403, 204). 
+Dezelfde praktijk in drie tijdperken en vormen. Hay (380) maakte de affirmatie
+in de jaren tachtig en negentig tot kern van een heel genre: herhaalde
+positieve zinnen die oude overtuigingen moeten vervangen. Ravikant (403)
+bracht het in 2012 terug tot één mantra, dagelijks herhaald na een ingestort
+bedrijf, een onverklaarde ziekte en de zelfmoord van een vriend. Dhal (204)
+schrijft in 2024 vanuit een Instagram-poëziepagina over zelfliefde als
+vaardigheid na verlies. Geen van de drie steunt op onderzoek; de vorm
+verschuift met het medium van de tijd.
+
+**Instincten in een wereld die ze uitbuit** (89, 88). 
+Twee gedragsbiologen leggen alledaags gedrag uit als restant van aanpassingen
+die ooit voortplantingssucces opleverden. Nelissen (89) doet het met de
+supermarkt als decor: waarom zoet en vet blijven trekken terwijl de schaarste
+voorbij is. Brendborg (88) voegt de scherpste waarneming toe: industrieën
+bouwen overdreven versies van waar wij van nature op aanslaan, superstimuli,
+zoals een scholekster verkiest een gipsen ei uit te broeden dat groter is dan
+haar eigen eieren. Zelfde bril, en samen één verklaring voor waarom goede
+voornemens het afleggen.
+
+**Leven met toeval** (64, 137, 93). 
+Drie manieren om toeval serieus te nemen. Taleb (64) laat zien hoe resultaten
+van geluk stelselmatig voor vaardigheid worden aangezien, vooral op financiële
+markten. Taylor en Hilger (137) trekken uit het pokerspel de praktische les:
+een goede beslissing kan geld kosten en een slechte kan geld opleveren, en wie
+die twee verwart leert van elke uitkomst de verkeerde les. Hopster (93) legt
+het filosofische fundament en onderscheidt zes betekenissen van toeval die wie
+het toeval wil wegredeneren telkens door elkaar haalt.
+
+**AI: de profetie en het pamflet** (236, 297). 
+Twee registers over dezelfde vraag: wat doet kunstmatige intelligentie met
+menselijk werk en zeggenschap. Harari (236) speculeert op wereldschaal:
+algoritmen die mensen beter kennen dan zij zichzelf, en een humanisme dat
+daardoor zijn fundament verliest. Doctorow (297) haalt de vraag naar de
+werkvloer: het verschil tussen de centaur, die een machine inzet en zelf de
+regie houdt, en de omgekeerde centaur, die op het tempo en volgens de
+aanwijzingen van de machine moet werken. De profetie maakt duizelig, het
+pamflet geeft een handvat.
+
+**Waar het kwaad vandaan komt** (223, 215, 404). 
+Drie verklaringen voor menselijke wreedheid, uit drie tradities. Fromm (223)
+zoekt het in het karakter: naast de defensieve agressie die de mens met elk
+dier deelt, bestaat een kwaadaardige destructiviteit die alleen bij mensen
+voorkomt. Milgram (215) zoekt het in de situatie: gewone proefpersonen bleven
+een onbekende pijn toedienen zodra een gezagsdrager dat opdroeg. Moore (404)
+zoekt het in onbewuste grandiositeit die de persoonlijkheid overspoelt zodra
+de structuren wegvallen die haar in bedwang houden. Psychoanalyse, experiment
+en Jungiaanse kliniek over dezelfde vraag.
+
+**Domheid, tweemaal opnieuw gedefinieerd** (155, 211). 
+Twee Europese intellectuelen die domheid losmaken van intelligentie. Cipolla
+(155), hoogleraar economische geschiedenis, definieert de stommeling als wie
+anderen schade toebrengt zonder er zelf iets aan te hebben, en stelt dat dit
+aandeel in elke groep even groot is, ongeacht opleiding of positie. Sibaldi
+(211), filoloog en vertaler van Tolstoj en Dostojevski, definieert stupiditeit
+als een bevriezing: het moment waarop iemand stopt met zelfstandig denken en
+de geïnternaliseerde stem van ouders en instituties voor een eigen overtuiging
+aanziet. Satirische wet en psychologische diagnose, allebei serieuzer bedoeld
+dan ze klinken.
+
+**Macht zonder verontschuldiging** (250, 388). 
+Twee boeken die macht behandelen als vak in plaats van als smet. Greene (250)
+destilleert achtenveertig wetten uit drieduizend jaar hoven, veldslagen en
+oplichterspraktijken, en stelt dat wie de spelregels niet kent, gestuurd wordt
+door wie ze wel kent. Pfeffer (388) komt uit het organisatieonderzoek van
+Stanford op vrijwel dezelfde conclusie: het geloof in een rechtvaardige wereld
+waarin goed werk vanzelf wordt beloond, maakt mensen weerloos tegen collega's
+die wel aan hun positie bouwen. De historicus en de hoogleraar, met hetzelfde
+ongemakkelijke advies.
+
+**Oude oosterse leer als managementboek** (389, 370). 
+Twee moderne zakenmensen die een oude oosterse traditie hertalen naar
+leiderschapsadvies. Moestl (389), Oostenrijks managementtrainer, leefde en
+trainde bij de Shaolin-monniken en destilleert daaruit een denkwijze waarmee
+de meeste confrontaties te vermijden zijn voordat ze beginnen. Gupta (370),
+directeur van een Indiaas farmaceutisch bedrijf, herschrijft de Arthashastra,
+het staatkundige traktaat dat aan Chanakya wordt toegeschreven, tot een
+handleiding voor hedendaagse ondernemers. In beide gevallen hangt de
+eeuwenoude bron er losjes bij; de aantrekkingskracht zit in het gezag dat zij
+verleent.
+
+**De leer in levens getoond** (247, 402). 
+Twee boeken die de stoïcijnse filosofie niet uitleggen maar voordoen. Holiday
+en Hanselman (247) vertellen zesentwintig levens uit de oudheid, van Zeno tot
+Marcus Aurelius, met de stelling dat pas in concrete keuzes zichtbaar wordt
+wat de deugden van iemand vragen. Von Drehle (402) doet hetzelfde met één
+twintigste-eeuws leven: zijn buurman Charlie White, geboren in 1905 en
+gestorven op zijn honderdnegende verjaardag, wiens veerkracht hij leest als
+een geoefende houding en niet als toeval. De bundel en het enkele portret
+maken hetzelfde punt.
+
+**Lezen dat blijft** (420, 81). 
+Twee helften van hetzelfde probleem: kennis die wegzakt. Adler (420) behandelt
+het gevecht met het boek zelf: analytisch lezen, de opbouw blootleggen, de
+kernbegrippen vinden, het boek bevragen alsof het een gesprekspartner is.
+Forte (81) behandelt wat er daarna moet gebeuren: een archief buiten het
+hoofd, geordend zodat een inzicht terugkomt op het moment dat het nodig is in
+plaats van drie maanden te vroeg. Het eerste boek zonder het tweede levert
+vergeten aantekeningen op, het tweede zonder het eerste een archief vol half
+begrepen knipsels.
+
+**Tegen het afwachten** (51, 150). 
+Twee boeken voor wie het eigen leven voor zich uitschuift. Jay (51) levert
+vanuit haar klinische praktijk de diagnose: de twintiger jaren zijn geen
+vrijblijvende wachtkamer, juist daar vallen de beslissingen over werk, partner
+en brein die de rest vastleggen. Burnett en Evans (150) leveren vanuit de
+ontwerpopleiding van Stanford het gereedschap: er is geen verborgen juiste
+levensweg om te vinden, wel een werkwijze om er een te bouwen, met
+herformuleren en kleine experimenten in plaats van piekeren. Urgentie en
+methode, in die volgorde te lezen.
+
+**Productiviteit zonder uitputting, twee recepten** (400, 207). 
+Beide auteurs verwerpen zichtbare drukte als maat voor werk, en schrijven
+vervolgens een tegengesteld recept uit. Newport (400) kiest de structurele
+kant: doe minder dingen, werk in een natuurlijk tempo, en laat kwaliteit het
+bewijs zijn. Abdaal (207) kiest de emotionele kant: plezier, nieuwsgierigheid
+en trots zijn geen beloning voor goed werk maar de brandstof ervoor, en
+uitstelgedrag is een gevoelsprobleem in plaats van een discipline-probleem.
+Wie beide leest, ziet dat ze elkaar niet uitsluiten, en dat geen van beiden
+dat toegeeft.
+
+**De comfortzone: vloek of thuisbasis** (323, 187). 
+Recht tegenover elkaar. Easter (323) stelt dat het wegorganiseren van fysiek
+ongemak, honger, kou, verveling, inspanning, een eigen bron van ziekte is
+geworden, en zoekt de remedie in gecontroleerd opgezocht ongemak. Butler (187)
+stelt dat het advies om steeds buiten de comfortzone te stappen mensen uitput
+zonder ze verder te brengen, en dat de comfortzone juist de voorwaarde is voor
+groei. De tegenspraak is kleiner dan ze lijkt, want de een heeft het over het
+lichaam en de ander over stress en zelfbeeld, maar wie beide leest moet dat
+onderscheid zelf maken.
+
+**Wie ben je nog als alles verandert** (375, 467). 
+Twee recente boeken over identiteit onder ingrijpende verandering. Stulberg
+(375) noemt zijn antwoord rugged flexibility: een kern van waarden die
+vastligt, met daaromheen de bereidheid al het andere te laten bewegen,
+tegenover krampachtig vasthouden en volledig meegesleept worden. Shankar
+(467), cognitiewetenschapper wier vioolloopbaan op haar vijftiende eindigde
+door een blessure aan haar pink, draait het om: pas als een rol wegvalt wordt
+zichtbaar uit welke onderdelen een identiteit werkelijk bestond. Het ene boek
+geeft een houding, het andere een verklaring waarom die houding zo moeilijk
+is.
+
+**Het dier als spiegel** (322, 383). 
+Twee biologen die menselijke zelfoverschatting tegenover het dierenrijk
+zetten. Yong (322) laat per zintuig zien dat elke soort maar een smal, eigen
+deel van de werkelijkheid waarneemt, de umwelt, en dat de mens zijn eigen
+segment stelselmatig voor het geheel houdt. Gregg (383) richt zich op het
+denken: de vermogens waarop de mens zich voorstaat, vooruitzien, abstracte
+moraal, doodsbesef, zijn dezelfde vermogens die kernwapens en ecologische
+schade op een schaal mogelijk maken die geen ander dier haalt. Waarneming en
+cognitie, allebei met de conclusie dat de menselijke maat niet de maat van
+alles is.
+
+**De klok in het lichaam** (326, 329). 
+Twee boeken over de tijd die het lichaam zelf bijhoudt. Klein (326) behandelt
+de beleving: waarom de klok aan de muur en de gevoelde tijd zelden gelijk
+lopen, en wat aandacht daarmee te maken heeft. Panda (329) behandelt de
+biologie: vrijwel elk orgaan draagt een eigen 24-uursklok, en onregelmatige
+tijden voor eten, slapen en licht ontregelen die klokken net zo hard als een
+slecht dieet. De een verklaart hoe tijd voelt, de ander wat tijdstippen met de
+gezondheid doen.
+
+**Einstein en de kwantumjaren** (240, 94). 
+Isaacson (240) vertelt het hele leven van Einstein, met diens onwil om
+aannames van gezag te aanvaarden als rode draad. Hürter (94) vertelt het
+groepsportret waar dat leven middenin stond: de natuurkundigen die tussen 1900
+en 1945 het wereldbeeld omgooiden, met de ruzies, vriendschappen en
+briefwisselingen waaruit de kwantummechanica voortkwam, een theorie die
+volgens Hürter zo vreemd was dat niemand haar alleen had kunnen vinden. Het
+ene boek geeft de diepte van één figuur, het andere het netwerk waarin die
+figuur langzaam een buitenstaander werd.
+
+**Twee verhalen uit het DNA** (419, 413). 
+Twee wetenschapsgeschiedenissen op het niveau van het DNA zelf. Armstrong
+(419) vertelt de geschiedenis van p53, het gen dat beschadigde cellen tot
+herstel of geprogrammeerde dood dwingt, in 1979 ontdekt en tien jaar lang
+verkeerd geclassificeerd. Doudna en Sternberg (413) vertellen hoe CRISPR-Cas9,
+een afweersysteem van bacteriën, werd omgebouwd tot programmeerbaar
+gereedschap om DNA te herschrijven, en waarom de toegankelijkheid van die
+techniek belofte en gevaar tegelijk is. Wat het genoom zelf bewaakt, en wat de
+mens er inmiddels aan kan veranderen.
+
+**Complexiteit: de school en de toepassing** (347, 300). 
+Waldrop (347) beschrijft hoe economen, biologen, natuurkundigen en informatici
+zich vanaf 1984 rond het Santa Fe Institute verzamelden met de stelling dat
+complexe systemen een gedeelde onderliggende logica hebben. Ball (300) laat
+zien wat er gebeurt als die benadering op de samenleving wordt losgelaten:
+files, wijksegregatie, beurskoersen en menigten vertonen patronen die dezelfde
+wiskunde volgen als faseovergangen in de natuurkunde, zonder dat de bedoeling
+van de enkeling ze verklaart. De geschiedenis van het vakgebied en het
+vakgebied aan het werk.
+
+**Hindoemythologie als fantasy** (202, 203, 192). 
+Drie hedendaagse Indiase fantasyboeken die op hindoeïstische mythologie
+bouwen. Bindals Clash of Singularity (202) en Dawn of Duality (203) zijn de
+eerste twee delen van dezelfde trilogie: geheime genootschappen die hun oude
+strijd moeten opschorten zodra het evenwicht van de wereld kantelt. Rewa's The
+Legend of Triquetra (192) gebruikt hetzelfde bouwmateriaal voor jonge lezers,
+met een verwaarloosde vijftienjarige die zijn waarde vindt via een erfenis uit
+de Naga-mythologie. Zelfde bron, twee auteurs, en een genre dat in India doet
+wat westerse fantasy met de Griekse en Noordse mythen deed.
+
+**De succesformule en de toets van het lab** (133, 427, 291, 79). 
+Drie Amerikaanse sprekers, drie formules, geen onderzoek. Hardy (133) zegt:
+kleine keuzes lang genoeg volhouden. Cardone (427) zegt: stel doelen tien keer
+groter en lever tien keer meer actie. Burchard (291) zegt: zes gewoontes,
+gepresenteerd als uitkomst van eigen onderzoek uit zijn coachingpraktijk.
+Wiseman (79) is de tegenpool: een psycholoog die uit ergernis over onbewezen
+zelfhulp alleen ingrepen doorgeeft waarvoor gepubliceerd onderzoek bestaat, en
+wiens boek daarmee vooral laat zien hoe klein dat verzamelinkje is vergeleken
+met wat het genre belooft.
+
+**De adem als hendel** (318, 87). 
+Twee boeken die de ademhaling neerzetten als de knop waarmee het zenuwstelsel
+te bedienen valt. Nestor (318) komt er via journalistiek onderzoek en
+zelfexperiment: mondademen als verworven storing, trage neusademing als
+herstel. Swinnen (87) komt er via de nervus vagus, de zenuw die het lichaam na
+inspanning tot rust brengt, met oefeningen als trage uitademing, koude, zingen
+en neuriën, gebouwd op de polyvagaaltheorie van Stephen Porges. Zelfde hendel,
+andere onderbouwing, en bij allebei is de wetenschappelijke basis dunner dan
+de stelligheid doet vermoeden.
+
+**Commandolessen in het Nederlands** (97, 106). 
+Twee Nederlandse oud-militairen van de commandotroepen die hun diensttijd
+vertalen naar trainbaar karakter. Klaassens (97) bouwt alles op één begrip,
+eigenaarschap, en werkt het uit in vijftien bouwstenen, met als kern dat
+karakter blijkt uit wat iemand dagelijks doet en niet uit wat hij zich
+voorneemt. Carter (106) hakt mentale kracht in tien benoembare onderdelen, van
+veerkracht en pijn tot broederschap, met zijn eigen weg van een gebroken gezin
+naar het korps als bewijsmateriaal. Zelfde bron van gezag, zelfde claim: dit
+is gedrag, geen aanleg.
+
+**Afvallen begint niet bij het bord** (103, 138). 
+Twee boeken die het gesprek over gewicht verplaatsen van het eten naar het
+hoofd. Zondervan (103) stelt dat eetgedrag pas verandert wanneer het begrepen
+wordt: onder wat iemand eet liggen aangeleerde gewoonten, emoties en
+lichamelijke signalen, en regels en verboden dragen daar niets aan bij. Foster
+(138) zet vanuit onderzoek naar gedragsverandering zelfcompassie op de plaats
+waar zelfverwijt stond: terugval hoort bij het beloop en kleine successen
+tellen. De Nederlandse en de Amerikaanse variant van dezelfde verschuiving.
+
+**Ongeluk als eigen maaksel** (335, 105). 
+Twee heel verschillende vormen voor dezelfde ongemakkelijke stelling: ongeluk
+wordt gemaakt, niet aangedaan. Kishimi en Koga (335) laten hun filosoof in
+vijf nachtelijke gesprekken betogen dat ongeluk geen gevolg is van het
+verleden maar van doelen die iemand nu kiest, vaak zonder het te beseffen. Den
+Daas (105) bewijst hetzelfde via de omkering: acht leefregels om jezelf zo
+ongelukkig mogelijk te maken, van alles persoonlijk opvatten tot jezelf
+voortdurend vergelijken. De dialoog en de satire komen op vrijwel dezelfde
+lijst gedragingen uit.
+
+**Angst als motor onder alles** (405, 107). 
+Dezelfde claimvorm op twee niveaus van ambitie. Becker (405) herleidt cultuur,
+religie en persoonlijke eerzucht tot afgeweerde doodsangst, in een boek dat de
+Pulitzerprijs kreeg. Van Gassel (107) herleidt alledaags denken, kiezen en
+gedragen tot angst rond vijf basisbehoeften, in een praktijkboek in eigen
+beheer. De redenering heeft dezelfde vorm, kijk onder het gedrag en je vindt
+angst, en juist het verschil in gewicht tussen beide boeken maakt zichtbaar
+hoeveel er nodig is om zo'n allesverklaring aannemelijk te maken.
+
+**De verkoper en zijn affirmaties** (117, 188). 
+Twee verkopers met dezelfde leer. Harrell (117) stelt dat de houding waarmee
+iemand de dag binnenkomt de uitkomst ervan bepaalt, en dat die houding wordt
+aangedreven door hardop uitgesproken zinnen over jezelf. Wolbers (188) bouwt
+er een programma van negentig dagen omheen: dagelijks een positieve gedachte,
+een opdracht en een affirmatie. Beiden komen uit de verkooppraktijk, beiden
+zetten de lijn van het Amerikaanse positieve denken voort, en geen van beiden
+toetst of de belofte klopt. Wie er één leest, kent de andere.
+
+**Succes uit de mond van anderen** (289, 136, 465). 
+Drie boeken die succeslessen winnen uit toegang tot succesvolle mensen.
+Banayan (289) jaagt jarenlang op interviews en maakt van de jacht zelf de les:
+er is altijd een derde deur naast de rij en de vip-ingang. Howes (136) put uit
+zijn podcastgasten en zijn eigen herstelverhaal. Bartlett (465) destilleert
+uit zijn loopbaan en duizenden podcastgesprekken drieëndertig wetten voor werk
+en leven. In alle drie is de anekdote de bewijsvorm, en de selectie is die van
+wie het gehaald hebben; wie onderweg strandde, komt in geen van de gesprekken
+voor.
+
+**De geest als bouwtekening** (142, 147). 
+Twee zelfuitgegeven systeembouwers die cognitieve gedragstherapie, stoïcijnse
+filosofie en mindfulness samenvoegen tot één eigen model van de geest. Bush
+(142) noemt het psychitectuur: overtuigingen, verlangens en gewoontes die de
+meeste mensen ongekozen hebben overgenomen, stuk voor stuk herontwerpen.
+Beliavsky (147) tekent een piramide van zes gebieden, van aandacht tot gedrag,
+die elkaar over en weer voeden. De modellen verschillen, de bouwstenen en de
+belofte niet. Wie er één leest, kent de methode van de ander.
+
+**Rijkdom als vaardigheid, tweemaal beweerd** (163, 395). 
+Tweemaal exact dezelfde stelling: vermogen opbouwen is een aan te leren
+vaardigheid en geen kwestie van afkomst, geluk of hard werken alleen. Tiwari
+(163) brengt haar als ambacht met kennis, gewoonten en herhaling. Lee (395)
+legt de nadruk op aangeleerde geldgewoonten die mensen klein houden, met zijn
+eigen vastgoedvermogen als bewijs. Beide boeken komen uit dezelfde hoek van
+het genre, onderbouwen met de eigen loopbaan, en zijn onderling vrijwel
+inwisselbaar.
+
+**Minder als moedige keuze** (151, 170). 
+Dezelfde stelling op twee schaalniveaus: reductie is de moeilijkste en meest
+lonende keuze, en de meeste mensen ontwijken haar. McKeown (151) past haar toe
+op de eigen agenda: wie overal ja op zegt, verdunt zijn inzet tot er voor het
+weinige dat er werkelijk toe doet niets overblijft. Nambiar (170), jarenlang
+verzekeringsbestuurder in Azië, past haar toe op organisaties: complexiteit
+stapelt zich op omdat niemand de prijs van het opruimen wil betalen, en
+vereenvoudigen vraagt meer moed dan vernieuwen. Individu en organisatie,
+dezelfde les.
+
+**Het hoofd dat blijft doorpraten** (177, 176). 
+Tweemaal dezelfde zelfhulpredenering, in eigen beheer uitgegeven. Meurisse
+(177) stelt dat een emotie zelden rechtstreeks uit een gebeurtenis komt en
+vrijwel altijd uit de interpretatie en het verhaal dat het ego eraan
+vastknoopt. Kapoor (176) stelt dat piekeren niet over de situatie gaat maar
+over het commentaar dat het hoofd erbij levert, en dat rust al aanwezig is
+zodra dat gepraat stilvalt. Dezelfde claim die de grote namen van het genre
+dragen, hier in de compacte doe-het-zelfversie, zonder onderzoek.
+
+**Vaders en dochters** (178, 226). 
+Twee boeken over dezelfde band, in tegengestelde kijkrichting. Sinatra (178)
+leest haar beroemde vader achteraf: achter de onaantastbare entertainer een
+rusteloze, eenzame man die bleef zoeken naar geborgenheid die hem ontglipte.
+Sahani (226) schrijft zijn dochter vooruit: korte aantekeningen bij een kind
+van vier, met als kerngedachte dat de vader minstens zoveel van haar leert als
+zij van hem. De dochter die terugkijkt en de vader die vooruitschrijft, met
+tussen beide boeken het hele traject dat een vader en een dochter samen
+afleggen.
+
+**Het schrijversleven, achteraf verteld** (18, 191). 
+Twee schrijvers die op leeftijd hun schrijversleven navertellen en er hun
+werkregels uit opdiepen. King (18) combineert het cv van armoede, afgewezen
+verhalen aan een spijker en verslaving met een ambachtsdeel dat op twee
+geboden rust: veel lezen en veel schrijven. Bond (191) kijkt op zijn
+negentigste terug op zeventig jaar schrijven vanuit de Himalaya, met
+volharding als kern: een gewoonte in stand gehouden door bereid te zijn met
+weinig zekerheid en weinig geld te leven. De thriller-miljonair en de
+bergschrijver, met vrijwel dezelfde slotsom.
+
+**De arts als eigen casus** (49, 325). 
+Twee artsen die de klinische blik op zichzelf richten. Kalanithi (49)
+beschrijft de omslag van de neurochirurg die prognoses geeft naar de patiënt
+die er een krijgt, en wat statistiek waard is voor wie zelf het geval is.
+Sacks (325) zet in zijn autobiografie de zorgvuldige neuroloog naast zijn
+eigen roekeloosheid, zijn verslaving en zijn decennialange onthouding, met als
+stelling dat een leven zich niet laat samenvatten in het werk waarmee iemand
+bekend werd. Dezelfde eerlijkheid die beiden aan hun patiënten besteedden,
+hier op de eigen persoon.
+
+**Een jaar aan dagstukken** (286, 224). 
+Tweemaal dezelfde vorm: 366 dagstukken die de lezer dagelijks aan historische
+bronnen willen binden. Holiday en Hanselman (286) openen elke dag met een
+citaat van Marcus Aurelius, Seneca of Epictetus, opnieuw vertaald en kort
+toegelicht, geordend in waarneming, actie en wil. Richardson (224) neemt
+telkens een renaissancefiguur als vertrekpunt, van Leonardo tot Montaigne,
+tegen wat hij ziet als het versmalde, verspecialiseerde bestaan van nu. De
+vorm doet in beide gevallen het werk: geen betoog, maar een regel per dag.
+
+**Spijt als maatstaf voor welvaart** (447, 334). 
+Ware (447) hoorde in de palliatieve thuiszorg telkens dezelfde vijf
+spijtbetuigingen terug, met als patroon een leven dat aansloot bij de
+verwachtingen van anderen. Bloom (334) bouwt op precies dat gegeven zijn
+boekhouding: wie welvaart alleen in geld uitdrukt, koopt tijd, relaties,
+gezondheid en rust niet mee, en komt aan het einde uit bij de spijt die Ware
+beschrijft. Het verslag van de sterfbedden en de methode die eraan vooraf wil
+gaan; het tweede boek leunt zwaarder op het eerste dan het zelf laat merken.
+
+**Meditatie: gereedschap of weg** (401, 141). 
+Een scherp meningsverschil binnen de meditatie. Harris (401) houdt het na zijn
+paniekaanval op live-televisie bewust bescheiden: meditatie als gereedschap
+dat de innerlijke commentaarstroom tien procent minder macht geeft, meer
+belooft hij niet. Bodian (141) noemt precies dat gereedschapsdenken de
+vergissing: wie aandacht traint om beter te functioneren, houdt de scheiding
+in stand tussen de waarnemer en het waargenomene, en mist waar de oefening
+oorspronkelijk voor bedoeld was. De bescheiden claim en het bezwaar dat
+bescheidenheid hier het punt misloopt.
+
+**Eerst het publiek, dan het product** (198, 369, 365). 
+Driemaal hetzelfde recept in drie tijdvakken en markten. Vaynerchuk (198) zag
+in 2009 dat goedkope video en nieuwe platforms iedereen in staat stellen van
+een interesse een inkomen te maken, mits die er jarenlang dagelijks tijd in
+steekt. Pulizzi (369) maakte er de methodische versie van: bouw eerst met
+content een publiek rond één afgebakend onderwerp, en bepaal daarna pas wat je
+verkoopt. Shamani (365) is de Indiase variant: verkopen, onderhandelen en een
+publiek opbouwen leer je door te doen, niet op school. Het publiek als
+onderpand, in alle drie.
+
+**Tijd terugkopen** (278, 434). 
+Dezelfde hefboom, een ander doel. Ferriss (278) rekent voor dat wie taken
+uitbesteedt en het 80/20-beginsel hard toepast, zijn werkweek tot een paar uur
+kan terugbrengen, en gebruikt de gewonnen tijd om aan het werk te ontsnappen.
+Martell (434) gebruikt dezelfde rekensom, bepaal wat een uur eigen tijd waard
+is en koop alles daaronder vrij, maar laat oprichters de gewonnen tijd
+terugstoppen in het bedrijf: de tijd van de oprichter is volgens hem de enige
+echte groeigrens. Uitbesteden om te vluchten en uitbesteden om te bouwen.
+
+**Filosofie zonder mist** (436, 269). 
+Beide auteurs leggen de ontoegankelijkheid van filosofie bij de filosofen
+zelf. Blanshard (436) betoogt in zijn lezing uit 1953 dat onhelder proza geen
+bijverschijnsel is van een moeilijk onderwerp maar onafgemaakt denkwerk,
+strijdig met het doel van het vak. Durant (269) had dertig jaar eerder het
+bewijs geleverd dat het anders kan: zijn portrettengeschiedenis van het
+westerse denken werd een van de best verkochte filosofieboeken van de eeuw,
+juist omdat hij het vak losmaakte van de abstracte stellingenreeks. De
+aanklacht en het gelukte tegenvoorbeeld.
+
+**Westers geld, Aziatische spelregels** (20, 348). 
+Twee zakenmemoires waarin een westerling ontdekt dat de afspraak aan de andere
+kant van de tafel iets anders betekent dan hij dacht. Knight (20) ziet zijn
+Japanse leverancier achter zijn rug een tweede distributeur zoeken en bouwt
+uit die breuk alsnog Nike op. Clissold (348) ziet in het China van de vroege
+jaren negentig honderdvijftig miljoen dollar aan Wall Street-kapitaal
+verdampen in staatsfabrieken waar westerse contracten niet het gewicht bleken
+te hebben dat de investeerders veronderstelden. Dezelfde les, met een
+tegengestelde afloop.
+
+**Drie letterwoorden naar succes** (157, 168, 174). 
+Driemaal hetzelfde boek: succes is geen toeval maar een vaste, benoembare
+reeks stappen, gevat in een eigen raamwerk en onderbouwd met uitsluitend de
+eigen loopbaan. Khan (157) noemt het B.A.B.A.: Believe, Adapt, Behave,
+Achieve. Jani (168) telt zes mechanismen van prestatie. Kukreja (174) rekt een
+cricketbeeld op tot een raamwerk van elf fasen, D.U.C.K. to C.E.N.T.U.R.Y. De
+raamwerken verschillen in lengte, de redenering niet, en geen van de drie
+auteurs toetst haar buiten het eigen verhaal. Wie er één leest, heeft ze alle
+drie gelezen.
+
+**Wat lichaamstaal belooft en waarmaakt** (154, 126). 
+Navarro (154), vijfentwintig jaar FBI, beschrijft wat waarneming van
+lichaamstaal werkelijk oplevert en waarschuwt uitdrukkelijk dat een signaal
+ongemak toont en geen leugen. Het zelfuitgegeven 126 belooft precies wat
+Navarro uitsluit: liegen aflezen, karakters doorgronden, en via hypnose en
+neurolinguïstisch programmeren doordringen tot mind control. Naast elkaar
+gelezen wordt zichtbaar welk deel van de belofte van het genre houdbaar is, en
+waar de vakman ophoudt en de verkoop begint.
+
+**Austin Kleon, begin en slot van de reeks** (11, 445). 
+Eerste en derde deel van dezelfde reeks, met het middendeel Show Your Work!
+niet in deze lijst. Steal Like an Artist (11) gaat over waar werk vandaan
+komt: niets is origineel, elke maker staat in het krijt bij zijn voorgangers,
+en de keuze zit in wat je uitkiest om van te stelen. Keep Going (445) gaat
+over doorgaan als het tegenzit: motivatie is een gevoel dat komt en gaat, dus
+het antwoord bestaat uit tien kleine gewoontes die samen een dagelijkse
+praktijk vormen. Dezelfde stem, dezelfde tekeningen, twee uiteinden van het
+maakproces.
+
+**Stelen als methode** (11, 312). 
+Dezelfde claim uit twee hoeken. Kleon (11) zegt het als maker: originaliteit
+in strikte zin bestaat niet, alles wat een maker voortbrengt is samengesteld
+uit wat hij eerder opnam, dus kies je invloeden met zorg. Gompertz (312),
+jarenlang museumdirecteur en kunstredacteur, zegt het als criticus: van
+Caravaggio tot Warhol stalen kunstenaars ideeën in plaats van blanco te
+beginnen, en die eigenschap is aan te leren, net als het behandelen van
+mislukking als grondstof. Het pamflet van de maker en de onderbouwing uit de
+kunstgeschiedenis.
+
+**Buiten of binnen de doos** (206, 471). 
+Twee tegengestelde antwoorden op de vraag waar ideeën vandaan komen, allebei
+gericht tegen het geniale invalletje uit het niets. Trott (206) zegt: kijk
+naar buiten, een nieuw idee is een nieuwe verbinding tussen twee bestaande
+ideeën die eerder los van elkaar stonden, vaak uit verschillende vakgebieden.
+Boyd en Goldenberg (471) zeggen: blijf binnen, een onbegrensde opdracht geeft
+het brein niets om aan te grijpen, en vijf vaste patronen binnen het bestaande
+product leveren meer op dan vrij associëren. De reclameman en de hoogleraren,
+in tegenovergestelde richting op weg naar hetzelfde doel.
