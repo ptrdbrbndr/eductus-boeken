@@ -105345,16 +105345,21 @@ wond. Petersons Maps of Meaning (143) is het academische fundament waarop zijn
 latere, populairdere boeken steunen, en de enige titel hier die niet uit de
 klinische praktijk komt.
 
-**Krijgskunst uit drie beschavingen** (272, 219, 218, 346, 462). 
+**Krijgskunst uit drie beschavingen** (272, 219, 218, 346, 462, 517, 535). 
 Sun Tzu (272), de Zesendertig Stratagemen (219), Napoleon's maximes (218) en
 Musashi's Boek van de vijf ringen (346) komen uit verschillende tijden en
 culturen, van het China van de Strijdende Staten tot negentiende-eeuws
 Frankrijk, en zijn geschreven door of toegeschreven aan mensen die zelf
 vochten. Musashi's Dokkodo (462), eenentwintig regels die hij een week voor
 zijn dood optekende, is geen strategieleer meer maar het testament waarin
-dezelfde discipline op het eigen leven wordt toegepast. Wie de vier
-krijgstractaten leest, ziet hetzelfde beginsel terugkeren onder een andere
-naam: weten wat de tegenstander denkt te weten weegt zwaarder dan aantallen.
+dezelfde discipline op het eigen leven wordt toegepast. Takuans The Unfettered
+Mind (517), brieven van een zenmeester aan zwaardvechters over de geest die
+nergens aan blijft hangen, en de Hagakure (535), de opgetekende uitspraken van
+een samoerai die zelf geen oorlog meer meemaakte, laten zien wat er van de
+krijgskunst overblijft in vredestijd: houding en aandacht. Wie de
+krijgstractaten naast elkaar leest, ziet hetzelfde beginsel terugkeren onder
+een andere naam: weten wat de tegenstander denkt te weten weegt zwaarder dan
+aantallen.
 
 **De techniek van de macht, zonder ideologie** (220, 221). 
 Luttwak schrijft in 220 een instructiehandleiding voor wie een staatsgreep wil
@@ -105768,12 +105773,15 @@ gevoelsleven, en daarna Read People Like a Book over het doorgronden van de
 ander via motivatie, lichaamstaal en typologie. Twee delen van dezelfde reeks
 over sociale vaardigheden, gericht naar binnen en naar buiten.
 
-**Kahneman, vertekening en ruis** (55, 69). 
+**Kahneman, vertekening en ruis** (55, 69, 514). 
 Kahneman beschrijft in Thinking, Fast and Slow de systematische vertekening in
 het denken, en in Ruis, samen met Sibony en Sunstein, de toevallige spreiding
 die organisaties over het hoofd zien omdat zij zich blindstaren op die eerste.
 Twee kanten van hetzelfde probleem: waarom hetzelfde oordeel, tweemaal
-gevraagd, twee keer anders uitvalt.
+gevraagd, twee keer anders uitvalt. The Undoing Project (514) van Michael
+Lewis vertelt hoe dit werk ontstond: de vriendschap en de breuk tussen
+Kahneman en Tversky, opgeschreven door een buitenstaander die aan hun
+onderzoek een verhaal overhoudt.
 
 **Thomas Erikson, het kleurenmodel toegepast** (156, 429). 
 Erikson bouwt in Surrounded by Idiots een kleurenmodel voor gedragstypes, en
@@ -105782,12 +105790,15 @@ herkennen bij het kleine deel van de mensen dat zonder empathie handelt. Twee
 boeken van dezelfde spreker zonder psychologieopleiding, met dezelfde losse
 omgang met het woord waar het tweede boek zijn titel aan ontleent.
 
-**Oliver Burkeman, van diagnose naar oefening** (71, 442). 
-Burkeman rekent in Four Thousand Weeks voor hoe kort een leven is en waarom
-tijdmanagement dat alleen maar erger maakt, en werkt in Meditations for
-Mortals uit hoe iemand met die eindigheid daadwerkelijk leeft, in
-achtentwintig korte hoofdstukken verspreid over vier weken. Twee boeken van
-dezelfde auteur, van de diagnose naar de dagelijkse oefening.
+**Oliver Burkeman, van diagnose naar oefening** (516, 71, 442). 
+The Antidote (516) is de vroegste van de drie: een verkenning uit 2012 van de
+negatieve weg naar geluk, langs stoïcijnen, boeddhisten en Ernest Becker,
+waarin de latere boeken al in aanleg zitten. Burkeman rekent daarna in Four
+Thousand Weeks (71) voor hoe kort een leven is en waarom tijdmanagement dat
+alleen maar erger maakt, en werkt in Meditations for Mortals (442) uit hoe
+iemand met die eindigheid daadwerkelijk leeft, in achtentwintig korte
+hoofdstukken verspreid over vier weken. Drie boeken van dezelfde auteur, van
+verkenning via diagnose naar dagelijkse oefening.
 
 **Jordan Peterson, orde en de grens ervan** (73, 74). 
 Peterson stelt in 12 Rules for Life dat het leven lijden is en dat
@@ -106178,15 +106189,16 @@ trekt de conclusie die de hele discussie omzeilt: richt omgeving en systeem zo
 in dat er nauwelijks wilskracht nodig is. Drie posities rond dezelfde hefboom,
 en de derde is stilzwijgend een oordeel over de eerste.
 
-**Spreken zodat het aankomt** (438, 253, 82). 
-Drie leerscholen voor hetzelfde vak. Heinrichs (438) herschrijft de klassieke
+**Spreken zodat het aankomt** (438, 253, 82, 511). 
+Vier leerscholen voor hetzelfde vak. Heinrichs (438) herschrijft de klassieke
 retorica van Aristoteles: ethos, pathos en logos als gereedschap voor wie een
 uitkomst wil bereiken in plaats van een ruzie te winnen. Gallo (253)
 destilleert negen aanwijzingen uit honderden TED-talks, met emotie en verhaal
 voorop. Atkins (82) komt van de redactievloer van de BBC en legt de nadruk op
 voorbereiding: verzamelen, meedogenloos schrappen, ordenen, en pas dan
-formuleren. Podium, redenaarskunst en redactielokaal, met opvallend veel
-overlap in de conclusies.
+formuleren. Minto (511) komt uit de adviespraktijk van McKinsey en ordent het
+denkwerk zelf: eerst de conclusie, daaronder de argumenten in piramidevorm,
+een methode die daar nog altijd wordt onderwezen.
 
 **Het individu in te grote systemen** (299, 392, 393). 
 Drie hedendaagse academische filosofen, elk over één mechanisme waarmee
@@ -106851,3 +106863,86 @@ jaar later: dezelfde denkwijze, teruggebracht tot de kernkeuzes en met meer
 nadruk op verklaren waaróm iets werkt in plaats van louter voorspellen. Wie
 wil weten of het vak iets voor hem is, begint bij 503; wie het wil doen, komt
 bij 485 uit.
+
+**Vijf epen en een moderne roman** (530, 531, 532, 533, 534, 529). 
+De Ilias (530) en de Odyssee (531) staan aan het begin van de Europese
+verteltraditie; Beowulf (532), de Völsunga saga (533) en Het Roelantslied
+(534) zijn de middeleeuwse erfgenamen uit de Engelse, IJslandse en Franse
+overlevering. Gates of Fire (529) laat zien dat de vorm nog leeft: een roman
+uit 1998 over Thermopylae die op militaire academies wordt gelezen. Samen
+tonen ze hoe elke cultuur haar oorlogen tot verhaal maakt, en wat daarin met
+eer, trouw en sterfelijkheid gebeurt.
+
+**Perzische mystiek rond de twaalfde eeuw** (526, 524, 525). 
+Drie Perzische denkers uit ruwweg dezelfde eeuw. Al-Ghazali (526) schreef met
+The Alchemy of Happiness een handleiding voor zelfkennis binnen de
+islamitische orthodoxie. Attar (524) goot dezelfde zoektocht in een dichtwerk
+over de vogels die hun koning zoeken en aan het einde zichzelf aantreffen.
+Suhrawardi (525) bouwde er een wijsgerig stelsel omheen waarin kennis als
+licht wordt gedacht, en werd daarvoor in 1191 in Aleppo ter dood gebracht.
+Leesvolgorde: eerst Ghazali, dan Attar, dan Suhrawardi; van praktijk via beeld
+naar stelsel.
+
+**De Indiase vraag wie je bent** (520, 527, 519, 518). 
+Vier antwoorden uit dezelfde traditie op dezelfde vraag. De Vivekachudamani
+(520) is het klassieke Advaita-leerdicht over het onderscheid tussen het zelf
+en alles wat het niet is. Ramana Maharshi (527) bracht die leer rond 1900
+terug tot één oefening, de vraag wie ik ben. Krishnamurti (519) wees elke
+methode en elke goeroe af en hield alleen het kijken zelf over. Aurobindo
+(518) bouwde juist een omvattend stelsel waarin ook de wereld zelf in de
+ontwikkeling van het bewustzijn wordt betrokken.
+
+**Zen op papier en in de praktijk** (528, 517, 205). 
+Suzuki (528) legde in 1934 aan westerse lezers uit wat zen is en waarom het
+zich tegen uitleg verzet; het boek maakte de term in het Westen gangbaar.
+Takuan (517) schreef drie eeuwen eerder aan zwaardvechters hoe de geest werkt
+als hij nergens blijft hangen. Masuno (205), tempelpriester en tuinontwerper,
+vertaalt dezelfde houding naar kleine dagelijkse gewoontes. Uitleg, bron en
+toepassing.
+
+**Beter beslissen** (55, 509, 510). 
+Kahneman (55) beschrijft waar oordelen systematisch de mist in gaan. Burger en
+Starbird (509) geven vijf denkgewoontes uit de wiskundepraktijk om een
+vraagstuk werkelijk te begrijpen voordat er iets besloten wordt. De gebroeders
+Heath (510) bouwen op het vertekeningsonderzoek een werkwijze van vier stappen
+om de eigen eerste indruk te wantrouwen: opties verbreden, aannames toetsen,
+afstand nemen en rekening houden met eigen ongelijk.
+
+**Loopbaan buiten het spoor** (50, 150, 515). 
+Newport (50) betoogt dat passie uit vakmanschap volgt en dat zeldzame
+vaardigheden de echte loopbaanmunt zijn. Burnett en Evans (150) passen
+ontwerpmethoden toe op loopbaankeuzes: proberen in het klein in plaats van
+plannen op papier. Millerd (515) beschrijft wat er gebeurt als iemand het
+standaardpad daadwerkelijk verlaat, met de financiële en sociale prijs die de
+eerste twee boeken buiten beeld laten.
+
+**Denken van buiten het westerse spoor** (521, 522, 523). 
+Kusch (521) zocht in de Andes naar een denkvorm die zich aan de Europese
+logica onttrekt en nam die serieus als filosofie. Kaïdara (522) is zo'n
+denkvorm van binnenuit: een Fulani-initiatievertelling waarin kennis in
+beelden en trappen wordt doorgegeven. Biko (523) schreef vanuit de
+Zuid-Afrikaanse strijd waarom geestelijke bevrijding aan politieke voorafgaat.
+Drie stemmen van buiten Europa met dezelfde inzet: wie bepaalt wat als denken
+telt.
+
+**Leiders uit de oudheid als spiegel** (536, 537, 2). 
+Xenophon (536) schreef met de Cyropaedie een geromantiseerd vorstenleven dat
+eeuwenlang als leiderschapsleer is gelezen, tot Machiavelli aan toe.
+Plutarchus (537) zette Griekse en Romeinse levens paarsgewijs naast elkaar om
+karakter aan daden af te lezen. Marcus Aurelius (2) sluit de rij als de leider
+die zijn eigen spiegel schreef: aantekeningen voor zichzelf, nooit voor
+publicatie bedoeld.
+
+**Grip op de werkweek** (311, 448, 512). 
+Tracy (311) leert de zwaarste taak als eerste te doen. Keller (448) versmalt
+de dag tot de ene taak waardoor al het andere makkelijker of overbodig wordt.
+Martin (512) schreef vanuit haar rol als productiviteitsadviseur bij Google de
+meest praktische van de drie: agenda, mail en vergaderingen als één systeem,
+met de werkdag als ontwerpvraag.
+
+**Podcastmakers op papier** (465, 513). 
+Twee boeken die uit een podcast zijn voortgekomen. Bartlett (465) destilleerde
+zijn interviews in drieëndertig wetten voor werk en leven. Dial (513) bouwde
+uit The Mindset Mentor een methode om van uitstel naar doen te komen. Beide
+delen de sterkte en de zwakte van het genre: veel sprekende voorbeelden,
+weinig bronnen.
