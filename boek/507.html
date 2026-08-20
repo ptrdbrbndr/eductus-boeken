@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risk and Asset Allocation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Portefeuillebouw is van begin tot eind een statistisch probleem: wie een allocatie kiest, kiest in werkelijkheid een kansverdeling over toekomstige…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-507">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">507 &middot; Naslag en praktijk</p>
+    <h1>Risk and Asset Allocation</h1>
+    <p class="lede">Attilio Meucci, 2005</p>
+    <p class="stats">
+      <span><b>1026</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="507"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Portefeuillebouw is van begin tot eind een statistisch probleem: wie een allocatie kiest, kiest in werkelijkheid een kansverdeling over toekomstige uitkomsten, en elke stap daarheen, van het herkennen van de juiste grootheden in de data tot het wegen van de onzekerheid in de eigen schattingen, hoort in één wiskundig kader te staan. De klassieke aanpak van gemiddelde en variantie behandelt geschatte parameters als vaststaande waarheden en levert daardoor portefeuilles die heftig meebewegen met elke schattingsfout. Meucci zet daar een keten tegenover die bij marktinvarianten begint en via Bayesiaanse en robuuste methoden eindigt bij allocaties die tegen die fouten bestand zijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Eerst de statistiek</h3>
+      <p>Het eerste deel legt het statistische fundament, eerst voor één grootheid en dan voor vele tegelijk. Centraal staat de multivariate verdeling, de gezamenlijke kansverdeling van een hele verzameling beleggingen, waarin niet alleen elk rendement afzonderlijk maar vooral de samenhang ertussen besloten ligt. Meucci behandelt de gangbare families van verdelingen, waaronder varianten met zwaardere staarten dan de normale verdeling, en copula's: functies die de samenhang tussen grootheden beschrijven los van hun afzonderlijke verdelingen.</p>
+      <h3>De markt gemodelleerd</h3>
+      <p>Het derde hoofdstuk introduceert het meest eigen begrip van het boek: de marktinvariant, een grootheid die zich over opeenvolgende perioden gedraagt als steeds nieuwe trekkingen uit dezelfde verdeling, zoals samengestelde rendementen bij aandelen of veranderingen in de rente bij obligaties. Modelleren begint met het vinden van die invariant; wie rechtstreeks op prijzen modelleert, jaagt op een bewegend doel. Daarna volgt de projectie van de invariant naar de beleggingshorizon en de vertaling terug naar prijzen, plus factormodellen om het aantal te schatten parameters beheersbaar te houden.</p>
+      <h3>Klassieke allocatie</h3>
+      <p>Het tweede deel bouwt de klassieke leer op: het schatten van de verdeling van de invarianten uit data, het beoordelen van een allocatie met een tevredenheidsmaat zoals verwacht nut, en het kiezen van de beste allocatie binnen de randvoorwaarden van de belegger. Het gemiddelde-variantiekader van Markowitz, dat een portefeuille beoordeelt op verwacht rendement en de spreiding daaromheen, verschijnt hier als benadering van het algemene probleem in twee stappen, met een eerlijke bespreking van wanneer die benadering deugt en wanneer niet.</p>
+      <h3>De prijs van schattingsfouten</h3>
+      <p>Het derde deel is de reden dat het boek een eigen plaats heeft. Meucci laat zien dat de uitkomst van de klassieke methode extreem gevoelig is voor de invoer: kleine verschuivingen in geschatte rendementen leiden tot totaal andere portefeuilles, zodat de rekenkunde vooral schattingsfouten uitvergroot. Hij maakt die schade meetbaar door een allocatiemethode zelf als schatter te behandelen en haar verwachte gemiste waarde over mogelijke werkelijkheden door te rekenen.</p>
+      <h3>Bayesiaans en robuust</h3>
+      <p>Als antwoord volgen drie routes. Bayesiaanse schatting vermengt de data met een vooraf gekozen uitgangspunt, zodat schaarse gegevens niet het hele stuur krijgen. Het Black-Litterman-model, hier afgeleid als toepassing van dezelfde Bayesiaanse logica, neemt het marktevenwicht als vertrekpunt en mengt daar eigen visies met een gekozen mate van overtuiging in. Robuuste allocatie kiest ten slotte de portefeuille die binnen een onzekerheidsgebied rond de schattingen in het slechtste geval nog het best presteert, en de combinatie van beide routes sluit het boek af. Twee wiskundige appendices en opgaven met uitwerkingen maken het geheel tot lesmateriaal.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Multivariate verdeling</td><td>De gezamenlijke kansverdeling van veel grootheden tegelijk, inclusief hun onderlinge samenhang; voor Meucci het eigenlijke object van portefeuillebeheer.</td></tr>
+          <tr><td class="term">Marktinvariant</td><td>Een grootheid die zich over opeenvolgende perioden gedraagt als onafhankelijke trekkingen uit dezelfde verdeling, en daarom het juiste vertrekpunt voor modellering is.</td></tr>
+          <tr><td class="term">Copula</td><td>Een wiskundige functie die de samenhang tussen grootheden beschrijft, losgekoppeld van de verdeling van elke grootheid afzonderlijk.</td></tr>
+          <tr><td class="term">Gemiddelde-variantiekader</td><td>De klassieke methode van Markowitz die een portefeuille beoordeelt op verwacht rendement en de spreiding daaromheen.</td></tr>
+          <tr><td class="term">Schattingsrisico</td><td>Het risico dat de parameters van het model zelf uit beperkte data zijn geschat en dus fout kunnen zijn, met scheefgetrokken allocaties als gevolg.</td></tr>
+          <tr><td class="term">Black-Litterman-model</td><td>Bayesiaanse methode die het marktevenwicht als uitgangspunt neemt en daar eigen visies met een gekozen mate van overtuiging in mengt.</td></tr>
+          <tr><td class="term">Robuuste allocatie</td><td>Een allocatie die binnen een onzekerheidsgebied rond de schattingen in het slechtste geval nog zo goed mogelijk presteert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is wiskundig: stellingen, afleidingen en opgaven, met rekencode van de auteur waarmee elk resultaat na te spelen valt. Binnen de aannames staat het bouwwerk niet ter discussie, en de gevoeligheid van klassieke allocatie voor schattingsfouten, de kernwaarneming van het boek, is in de vakliteratuur breed bevestigd.</p>
+      <p>De zwakke schakel zit tussen model en wereld: de hele keten staat of valt met het bestaan van invarianten, grootheden die werkelijk uit een vaste verdeling blijven trekken. Financiële markten wisselen van regime, staarten zijn zwaar en samenhang loopt in crises op, zodat elke schatting extrapoleert vanuit een verleden dat niet hoeft terug te keren. De robuuste methoden verzachten dat probleem; opheffen kunnen zij het niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is een academisch handboek en geen leesboek. Het veronderstelt kansrekening, lineaire algebra en analyse op het niveau van een masteropleiding, hanteert een dichte, eigen notatie en telt honderden genummerde formules; zonder die vooropleiding is het ontoegankelijk. Er staat geen mening over markten in en geen belegwijzer, alleen methode.</p>
+      <p>Inhoudelijk valt in te brengen dat het apparaat een precisie uitstraalt die markten niet honoreren: wie drie decimalen aan een allocatie rekent op parameters met één betrouwbaar cijfer, heeft vooral heel netjes gegokt. Meucci is zich daarvan bewust, het derde deel gaat er zelfs over, maar de spanning blijft. Daarnaast is het boek een momentopname: de auteur bouwde zijn eigen kader na 2005 verder uit in latere publicaties, zodat dit werk het fundament biedt en niet de laatste stand.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel elke allocatie als functie van geschatte parameters en test hoe zij verschuift wanneer de schattingen een beetje veranderen.</li>
+        <li>Zoek eerst de marktinvariant en modelleer die, in plaats van rechtstreeks op prijzen of rendementen van uiteenlopende horizonnen te rekenen.</li>
+        <li>Gebruik het Black-Litterman-model om visies gedoseerd in een portefeuille te brengen in plaats van verwachte rendementen hard in te vullen.</li>
+        <li>Reserveer het boek voor studie en naslag naast een cursus; het is de referentie voor wie allocatiemodellen bouwt, niet een inleiding voor de algemene lezer.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Risk and Asset Allocation</i> (Springer, reeks Springer Finance, 2005, 532 blz., ISBN 9783540222132); latere oplagen als paperback (ISBN 9783642009648). Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Wiskundig handboek over portefeuillebouw van de kwantitatief financieel specialist Attilio Meucci: van de statistiek van rendementen via het modelleren van de markt naar het kiezen van een verdeling over beleggingen, met schattingsonzekerheid als rode draad. Het eigenlijke onderwerp is de multivariate verdeling, de gezamenlijke kansverdeling van veel beleggingen tegelijk, inclusief hun onderlinge samenhang.</p><p>Het is een studieboek met stellingen, afleidingen en opgaven, ondersteund door rekencode van de auteur. Wie de wiskunde aankan, krijgt een van de weinige boeken die de hele keten van data tot allocatie in één samenhangend bouwwerk zetten, met het Black-Litterman-model als geïntegreerd onderdeel in plaats van als losse truc.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>portefeuillebeheer</li><li>statistiek</li><li>financiële wiskunde</li><li>allocatie</li><li>studieboek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="497"><a href="497.html">Quantitative Risk Management: Concepts, Techniques and Tools</a>. <i>Quantitative Risk Management</i> hanteert hetzelfde wiskundige register voor de andere helft van het vak: risico meten bij banken en verzekeraars.</li>
+          <li value="498"><a href="498.html">Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Controlling Risk</a>. <i>Active Portfolio Management</i> bekijkt portefeuillebouw vanuit de actieve beheerder: waar Meucci de verdeling modelleert, rekent Grinold aan de waarde van voorspellingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

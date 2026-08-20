@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 20
-augustus 2026: 483 titels in 18 rubrieken.
+augustus 2026: 492 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -15,21 +15,21 @@ bij de volgende build verloren.
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488 |
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433 |
-| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498 |
+| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -97430,6 +97430,1557 @@ de waardetraditie risico beheerst zonder kwantitatief raamwerk.
 veel wat op vaardigheid lijkt, en dus op een hoge informatiecoëfficiënt, is
 geluk.
 
+## 499. Flash Boys
+
+Michael Lewis, 2014. *Flash Boys: A Wall Street Revolt* (W.W. Norton &
+Company, 2014, 288 blz., ISBN 9780393244663). Nederlands als *Flitshandel:
+elke microseconde is goud waard* (Carrera, 2014, vertaling Robert Neugarten,
+ISBN 9789048821679). Rubriek: geld en ondernemen.
+Tags: `beleggen`, `flitshandel`, `financiële markten`, `journalistiek`,
+`technologie`, `Wall Street`
+
+Brad Katsuyama, handelaar bij de Royal Bank of Canada in New York, merkt vanaf
+2007 iets vreemds: zodra hij op de koopknop drukt, verdampt het aanbod dat
+zijn scherm net nog toonde, en betaalt hij meer dan er stond. Lewis
+reconstrueert hoe Katsuyama en een klein team uitzoeken waar dat aan ligt. Het
+antwoord is de flitshandel, in het Engels high-frequency trading: firma's die
+met computers en extreem snelle verbindingen grote orders eerder zien aankomen
+dan de beurzen waar die orders heen onderweg zijn, en aan dat tijdsverschil
+verdienen.
+
+Het boek volgt het team tot de oprichting van een eigen beurs, IEX, die de
+snelheidsvoorsprong onklaar maakt met een ingebouwde vertraging. Bij
+verschijnen zei Lewis op televisie dat de Amerikaanse aandelenmarkt
+doorgestoken kaart is. Dat leverde onderzoeken van toezichthouders op, en ook
+een storm aan tegenspraak van handelaren en wetenschappers die het beeld
+overtrokken vonden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lewis betoogt dat de Amerikaanse aandelenmarkt tussen 2007 en
+2014 ongemerkt is herbouwd in het voordeel van een kleine groep
+flitshandelaren: firma's die met snelle verbindingen en slimme software orders
+van gewone beleggers zien aankomen voordat die hun bestemming bereiken, en uit
+dat tijdsverschil stelselmatig geld halen. Beurzen en grote banken werken
+daaraan mee omdat zij aan de flitshandel verdienen. De schuld ligt volgens hem
+minder bij kwade personen dan bij prikkels die niemand meer overziet, en het
+bewijs dat het anders kan levert hij in de vorm van een groep insiders die het
+systeem doorzag en er een eerlijke beurs tegenover bouwde.
+
+#### De gang van het boek
+
+**Een geheime lijn door de bergen**
+
+Het boek opent met Spread Networks, het bedrijf dat rond 2009 in het diepste
+geheim een glasvezellijn liet graven van Chicago naar de beursdatacenters in
+New Jersey, zo recht mogelijk, dwars door gebergte en onder rivieren door. Het
+project kostte ongeveer 300 miljoen dollar en het product was tijd: de lijn
+was milliseconden sneller dan bestaande routes, en een milliseconde is een
+duizendste seconde. Handelsfirma's betaalden er miljoenen voor, vooral uit
+angst dat de concurrent anders sneller zou zijn.
+
+Lewis begint hier omdat de lijn de vraag oproept waar het hele boek om draait:
+wat voor handel maakt een paar duizendsten van een seconde honderden miljoenen
+waard? Die vertraging tussen versturen en aankomen van een signaal heet
+latency, en wie de kleinste latency heeft, ziet de markt eerder dan de rest.
+
+**Het scherm dat loog**
+
+Dan de hoofdpersoon. Brad Katsuyama handelt voor de Royal Bank of Canada en
+ziet vanaf 2007 dat zijn scherm niet meer klopt: het aanbod dat erop staat is
+weg zodra hij het probeert te kopen. Hij krijgt minder stukken en betaalt
+meer, telkens weer, en niemand bij de bank kan uitleggen waarom.
+
+Hij verzamelt een team, onder wie technoloog Rob Park en de Ierse telecomman
+Ronan Ryan. Ryan kent de fysieke kant van de markt: hij heeft jarenlang
+apparatuur van handelsfirma's in beursdatacenters geplaatst en weet dat
+firma's betalen om hun computers in dezelfde hal te zetten als de computer van
+de beurs. Dat heet colocation, en het scheelt de meters kabel waar de winst in
+zit.
+
+**Thor en de verklaring**
+
+Het team doet een proef: het verstuurt orders met opzettelijke vertragingen,
+zo afgesteld dat ze op alle beurzen tegelijk aankomen. Opeens krijgt Katsuyama
+precies wat zijn scherm toont. Daarmee is het mechanisme gevonden. De
+Amerikaanse markt is sinds de regelherziening Reg NMS van 2007 versplinterd
+over ruim een dozijn openbare beurzen en tientallen dark pools, besloten
+handelsplatforms van banken waar orders onzichtbaar worden uitgevoerd. Een
+grote order bereikt de dichtstbijzijnde beurs een fractie eerder dan de rest.
+Flitshandelaren zien hem daar landen, racen hem langs snellere lijnen vooruit
+en passen op de andere beurzen hun prijzen aan.
+
+Die truc heet latency-arbitrage: geld verdienen aan het tijdsverschil tussen
+handelsplekken in plaats van aan een mening over het aandeel. RBC bouwt van de
+proef een product, een order-router met de naam Thor, en Katsuyama begint
+grote beleggers uit te leggen wat er met hun orders gebeurt.
+
+**Niemand die het geheel snapt**
+
+De rondgang langs pensioenfondsen en fondsbeheerders is een van de sterkste
+delen van het boek. De mensen die honderden miljarden beheren blijken niet te
+weten wat er tussen hun order en de uitvoering gebeurt, en de banken die de
+orders doorsturen hebben er zelf aan verdiend: zij verkochten flitshandelaren
+toegang tot hun dark pools. Teamlid John Schwall graaft in de
+regelgeschiedenis en vindt telkens hetzelfde patroon: elke regel die misbruik
+moest stoppen schiep een nieuwe kier.
+
+De conclusie van het team is dat uitleggen niet genoeg is. In 2012 nemen ze
+ontslag om een eigen beurs te beginnen.
+
+**De programmeur van Goldman**
+
+Tussen de hoofdstukken door vertelt Lewis de zaak van Sergey Aleynikov, een
+programmeur van Goldman Sachs die in 2009 door de FBI werd gearresteerd omdat
+hij bij zijn vertrek broncode had meegenomen. Zijn federale veroordeling werd
+in 2012 vernietigd, waarna de staat New York opnieuw begon te vervolgen.
+
+Lewis gebruikt de zaak als contrast: in de jaren waarin de markt volgens hem
+stilzwijgend werd verbouwd, was de enige die de cel inging een programmeur,
+aangegeven door zijn eigen bank. De hoofdstukken laten ook zien hoe weinig de
+buitenwereld, rechters en juryleden incluis, van deze handel begrijpt.
+
+**IEX**
+
+Op 25 oktober 2013 opent het team zijn eigen handelsplatform, IEX. De kern is
+een rem: elke order gaat door 61 kilometer opgerolde glasvezel in een doos,
+goed voor 350 microseconden vertraging, genoeg om flitshandelaren hun
+voorsprong op het koersbeeld van IEX te ontnemen. Het platform weigert de
+speciale ordertypes en kortingen waarmee andere beurzen flitshandelaren
+lokken.
+
+Daarna volgt de strijd om volume, want banken sturen orders liever naar hun
+eigen dark pools. Het keerpunt in het boek komt in december 2013, als Goldman
+Sachs als eerste grote bank serieus volume instuurt. Na verschijnen van het
+boek, in 2016, kreeg IEX een vergunning als volwaardige beurs.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Flitshandel (high-frequency trading) | Geautomatiseerd handelen waarbij computers in fracties van seconden orders plaatsen en intrekken, en het verdienmodel op snelheid rust. |
+| Latency | De tijd tussen versturen en aankomen van een signaal; in dit boek het verschil tussen winnen en verliezen. |
+| Colocation | Het tegen betaling plaatsen van je eigen computers in het datacenter van de beurs, om de kabel zo kort mogelijk te maken. |
+| Latency-arbitrage | Verdienen aan het tijdsverschil waarmee dezelfde order verschillende handelsplekken bereikt, door hem vooruit te racen en prijzen aan te passen. |
+| Dark pool | Besloten handelsplatform van een bank waar orders buiten het zicht van de openbare markt worden uitgevoerd. |
+| Reg NMS | Amerikaanse regelherziening uit 2007 die orders naar de beurs met de beste prijs dwingt, en daarmee de versplintering schiep waar flitshandelaren aan verdienen. |
+| Thor | De order-router van RBC die orders zo vertraagt dat ze op alle beurzen tegelijk aankomen. |
+| Magic shoebox | De doos met 61 kilometer opgerolde glasvezel waarmee IEX elke order 350 microseconden vertraagt. |
+
+#### Waar het argument op rust
+
+Dit is verhalende journalistiek, verteld vanuit één kamp. De empirische kern
+is het Thor-experiment: de vertraagtruc maakte het effect herhaalbaar en
+meetbaar, en dat onderzoek is echt gedaan. Voor de rest steunt het boek op wat
+Katsuyama en zijn mensen zagen en op wat bronnen Lewis vertelden; een meting
+van hoeveel de gewone belegger in totaal verloor staat er niet in, en
+schattingen daarvan lopen ver uiteen.
+
+Een deel van het beeld is later bevestigd. IEX bestond echt en kreeg in 2016
+een beursvergunning. Toezichthouders deelden na 2014 boetes uit aan banken die
+klanten misleidden over wat er in hun dark pools gebeurde: Barclays en Credit
+Suisse schikten in 2016 samen voor ruim 150 miljoen dollar. Dat de beschreven
+mechanismen bestonden staat daarmee vast; hoe schadelijk ze per saldo waren
+blijft omstreden.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de eenzijdigheid: in een boek over flitshandel komt
+geen enkele flitshandelaar aan het woord. De tegenspraak kwam prompt. Peter
+Kovac, zelf jarenlang bestuurder bij een flitshandelsfirma, wijdde een heel
+boek (*Flash Boys: Not So Fast*, 2014) aan feitelijke fouten in Lewis'
+beschrijving van ordertypes en datastromen, en Manoj Narang van Tradeworx
+noemde het werk meer fictie dan feit.
+
+Wetenschappers wezen erop dat de handelskosten voor gewone beleggers in de
+flitshandeljaren juist historisch laag waren: de marges tussen bied- en
+laatprijs werden krapper, en veel economen zien flitshandelaren als de nieuwe
+marktmakers die dat afdwongen. Ook de kernterm van het boek kreeg kritiek: wat
+Lewis front running noemt is geen handel met voorkennis van andermans order,
+maar razendsnel reageren op openbare informatie. Mary Jo White, voorzitter van
+toezichthouder SEC, verklaarde kort na verschijnen tegenover het Congres dat
+de markten niet doorgestoken kaart zijn.
+
+Ten slotte is het boek moeilijk los te zien van de belangen van zijn helden:
+het werkte als lancering voor IEX. Die beurs bleef met een marktaandeel van
+enkele procenten klein, wat de vraag openlaat of beleggers het probleem zo
+zwaar wogen als het boek doet.
+
+#### Wat je hierna leest
+
+- 477. Algorithmic Trading and DMA. Johnson beschrijft dezelfde elektronische
+handelswereld technisch en zonder moraal: hoe orders, algoritmes en colocation
+feitelijk werken.
+- 478. Trading and Exchanges. Harris levert de economie onder dit verhaal: wie
+er handelen, van wie de winst komt en waarom beursregels worden zoals ze zijn.
+- 80. The Hour Between Dog and Wolf. Coates over wat er in het lichaam van
+handelaren gebeurt; de menselijke tegenhanger van de machines in dit boek.
+
+## 500. Trading Systems and Methods
+
+Perry J. Kaufman, 1978 (zesde editie 2019). Zesde editie: *Trading Systems and
+Methods* (Wiley, reeks Wiley Trading, 2019, 1168 blz., ISBN 9781119605355).
+Verscheen oorspronkelijk in 1978 als *Commodity Trading Systems and Methods*
+(Wiley, 404 blz.) en is sindsdien elke editie verbreed en hernoemd. Deze
+bespreking volgt de zesde editie. Geen Nederlandse vertaling. Rubriek: naslag
+en praktijk.
+Tags: `beleggen`, `handelssystemen`, `technische analyse`, `naslagwerk`,
+`risico`, `statistiek`
+
+Het encyclopedische standaardwerk over regelgebonden handelen. Kaufman, een
+ingenieur die uit de ruimtevaart naar de termijnmarkten kwam, begon in 1978
+met een overzicht van handelssystemen voor grondstoffen en heeft dat in
+veertig jaar en zes edities uitgebouwd tot ruim elfhonderd bladzijden die
+vrijwel elke bekende methode behandelen: van voortschrijdende gemiddelden en
+uitbraaksystemen tot seizoenspatronen, cycli, spreads en adaptieve technieken,
+telkens met formule, rekenvoorbeeld en valkuilen.
+
+Het is nadrukkelijk een naslagwerk, geen leesboek: de sector gebruikt het als
+het opzoekwerk waarin elk idee al eens is uitgewerkt. Het slot, over
+systeemtoetsing en risicobeheer, is tegelijk het meest opinieuze deel: Kaufman
+ziet daar de scheidslijn tussen handelaren die blijven en handelaren die
+verdwijnen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Een naslagwerk heeft geen these, maar onder dit boek ligt wel
+één overtuiging: handelsbeslissingen horen uit vooraf vastgelegde, op
+historische data getoetste regels te komen, omdat menselijk oordeel onder druk
+faalt en alleen een systeem meetbaar, herhaalbaar en verbeterbaar is. Kaufman
+ordent daartoe vrijwel elke methode die in een halve eeuw regelgebonden handel
+is bedacht, met de formule erbij, en laat het oordeel over welke methode deugt
+grotendeels aan de lezer en diens eigen toetsing.
+
+#### De gang van het boek
+
+**Van 404 naar 1168 bladzijden**
+
+De eerste editie uit 1978 ging over grondstoffentermijnmarkten en besloeg 404
+bladzijden. Elke volgende editie nam nieuwe markten en nieuw gereedschap op:
+aandelen, valuta en rente naast grondstoffen, en computerkracht die toetsing
+voor iedereen bereikbaar maakte. De zesde editie uit 2019 telt 1168
+bladzijden. Kaufman schrijft uit de praktijk: hij kwam uit de
+ruimtevaartindustrie en ontwierp vanaf de jaren zeventig handelssystemen voor
+fondsen en banken.
+
+**Grondslagen en trend**
+
+Het boek begint bij het materiaal: koersdata, rendementen, spreiding en de
+statistiek die nodig is om verderop iets te kunnen toetsen. Daarna volgt het
+hart van het vak, de trend: voortschrijdende gemiddelden in alle soorten,
+uitbraaksystemen die kopen als de koers boven zijn recente bandbreedte komt,
+en de vraag hoe je de snelheid van zo'n systeem kiest.
+
+Hier staan ook Kaufmans eigen bijdragen aan het vak, waaronder de Efficiency
+Ratio, een maat die meet hoe recht een koersbeweging verloopt, en de daarop
+gebouwde adaptieve KAMA, een gemiddelde dat versnelt in een heldere trend en
+vertraagt in ruis.
+
+**De volle breedte**
+
+Dan waaiert het uit: momentum en oscillatoren, koerspatronen en
+grafiektechnieken, seizoenspatronen, cyclusanalyse, spreads en arbitrage,
+volatiliteit, daghandel, systemen die zichzelf bijstellen, en
+gedragstechnieken, waaronder zelfs een korte, neutrale behandeling van
+financiële astrologie. Elk hoofdstuk geeft de rekenregels en een doorgerekend
+voorbeeld, en meestal een nuchtere kanttekening over waar de methode breekt.
+
+Die volledigheid is het punt van het boek. Kaufman wil dat een
+systeemontwerper nergens anders hoeft te zoeken, en dat wie een idee heeft
+eerst hier kijkt of het al bestaat en wat ervan bekend is.
+
+**Toetsen, risico en portefeuille**
+
+Het slotdeel is het meest normatieve. Systeemtoetsing behandelt de hoofdzonde
+van het vak: overoptimalisatie, regels zo lang bijstellen tot ze het verleden
+perfect verklaren en in de toekomst niets waard zijn. Kaufman zet er de
+remedies naast, zoals toetsen op data die buiten de ontwikkelperiode vallen.
+
+Daarna volgen risicobeheer en positiegrootte: hoeveel kapitaal op één positie,
+hoe verliezen te begrenzen, en hoe een portefeuille van systemen en markten
+samen te stellen. Bij het boek hoort een website met spreadsheets en
+programmacode om de methoden na te rekenen.
+
+**Hoe het bedoeld is**
+
+Dit is een opzoekboek, en zo presenteert Kaufman het ook: lezen wat er over
+een methode bekend is, de formule overnemen, en dan zelf toetsen op eigen
+markten en eigen data. Het boek geldt in de sector al decennia als het
+standaardnaslagwerk voor systeemontwerpers, en het is dik genoeg dat de meeste
+eigenaren er hooguit een kwart van ooit lezen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Handelssysteem | Een vooraf vastgelegde set regels die bepaalt wanneer je koopt, verkoopt en hoeveel, zonder oordeel per geval. |
+| Voortschrijdend gemiddelde | Het gemiddelde van de laatste zoveel koersen, dat ruis gladstrijkt en de richting van de trend zichtbaar maakt. |
+| Uitbraaksysteem | Regels die kopen zodra de koers boven zijn recente bandbreedte komt en verkopen als hij eronder zakt. |
+| Efficiency Ratio | Kaufmans maat voor hoe recht een koersbeweging verloopt: netto verplaatsing gedeeld door de som van alle dagstappen. |
+| KAMA | Kaufmans adaptieve voortschrijdende gemiddelde, dat sneller reageert in een heldere trend en trager in ruis. |
+| Overoptimalisatie | Regels zo lang op het verleden bijstellen dat ze de toevallige ruis van toen beschrijven en in de toekomst falen. |
+| Out-of-sample-toets | Een systeem beoordelen op data die niet zijn gebruikt om het te bouwen, als bescherming tegen zelfbedrog. |
+| Positiegrootte | Hoeveel kapitaal op één positie wordt gezet, volgens Kaufman bepalender voor overleven dan het instapsignaal. |
+
+#### Waar het argument op rust
+
+Het bewijs in dit boek is van het soort dat bij een naslagwerk hoort:
+formules, doorgerekende voorbeelden en historische toetsen per methode, geen
+overkoepelend wetenschappelijk betoog. Kaufman presenteert de meeste methoden
+neutraal en bewaart zijn stelligheid voor het toetsen zelf: daar waarschuwt
+hij scherp en terecht voor overoptimalisatie en voor resultaten zonder
+transactiekosten.
+
+De waarde zit in volledigheid en precisie, en die is te controleren: de
+rekenregels staan er volledig in en zijn met de bijgeleverde spreadsheets en
+code na te rekenen. Hoe goed elke afzonderlijke methode werkt is een andere
+vraag, die het boek bewust grotendeels openlaat.
+
+#### Wat er tegen in te brengen valt
+
+Dit is een encyclopedie en geen leergang, en wie dat verkeerd inschat koopt
+het verkeerde boek. Er is geen opklimmende leerlijn, geen selectie van wat het
+beste werkt, en van voor naar achter lezen verdrinkt elke beginner. Het boek
+is bedoeld om naast een concreet probleem te leggen, en zo moet het ook
+beoordeeld worden.
+
+Het inhoudelijke bezwaar is de keerzijde van de volledigheid: Kaufman schift
+nauwelijks. Methoden met stevig bewijs staan broederlijk naast methoden
+waarvan het bewijs dun is, zoals cyclusanalyse en seizoenspatronen, en de
+behandeling van financiële astrologie is weliswaar kort en afstandelijk, maar
+staat er wel in. Aronson (nr 483) heeft precies die schifting tot onderwerp
+gemaakt en laat zien hoeveel van dit arsenaal een strenge statistische toets
+niet overleeft.
+
+Praktisch veroudert het bijwerk sneller dan de kern: de voorbeelden en de
+bijgeleverde code leunen op spreadsheets en het platform TradeStation, terwijl
+het vak intussen grotendeels in Python werkt.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het als opzoekwerk: zoek bij elk idee eerst hier op of het al
+bestaat en wat erover bekend is, voordat je zelf gaat bouwen.
+- Neem de toets-hoofdstukken serieus, wat je verder ook overslaat: toets elke
+regel op data die niet zijn gebruikt om hem te maken, en reken
+transactiekosten mee.
+- Begin bij trend en positiegrootte; dat zijn de delen waarvan het bewijs het
+sterkst is en waar de rest van het boek op voortbouwt.
+
+#### Wat je hierna leest
+
+- 480. Following the Trend. Clenow is de tegenhanger: geen duizend methoden
+maar één trendmodel, volledig doorgerekend, met de verliesjaren erbij.
+- 483. Evidence-Based Technical Analysis. Aronson doet wat Kaufman nalaat: het
+hele arsenaal van de technische analyse langs een strenge statistische meetlat
+leggen.
+- 492. The Universal Principles of Successful Trading. Penfold biedt de
+beknopte praktijkkern voor wie de encyclopedie te veel is: wat elk werkend
+systeem minimaal nodig heeft.
+
+## 501. Trend Following
+
+Michael W. Covel, 2004 (vijfde editie 2017). Vijfde editie: *Trend Following:
+How to Make a Fortune in Bull, Bear, and Black Swan Markets* (Wiley, reeks
+Wiley Trading, 2017, 688 blz., ISBN 9781119371878, met een voorwoord van Barry
+Ritholtz). Eerste editie in 2004 bij FT Prentice Hall als *Trend Following:
+How Great Traders Make Millions in Up or Down Markets*. Deze bespreking volgt
+de vijfde editie. Geen Nederlandse vertaling. Rubriek: geld en ondernemen.
+Tags: `beleggen`, `trendvolgen`, `handelen`, `risico`, `financiële markten`,
+`psychologie`
+
+Covels pleidooi voor trendvolgen: handelen zonder voorspelling, puur op wat de
+prijs doet. Een trendvolger koopt wat aantoonbaar stijgt, verkoopt wat daalt,
+snijdt verliezen vroeg af en laat winsten lopen, met vaste regels voor hoeveel
+hij per positie op het spel zet. Covel onderbouwt dat met de resultatenreeksen
+van de grote trendvolgende fondsen, van Bill Dunn en John W. Henry tot David
+Harding, en met de crisisjaren waarin deze fondsen verdienden terwijl de rest
+halveerde.
+
+Het boek is tegelijk betoog en aanklacht: tegen koersdoelen, tegen
+kopen-en-vasthouden en tegen de academische leer dat markten niet te verslaan
+zijn. Covel schrijft als overtuigde, en dat is de kracht en de zwakte: het
+bewijs komt vooral van de winnaars, en de lezer moet zelf bedenken dat de
+verliezers van dezelfde methode niet aan het woord komen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Covel betoogt dat voorspellen op financiële markten
+onmogelijk is en ook onnodig. De enige informatie die telt is de prijs zelf:
+wie stelselmatig koopt wat stijgt, verkoopt wat daalt, verliezen vroeg
+afsnijdt en winsten laat lopen, verdient op den duur juist aan de extreme
+uitschieters die andere beleggers de kop kosten. Fundamentele analyse,
+koersdoelen en kopen-en-vasthouden noemt hij schijnzekerheid, in stand
+gehouden door een sector die verdient aan klanten die blijven zitten. Het
+bewijs zoekt hij bij de trendvolgende fondsen die dit al een halve eeuw in de
+praktijk doen.
+
+#### De gang van het boek
+
+**Wat trendvolgen is**
+
+Trendvolgen is systematisch handelen op de richting van de prijs. De
+trendvolger weet niet waarom een markt stijgt en wil het ook niet weten: hij
+stapt in als een trend zich aantoonbaar heeft gevormd, rijdt mee zolang hij
+duurt, en stapt uit als de prijs terugkeert. Hij heeft geen mening over graan,
+goud of de yen; dezelfde regels draaien op tientallen markten tegelijk, omhoog
+en omlaag, omdat vooraf niet te zeggen is waar de volgende grote trend
+ontstaat. Verliezen zijn talrijk en klein, winsten zeldzaam en groot; het
+rendement komt uit een handvol grote trends per decennium.
+
+De regels bepalen alles vooraf: wat een trend is, wanneer je instapt, wanneer
+je eruit gaat, en hoeveel je per positie riskeert, meestal afgemeten aan de
+beweeglijkheid van de markt. Meningen, nieuws en koersdoelen spelen geen rol.
+Covel presenteert dat als bevrijding: je hoeft de toekomst niet te kennen,
+alleen je regels te volgen.
+
+**De mannen met de staat van dienst**
+
+Het hart van het boek zijn de profielen van trendvolgers met decennialange
+resultatenreeksen: Bill Dunn, die dertig jaar dezelfde systematiek volhield
+door diepe dalen heen; John W. Henry, die met zijn handelswinsten later de
+Boston Red Sox kocht; Ed Seykota, die al in de jaren zeventig handelssystemen
+op de computer draaide; Larry Hite, die als een van de eersten risicobeheer
+boven rendement stelde; en David Harding, medeoprichter van het fonds AHL en
+daarna oprichter van Winton.
+
+De reeksen tonen het patroon dat Covel wil laten zien: jarenlange magere
+periodes, onderbroken door explosieve winstjaren die samenvallen met grote
+marktbewegingen. Zijn punt is dat dit geen geluk kan zijn: te veel mensen, te
+veel decennia, te veel verschillende markten met in de kern dezelfde methode.
+
+**Het Turtle-experiment**
+
+Het beroemdste bewijsstuk is het experiment van Richard Dennis en Bill
+Eckhardt uit 1983. Om hun weddenschap te beslechten of handelen leerbaar is,
+wierf Dennis via een advertentie een groep mensen zonder ervaring, leerde hun
+in twee weken een set trendvolgende regels en gaf ze zijn geld. Deze Turtles
+verdienden als groep jarenlang fors, en enkelen bouwden er grote fondsen op:
+Jerry Parker begon met wat hij als Turtle leerde zijn fonds Chesapeake
+Capital.
+
+Voor Covel bewijst het experiment twee dingen: de methode zit in de regels en
+niet in een gave, en de moeilijkheid zit in het volhouden, want ook onder de
+Turtles gingen degenen onderuit die van de regels afweken.
+
+**Paniek als winstbron**
+
+Een reeks hoofdstukken loopt langs beroemde ontploffingen en laat zien wie er
+aan de andere kant stond. Bij de val van Barings Bank in 1995 stonden
+trendvolgers aan de winnende kant van de posities waarmee Nick Leeson de bank
+opblies. Bij de ondergang van hedgefonds LTCM in 1998 en in de dotcom-afbraak
+van 2000 tot 2002 hetzelfde beeld: de verliezers hadden gelijk willen krijgen,
+de trendvolgers volgden de beweging.
+
+Het uitgebreidste voorbeeld is 2008, het jaar uit de ondertitel: terwijl
+aandelenbeleggers halveerden, boekten veel trendvolgende fondsen dubbele
+cijfers, en het boek voert er een op met meer dan honderd procent winst. De
+zwarte zwaan, de zeldzame extreme gebeurtenis, is voor de trendvolger geen
+ramp maar de oogst.
+
+**Het nul-somspel**
+
+Covel leunt op het werk van econoom Larry Harris om uit te leggen waar die
+winst vandaan komt. De termijnmarkten waarop trendvolgers handelen zijn een
+nul-somspel: elke dollar winst is andermans dollar verlies. De structurele
+verliezers zijn volgens deze analyse partijen die om andere redenen handelen
+dan winst, zoals bedrijven die risico afdekken, en beleggers die in paniek of
+uit koppigheid tegen de trend in blijven zitten.
+
+Dat is meteen het ongemakkelijkste deel van het betoog: de methode bestaat bij
+de gratie van tegenpartijen die stelselmatig verliezen, en Covel zegt dat
+zonder omwegen.
+
+**Denken in kansen, en een uitgedijd boek**
+
+De slothoofdstukken gaan over het hoofd van de handelaar: verliezen nemen als
+routinehandeling, denken in kansen en verwachtingswaarden, en het loslaten van
+de behoefte om gelijk te hebben. Daar hoort een frontale aanval bij op de
+efficiënte-markthypothese, de academische leer dat koersen alle informatie al
+bevatten en niemand de markt stelselmatig kan verslaan.
+
+De vijfde editie is uitgedijd tot 688 bladzijden, met interviews en onderzoek
+uit Covels podcast en een voorwoord van Barry Ritholtz. Het maakt het boek
+voller, maar ook herhaalachtiger: de kern stond er in 2004 al in.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Trendvolgen | Systematisch meebewegen met de richting van de prijs, zonder voorspelling en zonder mening over de oorzaak. |
+| Systematisch handelen | Alle beslissingen vooraf vastleggen in regels, zodat emotie en oordeel per geval geen rol spelen. |
+| Verliezen afsnijden, winsten laten lopen | De kernregel: kleine verliezen meteen nemen en winnende posities aanhouden zolang de trend duurt. |
+| Positiegrootte | Hoeveel er per positie op het spel staat, bij trendvolgers afgemeten aan de beweeglijkheid van de markt. |
+| Drawdown | De terugval van een vermogen vanaf zijn piek; bij trendvolgers regelmatig tientallen procenten diep. |
+| Nul-somspel | Een markt waarin elke winst precies andermans verlies is, zoals de termijnmarkten waarop trendvolgers handelen. |
+| Zwarte zwaan | De zeldzame extreme gebeurtenis die niemand zag aankomen; voor de trendvolger de bron van de grootste winsten. |
+| Turtles | De groep beginners die Richard Dennis in 1983 zijn trendvolgende regels leerde om te bewijzen dat handelen leerbaar is. |
+| Efficiënte-markthypothese | De academische leer dat koersen alle informatie al bevatten en de markt niet stelselmatig te verslaan is; Covels vaste vijand. |
+
+#### Waar het argument op rust
+
+Het bewijs in het boek zelf bestaat uit de resultatenreeksen van fondsen, door
+Covel verzameld uit rapportages van de fondsen en hun beheerders, plus het
+Turtle-experiment en de crisisjaren als natuurlijke proeven. Dat is echt
+materiaal, maar het is gekozen materiaal: de reeksen komen van de fondsen zelf
+en de selectie is aan Covel.
+
+Buiten het boek staat de kern er sterker voor dan Covels toon doet vrezen.
+Moskowitz, Ooi en Pedersen toonden in *Time Series Momentum* (Journal of
+Financial Economics, 2012) trendwinsten aan over 58 markten, en
+vervolgonderzoek van AQR vond hetzelfde patroon over ruim een eeuw aan
+koersdata. Dat trendvolgen historisch heeft gewerkt is daarmee een van de best
+gedocumenteerde afwijkingen van de efficiënte markt; waarom het werkt en of
+het blijft werken is niet beslecht.
+
+Daar staat tegenover dat het decennium na 2009 voor veel trendvolgende fondsen
+mager was. De vijfde editie, verschenen in 2017, gaat op die magere jaren
+opvallend licht heen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is overlevenden-selectie: Covel toont de fondsen die
+decennia haalden, en de fondsen die met dezelfde methode klapten of stilletjes
+sloten komen niet voor. Daarmee bewijzen de profielen minder dan ze lijken te
+bewijzen; ook een loterij heeft winnaars met lange reeksen. Het onafhankelijke
+onderzoek repareert dat deels, maar dat onderzoek is niet van Covel.
+
+Covel is bovendien geen afstandelijke onderzoeker maar evangelist met een
+winkel: hij verkoopt via zijn site en podcast cursussen en begeleiding in
+precies deze methode. Het boek geeft ondertussen nergens een volledige,
+naspeelbare regelset; wie wil weten hoe het concreet moet, wordt doorverwezen
+of moet elders zoeken, bijvoorbeeld bij Clenow. De stapels instemmende citaten
+en de herhaling maken het betoog eerder langer dan sterker.
+
+Ten slotte is de prijs van de methode onderbelicht: drawdowns van meer dan de
+helft van het vermogen, zoals Dunn die meemaakte, worden genoemd maar weggezet
+als karaktertest, terwijl ze voor de meeste mensen het einde van de rit zouden
+zijn. Ook praktische bezwaren blijven liggen: termijnmarkten met hefboom zijn
+voor een gewone particulier lastig terrein, en naarmate meer geld dezelfde
+trends najaagt, kan de winstbron zelf slijten. Dat laatste is precies wat de
+magere jaren na 2009 suggereren, en het boek gaat die discussie uit de weg.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel een handelsmethode op de volledige reeks, dalen incluis, en vraag
+bij elke succesreeks wie er met dezelfde methode verdween.
+- Leg vooraf vast wanneer je een verliezende positie sluit, en maak die
+beslissing nooit ter plekke.
+- Bepaal de omvang van een positie op de beweeglijkheid van de markt, zodat
+één uitschieter je niet uitschakelt.
+- Wantrouw elke bron die een methode aanprijst en er tegelijk cursussen in
+verkoopt, dit boek incluis.
+
+#### Wat je hierna leest
+
+- 480. Following the Trend. Clenow levert wat Covel schuldig blijft: een
+volledig gepubliceerd trendmodel, doorgerekend met alle verliesjaren erbij.
+- 481. Stocks on the Move. Clenows vervolg past dezelfde systematiek toe op
+gewone aandelen, uitvoerbaar voor een particulier.
+- 268. The Black Swan. Taleb over de zwarte zwaan uit de ondertitel: waarom
+extreme gebeurtenissen stelselmatig worden onderschat.
+
+## 502. The Evaluation and Optimization of Trading Strategies
+
+Robert Pardo, 2008 (eerste editie 1992). Tweede, herziene editie verschenen
+bij Wiley in de Wiley Trading-reeks (2008, ISBN 9780470128015). De eerste
+editie verscheen in 1992 als *Design, Testing, and Optimization of Trading
+Systems*; daarin introduceerde Pardo de walk-forward-analyse, die de tweede
+editie verder uitwerkt. Geen Nederlandse vertaling. Rubriek: geld en
+ondernemen.
+Tags: `beleggen`, `systematisch handelen`, `backtesten`, `overfitting`,
+`handelssystemen`, `statistiek`
+
+Robert Pardo bouwde vanaf de jaren tachtig handelssystemen en beheerde later
+vermogen met zijn firma Pardo Capital. In 1992 introduceerde hij de
+walk-forward-analyse: een toetsmethode waarbij een strategie steeds wordt
+afgesteld op een stuk koershistorie en daarna wordt beoordeeld op de periode
+die daar direct op volgt, alsof die nog onbekend was. Deze tweede, hernoemde
+editie werkt die methode uit tot een volledig ontwikkelproces, van eerste idee
+tot het bewaken van een draaiende strategie.
+
+Het boek is geschreven voor handelaren die hun regels in software vastleggen
+en willen weten of een mooie backtest, een simulatie op historische koersen,
+iets zegt over de toekomst. Pardo's antwoord: alleen als de toets zelf goed is
+ingericht, en de walk-forward-analyse is sindsdien in het vak de maatstaf voor
+zo'n toets geworden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Pardo betoogt dat optimalisatie, het afstellen van de
+parameters van een handelsstrategie op historische koersen, geen bedrog is
+maar een noodzakelijke stap, en dat het beruchte gevaar ervan, overfitting,
+pas ontstaat zodra een eerlijke toets erna ontbreekt. Wie een strategie
+beoordeelt op dezelfde data waarop hij haar heeft afgesteld, meet zijn eigen
+zoekwerk in plaats van de markt. De walk-forward-analyse lost dat op: stel af
+op een venster historie, meet op de aansluitende ongebruikte periode, schuif
+op en herhaal. Een strategie die deze toets doorstaat, levert bovendien een
+realistisch verwachtingsprofiel op waarmee de handelaar tijdens het echte
+handelen kan zien of het systeem nog doet wat het beloofde.
+
+#### De gang van het boek
+
+**Eerst een echte strategie**
+
+Het boek opent met wat een handelsstrategie is: een volledig gespecificeerde
+set regels voor instappen, uitstappen en risico, zonder plaats voor oordeel
+van het moment. Alleen zo'n strategie valt te toetsen. Pardo behandelt
+vervolgens de historische simulatie, het doorrekenen van de regels op oude
+koersen, en staat lang stil bij wat die simulatie realistisch maakt:
+transactiekosten, slippage (het verschil tussen de koers in de simulatie en de
+koers die je in het echt krijgt) en voldoende transacties om ergens iets uit
+af te leiden.
+
+De volgorde is een programma: formuleren, specificeren, voorlopig toetsen, en
+pas daarna afstellen. Wie begint met afstellen, heeft niets om het resultaat
+tegen af te zetten.
+
+**Optimalisatie is geen vies woord**
+
+Het hoofdstuk over optimalisatie verdedigt de stap die veel handelaren
+wantrouwen. Elke strategie heeft parameters, en die niet afstellen betekent
+willekeurige waarden gebruiken. Het gaat erom hoe er wordt gezocht: met een
+afgebakende zoekruimte, met een doelfunctie die meer weegt dan kale
+nettowinst, en met aandacht voor de omgeving van de uitkomst.
+
+Dat laatste is een kernadvies: kies parameterwaarden uit een vlak gebied waar
+de buren ook goed presteren, en wantrouw een eenzame piek. Een piek die bij
+een kleine verschuiving van de parameter instort, is vrijwel zeker toeval.
+
+**De vele gezichten van overfitting**
+
+Overfitting is het verschijnsel dat een model de toevallige bijzonderheden van
+de gebruikte historie uit het hoofd leert in plaats van een patroon dat ook
+daarbuiten bestaat. Pardo beschrijft de symptomen: een uitzonderlijk mooie
+backtest, gevolgd door direct falen zodra er echt geld op staat.
+
+De oorzaken die hij aanwijst: te veel regels en parameters tegenover te weinig
+data en te weinig transacties, achterafkennis die in de regels sluipt, en
+steeds opnieuw proberen tot het plaatje bevalt. Zijn maat daarvoor zijn de
+vrijheidsgraden van de strategie: hoe meer keuzevrijheid het model heeft, hoe
+meer data er nodig zijn om die vrijheid te verdienen.
+
+**De walk-forward-analyse**
+
+Het hart van het boek. Eén enkele deling in een afstelperiode en een
+toetsperiode is een begin, maar levert maar één meting op. De
+walk-forward-analyse herhaalt de deling: stel de strategie af op bijvoorbeeld
+drie jaar historie, handel op papier het volgende halfjaar met die
+instellingen, schuif het venster op en doe het opnieuw. De aaneengeschakelde
+toetsperiodes vormen samen een doorlopend resultaat dat volledig buiten het
+afstellen om tot stand kwam.
+
+De methode bootst bovendien na wat een systeemhandelaar in het echt doet:
+periodiek opnieuw afstellen op recente data. De walk-forward toetst dus niet
+alleen de regels, maar het hele proces van onderhoud.
+
+**Walk-forward-efficiëntie en het profiel**
+
+Om het resultaat te wegen introduceert Pardo de walk-forward-efficiëntie: de
+winst per jaar in de toetsperiodes gedeeld door de winst per jaar in de
+afstelperiodes. Een robuuste strategie houdt buiten de afsteldata een groot
+deel van haar prestatie overeind; zakt de verhouding ver weg, dan was de mooie
+backtest vooral zoekwerk.
+
+Uit de toetsing komt daarnaast een strategieprofiel: de bandbreedte van winst,
+maximale terugval en langste verliesreeks die bij dit systeem hoort. Dat
+profiel is geen bijvangst maar het eigenlijke product van al het testen.
+
+**Handelen tegen het profiel**
+
+Het slot gaat over de fase waarin de meeste systemen sneuvelen: het echte
+handelen. De handelaar zet de lopende resultaten af tegen het profiel. Blijft
+de strategie binnen haar historische bandbreedte, dan is een verliesperiode
+geen reden tot ingrijpen; overschrijdt zij structureel haar maximale terugval
+of verliesreeks, dan is het systeem kapot en moet het van de markt.
+
+Daarmee sluit de cirkel: de toetsing vooraf levert de meetlat waarmee achteraf
+wordt beslist, en het periodieke heroptimaliseren uit de walk-forward wordt
+gewoon onderhoud.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Historische simulatie (backtest) | Het doorrekenen van een regelset op oude koersen, inclusief kosten en slippage, als schatting van hoe de strategie gehandeld zou hebben. |
+| Optimalisatie | Het systematisch doorproberen van parameterwaarden om de combinatie te vinden die volgens een gekozen maatstaf het beste presteerde. |
+| Doelfunctie | De maatstaf waarop kandidaat-instellingen worden gerangschikt; Pardo wil er een die winst afweegt tegen terugval en regelmaat, geen kale nettowinst. |
+| Overfitting | Een model dat de toevalligheden van de gebruikte historie heeft geleerd in plaats van een patroon dat ook daarbuiten bestaat. |
+| In-sample en out-of-sample | De data waarop is afgesteld tegenover de data die daarbij niet zijn gebruikt; alleen de tweede soort zegt iets over de toekomst. |
+| Walk-forward-analyse | Reeks optimalisaties op een schuivend venster historie, elk gevolgd door een meting op de aansluitende ongebruikte periode; de aaneengeschakelde metingen vormen het eigenlijke rapport. |
+| Walk-forward-efficiëntie | De out-of-sample-winst per jaar gedeeld door de in-sample-winst per jaar, als maat voor hoeveel van de geteste prestatie echt is. |
+| Vrijheidsgraden | Het aantal regels en parameters dat de strategie vrij kan kiezen; hoe meer vrijheidsgraden tegenover hoe minder data, hoe groter de kans op overfitting. |
+| Strategieprofiel | De bandbreedte van winst, terugval en verliesreeksen die uit de toetsing komt en waartegen het echte handelen wordt afgezet. |
+
+#### Waar het argument op rust
+
+Het betoog rust op logica en op Pardo's eigen praktijk als systeembouwer en
+vermogensbeheerder, met uitgewerkte voorbeelden van afstel- en toetsrondes.
+Formele statistiek ontbreekt vrijwel geheel: het boek bewijst niet wiskundig
+dat de walk-forward-analyse zuivere schattingen oplevert, en de vuistregels,
+zoals welke walk-forward-efficiëntie volstaat, komen uit ervaring.
+
+Het sterkste bewijs is wat er na het boek gebeurde: de walk-forward-analyse is
+in handelssoftware en vakliteratuur een standaardonderdeel van
+strategievalidatie geworden. De statistische onderbouwing van het
+onderliggende punt, dat zoeken in data stelselmatig te mooie resultaten
+oplevert, is later door anderen geleverd, onder wie Aronson en López de Prado.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is gedateerd in zijn voorbeelden en gereedschap: de software en
+markten zijn die van rond 2008, met de nadruk op termijnmarkten. De stijl is
+bovendien breedsprakig; de kernmethode past op twintig bladzijden en het boek
+doet er ruim driehonderd over, met veel herhaling.
+
+Inhoudelijk is de grootste beperking dat de walk-forward beschermt tegen
+overfitting binnen één strategie, maar niet tegen selectie over strategieën
+heen. Wie honderd systemen walk-forward toetst en het beste kiest, haalt de
+zoekfout via een omweg weer binnen; dat probleem behandelt Pardo niet en is
+pas later serieus aangepakt. En ook een strategie met een keurige walk-forward
+kan sneuvelen wanneer het marktkarakter blijvend verandert; de methode meet
+robuustheid in het verleden, geen garantie voor de toekomst.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel een strategie nooit op de data waarop zij is afgesteld; reserveer
+een periode die pas na het afstellen wordt aangeraakt.
+- Kies parameters uit een vlak gebied van goede resultaten, nooit de eenzame
+piek.
+- Gebruik een doelfunctie die winst afweegt tegen terugval en regelmaat.
+- Tel de vrijheidsgraden en schrap regels die weinig toevoegen voordat je gaat
+afstellen.
+- Leg voor de start een profiel vast (verwachte winst, maximale terugval,
+langste verliesreeks) en stop wanneer het echte handelen daar structureel
+buiten valt.
+
+#### Wat je hierna leest
+
+- 482. Building Winning Algorithmic Trading Systems. *Building Winning
+Algorithmic Trading Systems* van Davey beschrijft hetzelfde ontwikkelproces
+vanuit de praktijk, met walk-forward-analyse en Monte-Carlo-simulatie als
+vaste stappen.
+- 483. Evidence-Based Technical Analysis. *Evidence-Based Technical Analysis*
+van Aronson levert de statistische theorie die bij Pardo ontbreekt: waarom
+zoeken in data te mooie resultaten oplevert en hoe daarvoor te corrigeren
+valt.
+- 485. Advances in Financial Machine Learning. *Advances in Financial Machine
+Learning* van López de Prado trekt dezelfde lijn door naar machinaal leren,
+inclusief het selectieprobleem over vele strategieën heen dat Pardo laat
+liggen.
+
+## 503. Machine Learning for Asset Managers
+
+Marcos M. López de Prado, 2020. Verschenen bij Cambridge University Press in
+de reeks Elements in Quantitative Finance (2020, ISBN 9781108792899, ongeveer
+150 bladzijden), met Python-fragmenten door de tekst heen. Geen Nederlandse
+vertaling. Rubriek: geld en ondernemen.
+Tags: `beleggen`, `machinaal leren`, `kwantitatieve financiën`, `statistiek`,
+`portefeuilletheorie`, `overfitting`
+
+Twee jaar na zijn handboek *Advances in Financial Machine Learning* schreef
+López de Prado dit veel kortere deel in de Cambridge-reeks Elements in
+Quantitative Finance. Waar het handboek een hele fabriek voor
+strategieontwikkeling beschrijft, kiest dit boek één stelling en werkt die
+uit: machinaal leren is voor beleggers geen zwarte doos om koersen te
+voorspellen, maar gereedschap om structuur in data te vinden waaruit
+vervolgens een toetsbare theorie valt te bouwen.
+
+In acht compacte hoofdstukken behandelt hij zeven problemen waar de klassieke
+statistiek in de financiën op stukloopt, van ruis in correlatiematrices tot
+het herkennen van strategieën die alleen op papier werken. Elk hoofdstuk gaat
+terug op eerder gepubliceerd wetenschappelijk werk van de auteur.
+
+### Uitgebreide samenvatting
+
+**De stelling.** López de Prado betoogt dat de gangbare tegenstelling tussen
+machinaal leren als ondoorzichtige zwarte doos en klassieke statistiek als
+degelijk gereedschap verkeerd om staat. Financiële data zijn arm aan signaal
+en rijk aan ruis, en juist daar breken klassieke werktuigen als de
+covariantiematrix en de p-waarde. Machinaal leren dient in zijn ogen niet om
+zonder begrip te voorspellen, maar om patronen bloot te leggen waaruit de
+onderzoeker een theorie bouwt die daarna op eigen kracht overeind moet
+blijven. En wie strategieën blijft keuren met alleen backtests, produceert
+valse ontdekkingen: de hoogste Sharpe-ratio die puur toeval oplevert, stijgt
+voorspelbaar met het aantal pogingen.
+
+#### De gang van het boek
+
+**Theorie vinden in plaats van voorspellen**
+
+Het openingshoofdstuk zet de agenda. Machinaal leren hoort in de financiën
+geen orakel te zijn maar een microscoop: het vindt structuur die met het blote
+oog en met lineaire technieken onzichtbaar blijft, waarna de mens de
+verklaring levert. Een backtest is in die werkwijze geen onderzoeksinstrument;
+wie een strategie via herhaald backtesten in vorm knijpt, meet zijn eigen
+volharding.
+
+**Ruis uit de correlatiematrix**
+
+Portefeuillebeslissingen leunen op correlatiematrices, en die worden geschat
+uit te weinig data voor te veel beleggingen. Met resultaten uit de
+random-matrixtheorie laat het boek zien welk deel van de eigenwaarden van zo'n
+matrix niet van puur toeval te onderscheiden is, en hoe dat ruisdeel valt te
+vervangen (ontruisen). Daarnaast beschrijft hij detoning: het verwijderen van
+de marktbrede component, zodat de clusters van onderlinge samenhang zichtbaar
+worden die anders door de markt als geheel worden overstemd.
+
+**Afstand voorbij correlatie**
+
+Correlatie meet alleen lineaire samenhang. Het boek introduceert maten uit de
+informatietheorie, zoals wederzijdse informatie en de variatie van informatie,
+die ook niet-lineaire verbanden oppikken. Daarop bouwt het clusterhoofdstuk:
+beleggingen of signalen groeperen zonder vooraf te kiezen hoeveel groepen er
+zijn, met een methode die het aantal clusters uit de data zelf haalt.
+
+**Betere etiketten, eerlijker kenmerken**
+
+Wie een leermodel traint, moet eerst bepalen wat het moet voorspellen. Het
+gangbare etiket, het rendement over een vaste horizon, noemt hij grotendeels
+ruis; als alternatief beschrijft hij onder meer trend-scanning, waarbij het
+model de aanwezigheid en lengte van een trend leert herkennen.
+
+Daarna richt hij zich op de p-waarde, de klassieke maat voor statistische
+significantie, die volgens hem in de financiën vooral schijnzekerheid levert.
+Zijn alternatief is kenmerkbelang uit leermodellen: meten hoeveel
+voorspelkracht buiten de trainingsdata verloren gaat wanneer één kenmerk wordt
+verhaspeld.
+
+**Portefeuillebouw voorbij Markowitz**
+
+De klassieke portefeuille-optimalisatie van Markowitz lijdt aan wat hij de
+Markowitz-vloek noemt: hoe sterker beleggingen samenhangen, hoe instabieler de
+berekende gewichten, terwijl spreiding dan juist het hardst nodig is. Zijn
+antwoord is geneste geclusterde optimalisatie: eerst clusteren, dan binnen elk
+cluster gewichten bepalen, en ten slotte over de clusters heen. In zijn
+simulaties verkleint dat de schattingsfout van de uitkomst aanzienlijk.
+
+**De valse-strategiestelling**
+
+Het slothoofdstuk is het meest geciteerde. De valse-strategiestelling geeft
+wiskundig aan hoe hoog de beste Sharpe-ratio uitvalt die je verwachten mag
+wanneer alle geteste strategieën waardeloos zijn: die verwachting stijgt met
+het aantal pogingen. De gedeflateerde Sharpe-ratio corrigeert daarvoor, plus
+voor korte reeksen en niet-normale rendementen. De les is een
+onderzoeksprotocol: registreer hoeveel er is geprobeerd, en reken dat mee in
+het oordeel.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ontruisen (denoising) | Het scheiden van signaal en ruis in een geschatte correlatiematrix met behulp van random-matrixtheorie. |
+| Detoning | Het verwijderen van de marktbrede component uit de correlatiematrix, zodat clusters van onderlinge samenhang zichtbaar worden. |
+| Variatie van informatie | Afstandsmaat uit de informatietheorie die ook niet-lineaire samenhang tussen reeksen meet, waar correlatie alleen lineaire verbanden ziet. |
+| Trend-scanning | Etiketteermethode waarbij het model de aanwezigheid en duur van een trend leert herkennen in plaats van het rendement over een vaste horizon. |
+| Markowitz-vloek | Naarmate beleggingen sterker samenhangen wordt de klassieke portefeuille-oplossing instabieler, terwijl spreiding dan juist het hardst nodig is. |
+| Geneste geclusterde optimalisatie (NCO) | Portefeuillemethode die eerst clusters vormt, binnen elk cluster gewichten bepaalt en daarna over de clusters heen weegt. |
+| Valse-strategiestelling | Hoe meer strategieën worden geprobeerd, hoe hoger de beste Sharpe-ratio die puur door toeval te verwachten valt. |
+| Gedeflateerde Sharpe-ratio | Sharpe-ratio gecorrigeerd voor het aantal pogingen, de lengte van de reeks en de niet-normale verdeling van rendementen. |
+
+#### Waar het argument op rust
+
+Elk hoofdstuk steunt op door de auteur met co-auteurs gepubliceerde
+vakartikelen, en de wiskundige kern, zoals de valse-strategiestelling, is
+bewezen. De claims over betere portefeuilles rusten op
+Monte-Carlo-experimenten in het boek zelf: in simulatie verkleinen ontruisen
+en geneste geclusterde optimalisatie de schattingsfout fors.
+
+Daar hoort een kanttekening bij: het bewijs is overwegend simulatie en eigen
+onderzoek. Onafhankelijke praktijktoetsen van deze methoden zijn schaarser en
+laten wisselende uitkomsten zien tegenover eenvoudige alternatieven zoals
+gelijke weging; of de aanpak buiten de simulatie structureel geld oplevert,
+toont het boek niet aan.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is compact tot het karige. Wie de onderliggende artikelen niet kent,
+moet passages meermaals lezen, en de recensie van het CFA Institute noemt het
+terecht geen beginnersboek: sommige uitleg blijft voor niet-wiskundigen
+ontoegankelijk en de Python-fragmenten verhelderen niet altijd.
+
+Inhoudelijk is het boek sterk zelfverwijzend: López de Prado bouwt vrijwel
+uitsluitend op eigen werk en presenteert zijn methoden met grote stelligheid,
+ook waar het vakgebied nog debatteert. Zijn hardste claim, dat de klassieke
+econometrie in de financiën een doodlopende weg is, wordt geponeerd en niet
+bewezen. En de belofte van de titel, dat machinaal leren theorieën helpt
+ontdekken, blijft een programma: het boek toont gereedschap, geen ontdekte
+theorie die zich in de praktijk heeft bewezen.
+
+#### Wat er concreet mee te doen is
+
+- Ontruis een correlatiematrix voordat er portefeuillegewichten uit worden
+berekend.
+- Meet samenhang ook met informatiematen wanneer verbanden niet-lineair kunnen
+zijn.
+- Beoordeel kenmerken op voorspelkracht buiten de trainingsdata in plaats van
+op p-waarden.
+- Houd bij hoeveel strategievarianten zijn geprobeerd en corrigeer de beste
+Sharpe-ratio daarvoor.
+
+#### Wat je hierna leest
+
+- 485. Advances in Financial Machine Learning. *Advances in Financial Machine
+Learning* van dezelfde auteur is het brede handboek waar dit deel de
+theoretische kern uit licht; wie kiezen moet, begint hier en verdiept daar.
+- 486. Machine Learning for Algorithmic Trading. *Machine Learning for
+Algorithmic Trading* van Jansen is de praktische werkplaats bij dezelfde
+onderwerpen, uitgewerkt in navolgbare Python-code.
+- 498. Active Portfolio Management: A Quantitative Approach for Producing
+Superior Returns and Controlling Risk. *Active Portfolio Management* van
+Grinold en Kahn levert het klassieke kwantitatieve raamwerk voor
+portefeuillebouw waar dit boek tegen aanschopt en op voortbouwt.
+
+## 504. The Kelly Capital Growth Investment Criterion: Theory and Practice
+
+Leonard C. MacLean, Edward O. Thorp en William T. Ziemba (red.), 2011.
+Verzamelband in de reeks World Scientific Handbook in Financial Economics,
+deel 3 (World Scientific, 2011, ISBN 9789814293495, ruim 800 bladzijden):
+herdrukte kernartikelen van Bernoulli (1738) tot rond 2010, per deel voorzien
+van een inleiding door de redacteuren. Geen Nederlandse vertaling. Rubriek:
+naslag en praktijk.
+Tags: `beleggen`, `Kelly-criterium`, `positiegrootte`, `kansrekening`,
+`risicobeheer`, `naslagwerk`
+
+In 1956 leidde John L. Kelly jr., natuurkundige bij Bell Labs, uit de
+informatietheorie van Claude Shannon een regel af voor een gokker met
+voorkennis: zet per ronde het vaste deel van je kapitaal in dat de groeivoet
+van dat kapitaal maximaliseert. Voor een weddenschap met gelijke uitbetaling
+is dat deel het verschil tussen winstkans en verlieskans. Deze bundel
+verzamelt de wetenschappelijke kernliteratuur over dat Kelly-criterium,
+geordend en ingeleid door MacLean, Thorp en Ziemba.
+
+Thorp is zelf de man die de regel in de praktijk bracht, eerst aan de
+blackjacktafel en daarna met het hedgefonds Princeton Newport Partners. De
+bundel bevat naast Kelly's oorspronkelijke artikel ook de wiskundige
+fundering, de toepassing op portefeuilles, de bekendste kritiek en het
+bewijsmateriaal uit de beleggingspraktijk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De bundel verdedigt dat wie zijn vermogen over een lange
+reeks gunstige kansen wil laten groeien, per ronde de fractie moet inzetten
+die het verwachte logaritme van het vermogen maximaliseert. Breiman bewees in
+1961 dat zo'n belegger op den duur vrijwel zeker meer vermogen heeft dan elke
+wezenlijk andere strategie en een gesteld vermogensdoel in de kortst verwachte
+tijd bereikt. Tegelijk laten de redacteuren de tegenstanders volop aan het
+woord: volle Kelly-inzetten zijn groot en de rit is wild, en Samuelsons
+bezwaar dat groeimaximalisatie geen wet is voor wie een andere risicohouding
+heeft, staat integraal in de bundel afgedrukt.
+
+#### De gang van het boek
+
+**Van Bernoulli tot Bell Labs**
+
+Het eerste deel bevat de vroege ideeën. Daniel Bernoulli stelde in 1738 al
+voor om vermogen naar zijn logaritme te waarderen. Kelly's artikel *A New
+Interpretation of Information Rate* (1956) verbindt dat met Shannons
+informatietheorie: voor een gokker die tips over een ruisig kanaal ontvangt,
+is de haalbare groeivoet van zijn kapitaal gelijk aan de capaciteit van dat
+kanaal. Latané bepleitte in 1959 hetzelfde meetkundig-gemiddelde-criterium
+voor beleggers.
+
+**De wiskundige fundering**
+
+Breimans artikel uit 1961 levert de twee stellingen waar alles op rust: de
+Kelly-belegger groeit asymptotisch sneller dan elke wezenlijk andere
+strategie, en bereikt een vermogensdoel in de kortst verwachte tijd. Thorps
+bijdragen brengen de regel van gunstige gokspelen naar de effectenbeurs, onder
+meer in *Portfolio Choice and the Kelly Criterion*. Verdere hoofdstukken van
+onder anderen Hakansson en Roll werken de theorie uit en toetsen haar aan
+marktdata.
+
+**Kelly in de portefeuille**
+
+Een volgend deel verbindt het criterium met vermogensverdeling over meerdere
+beleggingen tegelijk. Centraal staat de afweging tussen groei en zekerheid die
+MacLean en Ziemba uitwerkten: volle Kelly maximaliseert de groeivoet maar
+accepteert diepe tussentijdse dalen. Fractioneel Kelly, een vaste fractie van
+de Kelly-inzet nemen, bijvoorbeeld de helft, ruilt een deel van de groei in
+voor aanzienlijk kleinere uitslagen. In de praktijk is dat de gangbare vorm.
+
+**De critici**
+
+De redacteuren drukken de kritiek integraal af, met Paul Samuelson voorop:
+zijn artikel uit 1971 over de dwaling van het maximaliseren van het meetkundig
+gemiddelde, en zijn beroemde stuk uit 1979 dat vrijwel geheel in woorden van
+één lettergreep is geschreven om het punt er in te wrijven. De kern: dat de
+log-maximalisator op den duur vrijwel zeker vooraan ligt, bewijst niet dat
+iedereen zijn nut naar de logaritme moet meten; voor een belegger met een
+eindige horizon en een andere risicohouding is Kelly gewoon te gewaagd, en
+geen asymptotisch argument verandert dat.
+
+**Goede en slechte eigenschappen**
+
+In hun eigen weging zetten de redacteuren de eigenschappen naast elkaar. Goed:
+maximale groei op lange termijn, kortste verwachte tijd naar een doel, en een
+beslisregel die per periode alleen naar het heden hoeft te kijken. Slecht: de
+inzetten zijn bij een groot voordeel enorm, de tussentijdse verliezen kunnen
+ruim de helft van het vermogen bedragen, en de uitkomsten op een mensenleven
+blijven breed gespreid. Wie boven de Kelly-fractie inzet, krijgt bovendien het
+slechtste van twee werelden: lagere groei en groter risico. Simulaties in de
+bundel maken die spreiding zichtbaar.
+
+**Het bewijs uit de praktijk**
+
+Het slotdeel behandelt beleggers wier resultaten passen bij Kelly-achtig
+gedrag: het King's College-fonds van Keynes, Berkshire Hathaway van Buffett en
+Thorps Princeton Newport Partners, geanalyseerd in onder meer Ziemba's artikel
+over de beoordeling van grote beleggers. Thorps overzichtsartikel over het
+Kelly-criterium in blackjack, sportweddenschappen en de aandelenmarkt bindt
+theorie en casino samen en is het toegankelijkste stuk van de bundel.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kelly-criterium | Regel die per inzetronde de fractie van het vermogen kiest die het verwachte logaritme van dat vermogen, en daarmee de samengestelde groeivoet, maximaliseert. |
+| Groeivoet | Het meetkundig gemiddelde rendement per periode, de maat die telt wanneer winsten steeds opnieuw worden ingezet. |
+| Logaritmische nutsfunctie | Waardering van vermogen naar zijn logaritme, waardoor elke verdubbeling evenveel waard is en volledig verlies oneindig zwaar weegt. |
+| Fractioneel Kelly | Een vaste fractie van de Kelly-inzet nemen, bijvoorbeeld de helft; dat kost groei en verkleint de tussentijdse uitslagen sterk. |
+| Overbetting | Structureel meer inzetten dan de Kelly-fractie, wat de groei verlaagt en het risico vergroot; rond het dubbele van Kelly valt de groei ongeveer naar nul. |
+| Groei-zekerheid-afweging | Het raamwerk van MacLean en Ziemba dat groeivoet afzet tegen de kans op tussentijdse terugval, met de Kelly-fractie als knop. |
+| Asymptotische optimaliteit | Breimans resultaat dat de Kelly-belegger op de lange duur vrijwel zeker elke wezenlijk andere strategie voorbijstreeft. |
+
+#### Waar het argument op rust
+
+De kern is wiskundig bewezen: de stellingen van Breiman en de latere
+uitwerkingen staan met bewijs in de bundel, en simulatiestudies tonen de
+spreiding van uitkomsten bij volle en fractionele Kelly. Op dat niveau is de
+onderbouwing zo stevig als financiële theorie maar kan zijn.
+
+Het praktijkbewijs is zwakker en de bundel is daar redelijk eerlijk over. Dat
+de resultaten van Keynes, Buffett en Thorp passen bij Kelly-achtig gedrag,
+bewijst niet dat het criterium hun succes veroorzaakte; de voorbeelden zijn
+achteraf geselecteerd. En het criterium zelf zegt niets over de kansen en het
+voordeel waarmee gerekend wordt: die moet de gebruiker leveren, en daar zit in
+de praktijk de hele moeilijkheid.
+
+#### Wat er tegen in te brengen valt
+
+Dit is een academisch verzamelwerk, geen leerboek: ruim 800 bladzijden
+herdrukte tijdschriftartikelen, elk met eigen notatie, met overlap en sterk
+wisselende moeilijkheidsgraad, zonder doorlopende leerlijn. Wie het
+Kelly-criterium wil leren gebruiken, is met een enkel overzichtsartikel uit de
+bundel beter af dan met het geheel; de bundel is naslag voor wie de bronnen
+zelf wil hebben.
+
+Het bekendste bezwaar komt van Samuelson en staat in de bundel zelf:
+groeimaximalisatie is een keuze voor één nutsfunctie onder vele, en er bestaat
+geen dwingende reden waarom een sterfelijke belegger met eindige horizon die
+keuze zou moeten maken. De inleidingen erkennen dat punt, maar behandelen het
+soms als smaakverschil terwijl het principieel is. Daarnaast krijgt
+schattingsonzekerheid minder gewicht dan zij verdient: wie zijn voordeel
+overschat, zit ongemerkt boven Kelly en daarmee in het gebied waar groei daalt
+en risico stijgt.
+
+#### Wat er concreet mee te doen is
+
+- Reken bij een gunstige kans de Kelly-fractie uit (bij gelijke uitbetaling:
+winstkans min verlieskans) als bovengrens voor de inzet, nooit als doel.
+- Neem in de praktijk een fractie van Kelly, bijvoorbeeld een kwart tot de
+helft, om schattingsfouten en tussentijdse dalen op te vangen.
+- Ga ervan uit dat het eigen voordeel te rooskleurig is geschat en
+dimensioneer de inzet daarnaar.
+- Beoordeel een herbeleggende strategie op haar meetkundige groeivoet, en niet
+op het gemiddelde rendement per ronde.
+
+#### Wat je hierna leest
+
+- 490. The Mathematics of Money Management. *The Mathematics of Money
+Management* van Vince werkt met optimal f de handelaarsvariant van hetzelfde
+idee uit, met dezelfde valkuil van te grote inzetten.
+- 496. Safe Haven: Investing for Financial Storms. *Safe Haven* van Spitznagel
+bouwt zijn hele betoog over risicodemping op dezelfde meetkundige groeivoet
+die hier de hoofdrol speelt.
+- 351. The Intelligent Investor. *The Intelligent Investor* van Graham is de
+tegenpool: voordeel zoeken in waardering en veiligheidsmarge in plaats van in
+de grootte van de inzet.
+
+## 505. A Man for All Markets
+
+Edward O. Thorp, 2017. Oorspronkelijk *A Man for All Markets: From Las Vegas
+to Wall Street, How I Beat the Dealer and the Market* (Random House, 2017, 416
+blz., ISBN 9781400067961), met een voorwoord van Nassim Nicholas Taleb. Geen
+Nederlandse vertaling bekend. Rubriek: roman en memoir.
+Tags: `memoir`, `beleggen`, `wiskunde`, `blackjack`, `kansrekening`,
+`hedgefondsen`
+
+De wiskundige Edward Thorp bewees begin jaren zestig dat blackjack te verslaan
+was door bij te houden welke kaarten al gespeeld waren, publiceerde de methode
+in *Beat the Dealer* en zag de casino's hun regels aanpassen. Daarna richtte
+hij zich op de beurs, waar hij met dezelfde combinatie van kansrekening en
+discipline een van de eerste kwantitatieve hedgefondsen opbouwde. Dit memoir
+uit 2017 vertelt dat leven van depressiejeugd tot Wall Street, met een
+voorwoord van Nassim Taleb.
+
+Het boek is daarnaast een lange les in helder redeneren over kans, risico en
+bewijs. Thorp legt uit hoe hij dacht, waar hij zich vergiste en waarom hij op
+tijd stopte, en sluit af met wat vermogen volgens hem waard is: tijd en
+gezondheid gaan boven geld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Thorp betoogt met zijn eigen leven als bewijsstuk dat het
+casino en de beurs geen ondoordringbare kansspelen zijn: wie meet in plaats
+van meent, vindt plekken waar de kansen aanwijsbaar in zijn voordeel liggen,
+en wie daarbij zijn inzet beheerst, kan die voorsprong jarenlang verzilveren.
+De wetenschappelijke methode, waarnemen, rekenen, toetsen en pas daarna geld
+inzetten, werkt volgens hem overal waar anderen op gevoel of gezag varen. De
+slotsom van het boek is tegelijk onthecht: vermogen is gestolde tijd, en wie
+rijkdom najaagt ten koste van gezondheid, vriendschap en vrije uren rekent met
+de verkeerde eenheid.
+
+#### De gang van het verhaal
+
+**Een jongen die alles zelf uitzoekt**
+
+Thorp groeit op in de crisisjaren, met ouders die lange dagen werken en een
+zoon die zichzelf bezighoudt met scheikundeproeven, zelfgebouwde apparaten en
+rekenwerk. Een gewonnen natuurkundewedstrijd brengt hem via een beurs naar de
+universiteit van Californië, waar hij promoveert in de wiskunde. De eerste
+hoofdstukken leggen het patroon van het hele boek vast: iets zelf willen
+begrijpen, het narekenen en pas dan geloven wat iedereen zegt.
+
+**Blackjack: de croupier verslagen**
+
+Als jonge docent aan MIT rekent Thorp op een IBM-computer uit dat het voordeel
+bij blackjack verschuift naarmate er kaarten uit het spel verdwijnen. Wie de
+resterende tienen telt, weet wanneer het spel in zijn voordeel kantelt en kan
+dan hoog inzetten. Hij presenteert de vondst in 1961 voor het wiskundig
+genootschap, krijgt van gokker Manny Kimmel tienduizend dollar speelkapitaal
+en ruim verdubbelt dat bedrag in een lang weekeinde in Nevada.
+
+Het boek *Beat the Dealer* (1962) wordt een bestseller en dwingt casino's tot
+regelwijzigingen. Thorp beschrijft ook de duistere kant, naar eigen zeggen
+vals spelende croupiers, een keer verdoofd raken en een gesaboteerd gaspedaal,
+en zijn besluit dat het echte spel elders ligt.
+
+**De eerste draagbare computer**
+
+Met Claude Shannon bouwt hij in 1961 een computer ter grootte van een
+sigarettenpakje die uit de beginsnelheid van de roulettebal voorspelt in welk
+vak hij valt, goed voor een berekend voordeel van tientallen procenten per
+inzet. Het apparaat werkt in het casino, maar de dunne oortelefoondraden
+breken telkens en het duo staakt het project. Het geldt als de eerste
+draagbare computer, en voor Thorp als bewijs dat zelfs roulette geen zuiver
+kansspel hoeft te zijn.
+
+**Naar de beurs**
+
+Midden jaren zestig verlegt Thorp zijn aandacht naar warrants, verhandelbare
+rechten op aandelen die destijds vaak verkeerd geprijsd waren. Met econoom
+Sheen Kassouf schrijft hij *Beat the Market* (1967): verkoop de overgeprijsde
+warrant en koop het aandeel ertegenover, zodat de winst uit de prijsfout komt
+en de richting van de markt er weinig toe doet. In het boek beschrijft hij hoe
+hij daarna langs eigen weg uitkwam op een optieprijsformule die overeenkwam
+met wat Black en Scholes pas in 1973 publiceerden, en er in stilte jaren op
+handelde.
+
+**Princeton Newport Partners**
+
+In 1969 begint Thorp met effectenman Jay Regan het fonds dat Princeton Newport
+Partners gaat heten, met de handel in Newport Beach en de administratie in
+Princeton. Het fonds haalt in negentien jaar gemiddeld 19,1 procent per jaar
+voor kosten en 15,1 procent erna, met winst in 227 van de 230 maanden. In 1987
+valt justitie onder aanklager Giuliani het kantoor in Princeton binnen wegens
+belastingconstructies; Thorp zelf wordt nergens van beschuldigd en de zaak
+valt in hoger beroep grotendeels uiteen, maar het fonds overleeft de affaire
+niet en wordt in 1988 ontbonden.
+
+**Madoff, 2008 en de tijd die telt**
+
+In 1991 controleert Thorp voor een klant de administratie van
+vermogensbeheerder Bernard Madoff, vergelijkt diens transactiebriefjes met de
+beursgegevens en vindt transacties die nooit hebben plaatsgevonden. Hij
+concludeert fraude en adviseert uit te stappen, zeventien jaar voordat het
+piramidespel instort. De latere hoofdstukken gaan over de kredietcrisis van
+2008, over samengestelde groei en waarom gewone spaarders het best in brede
+indexfondsen zitten, en over de eindafrekening van een leven: tijd, gezondheid
+en de mensen om je heen zijn de munt waarin een mens werkelijk betaald wordt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kaarten tellen | Bijhouden welke kaarten al gespeeld zijn om te weten wanneer het restant van het spel de speler bevoordeelt, en dan pas hoog inzetten. |
+| Edge | Thorps woord voor een meetbare voorsprong: het percentage dat een speler of belegger per inzet gemiddeld verwacht te winnen. |
+| Kelly-criterium | Rekenregel die voorschrijft welk deel van het kapitaal je inzet bij een gegeven voorsprong, groot genoeg om te groeien en klein genoeg om nooit blut te raken. |
+| Warrant | Een door een bedrijf uitgegeven recht om aandelen tegen een vaste prijs te kopen, in de jaren zestig vaak verkeerd geprijsd en daardoor Thorps eerste beursvoorsprong. |
+| Marktneutraal fonds | Een fonds dat overgeprijsde effecten verkoopt en er verwante effecten tegenover koopt, zodat de winst uit de prijsfout komt en niet uit de richting van de markt. |
+| Statistische arbitrage | Het met de computer benutten van grote aantallen kleine, tijdelijke prijsafwijkingen tussen aandelen. |
+| Samengestelde groei | Rendement op eerder rendement; het mechanisme waarmee een bescheiden jaarlijkse voorsprong over decennia een groot vermogen wordt. |
+
+#### Waar het argument op rust
+
+Voor een memoir is dit verhaal uitzonderlijk goed gedocumenteerd. De
+blackjackmethode staat wiskundig vast en is door talloze spelers herhaald, de
+rendementen van Princeton Newport zijn publiek en vaak nagerekend, en Thorps
+Madoff-analyse uit 1991 is door de latere ontknoping bevestigd. Waar hij
+cijfers noemt, zijn die controleerbaar, en dat onderscheidt dit boek van de
+meeste succesverhalen uit de financiële wereld.
+
+Het blijft wel een zelfportret. Thorp kiest wat verteld wordt, verliezen en
+mislukkingen krijgen minder ruimte dan overwinningen, en de smeuïgste
+anekdotes, de verdoofde koffie, het gesaboteerde gaspedaal, rusten alleen op
+zijn eigen woord. De lezer krijgt de feiten van een betrouwbare rekenaar,
+gerangschikt door een verteller die zijn eigen monument bouwt.
+
+#### Wat er tegen in te brengen valt
+
+De zwakte van het boek zit in de laatste honderd bladzijden, waar het memoir
+overgaat in beschouwingen over sparen, onderwijs en de financiële sector. Die
+stukken zijn verstandig maar generiek, en missen de scherpte van de
+hoofdstukken waarin Thorp iets kraakt. Ook laat het boek de vraag liggen wat
+de lezer met dit alles kan: de prijsfouten die Thorp uitbuitte zijn juist door
+mensen als Thorp verdwenen, en zijn eigen advies aan gewone beleggers luidt
+dan ook dat ze het niet moeten proberen.
+
+Wie het verhaal als bewijs voor het eigen kunnen wil lezen, moet bovendien
+bedenken dat uitzonderlijke reeksen achteraf altijd een verteller vinden.
+Thorps maandcijfers maken toeval als verklaring onwaarschijnlijk, maar het
+genre memoir kent geen controlegroep van even slimme rekenaars die faalden en
+geen boek schreven.
+
+#### Wat je hierna leest
+
+- 351. The Intelligent Investor. *The Intelligent Investor* beschrijft de
+defensieve route die Thorp gewone spaarders uiteindelijk zelf aanraadt: breed
+spreiden en zitten blijven.
+- 268. The Black Swan. *The Black Swan* is van de bewonderaar die het
+voorwoord schreef; Taleb deelt Thorps wantrouwen tegen nette modellen en trekt
+er somberder conclusies uit.
+- 490. The Mathematics of Money Management. *The Mathematics of Money
+Management* werkt de inzetleer uit waarmee Thorp begon: hoeveel je per positie
+riskeert bepaalt of een voorsprong je draagt of breekt.
+
+## 506. Positional Option Trading
+
+Euan Sinclair, 2020. Oorspronkelijk *Positional Option Trading: An Advanced
+Guide* (Wiley, reeks Wiley Trading, 2020, 288 blz., ISBN 9781119583516). Geen
+Nederlandse vertaling bekend. Rubriek: naslag en praktijk.
+Tags: `opties`, `volatiliteit`, `risicobeheer`, `kwantitatief handelen`,
+`positiegrootte`
+
+Euan Sinclair, gepromoveerd natuurkundige en sinds midden jaren negentig
+beroepsmatig optiehandelaar, schreef eerder *Volatility Trading* en *Option
+Trading*. Dit derde boek richt zich op de handelaar zonder beursvloer: wie
+posities dagen tot maanden aanhoudt, kan geen snelheidsvoordeel uitbuiten en
+heeft dus een aantoonbare prijsfout nodig. Sinclair inventariseert waar die te
+vinden is, met de premie op impliciete volatiliteit als hoofdbron.
+
+Het is een gevorderd boek: de prijstheorie wordt in één hoofdstuk samengevat
+en daarna bekend verondersteld. De tweede helft gaat over wat de meeste
+optieboeken overslaan: hoeveel je inzet, hoe de winstverdeling van een
+constructie er werkelijk uitziet en welke risico's buiten het model vallen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Opties handelen zonder meetbare voorsprong is langzaam
+verliezen aan de transactiekosten, dus begint elke positie bij de vraag waarom
+de tegenpartij deze prijs accepteert. De markt is efficiënt genoeg om de
+meeste vermeende kansen te laten verdampen, en net inefficiënt genoeg om
+enkele hardnekkige premies over te laten. De belangrijkste daarvan is de
+variancepremie: de beweeglijkheid die in optieprijzen verrekend zit ligt
+gemiddeld boven wat er daarna werkelijk gebeurt, omdat verkopers van opties
+betaald willen worden voor het dragen van schokrisico. Wie die premie
+stelselmatig oogst, de inzet doseert met het Kelly-criterium en de resterende
+risico's kent, drijft een handelsbedrijf; al het andere is gokken met een
+verhaal erbij.
+
+#### De gang van het boek
+
+**De gereedschapskist in één hoofdstuk**
+
+Het openingshoofdstuk vat de prijstheorie samen: hoe optieprijsmodellen als
+Black-Scholes-Merton werken, wat delta-hedgen doet en waar de aannames
+wringen. Sinclair behandelt het model als meetlat en vertaalinstrument, niet
+als beschrijving van de werkelijkheid: het zet een mening over volatiliteit om
+in een prijs, en de fouten van het model zijn zelf een bron van handel. Wie
+deze stof voor het eerst ziet, wordt naar de basisliteratuur verwezen.
+
+**Bijna efficiënte markten**
+
+Het tweede hoofdstuk behandelt de efficiënte-markthypothese, de stelling dat
+koersen alle beschikbare informatie al bevatten, en de grenzen ervan. Sinclair
+neemt de hypothese serieus als nulhypothese: de meeste patronen die handelaren
+menen te zien zijn ruis, en een voorsprong verdient pas geloof als er een
+reden voor bestaat. Die reden kan een risicopremie zijn, een vergoeding voor
+het dragen van pijn die anderen kwijt willen, of een gedragsfout die niet
+zomaar wegconcurreert, of een structurele beperking zoals fondsen die niet
+mogen schrijven wat zij zouden willen schrijven.
+
+**Volatiliteit voorspellen en de variancepremie**
+
+De kern van het boek is volatiliteit. Sinclair laat zien dat beweeglijkheid
+zich beter laat voorspellen dan richting, omdat onrustige perioden
+samenklonteren en beweeglijkheid naar een gemiddelde terugkeert, en bespreekt
+eenvoudige tijdreeksmodellen naast de impliciete volatiliteit zelf als
+voorspeller.
+
+Daarna volgt het bewijs voor de variancepremie: over lange perioden en op veel
+markten blijkt de in opties verrekende beweeglijkheid gemiddeld hoger dan de
+beweeglijkheid die volgt, zodat de verkoper van opties gemiddeld verdient.
+Sinclair verklaart de premie uit risicoafkeer en verliesangst van kopers, en
+waarschuwt in dezelfde beweging: het gemiddelde verbergt zeldzame, grote
+verliezen, en de premie is een vergoeding daarvoor en geen gratis geld.
+
+**Een lijst van voorsprongen**
+
+Naast de brede variancepremie bespreekt het boek een reeks kleinere,
+gedocumenteerde effecten: volatiliteitsgedrag rond kwartaalcijfers, de premie
+die zich vooral 's nachts opbouwt, het koerspatroon voor rentevergaderingen
+van de Fed, extreme standen van volatiliteitsmaatstaven als keerpunt en de
+prijs van tijdswaarde over dagen waarop niet gehandeld wordt. Per effect geeft
+Sinclair de bron, de omvang en de slijtage: veel van deze randjes zijn klein,
+jagen op dezelfde dollars en verzwakken nadat ze gepubliceerd zijn.
+
+**Van mening naar constructie**
+
+Twee hoofdstukken gaan over richting handelen met opties: hoe een mening over
+een aandeel zich vertaalt in de keuze tussen kale opties, spreads en
+combinaties als de straddle. Sinclair vergelijkt constructies op hun volledige
+winstverdeling in plaats van op het bekende haakjesdiagram op de vervaldag, en
+laat zien dat de beste constructie afhangt van wat de mening precies inhoudt:
+een richting, een tempo, of een oordeel dat de markt de beweeglijkheid
+verkeerd prijst.
+
+**Doseren en de risico's buiten het model**
+
+Het slot behandelt wat de meeste optieboeken overslaan. Het Kelly-criterium
+geeft de inzet die het kapitaal het snelst laat groeien, maar vraagt om een
+korting zodra de voorsprong geschat in plaats van bekend is; Sinclair rekent
+door wat schattingsfouten en scheve winstverdelingen met de juiste
+positiegrootte doen, en wat stop-verkooporders wel en niet aan een strategie
+veranderen. Het laatste hoofdstuk inventariseert risico's die in geen
+prijsmodel staan, van tegenpartijen tot samenhang die juist in een crisis
+oploopt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Edge | Een aanwijsbare reden waarom een transactie gemiddeld geld oplevert, gedragen door een risicopremie, een gedragsfout of een structurele beperking van anderen. |
+| Impliciete volatiliteit | De beweeglijkheid die in een optieprijs verrekend zit; wat de markt blijkbaar verwacht dat het onderliggende aandeel gaat doen. |
+| Variancepremie | Het gedocumenteerde verschijnsel dat impliciete volatiliteit gemiddeld hoger ligt dan de beweeglijkheid die daarna optreedt, als vergoeding voor schokrisico. |
+| Positioneel handelen | Posities dagen tot maanden aanhouden om een prijsfout te oogsten, in plaats van als marktmaker aan het verschil tussen bied- en laatprijs te verdienen. |
+| Efficiënte-markthypothese | De stelling dat koersen alle beschikbare informatie al bevatten, waardoor stelselmatig winnen alleen kan waar die aanname mank gaat. |
+| Kelly-criterium | Rekenregel voor de inzetgrootte die het vermogen op lange termijn het hardst laat groeien zonder kans op de ondergang. |
+| Straddle | Een gekochte of verkochte call en put met dezelfde uitoefenprijs, samen een positie in beweeglijkheid los van de richting. |
+| Delta-hedgen | Het bijkopen of verkopen van het onderliggende aandeel om de richtingsgevoeligheid van een optiepositie te neutraliseren. |
+
+#### Waar het argument op rust
+
+Sinclair bouwt op twee bronnen: de academische literatuur, die hij per effect
+met studie en omvang aanhaalt, en vijfentwintig jaar eigen handel. De
+variancepremie zelf is in tientallen studies op aandelenindices, valuta's en
+grondstoffen aangetoond en geldt als een van de best gedocumenteerde
+verschijnselen in de optiemarkt. Sterk is dat Sinclair overal onzekerheid
+meegeeft: hij noemt effectgroottes, benoemt wanneer bewijs dun is en zegt van
+sommige populaire strategieën ronduit dat er geen voorsprong in zit.
+
+De zwakkere schakel zit in de kleinere effecten. Die rusten op terugrekenen
+over historische data, en zulke vondsten hebben de neiging te verdampen zodra
+ze gepubliceerd zijn. Bovendien is de winst van optieverkoop schaars aan
+waarnemingen op de plek waar het pijn doet: jaren van gestage premie zeggen
+weinig over het ene kwartaal waarin de rekening komt, en dat maakt elk staat
+van dienst in dit vak lastig te beoordelen.
+
+#### Wat er tegen in te brengen valt
+
+Het boek veronderstelt veel: wie Sinclairs eerdere *Volatility Trading* of een
+gelijkwaardige basis niet kent, mist de helft. Recepten geeft hij bewust niet,
+wat eerlijk is en tegelijk betekent dat de lezer met een lijst ingrediënten
+achterblijft en zelf moet koken. De voorbeelden zijn vrijwel geheel
+Amerikaans.
+
+Het zwaarste bezwaar richt zich op de kern van de strategie. Stelselmatig
+opties verkopen levert jaren van kleine winsten met af en toe een zeer groot
+verlies, en de school van Taleb stelt dat handelaren dat staartrisico
+stelselmatig onderschatten omdat het nauwelijks in hun data zit. Sinclair kent
+dat bezwaar, doseert er zijn posities naar en verkoopt de premie toch, omdat
+zij naar zijn oordeel een reële vergoeding is en geen illusie. Wie gelijk
+heeft, beslist per definitie een gebeurtenis die zelden voorkomt, en dat maakt
+dit boek een goed onderbouwde gok en geen bewezen systeem.
+
+#### Wat er concreet mee te doen is
+
+- Handel pas als je kunt benoemen wie er aan de andere kant staat en waarom
+die het gemiddelde verlies accepteert.
+- Beoordeel een strategie op verwachte waarde en volledige winstverdeling; een
+hoog winstpercentage zegt niets zonder de omvang van het zeldzame verlies.
+- Doseer met een breukdeel van het Kelly-criterium en verklein posities zodra
+de schatting van de voorsprong onzekerder wordt.
+- Drijf verkochte opties als een verzekeringsbedrijf: de premie is een
+vergoeding voor de storm, dus reken de storm mee voordat hij komt.
+
+#### Wat je hierna leest
+
+- 494. Dynamic Hedging. *Dynamic Hedging* beschrijft dezelfde markten vanuit
+de stoel van de hedger, met het staartrisico dat Sinclair bewust tegen
+betaling draagt als hoofdrolspeler.
+- 495. Option Volatility and Pricing. *Option Volatility and Pricing* is de
+basiscursus die Sinclair bekend veronderstelt: eerst Natenberg, dan dit boek.
+- 490. The Mathematics of Money Management. *The Mathematics of Money
+Management* werkt de inzetleer uit die Sinclairs slothoofdstukken samenvatten.
+
+## 507. Risk and Asset Allocation
+
+Attilio Meucci, 2005. Oorspronkelijk *Risk and Asset Allocation* (Springer,
+reeks Springer Finance, 2005, 532 blz., ISBN 9783540222132); latere oplagen
+als paperback (ISBN 9783642009648). Geen Nederlandse vertaling bekend.
+Rubriek: naslag en praktijk.
+Tags: `portefeuillebeheer`, `statistiek`, `financiële wiskunde`, `allocatie`,
+`studieboek`
+
+Wiskundig handboek over portefeuillebouw van de kwantitatief financieel
+specialist Attilio Meucci: van de statistiek van rendementen via het
+modelleren van de markt naar het kiezen van een verdeling over beleggingen,
+met schattingsonzekerheid als rode draad. Het eigenlijke onderwerp is de
+multivariate verdeling, de gezamenlijke kansverdeling van veel beleggingen
+tegelijk, inclusief hun onderlinge samenhang.
+
+Het is een studieboek met stellingen, afleidingen en opgaven, ondersteund door
+rekencode van de auteur. Wie de wiskunde aankan, krijgt een van de weinige
+boeken die de hele keten van data tot allocatie in één samenhangend bouwwerk
+zetten, met het Black-Litterman-model als geïntegreerd onderdeel in plaats van
+als losse truc.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Portefeuillebouw is van begin tot eind een statistisch
+probleem: wie een allocatie kiest, kiest in werkelijkheid een kansverdeling
+over toekomstige uitkomsten, en elke stap daarheen, van het herkennen van de
+juiste grootheden in de data tot het wegen van de onzekerheid in de eigen
+schattingen, hoort in één wiskundig kader te staan. De klassieke aanpak van
+gemiddelde en variantie behandelt geschatte parameters als vaststaande
+waarheden en levert daardoor portefeuilles die heftig meebewegen met elke
+schattingsfout. Meucci zet daar een keten tegenover die bij marktinvarianten
+begint en via Bayesiaanse en robuuste methoden eindigt bij allocaties die
+tegen die fouten bestand zijn.
+
+#### De gang van het boek
+
+**Eerst de statistiek**
+
+Het eerste deel legt het statistische fundament, eerst voor één grootheid en
+dan voor vele tegelijk. Centraal staat de multivariate verdeling, de
+gezamenlijke kansverdeling van een hele verzameling beleggingen, waarin niet
+alleen elk rendement afzonderlijk maar vooral de samenhang ertussen besloten
+ligt. Meucci behandelt de gangbare families van verdelingen, waaronder
+varianten met zwaardere staarten dan de normale verdeling, en copula's:
+functies die de samenhang tussen grootheden beschrijven los van hun
+afzonderlijke verdelingen.
+
+**De markt gemodelleerd**
+
+Het derde hoofdstuk introduceert het meest eigen begrip van het boek: de
+marktinvariant, een grootheid die zich over opeenvolgende perioden gedraagt
+als steeds nieuwe trekkingen uit dezelfde verdeling, zoals samengestelde
+rendementen bij aandelen of veranderingen in de rente bij obligaties.
+Modelleren begint met het vinden van die invariant; wie rechtstreeks op
+prijzen modelleert, jaagt op een bewegend doel. Daarna volgt de projectie van
+de invariant naar de beleggingshorizon en de vertaling terug naar prijzen,
+plus factormodellen om het aantal te schatten parameters beheersbaar te
+houden.
+
+**Klassieke allocatie**
+
+Het tweede deel bouwt de klassieke leer op: het schatten van de verdeling van
+de invarianten uit data, het beoordelen van een allocatie met een
+tevredenheidsmaat zoals verwacht nut, en het kiezen van de beste allocatie
+binnen de randvoorwaarden van de belegger. Het gemiddelde-variantiekader van
+Markowitz, dat een portefeuille beoordeelt op verwacht rendement en de
+spreiding daaromheen, verschijnt hier als benadering van het algemene probleem
+in twee stappen, met een eerlijke bespreking van wanneer die benadering deugt
+en wanneer niet.
+
+**De prijs van schattingsfouten**
+
+Het derde deel is de reden dat het boek een eigen plaats heeft. Meucci laat
+zien dat de uitkomst van de klassieke methode extreem gevoelig is voor de
+invoer: kleine verschuivingen in geschatte rendementen leiden tot totaal
+andere portefeuilles, zodat de rekenkunde vooral schattingsfouten uitvergroot.
+Hij maakt die schade meetbaar door een allocatiemethode zelf als schatter te
+behandelen en haar verwachte gemiste waarde over mogelijke werkelijkheden door
+te rekenen.
+
+**Bayesiaans en robuust**
+
+Als antwoord volgen drie routes. Bayesiaanse schatting vermengt de data met
+een vooraf gekozen uitgangspunt, zodat schaarse gegevens niet het hele stuur
+krijgen. Het Black-Litterman-model, hier afgeleid als toepassing van dezelfde
+Bayesiaanse logica, neemt het marktevenwicht als vertrekpunt en mengt daar
+eigen visies met een gekozen mate van overtuiging in. Robuuste allocatie kiest
+ten slotte de portefeuille die binnen een onzekerheidsgebied rond de
+schattingen in het slechtste geval nog het best presteert, en de combinatie
+van beide routes sluit het boek af. Twee wiskundige appendices en opgaven met
+uitwerkingen maken het geheel tot lesmateriaal.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Multivariate verdeling | De gezamenlijke kansverdeling van veel grootheden tegelijk, inclusief hun onderlinge samenhang; voor Meucci het eigenlijke object van portefeuillebeheer. |
+| Marktinvariant | Een grootheid die zich over opeenvolgende perioden gedraagt als onafhankelijke trekkingen uit dezelfde verdeling, en daarom het juiste vertrekpunt voor modellering is. |
+| Copula | Een wiskundige functie die de samenhang tussen grootheden beschrijft, losgekoppeld van de verdeling van elke grootheid afzonderlijk. |
+| Gemiddelde-variantiekader | De klassieke methode van Markowitz die een portefeuille beoordeelt op verwacht rendement en de spreiding daaromheen. |
+| Schattingsrisico | Het risico dat de parameters van het model zelf uit beperkte data zijn geschat en dus fout kunnen zijn, met scheefgetrokken allocaties als gevolg. |
+| Black-Litterman-model | Bayesiaanse methode die het marktevenwicht als uitgangspunt neemt en daar eigen visies met een gekozen mate van overtuiging in mengt. |
+| Robuuste allocatie | Een allocatie die binnen een onzekerheidsgebied rond de schattingen in het slechtste geval nog zo goed mogelijk presteert. |
+
+#### Waar het argument op rust
+
+De onderbouwing is wiskundig: stellingen, afleidingen en opgaven, met
+rekencode van de auteur waarmee elk resultaat na te spelen valt. Binnen de
+aannames staat het bouwwerk niet ter discussie, en de gevoeligheid van
+klassieke allocatie voor schattingsfouten, de kernwaarneming van het boek, is
+in de vakliteratuur breed bevestigd.
+
+De zwakke schakel zit tussen model en wereld: de hele keten staat of valt met
+het bestaan van invarianten, grootheden die werkelijk uit een vaste verdeling
+blijven trekken. Financiële markten wisselen van regime, staarten zijn zwaar
+en samenhang loopt in crises op, zodat elke schatting extrapoleert vanuit een
+verleden dat niet hoeft terug te keren. De robuuste methoden verzachten dat
+probleem; opheffen kunnen zij het niet.
+
+#### Wat er tegen in te brengen valt
+
+Dit is een academisch handboek en geen leesboek. Het veronderstelt
+kansrekening, lineaire algebra en analyse op het niveau van een
+masteropleiding, hanteert een dichte, eigen notatie en telt honderden
+genummerde formules; zonder die vooropleiding is het ontoegankelijk. Er staat
+geen mening over markten in en geen belegwijzer, alleen methode.
+
+Inhoudelijk valt in te brengen dat het apparaat een precisie uitstraalt die
+markten niet honoreren: wie drie decimalen aan een allocatie rekent op
+parameters met één betrouwbaar cijfer, heeft vooral heel netjes gegokt. Meucci
+is zich daarvan bewust, het derde deel gaat er zelfs over, maar de spanning
+blijft. Daarnaast is het boek een momentopname: de auteur bouwde zijn eigen
+kader na 2005 verder uit in latere publicaties, zodat dit werk het fundament
+biedt en niet de laatste stand.
+
+#### Wat er concreet mee te doen is
+
+- Behandel elke allocatie als functie van geschatte parameters en test hoe zij
+verschuift wanneer de schattingen een beetje veranderen.
+- Zoek eerst de marktinvariant en modelleer die, in plaats van rechtstreeks op
+prijzen of rendementen van uiteenlopende horizonnen te rekenen.
+- Gebruik het Black-Litterman-model om visies gedoseerd in een portefeuille te
+brengen in plaats van verwachte rendementen hard in te vullen.
+- Reserveer het boek voor studie en naslag naast een cursus; het is de
+referentie voor wie allocatiemodellen bouwt, niet een inleiding voor de
+algemene lezer.
+
+#### Wat je hierna leest
+
+- 497. Quantitative Risk Management: Concepts, Techniques and Tools.
+*Quantitative Risk Management* hanteert hetzelfde wiskundige register voor de
+andere helft van het vak: risico meten bij banken en verzekeraars.
+- 498. Active Portfolio Management: A Quantitative Approach for Producing
+Superior Returns and Controlling Risk. *Active Portfolio Management* bekijkt
+portefeuillebouw vanuit de actieve beheerder: waar Meucci de verdeling
+modelleert, rekent Grinold aan de waarde van voorspellingen.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -97447,62 +98998,63 @@ and commitment therapy` 457, 460 · `achttiende eeuw` 321 · `acteren` 385 ·
 403, 439 · `afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2, 17, 179,
 216, 218, 228, 391, 394, 462, 473 · `afscheid nemen` 285 · `afschrikking` 217
 · `afwezige-vader` 4 · `agressie` 223, 339 · `alcohol` 4 · `algoritmen` 476,
-477, 479 · `alledaags` 89 · `allegorie` 222 · `amazon` 257 · `ambacht` 6, 12,
-13, 17, 18 · `ambitie` 75 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120,
-132, 133, 134, 136, 158 · `amerikaanse droom` 284 · `Amerikaanse geschiedenis`
-402 · `amerikaanse revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 ·
-`Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341,
-401, 440 · `angst voor de dood` 377 · `animatie` 41 · `Antarctica` 36 ·
-`anthologie` 189 · `antropologie` 223, 410 · `antwerpen` 113 · `apartheid` 26
-· `Apple` 46, 231 · `apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos`
-266 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 · `argumentatie`
-421, 437 · `argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 ·
-`armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
+477, 479 · `alledaags` 89 · `allegorie` 222 · `allocatie` 507 · `amazon` 257 ·
+`ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 · `Amerika` 114, 431 · `amerikaans`
+117, 118, 120, 132, 133, 134, 136, 158 · `amerikaanse droom` 284 ·
+`Amerikaanse geschiedenis` 402 · `amerikaanse revolutie` 243 · `Amsterdam` 295
+· `anatomie` 241, 412 · `Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136,
+140, 181, 214, 252, 341, 401, 440 · `angst voor de dood` 377 · `animatie` 41 ·
+`Antarctica` 36 · `anthologie` 189 · `antropologie` 223, 410 · `antwerpen` 113
+· `apartheid` 26 · `Apple` 46, 231 · `apps` 294 · `arbeid` 6, 173, 297, 390 ·
+`arbeidsethos` 266 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
+`argumentatie` 421, 437 · `argumenten` 63 · `argumenteren` 438 · `Aristoteles`
+438 · `armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
 `asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 ·
 `Australië` 447 · `autobiografie` 358, 440 · `automatisering` 297 ·
-`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `backtesten` 482 ·
-`banken en verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
-`bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209,
+`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `backtesten` 482, 502
+· `banken en verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82
+· `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209,
 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beginners` 112 ·
 `behoeften` 35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis`
 60 · `belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351,
 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492,
-496, 498 · `beleid` 65 · `beloningssysteem` 418 · `bemiddeling` 35 ·
-`beroemdheden` 128 · `beschadigd-bestand` 115, 130 · `beschaving` 57 ·
-`beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
-`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
-423, 424, 426, 450, 451, 468, 475 · `bestseller` 8, 37, 250 · `betekenis` 143
-· `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
-353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 · `bewustzijn`
-148, 169, 200, 275, 340, 377 · `bewustzijnsniveaus` 449 · `bezit` 37 · `bias`
-209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie` 31, 46, 189, 231,
-240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454 · `biohacking` 316 ·
-`biologie` 66, 88, 89, 90, 91, 322 · `biologie van gedrag` 273 · `biologische
-klok` 326, 329 · `biotechnologie` 236, 413 · `bloedvaten` 86 · `bloedwaarden`
-313 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401 · `bootstrapping`
-369 · `brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292 ·
-`broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
-`burgerschap` 243 · `burn-out` 135, 207, 400 · `cafeïne` 52 · `Californië` 10
-· `carl jung` 258 · `carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 ·
-`celbiologie` 419 · `chakra's` 432 · `challenger` 62 · `Chanakya` 370 ·
-`chaos` 74, 347 · `chapbook` 100 · `China` 348 · `Chinese filosofie` 389, 394
-· `Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201,
-391 · `chronobiologie` 326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298
-· `coaching` 161, 291, 441 · `cognitieve gedragstherapie` 147, 153, 373 ·
-`cognitieve herstructurering` 177 · `cognitieve vertekening` 234 · `cognitieve
-wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn` 435 ·
-`collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 ·
-`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
-193, 213, 305, 338, 356, 398, 399, 444, 466, 475 · `complexiteit` 170, 268,
-300, 347, 423 · `complimenten geven` 356 · `concentratie` 70, 441 ·
-`concurrentie` 293 · `conditionering` 61 · `conflict` 35, 42, 43, 212, 305 ·
-`conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
-`consumptie` 463 · `consumptiekeuzes` 299 · `content` 308 · `content creatie`
-365 · `content marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13,
-14, 15, 16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475 · `cricket` 174 ·
-`crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274 · `cultuurkritiek` 54, 405 ·
-`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131 · `cybernetica` 411 ·
-`cynisme` 250, 319 · `dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 ·
+496, 498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `beloningssysteem`
+418 · `bemiddeling` 35 · `beroemdheden` 128 · `beschadigd-bestand` 115, 130 ·
+`beschaving` 57 · `beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59,
+69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299,
+364, 396, 423, 424, 426, 450, 451, 468, 475 · `bestseller` 8, 37, 250 ·
+`betekenis` 143 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 ·
+`beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 ·
+`bewustzijn` 148, 169, 200, 275, 340, 377 · `bewustzijnsniveaus` 449 · `bezit`
+37 · `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie` 31, 46,
+189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454 · `biohacking`
+316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie van gedrag` 273 ·
+`biologische klok` 326, 329 · `biotechnologie` 236, 413 · `blackjack` 505 ·
+`bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 · `boeddhisme` 111, 287,
+333, 341, 401 · `bootstrapping` 369 · `brainstormen` 33 · `branding` 443 ·
+`brein` 414 · `brieven` 292 · `broers` 10 · `budgetteren` 159, 233, 464 ·
+`buitenlandse hulp` 221 · `burgerschap` 243 · `burn-out` 135, 207, 400 ·
+`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 ·
+`cases` 40 · `cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger`
+62 · `Chanakya` 370 · `chaos` 74, 347 · `chapbook` 100 · `China` 348 ·
+`Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 · `chiropractie` 432
+· `christendom` 162, 201, 391 · `chronobiologie` 326, 329 · `cijfers` 39, 65 ·
+`civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitieve
+gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177 ·
+`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
+59 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 ·
+`columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
+122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
+444, 466, 475 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven`
+356 · `concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61 ·
+`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
+`conflicthantering` 271 · `conformisme` 211 · `consumptie` 463 ·
+`consumptiekeuzes` 299 · `content` 308 · `content creatie` 365 · `content
+marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
+74, 206, 312, 349, 418, 445, 471, 472, 475 · `cricket` 174 · `crisis` 47 ·
+`CRISPR` 413 · `cultuur` 68, 274 · `cultuurkritiek` 54, 405 · `cursus` 108,
+130, 201 · `cursus-in-wonderen` 102, 131 · `cybernetica` 411 · `cynisme` 250,
+319 · `dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 ·
 `dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
 `dagelijkse praktijk` 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 ·
 `dataïsme` 236 · `daten` 166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298
@@ -97545,47 +99097,48 @@ bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 ·
 `feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199,
 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442
 · `filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 · `financiële
-markten` 268, 351, 480, 481, 483 · `financiële onafhankelijkheid` 264 ·
-`financiele vrijheid` 277 · `financiële wiskunde` 497 ·
+markten` 268, 351, 480, 481, 483, 499, 501 · `financiële onafhankelijkheid`
+264 · `financiele vrijheid` 277 · `financiële wiskunde` 497, 507 ·
 `financiële-discipline` 464 · `financiën` 334, 395, 425 · `financiering` 172 ·
-`fitnessbranche` 307 · `flow` 78, 187, 200 · `focus` 175, 197, 448 ·
-`fotoboek` 189 · `foutcultuur` 422 · `frankrijk` 115 · `Franse-Weerstand` 390
-· `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 ·
-`gaslighting` 123 · `gastheerschap` 304 · `gebed` 83, 259 · `gebruikersgedrag`
-294 · `gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90,
-138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie`
-424, 426 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
-`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290,
-457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469 · `geduld` 21, 351 ·
-`geestelijke gezondheid` 193 · `gegevensanalyse` 486 · `gehechtheid` 166 ·
-`geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215
-· `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158,
-159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
-`geldpsychologie` 233, 264 · `geloof` 45, 83, 201 · `geluk` 79, 93, 160, 228,
-335 · `gemeenschap` 9, 96, 304, 461 · `geneeskunde` 49, 328 · `generaties` 114
-· `generatieve drift` 315 · `genetica` 413, 419 · `genezing` 340 · `genot en
-pijn` 314 · `gentechnologie` 413 · `geologie` 239 · `geopolitiek` 220 ·
-`geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381,
-425, 440 · `geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
-`gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182, 186, 438 ·
-`gevangenendilemma` 453 · `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht` 138
-· `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25,
-58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207,
-208, 224, 230, 290, 334, 382, 439, 442, 445 · `gewoontevorming` 146, 161, 168,
-188, 244, 291, 294, 396, 397, 411 · `gezag` 62 · `gezinnen` 327 · `gezondheid`
-52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie`
-458 · `gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 · `goeroe` 242 ·
-`Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 · `grenzen` 72, 105,
-109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406, 429 · `griekse
-mythologie` 261 · `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 ·
-`groepsdenken` 339 · `groepsgedrag` 303 · `grondstoffen` 92 · `groot-verhaal`
-56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen`
-30, 476, 477, 478, 479 · `handelspsychologie` 488, 489 · `handelssysteem` 489,
-491 · `handelssystemen` 484, 486 · `handleiding` 112 · `hart` 86, 128 ·
-`Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags
-India` 202 · `heelal` 99, 262 · `heldenreis` 410 · `helderheid` 82, 436 ·
-`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
+`fitnessbranche` 307 · `flitshandel` 499 · `flow` 78, 187, 200 · `focus` 175,
+197, 448 · `fotoboek` 189 · `foutcultuur` 422 · `frankrijk` 115 ·
+`Franse-Weerstand` 390 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458
+· `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 · `gebed` 83, 259 ·
+`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
+`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
+339 · `gedragseconomie` 424, 426 · `gedragsonderzoek` 302, 382 ·
+`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
+`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
+468, 469 · `geduld` 21, 351 · `geestelijke gezondheid` 193 · `gegevensanalyse`
+486 · `gehechtheid` 166 · `geheim genootschap` 202 · `geheugen` 66, 85, 175,
+414 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56,
+76, 121, 132, 133, 158, 159, 433, 463, 464 · `geldmanagement` 492, 493 ·
+`geldmindset` 395 · `geldpsychologie` 233, 264 · `geloof` 45, 83, 201 ·
+`geluk` 79, 93, 160, 228, 335 · `gemeenschap` 9, 96, 304, 461 · `geneeskunde`
+49, 328 · `generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 ·
+`genezing` 340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
+`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
+258, 298, 328, 381, 425, 440 · `geschiedenis van de geneeskunde` 412 ·
+`geschiedfilosofie` 235 · `gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182,
+186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 · `geweld` 45, 90, 214 ·
+`gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11,
+13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
+158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445 · `gewoontevorming`
+146, 161, 168, 188, 244, 291, 294, 396, 397, 411 · `gezag` 62 · `gezinnen` 327
+· `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415 ·
+`gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422 · `ggz` 104 ·
+`giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `godsdienstkritiek`
+341 · `goeroe` 242 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
+`grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406,
+429 · `griekse mythologie` 261 · `groei` 222 · `groeiaandelen` 474 ·
+`groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
+`grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handboek` 493,
+495 · `handel` 80, 251 · `handelen` 30, 476, 477, 478, 479, 501 ·
+`handelspsychologie` 488, 489 · `handelssysteem` 489, 491 · `handelssystemen`
+484, 486, 500, 502 · `handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay
+House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags India` 202 ·
+`hedgefondsen` 505 · `heelal` 99, 262 · `heldenreis` 410 · `helderheid` 82,
+436 · `herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
 `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330,
 333 · `hersenspoeling` 384 · `herstel` 87 · `het gesprek` 416 · `Himalaya` 191
 · `hindoeïsme` 169, 199 · `Hindoeïstische mythologie` 192, 202 ·
@@ -97611,30 +99164,31 @@ India` 202 · `heelal` 99, 262 · `heldenreis` 410 · `helderheid` 82, 436 ·
 negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284
 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint
 ventures` 348 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman`
-295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401 ·
-`Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 ·
+295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499
+· `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 ·
 `kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 ·
 `kanker` 419 · `kans` 64 · `kansdenken` 487 · `kansen` 137 · `kansrekening`
-282, 456, 484, 490, 496 · `kapitalisme` 298 · `karakter` 97 · `karma` 184 ·
-`Kasjmir` 180 · `keegan` 110 · `kennis` 81 · `kenniswerk` 6, 50, 400, 472 ·
-`kernwaarden` 245 · `kernwapens` 454 · `keuzes` 51, 71, 72 · `Kierkegaard` 405
-· `kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact`
-182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265
-· `klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
-`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
-144, 173, 213, 254, 351, 420 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
-`kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
-`klimaatverandering` 299 · `klinische psychologie` 460 · `klokkenmakerij` 321
-· `kolonialisme` 298 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 ·
-`kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten`
-111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281 · `koude oorlog` 217, 220,
-384, 454, 456 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 ·
-`krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch
-denken` 420, 421 · `kroeg` 4 · `kunst` 11, 445 · `kunstenaars` 312 ·
-`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
-intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
-`kwantificering` 392 · `kwantitatieve analyse` 498 · `kwantitatieve financiën`
-485 · `kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362 ·
+282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298 · `karakter` 97 ·
+`karma` 184 · `Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `kennis`
+81 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 ·
+`keuzes` 51, 71, 72 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152
+· `kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
+`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
+`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
+`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420 ·
+`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
+`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische
+psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298 · `korea` 111 ·
+`kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 ·
+`kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie`
+239, 262, 281 · `koude oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap`
+31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41,
+50 · `kritiek geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kunst`
+11, 445 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312 · `kunstmatig
+leven` 347 · `kunstmatige intelligentie` 236, 237, 297 · `kwaad` 404 ·
+`kwaliteit` 1, 400 · `kwantificering` 392 · `kwantitatief handelen` 506 ·
+`kwantitatieve analyse` 498 · `kwantitatieve financiën` 485, 503 ·
+`kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362 ·
 `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `landbouw` 56, 98 ·
 `landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265 ·
 `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
@@ -97650,8 +99204,8 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 `literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48 ·
 `Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349 · `loslaten`
 377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `luchtvaart` 422 ·
-`luisteren` 24, 35, 305, 444 · `machinaal leren` 484, 485, 486 · `macht` 212,
-250, 263, 381, 388, 440 · `machtspolitiek` 220 · `machtstheorie` 221 ·
+`luisteren` 24, 35, 305, 444 · `machinaal leren` 484, 485, 486, 503 · `macht`
+212, 250, 263, 381, 388, 440 · `machtspolitiek` 220 · `machtstheorie` 221 ·
 `machtsverhoudingen` 155 · `magisch realisme` 261 · `management` 42, 47, 170,
 183, 256, 350, 353, 364, 472 · `manifesteren` 128, 129, 130, 131, 132, 190,
 196, 433 · `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429 ·
@@ -97662,11 +99216,11 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431 · `meesterschap` 296,
 320 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402,
-403, 431, 447 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 · `mentale
-gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323,
-372, 373, 374 · `mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320, 402 ·
-`merken` 279 · `metabolisme` 313 · `metafysica` 102 · `meten` 69, 133 ·
-`methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
+403, 431, 447, 505 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 ·
+`mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid`
+229, 323, 372, 373, 374 · `mentalisme` 378, 399 · `mentorschap` 4, 285, 289,
+320, 402 · `merken` 279 · `metabolisme` 313 · `metafysica` 102 · `meten` 69,
+133 · `methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
 `middelbare-leeftijd` 7 · `midlife` 324 · `militaire strategie` 220 ·
 `millennials` 159 · `minderheden` 68 · `mindful` 103 · `mindfulness` 141, 147,
 149, 177, 333, 401 · `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 ·
@@ -97679,7 +99233,7 @@ gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323,
 `mystiek` 340, 390 · `mythologie` 73, 143, 357, 360, 407, 408, 409 ·
 `mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
 `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
-`naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491 ·
+`naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504 ·
 `nationalisme` 237 · `natuur` 191, 323 · `natuurkunde` 62, 94, 240, 262, 281,
 300, 326 · `navigatie` 321 · `navy seals` 229, 364 · `nazisme` 223 ·
 `necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103,
@@ -97714,13 +99268,13 @@ gedachte` 127, 378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241 ·
 `ontwikkelingslanden` 234 · `onvolmaaktheid` 379 · `onzekerheid` 268, 341,
 375, 423 · `oordeel` 59, 69 · `oorlog` 31, 57, 66, 364 · `oorlogvoering` 218 ·
 `opdrachten` 116 · `opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 ·
-`opties` 494, 495 · `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23,
-29, 44, 53, 73, 162, 193, 290 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238,
-388, 422, 468 · `organisatiecultuur` 183, 273, 353 · `orthodontie` 332 ·
+`opties` 494, 495, 506 · `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3,
+23, 29, 44, 53, 73, 162, 193, 290 · `orde` 73, 74 · `organisatie` 28, 41, 69,
+238, 388, 422, 468 · `organisatiecultuur` 183, 273, 353 · `orthodontie` 332 ·
 `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude Rome` 328 ·
 `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416 · `oudheid` 2,
-247, 292 · `outsourcen` 278 · `overdenken` 148 · `overfitting` 484, 485 ·
-`overgave` 431 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
+247, 292 · `outsourcen` 278 · `overdenken` 148 · `overfitting` 484, 485, 502,
+503 · `overgave` 431 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
 `overtuigen` 24, 182, 253, 356, 367, 438 · `overtuiging` 280 · `overtuigingen`
 28, 132, 139, 143, 469, 487 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31
 · `pacifisme` 240 · `Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 ·
@@ -97736,8 +99290,9 @@ chirurgie` 411 · `plicht` 2 · `podcast` 136, 465 · `poëzie` 204 · `poker` 1
 · `polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221, 453, 455 ·
 `politiek` 54, 219, 438 · `politieke filosofie` 394 · `populair` 77, 129, 133
 · `populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie`
-194 · `populaire psychologie` 156, 429 · `portefeuille` 474 · `portretten` 75,
-94 · `positief denken` 83, 179 · `positiegrootte` 489, 490, 491, 493 ·
+194 · `populaire psychologie` 156, 429 · `portefeuille` 474 ·
+`portefeuillebeheer` 507 · `portefeuilletheorie` 503 · `portretten` 75, 94 ·
+`positief denken` 83, 179 · `positiegrootte` 489, 490, 491, 493, 504, 506 ·
 `positieve-psychologie` 207 · `positionering` 443 · `postuum` 49 · `Praag` 173
 · `praktijk` 459 · `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 ·
 `presenteren` 82, 253 · `prestatie` 168, 291, 372, 397, 488 ·
@@ -97753,7 +99308,7 @@ chirurgie` 411 · `plicht` 2 · `podcast` 136, 465 · `poëzie` 204 · `poker` 1
 331 · `psychoanalyse` 223, 360, 361, 405, 409 · `psychologie` 23, 28, 29, 55,
 73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254,
 258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463,
-467, 468, 469, 487 · `psychologische flexibiliteit` 460 · `psychologische
+467, 468, 469, 487, 501 · `psychologische flexibiliteit` 460 · `psychologische
 functies` 361 · `psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 ·
 `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie`
 269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94 · `quilten`
@@ -97767,9 +99322,9 @@ functies` 361 · `psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 ·
 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15, 241 · `rente` 38 ·
 `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
 `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351, 423, 425, 480, 481,
-482, 487, 496 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494, 497, 498 ·
-`ritueel` 404 · `rituelen` 304 · `rivier als symbool` 287 ·
-`roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114,
+482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494,
+497, 498, 504, 506 · `ritueel` 404 · `rituelen` 304 · `rivier als symbool` 287
+· `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114,
 115, 254 · `romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 ·
 `ruimte en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust`
 32 · `SaaS` 434 · `sadisme` 223 · `Salinas` 10 · `samenleving` 90, 98, 319 ·
@@ -97794,90 +99349,91 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
 441 · `sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
 `staartrisico` 494, 496 · `staatsgreep` 220 · `stalking` 214 · `standaarden`
 396 · `Stanford` 150, 388, 458 · `start-ups` 306 · `startups` 265 ·
-`statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485, 497 ·
-`statistiek van uitzonderingen` 274 · `status` 39, 66, 463 · `sterfelijkheid`
-2, 71, 232, 295, 416 · `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 ·
-`stijl` 18, 436 · `stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228,
-232, 286, 423, 459 · `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462
-· `stoïcisme` 2, 30, 194, 247, 248, 292 · `stommiteit` 155 · `storytelling`
-253, 279 · `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346,
-353, 370, 426, 440, 443, 450, 451, 456 · `streken` 112 · `stress` 80, 87, 106,
-118, 187, 387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip`
-452 · `structuur` 82 · `studieboek` 421, 437, 497, 498 · `studietechniek` 420
-· `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
-`surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360 ·
-`synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22, 142 ·
-`systeemtheorie` 165 · `systematisch handelen` 482 · `taal` 26, 27, 436 ·
-`taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29, 274 ·
-`taoïsme` 341, 394 · `tarieven` 121 · `teams` 42, 273, 364, 468 ·
-`teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
-`technische analyse` 483 · `technologie` 160, 288, 294, 306, 393 ·
-`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
-`technologiekritiek` 297 · `tegen-productiviteit` 71 · `tegenslag` 30, 111,
-174 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33
-· `termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas`
-5, 385 · `The Secret` 433 · `theeceremonie` 379 · `therapie` 51, 107, 118,
-119, 120, 121, 122, 145, 466 · `thriller` 101, 202 · `thuiszorg` 225 ·
-`tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442 · `tijdmanagement` 434 ·
-`tijdsbeleving` 326 · `timemanagement` 311, 448 · `toekomst` 236 · `toeval`
-21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121,
-132, 145 · `topprestatie` 374 · `topsport` 422, 460 · `totalitarisme` 384 ·
-`trading` 492, 493, 495 · `training` 376 · `trauma` 104, 119, 195, 229, 317,
-386 · `trendvolgen` 480 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ`
-471 · `tuinontwerp` 205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 ·
-`tweede-wereldoorlog` 115 · `tweelingonderzoek` 417 · `twintigers` 51 ·
-`typologie` 361 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99,
-102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311 ·
-`uitstellen` 16 · `uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 ·
-`umwelt` 322 · `Upanishaden` 169 · `vaardigheden` 40, 50, 349, 397 ·
-`vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173,
-287 · `vaderschap` 49, 226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1, 206,
-320, 346, 376 · `variantie` 137 · `vastgoed` 37, 448 · `vechtkunst` 389 ·
-`vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177,
-189, 317, 375, 459, 460, 461, 467, 470 · `veiligheid` 43, 214 ·
-`veiligheidsmarge` 144 · `verandering` 170, 252, 375, 467 ·
-`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
-302 · `verdriet` 111, 227 · `Verenigde-Staten` 464 · `vergaderen` 42 ·
-`vergaderingen` 276 · `vergankelijkheid` 379 · `vergelijkende mythologie` 410
-· `vergeving` 31, 102, 120 · `verhaal` 74 · `verhaalstructuur` 410 ·
-`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470 · `verhalenbundel`
-206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen`
-68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308, 350, 367, 427 ·
-`verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164,
-418 · `verleiding` 381 · `verlichting` 243, 287 · `verlies` 95, 373 ·
-`vermaak` 61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 ·
-`vermogensbeheer` 498 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171,
-387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225 · `verplichting` 9 ·
-`verslaving` 18, 238, 275, 294, 314, 324, 325, 418 · `vertrouwen` 42, 273,
-279, 319 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
-`verwachtingen` 425 · `verwachtingswaarde` 492 · `verwondering` 227 ·
-`verzekeren` 496 · `vier deugden` 194 · `visioenen` 359 · `visualisatie` 259,
-411 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171,
-313, 316, 329, 332, 417 · `voedingswetenschap` 417 · `volatiliteit` 494, 495 ·
-`volharding` 29 · `volledigheid` 167 · `voorbeelden` 128 · `voorbereiding` 82
-· `voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen` 455 ·
-`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
-`voorzichtigheid` 216 · `vorming` 224 · `vragen-stellen` 475 · `vreemden` 302
-· `vriendschap` 5, 7, 114, 292, 295, 319 · `vrije tijd` 78, 288 · `vrije wil`
-10, 236, 339 · `vrijheid` 61 · `vroeg pensioen` 264 · `vrouwenhaat` 110 ·
-`waardebeleggen` 144, 351 · `waardecreatie` 246 · `waarden` 72, 142, 392, 457,
-461 · `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322 ·
-`wabi-sabi` 379 · `Wall Street` 144, 351 · `weerbaarheid` 194 · `weerstand` 12
-· `welvaart` 251, 334 · `welvaartsbewustzijn` 433 · `wereldbeeld` 234 ·
-`wereldbouw` 192 · `werk` 70, 78, 151, 252, 466 · `werkboek` 14, 122, 150 ·
-`werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 ·
-`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
-`wet van aantrekking` 127, 190, 433 · `wetenschap` 63, 66, 93, 94, 328, 485 ·
-`wetenschappers` 239 · `wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis`
-239, 240, 321, 347, 413, 419 · `wetenschapsjournalistiek` 387, 412 · `wijn`
-112 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490 ·
-`wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 ·
-`wraak` 101 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242 ·
-`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
-182 · `zakendoen` 348, 367, 465 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam`
-144 · `zelfacceptatie` 176, 335 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105,
-107, 108, 129, 138, 197, 367, 372, 411, 439 · `zelfbeheersing` 75, 148, 212,
-248, 286, 314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32 ·
+`statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485, 497,
+500, 502, 503, 507 · `statistiek van uitzonderingen` 274 · `status` 39, 66,
+463 · `sterfelijkheid` 2, 71, 232, 295, 416 · `sterrenkunde` 99 · `sterven`
+49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns` 75, 140, 142 · `stoïcijnse
+filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
+`stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292 ·
+`stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
+249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451, 456 ·
+`streken` 112 · `stress` 80, 87, 106, 118, 187, 387, 458 · `stressmanagement`
+153 · `stressregulatie` 372 · `strip` 452 · `structuur` 82 · `studieboek` 421,
+437, 497, 498, 507 · `studietechniek` 420 · `succes` 75, 76, 274 ·
+`superkrachten` 203 · `supplementen` 171, 316 · `surveillance` 393 ·
+`syllogismen` 437 · `symboliek` 357, 360 · `synchroniciteit` 362 ·
+`synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 ·
+`systematisch handelen` 482, 502 · `taal` 26, 27, 436 · `taal en macht` 344 ·
+`tactische empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341, 394 ·
+`tarieven` 121 · `teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork`
+156, 256 · `techniek` 1, 6, 43, 61, 92 · `technische analyse` 483, 500 ·
+`technologie` 160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
+`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297 ·
+`tegen-productiviteit` 71 · `tegenslag` 30, 111, 174 · `tekenen` 15 ·
+`tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `termijnmarkten`
+480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5, 385 · `The
+Secret` 433 · `theeceremonie` 379 · `therapie` 51, 107, 118, 119, 120, 121,
+122, 145, 466 · `thriller` 101, 202 · `thuiszorg` 225 · `tieners` 193 · `tijd`
+71, 232, 262, 292, 334, 442 · `tijdmanagement` 434 · `tijdsbeleving` 326 ·
+`timemanagement` 311, 448 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274,
+362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie`
+374 · `topsport` 422, 460 · `totalitarisme` 384 · `trading` 492, 493, 495 ·
+`training` 376 · `trauma` 104, 119, 195, 229, 317, 386 · `trendvolgen` 480,
+501 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `tuinontwerp`
+205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 · `tweede-wereldoorlog` 115
+· `tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 ·
+`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
+82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311 · `uitstellen` 16 ·
+`uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
+`Upanishaden` 169 · `vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 ·
+`vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49,
+226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376 ·
+`variantie` 137 · `vastgoed` 37, 448 · `vechtkunst` 389 · `vedische filosofie`
+230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177, 189, 317, 375, 459, 460,
+461, 467, 470 · `veiligheid` 43, 214 · `veiligheidsmarge` 144 · `verandering`
+170, 252, 375, 467 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335,
+364 · `verbinding` 302 · `verdriet` 111, 227 · `Verenigde-Staten` 464 ·
+`vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379 ·
+`vergelijkende mythologie` 410 · `vergeving` 31, 102, 120 · `verhaal` 74 ·
+`verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56, 101, 110, 136,
+196, 470 · `verhalenbundel` 206 · `verhouding` 113 · `verhoudingen` 110 ·
+`verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182, 185, 186, 188, 246,
+280, 307, 308, 350, 367, 427 · `verkooptrechters` 309 · `verkopen` 210 ·
+`verlangen` 76, 100, 113, 130, 164, 418 · `verleiding` 381 · `verlichting`
+243, 287 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39, 463 · `vermogen
+opbouwen` 395 · `vermogensbeheer` 498 · `vermogensopbouw` 163, 264, 277 ·
+`veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225 ·
+`verplichting` 9 · `verslaving` 18, 238, 275, 294, 314, 324, 325, 418 ·
+`vertrouwen` 42, 273, 279, 319 · `vervolg` 74, 131 · `vervreemding` 173 ·
+`verwachting` 387 · `verwachtingen` 425 · `verwachtingswaarde` 492 ·
+`verwondering` 227 · `verzekeren` 496 · `vier deugden` 194 · `visioenen` 359 ·
+`visualisatie` 259, 411 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 ·
+`voeding` 86, 88, 171, 313, 316, 329, 332, 417 · `voedingswetenschap` 417 ·
+`volatiliteit` 494, 495, 506 · `volharding` 29 · `volledigheid` 167 ·
+`voorbeelden` 128 · `voorbereiding` 82 · `voorkeuren` 89 · `vooroordelen` 55,
+283 · `voorspellen` 455 · `voorspellingen` 268 · `vooruitgang` 251 ·
+`vooruitgangsdenken` 298 · `voorzichtigheid` 216 · `vorming` 224 ·
+`vragen-stellen` 475 · `vreemden` 302 · `vriendschap` 5, 7, 114, 292, 295, 319
+· `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61 · `vroeg
+pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
+`waardecreatie` 246 · `waarden` 72, 142, 392, 457, 461 · `waardering` 24, 34 ·
+`waarheid` 263 · `waarneming` 154, 283, 322 · `wabi-sabi` 379 · `Wall Street`
+144, 351, 499 · `weerbaarheid` 194 · `weerstand` 12 · `welvaart` 251, 334 ·
+`welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70,
+78, 151, 252, 466 · `werkboek` 14, 122, 150 · `werkdruk` 400 · `werkplek` 33,
+43 · `werktempo` 400 · `werkwijze` 16 · `West-Point` 29 · `westen` 67 ·
+`western` 5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 127, 190,
+433 · `wetenschap` 63, 66, 93, 94, 328, 485 · `wetenschappers` 239 ·
+`wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
+413, 419 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238
+· `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505 · `wisselstroom` 267 ·
+`woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101 · `wu
+wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242 · `young adult` 192 ·
+`youtube` 245 · `zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen`
+348, 367, 465 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
+`zelfacceptatie` 176, 335 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107,
+108, 129, 138, 197, 367, 372, 411, 439 · `zelfbeheersing` 75, 148, 212, 248,
+286, 314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32 ·
 `zelfdiscipline` 2, 158, 229, 244, 311 · `zelfevaluatie` 270 ·
 `zelfexperiment` 316, 318, 417 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79,
 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158,

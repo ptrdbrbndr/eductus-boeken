@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Evaluation and Optimization of Trading Strategies &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pardo betoogt dat optimalisatie, het afstellen van de parameters van een handelsstrategie op historische koersen, geen bedrog is maar een noodzakelijke…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-502">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">502 &middot; Geld en ondernemen</p>
+    <h1>The Evaluation and Optimization of Trading Strategies</h1>
+    <p class="lede">Robert Pardo, 2008 (eerste editie 1992)</p>
+    <p class="stats">
+      <span><b>1277</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="502"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pardo betoogt dat optimalisatie, het afstellen van de parameters van een handelsstrategie op historische koersen, geen bedrog is maar een noodzakelijke stap, en dat het beruchte gevaar ervan, overfitting, pas ontstaat zodra een eerlijke toets erna ontbreekt. Wie een strategie beoordeelt op dezelfde data waarop hij haar heeft afgesteld, meet zijn eigen zoekwerk in plaats van de markt. De walk-forward-analyse lost dat op: stel af op een venster historie, meet op de aansluitende ongebruikte periode, schuif op en herhaal. Een strategie die deze toets doorstaat, levert bovendien een realistisch verwachtingsprofiel op waarmee de handelaar tijdens het echte handelen kan zien of het systeem nog doet wat het beloofde.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Eerst een echte strategie</h3>
+      <p>Het boek opent met wat een handelsstrategie is: een volledig gespecificeerde set regels voor instappen, uitstappen en risico, zonder plaats voor oordeel van het moment. Alleen zo'n strategie valt te toetsen. Pardo behandelt vervolgens de historische simulatie, het doorrekenen van de regels op oude koersen, en staat lang stil bij wat die simulatie realistisch maakt: transactiekosten, slippage (het verschil tussen de koers in de simulatie en de koers die je in het echt krijgt) en voldoende transacties om ergens iets uit af te leiden.</p>
+      <p>De volgorde is een programma: formuleren, specificeren, voorlopig toetsen, en pas daarna afstellen. Wie begint met afstellen, heeft niets om het resultaat tegen af te zetten.</p>
+      <h3>Optimalisatie is geen vies woord</h3>
+      <p>Het hoofdstuk over optimalisatie verdedigt de stap die veel handelaren wantrouwen. Elke strategie heeft parameters, en die niet afstellen betekent willekeurige waarden gebruiken. Het gaat erom hoe er wordt gezocht: met een afgebakende zoekruimte, met een doelfunctie die meer weegt dan kale nettowinst, en met aandacht voor de omgeving van de uitkomst.</p>
+      <p>Dat laatste is een kernadvies: kies parameterwaarden uit een vlak gebied waar de buren ook goed presteren, en wantrouw een eenzame piek. Een piek die bij een kleine verschuiving van de parameter instort, is vrijwel zeker toeval.</p>
+      <h3>De vele gezichten van overfitting</h3>
+      <p>Overfitting is het verschijnsel dat een model de toevallige bijzonderheden van de gebruikte historie uit het hoofd leert in plaats van een patroon dat ook daarbuiten bestaat. Pardo beschrijft de symptomen: een uitzonderlijk mooie backtest, gevolgd door direct falen zodra er echt geld op staat.</p>
+      <p>De oorzaken die hij aanwijst: te veel regels en parameters tegenover te weinig data en te weinig transacties, achterafkennis die in de regels sluipt, en steeds opnieuw proberen tot het plaatje bevalt. Zijn maat daarvoor zijn de vrijheidsgraden van de strategie: hoe meer keuzevrijheid het model heeft, hoe meer data er nodig zijn om die vrijheid te verdienen.</p>
+      <h3>De walk-forward-analyse</h3>
+      <p>Het hart van het boek. Eén enkele deling in een afstelperiode en een toetsperiode is een begin, maar levert maar één meting op. De walk-forward-analyse herhaalt de deling: stel de strategie af op bijvoorbeeld drie jaar historie, handel op papier het volgende halfjaar met die instellingen, schuif het venster op en doe het opnieuw. De aaneengeschakelde toetsperiodes vormen samen een doorlopend resultaat dat volledig buiten het afstellen om tot stand kwam.</p>
+      <p>De methode bootst bovendien na wat een systeemhandelaar in het echt doet: periodiek opnieuw afstellen op recente data. De walk-forward toetst dus niet alleen de regels, maar het hele proces van onderhoud.</p>
+      <h3>Walk-forward-efficiëntie en het profiel</h3>
+      <p>Om het resultaat te wegen introduceert Pardo de walk-forward-efficiëntie: de winst per jaar in de toetsperiodes gedeeld door de winst per jaar in de afstelperiodes. Een robuuste strategie houdt buiten de afsteldata een groot deel van haar prestatie overeind; zakt de verhouding ver weg, dan was de mooie backtest vooral zoekwerk.</p>
+      <p>Uit de toetsing komt daarnaast een strategieprofiel: de bandbreedte van winst, maximale terugval en langste verliesreeks die bij dit systeem hoort. Dat profiel is geen bijvangst maar het eigenlijke product van al het testen.</p>
+      <h3>Handelen tegen het profiel</h3>
+      <p>Het slot gaat over de fase waarin de meeste systemen sneuvelen: het echte handelen. De handelaar zet de lopende resultaten af tegen het profiel. Blijft de strategie binnen haar historische bandbreedte, dan is een verliesperiode geen reden tot ingrijpen; overschrijdt zij structureel haar maximale terugval of verliesreeks, dan is het systeem kapot en moet het van de markt.</p>
+      <p>Daarmee sluit de cirkel: de toetsing vooraf levert de meetlat waarmee achteraf wordt beslist, en het periodieke heroptimaliseren uit de walk-forward wordt gewoon onderhoud.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Historische simulatie (backtest)</td><td>Het doorrekenen van een regelset op oude koersen, inclusief kosten en slippage, als schatting van hoe de strategie gehandeld zou hebben.</td></tr>
+          <tr><td class="term">Optimalisatie</td><td>Het systematisch doorproberen van parameterwaarden om de combinatie te vinden die volgens een gekozen maatstaf het beste presteerde.</td></tr>
+          <tr><td class="term">Doelfunctie</td><td>De maatstaf waarop kandidaat-instellingen worden gerangschikt; Pardo wil er een die winst afweegt tegen terugval en regelmaat, geen kale nettowinst.</td></tr>
+          <tr><td class="term">Overfitting</td><td>Een model dat de toevalligheden van de gebruikte historie heeft geleerd in plaats van een patroon dat ook daarbuiten bestaat.</td></tr>
+          <tr><td class="term">In-sample en out-of-sample</td><td>De data waarop is afgesteld tegenover de data die daarbij niet zijn gebruikt; alleen de tweede soort zegt iets over de toekomst.</td></tr>
+          <tr><td class="term">Walk-forward-analyse</td><td>Reeks optimalisaties op een schuivend venster historie, elk gevolgd door een meting op de aansluitende ongebruikte periode; de aaneengeschakelde metingen vormen het eigenlijke rapport.</td></tr>
+          <tr><td class="term">Walk-forward-efficiëntie</td><td>De out-of-sample-winst per jaar gedeeld door de in-sample-winst per jaar, als maat voor hoeveel van de geteste prestatie echt is.</td></tr>
+          <tr><td class="term">Vrijheidsgraden</td><td>Het aantal regels en parameters dat de strategie vrij kan kiezen; hoe meer vrijheidsgraden tegenover hoe minder data, hoe groter de kans op overfitting.</td></tr>
+          <tr><td class="term">Strategieprofiel</td><td>De bandbreedte van winst, terugval en verliesreeksen die uit de toetsing komt en waartegen het echte handelen wordt afgezet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het betoog rust op logica en op Pardo's eigen praktijk als systeembouwer en vermogensbeheerder, met uitgewerkte voorbeelden van afstel- en toetsrondes. Formele statistiek ontbreekt vrijwel geheel: het boek bewijst niet wiskundig dat de walk-forward-analyse zuivere schattingen oplevert, en de vuistregels, zoals welke walk-forward-efficiëntie volstaat, komen uit ervaring.</p>
+      <p>Het sterkste bewijs is wat er na het boek gebeurde: de walk-forward-analyse is in handelssoftware en vakliteratuur een standaardonderdeel van strategievalidatie geworden. De statistische onderbouwing van het onderliggende punt, dat zoeken in data stelselmatig te mooie resultaten oplevert, is later door anderen geleverd, onder wie Aronson en López de Prado.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is gedateerd in zijn voorbeelden en gereedschap: de software en markten zijn die van rond 2008, met de nadruk op termijnmarkten. De stijl is bovendien breedsprakig; de kernmethode past op twintig bladzijden en het boek doet er ruim driehonderd over, met veel herhaling.</p>
+      <p>Inhoudelijk is de grootste beperking dat de walk-forward beschermt tegen overfitting binnen één strategie, maar niet tegen selectie over strategieën heen. Wie honderd systemen walk-forward toetst en het beste kiest, haalt de zoekfout via een omweg weer binnen; dat probleem behandelt Pardo niet en is pas later serieus aangepakt. En ook een strategie met een keurige walk-forward kan sneuvelen wanneer het marktkarakter blijvend verandert; de methode meet robuustheid in het verleden, geen garantie voor de toekomst.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel een strategie nooit op de data waarop zij is afgesteld; reserveer een periode die pas na het afstellen wordt aangeraakt.</li>
+        <li>Kies parameters uit een vlak gebied van goede resultaten, nooit de eenzame piek.</li>
+        <li>Gebruik een doelfunctie die winst afweegt tegen terugval en regelmaat.</li>
+        <li>Tel de vrijheidsgraden en schrap regels die weinig toevoegen voordat je gaat afstellen.</li>
+        <li>Leg voor de start een profiel vast (verwachte winst, maximale terugval, langste verliesreeks) en stop wanneer het echte handelen daar structureel buiten valt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Tweede, herziene editie verschenen bij Wiley in de Wiley Trading-reeks (2008, ISBN 9780470128015). De eerste editie verscheen in 1992 als <i>Design, Testing, and Optimization of Trading Systems</i>; daarin introduceerde Pardo de walk-forward-analyse, die de tweede editie verder uitwerkt. Geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Robert Pardo bouwde vanaf de jaren tachtig handelssystemen en beheerde later vermogen met zijn firma Pardo Capital. In 1992 introduceerde hij de walk-forward-analyse: een toetsmethode waarbij een strategie steeds wordt afgesteld op een stuk koershistorie en daarna wordt beoordeeld op de periode die daar direct op volgt, alsof die nog onbekend was. Deze tweede, hernoemde editie werkt die methode uit tot een volledig ontwikkelproces, van eerste idee tot het bewaken van een draaiende strategie.</p><p>Het boek is geschreven voor handelaren die hun regels in software vastleggen en willen weten of een mooie backtest, een simulatie op historische koersen, iets zegt over de toekomst. Pardo's antwoord: alleen als de toets zelf goed is ingericht, en de walk-forward-analyse is sindsdien in het vak de maatstaf voor zo'n toets geworden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>systematisch handelen</li><li>backtesten</li><li>overfitting</li><li>handelssystemen</li><li>statistiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="482"><a href="482.html">Building Winning Algorithmic Trading Systems</a>. <i>Building Winning Algorithmic Trading Systems</i> van Davey beschrijft hetzelfde ontwikkelproces vanuit de praktijk, met walk-forward-analyse en Monte-Carlo-simulatie als vaste stappen.</li>
+          <li value="483"><a href="483.html">Evidence-Based Technical Analysis</a>. <i>Evidence-Based Technical Analysis</i> van Aronson levert de statistische theorie die bij Pardo ontbreekt: waarom zoeken in data te mooie resultaten oplevert en hoe daarvoor te corrigeren valt.</li>
+          <li value="485"><a href="485.html">Advances in Financial Machine Learning</a>. <i>Advances in Financial Machine Learning</i> van López de Prado trekt dezelfde lijn door naar machinaal leren, inclusief het selectieprobleem over vele strategieën heen dat Pardo laat liggen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

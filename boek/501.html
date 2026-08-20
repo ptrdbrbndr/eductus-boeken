@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trend Following &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Covel betoogt dat voorspellen op financiële markten onmogelijk is en ook onnodig. De enige informatie die telt is de prijs zelf: wie stelselmatig koopt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-501">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">501 &middot; Geld en ondernemen</p>
+    <h1>Trend Following</h1>
+    <p class="lede">Michael W. Covel, 2004 (vijfde editie 2017)</p>
+    <p class="stats">
+      <span><b>1439</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="501"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Covel betoogt dat voorspellen op financiële markten onmogelijk is en ook onnodig. De enige informatie die telt is de prijs zelf: wie stelselmatig koopt wat stijgt, verkoopt wat daalt, verliezen vroeg afsnijdt en winsten laat lopen, verdient op den duur juist aan de extreme uitschieters die andere beleggers de kop kosten. Fundamentele analyse, koersdoelen en kopen-en-vasthouden noemt hij schijnzekerheid, in stand gehouden door een sector die verdient aan klanten die blijven zitten. Het bewijs zoekt hij bij de trendvolgende fondsen die dit al een halve eeuw in de praktijk doen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat trendvolgen is</h3>
+      <p>Trendvolgen is systematisch handelen op de richting van de prijs. De trendvolger weet niet waarom een markt stijgt en wil het ook niet weten: hij stapt in als een trend zich aantoonbaar heeft gevormd, rijdt mee zolang hij duurt, en stapt uit als de prijs terugkeert. Hij heeft geen mening over graan, goud of de yen; dezelfde regels draaien op tientallen markten tegelijk, omhoog en omlaag, omdat vooraf niet te zeggen is waar de volgende grote trend ontstaat. Verliezen zijn talrijk en klein, winsten zeldzaam en groot; het rendement komt uit een handvol grote trends per decennium.</p>
+      <p>De regels bepalen alles vooraf: wat een trend is, wanneer je instapt, wanneer je eruit gaat, en hoeveel je per positie riskeert, meestal afgemeten aan de beweeglijkheid van de markt. Meningen, nieuws en koersdoelen spelen geen rol. Covel presenteert dat als bevrijding: je hoeft de toekomst niet te kennen, alleen je regels te volgen.</p>
+      <h3>De mannen met de staat van dienst</h3>
+      <p>Het hart van het boek zijn de profielen van trendvolgers met decennialange resultatenreeksen: Bill Dunn, die dertig jaar dezelfde systematiek volhield door diepe dalen heen; John W. Henry, die met zijn handelswinsten later de Boston Red Sox kocht; Ed Seykota, die al in de jaren zeventig handelssystemen op de computer draaide; Larry Hite, die als een van de eersten risicobeheer boven rendement stelde; en David Harding, medeoprichter van het fonds AHL en daarna oprichter van Winton.</p>
+      <p>De reeksen tonen het patroon dat Covel wil laten zien: jarenlange magere periodes, onderbroken door explosieve winstjaren die samenvallen met grote marktbewegingen. Zijn punt is dat dit geen geluk kan zijn: te veel mensen, te veel decennia, te veel verschillende markten met in de kern dezelfde methode.</p>
+      <h3>Het Turtle-experiment</h3>
+      <p>Het beroemdste bewijsstuk is het experiment van Richard Dennis en Bill Eckhardt uit 1983. Om hun weddenschap te beslechten of handelen leerbaar is, wierf Dennis via een advertentie een groep mensen zonder ervaring, leerde hun in twee weken een set trendvolgende regels en gaf ze zijn geld. Deze Turtles verdienden als groep jarenlang fors, en enkelen bouwden er grote fondsen op: Jerry Parker begon met wat hij als Turtle leerde zijn fonds Chesapeake Capital.</p>
+      <p>Voor Covel bewijst het experiment twee dingen: de methode zit in de regels en niet in een gave, en de moeilijkheid zit in het volhouden, want ook onder de Turtles gingen degenen onderuit die van de regels afweken.</p>
+      <h3>Paniek als winstbron</h3>
+      <p>Een reeks hoofdstukken loopt langs beroemde ontploffingen en laat zien wie er aan de andere kant stond. Bij de val van Barings Bank in 1995 stonden trendvolgers aan de winnende kant van de posities waarmee Nick Leeson de bank opblies. Bij de ondergang van hedgefonds LTCM in 1998 en in de dotcom-afbraak van 2000 tot 2002 hetzelfde beeld: de verliezers hadden gelijk willen krijgen, de trendvolgers volgden de beweging.</p>
+      <p>Het uitgebreidste voorbeeld is 2008, het jaar uit de ondertitel: terwijl aandelenbeleggers halveerden, boekten veel trendvolgende fondsen dubbele cijfers, en het boek voert er een op met meer dan honderd procent winst. De zwarte zwaan, de zeldzame extreme gebeurtenis, is voor de trendvolger geen ramp maar de oogst.</p>
+      <h3>Het nul-somspel</h3>
+      <p>Covel leunt op het werk van econoom Larry Harris om uit te leggen waar die winst vandaan komt. De termijnmarkten waarop trendvolgers handelen zijn een nul-somspel: elke dollar winst is andermans dollar verlies. De structurele verliezers zijn volgens deze analyse partijen die om andere redenen handelen dan winst, zoals bedrijven die risico afdekken, en beleggers die in paniek of uit koppigheid tegen de trend in blijven zitten.</p>
+      <p>Dat is meteen het ongemakkelijkste deel van het betoog: de methode bestaat bij de gratie van tegenpartijen die stelselmatig verliezen, en Covel zegt dat zonder omwegen.</p>
+      <h3>Denken in kansen, en een uitgedijd boek</h3>
+      <p>De slothoofdstukken gaan over het hoofd van de handelaar: verliezen nemen als routinehandeling, denken in kansen en verwachtingswaarden, en het loslaten van de behoefte om gelijk te hebben. Daar hoort een frontale aanval bij op de efficiënte-markthypothese, de academische leer dat koersen alle informatie al bevatten en niemand de markt stelselmatig kan verslaan.</p>
+      <p>De vijfde editie is uitgedijd tot 688 bladzijden, met interviews en onderzoek uit Covels podcast en een voorwoord van Barry Ritholtz. Het maakt het boek voller, maar ook herhaalachtiger: de kern stond er in 2004 al in.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Trendvolgen</td><td>Systematisch meebewegen met de richting van de prijs, zonder voorspelling en zonder mening over de oorzaak.</td></tr>
+          <tr><td class="term">Systematisch handelen</td><td>Alle beslissingen vooraf vastleggen in regels, zodat emotie en oordeel per geval geen rol spelen.</td></tr>
+          <tr><td class="term">Verliezen afsnijden, winsten laten lopen</td><td>De kernregel: kleine verliezen meteen nemen en winnende posities aanhouden zolang de trend duurt.</td></tr>
+          <tr><td class="term">Positiegrootte</td><td>Hoeveel er per positie op het spel staat, bij trendvolgers afgemeten aan de beweeglijkheid van de markt.</td></tr>
+          <tr><td class="term">Drawdown</td><td>De terugval van een vermogen vanaf zijn piek; bij trendvolgers regelmatig tientallen procenten diep.</td></tr>
+          <tr><td class="term">Nul-somspel</td><td>Een markt waarin elke winst precies andermans verlies is, zoals de termijnmarkten waarop trendvolgers handelen.</td></tr>
+          <tr><td class="term">Zwarte zwaan</td><td>De zeldzame extreme gebeurtenis die niemand zag aankomen; voor de trendvolger de bron van de grootste winsten.</td></tr>
+          <tr><td class="term">Turtles</td><td>De groep beginners die Richard Dennis in 1983 zijn trendvolgende regels leerde om te bewijzen dat handelen leerbaar is.</td></tr>
+          <tr><td class="term">Efficiënte-markthypothese</td><td>De academische leer dat koersen alle informatie al bevatten en de markt niet stelselmatig te verslaan is; Covels vaste vijand.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijs in het boek zelf bestaat uit de resultatenreeksen van fondsen, door Covel verzameld uit rapportages van de fondsen en hun beheerders, plus het Turtle-experiment en de crisisjaren als natuurlijke proeven. Dat is echt materiaal, maar het is gekozen materiaal: de reeksen komen van de fondsen zelf en de selectie is aan Covel.</p>
+      <p>Buiten het boek staat de kern er sterker voor dan Covels toon doet vrezen. Moskowitz, Ooi en Pedersen toonden in <i>Time Series Momentum</i> (Journal of Financial Economics, 2012) trendwinsten aan over 58 markten, en vervolgonderzoek van AQR vond hetzelfde patroon over ruim een eeuw aan koersdata. Dat trendvolgen historisch heeft gewerkt is daarmee een van de best gedocumenteerde afwijkingen van de efficiënte markt; waarom het werkt en of het blijft werken is niet beslecht.</p>
+      <p>Daar staat tegenover dat het decennium na 2009 voor veel trendvolgende fondsen mager was. De vijfde editie, verschenen in 2017, gaat op die magere jaren opvallend licht heen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is overlevenden-selectie: Covel toont de fondsen die decennia haalden, en de fondsen die met dezelfde methode klapten of stilletjes sloten komen niet voor. Daarmee bewijzen de profielen minder dan ze lijken te bewijzen; ook een loterij heeft winnaars met lange reeksen. Het onafhankelijke onderzoek repareert dat deels, maar dat onderzoek is niet van Covel.</p>
+      <p>Covel is bovendien geen afstandelijke onderzoeker maar evangelist met een winkel: hij verkoopt via zijn site en podcast cursussen en begeleiding in precies deze methode. Het boek geeft ondertussen nergens een volledige, naspeelbare regelset; wie wil weten hoe het concreet moet, wordt doorverwezen of moet elders zoeken, bijvoorbeeld bij Clenow. De stapels instemmende citaten en de herhaling maken het betoog eerder langer dan sterker.</p>
+      <p>Ten slotte is de prijs van de methode onderbelicht: drawdowns van meer dan de helft van het vermogen, zoals Dunn die meemaakte, worden genoemd maar weggezet als karaktertest, terwijl ze voor de meeste mensen het einde van de rit zouden zijn. Ook praktische bezwaren blijven liggen: termijnmarkten met hefboom zijn voor een gewone particulier lastig terrein, en naarmate meer geld dezelfde trends najaagt, kan de winstbron zelf slijten. Dat laatste is precies wat de magere jaren na 2009 suggereren, en het boek gaat die discussie uit de weg.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel een handelsmethode op de volledige reeks, dalen incluis, en vraag bij elke succesreeks wie er met dezelfde methode verdween.</li>
+        <li>Leg vooraf vast wanneer je een verliezende positie sluit, en maak die beslissing nooit ter plekke.</li>
+        <li>Bepaal de omvang van een positie op de beweeglijkheid van de markt, zodat één uitschieter je niet uitschakelt.</li>
+        <li>Wantrouw elke bron die een methode aanprijst en er tegelijk cursussen in verkoopt, dit boek incluis.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Vijfde editie: <i>Trend Following: How to Make a Fortune in Bull, Bear, and Black Swan Markets</i> (Wiley, reeks Wiley Trading, 2017, 688 blz., ISBN 9781119371878, met een voorwoord van Barry Ritholtz). Eerste editie in 2004 bij FT Prentice Hall als <i>Trend Following: How Great Traders Make Millions in Up or Down Markets</i>. Deze bespreking volgt de vijfde editie. Geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Covels pleidooi voor trendvolgen: handelen zonder voorspelling, puur op wat de prijs doet. Een trendvolger koopt wat aantoonbaar stijgt, verkoopt wat daalt, snijdt verliezen vroeg af en laat winsten lopen, met vaste regels voor hoeveel hij per positie op het spel zet. Covel onderbouwt dat met de resultatenreeksen van de grote trendvolgende fondsen, van Bill Dunn en John W. Henry tot David Harding, en met de crisisjaren waarin deze fondsen verdienden terwijl de rest halveerde.</p><p>Het boek is tegelijk betoog en aanklacht: tegen koersdoelen, tegen kopen-en-vasthouden en tegen de academische leer dat markten niet te verslaan zijn. Covel schrijft als overtuigde, en dat is de kracht en de zwakte: het bewijs komt vooral van de winnaars, en de lezer moet zelf bedenken dat de verliezers van dezelfde methode niet aan het woord komen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>trendvolgen</li><li>handelen</li><li>risico</li><li>financiële markten</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="480"><a href="480.html">Following the Trend</a>. Clenow levert wat Covel schuldig blijft: een volledig gepubliceerd trendmodel, doorgerekend met alle verliesjaren erbij.</li>
+          <li value="481"><a href="481.html">Stocks on the Move</a>. Clenows vervolg past dezelfde systematiek toe op gewone aandelen, uitvoerbaar voor een particulier.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. Taleb over de zwarte zwaan uit de ondertitel: waarom extreme gebeurtenissen stelselmatig worden onderschat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

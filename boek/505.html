@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Man for All Markets &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thorp betoogt met zijn eigen leven als bewijsstuk dat het casino en de beurs geen ondoordringbare kansspelen zijn: wie meet in plaats van meent, vindt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-505">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">505 &middot; Roman en memoir</p>
+    <h1>A Man for All Markets</h1>
+    <p class="lede">Edward O. Thorp, 2017</p>
+    <p class="stats">
+      <span><b>1120</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="505"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thorp betoogt met zijn eigen leven als bewijsstuk dat het casino en de beurs geen ondoordringbare kansspelen zijn: wie meet in plaats van meent, vindt plekken waar de kansen aanwijsbaar in zijn voordeel liggen, en wie daarbij zijn inzet beheerst, kan die voorsprong jarenlang verzilveren. De wetenschappelijke methode, waarnemen, rekenen, toetsen en pas daarna geld inzetten, werkt volgens hem overal waar anderen op gevoel of gezag varen. De slotsom van het boek is tegelijk onthecht: vermogen is gestolde tijd, en wie rijkdom najaagt ten koste van gezondheid, vriendschap en vrije uren rekent met de verkeerde eenheid.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een jongen die alles zelf uitzoekt</h3>
+      <p>Thorp groeit op in de crisisjaren, met ouders die lange dagen werken en een zoon die zichzelf bezighoudt met scheikundeproeven, zelfgebouwde apparaten en rekenwerk. Een gewonnen natuurkundewedstrijd brengt hem via een beurs naar de universiteit van Californië, waar hij promoveert in de wiskunde. De eerste hoofdstukken leggen het patroon van het hele boek vast: iets zelf willen begrijpen, het narekenen en pas dan geloven wat iedereen zegt.</p>
+      <h3>Blackjack: de croupier verslagen</h3>
+      <p>Als jonge docent aan MIT rekent Thorp op een IBM-computer uit dat het voordeel bij blackjack verschuift naarmate er kaarten uit het spel verdwijnen. Wie de resterende tienen telt, weet wanneer het spel in zijn voordeel kantelt en kan dan hoog inzetten. Hij presenteert de vondst in 1961 voor het wiskundig genootschap, krijgt van gokker Manny Kimmel tienduizend dollar speelkapitaal en ruim verdubbelt dat bedrag in een lang weekeinde in Nevada.</p>
+      <p>Het boek <i>Beat the Dealer</i> (1962) wordt een bestseller en dwingt casino's tot regelwijzigingen. Thorp beschrijft ook de duistere kant, naar eigen zeggen vals spelende croupiers, een keer verdoofd raken en een gesaboteerd gaspedaal, en zijn besluit dat het echte spel elders ligt.</p>
+      <h3>De eerste draagbare computer</h3>
+      <p>Met Claude Shannon bouwt hij in 1961 een computer ter grootte van een sigarettenpakje die uit de beginsnelheid van de roulettebal voorspelt in welk vak hij valt, goed voor een berekend voordeel van tientallen procenten per inzet. Het apparaat werkt in het casino, maar de dunne oortelefoondraden breken telkens en het duo staakt het project. Het geldt als de eerste draagbare computer, en voor Thorp als bewijs dat zelfs roulette geen zuiver kansspel hoeft te zijn.</p>
+      <h3>Naar de beurs</h3>
+      <p>Midden jaren zestig verlegt Thorp zijn aandacht naar warrants, verhandelbare rechten op aandelen die destijds vaak verkeerd geprijsd waren. Met econoom Sheen Kassouf schrijft hij <i>Beat the Market</i> (1967): verkoop de overgeprijsde warrant en koop het aandeel ertegenover, zodat de winst uit de prijsfout komt en de richting van de markt er weinig toe doet. In het boek beschrijft hij hoe hij daarna langs eigen weg uitkwam op een optieprijsformule die overeenkwam met wat Black en Scholes pas in 1973 publiceerden, en er in stilte jaren op handelde.</p>
+      <h3>Princeton Newport Partners</h3>
+      <p>In 1969 begint Thorp met effectenman Jay Regan het fonds dat Princeton Newport Partners gaat heten, met de handel in Newport Beach en de administratie in Princeton. Het fonds haalt in negentien jaar gemiddeld 19,1 procent per jaar voor kosten en 15,1 procent erna, met winst in 227 van de 230 maanden. In 1987 valt justitie onder aanklager Giuliani het kantoor in Princeton binnen wegens belastingconstructies; Thorp zelf wordt nergens van beschuldigd en de zaak valt in hoger beroep grotendeels uiteen, maar het fonds overleeft de affaire niet en wordt in 1988 ontbonden.</p>
+      <h3>Madoff, 2008 en de tijd die telt</h3>
+      <p>In 1991 controleert Thorp voor een klant de administratie van vermogensbeheerder Bernard Madoff, vergelijkt diens transactiebriefjes met de beursgegevens en vindt transacties die nooit hebben plaatsgevonden. Hij concludeert fraude en adviseert uit te stappen, zeventien jaar voordat het piramidespel instort. De latere hoofdstukken gaan over de kredietcrisis van 2008, over samengestelde groei en waarom gewone spaarders het best in brede indexfondsen zitten, en over de eindafrekening van een leven: tijd, gezondheid en de mensen om je heen zijn de munt waarin een mens werkelijk betaald wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kaarten tellen</td><td>Bijhouden welke kaarten al gespeeld zijn om te weten wanneer het restant van het spel de speler bevoordeelt, en dan pas hoog inzetten.</td></tr>
+          <tr><td class="term">Edge</td><td>Thorps woord voor een meetbare voorsprong: het percentage dat een speler of belegger per inzet gemiddeld verwacht te winnen.</td></tr>
+          <tr><td class="term">Kelly-criterium</td><td>Rekenregel die voorschrijft welk deel van het kapitaal je inzet bij een gegeven voorsprong, groot genoeg om te groeien en klein genoeg om nooit blut te raken.</td></tr>
+          <tr><td class="term">Warrant</td><td>Een door een bedrijf uitgegeven recht om aandelen tegen een vaste prijs te kopen, in de jaren zestig vaak verkeerd geprijsd en daardoor Thorps eerste beursvoorsprong.</td></tr>
+          <tr><td class="term">Marktneutraal fonds</td><td>Een fonds dat overgeprijsde effecten verkoopt en er verwante effecten tegenover koopt, zodat de winst uit de prijsfout komt en niet uit de richting van de markt.</td></tr>
+          <tr><td class="term">Statistische arbitrage</td><td>Het met de computer benutten van grote aantallen kleine, tijdelijke prijsafwijkingen tussen aandelen.</td></tr>
+          <tr><td class="term">Samengestelde groei</td><td>Rendement op eerder rendement; het mechanisme waarmee een bescheiden jaarlijkse voorsprong over decennia een groot vermogen wordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Voor een memoir is dit verhaal uitzonderlijk goed gedocumenteerd. De blackjackmethode staat wiskundig vast en is door talloze spelers herhaald, de rendementen van Princeton Newport zijn publiek en vaak nagerekend, en Thorps Madoff-analyse uit 1991 is door de latere ontknoping bevestigd. Waar hij cijfers noemt, zijn die controleerbaar, en dat onderscheidt dit boek van de meeste succesverhalen uit de financiële wereld.</p>
+      <p>Het blijft wel een zelfportret. Thorp kiest wat verteld wordt, verliezen en mislukkingen krijgen minder ruimte dan overwinningen, en de smeuïgste anekdotes, de verdoofde koffie, het gesaboteerde gaspedaal, rusten alleen op zijn eigen woord. De lezer krijgt de feiten van een betrouwbare rekenaar, gerangschikt door een verteller die zijn eigen monument bouwt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwakte van het boek zit in de laatste honderd bladzijden, waar het memoir overgaat in beschouwingen over sparen, onderwijs en de financiële sector. Die stukken zijn verstandig maar generiek, en missen de scherpte van de hoofdstukken waarin Thorp iets kraakt. Ook laat het boek de vraag liggen wat de lezer met dit alles kan: de prijsfouten die Thorp uitbuitte zijn juist door mensen als Thorp verdwenen, en zijn eigen advies aan gewone beleggers luidt dan ook dat ze het niet moeten proberen.</p>
+      <p>Wie het verhaal als bewijs voor het eigen kunnen wil lezen, moet bovendien bedenken dat uitzonderlijke reeksen achteraf altijd een verteller vinden. Thorps maandcijfers maken toeval als verklaring onwaarschijnlijk, maar het genre memoir kent geen controlegroep van even slimme rekenaars die faalden en geen boek schreven.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>A Man for All Markets: From Las Vegas to Wall Street, How I Beat the Dealer and the Market</i> (Random House, 2017, 416 blz., ISBN 9781400067961), met een voorwoord van Nassim Nicholas Taleb. Geen Nederlandse vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De wiskundige Edward Thorp bewees begin jaren zestig dat blackjack te verslaan was door bij te houden welke kaarten al gespeeld waren, publiceerde de methode in <i>Beat the Dealer</i> en zag de casino's hun regels aanpassen. Daarna richtte hij zich op de beurs, waar hij met dezelfde combinatie van kansrekening en discipline een van de eerste kwantitatieve hedgefondsen opbouwde. Dit memoir uit 2017 vertelt dat leven van depressiejeugd tot Wall Street, met een voorwoord van Nassim Taleb.</p><p>Het boek is daarnaast een lange les in helder redeneren over kans, risico en bewijs. Thorp legt uit hoe hij dacht, waar hij zich vergiste en waarom hij op tijd stopte, en sluit af met wat vermogen volgens hem waard is: tijd en gezondheid gaan boven geld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>beleggen</li><li>wiskunde</li><li>blackjack</li><li>kansrekening</li><li>hedgefondsen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="351"><a href="351.html">The Intelligent Investor</a>. <i>The Intelligent Investor</i> beschrijft de defensieve route die Thorp gewone spaarders uiteindelijk zelf aanraadt: breed spreiden en zitten blijven.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. <i>The Black Swan</i> is van de bewonderaar die het voorwoord schreef; Taleb deelt Thorps wantrouwen tegen nette modellen en trekt er somberder conclusies uit.</li>
+          <li value="490"><a href="490.html">The Mathematics of Money Management</a>. <i>The Mathematics of Money Management</i> werkt de inzetleer uit waarmee Thorp begon: hoeveel je per positie riskeert bepaalt of een voorsprong je draagt of breekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
