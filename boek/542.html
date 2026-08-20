@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On the Self-Regulation of Behavior &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Menselijk gedrag is een doorlopend proces van doelgerichte regeling: terugkoppelingskringen vergelijken de waargenomen toestand met een doelwaarde en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-542">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">542 &middot; Gewoontes en denken</p>
+    <h1>On the Self-Regulation of Behavior</h1>
+    <p class="lede">Charles S. Carver en Michael F. Scheier, 1998</p>
+    <p class="stats">
+      <span><b>1488</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="542"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Menselijk gedrag is een doorlopend proces van doelgerichte regeling: terugkoppelingskringen vergelijken de waargenomen toestand met een doelwaarde en verkleinen het verschil, terwijl vermijdingskringen de afstand tot een gevreesde toestand vergroten. Gevoel is in dit model geen ruis rond het handelen maar het uitleessignaal van een tweede kring die het tempo van de voortgang bewaakt, en de keuze tussen volhouden en loslaten volgt uit de verwachting of het doel nog haalbaar is. Alles wat mensen doen, van tandenpoetsen tot een levensideaal najagen, past volgens de auteurs in deze ene architectuur.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De kring als bouwsteen</h3>
+      <p>De eerste vier hoofdstukken zetten het gereedschap klaar. Een terugkoppelingskring bestaat uit een invoerfunctie, een referentiewaarde, een comparator en een uitvoerfunctie; hetzelfde viertal werkt in een thermostaat, een stuurautomaat en een mens die een voornemen uitvoert. Naderingsgedrag is discrepantieverkleining: de waargenomen toestand wordt naar het doel toe bewogen.</p>
+      <p>Daarnaast staat de discrepantievergrotende kring, die afstand schept tot een ongewenste toestand, zoals mislukking of afwijzing. Zulke vermijdingskringen geven volgens de auteurs op zichzelf geen richting: wie ergens vandaan vlucht, kan alle kanten op. In de praktijk raken ze daarom meestal ingebed in een naderingskring die de vlucht een bestemming geeft.</p>
+      <h3>Doelen in lagen</h3>
+      <p>Voor de ordening van doelen nemen Carver en Scheier de hiërarchie van William Powers over, in vereenvoudigde vorm. Bovenin staan systeemconcepten zoals het geïdealiseerde zelf, daaronder principes (wees eerlijk), daaronder programma's (de belastingaangifte invullen) en reeksen van handelingen. Een hogere kring stelt de doelen van de lagere; dezelfde handeling kan daardoor bij verschillende mensen totaal verschillende doelen dienen.</p>
+      <p>Hoe hoger een doel in de stapel staat, hoe zwaarder het weegt voor de persoon en hoe trager het verandert. Veel gedrag laat zich pas begrijpen als duidelijk is op welk niveau iemand het zelf opvat: hardlopen kan een reeks zijn, een gezondheidsprogramma of een deel van het zelfbeeld sportief te zijn.</p>
+      <h3>Het zelf en de aandacht</h3>
+      <p>Een eigen hoofdstuk behandelt publieke en private kanten van het zelf, het terrein waarop beide auteurs hun loopbaan begonnen. Zelfgerichte aandacht, in experimenten opgeroepen met iets simpels als een spiegel of een camera, scherpt de vergelijking tussen gedrag en norm aan: proefpersonen gaan meetbaar meer volgens hun eigen maatstaven handelen zodra hun aandacht op zichzelf ligt. Voor de theorie is dat de comparator die harder aan het werk gaat, en het vormt een van de best gedocumenteerde bouwstenen van het boek.</p>
+      <h3>Gevoel als snelheidsmeter</h3>
+      <p>De hoofdstukken over affect bevatten de meest eigen bijdrage. Gevoel ontstaat volgens de auteurs in een tweede kring die niet de afstand tot het doel meet maar de snelheid waarmee die afstand verandert, zoals een cruisecontrol niet de positie maar het tempo regelt. Voortgang boven verwachting geeft opgetogenheid, voortgang eronder geeft neerslachtigheid of ongeduld, en wie ruim boven verwachting presteert neemt vanzelf gas terug.</p>
+      <p>Per soort kring hoort er een eigen gevoelspaar bij: naderingskringen leveren de as van blijdschap tot somberheid, vermijdingskringen de as van opluchting tot angst. Daarmee verklaart het model waarom mislukking in het ene geval verdriet oplevert en in het andere paniek.</p>
+      <h3>Volhouden of loslaten</h3>
+      <p>Bij ernstige tegenslag onderbreekt de persoon het handelen en schat de kans in dat verdere inzet nog iets oplevert. Valt die verwachting gunstig uit, dan volgt hernieuwde inspanning; valt zij ongunstig uit, dan volgt terugtrekking uit het doel. De auteurs benadrukken dat beide antwoorden een functie hebben: wie nooit loslaat, blijft gebonden aan het onhaalbare, en wie te snel loslaat, bereikt niets.</p>
+      <p>Dit deel sluit aan op het optimisme-onderzoek van Scheier, met de Life Orientation Test als meetinstrument en toepassingen in de gezondheidspsychologie, onder meer bij herstel na hartoperaties. Schadelijk wordt terugtrekking vooral wanneer een opgegeven doel hoog in de hiërarchie stond en er geen vervangend doel voor in de plaats komt.</p>
+      <h3>Dynamische systemen en omslagpunten</h3>
+      <p>In het laatste derde deel verkennen de auteurs nieuwe wiskundige beelden. Doelen verschijnen als attractoren waar het gedrag omheen cirkelt, en de omslag tussen volhouden en opgeven krijgt de vorm van een catastrofemodel met hysterese: het punt waarop iemand stopt ligt ergens anders dan het punt waarop hij later opnieuw begint, zodat de geschiedenis meeweegt. De auteurs presenteren deze hoofdstukken uitdrukkelijk als verkenning, als taal die verschijnselen ordent zonder ze al te bewijzen.</p>
+      <h3>Problemen in het leven en slotvragen</h3>
+      <p>Verspreid door het boek passen de auteurs het model toe op vastlopen in het dagelijks leven: conflicterende doelen, doelen op een te abstract niveau die geen handeling opleveren, en de neiging om onhaalbare doelen vast te houden. Het slot stelt twee open vragen: of gedrag werkelijk geregeld wordt of uit losse processen tevoorschijn komt, en of een leven zonder doelen denkbaar is. Op die laatste vraag antwoorden de auteurs ontkennend: betrokkenheid op doelen behandelen ze als voorwaarde voor welbevinden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Terugkoppelingskring</td><td>Het viertal invoerfunctie, referentiewaarde, comparator en uitvoerfunctie dat waargenomen toestand en doel voortdurend op elkaar betrekt.</td></tr>
+          <tr><td class="term">Discrepantieverkleinende kring</td><td>Regelproces dat het verschil met een gewenst doel kleiner maakt, de vorm van alle naderingsgedrag.</td></tr>
+          <tr><td class="term">Discrepantievergrotende kring</td><td>Regelproces dat afstand schept tot een gevreesde toestand; werkt in de praktijk meestal binnen de grenzen van een naderingskring.</td></tr>
+          <tr><td class="term">Doelhiërarchie</td><td>Ordening naar Powers waarin systeemconcepten zoals het geïdealiseerde zelf via principes en programma's de doelen van lagere kringen stellen.</td></tr>
+          <tr><td class="term">Zelfgerichte aandacht</td><td>Aandacht voor de eigen persoon die de vergelijking tussen gedrag en norm aanscherpt, in experimenten opgeroepen met een spiegel of camera.</td></tr>
+          <tr><td class="term">Voortgangstempo</td><td>De snelheid waarmee een kring zijn verschil verkleint; volgens de auteurs de grootheid waarover gevoel rapporteert.</td></tr>
+          <tr><td class="term">Verwachting</td><td>De ingeschatte kans dat verdere inzet het doel dichterbij brengt, bepalend voor de keuze tussen doorzetten en terugtrekken.</td></tr>
+          <tr><td class="term">Terugtrekking</td><td>Het loslaten van een onhaalbaar doel, in dit model een normale functie van zelfregulatie en pas schadelijk zonder vervangend doel.</td></tr>
+          <tr><td class="term">Attractor</td><td>Toestand waar een dynamisch systeem naartoe beweegt en omheen blijft cirkelen, in dit boek gebruikt als beeld voor een doel.</td></tr>
+          <tr><td class="term">Hysterese</td><td>Het verschijnsel dat het omslagpunt van doorzetten naar opgeven ergens anders ligt dan het omslagpunt terug, ontleend aan de catastrofetheorie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek vat een kwarteeuw experimenteel werk samen. De hoofdstukken over het zelf steunen op de zelfaandachtsexperimenten die Carver en Scheier vanaf de jaren zeventig uitvoerden, waarin een spiegel of camera de aandacht op de eigen persoon richt en gedrag meetbaar dichter bij de eigen norm brengt. De hoofdstukken over verwachtingen sluiten aan op het optimisme-onderzoek van Scheier, met de Life Orientation Test als veelgebruikt meetinstrument en gedocumenteerde verbanden met herstel en welbevinden.</p>
+      <p>Voor de kern van de gevoelstheorie, gevoel als functie van voortgangstempo, bestond bij verschijnen vooral indirect bewijs. Hsee en Abelson lieten in 1991 zien dat tevredenheid over een uitkomst mede afhangt van de snelheid waarmee die uitkomst verbetert, los van de stand zelf. Later onderzoek naar dagelijkse stemmingen en werkmotivatie vond eveneens dat tempoveranderingen met gevoel samenhangen, al blijft deze literatuur beperkt van omvang en toetst zij het model niet als geheel.</p>
+      <p>De delen over dynamische systemen en catastrofetheorie bieden de auteurs zelf aan als verkenning: de wiskundige beelden worden beschrijvend gebruikt, zonder formele toetsing. Het boek is daarmee sterker als ordenend kader over bestaand onderzoek dan als bron van scherpe, uitgeteste voorspellingen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De scherpste aanval kwam van Albert Bandura en uit de doelstellingstheorie van Locke en Latham. Hun bezwaar: een terugkoppelingsmachine verklaart alleen het wegwerken van verschillen, terwijl mensen juist verschillen scheppen door zichzelf doelen boven hun huidige niveau te stellen, en het vertrouwen in eigen kunnen bepaalt mede hoe hoog die doelen liggen. Carver en Scheier antwoorden dat discrepantievergroting en de hiërarchie dat gat vullen, maar critici houden vol dat het model daarmee vooral beschrijvend wordt: vrijwel elk gedrag past erin zodra achteraf de juiste kring wordt aangewezen.</p>
+      <p>Vanuit de kring rond Powers klinkt het omgekeerde verwijt: dit boek gebruikt de regelkring als los denkkader over doelen, terwijl Powers werkende simulaties bouwde en volhield dat organismen hun waarneming regelen. Wat aan wiskundige strengheid verloren ging, is hier ingeruild voor aansluiting bij de experimentele sociale psychologie.</p>
+      <p>Voor een algemeen publiek weegt de vorm zwaar. Dit is een onderzoeksmonografie: dicht geschreven, vol verwijzingen, zonder oefeningen of programma, en alleen in het Engels beschikbaar. De hoofdstukken over chaos en catastrofetheorie vragen wiskundige verbeelding en leveren vooral metaforen op. Als zelfhulpboek gelezen stelt het teleur; als bronmateriaal onder de populaire doelenliteratuur staat het overeind.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer doelen als nadering (ergens naartoe) in plaats van als vermijding (ergens vandaan); vermijdingskringen geven geen richting.</li>
+        <li>Lees somberheid of ongeduld als informatie over tempo, het verschil tussen verwachte en werkelijke voortgang, en pas daarna doel, tempo of verwachting aan.</li>
+        <li>Kies bij vastlopen een concreter doelniveau, een programma in plaats van een principe; abstracte doelen wegen zwaar maar leveren geen handeling op.</li>
+        <li>Behandel het loslaten van een onhaalbaar doel als onderdeel van zelfregulatie en koppel het aan een vervangend doel op hetzelfde hogere niveau.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>On the Self-Regulation of Behavior</i> (Cambridge University Press, 1998, 460 blz., ISBN 9780521572040). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Charles Carver (University of Miami) en Michael Scheier (Carnegie Mellon) werkten vanaf de jaren zeventig samen aan een controletheoretisch model van menselijk handelen; dit boek uit 1998 is er de meest volledige uitwerking van. De kern: gedrag is doelgericht en wordt geregeld door terugkoppelingskringen die het verschil tussen huidige toestand en doel verkleinen, of bij vermijdingsdoelen juist vergroten. Gevoel komt uit een tweede kring die het tempo van de voortgang bewaakt: wie sneller opschiet dan verwacht voelt zich goed, wie achterblijft raakt gespannen of somber. Verwachtingen bepalen vervolgens of iemand doorzet of loslaat, en dat loslaten behandelen de auteurs als een normale functie van zelfregulatie.</p><p>Dit is een academische monografie van 460 bladzijden, geschreven voor onderzoekers, met een literatuurlijst van bijna zestig bladzijden. Wie een toegankelijk boek over doelen zoekt, begint beter elders; wie wil weten waar de latere doelen- en gewoonteliteratuur haar theoretische fundament vandaan haalt, vindt het hier.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfregulatie</li><li>doelen</li><li>feedback</li><li>emoties</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="411"><a href="411.html">Psycho-Cybernetics</a>. De populaire voorloper van het cybernetische doelbeeld; dit boek levert er de academische onderbouwing en de correcties bij.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Toegepaste gewoonteliteratuur die op ditzelfde gedachtegoed van doelniveaus en terugkoppeling voortbouwt.</li>
+          <li value="538"><a href="538.html">Self-Consistency: A Theory of Personality</a>. Lecky's zelfconsistentie als vroege verwant van het geïdealiseerde zelf bovenin de doelhiërarchie.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahnemans overzicht van oordeelsvorming, ter aanvulling op wat dit boek over gevoel als informatiebron beweert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

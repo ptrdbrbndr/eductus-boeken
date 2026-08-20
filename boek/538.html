@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Consistency: A Theory of Personality &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De persoonlijkheid werkt volgens Lecky als één samenhangende organisatie van waarden, met als kern de definitie die iemand van zichzelf hanteert. Al het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-538">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">538 &middot; Gewoontes en denken</p>
+    <h1>Self-Consistency: A Theory of Personality</h1>
+    <p class="lede">Prescott Lecky, 1945 (postuum)</p>
+    <p class="stats">
+      <span><b>1549</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="538"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De persoonlijkheid werkt volgens Lecky als één samenhangende organisatie van waarden, met als kern de definitie die iemand van zichzelf hanteert. Al het gedrag dient hetzelfde doel: die organisatie in stand houden. Wat met de zelfdefinitie strookt wordt opgenomen, wat ermee botst wordt geweerd, hoe waar of nuttig het ook is. Daarmee verklaart Lecky ook falen: een leerling die zichzelf als slechte speller beschouwt, spelt slecht omdat goed spellen zijn eigen definitie zou weerspreken. Verandering begint daarom bij de zelfdefinitie. Wie alleen het symptoom bestrijdt, vecht tegen de bescherming die het systeem zichzelf biedt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een postuum boek</h3>
+      <p>Lecky publiceerde tijdens zijn leven weinig. Hij doceerde van 1924 tot 1934 aan Columbia University, werkte daarna als studieadviseur en therapeut, en overleed in 1941 op zijn 48e. Het boek dat zijn naam draagt verscheen pas in 1945: studenten en collega's bundelden zijn essays, lezingen en aantekeningen, onder redactie van John F.A. Taylor. Het telt 154 bladzijden en bestaat uit een theoretische kern met daaromheen kortere stukken en losse notities.</p>
+      <p>Die ontstaansgeschiedenis bepaalt het karakter. Dit is geen afgerond betoog van begin tot eind, het is de nalatenschap van een denker die zijn systeem nog aan het bouwen was. Sommige delen zijn uitgewerkt, andere blijven bij een aanzet. Wie het leest, moet de theorie deels zelf in elkaar zetten uit de onderdelen die er liggen.</p>
+      <h3>Eén motief in plaats van een lijst driften</h3>
+      <p>Lecky schrijft tegen twee heersende scholen van zijn tijd in. Het behaviorisme verklaarde gedrag uit conditionering, losse prikkel-responskoppelingen zonder binnenkant. De dieptepsychologie werkte met lijsten van driften en instincten die elkaar in de mens bevechten. Lecky vond beide onbevredigend, omdat ze niet verklaren waarom gedrag van één persoon zo herkenbaar samenhangt, waarom iemand "in karakter" handelt.</p>
+      <p>Zijn alternatief is radicaal zuinig: er is één motief, het streven van het organisme naar een eenheid die zichzelf in stand houdt. De persoonlijkheid is een organisatie van waarden en denkbeelden die onderling verenigbaar moeten blijven. Nieuwe ervaringen worden geassimileerd als ze in dat geheel passen; passen ze niet, dan worden ze verworpen, verdraaid of genegeerd. Leren en afweren zijn twee kanten van hetzelfde proces.</p>
+      <h3>De zelfdefinitie als kern</h3>
+      <p>In het centrum van de organisatie staat wat Lecky de definitie van het zelf noemt: het geheel van opvattingen dat iemand over zichzelf hanteert. Die kern bepaalt wat aan de rand kan bestaan. Een idee dat met de zelfdefinitie botst, komt er niet in, ook niet als het voordelig zou zijn. Iemand die zichzelf als eerlijk definieert, kan niet stelen zonder innerlijke crisis; iemand die zichzelf als dom definieert, kan een goed cijfer niet aannemen zonder diezelfde crisis.</p>
+      <p>Daarmee draait Lecky de gangbare kijk op vaardigheden om. Slechte prestaties op één vlak, bij verder normale vermogens, zijn in zijn ogen zelden een kwestie van aanleg. Ze zijn een uitdrukking van de zelfdefinitie: de leerling die zegt geen talenknobbel te hebben, levert precies de prestaties die bij die omschrijving horen, en verdedigt de omschrijving door het bewijs ervoor te blijven produceren.</p>
+      <h3>Weerstand als bescherming</h3>
+      <p>Weerstand was in de psychoanalyse iets wat de behandelaar moest breken. Lecky herwaardeert het begrip: weerstand is de normale, gezonde verdediging van de eenheid van de persoonlijkheid. Een mens kan niet elk aangeboden idee toelaten, want dan valt de organisatie uiteen. Dat mensen zich verzetten tegen kritiek, goede raad en zelfs tegen hulp is dus geen defect, het is het systeem dat doet waarvoor het bestaat.</p>
+      <p>Voor de praktijk betekent dit dat rechtstreeks aanvallen van een symptoom weinig uithaalt. De therapeut of docent moet volgens Lecky niet het gedrag bestrijden maar de tegenstrijdigheid zichtbaar maken tussen de zelfdefinitie en andere waarden die de persoon ook koestert. De verandering moet van binnenuit komen, doordat de persoon zelf de inconsistentie ziet en de definitie herziet. Pas dan verdwijnt het gedrag dat bij de oude definitie hoorde.</p>
+      <h3>Slechte spellers als proefterrein</h3>
+      <p>Het bekendste materiaal komt uit Lecky's werk als studieadviseur. Hij beschrijft leerlingen met normale intelligentie die op één vak stelselmatig faalden, en bij wie bijles op de inhoud niets uithaalde. Zijn aanpak richtte zich op de zelfomschrijving die het falen in stand hield. De gerapporteerde resultaten zijn spectaculair: een jongen die 55 van de 100 woorden fout spelde en een jaar moest overdoen, haalde na deze aanpak een gemiddelde van 91 en werd een van de beste spellers van school; een studente die van een college was gestuurd wegens slechte cijfers, haalde daarna louter tienen.</p>
+      <p>Tot zijn cliënten behoorde ook de jonge John F. Kennedy, die Lecky in 1934 begeleidde tijdens diens moeizame schooljaren op Choate. De voorbeelden zijn aansprekend, maar het blijven gevalsbeschrijvingen uit eigen praktijk, geteld noch gecontroleerd volgens latere maatstaven.</p>
+      <h3>Doorwerking</h3>
+      <p>De invloed van dit dunne boek is groter dan zijn bekendheid. George Kelly noemde Lecky in <i>The Psychology of Personal Constructs</i> (1955), Carl Rogers' werk over het zelfconcept ligt in dezelfde lijn, en Festingers theorie van cognitieve dissonantie (1957) formaliseerde wat Lecky een decennium eerder had beschreven: mensen kunnen tegenstrijdige denkbeelden slecht verdragen. Later onderzoek naar zelfverificatie, vooral van William Swann, toetste experimenteel dat mensen bevestiging zoeken van hun zelfbeeld, ook als dat zelfbeeld negatief is.</p>
+      <p>De breedste doorwerking liep via de zelfhulp. Maxwell Maltz nam Lecky's cases en het idee van het zelfbeeld als gedragsbepaler over in <i>Psycho-Cybernetics</i> (1960) en noemde hem een pionier. Via die route werd de zelfconsistentietheorie, meestal zonder bronvermelding, gemeengoed in decennia aan boeken over zelfbeeld en identiteit.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zelfconsistentie</td><td>Het ene motief dat Lecky aan al het gedrag ten grondslag legt: het bewaren van de innerlijke samenhang van de persoonlijkheid.</td></tr>
+          <tr><td class="term">Zelfdefinitie</td><td>Het geheel van opvattingen dat iemand over zichzelf hanteert en dat als kern van de persoonlijkheid bepaalt welke ideeën en prestaties toegelaten worden.</td></tr>
+          <tr><td class="term">Organisatie van waarden</td><td>Lecky's omschrijving van de persoonlijkheid als een geheel van onderling verenigbare denkbeelden en waarden, geen bundel losse eigenschappen.</td></tr>
+          <tr><td class="term">Assimilatie</td><td>Het opnemen van een nieuwe ervaring of een nieuw idee in de bestaande organisatie, wat alleen lukt als het ermee te verenigen valt.</td></tr>
+          <tr><td class="term">Weerstand</td><td>De verdediging van de eenheid van de persoonlijkheid tegen ideeën die de zelfdefinitie bedreigen, door Lecky opgevat als gezonde functie en niet als defect.</td></tr>
+          <tr><td class="term">Standaarden</td><td>De maatstaven die iemand uit zijn zelfdefinitie afleidt en waar de eigen prestaties zich naar voegen, in positieve en in negatieve richting.</td></tr>
+          <tr><td class="term">Handelen in karakter</td><td>Lecky's observatie dat alle daden van een individu hetzelfde bouwwerk van waarden in stand houden, waardoor gedrag voorspelbaar samenhangt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijs in het boek bestaat uit gevalsbeschrijvingen uit Lecky's eigen praktijk als studieadviseur en therapeut, aangevuld met theoretische argumentatie. De spectaculaire schoolresultaten, zoals de speller die van 55 fouten per 100 woorden naar een gemiddelde van 91 ging, zijn door Lecky zelf gerapporteerd, zonder controlegroep, zonder navolgbare telling en met de selectie die eigen is aan een practicus die zijn successen beschrijft. Naar de maatstaven van later onderzoek is dit anekdotisch materiaal.</p>
+      <p>Daar staat tegenover dat de kerngedachte later langs andere weg steun kreeg. Festingers dissonantie-onderzoek en vooral Swanns experimenten over zelfverificatie lieten zien dat mensen inderdaad bevestiging van hun zelfbeeld zoeken en verkiezen boven vleiender informatie die er niet mee strookt. Dat onderzoek toetst de motivatiekant van de theorie; Lecky's sterkere claim, dat schoolprestaties vrijwel altijd door zelfdefinitie worden bepaald en door herdefinitie te keren zijn, is nooit in die algemene vorm aangetoond.</p>
+      <p>Het boek zelf bevat geen kwantitatief onderzoek en kon dat door zijn ontstaansgeschiedenis ook niet bevatten: Lecky stierf voordat hij zijn programma kon uitvoeren, en de redactie kon alleen bundelen wat er lag.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het ene motief is tegelijk de kracht en de zwakte van de theorie. Een verklaring die zowel slagen als falen, zowel leren als weigeren te leren uit hetzelfde streven naar consistentie afleidt, is moeilijk te weerleggen: elk gedrag past er achteraf in. Later onderzoek nuanceert bovendien het beeld, want mensen streven aantoonbaar ook naar zelfverheffing, en wanneer consistentie en een gunstiger zelfbeeld botsen, wint lang niet altijd de consistentie.</p>
+      <p>De vorm vraagt geduld. Omdat het boek postuum uit fragmenten is samengesteld, wisselt het niveau van uitwerking sterk, en een lezer die een stapsgewijs opgebouwde theorie verwacht, krijgt eerder een verzameling aanzetten. Wie vooral de praktische toepassing zoekt, vindt bij latere auteurs meer uitgewerkt materiaal, zij het zelden met bronvermelding richting Lecky.</p>
+      <p>Ten slotte verdient de receptie een kanttekening: de beroemdste voorbeelden circuleren vooral via Maltz en de zelfhulpliteratuur, losgezongen van Lecky's voorzichtiger theoretische kader. Het boek claimt minder dan wat er later namens dit boek is beweerd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij hardnekkig falen op één vlak eerst de zelfomschrijving die het falen in stand houdt, voordat er meer oefening tegenaan wordt gegooid.</li>
+        <li>Formuleer een gedragsverandering als herziening van een definitie ("iemand die elke dag schrijft") en toets of het gedrag zich naar de nieuwe definitie voegt.</li>
+        <li>Behandel weerstand, bij anderen en bij zichzelf, als bescherming van een zelfbeeld: benoem de tegenstrijdigheid tussen dat zelfbeeld en andere waarden die de persoon ook koestert, in plaats van het symptoom aan te vallen.</li>
+        <li>Wantrouw prestatienormen die als karaktertrek zijn geformuleerd; een standaard is een instelling die bijgesteld kan worden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Self-Consistency: A Theory of Personality</i> (Island Press, New York, 1945, 154 blz.), postuum samengesteld uit Lecky's essays en collegeaantekeningen en geredigeerd door John F.A. Taylor; sindsdien meermaals heruitgegeven. Geen Nederlandse vertaling: de catalogus van bibliotheek.nl geeft geen enkel resultaat op de auteur. De samenvatting is gebaseerd op de Engelse editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Prescott Lecky (1892-1941) doceerde van 1924 tot 1934 psychologie aan Columbia University en stierf voordat hij zijn theorie in boekvorm had gebracht. Zijn studenten stelden dit dunne boek na zijn dood samen uit essays en aantekeningen. De kern: de persoonlijkheid is één samenhangende organisatie van waarden rond de definitie die iemand van zichzelf hanteert, en al het gedrag dient het behoud van die samenhang. Een leerling die zichzelf als slechte speller beschouwt, blijft slecht spellen omdat goed spellen zijn zelfdefinitie zou tegenspreken. Weerstand tegen verandering is in deze theorie geen onwil, het is de verdediging van die innerlijke eenheid.</p><p>Het boek is vooral van belang om wat erop volgde. Carl Rogers en George Kelly verwezen ernaar, Festingers cognitieve dissonantie ligt in het verlengde, en Maxwell Maltz bouwde er in 1960 <i>Psycho-Cybernetics</i> op, waarmee Lecky's idee via de zelfhulpliteratuur miljoenen lezers bereikte. Wie het origineel leest, treft een onaf maar helder gedachtegoed dat ouder en zorgvuldiger is dan de meeste boeken die het hebben geplunderd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfbeeld</li><li>psychologie</li><li>persoonlijkheid</li><li>weerstand</li><li>leren</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="411"><a href="411.html">Psycho-Cybernetics</a>. <i>Psycho-Cybernetics</i> bouwde in 1960 rechtstreeks op Lecky's zelfconsistentietheorie en bracht het zelfbeeld-idee naar een miljoenenpubliek.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. <i>Atomic Habits</i> zet identiteit in als motor van gedragsverandering, hetzelfde mechanisme dat Lecky als eerste beschreef.</li>
+          <li value="23"><a href="23.html">Mindset</a>. <i>Mindset</i> onderzoekt met modern experimenteel materiaal hoe opvattingen over eigen vermogens schoolprestaties sturen.</li>
+          <li value="542"><a href="542.html">On the Self-Regulation of Behavior</a>. <i>On the Self-Regulation of Behavior</i> werkt de regelkring tussen doel en gedrag uit die bij Lecky nog impliciet blijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

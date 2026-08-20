@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Behavior: The Control of Perception &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gedrag is de buitenkant van een regelproces: een levend organisme vergelijkt voortdurend wat het waarneemt met intern gestelde referentiewaarden en zet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-541">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">541 &middot; Brein en lichaam</p>
+    <h1>Behavior: The Control of Perception</h1>
+    <p class="lede">William T. Powers, 1973</p>
+    <p class="stats">
+      <span><b>1497</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="541"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gedrag is de buitenkant van een regelproces: een levend organisme vergelijkt voortdurend wat het waarneemt met intern gestelde referentiewaarden en zet zijn spieren zo in dat het verschil klein blijft, wat de omgeving ook verstoort. Daarmee vervalt het model van prikkel en respons. Wie wetten zoekt die prikkels aan gedrag koppelen, meet volgens Powers de eigenschappen van de omgeving en niet die van het organisme; de psychologie zou gecontroleerde waarnemingen moeten opsporen in plaats van responsen te tellen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van reflexboog naar regelkring</h3>
+      <p>Powers opent met het probleem dat de psychologie van zijn tijd verdeeld houdt: het behaviorisme verklaart gedrag uit prikkels en beloningen, de cognitieve psychologie uit innerlijke verwerking, en beide behandelen gedrag als uitvoer die ergens door wordt veroorzaakt. Powers zet daar de negatieve terugkoppeling tegenover, bekend uit de regeltechniek. Een thermostaat produceert geen warmte als reactie op kou; hij houdt een gemeten temperatuur op een ingestelde waarde, en wat de verwarming doet volgt uit het verschil tussen die twee.</p>
+      <p>Datzelfde patroon ziet Powers overal in levend gedrag. Een automobilist die zijn baan houdt, draait het stuur niet volgens een vast programma: elke windvlaag vraagt een andere correctie, en juist doordat de handelingen steeds anders uitvallen, blijft het waargenomen beeld van de weg constant. Het constante zit in de waarneming, het variabele in het gedrag.</p>
+      <h3>De onderdelen van de kring</h3>
+      <p>De bouwstenen zijn steeds dezelfde: een invoerfunctie die uit zintuiglijke signalen een waarnemingssignaal maakt, een referentiesignaal dat de gewenste waarde aangeeft, een comparator die beide vergelijkt, en een uitvoerfunctie die het verschil, het foutsignaal, omzet in actie. De kring is gesloten: de actie verandert de omgeving, de omgeving verandert de waarneming, en de waarneming wordt opnieuw vergeleken. Het organisme regelt daarmee wat het binnenkrijgt; het handelen is het gereedschap.</p>
+      <p>Uit dit schema volgt wat in de theorie de gedragsillusie heet: wie een verband meet tussen een prikkel en een respons, kijkt in werkelijkheid naar de omgevingsschakel van de kring. De respons compenseert de verstoring, dus de gemeten wet beschrijft de fysica van de omgeving. Het experiment lijkt iets over het organisme te zeggen en doet dat volgens Powers niet.</p>
+      <h3>Negen niveaus boven elkaar</h3>
+      <p>Het tweede deel van het boek stapelt regelkringen tot een hiërarchie van negen niveaus. Onderaan staan kringen die spierspanning en houding regelen; daarboven volgen configuraties, overgangen, reeksen zoals lopen of pianospelen, relaties, programma's met keuzemomenten, principes en ten slotte systeemconcepten zoals een zelfbeeld, een huwelijk of een wereldbeschouwing. In latere uitwerkingen van de theorie groeide de reeks naar elf niveaus.</p>
+      <p>De koppeling tussen de lagen is steeds dezelfde: een hogere kring beweegt zelf geen spieren, hij stelt de referentiewaarden van de kringen eronder bij. Alleen het onderste niveau doet iets in de wereld. Wie een principe als eerlijkheid aanhangt, stelt daarmee doelen voor programma's, die weer doelen stellen voor reeksen, tot en met de spierspanning waarmee een zin wordt uitgesproken. Voor de onderste niveaus geeft Powers neurofysiologische aanknopingspunten; hoe hoger in de piramide, hoe schetsmatiger de onderbouwing.</p>
+      <h3>Leren als reorganisatie</h3>
+      <p>Leren krijgt in het model een eigen mechanisme. Zolang een kring zijn fout klein kan houden, verandert er niets aan de structuur. Blijft er hardnekkige fout bestaan, vooral in aangeboren grootheden zoals honger, pijn of lichaamstemperatuur, dan treedt reorganisatie op: het systeem wijzigt op goed geluk verbindingen en parameters tot de fout weer afneemt. Beloning en straf werken in deze lezing doordat ze fout in een regelkring verkleinen of vergroten, en om geen andere reden.</p>
+      <p>Dat verklaart volgens Powers verschijnselen waar het behaviorisme op stukloopt, zoals een rat die ophoudt met suikerwater drinken zodra de inname het gewenste peil bereikt. Het dier regelt een grootheid; van een prikkel die zijn kracht verliest hoeft geen sprake te zijn.</p>
+      <h3>Onderzoek: de gecontroleerde grootheid opsporen</h3>
+      <p>Methodisch draait het boek de bewijslast om. Wie wil weten wat een organisme doet, moet volgens Powers vaststellen welke waarneming het constant houdt: breng een kleine verstoring aan en kijk welke grootheid wordt verdedigd. Blijft iets opvallend stabiel terwijl de omstandigheden variëren, dan is dat vermoedelijk een gecontroleerde grootheid.</p>
+      <p>De empirische kern van het programma ligt bij volgtaken, waarin een proefpersoon met een hendel een doel op een scherm volgt terwijl het signaal wordt verstoord. Een eenvoudig regelmodel met per persoon geschatte parameters reproduceert dat gedrag met correlaties boven de 0,95. Conflict krijgt daarnaast een eigen plaats: twee kringen die dezelfde grootheid naar verschillende waarden trekken, verlammen elkaar, een mechanisme dat Powers als bron van veel psychische nood aanwijst.</p>
+      <h3>Ontvangst: genegeerd en nooit verdwenen</h3>
+      <p>Het boek verscheen in 1973 bij Aldine, midden in de cognitieve revolutie die het informatieverwerkingsmodel omarmde. De hoofdstroom nam de omkering van Powers niet over en verwijzingen bleven schaars. Wel ontstond een blijvende kring van onderzoekers, vanaf 1984 georganiseerd in de Control Systems Group, en verscheen in 2005 een tweede editie bij Benchmark.</p>
+      <p>De invloed liep vooral via anderen. Carver en Scheier brachten de terugkoppelingskring de sociale psychologie binnen als kader voor zelfregulatie, en in de klinische psychologie groeide uit de conflictanalyse de Method of Levels, een gesprekstherapie die rechtstreeks op dit model bouwt. Zo functioneert het boek een halve eeuw later als grondtekst van een kleine school, en niet als klassieker van het hele vak.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Negatieve terugkoppeling</td><td>Kringproces waarin een systeem het verschil tussen waargenomen en gewenste waarde voortdurend tegenwerkt.</td></tr>
+          <tr><td class="term">Referentiesignaal</td><td>De intern gestelde waarde waarmee de waarneming wordt vergeleken, het doel van de kring.</td></tr>
+          <tr><td class="term">Comparator en foutsignaal</td><td>De vergelijker die referentie en waarneming van elkaar aftrekt; het verschil drijft de uitvoer aan.</td></tr>
+          <tr><td class="term">Gecontroleerde grootheid</td><td>Het aspect van de omgeving dat een organisme via zijn waarneming constant houdt, op te sporen door verstoringen aan te brengen.</td></tr>
+          <tr><td class="term">Gedragsillusie</td><td>De misvatting dat een gemeten prikkel-responsverband iets over het organisme zegt, terwijl het de omgevingsschakel van de kring beschrijft.</td></tr>
+          <tr><td class="term">Hiërarchie van regelsystemen</td><td>Stapeling van negen niveaus waarin hogere kringen de referentiewaarden van lagere bijstellen en alleen het onderste niveau spieren beweegt.</td></tr>
+          <tr><td class="term">Systeemconcept</td><td>Het hoogste niveau van de hiërarchie: waarnemingen zoals een zelfbeeld of levensbeschouwing die als geheel worden geregeld.</td></tr>
+          <tr><td class="term">Reorganisatie</td><td>Leermechanisme dat bij aanhoudende fout op goed geluk verbindingen wijzigt tot de fout afneemt.</td></tr>
+          <tr><td class="term">Conflict</td><td>Toestand waarin twee kringen dezelfde grootheid naar verschillende referentiewaarden trekken en elkaar verlammen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De basis van het model staat vast: negatieve terugkoppeling is bewezen techniek in machines en aantoonbaar werkzaam in de fysiologie, van lichaamstemperatuur tot bloedsuiker. De vraag is of het schema ook gedrag beschrijft. Voor eenvoudige motoriek is de steun behoorlijk: in volgtaakexperimenten, door Powers in 1978 in <i>Psychological Review</i> gepubliceerd en daarna herhaald door onderzoekers als Richard Marken, past een regelmodel met persoonlijke parameters het gedrag met correlaties boven de 0,95.</p>
+      <p>Een systematische evaluatie van deze onderzoekslijn uit 2020 vond dertien studies met in totaal 53 deelnemers. De modelpassing is telkens zeer hoog, maar de aantallen zijn klein en vrijwel al het werk komt uit de eigen onderzoeksgemeenschap; onafhankelijke replicatie op schaal ontbreekt.</p>
+      <p>Voor de hogere niveaus, van programma's tot systeemconcepten, bestaat geen directe toetsing. Powers presenteert ze als ordening die op de lagere niveaus voortbouwt, met anatomische aanknopingspunten naar de stand van 1973. Wat het boek wint aan reikwijdte, verliest het daar aan bewijs.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar richt zich op de falsifieerbaarheid van de hogere niveaus. Vrijwel elk gedrag laat zich achteraf beschrijven als controle van de een of andere waarneming; wie de voorspelde grootheid niet verdedigd ziet, kan altijd een andere gecontroleerde grootheid opvoeren. Daarmee verliest de theorie boven het motorische niveau haar toetsbaarheid, en juist daar liggen de interessante psychologische vragen.</p>
+      <p>Uit de sociale leerpsychologie kwam een inhoudelijk bezwaar: mensen verkleinen verschillen niet alleen, ze scheppen ze ook. Bandura wees erop dat mensen zichzelf doelen stellen boven hun huidige kunnen en dat vertrouwen in eigen kunnen die doelen mede bepaalt, iets waarvoor een zuivere foutverkleiningsmachine geen plaats heeft. Powers kan antwoorden dat hogere kringen referentiewaarden verschuiven, maar dan levert het schema weinig voorspelling meer op.</p>
+      <p>Praktisch weegt mee dat de neurofysiologie in het boek de stand van 1973 weergeeft en dus verouderd is, dat het werk aan de gebruikelijke slijpsteen van kritiek en replicatie is ontsnapt doordat de hoofdstroom het links liet liggen, en dat de tekst met schema's en vergelijkingen meer van een lezer vraagt dan de meeste psychologieboeken. Een Nederlandse vertaling bestaat niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij onbegrijpelijk gedrag niet naar de prikkel maar naar de waarneming die iemand constant houdt; vraag wat er voor die persoon hetzelfde blijft terwijl de handelingen wisselen.</li>
+        <li>Breng bij twijfel een kleine, omkeerbare verstoring aan en let op wat wordt gecorrigeerd; dat wijst de gecontroleerde grootheid aan.</li>
+        <li>Behandel hardnekkig eigen gedrag als mogelijk conflict tussen twee doelen die dezelfde grootheid verschillende kanten op trekken, en verleg de aandacht naar het niveau waarop beide doelen zijn gesteld.</li>
+        <li>Stuur bij gedragsverandering op referentiewaarden in plaats van op handelingen: een ander doel verandert het gedrag vanzelf, een opgelegde handeling laat het doel intact.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Behavior: The Control of Perception</i> (Aldine Publishing Company, Chicago 1973; tweede, herziene editie Benchmark Publications, New Canaan 2005, ISBN 9780964712171). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>William T. Powers (1926-2013) was medisch fysicus en systeemingenieur, geen academisch psycholoog. In <i>Behavior: The Control of Perception</i>, de neerslag van ruim twintig jaar denkwerk, past hij de regeltechniek uit zijn vak toe op levend gedrag. Zijn stelling keert het gangbare model om: een organisme reageert niet op prikkels, het varieert zijn handelen om de eigen waarneming op een intern gestelde waarde te houden, zoals een thermostaat de temperatuur bewaakt. Rond die ene kring bouwt hij een hiërarchie van negen niveaus, van spierspanning tot zelfbeeld en levensbeschouwing.</p><p>Het boek is de wetenschappelijke tegenhanger van het cybernetische mensbeeld dat Maxwell Maltz in <i>Psycho-Cybernetics</i> populariseerde: hetzelfde grondidee, maar uitgewerkt in schema's, vergelijkingen en toetsbare modellen. De hoofdstroom van de psychologie liep eraan voorbij; een kleine onderzoeksgemeenschap werkt er tot vandaag mee verder onder de naam Perceptual Control Theory. Het bewijs is behoorlijk voor eenvoudige motorische taken en dun voor de hogere niveaus.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>cybernetica</li><li>waarneming</li><li>zelfregulatie</li><li>psychologie</li><li>feedback</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="539"><a href="539.html">The Human Use of Human Beings</a>. De cybernetica waar Powers op voortbouwt, in de maatschappelijke duiding van haar grondlegger.</li>
+          <li value="411"><a href="411.html">Psycho-Cybernetics</a>. De populaire zelfhulpversie van hetzelfde mensbeeld, dertien jaar eerder en zonder de techniek.</li>
+          <li value="538"><a href="538.html">Self-Consistency: A Theory of Personality</a>. Lecky's these dat het zelfbeeld als consistentiesysteem werkt, een voorloper van het idee van geregelde systeemconcepten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 20
-augustus 2026: 522 titels in 18 rubrieken.
+augustus 2026: 527 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -19,15 +19,15 @@ bij de volgende build verloren.
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
 
@@ -104696,6 +104696,1084 @@ proef met een levensverhaal als leerstof over leiderschap.
 - 269. The Story of Philosophy. Durant vertelt de filosofiegeschiedenis via
 levens en karakters, in de traditie die Plutarchus begon.
 
+## 538. Self-Consistency: A Theory of Personality
+
+Prescott Lecky, 1945 (postuum). Oorspronkelijk *Self-Consistency: A Theory of
+Personality* (Island Press, New York, 1945, 154 blz.), postuum samengesteld
+uit Lecky's essays en collegeaantekeningen en geredigeerd door John F.A.
+Taylor; sindsdien meermaals heruitgegeven. Geen Nederlandse vertaling: de
+catalogus van bibliotheek.nl geeft geen enkel resultaat op de auteur. De
+samenvatting is gebaseerd op de Engelse editie. Rubriek: gewoontes en denken.
+Tags: `zelfbeeld`, `psychologie`, `persoonlijkheid`, `weerstand`, `leren`
+
+Prescott Lecky (1892-1941) doceerde van 1924 tot 1934 psychologie aan Columbia
+University en stierf voordat hij zijn theorie in boekvorm had gebracht. Zijn
+studenten stelden dit dunne boek na zijn dood samen uit essays en
+aantekeningen. De kern: de persoonlijkheid is één samenhangende organisatie
+van waarden rond de definitie die iemand van zichzelf hanteert, en al het
+gedrag dient het behoud van die samenhang. Een leerling die zichzelf als
+slechte speller beschouwt, blijft slecht spellen omdat goed spellen zijn
+zelfdefinitie zou tegenspreken. Weerstand tegen verandering is in deze theorie
+geen onwil, het is de verdediging van die innerlijke eenheid.
+
+Het boek is vooral van belang om wat erop volgde. Carl Rogers en George Kelly
+verwezen ernaar, Festingers cognitieve dissonantie ligt in het verlengde, en
+Maxwell Maltz bouwde er in 1960 *Psycho-Cybernetics* op, waarmee Lecky's idee
+via de zelfhulpliteratuur miljoenen lezers bereikte. Wie het origineel leest,
+treft een onaf maar helder gedachtegoed dat ouder en zorgvuldiger is dan de
+meeste boeken die het hebben geplunderd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De persoonlijkheid werkt volgens Lecky als één samenhangende
+organisatie van waarden, met als kern de definitie die iemand van zichzelf
+hanteert. Al het gedrag dient hetzelfde doel: die organisatie in stand houden.
+Wat met de zelfdefinitie strookt wordt opgenomen, wat ermee botst wordt
+geweerd, hoe waar of nuttig het ook is. Daarmee verklaart Lecky ook falen: een
+leerling die zichzelf als slechte speller beschouwt, spelt slecht omdat goed
+spellen zijn eigen definitie zou weerspreken. Verandering begint daarom bij de
+zelfdefinitie. Wie alleen het symptoom bestrijdt, vecht tegen de bescherming
+die het systeem zichzelf biedt.
+
+#### De gang van het boek
+
+**Een postuum boek**
+
+Lecky publiceerde tijdens zijn leven weinig. Hij doceerde van 1924 tot 1934
+aan Columbia University, werkte daarna als studieadviseur en therapeut, en
+overleed in 1941 op zijn 48e. Het boek dat zijn naam draagt verscheen pas in
+1945: studenten en collega's bundelden zijn essays, lezingen en aantekeningen,
+onder redactie van John F.A. Taylor. Het telt 154 bladzijden en bestaat uit
+een theoretische kern met daaromheen kortere stukken en losse notities.
+
+Die ontstaansgeschiedenis bepaalt het karakter. Dit is geen afgerond betoog
+van begin tot eind, het is de nalatenschap van een denker die zijn systeem nog
+aan het bouwen was. Sommige delen zijn uitgewerkt, andere blijven bij een
+aanzet. Wie het leest, moet de theorie deels zelf in elkaar zetten uit de
+onderdelen die er liggen.
+
+**Eén motief in plaats van een lijst driften**
+
+Lecky schrijft tegen twee heersende scholen van zijn tijd in. Het behaviorisme
+verklaarde gedrag uit conditionering, losse prikkel-responskoppelingen zonder
+binnenkant. De dieptepsychologie werkte met lijsten van driften en instincten
+die elkaar in de mens bevechten. Lecky vond beide onbevredigend, omdat ze niet
+verklaren waarom gedrag van één persoon zo herkenbaar samenhangt, waarom
+iemand "in karakter" handelt.
+
+Zijn alternatief is radicaal zuinig: er is één motief, het streven van het
+organisme naar een eenheid die zichzelf in stand houdt. De persoonlijkheid is
+een organisatie van waarden en denkbeelden die onderling verenigbaar moeten
+blijven. Nieuwe ervaringen worden geassimileerd als ze in dat geheel passen;
+passen ze niet, dan worden ze verworpen, verdraaid of genegeerd. Leren en
+afweren zijn twee kanten van hetzelfde proces.
+
+**De zelfdefinitie als kern**
+
+In het centrum van de organisatie staat wat Lecky de definitie van het zelf
+noemt: het geheel van opvattingen dat iemand over zichzelf hanteert. Die kern
+bepaalt wat aan de rand kan bestaan. Een idee dat met de zelfdefinitie botst,
+komt er niet in, ook niet als het voordelig zou zijn. Iemand die zichzelf als
+eerlijk definieert, kan niet stelen zonder innerlijke crisis; iemand die
+zichzelf als dom definieert, kan een goed cijfer niet aannemen zonder
+diezelfde crisis.
+
+Daarmee draait Lecky de gangbare kijk op vaardigheden om. Slechte prestaties
+op één vlak, bij verder normale vermogens, zijn in zijn ogen zelden een
+kwestie van aanleg. Ze zijn een uitdrukking van de zelfdefinitie: de leerling
+die zegt geen talenknobbel te hebben, levert precies de prestaties die bij die
+omschrijving horen, en verdedigt de omschrijving door het bewijs ervoor te
+blijven produceren.
+
+**Weerstand als bescherming**
+
+Weerstand was in de psychoanalyse iets wat de behandelaar moest breken. Lecky
+herwaardeert het begrip: weerstand is de normale, gezonde verdediging van de
+eenheid van de persoonlijkheid. Een mens kan niet elk aangeboden idee
+toelaten, want dan valt de organisatie uiteen. Dat mensen zich verzetten tegen
+kritiek, goede raad en zelfs tegen hulp is dus geen defect, het is het systeem
+dat doet waarvoor het bestaat.
+
+Voor de praktijk betekent dit dat rechtstreeks aanvallen van een symptoom
+weinig uithaalt. De therapeut of docent moet volgens Lecky niet het gedrag
+bestrijden maar de tegenstrijdigheid zichtbaar maken tussen de zelfdefinitie
+en andere waarden die de persoon ook koestert. De verandering moet van
+binnenuit komen, doordat de persoon zelf de inconsistentie ziet en de
+definitie herziet. Pas dan verdwijnt het gedrag dat bij de oude definitie
+hoorde.
+
+**Slechte spellers als proefterrein**
+
+Het bekendste materiaal komt uit Lecky's werk als studieadviseur. Hij
+beschrijft leerlingen met normale intelligentie die op één vak stelselmatig
+faalden, en bij wie bijles op de inhoud niets uithaalde. Zijn aanpak richtte
+zich op de zelfomschrijving die het falen in stand hield. De gerapporteerde
+resultaten zijn spectaculair: een jongen die 55 van de 100 woorden fout spelde
+en een jaar moest overdoen, haalde na deze aanpak een gemiddelde van 91 en
+werd een van de beste spellers van school; een studente die van een college
+was gestuurd wegens slechte cijfers, haalde daarna louter tienen.
+
+Tot zijn cliënten behoorde ook de jonge John F. Kennedy, die Lecky in 1934
+begeleidde tijdens diens moeizame schooljaren op Choate. De voorbeelden zijn
+aansprekend, maar het blijven gevalsbeschrijvingen uit eigen praktijk, geteld
+noch gecontroleerd volgens latere maatstaven.
+
+**Doorwerking**
+
+De invloed van dit dunne boek is groter dan zijn bekendheid. George Kelly
+noemde Lecky in *The Psychology of Personal Constructs* (1955), Carl Rogers'
+werk over het zelfconcept ligt in dezelfde lijn, en Festingers theorie van
+cognitieve dissonantie (1957) formaliseerde wat Lecky een decennium eerder had
+beschreven: mensen kunnen tegenstrijdige denkbeelden slecht verdragen. Later
+onderzoek naar zelfverificatie, vooral van William Swann, toetste
+experimenteel dat mensen bevestiging zoeken van hun zelfbeeld, ook als dat
+zelfbeeld negatief is.
+
+De breedste doorwerking liep via de zelfhulp. Maxwell Maltz nam Lecky's cases
+en het idee van het zelfbeeld als gedragsbepaler over in *Psycho-Cybernetics*
+(1960) en noemde hem een pionier. Via die route werd de
+zelfconsistentietheorie, meestal zonder bronvermelding, gemeengoed in decennia
+aan boeken over zelfbeeld en identiteit.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zelfconsistentie | Het ene motief dat Lecky aan al het gedrag ten grondslag legt: het bewaren van de innerlijke samenhang van de persoonlijkheid. |
+| Zelfdefinitie | Het geheel van opvattingen dat iemand over zichzelf hanteert en dat als kern van de persoonlijkheid bepaalt welke ideeën en prestaties toegelaten worden. |
+| Organisatie van waarden | Lecky's omschrijving van de persoonlijkheid als een geheel van onderling verenigbare denkbeelden en waarden, geen bundel losse eigenschappen. |
+| Assimilatie | Het opnemen van een nieuwe ervaring of een nieuw idee in de bestaande organisatie, wat alleen lukt als het ermee te verenigen valt. |
+| Weerstand | De verdediging van de eenheid van de persoonlijkheid tegen ideeën die de zelfdefinitie bedreigen, door Lecky opgevat als gezonde functie en niet als defect. |
+| Standaarden | De maatstaven die iemand uit zijn zelfdefinitie afleidt en waar de eigen prestaties zich naar voegen, in positieve en in negatieve richting. |
+| Handelen in karakter | Lecky's observatie dat alle daden van een individu hetzelfde bouwwerk van waarden in stand houden, waardoor gedrag voorspelbaar samenhangt. |
+
+#### Waar het argument op rust
+
+Het bewijs in het boek bestaat uit gevalsbeschrijvingen uit Lecky's eigen
+praktijk als studieadviseur en therapeut, aangevuld met theoretische
+argumentatie. De spectaculaire schoolresultaten, zoals de speller die van 55
+fouten per 100 woorden naar een gemiddelde van 91 ging, zijn door Lecky zelf
+gerapporteerd, zonder controlegroep, zonder navolgbare telling en met de
+selectie die eigen is aan een practicus die zijn successen beschrijft. Naar de
+maatstaven van later onderzoek is dit anekdotisch materiaal.
+
+Daar staat tegenover dat de kerngedachte later langs andere weg steun kreeg.
+Festingers dissonantie-onderzoek en vooral Swanns experimenten over
+zelfverificatie lieten zien dat mensen inderdaad bevestiging van hun zelfbeeld
+zoeken en verkiezen boven vleiender informatie die er niet mee strookt. Dat
+onderzoek toetst de motivatiekant van de theorie; Lecky's sterkere claim, dat
+schoolprestaties vrijwel altijd door zelfdefinitie worden bepaald en door
+herdefinitie te keren zijn, is nooit in die algemene vorm aangetoond.
+
+Het boek zelf bevat geen kwantitatief onderzoek en kon dat door zijn
+ontstaansgeschiedenis ook niet bevatten: Lecky stierf voordat hij zijn
+programma kon uitvoeren, en de redactie kon alleen bundelen wat er lag.
+
+#### Wat er tegen in te brengen valt
+
+Het ene motief is tegelijk de kracht en de zwakte van de theorie. Een
+verklaring die zowel slagen als falen, zowel leren als weigeren te leren uit
+hetzelfde streven naar consistentie afleidt, is moeilijk te weerleggen: elk
+gedrag past er achteraf in. Later onderzoek nuanceert bovendien het beeld,
+want mensen streven aantoonbaar ook naar zelfverheffing, en wanneer
+consistentie en een gunstiger zelfbeeld botsen, wint lang niet altijd de
+consistentie.
+
+De vorm vraagt geduld. Omdat het boek postuum uit fragmenten is samengesteld,
+wisselt het niveau van uitwerking sterk, en een lezer die een stapsgewijs
+opgebouwde theorie verwacht, krijgt eerder een verzameling aanzetten. Wie
+vooral de praktische toepassing zoekt, vindt bij latere auteurs meer
+uitgewerkt materiaal, zij het zelden met bronvermelding richting Lecky.
+
+Ten slotte verdient de receptie een kanttekening: de beroemdste voorbeelden
+circuleren vooral via Maltz en de zelfhulpliteratuur, losgezongen van Lecky's
+voorzichtiger theoretische kader. Het boek claimt minder dan wat er later
+namens dit boek is beweerd.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij hardnekkig falen op één vlak eerst de zelfomschrijving die het
+falen in stand houdt, voordat er meer oefening tegenaan wordt gegooid.
+- Formuleer een gedragsverandering als herziening van een definitie ("iemand
+die elke dag schrijft") en toets of het gedrag zich naar de nieuwe definitie
+voegt.
+- Behandel weerstand, bij anderen en bij zichzelf, als bescherming van een
+zelfbeeld: benoem de tegenstrijdigheid tussen dat zelfbeeld en andere waarden
+die de persoon ook koestert, in plaats van het symptoom aan te vallen.
+- Wantrouw prestatienormen die als karaktertrek zijn geformuleerd; een
+standaard is een instelling die bijgesteld kan worden.
+
+#### Wat je hierna leest
+
+- 411. Psycho-Cybernetics. *Psycho-Cybernetics* bouwde in 1960 rechtstreeks op
+Lecky's zelfconsistentietheorie en bracht het zelfbeeld-idee naar een
+miljoenenpubliek.
+- 22. Atomic Habits. *Atomic Habits* zet identiteit in als motor van
+gedragsverandering, hetzelfde mechanisme dat Lecky als eerste beschreef.
+- 23. Mindset. *Mindset* onderzoekt met modern experimenteel materiaal hoe
+opvattingen over eigen vermogens schoolprestaties sturen.
+- 542. On the Self-Regulation of Behavior. *On the Self-Regulation of
+Behavior* werkt de regelkring tussen doel en gedrag uit die bij Lecky nog
+impliciet blijft.
+
+## 539. The Human Use of Human Beings
+
+Norbert Wiener, 1950 (herzien 1954). Oorspronkelijk *The Human Use of Human
+Beings: Cybernetics and Society* (Houghton Mifflin, Boston, 1950); door Wiener
+herschreven voor de herziene editie (Doubleday Anchor, 1954). In de jaren
+vijftig en zestig vertaald in onder meer het Frans, Duits en Zweeds, maar een
+Nederlandse vertaling is niet gevonden, ook niet in de catalogus van
+bibliotheek.nl; van Wiener verscheen in het Nederlands wel het latere *God and
+Golem, Inc.* als *God, mens en machine* (Universitaire Pers Rotterdam, 1966).
+De samenvatting is gebaseerd op de herziene Engelse editie van 1954. Rubriek:
+natuur en wetenschap.
+Tags: `cybernetica`, `communicatie`, `entropie`, `automatisering`,
+`technologiekritiek`
+
+Norbert Wiener (1894-1964), wiskundige aan MIT, muntte in 1948 het woord
+cybernetica voor de studie van sturing en communicatie in dier en machine.
+*The Human Use of Human Beings* is zijn boek voor het brede publiek: de
+samenleving valt alleen te begrijpen via de berichten die erin circuleren, en
+mens, dier en machine verweren zich alle drie met terugkoppeling tegen de
+wanorde waar het heelal naartoe zakt. Uit dat kader volgt zijn
+maatschappijkritiek: wie mensen inzet als radertjes, als wezens waarvan het
+leervermogen niet wordt gebruikt, verspilt en vernedert ze. Vandaar de titel.
+
+Het boek is ruim zeventig jaar oud en op onderdelen gedateerd, maar de
+hoofdvragen over automatisering, arbeid en machines die beslissingen
+overnemen, staan sinds de opkomst van kunstmatige intelligentie opnieuw op
+tafel. Wie het woord cybernetica alleen kent van *Psycho-Cybernetics* en zijn
+nazaten, vindt hier de oorspronkelijke, wetenschappelijke betekenis, die met
+zelfhulp niets van doen heeft.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wiener stelt dat de samenleving alleen begrepen kan worden
+door de berichten en communicatiemiddelen te bestuderen die haar bijeenhouden.
+Levende wezens en machines zijn in dit opzicht verwant: beide handhaven zich
+als eilandjes van orde in een heelal dat volgens de tweede hoofdwet naar
+wanorde neigt, en beide doen dat door informatie op te nemen en hun gedrag via
+terugkoppeling bij te sturen. Uit dat natuurwetenschappelijke kader trekt hij
+een morele conclusie: het menselijke gebruik van mensen vergt dat hun
+leervermogen wordt aangesproken, en een samenleving die mensen als vaste
+schakels inzet of de leiding aan letterlijk denkende machines uitbesteedt,
+ondergraaft zichzelf.
+
+#### De gang van het boek
+
+**Cybernetica voor een breed publiek**
+
+Wiener had in 1948 met *Cybernetics* een technisch boek geschreven dat tot
+zijn eigen verrassing een verkoopsucces werd. Dit boek uit 1950 legt dezelfde
+gedachten uit zonder wiskunde en trekt de maatschappelijke lijnen door. Voor
+de herziene editie van 1954 herschreef hij de tekst grondig: het betoog werd
+strakker en filosofischer, en de scherpste politieke passages over het Amerika
+van die jaren verdwenen grotendeels, op een verwijzing naar het mccarthyisme
+na.
+
+Het vertrekpunt is de fysica van Willard Gibbs, die de zekerheden van Newton
+verving door waarschijnlijkheden. In zo'n toevallig heelal is kennis altijd
+onvolledig en wordt communicatie het middel waarmee organismen en
+samenlevingen zich staande houden. Cybernetica, naar het Griekse woord voor
+stuurman, is voor Wiener de theorie van die sturing, in dier én machine.
+
+**Vooruitgang en entropie**
+
+De tweede hoofdwet van de thermodynamica zegt dat de wanorde, de entropie, in
+een gesloten systeem toeneemt. Het leven vormt daarop geen uitzondering maar
+een plaatselijke, tijdelijke tegenbeweging: eilandjes van afnemende entropie
+in een zee die stijgt. Informatie is in dit beeld het spiegelbeeld van
+entropie, een maat voor orde en organisatie.
+
+Uit die kosmische boekhouding volgt Wieners nuchtere kijk op vooruitgang: die
+is niet gegarandeerd en niet blijvend, het is een prestatie die telkens
+opnieuw geleverd moet worden. Hij wijst erop dat het vooruitgangsgeloof
+historisch jong is en waarschuwt tegen het vertrouwen dat de ontwikkeling
+vanzelf de goede kant op gaat.
+
+**Starheid en leren**
+
+Het derde hoofdstuk zet twee gedragspatronen tegenover elkaar aan de hand van
+de mier en de mens. De mier is anatomisch vastgeklonken aan zijn rol; zijn
+gedrag ligt grotendeels vast. De mens dankt zijn positie aan het omgekeerde:
+een zenuwstelsel dat via terugkoppeling leert, waarbij niet één handeling maar
+hele gedragspatronen worden bijgesteld op grond van ervaring.
+
+Hier krijgt de titel zijn lading. Mensen inzetten voor taken waarin niets van
+dat leervermogen wordt gebruikt, mensen organiseren zoals een mierenkolonie is
+georganiseerd, noemt Wiener verspilling en vernedering, wat de inrichting van
+fabrieken, legers en bureaucratieën betreft evenzeer als de school. Het
+menselijke gebruik van mensen is het gebruik dat hun vermogen tot leren en
+variëren aanspreekt.
+
+**Organisatie als bericht**
+
+Het meest speculatieve hoofdstuk stelt dat de individualiteit van een
+organisme niet in zijn stof zit maar in zijn patroon. Het lichaam vervangt
+zijn materiaal voortdurend; wat blijft, is de organisatie, en die is in
+beginsel informatie. Wiener werkt dit uit met een gedachte-experiment: als het
+patroon volledig te beschrijven valt, is het in theorie ook te verzenden,
+zoals een telegram.
+
+Het punt is niet dat mensen binnenkort geseind worden, maar dat de grens
+tussen stof en bericht principieel anders ligt dan het alledaagse denken
+aanneemt. Identiteit is bij Wiener een vlam die zijn vorm houdt terwijl het
+gas erdoorheen stroomt, geen steen die hetzelfde blijft.
+
+**Recht, geheimhouding en de rol van de wetenschap**
+
+In de maatschappelijke hoofdstukken past Wiener zijn kader toe op instituties.
+Het recht beschrijft hij als de ethische regeling van communicatie:
+rechtszekerheid is voorspelbaarheid van berichten tussen burger en staat. Fel
+is hij over militaire geheimhouding, in de jaren van de atoomspionage een
+gedurfd standpunt. Informatie is naar haar aard bestemd om te circuleren; wie
+haar oppot, krijgt er schijnveiligheid voor terug, terwijl de eigen wetenschap
+verstikt. Het atoomgeheim viel volgens hem niet te bewaren, omdat de natuur
+voor elke bekwame onderzoeker dezelfde antwoorden klaar heeft.
+
+In dezelfde lijn wantrouwt hij de behandeling van kennis als koopwaar en van
+communicatie als middel om te winnen in plaats van te verstaan; zijn kritiek
+op de toepassing van speltheorie op politiek richt zich rechtstreeks tegen
+tijdgenoot Von Neumann.
+
+**De tweede industriële revolutie**
+
+De eerste industriële revolutie devalueerde de menselijke spierkracht. De
+tweede, die Wiener in 1950 ziet aankomen, devalueert het routinematige
+oordeel: de automatische fabriek, gestuurd door rekenmachines met
+terugkoppeling, neemt taken over die tot dan toe denkwerk heetten. Hij
+voorziet grote welvaartswinst én, als de overgang aan de markt wordt
+overgelaten, een ontwrichting van de arbeidsmarkt die met de crisis van de
+jaren dertig vergelijkbaar kan zijn.
+
+Bij de machines zelf ligt zijn zorg niet bij kwade wil maar bij
+letterlijkheid. Zoals in het verhaal van de apenklauw wordt een wens exact
+vervuld, inclusief alles wat de wenser niet bedoelde. Machines die sneller
+beslissen dan mensen kunnen ingrijpen, en doelen nastreven die gebrekkig
+geformuleerd zijn, vormen voor Wiener het eigenlijke gevaar. Die waarschuwing
+uit 1950 is in het tijdperk van kunstmatige intelligentie onverminderd
+actueel.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Cybernetica | Wieners naam, naar het Griekse woord voor stuurman, voor de theorie van sturing en communicatie in levende wezens en machines. |
+| Entropie | De maat voor wanorde die in een gesloten systeem toeneemt en waartegen het leven zich plaatselijk en tijdelijk verweert. |
+| Informatie | Het spiegelbeeld van entropie: een maat voor orde en organisatie, en de grondstof waarmee organismen en samenlevingen zich staande houden. |
+| Terugkoppeling | Het bijsturen van gedrag op grond van de gemeten uitkomst van eerder gedrag, bij Wiener het kernmechanisme van al wat leert. |
+| Homeostase | Het vermogen van een systeem om zijn inwendige toestand stabiel te houden ondanks verstoringen van buiten, dat Wiener ook aan samenlevingen als eis stelt. |
+| Starheid tegenover leren | De tegenstelling tussen de mier, wiens gedrag anatomisch vastligt, en de mens, wiens gedragspatronen door ervaring worden bijgesteld. |
+| Organisatie als bericht | De stelling dat de identiteit van een organisme in zijn patroon zit en niet in zijn stof, en daarmee principieel informatie is. |
+| De tweede industriële revolutie | De automatisering van het routinematige oordeel door rekenmachines met terugkoppeling, na de eerdere devaluatie van spierkracht. |
+
+#### Waar het argument op rust
+
+De natuurwetenschappelijke kern van het boek stond en staat stevig: de
+thermodynamica, de statistische mechanica van Gibbs en de informatietheorie
+waaraan Wiener zelf naast Shannon bijdroeg. Ook de techniek sprak hij niet na
+maar hielp hij bouwen; zijn oorlogswerk aan voorspellende vuurleiding leverde
+het terugkoppelingsbegrip dat het boek draagt. Waar Wiener over machines en
+regelsystemen schrijft, schrijft een grondlegger over zijn eigen vak.
+
+De maatschappelijke hoofdstukken zijn van andere aard: essayistiek van een
+geleerde, zonder gegevens of toetsbare voorspellingen. De geschiedenis heeft
+hem gedeeltelijk gelijk gegeven. De automatisering van routinewerk kwam er, de
+maatschappelijke schok werd trager en diffuser dan zijn somberste scenario, en
+zijn waarschuwing voor letterlijk denkende machines die doelen te exact
+uitvoeren, keert vrijwel woordelijk terug in het hedendaagse debat over de
+beheersing van kunstmatige intelligentie.
+
+Waar het betoog het dunst is, gaat het over taal, recht en religie:
+prikkelende toepassingen van het informatiekader die Wiener aannemelijk maakt
+met voorbeelden, niet met onderzoek.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is essayistisch en springerig; wie een systematische inleiding in de
+cybernetica zoekt, krijgt uitweidingen over taal, recht en religie waarvan de
+kwaliteit wisselt. De maatschappijanalyse leunt op het gezag van de schrijver,
+en diens economische verwachtingen waren te somber getimed: de door hem
+voorziene ontwrichting binnen enkele decennia bleef in die vorm uit. Ook is
+het wereldbeeld dat van 1950: de Koude Oorlog kleurt de voorbeelden, en over
+de rekenmachines van na de buizen-tijd kon Wiener alleen speculeren.
+
+Het woord cybernetica heeft na dit boek een eigen leven geleid. Maxwell Maltz
+leende het in 1960 voor *Psycho-Cybernetics*, waarna het via de zelfhulp
+verbonden raakte met zelfbeeld en visualisatie. Van Wieners theorie blijft
+daar alleen het beeld van het doelzoekende stuurmechanisme over; de wiskunde,
+de entropie en de maatschappijkritiek ontbreken. Wie de twee verwart, doet
+beide tekort: dit boek bevat geen levensadvies, en de zelfhulpvariant bevat
+geen cybernetica.
+
+Ten slotte de zwaarste kanttekening: Wiener signaleert de problemen scherper
+dan hij oplossingen aandraagt. Wat een samenleving concreet moet doen om de
+tweede industriële revolutie menselijk te houden, blijft bij aansporingen aan
+wetenschappers en vakbonden.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel een organisatie op haar terugkoppeling: hoe snel en onvervormd
+bereiken berichten over fouten de plek waar bijgestuurd kan worden.
+- Toets bij het inrichten van werk of het leervermogen van de uitvoerder wordt
+aangesproken; werk dat dit vermogen structureel ongebruikt laat, is een
+kandidaat voor automatisering, geen mensenwerk.
+- Formuleer bij het delegeren aan geautomatiseerde systemen het doel met de
+letterlijkheid van de apenklauw in gedachten: wat gebeurt er als dit doel
+exact wordt vervuld, inclusief het onbedoelde.
+- Wantrouw geheimhouding als veiligheidsstrategie voor kennis die anderen
+zelfstandig kunnen ontdekken.
+
+#### Wat je hierna leest
+
+- 541. Behavior: The Control of Perception. *Behavior: The Control of
+Perception* bouwt de terugkoppelingsgedachte uit tot een volledige
+psychologische theorie.
+- 411. Psycho-Cybernetics. *Psycho-Cybernetics* leende tien jaar later Wieners
+term voor zelfhulp; hier valt na te gaan wat er onderweg verloren ging.
+- 347. Complexity. *Complexity* beschrijft hoe de systeemwetenschap waar
+Wiener aan de wieg van stond, decennia later opnieuw opbloeide.
+- 297. The Reverse Centaur's Guide to Life After AI. *The Reverse Centaur's
+Guide to Life After AI* stelt Wieners vraag naar het menselijke gebruik van
+mensen opnieuw, nu voor het AI-tijdperk.
+
+## 540. The New Psycho-Cybernetics
+
+Maxwell Maltz, bewerkt door Dan S. Kennedy, 2001. Oorspronkelijk *The New
+Psycho-Cybernetics: The Original Science of Self-Improvement and Success That
+Has Changed the Lives of 30 Million People* (Prentice Hall Press, New York,
+2001; paperback 2002, ISBN 9780735202856), een bewerking van Maltz'
+*Psycho-Cybernetics* uit 1960 namens de Psycho-Cybernetics Foundation. Geen
+Nederlandse vertaling; ook het origineel uit 1960 is nooit officieel in het
+Nederlands uitgegeven, en bibliotheek.nl vermeldt van Maltz alleen een
+Engelstalige editie. De samenvatting is gebaseerd op de Engelse editie.
+Rubriek: gewoontes en denken.
+Tags: `zelfbeeld`, `zelfhulp`, `visualisatie`, `gewoontevorming`,
+`cybernetica`
+
+Veertig jaar na het origineel liet de Psycho-Cybernetics Foundation het
+beroemdste zelfbeeldboek van de twintigste eeuw moderniseren door Dan S.
+Kennedy, marketingadviseur en directeur van diezelfde stichting. De bewerking
+behoudt de vijftien hoofdstukken van Maltz uit 1960, fris gemaakt met
+hedendaagse voorbeelden, en voegt oefenkaders met "voorschriften" toe plus een
+zestiende hoofdstuk met lezersverhalen. Alles is geschreven alsof Maltz zelf
+aan het woord is, hoewel die in 1975 overleed.
+
+De kernboodschap is onveranderd: het zelfbeeld werkt als een thermostaat die
+prestaties begrenst, en via ontspanning en mentale repetitie valt dat
+zelfbeeld bij te stellen. Als leeseditie is dit de toegankelijkste en
+volledigste versie van het gedachtegoed; als wetenschappelijke actualisering
+stelt het niets voor, want met veertig jaar psychologisch onderzoek sinds 1960
+doet de bewerking niets.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het boek herhaalt Maltz' these uit 1960: mensen gedragen zich
+niet naar wat ze kunnen maar naar het beeld dat ze van zichzelf hebben, en het
+zenuwstelsel werkt als een doelzoekend stuurmechanisme dat dit zelfbeeld als
+instelwaarde neemt. Wie het zelfbeeld verruimt, via ontspanning, verbeelding
+en mentale repetitie, verlegt daarmee de grens van zijn prestaties. De
+bewerking van 2001 voegt daar de claim aan toe dat dit gedachtegoed tijdloos
+is en alleen opgefrist hoefde te worden: dezelfde leer, hertaald en aangevuld
+met oefeningen, verhalen en voorbeelden uit de decennia na Maltz' dood.
+
+#### De gang van het boek
+
+**Een bewerking namens de stichting**
+
+Maxwell Maltz, plastisch chirurg, publiceerde *Psycho-Cybernetics* in 1960 en
+overleed in 1975; de uitgever claimt dertig miljoen bereikte lezers. De
+Psycho-Cybernetics Foundation beheert de nalatenschap en gaf Dan S. Kennedy de
+opdracht het boek voor een nieuwe generatie te bewerken. Kennedy, tevens
+directeur van de stichting, koos ervoor alles in de ik-stem van Maltz te
+houden: eigen toevoegingen, voorbeelden en lessen uit zijn onderwijspraktijk
+zijn onherkenbaar in de tekst opgenomen.
+
+De vijftien oorspronkelijke hoofdstukken blijven staan, met licht
+gemoderniseerde titels. Nieuw zijn de oefenkaders met voorschriften en mentale
+trainingsoefeningen door het hele boek, hedendaagsere voorbeelden zoals Chuck
+Norris en schoonspringer Greg Louganis, en een zestiende hoofdstuk met
+praktijkverhalen van lezers en cursisten.
+
+**Het zelfbeeld als thermostaat**
+
+Het fundament komt uit Maltz' spreekkamer. Als chirurg zag hij patiënten van
+wie het uiterlijk aantoonbaar verbeterd was en die zich onverminderd lelijk
+bleven voelen; het litteken zat kennelijk niet op het gezicht maar in het
+zelfbeeld. Daaruit ontstond de kerngedachte, ontleend aan onder anderen
+Prescott Lecky: mensen handelen in overeenstemming met hun zelfbeeld, en
+prestaties buiten die bandbreedte worden teruggeregeld zoals een thermostaat
+de temperatuur terugregelt.
+
+De cybernetica levert de metafoor. Het zenuwstelsel heet een servomechanisme,
+een doelzoekende machine zoals een zelfsturende torpedo: geef het een doel en
+het koerst erop af, waarbij fouten geen mislukkingen zijn maar
+koerscorrecties. Datzelfde mechanisme kan als automatisch succesmechanisme
+werken of, met negatieve doelen gevoed, als automatisch faalmechanisme.
+
+**Verbeelding en dehypnotisering**
+
+Het praktische hart van het boek is de stelling dat het zenuwstelsel weinig
+onderscheid maakt tussen een echte en een levendig verbeelde ervaring. In het
+theater van de geest kan iemand daarom ervaringen oefenen die het zelfbeeld
+bijstellen: dagelijks een half uur ontspannen en zichzelf gedetailleerd zien
+slagen. Als bewijs voert het boek onder meer het bekende experiment op waarin
+studenten die vrije worpen alleen in gedachten oefenden bijna evenveel
+vooruitgingen als studenten die echt trainden.
+
+Negatieve overtuigingen behandelt Maltz als een vorm van hypnose: uitspraken
+van ouders, docenten of onszelf die ooit voor waar zijn aangenomen en
+sindsdien als feit regeren. Dehypnotisering bestaat uit het opsporen van zulke
+overtuigingen en het toetsen ervan aan redelijk denken, een werkwijze die
+vooruitwijst naar wat later cognitieve therapie ging heten.
+
+**Gewoonten, littekens en het winnende gevoel**
+
+De tweede helft past het mechanisme toe op het dagelijks leven. Geluk
+beschrijft Maltz als een gewoonte die geoefend kan worden, geen uitkomst die
+op omstandigheden wacht. Emotionele littekens, oude krenkingen die het
+zelfbeeld verkrampen, vragen om dezelfde behandeling als fysieke: verwijderen
+en vergeven, waarbij vergeving als chirurgie wordt voorgesteld en niet als
+sentiment. Voor spanning zijn er ontspanningsoefeningen die het boek
+kalmeringsmiddelen zonder recept noemt.
+
+Het slot draait om het winnende gevoel: de herinnering aan eerdere successen
+bewust oproepen voordat een taak begint, zodat het stuurmechanisme op slagen
+in plaats van mislukken is afgesteld. In de editie van 2001 zijn deze
+hoofdstukken doorspekt met de genummerde voorschriften en afgesloten met het
+nieuwe hoofdstuk vol getuigenissen.
+
+**Wat de bewerking wel en niet is**
+
+Kennedy noemt deze uitgave het volledigste Psycho-Cybernetics-werk ooit
+verschenen, en als bloemlezing klopt dat: materiaal uit Maltz' overige boeken
+en uit decennia cursuspraktijk is erin verwerkt, en de oefeningen die eerder
+verspreid circuleerden staan nu bij elkaar. De taal is soepeler dan die van
+1960 en de structuur met kaders maakt het boek bruikbaarder als werkboek.
+
+Wat de bewerking niet is, is een inhoudelijke herziening. Geen enkele claim
+uit 1960 wordt getoetst aan de psychologie van na 1960; verouderde voorbeelden
+zijn vervangen, verouderde beweringen niet. Ook het beroemde voorschrift dat
+een nieuw zelfbeeld ongeveer 21 dagen oefening vergt, ontleend aan Maltz'
+observatie hoelang patiënten aan een nieuw gezicht wenden, blijft staan,
+hoewel het nooit meer was dan een klinische indruk.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zelfbeeld | Het beeld dat iemand van zichzelf heeft en dat als thermostaat de bandbreedte van zijn prestaties bepaalt. |
+| Servomechanisme | Maltz' metafoor voor het zenuwstelsel als doelzoekende machine die op een gesteld doel afkoerst en fouten als koerscorrecties verwerkt. |
+| Automatisch succesmechanisme | Het servomechanisme wanneer het met positieve doelen wordt gevoed; in de editie van 2001 prominenter aangezet dan in het origineel. |
+| Automatisch faalmechanisme | Hetzelfde mechanisme wanneer het op angstbeelden en negatieve verwachtingen is afgesteld en die vervolgens waarmaakt. |
+| Theater van de geest | De dagelijkse oefening waarin iemand zich ontspant en zichzelf gedetailleerd ziet slagen, om het zelfbeeld met verbeelde ervaring bij te stellen. |
+| Dehypnotisering | Het opsporen en met redelijk denken ontkrachten van overtuigingen die ooit klakkeloos voor waar zijn aangenomen. |
+| Synthetische ervaring | Een levendig verbeelde ervaring, die volgens Maltz door het zenuwstelsel vrijwel als echt wordt verwerkt. |
+| Voorschrift | De genummerde opdrachtkaders die Kennedy door de tekst plaatste om de leer in concrete oefeningen om te zetten. |
+| Het winnende gevoel | De bewust opgeroepen herinnering aan eerder succes, als afstelling van het mechanisme voordat een taak begint. |
+
+#### Waar het argument op rust
+
+Het bewijsmateriaal is grotendeels dat van 1960: Maltz' patiëntenverhalen,
+anekdotes over sporters en verkopers, en enkele beroemde maar slecht
+traceerbare experimenten. De vrijeworpenstudie wordt zonder controleerbare
+bron opgevoerd en is in de aangehaalde vorm nooit teruggevonden in de
+onderzoeksliteratuur. Kennedy's toevoegingen, verhalen uit seminars en het
+slothoofdstuk met getuigenissen, zijn per definitie geselecteerde successen
+zonder tegenwicht van wie er niets aan had.
+
+Dat gezegd zijnde is de kern niet uit de lucht gegrepen. Later onderzoek naar
+mentale oefening laat een echt maar bescheiden effect zien, kleiner dan dat
+van fysieke oefening en het grootst als beide worden gecombineerd, en de
+dehypnotiseringsaanpak lijkt in de verte op technieken die de cognitieve
+gedragstherapie later wel degelijk heeft onderbouwd. Het boek overdrijft dus
+een mechanisme dat bestaat, en presenteert als wetenschap wat een mengsel is
+van kliniekervaring, metafoor en anekdote.
+
+Het cybernetische kader zelf, het zenuwstelsel als servomechanisme, is
+beeldspraak en geen neurowetenschap; de term is aan Wiener ontleend, de
+wiskunde erachter niet.
+
+#### Wat er tegen in te brengen valt
+
+De bewerker is een verkoper, geen behandelaar of onderzoeker. Dan S. Kennedy
+verdiende zijn naam met direct-response-marketing en boeken over
+verkooptechniek, en hij leidt de stichting die aan deze uitgave verdient; het
+boek is onderdeel van een keten met audioprogramma's, nieuwsbrieven en
+seminars. Dat maakt zijn werk niet waardeloos, hij kent de tekst grondig en
+bewerkt zorgvuldig, maar wie een psychologisch verantwoorde actualisering
+verwacht, moet weten dat daar de deskundigheid noch de prikkel voor aanwezig
+was.
+
+De keuze om alles in Maltz' stem te schrijven heeft een prijs: de lezer kan
+nergens zien welke zin uit 1960 stamt en welke uit 2001, en een boek waarin
+een in 1975 overleden auteur over schoonspringers uit de jaren tachtig
+vertelt, wekt een vertrouwdheid die niet verdiend is. Inhoudelijk is de
+modernisering cosmetisch gebleven; met Bandura's werk over zelfeffectiviteit,
+met de cognitieve gedragstherapie of met het onderzoek dat het 21-dagengetal
+weerspreekt, wordt nergens de confrontatie gezocht.
+
+Wat de bewerking wél toevoegt, mag ook gezegd: de oefeningen zijn gebundeld,
+de taal is toegankelijker en het geheel is als werkboek bruikbaarder dan het
+origineel. Wie het gedachtegoed wil leren kennen, is met deze editie beter af;
+wie wil weten of het klopt, vindt hier geen woord meer dan in 1960.
+
+#### Wat er concreet mee te doen is
+
+- Oefen een concrete vaardigheid aanvullend in gedachten: ontspannen,
+gedetailleerd en met goede afloop, als aanvulling op echte oefening en niet
+als vervanging.
+- Schrijf overtuigingen over eigen kunnen op en toets per stuk waar het bewijs
+vandaan komt; behandel uitspraken van vroeger als beweringen, niet als feiten.
+- Behandel fouten als koerscorrecties: registreren, bijsturen en vergeten, in
+plaats van herkauwen.
+- Roep voor een spannende taak een concrete herinnering op aan een eerdere
+geslaagde uitvoering, in plaats van de mislukking vooraf te repeteren.
+
+#### Wat je hierna leest
+
+- 411. Psycho-Cybernetics. *Psycho-Cybernetics* is het origineel uit 1960; wie
+de bron wil, leest dat, wie oefeningen wil, deze bewerking.
+- 538. Self-Consistency: A Theory of Personality. *Self-Consistency* van
+Prescott Lecky leverde de zelfbeeldtheorie waar Maltz zijn boek op bouwde.
+- 22. Atomic Habits. *Atomic Habits* koppelt identiteit aan gedragsverandering
+met aanzienlijk meer onderzoeksbasis.
+- 441. The Inner Game of Tennis. *The Inner Game of Tennis* werkt mentale
+oefening en zelfbeeld uit voor sport, dichter bij de praktijk en zonder de
+servo-retoriek.
+
+## 541. Behavior: The Control of Perception
+
+William T. Powers, 1973. Oorspronkelijk *Behavior: The Control of Perception*
+(Aldine Publishing Company, Chicago 1973; tweede, herziene editie Benchmark
+Publications, New Canaan 2005, ISBN 9780964712171). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: brein en lichaam.
+Tags: `cybernetica`, `waarneming`, `zelfregulatie`, `psychologie`, `feedback`
+
+William T. Powers (1926-2013) was medisch fysicus en systeemingenieur, geen
+academisch psycholoog. In *Behavior: The Control of Perception*, de neerslag
+van ruim twintig jaar denkwerk, past hij de regeltechniek uit zijn vak toe op
+levend gedrag. Zijn stelling keert het gangbare model om: een organisme
+reageert niet op prikkels, het varieert zijn handelen om de eigen waarneming
+op een intern gestelde waarde te houden, zoals een thermostaat de temperatuur
+bewaakt. Rond die ene kring bouwt hij een hiërarchie van negen niveaus, van
+spierspanning tot zelfbeeld en levensbeschouwing.
+
+Het boek is de wetenschappelijke tegenhanger van het cybernetische mensbeeld
+dat Maxwell Maltz in *Psycho-Cybernetics* populariseerde: hetzelfde grondidee,
+maar uitgewerkt in schema's, vergelijkingen en toetsbare modellen. De
+hoofdstroom van de psychologie liep eraan voorbij; een kleine
+onderzoeksgemeenschap werkt er tot vandaag mee verder onder de naam Perceptual
+Control Theory. Het bewijs is behoorlijk voor eenvoudige motorische taken en
+dun voor de hogere niveaus.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gedrag is de buitenkant van een regelproces: een levend
+organisme vergelijkt voortdurend wat het waarneemt met intern gestelde
+referentiewaarden en zet zijn spieren zo in dat het verschil klein blijft, wat
+de omgeving ook verstoort. Daarmee vervalt het model van prikkel en respons.
+Wie wetten zoekt die prikkels aan gedrag koppelen, meet volgens Powers de
+eigenschappen van de omgeving en niet die van het organisme; de psychologie
+zou gecontroleerde waarnemingen moeten opsporen in plaats van responsen te
+tellen.
+
+#### De gang van het boek
+
+**Van reflexboog naar regelkring**
+
+Powers opent met het probleem dat de psychologie van zijn tijd verdeeld houdt:
+het behaviorisme verklaart gedrag uit prikkels en beloningen, de cognitieve
+psychologie uit innerlijke verwerking, en beide behandelen gedrag als uitvoer
+die ergens door wordt veroorzaakt. Powers zet daar de negatieve terugkoppeling
+tegenover, bekend uit de regeltechniek. Een thermostaat produceert geen warmte
+als reactie op kou; hij houdt een gemeten temperatuur op een ingestelde
+waarde, en wat de verwarming doet volgt uit het verschil tussen die twee.
+
+Datzelfde patroon ziet Powers overal in levend gedrag. Een automobilist die
+zijn baan houdt, draait het stuur niet volgens een vast programma: elke
+windvlaag vraagt een andere correctie, en juist doordat de handelingen steeds
+anders uitvallen, blijft het waargenomen beeld van de weg constant. Het
+constante zit in de waarneming, het variabele in het gedrag.
+
+**De onderdelen van de kring**
+
+De bouwstenen zijn steeds dezelfde: een invoerfunctie die uit zintuiglijke
+signalen een waarnemingssignaal maakt, een referentiesignaal dat de gewenste
+waarde aangeeft, een comparator die beide vergelijkt, en een uitvoerfunctie
+die het verschil, het foutsignaal, omzet in actie. De kring is gesloten: de
+actie verandert de omgeving, de omgeving verandert de waarneming, en de
+waarneming wordt opnieuw vergeleken. Het organisme regelt daarmee wat het
+binnenkrijgt; het handelen is het gereedschap.
+
+Uit dit schema volgt wat in de theorie de gedragsillusie heet: wie een verband
+meet tussen een prikkel en een respons, kijkt in werkelijkheid naar de
+omgevingsschakel van de kring. De respons compenseert de verstoring, dus de
+gemeten wet beschrijft de fysica van de omgeving. Het experiment lijkt iets
+over het organisme te zeggen en doet dat volgens Powers niet.
+
+**Negen niveaus boven elkaar**
+
+Het tweede deel van het boek stapelt regelkringen tot een hiërarchie van negen
+niveaus. Onderaan staan kringen die spierspanning en houding regelen;
+daarboven volgen configuraties, overgangen, reeksen zoals lopen of
+pianospelen, relaties, programma's met keuzemomenten, principes en ten slotte
+systeemconcepten zoals een zelfbeeld, een huwelijk of een wereldbeschouwing.
+In latere uitwerkingen van de theorie groeide de reeks naar elf niveaus.
+
+De koppeling tussen de lagen is steeds dezelfde: een hogere kring beweegt zelf
+geen spieren, hij stelt de referentiewaarden van de kringen eronder bij.
+Alleen het onderste niveau doet iets in de wereld. Wie een principe als
+eerlijkheid aanhangt, stelt daarmee doelen voor programma's, die weer doelen
+stellen voor reeksen, tot en met de spierspanning waarmee een zin wordt
+uitgesproken. Voor de onderste niveaus geeft Powers neurofysiologische
+aanknopingspunten; hoe hoger in de piramide, hoe schetsmatiger de
+onderbouwing.
+
+**Leren als reorganisatie**
+
+Leren krijgt in het model een eigen mechanisme. Zolang een kring zijn fout
+klein kan houden, verandert er niets aan de structuur. Blijft er hardnekkige
+fout bestaan, vooral in aangeboren grootheden zoals honger, pijn of
+lichaamstemperatuur, dan treedt reorganisatie op: het systeem wijzigt op goed
+geluk verbindingen en parameters tot de fout weer afneemt. Beloning en straf
+werken in deze lezing doordat ze fout in een regelkring verkleinen of
+vergroten, en om geen andere reden.
+
+Dat verklaart volgens Powers verschijnselen waar het behaviorisme op
+stukloopt, zoals een rat die ophoudt met suikerwater drinken zodra de inname
+het gewenste peil bereikt. Het dier regelt een grootheid; van een prikkel die
+zijn kracht verliest hoeft geen sprake te zijn.
+
+**Onderzoek: de gecontroleerde grootheid opsporen**
+
+Methodisch draait het boek de bewijslast om. Wie wil weten wat een organisme
+doet, moet volgens Powers vaststellen welke waarneming het constant houdt:
+breng een kleine verstoring aan en kijk welke grootheid wordt verdedigd.
+Blijft iets opvallend stabiel terwijl de omstandigheden variëren, dan is dat
+vermoedelijk een gecontroleerde grootheid.
+
+De empirische kern van het programma ligt bij volgtaken, waarin een
+proefpersoon met een hendel een doel op een scherm volgt terwijl het signaal
+wordt verstoord. Een eenvoudig regelmodel met per persoon geschatte parameters
+reproduceert dat gedrag met correlaties boven de 0,95. Conflict krijgt
+daarnaast een eigen plaats: twee kringen die dezelfde grootheid naar
+verschillende waarden trekken, verlammen elkaar, een mechanisme dat Powers als
+bron van veel psychische nood aanwijst.
+
+**Ontvangst: genegeerd en nooit verdwenen**
+
+Het boek verscheen in 1973 bij Aldine, midden in de cognitieve revolutie die
+het informatieverwerkingsmodel omarmde. De hoofdstroom nam de omkering van
+Powers niet over en verwijzingen bleven schaars. Wel ontstond een blijvende
+kring van onderzoekers, vanaf 1984 georganiseerd in de Control Systems Group,
+en verscheen in 2005 een tweede editie bij Benchmark.
+
+De invloed liep vooral via anderen. Carver en Scheier brachten de
+terugkoppelingskring de sociale psychologie binnen als kader voor
+zelfregulatie, en in de klinische psychologie groeide uit de conflictanalyse
+de Method of Levels, een gesprekstherapie die rechtstreeks op dit model bouwt.
+Zo functioneert het boek een halve eeuw later als grondtekst van een kleine
+school, en niet als klassieker van het hele vak.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Negatieve terugkoppeling | Kringproces waarin een systeem het verschil tussen waargenomen en gewenste waarde voortdurend tegenwerkt. |
+| Referentiesignaal | De intern gestelde waarde waarmee de waarneming wordt vergeleken, het doel van de kring. |
+| Comparator en foutsignaal | De vergelijker die referentie en waarneming van elkaar aftrekt; het verschil drijft de uitvoer aan. |
+| Gecontroleerde grootheid | Het aspect van de omgeving dat een organisme via zijn waarneming constant houdt, op te sporen door verstoringen aan te brengen. |
+| Gedragsillusie | De misvatting dat een gemeten prikkel-responsverband iets over het organisme zegt, terwijl het de omgevingsschakel van de kring beschrijft. |
+| Hiërarchie van regelsystemen | Stapeling van negen niveaus waarin hogere kringen de referentiewaarden van lagere bijstellen en alleen het onderste niveau spieren beweegt. |
+| Systeemconcept | Het hoogste niveau van de hiërarchie: waarnemingen zoals een zelfbeeld of levensbeschouwing die als geheel worden geregeld. |
+| Reorganisatie | Leermechanisme dat bij aanhoudende fout op goed geluk verbindingen wijzigt tot de fout afneemt. |
+| Conflict | Toestand waarin twee kringen dezelfde grootheid naar verschillende referentiewaarden trekken en elkaar verlammen. |
+
+#### Waar het argument op rust
+
+De basis van het model staat vast: negatieve terugkoppeling is bewezen
+techniek in machines en aantoonbaar werkzaam in de fysiologie, van
+lichaamstemperatuur tot bloedsuiker. De vraag is of het schema ook gedrag
+beschrijft. Voor eenvoudige motoriek is de steun behoorlijk: in
+volgtaakexperimenten, door Powers in 1978 in *Psychological Review*
+gepubliceerd en daarna herhaald door onderzoekers als Richard Marken, past een
+regelmodel met persoonlijke parameters het gedrag met correlaties boven de
+0,95.
+
+Een systematische evaluatie van deze onderzoekslijn uit 2020 vond dertien
+studies met in totaal 53 deelnemers. De modelpassing is telkens zeer hoog,
+maar de aantallen zijn klein en vrijwel al het werk komt uit de eigen
+onderzoeksgemeenschap; onafhankelijke replicatie op schaal ontbreekt.
+
+Voor de hogere niveaus, van programma's tot systeemconcepten, bestaat geen
+directe toetsing. Powers presenteert ze als ordening die op de lagere niveaus
+voortbouwt, met anatomische aanknopingspunten naar de stand van 1973. Wat het
+boek wint aan reikwijdte, verliest het daar aan bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar richt zich op de falsifieerbaarheid van de hogere
+niveaus. Vrijwel elk gedrag laat zich achteraf beschrijven als controle van de
+een of andere waarneming; wie de voorspelde grootheid niet verdedigd ziet, kan
+altijd een andere gecontroleerde grootheid opvoeren. Daarmee verliest de
+theorie boven het motorische niveau haar toetsbaarheid, en juist daar liggen
+de interessante psychologische vragen.
+
+Uit de sociale leerpsychologie kwam een inhoudelijk bezwaar: mensen verkleinen
+verschillen niet alleen, ze scheppen ze ook. Bandura wees erop dat mensen
+zichzelf doelen stellen boven hun huidige kunnen en dat vertrouwen in eigen
+kunnen die doelen mede bepaalt, iets waarvoor een zuivere
+foutverkleiningsmachine geen plaats heeft. Powers kan antwoorden dat hogere
+kringen referentiewaarden verschuiven, maar dan levert het schema weinig
+voorspelling meer op.
+
+Praktisch weegt mee dat de neurofysiologie in het boek de stand van 1973
+weergeeft en dus verouderd is, dat het werk aan de gebruikelijke slijpsteen
+van kritiek en replicatie is ontsnapt doordat de hoofdstroom het links liet
+liggen, en dat de tekst met schema's en vergelijkingen meer van een lezer
+vraagt dan de meeste psychologieboeken. Een Nederlandse vertaling bestaat
+niet.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij onbegrijpelijk gedrag niet naar de prikkel maar naar de waarneming
+die iemand constant houdt; vraag wat er voor die persoon hetzelfde blijft
+terwijl de handelingen wisselen.
+- Breng bij twijfel een kleine, omkeerbare verstoring aan en let op wat wordt
+gecorrigeerd; dat wijst de gecontroleerde grootheid aan.
+- Behandel hardnekkig eigen gedrag als mogelijk conflict tussen twee doelen
+die dezelfde grootheid verschillende kanten op trekken, en verleg de aandacht
+naar het niveau waarop beide doelen zijn gesteld.
+- Stuur bij gedragsverandering op referentiewaarden in plaats van op
+handelingen: een ander doel verandert het gedrag vanzelf, een opgelegde
+handeling laat het doel intact.
+
+#### Wat je hierna leest
+
+- 539. The Human Use of Human Beings. De cybernetica waar Powers op
+voortbouwt, in de maatschappelijke duiding van haar grondlegger.
+- 411. Psycho-Cybernetics. De populaire zelfhulpversie van hetzelfde
+mensbeeld, dertien jaar eerder en zonder de techniek.
+- 538. Self-Consistency: A Theory of Personality. Lecky's these dat het
+zelfbeeld als consistentiesysteem werkt, een voorloper van het idee van
+geregelde systeemconcepten.
+
+## 542. On the Self-Regulation of Behavior
+
+Charles S. Carver en Michael F. Scheier, 1998. *On the Self-Regulation of
+Behavior* (Cambridge University Press, 1998, 460 blz., ISBN 9780521572040).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: gewoontes en denken.
+Tags: `zelfregulatie`, `doelen`, `feedback`, `emoties`, `psychologie`
+
+Charles Carver (University of Miami) en Michael Scheier (Carnegie Mellon)
+werkten vanaf de jaren zeventig samen aan een controletheoretisch model van
+menselijk handelen; dit boek uit 1998 is er de meest volledige uitwerking van.
+De kern: gedrag is doelgericht en wordt geregeld door terugkoppelingskringen
+die het verschil tussen huidige toestand en doel verkleinen, of bij
+vermijdingsdoelen juist vergroten. Gevoel komt uit een tweede kring die het
+tempo van de voortgang bewaakt: wie sneller opschiet dan verwacht voelt zich
+goed, wie achterblijft raakt gespannen of somber. Verwachtingen bepalen
+vervolgens of iemand doorzet of loslaat, en dat loslaten behandelen de auteurs
+als een normale functie van zelfregulatie.
+
+Dit is een academische monografie van 460 bladzijden, geschreven voor
+onderzoekers, met een literatuurlijst van bijna zestig bladzijden. Wie een
+toegankelijk boek over doelen zoekt, begint beter elders; wie wil weten waar
+de latere doelen- en gewoonteliteratuur haar theoretische fundament vandaan
+haalt, vindt het hier.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Menselijk gedrag is een doorlopend proces van doelgerichte
+regeling: terugkoppelingskringen vergelijken de waargenomen toestand met een
+doelwaarde en verkleinen het verschil, terwijl vermijdingskringen de afstand
+tot een gevreesde toestand vergroten. Gevoel is in dit model geen ruis rond
+het handelen maar het uitleessignaal van een tweede kring die het tempo van de
+voortgang bewaakt, en de keuze tussen volhouden en loslaten volgt uit de
+verwachting of het doel nog haalbaar is. Alles wat mensen doen, van
+tandenpoetsen tot een levensideaal najagen, past volgens de auteurs in deze
+ene architectuur.
+
+#### De gang van het boek
+
+**De kring als bouwsteen**
+
+De eerste vier hoofdstukken zetten het gereedschap klaar. Een
+terugkoppelingskring bestaat uit een invoerfunctie, een referentiewaarde, een
+comparator en een uitvoerfunctie; hetzelfde viertal werkt in een thermostaat,
+een stuurautomaat en een mens die een voornemen uitvoert. Naderingsgedrag is
+discrepantieverkleining: de waargenomen toestand wordt naar het doel toe
+bewogen.
+
+Daarnaast staat de discrepantievergrotende kring, die afstand schept tot een
+ongewenste toestand, zoals mislukking of afwijzing. Zulke vermijdingskringen
+geven volgens de auteurs op zichzelf geen richting: wie ergens vandaan vlucht,
+kan alle kanten op. In de praktijk raken ze daarom meestal ingebed in een
+naderingskring die de vlucht een bestemming geeft.
+
+**Doelen in lagen**
+
+Voor de ordening van doelen nemen Carver en Scheier de hiërarchie van William
+Powers over, in vereenvoudigde vorm. Bovenin staan systeemconcepten zoals het
+geïdealiseerde zelf, daaronder principes (wees eerlijk), daaronder programma's
+(de belastingaangifte invullen) en reeksen van handelingen. Een hogere kring
+stelt de doelen van de lagere; dezelfde handeling kan daardoor bij
+verschillende mensen totaal verschillende doelen dienen.
+
+Hoe hoger een doel in de stapel staat, hoe zwaarder het weegt voor de persoon
+en hoe trager het verandert. Veel gedrag laat zich pas begrijpen als duidelijk
+is op welk niveau iemand het zelf opvat: hardlopen kan een reeks zijn, een
+gezondheidsprogramma of een deel van het zelfbeeld sportief te zijn.
+
+**Het zelf en de aandacht**
+
+Een eigen hoofdstuk behandelt publieke en private kanten van het zelf, het
+terrein waarop beide auteurs hun loopbaan begonnen. Zelfgerichte aandacht, in
+experimenten opgeroepen met iets simpels als een spiegel of een camera,
+scherpt de vergelijking tussen gedrag en norm aan: proefpersonen gaan meetbaar
+meer volgens hun eigen maatstaven handelen zodra hun aandacht op zichzelf
+ligt. Voor de theorie is dat de comparator die harder aan het werk gaat, en
+het vormt een van de best gedocumenteerde bouwstenen van het boek.
+
+**Gevoel als snelheidsmeter**
+
+De hoofdstukken over affect bevatten de meest eigen bijdrage. Gevoel ontstaat
+volgens de auteurs in een tweede kring die niet de afstand tot het doel meet
+maar de snelheid waarmee die afstand verandert, zoals een cruisecontrol niet
+de positie maar het tempo regelt. Voortgang boven verwachting geeft
+opgetogenheid, voortgang eronder geeft neerslachtigheid of ongeduld, en wie
+ruim boven verwachting presteert neemt vanzelf gas terug.
+
+Per soort kring hoort er een eigen gevoelspaar bij: naderingskringen leveren
+de as van blijdschap tot somberheid, vermijdingskringen de as van opluchting
+tot angst. Daarmee verklaart het model waarom mislukking in het ene geval
+verdriet oplevert en in het andere paniek.
+
+**Volhouden of loslaten**
+
+Bij ernstige tegenslag onderbreekt de persoon het handelen en schat de kans in
+dat verdere inzet nog iets oplevert. Valt die verwachting gunstig uit, dan
+volgt hernieuwde inspanning; valt zij ongunstig uit, dan volgt terugtrekking
+uit het doel. De auteurs benadrukken dat beide antwoorden een functie hebben:
+wie nooit loslaat, blijft gebonden aan het onhaalbare, en wie te snel loslaat,
+bereikt niets.
+
+Dit deel sluit aan op het optimisme-onderzoek van Scheier, met de Life
+Orientation Test als meetinstrument en toepassingen in de
+gezondheidspsychologie, onder meer bij herstel na hartoperaties. Schadelijk
+wordt terugtrekking vooral wanneer een opgegeven doel hoog in de hiërarchie
+stond en er geen vervangend doel voor in de plaats komt.
+
+**Dynamische systemen en omslagpunten**
+
+In het laatste derde deel verkennen de auteurs nieuwe wiskundige beelden.
+Doelen verschijnen als attractoren waar het gedrag omheen cirkelt, en de
+omslag tussen volhouden en opgeven krijgt de vorm van een catastrofemodel met
+hysterese: het punt waarop iemand stopt ligt ergens anders dan het punt waarop
+hij later opnieuw begint, zodat de geschiedenis meeweegt. De auteurs
+presenteren deze hoofdstukken uitdrukkelijk als verkenning, als taal die
+verschijnselen ordent zonder ze al te bewijzen.
+
+**Problemen in het leven en slotvragen**
+
+Verspreid door het boek passen de auteurs het model toe op vastlopen in het
+dagelijks leven: conflicterende doelen, doelen op een te abstract niveau die
+geen handeling opleveren, en de neiging om onhaalbare doelen vast te houden.
+Het slot stelt twee open vragen: of gedrag werkelijk geregeld wordt of uit
+losse processen tevoorschijn komt, en of een leven zonder doelen denkbaar is.
+Op die laatste vraag antwoorden de auteurs ontkennend: betrokkenheid op doelen
+behandelen ze als voorwaarde voor welbevinden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Terugkoppelingskring | Het viertal invoerfunctie, referentiewaarde, comparator en uitvoerfunctie dat waargenomen toestand en doel voortdurend op elkaar betrekt. |
+| Discrepantieverkleinende kring | Regelproces dat het verschil met een gewenst doel kleiner maakt, de vorm van alle naderingsgedrag. |
+| Discrepantievergrotende kring | Regelproces dat afstand schept tot een gevreesde toestand; werkt in de praktijk meestal binnen de grenzen van een naderingskring. |
+| Doelhiërarchie | Ordening naar Powers waarin systeemconcepten zoals het geïdealiseerde zelf via principes en programma's de doelen van lagere kringen stellen. |
+| Zelfgerichte aandacht | Aandacht voor de eigen persoon die de vergelijking tussen gedrag en norm aanscherpt, in experimenten opgeroepen met een spiegel of camera. |
+| Voortgangstempo | De snelheid waarmee een kring zijn verschil verkleint; volgens de auteurs de grootheid waarover gevoel rapporteert. |
+| Verwachting | De ingeschatte kans dat verdere inzet het doel dichterbij brengt, bepalend voor de keuze tussen doorzetten en terugtrekken. |
+| Terugtrekking | Het loslaten van een onhaalbaar doel, in dit model een normale functie van zelfregulatie en pas schadelijk zonder vervangend doel. |
+| Attractor | Toestand waar een dynamisch systeem naartoe beweegt en omheen blijft cirkelen, in dit boek gebruikt als beeld voor een doel. |
+| Hysterese | Het verschijnsel dat het omslagpunt van doorzetten naar opgeven ergens anders ligt dan het omslagpunt terug, ontleend aan de catastrofetheorie. |
+
+#### Waar het argument op rust
+
+Het boek vat een kwarteeuw experimenteel werk samen. De hoofdstukken over het
+zelf steunen op de zelfaandachtsexperimenten die Carver en Scheier vanaf de
+jaren zeventig uitvoerden, waarin een spiegel of camera de aandacht op de
+eigen persoon richt en gedrag meetbaar dichter bij de eigen norm brengt. De
+hoofdstukken over verwachtingen sluiten aan op het optimisme-onderzoek van
+Scheier, met de Life Orientation Test als veelgebruikt meetinstrument en
+gedocumenteerde verbanden met herstel en welbevinden.
+
+Voor de kern van de gevoelstheorie, gevoel als functie van voortgangstempo,
+bestond bij verschijnen vooral indirect bewijs. Hsee en Abelson lieten in 1991
+zien dat tevredenheid over een uitkomst mede afhangt van de snelheid waarmee
+die uitkomst verbetert, los van de stand zelf. Later onderzoek naar dagelijkse
+stemmingen en werkmotivatie vond eveneens dat tempoveranderingen met gevoel
+samenhangen, al blijft deze literatuur beperkt van omvang en toetst zij het
+model niet als geheel.
+
+De delen over dynamische systemen en catastrofetheorie bieden de auteurs zelf
+aan als verkenning: de wiskundige beelden worden beschrijvend gebruikt, zonder
+formele toetsing. Het boek is daarmee sterker als ordenend kader over bestaand
+onderzoek dan als bron van scherpe, uitgeteste voorspellingen.
+
+#### Wat er tegen in te brengen valt
+
+De scherpste aanval kwam van Albert Bandura en uit de doelstellingstheorie van
+Locke en Latham. Hun bezwaar: een terugkoppelingsmachine verklaart alleen het
+wegwerken van verschillen, terwijl mensen juist verschillen scheppen door
+zichzelf doelen boven hun huidige niveau te stellen, en het vertrouwen in
+eigen kunnen bepaalt mede hoe hoog die doelen liggen. Carver en Scheier
+antwoorden dat discrepantievergroting en de hiërarchie dat gat vullen, maar
+critici houden vol dat het model daarmee vooral beschrijvend wordt: vrijwel
+elk gedrag past erin zodra achteraf de juiste kring wordt aangewezen.
+
+Vanuit de kring rond Powers klinkt het omgekeerde verwijt: dit boek gebruikt
+de regelkring als los denkkader over doelen, terwijl Powers werkende
+simulaties bouwde en volhield dat organismen hun waarneming regelen. Wat aan
+wiskundige strengheid verloren ging, is hier ingeruild voor aansluiting bij de
+experimentele sociale psychologie.
+
+Voor een algemeen publiek weegt de vorm zwaar. Dit is een
+onderzoeksmonografie: dicht geschreven, vol verwijzingen, zonder oefeningen of
+programma, en alleen in het Engels beschikbaar. De hoofdstukken over chaos en
+catastrofetheorie vragen wiskundige verbeelding en leveren vooral metaforen
+op. Als zelfhulpboek gelezen stelt het teleur; als bronmateriaal onder de
+populaire doelenliteratuur staat het overeind.
+
+#### Wat er concreet mee te doen is
+
+- Formuleer doelen als nadering (ergens naartoe) in plaats van als vermijding
+(ergens vandaan); vermijdingskringen geven geen richting.
+- Lees somberheid of ongeduld als informatie over tempo, het verschil tussen
+verwachte en werkelijke voortgang, en pas daarna doel, tempo of verwachting
+aan.
+- Kies bij vastlopen een concreter doelniveau, een programma in plaats van een
+principe; abstracte doelen wegen zwaar maar leveren geen handeling op.
+- Behandel het loslaten van een onhaalbaar doel als onderdeel van
+zelfregulatie en koppel het aan een vervangend doel op hetzelfde hogere
+niveau.
+
+#### Wat je hierna leest
+
+- 411. Psycho-Cybernetics. De populaire voorloper van het cybernetische
+doelbeeld; dit boek levert er de academische onderbouwing en de correcties
+bij.
+- 22. Atomic Habits. Toegepaste gewoonteliteratuur die op ditzelfde
+gedachtegoed van doelniveaus en terugkoppeling voortbouwt.
+- 538. Self-Consistency: A Theory of Personality. Lecky's zelfconsistentie als
+vroege verwant van het geïdealiseerde zelf bovenin de doelhiërarchie.
+- 55. Thinking, Fast and Slow. Kahnemans overzicht van oordeelsvorming, ter
+aanvulling op wat dit boek over gevoel als informatiebron beweert.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -104728,8 +105806,8 @@ revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 · `Andalusië` 8 ·
 `argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234, 254 ·
 `Arthashastra` 370 · `assertiviteit` 162 · `asymmetrie` 282 · `atletiek` 31 ·
 `atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440 ·
-`automatisering` 297 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200
-· `backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
+`automatisering` 297, 539 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie`
+200 · `backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
 `basisbehoeften` 107 · `bbc` 82 · `bedrijfscultuur` 170, 257, 270 ·
 `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 ·
 `bedrijfssystemen` 264 · `beginners` 112 · `behoeften` 35 · `beinvloeding`
@@ -104764,16 +105842,16 @@ gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177 ·
 59 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 ·
 `columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
-444, 466, 475 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven`
-356 · `concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61, 519 ·
-`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
+444, 466, 475, 539 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten
+geven` 356 · `concentratie` 70, 441 · `concurrentie` 293 · `conditionering`
+61, 519 · `conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
 `conflicthantering` 271 · `conformisme` 211 · `consumptie` 463 ·
 `consumptiekeuzes` 299 · `content` 308 · `content creatie` 365 · `content
 marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
 74, 206, 312, 349, 418, 445, 471, 472, 475 · `cricket` 174 · `crisis` 47 ·
 `CRISPR` 413 · `cultuur` 68, 274 · `cultuurkritiek` 54, 405 · `cursus` 108,
-130, 201 · `cursus-in-wonderen` 102, 131 · `cybernetica` 411 · `cynisme` 250,
-319 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224, 286 ·
+130, 201 · `cursus-in-wonderen` 102, 131 · `cybernetica` 411, 539, 540, 541 ·
+`cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224, 286 ·
 `dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagboekonderzoek` 472 ·
 `dagelijkse gewoontes` 205 · `dagelijkse praktijk` 442 · `dankbaarheid` 129,
 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten` 166 · `debat` 28 ·
@@ -104788,11 +105866,11 @@ marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
 `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
 350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445,
 462, 480, 481, 482, 487, 488 · `disruptie` 293 · `DNA` 419 · `docenten` 116 ·
-`doelen` 58, 136, 158 · `doelen stellen` 367, 427, 448 · `doelgericht-oefenen`
-50 · `doelgroep` 446 · `doelstellingen` 256 · `donkere-triade` 124 · `dood`
-98, 169, 292, 535 · `doodsangst` 405 · `doorzetten` 20 ·
-`doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314, 418 ·
-`drogredenen` 421 · `dromen` 52, 357, 358, 359, 360 · `dummies` 112 ·
+`doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448 ·
+`doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
+`donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
+`doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
+418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360 · `dummies` 112 ·
 `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 · `e-commerce` 257 ·
 `e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298 · `economie` 65, 98,
 217, 251, 297, 347, 423, 450, 452, 478 · `economische geschiedenis` 155 ·
@@ -104802,23 +105880,23 @@ marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
 bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 ·
 `eigenaarschap` 97 · `eindigheid` 442 · `einstein` 94 · `elektriciteit` 267 ·
 `elektrische auto's` 266 · `EMDR` 386 · `emigratie` 240 · `emoties` 3, 43,
-137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488 · `empathie` 35, 67, 303
-· `energie` 92, 195, 291, 377 · `energiewerk` 432 · `epigenetica` 208, 415 ·
-`epos` 5, 530, 531, 532 · `erfelijkheid` 419 · `erfenis` 39 ·
-`erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378 · `essay` 3, 9,
-21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425 · `essays` 523 ·
-`eten` 103 · `ethiek` 282, 299, 413 · `evangelisatie` 201 · `evolutie` 56, 66,
-89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518 · `evolutiebiologie`
-452, 453 · `evolutionaire-psychologie` 67 · `executives` 344 ·
-`existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
-280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie`
-361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75,
-312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
+137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488, 542 · `empathie` 35,
+67, 303 · `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
+`epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
+`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378 ·
+`essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425 ·
+`essays` 523 · `eten` 103 · `ethiek` 282, 299, 413 · `evangelisatie` 201 ·
+`evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518 ·
+`evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 · `executives`
+344 · `existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 ·
+`experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 ·
+`extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen`
+23, 72, 75, 312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
 `familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
-`FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41, 296 · `feiten` 43 ·
-`feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199,
-211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436,
-442, 521 · `filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 ·
+`FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41, 296, 541, 542 · `feiten`
+43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93,
+199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
+436, 442, 521 · `filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 ·
 `financiële markten` 268, 351, 480, 481, 483, 499, 501 · `financiële
 onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
@@ -104849,9 +105927,9 @@ onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133,
 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439,
 442, 445, 513 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397,
-411 · `gezag` 62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323,
-329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 · `gezondheidszorg`
-313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+411, 540 · `gezag` 62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318,
+323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
+`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
 `gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 · `goeroe` 242 ·
 `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
 `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406,
@@ -104924,7 +106002,7 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 `lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 ·
 `leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183,
 218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536 ·
-`leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509 ·
+`leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 ·
 `lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
 `levenskeuzes` 150 · `levenskunst` 27, 199, 216, 227 · `levenslessen` 285, 447
 · `levensloop` 91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18,
@@ -105016,9 +106094,9 @@ zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 · `paranormaal` 340, 362 
 `patiëntverhalen` 414 · `patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 ·
 `perceptie` 30 · `perfectionisme` 19, 32, 44 · `persoonlijk merk` 198, 365 ·
 `persoonlijke financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465,
-467 · `persoonlijkheid` 33, 338 · `persoonlijkheidstypen` 361 · `Perzië` 524,
-525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435 ·
-`Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 · `planning` 70, 276 ·
+467 · `persoonlijkheid` 33, 338, 538 · `persoonlijkheidstypen` 361 · `Perzië`
+524, 525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435
+· `Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 · `planning` 70, 276 ·
 `plantaardig-dieet` 324 · `plastische chirurgie` 411 · `plicht` 2 · `podcast`
 136, 465, 513 · `poëzie` 204 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
 · `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438 · `politieke
@@ -105042,9 +106120,9 @@ filosofie` 394 · `populair` 77, 129, 133 · `populair-wetenschappelijk` 88,
 331 · `psychoanalyse` 223, 360, 361, 405, 409 · `psychologie` 23, 28, 29, 55,
 73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254,
 258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463,
-467, 468, 469, 487, 501, 514 · `psychologische flexibiliteit` 460 ·
-`psychologische functies` 361 · `psychopathie` 429 · `psychotherapie` 164,
-227, 386, 406 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
+467, 468, 469, 487, 501, 514, 538, 541, 542 · `psychologische flexibiliteit`
+460 · `psychologische functies` 361 · `psychopathie` 429 · `psychotherapie`
+164, 227, 386, 406 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
 `publieksfilosofie` 269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 ·
 `quantum` 94 · `queeste` 522 · `quilten` 114 · `quotes` 179 · `radicale
 transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
@@ -105104,7 +106182,7 @@ levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247,
 `tarieven` 121 · `teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork`
 156, 256 · `techniek` 1, 6, 43, 61, 92 · `technische analyse` 483, 500 ·
 `technologie` 160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
-`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297 ·
+`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297, 539 ·
 `tegen-productiviteit` 71 · `tegenslag` 30, 111, 174 · `tekenen` 15 ·
 `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `termijnmarkten`
 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5, 385 · `The
@@ -105145,7 +106223,7 @@ Secret` 433 · `theeceremonie` 379 · `therapie` 51, 107, 118, 119, 120, 121,
 `vertrouwen` 42, 273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74, 131 ·
 `vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
 `verwachtingswaarde` 492 · `verwondering` 227 · `verzekeren` 496 · `verzet`
-523 · `vier deugden` 194 · `visioenen` 359 · `visualisatie` 259, 411 ·
+523 · `vier deugden` 194 · `visioenen` 359 · `visualisatie` 259, 411, 540 ·
 `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313,
 316, 329, 332, 417 · `voedingswetenschap` 417 · `volatiliteit` 494, 495, 506 ·
 `volharding` 29 · `volledigheid` 167 · `voorbeelden` 128 · `voorbereiding` 82
@@ -105157,8 +106235,8 @@ Secret` 433 · `theeceremonie` 379 · `therapie` 51, 107, 118, 119, 120, 121,
 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61 · `vroeg pensioen` 264 ·
 `vrouwenhaat` 110 · `waardebeleggen` 144, 351 · `waardecreatie` 246, 508 ·
 `waarden` 72, 142, 392, 457, 461 · `waardering` 24, 34 · `waarheid` 263 ·
-`waarneming` 154, 283, 322 · `wabi-sabi` 379 · `Wall Street` 144, 351, 499 ·
-`weerbaarheid` 194 · `weerstand` 12 · `welvaart` 251, 334 ·
+`waarneming` 154, 283, 322, 541 · `wabi-sabi` 379 · `Wall Street` 144, 351,
+499 · `weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart` 251, 334 ·
 `welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70,
 78, 151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkdruk`
 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 · `West-Afrika` 522
@@ -105173,22 +106251,22 @@ Secret` 433 · `theeceremonie` 379 · `therapie` 51, 107, 118, 119, 120, 121,
 518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke
 communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart`
 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335 · `zelfbedrog` 66 ·
-`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439 ·
-`zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
+`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538, 540
+· `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
 `zelfbescherming` 214 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158, 229,
 244, 311 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 · `zelfhulp`
 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149,
 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177,
 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209,
 210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380,
-389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513
-· `zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403
-· `zelfonderzoek` 315, 470, 520, 527 · `zelfontplooiing` 393 ·
+389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465,
+513, 540 · `zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204,
+380, 403 · `zelfonderzoek` 315, 470, 520, 527 · `zelfontplooiing` 393 ·
 `zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpromotie` 388 ·
-`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177 · `zelfsabotage` 161, 344
-· `zelfspot` 19 · `zelfspraak` 439 · `zelfstandig` 40, 515 · `zelfstandig
-denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig starten` 210 ·
-`zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
+`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177, 541, 542 ·
+`zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 · `zelfstandig` 40,
+515 · `zelfstandig denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig
+starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
 `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441 ·
 `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen`
 141, 346, 441, 517, 528 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 ·
@@ -106946,3 +108024,17 @@ zijn interviews in drieëndertig wetten voor werk en leven. Dial (513) bouwde
 uit The Mindset Mentor een methode om van uitstel naar doen te komen. Beide
 delen de sterkte en de zwakte van het genre: veel sprekende voorbeelden,
 weinig bronnen.
+
+**De stamboom van Psycho-Cybernetics** (411, 538, 539, 540, 541, 542, 22). 
+Maltz (411) staat in het midden van deze route. Wie wil weten waar zijn
+zelfbeeldidee vandaan komt, leest eerst Lecky (538), de psycholoog van wie
+Maltz de zelfconsistentie leende, en Wiener (539), die het woord cybernetica
+en het feedbackdenken leverde. Daarna splitst de erfenis in twee takken.
+Kennedy’s bewerking (540) is de officiële voortzetting namens de
+Psycho-Cybernetics Foundation, meer onderhoud dan vernieuwing. Powers (541) en
+Carver en Scheier (542) vormen de wetenschappelijke tak: zij werkten hetzelfde
+regelkringidee uit tot toetsbare psychologie, vrijwel zonder Maltz te noemen.
+Clear (22) sluit af als de populaire erfgenaam, die en passant de
+hardnekkigste misvatting uit het boek rechtzette: de regel van 21 dagen was
+bij Maltz een minimum voor gewenning na een operatie, geen wet voor
+gewoontevorming.
