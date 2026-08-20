@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beowulf &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Beowulf zet twee beelden naast elkaar: de jonge held die monsters met blote handen verslaat en de oude koning die aan zijn laatste monster sterft. In een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-532">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">532 &middot; Roman en memoir</p>
+    <h1>Beowulf</h1>
+    <p class="lede">anoniem, ca. 8e&ndash;11e eeuw</p>
+    <p class="stats">
+      <span><b>1230</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="532"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Beowulf zet twee beelden naast elkaar: de jonge held die monsters met blote handen verslaat en de oude koning die aan zijn laatste monster sterft. In een wereld waarin het lot niemand spaart, is het enige houdbare bezit de naam die iemand nalaat; het gedicht eindigt letterlijk met het woord lofgeornost, het meest begerig naar roem. Tegelijk kijkt een christelijke verteller over de schouder van die heidense wereld mee en weet dat ook roem, zalen en goud vergaan. Daardoor gaat het gedicht evenzeer over vergankelijkheid als over heldendom: elke overwinning wordt verteld met de ondergang al in zicht.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Heorot en Grendel</h3>
+      <p>De Deense koning Hrothgar bouwt de prachtigste zaal van zijn tijd, Heorot, waar zijn krijgers drinken, geschenken ontvangen en naar de zanger luisteren. Juist die vreugde wekt de haat van Grendel, een mensverslindend wezen uit het geslacht van Kaïn, dat in de moerassen huist. Twaalf jaar lang overvalt Grendel de zaal in de nacht en verslindt wie er slaapt; Heorot staat na zonsondergang leeg, en geen wapen en geen losgeld maakt een einde aan de vete.</p>
+      <h3>De komst van de Geat</h3>
+      <p>Over zee komt hulp: Beowulf, een jonge krijger van het volk der Geaten uit het zuiden van Zweden, neef van koning Hygelac, met veertien metgezellen. Aan het hof daagt de hoveling Unferth hem uit met het verhaal dat hij ooit een zwemwedstrijd verloor; Beowulf zet het recht en vertelt hoe hij in diezelfde zee zeemonsters doodde. Als de nacht valt, wacht hij Grendel zonder wapens op, omdat het monster er ook geen gebruikt.</p>
+      <p>Het gevecht is kort en gruwelijk. Grendel verslindt nog één slapende krijger, dan sluit de greep van Beowulf zich om zijn arm. Worstelend breekt de zaal bijna in stukken; Grendel rukt zich los ten koste van zijn arm en schouder en vlucht dodelijk gewond naar zijn moeras. De arm wordt onder het dak van Heorot gehangen.</p>
+      <h3>De moeder uit het meer</h3>
+      <p>De volgende nacht komt wraak: Grendels moeder haalt Hrothgars vertrouweling Aeschere uit de zaal. Beowulf volgt haar spoor naar een onheilspellend meer, duikt en vecht in haar hal op de bodem. Het geleende zwaard Hrunting bijt niet; zij krijgt hem onder zich en zijn maliënkolder redt hem ternauwernood. Dan ziet hij in haar hal een reuzenzwaard uit oude tijden, slaat haar ermee het hoofd af en onthoofdt ook het lijk van Grendel; het lemmet smelt in het giftige bloed weg tot aan het gevest.</p>
+      <p>Terug in Heorot houdt de oude Hrothgar een lange rede die vaak zijn preek wordt genoemd: hij wijst de jonge held op koningen die door voorspoed hoogmoedig en gierig werden, en herinnert hem eraan dat kracht en leven bruikleen zijn.</p>
+      <h3>Vijftig winters later</h3>
+      <p>Beowulf keert rijk beloond terug naar de Geaten, dient zijn koning trouw en wordt na diens dood zelf koning; vijftig jaar regeert hij goed. Dan verstoort een weggelopen knecht een drakenhol en steelt een beker uit de schat. De gewekte draak verbrandt 's nachts het land, ook Beowulfs eigen hal. De oude koning laat een ijzeren schild smeden en zoekt het gevecht, met elf man gevolg.</p>
+      <p>Tegen het vuur houdt geen gevolg stand: allen vluchten het bos in, op de jonge Wiglaf na. Samen doden zij de draak, maar Beowulf is in de nek gebeten en het gif doet zijn werk. Stervend vraagt hij de schat te mogen zien die hij voor zijn volk won, draagt zijn wapenrusting aan Wiglaf over en vraagt om een grafheuvel op de kaap, die zeelieden voortaan Beowulfs heuvel zullen noemen.</p>
+      <h3>Vuur en grafheuvel</h3>
+      <p>Het slot is een uitvaart zonder troost. Een bode meldt het volk de dood van de koning en voorspelt wat er nu komt: oorlogen met Zweden en Franken, tegen wie alleen Beowulfs naam bescherming bood. De schat wordt met hem begraven, even nutteloos voor mensen als hij altijd was, zegt de dichter. Twaalf ruiters rijden om de heuvel en prijzen hun heer: van alle koningen was hij de mildste voor zijn mannen, de vriendelijkste voor zijn volk, en het meest begerig naar lof.</p>
+      <h3>Zijpaden en verteltrant</h3>
+      <p>Het gedicht vertelt zelden in een rechte lijn. Zangers aan het hof zingen over de drakendoder Sigemund en over de wraakslachting bij Finnsburg, en de dichter vlecht voorgeschiedenissen en vooruitwijzingen door het verhaal, zodat bij elk feest de komende brand al meeklinkt. De vorm is de Oudengelse allitererende versregel, met omschrijvingen als walvisweg voor de zee. De verteller is merkbaar christelijk en noemt Grendel een afstammeling van Kaïn, terwijl zijn personages heidense begrafenissen krijgen; die dubbele gelaagdheid hoort bij de raadselachtige werking van het gedicht.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Heorot</td><td>De hertenzaal van koning Hrothgar, middelpunt van gemeenschap, gulheid en zang, en daarom het doelwit van Grendel.</td></tr>
+          <tr><td class="term">Wyrd</td><td>Het Oudengelse woord voor lot, in het gedicht de loop van de dingen die geen moed kan tegenhouden.</td></tr>
+          <tr><td class="term">Scop</td><td>De zanger aan het hof die daden in verzen omzet; binnen het gedicht bezingt een scop Beowulfs overwinning zoals het gedicht zelf dat doet.</td></tr>
+          <tr><td class="term">Wergeld</td><td>De betaling waarmee een doodslag kon worden afgekocht; van Grendel heet het dat hij zijn vete nooit met geld wilde bijleggen.</td></tr>
+          <tr><td class="term">Kenning</td><td>De samengestelde omschrijving die de Oudengelse verskunst kenmerkt, zoals walvisweg voor de zee.</td></tr>
+          <tr><td class="term">Lofgeornost</td><td>Het laatste woord van het gedicht, overtreffende trap van roembegerig, als slotsom van Beowulfs leven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Alles hangt aan één handschrift: de Nowell-codex, rond het jaar 1000 door twee kopiisten geschreven, in 1731 geschroeid bij de brand in de Cotton-bibliotheek. Afschriften die de IJslander Thorkelin eind 18e eeuw liet maken, bewaren letters die sindsdien van de randen zijn afgebrokkeld. Eén houvast in de geschiedenis is er: de rooftocht waarbij Beowulfs koning Hygelac sneuvelt, komt overeen met een veldtocht van een Deense koning die Gregorius van Tours in de vroege 6e eeuw plaatst. Het verhaal speelt dus in een herkenbare wereld, ook al zijn Grendel en de draak dichtwerk.</p>
+      <p>De moderne waardering begint bij J.R.R. Tolkien, die in zijn lezing <i>Beowulf: The Monsters and the Critics</i> (1936) afrekende met de gewoonte het gedicht alleen als taalkundige en historische bron te ontleden. Zijn stelling dat de monsters het hart van het gedicht vormen, en dat de tweedeling jeugd en ouderdom een bewuste compositie is, bepaalt de lezing tot vandaag.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De datering is een open strijdvraag. Taalkundige argumenten wijzen voor sommigen op de 8e eeuw, anderen achten een ontstaan in de Vikingtijd of zelfs vlak voor het handschrift zelf aannemelijker; Jan Jonk noemt in zijn Nederlandse vertaling een datering rond 1010 verdedigbaar. Daarmee verschuift ook de interpretatie: een gedicht over Denen klinkt anders in een Engeland dat door Denen wordt geplunderd. Ook over de verhouding tussen de christelijke verteller en de heidense stof, één ontwerp of latere bewerking, bestaat geen overeenstemming.</p>
+      <p>Als leeservaring heeft het gedicht eigen drempels. De zijpaden en voorgeschiedenissen onderbreken de hoofdlijn, veel toespelingen veronderstellen sagenkennis die verloren is gegaan, en vrouwen komen nauwelijks aan het woord; koningin Wealhtheow schenkt de bekers, Grendels moeder is de enige vrouw die handelt. En elke vertaling is een gedaanteverandering: de allitererende versregel en de samengestelde omschrijvingen overleven het Nederlands en het moderne Engels maar half. Zelfs de veelgeprezen versie van Heaney kreeg het verwijt dat de lezer eerder Heaney dan de Oudengelse dichter hoort.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oudengels heldendicht van 3182 allitererende verzen, overgeleverd in één handschrift, de Nowell-codex (Cotton Vitellius A.xv) van rond het jaar 1000. Wanneer het gedicht zelf ontstond, is omstreden; schattingen lopen van de 8e tot het begin van de 11e eeuw. Deze samenvatting volgt het verhaal van de Oudengelse tekst; vertalingen lopen sterk uiteen. De bekendste Engelse vertaling is die van Seamus Heaney (1999). In het Nederlands vertaalde Jan Jonk het epos tweemaal: in proza (Bert Bakker, 1977) en in allitererende verzen (Papieren Tijger, 2002).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het oudste grote heldendicht van de Engelse taal speelt in Scandinavië, rond het jaar 500. De jonge Geat Beowulf bevrijdt het Deense hof van het monster Grendel en diens moeder; vijftig jaar later sterft hij, als oude koning, in een gevecht met een draak die zijn eigen land verwoest.</p><p>Het gedicht overleefde in één handschrift, van rond het jaar 1000, en werd eeuwenlang vooral als taalmonument gelezen, tot J.R.R. Tolkien het in 1936 als dichtwerk op de kaart zette. Sindsdien geldt het als een meditatie over heldendom en vergankelijkheid, geschreven door een christelijke dichter over een heidense wereld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>epos</li><li>Oudengels</li><li>monsters</li><li>heldendom</li><li>vergankelijkheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="533"><a href="533.html">The Saga of the Volsungs</a>. De Oudnoordse sagenstof rond Sigmund en de drakendoding, waar het gedicht zelf al naar verwijst.</li>
+          <li value="534"><a href="534.html">Het Roelantslied</a>. Een middeleeuws heldenlied over trouw, roem en een laatste gevecht dat de held weet te verliezen.</li>
+          <li value="530"><a href="530.html">Ilias</a>. Het Griekse grondepos over helden en vergankelijkheid, met dezelfde wetenschap dat roem het enige is wat blijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

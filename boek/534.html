@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het Roelantslied &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het Roelantslied stelt de vazallentrouw boven alles: een ridder dient zijn heer, zijn geslacht en zijn God, en sterft liever dan dat er over hem een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-534">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">534 &middot; Roman en memoir</p>
+    <h1>Het Roelantslied</h1>
+    <p class="lede">anoniem, ca. 1100</p>
+    <p class="stats">
+      <span><b>1319</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="534"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het <i>Roelantslied</i> stelt de vazallentrouw boven alles: een ridder dient zijn heer, zijn geslacht en zijn God, en sterft liever dan dat er over hem een spotlied wordt gezongen. Tegelijk laat het gedicht zien wat die code kost. Roelands eergevoel verbiedt hem om hulp te blazen zolang blazen nog zin heeft, en zijn trots sleept de hele achterhoede mee de dood in; het beroemde vers dat Roeland dapper is en Olivier wijs, zet die spanning in één regel neer. Het epos veroordeelt zijn held nergens met zoveel woorden, maar het bouwt de tegenstem in en laat de ramp voor zichzelf spreken.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Van Baskische hinderlaag tot heilige oorlog</h3>
+      <p>De historische kern is klein. Einhard vermeldt in zijn Karelsbiografie dat Basken in 778 de achterhoede van het terugtrekkende Frankische leger overvielen en noemt onder de doden ene Hruodlandus, prefect van de Bretonse mark. Het gedicht, zo'n drie eeuwen later, maakt van de Basken een reusachtig Saraceens leger, van de aanval een godsdienstoorlog en van de gesneuvelde markgraaf de neef en rechterhand van de keizer. De regel dat de heidenen ongelijk hebben en de christenen gelijk vat de moraal van het gedicht letterlijk samen.</p>
+      <p>Karel de Grote, in werkelijkheid 36 jaar oud in 778, is hier een tweehonderdjarige patriarch met witte baard, en zeven jaar oorlog in Spanje is bijna voorbij: alleen Zaragoza houdt stand onder koning Marsilië.</p>
+      <h3>Het verraad van Ganelon</h3>
+      <p>Marsilië biedt een schijnvrede aan om de Franken het land uit te krijgen. Als er een gezant moet worden aangewezen voor deze levensgevaarlijke missie, noemt Roeland lachend zijn stiefvader Ganelon. Die vat de voordracht op als doodvonnis en zweert wraak, maar dan wel volgens de vormen: openlijk, ten overstaan van het hof. Bij Marsilië aangekomen smeedt hij het complot: Karel zal pas ophouden met oorlogen als Roeland dood is, en Roeland zal in de achterhoede staan.</p>
+      <p>Ganelon is geen platte schurk. Het gedicht geeft hem moed, aanzien en een eigen rechtsopvatting: hij meent een privévete uit te vechten en geen verraad te plegen. Juist die verdedigbare kant maakt hem tot een van de eerste echt dubbelzinnige verraders van de Europese literatuur.</p>
+      <h3>Roncevaux</h3>
+      <p>In de bergpas stuit de achterhoede van twintigduizend man op een overmacht. Olivier vraagt Roeland driemaal om op de olifant te blazen, zijn hoorn, zodat Karel kan terugkeren. Roeland weigert driemaal: in Frankrijk zou zijn roem verloren gaan. De twaalf genoten en aartsbisschop Turpijn, die vechtend en absolutie gevend ten onder gaat, richten een slachting aan onder de Saracenen, maar golf na golf komt het einde dichterbij.</p>
+      <p>Pas als vrijwel iedereen dood is, blaast Roeland alsnog, zo hard dat zijn slapen barsten. Nu draait Olivier de rollen om: blazen is nu schande, gestorven wordt er toch. De stervende Roeland probeert zijn zwaard Durendal stuk te slaan op de rots zodat het geen heiden in handen valt, gaat met het gezicht naar Spanje liggen als teken dat hij niet vluchtend stierf, en biedt God zijn handschoen aan; engelen dragen zijn ziel ten hemel.</p>
+      <h3>De wraak van de keizer</h3>
+      <p>Karel keert terug, en op zijn gebed staat de zon stil zodat het vluchtende heidense leger kan worden achterhaald en in de Ebro gedreven. Daarna verschijnt met de emir Baligant de opperheer van de hele heidense wereld: de vete om Roeland groeit uit tot een beslissingsslag tussen christenheid en heidendom, die Karel in een tweegevecht met Baligant beslecht. Zaragoza valt, koningin Bramimonde wordt naar Aken gevoerd en laat zich daar dopen.</p>
+      <p>Thuis wacht het pijnlijkste tafereel: Aude, Roelands verloofde en Oliviers zuster, vraagt naar Roeland, hoort het nieuws en valt dood neer. Voor haar heeft het gedicht welgeteld een handvol verzen over; het is er des te schrijnender om.</p>
+      <h3>Het proces van Ganelon</h3>
+      <p>Ganelon staat terecht in Aken en voert aan dat hij geen verraad pleegde maar een openlijk aangekondigde vete uitvocht. De baronnen neigen naar vrijspraak, tot de onaanzienlijke Thierry het tegen Ganelons kampioen Pinabel opneemt in een godsoordeel en wint. Ganelon wordt gevierendeeld, dertig verwanten worden opgehangen. Het slot is geen rust: de engel Gabriël roept de doodvermoeide keizer alweer naar een nieuwe oorlog, en Karel verzucht hoe zwaar zijn leven is. Daarna de slotregel over Turoldus, van wie niemand weet of hij dichter, bewerker of kopiist was.</p>
+      <h3>Het Roelantslied in de Nederlanden</h3>
+      <p>De stof bereikte ook het Nederlandse taalgebied. Uit de 13e eeuw resten fragmenten van een Middelnederlandse berijming, en in de 16e eeuw verscheen bij de Antwerpse drukker Vorsterman het volksboek <i>Den droefliken strijt opten berch van Roncevale</i>, waarin rijmtekst en proza zijn gemengd. Dat de Nederlandse traditie het verhaal eeuwenlang bleef navertellen, tekent de reikwijdte van deze stof, die van IJsland tot Italië werd bewerkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">chanson de geste</td><td>Oudfrans genre van gezongen heldenepen over Karel de Grote en zijn kring, waarvan dit lied het oudste bewaarde voorbeeld is.</td></tr>
+          <tr><td class="term">laisse</td><td>Strofe van wisselende lengte op één assonerende klank, de bouwsteen van het gedicht, dat er ongeveer 290 telt.</td></tr>
+          <tr><td class="term">olifant</td><td>Roelands hoorn van olifantsivoor, waarvan het al dan niet blazen de morele kern van het verhaal draagt.</td></tr>
+          <tr><td class="term">Durendal</td><td>Roelands zwaard met relieken in het gevest, dat hij stervend tevergeefs op de rots stukslaat.</td></tr>
+          <tr><td class="term">de twaalf genoten</td><td>De twaalf voornaamste ridders van Karel, onder wie Roeland en Olivier, die allen sneuvelen bij Roncevaux.</td></tr>
+          <tr><td class="term">dulce France</td><td>Het zoete Frankrijk, de steeds herhaalde formule waarmee het gedicht land, heer en geloof tot één te verdedigen geheel maakt.</td></tr>
+          <tr><td class="term">godsoordeel</td><td>Gerechtelijk tweegevecht waarin God geacht wordt de rechte partij te laten winnen, de vorm waarin Ganelons proces wordt beslist.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het gedicht berust op een dunne maar echte historische kern: de vernietiging van Karels achterhoede op 15 augustus 778, door Einhard beschreven en door hem als Baskische wraakactie geduid. Al het overige, van de Saracenen tot Baligant, is dichterlijke omvorming in de sfeer van de opkomende kruistochtbeweging; het gedicht kreeg zijn vorm in de decennia rond de Eerste Kruistocht (1096-1099) en ademt dat klimaat.</p>
+      <p>Voor de populariteit van de stof vóór het Oxfordse handschrift zijn er aanwijzingen uit de 12e-eeuwse geschiedschrijving: volgens de dichter Wace zong de jongleur Taillefer bij de slag bij Hastings (1066) over Roeland en Roncevaux. Zulke berichten zijn een eeuw na dato opgetekend en bewijzen vooral hoe men zich de faam van het lied toen voorstelde, maar zij passen bij een lange mondelinge voorgeschiedenis vóór de opgeschreven tekst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het gedicht is godsdienstoorlogspropaganda, en wel van het zuiverste soort. De Saracenen zijn een spiegelbeeldige karikatuur: zij aanbidden een afgodendrietal van Mahum, Apollin en Tervagant, wat met de werkelijke islam niets te maken heeft, en hun enige verhaalfunctie is verslagen of bekeerd te worden. Bramimondes doop heet in de slotverzen uitdrukkelijk een bekering uit liefde, maar zij is wel als krijgsbuit naar Aken gevoerd. Wie het lied leest, leest hoe een beschaving haar vijandbeeld dichtte.</p>
+      <p>Over ontstaan en overlevering bestaat blijvende discussie. Tussen de gebeurtenis van 778 en het handschrift ligt ruim drie eeuwen; of het epos het werk is van één dichter die losse overlevering omsmeedde, of het eindpunt van generaties zangers, is de oude twist tussen individualisten en traditionalisten. Ook binnen de tekst wordt aan de eenheid getwijfeld: de hele Baligant-episode ontbreekt in een deel van de overige versies en wordt vaak als latere uitbreiding gezien. De Oxfordse tekst is dus één momentopname uit een levende traditie, geen vaststaand origineel.</p>
+      <p>Modern gelezen valt verder op hoe smal de menselijke bezetting is: vrouwen komen vrijwel niet voor, en het binnenleven van de personages blijft bij formules. De kracht van het gedicht zit in ritme, herhaling en tafereel, niet in psychologie; wie het naast een roman legt, doet het onrecht, wie het als gezongen rite leest, ziet het werken.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Het Oudfranse <i>Chanson de Roland</i> ontstond rond 1100 en is het oudste en beroemdste chanson de geste. De beste tekst staat in het Oxfordse handschrift Digby 23 (tweede kwart 12e eeuw), ruim vierduizend assonerende verzen in het Anglo-Normandisch; de slotregel noemt een verder onbekende Turoldus. Deze samenvatting volgt die Oxfordse versie. De gangbare Nederlandse titel verwijst ook naar de Middelnederlandse bewerking uit de 13e eeuw, die alleen fragmentarisch is overgeleverd; Hans van Dijk bezorgde daarvan in 1981 een wetenschappelijke uitgave. Een moderne Nederlandse vertaling van het volledige Franse epos is <i>Het lied van Roeland</i> van Ard Posthuma (Athenaeum-Polak &amp; Van Gennep, 2004); in het Engels is de vertaling van Glyn Burgess (Penguin Classics, 1990) gangbaar. Vertalingen verschillen merkbaar in versvorm en naamgeving.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Op 15 augustus 778 werd de achterhoede van Karel de Grote in een Pyreneeënpas in de pan gehakt. Uit dat kleine historische feit groeide in drie eeuwen mondelinge overlevering het oudste grote epos van de Franse literatuur: het verhaal van Roeland, die uit trots weigert op zijn hoorn te blazen om hulp te halen, van zijn stiefvader Ganelon, die hem uit gekrenktheid aan de vijand verkoopt, en van een oude keizer die zijn beste man verliest en wraak neemt.</p><p>Het gedicht maakte van een Baskische hinderlaag een heilige oorlog tegen de Saracenen en werd zo het epos van het kruisvaardersdenken. Tegelijk is het een scherp verhaal over eer die omslaat in overmoed: Roelands weigering kost twintigduizend man het leven, en het gedicht laat de lezer zelf wegen wat heldenmoed hier waard is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ridderepos</li><li>Karel de Grote</li><li>middeleeuwen</li><li>verraad</li><li>eer</li><li>kruistochtgeest</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="530"><a href="530.html">Ilias</a>. Het epos waaraan alle latere heldendichten schatplichtig zijn, met dezelfde verwevenheid van eer, woede en dood.</li>
+          <li value="532"><a href="532.html">Beowulf</a>. Een ander vroegmiddeleeuws epos over trouw en heldenmoed, uit de Germaanse in plaats van de Romaanse traditie.</li>
+          <li value="533"><a href="533.html">The Saga of the Volsungs</a>. De Noordse tegenhanger: ook daar richt een erecode meer vernietiging aan dan enige vijand.</li>
+          <li value="529"><a href="529.html">Gates of Fire</a>. Een moderne roman over een achterhoedegevecht tegen een overmacht, met dezelfde vraag wat zo'n offer betekent.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

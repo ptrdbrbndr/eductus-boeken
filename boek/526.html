@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Alchemy of Happiness &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Al-Ghazali stelt dat geluk in het hart huist en dat het hart alleen gelukkig wordt door te kennen waarvoor het gemaakt is: God. Zelfkennis is daarvoor de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-526">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">526 &middot; Levenskunst</p>
+    <h1>The Alchemy of Happiness</h1>
+    <p class="lede">Abu Hamid al-Ghazali, ca. 1105</p>
+    <p class="stats">
+      <span><b>1488</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="526"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Al-Ghazali stelt dat geluk in het hart huist en dat het hart alleen gelukkig wordt door te kennen waarvoor het gemaakt is: God. Zelfkennis is daarvoor de toegang, want wie zichzelf onderzoekt vindt een wezen waarin beest, roofdier, duivel en engel samenwonen, en dat zelf bepaalt welke van die naturen het voedt. Het hart is een spiegel die door begeerte dof wordt en door discipline, zelfonderzoek en het gedenken van God weer gaat glanzen. Deze wereld is in dat beeld een pleisterplaats waar de reiziger proviand inslaat voor de reis die na de dood verdergaat; wie de pleisterplaats voor de bestemming houdt, verspeelt het geluk waarvoor hij is toegerust.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een handboek na een crisis</h3>
+      <p>In 1095 legde al-Ghazali, dan de beroemdste theoloog van Bagdad, midden in het studiejaar zijn leerstoel neer. In zijn autobiografie beschrijft hij de crisis die eraan voorafging: hij kon niet langer geloven dat zijn geleerdheid hem redde. Na jaren van teruggetrokken leven en geestelijke oefening schreef hij de <i>Ihya 'Ulum al-Din</i>, een Arabisch handboek in veertig boeken over het hele godsdienstige leven, en daarna, rond 1105, de <i>Kimiya-yi Sa'adat</i> in het Perzisch.</p>
+      <p>De <i>Kimiya</i> opent met vier inleidende verhandelingen: kennis van jezelf, kennis van God, kennis van deze wereld en kennis van de komende wereld. Daarna volgt het werk de vier pijlers van de <i>Ihya</i>: de godsdienstplichten, de omgang tussen mensen, wat de ziel te gronde richt en wat haar redt, elk in tien hoofdstukken.</p>
+      <h3>Ken jezelf: koning, rijdier en spiegel</h3>
+      <p>Het openingsdeel draait om de vraag wat een mens eigenlijk is. Al-Ghazali beschrijft het lichaam als een rijk waarin het hart de koning is en de zintuigen en ledematen zijn dienaren; het lichaam zelf is het rijdier van de ziel, dat verzorgd moet worden zonder dat de ruiter zijn bestemming vergeet. In ieder mens wonen vier naturen: het vraatzuchtige beest, het vechtende roofdier, de listige duivel en de engel die op kennis en aanschouwing is gericht. Karakter is de uitkomst van de vraag welke natuur gevoed wordt.</p>
+      <p>Het hart vergelijkt hij met een spiegel: begeerten en zonden zetten er roest op, discipline en gedenken schuren die weg. Kennis van God begint bij dit zelfonderzoek; al-Ghazali haalt de overlevering aan dat wie zichzelf kent, zijn Heer kent.</p>
+      <h3>Deze wereld en de volgende</h3>
+      <p>De wereld beschrijft al-Ghazali als een marktplaats langs de route van een karavaan: bedoeld om er proviand in te slaan, gevaarlijk voor wie er blijft hangen. Alles wat iemand aan de wereld heeft, houdt op bij de dood, behalve wat in het hart is omgezet. De dood zelf is in zijn beeld geen vernietiging van de persoon; het is het wegvallen van het rijdier, waarna blijkt wat de ruiter onderweg geworden is.</p>
+      <p>Het geluk van de komende wereld beschrijft hij als het aanschouwen van God, waarvan de vreugde zich verhoudt tot alle aardse vreugden zoals de zaak zelf tot haar afspiegeling. Vandaar de rangorde van het boek: kennis boven bezit, het hart boven het lichaam, het blijvende boven het voorbijgaande.</p>
+      <h3>Muziek, dans en zelfonderzoek</h3>
+      <p>De praktijkhoofdstukken in Fields keuze zijn concreter dan de leerstellige delen. Over muziek en dans oordeelt al-Ghazali genuanceerd: muziek wakkert aan wat al in het hart ligt, en is dus toegestaan of zelfs heilzaam wanneer zij liefde tot God aanblaast, en verboden wanneer zij begeerte voedt. Het middel is neutraal; het hart dat luistert geeft de doorslag.</p>
+      <p>Het hoofdstuk over zelfonderzoek werkt met een koopmansbeeld: zoals een handelaar elke avond met zijn compagnon afrekent, zo hoort een mens elke avond met zijn eigen ziel af te rekenen over de winst en het verlies van de dag. Daarnaast staat het voortdurende gedenken van God als oefening die het hart gericht houdt.</p>
+      <h3>Huwelijk en de liefde tot God</h3>
+      <p>Het huwelijkshoofdstuk weegt nuchter voor- en nadelen: het huwelijk beschermt tegen begeerte en geeft rust, en het brengt tegelijk zorgen en afleiding mee die de godzoeker kunnen hinderen. Al-Ghazali spreekt geen algemeen oordeel uit; de afweging hangt af van iemands aard en omstandigheden.</p>
+      <p>Het slothoofdstuk over de liefde tot God is de bekroning van het boek. Alle aardse liefdes, voor schoonheid, voor weldoeners, voor onszelf, wijzen volgens al-Ghazali voorbij zichzelf: elke reden om iets te beminnen komt in de hoogste graad alleen God toe. De liefde tot God is daarmee geen aparte plicht naast de andere; zij is waar alle hoofdstukken op uitlopen.</p>
+      <h3>Verhouding tot de Ihya</h3>
+      <p>De <i>Kimiya</i> is geen vertaling van de <i>Ihya</i> maar een zelfstandige Perzische bewerking: aanzienlijk korter, met eigen inleidende hoofdstukken die in het Arabische werk ontbreken, en geschreven voor een publiek zonder geleerde vorming. Al-Ghazali zegt zelf dat hij er de kern van het grotere werk in wilde spiegelen. Wie de volledige uitwerking zoekt, met alle bronvermeldingen en de veertig boeken, komt bij de <i>Ihya</i> uit; wie de lijn van het betoog wil zien, is bij de <i>Kimiya</i> aan het goede adres.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kimiya (alchemie)</td><td>Het beeld voor de omzetting van de ziel: dierlijke eigenschappen worden door discipline en kennis omgewerkt tot eigenschappen die het hart voor God geschikt maken.</td></tr>
+          <tr><td class="term">Qalb (hart)</td><td>Het geestelijke centrum van de mens, in het boek zowel koning van het lichaamsrijk als spiegel waarin God gekend kan worden.</td></tr>
+          <tr><td class="term">Zelfkennis</td><td>Het onderzoek naar wat de mens is, waar hij vandaan komt en waartoe hij er is; volgens al-Ghazali de sleutel tot de kennis van God.</td></tr>
+          <tr><td class="term">De vier naturen</td><td>Beest, roofdier, duivel en engel: de eigenschappen die in ieder mens samenwonen en waarvan er één gaat overheersen.</td></tr>
+          <tr><td class="term">Muhasaba (zelfonderzoek)</td><td>De dagelijkse afrekening met de eigen ziel, naar het beeld van de koopman die elke avond met zijn compagnon de boeken doorneemt.</td></tr>
+          <tr><td class="term">Dhikr (gedenken)</td><td>Het voortdurend gedenken van God, als oefening die het hart gericht houdt en de spiegel schoon.</td></tr>
+          <tr><td class="term">Sama (luisteren)</td><td>Het luisteren naar muziek en zang, dat aanwakkert wat al in het hart ligt en daarom naar de toestand van de luisteraar beoordeeld moet worden.</td></tr>
+          <tr><td class="term">Dunya (deze wereld)</td><td>De wereld als marktplaats of pleisterplaats op doorreis, bedoeld om proviand voor de komende wereld in te slaan.</td></tr>
+          <tr><td class="term">Sa'adat (geluk)</td><td>Het geluk dat samenvalt met de kennis en het aanschouwen van God en pas in de komende wereld zijn volle vorm krijgt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek argumenteert vanuit gezag en analogie. De premissen komen uit de Koran, de overleveringen van de Profeet en de soefi-traditie, en worden binnen het boek niet verdedigd; de beelden van koning, spiegel, rijdier en karavaan maken de leer inzichtelijk zonder haar te bewijzen. Wat het boek sterk maakt, is de psychologische observatie: de beschrijving van gewoontevorming, zelfbedrog en de manier waarop begeerten het oordeel kleuren, staat grotendeels los van de geopenbaarde premissen en is voor een hedendaagse lezer herkenbaar.</p>
+      <p>De biografische verankering is goed gedocumenteerd: al-Ghazali's crisis van 1095 en zijn breuk met het professoraat beschrijft hij zelf in <i>al-Munqidh min al-Dalal</i>. Wel geldt een voorbehoud bij de hier gevolgde uitgave: Field vertaalde verkort en via het Urdu, en latere bezorgers hebben zijn hoofdstukvolgorde en weglatingen moeten corrigeren. Wie wil weten wat er werkelijk in de <i>Kimiya</i> staat, is op de volledige vertaling van Crook of op het Perzisch aangewezen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De redenering rust op premissen die de lezer moet meebrengen. Dat geluk het aanschouwen van God in het hiernamaals is, wordt nergens beargumenteerd tegenover iemand die het betwijfelt; wie de openbaring niet aanvaardt, houdt beelden over in plaats van bewijs. Ook binnen de islamitische traditie is bezwaar gemaakt: al-Ghazali's aanval op de filosofen, die aan dit boek voorafging, wordt van oudsher medeverantwoordelijk gehouden voor het terugdringen van de rationele filosofie in de islamitische wereld, al nuanceert recent onderzoek dat beeld.</p>
+      <p>De wereldbeschouwing van het boek is streng ascetisch: het lichaam is rijdier, de wereld pleisterplaats, en wat mensen aan gewone vreugden beleven staat vrijwel steeds onder verdenking. Het huwelijkshoofdstuk gaat bovendien uit van man-vrouwverhoudingen uit de twaalfde eeuw. Wie het boek als levenskunst wil lezen, moet die lagen actief meewegen.</p>
+      <p>Ten slotte de overlevering: de Perzische tekst is in veel handschriften en bewerkingen doorgegeven, en de bekendste Engelse uitgave, die van Field, is een dubbele verkorting waarin onder meer het hele deel over de verwoestende eigenschappen ontbreekt. Het beeld dat westerse lezers een eeuw lang van dit boek hadden, is dus aantoonbaar onvollediger dan het origineel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem de avondafrekening van al-Ghazali over: loop de dag langs zoals een koopman zijn boeken, en noteer welke van de vier naturen vandaag het meest gevoed is.</li>
+        <li>Stel bij een sterke begeerte de spiegelvraag: wat wordt hier dof, en welk zicht raakt erdoor vertroebeld.</li>
+        <li>Gebruik het karavaanbeeld bij bezitsbeslissingen: koop wat de reis dient, en wantrouw wat alleen de pleisterplaats aangenamer maakt.</li>
+        <li>Toets vermaak aan al-Ghazali's maatstaf voor muziek: versterkt het wat het hart al aan goeds bevat, of blaast het alleen begeerte aan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Al-Ghazali schreef <i>Kimiya-yi Sa'adat</i> rond 1105 in het Perzisch, om de kern van zijn veel omvangrijkere Arabische hoofdwerk <i>Ihya 'Ulum al-Din</i> bereikbaar te maken voor lezers in zijn eigen taalgebied. Deze samenvatting volgt de verkorte Engelse vertaling van Claud Field uit 1910, <i>The Alchemy of Happiness</i>, die via een Urdu-vertaling tot stand kwam en acht hoofdstukken uit het werk bevat; grote delen van het Perzische origineel, waaronder de hoofdstukken over de eigenschappen die de ziel te gronde richten, ontbreken daarin. Een volledige Engelse vertaling uit het Perzisch verscheen later van de hand van Jay Crook in twee delen (Great Books of the Islamic World). Een Nederlandse vertaling van de <i>Kimiya</i> is niet bekend; van al-Ghazali is in het Nederlands wel de autobiografie <i>Verlost van onzin</i> beschikbaar (Boom, 2021).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rond 1105, tien jaar nadat een geloofscrisis hem zijn hoogleraarschap in Bagdad had doen opgeven, schreef de theoloog al-Ghazali in het Perzisch een handboek voor gewone gelovigen. De alchemie uit de titel is de omzetting van het hart: zoals een alchemist onedel metaal in goud wil veranderen, zo kan een mens de dierlijke eigenschappen in zichzelf omwerken tot eigenschappen die het hart geschikt maken voor de kennis van God. De grondstof is zelfkennis; het geluk dat eruit voortkomt krijgt volgens al-Ghazali pas na de dood zijn volle vorm.</p><p>Het boek vat de kern samen van zijn Arabische hoofdwerk <i>Ihya 'Ulum al-Din</i> en groeide uit tot een van de meest gelezen religieuze teksten van de Perzischtalige wereld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>islam</li><li>soefisme</li><li>zelfkennis</li><li>geluk</li><li>Perzië</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="525"><a href="525.html">The Philosophy of Illumination</a>. Een geslacht later bouwde Suhrawardi op dezelfde Perzische bodem een filosofisch stelsel rond het licht dat al-Ghazali als geloofsweg beschrijft.</li>
+          <li value="524"><a href="524.html">The Conference of the Birds</a>. De reis van het hart naar God als vogelepos, uit dezelfde eeuw en dezelfde wereld.</li>
+          <li value="527"><a href="527.html">Who Am I?</a>. Dezelfde overtuiging dat zelfkennis de poort tot het hoogste is, in een radicaal kortere en tradieloze vorm.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

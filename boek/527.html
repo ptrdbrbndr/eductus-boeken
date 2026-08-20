@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Am I? &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De tekst stelt dat geluk de natuur van het Zelf is en nergens anders te vinden, en dat de geest die het buiten zoekt zelf het obstakel vormt. De geest…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-527">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">527 &middot; Levenskunst</p>
+    <h1>Who Am I?</h1>
+    <p class="lede">Ramana Maharshi, opgetekend 1902, uitgegeven 1923</p>
+    <p class="stats">
+      <span><b>1322</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="527"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De tekst stelt dat geluk de natuur van het Zelf is en nergens anders te vinden, en dat de geest die het buiten zoekt zelf het obstakel vormt. De geest bestaat uit gedachten, en de eerste gedachte is 'ik'; alle andere gedachten haken daaraan vast. Wie bij elke opkomende gedachte vraagt aan wie ze verschijnt, en vervolgens wie dat 'ik' is, drijft de geest terug naar zijn bron, tot ook de ik-gedachte dooft en alleen het Zelf overblijft. Ademhalingsbeheersing, mantra's en godsverering zijn in dit boekje hulpmiddelen die de geest tijdelijk stil leggen; alleen het zelfonderzoek maakt er volgens Ramana een einde aan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een gesprek in gebaren en op papier</h3>
+      <p>Sivaprakasam Pillai, afgestudeerd in de filosofie en werkzaam bij de belastingdienst van Zuid-Arcot, bezocht Tiruvannamalai in 1902 voor zijn werk en zocht de jonge kluizenaar op die op de berg Arunachala leefde. Omdat Ramana in die tijd niet sprak, kwamen de antwoorden in gebaren en geschreven woorden. Pillai publiceerde zijn aantekeningen pas in 1923, samen met eigen gedichten; het boekje is sindsdien in tientallen talen verspreid en vormt met <i>Vicharasangraham</i> de vroegste weergave van Ramana's onderricht in eigen woorden.</p>
+      <h3>Wat ik niet ben</h3>
+      <p>De tekst opent met de vaststelling dat ieder wezen altijd gelukkig wil zijn en dat het geluk dat in droomloze slaap wordt ervaren, waar geen geest werkzaam is, iemands eigen natuur moet zijn. Daarom is zelfkennis de weg. Op de openingsvraag wie ik ben volgt een reeks ontkenningen: het lichaam van vlees en bloed ben ik niet, de vijf zintuigen niet, de organen van handelen niet, de levensadem niet, zelfs de denkende geest niet. Wat na al dat wegstrepen overblijft is louter gewaarzijn, en de aard daarvan is bestaan, bewustzijn en gelukzaligheid.</p>
+      <h3>De geest, de wereld en het spinnenweb</h3>
+      <p>De geest is in deze tekst geen ding maar een stroom gedachten, en buiten gedachten bestaat er ook geen wereld: zoals een spin haar draad uit zichzelf laat komen en weer intrekt, zo projecteert de geest de wereld en neemt haar weer in zich terug. In diepe slaap zijn er geen gedachten en is er geen wereld; in waken en dromen zijn er gedachten en verschijnt er een wereld.</p>
+      <p>Van alle gedachten is 'ik' de eerste; pas daarna verschijnen de tweede en derde persoon. Wie naspeurt waar dat 'ik' in het lichaam opkomt, komt volgens Ramana bij het Hart uit, de plaats van oorsprong van de geest.</p>
+      <h3>De methode</h3>
+      <p>De eigenlijke aanwijzing is kort. Komt er een gedachte op, dan hoort de vraag te volgen: aan wie verschijnt deze gedachte? Het antwoord is: aan mij. Daarop volgt de vraag: wie ben ik? Daarmee keert de geest terug naar zijn bron en zakt de gedachte weg. Hoeveel gedachten er ook opkomen, elke gedachte wordt op de plaats van ontstaan onderzocht en dooft daar.</p>
+      <p>De tekst gebruikt er drie beelden voor: de vraag 'wie ben ik?' is de stok waarmee de brandstapel wordt opgepord en die zelf mee verbrandt; de gedachten zijn vijanden in een vesting die stuk voor stuk worden neergeslagen zodra ze naar buiten komen; en de onderzoeker is een parelduiker die met een steen om zijn middel naar de bodem zinkt om de parel van het Zelf te halen.</p>
+      <h3>Hulpmiddelen en hun grens</h3>
+      <p>Ademhalingsbeheersing legt de geest stil zolang de adem bedwongen is, en daarna zwerft hij weer; het is beheersing van de geest, geen vernietiging ervan. Hetzelfde geldt voor meditatie op godsvormen, het herhalen van mantra's en het matigen van voedsel: nuttige steun, omdat een gebundelde geest het onderzoek beter volhoudt, en niet meer dan dat. Van de leefregels noemt de tekst matig, zuiver voedsel de beste.</p>
+      <p>Ook God en goeroe krijgen een begrensde rol: zij wijzen de weg en dragen niemand naar de bevrijding. Wie Rama is, heeft geen spiegel nodig om te weten dat hij Rama is; boeken, zegt de tekst, zoeken het Zelf buiten, terwijl het binnen de zoeker ligt, en ooit moet al het geleerde weer vergeten worden.</p>
+      <h3>Stilte, geluk, bevrijding</h3>
+      <p>Geluk valt in de slotvragen samen met het Zelf: in de wereld ligt het niet, en wat vervulling van een wens aan vreugde geeft, is in werkelijkheid de geest die even naar zijn bron terugkeert, zoals iemand uit de zon in de schaduw stapt. Wijsheid is stil blijven; helderziendheid en het kennen van verleden en toekomst horen er uitdrukkelijk niet bij. Bevrijding is het onderzoeken van de eigen aard en het blijven als wat men werkelijk is: de toestand die de tekst Stilte noemt, waarin zelfs de ik-gedachte ontbreekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Atma-vichara (zelfonderzoek)</td><td>Het aanhoudend terugvoeren van de aandacht naar degene bij wie gedachten opkomen; volgens de tekst het voornaamste middel tot zelfkennis.</td></tr>
+          <tr><td class="term">Ik-gedachte</td><td>De eerste gedachte die in de geest opkomt en waaraan alle andere gedachten zich hechten.</td></tr>
+          <tr><td class="term">Zelf (Atman)</td><td>Wat overblijft wanneer alle gedachten zijn gedoofd; van nature bestaan, bewustzijn en gelukzaligheid.</td></tr>
+          <tr><td class="term">Het Hart</td><td>De plaats waar de ik-gedachte volgens de tekst het eerst opkomt en waarheen de geest in het onderzoek wordt teruggevoerd.</td></tr>
+          <tr><td class="term">Manonasa tegenover manonigraha</td><td>Het vernietigen van de geest tegenover het tijdelijk stilleggen ervan; hulpmiddelen als ademhalingsbeheersing bereiken alleen het tweede.</td></tr>
+          <tr><td class="term">Vasana's</td><td>Restindrukken van ervaringen die als golven blijven aanspoelen en door voortgezet onderzoek slijten.</td></tr>
+          <tr><td class="term">Jnana-drishti (wijsheidsblik)</td><td>Stil blijven met de geest opgelost in het Zelf; bijzondere vermogens als helderziendheid vallen er uitdrukkelijk buiten.</td></tr>
+          <tr><td class="term">Stilte</td><td>De aanduiding voor de toestand waarin zelfs de ik-gedachte ontbreekt; in de tekst de hoogste werkelijkheid zelf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De tekst bewijst niets in moderne zin en pretendeert dat ook niet. De onderbouwing bestaat uit analogieën (het touw dat voor een slang wordt aangezien, de spin en haar web, de schaduw en de zon) en uit het kader van de Advaita Vedanta, waarin de wereld verschijning is en het Zelf de enige werkelijkheid. Daarnaast leunt alles op het gezag van Ramana zelf, wiens levensverhaal, inclusief de doodservaring op zestienjarige leeftijd die aan zijn vertrek naar Arunachala voorafging, alleen via de verslagen van volgelingen is overgeleverd.</p>
+      <p>Ook de tekst zelf is geen woordelijk verslag: Pillai schreef de antwoorden uit het geheugen op en publiceerde ze eenentwintig jaar na het gesprek, waarna edities met veertien, achtentwintig en dertig vragen naast elkaar zijn gaan bestaan, plus een essayversie. Wat vaststaat is de strekking; over de precieze bewoordingen valt geen zekerheid te geven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De kernstelling dat de wereld alleen als gedachte bestaat, wordt geponeerd en met beelden aannemelijk gemaakt; wie haar betwijfelt, vindt in de tekst geen argument dat die twijfel serieus neemt. Het beroep op de droomloze slaap als bewijs dat geluk onze natuur is, veronderstelt bovendien wat het moet aantonen, namelijk dat de afwezigheid van ellende in slaap hetzelfde is als aanwezig geluk.</p>
+      <p>Praktisch is er het risico dat de methode verschraalt tot het mechanisch herhalen van een vraag, iets waar latere leraren uit deze traditie zelf voor waarschuwen; de tekst is zo kaal dat hij die verschraling niet kan corrigeren. Wie richtlijnen zoekt voor het gewone leven vindt weinig meer dan enkele zinnen over nederigheid, geven en het vermijden van haat. En de overlevering, uit het geheugen genoteerd en over edities gegroeid, maant tot voorzichtigheid bij elke lezing die op afzonderlijke formuleringen leunt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doe de oefening zoals de tekst haar geeft: vraag bij een opkomende gedachte aan wie ze verschijnt, antwoord 'aan mij', en vraag dan wie dat is, zonder de gedachte zelf te volgen.</li>
+        <li>Behandel adem- en concentratieoefeningen zoals de tekst dat doet: als opstap om de geest te bundelen, zonder ze voor het onderzoek zelf te houden.</li>
+        <li>Gebruik de toets uit vraag 25: stil blijven telt, bijzondere ervaringen tellen niet.</li>
+        <li>Neem de leefregel over die de tekst de beste noemt: matig en eenvoudig eten, als steun voor een geest die het onderzoek moet volhouden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De tekst gaat terug op vragen die de ambtenaar M. Sivaprakasam Pillai in 1902 stelde aan de toen zwijgende Ramana Maharshi in de Virupaksha-grot bij Tiruvannamalai; Ramana antwoordde met gebaren en, waar dat niet volstond, in schrift. Pillai publiceerde zijn aantekeningen in 1923 met veertien vragen en antwoorden; latere edities tellen er achtentwintig of dertig, en er bestaat ook een versie waarin de antwoorden tot een doorlopend essay zijn omgewerkt. Deze samenvatting volgt de Engelse vertaling uit het Tamil door T.M.P. Mahadevan, uitgegeven door Sri Ramanasramam (Tiruvannamalai) in de vorm van achtentwintig vragen en antwoorden: een boekje van enkele tientallen bladzijden. In het Nederlands bestaan diverse bundels met Ramana's onderricht, waaronder <i>De leringen van Ramana Maharshi</i> (Mirananda, 1990); een zelfstandige Nederlandse uitgave van <i>Nan Yar</i> is niet aangetroffen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In 1902 klom de ambtenaar Sivaprakasam Pillai naar de Virupaksha-grot op de berg Arunachala om de jonge Ramana Maharshi vragen te stellen over zelfonderzoek. Ramana sprak in die jaren niet en antwoordde met gebaren en op papier. De veertien vragen en antwoorden die Pillai optekende verschenen in 1923 in druk en groeiden in latere edities uit tot achtentwintig; het boekje geldt sindsdien als de kortste en meest directe weergave van Ramana's onderricht.</p><p>De kern is één aanwijzing: volg elke gedachte terug naar degene bij wie ze opkomt, en houd de vraag wie dat is aan tot de vraagsteller zelf verdwijnt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfonderzoek</li><li>advaita</li><li>India</li><li>meditatie</li><li>hindoeïsme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="520"><a href="520.html">Vivekachudamani</a>. De klassieke Advaita-tekst over het onderscheid tussen het Zelf en wat het niet is; Ramana bewerkte dit werk zelf in het Tamil.</li>
+          <li value="519"><a href="519.html">The First and Last Freedom</a>. Dezelfde vraag naar de waarnemer, maar dan bij een leraar die elke methode en traditie afwijst.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Een hedendaagse westerse variant van dezelfde wending naar binnen, met de ik-vraag als beginpunt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

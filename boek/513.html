@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Level Up &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Level Up stelt dat vrijwel iedereen al weet wat hij zou moeten doen, en dat het uitblijven van actie voortkomt uit aangeleerde angst, een zelfbeeld dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-513">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">513 &middot; Moed en karakter</p>
+    <h1>Level Up</h1>
+    <p class="lede">Rob Dial, 2023</p>
+    <p class="stats">
+      <span><b>1414</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="513"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p><i>Level Up</i> stelt dat vrijwel iedereen al weet wat hij zou moeten doen, en dat het uitblijven van actie voortkomt uit aangeleerde angst, een zelfbeeld dat niet meegroeit en een brein dat op korte-termijnbeloning is afgesteld. Dial beweert dat wie zijn doel concreet maakt, het opknipt in micro-acties en die dagelijks uitvoert, zijn brein via neuroplasticiteit went aan handelen, zodat discipline steeds minder wilskracht kost. Verandering begint bij identiteit: gedrag volgt uit wie iemand denkt te zijn, dus blijvend ander gedrag vraagt eerst een bijgesteld zelfbeeld.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van podcast naar programma</h3>
+      <p>Dial begon The Mindset Mentor in 2015 en destilleerde er dit boek uit: twaalf hoofdstukken die samen één beweging maken, van de vraag waarom iemand stilstaat naar een dagelijkse routine die hem in beweging houdt. De eerste hoofdstukken ruimen op wat actie tegenhoudt (angst, identiteit), het middenstuk scherpt aan waar iemand heen wil (doel, visualisatie, richting), en de tweede helft gaat over uitvoering: afleiding, focus, consistentie, gewoontes en het brein dat dit alles moet dragen. De toon is die van de podcast: korte zinnen, herhaling van kernzinnen, veel voorbeelden uit Dials coachingspraktijk.</p>
+      <h3>Angst is aangeleerd</h3>
+      <p>Dial opent met de bewering dat een mens met twee angsten wordt geboren, die voor vallen en die voor harde geluiden, en dat al het andere is aangeleerd. Hij onderscheidt oerangsten, gericht op fysiek gevaar, van intellectuele angsten: falen, afwijzing, het oordeel van anderen. Onder die tweede categorie schaart hij ook de angst voor succes: de vrees dat een beter leven nieuwe verwachtingen en nieuwe manieren om te falen meebrengt. Al die angsten voelen even echt omdat dezelfde amygdala aanslaat, terwijl er zelden werkelijk iets op het spel staat.</p>
+      <p>De remedie is volgens Dial handelen terwijl de angst er nog is. Elke keer dat iemand doet waar hij bang voor was en de gevreesde ramp uitblijft, verzwakt de aangeleerde koppeling; wachten tot de angst vanzelf verdwijnt, houdt haar juist in stand.</p>
+      <h3>Identiteit en doel</h3>
+      <p>Blijvende verandering begint volgens Dial bij het zelfbeeld: wie zichzelf ziet als roker die probeert te stoppen, gedraagt zich anders dan wie zichzelf als niet-roker ziet. Hij gebruikt Jim Carrey, die voor de film <i>Man on the Moon</i> maandenlang in de huid van Andy Kaufman kroop, als illustratie van hoe ver iemand een aangenomen identiteit kan doorvoeren, en nodigt de lezer uit oude overtuigingen uit de kindertijd na te lopen op houdbaarheid.</p>
+      <p>Voor het doel zelf leent hij het Japanse begrip ikigai, ingevuld met vier vragen: waar iemand van houdt, waar hij goed in is, waarvoor hij betaald kan worden en wat de wereld nodig heeft. Daarnaast onderscheidt hij motivatie, de eerste vonk, van drive: de emotionele verbinding met een doel die overeind blijft als de vonk gedoofd is. Een doel zonder die verbinding sneuvelt bij de eerste tegenslag.</p>
+      <h3>Visualisatie en richting</h3>
+      <p>Een doel zonder beeld blijft abstract. Dial laat de lezer zijn doel met alle zintuigen visualiseren en beroept zich daarbij op het reticulair activerend systeem, het deel van de hersenstam dat binnenkomende prikkels filtert: wie zijn aandacht ergens op richt, gaat de bijbehorende kansen opmerken. Als voorbeeld voert hij Roger Bannister op, die in 1954 als eerste de mijl onder de vier minuten liep nadat hij die race naar eigen zeggen vele malen in gedachten had afgelegd.</p>
+      <p>Richting krijgt vervolgens vorm in drie bestanddelen: weten wie iemand wil worden, kleine dagelijkse stappen, en de tijd om die vol te houden, met één procent verbetering per dag als maat. Dial zet uitgestelde beloning tegenover directe bevrediging: wie nu het moeilijke kiest, koopt daarmee een makkelijker leven later, en omgekeerd.</p>
+      <h3>Uitvoering: micro-acties, focus en consistentie</h3>
+      <p>Het praktische hart van het boek is de micro-actie: de kleinst mogelijke stap richting een doel, bewust zo klein gekozen dat er geen weerstand tegen bestaat. Afleiding heet bij Dial de vijand van actie; telefoon en omgeving behandelt hij als in te richten variabelen, geen karaktertest. Wie zijn omgeving en zijn gezelschap aanpast, hoeft minder op wilskracht te leunen.</p>
+      <p>Het hoofdstuk over alles gedaan krijgen draait om terugrekenen: een groot doel wordt pas uitvoerbaar wanneer het is vertaald naar wat er vandaag moet gebeuren, en de lijst voor vandaag hoort kort te zijn. Focus behandelt Dial als schaars goed: één taak tegelijk, en de erkenning dat elke onderbreking de aandacht langer kost dan de onderbreking zelf duurt.</p>
+      <p>Consistentie weegt in het programma zwaarder dan omvang: elke dag een kleine stap verslaat een enkele grote inspanning, omdat alleen herhaling gedrag automatisch maakt. Gewoontes zijn in die opvatting het eindstation van discipline, het punt waarop handelen geen besluit meer vraagt.</p>
+      <h3>Het brein went aan actie</h3>
+      <p>De laatste hoofdstukken leveren de neurologische onderbouwing zoals Dial die ziet. Neuroplasticiteit betekent dat herhaald gedrag de bijbehorende verbindingen versterkt, waardoor wat eerst moeite kostte langzaam vanzelf gaat. Daarop bouwt hij een dopaminebeloningssysteem: kleine stappen bewust vieren, zodat het brein de inspanning zelf als belonend gaat ervaren en de aandacht verschuift van het einddoel naar het proces. Wie verliefd wordt op het proces, aldus Dial, heeft het resultaat niet meer nodig om door te gaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Micro-actie</td><td>De kleinst mogelijke stap richting een doel, bewust zo klein gekozen dat er geen motivatie voor nodig is.</td></tr>
+          <tr><td class="term">Oerangst en intellectuele angst</td><td>Dials onderscheid tussen aangeboren reacties op fysiek gevaar en aangeleerde angsten voor falen, afwijzing of andermans oordeel.</td></tr>
+          <tr><td class="term">Reticulair activerend systeem</td><td>Het filter in de hersenstam dat bepaalt welke prikkels aandacht krijgen, door Dial gebruikt als verklaring waarom visualisatie werkt.</td></tr>
+          <tr><td class="term">Ikigai</td><td>Japans begrip voor bestaansreden, door Dial ingevuld met vier vragen over liefde, aanleg, betaling en nut.</td></tr>
+          <tr><td class="term">Drive</td><td>De duurzame emotionele verbinding met een doel, door Dial onderscheiden van motivatie als kortstondige vonk.</td></tr>
+          <tr><td class="term">Neuroplasticiteit</td><td>Het vermogen van het brein om verbindingen te versterken door herhaling, in het boek de reden dat consistentie boven intensiteit gaat.</td></tr>
+          <tr><td class="term">Dopaminebeloningssysteem</td><td>Dials methode om kleine stappen bewust te vieren zodat het brein inspanning aan beloning gaat koppelen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op Dials coachingspraktijk en op jaren podcastgesprekken, aangevuld met bekende resultaten uit psychologie en neurowetenschap die in algemene termen worden aangehaald. Eigen onderzoek bevat het niet, en de wetenschappelijke verwijzingen blijven op het niveau van het populaire overzicht: neuroplasticiteit en dopamine worden terecht als mechanismen genoemd, maar er wordt geen studie besproken die de methode van het boek als geheel toetst.</p>
+      <p>Twee steunpilaren verdienen een kanttekening. De bewering dat een mens met precies twee angsten wordt geboren gaat terug op behavioristisch onderzoek uit de jaren twintig van de vorige eeuw en geldt in de hedendaagse ontwikkelingspsychologie niet als vaststaand. En het reticulair activerend systeem filtert weliswaar prikkels, maar de sprong naar een intern navigatiesysteem dat kansen opspoort zodra iemand zijn doel visualiseert, is een populair-wetenschappelijke oprekking die het boek deelt met veel zelfhulpliteratuur.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wie <i>Atomic Habits</i>, het werk van Brian Tracy of de seminars van Tony Robbins kent, komt in <i>Level Up</i> weinig nieuws tegen. Kleine stappen, identiteit vóór gedrag, omgeving inrichten, consistentie boven intensiteit: het zijn de vaste bestanddelen van het genre, hier opnieuw geordend en verteld in de directe toon van een podcast. De waarde zit in de ordening en de toegankelijkheid; oorspronkelijk is er weinig aan.</p>
+      <p>De psychologische versimpeling heeft een prijs. Door alle stilstand terug te brengen tot aangeleerde angst en een verkeerd zelfbeeld, blijft buiten beeld dat uitstel ook uit depressie, ADHD, rouw of gewone overbelasting kan voortkomen, omstandigheden waarin meer actie nemen geen passend antwoord is. Ook omstandigheden als geldgebrek of zorgtaken komen in het verhaal van de zelf te kiezen identiteit nauwelijks voor.</p>
+      <p>Ten slotte is de bewijsvoering dun voor een boek dat zich nadrukkelijk op hersenwetenschap beroept. De ondertitel belooft een psychologisch onderbouwde routekaart, maar de onderbouwing bestaat vooral uit anekdotes van coachingklanten en beroemdheden. Dat maakt het eerder een motivatieboek met wetenschappelijke aankleding dan een onderbouwde methode.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies één doel en formuleer de kleinste stap die vandaag nog kan; maak de stap kleiner zolang er weerstand is.</li>
+        <li>Schrijf de angst op die een taak blokkeert en toets of het om fysiek gevaar gaat of om een aangeleerde angst voor andermans oordeel.</li>
+        <li>Beantwoord de vier ikigai-vragen op papier voordat je een groot doel kiest, en schrap doelen die alleen op de betaalvraag scoren.</li>
+        <li>Vier een afgeronde micro-actie bewust, hoe klein ook, zodat de herhaling zelf iets oplevert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Deze samenvatting volgt de oorspronkelijke Amerikaanse uitgave, <i>Level Up: How to Get Focused, Stop Procrastinating, and Upgrade Your Life</i> (HarperOne, 2023, 256 blz., ISBN 9780063224704), Dials eerste boek, voortgekomen uit zijn podcast The Mindset Mentor. Een Nederlandse vertaling is niet bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rob Dial bouwde vanaf 2015 met The Mindset Mentor een van de grotere zelfhulppodcasts, en <i>Level Up</i> is daarvan de neerslag: een programma in twaalf hoofdstukken om van weten naar doen te komen. Angst is aangeleerd, identiteit is bij te stellen, en een doel wordt pas bruikbaar als het is opgeknipt in stappen die klein genoeg zijn om vandaag te zetten.</p><p>Dial leunt op begrippen uit de populaire neurowetenschap, van het reticulair activerend systeem tot dopamine, en op de coachingspraktijk achter honderden podcastafleveringen. Het boek belooft geen inzicht in waarom het leven loopt zoals het loopt, wel een aanpak om er beweging in te krijgen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>gewoontes</li><li>uitstelgedrag</li><li>focus</li><li>podcast</li><li>neurowetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Hetzelfde terrein van kleine stappen en identiteit, met een strakkere methode en meer onderbouwing.</li>
+          <li value="238"><a href="238.html">The Power of Habit</a>. De onderzoeksjournalistieke versie van wat Dial praktisch maakt: hoe de gewoontelus in het brein werkt.</li>
+          <li value="411"><a href="411.html">Psycho-Cybernetics</a>. De klassieker uit 1960 waar het idee van het zelfbeeld als plafond van prestaties vandaan komt.</li>
+          <li value="175"><a href="175.html">Limitless</a>. Een vergelijkbaar breinprogramma van een andere Amerikaanse coach, met meer nadruk op leren en geheugen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

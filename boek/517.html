@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Unfettered Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De drie geschriften stellen dat een gevecht wordt beslist door waar de geest zich bevindt. Een geest die ergens blijft hangen, bij het zwaard van de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-517">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">517 &middot; Vakmanschap en aandacht</p>
+    <h1>The Unfettered Mind</h1>
+    <p class="lede">Takuan Sōhō, ca. 1630</p>
+    <p class="stats">
+      <span><b>1338</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="517"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De drie geschriften stellen dat een gevecht wordt beslist door waar de geest zich bevindt. Een geest die ergens blijft hangen, bij het zwaard van de tegenstander, bij de eigen techniek, bij winnen of verliezen, staat stil en is op dat moment al te verslaan. Oefening dient er daarom toe dat stoppen af te leren: wanneer de geest nergens verblijft, is hij overal tegelijk beschikbaar, en dat noemt Takuan onbeweeglijke wijsheid. Wat hij aan zwaardvechters schrijft, presenteert hij tegelijk als zenonderricht dat voor elk handelen geldt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een monnik schrijft aan zwaardmeesters</h3>
+      <p>Takuan Sōhō was een vooraanstaand monnik van de Rinzai-school: abt van het grote klooster Daitoku-ji in Kyoto, in 1629 verbannen na een conflict met het shogunaat over de verlening van purperen gewaden, later in ere hersteld en op verzoek van shogun Tokugawa Iemitsu stichter van de tempel Tōkai-ji in Edo. In die hofkring verkeerden ook de zwaardleraren van de shogun.</p>
+      <p>De bundel bevat een brief aan Yagyū Munenori, hoofd van de Yagyū Shinkage-school en zwaardinstructeur van de shogun, plus twee kortere geschriften. Het derde stuk, de <i>Taiaki</i>, was gericht aan Munenori of aan Ono Tadaaki, hoofd van de Ittō-school en de andere leraar van het hof; dat staat niet vast. Het zijn brieven en aantekeningen zonder systematische opzet, die pas na Takuans dood als geheel zijn gaan circuleren.</p>
+      <h3>De ziekte van het stilstaan</h3>
+      <p>De brief aan Munenori opent met wat Takuan de kwelling van het verblijven noemt. Wie tegenover een aanvaller staat en zijn aandacht op het aankomende zwaard richt, laat zijn geest daar stoppen, en in dat stilstaan wordt hij geraakt. Hetzelfde geldt voor aandacht die blijft hangen bij de eigen houding, bij de gedachte aan toeslaan of bij de vrees te verliezen. Takuan gebruikt het beeld van vuursteen en vonk: tussen aanleiding en handeling hoort geen tussenruimte te zitten waarin een gedachte zich kan nestelen.</p>
+      <p>Op de vraag waar de geest dan wel geplaatst moet worden, in de handen, in de buik, in de voeten, antwoordt hij: nergens. Een geest die nergens is vastgezet, vult het hele lichaam en is aanwezig waar hij nodig is. Zijn beeld daarvoor is de duizendarmige Kannon: zou de geest stoppen bij de ene arm die de boog vasthoudt, dan waren de overige negenhonderdnegenennegentig onbruikbaar.</p>
+      <h3>Onbeweeglijke wijsheid en de cirkel van het leren</h3>
+      <p>Onbeweeglijk betekent bij Takuan niet star. De onbeweeglijke wijsheid is juist de geest die vrij kan bewegen doordat hij zich nergens aan hecht; hij verwijst naar de boeddhistische beschermfiguur Fudō Myōō, die onwrikbaar oogt omdat niets hem meesleept. Daartegenover staat de verwarde geest, die op één plek samenklontert. Takuan onderscheidt de geest die ergens op gericht is van de geest zonder geest, die niets vasthoudt en daardoor alles kan opnemen.</p>
+      <p>Het leren verloopt volgens hem in een cirkel. De beginner weet nergens van en staat daardoor nergens bij stil; wie gaat oefenen, krijgt bij elke beweging iets te overwegen en staat voortdurend stil; de meester heeft de overwegingen zo verinnerlijkt dat hij weer handelt als de beginner, zonder beraad. Begin en einde lijken op elkaar, met alle oefening ertussenin.</p>
+      <h3>De heldere klank van juwelen</h3>
+      <p>Het tweede geschrift, de <i>Reirōshū</i>, gaat over de menselijke natuur buiten het gevecht: over begeerte als de wortel waaruit verwarring opkomt, over leven en dood, en over het onderscheid tussen juist handelen en eigenbelang dat zich als juist handelen voordoet. Takuan behandelt ook de vraag wanneer het passend is het eigen leven te geven, een vraag die voor zijn lezerspubliek van krijgsadel geen theorie was. De toon is hier meer moreel dan technisch: dezelfde ongebonden geest die het zwaard vrij maakt, moet ook het oordeel zuiver houden.</p>
+      <h3>Het zwaard Taia</h3>
+      <p>Het derde geschrift is het kortst en het meest cryptisch: een reeks stellingen in Chinese stijl met commentaar, genoemd naar het legendarische Chinese zwaard Taia. Het thema is de verhouding tussen zelf en ander in een confrontatie. De volleerde zwaardvechter heeft in Takuans woorden geen tegenstander meer voor zich: de werking waar het om gaat zetelt in de geest en gaat aan techniek vooraf. De tekst zegt er zelf bij dat deze werking zich niet in woorden laat overdragen en alleen in de beoefening gevonden wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Fudōchi</td><td>Onbeweeglijke wijsheid: een geest die vrij beweegt doordat hij zich nergens aan hecht.</td></tr>
+          <tr><td class="term">Het stoppen van de geest</td><td>Het blijven hangen van de aandacht op één punt, voor Takuan de kern van elke nederlaag.</td></tr>
+          <tr><td class="term">Mushin no shin</td><td>De geest zonder geest, die niets vasthoudt en daardoor het hele lichaam vult.</td></tr>
+          <tr><td class="term">Honshin en mōshin</td><td>De oorspronkelijke geest die zich over het geheel verspreidt tegenover de verwarde geest die op één plek samenklontert.</td></tr>
+          <tr><td class="term">Vuursteen en vonk</td><td>Beeld voor handelen zonder tussenruimte waarin een gedachte zich kan nestelen.</td></tr>
+          <tr><td class="term">De duizendarmige Kannon</td><td>Beeld voor een geest die al zijn vermogens tegelijk kan gebruiken doordat hij nergens stopt.</td></tr>
+          <tr><td class="term">Taia</td><td>Legendarisch Chinees zwaard, in het derde geschrift het beeld voor een vermogen dat in de geest zetelt en aan techniek voorafgaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is onderricht, geen betoog: het gezag van de teksten rust op de zentraditie en op Takuans positie als leermeester, en er wordt niets beargumenteerd of aangetoond in moderne zin. Wel is de invloed aanwijsbaar: Yagyū Munenori verwerkte Takuans begrippen, waaronder de ziekte van het stilstaan, in zijn eigen leerboek voor de school, zodat het onderricht binnen de zwaardwereld zelf is opgenomen. De overlevering is minder hard: de geschriften zijn via afschriften doorgegeven, de datering is bij benadering en van de <i>Taiaki</i> staat de geadresseerde niet vast.</p>
+      <p>Takuans kernobservatie heeft een herkenbare parallel in later onderzoek naar presteren onder druk: expliciete aandacht voor de eigen beweging kan ingeslepen vaardigheden verstoren, en geoefende uitvoering verloopt beter zonder bewuste sturing per stap. Die parallel bevestigt de boeddhistische metafysica eromheen niet, maar laat zien dat de praktische kern van de brief aan Munenori niet uit de lucht gegrepen is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De teksten zijn brieven met dicht boeddhistisch jargon, zonder opbouw of uitleg voor buitenstaanders, en de vertaling van Wilson is op een algemeen publiek gericht en spaarzaam geannoteerd. Wat Takuan precies schreef en wat kopiisten later toevoegden, valt niet meer te scheiden. Wie een geordende uiteenzetting van zen of van krijgskunst zoekt, vindt hier fragmenten die veel voorkennis veronderstellen.</p>
+      <p>Om het boek hangt bovendien een laag romantiek die er niet in thuishoort. Het populaire beeld van Takuan als mentor van Miyamoto Musashi komt uit de roman <i>Musashi</i> van Eiji Yoshikawa uit de jaren dertig en heeft geen historische grondslag. Onderzoekers hebben er verder op gewezen dat de innige eenheid van zen en zwaardkunst deels een latere, twintigste-eeuwse constructie is, en Brian Victoria heeft in <i>Zen at War</i> (1997) laten zien hoe juist dit soort teksten in het Japanse militarisme is ingezet. Dat een monnik het doden van geestelijk gereedschap voorziet, is een ethische vraag die de geschriften zelf nergens stellen.</p>
+      <p>Praktisch bezwaar: de aanwijzing om de geest nergens te plaatsen is geen methode. Takuan beschrijft een eindtoestand en zwijgt over de weg erheen; wie geen vecht- of meditatiepraktijk heeft, krijgt weinig houvast en kan het advies zelfs verkeerd opvatten als een verbod op concentratie.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Merk bij een taak onder druk op waar de aandacht blijft hangen (de fout van zonet, het oordeel van een toeschouwer) en breng haar terug naar wat er nu gebeurt.</li>
+        <li>Houd sturing en uitvoering uit elkaar: stuur stap voor stap tijdens het oefenen, en laat dat sturen los zodra het er echt om gaat.</li>
+        <li>Toets bij eigen vakmanschap of de kennis star heeft gemaakt: kan de vertrouwde aanpak nog worden losgelaten, zoals bij de beginner die nergens aan vastzit.</li>
+        <li>Lees de brief aan Munenori naast <i>Het boek van de vijf ringen</i> (nr 346) om dezelfde les van twee kanten te zien: van de monnik en van de vechter.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Bundel van drie geschriften van de Rinzai-zenmonnik Takuan Sōhō (1573-1645): <i>Fudōchishinmyōroku</i> (het wonderbaarlijke verslag van de onbeweeglijke wijsheid), <i>Reirōshū</i> (de heldere klank van juwelen) en <i>Taiaki</i> (annalen van het zwaard Taia). De teksten zijn als brieven en losse geschriften overgeleverd en pas later gebundeld; een precieze datering ontbreekt, de brief aan Yagyū Munenori wordt doorgaans in de jaren 1630 geplaatst. Deze samenvatting volgt de Engelse vertaling van William Scott Wilson, <i>The Unfettered Mind: Writings of the Zen Master to the Sword Master</i> (Kodansha International, 1986), later heruitgegeven door Shambhala (2012, ISBN 9781590309865). Vertalingen van deze compacte, jargonrijke teksten lopen onderling uiteen. Nederlandse vertaling: <i>Onbevangen zijn: brieven van een zenmeester aan een zwaardmeester</i> (Altamira, Heemstede, 1997).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Drie geschriften van de zenmonnik Takuan Sōhō (1573-1645), gericht aan de belangrijkste zwaardmeesters van zijn tijd, onder wie Yagyū Munenori, leraar van de shogun. De kern: wie zijn aandacht ergens laat stoppen, bij het zwaard van de ander, bij winnen, bij de eigen techniek, is op dat moment al verslagen.</p><p>Het boek werd de klassieke brug tussen zen en krijgskunst en wordt tot vandaag gelezen door vechtsporters en door iedereen die onder druk moet handelen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zen</li><li>zwaardvechten</li><li>samoerai</li><li>aandacht</li><li>Japan</li><li>brieven</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="346"><a href="346.html">The Book of Five Rings</a>. Het strategieboek van de zwaardvechter zelf, geschreven in dezelfde jaren en dezelfde wereld waarin Takuans brieven circuleerden.</li>
+          <li value="462"><a href="462.html">Musashi's Dokkodo: The Way of Walking Alone</a>. Musashi's eigen slotsom in eenentwintig stellingen: dezelfde onthechting, opgeschreven door de vechter in plaats van de monnik.</li>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. De klassieke westerse inleiding in het zenboeddhisme, het kader waaruit Takuans begrippen komen.</li>
+          <li value="441"><a href="441.html">The Inner Game of Tennis</a>. Hetzelfde inzicht over zelfbewuste sturing die de uitvoering verstoort, zonder zen en getoetst op de tennisbaan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

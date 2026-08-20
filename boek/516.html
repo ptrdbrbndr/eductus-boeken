@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Antidote &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="The Antidote stelt dat het gerichte streven naar geluk het geluk in de weg zit: de cultus van positief denken vraagt een voortdurende bewaking van de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-516">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">516 &middot; Levenskunst</p>
+    <h1>The Antidote</h1>
+    <p class="lede">Oliver Burkeman, 2012</p>
+    <p class="stats">
+      <span><b>1421</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="516"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p><i>The Antidote</i> stelt dat het gerichte streven naar geluk het geluk in de weg zit: de cultus van positief denken vraagt een voortdurende bewaking van de eigen gedachten die spanning oplevert en die mislukking, onzekerheid en dood juist bedreigender maakt. Burkeman verdedigt een negatieve weg met oude papieren: onzekerheid aanvaarden zoals de stoïcijnen het ergste vooraf doordachten, gedachten laten passeren zoals boeddhisten dat oefenen, doelen wantrouwen, mislukking opzoeken en de eigen sterfelijkheid in het zicht houden. Het boek belooft daarbij geen gelukzaligheid; het beweert dat deze omweg tot een stabielere tevredenheid leidt dan het rechtstreekse najagen ervan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De cultus van het optimisme</h3>
+      <p>Het boek opent in een stadion in San Antonio, bij Get Motivated!, een seminar waar duizenden bezoekers leren dat succes een kwestie van denken is. Burkeman zet daar onderzoeksliteratuur tegenover, met name Daniel Wegners werk over ironische processen: de opdracht om niet aan een witte beer te denken produceert witte beren, en wie zichzelf voorschrijft gelukkig te zijn, controleert voortdurend of het al lukt, met het tegendeel als resultaat. Daarmee is de richting van het boek bepaald: de andere kant op lopen.</p>
+      <p>Burkeman schrijft vanuit jarenlange praktijkkennis: voor zijn Guardian-rubriek over zelfhulp en geluk las en beproefde hij het genre van binnenuit, en dat scheelt. Hij spot niet met de bezoekers van het seminar; hij beschrijft wat er wordt beloofd, zet er onderzoek naast en constateert dat de belofte haar eigen ondergraving meebrengt.</p>
+      <h3>Wat Seneca zou doen</h3>
+      <p>De stoïcijnen leveren het eerste alternatief: de premeditatio malorum, het vooraf doordenken van het ergste. Wie zich concreet voorstelt wat er verloren kan gaan, went aan het denkbeeld en ontdekt meestal dat het te overleven valt, terwijl de optimist die alleen op de goede afloop rekent breekbaar blijft. Daarbij hoort het stoïcijnse onderscheid tussen wat binnen en buiten de eigen macht ligt: omstandigheden zijn niet te kiezen, het oordeel erover wel, en vrijwel alle ellende ontstaat waar mensen die twee verwarren.</p>
+      <p>Burkeman verbindt Seneca met psycholoog Albert Ellis, die hij aan het eind van diens leven in New York opzocht. Ellis' schaamte-oefeningen zijn rechtstreeks stoïcijns: cliënten doen in het openbaar iets genants, zoals luidkeels metrostations omroepen, om te ervaren dat de gevreesde afkeuring draaglijk is. Burkeman doet de oefening zelf in de Londense metro.</p>
+      <h3>De storm voor de kalmte</h3>
+      <p>Op een meditatieretraite in Massachusetts oefent Burkeman dagenlang in niet-hechten: gedachten en gevoelens laten opkomen en voorbij laten trekken zonder ze te volgen of weg te duwen. De les staat haaks op het idee uit de motivatie-industrie dat de juiste gemoedstoestand een voorwaarde is om te handelen; kunstenaar Chuck Close levert het motto dat inspiratie voor amateurs is en dat de rest gewoon aan het werk gaat. Ook Eckhart Tolle komt langs, in een opvallend nuchter verslagen interview over de vraag wie eigenlijk degene is die zich zorgen maakt.</p>
+      <h3>Doelen en de veiligheidsfuik</h3>
+      <p>Het hoofdstuk over doelen ontleedt de ramp op de Mount Everest in 1996 aan de hand van onderzoeker Chris Kayes, die er goalodicy in zag: klimmers die zo met hun doel waren vergroeid dat omkeren geen optie meer leek, met de dood als gevolg. En passant ontmaskert Burkeman de beroemde Yale-studie over opgeschreven doelen, die nooit heeft plaatsgevonden.</p>
+      <p>In het hoofdstuk over veiligheid draait hij de logica om. Uit vragenlijstonderzoek naar geluk in arme landen en uit zijn bezoek aan de sloppenwijk Kibera in Nairobi haalt hij de observatie dat totale zekerheid onbereikbaar is en dat het najagen ervan het leven versmalt, een gedachte die hij bij Alan Watts vindt: wie zekerheid eist, eist iets dat het leven zelf uitsluit.</p>
+      <h3>Het museum van mislukte producten</h3>
+      <p>In een loods in Michigan staat een verzameling van tienduizenden geflopte supermarktproducten, door de makers zelf vaak alweer vergeten. Burkeman gebruikt de plek als beeld voor overleversvertekening: succes is zichtbaar en wordt bestudeerd, mislukking wordt weggeschoven, waardoor succesrecepten op een vertekende steekproef berusten. Dezelfde vertekening zit in het genre van de succesboeken: wie alleen winnaars bestudeert, kan niet weten of de aangewezen recepten het verschil maakten of dat de verliezers precies hetzelfde deden. Wie mislukking opzoekt in plaats van wegdrukt, leert er meer van en vreest haar minder; J.K. Rowlings terugblik op haar armste jaren dient als voorbeeld van mislukking die het bijkomstige wegschuurt.</p>
+      <h3>Memento mori</h3>
+      <p>Het slot gaat over de dood: Ernest Beckers these dat cultuur grotendeels een afweer tegen doodsangst is, Epicurus' symmetrie-argument dat de tijd na de dood even weinig te vrezen valt als de tijd voor de geboorte, en een reportage van de Dag van de Doden in Mexico, waar de dood een jaarlijkse huisgenoot is in plaats van een onbespreekbaar einde. Burkeman haalt ook het experimentele werk uit de terror management-school aan, waarin subtiele herinneringen aan de dood mensen aantoonbaar strenger, banger en behoudender maken: doodsangst stuurt gedrag juist het sterkst waar zij onuitgesproken blijft.</p>
+      <p>De epiloog bundelt alles in Keats' begrip negative capability: het vermogen in onzekerheid te verkeren zonder meteen naar een oplossing te grijpen. Voor Burkeman is die houding de eigenlijke opbrengst van de negatieve weg.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De negatieve weg</td><td>Burkemans verzamelnaam voor benaderingen van geluk die beginnen bij onzekerheid, mislukking en sterfelijkheid in plaats van bij optimisme.</td></tr>
+          <tr><td class="term">Ironische processen</td><td>Daniel Wegners bevinding dat de poging een gedachte te onderdrukken die gedachte juist oproept.</td></tr>
+          <tr><td class="term">Negatieve visualisatie</td><td>De stoïcijnse oefening om verlies vooraf concreet te doordenken, waardoor angst slinkt en waardering groeit.</td></tr>
+          <tr><td class="term">Hedonische aanpassing</td><td>Het verschijnsel dat mensen snel wennen aan verworvenheden, waardoor nieuwe aanwinsten hun glans verliezen.</td></tr>
+          <tr><td class="term">Goalodicy</td><td>Chris Kayes' term voor de tunnel waarin een doel met de identiteit vergroeit en opgeven onmogelijk lijkt, ook als doorgaan schadelijk is.</td></tr>
+          <tr><td class="term">Niet-hechten</td><td>De meditatieve oefening om gedachten en gevoelens te laten passeren zonder ze te volgen of te bestrijden.</td></tr>
+          <tr><td class="term">Memento mori</td><td>De oude praktijk om de eigen sterfelijkheid zichtbaar te houden, als middel tegen uitstel en gewichtigdoenerij.</td></tr>
+          <tr><td class="term">Negative capability</td><td>Keats' term voor het vermogen in onzekerheid en twijfel te verkeren zonder geprikkeld naar zekerheid te grijpen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is journalistiek van opzet: elk hoofdstuk combineert een reportage of interview, van het Get Motivated!-seminar tot Kibera en Mexico, met onderzoek en filosofie. De sterkste onderbouwing zit waar Burkeman op experimenteel werk leunt, zoals Wegners onderzoek naar gedachteonderdrukking, en waar hij zelf claims ontkracht: het naspeuren van de nooit uitgevoerde Yale-doelenstudie is zorgvuldig werk dat het genre zelden levert.</p>
+      <p>Zwakker is de bewijsvoering waar zij op enquêtes en losse voorbeelden rust. Het verband tussen arme landen en hoge gelukscijfers steunt op vragenlijstonderzoek waarvan de vergelijkbaarheid tussen landen omstreden is, en de hoofdstukken zijn te kort om een traditie als het stoïcisme of het boeddhisme meer dan schetsmatig te toetsen. Het boek is dan ook sterker als correctie op het positieve denken dan als zelfstandig bewezen alternatief.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat het boek zelf half erkent: wie de negatieve weg bewandelt om er gelukkiger van te worden, doet precies wat het boek de positief-denkers verwijt, geluk najagen met een techniek. Burkeman benoemt die paradox wel, maar lost haar niet op, en sommige hoofdstukken lezen daardoor als omgekeerde zelfhulp met dezelfde belofte in een soberder verpakking.</p>
+      <p>Daarnaast is de selectie sturend. Acht tradities en onderzoekslijnen in acht hoofdstukken betekent dat elk gedachtegoed wordt teruggebracht tot het deel dat in het betoog past; de stoïcijnse leer over deugd, de inbedding van boeddhistische meditatie in ethiek en gemeenschap, en de bestaande kritiek op Tolle blijven grotendeels buiten beeld. Wie het boek als inleiding op die tradities leest, krijgt een gefilterde versie.</p>
+      <p>Ten slotte veroudert het doelwit mee: het agressieve positieve denken van seminars en <i>The Secret</i> was rond 2012 een dankbaarder mikpunt dan de hedendaagse, therapeutischer getoonzette zelfhulp. Burkemans latere <i>Four Thousand Weeks</i> werkt dezelfde grondgedachte rijper en persoonlijker uit; <i>The Antidote</i> is daarvan de lichtere, journalistiekere voorloper.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doe een negatieve visualisatie bij een concrete zorg: schrijf uit wat er in het ergste geval gebeurt en wat er dan nog te doen valt.</li>
+        <li>Vervang bij een lopend project de vraag hoe het gaat slagen door de vraag waardoor het waarschijnlijk mislukt, en haal die oorzaken weg.</li>
+        <li>Oefen een kleine schaamte-oefening in de stijl van Ellis: doe in het openbaar iets onbeduidends dat gênant voelt en stel vast wat er werkelijk gebeurt.</li>
+        <li>Houd een groot doel tegen het licht op goalodicy: benoem vooraf onder welke omstandigheden stoppen de juiste keuze is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Deze samenvatting volgt de Amerikaanse uitgave, <i>The Antidote: Happiness for People Who Can't Stand Positive Thinking</i> (Faber and Faber, 2012, 236 blz., ISBN 9780865478015); het boek verscheen oorspronkelijk in het Verenigd Koninkrijk bij Canongate. De Nederlandse vertaling verscheen in hetzelfde jaar als <i>Tegengif: geluk voor mensen die een hekel hebben aan positief denken</i> (Ambo, 2012, 235 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Journalist Oliver Burkeman verkende jarenlang voor zijn Guardian-rubriek de wereld van de zelfhulp, en dit boek is de neerslag van de omgekeerde zoektocht: langs stoïcijnen, boeddhisten, een spirituele leraar, een sloppenwijk en de Dag van de Doden onderzoekt hij de 'negatieve weg' naar geluk, die begint met ophouden met geforceerd optimisme.</p><p>De rode draad is een paradox uit de psychologie: wie krampachtig probeert gelukkig te zijn, ergens niet aan te denken of nooit te falen, bereikt daarmee meestal het omgekeerde. Onzekerheid aanvaarden, mislukking bestuderen en aan de dood denken blijken beter gezelschap.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geluk</li><li>positief denken</li><li>stoïcisme</li><li>onzekerheid</li><li>sterfelijkheid</li><li>mislukking</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkemans latere boek over tijd en eindigheid, waarin de negatieve weg is uitgegroeid tot een volwaardige levensfilosofie.</li>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Het boek van Alan Watts waar het hoofdstuk over zekerheid rechtstreeks op leunt.</li>
+          <li value="405"><a href="405.html">The Denial of Death</a>. Beckers studie over doodsangst als motor van cultuur, de theoretische kern onder het slothoofdstuk.</li>
+          <li value="292"><a href="292.html">Letters from a Stoic</a>. De stoïcijnse brieven waaruit de premeditatio malorum stamt, in de oorspronkelijke vorm.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

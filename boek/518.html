@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Life Divine &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Aurobindo stelt dat de werkelijkheid één goddelijk bewustzijn is dat zich in de materie heeft verborgen en er zich stapsgewijs weer uit losmaakt: eerst…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-518">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">518 &middot; Levenskunst</p>
+    <h1>The Life Divine</h1>
+    <p class="lede">Sri Aurobindo, 1939-1940</p>
+    <p class="stats">
+      <span><b>1517</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="518"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Aurobindo stelt dat de werkelijkheid één goddelijk bewustzijn is dat zich in de materie heeft verborgen en er zich stapsgewijs weer uit losmaakt: eerst als leven, dan als denkend verstand, en in een nog komende trap als supramentaal bewustzijn. De evolutie heeft in die lezing een richting en een doel. Daaruit volgt zijn breuk met twee gevestigde antwoorden: het materialisme, dat de geest wegverklaart, en het klassieke Indiase illusionisme, dat de wereld wegverklaart. Beide hebben volgens hem een halve waarheid te pakken. Verlossing betekent bij Aurobindo dan ook niet dat de ziel aan de wereld ontsnapt; het betekent dat het goddelijke zich in de wereld voltooit, tot en met een omvorming van het aardse leven zelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van tijdschrift tot hoofdwerk</h3>
+      <p>Aurobindo Ghose werd vanaf zijn zevende in Engeland opgevoed en studeerde in Cambridge. Terug in India werd hij een van de gezichten van de radicale vleugel van de onafhankelijkheidsbeweging, tot hij in 1908 werd gearresteerd in de Alipore-bomzaak. Tijdens een jaar voorarrest had hij naar eigen zeggen beslissende spirituele ervaringen; in 1910 week hij uit naar het Franse Pondicherry, liet de politiek achter zich en wijdde zich aan yoga en schrijven.</p>
+      <p><i>The Life Divine</i> ontstond als reeks in zijn maandblad <i>Arya</i>, dat hij grotendeels alleen volschreef. Twintig jaar later herschreef hij het geheel tot een boek in twee delen: Boek I, over de alomtegenwoordige werkelijkheid, en Boek II, over kennis en onwetendheid en over de spirituele evolutie. Elk hoofdstuk opent met citaten uit de Veda's en de Upanishaden, waarmee Aurobindo aangeeft dat hij zijn stelsel als een hernieuwde lezing van die teksten verstaat.</p>
+      <h3>Twee weigeringen</h3>
+      <p>Vooraan in het boek staan twee hoofdstukken die het speelveld bepalen: de materialistische ontkenning en de weigering van de asceet. De materialist verklaart bewustzijn tot bijverschijnsel van stof en snijdt daarmee de helft van de menselijke ervaring weg. De asceet, en Aurobindo denkt hier aan de illusieleer binnen de Vedanta, verklaart de wereld tot schijn en snijdt de andere helft weg. Beide posities steunen volgens hem op een echte ervaring, van de stof en van de geest, en beide maken van die ene ervaring een alleenheerser.</p>
+      <p>Het programma van het boek is die twee helften verenigen: een werkelijkheidsopvatting waarin geest en materie de uiteinden van één ladder zijn, zodat noch de wereld noch het bewustzijn hoeft te worden weggeredeneerd.</p>
+      <h3>Sachchidananda en de afdaling</h3>
+      <p>De hoogste werkelijkheid duidt Aurobindo met de klassieke formule Sachchidananda aan: zijn, bewustzijn en vreugde als één. De vraag is dan hoe uit die ene volheid een wereld van veelheid, beperking en lijden kan voortkomen. Zijn antwoord is de involutie: het bewustzijn sluiert zichzelf trapsgewijs in, tot in het Inconsciënte, de volstrekt donkere staat die wij materie noemen. Materie is in deze lezing slapend bewustzijn, geen dode stof waar bewustzijn later op onverklaarbare wijze bij komt.</p>
+      <p>Tussen het Ene en de veelheid plaatst hij het Supramentale, een scheppend waarheidsbewustzijn dat eenheid en onderscheid tegelijk vasthoudt, en daaronder de Overmind, waar de ene waarheid uiteenvalt in afzonderlijke machten die elk voor het geheel doorgaan. Op die drempel ontstaat volgens Aurobindo de begoocheling van de afgescheidenheid, die hij Maya noemt zonder er wereldontkenning aan te verbinden.</p>
+      <h3>Kennis en Onwetendheid</h3>
+      <p>Het eerste deel van Boek II behandelt de vraag waarom wij van die ene werkelijkheid zo weinig merken. Onwetendheid is bij Aurobindo geen zonde en geen noodlot; het is zelfbeperking van bewustzijn, een exclusieve concentratie waarbij de ziel zich met één klein deel van zichzelf vereenzelvigt. Hij ontleedt die beperking in een zevenvoudige onwetendheid, van het niet kennen van het tijdloze zelf tot het niet kennen van de eigen oppervlaktepersoon.</p>
+      <p>Het ego is in dit stelsel een praktisch hulpmiddel van de natuur om een afzonderlijk standpunt op te bouwen, dat op een bepaald punt in de evolutie zijn dienst heeft bewezen en daarna in de weg zit. De opdracht is dus niet het ego te bestrijden als vijand, maar het te ontgroeien zoals een steiger na de bouw verdwijnt.</p>
+      <h3>Evolutie als opgang, wedergeboorte als drager</h3>
+      <p>De evolutie is voor Aurobindo de involutie in omgekeerde richting: wat zich in de materie had verborgen, komt er trapsgewijs weer uit tevoorschijn. Uit materie verscheen leven, uit leven verstand, en elke nieuwe trap neemt de vorige op en tilt die mee omhoog. Omdat het verstand net zo min het eindpunt is als het dierlijke leven dat was, verwacht hij een volgende trap, het supramentale, en hij leest de onrust van de mens als het teken dat de soort een overgangswezen is.</p>
+      <p>De drager van die opgang op het persoonlijke vlak is het psychische wezen, de evoluerende ziel die volgens Aurobindo van leven tot leven groeit. Wedergeboorte is daarmee geen leerstuk over beloning en straf, maar het mechanisme dat een individuele geschiedenis over de trappen heen mogelijk maakt.</p>
+      <h3>Drievoudige omvorming en het goddelijke leven</h3>
+      <p>Het slot van het boek beschrijft hoe de overgang in een mens zou verlopen: eerst de psychische omvorming, waarbij de ziel naar voren komt en de persoonlijkheid ordent; dan de spirituele, waarbij het bewustzijn zich opent naar het oneindige boven het hoofd; ten slotte de supramentale, waarbij het waarheidsbewustzijn zelf in het wezen afdaalt en tot in het lichaam doorwerkt. Uit mensen die deze omvorming ondergaan, zou een gnostisch wezen en uiteindelijk een gemeenschap van zulke wezens kunnen ontstaan: het goddelijke leven uit de titel.</p>
+      <p>Een blauwdruk of tijdpad geeft Aurobindo niet, en de praktische discipline die erbij hoort staat niet in dit boek maar in zijn <i>The Synthesis of Yoga</i>. <i>The Life Divine</i> wil alleen laten zien dat deze uitkomst metafysisch noodzakelijk is als men de premissen aanvaardt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sachchidananda</td><td>De hoogste werkelijkheid als eenheid van zijn, bewustzijn en vreugde, de klassieke Vedanta-formule die Aurobindo als uitgangspunt neemt.</td></tr>
+          <tr><td class="term">Supramentale (Supermind)</td><td>Het scheppende waarheidsbewustzijn tussen het Ene en de wereld, dat eenheid en onderscheid tegelijk vasthoudt en de komende evolutietrap vormt.</td></tr>
+          <tr><td class="term">Overmind</td><td>De tussenlaag waar de ene waarheid uiteenvalt in afzonderlijke machten, voor Aurobindo de bron van de begoocheling van afgescheidenheid.</td></tr>
+          <tr><td class="term">Involutie</td><td>De trapsgewijze zelfversluiering van bewustzijn tot in de materie, de voorwaarde die evolutie mogelijk maakt.</td></tr>
+          <tr><td class="term">Het Inconsciënte</td><td>De volstrekt versluierde staat van bewustzijn die zich als levenloze materie voordoet.</td></tr>
+          <tr><td class="term">De Onwetendheid</td><td>Zelfbeperking van bewustzijn door exclusieve concentratie, door Aurobindo in zeven vormen ontleed.</td></tr>
+          <tr><td class="term">Psychisch wezen</td><td>De evoluerende ziel in de mens, die volgens Aurobindo van leven tot leven groeit en de omvorming aanvoert.</td></tr>
+          <tr><td class="term">Drievoudige omvorming</td><td>De opeenvolging van psychische, spirituele en supramentale verandering waarmee een mens de nieuwe trap zou binnengaan.</td></tr>
+          <tr><td class="term">Gnostisch wezen</td><td>De mens in wie het supramentale bewustzijn is gevestigd, de bewoner van het goddelijke leven uit de titel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen empirisch bewijs aan en pretendeert dat ook niet. De onderbouwing bestaat uit drie lagen: Aurobindo's eigen yoga-ervaring, die hij als geestelijke empirie opvat; zijn herlezing van de Veda's en Upanishaden, waaruit elk hoofdstuk citaten meekrijgt; en de wijsgerige redenering dat noch materialisme noch illusionisme de volle ervaring dekt. Het evolutiebegrip ontleent zijn overtuigingskracht aan de biologie, maar Aurobindo geeft geen mechanisme en doet geen toetsbare voorspelling: de komst van het supramentale volgt uit de premissen, niet uit waarnemingen.</p>
+      <p>Serieus genomen is het werk wel: in de Indiase academische filosofie van de twintigste eeuw is het uitvoerig becommentarieerd en vergeleken met Hegel, Bergson en met Teilhard de Chardin, die onafhankelijk een verwante evolutieleer ontwikkelde. Via leerlingen als Haridas Chaudhuri, oprichter van wat het California Institute of Integral Studies werd, voedde het boek de latere integrale stroming. Dat is doorwerking, geen bevestiging: de kernstellingen blijven van het soort dat zich aan toetsing onttrekt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het stelsel is zo gebouwd dat het geen ongelijk kan krijgen. Elke tegenwerping wordt opgenomen als een lagere trap of een halve waarheid binnen het systeem zelf, en de beslissende instantie, de supramentale ervaring, is per definitie alleen toegankelijk voor wie de yoga volbrengt. Aurobindo verwachtte een werkelijke supramentale verandering; hij stierf in 1950, en ruim een eeuw na de <i>Arya</i>-reeks is er geen aanwijsbare gebeurtenis die als de aangekondigde trap herkend kan worden. Binnen de kring van ashram en Auroville wordt dat anders geduid, maar juist de hagiografische ontvangst daar bemoeilijkt kritische studie.</p>
+      <p>De stijl is een reëel obstakel: zinnen van soms een halve bladzijde, Victoriaans Engels, en een betoog dat hetzelfde punt in tientallen variaties herhaalt. Het boek beslaat ruim elfhonderd bladzijden terwijl de kerngedachte zich in enkele hoofdstukken laat kennen; wie het overweegt, moet weten dat de omvang uit methode voortkomt, Aurobindo nadert elk onderwerp van alle kanten, en niet uit noodzaak van de inhoud.</p>
+      <p>Filosofisch botst de teleologische evolutie met de evolutiebiologie, die geen richting of doel kent, en kenners van Shankara brengen in dat Aurobindo het klassieke illusionisme scherper aanzet dan de teksten rechtvaardigen, zodat hij deels tegen een karikatuur argumenteert. Wie geen Sanskrietbronnen of yogapraktijk meebrengt, kan de premissen alleen op gezag aannemen, en precies gezag is wat een wijsgerig stelsel niet als fundament zou moeten vragen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verscheen eerst als maandelijkse afleveringen in Aurobindo's eigen tijdschrift <i>Arya</i> (augustus 1914 tot januari 1919). Voor de boekuitgave herzag en breidde Aurobindo de tekst ingrijpend uit: Boek I verscheen in november 1939, Boek II in twee delen in juli 1940, bij Arya Publishing House in Calcutta; acht tijdschrifthoofdstukken vervielen en twaalf nieuwe werden geschreven. Deze samenvatting volgt de tekst zoals opgenomen in <i>The Complete Works of Sri Aurobindo</i>, delen 21-22 (Sri Aurobindo Ashram Publication Department, Pondicherry, 2005, 1117 blz.). Het boek is in meerdere talen vertaald; een Nederlandse vertaling is in de openbare bibliotheekcatalogus niet aangetroffen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het filosofische hoofdwerk van Sri Aurobindo (1872-1950): ruim duizend bladzijden waarin hij evolutie leest als het geleidelijk ontwaken van bewustzijn dat al in de materie besloten ligt. Na materie, leven en denken moet een volgende trap komen, het supramentale, en daarmee wordt volgens hem een goddelijk leven op aarde denkbaar.</p><p>Geschreven als tijdschriftreeks tussen 1914 en 1919 en twintig jaar later herzien tot boek. Zwaar, systematisch en eigenzinnig: een Vedanta-lezing die de wereld wil voltooien in plaats van ontvluchten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vedanta</li><li>evolutie</li><li>bewustzijn</li><li>yoga</li><li>India</li><li>metafysica</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="520"><a href="520.html">Vivekachudamani</a>. De klassieke Advaita-tekst over de wereld als schijn: de positie die Aurobindo als halve waarheid bestrijdt en tegelijk voortzet.</li>
+          <li value="527"><a href="527.html">Who Am I?</a>. Aurobindo's tijdgenoot Ramana Maharshi stelt dezelfde vraag naar het zelf, zonder stelsel en in enkele bladzijden.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. De yogatraditie als levensverhaal in plaats van metafysica, uit dezelfde periode en eveneens voor een westers publiek geschreven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

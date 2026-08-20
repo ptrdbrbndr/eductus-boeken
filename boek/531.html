@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Odyssee &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Waar de Ilias eindigt bij een graf, vraagt de Odyssee wat er gebeurt met wie de oorlog overleeft. Odysseus doet er tien jaar over om thuis te komen, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-531">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">531 &middot; Roman en memoir</p>
+    <h1>Odyssee</h1>
+    <p class="lede">Homerus, ca. 8e eeuw v.Chr.</p>
+    <p class="stats">
+      <span><b>1148</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="531"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Waar de <i>Ilias</i> eindigt bij een graf, vraagt de <i>Odyssee</i> wat er gebeurt met wie de oorlog overleeft. Odysseus doet er tien jaar over om thuis te komen, en het epos stelt dat thuiskomen meer vergt dan varen: geduld, zelfbeheersing, vermomming en het vermogen op het juiste moment te zwijgen. Het zet slimheid boven kracht, en legt daaronder een tweede maatstaf: gastvrijheid. Vrijwel elke halte onderweg en elke figuur op Ithaka wordt gewogen op de behandeling van vreemdelingen, en de vrijers die het huis van een afwezige leegvreten, tekenen daarmee hun eigen vonnis.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een huis zonder heer</h3>
+      <p>Het epos opent op Ithaka, ver van Odysseus zelf, waar ruim honderd vrijers al jaren om de hand van Penelope dingen en op kosten van het huis feestvieren. Penelope rekt de tijd met een list: het doodskleed voor haar schoonvader dat zij overdag weeft en 's nachts uithaalt, tot een dienstmeisje haar verraadt. De godin Athene zet de inmiddels volwassen zoon Telemachos in beweging: hij reist naar Nestor in Pylos en Menelaos en Helena in Sparta om nieuws over zijn vader te zoeken, en groeit onderweg van jongen tot man.</p>
+      <h3>Van Ogygia naar het hof van de Phaiaken</h3>
+      <p>Odysseus zelf zit al zeven jaar vast bij de nimf Kalypso, die hem onsterfelijkheid biedt als hij blijft. Hij weigert; hij wil naar huis, naar een sterfelijke vrouw en een sterfelijk leven. Op bevel van Zeus laat Kalypso hem gaan. Poseidon slaat zijn vlot stuk, maar hij spoelt aan bij de Phaiaken, waar de koningsdochter Nausikaä hem vindt en naar het hof brengt. Wanneer de hofzanger over Troje zingt en de onbekende gast in tranen uitbarst, maakt Odysseus zich bekend en vertelt hij zijn zwerftochten.</p>
+      <h3>De zwerftochten, verteld door de held zelf</h3>
+      <p>De beroemdste avonturen staan in de zangen 9 tot en met 12, als verhaal in het verhaal. De cycloop Polyphemos sluit Odysseus en zijn mannen op en vreet er elke dag twee; Odysseus maakt hem dronken, noemt zichzelf Niemand, steekt hem het oog uit en ontsnapt onder de schapen. Zijn triomfantelijke onthulling van zijn echte naam kost hem tien jaar: Polyphemos is een zoon van Poseidon, en de vloek van de vader volgt hem over zee.</p>
+      <p>Daarna volgen de windzak van Aiolos, die in het zicht van Ithaka wordt opengemaakt; de Laistrygonen, die elf van de twaalf schepen vernietigen; het jaar bij de tovenares Circe; de afdaling naar de onderwereld, waar de ziener Teiresias de thuiskomst voorspelt en de schim van Achilles zegt dat hij liever dagloner op aarde zou zijn dan koning van de doden; de Sirenen, waar Odysseus zich aan de mast laat binden; de doorgang tussen Skylla en Charybdis; en de runderen van de zonnegod, die de hongerige bemanning tegen elk verbod in slacht. Zeus vernietigt het schip; alleen Odysseus overleeft.</p>
+      <h3>De bedelaar in zijn eigen huis</h3>
+      <p>De Phaiaken zetten de slapende Odysseus op Ithaka aan land. Athene vermomt hem als oude bedelaar en de tweede helft van het epos wordt een lange, gespannen thuiskomst: eerst bij de trouwe zwijnenhoeder Eumaios, dan de hereniging met Telemachos, dan het eigen huis, waar de vrijers hem bespotten en met een krukje gooien. De oude hond Argos herkent zijn baas en sterft. De voedster Eurykleia herkent bij het voetwassen het litteken van een jachtwond uit zijn jeugd. Odysseus verdraagt alles en wacht.</p>
+      <h3>De boogproef en de afrekening</h3>
+      <p>Penelope kondigt een proef aan: zij zal trouwen met wie de grote boog van Odysseus kan spannen en een pijl door twaalf bijlogen schiet. Geen vrijer krijgt de boog gespannen. De bedelaar vraagt of hij het mag proberen, spant de boog zonder moeite en schiet raak; met Telemachos, Eumaios en de koeherder doodt hij vervolgens alle vrijers in de afgesloten zaal. De afrekening is meedogenloos en strekt zich uit tot het personeel: twaalf ontrouwe dienstmeisjes worden opgehangen, de geitenhoeder Melanthios wordt verminkt.</p>
+      <h3>Herkenning en vrede</h3>
+      <p>Penelope, na twintig jaar terecht wantrouwig, stelt haar eigen proef: zij beveelt het huwelijksbed naar buiten te dragen. Odysseus antwoordt dat dat onmogelijk is, want één bedstijl is een gewortelde olijfboom waar hij de kamer zelf omheen bouwde. Dat geheim kennen alleen zij tweeën, en daarmee is de herkenning voltooid. Er volgt nog een bezoek aan de oude vader Laërtes en een dreigende bloedwraak van de families van de vrijers, die Athene met instemming van Zeus afbreekt. Het epos eindigt met een opgelegde vrede.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nostos</td><td>De thuiskeer uit de oorlog, het genre waartoe het epos zichzelf rekent en het doel van alles wat Odysseus doet.</td></tr>
+          <tr><td class="term">Xenia</td><td>Gastvriendschap met wederzijdse plichten van gastheer en gast, de maatstaf waarmee het epos vrijwel elk personage weegt.</td></tr>
+          <tr><td class="term">Mètis</td><td>De listige, praktische slimheid waar Odysseus om bekendstaat, van het houten paard tot de valse naam in de grot.</td></tr>
+          <tr><td class="term">Polytropos</td><td>Het allereerste woord dat het epos aan Odysseus wijdt: de man van vele wendingen, veelgereisd en wendbaar van geest.</td></tr>
+          <tr><td class="term">Niemand</td><td>De schuilnaam waarmee Odysseus de cycloop misleidt, zodat diens hulpgeroep dat Niemand hem iets aandoet nergens op slaat.</td></tr>
+          <tr><td class="term">Sèma</td><td>Het herkenningsteken waarmee identiteit wordt bewezen, zoals het litteken van Odysseus en het geheim van het bed.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Net als de <i>Ilias</i> komt de <i>Odyssee</i> uit een eeuwenlange mondelinge traditie en is de tekst door Alexandrijnse geleerden in 24 zangen verdeeld. Opvallend is dat het epos de stof van de <i>Ilias</i> kent maar nergens navertelt: de val van Troje en het houten paard komen alleen ter sprake in liederen en herinneringen van personages. Dat wijst op een dichter of traditie die bewust naast het oudere epos werkte.</p>
+      <p>Pogingen om de zwerftochten op de kaart te zetten, van Sicilië tot Gibraltar, zijn er sinds de oudheid; ze blijven speculatie. Het epos zelf plaatst de avonturen in een sprookjesruimte buiten de bekende wereld, en pas op Ithaka wordt de geografie weer concreet en controleerbaar.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De overlevering zelf is punt van discussie. De <i>Odyssee</i> wordt doorgaans iets later gedateerd dan de <i>Ilias</i>, en of dezelfde dichter beide maakte, is al sinds de oudheid omstreden. De Alexandrijnse geleerden Aristophanes en Aristarchus wezen het vers aan waarin Odysseus en Penelope elkaar terugvinden (zang 23, vers 296) als eindpunt van het epos, wat het hele slot met Laërtes en de bloedwraak tot een mogelijke latere toevoeging maakt.</p>
+      <p>Inhoudelijk is het wreedste stuk voor hedendaagse lezers de afrekening met het personeel: de twaalf dienstmeisjes, slavinnen zonder keuzevrijheid, worden opgehangen voor wat de vrijers met hen deden. Daarnaast valt de dubbele maat op: Odysseus' jaren bij Kalypso en Circe gelden als lotgevallen, terwijl Penelopes trouw de voorwaarde voor de goede afloop is. Wie het epos alleen van de monsters kent, mist bovendien dat die maar vier zangen beslaan; de tweede helft is een langzaam, huiselijk wraakverhaal, en juist daar zit het vakmanschap.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Grieks epos van ruim twaalfduizend hexameters, in de oudheid verdeeld in 24 zangen. Deze samenvatting volgt het verhaal zelf en is niet aan één vertaling gebonden. Gangbare Nederlandse vertalingen zijn de prozavertaling van M.A. Schwartz (veelvuldig herdrukt bij Athenaeum - Polak &amp; Van Gennep), de hexametervertaling van H.J. de Roy van Zuydewijn, de versvertaling van Imme Dros (eerst verschenen in 1991, later grondig herzien bij Van Oorschot) en de vertaling in vijfvoetige jamben van Patrick Lateur (Athenaeum - Polak &amp; Van Gennep).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tien jaar na de val van Troje is Odysseus nog altijd niet thuis. Op Ithaka eten tientallen vrijers het huis van zijn vrouw Penelope leeg; onderweg liggen een cycloop, een tovenares, de onderwereld en de zee van Poseidon, de god die hij blind maakte in de figuur van diens zoon. Het epos vertelt de laatste etappe van die thuisreis, met de beroemde zwerftochten als verhaal in het verhaal.</p><p>Waar de <i>Ilias</i> kracht en roem bezingt, zet de <i>Odyssee</i> in op list, geduld en herkenning: de koning die zijn eigen huis als bedelaar moet binnenkomen om het terug te winnen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>epos</li><li>thuiskomst</li><li>list</li><li>gastvrijheid</li><li>Griekse oudheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="530"><a href="530.html">Ilias</a>. Het oorlogsepos dat aan deze thuisreis voorafgaat, met dezelfde verteltechniek en een tegengestelde moraal.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbells heldenreis is grotendeels op dit soort verhalen gebouwd: vertrek, beproevingen, terugkeer.</li>
+          <li value="8"><a href="08.html">De alchemist</a>. Een moderne fabel over een lange omweg die de reiziger uiteindelijk thuisbrengt bij wat er al was.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decisive &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Betere beslissingen komen volgens de Heaths niet van meer analyse of meer wilskracht, ze komen van een beter proces. Vier vijanden ondermijnen vrijwel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-510">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">510 &middot; Gewoontes en denken</p>
+    <h1>Decisive</h1>
+    <p class="lede">Chip Heath en Dan Heath, 2013</p>
+    <p class="stats">
+      <span><b>1645</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="510"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Betere beslissingen komen volgens de Heaths niet van meer analyse of meer wilskracht, ze komen van een beter proces. Vier vijanden ondermijnen vrijwel elke keuze: we kaderen te smal en zien maar één of twee opties, we zoeken informatie die bevestigt wat we al vinden, we laten de emotie van het moment zwaarder wegen dan onze eigen prioriteiten, en we zijn te zeker van onze voorspellingen over hoe het afloopt. Tegenover elke vijand zetten zij een stap van het WRAP-proces: verbreed je opties, toets je aannames aan de werkelijkheid, neem afstand voordat je beslist, en bereid je erop voor dat je ernaast zit. Wie die stappen doorloopt, beslist aantoonbaar beter dan wie vertrouwt op een lijstje voors en tegens.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vier vijanden en één proces</h3>
+      <p>Het boek opent met de vaststelling dat de gangbare methode, een afweging van voors en tegens, weerloos is tegen de manier waarop ons denken werkelijk werkt. De Heaths steunen daarbij op onderzoek van Paul Nutt, die 168 beslissingen in organisaties analyseerde en vond dat maar 29 procent van de teams meer dan één alternatief overwoog. Beslissingen die als wel-of-niet-vraag waren gekaderd, mislukten op termijn in 52 procent van de gevallen, tegen 32 procent van de beslissingen met meer alternatieven.</p>
+      <p>Daarnaast halen zij onderzoek aan van Dan Lovallo en Olivier Sibony onder ruim duizend zakelijke beslissingen: de kwaliteit van het gevolgde proces verklaarde het resultaat zes keer beter dan de kwaliteit van de analyse. Dat is de kern van het boek: niet slimmer analyseren, anders te werk gaan.</p>
+      <h3>W: verbreed je opties</h3>
+      <p>De eerste vijand is het smalle kader. Het waarschuwingssignaal is de formulering wel of niet: wie zichzelf hoort vragen of hij iets moet doen, overweegt meestal maar één optie. Als schrikbeeld dient Quaker-topman William Smithburg, die Snapple in 1994 voor 1,8 miljard dollar kocht zonder serieuze alternatieven te wegen; drie jaar later werd het merk voor ongeveer 300 miljoen verkocht. Als tegengif noemen de Heaths de verdwijntest: stel dat de huidige opties niet bestonden, wat zou je dan doen? Er blijkt vrijwel altijd meer mogelijk.</p>
+      <p>Een tweede techniek is multitracking: meerdere opties tegelijk uitwerken in plaats van na elkaar. Naamgevingsbureau Lexicon, bedenker van namen als Pentium, Swiffer en BlackBerry, laat verschillende teams parallel aan dezelfde opdracht werken, deels zonder dat die teams de echte klant kennen. En wie geen opties meer ziet, kan kijken naar wie hetzelfde probleem al eens oploste, van concurrenten tot de eigen lichtpuntjes: momenten waarop het wel lukte. Hoe zwaar het smalle kader weegt, blijkt uit een experiment dat de Heaths aanhalen: van proefpersonen die een dvd voor 14,99 dollar konden kopen deed 75 procent dat, maar zodra de tweede optie werd omschreven als het geld bewaren voor andere aankopen, zakte dat naar 55 procent.</p>
+      <h3>R: toets je aannames aan de werkelijkheid</h3>
+      <p>De tweede vijand is de neiging om informatie te verzamelen die bevestigt wat we al hopen of vinden. Het tegengif is het bewust organiseren van tegenspraak: stel vragen waarvan het antwoord pijn kan doen, laat iemand de rol van advocaat van de duivel spelen, en vraag bij elke expert door naar feiten in plaats van voorspellingen. De Heaths halen onderzoek aan waaruit blijkt dat artsen die volkomen zeker waren van hun diagnose er in 40 procent van de gevallen naast zaten.</p>
+      <p>Twee kijkrichtingen helpen daarbij. Uitzoomen betekent de buitenkant nemen: de basisgetallen van iedereen die dit eerder deed, in plaats van het eigen verhaal. Inzoomen betekent zelf gaan kijken op de plek waar het gebeurt, omdat samenvattingen van anderen gekleurd zijn. En wie het echt wil weten, oocht: een kleine proef nemen voordat hij springt, zoals eerst meelopen in een beroep voordat je er een opleiding voor kiest, of zoals leidinggevenden die twee leveranciers een proefopdracht geven in plaats van te kiezen op de presentatie.</p>
+      <h3>A: neem afstand voordat je beslist</h3>
+      <p>De derde vijand is de emotie van het moment: angst, gewenning en verliesaversie trekken naar de status quo, opwinding trekt naar de sprong. Het bekendste gereedschap is 10/10/10 van Suzy Welch: hoe kijk ik hier over tien minuten, tien maanden en tien jaar op terug? Eenvoudiger nog is de vraag wat je je beste vriend zou aanraden in dezelfde situatie; het antwoord is er meestal meteen, en het is meestal verstandiger dan wat je zelf van plan was.</p>
+      <p>Afstand nemen kan ook organisatorisch. Andy Grove worstelde in 1985 met de vraag of Intel moest stoppen met geheugenchips en stelde zijn medeoprichter Gordon Moore de vraag wat een nieuwe topman zou doen als de raad van commissarissen hen zou vervangen. Het antwoord was duidelijk: eruit stappen. Dus deden ze dat zelf, en Intel richtte zich op processors. Als de afstand er eenmaal is, blijft de moeilijkste vraag over: wat vind ik hier zelf werkelijk belangrijk? Beslissingen die tegen elkaar in lijken te gaan, zijn vaak botsingen tussen prioriteiten die nooit zijn uitgesproken.</p>
+      <h3>P: bereid je voor op ongelijk</h3>
+      <p>De vierde vijand is overmoed over de toekomst. In plaats van één voorspelling adviseren de Heaths een boekensteun: werk zowel het scenario uit waarin het tegenvalt als het scenario waarin het meevalt, en tref voor beide maatregelen. Voor de onderkant dient de premortem van Gary Klein: neem aan dat het project over een jaar mislukt is en schrijf op waarom. Voor de bovenkant de preparade: neem aan dat het een doorslaand succes wordt en vraag of je dat aankunt.</p>
+      <p>Omdat mensen zelden terugkomen op een eenmaal genomen besluit, bepleiten zij struikeldraden: vooraf afgesproken signalen die een heroverweging afdwingen, zoals een datum, een bedrag of een concreet feit. Het lichtste voorbeeld komt van David Lee Roth van Van Halen, die in het tourcontract liet opnemen dat er backstage een schaal M&amp;M's moest staan zonder bruine exemplaren: lagen die er toch, dan was het contract niet gelezen en moest de hele techniek worden nagelopen. De draad kostte niets en signaleerde precies wanneer opletten nodig was.</p>
+      <h3>Vertrouwen in het proces</h3>
+      <p>Het slot verlegt de aandacht van de enkele beslissing naar de manier van beslissen. Een goed proces maakt niet elke uitkomst goed, het maakt de kansen beter en het maakt beslissingen uitlegbaar: teams die zien dat opties serieus zijn verkend en tegenspraak is georganiseerd, aanvaarden ook uitkomsten waar ze het niet mee eens waren. WRAP is nadrukkelijk een geheugensteun, geen dogma; de Heaths raden aan de stappen te gebruiken op de momenten dat er werkelijk iets te kiezen valt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De vier vijanden</td><td>Smal kaderen, bevestiging zoeken, korte-termijnemotie en overmoed: de vier terugkerende oorzaken van slechte beslissingen.</td></tr>
+          <tr><td class="term">WRAP</td><td>Het vierstappenproces: Widen your options, Reality-test your assumptions, Attain distance, Prepare to be wrong.</td></tr>
+          <tr><td class="term">Verdwijntest (vanishing options test)</td><td>De denkoefening waarin de huidige opties verdwenen zijn, zodat zichtbaar wordt welke alternatieven er nog meer bestaan.</td></tr>
+          <tr><td class="term">Multitracking</td><td>Meerdere opties tegelijk uitwerken in plaats van één optie per keer beoordelen.</td></tr>
+          <tr><td class="term">Oochen (ooching)</td><td>Een kleine, omkeerbare proef nemen om een aanname te toetsen voordat de grote stap wordt gezet.</td></tr>
+          <tr><td class="term">10/10/10</td><td>De vraag van Suzy Welch hoe je over tien minuten, tien maanden en tien jaar op de beslissing terugkijkt.</td></tr>
+          <tr><td class="term">Premortem</td><td>De oefening van Gary Klein waarin een team aanneemt dat het plan mislukt is en vooraf opschrijft waarom.</td></tr>
+          <tr><td class="term">Boekensteun (bookending)</td><td>Het uitwerken van zowel het slechtste als het beste plausibele scenario, met maatregelen voor beide uiteinden.</td></tr>
+          <tr><td class="term">Struikeldraad (tripwire)</td><td>Een vooraf afgesproken signaal, zoals een datum of bedrag, dat automatisch een heroverweging afdwingt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek leunt op een brede laag gepubliceerd onderzoek: de beslissingsstudies van Paul Nutt, het proces-boven-analyse-onderzoek van Lovallo en Sibony, werk van Kahneman en collega's over kaders en overmoed, en tientallen experimenten zoals de dvd-proef over verdwenen opties. De belangrijkste cijfers worden met bron genoemd, en de kernclaim, dat proces zwaarder weegt dan analyse, is in elk geval voor zakelijke beslissingen empirisch onderbouwd.</p>
+      <p>Daarnaast drijft het boek op casuïstiek, en die is achteraf geselecteerd: Smithburg, Grove en Van Halen illustreren het punt maar bewijzen het niet, want mislukte breed gekaderde beslissingen en geslaagde impulsieve beslissingen halen zulke boeken zelden. Het onderzoek stamt bovendien grotendeels uit de sociale psychologie van vóór de replicatiecrisis; de grote lijnen (smal kaderen, bevestigingszucht, overmoed) staan stevig overeind, maar afzonderlijke experimenten verdienen voorzichtigheid.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het eerlijkste bezwaar is dat WRAP bestaande inzichten herverpakt. Wie Kahneman, Klein en de literatuur over keuzearchitectuur kent, vindt hier weinig nieuws; de verdienste van de Heaths is de ordening en de aanstekelijke presentatie, en dat is ook meteen de begrenzing. Het boek is sterker in het onthouden van de stappen dan in het moeilijkste deel van beslissen: weten wanneer een beslissing belangrijk genoeg is om het hele proces op los te laten.</p>
+      <p>Verder gaat het boek stilzwijgend uit van een beslisser met tijd, informatie en zeggenschap. Over beslissen onder tijdsdruk, met onvolledige informatie of binnen machtsverhoudingen waarin de uitkomst al vastligt voordat het proces begint, zegt het weinig. En de raad om opties te verbreden en aannames te toetsen kan in de praktijk ontaarden in uitstel: het boek erkent dat risico wel, maar geeft er geen tegenwicht aan dat even concreet is als de technieken zelf.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Betrap jezelf op elke wel-of-niet-formulering en dwing minstens één extra echte optie af voordat je kiest.</li>
+        <li>Pas de verdwijntest toe: schrap denkbeeldig alle huidige opties en schrijf op wat je dan zou doen.</li>
+        <li>Toets de grootste aanname achter je keuze met een kleine, omkeerbare proef voordat je definitief springt.</li>
+        <li>Gebruik bij geladen keuzes 10/10/10 of de vraag wat je je beste vriend zou aanraden.</li>
+        <li>Spreek bij elke grote beslissing vooraf een struikeldraad af: een datum of drempelwaarde waarop je verplicht heroverweegt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Deze samenvatting volgt de oorspronkelijke Amerikaanse uitgave, <i>Decisive: How to Make Better Choices in Life and Work</i> (Crown Business, New York, 2013, ISBN 9780307956392). Er bestaat een Nederlandse vertaling van Aad Markenstein onder de titel <i>Beslist: maak betere keuzes in leven en werk</i> (Lev., 2013, ISBN 9789400501935).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De broers Heath, bekend van <i>Made to Stick</i> en <i>Switch</i>, richten zich hier op de vraag waarom verstandige mensen slechte beslissingen nemen en wat daaraan te doen valt. Hun antwoord: vier terugkerende vijanden (te smal kijken, bevestiging zoeken, korte-termijnemotie en overmoed) en een proces van vier stappen, WRAP, dat die vijanden stuk voor stuk tegenwerkt.</p><p>Het boek staat vol onderzoek en casuïstiek, van de mislukte Snapple-overname door Quaker tot de bruine M&amp;M's van Van Halen, en is bedoeld als praktische tegenhanger van beschrijvende boeken over denkfouten: geen catalogus van wat er misgaat, wel een werkwijze.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>besluitvorming</li><li>denkfouten</li><li>gedragswetenschap</li><li>keuzes</li><li>WRAP</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Het grondwerk over de denkfouten waar de vier vijanden op teruggaan, van dezelfde onderzoekstraditie maar beschrijvend in plaats van voorschrijvend.</li>
+          <li value="69"><a href="69.html">Ruis</a>. Kijkt naar de andere foutenbron bij oordelen, willekeurige ruis, en vult daarmee aan wat dit boek over systematische vertekening zegt.</li>
+          <li value="396"><a href="396.html">Clear Thinking</a>. Een recenter praktijkboek over beter oordelen dat net als de Heaths inzet op vaste regels en afstand nemen op het beslismoment.</li>
+          <li value="514"><a href="514.html">The Undoing Project</a>. Het verhaal van Kahneman en Tversky, de onderzoekers wier werk het fundament onder dit soort beslisboeken legde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Education of Cyrus &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Cyropaedie stelt dat heersen over mensen geen kwestie is van dwang maar een aan te leren kunde: mensen gehoorzamen vrijwillig aan wie aantoonbaar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-536">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">536 &middot; Geschiedenis en samenleving</p>
+    <h1>The Education of Cyrus</h1>
+    <p class="lede">Xenophon, ca. 370 v.Chr.</p>
+    <p class="stats">
+      <span><b>1540</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="536"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De <i>Cyropaedie</i> stelt dat heersen over mensen geen kwestie is van dwang maar een aan te leren kunde: mensen gehoorzamen vrijwillig aan wie aantoonbaar bekwamer is dan zijzelf, meer zelfbeheersing toont, harder werkt en royaler beloont dan wie ook. Xenophon bouwt die these op als levensverhaal van Cyrus de Grote, van diens opvoeding tot diens sterfbed, en laat elke verovering rusten op weldaden, voorbeeldgedrag en welbegrepen eigenbelang van de overwonnenen. Het slothoofdstuk keert de these om: direct na Cyrus' dood verrot het rijk, want een orde die op één voortreffelijk mens rust, sterft met die mens mee.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag en de vorm</h3>
+      <p>Het openingshoofdstuk stelt het probleem: overal ter wereld vallen regimes, geen dier is zo weerspannig tegen zijn bestuurders als de mens. Toch heerste Cyrus over talloze volken die hem vrijwillig gehoorzaamden, en dus, concludeert Xenophon, is regeren geen onmogelijke maar een kundig uit te oefenen taak, mits met verstand bedreven. De rest van het werk zoekt uit welke afkomst, opvoeding en aard dat mogelijk maakten.</p>
+      <p>De vorm is welbewust geen geschiedschrijving. Xenophon romantiseert vrijelijk: zijn Cyrus sterft vredig in bed, terwijl Herodotus hem laat sneuvelen tegen de Massageten, en personages als de Medische koning Cyaxares zijn buiten dit boek onbekend. De oudheid las het werk dan ook als ideaalbeeld; Cicero schreef al dat Xenophon zijn Cyrus niet naar historische trouw tekende maar als toonbeeld van rechtvaardig gezag.</p>
+      <h3>Opvoeding in Persis</h3>
+      <p>Cyrus groeit op in het sobere Perzische opvoedingsstelsel, waar jongens op publieke pleinen rechtvaardigheid leren zoals elders letters. Een leerstuk in het klein is de anekdote van de twee mantels: de jonge Cyrus wijst een grote jongen met een kleine mantel de grote mantel van een kleine jongen toe, omdat die beter past, en krijgt slaag; het oordeel had niet over passendheid maar over eigendom moeten gaan. Recht is wat de wet toekent, niet wat de heerser beter uitkomt, en dat de latere alleenheerser juist deze les moest leren, geeft te denken.</p>
+      <p>Als jongen verblijft Cyrus aan het weelderige Medische hof van zijn grootvader Astyages. Xenophon zet de twee werelden tegenover elkaar: Perzische soberheid vormt het karakter, Medische pracht leert hem hoe verleiding en vertoon werken. Beide lessen gebruikt hij later.</p>
+      <h3>De veldtocht: gezag verwerven</h3>
+      <p>Als veldheer onder zijn oom Cyaxares bouwt Cyrus zijn macht op met steeds dezelfde middelen. Hij stelt beloning open voor verdienste en doorbreekt zo het voorrecht van de adellijke homotimoi: de gewone soldaat die uitblinkt, deelt voortaan gelijk in eer en buit. Hij eet wat zijn mannen eten, werkt harder dan iedereen en verdeelt de buit royaler dan wie ook; zijn tafel en zijn geschenken binden officieren en bondgenoten persoonlijk aan hem.</p>
+      <p>Overwonnen en ontevreden vijanden maakt hij tot vrienden: de Assyrische groten Gobryas en Gadatas, door hun eigen koning gekrenkt, lopen met have en vestingen naar hem over. De oorlog eindigt met de inname van Babylon, in het verhaal doordat Cyrus de Eufraat laat omleiden en de stad tijdens een feestnacht langs de drooggevallen bedding binnentrekt, en met de gevangen Lydische koning Croesus als raadgever aan zijn zijde.</p>
+      <h3>Panthea en Abradatas</h3>
+      <p>Door de veldtocht heen vlecht Xenophon de geschiedenis van Panthea, de mooiste vrouw van Azië, als krijgsgevangene onder Cyrus' bescherming gesteld. Cyrus weigert haar zelfs te bezoeken om niet in verleiding te komen; zijn vriend Araspas, die pocht dat liefde een kwestie van wil is, valt wél voor haar en moet zijn les leren. Uit dankbaarheid voor de eerbiedige behandeling kiest Panthea's echtgenoot Abradatas de kant van Cyrus en sneuvelt in de beslissende slag; Panthea doodt zichzelf op zijn lichaam. Deze novelle in het groot geldt als een van de vroegste romaneske liefdesgeschiedenissen van de Griekse literatuur, en zij toont de prijs van Cyrus' zachtmoedige veroveringspolitiek: ook vrijwillige trouw kost levens.</p>
+      <h3>Heersen over een rijk</h3>
+      <p>Na de val van Babylon verschuift het boek van veroveren naar besturen. Cyrus richt een hofhouding en rijksbestuur in: eunuchen als lijfwacht omdat zij geen eigen dynastieke belangen hebben, satrapen naar het voorbeeld van zijn eigen hofpraktijk, en een net van vertrouwensmensen dat bekendstaat als de ogen en oren van de koning. Weldadigheid wordt bestuurstechniek: hij geeft geschenken, geneesheren en tafelgunsten en houdt zo de groten in een wedloop om zijn gunst.</p>
+      <p>Ook het uiterlijk vertoon is berekend: Cyrus neemt de Medische dracht aan, plateauzolen en oogschaduw incluis, omdat wie heerst er in de ogen van de beheersten betoverend uit moet zien. Xenophon noteert het zonder afkeuring, maar wie de sobere Perzische opvoeding uit boek één nog in gedachten heeft, ziet de spanning: het volmaakte gezag is hier ook een volmaakt toneelstuk. Op zijn sterfbed houdt Cyrus een rede over de ziel en verdeelt hij het rijk tussen zijn zonen.</p>
+      <h3>Het slothoofdstuk als ontnuchtering</h3>
+      <p>Het laatste hoofdstuk breekt met alles ervoor: onmiddellijk na Cyrus' dood, schrijft Xenophon, vervielen de Perzen tot trouweloosheid, weelde en zwakte, tot op zijn eigen dag toe. Over de echtheid van dit slot is lang getwist, maar het staat in de hele overlevering en de meeste hedendaagse uitleggers houden het voor opzet. Daarmee verandert het boek van karakter: het ideale leiderschap dat acht boeken lang is opgebouwd, blijkt geen instelling na te laten die zonder de ideale leider kan. Wie het werk als handboek leest, krijgt in de laatste bladzijden de rekening gepresenteerd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">paideia</td><td>Opvoeding en vorming; het titelwoord, door Xenophon breed opgevat als alles wat karakter en kunde van de latere heerser vormde.</td></tr>
+          <tr><td class="term">vrijwillige gehoorzaamheid</td><td>De kern van Cyrus' heerschappij: onderdanen volgen hem uit overtuiging en eigenbelang, niet uit dwang.</td></tr>
+          <tr><td class="term">homotimoi</td><td>De gelijkgeëerden, de Perzische adelsklasse met alleenrecht op eer, dat Cyrus openbreekt door verdienste te belonen ongeacht afkomst.</td></tr>
+          <tr><td class="term">philanthropia</td><td>Mensenliefde, door Xenophon naast leergierigheid en eerzucht genoemd als grondtrek van Cyrus' natuur.</td></tr>
+          <tr><td class="term">satraap</td><td>Stadhouder van een rijksdeel, door Cyrus ingesteld naar het model van zijn eigen hof en gebonden aan jaarlijkse controle.</td></tr>
+          <tr><td class="term">de ogen en oren van de koning</td><td>Het net van vertrouwenslieden dat de koning overal laat horen en zien wat er speelt, beloond naar wat zij melden.</td></tr>
+          <tr><td class="term">de Medische dracht</td><td>Het weelderige hofkostuum dat Cyrus aanneemt omdat gezag ook vertoon vraagt: heersen als schouwspel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Als bron over de historische Cyrus is het boek vrijwel waardeloos, en dat is met opzet. Waar het te toetsen valt, aan Herodotus, aan Babylonische bronnen als de Cyruscilinder, wijkt Xenophon af of versimpelt hij; zijn Cyaxares II komt buiten dit werk niet voor. Zijn gezag ligt elders: Xenophon kende het Perzische rijk uit de eerste hand als huurlingenaanvoerder in dienst van Cyrus de Jongere, de veldtocht die hij in de <i>Anabasis</i> beschreef, en hij was als leerling van Socrates geschoold in de vraag wat goed leiderschap is. Het boek is dus een gedachte-experiment van een deskundige, geen verslag.</p>
+      <p>De doorwerking is zelf een gegeven: volgens Cicero had Scipio het werk altijd bij zich, Machiavelli verwijst er in <i>Il Principe</i> en de <i>Discorsi</i> herhaaldelijk naar, en tot in hedendaagse managementliteratuur wordt Cyrus als leiderschapsvoorbeeld opgevoerd. Dat bewijst niets over de juistheid van Xenophons these, wel dat generaties machthebbers haar bruikbaar vonden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek idealiseert een alleenheerser en een veroveringsrijk zonder die ooit principieel te bevragen. Slavernij, deportatie en de eunuchenlijfwacht passeren als bestuurstechniek; de vraag of de beheerste volken iets te zeggen zouden moeten hebben, komt niet op. Modern gelezen is de vrijwillige gehoorzaamheid bovendien vaak welbegrepen manipulatie: Cyrus' gulheid, tafelpolitiek en vertoon zijn instrumenten om mensen afhankelijk te maken, en Xenophon beschrijft dat met kennelijke instemming. Een aanzienlijke stroming in het onderzoek, in het spoor van Leo Strauss, leest het werk daarom ironisch, als verkapte kritiek op het imperium dat het lijkt aan te prijzen; de tekst laat beide lezingen toe en beslist zelf niet.</p>
+      <p>Over datering en tekst bestaat de gebruikelijke onzekerheid van een antiek werk: geschreven vermoedelijk in Xenophons laatste decennia, rond 370-360 v.Chr., overgeleverd via middeleeuwse handschriften, met als grootste twistpunt de echtheid van het sombere slothoofdstuk. Wie het boek citeert, moet weten dat juist de passage die de hele strekking kantelt de meest omstreden passage is.</p>
+      <p>Ten slotte vlakt de moderne leiderschapsreceptie het boek af tot succesrecept. De spanningen die Xenophon inbouwt, tussen wet en doelmatigheid in de mantelles, tussen soberheid en toneel in de Medische dracht, tussen het volmaakte rijk en zijn onmiddellijke verval, verdwijnen in bloemlezingen die alleen de gulheid en het voorbeeldgedrag overhouden. Het boek is scherper dan zijn samenvattingen, deze incluis.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Toets gezag aan Xenophons maatstaf: wie leiding geeft, moet aantoonbaar meer kunnen, harder werken en meer zelfbeheersing tonen dan degenen die volgen; titel alleen telt niet.</li>
+        <li>Gebruik de mantelles bij elke beslissing waarin de doelmatige uitkomst en de afgesproken regel botsen: wie naar passendheid oordeelt waar eigendom geldt, ondermijnt het vertrouwen dat hem zijn oordeel gaf.</li>
+        <li>Reken weldadigheid tot het werk: erkenning, aandacht en gedeelde buit binden mensen sterker dan dwang, maar houd de grens met afhankelijk maken in het oog.</li>
+        <li>Leg het slothoofdstuk naast de eigen organisatie: wat blijft er staan als de sterke figuur wegvalt, en wat is er geregeld in plaats van belichaamd?</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De <i>Cyropaedie</i> (Grieks: Kyrou paideia, de opvoeding van Cyrus) is een prozawerk in acht boeken, geschreven omstreeks 370-360 v.Chr. Deze samenvatting volgt de Engelse vertaling van Wayne Ambler, <i>The Education of Cyrus</i> (Cornell University Press, reeks Agora Editions, 2001, ISBN 9780801487507), met inleiding en aantekeningen; de oudere vertaling van Walter Miller in de Loeb Classical Library (1914) is nog altijd in omloop. Er bestaat een recente Nederlandse vertaling: Xenophon, <i>Cyrus de Grote. Een studie in leiderschap (de Cyropedie)</i>, vertaald en ingeleid door Marianne van der Weiden (Ta Grammata, Groningen, 2022, 312 blz.). Vertalingen verschillen in titelkeuze en in hoe letterlijk zij Xenophons eenvoudige stijl volgen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Xenophon, Athener, leerling van Socrates en zelf veldheer, opent met de vaststelling dat mensen het moeilijkst te regeren wezen zijn dat er bestaat: kuddes gehoorzamen hun herder, burgers komen tegen elke heerser in opstand. Eén man vormt de uitzondering: Cyrus de Grote, stichter van het Perzische rijk, die miljoenen mensen van allerlei volken vrijwillig deed gehoorzamen. Hoe dat kon, onderzoekt dit boek in de vorm van een geromantiseerd levensverhaal.</p><p>Het resultaat is het oudste leiderschapsboek van de westerse literatuur en tegelijk zoiets als de eerste roman: opvoedingsverhaal, veldtochtenepos, liefdesgeschiedenis en staatkundig traktaat ineen. Van Scipio via Machiavelli tot moderne managementauteurs is het gelezen als spiegel voor wie leiding geeft, al verstopt Xenophon in zijn slothoofdstuk een waarschuwing die veel van die lezers overslaan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leiderschap</li><li>Perzië</li><li>oudheid</li><li>vorstenspiegel</li><li>Cyrus de Grote</li><li>Griekse literatuur</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="537"><a href="537.html">Plutarch's Lives</a>. Plutarchus doet met historische levens wat Xenophon met een geromantiseerd leven doet: karakter tonen als leerstof.</li>
+          <li value="529"><a href="529.html">Gates of Fire</a>. Een roman over het Sparta van Thermopylae, de Griekse tegenwereld van discipline waaraan Xenophons Persis verwant is.</li>
+          <li value="272"><a href="272.html">The Art of War</a>. Het Chinese tegenstuk over oorlog winnen met minimale strijd, even berekenend maar zonder ideale heerser.</li>
+          <li value="218"><a href="218.html">Napoleon's Maxims of War</a>. Leiderschapslessen van een werkelijke veroveraar, aforistisch waar Xenophon verhalend is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

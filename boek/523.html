@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I Write What I Like &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Biko stelt dat de apartheid niet alleen met wetten en geweld werkt maar vooral via de geest van wie eronder leeft: de zwarte Zuid-Afrikaan is aangeleerd…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-523">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">523 &middot; Geschiedenis en samenleving</p>
+    <h1>I Write What I Like</h1>
+    <p class="lede">Steve Biko, 1978</p>
+    <p class="stats">
+      <span><b>1389</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="523"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Biko stelt dat de apartheid niet alleen met wetten en geweld werkt maar vooral via de geest van wie eronder leeft: de zwarte Zuid-Afrikaan is aangeleerd zichzelf door witte ogen te zien en zijn eigen minderwaardigheid voor waar te houden. Daarom gaat psychologische bevrijding aan politieke bevrijding vooraf. Zwart Bewustzijn betekent dat zwarte mensen zichzelf definiëren, hun eigen organisaties leiden en hun geschiedenis en cultuur herwaarderen, zonder voogdij van welwillende witte liberalen, want wie de bevrijding van een ander regisseert, houdt de verhouding in stand die bevrijding nodig maakte.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat er in de bundel zit</h3>
+      <p>Het boek verzamelt teksten uit de jaren 1969-1977: de columns die Biko onder het pseudoniem Frank Talk in het blad van de studentenorganisatie SASO schreef, toespraken en discussiestukken, brieven, een deel van zijn verklaringen als getuige in het proces tegen negen SASO-leiders in 1976, en een afsluitend persoonlijk portret door samensteller Aelred Stubbs. Het zijn gelegenheidsteksten, geschreven voor een beweging in opbouw, niet voor de boekenkast.</p>
+      <p>Biko, geboren in 1946 in King William's Town, brak zijn medicijnenstudie af toen het activisme zijn leven overnam. In 1968-1969 leidde hij de afsplitsing van zwarte studenten uit de multiraciale studentenvakbond en de oprichting van SASO; in maart 1973 legde het regime hem een banningsbevel op dat hem tot zijn geboortestreek beperkte en publiceren verbood. De bundel is dus ook het archief van een stem die maar een paar jaar in het openbaar heeft mogen klinken.</p>
+      <h3>Zwart Bewustzijn</h3>
+      <p>De kernteksten definiëren Zwart Bewustzijn als een houding, geen huidskleur: zwart is ieder die op grond van zijn kleur wordt achtergesteld en zich tegen die achterstelling keert, dus ook de door het regime als kleurling of Indiër geklasseerden. Tegenover de aangeleerde zelfverachting zet Biko herwaardering: van Afrikaanse geschiedenis, van gemeenschapscultuur, van religie op eigen voorwaarden. De leus was: zwarte man, je staat er alleen voor.</p>
+      <p>Het beroemdste zinnetje van de bundel vat de analyse samen: het machtigste wapen in handen van de onderdrukker is de geest van de onderdrukte. Bevrijding begint daarom bij het binnenste; wie zich innerlijk vrijvecht, kan daarna pas politiek iets afdwingen.</p>
+      <h3>De afrekening met de witte liberaal</h3>
+      <p>Het essay Black Souls in White Skins? richt zich niet op de openlijke racist maar op de witte tegenstander van apartheid die de leiding van het protest opeist. Integratie op de voorwaarden van de witte liberaal noemt Biko een valse vrede: zij geeft de witte deelnemer een schoon geweten en laat de machtsverhouding intact. Witte bondgenoten moeten volgens hem hun eigen gemeenschap bewerken, waar het racisme vandaan komt, en de zwarte beweging aan zwarte leiding laten.</p>
+      <p>Die stellingname brak met de non-raciale lijn van de oudere bevrijdingsbeweging en leverde Biko het verwijt van omgekeerd racisme op. Zijn antwoord staat in de bundel: wie de uitgeslotenen verwijt dat ze zich eerst als groep organiseren, verwart het middel met het doel; het einddoel blijft een land waarin kleur er niet toe doet.</p>
+      <h3>Cultuur, kerk, angst en Bantoestans</h3>
+      <p>De overige essays passen de analyse toe. Some African Cultural Concepts verdedigt een op de mens gerichte Afrikaanse cultuur tegenover de op winst gerichte westerse. De stukken over de kerk vallen het missiechristendom aan dat gehoorzaamheid preekte, en bepleiten een zwarte theologie die God aan de kant van de onderdrukten plaatst. Het essay over angst ontleedt hoe het regime met wetten en razzia's een heel volk bang hield, en hoe angst de eigenlijke pijler van het systeem was.</p>
+      <p>Let's Talk about Bantustans rekent af met de thuislandenpolitiek: de schijnstaten waren volgens Biko geen stap naar zelfbestuur maar een middel om zwarte Zuid-Afrikanen hun burgerschap te ontnemen en hun leiders in te kapselen. Wie binnen het systeem meespeelde, verleende het legitimiteit.</p>
+      <h3>Proces, dood en doorwerking</h3>
+      <p>In 1976 getuigde Biko dagenlang in het proces tegen de SASO-leiding; de verhoren, deels in de bundel opgenomen, laten hem op zijn best zien: kalm, precies, en in staat de rechter uit te leggen wat Zwart Bewustzijn wel en niet is. In een interview uit zijn laatste jaar zegt hij over de doodsdreiging dat je ofwel levend en trots bent, ofwel dood, en dat wie voor de trots kiest de dood als drukmiddel waardeloos maakt.</p>
+      <p>Op 18 augustus 1977 werd hij aangehouden; op 12 september stierf hij aan hersenletsel, naakt en geboeid over twaalfhonderd kilometer naar een gevangenisziekenhuis in Pretoria vervoerd. De minister van politie zei dat zijn dood hem koud liet; het gerechtelijk vooronderzoek wees niemand als schuldige aan. Pas bij de Waarheids- en Verzoeningscommissie in 1997 gaven vijf oud-agenten hun betrokkenheid toe; amnestie kregen ze niet. De bundel verscheen een jaar na zijn dood en maakte zijn denken wereldwijd bekend.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zwart Bewustzijn</td><td>De houding waarin zwarte mensen zichzelf definiëren, hun zelfverachting afleggen en hun bevrijding in eigen hand nemen.</td></tr>
+          <tr><td class="term">Frank Talk</td><td>Het pseudoniem waaronder Biko zijn columns in het SASO-blad schreef, onder de kop I Write What I Like.</td></tr>
+          <tr><td class="term">SASO</td><td>De South African Students' Organisation, de zwarte studentenorganisatie die Biko in 1968-1969 mede oprichtte en als eerste voorzat.</td></tr>
+          <tr><td class="term">De witte liberaal</td><td>Biko's aanduiding voor de witte tegenstander van apartheid die de leiding van het zwarte protest opeist en zo de voogdij voortzet.</td></tr>
+          <tr><td class="term">Banningsbevel</td><td>Bestuurlijke maatregel waarmee het regime iemand zonder proces aan huis, streek en zwijgplicht bond, Biko trof dit vanaf 1973.</td></tr>
+          <tr><td class="term">Bantoestan</td><td>Door het regime opgezet thuisland dat zwarte Zuid-Afrikanen hun burgerschap moest ontnemen onder de schijn van zelfbestuur.</td></tr>
+          <tr><td class="term">Zwarte theologie</td><td>Lezing van het christendom die God aan de kant van de onderdrukten plaatst, tegenover het missiechristendom van de gehoorzaamheid.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een bronnenboek, geen studie: de essays onderbouwen hun analyse retorisch en uit eigen waarneming, zonder cijfers of verwijzingen, en zo moeten ze ook gelezen worden. Hun waarde is documentair, als primaire bron voor het denken van de Zwart Bewustzijn-beweging, en die waarde is groot omdat vrijwel alles van Biko's hand hier bijeenstaat.</p>
+      <p>De feitelijke omlijsting is intussen goed gedocumenteerd: het verloop van Biko's banning, aanhouding en dood is vastgelegd in het gerechtelijk vooronderzoek van 1977 en de verhoren van de Waarheids- en Verzoeningscommissie in 1997, en de geschiedenis van SASO en de beweging is in de vakliteratuur ruim beschreven. Wat de bundel beweert over de werking van apartheid op het zelfbeeld vindt bevestiging in wat er sindsdien over verinnerlijkte onderdrukking is geschreven, al formuleerde Biko het als activist en niet als onderzoeker.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De bundel is een verzameling gelegenheidsteksten en dat is te merken: argumenten keren in meerdere stukken vrijwel woordelijk terug, de kwaliteit wisselt en een doorlopende, uitgewerkte theorie ontbreekt. Wie een systematische filosofie van Zwart Bewustzijn zoekt, moet haar zelf uit de stukken samenstellen, en Biko stierf voordat hij kon laten zien hoe zijn denken zich tot een strategie voor machtsovername verhield.</p>
+      <p>Inhoudelijk kreeg de beweging kritiek van twee kanten. De non-raciale traditie van het ANC verweet haar dat organiseren op kleur, hoe begrijpelijk ook, het denkraam van de apartheid overneemt; marxistische critici vonden dat de nadruk op bewustzijn de economische machtsvraag ontweek. Biko's antwoorden staan in de bundel, maar het debat is nooit beslecht, en het Zuid-Afrika van na 1994 is langs de non-raciale lijn ingericht, niet langs de zijne.</p>
+      <p>Opvallend afwezig zijn vrouwen: Biko schrijft consequent over de zwarte man, en de beweging waarvan dit boek het archief is, gaf vrouwen nauwelijks een plek in de leiding. Latere lezers wijzen daarnaast op de ironie dat dit manifest van zwarte zelfdefinitie is samengesteld, ingeleid en van een slotportret voorzien door een witte Engelse geestelijke, hoe toegewijd Stubbs ook was.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een achterstelling in je eigen omgeving na welk deel van het probleem in regels zit en welk deel in wat de betrokkenen over zichzelf zijn gaan geloven.</li>
+        <li>Toets je eigen rol als bondgenoot met Biko's maatstaf: help je op voorwaarden van de groep zelf, of neem je de regie over omdat je dat beter uitkomt.</li>
+        <li>Lees één column uit de bundel naast een hedendaags stuk over institutioneel racisme en noteer wat er in vijftig jaar wel en niet veranderd is aan het argument.</li>
+        <li>Wie na dit boek verder wil: lees de procesverklaringen van 1976 als voorbeeld van standhouden in een verhoor zonder de eigen positie te verloochenen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Postuum samengesteld door Biko's vriend, de anglicaanse priester-monnik Aelred Stubbs, en voor het eerst verschenen in 1978 bij Bowerdean Press in Londen, een jaar na Biko's dood in politiehechtenis. Sindsdien vele heruitgaven, onder meer in de African Writers Series van Heinemann (1987, 153 blz.) en bij Picador Africa (2009, 244 blz.); latere edities bevatten een voorwoord van Desmond Tutu. Deze samenvatting volgt de Picador Africa-editie. Een Nederlandse vertaling is in de catalogus van de Nederlandse openbare bibliotheken niet te vinden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Steve Biko, medisch student en oprichter van de zwarte studentenorganisatie SASO, schreef vanaf 1970 columns in het verenigingsblad onder het pseudoniem Frank Talk, onder de kop I Write What I Like. In 1973 werd hij door het apartheidsregime gebannen, in september 1977 stierf hij op dertigjarige leeftijd aan hersenletsel opgelopen in politiehechtenis. Deze postume bundel verzamelt zijn columns, toespraken, brieven en procesverklaringen.</p><p>De kern is de filosofie van Zwart Bewustzijn: het machtigste wapen van de onderdrukker is de geest van de onderdrukte, dus begint bevrijding met het afleggen van zelfverachting. Het boek werd verboden in Zuid-Afrika en is sindsdien een klassieker van het denken over bevrijding.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>apartheid</li><li>Zuid-Afrika</li><li>zwart bewustzijn</li><li>essays</li><li>verzet</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="26"><a href="26.html">Born a Crime</a>. Het Zuid-Afrika dat Biko beschrijft, een generatie later van binnenuit verteld door wie er als kind van een verboden huwelijk opgroeide.</li>
+          <li value="3"><a href="03.html">The Will to Change</a>. Ook hooks betoogt dat bevrijding begint bij het binnenwerk van wie het systeem draagt, hier toegepast op mannen en patriarchaat.</li>
+          <li value="521"><a href="521.html">Indigenous and Popular Thinking in América</a>. Dezelfde beweging op een ander continent: het eigen denken terugveroveren op een geïmporteerde maatstaf.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

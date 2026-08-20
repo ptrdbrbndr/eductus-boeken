@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pathless Path &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="The Pathless Path stelt dat de standaardloopbaan, het default path, een overgeleverd verhaal is dat mensen naspelen zonder het ooit bewust gekozen te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-515">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">515 &middot; Levenskunst</p>
+    <h1>The Pathless Path</h1>
+    <p class="lede">Paul Millerd, 2022</p>
+    <p class="stats">
+      <span><b>1431</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="515"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p><i>The Pathless Path</i> stelt dat de standaardloopbaan, het default path, een overgeleverd verhaal is dat mensen naspelen zonder het ooit bewust gekozen te hebben, en dat de beloningen ervan, prestige, zekerheid, vooruitgang, vooral bestaan in de blik van anderen. Millerd zet er een tweede verhaal naast: wie werk kiest op wat hem tot leven brengt, onzekerheid als vaste conditie aanvaardt en zijn leven in kleine experimenten vormgeeft, doet volgens hem het echte werk van zijn leven, uitzoeken wat hij hier te doen heeft. Dat pad is geen recept en levert geen gegarandeerd inkomen op; het boek beweert alleen dat het begaanbaar is en dat de angst ervoor grotendeels aangeleerd is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een modelloopbaan</h3>
+      <p>Millerd haalde een MBA aan MIT Sloan en werkte in de strategieconsultancy, onder meer bij McKinsey en Boston Consulting Group. Een gezondheidscrisis in zijn twintiger jaren ondermijnde zijn vertrouwen dat het leven zich laat plannen, maar hij bleef op het pad. Pas toen hij zichzelf in vergaderingen zag zitten als een bezoekende antropoloog, aanwezig maar losgekoppeld, erkende hij dat het script niet meer paste. In 2017 nam hij ontslag, zonder inkomen en zonder vervolgstap.</p>
+      <p>Het boek volgt die tweedeling ook in zijn opbouw: een eerste deel over het default path, van het vooruit willen komen op school en kantoor tot het langzame ontwaken, en een tweede deel over het pathless path, van succes herdefiniëren tot het lange spel spelen. De memoir en het betoog lopen daarbij voortdurend door elkaar.</p>
+      <h3>Het default path</h3>
+      <p>Het eerste deel ontleedt het verhaal dat hij volgde: goed presteren op school, een goede baan, promoties, een huis, en telkens een volgend vast punt aan de horizon. Millerd noemt die mijlpalen fixed points: zolang er een volgend punt is, hoeft niemand zich af te vragen waarom hij loopt. Prestige is in dat verhaal de sterkste magneet en volgens Millerd de gevaarlijkste, omdat zij mensen beloont voor het willen van wat anderen bewonderen.</p>
+      <p>Millerd wijst er daarbij op dat dit script historisch jong is: het hoort bij het industriële tijdperk en zijn vaste banen, terwijl de omstandigheden waarvoor het is geschreven, levenslange dienstverbanden en voorspelbare loopbanen, grotendeels verdwenen zijn. Het resultaat noemt hij pseudo-vrijheid: formeel vrij om te vertrekken, feitelijk niet in staat om af te wijken, omdat identiteit, inkomen en omgeving allemaal aan hetzelfde script hangen.</p>
+      <h3>Ontslag en ontwenning</h3>
+      <p>Het vertrek zelf blijkt het makkelijke deel. Daarna komt wat Millerd de eigenlijke overgang noemt: afkicken van productiviteit als maat voor eigenwaarde, leren dat rust geen diefstal is, en de angst voor schaarste onder ogen zien die opspeelt zodra het maandsalaris wegvalt. Hij beschrijft hoe hij zijn uitgaven terugbracht, freelanceklussen aannam en vaststelde dat zijn doemscenario's weinig met zijn werkelijke situatie te maken hadden. Het lastigst bleek de identiteitsvraag: wie jarenlang met een functietitel antwoordde op de vraag wat hij doet, moet op feestjes opnieuw leren uitleggen wie hij is.</p>
+      <p>Geld wordt herijkt met het begrip genoeg, ontleend aan Vicki Robin: het bedrag waarboven extra verdienen vooral extra gemis oplevert, aan tijd, gezondheid en aandacht. Wie dat getal kent, kan onzekerheid dragen zonder terug te vluchten naar het oude script.</p>
+      <h3>Het pathless path als methode</h3>
+      <p>Tegenover het grote plan zet Millerd het kleine experiment: een verhuizing voor een paar maanden, een eerste betaalde klus, een project zonder duidelijke opbrengst, telkens klein genoeg om van terug te komen. Hij leunt op Robert Kegans begrip zelfauteurschap, de stap waarin iemand zijn eigen maatstaven gaat schrijven in plaats van die van zijn omgeving over te nemen, en op James Carse's onderscheid tussen eindige spelen, gespeeld om te winnen, en oneindige spelen, gespeeld om het spel voort te zetten. Werk op het pathless path is in die termen een oneindig spel: het doel is door kunnen blijven gaan met werk dat de moeite waard is, zonder eindstreep.</p>
+      <p>Het populaire ikigai-diagram, vier overlappende cirkels van passie, talent, nut en betaling, wijst Millerd af als wensdenken: uit eigen ervaring weet hij dat het werk waar hij het meest van houdt niet vanzelf een inkomen oplevert. Het Japanse begrip betekent volgens hem alleen bestaansreden, en die hoeft niet met de broodwinning samen te vallen.</p>
+      <h3>Het echte werk van je leven</h3>
+      <p>In de slothoofdstukken verschuift de vraag van ontsnappen naar bouwen. Millerd ontleent aan dichter David Whyte de gedachte dat goed werk een gesprek is met wat iemand ten diepste wil, en omschrijft het echte werk van je leven als het uitzoeken wat dat gesprek inhoudt. Praktisch hoort daar het vinden van de anderen bij: mensen die vergelijkbare keuzes maken en elkaar overeind houden waar oude collega's meewarig kijken. Voor Millerd was dat online: de schrijvers, freelancers en kleine ondernemers die hij via zijn nieuwsbrief en podcast leerde kennen, vormden de gemeenschap die zijn oude werkgever eerder vanzelf leverde.</p>
+      <p>Het boek eindigt zonder aankomst. Millerd schrijft nadrukkelijk vanuit onderweg, inmiddels vanuit Azië, en presenteert zijn eigen onzekerheid als deel van het punt: een pad zonder script wordt nooit af.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Default path</td><td>Het overgeleverde loopbaanverhaal van school naar pensioen, dat als vanzelfsprekend geldt zolang niemand ernaar vraagt.</td></tr>
+          <tr><td class="term">Pathless path</td><td>Millerds naam voor een leven waarin werk en richting telkens opnieuw worden gekozen, zonder voorgeschreven route of eindpunt.</td></tr>
+          <tr><td class="term">Fixed points</td><td>De mijlpalen (diploma, baan, promotie, huis) die op het default path de vraag naar het waarom uitstellen.</td></tr>
+          <tr><td class="term">Coming alive</td><td>Millerds maatstaf voor werk, wat iemand tot leven brengt, tegenover getting ahead als maatstaf van het default path.</td></tr>
+          <tr><td class="term">Zelfauteurschap</td><td>Robert Kegans term voor het stadium waarin iemand zijn eigen maatstaven formuleert in plaats van die van zijn omgeving te internaliseren.</td></tr>
+          <tr><td class="term">Oneindig spel</td><td>James Carse's begrip voor spelen die worden gespeeld om het spel voort te zetten, door Millerd op werk toegepast.</td></tr>
+          <tr><td class="term">Genoeg</td><td>Het bedrag waarboven meer verdienen meer kost dan het oplevert, de financiële grondslag onder het pathless path.</td></tr>
+          <tr><td class="term">De anderen vinden</td><td>Het bewust opzoeken van mensen die vergelijkbare keuzes maken, als vervanging van de vanzelfsprekende gemeenschap van kantoor en beroepsgroep.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een memoir met begrippenapparaat, geen onderzoek. De onderbouwing bestaat uit Millerds eigen geschiedenis, gesprekken met anderen die het vaste pad verlieten, en geleende denkkaders van onder anderen Kegan, Carse, Whyte en Vicki Robin. Studies en cijfers komen sporadisch voor; de bewijslast ligt bij de herkenbaarheid van de beschrijving. Dat het boek zonder uitgever en vrijwel zonder marketing ruim 65.000 exemplaren verkocht, zegt iets over die herkenbaarheid, maar niets over de algemene geldigheid van het advies.</p>
+      <p>Wat er aan feitelijke beweringen in staat, over de geschiedenis van werk en de herkomst van het moderne loopbaanverhaal, is gangbaar en controleerbaar, maar draagt het betoog niet; het illustreert het. Een toetsbare theorie over wanneer het verlaten van een vaste baan goed uitpakt, biedt het boek niet en pretendeert het ook niet te bieden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is overleversvertekening. Millerd verliet het pad met een MIT-MBA, een cv met McKinsey en BCG erop, spaargeld, geen kinderen en vaardigheden die zich duur laten verhuren. Het boek erkent dat kort, maar verbindt er weinig gevolgen aan: voor wie zonder die buffers hetzelfde doet, is onzekerheid gewone bestaansonzekerheid, en waar de grens ligt tussen leerzaam ongemak en roekeloosheid komt nauwelijks ter sprake.</p>
+      <p>Daarnaast is het boek herhalend: dezelfde gedachte, loslaten van andermans maatstaven, keert in vrijwel elk hoofdstuk in een andere jas terug, en de zelfgepubliceerde tekst had een strengere redacteur kunnen gebruiken. De vermenging van memoir en advies maakt het bovendien lastig het advies te toetsen: waar het verhaal overtuigt, blijft open of de les algemeen geldt of alleen voor deze verteller gold.</p>
+      <p>Ten slotte hoort er een marktkanttekening bij. Millerd verdient zijn brood inmiddels met schrijven, cursussen en podcasts over het pad zonder script; het boek is zelf koopwaar in die economie. Dat maakt de boodschap op zichzelf niet onwaar; de lezer moet wel weten dat het pathless path van de schrijver inmiddels grotendeels bestaat uit schrijven over dat pad, en dat elke nieuwe lezer die route iets platgetredener maakt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op welke mijlpaal nu het volgende vaste punt is, en beantwoord de vraag wat er na dat punt komt.</li>
+        <li>Doe een klein experiment voordat je iets groots beslist: een maand freelance naast de baan, een onbetaald project, een proefperiode elders.</li>
+        <li>Reken het eigen getal voor genoeg uit: de maandlasten van een sober maar goed leven, en het aantal maanden buffer dat rust geeft.</li>
+        <li>Toets een lopende ambitie op prestige: ga na of die nog aantrekkelijk zou zijn als niemand er ooit van hoorde.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Deze samenvatting volgt de oorspronkelijke, in eigen beheer uitgegeven editie, <i>The Pathless Path: Imagining a New Story for Work and Life</i> (2022). Het boek verscheen zonder traditionele uitgever, kwam later ook uit als luisterboek en in een hardcovereditie (2025), en werd vertaald in onder meer het Frans, Russisch en Chinees; een Nederlandse vertaling is niet bekend. In 2024 publiceerde Millerd een vervolg, <i>Good Work</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Paul Millerd deed alles volgens het boekje: een MBA aan MIT Sloan, strategieconsultancy bij McKinsey en Boston Consulting Group. In 2017 stapte hij eruit, zonder vervolgbaan en zonder plan, en dit boek is zijn verantwoording: waarom het standaardpad hem steeds leger achterliet en hoe een leven zonder voorgeschreven route er in de praktijk uitziet.</p><p>Het is geen stappenplan en geen oproep om ontslag te nemen, eerder een reisverslag met begrippenapparaat: het default path, prestige als magneet, de angst voor schaarste, en de vraag wat er van een ambitie overblijft als indruk maken niet meer meetelt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>loopbaan</li><li>zingeving</li><li>zelfstandig</li><li>prestige</li><li>onzekerheid</li><li>freelance</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Dezelfde eindigheid als vertrekpunt, filosofischer uitgewerkt en zonder loopbaanadvies.</li>
+          <li value="150"><a href="150.html">Designing Your Life</a>. De methodische tegenhanger: levensontwerp in prototypes, vanuit Stanford in plaats van vanuit een memoir.</li>
+          <li value="50"><a href="50.html">So Good They Can't Ignore You</a>. Het tegenwicht: eerst zeldzame vaardigheden opbouwen, dan pas vrijheid opeisen.</li>
+          <li value="197"><a href="197.html">Hell Yeah or No</a>. Korte essays van iemand die het pad zonder script al decennia loopt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Saga of the Volsungs &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Völsunga saga voert een wereld op waarin niemand aan zijn lot ontkomt en waarin juist de grootsten dat lot kennen voordat het toeslaat. Het vervloekte…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-533">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">533 &middot; Roman en memoir</p>
+    <h1>The Saga of the Volsungs</h1>
+    <p class="lede">anoniem, 13e eeuw</p>
+    <p class="stats">
+      <span><b>1406</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="533"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De <i>Völsunga saga</i> voert een wereld op waarin niemand aan zijn lot ontkomt en waarin juist de grootsten dat lot kennen voordat het toeslaat. Het vervloekte goud van de dwerg Andvari trekt een spoor van verraad en moord door één geslacht, en de eer die tot wraak verplicht maakt de vernietiging bij elke generatie groter. De saga beweert nergens dat dit anders had gekund: grootheid bestaat erin het noodlot met open ogen tegemoet te treden, in de wetenschap dat ontwijken onmogelijk is. Wie het goud aanraakt, gaat eraan ten onder; wie de wraak nalaat, verliest zijn eer, en dat is in deze wereld erger dan de dood.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een IJslands proza over oudere liederen</h3>
+      <p>Een anonieme IJslandse schrijver voegde in het midden van de 13e eeuw de heldenliederen over Sigurd en de Völsungen, grotendeels bekend uit de Poëtische Edda, samen tot één doorlopend prozaverhaal. De saga begint bij Sigi, een zoon van Odin, en volgt het geslacht tot en met de kleinkinderen van Sigurd. Dezelfde sagenstof kreeg in Duitsland de vorm van het <i>Nibelungenlied</i>, maar de IJslandse versie is heidenser en mythischer: goden, weerwolven en gedaanteverwisselingen horen er vanzelfsprekend bij.</p>
+      <h3>Het geslacht van Odin</h3>
+      <p>Koning Völsung, achterkleinzoon van Odin, huwelijkt zijn dochter Signy uit aan de Gautse koning Siggeir. Die nodigt de familie uit, doodt Völsung in een hinderlaag en zet zijn tien zonen gevangen; negen worden door een wolvin verscheurd. Alleen Sigmund ontkomt en leeft jaren verborgen in het woud. Signy schuift hem, in de gedaante van een andere vrouw, een zoon toe die zij bij hem verwekt: Sinfjötli, zuiver Völsungenbloed, geboren voor de wraak.</p>
+      <p>Samen zwerven Sigmund en Sinfjötli als wolven door de bossen tot de dag van de afrekening. Zij steken Siggeirs hal in brand. Signy laat haar man en kinderen in het vuur achter, onthult wiens zoon Sinfjötli is en loopt zelf terug de vlammen in: haar wraak is voltooid, en met haar leven had zij al afgerekend.</p>
+      <h3>Sigurd en Fafnir</h3>
+      <p>Sigmund sneuvelt wanneer Odin zelf zijn zwaard breekt op het slagveld. Zijn zoon Sigurd wordt na zijn dood geboren en opgevoed aan een vreemd hof, met de smid Regin als leermeester. Regin vertelt hem de voorgeschiedenis van een schat: de goden Odin, Loki en Hönir doodden ooit zijn broer Otr, en betaalden als zoengeld het goud dat Loki afperste van de dwerg Andvari, inclusief de ring Andvaranaut, waarover Andvari uitsprak dat het bezit ervan ieders dood zou worden. Regins vader hield de schat, Regins broer Fafnir doodde daarop hun vader en veranderde in een draak die op het goud ligt.</p>
+      <p>Uit de stukken van zijn vaders zwaard smeedt Regin voor Sigurd het zwaard Gram. Sigurd doodt Fafnir vanuit een kuil onder het drakenpad, proeft bij het braden het bloed van het drakenhart en verstaat opeens de vogels, die hem waarschuwen dat Regin hem wil verraden. Hij slaat Regin het hoofd af, laadt het goud op zijn paard Grani en rijdt weg als de beroemdste held van het Noorden.</p>
+      <h3>Brynhild en Gudrun</h3>
+      <p>Op de berg Hindarfjall wekt Sigurd de walkure Brynhild, door Odin met een slaapdoorn gestraft. Zij beloven elkaar trouw. Aan het hof van de Gjukungen krijgt Sigurd echter van koningin Grimhild een vergetelheidsdrank: hij vergeet Brynhild, trouwt met Gudrun en helpt haar broer Gunnar aan een bruid. Omdat Gunnar niet door de vlammenwal rond Brynhilds burcht durft te rijden, wisselen Sigurd en Gunnar van gedaante; Sigurd rijdt op Grani door het vuur en wint Brynhild voor een ander.</p>
+      <p>Het bedrog komt uit tijdens een twist tussen de koninginnen bij het baden in de rivier, wanneer Gudrun de ring toont die Sigurd Brynhild had afgenomen. Brynhild drijft daarop Gunnar tot moord. Omdat de broers Sigurd eden hebben gezworen, doet de jongste, Guttorm, die niets gezworen heeft, het werk: hij steekt Sigurd neer in bed. Brynhild lacht om de moord, spreekt de waarheid over haar bedrogen leven en doorsteekt zichzelf om samen met Sigurd op de brandstapel te liggen.</p>
+      <h3>Atli en de val van de Gjukungen</h3>
+      <p>Gudrun wordt uitgehuwelijkt aan koning Atli, de Attila van de sage. Belust op het drakengoud nodigt Atli haar broers Gunnar en Högni uit; zij verzenken de schat in de Rijn voordat zij afreizen. Atli laat Högni het hart uitsnijden en werpt Gunnar in een slangenkuil, waar die met zijn tenen de harp speelt tot de laatste adder toeslaat. De ligplaats van het goud gaat met de broers het graf in.</p>
+      <p>Gudrun wreekt haar broers op haar eigen man: zij doodt de twee zonen die zij Atli baarde, zet hem hun harten voor, doodt hem in zijn bed en steekt de hal in brand. In deze saga is de trouw aan het geboortegeslacht sterker dan die aan man of kinderen.</p>
+      <h3>Het einde van de lijn en het naleven</h3>
+      <p>Gudruns dochter Svanhild, kind van Sigurd, wordt door koning Jörmunrek onder paardenhoeven vertrapt op een valse beschuldiging. Gudruns laatste zonen, Hamdir en Sörli, verminken Jörmunrek maar worden gestenigd omdat ijzer hen niet deren kan. Daarmee eindigt het geslacht en de saga.</p>
+      <p>De stof leefde door: William Morris vertaalde de saga in 1870 als eerste in het Engels, Wagner bouwde er samen met de Edda zijn <i>Ring des Nibelungen</i> op, en Tolkien bewerkte haar in het postuum uitgegeven <i>The Legend of Sigurd and Gudrún</i>. Veel van wat draken, vervloekte ringen en gebroken zwaarden in de moderne fantasy doen, is hier voor het eerst in samenhang verteld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Völsungen</td><td>Het geslacht van Odins nazaat Völsung, waarvan de saga opkomst en ondergang over vijf generaties vertelt.</td></tr>
+          <tr><td class="term">Andvaranaut</td><td>De ring uit de schat van de dwerg Andvari, die er de vloek over uitsprak dat het goud ieders dood zou worden.</td></tr>
+          <tr><td class="term">Gram</td><td>Het zwaard dat Regin voor Sigurd smeedt uit de stukken van het door Odin gebroken zwaard van Sigmund.</td></tr>
+          <tr><td class="term">Fafnir</td><td>Regins broer, die voor het goud zijn vader doodde en veranderde in de draak die Sigurd velt.</td></tr>
+          <tr><td class="term">Grani</td><td>Sigurds paard, uit het geslacht van Odins achtbenige Sleipnir, dat als enige door de vlammenwal durft.</td></tr>
+          <tr><td class="term">Gjukungen</td><td>Het geslacht van koning Gjuki, met Gunnar, Högni en Gudrun, waarin Sigurd door huwelijk en eed wordt opgenomen.</td></tr>
+          <tr><td class="term">Odin</td><td>Stamvader en lotsbeschikker die door de hele saga ingrijpt, van het zwaard in de boomstam tot de val van zijn eigen nageslacht.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De saga is een bewerking van oudere heldenliederen en is daarmee zelf een bron: zij bewaart de inhoud van liederen die verloren zijn gegaan, waaronder de stof uit het grote gat in de Codex Regius van de Poëtische Edda, precies het deel over Sigurd en Brynhild. Voor die episoden is dit prozaverhaal de voornaamste getuige van wat de verloren gedichten vertelden.</p>
+      <p>Achter enkele figuren staan historische personen uit de volksverhuizingstijd: Gunnar gaat terug op de Bourgondische koning Gundahari, wiens rijk in 436 of 437 door Hunnen werd vernietigd, Atli op Attila (gestorven 453) en Jörmunrek op de Gotische koning Ermanarik (vierde eeuw). Acht eeuwen mondelinge overlevering hebben die kern volledig omgesmeed; voor Sigurd zelf is geen historisch voorbeeld vast te stellen. Het verhaal is dus geen verminkte geschiedenis maar sage, met hooguit namen en een ondergangsherinnering als historisch sediment.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De naden van het samenstellen zijn zichtbaar. De schrijver volgde liederen die onderling verschilden, en dat levert tegenstrijdigheden op: de verhouding tussen Sigurd en Brynhild wordt tweemaal, op onverenigbare manieren, aangeknoopt, en sommige personages weten dingen die zij volgens de eigen vertelling niet kunnen weten. Wie strakke verhaalbouw verwacht, moet dit lezen als wat het is: een redactie van oudere stof, geen roman.</p>
+      <p>Over datering en samenhang bestaat discussie. De gangbare datering ligt tussen ongeveer 1200 en 1270, en de verhouding tot verwante teksten als de <i>Thidreks saga</i> en het <i>Nibelungenlied</i> is een eigen onderzoeksveld; wie in een vertaling stellige jaartallen of afhankelijkheden leest, leest de zekerheid van de vertaler, niet die van het vak.</p>
+      <p>Het nawerk weegt zwaar. Via Wagner en de negentiende-eeuwse Germanenverering raakte de stof verstrengeld met nationalistische en later nazistische toe-eigening, die er een raszuivere heldenwereld in wilde zien. De saga zelf kent geen volk en geen zending; zij kent geslachten, eden en wraak, en laat vrijwel iedereen die erin optreedt slecht aflopen. Wie haar leest als verheerlijking van wat dan ook, leest langs de tekst heen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De <i>Völsunga saga</i> is een IJslandse prozasaga uit het midden van de 13e eeuw, overgeleverd in één perkamenten handschrift van omstreeks 1400 (Ny kgl. Saml. 1824 b 4to, Koninklijke Bibliotheek Kopenhagen), waarin de tekst direct voorafgaat aan de saga van Ragnar Lodbrok. Deze samenvatting volgt de Engelse vertaling van Jesse L. Byock, <i>The Saga of the Volsungs: The Norse Epic of Sigurd the Dragon Slayer</i>, eerst verschenen bij University of California Press (1990) en daarna opgenomen in Penguin Classics (160 blz., ISBN 9780140447385). Vertalingen lopen uiteen in naamspelling en hoofdstukindeling. Er bestaat een Nederlandse vertaling rechtstreeks uit het Oudijslands: <i>De saga van de Völsungen</i> van Marcel Otten (Ambo, 1996).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De <i>Völsunga saga</i> vertelt de geschiedenis van vijf generaties van één geslacht, van stamvader Sigi tot de laatste zonen van Gudrun. In het midden staat Sigurd, die de draak Fafnir doodt en daarmee een goudschat wint waarop een vloek rust. Rond dat goud draaien verraad, een gebroken trouwbelofte, moord binnen het eigen huis en een reeks wraaknemingen die pas ophoudt als er niemand meer over is.</p><p>Een anonieme IJslander smeedde in de 13e eeuw oudere heldenliederen aaneen tot dit doorlopende prozaverhaal, dezelfde stof die in Duitsland het <i>Nibelungenlied</i> opleverde en die Wagner later gebruikte voor zijn <i>Ring</i>. Het is een van de toegankelijkste ingangen tot de Oudnoordse verhaalwereld: kort, snel verteld en zonder omhaal wreed.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>saga</li><li>Noordse mythologie</li><li>IJsland</li><li>wraak</li><li>vervloekt goud</li><li>noodlot</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="532"><a href="532.html">Beowulf</a>. Het Oudengelse epos over een held tegen monsters, uit dezelfde Germaanse verhaalwereld maar met een christelijke verteller.</li>
+          <li value="530"><a href="530.html">Ilias</a>. Het Griekse epos waarin eer en noodlot even onontkoombaar samenvallen als hier.</li>
+          <li value="534"><a href="534.html">Het Roelantslied</a>. Een middeleeuws epos waarin trouw en verraad binnen de eigen kring de ondergang bepalen, in een christelijk-feodale wereld.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell gebruikt onder meer deze sagenstof voor zijn patroon van de heldenreis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

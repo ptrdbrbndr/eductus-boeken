@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pyramid Principle &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Een lezer begrijpt een tekst het snelst als de ideeën als piramide zijn geordend onder één boodschap: de conclusie eerst, daaronder de argumenten die haar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-511">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">511 &middot; Samenwerken en gesprek</p>
+    <h1>The Pyramid Principle</h1>
+    <p class="lede">Barbara Minto, 1987</p>
+    <p class="stats">
+      <span><b>1429</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="511"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Een lezer begrijpt een tekst het snelst als de ideeën als piramide zijn geordend onder één boodschap: de conclusie eerst, daaronder de argumenten die haar dragen, en onder elk argument de onderbouwing daarvan. Elke laag beantwoordt de vraag die de laag erboven bij de lezer oproept, punten binnen één groep zijn van dezelfde soort en samengevat in het punt erboven, en de inleiding brengt de lezer via situatie en complicatie bij de vraag waarop de tekst het antwoord is. Minto's onderliggende claim is dat schrijfproblemen vrijwel altijd denkproblemen zijn: wie zijn piramide niet kan bouwen, heeft zijn conclusie nog niet helder, en geen stijlverbetering die dat verhult.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van McKinsey-rapporten naar een methode</h3>
+      <p>Minto haalde in 1963 als een van acht vrouwen in een jaargang van zeshonderd haar MBA aan Harvard en werd datzelfde jaar de eerste vrouwelijke MBA-consultant bij McKinsey. In 1966 verhuisde ze naar Londen om consultants te leren rapporteren, en na haar vertrek in 1973 gaf ze die cursus als zelfstandige aan adviesbureaus en bedrijven over de hele wereld. Het boek is de neerslag van die cursus en verscheen eerst in eigen beheer, later als handelsuitgave.</p>
+      <p>Het uitgangspunt is de lezer. Wie leest, kan maar een beperkt aantal gedachten tegelijk vasthouden; Minto beroept zich daarbij op het klassieke artikel van George Miller over het magische getal zeven. Een tekst die de conclusie uitstelt, dwingt de lezer alle bouwstenen te onthouden zonder te weten waarvoor. Een tekst die met de conclusie begint, geeft elke bouwsteen meteen een plek.</p>
+      <h3>De piramide en haar regels</h3>
+      <p>De piramide kent drie regels. Ten eerste vat elk punt de punten eronder samen: een kop is een boodschap, geen onderwerp. Ten tweede zijn punten binnen één groep van dezelfde soort: vier problemen, drie oorzaken, twee aanbevelingen, en niet een mengsel daarvan. Ten derde staan punten binnen een groep in een logische volgorde: chronologisch, structureel, naar belangrijkheid, of als stappen van een redenering.</p>
+      <p>Verticaal werkt de piramide als een dialoog: elke uitspraak roept bij de lezer een vraag op (waarom, hoe, waaruit blijkt dat), en de laag eronder beantwoordt die vraag. Horizontaal kiest de schrijver per groep tussen deductie, waarbij de punten een sluitende redenering vormen, en inductie, waarbij gelijksoortige punten samen één conclusie dragen. Minto raadt voor zakelijke teksten meestal inductie aan, omdat de lezer dan per tak kan afhaken of doorvragen.</p>
+      <h3>De inleiding: situatie, complicatie, vraag</h3>
+      <p>De top van de piramide heeft een aanloop nodig, en die giet Minto in verhaalvorm. De inleiding begint met de situatie: iets waarover schrijver en lezer het eens zijn. Dan volgt de complicatie: wat er veranderd, misgegaan of onzeker geworden is. Uit die twee volgt vanzelf de vraag die de lezer zich stelt, en het antwoord daarop is de hoofdboodschap van de tekst. Dit stramien, in de cursus als SCQ-raamwerk gemerkt, voorkomt de twee klassieke openingsfouten: beginnen met alles wat de schrijver heeft uitgezocht, of beginnen met een antwoord op een vraag die de lezer niet heeft.</p>
+      <p>Minto besteedt opvallend veel ruimte aan het vinden van de juiste situatie: wat voor de schrijver oud nieuws is, bepaalt waar het verhaal voor de lezer kan beginnen. Een inleiding hoort geen informatie te bevatten die betwist kan worden; discussie hoort in het lichaam van de tekst.</p>
+      <h3>Denken: groeperen en samenvatten</h3>
+      <p>Het tweede deel van het boek gaat over de denkfouten die onder slappe teksten liggen. De bekendste toets is MECE, mutually exclusive en collectively exhaustive: de onderdelen van een groep overlappen elkaar niet en dekken samen het geheel. Minto bedacht de term bij McKinsey, waar hij tot standaardtaal is geworden.</p>
+      <p>Even belangrijk is haar aanval op de holle samenvatting. Een kop als 'er zijn drie problemen' vat niets samen; de schrijver moet doorzoeken tot hij kan zeggen wat die drie problemen samen betekenen. Dat afdwingen van de zogeheten inductieve sprong is volgens Minto het moment waarop schrijven denken wordt: wie de gemeenschappelijke noemer van zijn punten niet kan formuleren, heeft ze nog niet begrepen of hoort ze niet bij elkaar te zetten. Groepen die uit handelingen bestaan vat je samen in het resultaat van die handelingen; groepen die uit conclusies bestaan vat je samen in wat die conclusies gemeenschappelijk hebben. Het klinkt eenvoudig, en het is volgens Minto het werk waar schrijvers het vaakst voor weglopen.</p>
+      <h3>Probleemoplossen en presenteren</h3>
+      <p>De latere edities bevatten delen over de fase vóór het schrijven en de fase erna. Bij probleemoplossen laat Minto zien hoe logische bomen en gestructureerde analyses ervoor zorgen dat de piramide al ontstaat tijdens het onderzoek, in plaats van achteraf op de resultaten geplakt te worden. Bij presenteren behandelt ze hoe de hiërarchie zichtbaar blijft op papier en op dia's: koppen die boodschappen zijn, indeling die de structuur volgt, en de discipline om per dia één punt te maken.</p>
+      <p>Door die uitbreidingen is het boek opgeschoven van een schrijfcursus naar een methode voor het hele adviesvak: eerst gestructureerd analyseren, dan piramidaal ordenen, dan pas formuleren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Piramideprincipe</td><td>De ordening van een tekst onder één boodschap, waarbij elke laag de vraag beantwoordt die de laag erboven oproept.</td></tr>
+          <tr><td class="term">MECE</td><td>Mutually exclusive, collectively exhaustive: onderdelen van een groep overlappen niet en dekken samen het geheel.</td></tr>
+          <tr><td class="term">SCQ-raamwerk</td><td>De inleiding in verhaalvorm: situatie, complicatie en de vraag waarop de hoofdboodschap het antwoord is.</td></tr>
+          <tr><td class="term">Verticale dialoog</td><td>Het vraag-antwoordspel tussen de lagen: elke uitspraak roept een lezersvraag op die de laag eronder beantwoordt.</td></tr>
+          <tr><td class="term">Inductieve ordening</td><td>Een groep gelijksoortige punten die samen één conclusie dragen, voor zakelijke teksten meestal Minto's voorkeur.</td></tr>
+          <tr><td class="term">Deductieve ordening</td><td>Een redenering waarin de punten op elkaar voortbouwen en de conclusie dwingend volgt.</td></tr>
+          <tr><td class="term">Holle samenvatting</td><td>Een kop die alleen aankondigt (er zijn drie problemen) in plaats van te zeggen wat de punten samen betekenen.</td></tr>
+          <tr><td class="term">Top-down schrijven, bottom-up denken</td><td>Minto's kernonderscheid: ideeën ontstaan van onderaf, maar worden voor de lezer van bovenaf gepresenteerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert vrijwel geen empirisch bewijs aan. De enige wetenschappelijke verwijzing van gewicht is Millers werk over de grenzen van het werkgeheugen; verder rust de methode op Minto's praktijk bij McKinsey en op tientallen jaren cursuservaring. Het sterkste argument is de adoptie: het piramideprincipe werd de facto de schrijfstandaard van de grote adviesbureaus en van veel bedrijven en overheden, en houdt die positie al een halve eeuw.</p>
+      <p>Dat is een praktijkbewijs, geen toetsing. Of piramidaal geordende teksten werkelijk beter begrepen of vaker opgevolgd worden dan goed geschreven alternatieven, is in het boek nergens gemeten, en de leesbaarheidsliteratuur komt er niet in voor. Wie de methode aanneemt, doet dat op gezag van de consultancypraktijk en op de innerlijke aannemelijkheid van de regels.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest gehoorde bezwaar geldt het boek zelf: het is droog, schools en trager dan de methode die het onderwijst, met voorbeelden uit het bedrijfsleven van de jaren zeventig en tachtig die gedateerd aandoen. Veel lezers halen de kern uit de eerste hoofdstukken en uit samenvattingen van derden; dat de verschillende edities en heruitgaven bovendien duur en slecht uit elkaar te houden zijn, helpt niet. De cursus heeft een betere naam dan de tekst.</p>
+      <p>Inhoudelijk past de methode het best bij teksten die een boodschap overbrengen aan een beslisser die weinig tijd heeft. Voor verkennende stukken, wetenschappelijke argumentatie of teksten waarin de redenering zelf het product is, kan conclusie-eerst averechts werken: de lezer krijgt een oordeel voordat hij de afweging heeft gezien. Daar komt een risico bij dat Minto onderbelicht: wie eerst zijn boodschap formuleert en daarna onderbouwing ordent, wordt uitgenodigd bewijs te selecteren dat past. En MECE geeft in de praktijk vaak schijnprecisie; echte vraagstukken laten zich zelden zonder overlap en zonder rest opdelen, en de suggestie van volledigheid kan dan meer verhullen dan verhelderen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf voordat je begint de vraag op die de lezer beantwoord wil zien, en formuleer je boodschap als antwoord daarop in één zin.</li>
+        <li>Bouw de inleiding als situatie, complicatie, vraag, antwoord, en stop er niets in dat betwist kan worden.</li>
+        <li>Lees van een concepttekst alleen de koppen achter elkaar; vormen ze geen lopend betoog, dan is de structuur nog niet af.</li>
+        <li>Toets elke opsomming op soortgelijkheid en op MECE, en vervang elke aankondigende kop door de conclusie van de punten eronder.</li>
+        <li>Beperk groepen tot een handvol punten; wat niet onder de boodschap past, hoort niet in de tekst maar in een bijlage.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Deze samenvatting volgt de derde editie van <i>The Pyramid Principle: Logic in Writing and Thinking</i> (Financial Times Prentice Hall, 2002, 177 blz.), inhoudelijk een heruitgave van de handelsuitgave die Pearson in de jaren tachtig op de markt bracht; bronnen noemen daarvoor zowel 1985 als 1987, en de tekst gaat terug op cursusmateriaal dat Minto vanaf de jaren zeventig zelf uitgaf. Minto publiceerde in 1996 in eigen beheer een herziene versie onder de titel <i>The Minto Pyramid Principle: Logic in Writing, Thinking and Problem Solving</i>. Het boek is in negen talen vertaald; een Nederlandse vertaling van Minto's eigen tekst is niet bekend, wel bestaan er Nederlandstalige boeken over de methode, zoals <i>De kracht van het piramideprincipe</i> van Eline Janssen en Marita van Rijssen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Barbara Minto was in 1963 de eerste vrouwelijke consultant die McKinsey aannam, en werd in Londen verantwoordelijk voor het leren schrijven van rapporten. Uit die praktijk ontstond het piramideprincipe: begin met de boodschap, en orden alles daaronder als antwoord op de vraag die de lezer bij het punt erboven stelt. Denken gebeurt van onderaf, schrijven hoort van bovenaf.</p><p>Het boek werd de huisstandaard van vrijwel alle grote adviesbureaus en leverde begrippen die het vak niet meer kwijtraakt, zoals MECE en de situatie-complicatie-vraag-inleiding. Het leest als een cursus: regels, voorbeelden en oefeningen, geschreven voor mensen die zakelijke teksten maken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>schrijven</li><li>structuur</li><li>adviseren</li><li>McKinsey</li><li>argumentatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="82"><a href="82.html">The Art of Explanation</a>. Een journalistieke, modernere aanpak van hetzelfde probleem: iets zo uitleggen dat de ontvanger het in één keer kan volgen.</li>
+          <li value="436"><a href="436.html">On Philosophical Style</a>. Blanshards essay over helder filosofisch proza, dat dezelfde eis stelt aan denken achter de zinnen maar zonder stramien.</li>
+          <li value="438"><a href="438.html">Thank You for Arguing: What Aristotle, Lincoln, and Homer Simpson Can Teach Us About the Art of Persuasion</a>. De retorische kant van overtuigen, waar Minto de logische kant levert: samen dekken ze boodschap en ontvanger.</li>
+          <li value="253"><a href="253.html">Talk Like TED</a>. Over presenteren voor een zaal in plaats van op papier, met de verhaalvorm als drager waar Minto de hiërarchie kiest.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

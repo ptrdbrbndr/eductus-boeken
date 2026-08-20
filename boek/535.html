@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hagakure &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Hagakure stelt dat een samoerai alleen goed kan leven en dienen als hij elke ochtend zijn eigen dood al aanvaard heeft. Wie bij een keuze tussen leven…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-535">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">535 &middot; Vakmanschap en aandacht</p>
+    <h1>Hagakure</h1>
+    <p class="lede">Yamamoto Tsunetomo, opgetekend 1709-1716</p>
+    <p class="stats">
+      <span><b>1506</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="535"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De <i>Hagakure</i> stelt dat een samoerai alleen goed kan leven en dienen als hij elke ochtend zijn eigen dood al aanvaard heeft. Wie bij een keuze tussen leven en dood zonder aarzelen de dood kiest, is vrij: geen berekening, geen angst voor mislukking en geen eigenbelang staat dan nog tussen hem en zijn taak. Dienstbaarheid aan de heer is in dit boek geen middel tot iets anders maar de hele inhoud van het bestaan, en bedenkingen, uitstel en slimheid zijn vormen van lafheid. Het boek beveelt die houding niet aan als nuttig; het stelt haar als enige zuivere vorm van het vak van samoerai, in een tijd waarin dat vak zonder oorlog zijn inhoud kwijt was.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een vazal zonder oorlog</h3>
+      <p>Yamamoto Tsunetomo diende dertig jaar de daimyo Nabeshima Mitsushige van het domein Saga. Toen die in 1700 stierf, was het volgen van de heer in de dood (junshi) al verboden; Tsunetomo, die zich daartoe verplicht achtte, trok zich als boeddhistisch monnik terug op het platteland. Vanaf 1710 zocht de jonge clansamoerai Tashiro Tsuramoto hem daar op en tekende zeven jaar lang zijn gesprekken op. Het resultaat, elf boeken met omstreeks 1300 passages, had volgens de openingswoorden na lezing verbrand moeten worden.</p>
+      <p>Die ontstaansgeschiedenis kleurt het hele werk. Tsunetomo spreekt als een man wiens levensvorm zijn bestaansrecht verloren had: bijna een eeuw vrede had krijgers veranderd in ambtenaren, en de <i>Hagakure</i> is één lang protest daartegen, verpakt in herinneringen, clangeschiedenis en levenslessen.</p>
+      <h3>De dood als uitgangspunt</h3>
+      <p>De kern staat in de beroemde openingspassage: wanneer je moet kiezen tussen leven en dood, kies dan snel de dood. Wie faalt en sterft, sterft hooguit een hondendood, maar zonder schande; wie uit berekening blijft leven, is een lafaard. Tsunetomo raadt aan de eigen dood elke ochtend in gedachten te doorleven, doorboord, verbrand, onthoofd, zodat het lichaam al gestorven is en de rest van de dag in vrijheid gehandeld kan worden.</p>
+      <p>Daarbij hoort het woord <i>shinigurui</i>, doodsdolheid, ontleend aan een uitspraak van clanstichter Nabeshima Naoshige: de weg van de krijger is razernij tot in de dood, met bezonnenheid alleen is niets groots te doen. Grote beslissingen moeten volgens Tsunetomo binnen zeven ademteugen genomen worden; wie langer wikt, is al aan het uitwijken.</p>
+      <h3>Dienen als vak</h3>
+      <p>Het tweede grondwoord is dienst. De ware vazal gaat op in zijn heer, geeft raad zonder zich te laten voorstaan op eigen gelijk, en verwacht geen erkenning; Tsunetomo noemt de hoogste liefde de liefde die onuitgesproken blijft tot in de dood. Hij verachtte de berekenende samoerai van zijn tijd, die naar beloning en positie keken, en hield zelfs de beroemde 47 ronin van Ako een fout voor: zij wachtten ruim een jaar met hun wraak, en hadden meteen moeten toeslaan, ook als de aanslag dan mislukt was. Resultaat telt in dit boek minder dan zuiverheid van handelen.</p>
+      <p>In het begin van het werk formuleert Tsunetomo vier geloften: in de weg van de samoerai voor niemand onderdoen, de heer goed van dienst zijn, de ouders eren, en groot mededogen tonen ten bate van de mensen. Wie deze vier elke ochtend hernieuwt, aldus het boek, heeft geen andere leer nodig.</p>
+      <h3>Praktische wenken en clanverhalen</h3>
+      <p>Het grootste deel van de tekst is concreter en alledaagser dan de reputatie doet vermoeden. Er staan aanwijzingen in over uiterlijke verzorging, spreken en zwijgen, het voeren van overleg, het corrigeren van anderen zonder hen te vernederen, omgaan met drank en het opvoeden van kinderen. Beroemd is de les van de stortbui: wie probeert droog te blijven, wordt toch nat en raakt verkrampt; wie vanaf het begin aanvaardt dat hij doorweekt raakt, loopt onbekommerd door de regen. Daarnaast vullen anekdotes over de Nabeshima-clan en over wraak, seppuku en plichtsbetrachting hele boeken; de <i>Hagakure</i> is evenzeer clankroniek als leer.</p>
+      <h3>Van verborgen handschrift tot oorlogsboek</h3>
+      <p>Twee eeuwen bleef het werk binnen Saga, gekopieerd en gelezen als huisleer van één clan. Pas in de vroege 20e eeuw werd het gedrukt, en in de jaren dertig en veertig maakte het militaristische Japan er een nationaal vroomboek van: de doodsbereidheid van één verbitterde vazal werd staatsideologie, en passages uit de <i>Hagakure</i> gingen mee in de bagage van soldaten en kamikazepiloten. Na 1945 gold het boek dan ook als besmet.</p>
+      <p>De schrijver Mishima Yukio, die er in 1967 een persoonlijk commentaar aan wijdde, hield het boek opnieuw ten doop als tegengif tegen de naoorlogse consumptiemaatschappij; zijn eigen rituele zelfdoding in 1970 verbond de tekst nogmaals met politiek geweld. Via Wilsons vertaling van 1979 en de film <i>Ghost Dog</i> van Jim Jarmusch (1999) kreeg het geschrift ten slotte zijn huidige, westerse leven als levenskunstboek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hagakure</td><td>Letterlijk verborgen achter de bladeren, een titel waarvan de precieze bedoeling, verborgen dienst of verwijzing naar een gedicht, onzeker is.</td></tr>
+          <tr><td class="term">bushido</td><td>De weg van de krijger; in dit boek geen uitgewerkte ethiek maar de dagelijkse houding van dienstbaarheid en doodsbereidheid.</td></tr>
+          <tr><td class="term">junshi</td><td>Het volgen van de gestorven heer in de dood, in Tsunetomo's tijd verboden, waardoor hij monnik werd in plaats van zelfmoord te plegen.</td></tr>
+          <tr><td class="term">shinigurui</td><td>Doodsdolheid: de overtuiging dat grote daden razernij vragen en dat bezonnenheid alleen niets tot stand brengt.</td></tr>
+          <tr><td class="term">de vier geloften</td><td>Tsunetomo's dagelijkse geloften: voor niemand onderdoen, de heer dienen, de ouders eren en mededogen tonen voor de mensen.</td></tr>
+          <tr><td class="term">seppuku</td><td>Rituele zelfdoding door buiksnede, in de anekdotes de uiterste vorm van verantwoordelijkheid nemen.</td></tr>
+          <tr><td class="term">Nabeshima-clan</td><td>Het heersershuis van het domein Saga waaraan Tsunetomo diende en waarvan de <i>Hagakure</i> de huisverhalen bewaart.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De <i>Hagakure</i> onderbouwt niets en wil dat ook niet: het is een dictaat van herinneringen, oordelen en van horen zeggen doorvertelde clanverhalen, zonder systeem en met onderlinge tegenspraken. Tsunetomo heeft zelf nooit gevochten; zijn beeld van de krijger is een ideaalbeeld uit de tweede hand, ontleend aan verhalen over generaties voor hem. Wie het boek als geschiedbron voor de werkelijke samoeraipraktijk leest, leest verkeerd; het is een bron voor hoe een achttiende-eeuwse vazal zijn stand wilde zien.</p>
+      <p>Ook de tekst zelf staat niet vast. Er is geen autograaf; het werk is overgeleverd in uiteenlopende afschriften, en elke editie kiest en ordent. Wilsons veelgelezen vertaling bevat ongeveer 300 van de 1300 passages, minder dan een kwart, gekozen op leesbaarheid en zeggingskracht. Het beeld dat de meeste westerse lezers van de <i>Hagakure</i> hebben, is dus mede het werk van de vertaler; de vollediger vertaling van Bennett laat een aanzienlijk gewoner, praktischer en breedsprakiger boek zien.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het belangrijkste bezwaar betreft de status die het boek kreeg. De <i>Hagakure</i> gold tijdens het leven van de auteur helemaal niet als dé samoeraileer: het was het onuitgegeven huisgeschrift van één domein, geschreven door een teruggetreden vazal met een uitgesproken eigenzinnige, ook toen al ouderwetse opvatting. De verheffing tot tijdloze kern van de Japanse geest is een constructie van het militaristische Japan van de jaren dertig en veertig, dat de doodsverheerlijking uit haar feodale context lichtte en inzette om soldaten en uiteindelijk kamikazepiloten te vormen. Wie het boek nu leest, leest het door die geschiedenis heen, en een uitgave die daarover zwijgt, verzwijgt iets wezenlijks.</p>
+      <p>Inhoudelijk is de doodscultus minder diepzinnig dan hij klinkt. Tsunetomo's aanbeveling om altijd de dood te kiezen is de raad van iemand die in vredestijd leefde en zelf oud stierf; het boek vraagt van anderen een radicaliteit die het leven van de spreker niet heeft hoeven dragen. De verachting voor beraad en berekening is bovendien een gevaarlijke leer: binnen zeven ademteugen beslissen is in de meeste zaken geen moed maar roekeloosheid, en Tsunetomo's kritiek op de 47 ronin laat zien dat zuiverheid van gebaar hem meer waard was dan of iets lukt.</p>
+      <p>Ten slotte is het boek grondig doortrokken van een standenmaatschappij: de waarde van een mens valt er samen met zijn dienst aan een erfelijke heer, vrouwen komen er nauwelijks in voor, en gehoorzaamheid wordt zelden bevraagd. De hedendaagse lezing als tijdloos zelfhulpboek over toewijding kan alleen bestaan door dat alles weg te filteren, en moet zich daar rekenschap van geven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de <i>Hagakure</i> in de eerste plaats als historisch document over hoe een levensvorm zichzelf begreep toen hij zijn functie verloor, en pas daarna als levensles.</li>
+        <li>Neem uit de doodsmeditatie het bruikbare deel: wie onder ogen ziet dat zijn tijd eindig is, stelt minder uit en windt zich minder op; daarvoor is de doodskeuze zelf niet nodig.</li>
+        <li>Zet de les van de stortbui in bij tegenslag die toch komt: aanvaard vooraf dat je nat wordt, en de verkramping verdwijnt.</li>
+        <li>Toets de eis van onvoorwaardelijke dienst aan een moderne loopbaan: waar toewijding aan een organisatie omslaat in zelfuitwissing, wijst dit boek precies de grens die je zelf moet trekken.</li>
+        <li>Lees <i>Het boek van de vijf ringen</i> (nr 346) ernaast: geschreven door iemand die wél vocht, en om die reden nuchterder over de dood dan dit boek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De <i>Hagakure</i> bestaat uit ongeveer 1300 korte passages in elf boeken, tussen 1709 en 1716 door de jonge samoerai Tashiro Tsuramoto opgetekend uit gesprekken met de teruggetreden vazal Yamamoto Tsunetomo (1659-1719). Het werk circuleerde alleen in afschriften binnen het domein Saga en werd pas in de 20e eeuw gedrukt en landelijk bekend. Deze samenvatting volgt de Engelse vertaling van William Scott Wilson, <i>Hagakure: The Book of the Samurai</i> (Kodansha International, 1979, ISBN 9780870113789; later herdrukt bij Shambhala), een selectie van zo'n 300 passages; een aanzienlijk vollediger vertaling met wetenschappelijke inleiding is die van Alexander Bennett (Tuttle, 2014). Er bestaat een Nederlandse vertaling naar Wilsons Engelse tekst: <i>Hagakure: het boek van de samoerai</i>, vertaald door M.J. van Maarschalkerweerd-Bakker (Bres, 2001; heruitgave De Driehoek, 2007, 222 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De weg van de samoerai wordt gevonden in de dood: met die zin opent het beroemdste geschrift over het samoeraibestaan. Yamamoto Tsunetomo, een vazal van de Nabeshima-clan die na de dood van zijn heer monnik werd, dicteerde tussen 1709 en 1716 zo'n 1300 overwegingen, anekdotes en praktische wenken aan een jongere clangenoot: over dienen, over besluiten nemen in zeven ademteugen, over opvoeding, uiterlijk en drank, en telkens weer over de bereidheid te sterven.</p><p>Het boek is geschreven in een tijd zonder oorlog, door een man die zelf nooit een veldslag zag en die vond dat de samoerai van zijn dagen weke rekenmeesters waren geworden. Juist die nostalgische, compromisloze toon maakte het geschrift twee eeuwen later bruikbaar voor heel andere doelen, en dat hoort bij de geschiedenis van dit boek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>samoerai</li><li>bushido</li><li>Japan</li><li>dienstbaarheid</li><li>dood</li><li>aforismen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="346"><a href="346.html">The Book of Five Rings</a>. Het strategieboek van een zwaardvechter die zijn duels overleefde; praktischer en minder doodsverliefd dan de Hagakure.</li>
+          <li value="462"><a href="462.html">Musashi's Dokkodo: The Way of Walking Alone</a>. Musashi's eigen 21 stellingen over onthechting, een sterfbedtekst naast Tsunetomo's levenslange doodsmeditatie.</li>
+          <li value="517"><a href="517.html">The Unfettered Mind</a>. Een zenmeester schrijft aan een zwaardmeester over de geest die nergens blijft haken; de contemplatieve kant van dezelfde wereld.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Ook een dagelijkse zelfvermaning over plicht en sterfelijkheid, maar dan van iemand die de macht droeg in plaats van te dienen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Philosophy of Illumination &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Suhrawardi stelt dat alle kennis uiteindelijk rust op onmiddellijke tegenwoordigheid: de ziel kent zichzelf rechtstreeks, zonder begrip of beeld ertussen,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-525">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">525 &middot; Levenskunst</p>
+    <h1>The Philosophy of Illumination</h1>
+    <p class="lede">Shihab al-Din Suhrawardi, 1186</p>
+    <p class="stats">
+      <span><b>1499</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="525"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Suhrawardi stelt dat alle kennis uiteindelijk rust op onmiddellijke tegenwoordigheid: de ziel kent zichzelf rechtstreeks, zonder begrip of beeld ertussen, en elke definitie of redenering veronderstelt dat directe kennen al. Wat werkelijk bestaat beschrijft hij als licht in graden van intensiteit, uitstromend uit het Licht der Lichten; lichamen zijn in zichzelf duister en ontvangen al wat zij hebben van buiten. Wie wil weten hoe de werkelijkheid in elkaar zit moet daarom twee dingen tegelijk doen: streng redeneren en door oefening leren schouwen. Het boek is geschreven voor de lezer die beide wegen wil gaan, en het beroept zich erop dat de wijzen van de oudheid, van Hermes tot Plato, precies dit deden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een aanval op de eigen leermeesters</h3>
+      <p>Suhrawardi werd rond 1154 geboren in Suhraward in het noordwesten van Iran en kreeg zijn scholing in de logica en filosofie van de school van Avicenna, in Maragha en Isfahan. Volgens zijn eigen vertelling verscheen Aristoteles hem in een droom en wees hem op de zelfkennis als grondslag van alle kennis; daarna keerde hij zich tegen de school waarin hij was opgeleid en wilde hij de wijsheid van de Ouden doen herleven. Het boek voltooide hij in 1186, rond zijn drieëndertigste.</p>
+      <p>In de inleiding zegt hij dat de inhoud hem eerst in retraites en visioenen gegeven werd en pas daarna met argumenten is onderbouwd. Hij richt zich uitdrukkelijk op lezers die zowel het redeneren als de geestelijke oefening beheersen; wie alleen redeneert krijgt volgens hem hooguit de halve wetenschap in handen.</p>
+      <h3>Eerste deel: de regels van het denken</h3>
+      <p>Het eerste deel bevat drie verhandelingen over logica en kennisleer, met de aristotelische school als doelwit. Het bekendste argument richt zich op de definitieleer: een definitie naar geslacht en soortverschil kan iets onbekends nooit bekend maken, want om te weten dat de opsomming volledig is moet de zaak zelf al gekend zijn. Kennis kan dus onmogelijk bij definities beginnen; zij moet beginnen bij iets dat uit zichzelf evident is.</p>
+      <p>Daarnaast veegt Suhrawardi een reeks centrale begrippen van de metafysica van tafel als louter verstandsbeschouwingen: bestaan, eenheid, mogelijkheid en ook het onderscheid tussen essentie en bestaan wijzen volgens hem niets in de dingen zelf aan. Wie bestaan als een echt ding behandelt, komt in een regres terecht: dan zou het bestaan zelf ook weer moeten bestaan.</p>
+      <h3>Kennis als tegenwoordigheid</h3>
+      <p>De positieve kern van de kennisleer is wat later kennis door tegenwoordigheid is gaan heten. De ziel kent zichzelf zonder tussenschakel: een beeld of voorstelling van mijzelf zou altijd een 'het' zijn en nooit het 'ik' dat kijkt. Alles wat werkelijk van zichzelf weet, is volgens Suhrawardi onstoffelijk licht; zelfbewustzijn en licht-zijn vallen samen.</p>
+      <p>Hetzelfde model past hij toe op de waarneming. Zien is voor hem geen straal die het oog uitzendt en ook geen afdruk van een vorm in het oog, zoals de gangbare theorieën wilden, maar de onbemiddelde tegenwoordigheid van het verlichte voorwerp voor het gezonde oog. Kennen is steeds een verhouding van aanwezigheid tussen licht en wat het beschijnt.</p>
+      <h3>Tweede deel: de wetenschap van de lichten</h3>
+      <p>Het tweede deel bouwt de metafysica op. Licht behoeft geen definitie, want niets is evidenter; al het andere wordt erdoor zichtbaar. Aan de top staat het Licht der Lichten, Suhrawardi's aanduiding voor God, waaruit een eerste licht voortkomt en daaruit een lange verticale keten van onstoffelijke, heersende lichten. Uit hun onderlinge verhoudingen ontstaat een horizontale orde van lichten die elk een natuurlijke soort besturen: Suhrawardi's herlezing van de Platoonse vormen.</p>
+      <p>Onderaan staan de lichamen, die hij barzakh noemt, schutting of barrière: in zichzelf donker, afhankelijk van licht dat hun toevalt. Verschillen tussen lichten zijn verschillen in intensiteit; zo wil Suhrawardi verklaren hoe alles uit één werkelijkheid kan voortkomen zonder dat er wezensverschillen nodig zijn.</p>
+      <h3>De wereld van beelden en de bestemming van de ziel</h3>
+      <p>Tussen de lichtwereld en de lichamen plaatst Suhrawardi een tussenrijk van zelfstandige beelden, de wereld van beelden, waarin spiegelbeelden, dromen en visioenen hun plaats krijgen. Na de dood hecht de ziel zich volgens hem aan zulke beeldlichamen; het tussenrijk draagt zo zijn leer over het hiernamaals.</p>
+      <p>De slothoofdstukken gaan over de weg zelf: de ascese en de lichtervaringen die beoefenaars ten deel kunnen vallen. De volmaakte wijze is voor Suhrawardi degene die het redeneren en het schouwen allebei beheerst, en aan zo iemand komt volgens hem het geestelijk leiderschap toe.</p>
+      <h3>Nawerking</h3>
+      <p>Het boek is overgeleverd samen met de commentaren van Shahrazuri en Qutb al-Din Shirazi uit de dertiende eeuw, die de lezing eeuwenlang hebben gestuurd. Via Mulla Sadra werkte de lichtmetafysica door in de Perzische filosofie van de zeventiende eeuw en later; in Iran bestaat de ishraqi-school nog steeds als levende traditie. In het Westen haalde Henry Corbin het werk in de twintigste eeuw uit de vergetelheid.</p>
+      <p>De schrijver zelf kreeg weinig tijd. Suhrawardi vestigde zich in 1183 in Aleppo en won er het vertrouwen van de jonge vorst al-Zahir, een zoon van Saladin. De religieuze geleerden van de stad namen aanstoot aan zijn leer en zijn invloed op de vorst; in 1191 werd hij op hun aandringen terechtgesteld, ergens tussen de vijfendertig en veertig jaar oud. Over de precieze gang van zaken en de rol van Saladin daarin lopen de bronnen uiteen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ishraq</td><td>Letterlijk het opgaan van het licht in de ochtend; Suhrawardi's naam voor kennis die als licht in de ziel opkomt en voor zijn hele school.</td></tr>
+          <tr><td class="term">Licht der Lichten (nur al-anwar)</td><td>De ene bron waaruit alle andere lichten in afnemende intensiteit voortkomen; Suhrawardi's aanduiding voor God.</td></tr>
+          <tr><td class="term">Kennis door tegenwoordigheid</td><td>Kennen zonder tussenkomst van begrip of beeld, zoals de ziel zichzelf kent; het fundament waarop alle afgeleide kennis rust.</td></tr>
+          <tr><td class="term">Barzakh</td><td>Suhrawardi's woord voor het lichaam: een in zichzelf donkere schutting die al haar licht van buiten ontvangt.</td></tr>
+          <tr><td class="term">Wereld van beelden ('alam al-mithal)</td><td>Tussenrijk van zelfstandige beelden waarin dromen, visioenen en het lot van de ziel na de dood hun plaats krijgen.</td></tr>
+          <tr><td class="term">Verstandsbeschouwingen (i'tibarat)</td><td>Begrippen als bestaan, eenheid en mogelijkheid, die volgens Suhrawardi alleen in het denken bestaan en niets in de dingen zelf aanwijzen.</td></tr>
+          <tr><td class="term">Heren van de soorten</td><td>De horizontale orde van lichten die elk een natuurlijke soort besturen; Suhrawardi's herlezing van de Platoonse vormen.</td></tr>
+          <tr><td class="term">Dhawq</td><td>Letterlijk proeven: de onmiddellijke ervaringskennis die volgens Suhrawardi naast het redeneren nodig is om de lichtwerkelijkheid te kennen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee soorten fundament die Suhrawardi zelf uitdrukkelijk onderscheidt. De kritiek op de definitieleer en op de verstandsbeschouwingen is echte argumentatie, die ook een hedendaagse lezer kan wegen en die in de vakliteratuur serieus wordt genomen. De lichtmetafysica zelf rust daarentegen op de evidentie van het zelfbewustzijn, op wat Suhrawardi in retraites en visioenen zegt te hebben geschouwd, en op het getuigenis van de Ouden: Plato, Hermes en de Perzische wijzen zouden hetzelfde hebben gezien. Dat laatste is een beroep op ervaring en gezag, geen bewijsvoering; wie de lichten niet ziet, krijgt het advies eerst te gaan oefenen.</p>
+      <p>Hoe het boek gelezen moet worden is onder vakmensen zelf een twistpunt. Corbin las het als theosofie en als herleving van oud-Perzische wijsheid; Ziai en Walbridge lazen het als filosofische kritiek op en verbouwing van Avicenna; Dimitri Gutas heeft erop gewezen dat het tekstuele bewijs voor de vermeende gnostische en hermetische bronnen dun is. Dat de deskundigen zo uiteenlopen, laat zien hoeveel het boek aan de lezer overlaat. Vast staat in elk geval dat de kritiek op de definitieleer en de leer van de kennis door tegenwoordigheid in de latere islamitische filosofie serieus zijn opgenomen en doorontwikkeld; als filosofiegeschiedenis is de invloed van het boek goed gedocumenteerd, wat er ook van de lichtvisioenen zij.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar richt zich op het fundament. Wie de lichtervaringen niet deelt, kan het stelsel op zijn kernpunt niet toetsen, en het boek heeft daar een antwoord op dat het stelsel meteen onaantastbaar maakt: dan is er nog niet genoeg geoefend. Voor wie binnen de ervaring staat is dat een aanwijzing, voor wie erbuiten staat een cirkel.</p>
+      <p>De stamboom die Suhrawardi voor zijn wijsheid opvoert is aantoonbaar deels constructie. Plato noch Hermes hield de lichtmetafysica die hij hun toeschrijft, en de lijn naar de oude Perzische wijzen is eerder program dan bewezen overlevering. Ook valt te vragen of de lichtmetafysica meer verklaart dan zij hernoemt: de bezwaren die Suhrawardi tegen het begrip bestaan inbrengt, keren bij licht in graden van intensiteit in andere vorm terug.</p>
+      <p>Over tekst en datering bestaat betrekkelijk veel zekerheid: de voltooiing in 1186 staat in de tekst zelf, en de overlevering loopt via vroege commentaren. Maar juist die commentaren sturen de lezing, en zelfs de twee bezorgers van de standaardeditie verschillen onderling over de vraag hoe ver de breuk met Avicenna gaat. Het boek is bovendien onverbiddelijk technisch: zonder kennis van de aristotelische begrippen die het bestrijdt, is het eerste deel nauwelijks te volgen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Geschreven in het Arabisch onder de titel <i>Hikmat al-Ishraq</i> en op grond van een datering in de tekst zelf voltooid in 1186. Deze samenvatting volgt de tweetalige uitgave <i>The Philosophy of Illumination</i> van John Walbridge en Hossein Ziai (Brigham Young University Press, Islamic Translation Series, Provo, 1999, ISBN 9780842524575): een nieuwe kritische editie van de Arabische tekst met Engelse vertaling, noten en inleiding. Henry Corbin bezorgde in de twintigste eeuw de eerste kritische editie en een Franse vertaling van het metafysische deel; de editie van Walbridge en Ziai geldt sindsdien als de standaard, en vertalingen lopen in terminologie uiteen. Een Nederlandse vertaling is niet bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Perzische filosoof Suhrawardi (circa 1154-1191) doorliep zelf de school van Avicenna en zette er daarna een eigen stelsel tegenover: wat werkelijk bestaat is licht, in graden van intensiteit, en kennis begint bij de onmiddellijke tegenwoordigheid van dat licht in de ziel. <i>Hikmat al-Ishraq</i>, de wijsheid van de verlichting, is de meest doorwrochte uitwerking van dat stelsel: een eerste deel dat de logica en kennisleer van de aristotelische school afbreekt, en een tweede deel dat er een wetenschap van de lichten voor in de plaats zet.</p><p>Het boek is een technisch filosofisch werk en tegelijk het program van een school die tot in het hedendaagse Iran doorwerkt. Suhrawardi heeft die doorwerking zelf niet gezien: hij werd in 1191 in Aleppo wegens ketterij terechtgesteld en heet sindsdien al-Maqtul, de gedode.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>islamitische filosofie</li><li>licht</li><li>kennisleer</li><li>mystiek</li><li>Perzië</li><li>twaalfde eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="526"><a href="526.html">The Alchemy of Happiness</a>. Een generatie eerder verbond al-Ghazali geestelijke oefening en kennis van God voor een breed publiek; Suhrawardi doet het voor filosofen.</li>
+          <li value="524"><a href="524.html">The Conference of the Birds</a>. Dezelfde Perzische wereld en dezelfde opgang naar het licht, maar dan als verhaal in plaats van als stelsel.</li>
+          <li value="520"><a href="520.html">Vivekachudamani</a>. Een andere traditie die kennis zonder tussenkomst van begrippen tot het hoogste weten verklaart.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

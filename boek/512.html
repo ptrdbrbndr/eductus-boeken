@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uptime &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Productiviteit is volgens Martin geen kwestie van meer gedaan krijgen, het is de toestand waarin je intentie en je handelen samenvallen: doen wat je van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-512">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">512 &middot; Werk en aandacht</p>
+    <h1>Uptime</h1>
+    <p class="lede">Laura Mae Martin, 2024</p>
+    <p class="stats">
+      <span><b>1416</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="512"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Productiviteit is volgens Martin geen kwestie van meer gedaan krijgen, het is de toestand waarin je intentie en je handelen samenvallen: doen wat je van plan was, wanneer je het van plan was, met aandacht erbij. Wie dat bereikt, ervaart wat zij kalme voltooiing noemt, ook op een dag die aan rust is besteed. Daarvoor is een systeem nodig dat drie hoofdprioriteiten vertaalt naar lijsten, de lijsten naar een agenda die past bij je persoonlijke energieverloop, en de agenda naar uitvoering op plekken en met gereedschap die het werk dragen. En omdat de geest geen server is die altijd aan kan staan, is downtime in dat systeem geen restpost: rust is de voorwaarde waaronder de uren die tellen ook werkelijk opleveren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een coach van binnenuit</h3>
+      <p>Martin begon bij Google in de verkoop en bouwde haar rol als productiviteitscoach eerst als nevenproject op, tot de vraag zo groot werd dat er een functie van werd gemaakt: Executive Productivity Advisor, klankbord van de hoogste laag van het bedrijf. Haar interne nieuwsbrief met productiviteitstips bereikt tienduizenden Googlers, en het boek is uitdrukkelijk uit die coachingpraktijk geschreven, met hybride werken als vaste achtergrond.</p>
+      <p>De kernbeweging van het boek is dat productiviteit, welzijn en grenzen één onderwerp vormen. Wie alleen sneller wil werken, holt volgens Martin het vermogen uit waarmee het werk gedaan wordt; de vraag is steeds hoe iemand zijn beste uren beschermt en de rest bewust laat gaan.</p>
+      <h3>Richting: drie prioriteiten en de lijstentrechter</h3>
+      <p>Het systeem begint met het benoemen van de drie belangrijkste prioriteiten van dit moment, scherp genoeg om er verzoeken aan te kunnen toetsen. Daar hoort een hoofdstuk bij over nee zeggen, met voorbeeldformuleringen die vriendelijk blijven en toch sluiten; zelf spreekt Martin van een vriendelijke haai: benaderbaar als persoon, onverbiddelijk over de besteding van haar tijd.</p>
+      <p>Taken stromen vervolgens door wat zij de lijstentrechter noemt: één hoofdlijst waar alles op landt, daaruit een weeklijst, en daaruit een daglijst die per uur is ingedeeld. Het punt van de trechter is dat je op elk moment maar naar één passende lijst kijkt: wie steeds zijn volledige takenberg ziet, ontmoedigt zichzelf en kiest slechter.</p>
+      <h3>Ritme: energie kennen en de agenda vanaf nul</h3>
+      <p>Onder het hoofdstuk Know Your Flow ligt de vaststelling dat energie geen rechte lijn is: iedereen heeft terugkerende uren waarop het denken scherp is, door Martin power hours genoemd, en uren waarop het werk traag wordt. Zij laat lezers een tijdje bijhouden hoe hun dagen werkelijk verlopen (de time review) en het zware werk verplaatsen naar de sterke uren, met het lichte werk als opvulling van de rest.</p>
+      <p>Voor de agenda bepleit zij zero-based calendaring, naar analogie van begroten vanaf nul: begin met een lege week, zet eerst de prioriteiten en de rust erin, en laat elke afspraak zijn plek verdienen in plaats van de kalender te beschouwen als iets dat je overkomt. Uitstelgedrag krijgt een eigen hoofdstuk, met als voornaamste raad de drempel te verlagen: maak de eerste stap klein en leg hem klaar.</p>
+      <h3>Plaats en gereedschap: hot spots, wasgoed en when:then</h3>
+      <p>Hybride werken betekent volgens Martin dat de plek een instrument wordt. In het hoofdstuk Location, Location, Location adviseert zij het soort werk te laten bepalen waar het gebeurt, en daarbinnen vaste hot spots in te richten: plekken die aan één soort werk zijn gekoppeld zodat de omgeving het gedrag oproept. Daar horen even nadrukkelijk not spots bij, plekken waar nooit gewerkt wordt zodat thuis ook thuis blijft. Gereedschap hoort dezelfde toets te doorstaan: instellingen, meldingen en schermen zo ingericht dat ze het voorgenomen gedrag dragen in plaats van doorbreken.</p>
+      <p>Voor e-mail introduceert zij de wasgoedmethode: een inbox behandel je zoals wasgoed, in rondes van sorteren, behandelen en opruimen, op vaste momenten en per soort, in plaats van de hele dag stuk voor stuk bij elke melding. Terugkerende beslissingen giet ze in when:then-routines: vaste als-dan-afspraken met jezelf (als de vergadering uitvalt, dan werk ik aan het grootste project) die telkens opnieuw kiezen overbodig maken. Vergaderingen krijgen dezelfde behandeling: alleen met doel, met de juiste mensen en met een uitkomst die ergens landt.</p>
+      <h3>Rust: downtime als brandstof</h3>
+      <p>Het tegendraadse hoofdstuk van het boek stelt dat downtime uptime voedt: onbelaste tijd is waar herstel en de betere ideeën vandaan komen, dus hoort rust in de agenda te staan met dezelfde status als een afspraak. Martin is er open over hoe ze dat zelf afdwingt, met een wekelijkse techniekvrije avond met haar gezin (No-Tech Tuesday) en vaste eigen tijd, en met ochtenden die niet met de inbox beginnen maar met de eigen prioriteiten.</p>
+      <p>Het slot brengt de onderdelen samen onder de titel die het boek zijn naam geeft: uptime is geen toestand van altijd aan staan, het is de toestand waarin systeem, energie en aandacht zo zijn afgesteld dat het werk gedaan wordt en het leven eromheen overeind blijft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Uptime</td><td>De toestand waarin iemand op zijn best functioneert doordat prioriteiten, energie en agenda op elkaar zijn afgesteld.</td></tr>
+          <tr><td class="term">Kalme voltooiing (calm accomplishment)</td><td>Martins maat voor productiviteit: het gevoel dat intentie en uitvoering samenvallen, zonder opgejaagdheid.</td></tr>
+          <tr><td class="term">Lijstentrechter (list funnel)</td><td>Het doorgeefsysteem van één hoofdlijst via een weeklijst naar een per uur ingedeelde daglijst.</td></tr>
+          <tr><td class="term">Power hours</td><td>De terugkerende uren waarop iemands energie en scherpte het hoogst zijn, gereserveerd voor het zwaarste werk.</td></tr>
+          <tr><td class="term">Zero-based calendaring</td><td>De agenda vanaf een lege week opbouwen, waarbij elke afspraak zijn plek moet verdienen.</td></tr>
+          <tr><td class="term">Wasgoedmethode (laundry method)</td><td>E-mail in vaste rondes sorteren, behandelen en opruimen, in plaats van de hele dag stuk voor stuk reageren.</td></tr>
+          <tr><td class="term">Hot spots en not spots</td><td>Plekken die aan één soort werk zijn gekoppeld, naast plekken waar bewust nooit gewerkt wordt.</td></tr>
+          <tr><td class="term">When:then-routine</td><td>Een vaste als-dan-afspraak met jezelf die terugkerende beslissingen overbodig maakt.</td></tr>
+          <tr><td class="term">Downtime</td><td>Bewust onbelaste tijd, in Martins systeem de voorwaarde voor herstel en voor de kwaliteit van de werkuren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een praktijkboek zonder wetenschappelijk apparaat: er staan geen studies of cijfers in die de methode toetsen, en het gezag berust op ruim tien jaar coaching van Google-bestuurders en op de zichtbare vraag naar Martins aanpak binnen een van de grootste technologiebedrijven ter wereld. Dat is relevante ervaring, maar het blijft één omgeving en één waarnemer, en geslaagde coachingverhalen zijn geen bewijs dat de methode elders hetzelfde doet.</p>
+      <p>Afzonderlijke onderdelen sporen wel met wat uit onderzoek bekend is: werken in batches in plaats van reageren op elke melding beperkt taakwisselingskosten, als-dan-voornemens zijn in de psychologie goed onderzocht als implementatie-intenties, en het koppelen van gedrag aan vaste plekken en momenten is standaard gewoontevormingsleer. Martin verwijst daar zelf nauwelijks naar; de onderbouwing moet de lezer uit andere boeken halen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het eerlijkste bezwaar is de context waaruit het boek komt. Martins publiek bestaat uit hoogopgeleide kenniswerkers met grote regie over hun eigen agenda, ondersteund door een werkgever die flexibiliteit als norm heeft. Voor wie in een rooster, een fabriek, een klas of een zorginstelling werkt, of voor wie de vergaderdruk van bovenaf krijgt opgelegd, is een flink deel van de adviezen (agenda vanaf nul, nee zeggen op verzoeken, werkplekken kiezen) eerder een wensbeeld dan een handelingsperspectief. Het boek erkent dat maar zijdelings.</p>
+      <p>Daarnaast is weinig van het gereedschap nieuw. De lijstentrechter, de batchgewijze inbox en het beschermen van diepe werkuren zijn herkenbare varianten op wat Allen, Newport en het gewoonteonderzoek eerder brachten; Martins bijdrage is de samenhang en de toegankelijke taal, plus de nadruk op welzijn als onderdeel van het systeem. Wie de klassiekers kent, leest hier vooral een nette synthese met Google-glans, en die glans is tegelijk reclame: het boek laat onbesproken dat dezelfde werkgever de meldingen en inboxen bouwt waar de lezer zich tegen moet wapenen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Benoem je drie prioriteiten van dit moment en toets een week lang elk verzoek hardop aan dat lijstje voordat je ja zegt.</li>
+        <li>Zet een lijstentrechter op: één hoofdlijst, een weeklijst en een daglijst per uur, en kijk per moment alleen naar de passende lijst.</li>
+        <li>Houd twee weken een tijdoverzicht bij, stel je power hours vast en verplaats je zwaarste werk daarheen.</li>
+        <li>Behandel e-mail in twee of drie vaste rondes per dag volgens de wasgoedmethode in plaats van bij elke melding.</li>
+        <li>Plan downtime als afspraak in je agenda en kies één vaste techniekvrije avond per week.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Deze samenvatting volgt de oorspronkelijke Amerikaanse uitgave, <i>Uptime: A Practical Guide to Personal Productivity and Wellbeing</i> (Harper Business, New York, 2 april 2024, ISBN 9780063317444). Een Nederlandse vertaling is niet bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Laura Mae Martin is bij Google de vaste productiviteitsadviseur van de top: ruim tien jaar lang coachte zij bestuurders en teams in omgaan met agenda's, inboxen en hybride werk. <i>Uptime</i> bundelt die praktijk in één systeem, van drie hoofdprioriteiten via een lijstentrechter naar een agenda die vanaf nul is opgebouwd, met eigen technieken als de wasgoedmethode voor e-mail en hot spots voor werkplekken.</p><p>De maat van succes is bij haar niet drukte maar wat zij kalme voltooiing noemt: het gevoel dat intentie en uitvoering samenvallen. Rust is in dat systeem geen beloning achteraf; downtime is de brandstof waar uptime op draait.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>productiviteit</li><li>e-mail</li><li>agenda</li><li>Google</li><li>hybride werken</li><li>werk en rust</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="70"><a href="70.html">Deep Work</a>. De onderbouwing van het beschermen van aaneengesloten denkuren, waar Martin de dagelijkse inrichting omheen levert.</li>
+          <li value="151"><a href="151.html">Essentialism</a>. Gaat dieper in op de keuzekant: minder toezeggen als voorwaarde voordat welk lijstensysteem dan ook kan werken.</li>
+          <li value="448"><a href="448.html">The ONE Thing</a>. Dezelfde beweging van prioriteit naar agenda, toegespitst op één vraag: wat is het ene dat al het andere lichter maakt.</li>
+          <li value="400"><a href="400.html">Slow Productivity</a>. Newports pleidooi voor een lager werktempo als antwoord op dezelfde overbelasting die Martin met systemen te lijf gaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

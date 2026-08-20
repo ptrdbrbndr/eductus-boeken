@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plutarch's Lives &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Plutarchus stelt dat karakter zich toont in het kleine: een woord, een grap, een gebaar verraadt meer over deugd en ondeugd dan de beroemdste veldslag.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-537">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">537 &middot; Geschiedenis en samenleving</p>
+    <h1>Plutarch's Lives</h1>
+    <p class="lede">Plutarchus, ca. 100 n.Chr.</p>
+    <p class="stats">
+      <span><b>1452</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="537"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Plutarchus stelt dat karakter zich toont in het kleine: een woord, een grap, een gebaar verraadt meer over deugd en ondeugd dan de beroemdste veldslag. Daarom schrijft hij, zoals hij in het leven van Alexander uitlegt, geen geschiedenis maar levens, en daarom zet hij telkens een Griek naast een Romein: karakter is over culturen heen vergelijkbaar, en de vergelijking scherpt het oordeel. Het doel is onverholen zedelijk. In het voorwoord bij Aemilius Paulus schrijft hij de geschiedenis als spiegel te gebruiken waarin hij zijn eigen leven probeert te fatsoeneren naar de deugden van de beschreven mannen; de lezer wordt geacht hetzelfde te doen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een Griek onder Romeins gezag</h3>
+      <p>Plutarchus (circa 46-120 n.Chr.) kwam uit Chaeronea in Boeotië en bleef daar wonen, naar eigen zeggen opdat het stadje niet nóg kleiner zou worden. Hij studeerde in Athene, reisde naar Rome, verwierf het Romeinse burgerrecht en diende tientallen jaren als priester in Delphi. Hij schreef onder de keizers Trajanus en Hadrianus, toen Griekenland cultureel aanzien maar geen macht meer had; de <i>Levens</i> zijn mede een bewijsvoering dat de Griekse groten voor de Romeinse niet onderdoen.</p>
+      <p>Naast de <i>Levens</i> staat een tweede oeuvre, de <i>Moralia</i>, ruim zeventig verhandelingen over ethiek, opvoeding, godsdienst en tafelgesprek. Beide delen van het werk voeden elkaar: de moralist levert de vragen, de biograaf de voorbeelden.</p>
+      <h3>Het parallelle ontwerp</h3>
+      <p>Het plan is eenvoudig en was nieuw: telkens één Griek en één Romein met verwante loopbaan, gevolgd door een korte vergelijking (synkrisis). Stichters naast elkaar in Theseus en Romulus, wetgevers in Lycurgus en Numa, redenaars in Demosthenes en Cicero, veroveraars in Alexander en Caesar, en in Demetrius en Antonius uitdrukkelijk twee afschrikwekkende voorbeelden, want, schrijft Plutarchus, ook van het slechte leert de beschouwer. Bij het legendarische paar Theseus en Romulus zegt hij eerlijk dat hij het gebied van de mythe betreedt en hoopt dat de sage zich laat reinigen tot iets dat op geschiedenis lijkt.</p>
+      <p>De paren verschenen niet als één boek maar als reeks, over vele jaren, opgedragen aan zijn Romeinse vriend Sosius Senecio. De volgorde van ontstaan is grotendeels onbekend, en niet elk paar heeft zijn vergelijking behouden. Naast de paren staan vier losse levens die tot een andere opzet behoorden: de Perzische koning Artaxerxes, de Griekse staatsman Aratus en de kortstondige keizers Galba en Otho, restanten van een verloren reeks keizerslevens. Samen vormen deze 48 levens een portrettengalerij die loopt van de mythische stichters tot Plutarchus' eigen eeuw, met het zwaartepunt bij de late Griekse stadstaten en de ondergang van de Romeinse republiek: Pericles en Alcibiades, de Gracchen, Marius en Sulla, Pompeius, Crassus, Cato, Brutus en Antonius.</p>
+      <h3>Levens, geen geschiedenis</h3>
+      <p>De methode is de anekdote. Caesar leest in Spanje over Alexander en barst in tranen uit omdat hij op de leeftijd waarop Alexander de wereld veroverde nog niets tot stand heeft gebracht. De jonge Alexander temt het paard Bucephalus door het met de kop naar de zon te draaien, weg van zijn eigen schaduw. Cato de Oudere loopt te koop met zijn soberheid, en Plutarchus tekent aan dat wie zijn eenvoud tentoonstelt, ook al ijdel is. Over Cleopatra noteert hij dat haar schoonheid op zichzelf niet weergaloos was, maar dat haar omgang en stem betoverden als een instrument met vele snaren; via de vertaling van North werd die bladzijde bij Shakespeare bijna woordelijk toneel.</p>
+      <p>Zulke details zijn geen versiering maar het eigenlijke bewijsmateriaal: zij tonen de ziel in het klein, waar de grote daden volgens Plutarchus juist vaak verhullen wie iemand was.</p>
+      <h3>Moraal als doel, evenwicht als middel</h3>
+      <p>In het voorwoord bij Pericles legt Plutarchus uit waarom hij schrijft: het deugdzame voorbeeld wekt vanzelf de drang tot navolging, zoals mooie muziek doet willen musiceren. Maar hij schrijft geen heiligenlevens. Zijn helden hebben gebreken en hij benoemt ze: de drankzucht en drift van Alexander, de ijdelheid van Cicero, de wreedheid van Sulla. In de inleiding op Demetrius heet het dat grote naturen zowel grote deugden als grote ondeugden voortbrengen. Het oordeel blijft mild en afgewogen, eerder wegend dan vonnissend; juist die toon maakte hem eeuwenlang tot de betrouwbaarste leermeester in mensenkennis die de klassieke literatuur te bieden had.</p>
+      <p>Elk leven volgt in grote lijnen hetzelfde stramien: afkomst en opvoeding, de tekenende jeugdanekdote, opgang, hoogtepunt en val, en een dood die het karakter nog één keer samenvat, van Cato's zelfgekozen einde in Utica tot Demosthenes' gif in de tempel. Ook voortekenen, dromen en orakels krijgen ruim baan; Plutarchus, zelf priester in Delphi, neemt ze ernstig als taal waarin tijdgenoten over lotsbeschikking spraken, al houdt hij afstand van de grofste wonderverhalen.</p>
+      <h3>De doorwerking</h3>
+      <p>Weinig boeken uit de oudheid hebben zo doorgewerkt. Jacques Amyots Franse vertaling (1559) werd het lievelingsboek van Montaigne; Thomas North vertaalde Amyot in het Engels (1579), en uit North sneed Shakespeare <i>Julius Caesar</i>, <i>Antony and Cleopatra</i> en <i>Coriolanus</i>, soms met hele zinnen vrijwel intact. De Amerikaanse stichtersgeneratie las Plutarchus als leerboek van republikeinse deugd, en in het Frankrijk van 1789 gold hij als schoolvoorbeeld van burgerzin; Emerson noemde de <i>Levens</i> een bijbel voor helden. Tot diep in de 19e eeuw was dit het boek waaruit Europa zijn beeld van de klassieke oudheid haalde.</p>
+      <p>De 20e eeuw was koeler: wetenschappelijke geschiedschrijving zette Plutarchus weg als moraliserend en onnauwkeurig. De laatste decennia is hij terug, nu gelezen als wat hij is: een schrijver van rang en de vader van de karakterbiografie, het genre waarin tot op heden elke politieke biografie werkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">bios</td><td>Levensbeschrijving als eigen genre, door Plutarchus uitdrukkelijk onderscheiden van geschiedschrijving: het gaat om karakter, niet om volledigheid van gebeurtenissen.</td></tr>
+          <tr><td class="term">synkrisis</td><td>De vergelijkende beschouwing waarmee de meeste paren afsluiten en die Griek en Romein tegen elkaar afweegt.</td></tr>
+          <tr><td class="term">arete</td><td>Deugd of voortreffelijkheid, de maatstaf waaraan elk leven wordt afgemeten en die het lezen tot navolging moet prikkelen.</td></tr>
+          <tr><td class="term">ethos</td><td>Het karakter dat zich in kleine tekenen toont; het eigenlijke onderwerp van elk leven.</td></tr>
+          <tr><td class="term">tyche</td><td>Het lot of de fortuin, bij Plutarchus de tegenspeler van de deugd: wat iemand overkomt tegenover wat hij ervan maakt.</td></tr>
+          <tr><td class="term">apophthegma</td><td>De gedenkwaardige uitspraak, door Plutarchus ook apart verzameld, die in de levens telkens als karakterbewijs dient.</td></tr>
+          <tr><td class="term">Moralia</td><td>Plutarchus' andere oeuvre van ethische en beschouwende verhandelingen, waarvan de vragen de levens hun kader geven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Plutarchus is voor veel van wat hij vertelt zelf de best bewaarde bron: hij putte uit honderden werken die sindsdien verloren zijn gegaan, en citeert zijn zegslieden geregeld met naam. Dat maakt hem voor de moderne oudheidkunde onvervangbaar en tegelijk lastig te controleren; waar hij naast andere bronnen of inscripties te leggen valt, blijkt hij nu eens nauwkeurig, dan weer slordig met jaartallen en volgordes, en gevoelig voor de mooiste versie van een verhaal.</p>
+      <p>Hij is bovendien open over zijn beperkingen. Bij Theseus en Romulus waarschuwt hij zelf dat hij sagenstof bewerkt, en in het leven van Demosthenes schrijft hij dat hij het Latijn pas laat leerde en Romeinse bronnen daardoor minder diep kon lezen; tussen hem en zijn Griekse onderwerpen ligt soms een half millennium. De <i>Levens</i> zijn dus geen geschiedvervalsing maar een bewuste selectie: alles staat in dienst van het karakterportret, en wie feiten zoekt, moet elke bewering wegen zoals de vakliteratuur dat per leven gedaan heeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar richt zich op het programma zelf. Geschiedenis als reeks voorbeeldige of afschrikwekkende grote mannen laat vrijwel alles weg wat de moderne geschiedschrijving wezenlijk acht: economie, instellingen, gewone mensen, slaven, vrouwen. Vrouwen verschijnen bij Plutarchus vrijwel alleen als echtgenote, moeder of verleidster, en dat een samenleving op slavernij rustte, is voor hem geen vraag. Wie de <i>Levens</i> als geschiedenis leest, neemt ongemerkt een aristocratisch wereldbeeld van rond het jaar 100 over.</p>
+      <p>Ook binnen het eigen opzet wringt het een en ander. De vergelijkingen zijn het zwakste onderdeel: de synkrisis weegt nogal eens uiterlijkheden, en sommige paren zijn duidelijk geforceerd bijeengezocht. Het moraliserende kader stuurt bovendien de selectie: anekdotes die het karakterbeeld dienen, krijgen voorrang boven wat het beste is overgeleverd, en moderne biografen van bijvoorbeeld Alexander moeten Plutarchus' mooiste scènes geregeld als onhistorisch terzijde leggen.</p>
+      <p>Over de overlevering ten slotte: de tekst zelf is via een rijke handschriftentraditie goed bewaard, maar het geheel is onaf en geschonden; het paar Epaminondas en Scipio, volgens velen juist het programmatische openingspaar, is verloren, enkele vergelijkingen ontbreken, en over volgorde en datering van de paren bestaat alleen beredeneerde gissing. En wie Plutarchus in vertaling leest, moet weten welke vertaling: de Dryden-Clough-versie is statig maar gedateerd en op punten achterhaald, terwijl moderne vertalingen op recentere tekstedities steunen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De <i>Parallelle Levens</i> (Bioi paralleloi) schreef Plutarchus in het Grieks, grotendeels tussen circa 96 en 120 n.Chr. Bewaard zijn 48 levens: 22 paren van telkens een Griek en een Romein, meestal met een afsluitende vergelijking, plus vier losse levens; één paar (Epaminondas en Scipio) is verloren. Deze samenvatting volgt de complete eendelige uitgave in de vertaling van Dryden en de zijnen (1683-1686), herzien door Arthur Hugh Clough (1864), zoals herdrukt als Modern Library Giant (<i>Plutarch's Lives</i>, 1309 blz.); in Penguin Classics bestaan themadelen in modernere vertaling, onder meer van Ian Scott-Kilvert. Er bestaat een volledige Nederlandse vertaling: Gerard Janssen vertaalde alle levens in negen delen (uitgeverij Chaironeia, Leeuwarden, 2006-2014); selecties verschenen als <i>Beroemde Grieken</i> en <i>Beroemde Romeinen</i>. Vertalingen lopen sterk uiteen in toon en volledigheid.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rond het jaar 100 schreef een Griekse priester uit een provinciestadje de levens van de groten van Griekenland en Rome, steeds twee aan twee: Alexander naast Caesar, Demosthenes naast Cicero, Theseus naast Romulus. Plutarchus zegt er uitdrukkelijk bij dat hij geen geschiedenis schrijft maar levens: een kwinkslag of een klein gebaar toont iemands karakter vaak beter dan een veldslag met tienduizenden doden.</p><p>De <i>Parallelle Levens</i> werden het invloedrijkste biografieboek van de westerse cultuur. Shakespeare haalde er drie Romeinse drama's uit, Montaigne noemde Plutarchus zijn huisboek, en generaties lezers leerden er politiek en karakterkunde uit lang voordat die vakken bestonden. Wie wil weten waar het idee vandaan komt dat je van levensbeschrijvingen een beter mens wordt, begint hier.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biografie</li><li>oudheid</li><li>Griekenland</li><li>Rome</li><li>karakter</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="247"><a href="247.html">Lives of the Stoics</a>. Holiday en Hanselman doen Plutarchus in het klein na: levens van stoïcijnen als lesmateriaal in karakter.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Het dagboek van een keizer die met Plutarchus' vraag leefde: hoe word ik het karakter dat ik bewonder.</li>
+          <li value="536"><a href="536.html">The Education of Cyrus</a>. Xenophons geromantiseerde Cyrusleven, de oudere proef met een levensverhaal als leerstof over leiderschap.</li>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. Durant vertelt de filosofiegeschiedenis via levens en karakters, in de traditie die Plutarchus begon.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaïdara &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kaïdara stelt dat goud dienaar van de kennis hoort te zijn en anders de ondergang wordt van wie het draagt. Wie rijkdom of macht als einddoel neemt, gaat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-522">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">522 &middot; Roman en memoir</p>
+    <h1>Kaïdara</h1>
+    <p class="lede">Amadou Hampâté Bâ, 1969</p>
+    <p class="stats">
+      <span><b>1310</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="522"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kaïdara stelt dat goud dienaar van de kennis hoort te zijn en anders de ondergang wordt van wie het draagt. Wie rijkdom of macht als einddoel neemt, gaat aan het verworvene te gronde; wie blijft betalen voor begrip, met bezit, geduld en eerbied voor wat hij nog niet doorziet, wordt uiteindelijk zelf ingewijd. De vertelling legt daarmee de kern van de Fulbe-initiatieleer bloot: kennis wordt niet gegrepen maar verdiend, in etappes, en de betekenis van wat je onderweg ziet, krijg je pas aan het einde, wanneer je gedrag heeft bewezen dat je haar aankunt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een leerdicht uit de orale traditie</h3>
+      <p>Kaïdara is een janti, een initiatievertelling van de Fulbe, het herdersvolk dat verspreid over de West-Afrikaanse savanne leeft. De tekst circuleerde in gebieden als de Macina in Mali en de Ferlo in Senegal en werd mondeling doorgegeven door kenners van de traditie. Amadou Hampâté Bâ (1900-1991), zelf in die traditie gevormd en later lid van de uitvoerende raad van Unesco, tekende de vertelling op, gaf haar eerst in proza weer en werkte haar daarna om tot een lang versdicht, zoals geletterde Fulbe met zulke teksten gewoon waren te doen.</p>
+      <p>Van hem komt ook de uitspraak waarmee hij het bergingswerk verdedigde: in Afrika staat met elke oude mens die sterft een bibliotheek in brand. De uitgave van 1969 zette de Fulfulde-tekst en de Franse vertaling naast elkaar en maakte de vertelling voor het eerst buiten de eigen kring toegankelijk.</p>
+      <h3>De afdaling langs elf symbolen</h3>
+      <p>Drie mannen, Hammadi, Hamtoudo en Dembourou, worden door een geheimzinnige stem geroepen en beginnen een reis die hen ondergronds voert, naar het land van de dwerggeesten. Onderweg stuiten ze op elf verschijningen die zich telkens even tonen en weer verdwijnen: een kameleon, een vleermuis, een schorpioen, een bok, een haan die in een ram verandert, en andere raadselgestalten.</p>
+      <p>Elke verschijning besluit met dezelfde formule: trek verder, en de betekenis van wat je zag, zul je horen aan het einde van je reis, bij de verre en toch heel nabije Kaïdara. De reizigers begrijpen niets van wat ze zien en moeten verder op vertrouwen alleen. De vertelling bouwt zo haar eigen leerweg na: het raadsel gaat aan de uitleg vooraf, en de uitleg moet verdiend worden.</p>
+      <h3>Bij Kaïdara</h3>
+      <p>Aan het einde van de afdaling bereiken de drie de god zelf. Kaïdara is de god van het goud en van de kennis, en zijn gestalte is een kosmogram: zeven hoofden, twaalf armen en dertig voeten, die staan voor de zeven dagen van de week, de twaalf maanden van het jaar en de dertig dagen van de maand. Hij ontvangt de reizigers, maar verklaart niets.</p>
+      <p>In plaats van uitleg krijgen ze goud: negen met goud beladen runderen, drie voor ieder. Daarmee worden ze teruggestuurd naar de bovenwereld. De gave is een beproeving in vermomming, want wat ieder met het goud doet, zal uitwijzen wie de kennis waard is waar het goud slechts de drager van is.</p>
+      <h3>De terugreis: twee doden</h3>
+      <p>Op de terugweg gaan de wegen uiteen. Dembourou wil met zijn goud macht kopen en droomt zich al heerser; Hamtoudo wil het vasthouden als rijkdom. Beiden weigeren onderweg iets van hun schat af te staan, slaan waarschuwingen van de gestalten die hun pad kruisen in de wind en overtreden de geboden die de reis hun stelt. Het kost hun het leven: het goud waarvoor ze alles overhadden, wordt hun graf.</p>
+      <p>Hammadi doet het omgekeerde. Hij houdt vast aan het ene wat hem bij Kaïdara is bijgebleven, dat goud de voetbank van de kennis is en niet haar meester, en hij betaalt er telkens mee: voor raad, voor doorgang, voor begrip. Berooid maar levend komt hij thuis, en de vertelling maakt hem later koning.</p>
+      <h3>De bedelaar die god blijkt</h3>
+      <p>Jaren later klopt een oude bedelaar aan bij koning Hammadi. Waar een ander de schooier zou wegsturen, ontvangt Hammadi hem met eerbied, laat hem eten en geeft hem de ereplaats. Dan maakt de oude zich bekend: hij is Kaïdara zelf, en nu pas, na de beproeving van goud, macht en gastvrijheid, geeft hij de uitleg waar de reis om begonnen was.</p>
+      <p>Eén voor één legt hij de elf symbolen van de afdaling uit. Elk blijkt twee kanten te hebben, een goede en een kwade, en samen vormen ze een leer over de menselijke aard: wispelturigheid en aanpassing, dubbelhartigheid, geduld, de omkering van gedaanten. Hammadi ontvangt zo de kennis die zijn metgezellen met goud dachten te kunnen overslaan, en de vertelling eindigt met de ingewijde koning als beeld van de voltooide mens.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Janti</td><td>Fulbe-genre van de initiatievertelling, waarin een verhaal een esoterische leerweg verpakt.</td></tr>
+          <tr><td class="term">Kaïdara</td><td>De god van het goud en van de kennis, ver en toch heel nabij, die beproeft voordat hij uitlegt.</td></tr>
+          <tr><td class="term">De elf symbolen</td><td>De raadselverschijningen van de afdaling, elk met een goede en een kwade kant, die pas aan het einde worden verklaard.</td></tr>
+          <tr><td class="term">Hammadi</td><td>De reisgenoot die goud blijft inruilen voor begrip en als enige de inwijding voltooit.</td></tr>
+          <tr><td class="term">Het land van de dwerggeesten</td><td>De ondergrondse wereld waar de reis heen voert, in de Fulbe-kosmologie het domein van de verborgen dingen.</td></tr>
+          <tr><td class="term">Goud als voetbank van de kennis</td><td>Het kernmotief van de vertelling: rijkdom is drager en betaalmiddel van kennis, nooit haar doel.</td></tr>
+          <tr><td class="term">Traditionalist</td><td>Kenner en doorgever van de orale overlevering, de rol waarin Hampâté Bâ zelf was gevormd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De tekst zelf is de bron: een orale overlevering die door één man, Amadou Hampâté Bâ, is opgetekend, vertaald en tot versdicht omgewerkt. Er bestaat geen onafhankelijke schriftelijke overlevering waarmee zijn versie te vergelijken valt, en de wetenschappelijke inbedding komt van de editie van 1969, waarin Lilyan Kesteloot en Alfâ Ibrâhîm Sow de tekst filologisch bezorgden. Wie wil weten wat traditie is en wat bewerking, kan dat aan de tekst zelf niet aflezen.</p>
+      <p>Hampâté Bâ was als geboren Fulbe en getraind traditiekenner een bevoorrechte getuige, en zijn oeuvre, van <i>L'étrange destin de Wangrin</i> tot zijn memoires, geldt als hoeksteen van de West-Afrikaanse letterkunde. Maar hij was ook een literair auteur met een missie: de orale cultuur verdedigen tegenover een geletterde wereld die haar niet ernstig nam. Dat maakt de vertelling betrouwbaar als toegang tot de Fulbe-leer en onbetrouwbaar als woordelijke weergave van wat een verteller in de Macina ooit voordroeg.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De overlevering is het eerlijke voorbehoud bij dit boek. De editie van 1969 geeft zelf aan dat de tekst het werk is van een geleerde dichter die de stof bewerkte, naar het gebruik van geletterde Fulbe. Hoeveel Kaïdara dus de traditie is en hoeveel Hampâté Bâ, valt niet vast te stellen; de grens tussen optekenen en herscheppen loopt dwars door de tekst en is onzichtbaar gemaakt door het ontbreken van andere versies.</p>
+      <p>De vertelling is bovendien esoterisch van opzet: zij beloont de ingewijde en houdt de buitenstaander op afstand. Zonder de uitleg aan het slot en zonder commentaar blijven de elf symbolen duister, en ook met uitleg leunt de leer op een kosmologie van getallen en gedaanten die de moderne lezer op gezag moet aannemen. Wie geen zin heeft in duiding, houdt een episodisch reisverhaal over waarin de personages weinig diepte krijgen: Hamtoudo en Dembourou zijn typen die moeten vallen, geen mensen.</p>
+      <p>Ten slotte is de wereld van Kaïdara volledig mannelijk. De inwijding is een zaak van mannen onder elkaar; vrouwen komen in de vertelling nauwelijks voor, laat staan als dragers van kennis. Dat is getrouw aan de herkomst van de tekst, een leerweg binnen een patriarchale herdersamenleving, maar het betekent dat de vertelling de helft van die samenleving buiten haar mensbeeld laat.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Kaïdara komt uit de orale overlevering van de Fulbe (Peul) en werd door de Malinese schrijver en traditiekenner Amadou Hampâté Bâ opgetekend en tot een versdicht bewerkt. De eerste boekuitgave is de tweetalige editie <i>Kaïdara, récit initiatique peul</i> in de reeks Classiques africains (nr. 7, Julliard, Parijs, 1969, 181 blz.), bezorgd door Hampâté Bâ en Lilyan Kesteloot met Alfâ Ibrâhîm Sow, met de Fulfulde-tekst en de Franse vertaling naast elkaar. Latere Franse uitgaven brachten de Franse tekst afzonderlijk, en er bestaat een geïllustreerde kunsteditie bij Diane de Selliers. Deze samenvatting volgt de Franse tekst van Hampâté Bâ. Een Nederlandse vertaling is er voor zover na te gaan niet.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Drie reisgenoten dalen af naar het land van de dwerggeesten, op zoek naar Kaïdara, de god van het goud en van de kennis. Onderweg passeren ze elf raadselachtige verschijningen die hun telkens hetzelfde meegeven: de betekenis hoor je aan het einde, bij de verre en toch nabije Kaïdara. Ze krijgen alle drie goud mee terug. Wat ieder met dat goud doet, beslist over leven en dood.</p><p>De Malinese schrijver Amadou Hampâté Bâ, de grote pleitbezorger van de West-Afrikaanse orale traditie, tekende deze initiatievertelling van de Fulbe op en bewerkte haar tot een versdicht. Het is een van de weinige teksten waarin een Afrikaanse esoterische leerweg van binnenuit op schrift is gezet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>orale traditie</li><li>Fulani</li><li>initiatie</li><li>West-Afrika</li><li>symboliek</li><li>queeste</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="524"><a href="524.html">The Conference of the Birds</a>. Een andere allegorische leerweg in versvorm, waar de reis eveneens zwaarder weegt dan de bestemming.</li>
+          <li value="287"><a href="287.html">Siddhartha</a>. Ook hier vindt de zoeker de kennis niet bij de leermeester maar in wat de weg zelf hem afdwingt.</li>
+          <li value="8"><a href="08.html">De alchemist</a>. Moderne fabel over een schat die pas betekenis krijgt door de omweg erheen, geestelijk verwant maar veel lichter van gewicht.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbells patroon van afdaling, beproeving en terugkeer, waar Kaïdara tot in de details in past.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

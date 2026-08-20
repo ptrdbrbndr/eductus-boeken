@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Undoing Project &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="The Undoing Project stelt dat de psychologie die onze kijk op het menselijk oordeel veranderde, de heuristieken, de denkfouten en de prospecttheorie,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-514">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">514 &middot; Gewoontes en denken</p>
+    <h1>The Undoing Project</h1>
+    <p class="lede">Michael Lewis, 2016</p>
+    <p class="stats">
+      <span><b>1132</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="514"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p><i>The Undoing Project</i> stelt dat de psychologie die onze kijk op het menselijk oordeel veranderde, de heuristieken, de denkfouten en de prospecttheorie, alleen te begrijpen is via de vriendschap waaruit zij voortkwam: twee tegengestelde karakters die samensmolten tot een gezamenlijke geest die scherper was dan elk van beiden afzonderlijk. Lewis beweert bovendien dat die versmelting de kiem van haar eigen einde droeg, omdat de buitenwereld de gezamenlijke roem ongelijk verdeelde en de vriendschap dat verschil niet verdroeg, tot een gedeeltelijke verzoening in de laatste maanden van Tversky's leven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een basketbalvraag als opmaat</h3>
+      <p>Het boek opent buiten de psychologie, bij Daryl Morey, de manager van de Houston Rockets die basketbalspelers selecteert met data omdat het oog van scouts stelselmatig bedrogen wordt: door een gezicht, een lichaamsbouw, een verhaal dat ergens op lijkt. Lewis gebruikt de sportwereld om te laten zien wat er te verklaren valt, namelijk dat ervaren beoordelaars voorspelbare fouten maken, en dat de theorie die beschrijft waarom, decennia eerder in Jeruzalem is ontstaan.</p>
+      <h3>Twee levens naar Jeruzalem</h3>
+      <p>Daniel Kahneman bracht zijn kindertijd ondergedoken door in bezet Frankrijk; zijn vader, chemicus bij een cosmeticabedrijf, werd na een arrestatie door toedoen van zijn werkgever vrijgelaten. Amos Tversky groeide op in Israël, werd officier bij de parachutisten, redde tijdens een oefening een soldaat het leven en vocht in drie oorlogen. Lewis zet de karakters naast elkaar: Kahneman de twijfelaar die steeds verwachtte ontmaskerd te worden en van elk eigen idee afstand kon nemen, Tversky de scherpste man in elke kamer, wiens intelligentie collega's een maatstaf noemden. Aan de Hebreeuwse Universiteit van Jeruzalem kruisen hun wegen.</p>
+      <h3>De botsing</h3>
+      <p>In 1969 nodigde Kahneman Tversky uit in zijn werkgroep. Tversky besprak er onderzoek waaruit zou blijken dat mensen ruwweg als voorzichtige statistici redeneren; Kahneman veegde er de vloer mee aan: in zijn ogen leken mensen op geen enkele statisticus. Uit die botsing groeide een werkwijze die jaren standhield: samen achter één schrijfmachine, elke zin gezamenlijk, onder gelach dat collega's door de dichte deur hoorden. Wie wat bedacht had, viel niet meer te scheiden; de volgorde van de auteursnamen bepaalden ze met een muntworp.</p>
+      <h3>Wat zij vonden</h3>
+      <p>In een reeks artikelen beschreven zij de vuistregels waarmee mensen onder onzekerheid oordelen: representativiteit (hoe sterk lijkt dit geval op het beeld van de categorie), beschikbaarheid (hoe makkelijk schiet een voorbeeld te binnen) en verankering. Het overzichtsartikel in <i>Science</i> uit 1974 maakte de denkfouten buiten de psychologie bekend; het artikel over prospecttheorie uit 1979 groeide uit tot een van de meest aangehaalde stukken uit de economie.</p>
+      <p>De kern van dat laatste: mensen wegen verliezen zwaarder dan even grote winsten, en hun keuzes hangen af van het referentiepunt en van de verpakking van de vraag, niet alleen van de uitkomsten. Lewis laat de doorwerking zien via arts Don Redelmeier, die de inzichten in de geneeskunde toepaste, en via Kahnemans oude observatie bij de Israëlische luchtmacht dat instructeurs het effect van straf en lof verwarren met regressie naar het gemiddelde.</p>
+      <h3>De ontrafeling</h3>
+      <p>Na de verhuizing naar Noord-Amerika, Tversky naar Stanford, Kahneman naar Vancouver, raakte de balans zoek. Uitnodigingen, eerbewijzen en een MacArthur-beurs gingen naar Tversky; het gezamenlijke werk werd in de buitenwereld steeds vaker zijn werk. Kahneman verdroeg dat slecht, en Tversky deed weinig om het te herstellen. Hun laatste grote gezamenlijke onderwerp gaf het boek zijn titel: de regels waarmee mensen in gedachten gebeurtenissen ongedaan maken, het 'bijna' en 'als ik nou' waaruit spijt ontstaat.</p>
+      <h3>Het einde</h3>
+      <p>In 1996 hoorde Tversky dat hij uitgezaaide melanoom had en nog maanden te leven. Een van zijn eerste telefoontjes was voor Kahneman; in de maanden erna spraken zij weer zoals vroeger. Tversky stierf in juni 1996. Zes jaar later kreeg Kahneman de Nobelprijs voor de economie voor het werk dat zij samen hadden gedaan; de prijs wordt niet postuum toegekend. Lewis eindigt bij de vaststelling die het hele boek draagt: de ideeën waren van hen samen, en geen van beiden was er alleen op gekomen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Representativiteitsheuristiek</td><td>De vuistregel om kansen te schatten op gelijkenis met een stereotiep beeld, met verwaarlozing van basiskansen.</td></tr>
+          <tr><td class="term">Beschikbaarheidsheuristiek</td><td>De vuistregel om kansen te schatten aan de hand van het gemak waarmee voorbeelden te binnen schieten.</td></tr>
+          <tr><td class="term">Verankering</td><td>De neiging om schattingen te laten hangen aan een eerder genoemd getal, ook als dat getal willekeurig is.</td></tr>
+          <tr><td class="term">Prospecttheorie</td><td>Kahneman en Tversky's beschrijving van keuzes onder risico, waarin waarde wordt afgemeten aan winst of verlies ten opzichte van een referentiepunt.</td></tr>
+          <tr><td class="term">Verliesaversie</td><td>De bevinding dat een verlies zwaarder weegt dan een even grote winst.</td></tr>
+          <tr><td class="term">Framing</td><td>Het verschijnsel dat dezelfde keuze anders uitvalt naargelang zij als winst of als verlies wordt voorgesteld.</td></tr>
+          <tr><td class="term">Regressie naar het gemiddelde</td><td>Het statistische verschijnsel dat op een uitschieter meestal een gewonere uitkomst volgt, door mensen aangezien voor het effect van hun eigen ingrijpen.</td></tr>
+          <tr><td class="term">Wet van de kleine getallen</td><td>De ironische naam die Kahneman en Tversky gaven aan het geloof dat kleine steekproeven de hele populatie weerspiegelen.</td></tr>
+          <tr><td class="term">Undoing</td><td>Hun late onderzoekslijn naar de regels waarmee mensen gebeurtenissen in gedachten ongedaan maken, de bron van spijt en bijna-ervaringen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Lewis werkte jarenlang met Kahneman, sprak familie, vrienden, oud-studenten en collega's van beide mannen en kon putten uit Tversky's nagelaten papieren. Het feitelijke geraamte, wie waar werkte, wat wanneer verscheen, hoe de erkenning verschoof, is goed gedocumenteerd. Voor de binnenkant van de vriendschap is het boek grotendeels op Kahneman aangewezen, en dat is voelbaar: Tversky's kant komt van anderen.</p>
+      <p>De wetenschap die het boek beschrijft, staat er ook los van het verhaal goed voor. De kernbevindingen over verliesaversie, framing en de heuristieken behoren tot de vaakst herhaalde resultaten in de psychologie, en een grootschalige internationale herhalingsstudie uit 2020 bevestigde het merendeel van de oorspronkelijke prospecttheorie-experimenten. In het licht van de herhaalcrisis in de psychologie is dat geen vanzelfsprekendheid.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De meest gehoorde kanttekening komt van welwillende recensenten als Cass Sunstein en Richard Thaler: de wetenschap wordt bijna terloops behandeld. Wie het werk zelf wil begrijpen, leert meer uit <i>Thinking, Fast and Slow</i>; Lewis kiest voor de mensen en laat de theorie meeliften. Het openingshoofdstuk over basketbal is bovendien losjes met de rest verbonden en verraadt de auteur van <i>Moneyball</i> die zijn vertrouwde terrein nog even aandoet.</p>
+      <p>Zwaarder weegt de scheve bronpositie. Tversky stierf twintig jaar voor verschijning en heeft geen weerwoord; het beeld van de vriendschap, inclusief de vraag wie er het meest onder leed, komt onvermijdelijk vooral uit Kahnemans herinnering en die van Tversky's naasten. Ook de wetenschappelijke tegenstem blijft buiten beeld: de kritiek van onder anderen Gerd Gigerenzer, dat het denkfoutenprogramma mensen dommer voorstelt dan ze zijn en vuistregels onderschat als vaak doeltreffende strategieën, wordt in het boek niet behandeld.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Deze samenvatting volgt de oorspronkelijke Amerikaanse uitgave, <i>The Undoing Project: A Friendship That Changed Our Minds</i> (W.W. Norton &amp; Company, 2016, ISBN 9780393254594). De Britse editie bij Allen Lane verscheen met de ondertitel <i>A Friendship That Changed the World</i>. Een Nederlandse vertaling van dit boek is niet bekend; Kahnemans eigen <i>Thinking, Fast and Slow</i> (zie nr 55) verscheen wel in vertaling, als <i>Ons feilbare denken</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Veertig jaar voordat gedragseconomie een vakgebied heette, zaten twee Israëlische psychologen samen achter één schrijfmachine te lachen om hun eigen vondsten. Michael Lewis vertelt hoe Daniel Kahneman en Amos Tversky, een twijfelaar die overal gevaar zag en een zelfverzekerde wiskundig psycholoog die nergens voor terugdeinsde, samen blootlegden hoe voorspelbaar het menselijk oordeel de mist in gaat.</p><p>Het is een dubbelbiografie en tegelijk de geschiedenis van een samenwerking die geen van beiden alleen had gekund: hoe zij ontstond in Jeruzalem, wat zij voortbracht, en hoe roem en afstand haar uit elkaar dreven voordat de Nobelprijs kwam.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychologie</li><li>denkfouten</li><li>vriendschap</li><li>gedragseconomie</li><li>biografie</li><li>Israël</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahnemans eigen samenvatting van het gezamenlijke werk, met de theorie die Lewis laat liggen.</li>
+          <li value="69"><a href="69.html">Ruis</a>. Het latere vervolg over een andere bron van oordeelsfouten: ruis in plaats van systematische vertekening.</li>
+          <li value="424"><a href="424.html">Predictably Irrational</a>. Gedragseconomie in experimentvorm, van een onderzoeker die op het fundament van Kahneman en Tversky bouwt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
