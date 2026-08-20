@@ -99435,3 +99435,81 @@ Boyd en Goldenberg (471) zeggen: blijf binnen, een onbegrensde opdracht geeft
 het brein niets om aan te grijpen, en vijf vaste patronen binnen het bestaande
 product leveren meer op dan vrij associëren. De reclameman en de hoogleraren,
 in tegenovergestelde richting op weg naar hetzelfde doel.
+
+**De machinerie van de markt** (477, 478). 
+Twee vakhandboeken over hoe een beurs feitelijk werkt, onder de
+koersgrafieken. Harris (478) schreef het standaardwerk over
+marktmicrostructuur: wie liquiditeit levert en wie haar neemt, waarom spreads
+bestaan, en hoe een order de prijs zelf beweegt. Johnson (477) beschrijft de
+uitvoeringskant die daar sinds de automatisering bovenop kwam: directe
+markttoegang, orderboeken en het in stukken knippen van grote orders. Wie wil
+begrijpen waarom een strategie die op papier werkt in de praktijk geld
+verliest, vindt hier de verklaring.
+
+**Ernest Chan: eerst het bedrijf, dan de strategieën** (476, 479). 
+Twee boeken van dezelfde kwantitatieve handelaar, in de volgorde waarin ze
+bedoeld zijn. Quantitative Trading (476) behandelt het opzetten van een eigen
+handelsbedrijf: data, backtesten, uitvoering en de valkuilen daartussen.
+Algorithmic Trading (479) vult de strategiekant in, met terugkeer naar het
+gemiddelde en momentum als de twee families waar vrijwel alles onder valt.
+Chan zegt er zelf bij dat een gepubliceerde strategie slijt zodra genoeg
+mensen haar kennen; de methode is het product, niet de regels.
+
+**Andreas Clenow, twee systemen met open kaarten** (480, 481). 
+Clenow publiceert in beide boeken zijn volledige handelsregels en laat ook de
+jaren zien waarin ze zwaar verliezen, wat in dit genre zeldzamer is dan het
+zou moeten zijn. Following the Trend (480) ontleedt het trendvolgen op futures
+waarmee de grote beheerde fondsen hun naam vestigden, Stocks on the Move (481)
+past hetzelfde systematische denken toe op momentum in aandelen. De boodschap
+is tweemaal dezelfde: het rendement komt uit het volgehouden systeem, niet uit
+de voorspelling.
+
+**Backtesten zonder jezelf te bedriegen** (482, 483, 484, 485, 486). 
+Vijf boeken over de vraag die boven elke handelsstrategie hangt: is dit een
+patroon, of toeval dat zich als patroon voordoet. Aronson (483) toetste ruim
+zesduizend technische regels wetenschappelijk en hield er vrijwel niets aan
+over; met Masters (484) werkt hij uit hoe machine learning diezelfde toets kan
+doorstaan. Davey (482) beschrijft als praktijkman hoe overfitting eruitziet
+voordat het geld kost, López de Prado (485) legt de institutionele lat met
+methoden tegen zelfbedrog in de validatie, en Jansen (486) is het codeboek om
+het zelf na te bouwen. Lees 483 eerst; daarna is de rest gereedschap.
+
+**De handelaar tegenover zichzelf** (487, 488, 80, 137). 
+Vier boeken over de handelaar als eigen grootste risico. Douglas (487) leert
+probabilistisch denken: één transactie zegt niets, pas de reeks telt. Tendler
+(488), afkomstig uit de pokercoaching, bouwt een systeem om terugkerende
+fouten als tilt en verliezersangst stap voor stap af te leren, en sluit
+daarmee direct aan op The Poker Mindset (137). Coates (80) levert de
+fysiologie eronder: testosteron en cortisol veranderen de risicobereidheid
+zelf, buiten het bewustzijn om. Wie 80 leest, begrijpt waarom 487 en 488 nodig
+zijn.
+
+**Hoeveel per keer: de wiskunde van de inzet** (489, 490, 491, 492, 493). 
+Vijf boeken over de vraag die belangrijker blijkt dan de instap: hoeveel zet
+je per positie in. Tharp (489) maakte positiegrootte tot kern van elk
+handelssysteem en werkte dat in 491 uit tot een uitputtend handboek. Vince
+(490) rekent de wiskundig snelste groeiweg uit, Optimal f, en levert daarmee
+ongewild ook het bewijs waarom vrijwel niemand die weg volhoudt: de
+tussentijdse verliezen zijn te groot voor mens en contract. Penfold (492) en
+McDowell (493) vertalen dezelfde rekensommen naar overlevingsregels, met het
+risico op de ondergang van de rekening als beginpunt.
+
+**Taleb aan het werk: opties en staartrisico** (494, 495, 496). 
+Natenberg (495) is het leerboek waarmee optiehandelaren het vak leren:
+volatiliteit, de grieken en waarom de verwachting al in de prijs zit. Taleb
+(494) schreef vanuit de handelspraktijk over wat er daarna komt: posities
+beheren in markten die zich niet aan de modellen houden, het vakwerk waar zijn
+latere Incerto-reeks op voortbouwt. Spitznagel (496), Talebs zakenpartner bij
+Universa, bouwt op datzelfde fundament een beleggingsfilosofie: een kleine,
+permanente verzekering tegen de crash, zodat de rest van de portefeuille
+risico kan blijven nemen. Van leerboek via praktijk naar filosofie.
+
+**Risico gemeten op portefeuilleniveau** (497, 498). 
+Twee academische standaardwerken over risico op het niveau van de hele
+portefeuille. McNeil, Frey en Embrechts (497) behandelen de wiskunde van het
+meten zelf, van Value at Risk tot extreme-waardetheorie, inclusief de les van
+2008 dat een risicomodel kan falen op het moment dat het nodig is. Grinold en
+Kahn (498) formuleren de wet die actief vermogensbeheer beheerst: rendement
+boven de markt vraagt voorspelkracht maal het aantal onafhankelijke kansen om
+die toe te passen. Studieboeken, geen betogen, en juist daarom de maat waaraan
+de rest van dit vakgebied zich moet meten.
