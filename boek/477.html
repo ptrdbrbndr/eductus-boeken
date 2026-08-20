@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algorithmic Trading and DMA &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Johnson betoogt dat de uitvoering van een order een eigen vak is geworden, los van de vraag wat er gekocht wordt. Sinds beurzen elektronisch zijn en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-477">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">477 &middot; Naslag en praktijk</p>
+    <h1>Algorithmic Trading and DMA</h1>
+    <p class="lede">Barry Johnson, 2010</p>
+    <p class="stats">
+      <span><b>1052</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="477"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Johnson betoogt dat de uitvoering van een order een eigen vak is geworden, los van de vraag wat er gekocht wordt. Sinds beurzen elektronisch zijn en instellingen via directe markttoegang zelf in het orderboek handelen, bepalen algoritmen wanneer, waar en in welke stukjes een grote order de markt in gaat, en die keuzes schelen meetbaar geld: een order die te haastig wordt uitgevoerd drukt zijn eigen prijs, een order die te lang wacht loopt koersrisico. Wie de kosten van uitvoering niet kent en niet meet, geeft rendement weg aan partijen die dat wel doen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Markten en microstructuur</h3>
+      <p>Het eerste deel legt de ondergrond. Marktmicrostructuur is de studie van hoe handel feitelijk tot stand komt: wie de kopers en verkopers zijn, hoe hun orders elkaar vinden en hoe daaruit een prijs ontstaat. Johnson beschrijft het elektronische orderboek, de lijst van koop- en verkooporders die per prijs op uitvoering wachten, en het verschil tussen door orders gedreven markten en markten waar een handelaar doorlopend prijzen afgeeft. Een rondgang langs de aandelen-, obligatie-, valuta- en derivatenmarkten van de wereld sluit het deel af.</p>
+      <h3>Orders en de standaardalgoritmen</h3>
+      <p>Het tweede deel is het hart voor de praktijk. Eerst de bouwstenen: de marktorder, die meteen wordt uitgevoerd tegen wat er staat, en de limietorder, die een prijsgrens stelt maar kan blijven liggen, plus de vele varianten en voorwaarden daaromheen.</p>
+      <p>Daarna de uitvoeringsalgoritmen die grote orders in stukjes knippen. De bekendste spreiden een order over de dag, gelijkmatig in de tijd of naar rato van het handelsvolume, zodat de gemiddelde uitvoeringsprijs dicht bij een afgesproken maatstaf blijft. Participatie-algoritmen doen mee voor een vast percentage van wat de markt op dat moment handelt. Weer andere sturen op implementation shortfall: het totale verschil tussen de koers op het moment van het besluit en wat de uitvoering uiteindelijk opleverde.</p>
+      <h3>Transactiekosten en de afweging</h3>
+      <p>Twee hoofdstukken behandelen de kosten die niet op een afrekening staan. Naast provisie en de spread, het verschil tussen de beste bied- en laatprijs, is dat vooral marktimpact: het opdrijven of drukken van de prijs door je eigen order. Daartegenover staat timingrisico, het gevaar dat de koers wegloopt terwijl je wacht. Sneller handelen betekent meer impact en minder timingrisico; langzamer handelen het omgekeerde. Het kiezen van een uitvoeringsstrategie is het kiezen van een punt op die afruil, en Johnson laat zien hoe kostenmodellen dat punt proberen te berekenen.</p>
+      <h3>Implementatie</h3>
+      <p>Het derde deel daalt af naar de uitvoeringstactiek: waar je een limietorder in het boek legt, wanneer je hem verplaatst, hoe algoritmen korte-termijnvoorspellingen van volume en spread gebruiken om hun knipschema bij te sturen, en welke technische infrastructuur daaronder zit. Hier is het boek het meest een vakboek voor bouwers van handelssystemen, het werk dat Johnson zelf bij zakenbanken deed.</p>
+      <h3>Gevorderde onderwerpen</h3>
+      <p>Het slotdeel verbreedt naar het uitvoeren van hele portefeuilles tegelijk, handel over meerdere vermogenscategorieën heen, het verwerken van nieuwsberichten door machines en de eerste toepassingen van datamining en kunstmatige intelligentie in de uitvoering. Uit 2010, dus als voorspelling van wat daarna kwam eerder voorzichtig dan overmoedig; als plaatsbepaling van waar het vak toen stond is het bruikbaar gebleven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Directe markttoegang (DMA)</td><td>De mogelijkheid voor een belegger om via de systemen van een broker zelf orders in het orderboek van de beurs te leggen.</td></tr>
+          <tr><td class="term">Marktmicrostructuur</td><td>De studie van hoe handel feitelijk tot stand komt: orders, regels, tussenpersonen en de prijsvorming die daaruit volgt.</td></tr>
+          <tr><td class="term">Orderboek</td><td>De lijst van openstaande koop- en verkooporders per prijsniveau waaruit een elektronische beurs transacties maakt.</td></tr>
+          <tr><td class="term">Limietorder</td><td>Order met een prijsgrens die op uitvoering wacht, tegenover de marktorder die meteen tegen de beste beschikbare prijs handelt.</td></tr>
+          <tr><td class="term">Spread</td><td>Het verschil tussen de beste bied- en de beste laatprijs, een vaste kostenpost voor wie meteen uitgevoerd wil worden.</td></tr>
+          <tr><td class="term">Marktimpact</td><td>De prijsverschuiving die een order zelf veroorzaakt, de grootste verborgen kostenpost bij grote orders.</td></tr>
+          <tr><td class="term">Timingrisico</td><td>Het risico dat de koers wegloopt zolang een order nog niet volledig is uitgevoerd.</td></tr>
+          <tr><td class="term">VWAP en TWAP</td><td>Uitvoeringsmaatstaven en de bijbehorende algoritmen die een order spreiden naar rato van het handelsvolume dan wel gelijkmatig in de tijd.</td></tr>
+          <tr><td class="term">Implementation shortfall</td><td>Het totale verschil tussen de koers op het moment van het beleggingsbesluit en het werkelijke resultaat van de uitvoering.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een synthese, geen eigen onderzoek: Johnson bundelt de academische literatuur over marktmicrostructuur, ruim twintig bladzijden verwijzingen, met de praktijkkennis van iemand die deze systemen zelf bouwde. Voor de beschrijvende delen, hoe orderboeken en algoritmen werken, is die onderbouwing solide; de werking is naspeekbaar en het boek werd na verschijnen in de sector breed als inwerkboek omarmd.</p>
+      <p>Waar het kostenmodellen en afwegingen beschrijft, geeft het de stand van het onderzoek van rond 2009 weer en rekent het niet zelf na. Het boek belooft ook nergens rendement: het gaat over kosten drukken bij een gegeven beleggingsbesluit, niet over de vraag welk besluit geld oplevert. Die bescheiden claim maakt het houdbaarder dan de meeste handelsboeken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is een vakhandboek en geen betoog: bijna 600 bladzijden systematische beschrijving, bedoeld om in te werken en op te zoeken, niet om achter elkaar te lezen. Wie geen beroepsmatige reden heeft om de elektronische handel te begrijpen, kan met een samenvatting volstaan.</p>
+      <p>Het tweede bezwaar is de ouderdom. Het boek verscheen begin 2010, enkele maanden vóór de flash crash van mei 2010 waarin de Amerikaanse beurs in minuten instortte en herstelde, en vóór het grote publieke debat over flitshandel en de Europese regelgeving die daarop volgde. De wapenwedloop in snelheid die de jaren daarna bepaalde, ontbreekt dus grotendeels. De bouwstenen die het beschrijft, orderboeken, ordertypen, de standaardalgoritmen en de kostenafweging, zijn echter nauwelijks veranderd, en juist doordat het boek beschrijft en niet voorspelt is het redelijk gedateerd geraakt in de details en niet in de kern.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik bij eigen orders in weinig verhandelde fondsen een limietorder in plaats van een marktorder; de spread is daar een echte kostenpost.</li>
+        <li>Beoordeel een uitvoering niet op één transactie maar tegen een maatstaf, zoals de volumegewogen gemiddelde dagkoers.</li>
+        <li>Vraag bij een vermogensbeheerder of broker hoe uitvoeringskosten worden gemeten; wie daar geen antwoord op heeft, meet ze niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Algorithmic Trading and DMA: An Introduction to Direct Access Trading Strategies</i> (4Myeloma Press, 2010, 592 blz., ISBN 9780956399205). In eigen beheer uitgegeven; de netto-opbrengst gaat naar de Britse kankerstichting Myeloma UK, waar Johnsons moeder patiënt was. Geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Handboek over de uitvoeringskant van het handelen: niet wat je koopt, maar hoe een grote order de markt in gaat zonder zijn eigen prijs te bederven. Johnson, die bij zakenbanken handelssystemen bouwde, legt uit hoe elektronische beurzen en orderboeken werken, welke standaardalgoritmen er bestaan om orders in stukjes uit te voeren, en waar de verborgen kosten zitten.</p><p>Bijna 600 bladzijden, bedoeld als inwerkboek voor wie in of rond de elektronische handel gaat werken. Bijzonderheid: het boek is in eigen beheer uitgegeven en de opbrengst gaat naar kankeronderzoek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>handelen</li><li>marktmicrostructuur</li><li>algoritmen</li><li>naslagwerk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="478"><a href="478.html">Trading and Exchanges</a>. Harris legt de economie onder dit handboek: wie er handelen, waarom, en waar liquiditeit vandaan komt.</li>
+          <li value="476"><a href="476.html">Quantitative Trading</a>. Chan bekijkt dezelfde elektronische markten van de andere kant, die van de zelfstandige die er strategieën op draait.</li>
+          <li value="80"><a href="80.html">The Hour Between Dog and Wolf</a>. Coates over wat er in het lichaam van de handelaar gebeurt; de menselijke kant van de vloer die hier machine is geworden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

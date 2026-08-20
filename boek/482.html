@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Winning Algorithmic Trading Systems &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Winstgevend systematisch handelen is geen kwestie van de juiste indicator vinden maar van een productieproces dat zelfbedrog uitbant. Wie een handelsregel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-482">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">482 &middot; Geld en ondernemen</p>
+    <h1>Building Winning Algorithmic Trading Systems</h1>
+    <p class="lede">Kevin J. Davey, 2014</p>
+    <p class="stats">
+      <span><b>1410</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="482"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Winstgevend systematisch handelen is geen kwestie van de juiste indicator vinden maar van een productieproces dat zelfbedrog uitbant. Wie een handelsregel net zo lang bijstelt tot de historische resultaten mooi ogen, heeft niets voorspeld maar het verleden nagetekend. Daveys antwoord is een vaste keten: doelen vooraf, veel ideeën goedkoop toetsen, streng valideren op ongeziene gegevens, de bandbreedte van mogelijke uitkomsten met simulaties bepalen, maanden proefdraaien zonder ingrijpen en pas daarna echt geld, in kleine omvang. Vrijwel elk idee hoort in dat proces te sneuvelen; dat is geen verspilling maar de kern van de methode.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Leergeld: tien jaar verliezen</h3>
+      <p>Het boek begint als memoires. Davey handelde vanaf begin jaren negentig naast zijn ingenieursbaan, kocht systemen van anderen, sprong van methode naar methode en verloor gestaag, op een pijnlijk dieptepunt na waarin een groot deel van zijn rekening verdampte. De ommekeer kwam toen hij zijn eigen vakhouding op het handelen ging toepassen: meten, toetsen, documenteren en wantrouwen wat te mooi oogt.</p>
+      <p>Het resultaat kwam in de World Cup Championship of Futures Trading, een wedstrijd met echte rekeningen: tweede in 2005 met 148 procent rendement, winnaar in 2006 met 107 procent, tweede in 2007 met 112 procent. Davey vertelt er eerlijk bij dat die wedstrijdjaren tussentijdse verliezen van veertig tot vijftig procent kenden; wedstrijdrisico is geen pensioenrisico.</p>
+      <h3>De valkuil: een backtest die te mooi is</h3>
+      <p>Het theoretische hart van het boek is de backtest, het doorrekenen van een handelsregel op historische koersen alsof je toen had gehandeld. Goed gebruikt is het de enige manier om een idee te beoordelen voordat er geld op staat; Daveys stelling is dat vrijwel iedereen het instrument misbruikt. Wie parameters blijft bijstellen tot de historische winst maximaal is, bedrijft wat overfitting of <i>curve fitting</i> heet: de regel beschrijft de toevallige plooien van het verleden in plaats van een patroon dat terugkeert. Zo'n systeem oogt briljant en faalt zodra er echt geld op staat.</p>
+      <p>Als tegengif vergelijkt hij elk kandidaat-systeem met toeval, door hemzelf de apentest genoemd: het idee wordt afgezet tegen een grote reeks willekeurige varianten, en alleen wat ruwweg zeventig procent daarvan verslaat, mag door. Presteert een idee niet duidelijk beter dan wat een muntgooiende aap had gedaan, dan is er geen reden om aan te nemen dat het iets kan.</p>
+      <h3>De strategiefabriek</h3>
+      <p>Daveys proces begint niet bij een idee maar bij doelen: welk rendement, welk maximaal verlies, welke markten en welke tijdschaal. Daarna produceert hij aan de lopende band ideeën, uit boeken, fora en eigen observaties, zonder er verliefd op te worden.</p>
+      <p>Elk idee krijgt eerst een beperkte, goedkope toets op een klein deel van de gegevens. De meeste sneuvelen daar meteen, en dat is de bedoeling: hoe eerder een zwak idee sterft, hoe minder tijd en geld het kost. Alleen wat deze zeef overleeft, verdient de dure vervolgstappen.</p>
+      <h3>Walk-forward: toetsen op ongeziene gegevens</h3>
+      <p>De belangrijkste validatiestap is de walk-forward-analyse. Het systeem wordt afgesteld op een stuk historie en vervolgens beoordeeld op het aansluitende, ongeziene stuk; daarna schuift het venster op en herhaalt de procedure zich over de hele geschiedenis. Zo wordt nagebootst wat er in het echt gebeurt: handelen in een toekomst die het systeem niet kent.</p>
+      <p>Alleen de resultaten op de ongeziene stukken tellen. De methode is strenger dan de gebruikelijke enkele splitsing in een afstel- en een toetsdeel, omdat die ene toets zijn waarde verliest zodra er herhaaldelijk naar wordt gekeken en het systeem er alsnog op wordt bijgeslepen. Davey wil bovendien voldoende geschiedenis en voldoende transacties per regel, als vuistregel vijf tot tien jaar gegevens en tientallen transacties per handelsregel, omdat een oordeel op een handvol gevallen niets waard is.</p>
+      <h3>Monte Carlo: de bandbreedte van de toekomst</h3>
+      <p>Een systeem dat de toetsen doorstaat, levert een reeks historische transactieresultaten op. Die reeks is één toevallige volgorde uit vele mogelijke. Met een Monte-Carlosimulatie wordt de volgorde duizenden keren opnieuw geschud en doorgerekend, wat een verdeling oplevert van mogelijke vermogensverlopen: hoe diep kan het verlies redelijkerwijs worden, hoe groot is de kans dat de rekening het niet overleeft.</p>
+      <p>Daarop baseert Davey de praktische beslissingen: hoeveel kapitaal er achter één contract moet staan, welk maximaal verlies acceptabel is en of het systeem de moeite waard is. Zijn eigen lat: de verwachte jaarwinst moet minstens twee keer het verwachte maximale verlies zijn.</p>
+      <h3>Incubatie en klein beginnen</h3>
+      <p>Wat overblijft gaat de incubator in: maandenlang draait het systeem op papier mee met de echte markt, zonder dat er iets aan veranderd mag worden. Wie in die periode toch gaat sleutelen, begint in feite opnieuw. Pas na een geslaagde incubatie volgt echt geld, in de kleinst mogelijke omvang.</p>
+      <p>Daarna verschuift het werk naar bewaken: zolang het systeem binnen de bandbreedte loopt die de simulaties voorspelden, blijft het aan, en zodra het daarbuiten zakt, gaat het uit, volgens vooraf opgeschreven criteria in plaats van een gevoel op een slechte dag. Davey pleit voor meerdere kleine systemen naast elkaar in plaats van één groot, omdat systemen net als transacties een beperkte levensduur hebben. Het boek besluit met twee volledig uitgewerkte voorbeeldsystemen op de eurofuture, inclusief broncode, nadrukkelijk bedoeld als lesmateriaal en niet als kant-en-klare geldmachine.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Algoritmisch handelssysteem</td><td>Een volledig in regels vastgelegde handelswijze die zonder menselijk oordeel per situatie kan worden uitgevoerd en getoetst.</td></tr>
+          <tr><td class="term">Backtest</td><td>Het doorrekenen van een handelsregel op historische koersen om te zien wat die in het verleden had opgeleverd.</td></tr>
+          <tr><td class="term">Overfitting (curve fitting)</td><td>Een regel zo lang bijstellen tot hij het verleden perfect beschrijft, waardoor hij toevallige plooien natekent in plaats van iets te voorspellen.</td></tr>
+          <tr><td class="term">In-sample en out-of-sample</td><td>Het deel van de gegevens waarop een systeem is afgesteld tegenover het achtergehouden deel waarop het eerlijk wordt beoordeeld.</td></tr>
+          <tr><td class="term">Walk-forward-analyse</td><td>Validatie waarbij afstellen en toetsen telkens op opeenvolgende, verschuivende stukken historie gebeuren, als nabootsing van echt handelen.</td></tr>
+          <tr><td class="term">Monte-Carlosimulatie</td><td>Het duizenden keren herschudden en doorrekenen van transactieresultaten om de bandbreedte van mogelijke uitkomsten en verliezen te schatten.</td></tr>
+          <tr><td class="term">Incubatie</td><td>Een maandenlange periode waarin een af systeem op papier meedraait met de echte markt en er niets aan veranderd mag worden.</td></tr>
+          <tr><td class="term">Risk of ruin</td><td>De kans dat een rekening zo diep wegzakt dat doorhandelen feitelijk onmogelijk wordt, door Davey per systeem vooraf berekend.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Daveys sterkste papieren zijn zijn wedstrijdresultaten: drie opeenvolgende jaren in de top van een wedstrijd met echte, door de organisatie gecontroleerde rekeningen en rendementen boven de honderd procent. Dat onderscheidt hem van de vele handelsauteurs die alleen simulaties tonen. Ook inhoudelijk staat het proces sterk: de nadruk op ongeziene gegevens, vergelijking met toeval en vooraf vastgelegde criteria is dezelfde discipline die in de statistiek tegen zelfbedrog wordt ingezet.</p>
+      <p>Tegelijk is het bewijs vooral persoonlijk. Drie goede wedstrijdjaren van één man vormen een kleine steekproef, en het boek levert geen grootschalige toetsing van het proces zelf, alleen de aannemelijke redenering erachter plus enkele voorbeeldsystemen. Dat het proces verstandig is, maakt nog niet bewezen dat het gemiddeld winstgevende systemen oplevert. Wie het strengste bewijs zoekt voor wat er misgaat zonder deze discipline, vindt dat elders in de literatuur; Davey levert de werkplaatsversie ervan, met alle beperkingen van dien.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is selectie. Aan zulke wedstrijden doen jaar in jaar uit veel handelaren mee; dat er telkens iemand met een driecijferig rendement bovenaan staat, is te verwachten, ook als niemand structureel voordeel heeft. De winnaar krijgt een boekcontract, de verliezers schrijven niet. Davey pareert dit deels met drie opeenvolgende topjaren, maar de lezer moet beseffen dat overlevenden zichtbaar zijn en gesneuvelden niet, en dat Davey inmiddels ook cursussen en systemen verkoopt.</p>
+      <p>Daarnaast is zijn risicohouding fors: tussentijdse verliezen van tientallen procenten en een bewust geaccepteerde kans op het opblazen van de rekening passen bij een wedstrijd, niet bij vermogensopbouw. De praktische hoofdstukken leunen bovendien op de software en futuresmarkten van rond 2014; het gedachtegoed veroudert niet, de knoppen en voorbeelden wel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg doelen en maximaal aanvaardbaar verlies vast voordat het eerste idee wordt getoetst.</li>
+        <li>Beoordeel elk systeem uitsluitend op gegevens die bij het afstellen niet zijn gebruikt.</li>
+        <li>Vergelijk elk kandidaat-idee met willekeurige varianten; wat toeval niet overtuigend verslaat, verdient geen geld.</li>
+        <li>Schud historische transactieresultaten duizenden keren om de echte bandbreedte van verliezen te zien in plaats van het ene historische pad.</li>
+        <li>Laat een af systeem maanden ongemoeid proefdraaien en begin daarna kleiner dan goed voelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Building Winning Algorithmic Trading Systems: A Trader's Journey From Data Mining to Monte Carlo Simulation to Live Trading</i> (Wiley, reeks Wiley Trading, 2014, ISBN 9781118778982), met bijbehorende website met onder meer Daveys Monte-Carlosimulator. Geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Davey, lucht- en ruimtevaartingenieur, verloor tien jaar lang geld met handelen tot hij zijn hobby als ingenieursproces ging behandelen. Daarna won hij in 2006 het World Cup Championship of Futures Trading met 107 procent rendement, na een tweede plaats in 2005 (148 procent) en gevolgd door een tweede plaats in 2007 (112 procent), telkens met echt geld.</p><p>Het boek beschrijft zijn werkwijze als een fabriek: veel ideeën goedkoop genereren, ze streng toetsen op gegevens die het systeem nog niet heeft gezien, de risico's met simulaties in kaart brengen, maanden proefdraaien en dan pas klein beginnen. De meeste ideeën horen die fabriek niet levend te verlaten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>systematisch handelen</li><li>backtesten</li><li>risico</li><li>discipline</li><li>termijnmarkten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="483"><a href="483.html">Evidence-Based Technical Analysis</a>. Aronson levert het statistische fundament onder Daveys wantrouwen tegen mooie backtests, met de zwaarste toetsen uit dit rijtje.</li>
+          <li value="480"><a href="480.html">Following the Trend</a>. Clenow toont wat er aan het eind van zo'n fabriek kan staan: een volledig gepubliceerd systeem met twintig jaar doorrekening.</li>
+          <li value="137"><a href="137.html">The Poker Mindset</a>. Taylor en Hilger leren dezelfde kernles vanuit het poker: op het proces sturen en de uitslag van korte reeksen wantrouwen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

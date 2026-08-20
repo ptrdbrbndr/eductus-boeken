@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence-Based Technical Analysis &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Technische analyse kan alleen kennis opleveren wanneer zij bestaat uit objectieve, door een computer uitvoerbare regels waarvan de resultaten statistisch…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-483">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">483 &middot; Geld en ondernemen</p>
+    <h1>Evidence-Based Technical Analysis</h1>
+    <p class="lede">David R. Aronson, 2006</p>
+    <p class="stats">
+      <span><b>1425</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="483"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Technische analyse kan alleen kennis opleveren wanneer zij bestaat uit objectieve, door een computer uitvoerbare regels waarvan de resultaten statistisch worden getoetst, met correctie voor het feit dat het beste resultaat uit duizenden geteste regels vrijwel altijd door toeval wordt geflatteerd. Subjectief grafieklezen is niet falsifieerbaar en dus geen kennis maar geloof, in stand gehouden door de patroonzucht van het menselijk brein. Aronson past zijn eigen maatstaf toe op 6402 eenvoudige handelsregels en vindt er na correctie geen enkele met aantoonbare voorspellende waarde; wie signalen verkoopt zonder deze toetsing, verkoopt in zijn woorden klatergoud.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee soorten technische analyse</h3>
+      <p>Aronson schrijft uit de eerste hand: hij werkte tientallen jaren als handelaar en analist, richtte een bureau voor kwantitatief marktonderzoek op en doceerde aan Baruch College in New York. Hij snijdt het vakgebied eerst in tweeën. Subjectieve technische analyse, het herkennen van figuren als kop-schouderpatronen en steunlijnen in een grafiek, laat zich niet toetsen: twee kenners zien in dezelfde grafiek verschillende dingen, en achteraf valt elk resultaat te rijmen met de leer. Zulke uitspraken kunnen niet fout bevonden worden en zijn daarmee volgens hem geen kennis maar erroneous knowledge, geloof met de aankleding van vakmanschap.</p>
+      <p>Objectieve technische analyse bestaat uit regels die een computer zonder oordeel kan uitvoeren: koop wanneer dit getal boven dat getal komt. Alleen die vorm levert resultaten op die zich laten narekenen, en alleen daarover gaat de rest van het boek.</p>
+      <h3>Waarom slimme mensen patronen zien die er niet zijn</h3>
+      <p>Een lang deel behandelt de cognitieve psychologie achter het grafieklezen. Mensen zien samenhang in ruis (illusoire correlatie), onthouden treffers beter dan missers (bevestigingsvooroordeel), vinden gebeurtenissen achteraf voorspelbaar en schrijven succes aan eigen kunde toe en falen aan pech.</p>
+      <p>Daarmee verklaart Aronson hoe een vak vol intelligente mensen decennialang overtuigd kan zijn van methoden die nooit deugdelijk zijn getoetst: de ervaring zelf bedriegt, en hoe meer ervaring, hoe vaster de overtuiging. Persoonlijke ervaring is in zijn ogen dan ook geen bewijsmiddel maar juist het probleem.</p>
+      <h3>De wetenschappelijke methode als vangrail</h3>
+      <p>Tegenover de bedrieglijke ervaring zet het boek de wetenschappelijke methode, met Poppers eis van falsifieerbaarheid als kern: een bewering telt pas als zij zo geformuleerd is dat zij aan waarnemingen kan sneuvelen. Voor handelsregels betekent dit vooraf vastleggen wat de regel is, wat als succes geldt en welke uitkomst de claim onderuit zou halen.</p>
+      <p>Aronson bepleit dat technische analyse zich als geneeskunde ontwikkelt: van overlevering en autoriteit naar op bewijs gebaseerde praktijk, vandaar de titel van het boek.</p>
+      <h3>Statistiek voor wie regels toetst</h3>
+      <p>Daarna volgt het gereedschap: steekproeven, toetsen van hypothesen, betrouwbaarheidsintervallen en herbemonsteringsmethoden, uitgelegd voor lezers zonder statistische vooropleiding. De centrale vraag is telkens of een gemeten rendement groot genoeg is om niet aan toeval te kunnen worden toegeschreven.</p>
+      <p>Een belangrijk technisch punt is het detrenden van de koersreeks: de langjarige stijging van de aandelenmarkt wordt uit de gegevens gehaald, zodat een regel geen punten scoort door simpelweg vaak belegd te zijn. Zonder die stap oogt vrijwel elke koopgerichte regel ten onrechte knap.</p>
+      <h3>Datasnooping: het klatergoud van de backtest</h3>
+      <p>Het scharnier van het boek is de data-mining bias, ook wel datasnooping: wie duizenden regels op dezelfde historie test en de beste eruit pikt, meet niet de kwaliteit van die regel maar vooral zijn geluk. Aronson maakt dit voelbaar met kansspelvoorbeelden: laat genoeg mensen munten opgooien en er is altijd iemand met tien keer kop, zonder enige gave.</p>
+      <p>Gewone statistische toetsen houden met dat uitverkiezingseffect geen rekening. Daarom gebruikt hij methoden die er wel voor corrigeren: de Reality Check van econometrist Halbert White en de Monte-Carlopermutatiemethode van statisticus Timothy Masters, die beide de vraag beantwoorden hoe goed de beste regel had kunnen ogen als geen enkele regel echte voorspellende waarde had.</p>
+      <h3>De casestudy: 6402 regels, geen overlevenden</h3>
+      <p>In het tweede deel worden 6402 objectieve regels getoetst op 25 jaar dagkoersen van de S&amp;P 500, tot en met medio 2005. Het gaat om eenvoudige, breed gebruikte signalen: varianten op voortschrijdende gemiddelden, uitbraken uit koerskanalen en extreme standen of omslagen van indicatoren, mede gevoed door rentes, volumes en andere marktreeksen. Elke regel geeft op elke dag een eenduidige stand, belegd of niet, zodat de hele verzameling machinaal en op gelijke voet kan worden afgewerkt.</p>
+      <p>De uitkomst is ontnuchterend. De beste regel haalt in de historie ruim tien procent rendement per jaar op de gedetrende reeks, maar na correctie voor datasnooping blijkt geen van de 6402 regels op het gangbare significantieniveau statistisch onderscheidbaar van toeval. Aronson concludeert niet dat technische analyse dood is, wel dat deze hele laag van simpele signalen, de laag waarop talloze boeken en nieuwsbrieven drijven, geen aantoonbare waarde heeft.</p>
+      <h3>Waarom er toch iets te vinden kan zijn</h3>
+      <p>Het boek sluit af met theorieën over niet-willekeurige koersvorming, onder meer uit de gedragseconomie: trage verwerking van nieuws, kuddegedrag en risicopremies kunnen patronen scheppen die wel degelijk te benutten zijn. Ook wijst Aronson erop dat zijn casestudy alleen losse, binaire regels toetst; combinaties van signalen en rijkere modellen vallen buiten het onderzoek.</p>
+      <p>De les is dus geen cynisme maar methode: er valt mogelijk iets te vinden, maar alleen voor wie toetst alsof zijn conclusie hem niets mag waard zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Objectieve regel</td><td>Een handelsvoorschrift dat een computer zonder menselijk oordeel kan uitvoeren en waarvan de resultaten dus toetsbaar zijn.</td></tr>
+          <tr><td class="term">Falsifieerbaarheid</td><td>Poppers eis dat een bewering zo geformuleerd is dat waarnemingen haar kunnen weerleggen; wat daaraan niet voldoet, is geen kennis.</td></tr>
+          <tr><td class="term">Datasnooping (data-mining bias)</td><td>De vertekening waardoor de beste regel uit vele geteste regels vrijwel altijd beter oogt dan hij is, omdat toeval de uitverkiezing meestuurt.</td></tr>
+          <tr><td class="term">Nulhypothese</td><td>De veronderstelling dat een regel geen voorspellende waarde heeft, die pas verworpen wordt als de resultaten daarvoor te goed zijn.</td></tr>
+          <tr><td class="term">White's Reality Check</td><td>Toets van econometrist Halbert White die het resultaat van de beste regel beoordeelt tegen wat de beste uit dezelfde verzameling door toeval had kunnen halen.</td></tr>
+          <tr><td class="term">Monte-Carlopermutatie</td><td>Methode van Timothy Masters die signalen en koersen herhaaldelijk willekeurig aan elkaar koppelt om te zien welke resultaten zuiver toeval oplevert.</td></tr>
+          <tr><td class="term">Detrenden</td><td>Het verwijderen van de langjarige marktstijging uit de gegevens, zodat een regel niet scoort door simpelweg vaak belegd te zijn.</td></tr>
+          <tr><td class="term">Illusoire correlatie</td><td>De menselijke neiging om samenhang te zien in ruis, volgens Aronson de motor achter het geloof in grafiekpatronen.</td></tr>
+          <tr><td class="term">Evidence-based technische analyse</td><td>Aronsons voorstel om het vak naar het voorbeeld van de geneeskunde op toetsbaar bewijs te bouwen in plaats van op overlevering en autoriteit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Van de handelsboeken in deze lijst heeft dit de sterkste onderbouwing, omdat het niet beweert maar toetst. De methode is volledig beschreven en herhaalbaar, de correctie voor datasnooping is het statistische kernpunt dat vrijwel alle populaire handelsliteratuur overslaat, en de uitkomst is een negatief resultaat dat de schrijver niets oplevert: geen systeem om te verkopen, alleen een maatstaf. De psychologische hoofdstukken steunen op gevestigd onderzoek naar oordeelsfouten, en de statistische kritiek op het uitverkiezen van winnaars staat als een huis.</p>
+      <p>De reikwijdte van het bewijs is wel precies zo smal als de casestudy: eenvoudige, losse regels, één index, dagkoersen, één tijdvak van 25 jaar. De conclusie dat deze signalen niets aantoonbaars opleveren is stevig; elke bredere uitspraak over wat er verder wel of niet werkt, blijft buiten het aangetoonde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is taai. Grote delen lezen als een leerboek statistiek en wetenschapsfilosofie, en recensenten klagen bovendien over slordigheden en zetfouten. Wie een handelsmethode zoekt, vindt hier per opzet niets: het boek leert afbreken wat niet deugt, geen opbouwen van wat wel werkt, en dat maakt het voor de praktijkgerichte lezer onbevredigend.</p>
+      <p>Inhoudelijk valt in te brengen dat de casestudy vooral een stroman van formaat sloopt: dat losse, simpele signalen op indexniveau weinig voorstellen, vermoedden serieuze systeemhandelaren al, terwijl portefeuillebouw, positiegrootte en samengestelde modellen buiten schot blijven. Ook kan de strenge correctie zwakke maar echte signalen mee wegvagen; wie de lat zo hoog legt dat toeval nooit wint, wijst soms ook het echte af. En het veld is sinds 2006 verder: de gereedschapskist is uitgebreid, al is de kernles onveranderd geldig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer elke handels- of beleggingsclaim eerst als regel die een computer kan uitvoeren; wat zich niet zo laat formuleren, valt niet te toetsen.</li>
+        <li>Vraag bij elk gepresenteerd testresultaat hoeveel varianten er zijn geprobeerd voordat deze ene werd getoond.</li>
+        <li>Haal de langjarige marktstijging uit de meting voordat een koopgerichte regel de eer krijgt.</li>
+        <li>Behandel persoonlijke ervaring als bron van hypothesen, nooit als bewijs.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Evidence-Based Technical Analysis: Applying the Scientific Method and Statistical Inference to Trading Signals</i> (Wiley, reeks Wiley Trading nr. 274, 2006, ruim 500 blz., ISBN 9780470008744). Geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Aronson, jarenlang handelaar en docent aan Baruch College in New York, legt de technische analyse, het voorspellen van koersen uit koerspatronen, langs de meetlat van de wetenschapsfilosofie en de statistiek. Zijn oordeel over het subjectieve grafieklezen is hard: wat niet als toetsbare regel te formuleren valt, is geen kennis.</p><p>Het tweede deel voegt de daad bij het woord: 6402 eenvoudige handelsregels worden getoetst op 25 jaar dagkoersen van de S&amp;P 500, met correctie voor het feit dat wie duizenden regels probeert, er altijd een paar vindt die op het verleden schitteren. Geen enkele regel overleeft die correctie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>statistiek</li><li>technische analyse</li><li>wetenschapsfilosofie</li><li>toeval</li><li>financiële markten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Taleb vertelt in essayvorm dezelfde kernles: geslaagde handelaren kunnen ook gewoon de winnaars van een muntgooiwedstrijd zijn.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. Talebs uitwerking over zeldzame gebeurtenissen laat zien waarom historische gegevens ook na eerlijke toetsing kunnen bedriegen.</li>
+          <li value="482"><a href="482.html">Building Winning Algorithmic Trading Systems</a>. Davey maakt van Aronsons waarschuwing een werkwijze: zo bouw en toets je systemen zonder in de datasnooping-val te lopen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trading and Exchanges &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Harris betoogt dat je een financiële markt pas begrijpt als je ophoudt naar koersen te kijken en gaat kijken naar de mensen die handelen en naar wat zij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-478">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">478 &middot; Naslag en praktijk</p>
+    <h1>Trading and Exchanges</h1>
+    <p class="lede">Larry Harris, 2003</p>
+    <p class="stats">
+      <span><b>1167</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>20 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="478"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Harris betoogt dat je een financiële markt pas begrijpt als je ophoudt naar koersen te kijken en gaat kijken naar de mensen die handelen en naar wat zij willen. Voor speculanten onderling is handel een spel dat vóór kosten op nul uitkomt: wat de goed geïnformeerde wint, verliest een ander. Dat het toch geen zinloos spel is, komt door de handelaren met andere motieven dan winst, zoals risico afdekken of sparen, die per saldo betalen voor de liquiditeit en de juiste prijzen die de markt hun levert. De hele inrichting van beurzen, tussenpersonen en regels valt te verklaren uit één vraag: wie vraagt liquiditeit en wie levert haar.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De structuur van het handelen</h3>
+      <p>Het eerste deel beschrijft het speelveld: de bedrijfstak van beurzen, brokers en dealers, de ordertypen waarmee gehandeld wordt, en de verschillende marktvormen. Kernonderscheid is dat tussen de marktorder, die meteen handelt tegen wat er staat, en de limietorder, die een prijsgrens stelt en wacht. Wie een marktorder stuurt, vraagt liquiditeit en betaalt daarvoor; wie een limietorder plaatst, biedt liquiditeit aan en loopt het risico te worden uitgevoerd juist wanneer dat slecht uitkomt. Uit die twee rollen bouwt Harris de rest van het boek op.</p>
+      <h3>Waarom mensen handelen</h3>
+      <p>Het beroemdste deel van het boek deelt handelaren in naar motief. Utilitaire handelaren handelen omdat ze iets anders willen dan winst op de transactie zelf: een pensioen opbouwen, een oogst of een wisselkoers afdekken, geld vrijmaken. Winstgedreven handelaren staan daartegenover, en die kunnen hun winst per definitie alleen halen uit de verliezen van anderen. Harris trekt daaruit een ontnuchterende conclusie: wie handelt zonder te weten tot welk type hij behoort en waar zijn voordeel zit, is vrijwel zeker degene van wie gewonnen wordt.</p>
+      <h3>Speculanten</h3>
+      <p>Het derde deel behandelt de winstjagers. Geïnformeerde handelaren weten iets over de waarde dat nog niet in de prijs zit; door hun handelen kruipt de prijs naar de waarde toe, en zij zijn daarmee de motor van wat marktefficiëntie heet. Orderanticipeerders verdienen niet aan waarde maar aan het voorspellen van andermans orders, door voor een grote koper uit te kopen. Bluffers en manipulatoren ten slotte proberen prijzen te bewegen met schijnhandel en verhalen. Harris behandelt ze alle drie als vaste bewoners van elke markt, en laat zien welke regels en marktvormen hen afremmen of juist voeden.</p>
+      <h3>Liquiditeitsleveranciers</h3>
+      <p>Tegenover de speculanten staan de partijen die doorlopend bereid zijn te kopen en te verkopen: dealers die van de spread leven, blokhandelaren die grote posities doorplaatsen, waardehandelaren en arbitrageurs die prijsverschillen tussen samenhangende producten gladstrijken. Hun grootste vijand is averechtse selectie: de tegenpartij die juist met jou wil handelen, weet vaak iets dat jij niet weet. De spread, het verschil tussen bied- en laatprijs, is in de kern de premie die dealers voor dat gevaar rekenen. Hoe meer geïnformeerde handel, hoe wijder de spread, en dat betalen alle anderen.</p>
+      <h3>Liquiditeit en volatiliteit</h3>
+      <p>Twee hoofdstukken behandelen de begrippen waar alles om draait. Liquiditeit definieert Harris als de mogelijkheid om snel, in omvang en tegen lage kosten te handelen; zij heeft meerdere dimensies die niet samen te vangen zijn in één getal. Volatiliteit, de beweeglijkheid van prijzen, splitst hij in een goed en een slecht deel: fundamentele volatiliteit doordat de waarde zelf verandert, en transitorische volatiliteit doordat orders de prijs tijdelijk van de waarde wegduwen. Dat onderscheid keert terug in elk debat over de vraag of handel markten kalmeert of juist opjaagt.</p>
+      <h3>Marktvormen en beleid</h3>
+      <p>De slotdelen passen het gereedschap toe op de inrichting van markten: prestatiemeting, indexproducten, de toenmalige specialists op de beursvloer van New York, de concurrentie tussen beurzen en handelsplatforms, vloerhandel tegenover volledig geautomatiseerde systemen, zeepbellen, crashes en handelsonderbrekingen, en handel met voorkennis. Hier is het boek het meest een beleidsboek: telkens weegt Harris welke groep handelaren door een regel wordt beschermd en welke ervoor betaalt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Marktmicrostructuur</td><td>De studie van hoe handel en prijsvorming feitelijk tot stand komen uit orders, regels en tussenpersonen.</td></tr>
+          <tr><td class="term">Utilitaire handelaar</td><td>Iemand die handelt om een ander doel dan handelswinst, zoals sparen of risico afdekken, en per saldo de markt financiert.</td></tr>
+          <tr><td class="term">Geïnformeerde handelaar</td><td>Speculant die iets over de waarde weet dat nog niet in de prijs zit en daarmee prijzen naar de waarde duwt.</td></tr>
+          <tr><td class="term">Orderanticipeerder</td><td>Handelaar die niet waarde maar andermans orders voorspelt en daarvoor uit gaat kopen.</td></tr>
+          <tr><td class="term">Liquiditeit</td><td>De mogelijkheid om snel, in omvang en tegen lage kosten te handelen wanneer je dat wilt.</td></tr>
+          <tr><td class="term">Spread</td><td>Het verschil tussen de beste bied- en laatprijs, in de kern de premie die liquiditeitsleveranciers rekenen voor het risico op beter geïnformeerde tegenpartijen.</td></tr>
+          <tr><td class="term">Averechtse selectie</td><td>Het verschijnsel dat wie met jou wil handelen vaak iets weet dat jij niet weet.</td></tr>
+          <tr><td class="term">Fundamentele en transitorische volatiliteit</td><td>Prijsbeweging doordat de waarde zelf verandert, tegenover tijdelijke prijsbeweging doordat orders de prijs van de waarde wegduwen.</td></tr>
+          <tr><td class="term">Nulsomspel</td><td>Harris' typering van speculatieve handel: vóór kosten staat tegenover elke winst een even groot verlies van een ander.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een synthese van zo'n dertig jaar academisch microstructuuronderzoek, geschreven zonder formules en onderbouwd met voorbeelden en kaderteksten in plaats van datasets. Harris was zelf een van de onderzoekers in dat veld en werd in 2002, rond het verschijnen, hoofdeconoom van de SEC, de Amerikaanse beurstoezichthouder. De lezer moet hem op de weging van de literatuur vertrouwen, maar er is weinig reden tot wantrouwen: de typologie en de kernbegrippen zijn sindsdien gemeengoed geworden in zowel het onderzoek als de handelspraktijk, en het boek geldt in de sector nog steeds als verplichte kost voor nieuwkomers.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is een vakhandboek en geen betoog: ruim 650 bladzijden systematische behandeling, bedoeld om in te werken en op te zoeken. De stelling over het nulsomkarakter van speculatie zit erin, maar wie alleen die redenering zoekt, vindt haar in een paar hoofdstukken en houdt honderden bladzijden naslagwerk over.</p>
+      <p>Het echte bezwaar is de tijdcapsule: het boek beschrijft de markten van 2002, met de beursvloer van New York en haar specialists nog in vol bedrijf, en zonder de flitshandel die enkele jaren later de liquiditeitslevering vrijwel volledig zou overnemen. De mensen die Harris beschrijft zijn inmiddels grotendeels vervangen door machines. Daar staat tegenover dat de rollen zelf, liquiditeit vragen en leveren, informatie en anticipatie, niet veranderd zijn maar van drager gewisseld, en juist daarom blijft het boek bruikbaar: het legt de economie uit die onder elke marktvorm ligt, ook de huidige. Voor onderzoekers is het bewust te licht gehouden; de wiskunde van het vak staat elders.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal voor elke transactie tot welk type handelaar je op dat moment behoort en waar je voordeel vandaan zou moeten komen; is daar geen antwoord op, dan ben je de betalende partij.</li>
+        <li>Gebruik limietorders in de wetenschap dat je daarmee liquiditeit levert en het risico van averechtse selectie op je neemt.</li>
+        <li>Lees beursnieuws over regels en marktvormen met Harris' vraag: welke groep handelaren wordt hier beschermd en wie betaalt ervoor.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Trading and Exchanges: Market Microstructure for Practitioners</i> (Oxford University Press, 2003, 656 blz., ISBN 9780195144703), verschenen in de Survey and Synthesis-reeks van de Financial Management Association. Geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Standaardwerk over hoe financiële markten van binnen werken, geschreven door de hoogleraar die kort na verschijnen hoofdeconoom van de Amerikaanse beurstoezichthouder SEC werd. Harris kijkt niet naar koersen maar naar mensen: wie er handelen, wat ze willen, en hoe uit dat samenspel prijzen, liquiditeit en beursregels ontstaan.</p><p>Zijn ordening is een typologie. Speculanten die op kennis handelen, handelaren die liquiditeit leveren, en de grote groep die om andere redenen handelt dan winst, en per type legt hij uit van wie hun winst komt en aan wie hun verlies toevalt. In de sector geldt het al twintig jaar als het inwerkboek voor nieuwkomers.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>handelen</li><li>marktmicrostructuur</li><li>economie</li><li>naslagwerk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="477"><a href="477.html">Algorithmic Trading and DMA</a>. Johnson beschrijft de elektronische uitvoeringspraktijk die op deze economie is gebouwd.</li>
+          <li value="351"><a href="351.html">The Intelligent Investor</a>. Graham over beleggen op waarde; de geduldige variant van wat Harris de geïnformeerde handelaar noemt.</li>
+          <li value="80"><a href="80.html">The Hour Between Dog and Wolf</a>. Coates over de fysiologie van handelaren; wat er in de lichamen gebeurt van de mensen die Harris typeert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
