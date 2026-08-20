@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 20
-augustus 2026: 459 titels in 18 rubrieken.
+augustus 2026: 460 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,7 +13,7 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 459, 461, 473 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471 |
@@ -87672,6 +87672,219 @@ zijn systeem meer op afwegen en minder op één lineaire keten.
 - 256. Measure What Matters. Doerr laat zien hoe een verwante gedachte, doelen
 die richting geven aan dagelijks werk, in bedrijven als systeem is uitgewerkt.
 
+## 449. Letting Go: The Pathway of Surrender
+
+David R. Hawkins, 2012. Oorspronkelijk *Letting Go: The Pathway of Surrender*
+(Hay House, oktober 2012). Het boek verscheen enkele weken na het overlijden
+van Hawkins op 19 september 2012 en bouwt voort op de bewustzijnsschaal die
+hij eerder uitwerkte in *Power vs. Force* (1995). Geen Nederlandse vertaling
+gevonden; deze samenvatting is op de Engelse editie gebaseerd. Rubriek:
+levenskunst.
+Tags: `spiritualiteit`, `emoties`, `loslaten`, `bewustzijnsniveaus`,
+`zelfhulp`, `kinesiologie`, `new age`
+
+Hawkins beschrijft wat hij het mechanisme van loslaten noemt: in plaats van
+een emotie te onderdrukken, uit te leven of erin op te gaan, laat je haar
+voluit toe totdat zij vanzelf oplost. Hij ordent emoties op zijn Map of
+Consciousness, een schaal van 1 tot 1000 met zeventien niveaus, van schaamte
+onderaan tot verlichting bovenaan, met moed op 200 als de grens tussen
+toestanden die volgens hem afbreken en toestanden die opbouwen.
+
+Hoofdstuk voor hoofdstuk behandelt hij apathie, verdriet, angst, verlangen,
+boosheid en trots onder die grens, en moed, bereidwilligheid, aanvaarding,
+liefde en vrede erboven, telkens met een voorbeeld uit zijn eigen
+psychiatrische praktijk. Het boek verbindt het loslaten van emoties met minder
+stress, betere relaties en meer succes in werk, en eindigt met een hoofdstuk
+vragen en antwoorden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hawkins stelt dat mensen niet lijden onder hun omstandigheden
+maar onder de onderdrukte emoties die zij nooit hebben laten gaan, en dat een
+groot deel van psychische klachten en veel lichamelijke klachten voortkomt uit
+die opgestapelde lading. Zijn oplossing is geen therapie die het verleden
+analyseert en geen wilskracht die het gevoel wegdrukt, maar een techniek
+waarbij iemand een emotie voluit toelaat zonder haar uit te leven of te
+onderdrukken, tot zij vanzelf oplost. Wie dat volhoudt klimt volgens hem op
+een meetbare schaal van bewustzijn, van schaamte tot verlichting, en de status
+van die schaal ontleent hij aan een spiertest die volgens hem nooit liegt.
+Daarmee staat het hele bouwwerk of valt het met een methode die buiten zijn
+eigen kring nooit is bevestigd.
+
+#### De gang van het boek
+
+**Het mechanisme van loslaten**
+
+Hawkins onderscheidt drie gangbare manieren om met een emotie om te gaan:
+onderdrukken, waarbij iemand het gevoel wegduwt en later last krijgt van het
+gevolg, uiten, waarbij iemand het gevoel naar buiten laat komen zonder dat de
+lading afneemt, en ontsnappen, waarbij afleiding of verslaving het gevoel
+tijdelijk overstemt. Geen van de drie lost volgens hem iets op, omdat de
+energie van de emotie in het lichaam blijft zitten.
+
+Zijn alternatief is het gevoel in het lichaam op te zoeken zonder er een
+verhaal, een oordeel of een oorzaak bij te zoeken, en aandacht te blijven
+geven aan de fysieke sensatie tot zij vanzelf verandert of verdwijnt. Dat kan
+volgens hem enkele seconden duren of veel langer, en het is een oefening die
+door herhaling makkelijker wordt.
+
+**De kaart van bewustzijn**
+
+Het boek herneemt de schaal die Hawkins eerder publiceerde in *Power vs.
+Force*: een logaritmische reeks van 1 tot 1000 waarop elke emotionele of
+geestelijke toestand een getal krijgt. Schaamte staat op 20, schuld op 30,
+apathie op 50, verdriet op 75, angst op 100, verlangen op 125, boosheid op 150
+en trots op 175. Vanaf 200, moed, noemt hij de toestanden opbouwend:
+neutraliteit, bereidwilligheid, aanvaarding, redelijkheid, liefde, vreugde,
+vrede en ten slotte verlichting op 700 tot 1000.
+
+Hij stelt dat elk mens, elk boek en elke gebeurtenis op deze schaal te
+plaatsen is, en dat iemand die overwegend onder de 200 leeft zichzelf en
+anderen schade toebrengt, terwijl iemand die overwegend erboven leeft dat niet
+doet. De getallen zelf onderbouwt hij niet met meting in de gangbare zin, maar
+met de kinesiologische test die in het volgende hoofdstuk aan bod komt.
+
+**De emoties onder de streep**
+
+In de hoofdstukken over apathie, verdriet, angst, verlangen, boosheid en trots
+werkt Hawkins telkens hetzelfde patroon af: hij beschrijft hoe de emotie zich
+voelt, welke gedachten haar gewoonlijk begeleiden, en welk gedrag zij
+aanstuurt als niemand haar loslaat. Bij angst noemt hij bijvoorbeeld de
+neiging om controle te zoeken en de wereld als bedreigend te zien, bij trots
+de kwetsbaarheid van een zelfbeeld dat op andermans goedkeuring steunt.
+
+Bij elk hoofdstuk voegt hij een of meer voorbeelden toe uit zijn eigen
+praktijk als psychiater, patiënten bij wie het herhaald loslaten van een
+specifieke emotie volgens zijn beschrijving tot verbetering leidde. Namen en
+verifieerbare gegevens ontbreken in die voorbeelden.
+
+**De emoties boven de streep**
+
+Bij moed, bereidwilligheid, aanvaarding, liefde en vrede verschuift de toon
+van probleem naar mogelijkheid. Bereidwilligheid, kalibratie 310, is voor
+Hawkins het kantelpunt waarop iemand niet langer weerstand biedt aan wat er
+gebeurt en waardoor groei volgens hem sneller gaat. Aanvaarding is voor hem
+geen berusting maar het opgeven van het oordeel dat iets niet zo zou mogen
+zijn.
+
+Bij liefde onderscheidt hij de gangbare, voorwaardelijke liefde van wat hij
+onvoorwaardelijke liefde noemt, een toestand die volgens hem niet van de ander
+afhangt. Deze hoofdstukken zijn korter en algemener dan de hoofdstukken onder
+de streep, met minder klinische voorbeelden en meer aansporende taal.
+
+**Lichaam, relaties en werk**
+
+Een apart hoofdstuk verbindt vastgehouden emoties met lichamelijke klachten:
+Hawkins stelt dat chronische spanning, hoge bloeddruk en bepaalde
+ziektebeelden vaker voorkomen bij mensen die hun emoties niet loslaten, zonder
+dat hij daarbij naar gecontroleerd onderzoek verwijst. Vergelijkbare
+hoofdstukken behandelen relaties, waarin loslaten volgens hem ruzies voorkomt
+doordat de eigen reactie niet meer wordt afgereageerd op de ander, en werk,
+waarin hij loslaten koppelt aan minder stress en meer resultaat.
+
+Het slothoofdstuk is opgebouwd als vragen en antwoorden, met korte reacties op
+vragen die lezers hem tijdens lezingen stelden, over onder meer verslaving,
+rouw en de vraag of de techniek therapie kan vervangen.
+
+**De herkomst van de methode**
+
+Hawkins presenteert de techniek als de neerslag van zijn decennialange werk
+als psychiater, onder meer met patiënten met schizofrenie en verslaving, en
+van zijn eigen ervaring van wat hij een blijvende verandering van bewustzijn
+noemt. De kinesiologische test die de schaal onderbouwt, ontwikkelde hij samen
+met collega's uit de toegepaste kinesiologie, een richting die in de jaren
+zeventig ontstond rond de arts John Diamond.
+
+Het boek herhaalt daarbij een claim die ook in *Power vs. Force* staat: dat
+twee onafhankelijke testers voor hetzelfde item altijd dezelfde uitkomst
+krijgen, zodra beiden de test correct uitvoeren. Die claim wordt in het boek
+zelf niet verder onderbouwd.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Mechanisme van loslaten | De techniek waarbij een emotie voluit in het lichaam wordt toegelaten zonder haar te onderdrukken, uit te leven of ergens aan toe te schrijven, tot zij vanzelf verdwijnt. |
+| Map of Consciousness | Een schaal van 1 tot 1000 waarop Hawkins elke emotionele of geestelijke toestand een getal geeft, van schaamte tot verlichting. |
+| Calibratie | De kinesiologische spiertest waarmee Hawkins beweert dat het lichaam onbewust reageert op de waarheid of onwaarheid van een stelling of de staat van een emotie. |
+| De lijn van moed | Het punt op 200, waarboven toestanden volgens Hawkins opbouwend zijn en waaronder zij afbreken. |
+| Onderdrukking, uiting, ontsnapping | De drie gangbare omgangswijzen met een emotie die volgens Hawkins geen van alle de onderliggende lading wegnemen. |
+| Bereidwilligheid | Het niveau op 310 waarop iemand ophoudt weerstand te bieden aan wat er gebeurt, door Hawkins als kantelpunt beschreven. |
+| Onvoorwaardelijke liefde | De vorm van liefde die volgens Hawkins niet van het gedrag of de goedkeuring van de ander afhangt. |
+| Overgave | Het herhaald loslaten van weerstand tegen wat zich voordoet, de titelgevende handeling van het boek. |
+
+#### Waar het argument op rust
+
+Het boek rust op twee soorten materiaal: verhalen uit Hawkins' eigen
+decennialange praktijk als psychiater, en de kinesiologische test waarmee hij
+zijn schaal claimt te hebben gekalibreerd. Van het eerste geeft hij geen
+namen, dossiers of aantallen; het zijn illustraties, geen gegevens die een
+lezer kan natrekken. Van het tweede geeft hij evenmin een protocol dat een
+onafhankelijke onderzoeker kan volgen om dezelfde uitkomst te krijgen.
+
+De toegepaste kinesiologie waarop de spiertest is gebaseerd, is in
+gecontroleerde tests herhaaldelijk onderzocht op precies de claim die Hawkins
+doet: dat twee testers onafhankelijk van elkaar tot dezelfde uitkomst komen.
+In blinde condities, waarin de tester niet weet welke stof of stelling wordt
+getest, verdwijnt het effect vrijwel volledig. Dat wijst erop dat de uitkomst
+van de test meebeweegt met de verwachting van de tester en niet met een
+eigenschap van het geteste object.
+
+Het boek zelf bevat geen verwijzing naar zulk onderzoek en geen erkenning dat
+de methode buiten de kring van aanhangers wordt betwist. De schaal wordt
+gepresenteerd als vaststaand gegeven, niet als hypothese.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar raakt de kern van het boek: de spiertest die de hele
+schaal draagt, geldt in de wetenschap breed als niet-reproduceerbaar zodra de
+tester niet weet wat er getest wordt. Daarmee is niet alleen de precieze
+plaats van elk begrip op de schaal onzeker, maar ook de aanname dat er een
+objectief meetbare schaal bestaat. Hawkins' claim van absolute herhaalbaarheid
+is, voor zover na te gaan, nooit door onafhankelijk onderzoek bevestigd.
+
+Een tweede bezwaar is de cirkelredenering die in de opzet van de schaal zit.
+Iets kalibreert hoog omdat het als goed geldt, en het geldt als goed omdat het
+hoog kalibreert; er is geen extern criterium waarmee de schaal zichzelf zou
+kunnen weerleggen. Dat maakt de schaal moeilijk te onderscheiden van een
+systeem dat de intuïtie van de auteur in getallen vertaalt.
+
+De techniek van het loslaten zelf staat los van die schaal en is minder
+aanvechtbaar: het is een variant van blootstelling aan een gevoel zonder
+vermijding, een aanpak die in de gedragstherapie los van Hawkins een goed
+onderbouwde plaats heeft. Het boek presenteert die twee dingen echter als één
+geheel, waardoor een lezer de bruikbare oefening niet gemakkelijk kan scheiden
+van de onbewezen schaal waarin zij wordt verpakt.
+
+Klinische claims over ziekte, zoals de suggestie dat het loslaten van emoties
+chronische aandoeningen beïnvloedt, worden niet met onderzoek gestaafd en
+kunnen bij ernstige klachten het zoeken van reguliere zorg vertragen.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij een sterke emotie de fysieke sensatie op in het lichaam, zonder er
+meteen een verhaal of oorzaak bij te bedenken.
+- Ga na welke van de drie reacties, onderdrukken, uiten of ontsnappen, je bij
+een emotie gewoonlijk als eerste kiest.
+- Behandel de getallen van de schaal als een metafoor voor een volgorde, niet
+als een gemeten waarde.
+- Zoek bij aanhoudende psychische klachten begeleiding die niet van deze
+techniek alleen afhankelijk is.
+
+#### Wat je hierna leest
+
+- 431. The Surrender Experiment. Singer beschrijft dezelfde overgave als
+doorlopende levenshouding, in een persoonlijk verslag in plaats van een schaal
+met getallen.
+- 377. The Untethered Soul. Ook Singer werkt met het loslaten van gedachten en
+emoties, maar bouwt dat op waarneming van de innerlijke stem in plaats van op
+kinesiologie.
+- 149. The Power of Now. Tolle beschrijft een verwante weg naar minder lijden
+via aandacht voor het huidige moment, eveneens zonder empirische onderbouwing.
+- 341. The Wisdom of Insecurity. Watts benadert dezelfde aanvaarding van wat
+is vanuit boeddhistische en taoïstische bronnen, met een scherpere blik op de
+eigen aannames.
+
 ## 450. The Art of Strategy
 
 Avinash K. Dixit en Barry J. Nalebuff, 2008. Oorspronkelijk *The Art of
@@ -93028,36 +93241,36 @@ voor de dood` 377 · `animatie` 41 · `Antarctica` 36 · `anthologie` 189 ·
 170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
 468, 475 · `bestseller` 8, 37, 250 · `betekenis` 143 · `betrokkenheid` 472 ·
 `beurs` 80 · `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 ·
-`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377 · `bezit` 37 ·
-`bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie` 31, 46, 189,
-231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454 · `biohacking` 316
-· `biologie` 66, 88, 89, 90, 91, 322 · `biologie van gedrag` 273 ·
-`biologische klok` 326, 329 · `biotechnologie` 236, 413 · `bloedvaten` 86 ·
-`bloedwaarden` 313 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401 ·
-`bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414 ·
-`brieven` 292 · `broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse
-hulp` 221 · `burgerschap` 243 · `burn-out` 135, 207, 400 · `cafeïne` 52 ·
-`Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 · `cases` 40 ·
-`cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger` 62 ·
-`Chanakya` 370 · `chaos` 74, 347 · `chapbook` 100 · `China` 348 · `Chinese
-filosofie` 389, 394 · `Chinese geschiedenis` 219 · `chiropractie` 432 ·
-`christendom` 162, 201, 391 · `chronobiologie` 326, 329 · `cijfers` 39, 65 ·
-`civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitieve
-gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177 ·
-`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
-59 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 ·
-`columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
-122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
-444, 466, 475 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven`
-356 · `concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61 ·
-`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
-`conflicthantering` 271 · `conformisme` 211 · `consumptie` 463 ·
-`consumptiekeuzes` 299 · `content` 308 · `content creatie` 365 · `content
-marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
-74, 206, 312, 349, 418, 445, 471, 472, 475 · `cricket` 174 · `crisis` 47 ·
-`CRISPR` 413 · `cultuur` 68, 274 · `cultuurkritiek` 54, 405 · `cursus` 108,
-130, 201 · `cursus-in-wonderen` 102, 131 · `cybernetica` 411 · `cynisme` 250,
-319 · `dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 ·
+`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377 ·
+`bewustzijnsniveaus` 449 · `bezit` 37 · `bias` 209 · `bijeenkomsten` 304 ·
+`bijgeloof` 63 · `biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267,
+269, 320, 328, 402, 454 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91,
+322 · `biologie van gedrag` 273 · `biologische klok` 326, 329 ·
+`biotechnologie` 236, 413 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade`
+14 · `boeddhisme` 111, 287, 333, 341, 401 · `bootstrapping` 369 ·
+`brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292 · `broers` 10
+· `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 · `burgerschap` 243 ·
+`burn-out` 135, 207, 400 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
+`carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 · `celbiologie` 419 ·
+`chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `chaos` 74, 347 ·
+`chapbook` 100 · `China` 348 · `Chinese filosofie` 389, 394 · `Chinese
+geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391 ·
+`chronobiologie` 326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
+`coaching` 161, 291, 441 · `cognitieve gedragstherapie` 147, 153, 373 ·
+`cognitieve herstructurering` 177 · `cognitieve vertekening` 234 · `cognitieve
+wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn` 435 ·
+`collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 ·
+`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
+193, 213, 305, 338, 356, 398, 399, 444, 466, 475 · `complexiteit` 170, 268,
+300, 347, 423 · `complimenten geven` 356 · `concentratie` 70, 441 ·
+`concurrentie` 293 · `conditionering` 61 · `conflict` 35, 42, 43, 212, 305 ·
+`conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
+`consumptie` 463 · `consumptiekeuzes` 299 · `content` 308 · `content creatie`
+365 · `content marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13,
+14, 15, 16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475 · `cricket` 174 ·
+`crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274 · `cultuurkritiek` 54, 405 ·
+`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131 · `cybernetica` 411 ·
+`cynisme` 250, 319 · `dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 ·
 `dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
 `dagelijkse praktijk` 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 ·
 `dataïsme` 236 · `daten` 166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298
@@ -93083,67 +93296,67 @@ marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
 `ego-depletie` 382 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
 `eigen-oordeel` 58 · `eigenaarschap` 97 · `eindigheid` 442 · `einstein` 94 ·
 `elektriciteit` 267 · `elektrische auto's` 266 · `EMDR` 386 · `emigratie` 240
-· `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 457, 470 · `empathie`
-35, 67, 303 · `energie` 92, 195, 291, 377 · `energiewerk` 432 · `epigenetica`
-208, 415 · `epos` 5 · `erfelijkheid` 419 · `erfenis` 39 · `erkenningszucht`
-406 · `erotiek` 113, 164 · `esoterie` 378 · `essay` 3, 9, 21, 57, 59, 63, 64,
-68, 96, 197, 232 · `essaybundel` 390, 425 · `eten` 103 · `ethiek` 282, 299,
-413 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323,
-332, 339, 347, 383 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie`
-67 · `executives` 344 · `existentialisme` 405 · `expeditie` 36 · `experiment`
-79, 215 · `experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283,
-320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie`
-304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
-`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
-`fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41, 296
-· `feiten` 43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1,
-6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392,
-393, 421, 436, 442 · `filosofiegeschiedenis` 269 · `financiële geletterdheid`
-163 · `financiële markten` 268, 351 · `financiële onafhankelijkheid` 264 ·
-`financiele vrijheid` 277 · `financiële-discipline` 464 · `financiën` 334,
-395, 425 · `financiering` 172 · `fitnessbranche` 307 · `flow` 78, 187, 200 ·
-`focus` 175, 197, 448 · `fotoboek` 189 · `foutcultuur` 422 · `frankrijk` 115 ·
-`Franse-Weerstand` 390 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458
-· `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 · `gebed` 83, 259 ·
-`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
-`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
-339 · `gedragseconomie` 424, 426 · `gedragsonderzoek` 302, 382 ·
-`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
-`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
-468, 469 · `geduld` 21, 351 · `geestelijke gezondheid` 193 · `gehechtheid` 166
-· `geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid`
-215 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133,
-158, 159, 433, 463, 464 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
-`geloof` 45, 83, 201 · `geluk` 79, 93, 160, 228, 335 · `gemeenschap` 9, 96,
-304, 461 · `geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315
-· `genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 ·
-`gentechnologie` 413 · `geologie` 239 · `geopolitiek` 220 · `geschiedenis` 30,
-36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440 ·
-`geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 · `gesprek`
-43, 95, 302, 444 · `gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453
-· `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht` 138 · `gewoontelus` 238 ·
-`gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88,
-97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334,
-382, 439, 442, 445 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396,
-397, 411 · `gezag` 62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318,
-323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
-`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 · `goeroe` 242 ·
-`Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 · `grenzen` 72, 105,
-109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406, 429 · `griekse
-mythologie` 261 · `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 ·
-`groepsdenken` 339 · `groepsgedrag` 303 · `grondstoffen` 92 · `groot-verhaal`
-56 · `grootouders` 91 · `handel` 80, 251 · `handelen` 30 · `handleiding` 112 ·
-`hart` 86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317,
-386 · `hedendaags India` 202 · `heelal` 99, 262 · `heldenreis` 410 ·
-`helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst` 127 · `hermetische
-filosofie` 378 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
-`hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87 · `het
-gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199 · `Hindoeïstische
-mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
-`historische portretten` 248 · `hofcultuur` 216 · `Hollywood` 178 ·
-`Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 ·
-`hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
+· `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470 ·
+`empathie` 35, 67, 303 · `energie` 92, 195, 291, 377 · `energiewerk` 432 ·
+`epigenetica` 208, 415 · `epos` 5 · `erfelijkheid` 419 · `erfenis` 39 ·
+`erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378 · `essay` 3, 9,
+21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425 · `eten` 103 ·
+`ethiek` 282, 299, 413 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91,
+239, 318, 322, 323, 332, 339, 347, 383 · `evolutiebiologie` 452, 453 ·
+`evolutionaire-psychologie` 67 · `executives` 344 · `existentialisme` 405 ·
+`expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
+`experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie` 361 · `fabel`
+8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312, 422 ·
+`familie` 45, 325, 466 · `familieconflict` 178 · `familiegeschiedenis` 114,
+235 · `familieroman` 10 · `fantasy` 192, 203 · `FBI` 154, 271 ·
+`FBI-onderzoek` 431 · `feedback` 41, 296 · `feiten` 43 · `feminisme` 3 ·
+`fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224,
+247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442 ·
+`filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 · `financiële
+markten` 268, 351 · `financiële onafhankelijkheid` 264 · `financiele vrijheid`
+277 · `financiële-discipline` 464 · `financiën` 334, 395, 425 · `financiering`
+172 · `fitnessbranche` 307 · `flow` 78, 187, 200 · `focus` 175, 197, 448 ·
+`fotoboek` 189 · `foutcultuur` 422 · `frankrijk` 115 · `Franse-Weerstand` 390
+· `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 ·
+`gaslighting` 123 · `gastheerschap` 304 · `gebed` 83, 259 · `gebruikersgedrag`
+294 · `gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90,
+138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie`
+424, 426 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
+`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290,
+457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469 · `geduld` 21, 351 ·
+`geestelijke gezondheid` 193 · `gehechtheid` 166 · `geheim genootschap` 202 ·
+`geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176
+· `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
+`geldmindset` 395 · `geldpsychologie` 233, 264 · `geloof` 45, 83, 201 ·
+`geluk` 79, 93, 160, 228, 335 · `gemeenschap` 9, 96, 304, 461 · `geneeskunde`
+49, 328 · `generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 ·
+`genezing` 340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
+`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
+258, 298, 328, 381, 425, 440 · `geschiedenis van de geneeskunde` 412 ·
+`geschiedfilosofie` 235 · `gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182,
+186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 · `geweld` 45, 90, 214 ·
+`gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11,
+13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
+158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445 · `gewoontevorming`
+146, 161, 168, 188, 244, 291, 294, 396, 397, 411 · `gezag` 62 · `gezinnen` 327
+· `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415 ·
+`gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422 · `ggz` 104 ·
+`giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `godsdienstkritiek`
+341 · `goeroe` 242 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
+`grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406,
+429 · `griekse mythologie` 261 · `groei` 222 · `groeiaandelen` 474 ·
+`groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
+`grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handel` 80, 251 ·
+`handelen` 30 · `handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay
+House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `heelal`
+99, 262 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
+`herkomst` 127 · `hermetische filosofie` 378 · `heroverwegen` 28 · `hersenen`
+51, 84, 85, 86, 327 · `hersenonderzoek` 330, 333 · `hersenspoeling` 384 ·
+`herstel` 87 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199 ·
+`Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 ·
+`hiphop` 440 · `historische portretten` 248 · `hofcultuur` 216 · `Hollywood`
+178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255,
+319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
 `humanisme` 236 · `humor` 16, 19, 26, 105, 227 · `huwelijk` 9, 34, 165 ·
 `Huxley` 54 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
 `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467 ·
@@ -93170,52 +93383,53 @@ bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint ventures` 34
 `kapitalisme` 298 · `karakter` 97 · `karma` 184 · `Kasjmir` 180 · `keegan` 110
 · `kennis` 81 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
 `kernwapens` 454 · `keuzes` 51, 71, 72 · `Kierkegaard` 405 · `kinderboek` 167
-· `kinderjaren` 152 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
-`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
-`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
-`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420 ·
-`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
-`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische
-psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298 · `korea` 111 ·
-`kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 ·
-`kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie`
-239, 262, 281 · `koude oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap`
-31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41,
-50 · `kritiek geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kunst`
-11, 445 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312 · `kunstmatig
-leven` 347 · `kunstmatige intelligentie` 236, 237, 297 · `kwaad` 404 ·
-`kwaliteit` 1, 400 · `kwantificering` 392 · `kwantumfysica` 208, 340, 432, 433
-· `kwantummechanica` 362 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32,
-44, 470 · `landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 ·
-`lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 ·
-`leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183,
-218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475 ·
-`leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441 · `lesmateriaal` 116
-· `leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150 ·
-`levenskunst` 27, 199, 216, 227 · `levenslessen` 285, 447 · `levensloop` 91 ·
-`levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 ·
-`lezingen` 169 · `lichaam` 80 · `lichaamsgericht werken` 386 · `lichaamstaal`
-125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 · `liefde` 3, 131, 160, 295
-· `liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 ·
+· `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
+`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
+`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
+`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
+144, 173, 213, 254, 351, 420 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
+`kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
+`klimaatverandering` 299 · `klinische psychologie` 460 · `klokkenmakerij` 321
+· `kolonialisme` 298 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 ·
+`kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten`
+111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281 · `koude oorlog` 217, 220,
+384, 454, 456 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 ·
+`krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch
+denken` 420, 421 · `kroeg` 4 · `kunst` 11, 445 · `kunstenaars` 312 ·
+`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
+intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
+`kwantificering` 392 · `kwantumfysica` 208, 340, 432, 433 · `kwantummechanica`
+362 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `landbouw`
+56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265
+· `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
+`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
+344, 353, 364, 370, 389, 434, 465, 468, 475 · `leidinggeven` 156 · `leren`
+175, 296, 349, 397, 422, 441 · `lesmateriaal` 116 · `leugendetectie` 154, 338
+· `levensinrichting` 334 · `levenskeuzes` 150 · `levenskunst` 27, 199, 216,
+227 · `levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
+`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
+`lichaam` 80 · `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126, 154,
+303, 338, 399 · `lichaamswerk` 432 · `liefde` 3, 131, 160, 295 ·
+`liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 ·
 `literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48 ·
 `Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349 · `loslaten`
-377 · `losmaken` 45 · `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren`
-24, 35, 305, 444 · `macht` 212, 250, 263, 381, 388, 440 · `machtspolitiek` 220
-· `machtstheorie` 221 · `machtsverhoudingen` 155 · `magisch realisme` 261 ·
-`management` 42, 47, 170, 183, 256, 350, 353, 364, 472 · `manifesteren` 128,
-129, 130, 131, 132, 190, 196, 433 · `manipulatie` 123, 124, 125, 126, 212,
-213, 381, 384, 429 · `mannelijkheid` 3, 406, 407, 408 · `mannen` 7 ·
-`mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 · `manuscript` 359 ·
-`marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446 ·
-`media` 54, 60, 100 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169,
-205, 208, 228, 230, 237, 242, 333, 377, 401, 431 · `meesterschap` 296, 320 ·
-`meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49,
-62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403,
-431, 447 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 · `mentale
-gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323,
-372, 373, 374 · `mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320, 402 ·
-`merken` 279 · `metabolisme` 313 · `metafysica` 102 · `meten` 69, 133 ·
-`methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
+377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `luchtvaart` 422 ·
+`luisteren` 24, 35, 305, 444 · `macht` 212, 250, 263, 381, 388, 440 ·
+`machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
+`magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
+472 · `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433 · `manipulatie`
+123, 124, 125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3, 406, 407, 408
+· `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 ·
+`manuscript` 359 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309,
+350, 443, 446 · `media` 54, 60, 100 · `medische ethiek` 416 · `meditatie` 111,
+141, 149, 169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431 ·
+`meesterschap` 296, 320 · `meetsystemen` 392 · `memento mori` 286 · `memoir`
+4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324,
+325, 348, 385, 402, 403, 431, 447 · `menselijk gedrag` 155 · `mensenkennis`
+126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
+weerbaarheid` 229, 323, 372, 373, 374 · `mentalisme` 378, 399 · `mentorschap`
+4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 · `metafysica` 102 ·
+`meten` 69, 133 · `methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
 `middelbare-leeftijd` 7 · `midlife` 324 · `militaire strategie` 220 ·
 `millennials` 159 · `minderheden` 68 · `mindful` 103 · `mindfulness` 141, 147,
 149, 177, 333, 401 · `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 ·
@@ -93237,7 +93451,7 @@ oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225
 `neurochirurgie` 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208,
 414 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340,
 386, 418 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age`
-149, 435 · `new thought` 259, 380 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe
+149, 435, 449 · `new thought` 259, 380 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe
 gedachte` 127, 378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241 ·
 `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-fictie` 420 ·
 `non-verbaal` 399 · `non-verbale communicatie` 154 · `notitieboeken` 241 ·
@@ -93334,7 +93548,7 @@ Rank` 405 · `oud china` 272 · `Oude Rome` 328 · `ouder-worden` 5 · `ouderdom
 `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454,
 455, 456 · `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
 `spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14, 27, 102, 108, 141,
-149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435 ·
+149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435, 449 ·
 `spirituele zoektocht` 287 · `sport` 20, 349 · `sportpsychologie` 372, 374,
 441 · `sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
 `staatsgreep` 220 · `stalking` 214 · `standaarden` 396 · `Stanford` 150, 388,
@@ -93423,7 +93637,7 @@ opbouwen` 395 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171, 387, 415
 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177,
 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209,
 210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380,
-389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 459, 465 ·
+389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465 ·
 `zelfkennis` 258, 260, 361 · `zelfliefde` 190, 195, 204, 380, 403 ·
 `zelfonderzoek` 315, 470 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 ·
 `zelfpraat` 161 · `zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie`
