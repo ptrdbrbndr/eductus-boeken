@@ -1777,7 +1777,7 @@ van Clara Eggink uit 1953 stond zesenzestig jaar alleen; Peter Bergsma
 hertaalde het boek voor Van Oorschot (februari 2020). Rubriek: roman en
 memoir.
 Tags: `familieroman`, `Californië`, `Salinas`, `Kaïn-en-Abel`, `broers`,
-`vrije-wil`, `klassieker`
+`vrije wil`, `klassieker`
 
 Twee families in de Salinas Valley in Californië, de Trasks en de Hamiltons,
 over drie generaties, van de Amerikaanse Burgeroorlog tot de Eerste
@@ -8251,7 +8251,7 @@ Patrick Lencioni, 2002. Ondertitel *A Leadership Fable*. Nederlands als *De
 vijf frustraties van teamwork*, ook uitgebracht als *De 5 frustraties van
 teamwork* (ISBN 9789047001966), met een apart werkboek. Rubriek: samenwerken
 en gesprek.
-Tags: `team`, `vertrouwen`, `conflict`, `verantwoordelijkheid`, `fabel`,
+Tags: `teams`, `vertrouwen`, `conflict`, `verantwoordelijkheid`, `fabel`,
 `management`, `vergaderen`
 Bron: 40-lijst.
 
@@ -10613,7 +10613,7 @@ kiest daarmee een andere ingang dan de fysiologische van Walker.
 Jonathan Haidt, 2024. Ondertitel *How the Great Rewiring of Childhood Is
 Causing an Epidemic of Mental Illness*. Nederlands als *Generatie
 angststoornis* bij Ten Have. Rubriek: geschiedenis en samenleving.
-Tags: `jeugd`, `smartphone`, `sociale-media`, `opvoeding`, `angst`,
+Tags: `jeugd`, `smartphone`, `sociale media`, `opvoeding`, `angst`,
 `onderzoeksdebat`, `school`
 Bron: 40-lijst.
 
@@ -11655,8 +11655,8 @@ Geschreven in 1938, pas in 2011 uitgegeven door de Napoleon Hill Foundation en
 geannoteerd door Sharon Lechter (Sound Wisdom, ISBN 9781640951839). Nederlands
 als *De duivel te slim af zijn*, vertaald door Robert Neugarten, bij Business
 Contact (2022, ISBN 9789047015734). Rubriek: vrij denken en manipulatie.
-Tags: `eigen-oordeel`, `doelen`, `gewoonte`, `angst`, `zelfhulp`, `interview`,
-`1938`
+Tags: `eigen-oordeel`, `doelen`, `gewoontes`, `angst`, `zelfhulp`,
+`interviews`, `1938`
 Bron: denkerslijst.
 
 Hill schrijft het boek als een ondervraging: hij stelt de vragen en de duivel
@@ -13775,8 +13775,8 @@ waarin dat onafhankelijke oordeel moet worden ingebracht.
 Cal Newport, 2016. Ondertitel *Rules for Focused Success in a Distracted
 World* (Grand Central Publishing). Nederlands als *Diep werk* bij Business
 Contact (2016). Rubriek: werk en aandacht.
-Tags: `aandacht`, `concentratie`, `werk`, `gewoonte`, `e-mail`,
-`sociale-media`, `planning`
+Tags: `aandacht`, `concentratie`, `werk`, `gewoontes`, `e-mail`, `sociale
+media`, `planning`
 Bron: boekenmap.
 
 Newport stelt dat werk dat volledige aandacht vraagt zeldzaam is geworden en
@@ -15209,7 +15209,7 @@ Napoleon Hill, 1937. De onbewerkte oorspronkelijke uitgave van 1937 is
 heruitgegeven door de Napoleon Hill Foundation (2012). Nederlands als *Denk en
 word rijk*; zie ook 58, dat Hill in 1938 schreef en dat pas in 2011 verscheen.
 Rubriek: positief denken en manifesteren.
-Tags: `succes`, `geld`, `verlangen`, `gewoonte`, `zelfhulp`, `1937`,
+Tags: `succes`, `geld`, `verlangen`, `gewoontes`, `zelfhulp`, `1937`,
 `omstreden`
 Bron: boekenmap.
 
@@ -15440,7 +15440,7 @@ plaats van op vermogen.
 Héctor García en Francesc Miralles, 2016. Oorspronkelijk Spaans; Nederlands
 als *Ikigai: het Japanse geheim voor een lang en gelukkig leven* bij De
 Boekerij (2018). Rubriek: levenskunst.
-Tags: `japan`, `ouderdom`, `gewoonte`, `beweging`, `zingeving`, `okinawa`,
+Tags: `Japan`, `ouderdom`, `gewoontes`, `beweging`, `zingeving`, `okinawa`,
 `populair`
 Bron: boekenmap.
 
@@ -15642,7 +15642,7 @@ Mihaly Csikszentmihalyi, 1997. Ondertitel *The Psychology of Engagement with
 Everyday Life*, in de reeks MasterMinds (Basic Books). De uitgebreide
 voorganger *Flow* (1990) verscheen in het Nederlands bij Boom. Rubriek: werk
 en aandacht.
-Tags: `flow`, `aandacht`, `psychologie`, `vrije-tijd`, `werk`, `onderzoek`,
+Tags: `flow`, `aandacht`, `psychologie`, `vrije tijd`, `werk`, `onderzoek`,
 `dagboekmethode`
 Bron: boekenmap.
 
@@ -15906,7 +15906,7 @@ verschuiving waarvoor Csikszentmihalyi in 1997 al cijfers had.
 Richard Wiseman, 2009. Ondertitel *Think a Little, Change a Lot*
 (Macmillan/Knopf). Nederlands als *59 seconden: denk een beetje, verander een
 hoop* bij Spectrum. Rubriek: gewoontes en denken.
-Tags: `psychologie`, `onderzoek`, `zelfhulp`, `geluk`, `gewoonte`,
+Tags: `psychologie`, `onderzoek`, `zelfhulp`, `geluk`, `gewoontes`,
 `experiment`, `replicatie`
 Bron: boekenmap.
 
@@ -16760,7 +16760,7 @@ je materiaal deugt, waar Atkins bij de bronnenkeuze snel overheen gaat.
 Norman Vincent Peale, 1952. Prentice Hall, later Fireside/Simon and Schuster.
 Nederlands als *De kracht van positief denken*; het boek stond jarenlang op de
 Amerikaanse bestsellerlijsten. Rubriek: positief denken en manifesteren.
-Tags: `positief-denken`, `geloof`, `zelfhulp`, `1952`, `gebed`, `klassieker`,
+Tags: `positief denken`, `geloof`, `zelfhulp`, `1952`, `gebed`, `klassieker`,
 `omstreden`
 Bron: boekenmap.
 
@@ -17937,7 +17937,7 @@ is.
 Nicklas Brendborg, 2023. Oorspronkelijk Deens; Nederlands bij De Bezige Bij
 (2024). Brendborg is moleculair bioloog en schreef eerder over veroudering.
 Rubriek: gewoontes en denken.
-Tags: `gewoonte`, `biologie`, `gezondheid`, `slaap`, `voeding`, `onderzoek`,
+Tags: `gewoontes`, `biologie`, `gezondheid`, `slaap`, `voeding`, `onderzoek`,
 `populair-wetenschappelijk`
 Bron: boekenmap.
 
@@ -19953,7 +19953,7 @@ Ray Klaassens, 2025. Ondertitel *De situatie is een gegeven, hoe je ermee
 omgaat is je karakter*, bij Nieuw Amsterdam (2025, ISBN 9789463812733). De
 tekst is opgetekend door Wendy Kwaks; Klaassens diende bij het Korps
 Commandotroepen. Rubriek: moed en karakter.
-Tags: `eigenaarschap`, `karakter`, `leiderschap`, `commando`, `gewoonte`,
+Tags: `eigenaarschap`, `karakter`, `leiderschap`, `commando`, `gewoontes`,
 `nederlands`, `opgetekend`
 Bron: downloads.
 
@@ -20412,7 +20412,7 @@ hangt.
 
 Sarah Brands, 2014. Deel uit de reeks korte wetenschapsboekjes met dezelfde
 titelformule; Brands is sterrenkundige. Rubriek: natuur en wetenschap.
-Tags: `sterrenkunde`, `heelal`, `zwarte-gaten`, `planeten`, `kort`, `uitleg`,
+Tags: `sterrenkunde`, `heelal`, `zwarte gaten`, `planeten`, `kort`, `uitleg`,
 `naslag`
 Bron: downloads.
 
@@ -21177,7 +21177,7 @@ tegenovergestelde betekenis, namelijk een zichtbare uitkomst in de wereld.
 
 Agaath Zondervan, 2024. Uitgave in eigen beheer (2024). De samenvatting hier
 is op de tekst van het e-boek zelf gebaseerd. Rubriek: brein en lichaam.
-Tags: `eten`, `gewoonte`, `mindful`, `leefstijl`, `bewustwording`,
+Tags: `eten`, `gewoontes`, `mindful`, `leefstijl`, `bewustwording`,
 `nederlands`, `oefeningen`
 Bron: boekenmap.
 
@@ -23360,7 +23360,7 @@ zichzelf een verhaal vertelt waarin het eigen handelen te rechtvaardigen valt.
 Jennifer Chiaverini, 1999. Oorspronkelijk *The Quilter's Apprentice*, het
 eerste deel van de reeks Elm Creek Quilts; Nederlandse uitgave als *De
 quiltclub*. Rubriek: roman en memoir.
-Tags: `roman`, `quilten`, `vriendschap`, `familiegeschiedenis`, `amerika`,
+Tags: `roman`, `quilten`, `vriendschap`, `familiegeschiedenis`, `Amerika`,
 `reeks`, `generaties`
 Bron: boekenmap.
 
@@ -25797,7 +25797,7 @@ William Walker Atkinson, 1906. Oorspronkelijk *Thought Vibration or the Law of
 Attraction in the Thought World* (1906), later herdrukt onder ingekorte
 titels. Atkinson was jurist en een van de voormannen van de Nieuwe
 Gedachte-beweging. Rubriek: positief denken en manifesteren.
-Tags: `wet-van-aantrekking`, `nieuwe-gedachte`, `1906`, `trilling`,
+Tags: `wet van aantrekking`, `nieuwe gedachte`, `1906`, `trilling`,
 `klassieker`, `herkomst`, `onbewezen`
 Bron: boekenmap.
 
@@ -27034,7 +27034,7 @@ stappenplan, met dezelfde onbewijsbare kern.
 
 Darren Hardy, 2010. Bij Vanguard Press, later Hachette. Hardy was uitgever van
 het tijdschrift Success. Rubriek: gewoontes en denken.
-Tags: `gewoonte`, `discipline`, `kleine-stappen`, `meten`, `geld`,
+Tags: `gewoontes`, `discipline`, `kleine-stappen`, `meten`, `geld`,
 `amerikaans`, `populair`
 Bron: boekenmap.
 
@@ -27782,7 +27782,7 @@ veel losser bewijsregime.
 
 Ian Taylor en Matthew Hilger, 2007. Ondertitel *Essential Attitudes for Poker
 Success*, bij Dimat Enterprises. Rubriek: gewoontes en denken.
-Tags: `poker`, `toeval`, `besluiten`, `emotie`, `variantie`, `kansen`,
+Tags: `poker`, `toeval`, `besluiten`, `emoties`, `variantie`, `kansen`,
 `discipline`
 Bron: boekenmap.
 
@@ -27922,7 +27922,7 @@ voor bewijs van de beslissing aanzien.
 Gary Foster, 2021. Ondertitel *7 Powerful Mindset Changes for Lasting Weight
 Loss* (St. Martin's Press). Foster is psycholoog en wetenschappelijk directeur
 bij WW, het voormalige Weight Watchers. Rubriek: brein en lichaam.
-Tags: `gewicht`, `gedrag`, `zelfbeeld`, `gewoonte`, `psychologie`,
+Tags: `gewicht`, `gedrag`, `zelfbeeld`, `gewoontes`, `psychologie`,
 `belangenverstrengeling`, `leefstijl`
 Bron: boekenmap.
 
@@ -28904,7 +28904,7 @@ waar dit boek een werkwijze tegenover zet.
 
 Jordan B. Peterson, 1999. Ondertitel *The Architecture of Belief* (Routledge,
 1999). Geen Nederlandse uitgave. Rubriek: gewoontes en denken.
-Tags: `mythologie`, `psychologie`, `jung`, `betekenis`, `academisch`, `zwaar`,
+Tags: `mythologie`, `psychologie`, `Jung`, `betekenis`, `academisch`, `zwaar`,
 `overtuigingen`
 Bron: boekenmap.
 
@@ -29136,8 +29136,8 @@ Seth A. Klarman, 1991. Ondertitel *Risk-Averse Value Investing Strategies for
 the Thoughtful Investor* (HarperBusiness, 1991). Nooit herdrukt;
 tweedehandsexemplaren worden voor honderden dollars verhandeld. Rubriek: geld
 en ondernemen.
-Tags: `beleggen`, `waardebeleggen`, `risico`, `veiligheidsmarge`,
-`wall-street`, `klassieker`, `zeldzaam`
+Tags: `beleggen`, `waardebeleggen`, `risico`, `veiligheidsmarge`, `Wall
+Street`, `klassieker`, `zeldzaam`
 Bron: boekenmap.
 
 Klarman beheert een groot beleggingsfonds en schreef dit boek vanuit één
@@ -34964,7 +34964,7 @@ House India, 27 december 2024, 294 blz., ISBN 9780143459774). Er is geen
 Nederlandse vertaling gevonden: noch bibliotheek.nl noch de gangbare
 Nederlandse boekhandels voeren een Nederlandse editie. Deze samenvatting is op
 de Engelse uitgave gebaseerd. Rubriek: geld en ondernemen.
-Tags: `ondernemen`, `microbedrijf`, `india`, `kleine-bedrijven`,
+Tags: `ondernemen`, `microbedrijf`, `India`, `kleine-bedrijven`,
 `financiering`, `marketing`, `praktisch`
 
 Drie leidinggevenden van de Indiase onderwijs- en opleidingsorganisatie AISECT
@@ -38669,7 +38669,7 @@ Tara Rewa, 2023. Oorspronkelijk *The Legend of Triquetra: The Marut Saga*
 debuut van Rewa en het eerste deel van de Marut Saga-reeks. Een zoekopdracht
 op Tara Rewa in de catalogus van bibliotheek.nl levert geen resultaat op; een
 Nederlandse vertaling is niet gevonden. Rubriek: roman en memoir.
-Tags: `fantasy`, `hindoeïstische mythologie`, `young adult`, `identiteit`,
+Tags: `fantasy`, `Hindoeïstische mythologie`, `young adult`, `identiteit`,
 `reeks`, `wereldbouw`
 
 Adi Yoshi is vijftien, voelt zich verwaarloosd door zijn grootmoeder en
@@ -39422,7 +39422,7 @@ blz., ISBN 9788183225748); latere drukken volgden, onder meer in 2015. Een
 Nederlandse vertaling is niet gevonden: de catalogus van de Nederlandse
 openbare bibliotheken (bibliotheek.nl) bevat geen titel van Mahatria Ra.
 Rubriek: positief denken en manifesteren.
-Tags: `zelfhulp`, `spiritualiteit`, `verhalen`, `prioriteiten`, `india`,
+Tags: `zelfhulp`, `spiritualiteit`, `verhalen`, `prioriteiten`, `India`,
 `manifesteren`
 
 Mahatria Ra is een Indiase spreker en de oprichter van Infinitheism, een
@@ -39614,7 +39614,7 @@ Media, 2020, in eigen beheer uitgegeven). Geen Nederlandse vertaling; in
 Nederland verkrijgbaar in het Engels, onder meer als gebonden editie (Hit
 Media, 2022, 144 blz., ISBN 9781988575971) en als paperback (ISBN
 9781988575117). Rubriek: werk en aandacht.
-Tags: `beslissingen`, `focus`, `essays`, `ondernemerschap`, `zelfbeeld`,
+Tags: `beslissingen`, `focus`, `essay`, `ondernemerschap`, `zelfbeeld`,
 `productiviteit`
 
 Sivers, oprichter van de platenverkoopdienst CD Baby, bundelt in dit boek
@@ -40008,7 +40008,7 @@ als *The Four-Way Path* met een voorwoord van Shashi Tharoor. Nederlandse
 vertaling als *Namaste: de Indiase geheimen voor een lang en gelukkig leven*,
 vertaald door Carla Zijlemaker (Boekerij, 2022, 224 blz., ISBN 9789022597477).
 Rubriek: levenskunst.
-Tags: `filosofie`, `hindoeïsme`, `india`, `levenskunst`, `zelfhulp`,
+Tags: `filosofie`, `hindoeïsme`, `India`, `levenskunst`, `zelfhulp`,
 `spiritualiteit`
 
 Héctor García en Francesc Miralles schreven met *Ikigai* een boek over de
@@ -46519,7 +46519,7 @@ Walter Isaacson, 2011. Oorspronkelijk *Steve Jobs* (Simon & Schuster, 2011,
 656 blz., ISBN 9781451648539). Nederlands als *Steve Jobs*, sinds 2011 bij
 Spectrum (719 blz., ISBN 9789000302727); vertaald door Rob de Ridder. Rubriek:
 geld en ondernemen.
-Tags: `biografie`, `apple`, `technologiegeschiedenis`, `productontwerp`,
+Tags: `biografie`, `Apple`, `technologiegeschiedenis`, `productontwerp`,
 `ondernemerschap`, `leiderschap`
 
 Walter Isaacson schreef deze biografie op uitnodiging van Steve Jobs zelf, die
@@ -47471,8 +47471,8 @@ uitgave als *Homo Deus: A Brief History of Tomorrow* bij Harvill Secker
 sinds 2017 bij Thomas Rap (paperback-editie 2022, 448 blz., ISBN
 9789400410053); vertaald door Inge Pieters. Rubriek: geschiedenis en
 samenleving.
-Tags: `toekomst`, `kunstmatige-intelligentie`, `dataïsme`, `onsterfelijkheid`,
-`vrije-wil`, `biotechnologie`, `humanisme`
+Tags: `toekomst`, `kunstmatige intelligentie`, `dataïsme`, `onsterfelijkheid`,
+`vrije wil`, `biotechnologie`, `humanisme`
 Bron: dictee-aug2026.
 
 Waar Sapiens (nr 56) terugkijkt, kijkt dit vervolg vooruit. Harari's stelling
@@ -47678,7 +47678,7 @@ uitgave bij Jonathan Cape/Spiegel & Grau (2018). Nederlands als *21 lessen
 voor de 21ste eeuw*, sinds 2018 bij Thomas Rap (paperback-editie 2022, 448
 blz., ISBN 9789400410046); vertaald door Inge Pieters. Rubriek: geschiedenis
 en samenleving.
-Tags: `actualiteit`, `kunstmatige-intelligentie`, `nepnieuws`, `nationalisme`,
+Tags: `actualiteit`, `kunstmatige intelligentie`, `nepnieuws`, `nationalisme`,
 `onderwijs`, `zingeving`, `meditatie`
 Bron: dictee-aug2026.
 
@@ -47880,7 +47880,7 @@ and How to Change It* (Random House, 2012). Nederlands als *Macht der
 gewoonte: waarom we doen wat we doen en hoe we dat kunnen veranderen*, sinds
 2012 bij Ambo (recentste editie 384 blz., ISBN 9789026332227); vertaald door
 Patty Adelaar. Rubriek: gewoontes en denken.
-Tags: `gewoontelus`, `wilskracht`, `neurowetenschap`, `organisaties`,
+Tags: `gewoontelus`, `wilskracht`, `neurowetenschap`, `organisatie`,
 `verslaving`, `journalistiek`, `gedragsverandering`
 Bron: dictee-aug2026.
 
@@ -48514,7 +48514,7 @@ onderbouwing, tot een ander soort nalatenschap leidde.
 Walter Isaacson, 2017. Oorspronkelijk *Leonardo da Vinci* (Simon & Schuster,
 2017). Nederlands als *Leonardo da Vinci*, sinds 2017 bij Spectrum (640 blz.,
 ISBN 9789000358663); vertaald door Rob de Ridder. Rubriek: maken en scheppen.
-Tags: `renaissance`, `kunstgeschiedenis`, `biografie`, `anatomie`,
+Tags: `Renaissance`, `kunstgeschiedenis`, `biografie`, `anatomie`,
 `notitieboeken`, `nieuwsgierigheid`
 Bron: dictee-aug2026.
 
@@ -48716,7 +48716,7 @@ Paramahansa Yogananda, 1946. Oorspronkelijk *Autobiography of a Yogi*
 sinds 1949 bij Ankh-Hermes (17e druk, 2023, 508 blz., ISBN 9789020221053);
 vertaling toegeschreven aan de Self-Realization Fellowship, geen individuele
 vertaler vermeld. Rubriek: levenskunst.
-Tags: `yoga`, `spiritualiteit`, `meditatie`, `memoir`, `goeroe`, `india`
+Tags: `yoga`, `spiritualiteit`, `meditatie`, `memoir`, `goeroe`, `India`
 Bron: dictee-aug2026.
 
 Yogananda schreef dit boek zelf, als eerstepersoonsgetuigenis van zijn jeugd
@@ -52482,7 +52482,7 @@ Haruki Murakami, 2002. Oorspronkelijk *Umibe no Kafuka*, bij Shinchosha
 (Tokio, 2002). Nederlands als *Kafka op het strand*, sinds 2006 bij Atlas
 Contact, vertaald door Jacques Westerhoven (30e druk, 2021, 640 blz., ISBN
 9789025470913). Rubriek: roman en memoir.
-Tags: `magisch realisme`, `lotsbestemming`, `identiteit`, `japan`, `griekse
+Tags: `magisch realisme`, `lotsbestemming`, `identiteit`, `Japan`, `griekse
 mythologie`
 Bron: dictee-aug2026.
 
@@ -53489,7 +53489,7 @@ for a Fantastic Future* (Ecco/HarperCollins, 2015, 400 blz., ISBN
 Walter Isaacson uit 2023. Nederlands als *Elon Musk: hoe de topman van SpaceX
 en Tesla onze toekomst vormgeeft*, sinds 2016 bij Lev. (424 blz., ISBN
 9789400507142); vertaald door Henk Popken. Rubriek: geld en ondernemen.
-Tags: `biografie`, `ruimtevaart`, `elektrische auto's`, `zuid-afrika`,
+Tags: `biografie`, `ruimtevaart`, `elektrische auto's`, `Zuid-Afrika`,
 `arbeidsethos`
 Bron: dictee-aug2026.
 
@@ -54526,7 +54526,7 @@ als *Deel nooit het verschil: onderhandelen op het scherpst van de snede*,
 sinds 2018 bij Scriptum (1e druk, 240 blz., ISBN 9789463190909), vertaald door
 Vanja Walsmit. Rubriek: samenwerken en gesprek.
 Tags: `onderhandelen`, `gijzelingsonderhandelaar`, `tactische empathie`,
-`conflicthantering`, `fbi`
+`conflicthantering`, `FBI`
 Bron: dictee-aug2026.
 
 Chris Voss was hoofdonderhandelaar internationale gijzelingszaken bij de FBI
@@ -64196,7 +64196,7 @@ spanning tussen populaire claim en onderliggend onderzoek.
 Jamil Zaki, 2024. Volledige titel *Hope for Cynics: The Surprising Science of
 Human Goodness* (Grand Central Publishing, 2024). Geen Nederlandse vertaling
 verschenen. Rubriek: geschiedenis en samenleving.
-Tags: `cynisme`, `vertrouwen`, `sociale-psychologie`, `hoop`, `vriendschap`,
+Tags: `cynisme`, `vertrouwen`, `sociale psychologie`, `hoop`, `vriendschap`,
 `samenleving`
 
 Zaki, hoogleraar psychologie aan Stanford en directeur van het Stanford Social
@@ -65530,7 +65530,7 @@ de Verenigde Staten en als *Time: A User's Guide* in het Verenigd Koninkrijk,
 beide vertaald door Shelley Frisch. Nederlands als *Tijd* bij Ambo (2007,
 vertaald door C. van Bree, 292 blz., ISBN 9789026319983). Rubriek: brein en
 lichaam.
-Tags: `tijdsbeleving`, `chronobiologie`, `biologische-klok`,
+Tags: `tijdsbeleving`, `chronobiologie`, `biologische klok`,
 `populair-wetenschappelijk`, `neurowetenschap`, `natuurkunde`, `aandacht`
 
 De natuurkundige en wetenschapsjournalist Stefan Klein onderzoekt waarom de
@@ -68470,7 +68470,7 @@ of Five Rings* (Overlook Press, 1974); latere vertalingen van onder meer
 Thomas Cleary en William Scott Wilson. Nederlands als *Het boek van de vijf
 ringen*, vertaald door Thomas Cleary (Altamira-Becht, 2001, 165 blz., ISBN
 9789069635262). Rubriek: vakmanschap en aandacht.
-Tags: `zwaardvechten`, `strategie`, `samoerai`, `krijgskunst`, `zen`, `japan`,
+Tags: `zwaardvechten`, `strategie`, `samoerai`, `krijgskunst`, `zen`, `Japan`,
 `vakmanschap`
 
 Miyamoto Musashi vocht naar eigen zeggen tientallen duels en verloor er niet
@@ -74852,8 +74852,8 @@ of Thought Control, Menticide, and Brainwashing* (World Publishing Company,
 1956). Nederlands vertaald als *De mishandeling van het denken* (2021) en, in
 nieuwe vertaling, als *Hersenspoeling: de psychologie van
 gedachtenbeïnvloeding* (Maatkamp, 2024). Rubriek: vrij denken en manipulatie.
-Tags: `hersenspoeling`, `propaganda`, `totalitarisme`, `psychologie`,
-`koude-oorlog`, `manipulatie`
+Tags: `hersenspoeling`, `propaganda`, `totalitarisme`, `psychologie`, `koude
+oorlog`, `manipulatie`
 
 Meerloo schreef dit boek als Nederlandse psychiater die de Duitse bezetting
 had meegemaakt en na de oorlog in de Verenigde Staten Koreagangers behandelde
@@ -75647,7 +75647,7 @@ ISBN 978-0-06-178908-3). Gebaseerd op de cursus "Paths to Power" die Pfeffer
 al decennia geeft aan de Stanford Graduate School of Business. Geen
 Nederlandse uitgave bekend; deze samenvatting is op de Engelse editie
 gebaseerd. Rubriek: vrij denken en manipulatie.
-Tags: `macht`, `carrière`, `organisaties`, `netwerken`, `reputatie`,
+Tags: `macht`, `carrière`, `organisatie`, `netwerken`, `reputatie`,
 `zelfpromotie`, `Stanford`
 
 Pfeffer geeft al tientallen jaren de cursus "Paths to Power" aan Stanford en
@@ -75856,7 +75856,7 @@ Macmillan/Bluebird, Londen, 25 april 2024, 320 blz., ISBN 978-1-035-04221-0).
 Geen Nederlandse vertaling van deze titel bekend; Moestl publiceerde later
 verwante titels als *Das Shaolin-Prinzip* en *Siegen wie ein Shaolin*.
 Rubriek: moed en karakter.
-Tags: `Shaolin`, `zelfbeheersing`, `kalmte`, `Chinese-filosofie`,
+Tags: `Shaolin`, `zelfbeheersing`, `kalmte`, `Chinese filosofie`,
 `leiderschap`, `zelfhulp`, `vechtkunst`
 
 Moestl, Oostenrijks fotograaf, reisleider en managementtrainer, trok naar de
@@ -78772,7 +78772,7 @@ samengesteld uit een lezingenreeks die Moore hield in het programma "Jungian
 Psychology and Human Spirituality" van het C.G. Jung Institute of Chicago.
 Geen Nederlandse uitgave bekend; deze samenvatting is op de Engelse tekst
 gebaseerd. Rubriek: brein en lichaam.
-Tags: `jungiaanse-psychologie`, `archetypen`, `grandiositeit`, `narcisme`,
+Tags: `Jungiaanse psychologie`, `archetypen`, `grandiositeit`, `narcisme`,
 `ritueel`, `kwaad`, `schaduw`
 
 Moore, Jungiaans analyticus en opleider aan het C.G. Jung Institute of
@@ -79725,7 +79725,7 @@ the Religious Function of the Psyche* (Putnam voor de C. G. Jung Foundation
 for Analytical Psychology, New York, 1972, in de reeks C. G. Jung Foundation
 Books). Herdrukt bij Penguin (1973) en tegenwoordig bij Shambhala (ISBN
 9780877735762). Geen Nederlandse vertaling. Rubriek: brein en lichaam.
-Tags: `jungiaanse psychologie`, `individuatie`, `archetypen`, `ego en zelf`,
+Tags: `Jungiaanse psychologie`, `individuatie`, `archetypen`, `ego en zelf`,
 `religieuze symboliek`, `psychoanalyse`, `mythologie`
 
 Edward Edinger, mede-oprichter van de C. G. Jung Foundation for Analytical
@@ -79956,7 +79956,7 @@ Nederlands als *De held met de duizend gezichten: de archetypische reis van de
 held in mythen en verhalen*, Ankh-Hermes, herziene vertaling 2020 (eerdere
 Nederlandse editie bij Uitgeverij Contact, 1990). Rubriek: brein en lichaam.
 Tags: `vergelijkende mythologie`, `heldenreis`, `monomythe`, `archetypen`,
-`jungiaanse psychologie`, `verhaalstructuur`, `antropologie`
+`Jungiaanse psychologie`, `verhaalstructuur`, `antropologie`
 
 Campbell stelt dat heldenverhalen van over de hele wereld, van Egyptische en
 Griekse mythen tot Noord-Amerikaanse en Polynesische overleveringen, dezelfde
@@ -82477,7 +82477,7 @@ Thinking: Why Most People Never Learn from Their Mistakes, But Some Do*
 (Portfolio, 2015). Nederlands als *Black Box-denken: maak van je fouten een
 succes*, bij A.W. Bruna (ISBN 9789021560540). Rubriek: gewoontes en denken.
 Tags: `falen`, `foutcultuur`, `luchtvaart`, `gezondheidszorg`, `leren`,
-`organisaties`, `topsport`
+`organisatie`, `topsport`
 
 Syed, voormalig tafeltennisser voor Groot-Brittannië, opent met de dood van
 Elaine Bromiley in 2005 tijdens een routine-operatie: het team verloor de tijd
@@ -84415,7 +84415,7 @@ uitgebreide edities met studiemateriaal van Bob Doyle verschenen bij Hampton
 Roads/Hierophant Publishing, onder meer als *A Happy Pocket Full of Money,
 Expanded Study Edition* (ISBN 9781571747365). Geen Nederlandse vertaling
 bekend. Rubriek: positief denken en manifesteren.
-Tags: `wet-van-aantrekking`, `manifesteren`, `geld`, `kwantumfysica`,
+Tags: `wet van aantrekking`, `manifesteren`, `geld`, `kwantumfysica`,
 `welvaartsbewustzijn`, `dankbaarheid`, `The Secret`
 
 Gikandi, een Keniaanse vastgoedondernemer die zichzelf geen goeroe maar
@@ -90123,7 +90123,7 @@ Lawrence A. Kane en Kris Wilder, met bijdragen van Alain Burrese, Lisa A.
 Christensen, Wallace Smedley en Dan Anderson. Geen Nederlandse vertaling van
 dit specifieke geschrift bekend. Rubriek: vakmanschap en aandacht.
 Tags: `samoerai`, `stoïcijnse-houding`, `aforismen`, `testament`,
-`discipline`, `japan`, `onthechting`
+`discipline`, `Japan`, `onthechting`
 
 Een week voor zijn dood in 1645 schreef de zwaardvechter Miyamoto Musashi 21
 korte stellingen op en gaf ze aan zijn leerling Terao Magonojō, dezelfde
@@ -90739,7 +90739,7 @@ Verenigd Koninkrijk bij Ebury Edge (31 augustus 2023, ISBN 9781529146509).
 Nederlands als *The Diary of a CEO: De 33 wetten van zakendoen & leven* bij
 HarperCollins (2024, vertaling Jonas de Vries, 366 blz., ISBN 9789402714845).
 Rubriek: geld en ondernemen.
-Tags: `ondernemerschap`, `zelfhulp`, `podcast`, `persoonlijke-ontwikkeling`,
+Tags: `ondernemerschap`, `zelfhulp`, `podcast`, `persoonlijke ontwikkeling`,
 `leiderschap`, `zakendoen`
 
 Steven Bartlett, oprichter van Social Chain en host van de podcast *The Diary
@@ -93005,26 +93005,25 @@ and commitment therapy` 457, 460 · `achttiende eeuw` 321 · `acteren` 385 ·
 216, 218, 228, 391, 394, 462, 473 · `afscheid nemen` 285 · `afschrikking` 217
 · `afwezige-vader` 4 · `agressie` 223, 339 · `alcohol` 4 · `alledaags` 89 ·
 `allegorie` 222 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 ·
-`amerika` 114 · `Amerika` 431 · `amerikaans` 117, 118, 120, 132, 133, 134,
-136, 158 · `amerikaanse droom` 284 · `Amerikaanse geschiedenis` 402 ·
-`amerikaanse revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 ·
-`Andalusië` 8 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341,
-401, 440 · `angst voor de dood` 377 · `animatie` 41 · `Antarctica` 36 ·
-`anthologie` 189 · `antropologie` 223, 410 · `antwerpen` 113 · `apartheid` 26
-· `apple` 231 · `Apple` 46 · `apps` 294 · `arbeid` 6, 173, 297, 390 ·
-`arbeidsethos` 266 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
-`argumentatie` 421, 437 · `argumenten` 63 · `argumenteren` 438 · `Aristoteles`
-438 · `armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
-`asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 ·
-`Australië` 447 · `autobiografie` 358, 440 · `automatisering` 297 ·
-`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `barok` 216 ·
-`basisbehoeften` 107 · `bbc` 82 · `bedrijfscultuur` 170, 257, 270 ·
-`bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 ·
-`bedrijfssystemen` 264 · `beginners` 112 · `behoeften` 35 · `beinvloeding`
-123, 126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling` 138
-· `beleggen` 21, 64, 144, 233, 277, 351, 474 · `beleid` 65 ·
-`beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128 ·
-`beschadigd-bestand` 115, 130 · `beschaving` 57 · `beslissen` 55 ·
+`Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 ·
+`amerikaanse droom` 284 · `Amerikaanse geschiedenis` 402 · `amerikaanse
+revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 · `Andalusië` 8 ·
+`angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341, 401, 440 · `angst
+voor de dood` 377 · `animatie` 41 · `Antarctica` 36 · `anthologie` 189 ·
+`antropologie` 223, 410 · `antwerpen` 113 · `apartheid` 26 · `Apple` 46, 231 ·
+`apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archetype` 360
+· `archetypen` 357, 404, 407, 409, 410 · `argumentatie` 421, 437 ·
+`argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234,
+254 · `Arthashastra` 370 · `assertiviteit` 162 · `asymmetrie` 282 · `atletiek`
+31 · `atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358,
+440 · `automatisering` 297 · `autonomie` 6, 50 · `autoriteit` 215 ·
+`autotelie` 200 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
+`bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209,
+293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beginners` 112 ·
+`behoeften` 35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis`
+60 · `belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351, 474
+· `beleid` 65 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128
+· `beschadigd-bestand` 115, 130 · `beschaving` 57 · `beslissen` 55 ·
 `beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
 170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
 468, 475 · `bestseller` 8, 37, 250 · `betekenis` 143 · `betrokkenheid` 472 ·
@@ -93033,26 +93032,26 @@ and commitment therapy` 457, 460 · `achttiende eeuw` 321 · `acteren` 385 ·
 `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie` 31, 46, 189,
 231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454 · `biohacking` 316
 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie van gedrag` 273 ·
-`biologische klok` 329 · `biologische-klok` 326 · `biotechnologie` 236, 413 ·
-`bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 · `boeddhisme` 111, 287,
-333, 341, 401 · `bootstrapping` 369 · `brainstormen` 33 · `branding` 443 ·
-`brein` 414 · `brieven` 292 · `broers` 10 · `budgetteren` 159, 233, 464 ·
-`buitenlandse hulp` 221 · `burgerschap` 243 · `burn-out` 135, 207, 400 ·
-`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 ·
-`cases` 40 · `cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger`
-62 · `Chanakya` 370 · `chaos` 74, 347 · `chapbook` 100 · `China` 348 ·
-`Chinese filosofie` 394 · `Chinese geschiedenis` 219 · `Chinese-filosofie` 389
-· `chiropractie` 432 · `christendom` 162, 201, 391 · `chronobiologie` 326, 329
-· `cijfers` 39, 65 · `civilisatiekritiek` 298 · `coaching` 161, 291, 441 ·
-`cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
-· `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 ·
-`cognitieve-bias` 59 · `collectief bewustzijn` 435 · `collectief onbewuste`
-357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 · `commando` 97 ·
-`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
-338, 356, 398, 399, 444, 466, 475 · `complexiteit` 170, 268, 300, 347, 423 ·
-`complimenten geven` 356 · `concentratie` 70, 441 · `concurrentie` 293 ·
-`conditionering` 61 · `conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling`
-304 · `conflicthantering` 271 · `conformisme` 211 · `consumptie` 463 ·
+`biologische klok` 326, 329 · `biotechnologie` 236, 413 · `bloedvaten` 86 ·
+`bloedwaarden` 313 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401 ·
+`bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414 ·
+`brieven` 292 · `broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse
+hulp` 221 · `burgerschap` 243 · `burn-out` 135, 207, 400 · `cafeïne` 52 ·
+`Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 · `cases` 40 ·
+`cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger` 62 ·
+`Chanakya` 370 · `chaos` 74, 347 · `chapbook` 100 · `China` 348 · `Chinese
+filosofie` 389, 394 · `Chinese geschiedenis` 219 · `chiropractie` 432 ·
+`christendom` 162, 201, 391 · `chronobiologie` 326, 329 · `cijfers` 39, 65 ·
+`civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitieve
+gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177 ·
+`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
+59 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 ·
+`columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
+122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
+444, 466, 475 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven`
+356 · `concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61 ·
+`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
+`conflicthantering` 271 · `conformisme` 211 · `consumptie` 463 ·
 `consumptiekeuzes` 299 · `content` 308 · `content creatie` 365 · `content
 marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
 74, 206, 312, 349, 418, 445, 471, 472, 475 · `cricket` 174 · `crisis` 47 ·
@@ -93084,65 +93083,64 @@ marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
 `ego-depletie` 382 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
 `eigen-oordeel` 58 · `eigenaarschap` 97 · `eindigheid` 442 · `einstein` 94 ·
 `elektriciteit` 267 · `elektrische auto's` 266 · `EMDR` 386 · `emigratie` 240
-· `emotie` 137 · `emoties` 3, 43, 142, 147, 153, 177, 330, 331, 457, 470 ·
-`empathie` 35, 67, 303 · `energie` 92, 195, 291, 377 · `energiewerk` 432 ·
-`epigenetica` 208, 415 · `epos` 5 · `erfelijkheid` 419 · `erfenis` 39 ·
-`erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378 · `essay` 3, 9,
-21, 57, 59, 63, 64, 68, 96, 232 · `essaybundel` 390, 425 · `essays` 197 ·
-`eten` 103 · `ethiek` 282, 299, 413 · `evangelisatie` 201 · `evolutie` 56, 66,
-89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383 · `evolutiebiologie` 452,
-453 · `evolutionaire-psychologie` 67 · `executives` 344 · `existentialisme`
-405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
-`experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie` 361 · `fabel`
-8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312, 422 ·
-`familie` 45, 325, 466 · `familieconflict` 178 · `familiegeschiedenis` 114,
-235 · `familieroman` 10 · `fantasy` 192, 203 · `fbi` 271 · `FBI` 154 ·
-`FBI-onderzoek` 431 · `feedback` 41, 296 · `feiten` 43 · `feminisme` 3 ·
-`fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224,
-247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442 ·
-`filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 · `financiële
-markten` 268, 351 · `financiële onafhankelijkheid` 264 · `financiele vrijheid`
-277 · `financiële-discipline` 464 · `financiën` 334, 395, 425 · `financiering`
-172 · `fitnessbranche` 307 · `flow` 78, 187, 200 · `focus` 175, 197, 448 ·
-`fotoboek` 189 · `foutcultuur` 422 · `frankrijk` 115 · `Franse-Weerstand` 390
-· `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 ·
-`gaslighting` 123 · `gastheerschap` 304 · `gebed` 83, 259 · `gebruikersgedrag`
-294 · `gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90,
-138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie`
-424, 426 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
-`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290,
-457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469 · `geduld` 21, 351 ·
-`geestelijke gezondheid` 193 · `gehechtheid` 166 · `geheim genootschap` 202 ·
-`geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176
-· `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
-`geldmindset` 395 · `geldpsychologie` 233, 264 · `geloof` 45, 83, 201 ·
-`geluk` 79, 93, 160, 228, 335 · `gemeenschap` 9, 96, 304, 461 · `geneeskunde`
-49, 328 · `generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 ·
-`genezing` 340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
-`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
-258, 298, 328, 381, 425, 440 · `geschiedenis van de geneeskunde` 412 ·
-`geschiedfilosofie` 235 · `gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182,
-186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 · `geweld` 45, 90, 214 ·
-`gewicht` 138 · `gewoonte` 58, 70, 76, 77, 79, 88, 97, 103, 133, 138 ·
-`gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 134,
-135, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445 ·
-`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411 · `gezag`
-62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412,
-414, 415 · `gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422 ·
-`ggz` 104 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 ·
-`godsdienstkritiek` 341 · `goeroe` 242 · `Graallegende` 408 · `grandiositeit`
-404 · `gratie` 374 · `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen
-stellen` 151, 204, 406, 429 · `griekse mythologie` 261 · `groei` 222 ·
-`groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken` 339 ·
-`groepsgedrag` 303 · `grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91
-· `handel` 80, 251 · `handelen` 30 · `handleiding` 112 · `hart` 86, 128 ·
-`Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags
-India` 202 · `heelal` 99, 262 · `heldenreis` 410 · `helderheid` 82, 436 ·
-`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
-`heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330,
-333 · `hersenspoeling` 384 · `herstel` 87 · `het gesprek` 416 · `Himalaya` 191
-· `hindoeïsme` 169, 199 · `hindoeïstische mythologie` 192 · `Hindoeïstische
-mythologie` 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
+· `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 457, 470 · `empathie`
+35, 67, 303 · `energie` 92, 195, 291, 377 · `energiewerk` 432 · `epigenetica`
+208, 415 · `epos` 5 · `erfelijkheid` 419 · `erfenis` 39 · `erkenningszucht`
+406 · `erotiek` 113, 164 · `esoterie` 378 · `essay` 3, 9, 21, 57, 59, 63, 64,
+68, 96, 197, 232 · `essaybundel` 390, 425 · `eten` 103 · `ethiek` 282, 299,
+413 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323,
+332, 339, 347, 383 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie`
+67 · `executives` 344 · `existentialisme` 405 · `expeditie` 36 · `experiment`
+79, 215 · `experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283,
+320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie`
+304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
+`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
+`fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41, 296
+· `feiten` 43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1,
+6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392,
+393, 421, 436, 442 · `filosofiegeschiedenis` 269 · `financiële geletterdheid`
+163 · `financiële markten` 268, 351 · `financiële onafhankelijkheid` 264 ·
+`financiele vrijheid` 277 · `financiële-discipline` 464 · `financiën` 334,
+395, 425 · `financiering` 172 · `fitnessbranche` 307 · `flow` 78, 187, 200 ·
+`focus` 175, 197, 448 · `fotoboek` 189 · `foutcultuur` 422 · `frankrijk` 115 ·
+`Franse-Weerstand` 390 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458
+· `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 · `gebed` 83, 259 ·
+`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
+`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
+339 · `gedragseconomie` 424, 426 · `gedragsonderzoek` 302, 382 ·
+`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
+`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
+468, 469 · `geduld` 21, 351 · `geestelijke gezondheid` 193 · `gehechtheid` 166
+· `geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid`
+215 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133,
+158, 159, 433, 463, 464 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
+`geloof` 45, 83, 201 · `geluk` 79, 93, 160, 228, 335 · `gemeenschap` 9, 96,
+304, 461 · `geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315
+· `genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 ·
+`gentechnologie` 413 · `geologie` 239 · `geopolitiek` 220 · `geschiedenis` 30,
+36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440 ·
+`geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 · `gesprek`
+43, 95, 302, 444 · `gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453
+· `gevolgen` 67 · `geweld` 45, 90, 214 · `gewicht` 138 · `gewoontelus` 238 ·
+`gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88,
+97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334,
+382, 439, 442, 445 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396,
+397, 411 · `gezag` 62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318,
+323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
+`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+`gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 · `goeroe` 242 ·
+`Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 · `grenzen` 72, 105,
+109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406, 429 · `griekse
+mythologie` 261 · `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 ·
+`groepsdenken` 339 · `groepsgedrag` 303 · `grondstoffen` 92 · `groot-verhaal`
+56 · `grootouders` 91 · `handel` 80, 251 · `handelen` 30 · `handleiding` 112 ·
+`hart` 86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317,
+386 · `hedendaags India` 202 · `heelal` 99, 262 · `heldenreis` 410 ·
+`helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst` 127 · `hermetische
+filosofie` 378 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
+`hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87 · `het
+gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199 · `Hindoeïstische
+mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
 `historische portretten` 248 · `hofcultuur` 216 · `Hollywood` 178 ·
 `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 ·
 `hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
@@ -93151,23 +93149,22 @@ mythologie` 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
 `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467 ·
 `identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185 · `ik-vorm` 113 ·
 `illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20
-· `india` 172, 196, 199, 242 · `India` 163, 171, 180, 189, 191, 203, 226, 365,
-370 · `individualisme` 9, 96 · `individualiteit` 263 · `individuatie` 359,
-360, 408, 409 · `individuele-verantwoordelijkheid` 299 · `industrie` 348 ·
-`initiatie` 407, 408 · `inleiding` 452, 456 · `innerlijk-kind` 109 ·
-`innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innovatie` 206, 251, 293,
-306, 471 · `instagram` 129 · `instituties` 392 · `intelligentie` 383 ·
-`internationale betrekkingen` 455 · `internet` 60, 198 · `interview` 58 ·
-`interviews` 277, 289 · `intimiteit` 122, 145, 164, 165 · `introversie` 33,
-361 · `intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 ·
-`invloed` 11 · `irrationaliteit` 424 · `Italiaanse non-fictie` 211 · `Italië`
-155 · `jaloezie` 19 · `japan` 77, 261, 346, 462 · `Japan` 205, 335, 379 ·
-`jaren negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig` 94 ·
-`jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison`
-321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
-`jongvolwassenenroman` 295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82,
-238, 257, 285, 401 · `jung` 143 · `Jung` 358, 359 · `jungiaanse psychologie`
-409, 410 · `Jungiaanse psychologie` 407, 408 · `jungiaanse-psychologie` 404 ·
+· `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370 ·
+`individualisme` 9, 96 · `individualiteit` 263 · `individuatie` 359, 360, 408,
+409 · `individuele-verantwoordelijkheid` 299 · `industrie` 348 · `initiatie`
+407, 408 · `inleiding` 452, 456 · `innerlijk-kind` 109 · `innerlijk-werkleven`
+472 · `innerlijke stem` 377 · `innovatie` 206, 251, 293, 306, 471 ·
+`instagram` 129 · `instituties` 392 · `intelligentie` 383 · `internationale
+betrekkingen` 455 · `internet` 60, 198 · `interviews` 58, 277, 289 ·
+`intimiteit` 122, 145, 164, 165 · `introversie` 33, 361 · `intuitie` 128 ·
+`intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 ·
+`irrationaliteit` 424 · `Italiaanse non-fictie` 211 · `Italië` 155 ·
+`jaloezie` 19 · `Japan` 77, 205, 261, 335, 346, 379, 462 · `jaren negentig`
+348 · `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff
+bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint ventures` 348
+· `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman` 295 ·
+`journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401 · `Jung`
+143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 ·
 `kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 ·
 `kanker` 419 · `kans` 64 · `kansen` 137 · `kansrekening` 282, 456 ·
 `kapitalisme` 298 · `karakter` 97 · `karma` 184 · `Kasjmir` 180 · `keegan` 110
@@ -93182,25 +93179,24 @@ mythologie` 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
 psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298 · `korea` 111 ·
 `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 ·
 `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie`
-239, 262, 281 · `koude oorlog` 217, 220, 454, 456 · `koude-oorlog` 384 ·
-`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
-346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch denken` 420, 421
-· `kroeg` 4 · `kunst` 11, 445 · `kunstenaars` 312 · `kunstgeschiedenis` 241,
-312 · `kunstmatig leven` 347 · `kunstmatige intelligentie` 297 ·
-`kunstmatige-intelligentie` 236, 237 · `kwaad` 404 · `kwaliteit` 1, 400 ·
-`kwantificering` 392 · `kwantumfysica` 208, 340, 432, 433 · `kwantummechanica`
-362 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `landbouw`
-56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265
-· `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
-`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
-344, 353, 364, 370, 389, 434, 465, 468, 475 · `leidinggeven` 156 · `leren`
-175, 296, 349, 397, 422, 441 · `lesmateriaal` 116 · `leugendetectie` 154, 338
-· `levensinrichting` 334 · `levenskeuzes` 150 · `levenskunst` 27, 199, 216,
-227 · `levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
-`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
-`lichaam` 80 · `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126, 154,
-303, 338, 399 · `lichaamswerk` 432 · `liefde` 3, 131, 160, 295 ·
-`liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 ·
+239, 262, 281 · `koude oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap`
+31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41,
+50 · `kritiek geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kunst`
+11, 445 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312 · `kunstmatig
+leven` 347 · `kunstmatige intelligentie` 236, 237, 297 · `kwaad` 404 ·
+`kwaliteit` 1, 400 · `kwantificering` 392 · `kwantumfysica` 208, 340, 432, 433
+· `kwantummechanica` 362 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32,
+44, 470 · `landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 ·
+`lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 ·
+`leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183,
+218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475 ·
+`leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441 · `lesmateriaal` 116
+· `leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150 ·
+`levenskunst` 27, 199, 216, 227 · `levenslessen` 285, 447 · `levensloop` 91 ·
+`levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 ·
+`lezingen` 169 · `lichaam` 80 · `lichaamsgericht werken` 386 · `lichaamstaal`
+125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 · `liefde` 3, 131, 160, 295
+· `liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 ·
 `literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48 ·
 `Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349 · `loslaten`
 377 · `losmaken` 45 · `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren`
@@ -93242,46 +93238,45 @@ oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225
 414 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340,
 386, 418 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age`
 149, 435 · `new thought` 259, 380 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe
-gedachte` 378 · `nieuwe-gedachte` 127 · `nieuws` 60, 90 · `nieuwsgierigheid`
-15, 28, 62, 241 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 ·
-`non-fictie` 420 · `non-verbaal` 399 · `non-verbale communicatie` 154 ·
-`notitieboeken` 241 · `novelle` 173 · `obesitas` 417 · `observeren` 15 ·
-`obsessieve liefde` 284 · `occultisme` 378 · `ochtendroutine` 14, 134, 244 ·
-`oefenen` 29, 397 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109,
-118, 120, 122, 130 · `okinawa` 77 · `okr` 256 · `omgangsvormen` 24, 398 ·
-`omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 ·
-`onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
-`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359
-· `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117,
-134, 135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450,
-455 · `ondernemen` 20, 39, 40, 47, 172, 446 · `ondernemers` 174 ·
-`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
-278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434, 465
-· `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349 · `onderwijskritiek` 37
-· `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88,
-152, 305 · `onderzoeksdebat` 53 · `onderzoeksethiek` 215 · `onderzoekskritiek`
-52, 415 · `ongemak` 323 · `ongeneeslijke ziekte` 285 · `online ondernemen` 309
-· `onsterfelijkheid` 236, 405 · `onthechting` 462 · `ontmoeten` 304 ·
+gedachte` 127, 378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241 ·
+`Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-fictie` 420 ·
+`non-verbaal` 399 · `non-verbale communicatie` 154 · `notitieboeken` 241 ·
+`novelle` 173 · `obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284 ·
+`occultisme` 378 · `ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 ·
+`oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 ·
+`okinawa` 77 · `okr` 256 · `omgangsvormen` 24, 398 · `omkering` 105 ·
+`omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
+124, 125, 126 · `onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129,
+130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359 · `onderbewuste` 124 ·
+`onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134, 135, 136 ·
+`onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450, 455 ·
+`ondernemen` 20, 39, 40, 47, 172, 446 · `ondernemers` 174 · `ondernemerschap`
+157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276, 278, 289, 306,
+307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434, 465 · `onderwijs`
+6, 23, 33, 45, 63, 65, 68, 116, 237, 349 · `onderwijskritiek` 37 · `onderzoek`
+23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 ·
+`onderzoeksdebat` 53 · `onderzoeksethiek` 215 · `onderzoekskritiek` 52, 415 ·
+`ongemak` 323 · `ongeneeslijke ziekte` 285 · `online ondernemen` 309 ·
+`onsterfelijkheid` 236, 405 · `onthechting` 462 · `ontmoeten` 304 ·
 `ontologie` 344 · `ontslagen` 47 · `ontwikkeling` 46, 85 ·
 `ontwikkelingslanden` 234 · `onvolmaaktheid` 379 · `onzekerheid` 268, 341,
 375, 423 · `oordeel` 59, 69 · `oorlog` 31, 57, 66, 364 · `oorlogvoering` 218 ·
 `opdrachten` 116 · `opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 ·
 `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162,
-193, 290 · `orde` 73, 74 · `organisatie` 28, 41, 69, 468 ·
-`organisatiecultuur` 183, 273, 353 · `organisaties` 238, 388, 422 ·
-`orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude
-Rome` 328 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416 ·
-`oudheid` 2, 247, 292 · `outsourcen` 278 · `overdenken` 148 · `overgave` 431 ·
-`overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253,
-356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469 ·
-`overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240 ·
-`Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
-`parabel` 38, 244, 246 · `paranormaal` 340, 362 · `passie` 50, 198 ·
-`pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
-`patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
-`perfectionisme` 19, 32, 44 · `persoonlijk merk` 198, 365 · `persoonlijke
-financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 467 ·
-`persoonlijke-ontwikkeling` 465 · `persoonlijkheid` 33, 338 ·
+193, 290 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388, 422, 468 ·
+`organisatiecultuur` 183, 273, 353 · `orthodontie` 332 · `Orwell` 54 · `Otto
+Rank` 405 · `oud china` 272 · `Oude Rome` 328 · `ouder-worden` 5 · `ouderdom`
+77, 84, 91, 95, 191, 402, 416 · `oudheid` 2, 247, 292 · `outsourcen` 278 ·
+`overdenken` 148 · `overgave` 431 · `overleven` 31, 36 ·
+`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253, 356, 367, 438 ·
+`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469 · `overvloed` 17 ·
+`oxytocine` 458 · `Pacific` 31 · `pacifisme` 240 · `Padma-onderscheiding` 189
+· `palliatieve zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 ·
+`paranormaal` 340, 362 · `passie` 50, 198 · `pastoraat` 34 ·
+`patiëntenverhalen` 331 · `patiëntverhalen` 414 · `patriarchaat` 3 ·
+`pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32, 44
+· `persoonlijk merk` 198, 365 · `persoonlijke financiën` 163, 233, 395 ·
+`persoonlijke ontwikkeling` 161, 465, 467 · `persoonlijkheid` 33, 338 ·
 `persoonlijkheidstypen` 361 · `piekeren` 105, 176 · `pijn` 85, 255 ·
 `pijnlichaam` 435 · `Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 ·
 `planning` 70, 276 · `plantaardig-dieet` 324 · `plastische chirurgie` 411 ·
@@ -93290,91 +93285,89 @@ financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 467 ·
 438 · `politieke filosofie` 394 · `populair` 77, 129, 133 ·
 `populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie` 194
 · `populaire psychologie` 156, 429 · `portefeuille` 474 · `portretten` 75, 94
-· `positief denken` 179 · `positief-denken` 83 · `positieve-psychologie` 207 ·
-`positionering` 443 · `postuum` 49 · `Praag` 173 · `praktijk` 459 ·
-`praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren` 82,
-253 · `prestatie` 168, 291, 372, 397 · `prestatiebeoordeling` 256 ·
-`prestatiecultuur` 461 · `prestatieonderzoek` 376 · `preventie` 86, 313 ·
-`prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten`
-25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393 · `proactief` 25 ·
-`producer` 17 · `product` 446 · `productiviteit` 151, 175, 197, 207, 244, 276,
-278, 290, 311, 400, 434, 442, 448 · `productontwerp` 231, 294 ·
-`productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
-`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384 ·
-`propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 · `pseudoniem` 378
-· `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317,
-331 · `psychoanalyse` 223, 360, 361, 405, 409 · `psychologie` 23, 28, 29, 55,
-73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254,
-258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463,
-467, 468, 469 · `psychologische flexibiliteit` 460 · `psychologische functies`
-361 · `psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
-`publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
-`Pulitzer` 5 · `puzzels` 451 · `quantum` 94 · `quilten` 114 · `quotes` 179 ·
-`radicale transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 ·
-`rationaliteit` 454 · `rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 ·
-`reclame` 206, 279, 443, 446 · `reeks` 114, 192 · `regimeverandering` 220 ·
-`reïncarnatie` 202 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 ·
-`relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334,
-335, 381, 398, 406, 466 · `relatietherapie` 165 · `relativiteitstheorie` 240,
-281 · `religie` 56 · `religieuze symboliek` 409 · `REM` 52 · `remarkable` 446
-· `renaissance` 241 · `Renaissance` 15 · `rente` 38 · `replicatie` 79 ·
-`reputatie` 388 · `retorica` 253, 438 · `revisie` 18 · `rijkdom` 57, 228 ·
-`risico` 64, 80, 144, 268, 282, 351, 423, 425 · `ritueel` 404 · `rituelen` 304
-· `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12,
-160 · `roman` 61, 113, 114, 115, 254 · `romeinse oudheid` 232 · `rouw` 95, 467
-· `rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart` 266 · `russische
-literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `Salinas` 10 ·
-`samenleving` 90, 98, 319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai`
-346, 462 · `Santa Fe Institute` 347 · `satire` 155 · `scepsis` 63 ·
-`schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 ·
-`schaarste` 92, 249 · `schaduw` 404 · `scheikunde` 92 · `school` 53, 84 ·
-`schrijven` 11, 12, 14, 18, 19, 81, 436 · `schrijverschap` 191, 325 · `schuld`
-254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145, 164, 165,
-316 · `selectoraattheorie` 221 · `seminar` 139 · `Shaolin` 389 · `Silicon
-Valley` 306 · `sirtuïnen` 415 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 ·
-`slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
-besmetting` 303 · `sociale media` 194, 198, 204, 288, 365 · `sociale
-psychologie` 215, 280, 302 · `sociale-media` 53, 70 · `sociale-psychologie`
-319 · `sociale-vaardigheden` 398 · `sociologie` 300 · `software` 276 ·
-`somberheid` 119 · `spanning` 101 · `sparen` 21, 38, 159, 233, 464 ·
-`specialisatie` 349 · `speedreading` 175 · `spelen` 32 · `spellen` 392 ·
-`speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456 · `spiegelneuronen`
-303 · `spiegeloefening` 380 · `spiegelogie` 108 · `spieropbouw` 316 · `spijt`
-447 · `spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195,
-196, 199, 242, 310, 358, 377, 431, 435 · `spirituele zoektocht` 287 · `sport`
-20, 349 · `sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 ·
-`spreekangst` 253 · `spreker` 117, 134 · `staatsgreep` 220 · `stalking` 214 ·
-`standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 · `startups`
-265 · `statistiek` 55, 65, 69, 234, 268, 300, 426 · `statistiek van
-uitzonderingen` 274 · `status` 39, 66, 463 · `sterfelijkheid` 2, 71, 232, 295,
-416 · `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 ·
-`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
-· `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
-30, 194, 247, 248, 292 · `stommiteit` 155 · `storytelling` 253, 279 ·
-`strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
-426, 440, 443, 450, 451, 456 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
-387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
-`structuur` 82 · `studieboek` 421, 437 · `studietechniek` 420 · `succes` 75,
-76, 274 · `superkrachten` 203 · `supplementen` 171, 316 · `surveillance` 393 ·
-`syllogismen` 437 · `symboliek` 357, 360 · `synchroniciteit` 362 ·
-`synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 · `taal` 26,
-27, 436 · `taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29,
-274 · `taoïsme` 341, 394 · `tarieven` 121 · `team` 42 · `teams` 273, 364, 468
-· `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
-`technologie` 160, 288, 294, 306, 393 · `technologiebedrijven` 293 ·
-`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297 ·
-`tegen-productiviteit` 71 · `tegenslag` 30, 111, 174 · `tekenen` 15 ·
-`tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `testament` 462 ·
-`tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 ·
-`therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 · `thriller` 101, 202 ·
-`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442 ·
-`tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311, 448 ·
-`toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362 · `Tolteeks` 27 · `toon`
-72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460 ·
-`totalitarisme` 384 · `training` 376 · `trauma` 104, 119, 195, 229, 317, 386 ·
-`trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `tuinontwerp` 205 ·
-`tumoronderdrukker` 419 · `twaalf-weken` 14 · `tweede-wereldoorlog` 115 ·
-`tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 ·
+· `positief denken` 83, 179 · `positieve-psychologie` 207 · `positionering`
+443 · `postuum` 49 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140,
+159, 172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291,
+372, 397 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
+`prestatieonderzoek` 376 · `preventie` 86, 313 · `prijsstelling` 307 ·
+`prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren`
+151, 311, 448 · `privacy` 393 · `proactief` 25 · `producer` 17 · `product` 446
+· `productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311, 400, 434, 442,
+448 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven`
+112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108 ·
+`propaganda` 60, 384 · `propositielogica` 437 · `protocol` 69 · `pseudokennis`
+126 · `pseudoniem` 378 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96,
+104, 213, 314, 315, 317, 331 · `psychoanalyse` 223, 360, 361, 405, 409 ·
+`psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162,
+200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382,
+384, 387, 424, 444, 457, 463, 467, 468, 469 · `psychologische flexibiliteit`
+460 · `psychologische functies` 361 · `psychopathie` 429 · `psychotherapie`
+164, 227, 386, 406 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
+`publieksfilosofie` 269 · `Pulitzer` 5 · `puzzels` 451 · `quantum` 94 ·
+`quilten` 114 · `quotes` 179 · `radicale transparantie` 270 · `RAND` 454, 456
+· `Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht` 393 ·
+`rechtspraak` 69 · `reclame` 206, 279, 443, 446 · `reeks` 114, 192 ·
+`regimeverandering` 220 · `reïncarnatie` 202 · `reïnventie` 344 ·
+`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
+162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
+165 · `relativiteitstheorie` 240, 281 · `religie` 56 · `religieuze symboliek`
+409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15, 241 · `rente` 38 ·
+`replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
+`rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351, 423, 425 · `ritueel`
+404 · `rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
+`roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254 · `romeinse oudheid`
+232 · `rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en tijd` 281 ·
+`ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 · `SaaS` 434 ·
+`sadisme` 223 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
+`samenwerking` 453 · `samoerai` 346, 462 · `Santa Fe Institute` 347 · `satire`
+155 · `scepsis` 63 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte`
+32, 44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `scheikunde` 92 ·
+`school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81, 436 · `schrijverschap`
+191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit`
+100, 145, 164, 165, 316 · `selectoraattheorie` 221 · `seminar` 139 · `Shaolin`
+389 · `Silicon Valley` 306 · `sirtuïnen` 415 · `slaap` 52, 87, 88, 171, 181,
+316, 329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 ·
+`sociale besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 ·
+`sociale psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 ·
+`sociologie` 300 · `software` 276 · `somberheid` 119 · `spanning` 101 ·
+`sparen` 21, 38, 159, 233, 464 · `specialisatie` 349 · `speedreading` 175 ·
+`spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454,
+455, 456 · `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
+`spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14, 27, 102, 108, 141,
+149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435 ·
+`spirituele zoektocht` 287 · `sport` 20, 349 · `sportpsychologie` 372, 374,
+441 · `sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
+`staatsgreep` 220 · `stalking` 214 · `standaarden` 396 · `Stanford` 150, 388,
+458 · `start-ups` 306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268,
+300, 426 · `statistiek van uitzonderingen` 274 · `status` 39, 66, 463 ·
+`sterfelijkheid` 2, 71, 232, 295, 416 · `sterrenkunde` 99 · `sterven` 49, 95,
+275, 447 · `stijl` 18, 436 · `stoicijns` 75, 140, 142 · `stoïcijnse filosofie`
+153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
+`stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292 ·
+`stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
+249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451, 456 ·
+`streken` 112 · `stress` 80, 87, 106, 118, 187, 387, 458 · `stressmanagement`
+153 · `stressregulatie` 372 · `strip` 452 · `structuur` 82 · `studieboek` 421,
+437 · `studietechniek` 420 · `succes` 75, 76, 274 · `superkrachten` 203 ·
+`supplementen` 171, 316 · `surveillance` 393 · `syllogismen` 437 · `symboliek`
+357, 360 · `synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22, 142 ·
+`systeemtheorie` 165 · `taal` 26, 27, 436 · `taal en macht` 344 · `tactische
+empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341, 394 · `tarieven` 121 ·
+`teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork` 156, 256 ·
+`techniek` 1, 6, 43, 61, 92 · `technologie` 160, 288, 294, 306, 393 ·
+`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
+`technologiekritiek` 297 · `tegen-productiviteit` 71 · `tegenslag` 30, 111,
+174 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33
+· `testament` 462 · `tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 ·
+`theeceremonie` 379 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 ·
+`thriller` 101, 202 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262,
+292, 334, 442 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement`
+311, 448 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362 · `Tolteeks` 27
+· `toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422,
+460 · `totalitarisme` 384 · `training` 376 · `trauma` 104, 119, 195, 229, 317,
+386 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `tuinontwerp`
+205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 · `tweede-wereldoorlog` 115
+· `tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 ·
 `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311 · `uitstellen` 16 ·
 `uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
@@ -93405,17 +93398,16 @@ opbouwen` 395 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171, 387, 415
 · `voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen` 455 ·
 `voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
 `voorzichtigheid` 216 · `vorming` 224 · `vragen-stellen` 475 · `vreemden` 302
-· `vriendschap` 5, 7, 114, 292, 295, 319 · `vrije tijd` 288 · `vrije wil` 339
-· `vrije-tijd` 78 · `vrije-wil` 10, 236 · `vrijheid` 61 · `vroeg pensioen` 264
-· `vrouwenhaat` 110 · `waardebeleggen` 144, 351 · `waardecreatie` 246 ·
-`waarden` 72, 142, 392, 457, 461 · `waardering` 24, 34 · `waarheid` 263 ·
-`waarneming` 154, 283, 322 · `wabi-sabi` 379 · `Wall Street` 351 ·
-`wall-street` 144 · `weerbaarheid` 194 · `weerstand` 12 · `welvaart` 251, 334
-· `welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk`
-70, 78, 151, 252, 466 · `werkboek` 14, 122, 150 · `werkdruk` 400 · `werkplek`
-33, 43 · `werktempo` 400 · `werkwijze` 16 · `West-Point` 29 · `westen` 67 ·
-`western` 5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 190 ·
-`wet-van-aantrekking` 127, 433 · `wetenschap` 63, 66, 93, 94, 328 ·
+· `vriendschap` 5, 7, 114, 292, 295, 319 · `vrije tijd` 78, 288 · `vrije wil`
+10, 236, 339 · `vrijheid` 61 · `vroeg pensioen` 264 · `vrouwenhaat` 110 ·
+`waardebeleggen` 144, 351 · `waardecreatie` 246 · `waarden` 72, 142, 392, 457,
+461 · `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322 ·
+`wabi-sabi` 379 · `Wall Street` 144, 351 · `weerbaarheid` 194 · `weerstand` 12
+· `welvaart` 251, 334 · `welvaartsbewustzijn` 433 · `wereldbeeld` 234 ·
+`wereldbouw` 192 · `werk` 70, 78, 151, 252, 466 · `werkboek` 14, 122, 150 ·
+`werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 ·
+`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
+`wet van aantrekking` 127, 190, 433 · `wetenschap` 63, 66, 93, 94, 328 ·
 `wetenschappers` 239 · `wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419
 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238 ·
 `Wired` 473 · `wiskunde` 116, 454, 456 · `wisselstroom` 267 · `woede` 119, 120
@@ -93442,9 +93434,8 @@ opbouwen` 395 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171, 387, 415
 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225, 466
 · `zen` 141, 346, 441 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 ·
 `zeven-stappen` 129 · `ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91, 160,
-183, 200, 201, 237, 245, 255 · `zitten` 84 · `zorg` 96 · `zuid-afrika` 266 ·
-`Zuid-Afrika` 26 · `zuinigheid` 39 · `zwaar` 143 · `zwaardvechten` 346 ·
-`zwarte gaten` 262 · `zwarte-gaten` 99
+183, 200, 201, 237, 245, 255 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266
+· `zuinigheid` 39 · `zwaar` 143 · `zwaardvechten` 346 · `zwarte gaten` 99, 262
 
 ## Leesroutes
 
