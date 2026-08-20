@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 20
-augustus 2026: 492 titels in 18 rubrieken.
+augustus 2026: 493 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -23,7 +23,7 @@ bij de volgende build verloren.
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455 |
@@ -98981,6 +98981,206 @@ Superior Returns and Controlling Risk. *Active Portfolio Management* bekijkt
 portefeuillebouw vanuit de actieve beheerder: waar Meucci de verdeling
 modelleert, rekent Grinold aan de waarde van voorspellingen.
 
+## 508. Love Is the Killer App
+
+Tim Sanders, 2002. Oorspronkelijk *Love Is the Killer App: How to Win Business
+and Influence Friends* (Crown Business, 2002, geschreven met Gene Stone),
+paperback bij Three Rivers Press in 2003; het boek haalde de bestsellerlijst
+van de New York Times. Nederlandse vertaling: *Managen met liefde* (Het
+Spectrum, 2002, vertaald door Erica van Rijsewijk). Deze samenvatting volgt de
+begrippen van de Engelse editie. Rubriek: samenwerken en gesprek.
+Tags: `netwerken`, `kennis`, `waardecreatie`, `zakendoen`
+
+Tim Sanders, destijds Chief Solutions Officer bij Yahoo!, betoogt dat
+ruimhartig delen in de kenniseconomie meer oplevert dan afschermen. Wie zijn
+kennis, zijn netwerk en zijn menselijke warmte weggeeft aan zakenrelaties,
+wordt volgens hem vanzelf de persoon die iedereen erbij wil hebben. Hij noemt
+die houding bizlove en wie haar beoefent een lovecat.
+
+Het meest bruikbare deel is zijn leesdiscipline: boeken markeren, wekelijks
+teruglezen en actief doorgeven. De onderbouwing bestaat vrijwel geheel uit
+eigen ervaring en losse bedrijfsvoorbeelden uit de dotcomjaren, dus wie bewijs
+zoekt moet elders zijn.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sanders betoogt dat de kenniseconomie een nieuw soort winnaar
+heeft: de professional die zijn drie ontastbare bezittingen, kennis, netwerk
+en compassie, ruimhartig weggeeft aan zakenrelaties. Dat weggeven noemt hij
+bizlove, en de definitie van liefde leent hij van de filosoof Milton Mayeroff:
+onbaatzuchtig de groei van de ander bevorderen. De redenering is economisch:
+in een markt waar informatie vrij stroomt en reputaties zich snel verspreiden,
+keert gedeelde waarde als vanzelf terug in de vorm van toegang, vertrouwen en
+aanbevelingen, terwijl de achterhoudende concurrent geleidelijk buiten de
+kring komt te staan. Vriendelijkheid is bij Sanders dus geen karaktertrek voor
+erbij, het is de best renderende bedrijfsstrategie die een individu ter
+beschikking staat.
+
+#### De gang van het boek
+
+**Een killer app voor de nieuwe economie**
+
+Het boek groeide uit een artikel dat Sanders begin 2002 in Fast Company
+publiceerde, geschreven vanuit zijn positie bij Yahoo!, waar hij als Chief
+Solutions Officer de interne denktank leidde. Een killer app is in de
+technologiewereld een toepassing die zo nuttig is dat ze in haar eentje de
+aanschaf van het onderliggende systeem rechtvaardigt. Sanders past dat beeld
+toe op gedrag: in een economie die om kennisdeling draait, is liefde de
+toepassing die alle andere vaardigheden waardevoller maakt.
+
+Liefde krijgt daarbij een zakelijke omschrijving. Sanders leunt op Milton
+Mayeroffs *On Caring*: liefde is het onbaatzuchtig bevorderen van de groei van
+de ander. Bizlove is het verstandig en doordacht delen van de eigen ontastbare
+bezittingen met zakenpartners, en wie dat stelselmatig doet heet in zijn
+jargon een lovecat.
+
+**Drie ontastbare bezittingen**
+
+Het deelbare kapitaal van een professional bestaat volgens Sanders uit drie
+onderdelen. Kennis: alles wat iemand heeft geleerd op school, in het werk of
+op eigen kracht. Netwerk: het web van relaties waarin iemand mensen aan elkaar
+kan koppelen. Compassie: het vermogen om warm aanwezig te zijn op een manier
+die de groei van de ander steunt.
+
+De volgorde is bewust. Kennis maakt iemand het aanhoren waard, het netwerk
+maakt hem nuttig voorbij zijn eigen vakgebied, en compassie bepaalt of mensen
+graag met hem werken. Sanders vat dat laatste samen in de stelling dat hoe
+mensen over iemand voelen zwaarder weegt dan hoe ze over hem denken.
+
+**Kennis: lezen als werkdiscipline**
+
+Het uitvoerigste en meest praktische deel gaat over lezen. Sanders wil dat een
+professional zijn leesvoer voor zo'n tachtig procent uit boeken haalt en maar
+voor een klein deel uit tijdschriften en nieuws, omdat boeken de enige vorm
+zijn waarin een idee volledig wordt uitgewerkt. Hij mikt op boeken met een
+groot idee, en noemt als voorbeeld Clayton Christensens *The Innovator's
+Dilemma*.
+
+Zijn methode kent drie stappen. Vastleggen: met pen lezen, onderstrepen en
+aantekeningen in het boek zelf maken. Verwerken: gemarkeerde passages
+teruglezen en wekelijks een of twee eerder gelezen boeken opnieuw
+doorbladeren, zodat de inhoud paraat blijft. Toepassen: in gesprekken
+aanknopingspunten zoeken om het geleerde door te geven, boeken aanbevelen en
+ze weggeven. Kennis die niet gedeeld wordt, telt bij Sanders niet mee.
+
+**Netwerk: koppelen zonder scorebord**
+
+Het netwerk-hoofdstuk draait om het maken van introducties. Sanders adviseert
+contacten te ordenen naar wat ze doen, wat ze te bieden hebben en wat ze nodig
+hebben, en vervolgens actief mensen aan elkaar voor te stellen bij wie die
+drie dingen op elkaar passen. Ook kleine persoonlijke details zijn het noteren
+waard, omdat ze latere gesprekken dragen.
+
+Twee regels bewaken de geloofwaardigheid. De eerste: nooit zeggen of laten
+voelen dat de ander iets verschuldigd is; wie een scorebord bijhoudt, bedrijft
+ruilhandel en geen bizlove. De tweede: terugtreden zodra een gelegde
+verbinding op eigen kracht loopt, om geen opdringerige tussenpersoon te
+worden. Het rendement komt volgens Sanders vanzelf, langs wegen die vooraf
+niet te plannen zijn.
+
+**Compassie: warmte die te zien is**
+
+Het derde bezit is het lastigst te leren, en Sanders houdt het dicht bij
+waarneembaar gedrag: echt oogcontact met een gemeende glimlach, begroetingen
+en afscheid benutten als momenten om iets persoonlijks te zeggen, warme en
+specifieke woorden gebruiken waar anderen het bij algemene beleefdheid laten,
+en op lichaamstaal letten om te zien wanneer een gebaar welkom is en wanneer
+niet.
+
+Hij benadrukt dat compassie in zaken geen zachtheid over de inhoud betekent.
+Een lovecat kan hard oordelen over een plan en tegelijk zichtbaar om de maker
+geven. Wie warmte veinst valt bovendien door de mand; het advies is dan ook
+uitsluitend te geven wat gemeend is.
+
+**Wat het oplevert**
+
+De beloofde opbrengst is aanzienlijk. Wie het leesprogramma volgt, verdubbelt
+volgens Sanders binnen een jaar zijn zakelijke kennis; wie stelselmatig
+introducties maakt, ziet zijn netwerk binnen twee jaar sterk groeien.
+Daarbovenop komt een persoonlijk merk: de lovecat wordt de vraagbaak en
+verbinder die bij reorganisaties en nieuwe kansen als eerste in beeld is.
+
+Als bedrijfsvoorbeelden noemt hij onder meer Cisco, dat bonussen destijds
+koppelde aan klanttevredenheid in plaats van aan verkoop, en Intel, dat van
+een onzichtbaar onderdeel een merkbeleving wist te maken. Voor de lovecat zelf
+voorziet hij nog een tweede opbrengst: wie bekend staat als iemand die deelt,
+maakt van elke samenwerking een aangenamere ervaring en kan zich daardoor
+veroorloven om op inhoud streng te blijven.
+
+Het boek eindigt als aansporing om ondanks cynische collega's vol te houden.
+Sanders erkent dat de aanpak in een harde bedrijfscultuur op hoongelach kan
+rekenen, en raadt aan gewoon te beginnen, klein en zichtbaar; de spotters van
+vandaag zijn in zijn ervaring de vragers van morgen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Killer app | Toepassing die zo waardevol is dat ze in haar eentje het onderliggende systeem rechtvaardigt; bij Sanders het beeld voor liefde als beslissende zakelijke vaardigheid. |
+| Bizlove | Het verstandig en doordacht delen van de eigen ontastbare bezittingen, kennis, netwerk en compassie, met zakenpartners. |
+| Lovecat | Professional die bizlove stelselmatig beoefent: deskundig, goed verbonden en warm in de omgang. |
+| Intangibles | De drie ontastbare, deelbare bezittingen van een professional: kennis, netwerk en compassie. |
+| Kennis | Alles wat iemand op school, in het werk of op eigen kracht heeft geleerd, bij Sanders vooral op te bouwen door stelselmatig boeken te lezen. |
+| Netwerk | Het web van relaties dat waarde krijgt door mensen aan elkaar te koppelen op wat ze doen, bieden en nodig hebben. |
+| Compassie | Het vermogen om warm aanwezig te zijn op een manier die de groei van de ander steunt, zichtbaar in oogcontact, woordkeus en aandacht. |
+
+#### Waar het argument op rust
+
+De onderbouwing is vrijwel geheel anekdotisch. Sanders put uit zijn eigen
+loopbaan bij Yahoo! en uit bedrijfsvoorbeelden uit de late jaren negentig,
+zoals Cisco en Intel, en leunt verder op oudere boeken: Mayeroffs *On Caring*
+voor de definitie van liefde en Carnegies *How to Win Friends and Influence
+People* voor de omgangslessen. Systematisch onderzoek naar de vraag of gulle
+professionals werkelijk beter af zijn, ontbreekt; de beloofde verdubbeling van
+kennis in een jaar wordt nergens gemeten. Ook de eigen loopbaan als bewijsstuk
+heeft beperkte waarde, omdat een enkel succesverhaal niets zegt over alle
+delers die er weinig voor terugkregen.
+
+Later onderzoek geeft de kern gedeeltelijk gelijk. Organisatiepsychologisch
+werk naar geefgedrag laat zien dat gevers inderdaad oververtegenwoordigd zijn
+aan de top, maar ook onderaan: geven loont alleen voor wie zijn grenzen
+bewaakt. Dat voorbehoud, en de voorwaarden waaronder delen wel en niet
+rendeert, ontbreken bij Sanders vrijwel volledig.
+
+#### Wat er tegen in te brengen valt
+
+Het diepste bezwaar zit in de constructie zelf. Liefde wordt gedefinieerd als
+onbaatzuchtig bevorderen van andermans groei, maar het boek beveelt die
+onbaatzuchtigheid aan omdat ze rendeert; de ondertitel spreekt onverbloemd van
+het winnen van zaken. Wie deelt om terug te ontvangen, doet iets anders dan
+wat Mayeroff beschreef, en het boek lost die spanning nergens op.
+
+Daarnaast draagt het boek de sporen van zijn tijd. Het optimisme over de
+nieuwe economie stamt uit de dotcomjaren, en Yahoo! zelf, de bewijsplaats van
+de auteur, verloor in diezelfde periode het grootste deel van zijn waarde. Het
+jargon van lovecats en bizlove is slecht verouderd, de boodschap wordt vele
+malen herhaald, en het advies veronderstelt iemand die al kennis en een
+netwerk heeft om weg te geven: voor een beginner zonder positie biedt het
+weinig houvast.
+
+#### Wat er concreet mee te doen is
+
+- Reserveer vaste leestijd voor boeken met een groot idee en lees met pen:
+onderstrepen, aantekenen, en wekelijks een eerder gelezen boek terugbladeren.
+- Geef een boek door zodra de inhoud voor iemand anders van pas komt, met een
+korte toelichting waarom juist voor hem of haar.
+- Noteer per contact wat iemand doet, te bieden heeft en nodig heeft, en stel
+mensen aan elkaar voor zodra twee lijstjes op elkaar passen.
+- Maak nooit kenbaar dat er iets terugverwacht wordt, en trek terug zodra een
+gelegde verbinding zelfstandig loopt.
+- Gebruik begroeting en afscheid om iets persoonlijks en gemeends te zeggen in
+plaats van een formule.
+
+#### Wat je hierna leest
+
+- 24. How to Win Friends and Influence People. De klassieker waar de
+ondertitel op varieert; Carnegie leert de omgangsvormen waar Sanders zijn
+compassie-hoofdstuk op bouwt.
+- 246. The Go-Giver. Dezelfde these, geven gaat aan ontvangen vooraf, maar dan
+als zakenparabel in vijf wetten.
+- 293. The Innovator's Dilemma. Het boek dat Sanders zelf als voorbeeld van
+een groot-idee-boek aanhaalt en ter aanbeveling weggaf.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -99170,9 +99370,9 @@ ventures` 348 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman`
 `kanker` 419 · `kans` 64 · `kansdenken` 487 · `kansen` 137 · `kansrekening`
 282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298 · `karakter` 97 ·
 `karma` 184 · `Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `kennis`
-81 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 ·
-`keuzes` 51, 71, 72 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152
-· `kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
+81, 508 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454
+· `keuzes` 51, 71, 72 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren`
+152 · `kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
 `klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
 `klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
 `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420 ·
@@ -99239,7 +99439,7 @@ leven` 347 · `kunstmatige intelligentie` 236, 237, 297 · `kwaad` 404 ·
 `necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103,
 104, 105, 106, 107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 ·
 `nederlandstalig` 113 · `negatieve emoties` 176 · `negentig dagen` 188 ·
-`nepnieuws` 237 · `netwerken` 24, 246, 300, 388 · `neurobiologie` 119 ·
+`nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 ·
 `neurochirurgie` 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208,
 414 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340,
 386, 418 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age`
@@ -99416,31 +99616,31 @@ opbouwen` 395 · `vermogensbeheer` 498 · `vermogensopbouw` 163, 264, 277 ·
 `vragen-stellen` 475 · `vreemden` 302 · `vriendschap` 5, 7, 114, 292, 295, 319
 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61 · `vroeg
 pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
-`waardecreatie` 246 · `waarden` 72, 142, 392, 457, 461 · `waardering` 24, 34 ·
-`waarheid` 263 · `waarneming` 154, 283, 322 · `wabi-sabi` 379 · `Wall Street`
-144, 351, 499 · `weerbaarheid` 194 · `weerstand` 12 · `welvaart` 251, 334 ·
-`welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70,
-78, 151, 252, 466 · `werkboek` 14, 122, 150 · `werkdruk` 400 · `werkplek` 33,
-43 · `werktempo` 400 · `werkwijze` 16 · `West-Point` 29 · `westen` 67 ·
-`western` 5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 127, 190,
-433 · `wetenschap` 63, 66, 93, 94, 328, 485 · `wetenschappers` 239 ·
-`wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
-413, 419 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238
-· `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505 · `wisselstroom` 267 ·
-`woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101 · `wu
-wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242 · `young adult` 192 ·
-`youtube` 245 · `zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen`
-348, 367, 465 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
-`zelfacceptatie` 176, 335 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107,
-108, 129, 138, 197, 367, 372, 411, 439 · `zelfbeheersing` 75, 148, 212, 248,
-286, 314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32 ·
-`zelfdiscipline` 2, 158, 229, 244, 311 · `zelfevaluatie` 270 ·
-`zelfexperiment` 316, 318, 417 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79,
-83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158,
-161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190, 193,
-194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230, 255,
-259, 291, 310, 334, 338, 356, 373, 380, 389, 395, 398, 401, 403, 406, 411,
-427, 429, 432, 435, 439, 449, 459, 465 · `zelfkennis` 258, 260, 361 ·
+`waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461 · `waardering` 24,
+34 · `waarheid` 263 · `waarneming` 154, 283, 322 · `wabi-sabi` 379 · `Wall
+Street` 144, 351, 499 · `weerbaarheid` 194 · `weerstand` 12 · `welvaart` 251,
+334 · `welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 ·
+`werk` 70, 78, 151, 252, 466 · `werkboek` 14, 122, 150 · `werkdruk` 400 ·
+`werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 · `West-Point` 29 ·
+`westen` 67 · `western` 5 · `westerse filosofie` 269, 341 · `wet van
+aantrekking` 127, 190, 433 · `wetenschap` 63, 66, 93, 94, 328, 485 ·
+`wetenschappers` 239 · `wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis`
+239, 240, 321, 347, 413, 419 · `wetenschapsjournalistiek` 387, 412 · `wijn`
+112 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505 ·
+`wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 ·
+`wraak` 101 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242 ·
+`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
+182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart` 321 ·
+`zeldzaam` 144 · `zelfacceptatie` 176, 335 · `zelfbedrog` 66 · `zelfbeeld` 25,
+27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439 · `zelfbeheersing` 75,
+148, 212, 248, 286, 314, 382, 389, 396 · `zelfbescherming` 214 ·
+`zelfcompassie` 32 · `zelfdiscipline` 2, 158, 229, 244, 311 · `zelfevaluatie`
+270 · `zelfexperiment` 316, 318, 417 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76,
+79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157,
+158, 161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190,
+193, 194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230,
+255, 259, 291, 310, 334, 338, 356, 373, 380, 389, 395, 398, 401, 403, 406,
+411, 427, 429, 432, 435, 439, 449, 459, 465 · `zelfkennis` 258, 260, 361 ·
 `zelfliefde` 190, 195, 204, 380, 403 · `zelfonderzoek` 315, 470 ·
 `zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
 `zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177 ·
